@@ -1,0 +1,11 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+*.php diff=php
+
+# Ignore from prefer-dist install
+## Files
+.*                                export-ignore
+*.md                              export-ignore
+## Folders
+.github                           export-ignore
+.travis                           export-ignore

@@ -1,0 +1,5 @@
+services:
+  Ssch\TYPO3Rector\Annotation\InjectAnnotation: ~
+  Ssch\TYPO3Rector\Annotation\CascadeAnnotation: ~
+  Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotation: ~
+  Ssch\TYPO3Rector\Annotation\LazyAnnotation: ~
