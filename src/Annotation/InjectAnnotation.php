@@ -5,7 +5,16 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Annotation;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Param;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\ConfiguredCodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -24,19 +33,54 @@ final class InjectAnnotation extends AbstractRector
 
     public function getNodeTypes(): array
     {
-        return [Property::class];
+        return [Class_::class];
     }
 
     /**
-     * Process Node of matched type.
+     * @param Node|Class_ $node
+     *
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->docBlockManipulator->hasTag($node, $this->oldAnnotation)) {
-            return null;
+        $injectMethods = [];
+
+        $properties = $node->getProperties();
+        foreach ($properties as $property) {
+            if (!$this->docBlockManipulator->hasTag($property, $this->oldAnnotation)) {
+                continue;
+            }
+
+            // If the property is public, then change the annotation name
+            if ($property->isPublic()) {
+                $this->docBlockManipulator->replaceAnnotationInNode($property, $this->oldAnnotation, $this->newAnnotation);
+                continue;
+            }
+
+            // Remove the old annotation and use setterInjection instead
+            $this->docBlockManipulator->removeTagFromNode($property, $this->oldAnnotation);
+
+            $variableName = $this->getName($property);
+
+            $paramBuilder = $this->builderFactory->param($variableName);
+            $varType = $this->docBlockManipulator->getVarType($property);
+
+            if (!$varType instanceof ObjectType) {
+                continue;
+            }
+
+            $paramBuilder->setType(new FullyQualified($varType->getClassName()));
+            $param = $paramBuilder->getNode();
+
+            $propertyFetch = new PropertyFetch(new Variable('this'), $variableName);
+            $assign = new Assign($propertyFetch, new Variable($variableName));
+
+            // Add new line and then the method
+            $injectMethods[] = new Nop();
+            $injectMethods[] = $this->createInjectClassMethod($variableName, $param, $assign);
         }
 
-        $this->docBlockManipulator->replaceAnnotationInNode($node, $this->oldAnnotation, $this->newAnnotation);
+        $node->stmts = array_merge($node->stmts, $injectMethods);
 
         return $node;
     }
@@ -44,7 +88,7 @@ final class InjectAnnotation extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
-            'Turns properties with `@annotation` to properties with `@newAnnotation`',
+            'Turns properties with `@annotation` to setter injection',
             [
                 new ConfiguredCodeSample(
                     <<<'CODE_SAMPLE'
@@ -58,9 +102,13 @@ CODE_SAMPLE
                     <<<'CODE_SAMPLE'
 /**
  * @var SomeService
- * @TYPO3\CMS\Extbase\Annotation\Inject
  */
 private $someService;
+
+public function injectSomeService(SomeService $someService) 
+{
+    $this->someService = $someService;
+}
 
 CODE_SAMPLE
                     ,
@@ -69,5 +117,21 @@ CODE_SAMPLE
                 ),
             ]
         );
+    }
+
+    private function createInjectClassMethod(
+        string $variableName,
+        Param $param,
+        Assign $assign
+    ): ClassMethod {
+        $injectMethodName = 'inject' . ucfirst($variableName);
+
+        $injectMethodBuilder = $this->builderFactory->method($injectMethodName);
+        $injectMethodBuilder->makePublic();
+        $injectMethodBuilder->addParam($param);
+        $injectMethodBuilder->setReturnType('void');
+        $injectMethodBuilder->addStmt($assign);
+
+        return $injectMethodBuilder->getNode();
     }
 }
