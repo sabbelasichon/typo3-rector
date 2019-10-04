@@ -1,13 +1,11 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Annotation;
 
-
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
-use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\ConfiguredCodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -30,11 +28,11 @@ final class TransientAnnotation extends AbstractRector
     }
 
     /**
-     * Process Node of matched type
+     * Process Node of matched type.
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->docBlockManipulator->hasTag($node, $this->oldAnnotation)) {
+        if (!$this->docBlockManipulator->hasTag($node, $this->oldAnnotation)) {
             return null;
         }
 

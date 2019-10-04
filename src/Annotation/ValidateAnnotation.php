@@ -1,17 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace Ssch\TYPO3Rector\Annotation;
-
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use Rector\NodeTypeResolver\Exception\MissingTagException;
-use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockManipulator;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\ConfiguredCodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -26,7 +23,7 @@ final class ValidateAnnotation extends AbstractRector
     }
 
     /**
-     * Process Node of matched type
+     * Process Node of matched type.
      *
      * @param Node $node
      *
@@ -34,7 +31,7 @@ final class ValidateAnnotation extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if ( ! $this->docBlockManipulator->hasTag($node, self::OLD_ANNOTATION)) {
+        if (!$this->docBlockManipulator->hasTag($node, self::OLD_ANNOTATION)) {
             return null;
         }
 
@@ -45,14 +42,14 @@ final class ValidateAnnotation extends AbstractRector
 
             $validators = explode($explodePatternMultipleValidators, (string) $tagNode->value);
 
-            if(count($validators) > 1) {
+            if (count($validators) > 1) {
                 $validators[0] .= $explodePatternMultipleValidators;
             }
 
             foreach ($validators as $validator) {
-                if ($node->getType() === 'Stmt_Property') {
+                if ('Stmt_Property' === $node->getType()) {
                     $this->docBlockManipulator->addTag($node, $this->createPropertyAnnotation($validator));
-                } elseif ($node->getType() === 'Stmt_ClassMethod') {
+                } elseif ('Stmt_ClassMethod' === $node->getType()) {
                     $this->docBlockManipulator->addTag($node, $this->createMethodAnnotation($validator));
                 }
             }
@@ -97,7 +94,7 @@ CODE_SAMPLE
      */
     protected function createPropertyAnnotation(string $validatorAnnotation): PhpDocTagNode
     {
-        if(false !== strpos($validatorAnnotation, '(')) {
+        if (false !== strpos($validatorAnnotation, '(')) {
             preg_match('#(.*)\((.*)\)#', $validatorAnnotation, $matches);
 
             [$_, $validator, $options] = $matches;
@@ -137,6 +134,4 @@ CODE_SAMPLE
     {
         return new GenericTagValueNode('');
     }
-
-
 }

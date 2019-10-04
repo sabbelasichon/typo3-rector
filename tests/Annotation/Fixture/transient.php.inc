@@ -5,7 +5,7 @@ final class SomeTransientClass
     /**
      * @transient
      */
-    protected $transient;
+    private $transient;
 }
 
 ?>
@@ -17,7 +17,7 @@ final class SomeTransientClass
     /**
      * @TYPO3\CMS\Extbase\Annotation\ORM\Transient
      */
-    protected $transient;
+    private $transient;
 }
 
 ?>
