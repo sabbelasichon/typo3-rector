@@ -9,6 +9,7 @@ use Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotation;
 use Ssch\TYPO3Rector\Annotation\InjectAnnotation;
 use Ssch\TYPO3Rector\Annotation\LazyAnnotation;
 use Ssch\TYPO3Rector\Annotation\TransientAnnotation;
+use Ssch\TYPO3Rector\Annotation\ValidateAnnotation;
 
 class AnnotationTest extends AbstractRectorTestCase
 {
@@ -29,6 +30,7 @@ class AnnotationTest extends AbstractRectorTestCase
         yield [__DIR__ . '/Fixture/ignorevalidation.php.inc'];
         yield [__DIR__ . '/Fixture/lazy.php.inc'];
         yield [__DIR__ . '/Fixture/transient.php.inc'];
+        yield [__DIR__ . '/Fixture/validate.php.inc'];
     }
 
     protected function getRectorsWithConfiguration(): array
@@ -39,6 +41,7 @@ class AnnotationTest extends AbstractRectorTestCase
             IgnoreValidationAnnotation::class => [],
             LazyAnnotation::class => [],
             TransientAnnotation::class => [],
+            ValidateAnnotation::class => [],
         ];
     }
 }
