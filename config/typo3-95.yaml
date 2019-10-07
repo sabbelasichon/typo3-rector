@@ -3,3 +3,6 @@ services:
   Ssch\TYPO3Rector\Annotation\CascadeAnnotation: ~
   Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotation: ~
   Ssch\TYPO3Rector\Annotation\LazyAnnotation: ~
+  Ssch\TYPO3Rector\Annotation\TransientAnnotation: ~
+  Ssch\TYPO3Rector\Annotation\ValidateAnnotation: ~
+  Ssch\TYPO3Rector\Core\Environment\ConstantToEnvironmentCall: ~
