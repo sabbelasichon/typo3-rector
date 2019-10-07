@@ -1,5 +1,8 @@
 <?php
 
+use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 final class ClassWithALotOfEnvironmentVariables
 {
     public function method(): void
@@ -10,12 +13,21 @@ final class ClassWithALotOfEnvironmentVariables
         PATH_typo3conf;
         PATH_typo3;
         TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_CLI;
+
+        if (Bootstrap::usesComposerClassLoading()) {
+        }
+
+        if (GeneralUtility::getApplicationContext()) {
+        }
     }
 }
 
 ?>
 -----
 <?php
+
+use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class ClassWithALotOfEnvironmentVariables
 {
@@ -27,6 +39,12 @@ final class ClassWithALotOfEnvironmentVariables
         \TYPO3\CMS\Core\Core\Environment::getLegacyConfigPath();
         \TYPO3\CMS\Core\Core\Environment::getBackendPath();
         \TYPO3\CMS\Core\Core\Environment::isCli() & \TYPO3\CMS\Core\Core\Environment::isCli();
+
+        if (\TYPO3\CMS\Core\Core\Environment::isComposerMode()) {
+        }
+
+        if (\TYPO3\CMS\Core\Core\Environment::getContext()) {
+        }
     }
 }
 

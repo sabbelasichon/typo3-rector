@@ -4,9 +4,10 @@ namespace Ssch\TYPO3Rector\Tests\Core\Environment;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Core\Environment\ConstantToEnvironmentCall;
+use Ssch\TYPO3Rector\Core\Environment\ConstantToEnvironmentCallRector;
+use Ssch\TYPO3Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector;
 
-class ConstantToEnvironmentCallTest extends AbstractRectorTestCase
+class EnvironmentApiTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -26,7 +27,8 @@ class ConstantToEnvironmentCallTest extends AbstractRectorTestCase
     protected function getRectorsWithConfiguration(): array
     {
         return [
-            ConstantToEnvironmentCall::class => [],
+            ConstantToEnvironmentCallRector::class => [],
+            RenameMethodCallToEnvironmentMethodCallRector::class => [],
         ];
     }
 }

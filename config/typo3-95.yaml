@@ -5,4 +5,5 @@ services:
   Ssch\TYPO3Rector\Annotation\LazyAnnotation: ~
   Ssch\TYPO3Rector\Annotation\TransientAnnotation: ~
   Ssch\TYPO3Rector\Annotation\ValidateAnnotation: ~
-  Ssch\TYPO3Rector\Core\Environment\ConstantToEnvironmentCall: ~
+  Ssch\TYPO3Rector\Core\Environment\ConstantToEnvironmentCallRector: ~
+  Ssch\TYPO3Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector: ~
