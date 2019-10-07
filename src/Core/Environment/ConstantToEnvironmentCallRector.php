@@ -11,7 +11,7 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Core\Environment;
 
-final class ConstantToEnvironmentCall extends AbstractRector
+final class ConstantToEnvironmentCallRector extends AbstractRector
 {
     public function getDefinition(): RectorDefinition
     {
