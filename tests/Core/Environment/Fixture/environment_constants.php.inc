@@ -2,10 +2,10 @@
 
 final class ClassWithALotOfEnvironmentVariables
 {
-    public function method()
+    public function method(): void
     {
-        PATH_thisScript.'something';
-        PATH_site.'something';
+        PATH_thisScript . 'something';
+        PATH_site . 'something';
         TYPO3_OS;
         PATH_typo3conf;
         PATH_typo3;
@@ -19,10 +19,10 @@ final class ClassWithALotOfEnvironmentVariables
 
 final class ClassWithALotOfEnvironmentVariables
 {
-    public function method()
+    public function method(): void
     {
-        \TYPO3\CMS\Core\Core\Environment::getCurrentScript().'something';
-        \TYPO3\CMS\Core\Core\Environment::getPublicPath().'something';
+        \TYPO3\CMS\Core\Core\Environment::getCurrentScript() . 'something';
+        \TYPO3\CMS\Core\Core\Environment::getPublicPath() . 'something';
         \TYPO3\CMS\Core\Core\Environment::isUnix() || \TYPO3\CMS\Core\Core\Environment::isWindows();
         \TYPO3\CMS\Core\Core\Environment::getLegacyConfigPath();
         \TYPO3\CMS\Core\Core\Environment::getBackendPath();

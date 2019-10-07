@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace Ssch\TYPO3Rector\Core\Environment;
-
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
@@ -37,12 +36,11 @@ final class ConstantToEnvironmentCall extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         $constantName = $this->getName($node);
-        if ($constantName === null) {
+        if (null === $constantName) {
             return null;
         }
 
-
-        if ( ! in_array($constantName, [
+        if (!in_array($constantName, [
             'PATH_thisScript',
             'PATH_site',
             'PATH_typo3',
@@ -53,7 +51,6 @@ final class ConstantToEnvironmentCall extends AbstractRector
         ], false)) {
             return null;
         }
-
 
         switch ($constantName) {
             case 'PATH_thisScript':
