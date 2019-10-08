@@ -1,7 +1,7 @@
 <?php
 
 use TYPO3\CMS\Core\Core\Bootstrap;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Core\Bootstrap;
 
 final class ClassWithALotOfEnvironmentVariables
 {
@@ -26,7 +26,7 @@ final class ClassWithALotOfEnvironmentVariables
 -----
 <?php
 
-use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class ClassWithALotOfEnvironmentVariables

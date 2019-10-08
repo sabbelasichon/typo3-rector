@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace Ssch\TYPO3Rector\Extbase;
-
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -14,7 +13,6 @@ use TYPO3\CMS\Extbase\Mvc\Cli\ConsoleOutput;
 
 final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
 {
-
     /**
      * @inheritDoc
      */
@@ -24,7 +22,7 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
     }
 
     /**
-     * Process Node of matched type
+     * Process Node of matched type.
      *
      * @param Node|MethodCall $node
      *
@@ -32,11 +30,11 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if ( ! $this->isObjectType($node, ConsoleOutput::class)) {
+        if (!$this->isObjectType($node, ConsoleOutput::class)) {
             return null;
         }
 
-        if ( ! $this->isName($node, 'select') && ! $this->isName($node, 'askAndValidate')) {
+        if (!$this->isName($node, 'select') && !$this->isName($node, 'askAndValidate')) {
             return null;
         }
 
