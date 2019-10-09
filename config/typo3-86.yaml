@@ -1,0 +1,4 @@
+services:
+    Rector\Renaming\Rector\Namespace_\RenameNamespaceRector:
+        $oldToNewNamespaces:
+            TYPO3\CMS\Core\Tests: TYPO3\TestingFramework\Core
