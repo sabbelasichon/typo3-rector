@@ -7,3 +7,6 @@ services:
   Ssch\TYPO3Rector\Annotation\ValidateAnnotation: ~
   Ssch\TYPO3Rector\Core\Environment\ConstantToEnvironmentCallRector: ~
   Ssch\TYPO3Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector: ~
+  Rector\Renaming\Rector\MethodCall\RenameMethodCallRector:
+    TYPO3\CMS\Core\Resource\ResourceStorage:
+        dumpFileContents: streamFile
