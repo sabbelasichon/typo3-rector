@@ -1,2 +1,5 @@
 services:
     Ssch\TYPO3Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector:
+    Rector\Renaming\Rector\Class_\RenameClassRector:
+        $oldToNewClasses:
+            TYPO3\CMS\Extbase\Service\TypoScriptService: TYPO3\CMS\Core\TypoScript\TypoScriptService
