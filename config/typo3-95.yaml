@@ -1,10 +1,10 @@
 services:
-  Ssch\TYPO3Rector\Annotation\InjectAnnotation: ~
-  Ssch\TYPO3Rector\Annotation\CascadeAnnotation: ~
-  Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotation: ~
-  Ssch\TYPO3Rector\Annotation\LazyAnnotation: ~
-  Ssch\TYPO3Rector\Annotation\TransientAnnotation: ~
-  Ssch\TYPO3Rector\Annotation\ValidateAnnotation: ~
+  Ssch\TYPO3Rector\Annotation\InjectAnnotationRector: ~
+  Ssch\TYPO3Rector\Annotation\CascadeAnnotationRector: ~
+  Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotationRector: ~
+  Ssch\TYPO3Rector\Annotation\LazyAnnotationRector: ~
+  Ssch\TYPO3Rector\Annotation\TransientAnnotationRector: ~
+  Ssch\TYPO3Rector\Annotation\ValidateAnnotationRector: ~
   Ssch\TYPO3Rector\Core\Environment\ConstantToEnvironmentCallRector: ~
   Ssch\TYPO3Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector: ~
   Rector\Renaming\Rector\MethodCall\RenameMethodCallRector:

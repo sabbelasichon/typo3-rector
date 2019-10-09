@@ -13,7 +13,7 @@ use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\ConfiguredCodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 
-final class IgnoreValidationAnnotation extends AbstractRector
+final class IgnoreValidationAnnotationRector extends AbstractRector
 {
     /**
      * @var string

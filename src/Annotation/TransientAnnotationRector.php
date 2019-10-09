@@ -10,7 +10,7 @@ use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\ConfiguredCodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 
-final class TransientAnnotation extends AbstractRector
+final class TransientAnnotationRector extends AbstractRector
 {
     /**
      * @var string

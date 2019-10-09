@@ -13,7 +13,7 @@ use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\ConfiguredCodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 
-final class ValidateAnnotation extends AbstractRector
+final class ValidateAnnotationRector extends AbstractRector
 {
     private const OLD_ANNOTATION = 'validate';
 

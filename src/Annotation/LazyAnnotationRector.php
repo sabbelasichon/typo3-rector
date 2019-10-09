@@ -10,17 +10,17 @@ use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\ConfiguredCodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 
-final class CascadeAnnotation extends AbstractRector
+final class LazyAnnotationRector extends AbstractRector
 {
     /**
      * @var string
      */
-    private $oldAnnotation = 'cascade';
+    private $oldAnnotation = 'lazy';
 
     /**
      * @var string
      */
-    private $newAnnotation = 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade';
+    private $newAnnotation = 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy';
 
     public function getNodeTypes(): array
     {
@@ -53,14 +53,14 @@ final class CascadeAnnotation extends AbstractRector
                 new ConfiguredCodeSample(
                     <<<'CODE_SAMPLE'
 /**
- * @cascade
+ * @lazy
  */
 private $someProperty;
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
 /**
- * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade
+ * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
  */
 private $someProperty;
 

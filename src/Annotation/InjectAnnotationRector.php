@@ -19,7 +19,7 @@ use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\ConfiguredCodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 
-final class InjectAnnotation extends AbstractRector
+final class InjectAnnotationRector extends AbstractRector
 {
     /**
      * @var string

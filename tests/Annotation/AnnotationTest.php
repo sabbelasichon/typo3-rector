@@ -4,12 +4,12 @@ namespace Ssch\TYPO3Rector\Tests\Annotation;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Annotation\CascadeAnnotation;
-use Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotation;
-use Ssch\TYPO3Rector\Annotation\InjectAnnotation;
-use Ssch\TYPO3Rector\Annotation\LazyAnnotation;
-use Ssch\TYPO3Rector\Annotation\TransientAnnotation;
-use Ssch\TYPO3Rector\Annotation\ValidateAnnotation;
+use Ssch\TYPO3Rector\Annotation\CascadeAnnotationRector;
+use Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotationRector;
+use Ssch\TYPO3Rector\Annotation\InjectAnnotationRector;
+use Ssch\TYPO3Rector\Annotation\LazyAnnotationRector;
+use Ssch\TYPO3Rector\Annotation\TransientAnnotationRector;
+use Ssch\TYPO3Rector\Annotation\ValidateAnnotationRector;
 
 class AnnotationTest extends AbstractRectorTestCase
 {
@@ -36,12 +36,12 @@ class AnnotationTest extends AbstractRectorTestCase
     protected function getRectorsWithConfiguration(): array
     {
         return [
-            InjectAnnotation::class => [],
-            CascadeAnnotation::class => [],
-            IgnoreValidationAnnotation::class => [],
-            LazyAnnotation::class => [],
-            TransientAnnotation::class => [],
-            ValidateAnnotation::class => [],
+            InjectAnnotationRector::class => [],
+            CascadeAnnotationRector::class => [],
+            IgnoreValidationAnnotationRector::class => [],
+            LazyAnnotationRector::class => [],
+            TransientAnnotationRector::class => [],
+            ValidateAnnotationRector::class => [],
         ];
     }
 }
