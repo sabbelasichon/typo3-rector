@@ -1,2 +1,3 @@
 services:
     Ssch\TYPO3Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector: ~
+    Ssch\TYPO3Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector: ~
