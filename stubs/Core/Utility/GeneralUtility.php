@@ -9,4 +9,8 @@ class GeneralUtility
     public static function getApplicationContext(): void
     {
     }
+
+    public static function makeInstance(string $class)
+    {
+    }
 }
