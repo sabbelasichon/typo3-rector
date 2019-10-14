@@ -1,5 +1,7 @@
 <?php
 
+namespace Ssch\TYPO3Rector\Tests\Annotation\Fixture;
+
 final class SomeOtherClass
 {
     /**
@@ -11,6 +13,8 @@ final class SomeOtherClass
 ?>
 -----
 <?php
+
+namespace Ssch\TYPO3Rector\Tests\Annotation\Fixture;
 
 final class SomeOtherClass
 {

@@ -1,4 +1,5 @@
 services:
+  Ssch\TYPO3Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethod: ~
   Ssch\TYPO3Rector\Annotation\InjectAnnotationRector: ~
   Ssch\TYPO3Rector\Annotation\CascadeAnnotationRector: ~
   Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotationRector: ~

@@ -1,5 +1,7 @@
 <?php
 
+namespace Ssch\TYPO3Rector\Tests\Annotation\Fixture;
+
 final class SomeTransientClass
 {
     /**
@@ -11,6 +13,8 @@ final class SomeTransientClass
 ?>
 -----
 <?php
+
+namespace Ssch\TYPO3Rector\Tests\Annotation\Fixture;
 
 final class SomeTransientClass
 {

@@ -1,5 +1,7 @@
 <?php
 
+namespace Ssch\TYPO3Rector\Tests\Annotation\Fixture;
+
 final class SomeIgnoreValidationClass
 {
     /**
@@ -18,6 +20,8 @@ final class SomeIgnoreValidationClass
 ?>
 -----
 <?php
+
+namespace Ssch\TYPO3Rector\Tests\Annotation\Fixture;
 
 final class SomeIgnoreValidationClass
 {
