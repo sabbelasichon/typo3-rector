@@ -13,10 +13,9 @@ final class MyOldViewHelper extends AbstractViewHelper
      * @param \TYPO3\CMS\Extbase\Persistence\QueryResultInterface $object Object
      * @param string $as The name to access the variable in the template
      * @param string $delimiter The delimiter to explode the strings
-     *
      * @return string
      */
-    public function render(array $strings, $something, QueryResultInterface $object, $as = 'items', $delimiter = '#'): string
+    public function render(array $strings, $something, QueryResultInterface $object, string $as = 'items', $delimiter = '#'): string
     {
         return sprintf('%s-%s-%s', $strings, $as, $delimiter);
     }
@@ -48,9 +47,10 @@ final class MyOldViewHelper extends AbstractViewHelper
 
     public function initializeArguments(): void
     {
+        parent::initializeArguments();
         $this->registerArgument('strings', 'array', 'An array of strings', true);
         $this->registerArgument('something', 'mixed', 'Something', true);
-        $this->registerArgument('object', 'TYPO3\CMS\Extbase\Persistence\QueryResultInterface', 'Object', true);
+        $this->registerArgument('object', '\TYPO3\CMS\Extbase\Persistence\QueryResultInterface', 'Object', true);
         $this->registerArgument('as', 'string', 'The name to access the variable in the template', false, 'items');
         $this->registerArgument('delimiter', 'string', 'The delimiter to explode the strings', false, '#');
     }

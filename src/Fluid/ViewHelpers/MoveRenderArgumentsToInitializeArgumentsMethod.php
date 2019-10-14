@@ -7,50 +7,49 @@ namespace Ssch\TYPO3Rector\Fluid\ViewHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
-use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
-use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
-use PHPStan\Type\VerbosityLevel;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\AttributeAwareParamTagValueNode;
+use Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\Type\AttributeAwareUnionTypeNode;
 use Rector\Exception\NotImplementedException;
 use Rector\Exception\ShouldNotHappenException;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PerNodeTypeResolver\ParamTypeResolver;
 use Rector\NodeTypeResolver\StaticTypeMapper;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
-use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 final class MoveRenderArgumentsToInitializeArgumentsMethod extends AbstractRector
 {
+    /**
+     * @var string
+     */
     private const INITIALIZE_ARGUMENTS_METHOD_NAME = 'initializeArguments';
 
     /**
      * @var ParamTypeResolver
      */
     private $paramTypeResolver;
-    /**
-     * @var ParamTypeInferer
-     */
-    private $paramTypeInferer;
 
     /**
      * MoveRenderArgumentsToInitializeArgumentsMethod constructor.
      *
      * @param ParamTypeResolver $paramTypeResolver
+     * @param StaticTypeMapper $staticTypeMapper
      */
-    public function __construct(ParamTypeResolver $paramTypeResolver, ParamTypeInferer $paramTypeInferer, StaticTypeMapper $staticTypeMapper)
+    public function __construct(ParamTypeResolver $paramTypeResolver, StaticTypeMapper $staticTypeMapper)
     {
         $this->paramTypeResolver = $paramTypeResolver;
-        $this->paramTypeInferer = $paramTypeInferer;
         $this->staticTypeMapper = $staticTypeMapper;
     }
 
@@ -65,32 +64,27 @@ final class MoveRenderArgumentsToInitializeArgumentsMethod extends AbstractRecto
     /**
      * @param Node|Class_ $node
      *
-     * @return Node|null
-     * @throws ShouldNotHappenException
      * @throws NotImplementedException
+     * @throws ShouldNotHappenException
      *
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
-        if ( ! $node instanceof Class_) {
-            return null;
-        }
-
         if ($node->isAbstract()) {
             return null;
         }
 
-        $nodeParentClassName = $this->getName($node->extends);
-        if (AbstractViewHelper::class !== $nodeParentClassName) {
+        if (!$this->isObjectType($node, AbstractViewHelper::class) && !$this->isObjectType($node, \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper::class)) {
             return null;
         }
 
-        // Check if the ViewHelper has a render method with params
+        // Check if the ViewHelper has a render method with params, if not return immediately
         $classMethods = $node->getMethods();
         $renderMethod = null;
 
         foreach ($classMethods as $classMethod) {
-            if ('render' === $this->getName($classMethod->name) && ! empty($classMethod->getParams())) {
+            if ('render' === $this->getName($classMethod->name) && !empty($classMethod->getParams())) {
                 $renderMethod = $classMethod;
                 break;
             }
@@ -105,6 +99,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethod extends AbstractRecto
         $registerArgumentStmts = [];
         $paramTags = $this->getParamTags($renderMethod);
 
+        // Manipulate the doc blocks
         $this->manipulateDocBlocks($renderMethod);
 
         [$stmts, $registerArgumentStmts] = $this->createRegisterArgumentsCalls($renderMethod, $paramTags, $stmts, $registerArgumentStmts);
@@ -164,8 +159,19 @@ CODE_SAMPLE
             return $initializeArgumentsMethodNode;
         }
 
-        // @TODO: Add call to parent initializeArguments method
         $initializeArgumentsMethodNode = $this->createInitializeArgumentsClassMethod();
+
+        // Add call to parent initializeArguments method
+        $parentClassName = $node->getAttribute(AttributeKey::PARENT_CLASS_NAME);
+        // not in analyzed scope, nothing we can do
+        if ((null !== $parentClassName) && method_exists($parentClassName, self::INITIALIZE_ARGUMENTS_METHOD_NAME)) {
+            $parentConstructCallNode = new StaticCall(
+                new Name('parent'),
+                new Identifier(self::INITIALIZE_ARGUMENTS_METHOD_NAME)
+            );
+            $initializeArgumentsMethodNode->stmts[] = new Expression($parentConstructCallNode);
+        }
+
         $node->stmts[] = new Nop();
         $node->stmts[] = $initializeArgumentsMethodNode;
 
@@ -187,9 +193,9 @@ CODE_SAMPLE
     /**
      * @param ClassMethod $node
      *
-     * @return array
      * @throws ShouldNotHappenException
      *
+     * @return ParamTagValueNode[]
      */
     private function getParamTags(ClassMethod $node): ?array
     {
@@ -211,13 +217,7 @@ CODE_SAMPLE
      */
     private function manipulateDocBlocks(Node $node): void
     {
-        $returnTags = $this->docBlockManipulator->getTagsByName($node, 'return');
         $this->docBlockManipulator->removeTagFromNode($node, 'param', true);
-        $this->docBlockManipulator->removeTagFromNode($node, 'return', true);
-
-        foreach ($returnTags as $returnTag) {
-            $this->docBlockManipulator->addTag($node, $returnTag);
-        }
     }
 
     /**
@@ -226,28 +226,26 @@ CODE_SAMPLE
      * @param array $stmts
      * @param array $registerArgumentStmts
      *
-     * @return array
      * @throws NotImplementedException
+     *
+     * @return array
      */
     private function createRegisterArgumentsCalls(ClassMethod $renderMethod, ?array $paramTags, array $stmts, array $registerArgumentStmts): array
     {
-        foreach ($renderMethod->params as $paramNode) {
-            $description = '';
+        foreach ($renderMethod->params as $param) {
+            $paramTag = $paramTags[$param->var->name] ?? null;
+            $description = $paramTag instanceof AttributeAwareParamTagValueNode ? $paramTag->description : '';
 
-            $paramTag = array_key_exists($paramNode->var->name, $paramTags) ? $paramTags[$paramNode->var->name] : '';
-            if ($paramTag instanceof AttributeAwareParamTagValueNode) {
-                $description = $paramTag->description;
-            }
+            // Add assignments in render function
+            $stmts[] = new Expression(new Assign(new Variable($param->var->name), $this->createPropertyFetch('this', sprintf('arguments[\'%s\']', $param->var->name))));
+            $this->removeNode($param);
 
-            $stmts[] = new Assign(new Variable($paramNode->var->name), new Variable(sprintf("this->arguments['%s'];", $paramNode->var->name)));
-            $this->removeNode($paramNode);
+            $paramType = $this->inferParamType($param, $paramTag);
 
-            $paramType = $this->getParamType($paramNode);
-
-            if ($paramNode->default instanceof Expr) {
-                $registerArgumentStmts[] = new Variable(sprintf("this->registerArgument('%s', '%s', '%s', %s, '%s');", $paramNode->var->name, $paramType, $description, $this->createFalse()->name, $paramNode->default->value));
+            if ($param->default instanceof Expr) {
+                $registerArgumentStmts[] = new Expression($this->nodeFactory->createMethodCall('this', 'registerArgument', [$param->var->name, $paramType, $description, $this->createFalse(), $param->default->value]));
             } else {
-                $registerArgumentStmts[] = new Variable(sprintf("this->registerArgument('%s', '%s', '%s', %s);", $paramNode->var->name, $paramType, $description, $this->createTrue()->name));
+                $registerArgumentStmts[] = new Expression($this->nodeFactory->createMethodCall('this', 'registerArgument', [$param->var->name, $paramType, $description, $this->createTrue()]));
             }
         }
 
@@ -255,13 +253,23 @@ CODE_SAMPLE
     }
 
     /**
-     * @param Param $paramNode
+     * @param Param $param
+     * @param ParamTagValueNode $paramTag
      *
-     * @return Type|string
      * @throws NotImplementedException
+     *
+     * @return string
      */
-    private function getParamType(Param $paramNode)
+    private function inferParamType(Param $param, ParamTagValueNode $paramTag): string
     {
-        return $this->staticTypeMapper->mapPHPStanTypeToDocString($this->paramTypeResolver->resolve($paramNode));
+        if (null === $param->type) {
+            if ($paramTag->type instanceof AttributeAwareUnionTypeNode) {
+                return 'mixed';
+            }
+
+            return (string) $paramTag->type;
+        }
+
+        return $this->staticTypeMapper->mapPHPStanTypeToDocString($this->paramTypeResolver->resolve($param));
     }
 }

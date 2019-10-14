@@ -1,7 +1,7 @@
 <?php
 
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 final class MyStandaloneView
 {
@@ -29,7 +29,7 @@ final class MyStandaloneView
 -----
 <?php
 
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 final class MyStandaloneView

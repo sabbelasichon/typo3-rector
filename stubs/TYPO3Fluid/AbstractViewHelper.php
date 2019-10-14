@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace TYPO3Fluid\Fluid\Core\ViewHelper;
@@ -9,11 +10,9 @@ abstract class AbstractViewHelper implements ViewHelperInterface
 
     public function registerArgument($name, $type, $description, $required = false, $defaultValue = null): void
     {
-
     }
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
-
     }
 }
