@@ -10,7 +10,13 @@ class GeneralUtility
     {
     }
 
+    /**
+     * @param string $class
+     *
+     * @return object
+     */
     public static function makeInstance(string $class)
     {
+        return new $class();
     }
 }
