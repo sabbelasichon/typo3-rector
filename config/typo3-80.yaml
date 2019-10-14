@@ -1,4 +1,4 @@
 services:
-    #Ssch\TYPO3Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector: ~
-    #Ssch\TYPO3Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector: ~
+    Ssch\TYPO3Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector: ~
+    Ssch\TYPO3Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector: ~
     Ssch\TYPO3Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector: ~
