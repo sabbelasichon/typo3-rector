@@ -3,7 +3,6 @@
 namespace Ssch\TYPO3Rector\Tests\Fluid\View;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 

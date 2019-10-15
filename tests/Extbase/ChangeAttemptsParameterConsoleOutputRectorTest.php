@@ -3,7 +3,6 @@
 namespace Ssch\TYPO3Rector\Tests\Extbase;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 

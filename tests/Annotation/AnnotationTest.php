@@ -3,7 +3,6 @@
 namespace Ssch\TYPO3Rector\Tests\Annotation;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Annotation\CascadeAnnotationRector;
 use Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotationRector;
 use Ssch\TYPO3Rector\Annotation\InjectAnnotationRector;
