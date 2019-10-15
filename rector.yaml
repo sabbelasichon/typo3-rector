@@ -1,2 +1,0 @@
-services:
-    Ssch\TYPO3Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethod: ~
