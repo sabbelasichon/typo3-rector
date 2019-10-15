@@ -3,6 +3,7 @@
 !/.gitignore
 !/.gitattributes
 !/.editorconfig
+!/.php_cs.dist
 !/.travis.yml
 !.gitkeep
 
