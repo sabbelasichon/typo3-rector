@@ -6,8 +6,9 @@ use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Core\Environment\ConstantToEnvironmentCallRector;
 use Ssch\TYPO3Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector;
+use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class EnvironmentApiTest extends AbstractRectorTestCase
+class EnvironmentApiTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

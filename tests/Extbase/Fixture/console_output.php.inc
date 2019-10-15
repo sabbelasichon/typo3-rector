@@ -1,7 +1,7 @@
 <?php
 
 use TYPO3\CMS\Extbase\Mvc\Cli\ConsoleOutput;
-use TYPO3\CMS\Extbase\Mvc\Cli\ConsoleOutput;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 final class TestCommandController
 {
@@ -35,7 +35,7 @@ final class TestCommandController
 -----
 <?php
 
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Mvc\Cli\ConsoleOutput;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 final class TestCommandController

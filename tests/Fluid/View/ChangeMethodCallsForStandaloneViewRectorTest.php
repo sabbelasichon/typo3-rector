@@ -5,8 +5,9 @@ namespace Ssch\TYPO3Rector\Tests\Fluid\View;
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector;
+use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class ChangeMethodCallsForStandaloneViewRectorTest extends AbstractRectorTestCase
+class ChangeMethodCallsForStandaloneViewRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

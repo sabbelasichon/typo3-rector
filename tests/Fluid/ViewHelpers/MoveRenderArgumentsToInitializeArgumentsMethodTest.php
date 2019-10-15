@@ -5,8 +5,9 @@ namespace Ssch\TYPO3Rector\Tests\Fluid\ViewHelpers;
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethod;
+use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class MoveRenderArgumentsToInitializeArgumentsMethodTest extends AbstractRectorTestCase
+class MoveRenderArgumentsToInitializeArgumentsMethodTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

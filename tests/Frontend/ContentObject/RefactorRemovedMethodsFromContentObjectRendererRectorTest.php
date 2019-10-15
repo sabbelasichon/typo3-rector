@@ -5,8 +5,9 @@ namespace Ssch\TYPO3Rector\Tests\Frontend\ContentObject;
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector;
+use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class RefactorRemovedMethodsFromContentObjectRendererRectorTest extends AbstractRectorTestCase
+class RefactorRemovedMethodsFromContentObjectRendererRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

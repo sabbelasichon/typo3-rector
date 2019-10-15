@@ -10,8 +10,9 @@ use Ssch\TYPO3Rector\Annotation\InjectAnnotationRector;
 use Ssch\TYPO3Rector\Annotation\LazyAnnotationRector;
 use Ssch\TYPO3Rector\Annotation\TransientAnnotationRector;
 use Ssch\TYPO3Rector\Annotation\ValidateAnnotationRector;
+use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class AnnotationTest extends AbstractRectorTestCase
+class AnnotationTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
