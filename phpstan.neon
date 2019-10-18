@@ -1,0 +1,9 @@
+services:
+    -
+        class: Ssch\TYPO3Rector\PhpStan\Type\GeneralUtilityDynamicReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicStaticMethodReturnTypeExtension
+    -
+        class: Ssch\TYPO3Rector\PhpStan\Type\ObjectManagerDynamicReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension
