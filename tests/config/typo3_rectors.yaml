@@ -1,4 +1,5 @@
 imports:
+    - { resource: "%vendor_dir%/../config/typo3-76.yaml" }
     - { resource: "%vendor_dir%/../config/typo3-80.yaml" }
     - { resource: "%vendor_dir%/../config/typo3-86.yaml" }
     - { resource: "%vendor_dir%/../config/typo3-87.yaml" }
