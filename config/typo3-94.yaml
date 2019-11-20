@@ -1,0 +1,2 @@
+services:
+  Ssch\TYPO3Rector\Core\Page\RefactorDeprecatedConcatenateMethodsPageRendererRector: ~
