@@ -1,2 +1,3 @@
 services:
   Ssch\TYPO3Rector\Core\Page\RefactorDeprecatedConcatenateMethodsPageRendererRector: ~
+  Ssch\TYPO3Rector\Frontend\ContentObject\CallEnableFieldsFromPageRepositoryRector: ~
