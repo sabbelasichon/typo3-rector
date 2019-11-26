@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Frontend\Controller;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Variable;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Rector\AbstractRector;
@@ -37,7 +36,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
     /**
      * Process Node of matched type.
      *
-     * @param Node|Node\Expr\MethodCall|Variable $node
+     * @param Node|Node\Stmt\Expression $node
      *
      * @return Node|null
      */
