@@ -1,3 +1,5 @@
+imports:
+
 services:
     Rector\Renaming\Rector\Namespace_\RenameNamespaceRector:
         $oldToNewNamespaces:
