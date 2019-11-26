@@ -21,11 +21,6 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
      */
     private $typo3NodeResolver;
 
-    /**
-     * RemoveInitTemplateMethodCallRector constructor.
-     *
-     * @param Typo3NodeResolver $typo3NodeResolver
-     */
     public function __construct(Typo3NodeResolver $typo3NodeResolver)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
