@@ -1,6 +1,10 @@
+imports:
+    - { resource: "%vendor_dir%/../config/services.yaml" }
+
 services:
   Ssch\TYPO3Rector\Core\Page\RefactorDeprecatedConcatenateMethodsPageRendererRector: ~
   Ssch\TYPO3Rector\Frontend\ContentObject\CallEnableFieldsFromPageRepositoryRector: ~
+  Ssch\TYPO3Rector\Frontend\Controller\RemoveInitTemplateMethodCallRector: ~
   Rector\Renaming\Rector\Class_\RenameClassRector:
     $oldToNewClasses:
         TYPO3\CMS\Saltedpasswords\Salt\Argon2iSalt: TYPO3\CMS\Core\Crypto\PasswordHashing\Argon2iPasswordHash

@@ -14,4 +14,8 @@ final class TypoScriptFrontendController
      * @var ContentObjectRenderer
      */
     public $cObj = '';
+
+    public function initTemplate(): void
+    {
+    }
 }
