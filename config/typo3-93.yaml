@@ -1,0 +1,8 @@
+imports:
+    - { resource: "%vendor_dir%/../config/services.yaml" }
+
+services:
+    Ssch\TYPO3Rector\Backend\Domain\Repository\Localization\RemoveColPosParameterRector:
+    Rector\Renaming\Rector\MethodCall\RenameMethodCallRector:
+        TYPO3\CMS\Backend\Controller\Page\LocalizationController:
+            getUsedLanguagesInPageAndColumn: getUsedLanguagesInPage
