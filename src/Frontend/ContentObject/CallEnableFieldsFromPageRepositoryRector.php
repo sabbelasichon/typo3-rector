@@ -8,7 +8,7 @@ use PhpParser\BuilderHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -57,7 +57,7 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Turns method call names to new ones.', [
-            new ConfiguredCodeSample(
+            new CodeSample(
                 <<<'PHP'
 $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 $contentObjectRenderer->enableFields('pages', false, []);

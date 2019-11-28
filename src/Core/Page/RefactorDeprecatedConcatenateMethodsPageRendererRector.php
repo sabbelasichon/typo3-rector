@@ -11,7 +11,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Page\PageRenderer;
 
@@ -55,7 +55,7 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Turns method call names to new ones.', [
-            new ConfiguredCodeSample(
+            new CodeSample(
                 <<<'PHP'
 $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 $files = $someObject->getConcatenateFiles();

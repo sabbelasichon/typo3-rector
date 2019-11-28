@@ -16,7 +16,7 @@ use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 
 final class InjectAnnotationRector extends AbstractRector
@@ -90,7 +90,7 @@ final class InjectAnnotationRector extends AbstractRector
         return new RectorDefinition(
             'Turns properties with `@annotation` to setter injection',
             [
-                new ConfiguredCodeSample(
+                new CodeSample(
                     <<<'CODE_SAMPLE'
 /**
  * @var SomeService
@@ -111,9 +111,6 @@ public function injectSomeService(SomeService $someService)
 }
 
 CODE_SAMPLE
-                    ,
-                    [
-                    ]
                 ),
             ]
         );

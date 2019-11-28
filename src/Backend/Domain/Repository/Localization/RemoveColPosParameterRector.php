@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Backend\Domain\Repository\Localization;
 
 use PhpParser\Node;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Backend\Domain\Repository\Localization\LocalizationRepository;
 
@@ -47,7 +47,7 @@ final class RemoveColPosParameterRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Remove parameter colPos from methods.', [
-            new ConfiguredCodeSample(
+            new CodeSample(
                 <<<'PHP'
 $someObject = GeneralUtility::makeInstance(LocalizationRepository::class);
 $someObject->fetchOriginLanguage($pageId, $colPos, $localizedLanguage);

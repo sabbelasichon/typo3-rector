@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Core\Utility;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
@@ -80,7 +80,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Refactor removed methods from GeneralUtility.', [
-            new ConfiguredCodeSample(
+            new CodeSample(
                 <<<'PHP'
 GeneralUtility::gif_compress();
 PHP

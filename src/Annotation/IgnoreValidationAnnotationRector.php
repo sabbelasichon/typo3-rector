@@ -10,7 +10,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\NodeTypeResolver\Exception\MissingTagException;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 
 final class IgnoreValidationAnnotationRector extends AbstractRector
@@ -53,7 +53,7 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
         return new RectorDefinition(
             'Turns properties with `@annotation` to properties with `@newAnnotation`',
             [
-                new ConfiguredCodeSample(
+                new CodeSample(
                     <<<'CODE_SAMPLE'
 /**
  * @ignorevalidation $param
@@ -71,9 +71,6 @@ public function method($param)
 {
 }
 CODE_SAMPLE
-                    ,
-                    [
-                    ]
                 ),
             ]
         );

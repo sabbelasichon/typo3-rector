@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Core\Environment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\Environment;
@@ -15,20 +15,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class RenameMethodCallToEnvironmentMethodCallRector extends AbstractRector
 {
-    /**
-     * class => [
-     *     oldMethod => newMethod
-     * ].
-     *
-     * @var string[][]|mixed[][][]
-     */
-    private $oldToNewMethodsByClass = [
-    ];
-
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Turns method call names to new ones.', [
-            new ConfiguredCodeSample(
+            new CodeSample(
                 <<<'PHP'
 Bootstrap::usesComposerClassLoading();
 GeneralUtility::getApplicationContext();

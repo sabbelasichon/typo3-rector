@@ -10,7 +10,7 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 
 final class ValidateAnnotationRector extends AbstractRector
@@ -65,7 +65,7 @@ final class ValidateAnnotationRector extends AbstractRector
         return new RectorDefinition(
             'Turns properties with `@annotation` to properties with `@newAnnotation`',
             [
-                new ConfiguredCodeSample(
+                new CodeSample(
                     <<<'CODE_SAMPLE'
 /**
  * @validate NotEmpty

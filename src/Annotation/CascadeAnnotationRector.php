@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Annotation;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 
 final class CascadeAnnotationRector extends AbstractRector
@@ -50,7 +50,7 @@ final class CascadeAnnotationRector extends AbstractRector
         return new RectorDefinition(
             'Turns properties with `@annotation` to properties with `@newAnnotation`',
             [
-                new ConfiguredCodeSample(
+                new CodeSample(
                     <<<'CODE_SAMPLE'
 /**
  * @cascade
@@ -65,9 +65,6 @@ CODE_SAMPLE
 private $someProperty;
 
 CODE_SAMPLE
-                    ,
-                    [
-                    ]
                 ),
             ]
         );

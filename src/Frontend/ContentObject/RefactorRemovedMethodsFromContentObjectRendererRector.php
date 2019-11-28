@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Frontend\ContentObject;
 
 use PhpParser\Node;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -88,7 +88,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Refactor removed methods from ContentObjectRenderer.', [
-            new ConfiguredCodeSample(
+            new CodeSample(
                 <<<'PHP'
 $cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
 PHP
