@@ -2,7 +2,7 @@ imports:
     - { resource: "%vendor_dir%/../config/services.yaml" }
 
 services:
-    Ssch\TYPO3Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector:
+    Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector:
     Rector\Renaming\Rector\Class_\RenameClassRector:
         $oldToNewClasses:
             TYPO3\CMS\Extbase\Service\TypoScriptService: TYPO3\CMS\Core\TypoScript\TypoScriptService
