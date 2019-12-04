@@ -2,7 +2,7 @@ imports:
     - { resource: "%vendor_dir%/../config/services.yaml" }
 
 services:
-  Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethod: ~
+  Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethodRector: ~
   Ssch\TYPO3Rector\Rector\Annotation\InjectAnnotationRector: ~
   Ssch\TYPO3Rector\Rector\Annotation\CascadeAnnotationRector: ~
   Ssch\TYPO3Rector\Rector\Annotation\IgnoreValidationAnnotationRector: ~

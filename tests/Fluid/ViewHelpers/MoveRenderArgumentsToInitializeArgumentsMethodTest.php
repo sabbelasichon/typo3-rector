@@ -3,7 +3,7 @@
 namespace Ssch\TYPO3Rector\Tests\Fluid\ViewHelpers;
 
 use Iterator;
-use Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethod;
+use Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethodRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
 class MoveRenderArgumentsToInitializeArgumentsMethodTest extends AbstractRectorWithConfigTestCase
@@ -24,7 +24,7 @@ class MoveRenderArgumentsToInitializeArgumentsMethodTest extends AbstractRectorW
     protected function getRectorsWithConfiguration(): array
     {
         return [
-            MoveRenderArgumentsToInitializeArgumentsMethod::class => [],
+            MoveRenderArgumentsToInitializeArgumentsMethodRector::class => [],
         ];
     }
 }

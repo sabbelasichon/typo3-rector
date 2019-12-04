@@ -29,7 +29,7 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-final class MoveRenderArgumentsToInitializeArgumentsMethod extends AbstractRector
+final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends AbstractRector
 {
     /**
      * @var string

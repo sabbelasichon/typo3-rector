@@ -1,4 +1,13 @@
-# All 18 Rectors Overview
+# All 19 Rectors Overview
+
+- [Projects](#projects)
+- [General](#general)
+
+## Projects
+
+- [TYPO3Rector](#typo3rector)
+
+## TYPO3Rector
 
 ### `CallEnableFieldsFromPageRepositoryRector`
 
@@ -135,6 +144,32 @@ Turns properties with `@annotation` to properties with `@newAnnotation`
   */
 -private $someProperty;
 +private $someProperty;
+```
+
+<br>
+
+### `MoveRenderArgumentsToInitializeArgumentsMethodRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethodRector`
+
+Remove empty method calls not required by parents
+
+```diff
+ class MyViewHelper implements ViewHelperInterface
+ {
+-    public function render(array $firstParameter, string $secondParameter = null)
++    public function initializeArguments()
++    {
++        $this->registerArgument('firstParameter', 'array', '', true);
++        $this->registerArgument('secondParameter', 'string', '', false, null);
++    }
++
++    public function render()
++    {
++        $firstParameter = $this->arguments['firstParameter'];
++        $secondParameter = $this->arguments['secondParameter'];
++    }
+ }
 ```
 
 <br>
@@ -306,3 +341,6 @@ Turns properties with `@annotation` to properties with `@newAnnotation`
 <br>
 
 ---
+## General
+
+
