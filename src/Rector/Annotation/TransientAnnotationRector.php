@@ -44,7 +44,7 @@ final class TransientAnnotationRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
-            'Turns properties with `@annotation` to properties with `@newAnnotation`',
+            'Turns properties with `@transient` to properties with `@TYPO3\CMS\Extbase\Annotation\ORM\Transient`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

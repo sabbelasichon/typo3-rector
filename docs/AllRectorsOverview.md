@@ -1,26 +1,15 @@
 # All 19 Rectors Overview
 
-- [Projects](#projects)
-- [General](#general)
-
-## Projects
-
-- [TYPO3Rector](#typo3rector)
-
-## TYPO3Rector
-
 ### `CallEnableFieldsFromPageRepositoryRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Frontend\ContentObject\CallEnableFieldsFromPageRepositoryRector`
 
-Turns method call names to new ones.
+Call enable fields from PageRepository instead of ContentObjectRenderer
 
 ```diff
  $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 -$contentObjectRenderer->enableFields('pages', false, []);
--$contentObjectRenderer->enableFields('pages', true);
 +GeneralUtility::makeInstance(PageRepository::class)->enableFields('pages', -1, []);
-+GeneralUtility::makeInstance(PageRepository::class)->enableFields('pages', true);
 ```
 
 <br>
@@ -29,7 +18,7 @@ Turns method call names to new ones.
 
 - class: `Ssch\TYPO3Rector\Rector\Annotation\CascadeAnnotationRector`
 
-Turns properties with `@annotation` to properties with `@newAnnotation`
+Turns properties with `@cascade` to properties with `@TYPO3\CMS\Extbase\Annotation\ORM\Cascade`
 
 ```diff
  /**
@@ -61,19 +50,16 @@ Turns old default value to parameter in ConsoleOutput->askAndValidate() and/or C
 
 Turns method call names to new ones.
 
-```yaml
-services:
-    Ssch\TYPO3Rector\Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector:
-        SomeExampleClass:
-            oldMethod: newMethod
-```
-
-↓
-
 ```diff
- $someObject = new SomeExampleClass;
--$someObject->oldMethod();
-+$someObject->newMethod();
+ $someObject = new StandaloneView();
+-$someObject->setLayoutRootPath();
+-$someObject->getLayoutRootPath();
+-$someObject->setPartialRootPath();
+-$someObject->getPartialRootPath();
++$someObject->setLayoutRootPaths();
++$someObject->getLayoutRootPaths();
++$someObject->setPartialRootPaths();
++$someObject->getPartialRootPaths();
 ```
 
 <br>
@@ -82,7 +68,7 @@ services:
 
 - class: `Ssch\TYPO3Rector\Rector\Core\Environment\ConstantToEnvironmentCallRector`
 
-Turns defined constant to static method call.
+Turns defined constant to static method call of new Environment API.
 
 ```diff
 -PATH_thisScript;
@@ -95,7 +81,7 @@ Turns defined constant to static method call.
 
 - class: `Ssch\TYPO3Rector\Rector\Annotation\IgnoreValidationAnnotationRector`
 
-Turns properties with `@annotation` to properties with `@newAnnotation`
+Turns properties with `@ignorevalidation` to properties with `@TYPO3\CMS\Extbase\Annotation\IgnoreValidation`
 
 ```diff
  /**
@@ -113,7 +99,7 @@ Turns properties with `@annotation` to properties with `@newAnnotation`
 
 - class: `Ssch\TYPO3Rector\Rector\Annotation\InjectAnnotationRector`
 
-Turns properties with `@annotation` to setter injection
+Turns properties with `@inject` to setter injection
 
 ```diff
  /**
@@ -135,7 +121,7 @@ Turns properties with `@annotation` to setter injection
 
 - class: `Ssch\TYPO3Rector\Rector\Annotation\LazyAnnotationRector`
 
-Turns properties with `@annotation` to properties with `@newAnnotation`
+Turns properties with `@lazy` to properties with `@TYPO3\CMS\Extbase\Annotation\ORM\Lazy`
 
 ```diff
  /**
@@ -152,7 +138,7 @@ Turns properties with `@annotation` to properties with `@newAnnotation`
 
 - class: `Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethodRector`
 
-Remove empty method calls not required by parents
+Move render method arguments to initializeArguments method
 
 ```diff
  class MyViewHelper implements ViewHelperInterface
@@ -246,7 +232,7 @@ Remove method call initTemplate from TypoScriptFrontendController
 
 - class: `Ssch\TYPO3Rector\Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector`
 
-Turns method call names to new ones.
+Turns method call names to new ones from new Environment API.
 
 ```diff
 -Bootstrap::usesComposerClassLoading();
@@ -274,7 +260,7 @@ Rename pi_list_browseresults calls to renderPagination
 
 - class: `Ssch\TYPO3Rector\Rector\Annotation\TransientAnnotationRector`
 
-Turns properties with `@annotation` to properties with `@newAnnotation`
+Turns properties with `@transient` to properties with `@TYPO3\CMS\Extbase\Annotation\ORM\Transient`
 
 ```diff
  /**
@@ -296,8 +282,7 @@ Replaces defined classes by new ones.
 ```yaml
 services:
     Ssch\TYPO3Rector\Rector\Migrations\UnderscoreToNamespaceRector:
-        $oldToNewClasses:
-            App\SomeOldClass: App\SomeNewClass
+        oldClassAliasMap: config/Migrations/Code/ClassAliasMap.php
 ```
 
 ↓
@@ -305,17 +290,13 @@ services:
 ```diff
  namespace App;
 
--use SomeOldClass;
-+use SomeNewClass;
+-use t3lib_div;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
 
--function someFunction(SomeOldClass $someOldClass): SomeOldClass
-+function someFunction(SomeNewClass $someOldClass): SomeNewClass
+ function someFunction()
  {
--    if ($someOldClass instanceof SomeOldClass) {
--        return new SomeOldClass;
-+    if ($someOldClass instanceof SomeNewClass) {
-+        return new SomeNewClass;
-     }
+-    t3lib_div::makeInstance(\tx_cms_BackendLayout::class);
++    GeneralUtility::makeInstance(\TYPO3\CMS\Backend\View\BackendLayoutView::class);
  }
 ```
 
@@ -325,7 +306,7 @@ services:
 
 - class: `Ssch\TYPO3Rector\Rector\Annotation\ValidateAnnotationRector`
 
-Turns properties with `@annotation` to properties with `@newAnnotation`
+Turns properties with `@validate` to properties with `@TYPO3\CMS\Extbase\Annotation\Validate`
 
 ```diff
  /**
@@ -339,8 +320,3 @@ Turns properties with `@annotation` to properties with `@newAnnotation`
 ```
 
 <br>
-
----
-## General
-
-

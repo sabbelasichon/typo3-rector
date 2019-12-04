@@ -15,7 +15,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
 {
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Turns defined constant to static method call.', [
+        return new RectorDefinition('Turns defined constant to static method call of new Environment API.', [
             new CodeSample('PATH_thisScript;', 'Environment::getCurrentScript();'),
         ]);
     }

@@ -88,7 +88,7 @@ final class InjectAnnotationRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
-            'Turns properties with `@annotation` to setter injection',
+            'Turns properties with `@inject` to setter injection',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

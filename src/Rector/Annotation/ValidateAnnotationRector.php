@@ -63,7 +63,7 @@ final class ValidateAnnotationRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
-            'Turns properties with `@annotation` to properties with `@newAnnotation`',
+            'Turns properties with `@validate` to properties with `@TYPO3\CMS\Extbase\Annotation\Validate`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

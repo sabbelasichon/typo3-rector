@@ -89,33 +89,27 @@ final class UnderscoreToNamespaceRector extends AbstractRector
                 <<<'PHP'
 namespace App;
 
-use SomeOldClass;
+use t3lib_div;
 
-function someFunction(SomeOldClass $someOldClass): SomeOldClass
+function someFunction()
 {
-    if ($someOldClass instanceof SomeOldClass) {
-        return new SomeOldClass;
-    }
+    t3lib_div::makeInstance(\tx_cms_BackendLayout::class);
 }
 PHP
                 ,
                 <<<'PHP'
 namespace App;
 
-use SomeNewClass;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-function someFunction(SomeNewClass $someOldClass): SomeNewClass
+function someFunction()
 {
-    if ($someOldClass instanceof SomeNewClass) {
-        return new SomeNewClass;
-    }
+    GeneralUtility::makeInstance(\TYPO3\CMS\Backend\View\BackendLayoutView::class);
 }
 PHP
                 ,
                 [
-                    '$oldToNewClasses' => [
-                        'App\SomeOldClass' => 'App\SomeNewClass',
-                    ],
+                    'oldClassAliasMap' => 'config/Migrations/Code/ClassAliasMap.php',
                 ]
             ),
         ]);

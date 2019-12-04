@@ -43,31 +43,27 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
             $node->args[1] = new Node\Arg(BuilderHelpers::normalizeValue($this->isTrue($node->args[1]->value) ? true : -1));
         }
 
-        $newNode = $this->createMethodCall($this->createStaticCall(
+        return $this->createMethodCall($this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
             [
                 $this->createClassConstant(PageRepository::class, 'class'),
             ]
         ), 'enableFields', $node->args);
-
-        return $newNode;
     }
 
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Turns method call names to new ones.', [
+        return new RectorDefinition('Call enable fields from PageRepository instead of ContentObjectRenderer', [
             new CodeSample(
                 <<<'PHP'
 $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 $contentObjectRenderer->enableFields('pages', false, []);
-$contentObjectRenderer->enableFields('pages', true);
 PHP
                 ,
                 <<<'PHP'
 $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 GeneralUtility::makeInstance(PageRepository::class)->enableFields('pages', -1, []);
-GeneralUtility::makeInstance(PageRepository::class)->enableFields('pages', true);
 PHP
             ),
         ]);

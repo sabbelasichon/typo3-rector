@@ -8,7 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
@@ -33,22 +33,22 @@ final class ChangeMethodCallsForStandaloneViewRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Turns method call names to new ones.', [
-            new ConfiguredCodeSample(
+            new CodeSample(
                 <<<'PHP'
-$someObject = new SomeExampleClass;
-$someObject->oldMethod();
+$someObject = new StandaloneView();
+$someObject->setLayoutRootPath();
+$someObject->getLayoutRootPath();
+$someObject->setPartialRootPath();
+$someObject->getPartialRootPath();
 PHP
                 ,
                 <<<'PHP'
-$someObject = new SomeExampleClass;
-$someObject->newMethod();
+$someObject = new StandaloneView();
+$someObject->setLayoutRootPaths();
+$someObject->getLayoutRootPaths();
+$someObject->setPartialRootPaths();
+$someObject->getPartialRootPaths();
 PHP
-                ,
-                [
-                    'SomeExampleClass' => [
-                        'oldMethod' => 'newMethod',
-                    ],
-                ]
             ),
         ]);
     }

@@ -17,7 +17,7 @@ final class RenameMethodCallToEnvironmentMethodCallRector extends AbstractRector
 {
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Turns method call names to new ones.', [
+        return new RectorDefinition('Turns method call names to new ones from new Environment API.', [
             new CodeSample(
                 <<<'PHP'
 Bootstrap::usesComposerClassLoading();

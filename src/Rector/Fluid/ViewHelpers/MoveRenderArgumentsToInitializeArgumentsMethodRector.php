@@ -117,7 +117,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Remove empty method calls not required by parents', [
+        return new RectorDefinition('Move render method arguments to initializeArguments method', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 class MyViewHelper implements ViewHelperInterface

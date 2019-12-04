@@ -5,5 +5,3 @@ parameters:
 services:
     Ssch\TYPO3Rector\Rector\Migrations\UnderscoreToNamespaceRector:
         'oldClassAliasMap': 'config/Migrations/Code/ClassAliasMap.php'
-
-
