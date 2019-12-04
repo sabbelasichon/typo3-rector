@@ -2,15 +2,15 @@ imports:
     - { resource: "%vendor_dir%/../config/services.yaml" }
 
 services:
-  Ssch\TYPO3Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethod: ~
-  Ssch\TYPO3Rector\Annotation\InjectAnnotationRector: ~
-  Ssch\TYPO3Rector\Annotation\CascadeAnnotationRector: ~
-  Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotationRector: ~
-  Ssch\TYPO3Rector\Annotation\LazyAnnotationRector: ~
-  Ssch\TYPO3Rector\Annotation\TransientAnnotationRector: ~
-  Ssch\TYPO3Rector\Annotation\ValidateAnnotationRector: ~
-  Ssch\TYPO3Rector\Core\Environment\ConstantToEnvironmentCallRector: ~
-  Ssch\TYPO3Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector: ~
+  Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethod: ~
+  Ssch\TYPO3Rector\Rector\Annotation\InjectAnnotationRector: ~
+  Ssch\TYPO3Rector\Rector\Annotation\CascadeAnnotationRector: ~
+  Ssch\TYPO3Rector\Rector\Annotation\IgnoreValidationAnnotationRector: ~
+  Ssch\TYPO3Rector\Rector\Annotation\LazyAnnotationRector: ~
+  Ssch\TYPO3Rector\Rector\Annotation\TransientAnnotationRector: ~
+  Ssch\TYPO3Rector\Rector\Annotation\ValidateAnnotationRector: ~
+  Ssch\TYPO3Rector\Rector\Core\Environment\ConstantToEnvironmentCallRector: ~
+  Ssch\TYPO3Rector\Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector: ~
   Rector\Renaming\Rector\MethodCall\RenameMethodCallRector:
     TYPO3\CMS\Core\Resource\ResourceStorage:
         dumpFileContents: streamFile

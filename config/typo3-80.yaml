@@ -2,6 +2,6 @@ imports:
     - { resource: "%vendor_dir%/../config/services.yaml" }
 
 services:
-    Ssch\TYPO3Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector: ~
-    Ssch\TYPO3Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector: ~
-    Ssch\TYPO3Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector: ~
+    Ssch\TYPO3Rector\Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector: ~
+    Ssch\TYPO3Rector\Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector: ~
+    Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector: ~

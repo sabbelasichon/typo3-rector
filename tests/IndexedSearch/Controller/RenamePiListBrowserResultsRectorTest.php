@@ -3,7 +3,7 @@
 namespace Ssch\TYPO3Rector\Tests\IndexedSearch\Controller;
 
 use Iterator;
-use Ssch\TYPO3Rector\IndexedSearch\Controller\RenamePiListBrowserResultsRector;
+use Ssch\TYPO3Rector\Rector\IndexedSearch\Controller\RenamePiListBrowserResultsRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
 class RenamePiListBrowserResultsRectorTest extends AbstractRectorWithConfigTestCase

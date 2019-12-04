@@ -2,4 +2,4 @@ imports:
     - { resource: "%vendor_dir%/../config/services.yaml" }
 
 services:
-    Ssch\TYPO3Rector\IndexedSearch\Controller\RenamePiListBrowserResultsRector: ~
+    Ssch\TYPO3Rector\Rector\IndexedSearch\Controller\RenamePiListBrowserResultsRector: ~

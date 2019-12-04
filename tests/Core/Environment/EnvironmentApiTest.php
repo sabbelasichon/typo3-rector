@@ -3,8 +3,8 @@
 namespace Ssch\TYPO3Rector\Tests\Core\Environment;
 
 use Iterator;
-use Ssch\TYPO3Rector\Core\Environment\ConstantToEnvironmentCallRector;
-use Ssch\TYPO3Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector;
+use Ssch\TYPO3Rector\Rector\Core\Environment\ConstantToEnvironmentCallRector;
+use Ssch\TYPO3Rector\Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
 class EnvironmentApiTest extends AbstractRectorWithConfigTestCase

@@ -3,7 +3,7 @@
 namespace Ssch\TYPO3Rector\Tests\Frontend\ContentObject;
 
 use Iterator;
-use Ssch\TYPO3Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector;
+use Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
 class RefactorRemovedMethodsFromContentObjectRendererRectorTest extends AbstractRectorWithConfigTestCase

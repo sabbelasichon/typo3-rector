@@ -3,7 +3,7 @@
 namespace Ssch\TYPO3Rector\Tests\Extbase;
 
 use Iterator;
-use Ssch\TYPO3Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector;
+use Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
 class ChangeAttemptsParameterConsoleOutputRectorTest extends AbstractRectorWithConfigTestCase

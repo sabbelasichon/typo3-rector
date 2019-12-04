@@ -3,12 +3,12 @@
 namespace Ssch\TYPO3Rector\Tests\Annotation;
 
 use Iterator;
-use Ssch\TYPO3Rector\Annotation\CascadeAnnotationRector;
-use Ssch\TYPO3Rector\Annotation\IgnoreValidationAnnotationRector;
-use Ssch\TYPO3Rector\Annotation\InjectAnnotationRector;
-use Ssch\TYPO3Rector\Annotation\LazyAnnotationRector;
-use Ssch\TYPO3Rector\Annotation\TransientAnnotationRector;
-use Ssch\TYPO3Rector\Annotation\ValidateAnnotationRector;
+use Ssch\TYPO3Rector\Rector\Annotation\CascadeAnnotationRector;
+use Ssch\TYPO3Rector\Rector\Annotation\IgnoreValidationAnnotationRector;
+use Ssch\TYPO3Rector\Rector\Annotation\InjectAnnotationRector;
+use Ssch\TYPO3Rector\Rector\Annotation\LazyAnnotationRector;
+use Ssch\TYPO3Rector\Rector\Annotation\TransientAnnotationRector;
+use Ssch\TYPO3Rector\Rector\Annotation\ValidateAnnotationRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
 class AnnotationTest extends AbstractRectorWithConfigTestCase
