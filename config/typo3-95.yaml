@@ -15,3 +15,4 @@ services:
     TYPO3\CMS\Core\Resource\ResourceStorage:
         dumpFileContents: streamFile
   Ssch\TYPO3Rector\Rector\Extbase\RemoveFlushCachesRector:
+  Ssch\TYPO3Rector\Rector\Extbase\RemoveInternalAnnotationRector:
