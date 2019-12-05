@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Extbase;
+namespace Ssch\TYPO3Rector\Tests\Rector\Extbase;
 
 use Iterator;
 use Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector;
