@@ -10,6 +10,7 @@ services:
   Ssch\TYPO3Rector\Rector\Annotation\TransientAnnotationRector: ~
   Ssch\TYPO3Rector\Rector\Annotation\ValidateAnnotationRector: ~
   Ssch\TYPO3Rector\Rector\Core\Environment\ConstantToEnvironmentCallRector: ~
+  Ssch\TYPO3Rector\Rector\Core\Package\UsePackageManagerActivePackagesRector: ~
   Ssch\TYPO3Rector\Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector: ~
   Rector\Renaming\Rector\MethodCall\RenameMethodCallRector:
     TYPO3\CMS\Core\Resource\ResourceStorage:
