@@ -1,3 +1,7 @@
+parameters:
+    autoload_paths:
+        - 'config/Migrations/Fluid/LegacyClassesForIde.php'
+        -
 imports:
     - { resource: "%vendor_dir%/../config/services.yaml" }
 
@@ -17,3 +21,5 @@ services:
         dumpFileContents: streamFile
   Ssch\TYPO3Rector\Rector\Extbase\RemoveFlushCachesRector:
   Ssch\TYPO3Rector\Rector\Extbase\RemoveInternalAnnotationRector:
+  Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector:
+      'oldClassAliasMap': 'Migrations/Fluid/ClassAliasMap.php'

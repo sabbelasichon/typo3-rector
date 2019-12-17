@@ -3,5 +3,5 @@ parameters:
         - 'config/Migrations/Code/LegacyClassesForIde.php'
 
 services:
-    Ssch\TYPO3Rector\Rector\Migrations\UnderscoreToNamespaceRector:
-        'oldClassAliasMap': 'config/Migrations/Code/ClassAliasMap.php'
+    Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector:
+        'oldClassAliasMap': 'Migrations/Code/ClassAliasMap.php'
