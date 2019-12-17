@@ -29,7 +29,7 @@ use Rector\RectorDefinition\RectorDefinition;
 use Rector\Renaming\Exception\InvalidPhpCodeException;
 use ReflectionClass;
 
-final class UnderscoreToNamespaceRector extends AbstractRector
+final class RenameClassMapAliasRector extends AbstractRector
 {
     /**
      * @var string[]
