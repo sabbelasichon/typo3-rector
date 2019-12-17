@@ -15,6 +15,8 @@ final class Typo3NodeResolver
 
     public const TSFE = 'TSFE';
 
+    public const TYPO3_LOADED_EXT = 'TYPO3_LOADED_EXT';
+
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool
     {
         return $node instanceof Node\Stmt\Expression &&
@@ -23,5 +25,12 @@ final class Typo3NodeResolver
                $this->isName($node->expr, $methodCall) &&
                $this->isName($node->expr->var->var, 'GLOBALS') &&
                $this->isValue($node->expr->var->dim, $global);
+    }
+
+    public function isTypo3Global(Node $node, string $global): bool
+    {
+        return $node instanceof  Node\Expr\ArrayDimFetch &&
+               $this->isName($node->var, 'GLOBALS') &&
+               $this->isValue($node->dim, $global);
     }
 }
