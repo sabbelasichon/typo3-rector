@@ -6,6 +6,9 @@
 !/.php_cs.dist
 !/.travis.yml
 !.gitkeep
+!.code
+.code/*
+!.code/.gitkeep
 
 # Other ignored paths and files.
 /vendor

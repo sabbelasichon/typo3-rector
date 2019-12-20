@@ -1,7 +1,3 @@
-parameters:
-    autoload_paths:
-        - 'config/Migrations/Code/LegacyClassesForIde.php'
-
 services:
     Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector:
         'oldClassAliasMap': 'Migrations/Code/ClassAliasMap.php'

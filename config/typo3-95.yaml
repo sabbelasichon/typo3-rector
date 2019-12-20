@@ -1,7 +1,3 @@
-parameters:
-    autoload_paths:
-        - 'config/Migrations/Fluid/LegacyClassesForIde.php'
-        -
 imports:
     - { resource: 'services.yaml' }
 
