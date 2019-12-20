@@ -17,7 +17,8 @@
             "Ssch\\TYPO3Rector\\Tests\\": "tests"
         },
         "classmap": [
-            "stubs"
+            "stubs",
+            ".code"
         ]
     },
     "require-dev": {
