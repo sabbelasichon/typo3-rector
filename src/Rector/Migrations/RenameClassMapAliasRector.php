@@ -70,7 +70,7 @@ final class RenameClassMapAliasRector extends AbstractRector
         $this->phpDocClassRenamer = $phpDocClassRenamer;
 
         foreach ($classAliasMaps as $key => $file) {
-            $filePath = realpath($file);
+            $filePath = realpath(__DIR__ . '/' . $file);
 
             if (file_exists($filePath)) {
                 $classAliasMap = require $filePath;
