@@ -3,7 +3,7 @@ parameters:
         - 'config/Migrations/Fluid/LegacyClassesForIde.php'
         -
 imports:
-    - { resource: "%vendor_dir%/../config/services.yaml" }
+    - { resource: 'services.yaml' }
 
 services:
   Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethodRector: ~
