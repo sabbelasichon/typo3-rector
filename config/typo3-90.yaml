@@ -1,0 +1,5 @@
+imports:
+    - { resource: 'services.yaml' }
+
+services:
+    Ssch\TYPO3Rector\Rector\Core\CheckForExtensionInfoRector:

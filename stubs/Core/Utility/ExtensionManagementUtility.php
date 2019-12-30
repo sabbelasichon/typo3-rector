@@ -1,0 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+namespace TYPO3\CMS\Core\Utility;
+
+final class ExtensionManagementUtility
+{
+    public static function isLoaded($key, $exitOnError = null): bool
+    {
+        return true;
+    }
+}
