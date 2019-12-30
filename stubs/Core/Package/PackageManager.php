@@ -10,4 +10,9 @@ final class PackageManager
     {
         return [];
     }
+
+    public function isPackageActive($key): bool
+    {
+        return true;
+    }
 }
