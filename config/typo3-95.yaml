@@ -13,8 +13,8 @@ services:
   Ssch\TYPO3Rector\Rector\Core\Package\UsePackageManagerActivePackagesRector: ~
   Ssch\TYPO3Rector\Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector: ~
   Rector\Renaming\Rector\MethodCall\RenameMethodCallRector:
-    TYPO3\CMS\Core\Resource\ResourceStorage:
-        $oldToNewMethodsByClass:
+      $oldToNewMethodsByClass:
+        TYPO3\CMS\Core\Resource\ResourceStorage:
             dumpFileContents: streamFile
   Ssch\TYPO3Rector\Rector\Extbase\RemoveFlushCachesRector:
   Ssch\TYPO3Rector\Rector\Extbase\RemoveInternalAnnotationRector:
