@@ -3,3 +3,4 @@ imports:
 
 services:
     Ssch\TYPO3Rector\Rector\Core\CheckForExtensionInfoRector:
+    Ssch\TYPO3Rector\Rector\Core\Utility\RefactorMethodsFromExtensionManagementUtilityRector:
