@@ -10,4 +10,19 @@ final class ExtensionManagementUtility
     {
         return true;
     }
+
+    public static function siteRelPath($key)
+    {
+        return $key;
+    }
+
+    public static function extPath($key)
+    {
+        return $key;
+    }
+
+    public static function removeCacheFiles()
+    {
+        return null;
+    }
 }
