@@ -1,3 +1,4 @@
 services:
     Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector:
-        'oldClassAliasMap': '../../../Migrations/Code/ClassAliasMap.php'
+        $classAliasMaps:
+            - '../../../Migrations/Code/ClassAliasMap.php'

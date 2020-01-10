@@ -19,4 +19,5 @@ services:
   Ssch\TYPO3Rector\Rector\Extbase\RemoveFlushCachesRector:
   Ssch\TYPO3Rector\Rector\Extbase\RemoveInternalAnnotationRector:
   Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector:
-      'oldClassAliasMap': '../../../Migrations/Fluid/ClassAliasMap.php'
+        $classAliasMaps:
+            - '../../../Migrations/Fluid/ClassAliasMap.php'
