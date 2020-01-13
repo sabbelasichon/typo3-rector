@@ -7,3 +7,4 @@ imports:
     - { resource: "../../config/typo3-93.yaml" }
     - { resource: "../../config/typo3-94.yaml" }
     - { resource: "../../config/typo3-95.yaml" }
+    - { resource: "../../config/typo3-100.yaml" }
