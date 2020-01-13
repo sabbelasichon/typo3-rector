@@ -13,7 +13,8 @@ final class Typo3NodeResolver
     use NameResolverTrait;
     use ValueResolverTrait;
 
-    public const TSFE = 'TSFE';
+    public const TypoScriptFrontendController = 'TSFE';
+    public const TimeTracker = 'TT';
 
     public const TYPO3_LOADED_EXT = 'TYPO3_LOADED_EXT';
 
@@ -23,6 +24,15 @@ final class Typo3NodeResolver
                $node->expr instanceof Node\Expr\MethodCall &&
                $node->expr->var instanceof Node\Expr\ArrayDimFetch &&
                $this->isName($node->expr, $methodCall) &&
+               $this->isName($node->expr->var->var, 'GLOBALS') &&
+               $this->isValue($node->expr->var->dim, $global);
+    }
+
+    public function isAnyMethodCallOnGlobals(Node $node, string $global): bool
+    {
+        return $node instanceof Node\Stmt\Expression &&
+               $node->expr instanceof Node\Expr\MethodCall &&
+               $node->expr->var instanceof Node\Expr\ArrayDimFetch &&
                $this->isName($node->expr->var->var, 'GLOBALS') &&
                $this->isValue($node->expr->var->dim, $global);
     }

@@ -42,7 +42,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if ($this->typo3NodeResolver->isMethodCallOnGlobals($node, 'initTemplate', Typo3NodeResolver::TSFE)) {
+        if ($this->typo3NodeResolver->isMethodCallOnGlobals($node, 'initTemplate', Typo3NodeResolver::TypoScriptFrontendController)) {
             $this->removeNode($node);
 
             return null;
