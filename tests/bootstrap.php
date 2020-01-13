@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $GLOBALS['TSFE'] = new TypoScriptFrontendController();
+$GLOBALS['TT'] = new TimeTracker();
 $GLOBALS['TYPO3_LOADED_EXT'] = [];
 
 // silent deprecations, since we test them
