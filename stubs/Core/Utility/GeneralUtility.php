@@ -19,4 +19,9 @@ class GeneralUtility
     {
         return new $class();
     }
+
+    public static function getIndpEnv(string $var): string
+    {
+        return 'foo';
+    }
 }
