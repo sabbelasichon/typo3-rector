@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\Backend\Utility;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use Rector\Rector\AbstractRector;
+use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;

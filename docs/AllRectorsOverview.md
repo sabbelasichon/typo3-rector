@@ -1,4 +1,19 @@
-# All 19 Rectors Overview
+# All 30 Rectors Overview
+
+### `BackendUtilityEditOnClickRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Backend\Utility\BackendUtilityEditOnClickRector`
+
+Migrate the method BackendUtility::editOnClick() to use UriBuilder API
+
+```diff
+ $pid = 2;
+ $params = '&edit[pages][' . $pid . ']=new&returnNewPageId=1';
+-$url = BackendUtility::editOnClick($params);
++$url = GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute('record_edit') . $params . '&returnUrl=' . rawurlencode(GeneralUtility::getIndpEnv('REQUEST_URI'));;
+```
+
+<br>
 
 ### `CallEnableFieldsFromPageRepositoryRector`
 
@@ -64,6 +79,26 @@ Turns method call names to new ones.
 
 <br>
 
+### `CheckForExtensionInfoRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\CheckForExtensionInfoRector`
+
+Change the extensions to check for info instead of info_pagetsconfig.
+
+```diff
+-if(ExtensionManagementUtility::isLoaded('info_pagetsconfig')) {
+
+ }
+
+ $packageManager = GeneralUtility::makeInstance(PackageManager::class);
+-if($packageManager->isActive('info_pagetsconfig')) {
++if($packageManager->isActive('info')) {
+
+ }
+```
+
+<br>
+
 ### `ConstantToEnvironmentCallRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Core\Environment\ConstantToEnvironmentCallRector`
@@ -73,6 +108,21 @@ Turns defined constant to static method call of new Environment API.
 ```diff
 -PATH_thisScript;
 +Environment::getCurrentScript();
+```
+
+<br>
+
+### `FindByPidsAndAuthorIdRector`
+
+- class: `Ssch\TYPO3Rector\Rector\SysNote\Domain\Repository\FindByPidsAndAuthorIdRector`
+
+Use findByPidsAndAuthorId instead of findByPidsAndAuthor
+
+```diff
+ $sysNoteRepository = GeneralUtility::makeInstance(SysNoteRepository::class);
+ $backendUser = new BackendUser();
+-$sysNoteRepository->findByPidsAndAuthor('1,2,3', $backendUser);
++$sysNoteRepository->findByPidsAndAuthorId('1,2,3', $backendUser->getUid());
 ```
 
 <br>
@@ -174,6 +224,19 @@ Turns method call names to new ones.
 
 <br>
 
+### `RefactorMethodsFromExtensionManagementUtilityRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\Utility\RefactorMethodsFromExtensionManagementUtilityRector`
+
+Refactor deprecated methods from ExtensionManagementUtility.
+
+```diff
+-ExtensionManagementUtility::removeCacheFiles();
++GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->flushCachesInGroup('system');
+```
+
+<br>
+
 ### `RefactorRemovedMethodsFromContentObjectRendererRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector`
@@ -200,6 +263,24 @@ Refactor removed methods from GeneralUtility.
 
 <br>
 
+### `RegisterPluginWithVendorNameRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Extbase\RegisterPluginWithVendorNameRector`
+
+Remove vendor name from registerPlugin call
+
+```diff
+ \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+-   'TYPO3.CMS.Form',
++   'Form',
+    'Formframework',
+    'Form',
+    'content-form',
+ );
+```
+
+<br>
+
 ### `RemoveColPosParameterRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Backend\Domain\Repository\Localization\RemoveColPosParameterRector`
@@ -214,6 +295,27 @@ Remove parameter colPos from methods.
 
 <br>
 
+### `RemoveFlushCachesRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Extbase\RemoveFlushCachesRector`
+
+Remove @flushesCaches annotation
+
+```diff
+ /**
+- * My command
+- *
+- * @flushesCaches
++ * My Command
+  */
+ public function myCommand()
+ {
+-}
++}
+```
+
+<br>
+
 ### `RemoveInitTemplateMethodCallRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Frontend\Controller\RemoveInitTemplateMethodCallRector`
@@ -224,6 +326,98 @@ Remove method call initTemplate from TypoScriptFrontendController
 -$tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 -$tsfe->initTemplate();
 +$tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
+```
+
+<br>
+
+### `RemoveInternalAnnotationRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Extbase\RemoveInternalAnnotationRector`
+
+Remove @internal annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Controller\CommandController
+
+```diff
+-/**
+- * @internal
+- */
+ class MyCommandController extends CommandController
+ {
+-}
++}
+```
+
+<br>
+
+### `RemovePropertyExtensionNameRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyExtensionNameRector`
+
+Use method getControllerExtensionName from $request property instead of removed property $extensionName
+
+```diff
+ class MyCommandController extends CommandController
+ {
+     public function myMethod()
+     {
+-        if($this->extensionName === 'whatever') {
++        if($this->request->getControllerExtensionName() === 'whatever') {
+
+         }
+
+-        $extensionName = $this->extensionName;
++        $extensionName = $this->request->getControllerExtensionName();
+     }
+ }
+```
+
+<br>
+
+### `RemovePropertyUserAuthenticationRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyUserAuthenticationRector`
+
+Use method getBackendUserAuthentication instead of removed property $userAuthentication
+
+```diff
+ class MyCommandController extends CommandController
+ {
+     public function myMethod()
+     {
+-        if($this->userAuthentication !== null) {
++        if($this->getBackendUserAuthentication() !== null) {
+
+         }
+     }
+ }
+```
+
+<br>
+
+### `RenameClassMapAliasRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector`
+
+Replaces defined classes by new ones.
+
+```yaml
+services:
+    Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector:
+        oldClassAliasMap: config/Migrations/Code/ClassAliasMap.php
+```
+
+↓
+
+```diff
+ namespace App;
+
+-use t3lib_div;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+ function someFunction()
+ {
+-    t3lib_div::makeInstance(\tx_cms_BackendLayout::class);
++    GeneralUtility::makeInstance(\TYPO3\CMS\Backend\View\BackendLayoutView::class);
+ }
 ```
 
 <br>
@@ -256,6 +450,19 @@ Rename pi_list_browseresults calls to renderPagination
 
 <br>
 
+### `TimeTrackerGlobalsToSingletonRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\TimeTracker\TimeTrackerGlobalsToSingletonRector`
+
+Substitute $GLOBALS['TT'] method calls
+
+```diff
+-$GLOBALS['TT']->setTSlogMessage('content');
++GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage('content');
+```
+
+<br>
+
 ### `TransientAnnotationRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Annotation\TransientAnnotationRector`
@@ -273,31 +480,15 @@ Turns properties with `@transient` to properties with `@TYPO3\CMS\Extbase\Annota
 
 <br>
 
-### `UnderscoreToNamespaceRector`
+### `UsePackageManagerActivePackagesRector`
 
-- class: `Ssch\TYPO3Rector\Rector\Migrations\UnderscoreToNamespaceRector`
+- class: `Ssch\TYPO3Rector\Rector\Core\Package\UsePackageManagerActivePackagesRector`
 
-Replaces defined classes by new ones.
-
-```yaml
-services:
-    Ssch\TYPO3Rector\Rector\Migrations\UnderscoreToNamespaceRector:
-        oldClassAliasMap: config/Migrations/Code/ClassAliasMap.php
-```
-
-↓
+Use PackageManager API instead of $GLOBALS['TYPO3_LOADED_EXT']
 
 ```diff
- namespace App;
-
--use t3lib_div;
-+use TYPO3\CMS\Core\Utility\GeneralUtility;
-
- function someFunction()
- {
--    t3lib_div::makeInstance(\tx_cms_BackendLayout::class);
-+    GeneralUtility::makeInstance(\TYPO3\CMS\Backend\View\BackendLayoutView::class);
- }
+-$extensionList = $GLOBALS['TYPO3_LOADED_EXT'];
++$extensionList = GeneralUtility::makeInstance(PackageManager::class)->getActivePackages();
 ```
 
 <br>
@@ -318,5 +509,3 @@ Turns properties with `@validate` to properties with `@TYPO3\CMS\Extbase\Annotat
 -private $someProperty;
 +private $someProperty;
 ```
-
-<br>
