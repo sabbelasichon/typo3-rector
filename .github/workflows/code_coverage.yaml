@@ -1,0 +1,27 @@
+name: Code Coverage
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - master
+
+jobs:
+    code_coverage:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+            -   uses: shivammathur/setup-php@v1
+                with:
+                    php-version: 7.2
+                    coverage: pcov
+
+            -   run: composer install --no-progress
+
+            -   run: |
+                    vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+                    # Coveralls.io
+                    wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.1.0/php-coveralls.phar
+                    php php-coveralls.phar --verbose
+                env:
+                    COVERALLS_REPO_TOKEN: 'sZ8Y1w97canO70QaxSyv46aHXcuC3Gz9P'

@@ -1,5 +1,6 @@
 # Ignore all hidden files exept these.
 .*
+!.github
 !/.gitignore
 !/.gitattributes
 !/.editorconfig
