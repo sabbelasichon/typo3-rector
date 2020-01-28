@@ -2,6 +2,8 @@
 
 Apply automatic fixes on your TYPO3 code.
 
+[![Coverage Status](https://img.shields.io/coveralls/sabbelasichon/typo3-rector/master.svg?style=flat-square)](https://coveralls.io/github/sabbelasichon/typo3-rector?branch=master)
+
 ## Installation
 
 Install the library.
