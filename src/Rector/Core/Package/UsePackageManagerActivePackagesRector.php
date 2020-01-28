@@ -51,6 +51,9 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
         return $node;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Use PackageManager API instead of $GLOBALS[\'TYPO3_LOADED_EXT\']', [

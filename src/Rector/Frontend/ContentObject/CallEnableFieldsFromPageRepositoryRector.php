@@ -52,6 +52,9 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
         ), 'enableFields', $node->args);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Call enable fields from PageRepository instead of ContentObjectRenderer', [

@@ -41,6 +41,9 @@ final class TransientAnnotationRector extends AbstractRector
         return $node;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(

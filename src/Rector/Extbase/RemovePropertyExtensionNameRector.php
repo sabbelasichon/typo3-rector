@@ -37,6 +37,9 @@ final class RemovePropertyExtensionNameRector extends AbstractRector
         return $this->createMethodCall($this->createPropertyFetch($node->var, 'request'), 'getControllerExtensionName');
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Use method getControllerExtensionName from $request property instead of removed property $extensionName', [

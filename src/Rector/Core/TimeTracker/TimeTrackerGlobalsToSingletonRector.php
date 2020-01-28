@@ -50,6 +50,9 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
         ), $this->getName($node->expr), $node->expr->args);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Substitute $GLOBALS[\'TT\'] method calls', [

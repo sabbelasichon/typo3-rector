@@ -39,6 +39,9 @@ final class RemovePropertyUserAuthenticationRector extends AbstractRector
         );
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Use method getBackendUserAuthentication instead of removed property $userAuthentication', [

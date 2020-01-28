@@ -77,6 +77,9 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Refactor removed methods from GeneralUtility.', [

@@ -46,7 +46,7 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
     }
 
     /**
-     * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getDefinition(): RectorDefinition
     {

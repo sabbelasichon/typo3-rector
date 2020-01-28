@@ -45,6 +45,9 @@ final class CheckForExtensionInfoRector extends AbstractRector
         return $node;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Change the extensions to check for info instead of info_pagetsconfig.', [

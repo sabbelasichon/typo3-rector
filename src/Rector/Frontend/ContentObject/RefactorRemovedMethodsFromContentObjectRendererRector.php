@@ -85,6 +85,9 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         ]);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Refactor removed methods from ContentObjectRenderer.', [

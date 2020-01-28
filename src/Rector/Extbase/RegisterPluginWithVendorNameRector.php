@@ -38,6 +38,9 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
         return $this->removeVendorNameIfNeeded($node);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(

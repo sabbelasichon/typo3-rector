@@ -82,6 +82,9 @@ final class RenameClassMapAliasRector extends AbstractRector
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Replaces defined classes by new ones.', [

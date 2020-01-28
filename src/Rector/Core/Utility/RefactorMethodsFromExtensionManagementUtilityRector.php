@@ -52,6 +52,9 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Refactor deprecated methods from ExtensionManagementUtility.', [

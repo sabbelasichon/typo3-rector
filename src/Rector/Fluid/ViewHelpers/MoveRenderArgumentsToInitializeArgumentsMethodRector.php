@@ -113,7 +113,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
     }
 
     /**
-     * @inheritDoc
+     * @codeCoverageIgnore
      */
     public function getDefinition(): RectorDefinition
     {

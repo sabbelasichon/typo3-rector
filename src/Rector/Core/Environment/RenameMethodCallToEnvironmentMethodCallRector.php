@@ -15,6 +15,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class RenameMethodCallToEnvironmentMethodCallRector extends AbstractRector
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Turns method call names to new ones from new Environment API.', [

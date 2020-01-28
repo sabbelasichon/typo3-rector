@@ -44,6 +44,9 @@ final class RemoveColPosParameterRector extends AbstractRector
         return $node;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Remove parameter colPos from methods.', [

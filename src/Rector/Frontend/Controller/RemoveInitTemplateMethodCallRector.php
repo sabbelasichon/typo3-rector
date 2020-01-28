@@ -66,6 +66,9 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Remove method call initTemplate from TypoScriptFrontendController', [

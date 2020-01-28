@@ -30,6 +30,9 @@ final class ChangeMethodCallsForStandaloneViewRector extends AbstractRector
         ],
     ];
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Turns method call names to new ones.', [

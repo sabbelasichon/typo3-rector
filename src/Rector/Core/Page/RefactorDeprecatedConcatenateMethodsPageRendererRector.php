@@ -52,6 +52,9 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Turns method call names to new ones.', [

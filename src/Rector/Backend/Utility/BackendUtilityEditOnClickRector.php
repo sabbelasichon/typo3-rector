@@ -48,6 +48,9 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
         return [Node\Expr\StaticCall::class];
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Migrate the method BackendUtility::editOnClick() to use UriBuilder API', [

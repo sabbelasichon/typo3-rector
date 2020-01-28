@@ -45,6 +45,9 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
         return $node;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Use findByPidsAndAuthorId instead of findByPidsAndAuthor', [

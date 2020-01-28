@@ -13,6 +13,9 @@ use TYPO3\CMS\Core\Core\Environment;
 
 final class ConstantToEnvironmentCallRector extends AbstractRector
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Turns defined constant to static method call of new Environment API.', [
