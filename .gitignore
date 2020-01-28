@@ -10,6 +10,6 @@
 !.code
 .code/*
 !.code/.gitkeep
-
+composer.lock
 # Other ignored paths and files.
 /vendor
