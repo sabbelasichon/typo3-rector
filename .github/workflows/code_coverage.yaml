@@ -14,12 +14,12 @@ jobs:
             -   uses: shivammathur/setup-php@v1
                 with:
                     php-version: 7.3
-                    coverage: pcov
+                    coverage: none
 
             -   run: composer install --no-progress
 
             -   run: |
-                    vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+                    phpdbg -qrr -d memory_limit=-1 vendor/bin/phpunit --coverage-clover build/logs/clover.xml
                     # Coveralls.io
                     wget https://github.com/php-coveralls/php-coveralls/releases/download/v2.1.0/php-coveralls.phar
                     php php-coveralls.phar --verbose
