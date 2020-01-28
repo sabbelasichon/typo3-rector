@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Page;
 
+if (class_exists(PageRenderer::class)) {
+    return;
+}
+
 final class PageRenderer
 {
     public function getConcatenateFiles(): void

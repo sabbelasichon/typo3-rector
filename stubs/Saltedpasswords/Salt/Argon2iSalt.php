@@ -2,7 +2,11 @@
 
 declare(strict_types=1);
 
-\TYPO3\CMS\Saltedpasswords\Salt;
+namespace TYPO3\CMS\Saltedpasswords\Salt;
+
+if (class_exists(Argon2iSalt::class)) {
+    return;
+}
 
 final class Argon2iSalt
 {

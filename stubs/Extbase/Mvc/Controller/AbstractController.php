@@ -6,6 +6,10 @@ namespace TYPO3\CMS\Extbase\Mvc\Controller;
 
 use TYPO3\CMS\Extbase\Mvc\Request;
 
+if (class_exists(AbstractController::class)) {
+    return;
+}
+
 abstract class AbstractController
 {
     /**

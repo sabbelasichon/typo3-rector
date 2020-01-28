@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Utility;
 
+if (class_exists(ExtensionManagementUtility::class)) {
+    return;
+}
+
 final class ExtensionManagementUtility
 {
     public static function isLoaded($key, $exitOnError = null): bool

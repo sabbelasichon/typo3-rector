@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Backend\Domain\Repository\Localization;
 
+if (class_exists(LocalizationRepository::class)) {
+    return;
+}
+
 final class LocalizationRepository
 {
     public function fetchOriginLanguage(int $pageId, int $localizedLanguage): array

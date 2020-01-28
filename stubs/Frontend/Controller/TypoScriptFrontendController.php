@@ -6,6 +6,10 @@ namespace TYPO3\CMS\Frontend\Controller;
 
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
+if (class_exists(TypoScriptFrontendController::class)) {
+    return;
+}
+
 final class TypoScriptFrontendController
 {
     /**

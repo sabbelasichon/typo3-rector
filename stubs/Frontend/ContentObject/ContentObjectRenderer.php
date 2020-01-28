@@ -7,6 +7,10 @@ namespace TYPO3\CMS\Frontend\ContentObject;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
+if (class_exists(ContentObjectRenderer::class)) {
+    return;
+}
+
 final class ContentObjectRenderer
 {
     public function RECORDS(array $config): void
