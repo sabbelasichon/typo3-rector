@@ -4,7 +4,6 @@
     "type": "library",
     "require": {
         "rector/rector": "^0.6.0",
-        "typo3/class-alias-loader": "^1.0",
         "typo3fluid/fluid": "^2.6"
     },
     "autoload": {
@@ -42,13 +41,5 @@
         "check-style": "php-cs-fixer fix --config=./.php_cs.dist --dry-run",
         "fix-style": "php-cs-fixer fix --config=./.php_cs.dist",
         "test": "vendor/bin/phpunit"
-    },
-    "extra": {
-        "typo3/class-alias-loader": {
-            "class-alias-maps": [
-                "Migrations/Code/ClassAliasMap.php",
-                "Migrations/Fluid/ClassAliasMap.php"
-            ]
-        }
     }
 }
