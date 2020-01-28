@@ -30,11 +30,11 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node, ContentObjectRenderer::class)) {
+        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
             return null;
         }
 
-        if (!$this->isName($node, 'enableFields')) {
+        if (!$this->isName($node->name, 'enableFields')) {
             return null;
         }
 

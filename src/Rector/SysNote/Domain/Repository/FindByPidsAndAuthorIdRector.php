@@ -32,7 +32,7 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
             return null;
         }
 
-        if (!$this->isName($node, 'findByPidsAndAuthor')) {
+        if (!$this->isName($node->name, 'findByPidsAndAuthor')) {
             return null;
         }
 

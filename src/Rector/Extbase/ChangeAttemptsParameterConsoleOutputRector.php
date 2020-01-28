@@ -30,28 +30,28 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node, ConsoleOutput::class)) {
+        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ConsoleOutput::class)) {
             return null;
         }
 
-        if (!$this->isName($node, 'select') && !$this->isName($node, 'askAndValidate')) {
+        if (!$this->isName($node->name, 'select') && !$this->isName($node->name, 'askAndValidate')) {
             return null;
         }
 
-        if ($this->isName($node, 'select') && count($node->args) < 5) {
+        if ($this->isName($node->name, 'select') && count($node->args) < 5) {
             return null;
         }
 
-        if ($this->isName($node, 'askAndValidate') && count($node->args) < 3) {
+        if ($this->isName($node->name, 'askAndValidate') && count($node->args) < 3) {
             return null;
         }
 
         $arguments = $node->args;
 
         // Change the argument for attempts if it false to null
-        if ($this->isName($node, 'askAndValidate') && 'false' === $this->getName($arguments[2]->value)) {
+        if ($this->isName($node->name, 'askAndValidate') && 'false' === $this->getName($arguments[2]->value)) {
             $arguments[2] = null;
-        } elseif ($this->isName($node, 'select') && 'false' === $this->getName($arguments[4]->value)) {
+        } elseif ($this->isName($node->name, 'select') && 'false' === $this->getName($arguments[4]->value)) {
             $arguments[4] = null;
         }
 

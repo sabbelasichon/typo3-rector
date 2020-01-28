@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Frontend\Controller;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Stmt\Expression;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Rector\AbstractRector;
@@ -30,13 +32,13 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\MethodCall::class, Node\Stmt\Expression::class];
+        return [MethodCall::class, Expression::class];
     }
 
     /**
      * Process Node of matched type.
      *
-     * @param Node|Node\Stmt\Expression $node
+     * @param Node|Expression $node
      *
      * @return Node|null
      */
@@ -48,11 +50,15 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
             return null;
         }
 
-        if (!$this->isObjectType($node, TypoScriptFrontendController::class)) {
+        if (!$node instanceof MethodCall) {
             return null;
         }
 
-        if (!$this->isName($node, 'initTemplate')) {
+        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, TypoScriptFrontendController::class)) {
+            return null;
+        }
+
+        if (!$this->isName($node->name, 'initTemplate')) {
             return null;
         }
 

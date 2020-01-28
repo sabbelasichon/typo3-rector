@@ -17,8 +17,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
-use Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\AttributeAwareParamTagValueNode;
-use Rector\BetterPhpDocParser\Attributes\Ast\PhpDoc\Type\AttributeAwareUnionTypeNode;
+use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
+use Rector\AttributeAwarePhpDoc\Ast\Type\AttributeAwareUnionTypeNode;
 use Rector\Exception\NotImplementedException;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -84,7 +84,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
         $renderMethod = null;
 
         foreach ($classMethods as $classMethod) {
-            if ('render' === $this->getName($classMethod->name) && !empty($classMethod->getParams())) {
+            if ($this->isName($classMethod->name, 'render') && !empty($classMethod->getParams())) {
                 $renderMethod = $classMethod;
                 break;
             }

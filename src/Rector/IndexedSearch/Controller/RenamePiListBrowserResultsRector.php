@@ -21,11 +21,13 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
 
     /**
-     * @inheritDoc
+     * @var Node|MethodCall
+     *
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -33,7 +35,7 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
             return null;
         }
 
-        if (!$this->isName($node, 'pi_list_browseresults')) {
+        if (!$this->isName($node->name, 'pi_list_browseresults')) {
             return null;
         }
 

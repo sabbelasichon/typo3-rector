@@ -83,7 +83,7 @@ PHP
      */
     private function isExtensionManagementUtilityIsLoaded(Node $node): bool
     {
-        return $node instanceof StaticCall && $this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionManagementUtility::class) && $this->isName($node, 'isLoaded');
+        return $node instanceof StaticCall && $this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionManagementUtility::class) && $this->isName($node->name, 'isLoaded');
     }
 
     /**
@@ -93,6 +93,6 @@ PHP
      */
     private function isPackageManagerIsActivePackage(Node $node): bool
     {
-        return $this->isObjectType($node, PackageManager::class) && $this->isName($node, 'isPackageActive');
+        return $this->isMethodStaticCallOrClassMethodObjectType($node, PackageManager::class) && $this->isName($node->name, 'isPackageActive');
     }
 }

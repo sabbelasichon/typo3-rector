@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Backend\Domain\Repository\Localization;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -17,21 +18,21 @@ final class RemoveColPosParameterRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
 
     /**
-     * @param Node|Node\Expr\MethodCall $node
+     * @param Node|MethodCall $node
      *
      * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node, LocalizationRepository::class)) {
+        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, LocalizationRepository::class)) {
             return null;
         }
 
-        if (!$this->isNames($node, ['fetchOriginLanguage', 'getLocalizedRecordCount', 'fetchAvailableLanguages', 'getRecordsToCopyDatabaseResult'])) {
+        if (!$this->isNames($node->name, ['fetchOriginLanguage', 'getLocalizedRecordCount', 'fetchAvailableLanguages', 'getRecordsToCopyDatabaseResult'])) {
             return null;
         }
 

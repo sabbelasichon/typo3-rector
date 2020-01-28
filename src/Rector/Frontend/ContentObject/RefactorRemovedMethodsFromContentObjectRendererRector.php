@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Frontend\ContentObject;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -50,26 +51,23 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
     ];
 
     /**
-     * List of nodes this class checks, classes that implements \PhpParser\Node
-     * See beautiful map of all nodes https://github.com/rectorphp/rector/blob/master/docs/NodesOverview.md.
-     *
-     * @return string[]
+     * @inheritDoc
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
 
     /**
      * Process Node of matched type.
      *
-     * @param Node|Node\Expr\MethodCall $node
+     * @param Node|MethodCall $node
      *
      * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node, ContentObjectRenderer::class)) {
+        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
             return null;
         }
 
