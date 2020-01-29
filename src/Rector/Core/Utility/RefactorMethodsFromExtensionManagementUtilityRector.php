@@ -70,11 +70,6 @@ PHP
         ]);
     }
 
-    /**
-     * @param Node $node
-     *
-     * @return StaticCall
-     */
     private function createNewMethodCallForSiteRelPath(Node $node): StaticCall
     {
         $firstArgument = $node->args[0];
@@ -82,9 +77,6 @@ PHP
         return $this->createStaticCall(PathUtility::class, 'stripPathSitePrefix', [$this->createStaticCall(ExtensionManagementUtility::class, 'extPath', [$firstArgument])]);
     }
 
-    /**
-     * @return Node\Expr\MethodCall
-     */
     private function createNewMethodCallForRemoveCacheFiles(): Node\Expr\MethodCall
     {
         return $this->createMethodCall($this->createStaticCall(

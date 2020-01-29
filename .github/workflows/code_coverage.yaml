@@ -16,7 +16,7 @@ jobs:
                     php-version: 7.3
                     coverage: none
 
-            -   run: composer install --no-progress
+            -   run: composer install --no-progress --prefer-source
 
             -   run: |
                     phpdbg -qrr -d memory_limit=-1 vendor/bin/phpunit --coverage-clover build/logs/clover.xml

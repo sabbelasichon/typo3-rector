@@ -29,13 +29,7 @@ final class ObjectManagerDynamicReturnTypeExtension implements DynamicMethodRetu
     }
 
     /**
-     * @param MethodReflection $methodReflection
-     * @param MethodCall $methodCall
-     * @param Scope $scope
-     *
      * @throws ShouldNotHappenException
-     *
-     * @return Type
      */
     public function getTypeFromMethodCall(
         MethodReflection $methodReflection,

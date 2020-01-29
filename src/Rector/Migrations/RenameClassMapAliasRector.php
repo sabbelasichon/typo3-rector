@@ -56,11 +56,6 @@ final class RenameClassMapAliasRector extends AbstractRector
      */
     private $aliasMap;
 
-    /**
-     * @param ClassNaming $classNaming
-     * @param PhpDocClassRenamer $phpDocClassRenamer
-     * @param array $classAliasMaps
-     */
     public function __construct(
         ClassNaming $classNaming,
         PhpDocClassRenamer $phpDocClassRenamer,
@@ -135,8 +130,6 @@ PHP
 
     /**
      * @param Name|FunctionLike|Property $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -356,12 +349,7 @@ PHP
 
         $classReflection = new ReflectionClass($newName);
 
-        throw new InvalidPhpCodeException(sprintf(
-            'Renaming class "%s" to "%s" would create a duplicated class/interface/trait (already existing in "%s") and cause PHP code to be invalid.',
-            $oldName,
-            $newName,
-            $classReflection->getFileName()
-        ));
+        throw new InvalidPhpCodeException(sprintf('Renaming class "%s" to "%s" would create a duplicated class/interface/trait (already existing in "%s") and cause PHP code to be invalid.', $oldName, $newName, $classReflection->getFileName()));
     }
 
     private function changeNameToFullyQualifiedName(ClassLike $classLike): void

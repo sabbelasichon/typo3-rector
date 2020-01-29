@@ -31,11 +31,6 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
         return [ConstFetch::class];
     }
 
-    /**
-     * @param Node $node
-     *
-     * @return Node|null
-     */
     public function refactor(Node $node): ?Node
     {
         $constantName = $this->getName($node);

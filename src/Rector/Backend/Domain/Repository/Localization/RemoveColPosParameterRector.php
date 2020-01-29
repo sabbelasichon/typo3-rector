@@ -23,8 +23,6 @@ final class RemoveColPosParameterRector extends AbstractRector
 
     /**
      * @param Node|MethodCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

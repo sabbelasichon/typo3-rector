@@ -28,11 +28,7 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
     /**
      * Process Node of matched type.
      *
-     * @param Node $node
-     *
      * @throws MissingTagException
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

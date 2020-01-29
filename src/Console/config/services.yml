@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    Ssch\TYPO3Rector\Console\Command\:
+        resource: '../../Console/Command'
+    Ssch\TYPO3Rector\Console\OutputFormatter\:
+        resource: '../../Console/OutputFormatter'
+
+    Symfony\Component\Console\Application:
+        public: true

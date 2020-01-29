@@ -17,8 +17,6 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
 {
     /**
      * @param Node|Node\Expr\StaticCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -89,9 +87,6 @@ PHP
         );
     }
 
-    /**
-     * @return Node\Expr\FuncCall
-     */
     private function createRequestUriCall(): Node\Expr\FuncCall
     {
         return new Node\Expr\FuncCall(
