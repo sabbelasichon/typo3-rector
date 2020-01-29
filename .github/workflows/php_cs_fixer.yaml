@@ -11,9 +11,9 @@ jobs:
         steps:
             -   uses: actions/checkout@v1
             -   uses: shivammathur/setup-php@v1
-                    with:
-                        php-version: 7.2
-                        coverage: none
+                with:
+                    php-version: 7.2
+                    coverage: none
 
             -   run: composer install --no-progress
 

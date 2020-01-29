@@ -30,6 +30,7 @@
             "email": "breakpoint@schreibersebastian.de"
         }
     ],
+    "bin": ["bin/typo3_rector"],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
@@ -40,6 +41,12 @@
     "scripts": {
         "check-style": "./vendor/bin/php-cs-fixer fix --config=./.php_cs.dist --dry-run",
         "fix-style": "./vendor/bin/php-cs-fixer fix --config=./.php_cs.dist",
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/phpunit",
+        "docs": [
+            "./bin/typo3_rector generate-docs -o typo3-markdown > docs/AllRectorsOverview.md"
+        ]
+    },
+    "scripts-descriptions": {
+        "docs": "Regenerate descriptions of all Rectors to docs/AllRectorsOverview.md file"
     }
 }

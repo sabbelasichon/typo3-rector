@@ -1,5 +1,6 @@
 # All 30 Rectors Overview
 
+
 ### `BackendUtilityEditOnClickRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Backend\Utility\BackendUtilityEditOnClickRector`
@@ -509,3 +510,6 @@ Turns properties with `@validate` to properties with `@TYPO3\CMS\Extbase\Annotat
 -private $someProperty;
 +private $someProperty;
 ```
+
+<br>
+

@@ -5,4 +5,6 @@ services:
 
     Ssch\TYPO3Rector\:
         resource: '../src/'
-        exclude: '../src/{Rector/**/*Rector.php}'
+        exclude:
+            - '../src/{Rector/**/*Rector.php}'
+            - '../src/Console'
