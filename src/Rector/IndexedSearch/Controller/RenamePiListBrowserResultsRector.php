@@ -26,8 +26,6 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
 
     /**
      * @var Node|MethodCall
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -64,7 +62,6 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
     }
 
     /**
-     * @param MethodCall $node
      * @param string|mixed[] $newMethod
      *
      * @return MethodCall|ArrayDimFetch

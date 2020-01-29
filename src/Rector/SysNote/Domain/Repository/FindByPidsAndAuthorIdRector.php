@@ -23,8 +23,6 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
 
     /**
      * @param $node Node|Node\Expr\MethodCall
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

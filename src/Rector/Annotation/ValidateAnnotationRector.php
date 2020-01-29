@@ -24,10 +24,6 @@ final class ValidateAnnotationRector extends AbstractRector
 
     /**
      * Process Node of matched type.
-     *
-     * @param Node $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -90,11 +86,6 @@ CODE_SAMPLE
         );
     }
 
-    /**
-     * @param string $validatorAnnotation
-     *
-     * @return PhpDocTagNode
-     */
     protected function createPropertyAnnotation(string $validatorAnnotation): PhpDocTagNode
     {
         if (false !== strpos($validatorAnnotation, '(')) {
@@ -116,11 +107,6 @@ CODE_SAMPLE
         return new PhpDocTagNode($annotation, $this->createEmptyTagValueNode());
     }
 
-    /**
-     * @param string $validatorAnnotation
-     *
-     * @return PhpDocTagNode
-     */
     private function createMethodAnnotation(string $validatorAnnotation): PhpDocTagNode
     {
         [$param, $validator] = explode(' ', $validatorAnnotation);
@@ -130,9 +116,6 @@ CODE_SAMPLE
         return new PhpDocTagNode($annotation, $this->createEmptyTagValueNode());
     }
 
-    /**
-     * @return GenericTagValueNode
-     */
     private function createEmptyTagValueNode(): GenericTagValueNode
     {
         return new GenericTagValueNode('');

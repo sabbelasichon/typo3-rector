@@ -29,10 +29,6 @@ final class CascadeAnnotationRector extends AbstractRector
 
     /**
      * Process Node of matched type.
-     *
-     * @param Node $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

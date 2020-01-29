@@ -70,8 +70,6 @@ CODE_SAMPLE
     }
 
     /**
-     * @param Node $node
-     *
      * @return Node|null
      */
     private function removeVendorNameIfNeeded(Node $node)

@@ -66,8 +66,6 @@ PHP
 
     /**
      * @param MethodCall|Node $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

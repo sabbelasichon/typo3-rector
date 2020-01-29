@@ -26,7 +26,6 @@ final class GenerateDocsCommand extends Command
     private $dumpRectorsOutputFormatterInterfaces = [];
 
     /**
-     * @param RectorsFinder $rectorsFinder
      * @param DumpRectorsOutputFormatterInterface[] $dumpRectorsOutputFormatterInterfaces
      */
     public function __construct(RectorsFinder $rectorsFinder, array $dumpRectorsOutputFormatterInterfaces)
@@ -52,7 +51,7 @@ final class GenerateDocsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $generalRectors = $this->rectorsFinder->findInDirectory(__DIR__.'/../../Rector/');
+        $generalRectors = $this->rectorsFinder->findInDirectory(__DIR__ . '/../../Rector/');
 
         foreach ($this->dumpRectorsOutputFormatterInterfaces as $outputFormatter) {
             if ($outputFormatter->getName() !== $input->getOption('output-format')) {

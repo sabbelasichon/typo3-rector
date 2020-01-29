@@ -39,8 +39,6 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
      * Process Node of matched type.
      *
      * @param Node|Expression $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

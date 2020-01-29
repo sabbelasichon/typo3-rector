@@ -29,13 +29,7 @@ final class GeneralUtilityDynamicReturnTypeExtension implements DynamicStaticMet
     }
 
     /**
-     * @param MethodReflection $methodReflection
-     * @param StaticCall $methodCall
-     * @param Scope $scope
-     *
      * @throws ShouldNotHappenException
-     *
-     * @return Type
      */
     public function getTypeFromStaticMethodCall(
         MethodReflection $methodReflection,

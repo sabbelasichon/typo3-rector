@@ -43,9 +43,6 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
 
     /**
      * MoveRenderArgumentsToInitializeArgumentsMethod constructor.
-     *
-     * @param ParamTypeResolver $paramTypeResolver
-     * @param StaticTypeMapper $staticTypeMapper
      */
     public function __construct(ParamTypeResolver $paramTypeResolver, StaticTypeMapper $staticTypeMapper)
     {
@@ -66,8 +63,6 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
      *
      * @throws NotImplementedException
      * @throws ShouldNotHappenException
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -146,11 +141,6 @@ CODE_SAMPLE
         ]);
     }
 
-    /**
-     * @param Class_ $node
-     *
-     * @return ClassMethod
-     */
     private function findNodeForInitializeArgumentsMethod(Class_ $node): ClassMethod
     {
         $initializeArgumentsMethodNode = $node->getMethod(self::INITIALIZE_ARGUMENTS_METHOD_NAME);
@@ -178,9 +168,6 @@ CODE_SAMPLE
         return $initializeArgumentsMethodNode;
     }
 
-    /**
-     * @return ClassMethod
-     */
     private function createInitializeArgumentsClassMethod(): ClassMethod
     {
         $methodBuilder = $this->builderFactory->method(self::INITIALIZE_ARGUMENTS_METHOD_NAME);
@@ -191,8 +178,6 @@ CODE_SAMPLE
     }
 
     /**
-     * @param ClassMethod $node
-     *
      * @throws ShouldNotHappenException
      *
      * @return ParamTagValueNode[]
@@ -212,23 +197,13 @@ CODE_SAMPLE
         return $paramTags;
     }
 
-    /**
-     * @param Node $node
-     */
     private function manipulateDocBlocks(Node $node): void
     {
         $this->docBlockManipulator->removeTagFromNode($node, 'param', true);
     }
 
     /**
-     * @param ClassMethod $renderMethod
-     * @param array|null $paramTags
-     * @param array $stmts
-     * @param array $registerArgumentStmts
-     *
      * @throws NotImplementedException
-     *
-     * @return array
      */
     private function createRegisterArgumentsCalls(ClassMethod $renderMethod, ?array $paramTags, array $stmts, array $registerArgumentStmts): array
     {
@@ -253,12 +228,7 @@ CODE_SAMPLE
     }
 
     /**
-     * @param Param $param
-     * @param ParamTagValueNode $paramTag
-     *
      * @throws NotImplementedException
-     *
-     * @return string
      */
     private function inferParamType(Param $param, ParamTagValueNode $paramTag): string
     {

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Console\OutputFormatter;
 
-use Nette\Utils\Strings;
 use Rector\ConsoleDiffer\MarkdownDifferAndFormatter;
 use Rector\Contract\Rector\RectorInterface;
 use Rector\Contract\RectorDefinition\CodeSampleInterface;
 use Rector\RectorDefinition\ConfiguredCodeSample;
 use Rector\Utils\DocumentationGenerator\Contract\OutputFormatter\DumpRectorsOutputFormatterInterface;
-use Rector\Utils\DocumentationGenerator\RectorMetadataResolver;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Yaml\Yaml;
 
@@ -64,7 +62,7 @@ final class Typo3MarkdownDumpRectorsOutputFormatter implements DumpRectorsOutput
         $this->symfonyStyle->writeln(sprintf('- class: `%s`', get_class($rector)));
 
         $rectorDefinition = $rector->getDefinition();
-        if ($rectorDefinition->getDescription() !== '') {
+        if ('' !== $rectorDefinition->getDescription()) {
             $this->symfonyStyle->newLine();
             $this->symfonyStyle->writeln($rectorDefinition->getDescription());
         }
@@ -91,7 +89,7 @@ final class Typo3MarkdownDumpRectorsOutputFormatter implements DumpRectorsOutput
 
     private function printConfiguration(RectorInterface $rector, CodeSampleInterface $codeSample): void
     {
-        if (! $codeSample instanceof ConfiguredCodeSample) {
+        if (!$codeSample instanceof ConfiguredCodeSample) {
             return;
         }
 

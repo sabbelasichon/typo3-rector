@@ -24,8 +24,6 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
 
     /**
      * @param Node|MethodCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -85,13 +83,6 @@ PHP
         ]);
     }
 
-    /**
-     * @param MethodCall $node
-     * @param string $firstMethod
-     * @param string $secondMethod
-     *
-     * @return Node
-     */
     private function splitMethodCall(MethodCall $node, string $firstMethod, string $secondMethod): Node
     {
         $node->name = new Identifier($firstMethod);
