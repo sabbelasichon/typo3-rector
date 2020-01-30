@@ -29,6 +29,7 @@ $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = 'passw
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'] = 'host';
 
 define('PATH_site', getcwd());
+define('TYPO3_MODE', 'cli');
 define('TYPO3_db', 'TYPO3_db');
 define('TYPO3_db_username', 'TYPO3_db_username');
 define('TYPO3_db_password', 'TYPO3_db_password');

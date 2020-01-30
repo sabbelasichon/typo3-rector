@@ -767,6 +767,14 @@ Substitute $GLOBALS['PARSETIME_START'] with round($GLOBALS['TYPO3_MISC']['microt
 
 <br>
 
+### `TcaMigrationRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\Migrations\TcaMigrationRector`
+
+This Rector migrates the TCA configuration for all configurations in separate files in folder TCA\Configuration. This is done on runtime via class \TYPO3\CMS\Core\Migrations\TcaMigration
+
+<br>
+
 ### `TemplateServiceSplitConfArrayRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Core\TypoScript\TemplateServiceSplitConfArrayRector`

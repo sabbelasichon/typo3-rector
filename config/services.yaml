@@ -9,3 +9,7 @@ services:
             - '../src/{Rector/**/*Rector.php}'
             - '../src/Console'
             - '../src/PhpStan'
+            - '../src/Migrations'
+    Ssch\TYPO3Rector\Migrations\Tca\TcaMigration:
+        factory: ['Ssch\TYPO3Rector\Helper\TcaMigrationFactory', 'create']
+

@@ -3,6 +3,7 @@
     "description": "Instant fixes for your TYPO3 code by using Rector.",
     "type": "library",
     "require": {
+        "brick/varexporter": "^0.3.1",
         "rector/rector": "^0.6.0",
         "typo3fluid/fluid": "^2.6"
     },

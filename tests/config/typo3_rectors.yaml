@@ -1,4 +1,5 @@
 imports:
+    - { resource: "../../config/tca_migration.yaml" }
     - { resource: "../../config/typo3-76.yaml" }
     - { resource: "../../config/typo3-80.yaml" }
     - { resource: "../../config/typo3-81.yaml" }
