@@ -44,6 +44,10 @@ composer install
 
 https://github.com/sabbelasichon/typo3-rector/issues You can filter by tags
 
+### Assign the issue to yourself
+
+Assign the issue to yourself so others can see that you are working on it.
+
 ### Create Rector
 
 1. Find a place to store the Rector in `src/Rector`. What is the most logical folder structure?
