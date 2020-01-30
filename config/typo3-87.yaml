@@ -2,6 +2,7 @@ imports:
     - { resource: 'services.yaml' }
 
 services:
+    Ssch\TYPO3Rector\Rector\Core\DataHandling\DataHandlerRmCommaRector: ~
     Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector:
     Rector\Renaming\Rector\Class_\RenameClassRector:
         $oldToNewClasses:
