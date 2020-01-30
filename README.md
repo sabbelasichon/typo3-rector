@@ -4,6 +4,8 @@ Apply automatic fixes on your TYPO3 code.
 
 [![Coverage Status](https://img.shields.io/coveralls/sabbelasichon/typo3-rector/master.svg?style=flat-square)](https://coveralls.io/github/sabbelasichon/typo3-rector?branch=master)
 
+[Rector](https://getrector.org/) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. There are already [444 common recotors](https://github.com/rectorphp/rector/blob/master/docs/AllRectorsOverview.md) available. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases.
+
 ## Installation
 
 Install the library.
@@ -53,8 +55,9 @@ Assign the issue to yourself so others can see that you are working on it.
 1. Find a place to store the Rector in `src/Rector`. What is the most logical folder structure?
 2. Create a stubb class in `stubs` if needed.
 3. Write your rector.
-4. Make sure your new Rector class can is autoloaded: `composer du`
-5. Write a test for your rector.
+4. Make sure your new Rector class is autoloaded: `composer du`
+5. Register your rector in on of the yaml files in the `config` directory
+6. Write a test for your rector.
 
 ### All tests must be green
 Make sure you have a test in place for your Rector
