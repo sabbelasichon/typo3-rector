@@ -33,7 +33,7 @@ final class DataHandlerRmCommaRector extends AbstractRector
         $args = $node->args;
         $firstArgument = array_shift($args);
 
-        return $this->createFunction('rtrim', [$firstArgument, ',']);
+        return $this->createFunction('rtrim', [$firstArgument, $this->createArg(',')]);
     }
 
     /**
@@ -58,7 +58,7 @@ PHP
                 , <<<'PHP'
 $inList = '1,2,3,';
 $dataHandler = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\DataHandler::class);
-$inList = rtrim($inList, ',');
+$inList = rtrim(trim($inList), ',');
 PHP
             ),
         ]);

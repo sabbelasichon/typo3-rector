@@ -20,7 +20,7 @@ final class ClassWithDataHandlerRmCommaMethod
     {
         $inList = '1,2,3,';
         $dataHandler = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\DataHandler::class);
-        $inList = rtrim($inList, ',');
+        $inList = rtrim(trim($inList), ',');
     }
 }
 
