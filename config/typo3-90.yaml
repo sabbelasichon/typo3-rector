@@ -5,6 +5,7 @@ services:
     Ssch\TYPO3Rector\Rector\Core\CheckForExtensionInfoRector:
     Ssch\TYPO3Rector\Rector\Core\Utility\RefactorMethodsFromExtensionManagementUtilityRector:
     Ssch\TYPO3Rector\Rector\SysNote\Domain\Repository\FindByPidsAndAuthorIdRector:
+    Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\UseRenderingContextGetControllerContextRector:
     Rector\Renaming\Rector\Class_\RenameClassRector:
         $oldToNewClasses:
             TYPO3\CMS\Sv\AbstractAuthenticationService: TYPO3\CMS\Core\Authentication\AbstractAuthenticationService
