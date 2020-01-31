@@ -218,7 +218,7 @@ CODE_SAMPLE
             $paramType = $this->inferParamType($param, $paramTag);
 
             // Here we are going to fix something like this string[] or int[]
-            if(substr($paramType, -2) === '[]') {
+            if ('[]' === substr($paramType, -2)) {
                 $paramType = 'array';
             }
 
