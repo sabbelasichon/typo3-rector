@@ -3,6 +3,7 @@ imports:
 
 services:
     Ssch\TYPO3Rector\Rector\Core\DataHandling\DataHandlerRmCommaRector: ~
+    Ssch\TYPO3Rector\Rector\Core\TypoScript\TemplateServiceSplitConfArrayRector:
     Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector:
     Rector\Renaming\Rector\Class_\RenameClassRector:
         $oldToNewClasses:
