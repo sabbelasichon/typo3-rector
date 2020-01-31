@@ -1,4 +1,4 @@
-# All 30 Rectors Overview
+# All 31 Rectors Overview
 
 
 ### `BackendUtilityEditOnClickRector`
@@ -109,6 +109,21 @@ Turns defined constant to static method call of new Environment API.
 ```diff
 -PATH_thisScript;
 +Environment::getCurrentScript();
+```
+
+<br>
+
+### `DataHandlerRmCommaRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\DataHandling\DataHandlerRmCommaRector`
+
+Migrate the method DataHandler::rmComma() to use rtrim()
+
+```diff
+ $inList = '1,2,3,';
+ $dataHandler = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\DataHandler::class);
+-$inList = $dataHandler->rmComma(trim($inList));
++$inList = rtrim(trim($inList), ',');
 ```
 
 <br>
