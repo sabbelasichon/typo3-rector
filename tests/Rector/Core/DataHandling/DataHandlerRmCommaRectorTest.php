@@ -1,4 +1,5 @@
 <?php
+
 namespace Ssch\TYPO3Rector\Tests\Core\DataHandling;
 
 use Iterator;
