@@ -217,6 +217,11 @@ CODE_SAMPLE
 
             $paramType = $this->inferParamType($param, $paramTag);
 
+            // Here we are going to fix something like this string[] or int[]
+            if(substr($paramType, -2) === '[]') {
+                $paramType = 'array';
+            }
+
             if ($param->default instanceof Expr) {
                 $registerArgumentStmts[] = new Expression($this->nodeFactory->createMethodCall('this', 'registerArgument', [$param->var->name, $paramType, $description, $this->createFalse(), $param->default->value]));
             } else {
