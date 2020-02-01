@@ -16,3 +16,4 @@ composer.lock
 /vendor
 /docs/*
 !/docs/.gitkeep
+!/docs/AllRectorsOverview.md
