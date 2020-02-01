@@ -84,9 +84,6 @@ CODE_SAMPLE
         );
     }
 
-    /**
-     * @param Node $node
-     */
     private function addMethodGetControllerConfiguration(Node $node): void
     {
         $methodBuilder = $this->builderFactory->method('getControllerConfiguration');
