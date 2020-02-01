@@ -10,6 +10,7 @@ final class RemoveInitTemplateMethod
         $this->getTypoScriptFrontendController()->initTemplate();
         $typoScriptFrontendController = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
         $typoScriptFrontendController->initTemplate();
+        $GLOBALS['TSFE']->initTemplate();
     }
 
     /**

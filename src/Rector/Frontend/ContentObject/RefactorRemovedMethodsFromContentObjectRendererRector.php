@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\MethodCall;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
+use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 final class RefactorRemovedMethodsFromContentObjectRendererRector extends AbstractRector
@@ -45,10 +46,15 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         'SWFOBJECT',
         'QTOBJECT',
     ];
+    /**
+     * @var Typo3NodeResolver
+     */
+    private $typo3NodeResolver;
 
-    private $globals = [
-        'GLOBALS' => true,
-    ];
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    {
+        $this->typo3NodeResolver = $typo3NodeResolver;
+    }
 
     /**
      * @inheritDoc
@@ -65,7 +71,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
+        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class) && !$this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals($node, Typo3NodeResolver::TypoScriptFrontendController, 'cObj')) {
             return null;
         }
 
