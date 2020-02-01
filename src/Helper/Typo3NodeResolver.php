@@ -19,6 +19,7 @@ final class Typo3NodeResolver
 
     public const TypoScriptFrontendController = 'TSFE';
     public const TimeTracker = 'TT';
+    public const ParsetimeStart = 'PARSETIME_START';
 
     public const TYPO3_LOADED_EXT = 'TYPO3_LOADED_EXT';
 
