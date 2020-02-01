@@ -7,6 +7,8 @@ final class ContentObjectRendererMethods
     public function doSomething(): void
     {
         $this->records = $this->getTypoScriptFrontendController()->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
+        $this->otherRecords = $GLOBALS['TSFE']->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
+        $this->keepRecords = $GLOBALS['TSFES']->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
     }
 
     /**
@@ -29,6 +31,8 @@ final class ContentObjectRendererMethods
     public function doSomething(): void
     {
         $this->records = $this->getTypoScriptFrontendController()->cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
+        $this->otherRecords = $GLOBALS['TSFE']->cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
+        $this->keepRecords = $GLOBALS['TSFES']->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
     }
 
     /**
