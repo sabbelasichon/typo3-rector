@@ -23,3 +23,5 @@ $GLOBALS['TT'] = new TimeTracker();
 $GLOBALS['TYPO3_LOADED_EXT'] = [];
 $GLOBALS['PARSETIME_START'] = time();
 $GLOBALS['TYPO3_MISC']['microtime_start'] = microtime();
+
+define('PATH_site', getcwd());

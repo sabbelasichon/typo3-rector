@@ -28,4 +28,9 @@ class GeneralUtility
     {
         return 'foo';
     }
+
+    public static function mkdir_deep(string $folder)
+    {
+        return 'foo';
+    }
 }
