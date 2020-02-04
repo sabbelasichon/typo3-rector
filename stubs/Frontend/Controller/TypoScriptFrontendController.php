@@ -12,6 +12,16 @@ if (class_exists(TypoScriptFrontendController::class)) {
 
 final class TypoScriptFrontendController
 {
+
+    /**
+     * Doctype to use
+     *
+     * Currently set via PageGenerator
+     *
+     * @var string
+     */
+    public $xhtmlDoctype = '';
+
     /**
      * Page content render object.
      *

@@ -99,7 +99,7 @@ $cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
 PHP
                 ,
                 <<<'PHP'
-cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
+$cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
 PHP
             ),
         ]);
