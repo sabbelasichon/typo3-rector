@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Helper;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Rector\AbstractRector\NameResolverTrait;
 use Rector\Rector\AbstractRector\ValueResolverTrait;
@@ -18,17 +19,17 @@ final class Typo3NodeResolver
 
     public const TypoScriptFrontendController = 'TSFE';
     public const TimeTracker = 'TT';
+    public const ParsetimeStart = 'PARSETIME_START';
 
     public const TYPO3_LOADED_EXT = 'TYPO3_LOADED_EXT';
 
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool
     {
-        return $node instanceof Expression &&
-               $node->expr instanceof MethodCall &&
-               $node->expr->var instanceof ArrayDimFetch &&
-               $this->isName($node->expr, $methodCall) &&
-               $this->isName($node->expr->var->var, 'GLOBALS') &&
-               $this->isValue($node->expr->var->dim, $global);
+        return $node instanceof MethodCall &&
+               $node->var instanceof ArrayDimFetch &&
+               $this->isName($node->name, $methodCall) &&
+               $this->isName($node->var->var, 'GLOBALS') &&
+               $this->isValue($node->var->dim, $global);
     }
 
     public function isAnyMethodCallOnGlobals(Node $node, string $global): bool
@@ -42,8 +43,18 @@ final class Typo3NodeResolver
 
     public function isTypo3Global(Node $node, string $global): bool
     {
-        return $node instanceof  ArrayDimFetch &&
+        return $node instanceof ArrayDimFetch &&
                $this->isName($node->var, 'GLOBALS') &&
                $this->isValue($node->dim, $global);
+    }
+
+    public function isMethodCallOnPropertyOfGlobals(Node $node, string $global, string $property): bool
+    {
+        return $node instanceof MethodCall &&
+               $node->var instanceof PropertyFetch &&
+               $node->var->var instanceof ArrayDimFetch &&
+               $this->isName($node->var->var->var, 'GLOBALS') &&
+               $this->isName($node->var->name, $property) &&
+               $this->isValue($node->var->var->dim, $global);
     }
 }

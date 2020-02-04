@@ -1,4 +1,4 @@
-# All 30 Rectors Overview
+# All 35 Rectors Overview
 
 
 ### `BackendUtilityEditOnClickRector`
@@ -100,6 +100,34 @@ Change the extensions to check for info instead of info_pagetsconfig.
 
 <br>
 
+### `ConfigurationManagerAddControllerConfigurationMethodRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Extbase\ConfigurationManagerAddControllerConfigurationMethodRector`
+
+Add additional method getControllerConfiguration for AbstractConfigurationManager
+
+```diff
+ final class MyExtbaseConfigurationManager extends AbstractConfigurationManager
+ {
+     protected function getSwitchableControllerActions($extensionName, $pluginName)
+     {
+         $switchableControllerActions = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['extbase']['extensions'][$extensionName]['modules'][$pluginName]['controllers'] ?? false;
+         if ( ! is_array($switchableControllerActions)) {
+             $switchableControllerActions = [];
+         }
+
+         return $switchableControllerActions;
+     }
++
++    protected function getControllerConfiguration($extensionName, $pluginName): array
++    {
++        return $this->getSwitchableControllerActions($extensionName, $pluginName);
++    }
+ }
+```
+
+<br>
+
 ### `ConstantToEnvironmentCallRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Core\Environment\ConstantToEnvironmentCallRector`
@@ -109,6 +137,21 @@ Turns defined constant to static method call of new Environment API.
 ```diff
 -PATH_thisScript;
 +Environment::getCurrentScript();
+```
+
+<br>
+
+### `DataHandlerRmCommaRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\DataHandling\DataHandlerRmCommaRector`
+
+Migrate the method DataHandler::rmComma() to use rtrim()
+
+```diff
+ $inList = '1,2,3,';
+ $dataHandler = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\DataHandler::class);
+-$inList = $dataHandler->rmComma(trim($inList));
++$inList = rtrim(trim($inList), ',');
 ```
 
 <br>
@@ -451,6 +494,32 @@ Rename pi_list_browseresults calls to renderPagination
 
 <br>
 
+### `SubstituteConstantParsetimeStartRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\SubstituteConstantParsetimeStartRector`
+
+Substitute $GLOBALS['PARSETIME_START'] with round($GLOBALS['TYPO3_MISC']['microtime_start'] * 1000)
+
+```diff
+-$parseTime = $GLOBALS['PARSETIME_START'];
++$parseTime = round($GLOBALS['TYPO3_MISC']['microtime_start'] * 1000);
+```
+
+<br>
+
+### `TemplateServiceSplitConfArrayRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\TypoScript\TemplateServiceSplitConfArrayRector`
+
+Substitute TemplateService->splitConfArray() with TypoScriptService->explodeConfigurationForOptionSplit()
+
+```diff
+-$splitConfig = GeneralUtility::makeInstance(TemplateService::class)->splitConfArray($conf, $splitCount);
++$splitConfig = GeneralUtility::makeInstance(TypoScriptService::class)->explodeConfigurationForOptionSplit($conf, $splitCount);
+```
+
+<br>
+
 ### `TimeTrackerGlobalsToSingletonRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Core\TimeTracker\TimeTrackerGlobalsToSingletonRector`
@@ -490,6 +559,27 @@ Use PackageManager API instead of $GLOBALS['TYPO3_LOADED_EXT']
 ```diff
 -$extensionList = $GLOBALS['TYPO3_LOADED_EXT'];
 +$extensionList = GeneralUtility::makeInstance(PackageManager::class)->getActivePackages();
+```
+
+<br>
+
+### `UseRenderingContextGetControllerContextRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\UseRenderingContextGetControllerContextRector`
+
+Get controllerContext from renderingContext
+
+```diff
+ class MyViewHelperAccessingControllerContext extends AbstractViewHelper
+ {
+-    protected $controllerContext;
+-
+     public function render()
+     {
+-        $controllerContext = $this->controllerContext;
++        $controllerContext = $this->renderingContext->getControllerContext();
+     }
+ }
 ```
 
 <br>

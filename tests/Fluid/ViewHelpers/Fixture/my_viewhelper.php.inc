@@ -50,7 +50,7 @@ final class MyOldViewHelper extends AbstractViewHelper
         parent::initializeArguments();
         $this->registerArgument('strings', 'array', 'An array of strings', true);
         $this->registerArgument('something', 'mixed', 'Something', true);
-        $this->registerArgument('object', '\TYPO3\CMS\Extbase\Persistence\QueryResultInterface', 'Object', true);
+        $this->registerArgument('object', \TYPO3\CMS\Extbase\Persistence\QueryResultInterface::class, 'Object', true);
         $this->registerArgument('as', 'string', 'The name to access the variable in the template', false, 'items');
         $this->registerArgument('delimiter', 'string', 'The delimiter to explode the strings', false, '#');
     }

@@ -8,7 +8,6 @@ use Rector\ConsoleDiffer\MarkdownDifferAndFormatter;
 use Rector\Contract\Rector\RectorInterface;
 use Rector\Contract\RectorDefinition\CodeSampleInterface;
 use Rector\RectorDefinition\ConfiguredCodeSample;
-use Rector\Utils\DocumentationGenerator\Contract\OutputFormatter\DumpRectorsOutputFormatterInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Yaml\Yaml;
 
@@ -39,9 +38,8 @@ final class Typo3MarkdownDumpRectorsOutputFormatter implements DumpRectorsOutput
 
     /**
      * @param RectorInterface[] $genericRectors
-     * @param RectorInterface[] $packageRectors
      */
-    public function format(array $genericRectors, array $packageRectors): void
+    public function format(array $genericRectors): void
     {
         $this->symfonyStyle->writeln(sprintf('# All %d Rectors Overview', count($genericRectors)));
         $this->symfonyStyle->newLine();

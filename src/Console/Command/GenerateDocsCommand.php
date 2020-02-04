@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Console\Command;
 
 use Rector\Console\Shell;
 use Rector\Testing\Finder\RectorsFinder;
-use Rector\Utils\DocumentationGenerator\Contract\OutputFormatter\DumpRectorsOutputFormatterInterface;
+use Ssch\TYPO3Rector\Console\OutputFormatter\DumpRectorsOutputFormatterInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -58,7 +58,7 @@ final class GenerateDocsCommand extends Command
                 continue;
             }
 
-            $outputFormatter->format($generalRectors, []);
+            $outputFormatter->format($generalRectors);
         }
 
         return Shell::CODE_SUCCESS;

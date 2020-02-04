@@ -2,22 +2,24 @@ imports:
     - { resource: 'services.yaml' }
 
 services:
-  Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethodRector: ~
-  Ssch\TYPO3Rector\Rector\Annotation\InjectAnnotationRector: ~
-  Ssch\TYPO3Rector\Rector\Annotation\CascadeAnnotationRector: ~
-  Ssch\TYPO3Rector\Rector\Annotation\IgnoreValidationAnnotationRector: ~
-  Ssch\TYPO3Rector\Rector\Annotation\LazyAnnotationRector: ~
-  Ssch\TYPO3Rector\Rector\Annotation\TransientAnnotationRector: ~
-  Ssch\TYPO3Rector\Rector\Annotation\ValidateAnnotationRector: ~
-  Ssch\TYPO3Rector\Rector\Core\Environment\ConstantToEnvironmentCallRector: ~
-  Ssch\TYPO3Rector\Rector\Core\Package\UsePackageManagerActivePackagesRector: ~
-  Ssch\TYPO3Rector\Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector: ~
-  Rector\Renaming\Rector\MethodCall\RenameMethodCallRector:
-      $oldToNewMethodsByClass:
-        TYPO3\CMS\Core\Resource\ResourceStorage:
-            dumpFileContents: streamFile
-  Ssch\TYPO3Rector\Rector\Extbase\RemoveFlushCachesRector:
-  Ssch\TYPO3Rector\Rector\Extbase\RemoveInternalAnnotationRector:
-  Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector:
+    Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethodRector: ~
+    Rector\Php55\Rector\String_\StringClassNameToClassConstantRector: ~
+    Ssch\TYPO3Rector\Rector\Annotation\InjectAnnotationRector: ~
+    Ssch\TYPO3Rector\Rector\Annotation\CascadeAnnotationRector: ~
+    Ssch\TYPO3Rector\Rector\Annotation\IgnoreValidationAnnotationRector: ~
+    Ssch\TYPO3Rector\Rector\Annotation\LazyAnnotationRector: ~
+    Ssch\TYPO3Rector\Rector\Annotation\TransientAnnotationRector: ~
+    Ssch\TYPO3Rector\Rector\Annotation\ValidateAnnotationRector: ~
+    Ssch\TYPO3Rector\Rector\Core\Environment\ConstantToEnvironmentCallRector: ~
+    Ssch\TYPO3Rector\Rector\Core\Package\UsePackageManagerActivePackagesRector: ~
+    Ssch\TYPO3Rector\Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector: ~
+    Rector\Renaming\Rector\MethodCall\RenameMethodCallRector:
+        $oldToNewMethodsByClass:
+            TYPO3\CMS\Core\Resource\ResourceStorage:
+                dumpFileContents: streamFile
+    Ssch\TYPO3Rector\Rector\Extbase\RemoveFlushCachesRector:
+    Ssch\TYPO3Rector\Rector\Extbase\RemoveInternalAnnotationRector:
+    Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector:
         $classAliasMaps:
             - '../../../Migrations/Fluid/ClassAliasMap.php'
+    Ssch\TYPO3Rector\Rector\Extbase\ConfigurationManagerAddControllerConfigurationMethodRector: ~
