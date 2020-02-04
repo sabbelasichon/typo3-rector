@@ -26,4 +26,50 @@ final class ContentObjectRenderer
     {
         return GeneralUtility::makeInstance(PageRepository::class)->enableFields($table, $show_hidden ? true : -1, $ignore_array);
     }
+
+    public function getSubpart($content, $marker)
+    {
+    }
+
+    public function substituteSubpart($content, $marker, $subpartContent, $recursive = 1)
+    {
+    }
+
+    public function substituteSubpartArray($content, array $subpartsContent)
+    {
+    }
+
+    public function substituteMarker($content, $marker, $markContent)
+    {
+    }
+
+    public function substituteMarkerArrayCached($content, array $markContentArray = null, array $subpartContentArray = null, array $wrappedSubpartContentArray = null)
+    {
+    }
+
+    public function substituteMarkerArray($content, array $markContentArray, $wrap = '', $uppercase = false, $deleteUnused = false)
+    {
+    }
+
+    public function substituteMarkerInObject(&$tree, array $markContentArray)
+    {
+        GeneralUtility::logDeprecatedFunction();
+        if (is_array($tree)) {
+            foreach ($tree as $key => $value) {
+                $this->templateService->substituteMarkerInObject($tree[$key], $markContentArray);
+            }
+        } else {
+            $tree = $this->templateService->substituteMarkerArray($tree, $markContentArray);
+        }
+        return $tree;
+    }
+
+    public function substituteMarkerAndSubpartArrayRecursive($content, array $markersAndSubparts, $wrap = '', $uppercase = false, $deleteUnused = false)
+    {
+    }
+
+    public function fillInMarkerArray(array $markContentArray, array $row, $fieldList = '', $nl2br = true, $prefix = 'FIELD_', $HSC = false)
+    {
+        return $this->templateService->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC, !empty($GLOBALS['TSFE']->xhtmlDoctype));
+    }
 }
