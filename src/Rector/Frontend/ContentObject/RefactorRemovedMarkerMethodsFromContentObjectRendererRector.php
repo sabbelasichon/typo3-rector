@@ -31,8 +31,6 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
      * Process Node of matched type.
      *
      * @param Node|MethodCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
