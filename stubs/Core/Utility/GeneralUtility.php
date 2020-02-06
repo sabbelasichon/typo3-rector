@@ -33,4 +33,9 @@ class GeneralUtility
     {
         return 'foo';
     }
+
+    public static function explodeUrl2Array($string, $multidim = null): string
+    {
+        return 'foo';
+    }
 }

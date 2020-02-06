@@ -27,27 +27,27 @@ final class ContentObjectRenderer
         return GeneralUtility::makeInstance(PageRepository::class)->enableFields($table, $show_hidden ? true : -1, $ignore_array);
     }
 
-    public function getSubpart($content, $marker)
+    public function getSubpart($content, $marker): void
     {
     }
 
-    public function substituteSubpart($content, $marker, $subpartContent, $recursive = 1)
+    public function substituteSubpart($content, $marker, $subpartContent, $recursive = 1): void
     {
     }
 
-    public function substituteSubpartArray($content, array $subpartsContent)
+    public function substituteSubpartArray($content, array $subpartsContent): void
     {
     }
 
-    public function substituteMarker($content, $marker, $markContent)
+    public function substituteMarker($content, $marker, $markContent): void
     {
     }
 
-    public function substituteMarkerArrayCached($content, array $markContentArray = null, array $subpartContentArray = null, array $wrappedSubpartContentArray = null)
+    public function substituteMarkerArrayCached($content, array $markContentArray = null, array $subpartContentArray = null, array $wrappedSubpartContentArray = null): void
     {
     }
 
-    public function substituteMarkerArray($content, array $markContentArray, $wrap = '', $uppercase = false, $deleteUnused = false)
+    public function substituteMarkerArray($content, array $markContentArray, $wrap = '', $uppercase = false, $deleteUnused = false): void
     {
     }
 
@@ -61,10 +61,11 @@ final class ContentObjectRenderer
         } else {
             $tree = $this->templateService->substituteMarkerArray($tree, $markContentArray);
         }
+
         return $tree;
     }
 
-    public function substituteMarkerAndSubpartArrayRecursive($content, array $markersAndSubparts, $wrap = '', $uppercase = false, $deleteUnused = false)
+    public function substituteMarkerAndSubpartArrayRecursive($content, array $markersAndSubparts, $wrap = '', $uppercase = false, $deleteUnused = false): void
     {
     }
 
