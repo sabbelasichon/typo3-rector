@@ -1,11 +1,11 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Frontend\ContentObject;
+namespace Ssch\TYPO3Rector\Tests\Rector\Core\Utility;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class RefactorRemovedMarkerMethodsFromContentObjectRendererRectorTest extends AbstractRectorWithConfigTestCase
+class RefactorExplodeUrl2ArrayFromGeneralUtilityRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -19,6 +19,6 @@ class RefactorRemovedMarkerMethodsFromContentObjectRendererRectorTest extends Ab
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/refactor_contentobjectrenderer_marker_methods.php.inc'];
+        yield [__DIR__ . '/Fixture/explode_url2_array.php.inc'];
     }
 }

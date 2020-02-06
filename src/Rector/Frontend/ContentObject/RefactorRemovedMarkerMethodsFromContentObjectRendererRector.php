@@ -31,8 +31,6 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
      * Process Node of matched type.
      *
      * @param Node|MethodCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -49,7 +47,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             'substituteMarkerArray',
             'substituteMarkerInObject',
             'substituteMarkerAndSubpartArrayRecursive',
-            'fillInMarkerArray'
+            'fillInMarkerArray',
         ])) {
             return null;
         }
@@ -89,7 +87,6 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
      */
     public function getDefinition(): RectorDefinition
     {
-
         return new RectorDefinition('Refactor removed Marker-related methods from ContentObjectRenderer.', [
             new CodeSample(<<<'PHP'
 // build template

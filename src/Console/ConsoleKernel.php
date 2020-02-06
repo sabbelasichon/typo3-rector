@@ -29,8 +29,8 @@ final class ConsoleKernel extends Kernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        foreach([__DIR__ . '/../../vendor/rector/rector/config/config.yaml', __DIR__ . '/../../../../rector/rector/config/config.yaml'] as $file) {
-            if(file_exists($file)) {
+        foreach ([__DIR__ . '/../../vendor/rector/rector/config/config.yaml', __DIR__ . '/../../../../rector/rector/config/config.yaml'] as $file) {
+            if (file_exists($file)) {
                 $loader->load($file);
             }
         }
