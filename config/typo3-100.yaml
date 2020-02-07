@@ -3,3 +3,6 @@ imports:
 
 services:
     Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyExtensionNameRector: ~
+    #Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector:
+    #    $classAliasMaps:
+    #        - '../../../Migrations/Core/v10/ClassAliasMap.php'
