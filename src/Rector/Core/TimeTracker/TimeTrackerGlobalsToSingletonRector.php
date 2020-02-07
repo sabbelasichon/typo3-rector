@@ -12,6 +12,9 @@ use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-73504-MakeTimeTrackerASingleton.html
+ */
 final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
 {
     /**

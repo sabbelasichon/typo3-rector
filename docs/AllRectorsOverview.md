@@ -1,4 +1,4 @@
-# All 35 Rectors Overview
+# All 38 Rectors Overview
 
 
 ### `BackendUtilityEditOnClickRector`
@@ -268,6 +268,21 @@ Turns method call names to new ones.
 
 <br>
 
+### `RefactorExplodeUrl2ArrayFromGeneralUtilityRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\Utility\RefactorExplodeUrl2ArrayFromGeneralUtilityRector`
+
+Remove second argument of GeneralUtility::explodeUrl2Array if it is false or just use function parse_str if it is true
+
+```diff
+-$variable = GeneralUtility::explodeUrl2Array('https://www.domain.com', true);
+-$variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com', false);
++parse_str('https://www.domain.com', $variable);
++$variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com');
+```
+
+<br>
+
 ### `RefactorMethodsFromExtensionManagementUtilityRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Core\Utility\RefactorMethodsFromExtensionManagementUtilityRector`
@@ -281,6 +296,38 @@ Refactor deprecated methods from ExtensionManagementUtility.
 
 <br>
 
+### `RefactorRemovedMarkerMethodsFromContentObjectRendererRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMarkerMethodsFromContentObjectRendererRector`
+
+Refactor removed Marker-related methods from ContentObjectRenderer.
+
+```diff
+ // build template
+-$template = $this->cObj->getSubpart($this->config['templateFile'], '###TEMPLATE###');
+-$html = $this->cObj->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
+-$html2 = $this->cObj->substituteSubpartArray($html2, []);
+-$content .= $this->cObj->substituteMarker($content, $marker, $markContent);
+-$content .= $this->cObj->substituteMarkerArrayCached($template, $markerArray, $subpartArray, []);
+-$content .= $this->cObj->substituteMarkerArray($content, $markContentArray, $wrap, $uppercase, $deleteUnused);
+-$content .= $this->cObj->substituteMarkerInObject($tree, $markContentArray);
+-$content .= $this->cObj->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
+-$content .= $this->cObj->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC);
++use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++$template = GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->getSubpart($this->config['templateFile'], '###TEMPLATE###');
++$html = GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
++$html2 = GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteSubpartArray($html2, []);
++$content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteMarker($content, $marker, $markContent);
++$content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteMarkerArrayCached($template, $markerArray, $subpartArray, []);
++$content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteMarkerArray($content, $markContentArray, $wrap, $uppercase, $deleteUnused);
++$content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteMarkerInObject($tree, $markContentArray);
++$content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
++$content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC, !empty($GLOBALS['TSFE']->xhtmlDoctype));
+```
+
+<br>
+
 ### `RefactorRemovedMethodsFromContentObjectRendererRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector`
@@ -289,7 +336,7 @@ Refactor removed methods from ContentObjectRenderer.
 
 ```diff
 -$cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
-+cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
++$cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
 ```
 
 <br>
@@ -433,6 +480,19 @@ Use method getBackendUserAuthentication instead of removed property $userAuthent
          }
      }
  }
+```
+
+<br>
+
+### `RemoveSecondArgumentGeneralUtilityMkdirDeepRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\Utility\RemoveSecondArgumentGeneralUtilityMkdirDeepRector`
+
+Remove second argument of GeneralUtility::mkdir_deep()
+
+```diff
+-GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/', 'myfolder');
++GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/' . 'myfolder');
 ```
 
 <br>

@@ -11,6 +11,9 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Extbase\Mvc\Cli\ConsoleOutput;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80053-ExtbaseCLIConsoleOutputDifferentMethodSignatureForInfiniteAttempts.html
+ */
 final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
 {
     /**
