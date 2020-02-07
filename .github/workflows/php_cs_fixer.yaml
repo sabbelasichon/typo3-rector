@@ -1,15 +1,15 @@
 name: Format (PHP)
 
 on:
-    pull_request:
-        paths:
-            - '**.php'
+    push:
+        branches:
+            - "master"
 
 jobs:
     php-cs-fixer:
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v1
+            -   uses: actions/checkout@v2.0.0
             -   uses: shivammathur/setup-php@v1
                 with:
                     php-version: 7.2
@@ -20,9 +20,9 @@ jobs:
             -   name: Run php-cs-fixer
                 run: ./vendor/bin/php-cs-fixer fix --config=./.php_cs.dist
 
-            -   uses: stefanzweifel/git-auto-commit-action@v2.1.0
+            -   uses: stefanzweifel/git-auto-commit-action@v2.5.0
                 with:
                     commit_message: Apply php-cs-fixer changes
-                    branch: ${{ github.head_ref }}
+                    branch: "master"
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
