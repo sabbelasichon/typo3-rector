@@ -10,6 +10,9 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-85980-InternalAnnotationInExtbaseCommands.html
+ */
 final class RemoveInternalAnnotationRector extends AbstractRector
 {
     /**

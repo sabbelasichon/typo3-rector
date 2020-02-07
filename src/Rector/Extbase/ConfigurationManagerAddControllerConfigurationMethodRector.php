@@ -15,6 +15,9 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Extbase\Configuration\AbstractConfigurationManager;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-88496-MethodGetSwitchableControllerActionsHasBeenRemoved.html
+ */
 final class ConfigurationManagerAddControllerConfigurationMethodRector extends AbstractRector
 {
     /**

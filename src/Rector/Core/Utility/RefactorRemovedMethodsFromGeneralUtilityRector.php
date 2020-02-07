@@ -13,6 +13,9 @@ use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-72342-RemovedDeprecatedCodeFromGeneralUtility.html
+ */
 final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRector
 {
     /**

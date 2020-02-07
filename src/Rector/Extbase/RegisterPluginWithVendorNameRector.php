@@ -10,6 +10,9 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-88995-CallingRegisterPluginWithVendorName.html
+ */
 final class RegisterPluginWithVendorNameRector extends AbstractRector
 {
     /**

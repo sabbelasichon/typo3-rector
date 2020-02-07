@@ -14,6 +14,9 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\IndexedSearch\Controller\SearchFormController;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.6.x/Breaking-72931-SearchFormControllerpi_list_browseresultsHasBeenRenamed.html
+ */
 final class RenamePiListBrowserResultsRector extends AbstractRector
 {
     /**

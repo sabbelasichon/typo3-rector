@@ -16,6 +16,9 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82893-RemoveGlobalVariablePARSETIME_START.html
+ */
 final class SubstituteConstantParsetimeStartRector extends AbstractRector
 {
     /**

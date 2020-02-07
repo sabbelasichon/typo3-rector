@@ -29,6 +29,9 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-81213-RenderMethodArgumentOnViewHelpersDeprecated.html
+ */
 final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends AbstractRector
 {
     /**
@@ -41,9 +44,6 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
      */
     private $paramTypeResolver;
 
-    /**
-     * MoveRenderArgumentsToInitializeArgumentsMethod constructor.
-     */
     public function __construct(ParamTypeResolver $paramTypeResolver, StaticTypeMapper $staticTypeMapper)
     {
         $this->paramTypeResolver = $paramTypeResolver;
@@ -61,6 +61,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
     /**
      * @param Node|Class_ $node
      *
+     * @return Node|null
      * @throws NotImplementedException
      * @throws ShouldNotHappenException
      */

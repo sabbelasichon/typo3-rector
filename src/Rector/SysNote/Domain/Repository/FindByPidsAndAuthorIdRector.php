@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\SysNote\Domain\Repository;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\SysNote\Domain\Repository\SysNoteRepository;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82506-RemoveBackendUserRepositoryInjectionInNoteController.html
+ */
 final class FindByPidsAndAuthorIdRector extends AbstractRector
 {
     /**
@@ -18,11 +22,11 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
 
     /**
-     * @param $node Node|Node\Expr\MethodCall
+     * @param $node Node|MethodCall
      */
     public function refactor(Node $node): ?Node
     {
