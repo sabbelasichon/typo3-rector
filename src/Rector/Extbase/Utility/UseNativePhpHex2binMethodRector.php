@@ -22,9 +22,7 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector
     }
 
     /**
-     * @return Node|null
-     *
-     * @var Node|StaticCall $node
+     * @var Node|StaticCall
      */
     public function refactor(Node $node): ?Node
     {

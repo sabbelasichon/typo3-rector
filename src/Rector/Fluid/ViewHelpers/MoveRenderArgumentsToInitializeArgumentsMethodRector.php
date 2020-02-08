@@ -63,8 +63,6 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
      *
      * @throws NotImplementedException
      * @throws ShouldNotHappenException
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

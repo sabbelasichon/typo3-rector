@@ -20,8 +20,6 @@ final class DataHandlerRmCommaRector extends AbstractRector
 {
     /**
      * @param Node|StaticCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
