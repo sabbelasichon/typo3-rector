@@ -12,6 +12,7 @@ use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Service\EnvironmentService;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.2/Feature-84153-IntroduceAGenericEnvironmentClass.html
@@ -28,11 +29,13 @@ final class RenameMethodCallToEnvironmentMethodCallRector extends AbstractRector
                 <<<'PHP'
 Bootstrap::usesComposerClassLoading();
 GeneralUtility::getApplicationContext();
+EnvironmentService::isEnvironmentInCliMode();
 PHP
                 ,
                 <<<'PHP'
 Environment::getContext();
 Environment::isComposerMode();
+Environment::isCli();
 PHP
             ),
         ]);
@@ -61,6 +64,10 @@ PHP
 
         if (GeneralUtility::class === $className && 'getApplicationContext' === $methodName) {
             return $this->createStaticCall(Environment::class, 'getContext');
+        }
+
+        if (EnvironmentService::class === $className && 'isEnvironmentInCliMode' === $methodName) {
+            return $this->createStaticCall(Environment::class, 'isCli');
         }
 
         return null;

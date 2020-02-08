@@ -2,6 +2,7 @@
 
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Service\EnvironmentService;
 
 final class ClassWithALotOfEnvironmentVariables
 {
@@ -19,6 +20,9 @@ final class ClassWithALotOfEnvironmentVariables
 
         if (GeneralUtility::getApplicationContext()) {
         }
+
+        if (EnvironmentService::isEnvironmentInCliMode()) {
+        }
     }
 }
 
@@ -28,6 +32,7 @@ final class ClassWithALotOfEnvironmentVariables
 
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Service\EnvironmentService;
 
 final class ClassWithALotOfEnvironmentVariables
 {
@@ -44,6 +49,9 @@ final class ClassWithALotOfEnvironmentVariables
         }
 
         if (\TYPO3\CMS\Core\Core\Environment::getContext()) {
+        }
+
+        if (\TYPO3\CMS\Core\Core\Environment::isCli()) {
         }
     }
 }
