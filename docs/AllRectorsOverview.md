@@ -1,4 +1,4 @@
-# All 38 Rectors Overview
+# All 39 Rectors Overview
 
 
 ### `BackendUtilityEditOnClickRector`
@@ -606,6 +606,19 @@ Turns properties with `@transient` to properties with `@TYPO3\CMS\Extbase\Annota
   */
 -private $someProperty;
 +private $someProperty;
+```
+
+<br>
+
+### `UseNativePhpHex2binMethodRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Extbase\Utility\UseNativePhpHex2binMethodRector`
+
+Turns \TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php hex2bin
+
+```diff
+-\TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin("6578616d706c65206865782064617461");
++hex2bin("6578616d706c65206865782064617461");
 ```
 
 <br>
