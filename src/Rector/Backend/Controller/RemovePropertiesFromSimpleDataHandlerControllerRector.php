@@ -26,8 +26,6 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
 
     /**
      * @param Node|PropertyFetch $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -92,8 +90,6 @@ PHP
     }
 
     /**
-     * @param Node $node
-     *
      * @return |null
      */
     private function removePropertyFetchNode(Node $node)
