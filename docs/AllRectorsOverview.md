@@ -1,4 +1,4 @@
-# All 39 Rectors Overview
+# All 40 Rectors Overview
 
 
 ### `BackendUtilityEditOnClickRector`
@@ -439,6 +439,26 @@ Remove @internal annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Contro
 
 <br>
 
+### `RemovePropertiesFromSimpleDataHandlerControllerRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Backend\Controller\RemovePropertiesFromSimpleDataHandlerControllerRector`
+
+Remove assignments or accessing of properties prErr and uPT from class SimpleDataHandlerController
+
+```diff
+ final class MySimpleDataHandlerController extends SimpleDataHandlerController
+ {
+     public function myMethod()
+     {
+-        $pErr = $this->prErr;
+-        $this->prErr = true;
+-        $this->uPT = true;
+     }
+ }
+```
+
+<br>
+
 ### `RemovePropertyExtensionNameRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyExtensionNameRector`
@@ -535,8 +555,10 @@ Turns method call names to new ones from new Environment API.
 ```diff
 -Bootstrap::usesComposerClassLoading();
 -GeneralUtility::getApplicationContext();
+-EnvironmentService::isEnvironmentInCliMode();
 +Environment::getContext();
 +Environment::isComposerMode();
++Environment::isCli();
 ```
 
 <br>
