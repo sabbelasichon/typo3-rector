@@ -13,3 +13,9 @@ services:
                 printContent: mainAction
             TYPO3\CMS\Recordlist\Controller\ElementBrowserFramesetController:
                 printContent: mainAction
+            TYPO3\CMS\Rtehtmlarea\Controller\UserElementsController:
+                main: main_user
+                printContent: mainAction
+            TYPO3\CMS\Rtehtmlarea\Controller\ParseHtmlController:
+                main: main_parse_html
+                printContent: mainAction
