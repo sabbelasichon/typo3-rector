@@ -1,4 +1,4 @@
-# All 40 Rectors Overview
+# All 41 Rectors Overview
 
 
 ### `BackendUtilityEditOnClickRector`
@@ -89,11 +89,35 @@ Change the extensions to check for info instead of info_pagetsconfig.
 ```diff
 -if(ExtensionManagementUtility::isLoaded('info_pagetsconfig')) {
 
++if(ExtensionManagementUtility::isLoaded('info')) {
++
  }
 
  $packageManager = GeneralUtility::makeInstance(PackageManager::class);
 -if($packageManager->isActive('info_pagetsconfig')) {
 +if($packageManager->isActive('info')) {
+
+ }
+```
+
+<br>
+
+### `CheckForExtensionVersionRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\CheckForExtensionVersionRector`
+
+Change the extensions to check for workspaces instead of version.
+
+```diff
+-if(ExtensionManagementUtility::isLoaded('version')) {
+
++if(ExtensionManagementUtility::isLoaded('workspaces')) {
++
+ }
+
+ $packageManager = GeneralUtility::makeInstance(PackageManager::class);
+-if($packageManager->isActive('version')) {
++if($packageManager->isActive('workspaces')) {
 
  }
 ```
