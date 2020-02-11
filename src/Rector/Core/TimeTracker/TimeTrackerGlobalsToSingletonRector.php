@@ -38,8 +38,6 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
 
     /**
      * @param Expression $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

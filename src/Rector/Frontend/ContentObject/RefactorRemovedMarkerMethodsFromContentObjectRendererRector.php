@@ -32,8 +32,6 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
 
     /**
      * @param MethodCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

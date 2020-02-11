@@ -28,8 +28,6 @@ final class CheckForExtensionVersionRector extends AbstractRector
 
     /**
      * @param MethodCall|StaticCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -85,8 +83,6 @@ PHP
 
     /**
      * @param MethodCall|StaticCall $node
-     *
-     * @return bool
      */
     private function isExtensionManagementUtilityIsLoaded(Node $node): bool
     {
@@ -95,8 +91,6 @@ PHP
 
     /**
      * @param MethodCall|StaticCall $node
-     *
-     * @return bool
      */
     private function isPackageManagerIsActivePackage(Node $node): bool
     {

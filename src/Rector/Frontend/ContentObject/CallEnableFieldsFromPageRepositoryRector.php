@@ -26,8 +26,6 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
 
     /**
      * @param MethodCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

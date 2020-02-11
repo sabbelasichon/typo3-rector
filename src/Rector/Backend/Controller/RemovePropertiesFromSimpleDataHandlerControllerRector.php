@@ -72,8 +72,6 @@ PHP
     }
 
     /**
-     * @param Assign $node
-     *
      * @return null
      */
     private function removeVariableNode(Assign $node)
@@ -98,8 +96,6 @@ PHP
     }
 
     /**
-     * @param Assign $node
-     *
      * @return null
      */
     private function removePropertyFetchNode(Assign $node)

@@ -26,8 +26,6 @@ final class RemovePropertyExtensionNameRector extends AbstractRector
 
     /**
      * @param PropertyFetch $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

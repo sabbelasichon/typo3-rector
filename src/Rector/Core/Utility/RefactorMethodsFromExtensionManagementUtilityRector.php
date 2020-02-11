@@ -30,8 +30,6 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
 
     /**
      * @param StaticCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

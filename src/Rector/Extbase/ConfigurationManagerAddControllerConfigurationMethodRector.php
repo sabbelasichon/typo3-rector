@@ -30,8 +30,6 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
 
     /**
      * @param Class_ $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

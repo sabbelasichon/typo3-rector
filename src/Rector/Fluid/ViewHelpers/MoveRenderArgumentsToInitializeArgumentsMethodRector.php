@@ -61,7 +61,6 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
     /**
      * @param Class_ $node
      *
-     * @return Node|null
      * @throws NotImplementedException
      * @throws ShouldNotHappenException
      */

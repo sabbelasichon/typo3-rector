@@ -12,7 +12,6 @@ use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 /**
- * @author Something
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-71521-PropertyUserAuthenticationRemovedFromCommandController.html
  */
 final class RemovePropertyUserAuthenticationRector extends AbstractRector
@@ -27,8 +26,6 @@ final class RemovePropertyUserAuthenticationRector extends AbstractRector
 
     /**
      * @param PropertyFetch $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

@@ -26,8 +26,6 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
 
     /**
      * @param Assign $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

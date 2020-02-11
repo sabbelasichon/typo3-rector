@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PhpStan\Rules;
@@ -16,7 +17,7 @@ use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 final class AddSeeDocBlockForRectorClass implements Rule
 {
     private static $allowedClassesWithNonSeeDocBlock = [
-        RenameClassMapAliasRector::class
+        RenameClassMapAliasRector::class,
     ];
 
     /**
@@ -44,15 +45,13 @@ final class AddSeeDocBlockForRectorClass implements Rule
 
     /**
      * @param Class_ $node
-     * @param Scope $scope
      *
-     * @return array
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
     {
         $className = $node->name;
-        if ($className === null) {
+        if (null === $className) {
             return [];
         }
 
@@ -66,7 +65,7 @@ final class AddSeeDocBlockForRectorClass implements Rule
 
         $docComment = $node->getDocComment();
 
-        if ($docComment === null) {
+        if (null === $docComment) {
             return [sprintf('You must provide the @see docBlock for Rector %s', $className)];
         }
 
@@ -79,7 +78,7 @@ final class AddSeeDocBlockForRectorClass implements Rule
         );
 
         foreach ($resolvedPhpDoc->getPhpDocNode()->getTags() as $tagNode) {
-            if($tagNode->name === '@see') {
+            if ('@see' === $tagNode->name) {
                 return [];
             }
         }

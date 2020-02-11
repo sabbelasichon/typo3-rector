@@ -26,8 +26,6 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
 
     /**
      * @param StaticCall $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -75,8 +73,6 @@ CODE_SAMPLE
 
     /**
      * @param StaticCall $node
-     *
-     * @return Node|null
      */
     private function removeVendorNameIfNeeded(Node $node): ?Node
     {
