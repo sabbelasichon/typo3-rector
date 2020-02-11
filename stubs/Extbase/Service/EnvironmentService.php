@@ -10,7 +10,7 @@ if (class_exists(EnvironmentService::class)) {
 
 class EnvironmentService
 {
-    public function isEnvironmentInCliMode() : string
+    public function isEnvironmentInCliMode(): string
     {
         return 'foo';
     }

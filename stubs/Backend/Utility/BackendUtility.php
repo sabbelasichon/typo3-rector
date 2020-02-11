@@ -14,4 +14,9 @@ final class BackendUtility
     {
         return 'foo';
     }
+
+    public static function getRecordRaw($table, $where = '', $fields = '*')
+    {
+        return [];
+    }
 }

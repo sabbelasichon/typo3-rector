@@ -1,4 +1,4 @@
-# All 39 Rectors Overview
+# All 42 Rectors Overview
 
 
 ### `BackendUtilityEditOnClickRector`
@@ -89,11 +89,35 @@ Change the extensions to check for info instead of info_pagetsconfig.
 ```diff
 -if(ExtensionManagementUtility::isLoaded('info_pagetsconfig')) {
 
++if(ExtensionManagementUtility::isLoaded('info')) {
++
  }
 
  $packageManager = GeneralUtility::makeInstance(PackageManager::class);
 -if($packageManager->isActive('info_pagetsconfig')) {
 +if($packageManager->isActive('info')) {
+
+ }
+```
+
+<br>
+
+### `CheckForExtensionVersionRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\CheckForExtensionVersionRector`
+
+Change the extensions to check for workspaces instead of version.
+
+```diff
+-if(ExtensionManagementUtility::isLoaded('version')) {
+
++if(ExtensionManagementUtility::isLoaded('workspaces')) {
++
+ }
+
+ $packageManager = GeneralUtility::makeInstance(PackageManager::class);
+-if($packageManager->isActive('version')) {
++if($packageManager->isActive('workspaces')) {
 
  }
 ```
@@ -250,6 +274,25 @@ Move render method arguments to initializeArguments method
 +        $secondParameter = $this->arguments['secondParameter'];
 +    }
  }
+```
+
+<br>
+
+### `RefactorDbConstantsRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\RefactorDbConstantsRector`
+
+Changes TYPO3_db constants to $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default'].
+
+```diff
+-$database = TYPO3_db;
+-$username = TYPO3_db_username;
+-$password = TYPO3_db_password;
+-$host = TYPO3_db_host;
++$database = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'];
++$username = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['user'];
++$password = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'];
++$host = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'];
 ```
 
 <br>
@@ -439,6 +482,26 @@ Remove @internal annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Contro
 
 <br>
 
+### `RemovePropertiesFromSimpleDataHandlerControllerRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Backend\Controller\RemovePropertiesFromSimpleDataHandlerControllerRector`
+
+Remove assignments or accessing of properties prErr and uPT from class SimpleDataHandlerController
+
+```diff
+ final class MySimpleDataHandlerController extends SimpleDataHandlerController
+ {
+     public function myMethod()
+     {
+-        $pErr = $this->prErr;
+-        $this->prErr = true;
+-        $this->uPT = true;
+     }
+ }
+```
+
+<br>
+
 ### `RemovePropertyExtensionNameRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyExtensionNameRector`
@@ -535,8 +598,10 @@ Turns method call names to new ones from new Environment API.
 ```diff
 -Bootstrap::usesComposerClassLoading();
 -GeneralUtility::getApplicationContext();
+-EnvironmentService::isEnvironmentInCliMode();
 +Environment::getContext();
 +Environment::isComposerMode();
++Environment::isCli();
 ```
 
 <br>

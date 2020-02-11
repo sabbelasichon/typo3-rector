@@ -23,5 +23,13 @@ $GLOBALS['TT'] = new TimeTracker();
 $GLOBALS['TYPO3_LOADED_EXT'] = [];
 $GLOBALS['PARSETIME_START'] = time();
 $GLOBALS['TYPO3_MISC']['microtime_start'] = microtime();
+$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] = 'dbname';
+$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['user'] = 'user';
+$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = 'password';
+$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'] = 'host';
 
 define('PATH_site', getcwd());
+define('TYPO3_db', 'TYPO3_db');
+define('TYPO3_db_username', 'TYPO3_db_username');
+define('TYPO3_db_password', 'TYPO3_db_password');
+define('TYPO3_db_host', 'TYPO3_db_host');

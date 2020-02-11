@@ -14,9 +14,9 @@ use TYPO3\CMS\Core\Package\PackageManager;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82505-MergedEXTinfo_pagetsconfigToEXTinfo.html
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82896-SystemExtensionVersionMigratedIntoWorkspaces.html
  */
-final class CheckForExtensionInfoRector extends AbstractRector
+final class CheckForExtensionVersionRector extends AbstractRector
 {
     /**
      * @inheritDoc
@@ -39,11 +39,11 @@ final class CheckForExtensionInfoRector extends AbstractRector
         $firstArgument = array_shift($arguments);
         $firstArgumentValue = $this->getValue($firstArgument->value);
 
-        if ('info_pagetsconfig' !== $firstArgumentValue) {
+        if ('version' !== $firstArgumentValue) {
             return null;
         }
 
-        $firstArgument->value = new Node\Scalar\String_('info');
+        $firstArgument->value = new Node\Scalar\String_('workspaces');
 
         return $node;
     }
@@ -53,27 +53,27 @@ final class CheckForExtensionInfoRector extends AbstractRector
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Change the extensions to check for info instead of info_pagetsconfig.', [
+        return new RectorDefinition('Change the extensions to check for workspaces instead of version.', [
             new CodeSample(
                 <<<'PHP'
-if(ExtensionManagementUtility::isLoaded('info_pagetsconfig')) {
+if(ExtensionManagementUtility::isLoaded('version')) {
 
 }
 
 $packageManager = GeneralUtility::makeInstance(PackageManager::class);
-if($packageManager->isActive('info_pagetsconfig')) {
+if($packageManager->isActive('version')) {
 
 }
 PHP
                 ,
                 <<<'PHP'
 
-if(ExtensionManagementUtility::isLoaded('info')) {
+if(ExtensionManagementUtility::isLoaded('workspaces')) {
 
 }
 
 $packageManager = GeneralUtility::makeInstance(PackageManager::class);
-if($packageManager->isActive('info')) {
+if($packageManager->isActive('workspaces')) {
 
 }
 PHP

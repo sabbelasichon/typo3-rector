@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Core\TimeTracker;
+namespace Ssch\TYPO3Rector\Tests\Rector\Core\TimeTracker;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;

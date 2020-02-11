@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Core\TypoScript;
+namespace Ssch\TYPO3Rector\Tests\Rector\Core\TypoScript;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;

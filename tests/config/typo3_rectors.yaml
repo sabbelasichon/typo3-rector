@@ -1,6 +1,7 @@
 imports:
     - { resource: "../../config/typo3-76.yaml" }
     - { resource: "../../config/typo3-80.yaml" }
+    - { resource: "../../config/typo3-81.yaml" }
     - { resource: "../../config/typo3-86.yaml" }
     - { resource: "../../config/typo3-87.yaml" }
     - { resource: "../../config/typo3-90.yaml" }
