@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Core\TimeTracker;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt\Expression;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -32,11 +33,11 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Stmt\Expression::class];
+        return [Expression::class];
     }
 
     /**
-     * @inheritDoc
+     * @param Expression $node
      */
     public function refactor(Node $node): ?Node
     {

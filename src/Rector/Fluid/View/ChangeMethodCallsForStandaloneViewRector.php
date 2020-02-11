@@ -68,7 +68,7 @@ PHP
     }
 
     /**
-     * @param MethodCall|Node $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {

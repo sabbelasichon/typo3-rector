@@ -30,9 +30,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
     }
 
     /**
-     * Process Node of matched type.
-     *
-     * @param Node|StaticCall $node
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {

@@ -27,7 +27,7 @@ final class CheckForExtensionInfoRector extends AbstractRector
     }
 
     /**
-     * @inheritDoc
+     * @param MethodCall|StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -81,11 +81,17 @@ PHP
         ]);
     }
 
+    /**
+     * @param StaticCall|MethodCall $node
+     */
     private function isExtensionManagementUtilityIsLoaded(Node $node): bool
     {
         return $node instanceof StaticCall && $this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionManagementUtility::class) && $this->isName($node->name, 'isLoaded');
     }
 
+    /**
+     * @param StaticCall|MethodCall $node
+     */
     private function isPackageManagerIsActivePackage(Node $node): bool
     {
         return $this->isMethodStaticCallOrClassMethodObjectType($node, PackageManager::class) && $this->isName($node->name, 'isPackageActive');

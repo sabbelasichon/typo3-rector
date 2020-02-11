@@ -27,7 +27,7 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
     }
 
     /**
-     * @inheritDoc
+     * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {

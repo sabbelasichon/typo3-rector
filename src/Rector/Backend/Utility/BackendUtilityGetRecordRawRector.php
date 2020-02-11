@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\Backend\Utility;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Nop;
@@ -17,10 +18,13 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80317-DeprecateBackendUtilityGetRecordRaw.html
+ */
 final class BackendUtilityGetRecordRawRector extends AbstractRector
 {
     /**
-     * @param Node|Node\Expr\StaticCall $node
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -52,7 +56,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\StaticCall::class];
+        return [StaticCall::class];
     }
 
     /**
@@ -94,7 +98,7 @@ PHP
         return new Assign(new Variable('queryBuilder'), $queryBuilder);
     }
 
-    private function fetchQueryBuilderResults($table, $where = '', $fields = '*'): ?Node
+    private function fetchQueryBuilderResults($table, $where = '', $fields = '*'): Node
     {
         $queryBuilder = new Variable('queryBuilder');
 

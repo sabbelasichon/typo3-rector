@@ -50,7 +50,7 @@ PHP
     }
 
     /**
-     * @param Node|StaticCall $node
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {

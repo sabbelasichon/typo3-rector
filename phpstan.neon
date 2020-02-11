@@ -1,4 +1,14 @@
+parameters:
+    bootstrap: tests/bootstrap.php
+    ignoreErrors:
+        - '#Access to an undefined property#'
+        - '#Unreachable statement - code above always terminates#'
+
 services:
+    -
+        class: Ssch\TYPO3Rector\PhpStan\Rules\AddSeeDocBlockForRectorClass
+        tags:
+            - phpstan.rules.rule
     -
         class: Ssch\TYPO3Rector\PhpStan\Type\GeneralUtilityDynamicReturnTypeExtension
         tags:

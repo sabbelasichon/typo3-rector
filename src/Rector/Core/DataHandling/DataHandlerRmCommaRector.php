@@ -7,7 +7,6 @@ namespace Ssch\TYPO3Rector\Rector\Core\DataHandling;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -19,7 +18,7 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 final class DataHandlerRmCommaRector extends AbstractRector
 {
     /**
-     * @param Node|StaticCall $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Extbase;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\PropertyFetch;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -20,11 +21,11 @@ final class RemovePropertyUserAuthenticationRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\PropertyFetch::class];
+        return [PropertyFetch::class];
     }
 
     /**
-     * @inheritDoc
+     * @param PropertyFetch $node
      */
     public function refactor(Node $node): ?Node
     {

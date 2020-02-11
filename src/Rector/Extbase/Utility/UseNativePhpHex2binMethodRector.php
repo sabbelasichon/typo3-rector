@@ -11,6 +11,9 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-87613-DeprecateTYPO3CMSExtbaseUtilityTypeHandlingUtilityhex2bin.html
+ */
 final class UseNativePhpHex2binMethodRector extends AbstractRector
 {
     /**
@@ -22,7 +25,7 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector
     }
 
     /**
-     * @var Node|StaticCall
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {

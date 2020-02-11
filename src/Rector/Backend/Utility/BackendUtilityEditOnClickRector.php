@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\Backend\Utility;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\StaticCall;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -19,7 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class BackendUtilityEditOnClickRector extends AbstractRector
 {
     /**
-     * @param Node|Node\Expr\StaticCall $node
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -46,7 +47,7 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\StaticCall::class];
+        return [StaticCall::class];
     }
 
     /**

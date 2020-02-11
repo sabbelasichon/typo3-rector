@@ -74,5 +74,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
                 return $this->createStaticCall(Environment::class, 'isCli');
                 break;
         }
+
+        return null;
     }
 }

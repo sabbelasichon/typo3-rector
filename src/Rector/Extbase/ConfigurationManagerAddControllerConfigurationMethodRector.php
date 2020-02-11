@@ -29,7 +29,7 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
     }
 
     /**
-     * @var Node|Class_
+     * @param Class_ $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -87,7 +87,7 @@ CODE_SAMPLE
         );
     }
 
-    private function addMethodGetControllerConfiguration(Node $node): void
+    private function addMethodGetControllerConfiguration(Class_ $node): void
     {
         $methodBuilder = $this->builderFactory->method('getControllerConfiguration');
         $methodBuilder->makeProtected();
