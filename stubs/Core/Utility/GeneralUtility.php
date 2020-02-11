@@ -38,4 +38,24 @@ class GeneralUtility
     {
         return 'foo';
     }
+
+    public static function logDeprecatedFunction(): string
+    {
+        return 'foo';
+    }
+
+    public static function logDeprecatedViewHelperAttribute(): string
+    {
+        return 'foo';
+    }
+
+    public static function deprecationLog(string $message): string
+    {
+        return $message ?? '';
+    }
+
+    public static function getDeprecationLogFileName(): string
+    {
+        return 'foo';
+    }
 }

@@ -12,3 +12,4 @@ services:
             TYPO3\CMS\Sv\AuthenticationService: TYPO3\CMS\Core\Authentication\AuthenticationService
     Ssch\TYPO3Rector\Rector\Core\SubstituteConstantParsetimeStartRector:
     Ssch\TYPO3Rector\Rector\Core\Utility\RemoveSecondArgumentGeneralUtilityMkdirDeepRector:
+    Ssch\TYPO3Rector\Rector\Core\Utility\RefactorDeprecationLogRector:
