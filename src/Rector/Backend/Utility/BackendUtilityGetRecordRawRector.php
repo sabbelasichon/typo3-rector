@@ -43,40 +43,8 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
         $this->addNodeBeforeNode($queryBuilderRemoveRestrictions, $node);
         $this->addNodeBeforeNode(new Nop(), $node);
         $node = $this->fetchQueryBuilderResults($firstArgument, $secondArgument, $thirdArgument);
+
         return $node;
-    }
-
-    private function createQueryBuilderCall(Node\Arg $firstArgument): Assign
-    {
-        $queryBuilder = $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstant(ConnectionPool::class, 'class'),
-        ]), 'getQueryBuilderForTable', [$this->createArg($firstArgument->value)]);
-
-        return new Assign(new Variable('queryBuilder'), $queryBuilder);
-    }
-
-    private function fetchQueryBuilderResults($table, $where = '', $fields = '*'): ?Node
-    {
-        $queryBuilder = new Variable('queryBuilder');
-        return $this->createMethodCall(
-            $this->createMethodCall(
-                $this->createMethodCall(
-                    $this->createMethodCall(
-                        $this->createMethodCall(
-                            $queryBuilder,
-                            'select',
-                            [$this->createStaticCall(GeneralUtility::class, 'trimExplode', [new String_(','), $this->createArg($fields->value), $this->createTrue()])]
-                        ),
-                        'from',
-                        [$this->createArg($table->value)]
-                    ),
-                    'where',
-                    [$this->createStaticCall(QueryHelper::class, 'stripLogicalOperatorPrefix', [$this->createArg($where->value)])]
-                ),
-                'execute'
-            ),
-            'fetch'
-        );
     }
 
     /**
@@ -115,5 +83,39 @@ $record = $queryBuilder->select(GeneralUtility::trimExplode(',', $fields, true))
 PHP
             ),
         ]);
+    }
+
+    private function createQueryBuilderCall(Node\Arg $firstArgument): Assign
+    {
+        $queryBuilder = $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
+            $this->createClassConstant(ConnectionPool::class, 'class'),
+        ]), 'getQueryBuilderForTable', [$this->createArg($firstArgument->value)]);
+
+        return new Assign(new Variable('queryBuilder'), $queryBuilder);
+    }
+
+    private function fetchQueryBuilderResults($table, $where = '', $fields = '*'): ?Node
+    {
+        $queryBuilder = new Variable('queryBuilder');
+
+        return $this->createMethodCall(
+            $this->createMethodCall(
+                $this->createMethodCall(
+                    $this->createMethodCall(
+                        $this->createMethodCall(
+                            $queryBuilder,
+                            'select',
+                            [$this->createStaticCall(GeneralUtility::class, 'trimExplode', [new String_(','), $this->createArg($fields->value), $this->createTrue()])]
+                        ),
+                        'from',
+                        [$this->createArg($table->value)]
+                    ),
+                    'where',
+                    [$this->createStaticCall(QueryHelper::class, 'stripLogicalOperatorPrefix', [$this->createArg($where->value)])]
+                ),
+                'execute'
+            ),
+            'fetch'
+        );
     }
 }
