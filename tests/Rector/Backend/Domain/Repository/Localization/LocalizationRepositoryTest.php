@@ -1,11 +1,11 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Core\DataHandling;
+namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Domain\Repository\Localization;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class DataHandlerRmCommaRectorTest extends AbstractRectorWithConfigTestCase
+class LocalizationRepositoryTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -19,6 +19,6 @@ class DataHandlerRmCommaRectorTest extends AbstractRectorWithConfigTestCase
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/data_handler_rm_comma.php.inc'];
+        yield [__DIR__ . '/Fixture/remove_colpos_parameter_localizationrepository_methods.php.inc'];
     }
 }
