@@ -6,6 +6,9 @@
         stopOnFailure="true"
         verbose="true"
 >
+    <php>
+        <ini name="memory_limit" value="-1" />
+    </php>
     <testsuites>
         <testsuite name="small">
             <directory>tests</directory>
