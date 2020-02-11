@@ -59,8 +59,9 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
     }
 
     /**
-     * @param Node|Class_ $node
+     * @param Class_ $node
      *
+     * @return Node|null
      * @throws NotImplementedException
      * @throws ShouldNotHappenException
      */
@@ -182,7 +183,7 @@ CODE_SAMPLE
      *
      * @return ParamTagValueNode[]
      */
-    private function getParamTags(ClassMethod $node): ?array
+    private function getParamTags(ClassMethod $node): array
     {
         $phpDocInfo = $this->docBlockManipulator->createPhpDocInfoFromNode($node);
         $paramTags = [];

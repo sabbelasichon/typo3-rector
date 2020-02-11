@@ -26,7 +26,9 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
     }
 
     /**
-     * @param $node Node|MethodCall
+     * @param MethodCall $node
+     *
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -42,7 +44,7 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
 
         $lastArgument = array_pop($node->args);
 
-        $node->args[1] = $this->createMethodCall($lastArgument->value, 'getUid');
+        $node->args[1] = $this->createArg($this->createMethodCall($lastArgument->value, 'getUid'));
 
         return $node;
     }

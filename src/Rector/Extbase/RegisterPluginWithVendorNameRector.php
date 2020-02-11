@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Extbase;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\StaticCall;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -20,13 +21,13 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\StaticCall::class];
+        return [StaticCall::class];
     }
 
     /**
-     * @param $node Node|Node\Expr\MethodCall
+     * @param StaticCall $node
      *
-     * @inheritDoc
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -73,9 +74,11 @@ CODE_SAMPLE
     }
 
     /**
+     * @param StaticCall $node
+     *
      * @return Node|null
      */
-    private function removeVendorNameIfNeeded(Node $node)
+    private function removeVendorNameIfNeeded(Node $node): ?Node
     {
         $arguments = $node->args;
         $firstArgument = array_shift($arguments);

@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 final class DataHandlerRmCommaRector extends AbstractRector
 {
     /**
-     * @param Node|StaticCall $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {

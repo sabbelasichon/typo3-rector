@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Core\Utility;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
@@ -28,7 +29,9 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
     }
 
     /**
-     * @inheritDoc
+     * @param StaticCall $node
+     *
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -73,14 +76,14 @@ PHP
         ]);
     }
 
-    private function createNewMethodCallForSiteRelPath(Node $node): StaticCall
+    private function createNewMethodCallForSiteRelPath(StaticCall $node): StaticCall
     {
         $firstArgument = $node->args[0];
 
         return $this->createStaticCall(PathUtility::class, 'stripPathSitePrefix', [$this->createStaticCall(ExtensionManagementUtility::class, 'extPath', [$firstArgument])]);
     }
 
-    private function createNewMethodCallForRemoveCacheFiles(): Node\Expr\MethodCall
+    private function createNewMethodCallForRemoveCacheFiles(): MethodCall
     {
         return $this->createMethodCall($this->createStaticCall(
             GeneralUtility::class,
@@ -91,7 +94,7 @@ PHP
         ), 'flushCachesInGroup', [$this->createArg('system')]);
     }
 
-    private function removeSecondArgumentFromMethodIsLoaded(Node $node): Node
+    private function removeSecondArgumentFromMethodIsLoaded(StaticCall $node): Node
     {
         $numberOfArguments = count($node->args);
         if ($numberOfArguments > 1) {

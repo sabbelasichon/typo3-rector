@@ -14,6 +14,9 @@ use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Backend\Controller\SimpleDataHandlerController;
 
+/**
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82629-TceDbOptionsPrErrAndUPTRemoved.html
+ */
 final class RemovePropertiesFromSimpleDataHandlerControllerRector extends AbstractRector
 {
     /**
@@ -25,7 +28,7 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
     }
 
     /**
-     * @param Node|PropertyFetch $node
+     * @param Assign $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -68,6 +71,11 @@ PHP
         ]);
     }
 
+    /**
+     * @param Assign $node
+     *
+     * @return null
+     */
     private function removeVariableNode(Assign $node)
     {
         $classNode = $node->expr->getAttribute(AttributeKey::CLASS_NODE);
@@ -90,9 +98,11 @@ PHP
     }
 
     /**
-     * @return |null
+     * @param Assign $node
+     *
+     * @return null
      */
-    private function removePropertyFetchNode(Node $node)
+    private function removePropertyFetchNode(Assign $node)
     {
         $classNode = $node->getAttribute(AttributeKey::CLASS_NODE);
 

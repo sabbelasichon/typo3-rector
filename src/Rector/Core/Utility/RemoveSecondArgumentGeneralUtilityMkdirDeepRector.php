@@ -26,8 +26,9 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
     }
 
     /**
-     * @var StaticCall
-     * @inheritDoc
+     * @param StaticCall $node
+     *
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

@@ -40,7 +40,7 @@ final class InjectAnnotationRector extends AbstractRector
     }
 
     /**
-     * @param Node|Class_ $node
+     * @param Class_ $node
      */
     public function refactor(Node $node): ?Node
     {

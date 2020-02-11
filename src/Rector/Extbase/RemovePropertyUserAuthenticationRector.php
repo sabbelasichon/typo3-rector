@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Extbase;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\PropertyFetch;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 /**
+ * @author Something
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-71521-PropertyUserAuthenticationRemovedFromCommandController.html
  */
 final class RemovePropertyUserAuthenticationRector extends AbstractRector
@@ -20,11 +22,13 @@ final class RemovePropertyUserAuthenticationRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\PropertyFetch::class];
+        return [PropertyFetch::class];
     }
 
     /**
-     * @inheritDoc
+     * @param PropertyFetch $node
+     *
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

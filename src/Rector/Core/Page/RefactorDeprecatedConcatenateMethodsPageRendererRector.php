@@ -26,7 +26,9 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
     }
 
     /**
-     * @param Node|MethodCall $node
+     * @param MethodCall $node
+     *
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {

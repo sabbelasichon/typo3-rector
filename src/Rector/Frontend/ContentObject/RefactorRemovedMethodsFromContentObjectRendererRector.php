@@ -68,9 +68,9 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
     }
 
     /**
-     * Process Node of matched type.
+     * @param MethodCall $node
      *
-     * @param Node|MethodCall $node
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
