@@ -4,16 +4,11 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\Core\Utility;
 
-use _HumbugBox3ab8cff0fda0\PhpParser\Node\Arg;
-use _HumbugBox951e2b87c765\Nette\PhpGenerator\Constant;
-use Nette\Utils\Strings;
 use PhpParser\Node;
-use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\ConstFetch;
-use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Expr\StaticCall;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -36,6 +31,7 @@ final class RefactorDeprecationLogRector extends AbstractRector
      * Process Node of matched type.
      *
      * @param Node|StaticCall $node
+     *
      * @return Node|null
      */
     public function refactor(Node $node): ?Node
@@ -66,6 +62,7 @@ final class RefactorDeprecationLogRector extends AbstractRector
                 break;
             case 'getDeprecationLogFileName':
                 $this->removeNode($node);
+
                 return null;
                 break;
             default:
