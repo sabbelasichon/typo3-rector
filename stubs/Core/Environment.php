@@ -17,4 +17,9 @@ final class Environment
     public static function getProjectPath(): string
     {
     }
+
+    public static function getContext(): string
+    {
+        return 'foo';
+    }
 }
