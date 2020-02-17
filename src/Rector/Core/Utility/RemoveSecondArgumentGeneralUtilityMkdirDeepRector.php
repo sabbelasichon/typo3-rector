@@ -54,6 +54,9 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
             );
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Remove second argument of GeneralUtility::mkdir_deep()', [

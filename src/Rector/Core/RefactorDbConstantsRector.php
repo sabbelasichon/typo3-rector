@@ -61,6 +61,9 @@ final class RefactorDbConstantsRector extends AbstractRector
         );
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(

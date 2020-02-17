@@ -54,6 +54,9 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
         return $this->createFunction('parse_str', [$arguments[0], $node->var]);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Remove second argument of GeneralUtility::explodeUrl2Array if it is false or just use function parse_str if it is true', [

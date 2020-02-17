@@ -42,6 +42,9 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
