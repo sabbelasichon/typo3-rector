@@ -29,8 +29,6 @@ final class UseActionControllerRector extends AbstractRector
 
     /**
      * @param Node|Class_ $node
-     *
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
