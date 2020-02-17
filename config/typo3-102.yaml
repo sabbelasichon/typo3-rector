@@ -4,3 +4,4 @@ imports:
 services:
     Ssch\TYPO3Rector\Rector\Core\Utility\MoveApplicationContextToEnvironmentApiRector: ~
     Ssch\TYPO3Rector\Rector\Core\ExcludeServiceKeysToArrayRector: ~
+    Ssch\TYPO3Rector\Rector\Extbase\UseActionControllerRector: ~
