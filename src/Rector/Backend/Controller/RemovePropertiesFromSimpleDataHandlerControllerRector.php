@@ -43,6 +43,9 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
         return $this->removePropertyFetchNode($node);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Remove assignments or accessing of properties prErr and uPT from class SimpleDataHandlerController', [

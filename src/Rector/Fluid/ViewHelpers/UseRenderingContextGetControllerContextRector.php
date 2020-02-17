@@ -50,6 +50,9 @@ final class UseRenderingContextGetControllerContextRector extends AbstractRector
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Get controllerContext from renderingContext', [

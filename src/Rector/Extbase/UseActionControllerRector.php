@@ -52,6 +52,9 @@ final class UseActionControllerRector extends AbstractRector
         return $node;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Use ActionController class instead of AbstractController if used', [
