@@ -1,8 +1,8 @@
 <?php
 
-use TYPO3\CMS\Extbase\Mvc\Controller\AbstractController;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-final class RemoveExtensionNameProperty extends AbstractController
+final class RemoveExtensionNameProperty extends ActionController
 {
     public function myMethod()
     {
@@ -18,9 +18,9 @@ final class RemoveExtensionNameProperty extends AbstractController
 -----
 <?php
 
-use TYPO3\CMS\Extbase\Mvc\Controller\AbstractController;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-final class RemoveExtensionNameProperty extends AbstractController
+final class RemoveExtensionNameProperty extends ActionController
 {
     public function myMethod()
     {
