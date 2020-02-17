@@ -58,4 +58,14 @@ class GeneralUtility
     {
         return 'foo';
     }
+
+    public static function makeInstanceService($serviceType, $serviceSubType = '', $excludeServiceKeys = []): string
+    {
+        return 'foo';
+    }
+
+    public static function trimExplode($delim, $string, $removeEmptyValues = false, $limit = 0): string
+    {
+        return 'foo';
+    }
 }
