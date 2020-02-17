@@ -15,8 +15,13 @@ final class BackendUtility
         return 'foo';
     }
 
-    public static function getRecordRaw($table, $where = '', $fields = '*')
+    public static function getRecordRaw($table, $where = '', $fields = '*'): array
     {
         return [];
+    }
+
+    public static function TYPO3_copyRightNotice(): string
+    {
+        return 'notice';
     }
 }

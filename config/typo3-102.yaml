@@ -5,3 +5,4 @@ services:
     Ssch\TYPO3Rector\Rector\Core\Utility\MoveApplicationContextToEnvironmentApiRector: ~
     Ssch\TYPO3Rector\Rector\Core\ExcludeServiceKeysToArrayRector: ~
     Ssch\TYPO3Rector\Rector\Extbase\UseActionControllerRector: ~
+    Ssch\TYPO3Rector\Rector\Backend\Utility\UseTypo3InformationForCopyRightNoticeRector: ~
