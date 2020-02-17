@@ -29,4 +29,9 @@ final class ExtensionManagementUtility
     {
         return null;
     }
+
+    public static function findService($serviceType, $serviceSubType = '', $excludeServiceKeys = []): string
+    {
+        return 'foo';
+    }
 }

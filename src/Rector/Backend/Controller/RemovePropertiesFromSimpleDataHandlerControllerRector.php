@@ -71,9 +71,6 @@ PHP
         ]);
     }
 
-    /**
-     * @return null
-     */
     private function removeVariableNode(Assign $node)
     {
         $classNode = $node->expr->getAttribute(AttributeKey::CLASS_NODE);
@@ -95,9 +92,6 @@ PHP
         return null;
     }
 
-    /**
-     * @return null
-     */
     private function removePropertyFetchNode(Assign $node)
     {
         $classNode = $node->getAttribute(AttributeKey::CLASS_NODE);

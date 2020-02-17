@@ -10,3 +10,4 @@ imports:
     - { resource: "../../config/typo3-95.yaml" }
     - { resource: "../../config/typo3-100.yaml" }
     - { resource: "../../config/typo3-101.yaml" }
+    - { resource: "../../config/typo3-102.yaml" }
