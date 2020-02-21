@@ -4,6 +4,7 @@ imports:
 services:
     Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyExtensionNameRector: ~
     Ssch\TYPO3Rector\Rector\Extbase\Utility\UseNativePhpHex2binMethodRector: ~
+    Ssch\TYPO3Rector\Rector\Core\Utility\RefactorIdnaEncodeMethodToNativeFunctionRector: ~
     #Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector:
     #    $classAliasMaps:
     #        - '../../../Migrations/Core/v10/ClassAliasMap.php'
