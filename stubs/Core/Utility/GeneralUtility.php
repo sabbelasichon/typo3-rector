@@ -15,8 +15,6 @@ class GeneralUtility
     }
 
     /**
-     * @param string $class
-     *
      * @return object
      */
     public static function makeInstance(string $class)
@@ -65,6 +63,11 @@ class GeneralUtility
     }
 
     public static function trimExplode($delim, $string, $removeEmptyValues = false, $limit = 0): string
+    {
+        return 'foo';
+    }
+
+    public static function idnaEncode($value): string
     {
         return 'foo';
     }
