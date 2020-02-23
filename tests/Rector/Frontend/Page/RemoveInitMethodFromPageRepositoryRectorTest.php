@@ -1,0 +1,22 @@
+<?php
+
+namespace Ssch\TYPO3Rector\Tests\Rector\Frontend\Page;
+
+use Iterator;
+use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+
+class RemoveInitMethodFromPageRepositoryRectorTest extends AbstractRectorWithConfigTestCase
+{
+    /**
+     * @dataProvider provideDataForTest()
+     */
+    public function test(string $file): void
+    {
+        $this->doTestFile($file);
+    }
+
+    public function provideDataForTest(): Iterator
+    {
+        yield [__DIR__ . '/Fixture/remove_init_method_call_from_page_repository.php.inc'];
+    }
+}

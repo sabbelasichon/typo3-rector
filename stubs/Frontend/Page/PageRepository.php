@@ -13,4 +13,9 @@ final class PageRepository
     public function enableFields($table, $show_hidden = -1, $ignore_array = [], $noVersionPreview = false): void
     {
     }
+
+    public function init($show_hidden): string
+    {
+        return 'foo';
+    }
 }
