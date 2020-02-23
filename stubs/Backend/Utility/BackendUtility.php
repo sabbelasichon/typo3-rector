@@ -24,4 +24,9 @@ final class BackendUtility
     {
         return 'notice';
     }
+
+    public static function getModuleUrl($moduleName, $urlParameters = [])
+    {
+        return 'foo';
+    }
 }
