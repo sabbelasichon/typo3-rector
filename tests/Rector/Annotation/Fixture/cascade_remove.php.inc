@@ -2,10 +2,10 @@
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
 
-final class SomeOtherClass
+final class SomeCascadeRemoveClass
 {
     /**
-     * @cascade
+     * @cascade remove
      */
     private $someProperty;
 }
@@ -16,7 +16,7 @@ final class SomeOtherClass
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
 
-final class SomeOtherClass
+final class SomeCascadeRemoveClass
 {
     /**
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
