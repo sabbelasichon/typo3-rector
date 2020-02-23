@@ -6,6 +6,8 @@ namespace Ssch\TYPO3Rector\Rector\Annotation;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\Rector\AbstractRector;
 use Rector\RectorDefinition\CodeSample;
 use Rector\RectorDefinition\RectorDefinition;
@@ -23,7 +25,7 @@ final class CascadeAnnotationRector extends AbstractRector
     /**
      * @var string
      */
-    private $newAnnotation = 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade';
+    private $newAnnotation = '@TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")';
 
     public function getNodeTypes(): array
     {
@@ -39,7 +41,8 @@ final class CascadeAnnotationRector extends AbstractRector
             return null;
         }
 
-        $this->docBlockManipulator->replaceAnnotationInNode($node, $this->oldAnnotation, $this->newAnnotation);
+        $this->docBlockManipulator->removeTagFromNode($node, $this->oldAnnotation);
+        $this->docBlockManipulator->addTag($node, new PhpDocTagNode($this->newAnnotation, new GenericTagValueNode('')));
 
         return $node;
     }
@@ -62,7 +65,7 @@ CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
 /**
- * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade
+ * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
  */
 private $someProperty;
 
