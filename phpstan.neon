@@ -1,4 +1,5 @@
 parameters:
+    inferPrivatePropertyTypeFromConstructor: true
     bootstrap: tests/bootstrap.php
     ignoreErrors:
         - '#Access to an undefined property#'
