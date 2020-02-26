@@ -14,5 +14,3 @@
 composer.lock
 # Other ignored paths and files.
 /vendor
-/docs/*
-!/docs/.gitkeep
