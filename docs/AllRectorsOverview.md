@@ -1,4 +1,4 @@
-# All 51 Rectors Overview
+# All 52 Rectors Overview
 
 
 ### `BackendUtilityEditOnClickRector`
@@ -824,6 +824,20 @@ Use ActionController class instead of AbstractController if used
 +class MyController extends ActionController
  {
  }
+```
+
+<br>
+
+### `UseMetaDataAspectRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\Resource\UseMetaDataAspectRector`
+
+Use $fileObject->getMetaData()->get() instead of $fileObject->_getMetaData()
+
+```diff
+ $fileObject = new File();
+-$fileObject->_getMetaData();
++$fileObject->getMetaData()->get();
 ```
 
 <br>
