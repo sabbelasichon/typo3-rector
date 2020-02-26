@@ -49,7 +49,9 @@ Additionally we auto import the Full Qualified Class Names except for PHP core c
 
 After the configuration run rector to simulate (hence the option -n) the code fixes:
 
+```bash
 ./vendor/bin/rector process packages/my_custom_extension --config=my_config.yaml -n
+```
 
 Check if everything makes sense and run the process command without the -n option.
 
