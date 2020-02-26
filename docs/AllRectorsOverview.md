@@ -1,4 +1,4 @@
-# All 42 Rectors Overview
+# All 51 Rectors Overview
 
 
 ### `BackendUtilityEditOnClickRector`
@@ -12,6 +12,30 @@ Migrate the method BackendUtility::editOnClick() to use UriBuilder API
  $params = '&edit[pages][' . $pid . ']=new&returnNewPageId=1';
 -$url = BackendUtility::editOnClick($params);
 +$url = GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute('record_edit') . $params . '&returnUrl=' . rawurlencode(GeneralUtility::getIndpEnv('REQUEST_URI'));;
+```
+
+<br>
+
+### `BackendUtilityGetRecordRawRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Backend\Utility\BackendUtilityGetRecordRawRector`
+
+Migrate the method BackendUtility::editOnClick() to use UriBuilder API
+
+```diff
+ $table = 'fe_users';
+ $where = 'uid > 5';
+ $fields = ['uid', 'pid'];
+-$record = BackendUtility::getRecordRaw($table, $where, $fields);
++
++$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
++$queryBuilder->getRestrictions()->removeAll();
++
++$record = $queryBuilder->select(GeneralUtility::trimExplode(',', $fields, true))
++    ->from($table)
++    ->where(QueryHelper::stripLogicalOperatorPrefix($where))
++    ->execute()
++    ->fetch();
 ```
 
 <br>
@@ -39,7 +63,7 @@ Turns properties with `@cascade` to properties with `@TYPO3\CMS\Extbase\Annotati
 ```diff
  /**
 - * @cascade
-+ * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade
++ * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
   */
 -private $someProperty;
 +private $someProperty;
@@ -180,6 +204,21 @@ Migrate the method DataHandler::rmComma() to use rtrim()
 
 <br>
 
+### `ExcludeServiceKeysToArrayRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\ExcludeServiceKeysToArrayRector`
+
+Change parameter $excludeServiceKeys explicity to an array
+
+```diff
+-GeneralUtility::makeInstanceService('serviceType', 'serviceSubType', 'key1, key2');
+-ExtensionManagementUtility::findService('serviceType', 'serviceSubType', 'key1, key2');
++GeneralUtility::makeInstanceService('serviceType', 'serviceSubType', ['key1', 'key2']);
++ExtensionManagementUtility::findService('serviceType', 'serviceSubType', ['key1', 'key2']);
+```
+
+<br>
+
 ### `FindByPidsAndAuthorIdRector`
 
 - class: `Ssch\TYPO3Rector\Rector\SysNote\Domain\Repository\FindByPidsAndAuthorIdRector`
@@ -235,6 +274,44 @@ Turns properties with `@inject` to setter injection
 
 <br>
 
+### `InjectEnvironmentServiceIfNeededInResponseRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Extbase\InjectEnvironmentServiceIfNeededInResponseRector`
+
+Inject EnvironmentService if needed in subclass of Response
+
+```diff
+ class MyResponse extends Response
+ {
++    /**
++     * @var \TYPO3\CMS\Extbase\Service\EnvironmentService
++     */
++    protected $environmentService;
++
+     public function myMethod()
+     {
+         if ($this->environmentService->isEnvironmentInCliMode()) {
+
+         }
++    }
++
++    public function injectEnvironmentService(\TYPO3\CMS\Extbase\Service\EnvironmentService $environmentService)
++    {
++        $this->environmentService = $environmentService;
+     }
+ }
+
+ class MyOtherResponse extends Response
+ {
+     public function myMethod()
+     {
+
+     }
+ }
+```
+
+<br>
+
 ### `LazyAnnotationRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Annotation\LazyAnnotationRector`
@@ -248,6 +325,19 @@ Turns properties with `@lazy` to properties with `@TYPO3\CMS\Extbase\Annotation\
   */
 -private $someProperty;
 +private $someProperty;
+```
+
+<br>
+
+### `MoveApplicationContextToEnvironmentApiRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\Utility\MoveApplicationContextToEnvironmentApiRector`
+
+Use Environment API to fetch application context
+
+```diff
+-GeneralUtility::getApplicationContext();
++Environment::getContext();
 ```
 
 <br>
@@ -311,6 +401,22 @@ Turns method call names to new ones.
 
 <br>
 
+### `RefactorDeprecationLogRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\Utility\RefactorDeprecationLogRector`
+
+Refactor GeneralUtility deprecationLog methods
+
+```diff
+-GeneralUtility::logDeprecatedFunction();
+-GeneralUtility::logDeprecatedViewHelperAttribute();
+-GeneralUtility::deprecationLog('Message');
+-GeneralUtility::getDeprecationLogFileName();
++trigger_error('A useful message', E_USER_DEPRECATED);
+```
+
+<br>
+
 ### `RefactorExplodeUrl2ArrayFromGeneralUtilityRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Core\Utility\RefactorExplodeUrl2ArrayFromGeneralUtilityRector`
@@ -322,6 +428,21 @@ Remove second argument of GeneralUtility::explodeUrl2Array if it is false or jus
 -$variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com', false);
 +parse_str('https://www.domain.com', $variable);
 +$variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com');
+```
+
+<br>
+
+### `RefactorIdnaEncodeMethodToNativeFunctionRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Core\Utility\RefactorIdnaEncodeMethodToNativeFunctionRector`
+
+Use native function idn_to_ascii instead of GeneralUtility::idnaEncode
+
+```diff
+-$domain = GeneralUtility::idnaEncode('domain.com');
+-$email = GeneralUtility::idnaEncode('email@domain.com');
++$domain = idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
++$email = 'email@' . idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
 ```
 
 <br>
@@ -446,6 +567,20 @@ Remove @flushesCaches annotation
  {
 -}
 +}
+```
+
+<br>
+
+### `RemoveInitMethodFromPageRepositoryRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Frontend\Page\RemoveInitMethodFromPageRepositoryRector`
+
+Remove method call init from PageRepository
+
+```diff
+-$repository = GeneralUtility::makeInstance(PageRepository::class);
+-$repository->init(true);
++$repository = GeneralUtility::makeInstance(PageRepository::class);
 ```
 
 <br>
@@ -675,6 +810,24 @@ Turns properties with `@transient` to properties with `@TYPO3\CMS\Extbase\Annota
 
 <br>
 
+### `UseActionControllerRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Extbase\UseActionControllerRector`
+
+Use ActionController class instead of AbstractController if used
+
+```diff
+-class MyController extends AbstractController
++use Symfony\Component\HttpFoundation\Response;
++use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
++
++class MyController extends ActionController
+ {
+ }
+```
+
+<br>
+
 ### `UseNativePhpHex2binMethodRector`
 
 - class: `Ssch\TYPO3Rector\Rector\Extbase\Utility\UseNativePhpHex2binMethodRector`
@@ -718,6 +871,19 @@ Get controllerContext from renderingContext
 +        $controllerContext = $this->renderingContext->getControllerContext();
      }
  }
+```
+
+<br>
+
+### `UseTypo3InformationForCopyRightNoticeRector`
+
+- class: `Ssch\TYPO3Rector\Rector\Backend\Utility\UseTypo3InformationForCopyRightNoticeRector`
+
+Migrate the method BackendUtility::TYPO3_copyRightNotice() to use Typo3Information API
+
+```diff
+-$copyright = BackendUtility::TYPO3_copyRightNotice();
++$copyright = GeneralUtility::makeInstance(Typo3Information::class)->getCopyrightNotice();
 ```
 
 <br>

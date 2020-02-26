@@ -22,6 +22,37 @@ $ composer require --dev ssch/typo3-rector
 
 ...**look at the overview of [all available TYPO3 Rectors](/docs/AllRectorsOverview.md)** with before/after diffs and configuration examples.
 
+## Configuration and Processing
+
+This library ships already with a bunch of configuration files organized by TYPO3 version.
+In order to "fix" your code with the desired rectors create your own configuration file in the yaml format:
+
+```yaml
+# my_config.yaml
+parameters:
+    # FQN classes are not imported by default. If you don't to do do it manually after every Rector run, enable it by:
+    auto_import_names: true
+    # this will not import root namespace classes, like \DateTime or \Exception
+    import_short_classes: false
+    # this will not import classes used in PHP DocBlocks, like in /** @var \Some\Class */
+    import_doc_blocks: false
+    php_version_features: '7.2'
+imports:
+  - { resource: 'vendor/ssch/typo3-rector/config/typo3-90.yaml' }
+  - { resource: 'vendor/ssch/typo3-rector/config/typo3-93.yaml' }
+  - { resource: 'vendor/ssch/typo3-rector/config/typo3-94.yaml' }
+  - { resource: 'vendor/ssch/typo3-rector/config/typo3-95.yaml' }
+```
+
+This configuration applies all available rectors defined in the different yaml files for version 9.x with PHP 7.2 capabilities.
+Additionally we auto import the Full Qualified Class Names except for PHP core classes and within DocBlocks.
+
+After the configuration run rector to simulate (hence the option -n) the code fixes:
+
+./vendor/bin/rector process packages/my_custom_extension --config=my_config.yaml -n
+
+Check if everything makes sense and run the process command without the -n option.
+
 ## Contributing
 
 Want to help? Great!
