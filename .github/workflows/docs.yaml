@@ -1,7 +1,6 @@
 name: Docs
 
 on:
-    pull_request: null
     push:
         branches:
             - master
@@ -16,4 +15,13 @@ jobs:
                     php-version: 7.2
                     coverage: none
             -   run: composer install --no-progress
-            -   run: composer docs
+
+            -   name: Generate documentation
+                run: composer docs
+
+            -   uses: stefanzweifel/git-auto-commit-action@v2.5.0
+                with:
+                    commit_message: Generate documentation
+                    branch: "master"
+                env:
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
