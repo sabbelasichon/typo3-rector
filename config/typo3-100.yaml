@@ -11,3 +11,4 @@ services:
     Rector\Renaming\Rector\Namespace_\RenameNamespaceRector:
         $oldToNewNamespaces:
             TYPO3\CMS\Backend\Controller\File: TYPO3\CMS\Filelist\Controller\File
+    Ssch\TYPO3Rector\Rector\Core\Resource\UseMetaDataAspectRector: ~
