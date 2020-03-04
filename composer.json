@@ -3,7 +3,7 @@
     "description": "Instant fixes for your TYPO3 code by using Rector.",
     "type": "library",
     "require": {
-        "rector/rector": "^0.6.0",
+        "rector/rector": "0.6.14",
         "typo3fluid/fluid": "^2.6"
     },
     "autoload": {
@@ -16,6 +16,7 @@
             "Ssch\\TYPO3Rector\\Tests\\": "tests"
         },
         "classmap": [
+            "classes",
             ".code"
         ]
     },
