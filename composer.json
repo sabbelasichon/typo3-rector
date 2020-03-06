@@ -9,14 +9,16 @@
     "autoload": {
         "psr-4": {
             "Ssch\\TYPO3Rector\\": "src"
-        }
+        },
+        "classmap": [
+            "classes"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
             "Ssch\\TYPO3Rector\\Tests\\": "tests"
         },
         "classmap": [
-            "classes",
             ".code"
         ]
     },
