@@ -6,9 +6,11 @@ namespace Ssch\TYPO3Rector\Rector\Annotation;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Feature-83078-ReplaceLazyWithTYPO3CMSExtbaseAnnotationORMLazy.html
@@ -25,17 +27,26 @@ final class LazyAnnotationRector extends AbstractRector
      */
     private $newAnnotation = 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy';
 
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [Property::class];
     }
 
     /**
-     * Process Node of matched type.
+     * @param Property $node
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->docBlockManipulator->hasTag($node, $this->oldAnnotation)) {
+        /** @var PhpDocInfo|null $phpDocInfo */
+        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        if (null === $phpDocInfo) {
+            return null;
+        }
+
+        if (!$phpDocInfo->hasByName($this->oldAnnotation)) {
             return null;
         }
 

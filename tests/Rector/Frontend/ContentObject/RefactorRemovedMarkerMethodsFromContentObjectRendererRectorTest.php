@@ -9,8 +9,6 @@ class RefactorRemovedMarkerMethodsFromContentObjectRendererRectorTest extends Ab
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

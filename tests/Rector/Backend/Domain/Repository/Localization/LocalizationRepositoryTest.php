@@ -5,12 +5,10 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Domain\Repository\Localization;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class LocalizationRepositoryTest extends AbstractRectorWithConfigTestCase
+final class LocalizationRepositoryTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

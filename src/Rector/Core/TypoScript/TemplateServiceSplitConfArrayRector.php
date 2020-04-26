@@ -6,9 +6,9 @@ namespace Ssch\TYPO3Rector\Rector\Core\TypoScript;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

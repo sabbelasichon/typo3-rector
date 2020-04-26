@@ -1,16 +1,14 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Migrations;
+namespace Ssch\TYPO3Rector\Tests\Rector\Migrations;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class RenameClassMapAliasRectorTest extends AbstractRectorWithConfigTestCase
+final class RenameClassMapAliasRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

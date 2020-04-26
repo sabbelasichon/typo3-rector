@@ -6,9 +6,9 @@ namespace Ssch\TYPO3Rector\Rector\Extbase\Utility;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 
 /**
@@ -37,7 +37,7 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector
             return null;
         }
 
-        return $this->createFunction('hex2bin', $node->args);
+        return $this->createFuncCall('hex2bin', $node->args);
     }
 
     /**

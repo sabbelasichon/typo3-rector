@@ -18,9 +18,10 @@ namespace Ssch\TYPO3Rector\Rector\Extbase;
  */
 
 use PhpParser\Node;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-85981-AnnotationFlushesCaches.html
@@ -46,11 +47,17 @@ final class RemoveFlushCachesRector extends AbstractRector
             return null;
         }
 
-        if (!$this->docBlockManipulator->hasTag($node, 'flushCaches')) {
+        /** @var PhpDocInfo|null $phpDocInfo */
+        $phpDocInfo = $node->getAttribute(PhpDocInfo::class);
+        if (null === $phpDocInfo) {
             return null;
         }
 
-        $this->docBlockManipulator->removeTagFromNode($node, 'flushCaches');
+        if (!$phpDocInfo->hasByName('flushCaches')) {
+            return null;
+        }
+
+        $phpDocInfo->removeByName('flushCaches');
 
         return $node;
     }

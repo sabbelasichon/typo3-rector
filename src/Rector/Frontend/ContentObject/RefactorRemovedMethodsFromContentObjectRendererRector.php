@@ -6,9 +6,10 @@ namespace Ssch\TYPO3Rector\Rector\Frontend\ContentObject;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use PHPStan\Type\TypeWithClassName;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
@@ -18,7 +19,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 final class RefactorRemovedMethodsFromContentObjectRendererRector extends AbstractRector
 {
     /**
-     * @var array
+     * @var string[]
      */
     private $methodsToRefactor = [
         'FLOWPLAYER',
@@ -72,20 +73,21 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class) && !$this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals($node, Typo3NodeResolver::TypoScriptFrontendController, 'cObj')) {
+        if ($this->shouldSkip($node)) {
             return null;
         }
 
-        $methodName = $this->getName($node);
-
+        $methodName = $this->getName($node->name);
         if (!in_array($methodName, $this->methodsToRefactor, true)) {
             return null;
         }
 
-        return $this->createMethodCall($node->var, 'cObjGetSingle', [
+        $args = [
             $this->createArg($methodName),
             array_shift($node->args),
-        ]);
+        ];
+
+        return $this->createMethodCall($node->var, 'cObjGetSingle', $args);
     }
 
     /**
@@ -104,5 +106,21 @@ $cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3'])
 PHP
             ),
         ]);
+    }
+
+    private function shouldSkip(MethodCall $methodCall): bool
+    {
+        $staticType = $this->getStaticType($methodCall->var);
+        if ($staticType instanceof TypeWithClassName) {
+            if (ContentObjectRenderer::class === $staticType->getClassName()) {
+                return false;
+            }
+        }
+
+        if ($this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals($methodCall, Typo3NodeResolver::TypoScriptFrontendController, 'cObj')) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -9,8 +9,6 @@ class RefactorMethodsFromExtensionManagementUtilityRectorTest extends AbstractRe
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

@@ -1,17 +1,15 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Core\Utility;
+namespace Ssch\TYPO3Rector\Tests\Rector\Core;
 
 use Iterator;
 use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class RefactorRemovedMethodsFromGeneralUtilityRectorTest extends AbstractRectorWithConfigTestCase
+final class RefactorRemovedMethodsFromGeneralUtilityRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {
@@ -23,10 +21,8 @@ class RefactorRemovedMethodsFromGeneralUtilityRectorTest extends AbstractRectorW
         yield [__DIR__ . '/Fixture/remove_generalutility_methods.php.inc'];
     }
 
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorClass(): string
     {
-        return [
-            RefactorRemovedMethodsFromGeneralUtilityRector::class => [],
-        ];
+        return RefactorRemovedMethodsFromGeneralUtilityRector::class;
     }
 }

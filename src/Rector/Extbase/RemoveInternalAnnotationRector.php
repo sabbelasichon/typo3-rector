@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Extbase;
 
 use PhpParser\Node;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use PhpParser\Node\Stmt\Class_;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 /**
@@ -20,7 +23,7 @@ final class RemoveInternalAnnotationRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Stmt\Class_::class];
+        return [Class_::class];
     }
 
     /**
@@ -32,11 +35,13 @@ final class RemoveInternalAnnotationRector extends AbstractRector
             return null;
         }
 
-        if (!$this->docBlockManipulator->hasTag($node, 'internal')) {
+        /** @var PhpDocInfo|null $phpDocInfo */
+        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        if (null === $phpDocInfo) {
             return null;
         }
 
-        $this->docBlockManipulator->removeTagFromNode($node, 'internal');
+        $phpDocInfo->removeByName('internal');
 
         return $node;
     }
@@ -63,7 +68,6 @@ CODE_SAMPLE
 class MyCommandController extends CommandController
 {
 }
-
 CODE_SAMPLE
                 ),
             ]

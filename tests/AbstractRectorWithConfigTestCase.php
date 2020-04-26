@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests;
 
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
 
 abstract class AbstractRectorWithConfigTestCase extends AbstractRectorTestCase
 {

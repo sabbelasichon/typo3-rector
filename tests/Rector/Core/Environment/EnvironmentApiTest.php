@@ -7,12 +7,10 @@ use Ssch\TYPO3Rector\Rector\Core\Environment\ConstantToEnvironmentCallRector;
 use Ssch\TYPO3Rector\Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class EnvironmentApiTest extends AbstractRectorWithConfigTestCase
+final class EnvironmentApiTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

@@ -3,15 +3,13 @@
 namespace Ssch\TYPO3Rector\Tests\Rector\Core\Utility;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Rector\Core\Utility\RemoveSecondArgumentGeneralUtilityMkdirDeepRector;
 
 class RemoveSecondArgumentGeneralUtilityMkdirDeepRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

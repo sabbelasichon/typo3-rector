@@ -10,9 +10,9 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Nop;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryHelper;
@@ -32,7 +32,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
             return null;
         }
 
-        if (!$this->isName($node, 'getRecordRaw')) {
+        if (!$this->isName($node->name, 'getRecordRaw')) {
             return null;
         }
 

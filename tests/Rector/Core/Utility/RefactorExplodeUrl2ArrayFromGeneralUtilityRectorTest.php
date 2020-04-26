@@ -9,8 +9,6 @@ class RefactorExplodeUrl2ArrayFromGeneralUtilityRectorTest extends AbstractRecto
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

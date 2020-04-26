@@ -10,8 +10,6 @@ class ChangeAttemptsParameterConsoleOutputRectorTest extends AbstractRectorWithC
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

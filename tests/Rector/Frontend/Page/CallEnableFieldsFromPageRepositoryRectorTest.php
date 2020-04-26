@@ -9,8 +9,6 @@ class CallEnableFieldsFromPageRepositoryRectorTest extends AbstractRectorWithCon
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

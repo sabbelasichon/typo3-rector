@@ -8,9 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Stmt\Expression;
-use Rector\Rector\AbstractRector\NameResolverTrait;
-use Rector\Rector\AbstractRector\ValueResolverTrait;
+use Rector\Core\Rector\AbstractRector\NameResolverTrait;
+use Rector\Core\Rector\AbstractRector\ValueResolverTrait;
 
 final class Typo3NodeResolver
 {
@@ -34,11 +33,10 @@ final class Typo3NodeResolver
 
     public function isAnyMethodCallOnGlobals(Node $node, string $global): bool
     {
-        return $node instanceof Expression &&
-               $node->expr instanceof MethodCall &&
-               $node->expr->var instanceof ArrayDimFetch &&
-               $this->isName($node->expr->var->var, 'GLOBALS') &&
-               $this->isValue($node->expr->var->dim, $global);
+        return $node instanceof MethodCall &&
+               $node->var instanceof ArrayDimFetch &&
+               $this->isName($node->var->var, 'GLOBALS') &&
+               $this->isValue($node->var->dim, $global);
     }
 
     public function isTypo3Global(Node $node, string $global): bool

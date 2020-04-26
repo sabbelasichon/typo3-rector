@@ -11,9 +11,9 @@ use PhpParser\Node\Expr\BinaryOp\Mul;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 
 /**
@@ -48,7 +48,7 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
             return null;
         }
 
-        return $this->createFunction('round', [
+        return $this->createFuncCall('round', [
             new Mul(new ArrayDimFetch(
                 new ArrayDimFetch(
                     new Variable('GLOBALS'),
