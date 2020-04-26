@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Backend\Utility;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
@@ -36,7 +38,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
             return null;
         }
 
-        /** @var Node\Arg[] $args */
+        /** @var Arg[] $args */
         $args = $node->args;
         [$firstArgument, $secondArgument, $thirdArgument] = $args;
 
@@ -46,13 +48,14 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
         $this->addNodeBeforeNode($queryBuilderAssignment, $node);
         $this->addNodeBeforeNode($queryBuilderRemoveRestrictions, $node);
         $this->addNodeBeforeNode(new Nop(), $node);
+
         $node = $this->fetchQueryBuilderResults($firstArgument, $secondArgument, $thirdArgument);
 
         return $node;
     }
 
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -89,7 +92,7 @@ PHP
         ]);
     }
 
-    private function createQueryBuilderCall(Node\Arg $firstArgument): Assign
+    private function createQueryBuilderCall(Arg $firstArgument): Assign
     {
         $queryBuilder = $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
             $this->createClassConstant(ConnectionPool::class, 'class'),
@@ -98,7 +101,7 @@ PHP
         return new Assign(new Variable('queryBuilder'), $queryBuilder);
     }
 
-    private function fetchQueryBuilderResults($table, $where = '', $fields = '*'): Node
+    private function fetchQueryBuilderResults(Arg $table, Arg $where, Arg $fields): MethodCall
     {
         $queryBuilder = new Variable('queryBuilder');
 

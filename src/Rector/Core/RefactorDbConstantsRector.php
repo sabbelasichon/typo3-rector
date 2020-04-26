@@ -18,7 +18,10 @@ use Rector\Core\RectorDefinition\RectorDefinition;
  */
 final class RefactorDbConstantsRector extends AbstractRector
 {
-    private static $mapConstantsToGlobals = [
+    /**
+     * @var string[]
+     */
+    private const MAP_CONSTANTS_TO_GLOBALS = [
         'TYPO3_db' => 'dbname',
         'TYPO3_db_username' => 'user',
         'TYPO3_db_password' => 'password',
@@ -26,7 +29,7 @@ final class RefactorDbConstantsRector extends AbstractRector
     ];
 
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -40,11 +43,11 @@ final class RefactorDbConstantsRector extends AbstractRector
     {
         $constantsName = $this->getName($node);
 
-        if (!array_key_exists($constantsName, self::$mapConstantsToGlobals)) {
+        if (!array_key_exists($constantsName, self::MAP_CONSTANTS_TO_GLOBALS)) {
             return null;
         }
 
-        $globalKey = self::$mapConstantsToGlobals[$constantsName];
+        $globalKey = self::MAP_CONSTANTS_TO_GLOBALS[$constantsName];
 
         return new ArrayDimFetch(
             new ArrayDimFetch(

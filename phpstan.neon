@@ -1,5 +1,5 @@
 parameters:
-    level: 5
+    level: 6
 
     paths:
         - src
@@ -7,6 +7,9 @@ parameters:
 
     inferPrivatePropertyTypeFromConstructor: true
     bootstrap: tests/bootstrap.php
+
+    checkMissingIterableValueType: false
+
     ignoreErrors:
         - '#Access to an undefined property#'
         - '#Unreachable statement - code above always terminates#'
