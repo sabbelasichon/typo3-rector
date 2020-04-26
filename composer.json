@@ -6,10 +6,9 @@
     "authors": [
         { "name": "Sebastian Schreiber", "email": "breakpoint@schreibersebastian.de" }
     ],
-    "bin": "bin/typo3_rector",
     "require": {
         "php": "^7.2",
-        "rector/rector": "^0.7.20",
+        "rector/rector": "^0.7.21",
         "typo3fluid/fluid": "^2.6"
     },
     "require-dev": {
@@ -39,7 +38,7 @@
         "fix-style": "./vendor/bin/php-cs-fixer fix --config=./.php_cs.dist",
         "analyze": "./vendor/bin/phpstan analyse --memory-limit=-1 --ansi",
         "test": "vendor/bin/phpunit",
-        "docs": "./bin/typo3_rector generate-docs -o typo3-markdown > docs/AllRectorsOverview.md"
+        "docs": "vendor/bin/rector dump-rectors src/Rector > docs/AllRectorsOverview.md"
     },
     "scripts-descriptions": {
         "docs": "Regenerate descriptions of all Rectors to docs/AllRectorsOverview.md file"
