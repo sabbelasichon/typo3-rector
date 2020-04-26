@@ -2,38 +2,33 @@
     "name": "ssch/typo3-rector",
     "description": "Instant fixes for your TYPO3 code by using Rector.",
     "type": "library",
+    "authors": [
+        { "name": "Sebastian Schreiber", "email": "breakpoint@schreibersebastian.de" }
+    ],
+    "bin": ["bin/typo3_rector"],
     "require": {
-        "rector/rector": "0.6.14",
+        "php": "^7.2",
+        "rector/rector": "^0.7.17",
         "typo3fluid/fluid": "^2.6"
-    },
-    "autoload": {
-        "psr-4": {
-            "Ssch\\TYPO3Rector\\": "src"
-        },
-        "classmap": [
-            "classes"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Ssch\\TYPO3Rector\\Tests\\": "tests"
-        },
-        "classmap": [
-            ".code"
-        ]
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
         "phpunit/phpunit": "^7.5"
     },
+    "autoload": {
+        "psr-4": {
+            "Ssch\\TYPO3Rector\\": "src"
+        },
+        "classmap": ["classes"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ssch\\TYPO3Rector\\Tests\\": "tests"
+        },
+        "classmap": [".code"]
+    },
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Sebastian Schreiber",
-            "email": "breakpoint@schreibersebastian.de"
-        }
-    ],
-    "bin": ["bin/typo3_rector"],
+
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
