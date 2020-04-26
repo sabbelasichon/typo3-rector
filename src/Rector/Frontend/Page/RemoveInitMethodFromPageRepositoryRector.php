@@ -19,7 +19,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -27,7 +27,7 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
     }
 
     /**
-     * @param MethodCall|Node $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {

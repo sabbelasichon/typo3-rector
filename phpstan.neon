@@ -1,5 +1,5 @@
 parameters:
-    level: 4
+    level: 5
 
     paths:
         - src
@@ -10,6 +10,7 @@ parameters:
     ignoreErrors:
         - '#Access to an undefined property#'
         - '#Unreachable statement - code above always terminates#'
+        - '#Parameter \#2 \$stmt of method Rector\\Core\\PhpParser\\Node\\Manipulator\\ClassInsertManipulator::addAsFirstMethod\(\) expects PhpParser\\Node\\Stmt\\ClassConst\|PhpParser\\Node\\Stmt\\ClassMethod\|PhpParser\\Node\\Stmt\\Property, PhpParser\\Node\\Stmt\\Nop given#'
 
 services:
     -

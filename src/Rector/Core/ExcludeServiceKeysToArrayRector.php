@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class ExcludeServiceKeysToArrayRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -27,7 +27,7 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
     }
 
     /**
-     * @param Node|StaticCall $node
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -51,7 +51,9 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
             return null;
         }
 
-        $node->args[2] = $this->createStaticCall(GeneralUtility::class, 'trimExplode', [new String_(','), $excludeServiceKeys, $this->createTrue()]);
+        $args = [new String_(','), $excludeServiceKeys, $this->createTrue()];
+        $staticCall = $this->createStaticCall(GeneralUtility::class, 'trimExplode', $args);
+        $node->args[2] = new Node\Arg($staticCall);
 
         return $node;
     }
@@ -78,7 +80,10 @@ PHP
 
     private function isExpectedObjectType(StaticCall $node): bool
     {
-        return $this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionManagementUtility::class)
-               || $this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class);
+        if ($this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionManagementUtility::class)) {
+            return true;
+        }
+
+        return $this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class);
     }
 }

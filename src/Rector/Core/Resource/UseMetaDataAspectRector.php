@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Resource\File;
 final class UseMetaDataAspectRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -25,7 +25,7 @@ final class UseMetaDataAspectRector extends AbstractRector
     }
 
     /**
-     * @param Node|MethodCall $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {

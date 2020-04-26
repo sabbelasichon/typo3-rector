@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -30,7 +30,7 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
     }
 
     /**
-     * @var Node|StaticCall
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -43,7 +43,6 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
         }
 
         $arguments = $node->args;
-
         if (0 === count($arguments)) {
             return null;
         }
@@ -51,7 +50,6 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
         $firstArgument = array_shift($arguments);
 
         $value = $this->getValue($firstArgument->value);
-
         if (!is_string($value)) {
             return null;
         }

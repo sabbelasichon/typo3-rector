@@ -49,7 +49,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
             return null;
         }
 
-        if (! $node instanceof MethodCall) {
+        if (!$node instanceof MethodCall) {
             return null;
         }
 

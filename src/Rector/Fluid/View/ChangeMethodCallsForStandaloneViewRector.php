@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Fluid\View;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use Rector\Core\Rector\AbstractRector;
@@ -92,7 +93,9 @@ PHP
                         $firstArgument = array_shift($arguments);
 
                         $node->name = new Identifier($newMethod);
-                        $node->args = [new Node\Arg(new Node\Expr\Array_([$firstArgument]))];
+
+                        $array = $this->createArray([$firstArgument->value]);
+                        $node->args = [new Arg($array)];
 
                         return $node;
 
@@ -102,7 +105,7 @@ PHP
 
                         $node->name = new Identifier($newMethod);
 
-                        return new Node\Expr\FuncCall(new Node\Name('array_shift'), [new Node\Arg($node)]);
+                        return new Node\Expr\FuncCall(new Node\Name('array_shift'), [new Arg($node)]);
                         break;
                 }
             }

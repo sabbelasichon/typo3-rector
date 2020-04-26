@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -29,6 +29,10 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
      */
     public function refactor(Node $node): ?Node
     {
+        if (!$node->expr instanceof Node\Expr\StaticCall && !$node->expr instanceof Node\Expr\MethodCall) {
+            return null;
+        }
+
         if (!$this->isMethodStaticCallOrClassMethodObjectType($node->expr, GeneralUtility::class)) {
             return null;
         }
