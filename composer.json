@@ -1,19 +1,20 @@
 {
     "name": "ssch/typo3-rector",
     "description": "Instant fixes for your TYPO3 code by using Rector.",
+    "license": "MIT",
     "type": "library",
     "authors": [
         { "name": "Sebastian Schreiber", "email": "breakpoint@schreibersebastian.de" }
     ],
-    "bin": ["bin/typo3_rector"],
+    "bin": "bin/typo3_rector",
     "require": {
         "php": "^7.2",
-        "rector/rector": "^0.7.17",
+        "rector/rector": "^0.7.20",
         "typo3fluid/fluid": "^2.6"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.16",
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^8.0|^9.0"
     },
     "autoload": {
         "psr-4": {
@@ -26,7 +27,6 @@
         },
         "classmap": [".code"]
     },
-    "license": "MIT",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
