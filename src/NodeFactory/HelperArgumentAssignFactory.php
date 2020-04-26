@@ -33,6 +33,7 @@ final class HelperArgumentAssignFactory
         $stmts = [];
 
         foreach ($renderMethod->params as $param) {
+            /** @var string $paramName */
             $paramName = $this->nodeNameResolver->getName($param->var);
 
             $propertyFetch = new PropertyFetch(new Variable('this'), 'arguments');

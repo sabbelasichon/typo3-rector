@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 final class RegisterPluginWithVendorNameRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -76,12 +76,9 @@ CODE_SAMPLE
      */
     private function removeVendorNameIfNeeded(Node $node): ?Node
     {
-        $arguments = $node->args;
-        $firstArgument = array_shift($arguments);
-        $extensionName = $this->getValue($firstArgument->value);
+        $extensionName = $this->getValue($node->args[0]->value);
 
         $delimiterPosition = strrpos($extensionName, '.');
-
         if (false === $delimiterPosition) {
             return null;
         }

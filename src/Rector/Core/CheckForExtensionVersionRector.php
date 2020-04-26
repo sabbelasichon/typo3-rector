@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\Core;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
@@ -35,15 +36,13 @@ final class CheckForExtensionVersionRector extends AbstractRector
             return null;
         }
 
-        $arguments = $node->args;
-        $firstArgument = array_shift($arguments);
-        $firstArgumentValue = $this->getValue($firstArgument->value);
+        $firstArgument = $node->args[0];
 
-        if ('version' !== $firstArgumentValue) {
+        if (!$this->isValue($firstArgument->value, 'version')) {
             return null;
         }
 
-        $firstArgument->value = new Node\Scalar\String_('workspaces');
+        $firstArgument->value = new String_('workspaces');
 
         return $node;
     }
@@ -56,25 +55,20 @@ final class CheckForExtensionVersionRector extends AbstractRector
         return new RectorDefinition('Change the extensions to check for workspaces instead of version.', [
             new CodeSample(
                 <<<'PHP'
-if(ExtensionManagementUtility::isLoaded('version')) {
-
+if (ExtensionManagementUtility::isLoaded('version')) {
 }
 
 $packageManager = GeneralUtility::makeInstance(PackageManager::class);
-if($packageManager->isActive('version')) {
-
+if ($packageManager->isActive('version')) {
 }
 PHP
                 ,
                 <<<'PHP'
-
-if(ExtensionManagementUtility::isLoaded('workspaces')) {
-
+if (ExtensionManagementUtility::isLoaded('workspaces')) {
 }
 
 $packageManager = GeneralUtility::makeInstance(PackageManager::class);
-if($packageManager->isActive('workspaces')) {
-
+if ($packageManager->isActive('workspaces')) {
 }
 PHP
             ),

@@ -9,7 +9,6 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
@@ -77,10 +76,11 @@ PHP
     {
         $node1 = clone $node;
         $node2 = clone $node;
+
         $node1->name = new Identifier('getConcatenateCss');
         $node2->name = new Identifier('getConcatenateJavascript');
 
-        return new FuncCall(new Name('array_merge'), [
+        return $this->createFuncCall('array_merge', [
             new Arg($node1),
             new Arg($node2),
         ]);

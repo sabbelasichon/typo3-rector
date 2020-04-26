@@ -33,12 +33,12 @@ use ReflectionClass;
 final class RenameClassMapAliasRector extends AbstractRector
 {
     /**
-     * @var string[]
+     * @var class-string[]
      */
     private $oldToNewClasses = [];
 
     /**
-     * @var string[]
+     * @var class-string[]
      */
     private $alreadyProcessedClasses = [];
 
@@ -68,7 +68,7 @@ final class RenameClassMapAliasRector extends AbstractRector
         foreach ($classAliasMaps as $key => $file) {
             $filePath = realpath(__DIR__ . '/' . $file);
 
-            if (file_exists($filePath)) {
+            if (false !== $filePath && file_exists($filePath)) {
                 $classAliasMap = require $filePath;
 
                 foreach ($classAliasMap as $oldClass => $newClass) {
@@ -254,6 +254,7 @@ PHP
 
     private function refactorClassLikeNode(ClassLike $classLike): ?Node
     {
+        /* @var class-string|null $name */
         $name = $this->getName($classLike);
         if (null === $name) {
             return null;
@@ -269,7 +270,6 @@ PHP
             return null;
         }
 
-        /* @var string $name */
         $this->alreadyProcessedClasses[] = $name;
 
         $newName = $this->oldToNewClasses[$name];
@@ -343,6 +343,10 @@ PHP
         $this->phpDocClassRenamer->changeTypeInAnnotationTypes($node, $this->oldToNewClasses);
     }
 
+    /**
+     * @param class-string $newName
+     * @param class-string $oldName
+     */
     private function ensureClassWillNotBeDuplicate(string $newName, string $oldName): void
     {
         if (!ClassExistenceStaticHelper::doesClassLikeExist($newName)) {

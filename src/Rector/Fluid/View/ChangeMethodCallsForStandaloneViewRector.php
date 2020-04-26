@@ -23,7 +23,7 @@ final class ChangeMethodCallsForStandaloneViewRector extends AbstractRector
      *     oldMethod => newMethod
      * ].
      *
-     * @var string[][]|mixed[][][]
+     * @var string[][]
      */
     private $oldToNewMethodsByClass = [
         StandaloneView::class => [
@@ -89,8 +89,7 @@ PHP
                     // Wrap the first argument into an array
                     case 'setPartialRootPath':
                     case 'setLayoutRootPath':
-                        $arguments = $node->args;
-                        $firstArgument = array_shift($arguments);
+                        $firstArgument = $node->args[0];
 
                         $node->name = new Identifier($newMethod);
 
@@ -105,7 +104,7 @@ PHP
 
                         $node->name = new Identifier($newMethod);
 
-                        return new Node\Expr\FuncCall(new Node\Name('array_shift'), [new Arg($node)]);
+                        return $this->createFuncCall('array_shift', [$node]);
                         break;
                 }
             }

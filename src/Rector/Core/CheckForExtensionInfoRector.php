@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\Core;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
@@ -19,7 +20,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 final class CheckForExtensionInfoRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -35,15 +36,13 @@ final class CheckForExtensionInfoRector extends AbstractRector
             return null;
         }
 
-        $arguments = $node->args;
-        $firstArgument = array_shift($arguments);
-        $firstArgumentValue = $this->getValue($firstArgument->value);
+        $firstArgument = $node->args[0];
 
-        if ('info_pagetsconfig' !== $firstArgumentValue) {
+        if (!$this->isValue($firstArgument->value, 'info_pagetsconfig')) {
             return null;
         }
 
-        $firstArgument->value = new Node\Scalar\String_('info');
+        $firstArgument->value = new String_('info');
 
         return $node;
     }

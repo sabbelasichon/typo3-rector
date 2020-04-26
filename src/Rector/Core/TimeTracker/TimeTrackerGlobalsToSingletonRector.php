@@ -49,6 +49,9 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
         $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
 
         $methodCallName = $this->getName($node->name);
+        if (null === $methodCallName) {
+            return null;
+        }
 
         return $this->createMethodCall($staticCall, $methodCallName, $node->args);
     }

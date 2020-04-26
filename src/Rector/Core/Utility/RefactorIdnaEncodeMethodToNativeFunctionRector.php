@@ -47,18 +47,16 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
             return null;
         }
 
-        $firstArgument = array_shift($arguments);
-
-        $value = $this->getValue($firstArgument->value);
-        if (!is_string($value)) {
+        $firstArgumentValue = $this->getValue($arguments[0]->value);
+        if (!is_string($firstArgumentValue)) {
             return null;
         }
 
-        if (false === strpos($value, '@')) {
-            return $this->refactorToNativeFunction($value);
+        if (false === strpos($firstArgumentValue, '@')) {
+            return $this->refactorToNativeFunction($firstArgumentValue);
         }
 
-        return $this->refactorToEmailConcatWithNativeFunction($value);
+        return $this->refactorToEmailConcatWithNativeFunction($firstArgumentValue);
     }
 
     public function getDefinition(): RectorDefinition

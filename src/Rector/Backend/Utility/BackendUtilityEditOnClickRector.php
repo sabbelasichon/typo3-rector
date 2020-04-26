@@ -32,9 +32,7 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
             return null;
         }
 
-        /** @var Node\Arg[] $args */
-        $args = $node->args;
-        $firstArgument = array_shift($args);
+        $firstArgument = $node->args[0];
 
         return new Concat(
             $this->createUriBuilderCall($firstArgument),

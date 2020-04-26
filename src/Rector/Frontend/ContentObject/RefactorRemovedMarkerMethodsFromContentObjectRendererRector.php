@@ -64,10 +64,14 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             'substituteMarkerAndSubpartArrayRecursive',
         ])) {
             $methodName = $this->getName($node->name);
+            if (null === $methodName) {
+                return null;
+            }
 
-            return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstant(MarkerBasedTemplateService::class, 'class'),
-            ]), $methodName, $node->args);
+            $classConstant = $this->createClassConstant(MarkerBasedTemplateService::class, 'class');
+            $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
+
+            return $this->createMethodCall($staticCall, $methodName, $node->args);
         }
 
         if ($this->isName($node->name, 'fillInMarkerArray')) {

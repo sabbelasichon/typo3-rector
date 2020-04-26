@@ -37,11 +37,14 @@ final class RefactorDbConstantsRector extends AbstractRector
     }
 
     /**
-     * @inheritDoc
+     * @param ConstFetch $node
      */
     public function refactor(Node $node): ?Node
     {
         $constantsName = $this->getName($node);
+        if (null === $constantsName) {
+            return null;
+        }
 
         if (!array_key_exists($constantsName, self::MAP_CONSTANTS_TO_GLOBALS)) {
             return null;
