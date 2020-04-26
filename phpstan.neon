@@ -3,6 +3,7 @@ parameters:
 
     paths:
         - src
+        - tests
 
     inferPrivatePropertyTypeFromConstructor: true
     bootstrap: tests/bootstrap.php
