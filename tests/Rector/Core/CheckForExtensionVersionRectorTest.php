@@ -5,7 +5,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Core;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class CheckForExtensionVersionRectorTest extends AbstractRectorWithConfigTestCase
+final class CheckForExtensionVersionRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
