@@ -37,7 +37,7 @@
     "scripts": {
         "check-style": "./vendor/bin/php-cs-fixer fix --config=./.php_cs.dist --dry-run",
         "fix-style": "./vendor/bin/php-cs-fixer fix --config=./.php_cs.dist",
-        "analyze": "./vendor/bin/phpstan analyse src --level=4 --memory-limit=-1 --ansi",
+        "analyze": "./vendor/bin/phpstan analyse --memory-limit=-1 --ansi",
         "test": "vendor/bin/phpunit",
         "docs": "./bin/typo3_rector generate-docs -o typo3-markdown > docs/AllRectorsOverview.md"
     },

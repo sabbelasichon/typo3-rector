@@ -1,4 +1,9 @@
 parameters:
+    level: 4
+
+    paths:
+        - src
+
     inferPrivatePropertyTypeFromConstructor: true
     bootstrap: tests/bootstrap.php
     ignoreErrors:
