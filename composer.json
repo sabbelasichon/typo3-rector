@@ -22,7 +22,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Ssch\\TYPO3Rector\\Tests\\": "tests"
+            "Ssch\\TYPO3Rector\\Tests\\": "tests",
+            "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src"
         },
         "classmap": [".code"]
     },

@@ -12,14 +12,14 @@ parameters:
 
 services:
     -
-        class: Ssch\TYPO3Rector\PhpStan\Rules\AddSeeDocBlockForRectorClass
+        class: Ssch\TYPO3Rector\PHPStan\Rules\AddSeeDocBlockForRectorClass
         tags:
             - phpstan.rules.rule
     -
-        class: Ssch\TYPO3Rector\PhpStan\Type\GeneralUtilityDynamicReturnTypeExtension
+        class: Ssch\TYPO3Rector\PHPStan\Type\GeneralUtilityDynamicReturnTypeExtension
         tags:
             - phpstan.broker.dynamicStaticMethodReturnTypeExtension
     -
-        class: Ssch\TYPO3Rector\PhpStan\Type\ObjectManagerDynamicReturnTypeExtension
+        class: Ssch\TYPO3Rector\PHPStan\Type\ObjectManagerDynamicReturnTypeExtension
         tags:
             - phpstan.broker.dynamicMethodReturnTypeExtension
