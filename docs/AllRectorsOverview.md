@@ -139,16 +139,13 @@ Change the extensions to check for info instead of info_pagetsconfig.
 Change the extensions to check for workspaces instead of version.
 
 ```diff
--if(ExtensionManagementUtility::isLoaded('version')) {
-
-+if(ExtensionManagementUtility::isLoaded('workspaces')) {
-+
+-if (ExtensionManagementUtility::isLoaded('version')) {
++if (ExtensionManagementUtility::isLoaded('workspaces')) {
  }
 
  $packageManager = GeneralUtility::makeInstance(PackageManager::class);
--if($packageManager->isActive('version')) {
-+if($packageManager->isActive('workspaces')) {
-
+-if ($packageManager->isActive('version')) {
++if ($packageManager->isActive('workspaces')) {
  }
 ```
 
