@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Core\Utility;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp\Plus;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
@@ -64,7 +65,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
             case 'array_merge':
                 [$arg1, $arg2] = $node->args;
 
-                return new Node\Expr\BinaryOp\Plus($arg1->value, $arg2->value);
+                return new Plus($arg1->value, $arg2->value);
                 break;
             case 'getThisUrl':
                 // TODO: This is not implemented yet. What is the correct equivalent within getIndpEnv

@@ -21,7 +21,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
     /**
      * @var string[]
      */
-    private $methodsToRefactor = [
+    private const METHODS_TO_REFACTOR = [
         'FLOWPLAYER',
         'TEXT',
         'CLEARGIF',
@@ -61,6 +61,9 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
@@ -76,7 +79,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         }
 
         $methodName = $this->getName($node->name);
-        if (! in_array($methodName, $this->methodsToRefactor, true)) {
+        if (! in_array($methodName, self::METHODS_TO_REFACTOR, true)) {
             return null;
         }
 

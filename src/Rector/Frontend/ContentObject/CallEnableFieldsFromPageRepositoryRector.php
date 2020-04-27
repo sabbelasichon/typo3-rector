@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\Frontend\ContentObject;
 
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
@@ -39,7 +40,7 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
 
         $numberOfMethodArguments = count($node->args);
         if ($numberOfMethodArguments > 1) {
-            $node->args[1] = new Node\Arg(BuilderHelpers::normalizeValue($this->isTrue($node->args[1]->value) ? true : -1));
+            $node->args[1] = new Arg(BuilderHelpers::normalizeValue($this->isTrue($node->args[1]->value) ? true : -1));
         }
 
         return $this->createMethodCall($this->createStaticCall(

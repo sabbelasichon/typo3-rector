@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Core\Environment;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\ConstFetch;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
@@ -67,7 +68,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
                 return $this->createStaticCall(Environment::class, 'getLegacyConfigPath');
                 break;
             case 'TYPO3_OS':
-                return new Node\Expr\BinaryOp\BooleanOr($this->createStaticCall(Environment::class, 'isUnix'), $this->createStaticCall(Environment::class, 'isWindows'));
+                return new BooleanOr($this->createStaticCall(Environment::class, 'isUnix'), $this->createStaticCall(Environment::class, 'isWindows'));
                 break;
             case 'TYPO3_REQUESTTYPE_CLI':
             case 'TYPO3_REQUESTTYPE':

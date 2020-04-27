@@ -20,6 +20,9 @@ use TYPO3\CMS\Core\Utility\PathUtility;
  */
 final class RefactorMethodsFromExtensionManagementUtilityRector extends AbstractRector
 {
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

@@ -18,6 +18,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class TemplateServiceSplitConfArrayRector extends AbstractRector
 {
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

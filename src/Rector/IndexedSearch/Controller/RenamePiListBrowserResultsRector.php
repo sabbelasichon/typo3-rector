@@ -19,6 +19,9 @@ use TYPO3\CMS\IndexedSearch\Controller\SearchFormController;
  */
 final class RenamePiListBrowserResultsRector extends AbstractRector
 {
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

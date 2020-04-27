@@ -18,11 +18,17 @@ use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
  */
 final class RemoveInternalAnnotationRector extends AbstractRector
 {
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [Class_::class];
     }
 
+    /**
+     * @param Class_ $node
+     */
     public function refactor(Node $node): ?Node
     {
         if (! $this->isObjectType($node, CommandController::class)) {

@@ -16,6 +16,9 @@ use TYPO3\CMS\Extbase\Mvc\Cli\ConsoleOutput;
  */
 final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
 {
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

@@ -17,6 +17,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRector
 {
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

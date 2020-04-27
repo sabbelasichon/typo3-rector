@@ -30,6 +30,9 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
         $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class, Expression::class];

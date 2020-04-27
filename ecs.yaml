@@ -12,3 +12,10 @@ parameters:
 
 services:
     PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: null
+
+    # imports FQN names
+    SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff:
+        searchAnnotations: true
+        allowFullyQualifiedGlobalFunctions: true
+        allowFullyQualifiedGlobalConstants: true
+        allowPartialUses: false

@@ -35,6 +35,9 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
         $this->classInsertManipulator = $classInsertManipulator;
     }
 
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [Class_::class];

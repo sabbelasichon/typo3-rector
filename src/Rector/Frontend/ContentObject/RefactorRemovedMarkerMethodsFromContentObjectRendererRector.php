@@ -22,6 +22,9 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends AbstractRector
 {
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

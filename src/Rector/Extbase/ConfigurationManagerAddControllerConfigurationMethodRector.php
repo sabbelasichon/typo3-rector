@@ -20,6 +20,9 @@ use TYPO3\CMS\Extbase\Configuration\AbstractConfigurationManager;
  */
 final class ConfigurationManagerAddControllerConfigurationMethodRector extends AbstractRector
 {
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [Class_::class];

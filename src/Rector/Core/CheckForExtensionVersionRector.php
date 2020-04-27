@@ -19,6 +19,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  */
 final class CheckForExtensionVersionRector extends AbstractRector
 {
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class, StaticCall::class];

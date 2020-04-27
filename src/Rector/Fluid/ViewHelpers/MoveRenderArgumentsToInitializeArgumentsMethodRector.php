@@ -14,6 +14,7 @@ use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\NodeFactory\HelperArgumentAssignFactory;
 use Ssch\TYPO3Rector\NodeFactory\InitializeArgumentsClassMethodFactory;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper as Typoe3AbstractViewHelperAlias;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -55,7 +56,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
             return null;
         }
 
-        if (! $this->isObjectTypes($node, [AbstractViewHelper::class, \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper::class])) {
+        if (! $this->isObjectTypes($node, [AbstractViewHelper::class, Typoe3AbstractViewHelperAlias::class])) {
             return null;
         }
 

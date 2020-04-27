@@ -19,13 +19,16 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 final class UseActionControllerRector extends AbstractRector
 {
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [Class_::class];
     }
 
     /**
-     * @param Node|Class_ $node
+     * @param Class_ $node
      */
     public function refactor(Node $node): ?Node
     {
