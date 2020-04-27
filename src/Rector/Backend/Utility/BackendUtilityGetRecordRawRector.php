@@ -68,13 +68,15 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Migrate the method BackendUtility::editOnClick() to use UriBuilder API', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(
+                <<<'PHP'
 $table = 'fe_users';
 $where = 'uid > 5';
 $fields = ['uid', 'pid'];
 $record = BackendUtility::getRecordRaw($table, $where, $fields);
 PHP
-                , <<<'PHP'
+                ,
+                <<<'PHP'
 $table = 'fe_users';
 $where = 'uid > 5';
 $fields = ['uid', 'pid'];

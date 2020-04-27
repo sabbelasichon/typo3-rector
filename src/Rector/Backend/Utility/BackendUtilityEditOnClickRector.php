@@ -81,7 +81,9 @@ PHP
                         [
                             $this->createClassConstant(UriBuilder::class, 'class'),
                         ]
-                    ), 'buildUriFromRoute', [$this->createArg('record_edit')]
+                    ),
+                    'buildUriFromRoute',
+                    [$this->createArg('record_edit')]
                 ),
                 $firstArgument->value
             ),
@@ -92,7 +94,8 @@ PHP
     private function createRequestUriCall(): Node\Expr\FuncCall
     {
         return new Node\Expr\FuncCall(
-            new Node\Name('rawurlencode'), [
+            new Node\Name('rawurlencode'),
+            [
                 $this->createArg(
                     $this->createStaticCall(
                         GeneralUtility::class,

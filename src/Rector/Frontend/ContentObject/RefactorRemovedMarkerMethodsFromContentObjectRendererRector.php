@@ -91,7 +91,8 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Refactor removed Marker-related methods from ContentObjectRenderer.', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(
+                <<<'PHP'
 // build template
 $template = $this->cObj->getSubpart($this->config['templateFile'], '###TEMPLATE###');
 $html = $this->cObj->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
@@ -103,7 +104,8 @@ $content .= $this->cObj->substituteMarkerInObject($tree, $markContentArray);
 $content .= $this->cObj->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
 $content .= $this->cObj->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC);
 PHP
-                , <<<'PHP'
+                ,
+                <<<'PHP'
 // build template
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

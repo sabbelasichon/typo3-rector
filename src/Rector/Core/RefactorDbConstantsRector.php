@@ -61,9 +61,12 @@ final class RefactorDbConstantsRector extends AbstractRector
                             new String_('TYPO3_CONF_VARS')
                         ),
                         new String_('DB')
-                    ), new String_('Connections')
-                ), new String_('Default')
-            ), new String_($globalKey)
+                    ),
+                    new String_('Connections')
+                ),
+                new String_('Default')
+            ),
+            new String_($globalKey)
         );
     }
 
