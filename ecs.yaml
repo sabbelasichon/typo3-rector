@@ -19,3 +19,6 @@ services:
         allowFullyQualifiedGlobalFunctions: true
         allowFullyQualifiedGlobalConstants: true
         allowPartialUses: false
+
+    # constants should have @var type, to keep the type same
+    Symplify\CodingStandard\Sniffs\Commenting\VarConstantCommentSniff: null

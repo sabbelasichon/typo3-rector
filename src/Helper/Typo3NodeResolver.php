@@ -16,12 +16,24 @@ final class Typo3NodeResolver
     use NameResolverTrait;
     use ValueResolverTrait;
 
+    /**
+     * @var string
+     */
     public const TypoScriptFrontendController = 'TSFE';
 
+    /**
+     * @var string
+     */
     public const TimeTracker = 'TT';
 
+    /**
+     * @var string
+     */
     public const ParsetimeStart = 'PARSETIME_START';
 
+    /**
+     * @var string
+     */
     public const TYPO3_LOADED_EXT = 'TYPO3_LOADED_EXT';
 
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool

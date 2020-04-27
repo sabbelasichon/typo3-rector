@@ -21,6 +21,9 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
  */
 final class ValidateAnnotationRector extends AbstractRector
 {
+    /**
+     * @var string
+     */
     private const OLD_ANNOTATION = 'validate';
 
     /**
