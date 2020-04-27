@@ -355,7 +355,12 @@ PHP
 
         $classReflection = new ReflectionClass($newName);
 
-        throw new InvalidPhpCodeException(sprintf('Renaming class "%s" to "%s" would create a duplicated class/interface/trait (already existing in "%s") and cause PHP code to be invalid.', $oldName, $newName, $classReflection->getFileName()));
+        throw new InvalidPhpCodeException(sprintf(
+            'Renaming class "%s" to "%s" would create a duplicated class/interface/trait (already existing in "%s") and cause PHP code to be invalid.',
+            $oldName,
+            $newName,
+            $classReflection->getFileName()
+        ));
     }
 
     private function changeNameToFullyQualifiedName(ClassLike $classLike): void

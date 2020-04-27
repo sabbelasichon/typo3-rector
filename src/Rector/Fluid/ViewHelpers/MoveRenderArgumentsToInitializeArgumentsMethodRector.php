@@ -33,8 +33,10 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
      */
     private $initializeArgumentsClassMethodFactory;
 
-    public function __construct(HelperArgumentAssignFactory $helperArgumentAssignFactory, InitializeArgumentsClassMethodFactory $initializeArgumentsClassMethodFactory)
-    {
+    public function __construct(
+        HelperArgumentAssignFactory $helperArgumentAssignFactory,
+        InitializeArgumentsClassMethodFactory $initializeArgumentsClassMethodFactory
+    ) {
         $this->helperArgumentAssignFactory = $helperArgumentAssignFactory;
         $this->initializeArgumentsClassMethodFactory = $initializeArgumentsClassMethodFactory;
     }

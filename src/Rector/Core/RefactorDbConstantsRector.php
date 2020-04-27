@@ -56,10 +56,7 @@ final class RefactorDbConstantsRector extends AbstractRector
             new ArrayDimFetch(
                 new ArrayDimFetch(
                     new ArrayDimFetch(
-                        new ArrayDimFetch(
-                            new Variable('GLOBALS'),
-                            new String_('TYPO3_CONF_VARS')
-                        ),
+                        new ArrayDimFetch(new Variable('GLOBALS'), new String_('TYPO3_CONF_VARS')),
                         new String_('DB')
                     ),
                     new String_('Connections')

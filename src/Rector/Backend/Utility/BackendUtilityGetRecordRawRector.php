@@ -43,7 +43,10 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
         [$firstArgument, $secondArgument, $thirdArgument] = $args;
 
         $queryBuilderAssignment = $this->createQueryBuilderCall($firstArgument);
-        $queryBuilderRemoveRestrictions = $this->createMethodCall($this->createMethodCall(new Variable('queryBuilder'), 'getRestrictions'), 'removeAll');
+        $queryBuilderRemoveRestrictions = $this->createMethodCall(
+            $this->createMethodCall(new Variable('queryBuilder'), 'getRestrictions'),
+            'removeAll'
+        );
         $this->addNodeBeforeNode(new Nop(), $node);
         $this->addNodeBeforeNode($queryBuilderAssignment, $node);
         $this->addNodeBeforeNode($queryBuilderRemoveRestrictions, $node);
@@ -114,13 +117,23 @@ PHP
                         $this->createMethodCall(
                             $queryBuilder,
                             'select',
-                            [$this->createStaticCall(GeneralUtility::class, 'trimExplode', [new String_(','), $this->createArg($fields->value), $this->createTrue()])]
+                            [
+                                $this->createStaticCall(GeneralUtility::class, 'trimExplode', [
+                                    new String_(','),
+                                    $this->createArg($fields->value),
+                                    $this->createTrue(),
+                                ]),
+                            ]
                         ),
                         'from',
                         [$this->createArg($table->value)]
                     ),
                     'where',
-                    [$this->createStaticCall(QueryHelper::class, 'stripLogicalOperatorPrefix', [$this->createArg($where->value)])]
+                    [
+                        $this->createStaticCall(QueryHelper::class, 'stripLogicalOperatorPrefix', [
+                            $this->createArg($where->value),
+                        ]),
+                    ]
                 ),
                 'execute'
             ),

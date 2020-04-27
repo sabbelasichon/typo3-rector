@@ -75,7 +75,16 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
         }
 
         if ($this->isName($node->name, 'fillInMarkerArray')) {
-            $node->args[] = $this->createArg(new BooleanNot($this->createFuncCall('empty', [$this->createArg($this->createPropertyFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_('TSFE')), 'xhtmlDoctype'))])));
+            $node->args[] = $this->createArg(
+                new BooleanNot($this->createFuncCall(
+                    'empty',
+                    [$this->createArg(
+                        $this->createPropertyFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_(
+                            'TSFE'
+                        )), 'xhtmlDoctype')
+                    )]
+                ))
+            );
 
             return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
                 $this->createClassConstant(MarkerBasedTemplateService::class, 'class'),

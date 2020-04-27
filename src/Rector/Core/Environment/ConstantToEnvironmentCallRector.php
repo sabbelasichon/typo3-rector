@@ -68,7 +68,10 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
                 return $this->createStaticCall(Environment::class, 'getLegacyConfigPath');
                 break;
             case 'TYPO3_OS':
-                return new BooleanOr($this->createStaticCall(Environment::class, 'isUnix'), $this->createStaticCall(Environment::class, 'isWindows'));
+                return new BooleanOr($this->createStaticCall(Environment::class, 'isUnix'), $this->createStaticCall(
+                    Environment::class,
+                    'isWindows'
+                ));
                 break;
             case 'TYPO3_REQUESTTYPE_CLI':
             case 'TYPO3_REQUESTTYPE':

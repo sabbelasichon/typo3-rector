@@ -52,9 +52,11 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Remove assignments or accessing of properties prErr and uPT from class SimpleDataHandlerController', [
-            new CodeSample(
-                <<<'PHP'
+        return new RectorDefinition(
+            'Remove assignments or accessing of properties prErr and uPT from class SimpleDataHandlerController',
+            [
+                new CodeSample(
+                    <<<'PHP'
 final class MySimpleDataHandlerController extends SimpleDataHandlerController
 {
     public function myMethod()
@@ -65,8 +67,8 @@ final class MySimpleDataHandlerController extends SimpleDataHandlerController
     }
 }
 PHP
-                ,
-                <<<'PHP'
+                    ,
+                    <<<'PHP'
 final class MySimpleDataHandlerController extends SimpleDataHandlerController
 {
     public function myMethod()
@@ -74,8 +76,9 @@ final class MySimpleDataHandlerController extends SimpleDataHandlerController
     }
 }
 PHP
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 
     private function removeVariableNode(Assign $assign): void

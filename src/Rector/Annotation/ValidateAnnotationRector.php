@@ -115,7 +115,11 @@ CODE_SAMPLE
                 $optionsArray[] = sprintf('"%s": %s', trim($optionKey), trim($optionValue));
             }
 
-            $annotation = sprintf('@TYPO3\\CMS\\Extbase\\Annotation\\Validate("%s", options={%s})', trim($validator), implode(',', $optionsArray));
+            $annotation = sprintf(
+                '@TYPO3\\CMS\\Extbase\\Annotation\\Validate("%s", options={%s})',
+                trim($validator),
+                implode(',', $optionsArray)
+            );
         } else {
             $annotation = sprintf('@TYPO3\\CMS\\Extbase\\Annotation\\Validate(validator="%s")', $validatorAnnotation);
         }
@@ -127,7 +131,11 @@ CODE_SAMPLE
     {
         [$param, $validator] = explode(' ', $validatorAnnotation);
 
-        $annotation = sprintf('@TYPO3\\CMS\\Extbase\\Annotation\\Validate(validator="%s", param="%s")', $validator, ltrim($param, '$'));
+        $annotation = sprintf(
+            '@TYPO3\\CMS\\Extbase\\Annotation\\Validate(validator="%s", param="%s")',
+            $validator,
+            ltrim($param, '$')
+        );
 
         return new AttributeAwarePhpDocTagNode($annotation, $this->createEmptyTagValueNode());
     }

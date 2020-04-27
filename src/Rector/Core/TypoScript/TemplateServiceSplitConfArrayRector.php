@@ -42,9 +42,7 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
         return $this->createMethodCall($this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [
-                $this->createClassConstant(TypoScriptService::class, 'class'),
-            ]
+            [$this->createClassConstant(TypoScriptService::class, 'class')]
         ), 'explodeConfigurationForOptionSplit', $node->args);
     }
 
@@ -53,16 +51,19 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Substitute TemplateService->splitConfArray() with TypoScriptService->explodeConfigurationForOptionSplit()', [
-            new CodeSample(
-                <<<'PHP'
+        return new RectorDefinition(
+            'Substitute TemplateService->splitConfArray() with TypoScriptService->explodeConfigurationForOptionSplit()',
+            [
+                new CodeSample(
+                    <<<'PHP'
 $splitConfig = GeneralUtility::makeInstance(TemplateService::class)->splitConfArray($conf, $splitCount);
 PHP
-                ,
-                <<<'PHP'
+                    ,
+                    <<<'PHP'
 $splitConfig = GeneralUtility::makeInstance(TypoScriptService::class)->explodeConfigurationForOptionSplit($conf, $splitCount);
 PHP
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 }

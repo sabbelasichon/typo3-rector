@@ -38,10 +38,7 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
 
         $firstArgument = $node->args[0];
 
-        return new Concat(
-            $this->createUriBuilderCall($firstArgument),
-            $this->createRequestUriCall()
-        );
+        return new Concat($this->createUriBuilderCall($firstArgument), $this->createRequestUriCall());
     }
 
     /**
@@ -82,9 +79,7 @@ PHP
                     $this->createStaticCall(
                         GeneralUtility::class,
                         'makeInstance',
-                        [
-                            $this->createClassConstant(UriBuilder::class, 'class'),
-                        ]
+                        [$this->createClassConstant(UriBuilder::class, 'class')]
                     ),
                     'buildUriFromRoute',
                     [$this->createArg('record_edit')]
@@ -101,13 +96,7 @@ PHP
             new Name('rawurlencode'),
             [
                 $this->createArg(
-                    $this->createStaticCall(
-                        GeneralUtility::class,
-                        'getIndpEnv',
-                        [
-                            $this->createArg('REQUEST_URI'),
-                        ]
-                    )
+                    $this->createStaticCall(GeneralUtility::class, 'getIndpEnv', [$this->createArg('REQUEST_URI')])
                 ),
             ]
         );

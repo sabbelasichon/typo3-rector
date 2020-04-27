@@ -88,10 +88,7 @@ final class InitializeArgumentsClassMethodFactory
 
         // not in analyzed scope, nothing we can do
         if ((null !== $parentClassName) && method_exists($parentClassName, self::METHOD_NAME)) {
-            $parentConstructCallNode = new StaticCall(
-                new Name('parent'),
-                new Identifier(self::METHOD_NAME)
-            );
+            $parentConstructCallNode = new StaticCall(new Name('parent'), new Identifier(self::METHOD_NAME));
 
             $classMethod->stmts[] = new Expression($parentConstructCallNode);
         }
@@ -125,11 +122,7 @@ final class InitializeArgumentsClassMethodFactory
 
             $docString = $this->createTypeInString($paramTagValueNode, $param);
 
-            $args = [
-                $paramName,
-                $docString,
-                $this->getDescription($paramTagValueNode),
-            ];
+            $args = [$paramName, $docString, $this->getDescription($paramTagValueNode)];
 
             if ($param->default instanceof Expr) {
                 $args[] = new ConstFetch(new Name('false'));

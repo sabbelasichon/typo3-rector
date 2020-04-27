@@ -138,7 +138,9 @@ CODE_SAMPLE
     private function isPropertyEnvironmentServiceInUse(Class_ $node): bool
     {
         $isEnvironmentServicePropertyUsed = false;
-        $this->traverseNodesWithCallable($node->stmts, function (Node $node) use (&$isEnvironmentServicePropertyUsed): ?PropertyFetch {
+        $this->traverseNodesWithCallable($node->stmts, function (Node $node) use (
+            &$isEnvironmentServicePropertyUsed
+        ): ?PropertyFetch {
             if (! $node instanceof PropertyFetch) {
                 return null;
             }
@@ -159,7 +161,10 @@ CODE_SAMPLE
         $paramBuilder->setType(new FullyQualified(EnvironmentService::class));
         $param = $paramBuilder->getNode();
 
-        $propertyAssignNode = $this->nodeFactory->createPropertyAssignmentWithExpr('environmentService', new Variable('environmentService'));
+        $propertyAssignNode = $this->nodeFactory->createPropertyAssignmentWithExpr(
+            'environmentService',
+            new Variable('environmentService')
+        );
         $classMethodBuilder = $this->builderFactory->method('injectEnvironmentService');
         $classMethodBuilder->addParam($param);
         $classMethodBuilder->addStmt($propertyAssignNode);

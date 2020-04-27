@@ -30,7 +30,15 @@ final class RemoveColPosParameterRector extends AbstractRector
             return null;
         }
 
-        if (! $this->isNames($node->name, ['fetchOriginLanguage', 'getLocalizedRecordCount', 'fetchAvailableLanguages', 'getRecordsToCopyDatabaseResult'])) {
+        if (! $this->isNames(
+            $node->name,
+            [
+                'fetchOriginLanguage',
+                'getLocalizedRecordCount',
+                'fetchAvailableLanguages',
+                'getRecordsToCopyDatabaseResult',
+            ]
+        )) {
             return null;
         }
 

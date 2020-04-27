@@ -83,10 +83,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
             return null;
         }
 
-        $args = [
-            $this->createArg($methodName),
-            array_shift($node->args),
-        ];
+        $args = [$this->createArg($methodName), array_shift($node->args)];
 
         return $this->createMethodCall($node->var, 'cObjGetSingle', $args);
     }
@@ -118,7 +115,11 @@ PHP
             }
         }
 
-        if ($this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals($methodCall, Typo3NodeResolver::TypoScriptFrontendController, 'cObj')) {
+        if ($this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
+            $methodCall,
+            Typo3NodeResolver::TypoScriptFrontendController,
+            'cObj'
+        )) {
             return false;
         }
 

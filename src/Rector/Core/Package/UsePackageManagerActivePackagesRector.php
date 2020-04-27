@@ -45,9 +45,7 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
             return $this->createMethodCall($this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [
-                    $this->createClassConstant(PackageManager::class, 'class'),
-                ]
+                [$this->createClassConstant(PackageManager::class, 'class')]
             ), 'getActivePackages');
         }
 

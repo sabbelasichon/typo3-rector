@@ -101,7 +101,11 @@ CODE_SAMPLE
 
         $newMethod = $methodBuilder->getNode();
         $newMethod->returnType = new Identifier('array');
-        $newMethod->stmts[] = new Return_($this->createMethodCall('this', 'getSwitchableControllerActions', [new Variable('extensionName'), new Variable('pluginName')]));
+        $newMethod->stmts[] = new Return_($this->createMethodCall(
+            'this',
+            'getSwitchableControllerActions',
+            [new Variable('extensionName'), new Variable('pluginName')]
+        ));
 
         $node->stmts[] = new Nop();
         $node->stmts[] = $newMethod;

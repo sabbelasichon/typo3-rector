@@ -46,11 +46,7 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
 
         $concat = new Concat($node->args[0]->value, $node->args[1]->value);
 
-        return $this->createStaticCall(
-                GeneralUtility::class,
-                'mkdir_deep',
-                [$concat]
-            );
+        return $this->createStaticCall(GeneralUtility::class, 'mkdir_deep', [$concat]);
     }
 
     /**

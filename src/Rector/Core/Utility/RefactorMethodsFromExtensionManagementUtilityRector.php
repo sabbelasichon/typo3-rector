@@ -77,7 +77,11 @@ PHP
     {
         $firstArgument = $node->args[0];
 
-        return $this->createStaticCall(PathUtility::class, 'stripPathSitePrefix', [$this->createStaticCall(ExtensionManagementUtility::class, 'extPath', [$firstArgument])]);
+        return $this->createStaticCall(
+            PathUtility::class,
+            'stripPathSitePrefix',
+            [$this->createStaticCall(ExtensionManagementUtility::class, 'extPath', [$firstArgument])]
+        );
     }
 
     private function createNewMethodCallForRemoveCacheFiles(): MethodCall
@@ -85,9 +89,7 @@ PHP
         return $this->createMethodCall($this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [
-                $this->createClassConstant(CacheManager::class, 'class'),
-            ]
+            [$this->createClassConstant(CacheManager::class, 'class')]
         ), 'flushCachesInGroup', [$this->createArg('system')]);
     }
 

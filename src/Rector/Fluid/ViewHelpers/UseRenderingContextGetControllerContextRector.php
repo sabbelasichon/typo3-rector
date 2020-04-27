@@ -97,7 +97,10 @@ CODE_SAMPLE
                     return null;
                 }
 
-                return $this->createMethodCall($this->createPropertyFetch('this', 'renderingContext'), 'getControllerContext');
+                return $this->createMethodCall(
+                    $this->createPropertyFetch('this', 'renderingContext'),
+                    'getControllerContext'
+                );
             });
         }
     }

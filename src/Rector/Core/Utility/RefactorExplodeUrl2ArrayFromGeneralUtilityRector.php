@@ -68,18 +68,21 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Remove second argument of GeneralUtility::explodeUrl2Array if it is false or just use function parse_str if it is true', [
-            new CodeSample(
-                <<<'PHP'
+        return new RectorDefinition(
+            'Remove second argument of GeneralUtility::explodeUrl2Array if it is false or just use function parse_str if it is true',
+            [
+                new CodeSample(
+                    <<<'PHP'
 $variable = GeneralUtility::explodeUrl2Array('https://www.domain.com', true);
 $variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com', false);
 PHP
-                ,
-                <<<'PHP'
+                    ,
+                    <<<'PHP'
 parse_str('https://www.domain.com', $variable);
 $variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com');
 PHP
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 }

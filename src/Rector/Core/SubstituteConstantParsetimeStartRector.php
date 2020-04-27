@@ -50,10 +50,7 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
 
         return $this->createFuncCall('round', [
             new Mul(new ArrayDimFetch(
-                new ArrayDimFetch(
-                    new Variable('GLOBALS'),
-                    new String_('TYPO3_MISC')
-                ),
+                new ArrayDimFetch(new Variable('GLOBALS'), new String_('TYPO3_MISC')),
                 new String_('microtime_start')
             ), new LNumber(1000)),
         ]);
@@ -64,16 +61,19 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Substitute $GLOBALS[\'PARSETIME_START\'] with round($GLOBALS[\'TYPO3_MISC\'][\'microtime_start\'] * 1000)', [
-            new CodeSample(
-                <<<'PHP'
+        return new RectorDefinition(
+            'Substitute $GLOBALS[\'PARSETIME_START\'] with round($GLOBALS[\'TYPO3_MISC\'][\'microtime_start\'] * 1000)',
+            [
+                new CodeSample(
+                    <<<'PHP'
 $parseTime = $GLOBALS['PARSETIME_START'];
 PHP
-                ,
-                <<<'PHP'
+                    ,
+                    <<<'PHP'
 $parseTime = round($GLOBALS['TYPO3_MISC']['microtime_start'] * 1000);
 PHP
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 }

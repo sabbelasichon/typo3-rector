@@ -55,12 +55,7 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
     {
         return new RectorDefinition(
             'Rename pi_list_browseresults calls to renderPagination',
-            [
-                new CodeSample(
-                    '$this->pi_list_browseresults',
-                    '$this->renderPagination'
-                ),
-            ]
+            [new CodeSample('$this->pi_list_browseresults', '$this->renderPagination')]
         );
     }
 

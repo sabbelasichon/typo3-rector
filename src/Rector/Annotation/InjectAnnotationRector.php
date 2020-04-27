@@ -65,7 +65,11 @@ final class InjectAnnotationRector extends AbstractRector
 
             // If the property is public, then change the annotation name
             if ($property->isPublic()) {
-                $this->docBlockManipulator->replaceAnnotationInNode($property, self::OLD_ANNOTATION, $this->newAnnotation);
+                $this->docBlockManipulator->replaceAnnotationInNode(
+                    $property,
+                    self::OLD_ANNOTATION,
+                    $this->newAnnotation
+                );
                 continue;
             }
 
@@ -132,11 +136,8 @@ CODE_SAMPLE
         );
     }
 
-    private function createInjectClassMethod(
-        string $variableName,
-        Param $param,
-        Assign $assign
-    ): ClassMethod {
+    private function createInjectClassMethod(string $variableName, Param $param, Assign $assign): ClassMethod
+    {
         $injectMethodName = 'inject' . ucfirst($variableName);
 
         $injectMethodBuilder = $this->builderFactory->method($injectMethodName);

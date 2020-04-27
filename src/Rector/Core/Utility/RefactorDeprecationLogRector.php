@@ -53,10 +53,7 @@ final class RefactorDeprecationLogRector extends AbstractRector
                 return $this->createFuncCall('trigger_error', [$usefulMessage, $const]);
                 break;
             case 'deprecationLog':
-                return $this->createFuncCall(
-                    'trigger_error',
-                    [$arguments[0] ?? $emptyFallbackString, $const]
-                );
+                return $this->createFuncCall('trigger_error', [$arguments[0] ?? $emptyFallbackString, $const]);
                 break;
             case 'getDeprecationLogFileName':
                 $this->removeNode($node);
