@@ -18,7 +18,7 @@ use TYPO3\CMS\SysNote\Domain\Repository\SysNoteRepository;
 final class FindByPidsAndAuthorIdRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -38,11 +38,14 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
             return null;
         }
 
+        if (count($node->args) < 2) {
+            return null;
+        }
+
         $node->name = new Identifier('findByPidsAndAuthorId');
 
-        $lastArgument = array_pop($node->args);
-
-        $node->args[1] = $this->createArg($this->createMethodCall($lastArgument->value, 'getUid'));
+        $secondArgument = $node->args[1];
+        $secondArgument->value = $this->createMethodCall($secondArgument->value, 'getUid');
 
         return $node;
     }

@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -30,7 +30,7 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
     }
 
     /**
-     * @var Node|StaticCall
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -43,24 +43,20 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
         }
 
         $arguments = $node->args;
-
         if (0 === count($arguments)) {
             return null;
         }
 
-        $firstArgument = array_shift($arguments);
-
-        $value = $this->getValue($firstArgument->value);
-
-        if (!is_string($value)) {
+        $firstArgumentValue = $this->getValue($arguments[0]->value);
+        if (!is_string($firstArgumentValue)) {
             return null;
         }
 
-        if (false === strpos($value, '@')) {
-            return $this->refactorToNativeFunction($value);
+        if (false === strpos($firstArgumentValue, '@')) {
+            return $this->refactorToNativeFunction($firstArgumentValue);
         }
 
-        return $this->refactorToEmailConcatWithNativeFunction($value);
+        return $this->refactorToEmailConcatWithNativeFunction($firstArgumentValue);
     }
 
     public function getDefinition(): RectorDefinition

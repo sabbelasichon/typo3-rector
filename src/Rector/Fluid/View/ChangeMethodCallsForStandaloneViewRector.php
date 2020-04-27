@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Fluid\View;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use Rector\Core\Rector\AbstractRector;
@@ -22,7 +23,7 @@ final class ChangeMethodCallsForStandaloneViewRector extends AbstractRector
      *     oldMethod => newMethod
      * ].
      *
-     * @var string[][]|mixed[][][]
+     * @var string[][]
      */
     private $oldToNewMethodsByClass = [
         StandaloneView::class => [
@@ -88,11 +89,12 @@ PHP
                     // Wrap the first argument into an array
                     case 'setPartialRootPath':
                     case 'setLayoutRootPath':
-                        $arguments = $node->args;
-                        $firstArgument = array_shift($arguments);
+                        $firstArgument = $node->args[0];
 
                         $node->name = new Identifier($newMethod);
-                        $node->args = [new Node\Arg(new Node\Expr\Array_([$firstArgument]))];
+
+                        $array = $this->createArray([$firstArgument->value]);
+                        $node->args = [new Arg($array)];
 
                         return $node;
 
@@ -102,7 +104,7 @@ PHP
 
                         $node->name = new Identifier($newMethod);
 
-                        return new Node\Expr\FuncCall(new Node\Name('array_shift'), [new Node\Arg($node)]);
+                        return $this->createFuncCall('array_shift', [$node]);
                         break;
                 }
             }

@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Core\Utility;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
@@ -17,7 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -29,24 +32,30 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node->expr, GeneralUtility::class)) {
+        if (!$node->expr instanceof StaticCall && !$node->expr instanceof MethodCall) {
             return null;
         }
 
-        if (!$this->isName($node->expr->name, 'explodeUrl2Array')) {
+        /** @var StaticCall|MethodCall $call */
+        $call = $node->expr;
+
+        if (!$this->isMethodStaticCallOrClassMethodObjectType($call, GeneralUtility::class)) {
             return null;
         }
 
-        $arguments = $node->expr->args;
+        if (!$this->isName($call->name, 'explodeUrl2Array')) {
+            return null;
+        }
 
+        $arguments = $call->args;
         if (count($arguments) <= 1) {
             return null;
         }
 
+        /** @var Arg $lastArgument */
         $lastArgument = array_pop($arguments);
-
         if ($this->isFalse($lastArgument->value)) {
-            $node->expr->args = $arguments;
+            $call->args = $arguments;
 
             return null;
         }

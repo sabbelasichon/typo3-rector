@@ -29,7 +29,7 @@ final class InjectAnnotationRector extends AbstractRector
     /**
      * @var string
      */
-    private $oldAnnotation = 'inject';
+    private const OLD_ANNOTATION = 'inject';
 
     /**
      * @var string
@@ -59,19 +59,20 @@ final class InjectAnnotationRector extends AbstractRector
                 return null;
             }
 
-            if (!$propertyPhpDocInfo->hasByName($this->oldAnnotation)) {
+            if (!$propertyPhpDocInfo->hasByName(self::OLD_ANNOTATION)) {
                 continue;
             }
 
             // If the property is public, then change the annotation name
             if ($property->isPublic()) {
-                $this->docBlockManipulator->replaceAnnotationInNode($property, $this->oldAnnotation, $this->newAnnotation);
+                $this->docBlockManipulator->replaceAnnotationInNode($property, self::OLD_ANNOTATION, $this->newAnnotation);
                 continue;
             }
 
             // Remove the old annotation and use setterInjection instead
-            $propertyPhpDocInfo->removeByName($this->oldAnnotation);
+            $propertyPhpDocInfo->removeByName(self::OLD_ANNOTATION);
 
+            /** @var string $variableName */
             $variableName = $this->getName($property);
 
             $paramBuilder = $this->builderFactory->param($variableName);

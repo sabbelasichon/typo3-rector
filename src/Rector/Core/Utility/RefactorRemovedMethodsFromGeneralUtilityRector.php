@@ -39,6 +39,10 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
         }
 
         $methodName = $this->getName($node->name);
+        if (null === $methodName) {
+            return null;
+        }
+
         switch ($methodName) {
             case 'gif_compress':
                 return $this->createStaticCall(GraphicalFunctions::class, 'gifCompress', $node->args);

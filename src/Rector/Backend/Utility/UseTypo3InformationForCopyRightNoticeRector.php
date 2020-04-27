@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -27,9 +27,7 @@ final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
     }
 
     /**
-     * @var Node|StaticCall
-     *
-     * @return Node
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {

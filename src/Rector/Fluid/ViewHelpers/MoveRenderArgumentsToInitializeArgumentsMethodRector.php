@@ -72,7 +72,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
         $this->initializeArgumentsClassMethodFactory->decorateClass($node);
 
         $newRenderMethodStmts = $this->helperArgumentAssignFactory->createRegisterArgumentsCalls($renderMethod);
-        $renderMethod->stmts = array_merge($newRenderMethodStmts, $renderMethod->stmts);
+        $renderMethod->stmts = array_merge($newRenderMethodStmts, (array) $renderMethod->stmts);
 
         $this->removeParamTags($renderMethod);
 

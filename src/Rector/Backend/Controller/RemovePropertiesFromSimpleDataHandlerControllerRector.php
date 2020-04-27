@@ -20,7 +20,7 @@ use TYPO3\CMS\Backend\Controller\SimpleDataHandlerController;
 final class RemovePropertiesFromSimpleDataHandlerControllerRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -37,10 +37,14 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
         }
 
         if ($node->var instanceof Variable) {
-            return $this->removeVariableNode($node);
+            $this->removeVariableNode($node);
+
+            return null;
         }
 
-        return $this->removePropertyFetchNode($node);
+        $this->removePropertyFetchNode($node);
+
+        return null;
     }
 
     /**
@@ -74,45 +78,41 @@ PHP
         ]);
     }
 
-    private function removeVariableNode(Assign $node)
+    private function removeVariableNode(Assign $assign): void
     {
-        $classNode = $node->expr->getAttribute(AttributeKey::CLASS_NODE);
+        $classNode = $assign->expr->getAttribute(AttributeKey::CLASS_NODE);
 
         if (null === $classNode) {
-            return null;
+            return;
         }
 
         if (!$this->isObjectType($classNode, SimpleDataHandlerController::class)) {
-            return null;
+            return;
         }
 
-        if (!$this->isName($node->expr, 'uPT') && !$this->isName($node->expr, 'prErr')) {
-            return null;
+        if (!$this->isName($assign->expr, 'uPT') && !$this->isName($assign->expr, 'prErr')) {
+            return;
         }
 
-        $this->removeNode($node);
-
-        return null;
+        $this->removeNode($assign);
     }
 
-    private function removePropertyFetchNode(Assign $node)
+    private function removePropertyFetchNode(Assign $assign): void
     {
-        $classNode = $node->getAttribute(AttributeKey::CLASS_NODE);
+        $classNode = $assign->getAttribute(AttributeKey::CLASS_NODE);
 
         if (null === $classNode) {
-            return null;
+            return;
         }
 
         if (!$this->isObjectType($classNode, SimpleDataHandlerController::class)) {
-            return null;
+            return;
         }
 
-        if (!$this->isName($node->var, 'uPT') && !$this->isName($node->var, 'prErr')) {
-            return null;
+        if (!$this->isName($assign->var, 'uPT') && !$this->isName($assign->var, 'prErr')) {
+            return;
         }
 
-        $this->removeNode($node);
-
-        return null;
+        $this->removeNode($assign);
     }
 }

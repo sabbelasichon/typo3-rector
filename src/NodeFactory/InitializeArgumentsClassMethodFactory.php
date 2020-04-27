@@ -10,7 +10,7 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
@@ -65,10 +65,14 @@ final class InitializeArgumentsClassMethodFactory
     public function decorateClass(Class_ $class): void
     {
         $renderClassMethod = $class->getMethod('render');
+        if (null === $renderClassMethod) {
+            return;
+        }
+
         $newStmts = $this->createStmts($renderClassMethod);
 
         $classMethod = $this->findOrCreateInitializeArgumentsClassMethod($class);
-        $classMethod->stmts = array_merge($classMethod->stmts, $newStmts);
+        $classMethod->stmts = array_merge((array) $classMethod->stmts, $newStmts);
     }
 
     public function findOrCreateInitializeArgumentsClassMethod(Class_ $class): ClassMethod
@@ -119,12 +123,7 @@ final class InitializeArgumentsClassMethodFactory
             $paramName = $this->nodeNameResolver->getName($param->var);
             $paramTagValueNode = $paramTagsByName[$paramName] ?? null;
 
-            $docString = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPhpDocString($paramTagValueNode->type, $param);
-            if ('[]' === substr($docString, -2)) {
-                $docString = 'array';
-            }
-
-            $docString = new String_($docString);
+            $docString = $this->createTypeInString($paramTagValueNode, $param);
 
             $args = [
                 $paramName,
@@ -172,5 +171,19 @@ final class InitializeArgumentsClassMethodFactory
     private function getDescription(?ParamTagValueNode $paramTagValueNode): string
     {
         return $paramTagValueNode instanceof AttributeAwareParamTagValueNode ? $paramTagValueNode->description : '';
+    }
+
+    private function createTypeInString(?ParamTagValueNode $paramTagValueNode, Param $param): string
+    {
+        if (null === $paramTagValueNode) {
+            return 'mixed';
+        }
+
+        $docString = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPhpDocString($paramTagValueNode->type, $param);
+        if ('[]' === substr($docString, -2)) {
+            return 'array';
+        }
+
+        return $docString;
     }
 }
