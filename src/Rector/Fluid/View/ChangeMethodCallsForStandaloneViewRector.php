@@ -97,15 +97,12 @@ PHP
                         $node->args = [new Arg($array)];
 
                         return $node;
-
-                        break;
                     case 'getLayoutRootPath':
                     case 'getPartialRootPath':
 
                         $node->name = new Identifier($newMethod);
 
                         return $this->createFuncCall('array_shift', [$node]);
-                        break;
                 }
             }
         }

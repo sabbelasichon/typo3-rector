@@ -47,13 +47,10 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
         switch ($methodName) {
             case 'gif_compress':
                 return $this->createStaticCall(GraphicalFunctions::class, 'gifCompress', $node->args);
-                break;
             case 'png_to_gif_by_imagemagick':
                 return $this->createStaticCall(GraphicalFunctions::class, 'pngToGifByImagemagick', $node->args);
-                break;
             case 'read_png_gif':
                 return $this->createStaticCall(GraphicalFunctions::class, 'readPngGif', $node->args);
-                break;
             case 'inArray':
             case 'removeArrayEntryByValue':
             case 'keepItemsInArray':
@@ -61,18 +58,15 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
             case 'arrayDiffAssocRecursive':
             case 'naturalKeySortRecursive':
                 return $this->createStaticCall(ArrayUtility::class, $methodName, $node->args);
-                break;
             case 'array_merge':
                 [$arg1, $arg2] = $node->args;
 
                 return new Plus($arg1->value, $arg2->value);
-                break;
             case 'getThisUrl':
                 // TODO: This is not implemented yet. What is the correct equivalent within getIndpEnv
                 break;
             case 'cleanOutputBuffers':
                 return $this->createStaticCall(GeneralUtility::class, 'flushOutputBuffers');
-                break;
         }
 
         return null;

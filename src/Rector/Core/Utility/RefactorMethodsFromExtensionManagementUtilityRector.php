@@ -43,13 +43,10 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
         switch ($methodName) {
             case 'isLoaded':
                 return $this->removeSecondArgumentFromMethodIsLoaded($node);
-                break;
             case 'siteRelPath':
                 return $this->createNewMethodCallForSiteRelPath($node);
-                break;
             case 'removeCacheFiles':
                 return $this->createNewMethodCallForRemoveCacheFiles();
-                break;
         }
 
         return null;
