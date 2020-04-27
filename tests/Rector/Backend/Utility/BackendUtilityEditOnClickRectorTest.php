@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Utility;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class BackendUtilityEditOnClickRectorTest extends AbstractRectorWithConfigTestCase
+final class BackendUtilityEditOnClickRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

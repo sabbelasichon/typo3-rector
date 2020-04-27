@@ -8,7 +8,7 @@ use Iterator;
 use Ssch\TYPO3Rector\Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class ChangeMethodCallsForStandaloneViewRectorTest extends AbstractRectorWithConfigTestCase
+final class ChangeMethodCallsForStandaloneViewRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

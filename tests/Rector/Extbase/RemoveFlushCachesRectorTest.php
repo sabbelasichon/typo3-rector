@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Extbase;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class RemoveFlushCachesRectorTest extends AbstractRectorWithConfigTestCase
+final class RemoveFlushCachesRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Fluid\ViewHelpers;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class UseRenderingContextGetControllerContextRectorTest extends AbstractRectorWithConfigTestCase
+final class UseRenderingContextGetControllerContextRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

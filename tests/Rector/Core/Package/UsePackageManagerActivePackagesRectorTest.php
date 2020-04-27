@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Core\Package;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class UsePackageManagerActivePackagesRectorTest extends AbstractRectorWithConfigTestCase
+final class UsePackageManagerActivePackagesRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

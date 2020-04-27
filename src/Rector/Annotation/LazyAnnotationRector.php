@@ -20,12 +20,12 @@ final class LazyAnnotationRector extends AbstractRector
     /**
      * @var string
      */
-    private $oldAnnotation = 'lazy';
+    private const OLD_ANNOTATION = 'lazy';
 
     /**
      * @var string
      */
-    private $newAnnotation = 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy';
+    private const NEW_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy';
 
     /**
      * @return string[]
@@ -46,11 +46,11 @@ final class LazyAnnotationRector extends AbstractRector
             return null;
         }
 
-        if (! $phpDocInfo->hasByName($this->oldAnnotation)) {
+        if (! $phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
             return null;
         }
 
-        $this->docBlockManipulator->replaceAnnotationInNode($node, $this->oldAnnotation, $this->newAnnotation);
+        $this->docBlockManipulator->replaceAnnotationInNode($node, self::OLD_ANNOTATION, self::NEW_ANNOTATION);
 
         return $node;
     }

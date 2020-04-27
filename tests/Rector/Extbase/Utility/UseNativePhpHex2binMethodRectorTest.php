@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Extbase\Utility;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class UseNativePhpHex2binMethodRectorTest extends AbstractRectorWithConfigTestCase
+final class UseNativePhpHex2binMethodRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

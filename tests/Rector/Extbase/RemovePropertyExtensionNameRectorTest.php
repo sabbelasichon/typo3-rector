@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Extbase;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class RemovePropertyExtensionNameRectorTest extends AbstractRectorWithConfigTestCase
+final class RemovePropertyExtensionNameRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

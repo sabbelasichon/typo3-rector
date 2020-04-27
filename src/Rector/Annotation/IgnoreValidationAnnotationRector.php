@@ -20,7 +20,7 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
     /**
      * @var string
      */
-    private $oldAnnotation = 'ignorevalidation';
+    private const OLD_ANNOTATION = 'ignorevalidation';
 
     /**
      * @return string[]
@@ -41,16 +41,16 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
             return null;
         }
 
-        if (! $phpDocInfo->hasByName($this->oldAnnotation)) {
+        if (! $phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
             return null;
         }
 
-        $tagNode = $phpDocInfo->getTagsByName($this->oldAnnotation)[0];
+        $tagNode = $phpDocInfo->getTagsByName(self::OLD_ANNOTATION)[0];
 
         $tagName = '@TYPO3\CMS\Extbase\Annotation\IgnoreValidation("' . ltrim((string) $tagNode->value, '$') . '")';
         $phpDocInfo->addBareTag($tagName);
 
-        $phpDocInfo->removeByName($this->oldAnnotation);
+        $phpDocInfo->removeByName(self::OLD_ANNOTATION);
 
         return $node;
     }

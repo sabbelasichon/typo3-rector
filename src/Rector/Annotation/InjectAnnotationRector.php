@@ -34,7 +34,7 @@ final class InjectAnnotationRector extends AbstractRector
     /**
      * @var string
      */
-    private $newAnnotation = 'TYPO3\CMS\Extbase\Annotation\Inject';
+    private const NEW_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\Inject';
 
     /**
      * @return string[]
@@ -68,7 +68,7 @@ final class InjectAnnotationRector extends AbstractRector
                 $this->docBlockManipulator->replaceAnnotationInNode(
                     $property,
                     self::OLD_ANNOTATION,
-                    $this->newAnnotation
+                    self::NEW_ANNOTATION
                 );
                 continue;
             }

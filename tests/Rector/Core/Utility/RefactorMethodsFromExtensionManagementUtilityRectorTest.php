@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Core\Utility;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class RefactorMethodsFromExtensionManagementUtilityRectorTest extends AbstractRectorWithConfigTestCase
+final class RefactorMethodsFromExtensionManagementUtilityRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

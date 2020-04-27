@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Extbase;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class ConfigurationManagerAddControllerConfigurationMethodRectorTest extends AbstractRectorWithConfigTestCase
+final class ConfigurationManagerAddControllerConfigurationMethodRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

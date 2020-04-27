@@ -1,0 +1,8 @@
+parameters:
+    sets:
+        - 'privatization'
+        - 'solid'
+
+    paths:
+        - 'src'
+        - 'tests'

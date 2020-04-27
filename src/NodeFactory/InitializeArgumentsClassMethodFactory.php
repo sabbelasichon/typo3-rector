@@ -75,7 +75,7 @@ final class InitializeArgumentsClassMethodFactory
         $classMethod->stmts = array_merge((array) $classMethod->stmts, $newStmts);
     }
 
-    public function findOrCreateInitializeArgumentsClassMethod(Class_ $class): ClassMethod
+    private function findOrCreateInitializeArgumentsClassMethod(Class_ $class): ClassMethod
     {
         $classMethod = $class->getMethod(self::METHOD_NAME);
         if (null !== $classMethod) {
