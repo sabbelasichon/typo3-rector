@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Console\Command;
 
-use Rector\Console\Shell;
-use Rector\Testing\Finder\RectorsFinder;
+use Rector\Core\Testing\Finder\RectorsFinder;
 use Ssch\TYPO3Rector\Console\OutputFormatter\DumpRectorsOutputFormatterInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
+use Symplify\PackageBuilder\Console\ShellCode;
 
 final class GenerateDocsCommand extends Command
 {
@@ -61,6 +61,6 @@ final class GenerateDocsCommand extends Command
             $outputFormatter->format($generalRectors);
         }
 
-        return Shell::CODE_SUCCESS;
+        return ShellCode::SUCCESS;
     }
 }

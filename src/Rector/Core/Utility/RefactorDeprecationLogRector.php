@@ -9,9 +9,9 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -31,16 +31,12 @@ final class RefactorDeprecationLogRector extends AbstractRector
     }
 
     /**
-     * Process Node of matched type.
-     *
-     * @param Node|StaticCall $node
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {
-        $classNode = $node->class;
-        $className = $this->getName($classNode);
-        $methodName = $this->getName($node);
-        $arguments = $node->args;
+        $className = $this->getName($node->class);
+        $methodName = $this->getName($node->name);
 
         if (GeneralUtility::class !== $className) {
             return null;
@@ -49,14 +45,15 @@ final class RefactorDeprecationLogRector extends AbstractRector
         $const = new ConstFetch(new Name(['name' => 'E_USER_DEPRECATED']));
         $usefulMessage = new String_('A useful message');
         $emptyFallbackString = new String_('');
+        $arguments = $node->args;
 
         switch ($methodName) {
             case 'logDeprecatedFunction':
             case 'logDeprecatedViewHelperAttribute':
-                return $this->createFunction('trigger_error', [$usefulMessage, $const]);
+                return $this->createFuncCall('trigger_error', [$usefulMessage, $const]);
                 break;
             case 'deprecationLog':
-                return $this->createFunction(
+                return $this->createFuncCall(
                     'trigger_error',
                     [$arguments[0] ?? $emptyFallbackString, $const]
                 );

@@ -18,14 +18,15 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Use_;
 use PhpParser\Node\Stmt\UseUse;
 use PHPStan\Type\ObjectType;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\CodingStyle\Naming\ClassNaming;
+use Rector\Core\PhpDoc\PhpDocClassRenamer;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\ConfiguredCodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PhpDoc\PhpDocClassRenamer;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\ConfiguredCodeSample;
-use Rector\RectorDefinition\RectorDefinition;
 use Rector\Renaming\Exception\InvalidPhpCodeException;
 use ReflectionClass;
 
@@ -322,7 +323,8 @@ PHP
      */
     private function refactorPhpDoc(Node $node): void
     {
-        $nodePhpDocInfo = $this->getPhpDocInfo($node);
+        /** @var PhpDocInfo|null $nodePhpDocInfo */
+        $nodePhpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
         if (null === $nodePhpDocInfo) {
             return;
         }

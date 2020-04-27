@@ -9,8 +9,6 @@ class UseNativePhpHex2binMethodRectorTest extends AbstractRectorWithConfigTestCa
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

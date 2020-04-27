@@ -1,22 +1,15 @@
 <?php
 
+namespace Ssch\TYPO3Rector\Tests\Rector\Frontend\ContentObject\Fixture;
+
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 final class ContentObjectRendererMethods
 {
     public function doSomething(): void
     {
-        $this->records = $this->getTypoScriptFrontendController()->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
         $this->otherRecords = $GLOBALS['TSFE']->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
         $this->keepRecords = $GLOBALS['TSFES']->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
-    }
-
-    /**
-     * @return TypoScriptFrontendController
-     */
-    private function getTypoScriptFrontendController(): TypoScriptFrontendController
-    {
-        return $GLOBALS['TSFE'];
     }
 }
 
@@ -24,23 +17,16 @@ final class ContentObjectRendererMethods
 -----
 <?php
 
+namespace Ssch\TYPO3Rector\Tests\Rector\Frontend\ContentObject\Fixture;
+
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 final class ContentObjectRendererMethods
 {
     public function doSomething(): void
     {
-        $this->records = $this->getTypoScriptFrontendController()->cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
         $this->otherRecords = $GLOBALS['TSFE']->cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
         $this->keepRecords = $GLOBALS['TSFES']->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
-    }
-
-    /**
-     * @return TypoScriptFrontendController
-     */
-    private function getTypoScriptFrontendController(): TypoScriptFrontendController
-    {
-        return $GLOBALS['TSFE'];
     }
 }
 

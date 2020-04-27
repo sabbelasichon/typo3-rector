@@ -9,8 +9,6 @@ class UseRenderingContextGetControllerContextRectorTest extends AbstractRectorWi
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

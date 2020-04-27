@@ -6,9 +6,9 @@ namespace Ssch\TYPO3Rector\Rector\Core\Utility;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -51,7 +51,7 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
             return null;
         }
 
-        return $this->createFunction('parse_str', [$arguments[0], $node->var]);
+        return $this->createFuncCall('parse_str', [$arguments[0], $node->var]);
     }
 
     /**

@@ -7,9 +7,9 @@ namespace Ssch\TYPO3Rector\Rector\Core\DataHandling;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**
@@ -34,7 +34,7 @@ final class DataHandlerRmCommaRector extends AbstractRector
         $args = $node->args;
         $firstArgument = array_shift($args);
 
-        return $this->createFunction('rtrim', [$firstArgument, $this->createArg(',')]);
+        return $this->createFuncCall('rtrim', [$firstArgument, $this->createArg(',')]);
     }
 
     /**

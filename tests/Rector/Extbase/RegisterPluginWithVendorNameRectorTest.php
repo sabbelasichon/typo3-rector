@@ -9,8 +9,6 @@ class RegisterPluginWithVendorNameRectorTest extends AbstractRectorWithConfigTes
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

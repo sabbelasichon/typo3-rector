@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Console\OutputFormatter;
 
 use Rector\ConsoleDiffer\MarkdownDifferAndFormatter;
-use Rector\Contract\Rector\RectorInterface;
-use Rector\Contract\RectorDefinition\CodeSampleInterface;
-use Rector\RectorDefinition\ConfiguredCodeSample;
+use Rector\Core\Contract\Rector\RectorInterface;
+use Rector\Core\Contract\RectorDefinition\CodeSampleInterface;
+use Rector\Core\RectorDefinition\ConfiguredCodeSample;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Yaml\Yaml;
 

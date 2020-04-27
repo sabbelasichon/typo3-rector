@@ -7,9 +7,9 @@ namespace Ssch\TYPO3Rector\Rector\Backend\Utility;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -28,7 +28,7 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
             return null;
         }
 
-        if (!$this->isName($node, 'editOnClick')) {
+        if (!$this->isName($node->name, 'editOnClick')) {
             return null;
         }
 

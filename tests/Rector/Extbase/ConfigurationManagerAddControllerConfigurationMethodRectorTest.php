@@ -9,8 +9,6 @@ class ConfigurationManagerAddControllerConfigurationMethodRectorTest extends Abs
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

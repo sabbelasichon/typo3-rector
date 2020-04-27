@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Core\TimeTracker;
 
 use PhpParser\Node;
-use PhpParser\Node\Stmt\Expression;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use PhpParser\Node\Expr\MethodCall;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -29,15 +29,15 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
     }
 
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
-        return [Expression::class];
+        return [MethodCall::class];
     }
 
     /**
-     * @param Expression $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -45,13 +45,12 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
             return null;
         }
 
-        return $this->createMethodCall($this->createStaticCall(
-            GeneralUtility::class,
-            'makeInstance',
-            [
-                $this->createClassConstant(TimeTracker::class, 'class'),
-            ]
-        ), $this->getName($node->expr), $node->expr->args);
+        $classConstant = $this->createClassConstant(TimeTracker::class, 'class');
+        $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
+
+        $methodCallName = $this->getName($node->name);
+
+        return $this->createMethodCall($staticCall, $methodCallName, $node->args);
     }
 
     /**

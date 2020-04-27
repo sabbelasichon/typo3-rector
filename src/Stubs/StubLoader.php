@@ -27,7 +27,7 @@ final class StubLoader
 
         $robotLoader = new RobotLoader();
         $robotLoader->addDirectory($stubDirectory);
-        $robotLoader->setTempDirectory(sys_get_temp_dir() . '/_rector_stubs');
+        $robotLoader->setTempDirectory(sys_get_temp_dir() . '/_typo3_rector_stubs');
         $robotLoader->register();
 
         $this->areStubsLoaded = true;

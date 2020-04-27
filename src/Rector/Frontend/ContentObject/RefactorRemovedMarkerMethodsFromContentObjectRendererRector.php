@@ -10,9 +10,9 @@ use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -63,7 +63,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             'substituteMarkerInObject',
             'substituteMarkerAndSubpartArrayRecursive',
         ])) {
-            $methodName = $this->getName($node);
+            $methodName = $this->getName($node->name);
 
             return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
                 $this->createClassConstant(MarkerBasedTemplateService::class, 'class'),
@@ -71,13 +71,11 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
         }
 
         if ($this->isName($node->name, 'fillInMarkerArray')) {
-            $methodName = $this->getName($node);
-
-            $node->args[] = $this->createArg(new BooleanNot($this->createFunction('empty', [$this->createArg($this->createPropertyFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_('TSFE')), 'xhtmlDoctype'))])));
+            $node->args[] = $this->createArg(new BooleanNot($this->createFuncCall('empty', [$this->createArg($this->createPropertyFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_('TSFE')), 'xhtmlDoctype'))])));
 
             return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
                 $this->createClassConstant(MarkerBasedTemplateService::class, 'class'),
-            ]), $methodName, $node->args);
+            ]), 'fillInMarkerArray', $node->args);
         }
 
         return null;

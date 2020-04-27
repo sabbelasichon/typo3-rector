@@ -9,8 +9,6 @@ class RemoveInternalAnnotationRectorTest extends AbstractRectorWithConfigTestCas
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

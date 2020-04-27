@@ -10,8 +10,6 @@ class ChangeMethodCallsForStandaloneViewRectorTest extends AbstractRectorWithCon
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {
@@ -23,10 +21,8 @@ class ChangeMethodCallsForStandaloneViewRectorTest extends AbstractRectorWithCon
         yield [__DIR__ . '/Fixture/fluid_standaloneview.php.inc'];
     }
 
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorClass(): string
     {
-        return [
-            ChangeMethodCallsForStandaloneViewRector::class => [],
-        ];
+        return ChangeMethodCallsForStandaloneViewRector::class;
     }
 }

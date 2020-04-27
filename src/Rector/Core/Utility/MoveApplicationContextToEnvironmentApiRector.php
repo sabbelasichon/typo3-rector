@@ -6,9 +6,9 @@ namespace Ssch\TYPO3Rector\Rector\Core\Utility;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class MoveApplicationContextToEnvironmentApiRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -26,7 +26,7 @@ final class MoveApplicationContextToEnvironmentApiRector extends AbstractRector
     }
 
     /**
-     * @inheritDoc
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -34,7 +34,7 @@ final class MoveApplicationContextToEnvironmentApiRector extends AbstractRector
             return null;
         }
 
-        if (!$this->isName($node, 'getApplicationContext')) {
+        if (!$this->isName($node->name, 'getApplicationContext')) {
             return null;
         }
 

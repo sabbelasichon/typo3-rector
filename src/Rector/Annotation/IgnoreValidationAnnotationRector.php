@@ -6,12 +6,11 @@ namespace Ssch\TYPO3Rector\Rector\Annotation;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
-use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use Rector\NodeTypeResolver\Exception\MissingTagException;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Feature-83094-ReplaceIgnorevalidationWithTYPO3CMSExtbaseAnnotationIgnoreValidation.html
@@ -23,26 +22,35 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
      */
     private $oldAnnotation = 'ignorevalidation';
 
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [ClassMethod::class];
     }
 
     /**
-     * Process Node of matched type.
-     *
-     * @throws MissingTagException
+     * @param ClassMethod $node
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->docBlockManipulator->hasTag($node, $this->oldAnnotation)) {
+        /** @var PhpDocInfo|null $phpDocInfo */
+        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        if (null === $phpDocInfo) {
             return null;
         }
 
-        $tagNode = $this->docBlockManipulator->getTagByName($node, $this->oldAnnotation);
+        if (!$phpDocInfo->hasByName($this->oldAnnotation)) {
+            return null;
+        }
 
-        $this->docBlockManipulator->addTag($node, new PhpDocTagNode('@TYPO3\CMS\Extbase\Annotation\IgnoreValidation("' . ltrim((string) $tagNode->value, '$') . '")', new GenericTagValueNode('')));
-        $this->docBlockManipulator->removeTagFromNode($node, $this->oldAnnotation);
+        $tagNode = $phpDocInfo->getTagsByName($this->oldAnnotation)[0];
+
+        $tagName = '@TYPO3\CMS\Extbase\Annotation\IgnoreValidation("' . ltrim((string) $tagNode->value, '$') . '")';
+        $phpDocInfo->addBareTag($tagName);
+
+        $phpDocInfo->removeByName($this->oldAnnotation);
 
         return $node;
     }

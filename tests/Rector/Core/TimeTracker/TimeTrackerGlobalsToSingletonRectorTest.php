@@ -5,12 +5,10 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Core\TimeTracker;
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class TimeTrackerGlobalsToSingletonRectorTest extends AbstractRectorWithConfigTestCase
+final class TimeTrackerGlobalsToSingletonRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

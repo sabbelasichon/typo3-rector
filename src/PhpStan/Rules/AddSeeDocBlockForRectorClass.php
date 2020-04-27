@@ -9,13 +9,15 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\Rule;
-use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\FileTypeMapper;
-use Rector\Contract\Rector\PhpRectorInterface;
+use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 
 final class AddSeeDocBlockForRectorClass implements Rule
 {
+    /**
+     * @var string[]
+     */
     private static $allowedClassesWithNonSeeDocBlock = [
         RenameClassMapAliasRector::class,
     ];
@@ -24,6 +26,7 @@ final class AddSeeDocBlockForRectorClass implements Rule
      * @var Broker
      */
     private $broker;
+
     /**
      * @var FileTypeMapper
      */
@@ -35,9 +38,6 @@ final class AddSeeDocBlockForRectorClass implements Rule
         $this->fileTypeMapper = $fileTypeMapper;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getNodeType(): string
     {
         return Class_::class;
@@ -46,7 +46,7 @@ final class AddSeeDocBlockForRectorClass implements Rule
     /**
      * @param Class_ $node
      *
-     * @throws ShouldNotHappenException
+     * @return string[]
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -59,12 +59,15 @@ final class AddSeeDocBlockForRectorClass implements Rule
 
         $classReflection = $this->broker->getClass($fullyQualifiedClassName);
 
-        if (!$classReflection->isSubclassOf(PhpRectorInterface::class) || in_array($fullyQualifiedClassName, self::$allowedClassesWithNonSeeDocBlock, true)) {
+        if (!$classReflection->isSubclassOf(PhpRectorInterface::class)) {
+            return [];
+        }
+
+        if (in_array($fullyQualifiedClassName, self::$allowedClassesWithNonSeeDocBlock, true)) {
             return [];
         }
 
         $docComment = $node->getDocComment();
-
         if (null === $docComment) {
             return [sprintf('You must provide the @see docBlock for Rector %s', $className)];
         }

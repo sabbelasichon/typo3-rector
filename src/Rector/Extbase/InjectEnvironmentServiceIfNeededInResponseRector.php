@@ -13,10 +13,10 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
-use Rector\PhpParser\Node\Manipulator\ClassManipulator;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
 use TYPO3\CMS\Extbase\Service\EnvironmentService;
 
@@ -26,13 +26,13 @@ use TYPO3\CMS\Extbase\Service\EnvironmentService;
 final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRector
 {
     /**
-     * @var ClassManipulator
+     * @var ClassInsertManipulator
      */
-    private $classManipulator;
+    private $classInsertManipulator;
 
-    public function __construct(ClassManipulator $class)
+    public function __construct(ClassInsertManipulator $classInsertManipulator)
     {
-        $this->classManipulator = $class;
+        $this->classInsertManipulator = $classInsertManipulator;
     }
 
     /**
@@ -57,8 +57,9 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
         }
 
         $this->addInjectEnvironmentServiceMethod($node);
-        $this->classManipulator->addAsFirstMethod($node, $this->createEnvironmentServiceProperty());
-        $this->classManipulator->addAsFirstMethod($node, new Nop());
+
+        $this->classInsertManipulator->addAsFirstMethod($node, $this->createEnvironmentServiceProperty());
+        $this->classInsertManipulator->addAsFirstMethod($node, new Nop());
 
         return $node;
     }

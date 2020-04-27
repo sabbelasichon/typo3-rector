@@ -9,8 +9,6 @@ class SubstituteConstantParsetimeStartRectorTest extends AbstractRectorWithConfi
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

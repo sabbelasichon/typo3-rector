@@ -8,6 +8,3 @@ indent_size = 4
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
-
-[composer.{json,lock}]
-indent_size = 4

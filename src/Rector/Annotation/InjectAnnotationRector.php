@@ -15,9 +15,11 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Feature-82869-ReplaceInjectWithTYPO3CMSExtbaseAnnotationInject.html
@@ -34,6 +36,9 @@ final class InjectAnnotationRector extends AbstractRector
      */
     private $newAnnotation = 'TYPO3\CMS\Extbase\Annotation\Inject';
 
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [Class_::class];
@@ -48,7 +53,13 @@ final class InjectAnnotationRector extends AbstractRector
 
         $properties = $node->getProperties();
         foreach ($properties as $property) {
-            if (!$this->docBlockManipulator->hasTag($property, $this->oldAnnotation)) {
+            /** @var PhpDocInfo|null $propertyPhpDocInfo */
+            $propertyPhpDocInfo = $property->getAttribute(AttributeKey::PHP_DOC_INFO);
+            if (null === $propertyPhpDocInfo) {
+                return null;
+            }
+
+            if (!$propertyPhpDocInfo->hasByName($this->oldAnnotation)) {
                 continue;
             }
 
@@ -59,12 +70,12 @@ final class InjectAnnotationRector extends AbstractRector
             }
 
             // Remove the old annotation and use setterInjection instead
-            $this->docBlockManipulator->removeTagFromNode($property, $this->oldAnnotation);
+            $propertyPhpDocInfo->removeByName($this->oldAnnotation);
 
             $variableName = $this->getName($property);
 
             $paramBuilder = $this->builderFactory->param($variableName);
-            $varType = $this->docBlockManipulator->getVarType($property);
+            $varType = $propertyPhpDocInfo->getVarType();
 
             if (!$varType instanceof ObjectType) {
                 continue;

@@ -9,8 +9,6 @@ class UsePackageManagerActivePackagesRectorTest extends AbstractRectorWithConfig
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param string $file
      */
     public function test(string $file): void
     {

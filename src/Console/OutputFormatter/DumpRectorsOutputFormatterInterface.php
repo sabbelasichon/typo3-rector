@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Console\OutputFormatter;
 
-use Rector\Contract\Rector\RectorInterface;
+use Rector\Core\Contract\Rector\RectorInterface;
 
 interface DumpRectorsOutputFormatterInterface
 {

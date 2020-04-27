@@ -6,9 +6,9 @@ namespace Ssch\TYPO3Rector\Rector\Core\Environment;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -54,9 +54,8 @@ PHP
      */
     public function refactor(Node $node): ?Node
     {
-        $classNode = $node->class;
-        $className = $this->getName($classNode);
-        $methodName = $this->getName($node);
+        $className = $this->getName($node->class);
+        $methodName = $this->getName($node->name);
 
         if (Bootstrap::class === $className && 'usesComposerClassLoading' === $methodName) {
             return $this->createStaticCall(Environment::class, 'isComposerMode');

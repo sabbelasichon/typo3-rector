@@ -6,11 +6,11 @@ namespace Ssch\TYPO3Rector\Rector\Annotation;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
-use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-83093-ReplaceCascadeWithTYPO3CMSExtbaseAnnotationORMCascade.html
@@ -27,22 +27,31 @@ final class CascadeAnnotationRector extends AbstractRector
      */
     private $newAnnotation = '@TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")';
 
+    /**
+     * @return string[]
+     */
     public function getNodeTypes(): array
     {
         return [Property::class];
     }
 
     /**
-     * Process Node of matched type.
+     * @param Property $node
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->docBlockManipulator->hasTag($node, $this->oldAnnotation)) {
+        /** @var PhpDocInfo|null $phpDocInfo */
+        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        if (null === $phpDocInfo) {
             return null;
         }
 
-        $this->docBlockManipulator->removeTagFromNode($node, $this->oldAnnotation);
-        $this->docBlockManipulator->addTag($node, new PhpDocTagNode($this->newAnnotation, new GenericTagValueNode('')));
+        if (!$phpDocInfo->hasByName($this->oldAnnotation)) {
+            return null;
+        }
+
+        $phpDocInfo->removeByName($this->oldAnnotation);
+        $phpDocInfo->addBareTag($this->newAnnotation);
 
         return $node;
     }

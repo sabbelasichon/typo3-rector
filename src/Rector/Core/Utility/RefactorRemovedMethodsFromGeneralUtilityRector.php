@@ -6,9 +6,9 @@ namespace Ssch\TYPO3Rector\Rector\Core\Utility;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -34,14 +34,11 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
      */
     public function refactor(Node $node): ?Node
     {
-        $classNode = $node->class;
-        $className = $this->getName($classNode);
-        $methodName = $this->getName($node);
-
-        if (GeneralUtility::class !== $className) {
+        if (!$this->isName($node->class, GeneralUtility::class)) {
             return null;
         }
 
+        $methodName = $this->getName($node->name);
         switch ($methodName) {
             case 'gif_compress':
                 return $this->createStaticCall(GraphicalFunctions::class, 'gifCompress', $node->args);
@@ -83,13 +80,8 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
     {
         return new RectorDefinition('Refactor removed methods from GeneralUtility.', [
             new CodeSample(
-                <<<'PHP'
-GeneralUtility::gif_compress();
-PHP
-                ,
-                <<<'PHP'
-\TYPO3\CMS\Core\Imaging\GraphicalFunctions::gifCompress();
-PHP
+                'GeneralUtility::gif_compress();',
+                '\TYPO3\CMS\Core\Imaging\GraphicalFunctions::gifCompress();'
             ),
         ]);
     }
