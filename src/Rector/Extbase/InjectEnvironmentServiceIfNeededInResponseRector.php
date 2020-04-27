@@ -159,6 +159,7 @@ CODE_SAMPLE
     {
         $paramBuilder = $this->builderFactory->param('environmentService');
         $paramBuilder->setType(new FullyQualified(EnvironmentService::class));
+
         $param = $paramBuilder->getNode();
 
         $propertyAssignNode = $this->nodeFactory->createPropertyAssignmentWithExpr(

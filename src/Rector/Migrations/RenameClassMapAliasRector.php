@@ -256,7 +256,7 @@ PHP
         }
 
         $newName = $this->oldToNewClasses[$name] ?? null;
-        if (! $newName) {
+        if (null === $newName) {
             return null;
         }
 
@@ -293,7 +293,7 @@ PHP
         }
 
         $newName = $this->oldToNewClasses[$stringName] ?? null;
-        if (! $newName) {
+        if (null === $newName) {
             return null;
         }
 
@@ -303,10 +303,8 @@ PHP
 
         $parentNode = $name->getAttribute(AttributeKey::PARENT_NODE);
         // no need to preslash "use \SomeNamespace" of imported namespace
-        if ($parentNode instanceof UseUse) {
-            if (Use_::TYPE_NORMAL === $parentNode->type || Use_::TYPE_UNKNOWN === $parentNode->type) {
-                return new Name($newName);
-            }
+        if ($parentNode instanceof UseUse && (Use_::TYPE_NORMAL === $parentNode->type || Use_::TYPE_UNKNOWN === $parentNode->type)) {
+            return new Name($newName);
         }
 
         return new FullyQualified($newName);

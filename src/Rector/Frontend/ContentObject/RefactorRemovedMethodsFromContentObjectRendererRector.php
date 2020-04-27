@@ -109,20 +109,13 @@ PHP
     private function shouldSkip(MethodCall $methodCall): bool
     {
         $staticType = $this->getStaticType($methodCall->var);
-        if ($staticType instanceof TypeWithClassName) {
-            if (ContentObjectRenderer::class === $staticType->getClassName()) {
-                return false;
-            }
+        if ($staticType instanceof TypeWithClassName && ContentObjectRenderer::class === $staticType->getClassName()) {
+            return false;
         }
-
-        if ($this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
+        return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
             $methodCall,
             Typo3NodeResolver::TypoScriptFrontendController,
             'cObj'
-        )) {
-            return false;
-        }
-
-        return true;
+        );
     }
 }
