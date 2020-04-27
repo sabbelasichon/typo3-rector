@@ -32,18 +32,18 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$node->expr instanceof StaticCall && !$node->expr instanceof MethodCall) {
+        if (! $node->expr instanceof StaticCall && ! $node->expr instanceof MethodCall) {
             return null;
         }
 
         /** @var StaticCall|MethodCall $call */
         $call = $node->expr;
 
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($call, GeneralUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($call, GeneralUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($call->name, 'explodeUrl2Array')) {
+        if (! $this->isName($call->name, 'explodeUrl2Array')) {
             return null;
         }
 

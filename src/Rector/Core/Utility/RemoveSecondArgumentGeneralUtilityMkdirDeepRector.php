@@ -17,9 +17,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRector
 {
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];
@@ -30,11 +27,11 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'mkdir_deep')) {
+        if (! $this->isName($node->name, 'mkdir_deep')) {
             return null;
         }
 
@@ -46,8 +43,7 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
 
         $concat = new Concat($node->args[0]->value, $node->args[1]->value);
 
-        return
-            $this->createStaticCall(
+        return $this->createStaticCall(
                 GeneralUtility::class,
                 'mkdir_deep',
                 [$concat]

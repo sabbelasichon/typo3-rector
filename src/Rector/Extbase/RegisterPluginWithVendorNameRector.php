@@ -29,11 +29,11 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'registerPlugin')) {
+        if (! $this->isName($node->name, 'registerPlugin')) {
             return null;
         }
 

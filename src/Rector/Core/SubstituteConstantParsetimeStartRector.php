@@ -31,20 +31,14 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
         $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [Expr::class];
     }
 
-    /**
-     * @inheritDoc
-     */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->typo3NodeResolver->isTypo3Global($node, Typo3NodeResolver::ParsetimeStart)) {
+        if (! $this->typo3NodeResolver->isTypo3Global($node, Typo3NodeResolver::ParsetimeStart)) {
             return null;
         }
 

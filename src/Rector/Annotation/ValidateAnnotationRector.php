@@ -42,7 +42,7 @@ final class ValidateAnnotationRector extends AbstractRector
             return null;
         }
 
-        if (!$phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
+        if (! $phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
             return null;
         }
 

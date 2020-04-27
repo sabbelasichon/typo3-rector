@@ -18,9 +18,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class TemplateServiceSplitConfArrayRector extends AbstractRector
 {
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
@@ -31,11 +28,11 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, TemplateService::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, TemplateService::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'splitConfArray')) {
+        if (! $this->isName($node->name, 'splitConfArray')) {
             return null;
         }
 

@@ -35,9 +35,6 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
         $this->classInsertManipulator = $classInsertManipulator;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [Class_::class];
@@ -48,11 +45,11 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node, Response::class)) {
+        if (! $this->isObjectType($node, Response::class)) {
             return null;
         }
 
-        if (!$this->isPropertyEnvironmentServiceInUse($node)) {
+        if (! $this->isPropertyEnvironmentServiceInUse($node)) {
             return null;
         }
 
@@ -139,7 +136,7 @@ CODE_SAMPLE
     {
         $isEnvironmentServicePropertyUsed = false;
         $this->traverseNodesWithCallable($node->stmts, function (Node $node) use (&$isEnvironmentServicePropertyUsed): ?PropertyFetch {
-            if (!$node instanceof PropertyFetch) {
+            if (! $node instanceof PropertyFetch) {
                 return null;
             }
 

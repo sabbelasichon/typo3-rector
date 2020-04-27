@@ -19,9 +19,6 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  */
 final class CheckForExtensionVersionRector extends AbstractRector
 {
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class, StaticCall::class];
@@ -32,13 +29,13 @@ final class CheckForExtensionVersionRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isExtensionManagementUtilityIsLoaded($node) && !$this->isPackageManagerIsActivePackage($node)) {
+        if (! $this->isExtensionManagementUtilityIsLoaded($node) && ! $this->isPackageManagerIsActivePackage($node)) {
             return null;
         }
 
         $firstArgument = $node->args[0];
 
-        if (!$this->isValue($firstArgument->value, 'version')) {
+        if (! $this->isValue($firstArgument->value, 'version')) {
             return null;
         }
 

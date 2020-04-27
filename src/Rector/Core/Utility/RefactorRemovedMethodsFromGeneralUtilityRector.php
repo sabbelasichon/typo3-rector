@@ -34,7 +34,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isName($node->class, GeneralUtility::class)) {
+        if (! $this->isName($node->class, GeneralUtility::class)) {
             return null;
         }
 

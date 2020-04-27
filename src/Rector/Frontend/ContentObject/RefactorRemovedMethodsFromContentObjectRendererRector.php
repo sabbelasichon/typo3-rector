@@ -50,6 +50,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         'SWFOBJECT',
         'QTOBJECT',
     ];
+
     /**
      * @var Typo3NodeResolver
      */
@@ -60,9 +61,6 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
@@ -78,7 +76,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         }
 
         $methodName = $this->getName($node->name);
-        if (!in_array($methodName, $this->methodsToRefactor, true)) {
+        if (! in_array($methodName, $this->methodsToRefactor, true)) {
             return null;
         }
 

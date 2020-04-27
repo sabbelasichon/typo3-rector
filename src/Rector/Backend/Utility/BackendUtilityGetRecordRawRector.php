@@ -30,11 +30,11 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'getRecordRaw')) {
+        if (! $this->isName($node->name, 'getRecordRaw')) {
             return null;
         }
 

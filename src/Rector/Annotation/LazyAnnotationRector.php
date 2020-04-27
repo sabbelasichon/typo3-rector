@@ -46,7 +46,7 @@ final class LazyAnnotationRector extends AbstractRector
             return null;
         }
 
-        if (!$phpDocInfo->hasByName($this->oldAnnotation)) {
+        if (! $phpDocInfo->hasByName($this->oldAnnotation)) {
             return null;
         }
 

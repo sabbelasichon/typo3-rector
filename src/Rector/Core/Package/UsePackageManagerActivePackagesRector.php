@@ -28,17 +28,11 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
         $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [ArrayDimFetch::class];
     }
 
-    /**
-     * @inheritDoc
-     */
     public function refactor(Node $node): ?Node
     {
         if ($this->typo3NodeResolver->isTypo3Global($node, Typo3NodeResolver::TYPO3_LOADED_EXT)) {

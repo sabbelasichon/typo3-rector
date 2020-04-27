@@ -3,7 +3,12 @@ parameters:
         - 'psr12'
         - 'php70'
         - 'php71'
+        - 'common'
 
     paths:
         - 'src'
         - 'tests'
+
+
+services:
+    PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: null

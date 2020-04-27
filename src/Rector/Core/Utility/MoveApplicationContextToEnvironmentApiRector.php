@@ -30,11 +30,11 @@ final class MoveApplicationContextToEnvironmentApiRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'getApplicationContext')) {
+        if (! $this->isName($node->name, 'getApplicationContext')) {
             return null;
         }
 

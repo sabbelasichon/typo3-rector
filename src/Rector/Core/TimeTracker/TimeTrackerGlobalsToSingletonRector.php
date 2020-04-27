@@ -41,7 +41,7 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->typo3NodeResolver->isAnyMethodCallOnGlobals($node, Typo3NodeResolver::TimeTracker)) {
+        if (! $this->typo3NodeResolver->isAnyMethodCallOnGlobals($node, Typo3NodeResolver::TimeTracker)) {
             return null;
         }
 

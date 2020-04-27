@@ -16,9 +16,6 @@ use TYPO3\CMS\Extbase\Mvc\Controller\AbstractController;
  */
 final class RemovePropertyExtensionNameRector extends AbstractRector
 {
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [PropertyFetch::class];
@@ -29,11 +26,11 @@ final class RemovePropertyExtensionNameRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node->var, AbstractController::class)) {
+        if (! $this->isObjectType($node->var, AbstractController::class)) {
             return null;
         }
 
-        if (!$this->isName($node, 'extensionName')) {
+        if (! $this->isName($node, 'extensionName')) {
             return null;
         }
 

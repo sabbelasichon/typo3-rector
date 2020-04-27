@@ -41,7 +41,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
             return null;
         }
 
-        if (!in_array($constantName, [
+        if (! in_array($constantName, [
             'PATH_thisScript',
             'PATH_site',
             'PATH_typo3',

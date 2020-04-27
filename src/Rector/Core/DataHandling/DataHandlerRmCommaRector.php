@@ -22,11 +22,11 @@ final class DataHandlerRmCommaRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, DataHandler::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, DataHandler::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'rmComma')) {
+        if (! $this->isName($node->name, 'rmComma')) {
             return null;
         }
 
@@ -37,9 +37,6 @@ final class DataHandlerRmCommaRector extends AbstractRector
         return $this->createFuncCall('rtrim', [$firstArgument, $this->createArg(',')]);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

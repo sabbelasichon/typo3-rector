@@ -59,7 +59,7 @@ final class InjectAnnotationRector extends AbstractRector
                 return null;
             }
 
-            if (!$propertyPhpDocInfo->hasByName(self::OLD_ANNOTATION)) {
+            if (! $propertyPhpDocInfo->hasByName(self::OLD_ANNOTATION)) {
                 continue;
             }
 
@@ -78,7 +78,7 @@ final class InjectAnnotationRector extends AbstractRector
             $paramBuilder = $this->builderFactory->param($variableName);
             $varType = $propertyPhpDocInfo->getVarType();
 
-            if (!$varType instanceof ObjectType) {
+            if (! $varType instanceof ObjectType) {
                 continue;
             }
 

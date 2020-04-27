@@ -29,11 +29,11 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, PageRenderer::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, PageRenderer::class)) {
             return null;
         }
 
-        if (!$this->isNames($node->name, ['getConcatenateFiles', 'enableConcatenateFiles', 'disableConcatenateFiles'])) {
+        if (! $this->isNames($node->name, ['getConcatenateFiles', 'enableConcatenateFiles', 'disableConcatenateFiles'])) {
             return null;
         }
 

@@ -24,11 +24,11 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'editOnClick')) {
+        if (! $this->isName($node->name, 'editOnClick')) {
             return null;
         }
 
@@ -40,9 +40,6 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
         );
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

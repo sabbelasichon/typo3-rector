@@ -20,9 +20,6 @@ use TYPO3\CMS\Extbase\Configuration\AbstractConfigurationManager;
  */
 final class ConfigurationManagerAddControllerConfigurationMethodRector extends AbstractRector
 {
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [Class_::class];
@@ -33,7 +30,7 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node, AbstractConfigurationManager::class)) {
+        if (! $this->isObjectType($node, AbstractConfigurationManager::class)) {
             return null;
         }
 

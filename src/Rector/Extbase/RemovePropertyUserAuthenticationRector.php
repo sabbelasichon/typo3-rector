@@ -29,11 +29,11 @@ final class RemovePropertyUserAuthenticationRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isName($node, 'userAuthentication')) {
+        if (! $this->isName($node, 'userAuthentication')) {
             return $node;
         }
 
-        if (!$this->isObjectType($node->var, CommandController::class)) {
+        if (! $this->isObjectType($node->var, CommandController::class)) {
             return $node;
         }
 

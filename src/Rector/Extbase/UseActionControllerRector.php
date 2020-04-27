@@ -19,9 +19,6 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 final class UseActionControllerRector extends AbstractRector
 {
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [Class_::class];

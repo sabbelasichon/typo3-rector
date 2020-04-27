@@ -22,9 +22,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends AbstractRector
 {
-    /**
-     * @inheritDoc
-     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
@@ -35,11 +32,11 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
             return null;
         }
 
-        if (!$this->isNames($node->name, [
+        if (! $this->isNames($node->name, [
             'getSubpart',
             'substituteSubpart',
             'substituteSubpartArray',

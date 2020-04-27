@@ -29,11 +29,11 @@ final class UseMetaDataAspectRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, File::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, File::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, '_getMetaData')) {
+        if (! $this->isName($node->name, '_getMetaData')) {
             return null;
         }
 

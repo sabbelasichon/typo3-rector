@@ -32,7 +32,7 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$node->var instanceof Variable && !$node->var instanceof PropertyFetch) {
+        if (! $node->var instanceof Variable && ! $node->var instanceof PropertyFetch) {
             return null;
         }
 
@@ -86,11 +86,11 @@ PHP
             return;
         }
 
-        if (!$this->isObjectType($classNode, SimpleDataHandlerController::class)) {
+        if (! $this->isObjectType($classNode, SimpleDataHandlerController::class)) {
             return;
         }
 
-        if (!$this->isName($assign->expr, 'uPT') && !$this->isName($assign->expr, 'prErr')) {
+        if (! $this->isName($assign->expr, 'uPT') && ! $this->isName($assign->expr, 'prErr')) {
             return;
         }
 
@@ -105,11 +105,11 @@ PHP
             return;
         }
 
-        if (!$this->isObjectType($classNode, SimpleDataHandlerController::class)) {
+        if (! $this->isObjectType($classNode, SimpleDataHandlerController::class)) {
             return;
         }
 
-        if (!$this->isName($assign->var, 'uPT') && !$this->isName($assign->var, 'prErr')) {
+        if (! $this->isName($assign->var, 'uPT') && ! $this->isName($assign->var, 'prErr')) {
             return;
         }
 

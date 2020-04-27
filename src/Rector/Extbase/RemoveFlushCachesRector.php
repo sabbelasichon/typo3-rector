@@ -32,7 +32,7 @@ final class RemoveFlushCachesRector extends AbstractRector
     {
         /** @var string $name */
         $name = $this->getName($node);
-        if (!Strings::endsWith($name, 'Command')) {
+        if (! Strings::endsWith($name, 'Command')) {
             return null;
         }
 

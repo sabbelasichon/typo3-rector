@@ -74,12 +74,12 @@ PHP
     public function refactor(Node $node): ?Node
     {
         foreach ($this->oldToNewMethodsByClass as $type => $oldToNewMethods) {
-            if (!$this->isMethodStaticCallOrClassMethodObjectType($node, $type)) {
+            if (! $this->isMethodStaticCallOrClassMethodObjectType($node, $type)) {
                 continue;
             }
 
             foreach ($oldToNewMethods as $oldMethod => $newMethod) {
-                if (!$this->isName($node->name, $oldMethod)) {
+                if (! $this->isName($node->name, $oldMethod)) {
                     continue;
                 }
 

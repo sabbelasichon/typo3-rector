@@ -55,7 +55,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
             return null;
         }
 
-        if (!$this->isObjectTypes($node, [AbstractViewHelper::class, \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper::class])) {
+        if (! $this->isObjectTypes($node, [AbstractViewHelper::class, \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper::class])) {
             return null;
         }
 

@@ -31,11 +31,11 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isExpectedObjectType($node)) {
+        if (! $this->isExpectedObjectType($node)) {
             return null;
         }
 
-        if (!$this->isNames($node->name, ['findService', 'makeInstanceService'])) {
+        if (! $this->isNames($node->name, ['findService', 'makeInstanceService'])) {
             return null;
         }
 

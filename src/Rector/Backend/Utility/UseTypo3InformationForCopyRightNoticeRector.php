@@ -31,11 +31,11 @@ final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'TYPO3_copyRightNotice')) {
+        if (! $this->isName($node->name, 'TYPO3_copyRightNotice')) {
             return null;
         }
 
