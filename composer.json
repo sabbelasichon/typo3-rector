@@ -39,7 +39,8 @@
         "fix-style": "vendor/bin/ecs check --fix --ansi",
         "analyze": "vendor/bin/phpstan analyse --memory-limit=-1 --ansi",
         "test": "vendor/bin/phpunit",
-        "docs": "vendor/bin/rector dump-rectors src/Rector > docs/AllRectorsOverview.md"
+        "docs": "vendor/bin/rector dump-rectors src/Rector > docs/AllRectorsOverview.md",
+        "rector": "vendor/bin/rector rectify --dry-run"
     },
     "scripts-descriptions": {
         "docs": "Regenerate descriptions of all Rectors to docs/AllRectorsOverview.md file"

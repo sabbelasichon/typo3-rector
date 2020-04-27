@@ -18,6 +18,14 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 final class DataHandlerRmCommaRector extends AbstractRector
 {
     /**
+     * @return string[]
+     */
+    public function getNodeTypes(): array
+    {
+        return [MethodCall::class];
+    }
+
+    /**
      * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
@@ -35,11 +43,6 @@ final class DataHandlerRmCommaRector extends AbstractRector
         $firstArgument = array_shift($args);
 
         return $this->createFuncCall('rtrim', [$firstArgument, $this->createArg(',')]);
-    }
-
-    public function getNodeTypes(): array
-    {
-        return [MethodCall::class];
     }
 
     /**
