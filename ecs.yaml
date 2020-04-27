@@ -1,0 +1,7 @@
+parameters:
+    sets:
+        - 'psr12'
+
+    paths:
+        - 'src'
+        - 'tests'

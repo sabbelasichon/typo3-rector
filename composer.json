@@ -12,8 +12,8 @@
         "typo3fluid/fluid": "^2.6"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "phpunit/phpunit": "^8.0|^9.0"
+        "phpunit/phpunit": "^8.0|^9.0",
+        "symplify/easy-coding-standard": "^7.2"
     },
     "autoload": {
         "psr-4": {
@@ -35,9 +35,9 @@
         "sort-packages": true
     },
     "scripts": {
-        "check-style": "./vendor/bin/php-cs-fixer fix --config=./.php_cs.dist --dry-run",
-        "fix-style": "./vendor/bin/php-cs-fixer fix --config=./.php_cs.dist",
-        "analyze": "./vendor/bin/phpstan analyse --memory-limit=-1 --ansi",
+        "check-style": "vendor/bin/ecs check --ansi",
+        "fix-style": "vendor/bin/ecs check --fix --ansi",
+        "analyze": "vendor/bin/phpstan analyse --memory-limit=-1 --ansi",
         "test": "vendor/bin/phpunit",
         "docs": "vendor/bin/rector dump-rectors src/Rector > docs/AllRectorsOverview.md"
     },
