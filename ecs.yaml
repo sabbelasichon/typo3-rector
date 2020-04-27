@@ -1,6 +1,8 @@
 parameters:
     sets:
         - 'psr12'
+        - 'php70'
+        - 'php71'
 
     paths:
         - 'src'
