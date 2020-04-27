@@ -52,11 +52,6 @@ final class RenameClassMapAliasRector extends AbstractRector
      */
     private $phpDocClassRenamer;
 
-    /**
-     * @var array
-     */
-    private $aliasMap;
-
     public function __construct(
         ClassNaming $classNaming,
         PhpDocClassRenamer $phpDocClassRenamer,
@@ -65,7 +60,7 @@ final class RenameClassMapAliasRector extends AbstractRector
         $this->classNaming = $classNaming;
         $this->phpDocClassRenamer = $phpDocClassRenamer;
 
-        foreach ($classAliasMaps as $key => $file) {
+        foreach ($classAliasMaps as $file) {
             $filePath = realpath(__DIR__ . '/' . $file);
 
             if (false !== $filePath && file_exists($filePath)) {
@@ -254,7 +249,7 @@ PHP
 
     private function refactorClassLikeNode(ClassLike $classLike): ?Node
     {
-        /* @var class-string|null $name */
+        /** @var class-string|null $name */
         $name = $this->getName($classLike);
         if (null === $name) {
             return null;

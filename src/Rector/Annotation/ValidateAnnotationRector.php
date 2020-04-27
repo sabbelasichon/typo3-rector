@@ -107,7 +107,7 @@ CODE_SAMPLE
         if (false !== strpos($validatorAnnotation, '(')) {
             preg_match('#(.*)\((.*)\)#', $validatorAnnotation, $matches);
 
-            [$_, $validator, $options] = $matches;
+            [, $validator, $options] = $matches;
 
             $optionsArray = [];
             foreach (explode(',', $options) as $option) {

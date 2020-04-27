@@ -4,6 +4,7 @@ parameters:
         - 'php70'
         - 'php71'
         - 'common'
+        - 'clean-code'
 
     paths:
         - 'src'
