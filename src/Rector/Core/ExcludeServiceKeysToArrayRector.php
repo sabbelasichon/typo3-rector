@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Core;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
@@ -31,11 +32,11 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isExpectedObjectType($node)) {
+        if (! $this->isExpectedObjectType($node)) {
             return null;
         }
 
-        if (!$this->isNames($node->name, ['findService', 'makeInstanceService'])) {
+        if (! $this->isNames($node->name, ['findService', 'makeInstanceService'])) {
             return null;
         }
 
@@ -53,7 +54,7 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
 
         $args = [new String_(','), $excludeServiceKeys, $this->createTrue()];
         $staticCall = $this->createStaticCall(GeneralUtility::class, 'trimExplode', $args);
-        $node->args[2] = new Node\Arg($staticCall);
+        $node->args[2] = new Arg($staticCall);
 
         return $node;
     }

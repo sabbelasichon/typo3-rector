@@ -18,15 +18,23 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 final class DataHandlerRmCommaRector extends AbstractRector
 {
     /**
+     * @return string[]
+     */
+    public function getNodeTypes(): array
+    {
+        return [MethodCall::class];
+    }
+
+    /**
      * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, DataHandler::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, DataHandler::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'rmComma')) {
+        if (! $this->isName($node->name, 'rmComma')) {
             return null;
         }
 
@@ -38,25 +46,19 @@ final class DataHandlerRmCommaRector extends AbstractRector
     }
 
     /**
-     * @inheritDoc
-     */
-    public function getNodeTypes(): array
-    {
-        return [MethodCall::class];
-    }
-
-    /**
      * @codeCoverageIgnore
      */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Migrate the method DataHandler::rmComma() to use rtrim()', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(
+                <<<'PHP'
 $inList = '1,2,3,';
 $dataHandler = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\DataHandler::class);
 $inList = $dataHandler->rmComma(trim($inList));
 PHP
-                , <<<'PHP'
+                ,
+                <<<'PHP'
 $inList = '1,2,3,';
 $dataHandler = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\DataHandler::class);
 $inList = rtrim(trim($inList), ',');

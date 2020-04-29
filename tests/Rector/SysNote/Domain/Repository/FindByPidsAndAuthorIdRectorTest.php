@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\SysNote\Domain\Repository;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class FindByPidsAndAuthorIdRectorTest extends AbstractRectorWithConfigTestCase
+final class FindByPidsAndAuthorIdRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

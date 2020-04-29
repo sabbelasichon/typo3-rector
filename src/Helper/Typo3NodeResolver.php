@@ -16,27 +16,41 @@ final class Typo3NodeResolver
     use NameResolverTrait;
     use ValueResolverTrait;
 
+    /**
+     * @var string
+     */
     public const TypoScriptFrontendController = 'TSFE';
+
+    /**
+     * @var string
+     */
     public const TimeTracker = 'TT';
+
+    /**
+     * @var string
+     */
     public const ParsetimeStart = 'PARSETIME_START';
 
+    /**
+     * @var string
+     */
     public const TYPO3_LOADED_EXT = 'TYPO3_LOADED_EXT';
 
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool
     {
-        if (!$node instanceof MethodCall) {
+        if (! $node instanceof MethodCall) {
             return false;
         }
 
-        if (!$node->var instanceof ArrayDimFetch) {
+        if (! $node->var instanceof ArrayDimFetch) {
             return false;
         }
 
-        if (!$this->isName($node->name, $methodCall)) {
+        if (! $this->isName($node->name, $methodCall)) {
             return false;
         }
 
-        if (!$this->isName($node->var->var, 'GLOBALS')) {
+        if (! $this->isName($node->var->var, 'GLOBALS')) {
             return false;
         }
 
@@ -49,15 +63,15 @@ final class Typo3NodeResolver
 
     public function isAnyMethodCallOnGlobals(Node $node, string $global): bool
     {
-        if (!$node instanceof MethodCall) {
+        if (! $node instanceof MethodCall) {
             return false;
         }
 
-        if (!$node->var instanceof ArrayDimFetch) {
+        if (! $node->var instanceof ArrayDimFetch) {
             return false;
         }
 
-        if (!$this->isName($node->var->var, 'GLOBALS')) {
+        if (! $this->isName($node->var->var, 'GLOBALS')) {
             return false;
         }
 
@@ -70,11 +84,11 @@ final class Typo3NodeResolver
 
     public function isTypo3Global(Node $node, string $global): bool
     {
-        if (!$node instanceof ArrayDimFetch) {
+        if (! $node instanceof ArrayDimFetch) {
             return false;
         }
 
-        if (!$this->isName($node->var, 'GLOBALS')) {
+        if (! $this->isName($node->var, 'GLOBALS')) {
             return false;
         }
 
@@ -87,23 +101,23 @@ final class Typo3NodeResolver
 
     public function isMethodCallOnPropertyOfGlobals(Node $node, string $global, string $property): bool
     {
-        if (!$node instanceof MethodCall) {
+        if (! $node instanceof MethodCall) {
             return false;
         }
 
-        if (!$node->var instanceof PropertyFetch) {
+        if (! $node->var instanceof PropertyFetch) {
             return false;
         }
 
-        if (!$node->var->var instanceof ArrayDimFetch) {
+        if (! $node->var->var instanceof ArrayDimFetch) {
             return false;
         }
 
-        if (!$this->isName($node->var->var->var, 'GLOBALS')) {
+        if (! $this->isName($node->var->var->var, 'GLOBALS')) {
             return false;
         }
 
-        if (!$this->isName($node->var->name, $property)) {
+        if (! $this->isName($node->var->name, $property)) {
             return false;
         }
 

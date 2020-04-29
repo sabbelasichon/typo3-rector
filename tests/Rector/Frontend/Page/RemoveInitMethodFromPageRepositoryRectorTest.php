@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Frontend\Page;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class RemoveInitMethodFromPageRepositoryRectorTest extends AbstractRectorWithConfigTestCase
+final class RemoveInitMethodFromPageRepositoryRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

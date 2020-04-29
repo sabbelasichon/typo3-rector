@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 final class UseNativePhpHex2binMethodRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -29,11 +29,11 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, TypeHandlingUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, TypeHandlingUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'hex2bin')) {
+        if (! $this->isName($node->name, 'hex2bin')) {
             return null;
         }
 

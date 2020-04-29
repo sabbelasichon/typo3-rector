@@ -25,7 +25,7 @@ final class ChangeMethodCallsForStandaloneViewRector extends AbstractRector
      *
      * @var string[][]
      */
-    private $oldToNewMethodsByClass = [
+    private const OLD_TO_NEW_METHODS_BY_CLASS = [
         StandaloneView::class => [
             'setLayoutRootPath' => 'setLayoutRootPaths',
             'getLayoutRootPath' => 'getLayoutRootPaths',
@@ -73,13 +73,13 @@ PHP
      */
     public function refactor(Node $node): ?Node
     {
-        foreach ($this->oldToNewMethodsByClass as $type => $oldToNewMethods) {
-            if (!$this->isMethodStaticCallOrClassMethodObjectType($node, $type)) {
+        foreach (self::OLD_TO_NEW_METHODS_BY_CLASS as $type => $oldToNewMethods) {
+            if (! $this->isMethodStaticCallOrClassMethodObjectType($node, $type)) {
                 continue;
             }
 
             foreach ($oldToNewMethods as $oldMethod => $newMethod) {
-                if (!$this->isName($node->name, $oldMethod)) {
+                if (! $this->isName($node->name, $oldMethod)) {
                     continue;
                 }
 
@@ -97,15 +97,12 @@ PHP
                         $node->args = [new Arg($array)];
 
                         return $node;
-
-                        break;
                     case 'getLayoutRootPath':
                     case 'getPartialRootPath':
 
                         $node->name = new Identifier($newMethod);
 
                         return $this->createFuncCall('array_shift', [$node]);
-                        break;
                 }
             }
         }

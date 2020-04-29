@@ -17,7 +17,7 @@ use TYPO3\CMS\Backend\Domain\Repository\Localization\LocalizationRepository;
 final class RemoveColPosParameterRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -29,11 +29,19 @@ final class RemoveColPosParameterRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, LocalizationRepository::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, LocalizationRepository::class)) {
             return null;
         }
 
-        if (!$this->isNames($node->name, ['fetchOriginLanguage', 'getLocalizedRecordCount', 'fetchAvailableLanguages', 'getRecordsToCopyDatabaseResult'])) {
+        if (! $this->isNames(
+            $node->name,
+            [
+                'fetchOriginLanguage',
+                'getLocalizedRecordCount',
+                'fetchAvailableLanguages',
+                'getRecordsToCopyDatabaseResult',
+            ]
+        )) {
             return null;
         }
 

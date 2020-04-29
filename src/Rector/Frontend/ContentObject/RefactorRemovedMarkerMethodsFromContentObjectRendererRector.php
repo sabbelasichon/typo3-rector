@@ -23,7 +23,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -35,11 +35,11 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
             return null;
         }
 
-        if (!$this->isNames($node->name, [
+        if (! $this->isNames($node->name, [
             'getSubpart',
             'substituteSubpart',
             'substituteSubpartArray',
@@ -75,7 +75,16 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
         }
 
         if ($this->isName($node->name, 'fillInMarkerArray')) {
-            $node->args[] = $this->createArg(new BooleanNot($this->createFuncCall('empty', [$this->createArg($this->createPropertyFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_('TSFE')), 'xhtmlDoctype'))])));
+            $node->args[] = $this->createArg(
+                new BooleanNot($this->createFuncCall(
+                    'empty',
+                    [$this->createArg(
+                        $this->createPropertyFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_(
+                            'TSFE'
+                        )), 'xhtmlDoctype')
+                    )]
+                ))
+            );
 
             return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
                 $this->createClassConstant(MarkerBasedTemplateService::class, 'class'),
@@ -91,7 +100,8 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Refactor removed Marker-related methods from ContentObjectRenderer.', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(
+                <<<'PHP'
 // build template
 $template = $this->cObj->getSubpart($this->config['templateFile'], '###TEMPLATE###');
 $html = $this->cObj->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
@@ -103,7 +113,8 @@ $content .= $this->cObj->substituteMarkerInObject($tree, $markContentArray);
 $content .= $this->cObj->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
 $content .= $this->cObj->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC);
 PHP
-                , <<<'PHP'
+                ,
+                <<<'PHP'
 // build template
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

@@ -46,7 +46,7 @@ final class RefactorDbConstantsRector extends AbstractRector
             return null;
         }
 
-        if (!array_key_exists($constantsName, self::MAP_CONSTANTS_TO_GLOBALS)) {
+        if (! array_key_exists($constantsName, self::MAP_CONSTANTS_TO_GLOBALS)) {
             return null;
         }
 
@@ -56,14 +56,14 @@ final class RefactorDbConstantsRector extends AbstractRector
             new ArrayDimFetch(
                 new ArrayDimFetch(
                     new ArrayDimFetch(
-                        new ArrayDimFetch(
-                            new Variable('GLOBALS'),
-                            new String_('TYPO3_CONF_VARS')
-                        ),
+                        new ArrayDimFetch(new Variable('GLOBALS'), new String_('TYPO3_CONF_VARS')),
                         new String_('DB')
-                    ), new String_('Connections')
-                ), new String_('Default')
-            ), new String_($globalKey)
+                    ),
+                    new String_('Connections')
+                ),
+                new String_('Default')
+            ),
+            new String_($globalKey)
         );
     }
 

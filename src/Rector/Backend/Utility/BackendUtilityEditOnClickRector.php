@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Backend\Utility;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Name;
+use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
@@ -24,24 +28,21 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'editOnClick')) {
+        if (! $this->isName($node->name, 'editOnClick')) {
             return null;
         }
 
         $firstArgument = $node->args[0];
 
-        return new Concat(
-            $this->createUriBuilderCall($firstArgument),
-            $this->createRequestUriCall()
-        );
+        return new Concat($this->createUriBuilderCall($firstArgument), $this->createRequestUriCall());
     }
 
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -70,7 +71,7 @@ PHP
         ]);
     }
 
-    private function createUriBuilderCall(Node\Arg $firstArgument): Concat
+    private function createUriBuilderCall(Arg $firstArgument): Concat
     {
         return new Concat(
             new Concat(
@@ -78,29 +79,24 @@ PHP
                     $this->createStaticCall(
                         GeneralUtility::class,
                         'makeInstance',
-                        [
-                            $this->createClassConstant(UriBuilder::class, 'class'),
-                        ]
-                    ), 'buildUriFromRoute', [$this->createArg('record_edit')]
+                        [$this->createClassConstant(UriBuilder::class, 'class')]
+                    ),
+                    'buildUriFromRoute',
+                    [$this->createArg('record_edit')]
                 ),
                 $firstArgument->value
             ),
-            new Node\Scalar\String_('&returnUrl=')
+            new String_('&returnUrl=')
         );
     }
 
-    private function createRequestUriCall(): Node\Expr\FuncCall
+    private function createRequestUriCall(): FuncCall
     {
-        return new Node\Expr\FuncCall(
-            new Node\Name('rawurlencode'), [
+        return new FuncCall(
+            new Name('rawurlencode'),
+            [
                 $this->createArg(
-                    $this->createStaticCall(
-                        GeneralUtility::class,
-                        'getIndpEnv',
-                        [
-                            $this->createArg('REQUEST_URI'),
-                        ]
-                    )
+                    $this->createStaticCall(GeneralUtility::class, 'getIndpEnv', [$this->createArg('REQUEST_URI')])
                 ),
             ]
         );

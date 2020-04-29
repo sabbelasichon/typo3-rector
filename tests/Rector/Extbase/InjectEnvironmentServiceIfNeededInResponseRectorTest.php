@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Extbase;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class InjectEnvironmentServiceIfNeededInResponseRectorTest extends AbstractRectorWithConfigTestCase
+final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

@@ -20,7 +20,7 @@ use TYPO3\CMS\IndexedSearch\Controller\SearchFormController;
 final class RenamePiListBrowserResultsRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -32,11 +32,11 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node, SearchFormController::class)) {
+        if (! $this->isObjectType($node, SearchFormController::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'pi_list_browseresults')) {
+        if (! $this->isName($node->name, 'pi_list_browseresults')) {
             return null;
         }
 
@@ -55,12 +55,7 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
     {
         return new RectorDefinition(
             'Rename pi_list_browseresults calls to renderPagination',
-            [
-                new CodeSample(
-                    '$this->pi_list_browseresults',
-                    '$this->renderPagination'
-                ),
-            ]
+            [new CodeSample('$this->pi_list_browseresults', '$this->renderPagination')]
         );
     }
 

@@ -20,12 +20,12 @@ final class CascadeAnnotationRector extends AbstractRector
     /**
      * @var string
      */
-    private $oldAnnotation = 'cascade';
+    private const OLD_ANNOTATION = 'cascade';
 
     /**
      * @var string
      */
-    private $newAnnotation = '@TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")';
+    private const NEW_ANNOTATION = '@TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")';
 
     /**
      * @return string[]
@@ -46,12 +46,12 @@ final class CascadeAnnotationRector extends AbstractRector
             return null;
         }
 
-        if (!$phpDocInfo->hasByName($this->oldAnnotation)) {
+        if (! $phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
             return null;
         }
 
-        $phpDocInfo->removeByName($this->oldAnnotation);
-        $phpDocInfo->addBareTag($this->newAnnotation);
+        $phpDocInfo->removeByName(self::OLD_ANNOTATION);
+        $phpDocInfo->addBareTag(self::NEW_ANNOTATION);
 
         return $node;
     }

@@ -30,11 +30,11 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'getRecordRaw')) {
+        if (! $this->isName($node->name, 'getRecordRaw')) {
             return null;
         }
 
@@ -43,15 +43,16 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
         [$firstArgument, $secondArgument, $thirdArgument] = $args;
 
         $queryBuilderAssignment = $this->createQueryBuilderCall($firstArgument);
-        $queryBuilderRemoveRestrictions = $this->createMethodCall($this->createMethodCall(new Variable('queryBuilder'), 'getRestrictions'), 'removeAll');
+        $queryBuilderRemoveRestrictions = $this->createMethodCall(
+            $this->createMethodCall(new Variable('queryBuilder'), 'getRestrictions'),
+            'removeAll'
+        );
         $this->addNodeBeforeNode(new Nop(), $node);
         $this->addNodeBeforeNode($queryBuilderAssignment, $node);
         $this->addNodeBeforeNode($queryBuilderRemoveRestrictions, $node);
         $this->addNodeBeforeNode(new Nop(), $node);
 
-        $node = $this->fetchQueryBuilderResults($firstArgument, $secondArgument, $thirdArgument);
-
-        return $node;
+        return $this->fetchQueryBuilderResults($firstArgument, $secondArgument, $thirdArgument);
     }
 
     /**
@@ -68,13 +69,15 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Migrate the method BackendUtility::editOnClick() to use UriBuilder API', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(
+                <<<'PHP'
 $table = 'fe_users';
 $where = 'uid > 5';
 $fields = ['uid', 'pid'];
 $record = BackendUtility::getRecordRaw($table, $where, $fields);
 PHP
-                , <<<'PHP'
+                ,
+                <<<'PHP'
 $table = 'fe_users';
 $where = 'uid > 5';
 $fields = ['uid', 'pid'];
@@ -112,13 +115,23 @@ PHP
                         $this->createMethodCall(
                             $queryBuilder,
                             'select',
-                            [$this->createStaticCall(GeneralUtility::class, 'trimExplode', [new String_(','), $this->createArg($fields->value), $this->createTrue()])]
+                            [
+                                $this->createStaticCall(GeneralUtility::class, 'trimExplode', [
+                                    new String_(','),
+                                    $this->createArg($fields->value),
+                                    $this->createTrue(),
+                                ]),
+                            ]
                         ),
                         'from',
                         [$this->createArg($table->value)]
                     ),
                     'where',
-                    [$this->createStaticCall(QueryHelper::class, 'stripLogicalOperatorPrefix', [$this->createArg($where->value)])]
+                    [
+                        $this->createStaticCall(QueryHelper::class, 'stripLogicalOperatorPrefix', [
+                            $this->createArg($where->value),
+                        ]),
+                    ]
                 ),
                 'execute'
             ),

@@ -31,7 +31,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
     }
 
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -43,27 +43,31 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if ($this->typo3NodeResolver->isMethodCallOnGlobals($node, 'initTemplate', Typo3NodeResolver::TypoScriptFrontendController)) {
+        if ($this->typo3NodeResolver->isMethodCallOnGlobals(
+            $node,
+            'initTemplate',
+            Typo3NodeResolver::TypoScriptFrontendController
+        )) {
             $this->removeNode($node);
 
             return null;
         }
 
-        if (!$node instanceof MethodCall) {
+        if (! $node instanceof MethodCall) {
             return null;
         }
 
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, TypoScriptFrontendController::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, TypoScriptFrontendController::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'initTemplate')) {
+        if (! $this->isName($node->name, 'initTemplate')) {
             return null;
         }
 
         try {
             $this->removeNode($node);
-        } catch (ShouldNotHappenException $e) {
+        } catch (ShouldNotHappenException $shouldNotHappenException) {
             $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
             $this->removeNode($parentNode);
         }

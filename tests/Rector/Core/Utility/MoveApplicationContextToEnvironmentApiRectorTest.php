@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Core\Utility;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class MoveApplicationContextToEnvironmentApiRectorTest extends AbstractRectorWithConfigTestCase
+final class MoveApplicationContextToEnvironmentApiRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

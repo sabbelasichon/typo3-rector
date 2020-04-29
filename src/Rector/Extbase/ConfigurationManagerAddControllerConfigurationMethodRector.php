@@ -21,7 +21,7 @@ use TYPO3\CMS\Extbase\Configuration\AbstractConfigurationManager;
 final class ConfigurationManagerAddControllerConfigurationMethodRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -33,7 +33,7 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node, AbstractConfigurationManager::class)) {
+        if (! $this->isObjectType($node, AbstractConfigurationManager::class)) {
             return null;
         }
 
@@ -101,7 +101,11 @@ CODE_SAMPLE
 
         $newMethod = $methodBuilder->getNode();
         $newMethod->returnType = new Identifier('array');
-        $newMethod->stmts[] = new Return_($this->createMethodCall('this', 'getSwitchableControllerActions', [new Variable('extensionName'), new Variable('pluginName')]));
+        $newMethod->stmts[] = new Return_($this->createMethodCall(
+            'this',
+            'getSwitchableControllerActions',
+            [new Variable('extensionName'), new Variable('pluginName')]
+        ));
 
         $node->stmts[] = new Nop();
         $node->stmts[] = $newMethod;

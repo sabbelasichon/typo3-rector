@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 final class RefactorMethodsFromExtensionManagementUtilityRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -43,13 +43,10 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
         switch ($methodName) {
             case 'isLoaded':
                 return $this->removeSecondArgumentFromMethodIsLoaded($node);
-                break;
             case 'siteRelPath':
                 return $this->createNewMethodCallForSiteRelPath($node);
-                break;
             case 'removeCacheFiles':
                 return $this->createNewMethodCallForRemoveCacheFiles();
-                break;
         }
 
         return null;
@@ -77,7 +74,11 @@ PHP
     {
         $firstArgument = $node->args[0];
 
-        return $this->createStaticCall(PathUtility::class, 'stripPathSitePrefix', [$this->createStaticCall(ExtensionManagementUtility::class, 'extPath', [$firstArgument])]);
+        return $this->createStaticCall(
+            PathUtility::class,
+            'stripPathSitePrefix',
+            [$this->createStaticCall(ExtensionManagementUtility::class, 'extPath', [$firstArgument])]
+        );
     }
 
     private function createNewMethodCallForRemoveCacheFiles(): MethodCall
@@ -85,9 +86,7 @@ PHP
         return $this->createMethodCall($this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [
-                $this->createClassConstant(CacheManager::class, 'class'),
-            ]
+            [$this->createClassConstant(CacheManager::class, 'class')]
         ), 'flushCachesInGroup', [$this->createArg('system')]);
     }
 

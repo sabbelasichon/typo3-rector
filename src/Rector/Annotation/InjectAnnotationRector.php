@@ -34,7 +34,7 @@ final class InjectAnnotationRector extends AbstractRector
     /**
      * @var string
      */
-    private $newAnnotation = 'TYPO3\CMS\Extbase\Annotation\Inject';
+    private const NEW_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\Inject';
 
     /**
      * @return string[]
@@ -59,13 +59,17 @@ final class InjectAnnotationRector extends AbstractRector
                 return null;
             }
 
-            if (!$propertyPhpDocInfo->hasByName(self::OLD_ANNOTATION)) {
+            if (! $propertyPhpDocInfo->hasByName(self::OLD_ANNOTATION)) {
                 continue;
             }
 
             // If the property is public, then change the annotation name
             if ($property->isPublic()) {
-                $this->docBlockManipulator->replaceAnnotationInNode($property, self::OLD_ANNOTATION, $this->newAnnotation);
+                $this->docBlockManipulator->replaceAnnotationInNode(
+                    $property,
+                    self::OLD_ANNOTATION,
+                    self::NEW_ANNOTATION
+                );
                 continue;
             }
 
@@ -78,7 +82,7 @@ final class InjectAnnotationRector extends AbstractRector
             $paramBuilder = $this->builderFactory->param($variableName);
             $varType = $propertyPhpDocInfo->getVarType();
 
-            if (!$varType instanceof ObjectType) {
+            if (! $varType instanceof ObjectType) {
                 continue;
             }
 
@@ -132,11 +136,8 @@ CODE_SAMPLE
         );
     }
 
-    private function createInjectClassMethod(
-        string $variableName,
-        Param $param,
-        Assign $assign
-    ): ClassMethod {
+    private function createInjectClassMethod(string $variableName, Param $param, Assign $assign): ClassMethod
+    {
         $injectMethodName = 'inject' . ucfirst($variableName);
 
         $injectMethodBuilder = $this->builderFactory->method($injectMethodName);

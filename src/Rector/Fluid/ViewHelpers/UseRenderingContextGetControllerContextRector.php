@@ -42,7 +42,7 @@ final class UseRenderingContextGetControllerContextRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectTypes($node, [AbstractViewHelper::class, CmsAbstractViewHelper::class])) {
+        if (! $this->isObjectTypes($node, [AbstractViewHelper::class, CmsAbstractViewHelper::class])) {
             return null;
         }
 
@@ -89,15 +89,18 @@ CODE_SAMPLE
     {
         foreach ($node->getMethods() as $classMethod) {
             $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (Node $node) {
-                if (!$node instanceof PropertyFetch) {
+                if (! $node instanceof PropertyFetch) {
                     return null;
                 }
 
-                if (!$this->isName($node, 'controllerContext')) {
+                if (! $this->isName($node, 'controllerContext')) {
                     return null;
                 }
 
-                return $this->createMethodCall($this->createPropertyFetch('this', 'renderingContext'), 'getControllerContext');
+                return $this->createMethodCall(
+                    $this->createPropertyFetch('this', 'renderingContext'),
+                    'getControllerContext'
+                );
             });
         }
     }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Core\Environment;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\ConstFetch;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
@@ -41,7 +42,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
             return null;
         }
 
-        if (!in_array($constantName, [
+        if (! in_array($constantName, [
             'PATH_thisScript',
             'PATH_site',
             'PATH_typo3',
@@ -56,23 +57,20 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
         switch ($constantName) {
             case 'PATH_thisScript':
                 return $this->createStaticCall(Environment::class, 'getCurrentScript');
-                break;
             case 'PATH_site':
                 return $this->createStaticCall(Environment::class, 'getPublicPath');
-                break;
             case 'PATH_typo3':
                 return $this->createStaticCall(Environment::class, 'getBackendPath');
-                break;
             case 'PATH_typo3conf':
                 return $this->createStaticCall(Environment::class, 'getLegacyConfigPath');
-                break;
             case 'TYPO3_OS':
-                return new Node\Expr\BinaryOp\BooleanOr($this->createStaticCall(Environment::class, 'isUnix'), $this->createStaticCall(Environment::class, 'isWindows'));
-                break;
+                return new BooleanOr($this->createStaticCall(Environment::class, 'isUnix'), $this->createStaticCall(
+                    Environment::class,
+                    'isWindows'
+                ));
             case 'TYPO3_REQUESTTYPE_CLI':
             case 'TYPO3_REQUESTTYPE':
                 return $this->createStaticCall(Environment::class, 'isCli');
-                break;
         }
 
         return null;

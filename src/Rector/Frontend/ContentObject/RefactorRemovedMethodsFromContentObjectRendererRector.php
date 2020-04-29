@@ -21,7 +21,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
     /**
      * @var string[]
      */
-    private $methodsToRefactor = [
+    private const METHODS_TO_REFACTOR = [
         'FLOWPLAYER',
         'TEXT',
         'CLEARGIF',
@@ -50,6 +50,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         'SWFOBJECT',
         'QTOBJECT',
     ];
+
     /**
      * @var Typo3NodeResolver
      */
@@ -61,7 +62,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
     }
 
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -78,14 +79,11 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         }
 
         $methodName = $this->getName($node->name);
-        if (!in_array($methodName, $this->methodsToRefactor, true)) {
+        if (! in_array($methodName, self::METHODS_TO_REFACTOR, true)) {
             return null;
         }
 
-        $args = [
-            $this->createArg($methodName),
-            array_shift($node->args),
-        ];
+        $args = [$this->createArg($methodName), array_shift($node->args)];
 
         return $this->createMethodCall($node->var, 'cObjGetSingle', $args);
     }
@@ -111,16 +109,13 @@ PHP
     private function shouldSkip(MethodCall $methodCall): bool
     {
         $staticType = $this->getStaticType($methodCall->var);
-        if ($staticType instanceof TypeWithClassName) {
-            if (ContentObjectRenderer::class === $staticType->getClassName()) {
-                return false;
-            }
-        }
-
-        if ($this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals($methodCall, Typo3NodeResolver::TypoScriptFrontendController, 'cObj')) {
+        if ($staticType instanceof TypeWithClassName && ContentObjectRenderer::class === $staticType->getClassName()) {
             return false;
         }
-
-        return true;
+        return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
+            $methodCall,
+            Typo3NodeResolver::TypoScriptFrontendController,
+            'cObj'
+        );
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Core\TypoScript;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
-class TemplateServiceSplitConfArrayRectorTest extends AbstractRectorWithConfigTestCase
+final class TemplateServiceSplitConfArrayRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()

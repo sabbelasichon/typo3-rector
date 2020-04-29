@@ -21,6 +21,9 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
  */
 final class ValidateAnnotationRector extends AbstractRector
 {
+    /**
+     * @var string
+     */
     private const OLD_ANNOTATION = 'validate';
 
     /**
@@ -42,7 +45,7 @@ final class ValidateAnnotationRector extends AbstractRector
             return null;
         }
 
-        if (!$phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
+        if (! $phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
             return null;
         }
 
@@ -104,7 +107,7 @@ CODE_SAMPLE
         if (false !== strpos($validatorAnnotation, '(')) {
             preg_match('#(.*)\((.*)\)#', $validatorAnnotation, $matches);
 
-            [$_, $validator, $options] = $matches;
+            [, $validator, $options] = $matches;
 
             $optionsArray = [];
             foreach (explode(',', $options) as $option) {
@@ -112,7 +115,11 @@ CODE_SAMPLE
                 $optionsArray[] = sprintf('"%s": %s', trim($optionKey), trim($optionValue));
             }
 
-            $annotation = sprintf('@TYPO3\\CMS\\Extbase\\Annotation\\Validate("%s", options={%s})', trim($validator), implode(',', $optionsArray));
+            $annotation = sprintf(
+                '@TYPO3\\CMS\\Extbase\\Annotation\\Validate("%s", options={%s})',
+                trim($validator),
+                implode(',', $optionsArray)
+            );
         } else {
             $annotation = sprintf('@TYPO3\\CMS\\Extbase\\Annotation\\Validate(validator="%s")', $validatorAnnotation);
         }
@@ -124,7 +131,11 @@ CODE_SAMPLE
     {
         [$param, $validator] = explode(' ', $validatorAnnotation);
 
-        $annotation = sprintf('@TYPO3\\CMS\\Extbase\\Annotation\\Validate(validator="%s", param="%s")', $validator, ltrim($param, '$'));
+        $annotation = sprintf(
+            '@TYPO3\\CMS\\Extbase\\Annotation\\Validate(validator="%s", param="%s")',
+            $validator,
+            ltrim($param, '$')
+        );
 
         return new AttributeAwarePhpDocTagNode($annotation, $this->createEmptyTagValueNode());
     }

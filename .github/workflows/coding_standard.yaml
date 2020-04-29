@@ -1,12 +1,13 @@
-name: Format (PHP)
+name: Coding Standard
 
 on:
+    pull_request: null
     push:
         branches:
             - "master"
 
 jobs:
-    php-cs-fixer:
+    coding_standard:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2.0.0
@@ -16,13 +17,11 @@ jobs:
                     coverage: none
 
             -   run: composer install --no-progress
-
-            -   name: Run php-cs-fixer
-                run: ./vendor/bin/php-cs-fixer fix --config=./.php_cs.dist
+            -   run: vendor/bin/ecs check --fix
 
             -   uses: stefanzweifel/git-auto-commit-action@v2.5.0
                 with:
-                    commit_message: Apply php-cs-fixer changes
+                    commit_message: Apply coding standard changes
                     branch: "master"
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

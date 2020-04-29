@@ -36,7 +36,7 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
     }
 
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -48,11 +48,11 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node, Response::class)) {
+        if (! $this->isObjectType($node, Response::class)) {
             return null;
         }
 
-        if (!$this->isPropertyEnvironmentServiceInUse($node)) {
+        if (! $this->isPropertyEnvironmentServiceInUse($node)) {
             return null;
         }
 
@@ -138,8 +138,10 @@ CODE_SAMPLE
     private function isPropertyEnvironmentServiceInUse(Class_ $node): bool
     {
         $isEnvironmentServicePropertyUsed = false;
-        $this->traverseNodesWithCallable($node->stmts, function (Node $node) use (&$isEnvironmentServicePropertyUsed): ?PropertyFetch {
-            if (!$node instanceof PropertyFetch) {
+        $this->traverseNodesWithCallable($node->stmts, function (Node $node) use (
+            &$isEnvironmentServicePropertyUsed
+        ): ?PropertyFetch {
+            if (! $node instanceof PropertyFetch) {
                 return null;
             }
 
@@ -157,9 +159,13 @@ CODE_SAMPLE
     {
         $paramBuilder = $this->builderFactory->param('environmentService');
         $paramBuilder->setType(new FullyQualified(EnvironmentService::class));
+
         $param = $paramBuilder->getNode();
 
-        $propertyAssignNode = $this->nodeFactory->createPropertyAssignmentWithExpr('environmentService', new Variable('environmentService'));
+        $propertyAssignNode = $this->nodeFactory->createPropertyAssignmentWithExpr(
+            'environmentService',
+            new Variable('environmentService')
+        );
         $classMethodBuilder = $this->builderFactory->method('injectEnvironmentService');
         $classMethodBuilder->addParam($param);
         $classMethodBuilder->addStmt($propertyAssignNode);

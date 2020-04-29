@@ -30,11 +30,11 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, SysNoteRepository::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, SysNoteRepository::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'findByPidsAndAuthor')) {
+        if (! $this->isName($node->name, 'findByPidsAndAuthor')) {
             return null;
         }
 

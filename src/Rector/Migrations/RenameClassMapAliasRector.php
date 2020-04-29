@@ -52,11 +52,6 @@ final class RenameClassMapAliasRector extends AbstractRector
      */
     private $phpDocClassRenamer;
 
-    /**
-     * @var array
-     */
-    private $aliasMap;
-
     public function __construct(
         ClassNaming $classNaming,
         PhpDocClassRenamer $phpDocClassRenamer,
@@ -65,7 +60,7 @@ final class RenameClassMapAliasRector extends AbstractRector
         $this->classNaming = $classNaming;
         $this->phpDocClassRenamer = $phpDocClassRenamer;
 
-        foreach ($classAliasMaps as $key => $file) {
+        foreach ($classAliasMaps as $file) {
             $filePath = realpath(__DIR__ . '/' . $file);
 
             if (false !== $filePath && file_exists($filePath)) {
@@ -207,7 +202,7 @@ PHP
             return false;
         }
 
-        return !(in_array($node, $classNode->implements, true) && class_exists($newName));
+        return ! (in_array($node, $classNode->implements, true) && class_exists($newName));
     }
 
     private function refactorNamespaceNode(Namespace_ $namespace): ?Node
@@ -226,7 +221,7 @@ PHP
         $newNamespace = $this->classNaming->getNamespace($newClassFqn);
 
         // Renaming to class without namespace (example MyNamespace\DateTime -> DateTimeImmutable)
-        if (!$newNamespace) {
+        if (! $newNamespace) {
             $classNode->name = new Identifier($newClassFqn);
 
             return $classNode;
@@ -240,7 +235,7 @@ PHP
     private function getClassOfNamespaceToRefactor(Namespace_ $namespace): ?ClassLike
     {
         $foundClass = $this->betterNodeFinder->findFirst($namespace, function (Node $node): bool {
-            if (!$node instanceof ClassLike) {
+            if (! $node instanceof ClassLike) {
                 return false;
             }
 
@@ -254,14 +249,14 @@ PHP
 
     private function refactorClassLikeNode(ClassLike $classLike): ?Node
     {
-        /* @var class-string|null $name */
+        /** @var class-string|null $name */
         $name = $this->getName($classLike);
         if (null === $name) {
             return null;
         }
 
         $newName = $this->oldToNewClasses[$name] ?? null;
-        if (!$newName) {
+        if (null === $newName) {
             return null;
         }
 
@@ -281,7 +276,7 @@ PHP
         $classLike->name = new Identifier($newClassNamePart);
 
         // Old class did not have any namespace, we need to wrap class with Namespace_ node
-        if ($newNamespacePart && !$this->classNaming->getNamespace($name)) {
+        if ($newNamespacePart && ! $this->classNaming->getNamespace($name)) {
             $this->changeNameToFullyQualifiedName($classLike);
 
             return new Namespace_(new Name($newNamespacePart), [$classLike]);
@@ -298,20 +293,18 @@ PHP
         }
 
         $newName = $this->oldToNewClasses[$stringName] ?? null;
-        if (!$newName) {
+        if (null === $newName) {
             return null;
         }
 
-        if (!$this->isClassToInterfaceValidChange($name, $newName)) {
+        if (! $this->isClassToInterfaceValidChange($name, $newName)) {
             return null;
         }
 
         $parentNode = $name->getAttribute(AttributeKey::PARENT_NODE);
         // no need to preslash "use \SomeNamespace" of imported namespace
-        if ($parentNode instanceof UseUse) {
-            if (Use_::TYPE_NORMAL === $parentNode->type || Use_::TYPE_UNKNOWN === $parentNode->type) {
-                return new Name($newName);
-            }
+        if ($parentNode instanceof UseUse && (Use_::TYPE_NORMAL === $parentNode->type || Use_::TYPE_UNKNOWN === $parentNode->type)) {
+            return new Name($newName);
         }
 
         return new FullyQualified($newName);
@@ -329,7 +322,7 @@ PHP
             return;
         }
 
-        if (!$this->docBlockManipulator->hasNodeTypeTags($node)) {
+        if (! $this->docBlockManipulator->hasNodeTypeTags($node)) {
             return;
         }
 
@@ -349,19 +342,24 @@ PHP
      */
     private function ensureClassWillNotBeDuplicate(string $newName, string $oldName): void
     {
-        if (!ClassExistenceStaticHelper::doesClassLikeExist($newName)) {
+        if (! ClassExistenceStaticHelper::doesClassLikeExist($newName)) {
             return;
         }
 
         $classReflection = new ReflectionClass($newName);
 
-        throw new InvalidPhpCodeException(sprintf('Renaming class "%s" to "%s" would create a duplicated class/interface/trait (already existing in "%s") and cause PHP code to be invalid.', $oldName, $newName, $classReflection->getFileName()));
+        throw new InvalidPhpCodeException(sprintf(
+            'Renaming class "%s" to "%s" would create a duplicated class/interface/trait (already existing in "%s") and cause PHP code to be invalid.',
+            $oldName,
+            $newName,
+            $classReflection->getFileName()
+        ));
     }
 
     private function changeNameToFullyQualifiedName(ClassLike $classLike): void
     {
         $this->traverseNodesWithCallable($classLike, function (Node $node) {
-            if (!$node instanceof FullyQualified) {
+            if (! $node instanceof FullyQualified) {
                 return null;
             }
 

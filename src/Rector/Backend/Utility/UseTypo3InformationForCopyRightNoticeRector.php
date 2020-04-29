@@ -31,11 +31,11 @@ final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'TYPO3_copyRightNotice')) {
+        if (! $this->isName($node->name, 'TYPO3_copyRightNotice')) {
             return null;
         }
 
@@ -49,14 +49,19 @@ final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Migrate the method BackendUtility::TYPO3_copyRightNotice() to use Typo3Information API', [
-            new CodeSample(<<<'PHP'
+        return new RectorDefinition(
+            'Migrate the method BackendUtility::TYPO3_copyRightNotice() to use Typo3Information API',
+            [
+                new CodeSample(
+                    <<<'PHP'
 $copyright = BackendUtility::TYPO3_copyRightNotice();
 PHP
-                , <<<'PHP'
+                    ,
+                    <<<'PHP'
 $copyright = GeneralUtility::makeInstance(Typo3Information::class)->getCopyrightNotice();
 PHP
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 }

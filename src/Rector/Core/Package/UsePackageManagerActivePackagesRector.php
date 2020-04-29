@@ -29,7 +29,7 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
     }
 
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -37,7 +37,7 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
     }
 
     /**
-     * @inheritDoc
+     * @param ArrayDimFetch $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -45,9 +45,7 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
             return $this->createMethodCall($this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [
-                    $this->createClassConstant(PackageManager::class, 'class'),
-                ]
+                [$this->createClassConstant(PackageManager::class, 'class')]
             ), 'getActivePackages');
         }
 

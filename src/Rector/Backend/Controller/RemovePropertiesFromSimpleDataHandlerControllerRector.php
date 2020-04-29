@@ -32,7 +32,7 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$node->var instanceof Variable && !$node->var instanceof PropertyFetch) {
+        if (! $node->var instanceof Variable && ! $node->var instanceof PropertyFetch) {
             return null;
         }
 
@@ -52,9 +52,11 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Remove assignments or accessing of properties prErr and uPT from class SimpleDataHandlerController', [
-            new CodeSample(
-                <<<'PHP'
+        return new RectorDefinition(
+            'Remove assignments or accessing of properties prErr and uPT from class SimpleDataHandlerController',
+            [
+                new CodeSample(
+                    <<<'PHP'
 final class MySimpleDataHandlerController extends SimpleDataHandlerController
 {
     public function myMethod()
@@ -65,8 +67,8 @@ final class MySimpleDataHandlerController extends SimpleDataHandlerController
     }
 }
 PHP
-                ,
-                <<<'PHP'
+                    ,
+                    <<<'PHP'
 final class MySimpleDataHandlerController extends SimpleDataHandlerController
 {
     public function myMethod()
@@ -74,8 +76,9 @@ final class MySimpleDataHandlerController extends SimpleDataHandlerController
     }
 }
 PHP
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 
     private function removeVariableNode(Assign $assign): void
@@ -86,11 +89,11 @@ PHP
             return;
         }
 
-        if (!$this->isObjectType($classNode, SimpleDataHandlerController::class)) {
+        if (! $this->isObjectType($classNode, SimpleDataHandlerController::class)) {
             return;
         }
 
-        if (!$this->isName($assign->expr, 'uPT') && !$this->isName($assign->expr, 'prErr')) {
+        if (! $this->isName($assign->expr, 'uPT') && ! $this->isName($assign->expr, 'prErr')) {
             return;
         }
 
@@ -105,11 +108,11 @@ PHP
             return;
         }
 
-        if (!$this->isObjectType($classNode, SimpleDataHandlerController::class)) {
+        if (! $this->isObjectType($classNode, SimpleDataHandlerController::class)) {
             return;
         }
 
-        if (!$this->isName($assign->var, 'uPT') && !$this->isName($assign->var, 'prErr')) {
+        if (! $this->isName($assign->var, 'uPT') && ! $this->isName($assign->var, 'prErr')) {
             return;
         }
 

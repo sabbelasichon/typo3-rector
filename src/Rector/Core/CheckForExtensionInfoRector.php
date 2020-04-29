@@ -32,13 +32,13 @@ final class CheckForExtensionInfoRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isExtensionManagementUtilityIsLoaded($node) && !$this->isPackageManagerIsActivePackage($node)) {
+        if (! $this->isExtensionManagementUtilityIsLoaded($node) && ! $this->isPackageManagerIsActivePackage($node)) {
             return null;
         }
 
         $firstArgument = $node->args[0];
 
-        if (!$this->isValue($firstArgument->value, 'info_pagetsconfig')) {
+        if (! $this->isValue($firstArgument->value, 'info_pagetsconfig')) {
             return null;
         }
 
@@ -85,7 +85,10 @@ PHP
      */
     private function isExtensionManagementUtilityIsLoaded(Node $node): bool
     {
-        return $node instanceof StaticCall && $this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionManagementUtility::class) && $this->isName($node->name, 'isLoaded');
+        return $node instanceof StaticCall && $this->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            ExtensionManagementUtility::class
+        ) && $this->isName($node->name, 'isLoaded');
     }
 
     /**
@@ -93,6 +96,9 @@ PHP
      */
     private function isPackageManagerIsActivePackage(Node $node): bool
     {
-        return $this->isMethodStaticCallOrClassMethodObjectType($node, PackageManager::class) && $this->isName($node->name, 'isPackageActive');
+        return $this->isMethodStaticCallOrClassMethodObjectType($node, PackageManager::class) && $this->isName(
+            $node->name,
+            'isPackageActive'
+        );
     }
 }

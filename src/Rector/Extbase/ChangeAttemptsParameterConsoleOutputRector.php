@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Mvc\Cli\ConsoleOutput;
 final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -29,11 +29,11 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ConsoleOutput::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ConsoleOutput::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'select') && !$this->isName($node->name, 'askAndValidate')) {
+        if (! $this->isName($node->name, 'select') && ! $this->isName($node->name, 'askAndValidate')) {
             return null;
         }
 

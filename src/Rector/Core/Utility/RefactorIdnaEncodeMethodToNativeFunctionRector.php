@@ -34,11 +34,11 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'idnaEncode')) {
+        if (! $this->isName($node->name, 'idnaEncode')) {
             return null;
         }
 
@@ -48,7 +48,7 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
         }
 
         $firstArgumentValue = $this->getValue($arguments[0]->value);
-        if (!is_string($firstArgumentValue)) {
+        if (! is_string($firstArgumentValue)) {
             return null;
         }
 

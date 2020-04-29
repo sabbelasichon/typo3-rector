@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class TemplateServiceSplitConfArrayRector extends AbstractRector
 {
     /**
-     * @inheritDoc
+     * @return string[]
      */
     public function getNodeTypes(): array
     {
@@ -31,20 +31,18 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, TemplateService::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, TemplateService::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'splitConfArray')) {
+        if (! $this->isName($node->name, 'splitConfArray')) {
             return null;
         }
 
         return $this->createMethodCall($this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [
-                $this->createClassConstant(TypoScriptService::class, 'class'),
-            ]
+            [$this->createClassConstant(TypoScriptService::class, 'class')]
         ), 'explodeConfigurationForOptionSplit', $node->args);
     }
 
@@ -53,16 +51,19 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Substitute TemplateService->splitConfArray() with TypoScriptService->explodeConfigurationForOptionSplit()', [
-            new CodeSample(
-                <<<'PHP'
+        return new RectorDefinition(
+            'Substitute TemplateService->splitConfArray() with TypoScriptService->explodeConfigurationForOptionSplit()',
+            [
+                new CodeSample(
+                    <<<'PHP'
 $splitConfig = GeneralUtility::makeInstance(TemplateService::class)->splitConfArray($conf, $splitCount);
 PHP
-                ,
-                <<<'PHP'
+                    ,
+                    <<<'PHP'
 $splitConfig = GeneralUtility::makeInstance(TypoScriptService::class)->explodeConfigurationForOptionSplit($conf, $splitCount);
 PHP
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 }

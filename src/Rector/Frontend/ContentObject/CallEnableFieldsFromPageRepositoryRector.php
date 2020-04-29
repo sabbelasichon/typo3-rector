@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\Frontend\ContentObject;
 
 use PhpParser\BuilderHelpers;
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
@@ -29,25 +30,23 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'enableFields')) {
+        if (! $this->isName($node->name, 'enableFields')) {
             return null;
         }
 
         $numberOfMethodArguments = count($node->args);
         if ($numberOfMethodArguments > 1) {
-            $node->args[1] = new Node\Arg(BuilderHelpers::normalizeValue($this->isTrue($node->args[1]->value) ? true : -1));
+            $node->args[1] = new Arg(BuilderHelpers::normalizeValue($this->isTrue($node->args[1]->value) ? true : -1));
         }
 
         return $this->createMethodCall($this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [
-                $this->createClassConstant(PageRepository::class, 'class'),
-            ]
+            [$this->createClassConstant(PageRepository::class, 'class')]
         ), 'enableFields', $node->args);
     }
 

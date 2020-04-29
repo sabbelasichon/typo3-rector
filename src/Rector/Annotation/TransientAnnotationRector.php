@@ -20,12 +20,12 @@ final class TransientAnnotationRector extends AbstractRector
     /**
      * @var string
      */
-    private $oldAnnotation = 'transient';
+    private const OLD_ANNOTATION = 'transient';
 
     /**
      * @var string
      */
-    private $newAnnotation = 'TYPO3\CMS\Extbase\Annotation\ORM\Transient';
+    private const NEW_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\ORM\Transient';
 
     /**
      * @return string[]
@@ -46,11 +46,11 @@ final class TransientAnnotationRector extends AbstractRector
             return null;
         }
 
-        if (!$phpDocInfo->hasByName($this->oldAnnotation)) {
+        if (! $phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
             return null;
         }
 
-        $this->docBlockManipulator->replaceAnnotationInNode($node, $this->oldAnnotation, $this->newAnnotation);
+        $this->docBlockManipulator->replaceAnnotationInNode($node, self::OLD_ANNOTATION, self::NEW_ANNOTATION);
 
         return $node;
     }
