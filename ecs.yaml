@@ -15,8 +15,6 @@ services:
     # limit line length to 120 chars
     Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer: null
 
-
-
     PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: null
 
     # imports FQN names

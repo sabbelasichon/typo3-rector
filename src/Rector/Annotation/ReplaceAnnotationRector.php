@@ -21,7 +21,7 @@ final class ReplaceAnnotationRector extends AbstractRector
     /**
      * @var string[]
      */
-    private $oldToNewAnnotations;
+    private $oldToNewAnnotations = [];
 
     /**
      * @param string[] $oldToNewAnnotations
