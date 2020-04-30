@@ -24,6 +24,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class BackendUtilityEditOnClickRector extends AbstractRector
 {
     /**
+     * @return string[]
+     */
+    public function getNodeTypes(): array
+    {
+        return [StaticCall::class];
+    }
+
+    /**
      * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
@@ -39,14 +47,6 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
         $firstArgument = $node->args[0];
 
         return new Concat($this->createUriBuilderCall($firstArgument), $this->createRequestUriCall());
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getNodeTypes(): array
-    {
-        return [StaticCall::class];
     }
 
     /**

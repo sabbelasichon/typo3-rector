@@ -26,6 +26,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class BackendUtilityGetRecordRawRector extends AbstractRector
 {
     /**
+     * @return string[]
+     */
+    public function getNodeTypes(): array
+    {
+        return [StaticCall::class];
+    }
+
+    /**
      * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
@@ -53,14 +61,6 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
         $this->addNodeBeforeNode(new Nop(), $node);
 
         return $this->fetchQueryBuilderResults($firstArgument, $secondArgument, $thirdArgument);
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getNodeTypes(): array
-    {
-        return [StaticCall::class];
     }
 
     /**
