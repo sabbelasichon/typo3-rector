@@ -19,6 +19,6 @@ final class DataHandlerRmCommaRectorTest extends AbstractRectorWithConfigTestCas
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/data_handler_rm_comma.php.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 }

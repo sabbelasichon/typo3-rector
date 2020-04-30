@@ -19,6 +19,6 @@ final class TimeTrackerGlobalsToSingletonRectorTest extends AbstractRectorWithCo
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/time_tracker_direct_call.php.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 }

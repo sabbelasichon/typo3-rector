@@ -19,6 +19,6 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRectorTest extends A
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/refactor_deprecated_concatenate_methods.php.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 }

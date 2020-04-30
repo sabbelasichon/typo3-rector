@@ -19,6 +19,6 @@ final class RenameClassMapAliasRectorTest extends AbstractRectorWithConfigTestCa
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/fluid_core_classes.php.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 }

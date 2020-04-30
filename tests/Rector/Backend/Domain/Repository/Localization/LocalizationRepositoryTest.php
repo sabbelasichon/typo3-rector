@@ -19,6 +19,6 @@ final class LocalizationRepositoryTest extends AbstractRectorWithConfigTestCase
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/remove_colpos_parameter_localizationrepository_methods.php.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 }
