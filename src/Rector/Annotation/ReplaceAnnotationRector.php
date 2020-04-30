@@ -5,38 +5,42 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Annotation;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\ConfiguredCodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Feature-83092-ReplaceTransientWithTYPO3CMSExtbaseAnnotationORMTransient.html
  */
-final class TransientAnnotationRector extends AbstractRector
+final class ReplaceAnnotationRector extends AbstractRector
 {
     /**
-     * @var string
+     * @var string[]
      */
-    private const OLD_ANNOTATION = 'transient';
+    private $oldToNewAnnotations;
 
     /**
-     * @var string
+     * @param string[] $oldToNewAnnotations
      */
-    private const NEW_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\ORM\Transient';
+    public function __construct(array $oldToNewAnnotations = [])
+    {
+        $this->oldToNewAnnotations = $oldToNewAnnotations;
+    }
 
     /**
      * @return string[]
      */
     public function getNodeTypes(): array
     {
-        return [Property::class];
+        return [Property::class, ClassMethod::class];
     }
 
     /**
-     * @param Property $node
+     * @param Property|ClassMethod $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -46,11 +50,14 @@ final class TransientAnnotationRector extends AbstractRector
             return null;
         }
 
-        if (! $phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
-            return null;
-        }
+        foreach ($this->oldToNewAnnotations as $oldAnnotation => $newAnnotation) {
+            if (! $phpDocInfo->hasByName($oldAnnotation)) {
+                continue;
+            }
 
-        $this->docBlockManipulator->replaceAnnotationInNode($node, self::OLD_ANNOTATION, self::NEW_ANNOTATION);
+            $phpDocInfo->removeByName($oldAnnotation);
+            $phpDocInfo->addBareTag($newAnnotation);
+        }
 
         return $node;
     }
@@ -61,9 +68,9 @@ final class TransientAnnotationRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
-            'Turns properties with `@transient` to properties with `@TYPO3\CMS\Extbase\Annotation\ORM\Transient`',
+            'Replace old annotation by new one',
             [
-                new CodeSample(
+                new ConfiguredCodeSample(
                     <<<'CODE_SAMPLE'
 /**
  * @transient
@@ -78,7 +85,11 @@ CODE_SAMPLE
 private $someProperty;
 
 CODE_SAMPLE
-                ),
+                , [
+                    '$oldToNewAnnotations' => [
+                        'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
+                    ],
+                ]),
             ]
         );
     }
