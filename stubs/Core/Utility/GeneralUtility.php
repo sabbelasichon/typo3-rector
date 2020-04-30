@@ -71,4 +71,9 @@ class GeneralUtility
     {
         return 'foo';
     }
+
+    public static function _GP($value)
+    {
+        return ['foo' => 'bar'];
+    }
 }
