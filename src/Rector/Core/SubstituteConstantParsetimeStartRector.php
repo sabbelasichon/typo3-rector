@@ -44,7 +44,7 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->typo3NodeResolver->isTypo3Global($node, Typo3NodeResolver::ParsetimeStart)) {
+        if (! $this->typo3NodeResolver->isTypo3Global($node, Typo3NodeResolver::PARSETIME_START)) {
             return null;
         }
 

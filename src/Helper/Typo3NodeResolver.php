@@ -19,17 +19,17 @@ final class Typo3NodeResolver
     /**
      * @var string
      */
-    public const TypoScriptFrontendController = 'TSFE';
+    public const TYPO_SCRIPT_FRONTEND_CONTROLLER = 'TSFE';
 
     /**
      * @var string
      */
-    public const TimeTracker = 'TT';
+    public const TIME_TRACKER = 'TT';
 
     /**
      * @var string
      */
-    public const ParsetimeStart = 'PARSETIME_START';
+    public const PARSETIME_START = 'PARSETIME_START';
 
     /**
      * @var string

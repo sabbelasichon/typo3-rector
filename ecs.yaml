@@ -5,15 +5,17 @@ parameters:
         - 'php71'
         - 'common'
         - 'clean-code'
+        - 'dead-code'
 
     paths:
         - 'src'
         - 'tests'
 
-
 services:
     # limit line length to 120 chars
     Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer: null
+
+
 
     PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer: null
 
