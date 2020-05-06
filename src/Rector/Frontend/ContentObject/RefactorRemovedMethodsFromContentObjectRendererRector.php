@@ -114,7 +114,7 @@ PHP
         }
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
             $methodCall,
-            Typo3NodeResolver::TypoScriptFrontendController,
+            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
             'cObj'
         );
     }

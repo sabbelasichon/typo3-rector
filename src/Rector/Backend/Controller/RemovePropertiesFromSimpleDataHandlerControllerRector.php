@@ -32,17 +32,15 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $node->var instanceof Variable && ! $node->var instanceof PropertyFetch) {
-            return null;
-        }
-
         if ($node->var instanceof Variable) {
             $this->removeVariableNode($node);
 
             return null;
         }
 
-        $this->removePropertyFetchNode($node);
+        if ($node->var instanceof PropertyFetch) {
+            $this->removePropertyFetchNode($node);
+        }
 
         return null;
     }

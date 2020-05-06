@@ -46,7 +46,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
         if ($this->typo3NodeResolver->isMethodCallOnGlobals(
             $node,
             'initTemplate',
-            Typo3NodeResolver::TypoScriptFrontendController
+            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
         )) {
             $this->removeNode($node);
 

@@ -19,6 +19,6 @@ final class TemplateServiceSplitConfArrayRectorTest extends AbstractRectorWithCo
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/template_service_split_conf_array.php.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 }

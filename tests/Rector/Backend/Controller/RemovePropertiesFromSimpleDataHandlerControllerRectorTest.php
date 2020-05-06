@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Controller;
 
 use Iterator;
+use Ssch\TYPO3Rector\Rector\Backend\Controller\RemovePropertiesFromSimpleDataHandlerControllerRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 
 final class RemovePropertiesFromSimpleDataHandlerControllerRectorTest extends AbstractRectorWithConfigTestCase
@@ -19,6 +20,11 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRectorTest extends Ab
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/remove_properties_fetch_simpledatahandlercontroller.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+    }
+
+    protected function getRectorClass(): string
+    {
+        return RemovePropertiesFromSimpleDataHandlerControllerRector::class;
     }
 }

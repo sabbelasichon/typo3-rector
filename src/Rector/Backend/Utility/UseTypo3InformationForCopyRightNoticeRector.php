@@ -39,9 +39,11 @@ final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
             return null;
         }
 
-        return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
+        $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
             $this->createClassConstant(Typo3Information::class, 'class'),
-        ]), 'getCopyrightNotice', []);
+        ]);
+
+        return $this->createMethodCall($staticCall, 'getCopyrightNotice');
     }
 
     /**

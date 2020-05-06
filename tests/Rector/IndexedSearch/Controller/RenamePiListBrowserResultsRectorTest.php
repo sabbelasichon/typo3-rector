@@ -20,7 +20,7 @@ final class RenamePiListBrowserResultsRectorTest extends AbstractRectorWithConfi
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixtures/rename_pi_list_browser_results_method.php.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
     protected function getRectorClass(): string

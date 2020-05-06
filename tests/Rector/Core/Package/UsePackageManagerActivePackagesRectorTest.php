@@ -19,6 +19,6 @@ final class UsePackageManagerActivePackagesRectorTest extends AbstractRectorWith
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/package_manager_active_packages.php.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 }

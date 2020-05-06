@@ -19,6 +19,6 @@ final class RemoveInitTemplateMethodCallRectorTest extends AbstractRectorWithCon
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/remove_init_template_from_tsfe.php.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 }

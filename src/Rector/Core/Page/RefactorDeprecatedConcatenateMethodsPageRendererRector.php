@@ -33,13 +33,6 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
             return null;
         }
 
-        if (! $this->isNames(
-            $node->name,
-            ['getConcatenateFiles', 'enableConcatenateFiles', 'disableConcatenateFiles']
-        )) {
-            return null;
-        }
-
         if ($this->isName($node->name, 'getConcatenateFiles')) {
             return $this->createArrayMergeCall($node);
         }
@@ -86,7 +79,7 @@ PHP
         return $this->createFuncCall('array_merge', [new Arg($node1), new Arg($node2)]);
     }
 
-    private function splitMethodCall(MethodCall $node, string $firstMethod, string $secondMethod): Node
+    private function splitMethodCall(MethodCall $node, string $firstMethod, string $secondMethod): MethodCall
     {
         $node->name = new Identifier($firstMethod);
         $node1 = clone $node;

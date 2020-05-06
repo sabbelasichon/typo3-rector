@@ -19,6 +19,6 @@ final class FindByPidsAndAuthorIdRectorTest extends AbstractRectorWithConfigTest
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/sys_repository_find_by_pids_and_author.php.inc'];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 }

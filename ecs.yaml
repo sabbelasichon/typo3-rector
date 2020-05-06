@@ -5,11 +5,11 @@ parameters:
         - 'php71'
         - 'common'
         - 'clean-code'
+        - 'dead-code'
 
     paths:
         - 'src'
         - 'tests'
-
 
 services:
     # limit line length to 120 chars

@@ -40,7 +40,7 @@
         "analyze": "vendor/bin/phpstan analyse --memory-limit=-1 --ansi",
         "test": "vendor/bin/phpunit",
         "docs": "vendor/bin/rector dump-rectors src/Rector > docs/AllRectorsOverview.md",
-        "rector": "vendor/bin/rector rectify --dry-run"
+        "rector": "vendor/bin/rector rectify --dry-run --ansi"
     },
     "scripts-descriptions": {
         "docs": "Regenerate descriptions of all Rectors to docs/AllRectorsOverview.md file"
