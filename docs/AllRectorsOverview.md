@@ -1,4 +1,4 @@
-# All 52 Rectors Overview
+# All 50 Rectors Overview
 
 ## `BackendUtilityEditOnClickRector`
 
@@ -52,23 +52,6 @@ Call enable fields from PageRepository instead of ContentObjectRenderer
  $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 -$contentObjectRenderer->enableFields('pages', false, []);
 +GeneralUtility::makeInstance(PageRepository::class)->enableFields('pages', -1, []);
-```
-
-<br>
-
-## `CascadeAnnotationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\Annotation\CascadeAnnotationRector`](/../master/src/Rector/Annotation/CascadeAnnotationRector.php)
-
-Turns properties with `@cascade` to properties with `@TYPO3\CMS\Extbase\Annotation\ORM\Cascade`
-
-```diff
- /**
-- * @cascade
-+ * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
-  */
--private $someProperty;
-+private $someProperty;
 ```
 
 <br>
@@ -316,23 +299,6 @@ Inject EnvironmentService if needed in subclass of Response
 
      }
  }
-```
-
-<br>
-
-## `LazyAnnotationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\Annotation\LazyAnnotationRector`](/../master/src/Rector/Annotation/LazyAnnotationRector.php)
-
-Turns properties with `@lazy` to properties with `@TYPO3\CMS\Extbase\Annotation\ORM\Lazy`
-
-```diff
- /**
-- * @lazy
-+ * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-  */
--private $someProperty;
-+private $someProperty;
 ```
 
 <br>
@@ -772,12 +738,39 @@ Turns method call names to new ones from new Environment API.
 ## `RenamePiListBrowserResultsRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\IndexedSearch\Controller\RenamePiListBrowserResultsRector`](/../master/src/Rector/IndexedSearch/Controller/RenamePiListBrowserResultsRector.php)
+- [test fixtures](/../master/tests/Rector/IndexedSearch/Controller/Fixture)
 
 Rename pi_list_browseresults calls to renderPagination
 
 ```diff
 -$this->pi_list_browseresults
 +$this->renderPagination
+```
+
+<br>
+
+## `ReplaceAnnotationRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\Annotation\ReplaceAnnotationRector`](/../master/src/Rector/Annotation/ReplaceAnnotationRector.php)
+
+Replace old annotation by new one
+
+```yaml
+services:
+    Ssch\TYPO3Rector\Rector\Annotation\ReplaceAnnotationRector:
+        $oldToNewAnnotations:
+            transient: TYPO3\CMS\Extbase\Annotation\ORM\Transient
+```
+
+↓
+
+```diff
+ /**
+- * @transient
++ * @TYPO3\CMS\Extbase\Annotation\ORM\Transient
+  */
+-private $someProperty;
++private $someProperty;
 ```
 
 <br>
@@ -820,23 +813,6 @@ Substitute $GLOBALS['TT'] method calls
 ```diff
 -$GLOBALS['TT']->setTSlogMessage('content');
 +GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage('content');
-```
-
-<br>
-
-## `TransientAnnotationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\Annotation\TransientAnnotationRector`](/../master/src/Rector/Annotation/TransientAnnotationRector.php)
-
-Turns properties with `@transient` to properties with `@TYPO3\CMS\Extbase\Annotation\ORM\Transient`
-
-```diff
- /**
-- * @transient
-+ * @TYPO3\CMS\Extbase\Annotation\ORM\Transient
-  */
--private $someProperty;
-+private $someProperty;
 ```
 
 <br>
