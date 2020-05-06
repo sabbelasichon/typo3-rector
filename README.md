@@ -8,7 +8,7 @@ Apply automatic fixes on your TYPO3 code.
 
 [![Coverage Status](https://img.shields.io/coveralls/sabbelasichon/typo3-rector/master.svg?style=flat-square)](https://coveralls.io/github/sabbelasichon/typo3-rector?branch=master)
 
-[Rector](https://getrector.org/) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. There are already [444 common recotors](https://github.com/rectorphp/rector/blob/master/docs/AllRectorsOverview.md) available. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases.
+[Rector](https://getrector.org/) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases.
 
 ## Installation
 
