@@ -137,3 +137,43 @@ Afterwards run rector:
 ```bash
 php ~/.composer/vendor/bin/rector process public/typo3conf/ext/your_extension/  -c .rector/config.yaml -n --autoload-file autoload.php
 ```
+
+### Composer conflics ###
+It is not uncommon to run into unresolvable composer conflicts when installing typo3-rector, especially with older TYPO3 Versions (< 9.5 LTS), for example TYPO3 8.7 LTS. In this case, you have two options:
+
+#### Solution #1 ####
+
+Install typo3-rector as a global dependency. It should do the job just as with non-composer-installations (see above).
+
+```bash
+$ composer global require --dev ssch/typo3-rector
+```
+
+When running rector, make sure to explicitly point to your config file:
+```bash
+cd /path/to/your/project-root
+php ~/.composer/vendor/bin/rector process typo3conf/ext/your_extension/ --config my_config.yaml
+```
+
+Also, in your config file, make sure to adjust paths in the 'import' statements relative to your config file. Example:
+```yaml
+# my_config.yaml
+imports:
+    - { resource: '~/.composer/vendor/ssch/typo3-rector/config/typo3-87.yaml' }
+    - { resource: '~/.composer/vendor/ssch/typo3-rector/config/typo3-93.yaml' }
+    - { resource: '~/.composer/vendor/ssch/typo3-rector/config/typo3-94.yaml' }
+    - { resource: '~/.composer/vendor/ssch/typo3-rector/config/typo3-95.yaml' }
+
+```
+As long as you place your config file in your project's root folder, creating or pointing to an autoloader should not be nescessary.
+
+#### Solution #2 ####
+
+As an alternative to installing typo3-rector globally, you may also want to use the package [rector/rector-prefixed](https://github.com/rectorphp/rector-prefixed), which aims for maximum compatibility. Just install it via composer before installing typo3-rector, it works as a drop-in-replacement for rector/rector:
+
+```bash
+$ composer require --dev rector/rector-prefixed
+$ composer require --dev ssch/typo3-rector
+```
+
+
