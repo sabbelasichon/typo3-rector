@@ -7,7 +7,7 @@ services:
     Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector: ~
     Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyUserAuthenticationRector: ~
     Ssch\TYPO3Rector\Rector\Core\TimeTracker\TimeTrackerGlobalsToSingletonRector: ~
-    Rector\Renaming\Rector\MethodCall\RenameMethodCallRector:
+    Rector\Renaming\Rector\MethodCall\RenameMethodRector:
         $oldToNewMethodsByClass:
             TYPO3\CMS\Recordlist\RecordList:
                 printContent: mainAction
