@@ -17,6 +17,16 @@ use TYPO3\CMS\Extbase\Mvc\Cli\ConsoleOutput;
 final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
 {
     /**
+     * @var string
+     */
+    private const ASK_AND_VALIDATE = 'askAndValidate';
+
+    /**
+     * @var string
+     */
+    private const SELECT = 'select';
+
+    /**
      * @return string[]
      */
     public function getNodeTypes(): array
@@ -33,24 +43,24 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
             return null;
         }
 
-        if (! $this->isName($node->name, 'select') && ! $this->isName($node->name, 'askAndValidate')) {
+        if (! $this->isName($node->name, self::SELECT) && ! $this->isName($node->name, self::ASK_AND_VALIDATE)) {
             return null;
         }
 
-        if ($this->isName($node->name, 'select') && count($node->args) < 5) {
+        if ($this->isName($node->name, self::SELECT) && count($node->args) < 5) {
             return null;
         }
 
-        if ($this->isName($node->name, 'askAndValidate') && count($node->args) < 3) {
+        if ($this->isName($node->name, self::ASK_AND_VALIDATE) && count($node->args) < 3) {
             return null;
         }
 
         $arguments = $node->args;
 
         // Change the argument for attempts if it false to null
-        if ($this->isName($node->name, 'askAndValidate') && 'false' === $this->getName($arguments[2]->value)) {
+        if ($this->isName($node->name, self::ASK_AND_VALIDATE) && 'false' === $this->getName($arguments[2]->value)) {
             $arguments[2] = null;
-        } elseif ($this->isName($node->name, 'select') && 'false' === $this->getName($arguments[4]->value)) {
+        } elseif ($this->isName($node->name, self::SELECT) && 'false' === $this->getName($arguments[4]->value)) {
             $arguments[4] = null;
         }
 

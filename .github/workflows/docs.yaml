@@ -14,7 +14,7 @@ jobs:
                 with:
                     php-version: 7.2
                     coverage: none
-            -   run: composer install --no-progress
+            -   run: composer update --prefer-lowest --no-progress
 
             -   name: Generate documentation
                 run: composer docs

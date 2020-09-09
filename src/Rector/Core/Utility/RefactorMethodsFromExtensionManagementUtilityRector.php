@@ -86,7 +86,7 @@ PHP
         return $this->createMethodCall($this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [$this->createClassConstant(CacheManager::class, 'class')]
+            [$this->createClassConstantReference(CacheManager::class)]
         ), 'flushCachesInGroup', [$this->createArg('system')]);
     }
 

@@ -79,7 +79,7 @@ PHP
                     $this->createStaticCall(
                         GeneralUtility::class,
                         'makeInstance',
-                        [$this->createClassConstant(UriBuilder::class, 'class')]
+                        [$this->createClassConstantReference(UriBuilder::class)]
                     ),
                     'buildUriFromRoute',
                     [$this->createArg('record_edit')]
