@@ -36,6 +36,11 @@ final class Typo3NodeResolver
      */
     public const TYPO3_LOADED_EXT = 'TYPO3_LOADED_EXT';
 
+    /**
+     * @var string
+     */
+    public const GLOBALS = 'GLOBALS';
+
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool
     {
         if (! $node instanceof MethodCall) {
@@ -50,7 +55,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (! $this->isName($node->var->var, 'GLOBALS')) {
+        if (! $this->isName($node->var->var, self::GLOBALS)) {
             return false;
         }
 
@@ -71,7 +76,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (! $this->isName($node->var->var, 'GLOBALS')) {
+        if (! $this->isName($node->var->var, self::GLOBALS)) {
             return false;
         }
 
@@ -88,7 +93,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (! $this->isName($node->var, 'GLOBALS')) {
+        if (! $this->isName($node->var, self::GLOBALS)) {
             return false;
         }
 
@@ -113,7 +118,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (! $this->isName($node->var->var->var, 'GLOBALS')) {
+        if (! $this->isName($node->var->var->var, self::GLOBALS)) {
             return false;
         }
 

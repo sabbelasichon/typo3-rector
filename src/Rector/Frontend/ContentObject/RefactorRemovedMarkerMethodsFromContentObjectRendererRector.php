@@ -23,6 +23,11 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends AbstractRector
 {
     /**
+     * @var string
+     */
+    private const FILL_IN_MARKER_ARRAY = 'fillInMarkerArray';
+
+    /**
      * @return string[]
      */
     public function getNodeTypes(): array
@@ -48,7 +53,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             'substituteMarkerArray',
             'substituteMarkerInObject',
             'substituteMarkerAndSubpartArrayRecursive',
-            'fillInMarkerArray',
+            self::FILL_IN_MARKER_ARRAY,
         ])) {
             return null;
         }
@@ -68,13 +73,13 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
                 return null;
             }
 
-            $classConstant = $this->createClassConstant(MarkerBasedTemplateService::class, 'class');
+            $classConstant = $this->createClassConstantReference(MarkerBasedTemplateService::class);
             $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
 
             return $this->createMethodCall($staticCall, $methodName, $node->args);
         }
 
-        if ($this->isName($node->name, 'fillInMarkerArray')) {
+        if ($this->isName($node->name, self::FILL_IN_MARKER_ARRAY)) {
             $node->args[] = $this->createArg(
                 new BooleanNot($this->createFuncCall(
                     'empty',
@@ -87,8 +92,8 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             );
 
             return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstant(MarkerBasedTemplateService::class, 'class'),
-            ]), 'fillInMarkerArray', $node->args);
+                $this->createClassConstantReference(MarkerBasedTemplateService::class),
+            ]), self::FILL_IN_MARKER_ARRAY, $node->args);
         }
 
         return null;

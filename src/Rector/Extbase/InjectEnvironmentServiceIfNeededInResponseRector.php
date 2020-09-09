@@ -26,6 +26,11 @@ use TYPO3\CMS\Extbase\Service\EnvironmentService;
 final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRector
 {
     /**
+     * @var string
+     */
+    private const ENVIRONMENT_SERVICE = 'environmentService';
+
+    /**
      * @var ClassInsertManipulator
      */
     private $classInsertManipulator;
@@ -126,7 +131,7 @@ CODE_SAMPLE
 
     private function createEnvironmentServiceProperty(): Property
     {
-        $propertyBuilder = $this->builderFactory->property('environmentService');
+        $propertyBuilder = $this->builderFactory->property(self::ENVIRONMENT_SERVICE);
         $propertyBuilder->makeProtected();
 
         $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(new ObjectType(EnvironmentService::class));
@@ -157,14 +162,14 @@ CODE_SAMPLE
 
     private function addInjectEnvironmentServiceMethod(Class_ $node): void
     {
-        $paramBuilder = $this->builderFactory->param('environmentService');
+        $paramBuilder = $this->builderFactory->param(self::ENVIRONMENT_SERVICE);
         $paramBuilder->setType(new FullyQualified(EnvironmentService::class));
 
         $param = $paramBuilder->getNode();
 
         $propertyAssignNode = $this->nodeFactory->createPropertyAssignmentWithExpr(
-            'environmentService',
-            new Variable('environmentService')
+            self::ENVIRONMENT_SERVICE,
+            new Variable(self::ENVIRONMENT_SERVICE)
         );
         $classMethodBuilder = $this->builderFactory->method('injectEnvironmentService');
         $classMethodBuilder->addParam($param);

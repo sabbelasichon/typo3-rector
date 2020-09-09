@@ -26,6 +26,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class BackendUtilityGetRecordRawRector extends AbstractRector
 {
     /**
+     * @var string
+     */
+    private const QUERY_BUILDER = 'queryBuilder';
+
+    /**
      * @return string[]
      */
     public function getNodeTypes(): array
@@ -52,7 +57,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
 
         $queryBuilderAssignment = $this->createQueryBuilderCall($firstArgument);
         $queryBuilderRemoveRestrictions = $this->createMethodCall(
-            $this->createMethodCall(new Variable('queryBuilder'), 'getRestrictions'),
+            $this->createMethodCall(new Variable(self::QUERY_BUILDER), 'getRestrictions'),
             'removeAll'
         );
         $this->addNodeBeforeNode(new Nop(), $node);
@@ -98,15 +103,15 @@ PHP
     private function createQueryBuilderCall(Arg $firstArgument): Assign
     {
         $queryBuilder = $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstant(ConnectionPool::class, 'class'),
+            $this->createClassConstantReference(ConnectionPool::class),
         ]), 'getQueryBuilderForTable', [$this->createArg($firstArgument->value)]);
 
-        return new Assign(new Variable('queryBuilder'), $queryBuilder);
+        return new Assign(new Variable(self::QUERY_BUILDER), $queryBuilder);
     }
 
     private function fetchQueryBuilderResults(Arg $table, Arg $where, Arg $fields): MethodCall
     {
-        $queryBuilder = new Variable('queryBuilder');
+        $queryBuilder = new Variable(self::QUERY_BUILDER);
 
         return $this->createMethodCall(
             $this->createMethodCall(
