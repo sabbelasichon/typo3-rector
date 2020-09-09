@@ -3,7 +3,7 @@ imports:
 
 services:
     Ssch\TYPO3Rector\Rector\Backend\Domain\Repository\Localization\RemoveColPosParameterRector:
-    Rector\Renaming\Rector\MethodCall\RenameMethodCallRector:
+    Rector\Renaming\Rector\MethodCall\RenameMethodRector:
         $oldToNewMethodsByClass:
             TYPO3\CMS\Backend\Controller\Page\LocalizationController:
                 getUsedLanguagesInPageAndColumn: getUsedLanguagesInPage
