@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PHPStan\Rules;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
@@ -13,12 +14,20 @@ use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 
+/**
+ * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddSeeDocBlockForRectorClass\AddSeeDocBlockForRectorClassTest
+ */
 final class AddSeeDocBlockForRectorClass implements Rule
 {
     /**
+     * @var string
+     */
+    public const ERROR_MESSAGE = 'Provide @see doc block for "%s" Rector class';
+
+    /**
      * @var string[]
      */
-    private static $allowedClassesWithNonSeeDocBlock = [
+    private const ALLOWED_CLASSES_WITH_NON_SEE_DOC_BLOCK = [
         RenameClassMapAliasRector::class,
     ];
 
@@ -45,7 +54,6 @@ final class AddSeeDocBlockForRectorClass implements Rule
 
     /**
      * @param Class_ $node
-     *
      * @return string[]
      */
     public function processNode(Node $node, Scope $scope): array
@@ -63,13 +71,13 @@ final class AddSeeDocBlockForRectorClass implements Rule
             return [];
         }
 
-        if (in_array($fullyQualifiedClassName, self::$allowedClassesWithNonSeeDocBlock, true)) {
+        if (in_array($fullyQualifiedClassName, self::ALLOWED_CLASSES_WITH_NON_SEE_DOC_BLOCK, true)) {
             return [];
         }
 
         $docComment = $node->getDocComment();
         if (null === $docComment) {
-            return [sprintf('You must provide the @see docBlock for Rector %s', $className)];
+            return [sprintf(self::ERROR_MESSAGE, $className)];
         }
 
         $resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
@@ -80,12 +88,11 @@ final class AddSeeDocBlockForRectorClass implements Rule
             $docComment->getText()
         );
 
-        foreach ($resolvedPhpDoc->getPhpDocNode()->getTags() as $tagNode) {
-            if ('@see' === $tagNode->name) {
-                return [];
-            }
+        $phpDocString = $resolvedPhpDoc->getPhpDocString();
+        if (Strings::contains($phpDocString, '@see')) {
+            return [];
         }
 
-        return [sprintf('You must provide the @see docBlock for Rector %s', $className)];
+        return [sprintf(self::ERROR_MESSAGE, $className)];
     }
 }
