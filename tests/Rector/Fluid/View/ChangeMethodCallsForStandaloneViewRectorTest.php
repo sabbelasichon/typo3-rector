@@ -7,15 +7,16 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Fluid\View;
 use Iterator;
 use Ssch\TYPO3Rector\Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ChangeMethodCallsForStandaloneViewRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
      */
-    public function test(string $file): void
+    public function test(SmartFileInfo $fileInfo): void
     {
-        $this->doTestFile($file);
+        $this->doTestFileInfo($fileInfo);
     }
 
     public function provideDataForTest(): Iterator
