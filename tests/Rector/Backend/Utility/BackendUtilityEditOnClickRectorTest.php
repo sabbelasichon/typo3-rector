@@ -6,15 +6,16 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Utility;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class BackendUtilityEditOnClickRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
      */
-    public function test(string $file): void
+    public function test(SmartFileInfo $fileInfo): void
     {
-        $this->doTestFile($file);
+        $this->doTestFileInfo($fileInfo);
     }
 
     public function provideDataForTest(): Iterator
