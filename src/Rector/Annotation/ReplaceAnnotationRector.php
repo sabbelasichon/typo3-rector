@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\ConfiguredCodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
@@ -16,20 +17,18 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Feature-83092-ReplaceTransientWithTYPO3CMSExtbaseAnnotationORMTransient.html
  */
-final class ReplaceAnnotationRector extends AbstractRector
+final class ReplaceAnnotationRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
-     * @var string[]
+     * @api
+     * @var string
      */
-    private $oldToNewAnnotations = [];
+    public const OLD_TO_NEW_ANNOTATIONS = 'old_to_new_annotations';
 
     /**
-     * @param string[] $oldToNewAnnotations
+     * @var array<string, string>
      */
-    public function __construct(array $oldToNewAnnotations = [])
-    {
-        $this->oldToNewAnnotations = $oldToNewAnnotations;
-    }
+    private $oldToNewAnnotations = [];
 
     /**
      * @return string[]
@@ -92,5 +91,13 @@ CODE_SAMPLE
                 ]),
             ]
         );
+    }
+
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure(array $configuration): void
+    {
+        $this->oldToNewAnnotations = $configuration[self::OLD_TO_NEW_ANNOTATIONS] ?? [];
     }
 }
