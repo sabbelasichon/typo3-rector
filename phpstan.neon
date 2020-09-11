@@ -1,3 +1,8 @@
+includes:
+    # see https://github.com/symplify/phpstan-extensions
+    - vendor/symplify/phpstan-extensions/config/config.neon
+    - utils/phpstan/config/typo3-rector.neon
+
 parameters:
     level: 8
 
@@ -5,25 +10,8 @@ parameters:
         - src
         - tests
 
-    bootstrap: tests/bootstrap.php
+    bootstrapFiles:
+         - tests/bootstrap.php
+
     inferPrivatePropertyTypeFromConstructor: true
     checkMissingIterableValueType: false
-
-    ignoreErrors:
-        - '#Access to an undefined property#'
-        - '#Unreachable statement - code above always terminates#'
-        - '#Parameter \#2 \$stmt of method Rector\\Core\\PhpParser\\Node\\Manipulator\\ClassInsertManipulator::addAsFirstMethod\(\) expects PhpParser\\Node\\Stmt\\ClassConst\|PhpParser\\Node\\Stmt\\ClassMethod\|PhpParser\\Node\\Stmt\\Property, PhpParser\\Node\\Stmt\\Nop given#'
-
-services:
-    -
-        class: Ssch\TYPO3Rector\PHPStan\Rules\AddSeeDocBlockForRectorClass
-        tags:
-            - phpstan.rules.rule
-    -
-        class: Ssch\TYPO3Rector\PHPStan\Type\GeneralUtilityDynamicReturnTypeExtension
-        tags:
-            - phpstan.broker.dynamicStaticMethodReturnTypeExtension
-    -
-        class: Ssch\TYPO3Rector\PHPStan\Type\ObjectManagerDynamicReturnTypeExtension
-        tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension

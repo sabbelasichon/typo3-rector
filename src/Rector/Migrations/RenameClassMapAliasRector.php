@@ -20,6 +20,7 @@ use PhpParser\Node\Stmt\UseUse;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\CodingStyle\Naming\ClassNaming;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpDoc\PhpDocClassRenamer;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\ConfiguredCodeSample;
@@ -27,7 +28,6 @@ use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\ClassExistenceStaticHelper;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
-use Rector\Renaming\Exception\InvalidPhpCodeException;
 use ReflectionClass;
 
 final class RenameClassMapAliasRector extends AbstractRector
@@ -348,7 +348,7 @@ PHP
 
         $classReflection = new ReflectionClass($newName);
 
-        throw new InvalidPhpCodeException(sprintf(
+        throw new ShouldNotHappenException(sprintf(
             'Renaming class "%s" to "%s" would create a duplicated class/interface/trait (already existing in "%s") and cause PHP code to be invalid.',
             $oldName,
             $newName,
