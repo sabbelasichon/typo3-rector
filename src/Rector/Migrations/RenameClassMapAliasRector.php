@@ -20,6 +20,7 @@ use PhpParser\Node\Stmt\UseUse;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\CodingStyle\Naming\ClassNaming;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpDoc\PhpDocClassRenamer;
 use Rector\Core\Rector\AbstractRector;
@@ -30,10 +31,16 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStan\Type\FullyQualifiedObjectType;
 use ReflectionClass;
 
-final class RenameClassMapAliasRector extends AbstractRector
+final class RenameClassMapAliasRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
-     * @var class-string[]
+     * @api
+     * @var string
+     */
+    public const CLASS_ALIAS_MAPS = 'class_alias_maps';
+
+    /**
+     * @var array<string, string>
      */
     private $oldToNewClasses = [];
 
@@ -52,25 +59,10 @@ final class RenameClassMapAliasRector extends AbstractRector
      */
     private $phpDocClassRenamer;
 
-    public function __construct(
-        ClassNaming $classNaming,
-        PhpDocClassRenamer $phpDocClassRenamer,
-        array $classAliasMaps = []
-    ) {
+    public function __construct(ClassNaming $classNaming, PhpDocClassRenamer $phpDocClassRenamer)
+    {
         $this->classNaming = $classNaming;
         $this->phpDocClassRenamer = $phpDocClassRenamer;
-
-        foreach ($classAliasMaps as $file) {
-            $filePath = realpath(__DIR__ . '/' . $file);
-
-            if (false !== $filePath && file_exists($filePath)) {
-                $classAliasMap = require $filePath;
-
-                foreach ($classAliasMap as $oldClass => $newClass) {
-                    $this->oldToNewClasses[$oldClass] = $newClass;
-                }
-            }
-        }
     }
 
     /**
@@ -144,6 +136,25 @@ PHP
         }
 
         return null;
+    }
+
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure(array $configuration): void
+    {
+        $classAliasMaps = $configuration[self::CLASS_ALIAS_MAPS] ?? [];
+        foreach ($classAliasMaps as $file) {
+            $filePath = realpath(__DIR__ . '/' . $file);
+
+            if (false !== $filePath && file_exists($filePath)) {
+                $classAliasMap = require $filePath;
+
+                foreach ($classAliasMap as $oldClass => $newClass) {
+                    $this->oldToNewClasses[$oldClass] = $newClass;
+                }
+            }
+        }
     }
 
     /**

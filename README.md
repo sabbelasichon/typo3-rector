@@ -27,33 +27,45 @@ $ composer require --dev ssch/typo3-rector
 This library ships already with a bunch of configuration files organized by TYPO3 version.
 In order to "fix" your code with the desired rectors create your own configuration file in the yaml format:
 
-```yaml
-# my_config.yaml
-parameters:
-    # FQN classes are not imported by default. If you don't to do do it manually after every Rector run, enable it by:
-    auto_import_names: true
-    # this will not import root namespace classes, like \DateTime or \Exception
-    import_short_classes: false
-    # this will not import classes used in PHP DocBlocks, like in /** @var \Some\Class */
-    import_doc_blocks: false
-    php_version_features: '7.2'
-imports:
-  - { resource: 'vendor/ssch/typo3-rector/config/typo3-90.yaml' }
-  - { resource: 'vendor/ssch/typo3-rector/config/typo3-93.yaml' }
-  - { resource: 'vendor/ssch/typo3-rector/config/typo3-94.yaml' }
-  - { resource: 'vendor/ssch/typo3-rector/config/typo3-95.yaml' }
+```php
+<?php
+
+use Rector\Core\Configuration\Option;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-90.php');
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-93.php');
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-94.php');
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-95.php');
+
+    $parameters = $containerConfigurator->parameters();
+
+    // FQN classes are not imported by default. If you don't to do do it manually after every Rector run, enable it by:
+    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
+
+    // this will not import root namespace classes, like \DateTime or \Exception
+    $parameters->set(Option::IMPORT_SHORT_CLASSES, false);
+
+    // this will not import classes used in PHP DocBlocks, like in /** @var \Some\Class */
+    $parameters->set(Option::IMPORT_DOC_BLOCKS, false);
+
+    $parameters->set(Option::PHP_VERSION_FEATURES, '7.2');
+};
 ```
 
-This configuration applies all available rectors defined in the different yaml files for version 9.x with PHP 7.2 capabilities.
+See [Rector README](https://github.com/rectorphp/rector#configuration) for full configuration options.
+
+This configuration applies all available rectors defined in the different PHP files for version 9.x with PHP 7.2 capabilities.
 Additionally we auto import the Full Qualified Class Names except for PHP core classes and within DocBlocks.
 
 After the configuration run rector to simulate (hence the option -n) the code fixes:
 
 ```bash
-./vendor/bin/rector process packages/my_custom_extension --config=my_config.yaml -n
+./vendor/bin/rector process packages/my_custom_extension --config=my_config.php --dry-run
 ```
 
-Check if everything makes sense and run the process command without the -n option.
+Check if everything makes sense and run the process command without the `--dry-run` option to apply changes.
 
 ## Contributing
 
@@ -67,7 +79,7 @@ Fork this project into your own account.
 
 Install the project using composer:
 ```bash
-git clone https://github.com/your-account/typo3-rector.git
+git clone git@github.com:your-account/typo3-rector.git
 cd typo3-rector
 composer install
 ```
@@ -89,20 +101,23 @@ Assign the issue to yourself so others can see that you are working on it.
 5. Register your rector in one of the yaml files in the `config` directory
 6. Write a test for your rector.
 
-### All tests must be green
+Or you can use `rector-recipe.php` [file to generate base structure for the rule](https://github.com/rectorphp/rector/blob/master/docs/rector_recipe.md).
+
+### All Tests must be Green
+
 Make sure you have a test in place for your Rector
 
 All unit tests must pass before submitting a pull request.
 
 ```bash
-./bin/phpunit
+./vendor/bin/phpunit
 ```
 
 ### Submit your changes
 
 Great, now you can submit your changes in a pull request
 
-### Non composer installations ###
+### Non composer installations
 
 If you have a non composer TYPO3 installation. Don´t worry.
 Install typo3-rector as a global dependency:
@@ -135,7 +150,7 @@ Bootstrap::initializeClassLoader($classLoader);
 Afterwards run rector:
 
 ```bash
-php ~/.composer/vendor/bin/rector process public/typo3conf/ext/your_extension/  -c .rector/config.yaml -n --autoload-file autoload.php
+php ~/.composer/vendor/bin/rector process public/typo3conf/ext/your_extension/  -c .rector/config.php -n --autoload-file autoload.php
 ```
 
 ### Composer conflics ###
@@ -152,22 +167,27 @@ $ composer global require --dev ssch/typo3-rector
 When running rector, make sure to explicitly point to your config file:
 ```bash
 cd /path/to/your/project-root
-php ~/.composer/vendor/bin/rector process typo3conf/ext/your_extension/ --config my_config.yaml
+php ~/.composer/vendor/bin/rector process typo3conf/ext/your_extension/ --config my_config.php
 ```
 
 Also, in your config file, make sure to adjust paths in the 'import' statements relative to your config file. Example:
-```yaml
-# my_config.yaml
-imports:
-    - { resource: '~/.composer/vendor/ssch/typo3-rector/config/typo3-87.yaml' }
-    - { resource: '~/.composer/vendor/ssch/typo3-rector/config/typo3-93.yaml' }
-    - { resource: '~/.composer/vendor/ssch/typo3-rector/config/typo3-94.yaml' }
-    - { resource: '~/.composer/vendor/ssch/typo3-rector/config/typo3-95.yaml' }
 
+```php
+<?php
+
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-87.php');
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-93.php');
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-94.php');
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-95.php');
+};
 ```
+
 As long as you place your config file in your project's root folder, creating or pointing to an autoloader should not be nescessary.
 
-#### Solution #2 ####
+#### Solution #2
 
 As an alternative to installing typo3-rector globally, you may also want to use the package [rector/rector-prefixed](https://github.com/rectorphp/rector-prefixed), which aims for maximum compatibility. Just install it via composer before installing typo3-rector, it works as a drop-in-replacement for rector/rector:
 

@@ -21,7 +21,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         SetList::DEAD_CODE,
     ]);
 
-    $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
+    $parameters->set(Option::PATHS, [
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
+        __DIR__ . '/ecs.php',
+        __DIR__ . '/rector.php',
+        __DIR__ . '/config',
+    ]);
 
     $services = $containerConfigurator->services();
 
