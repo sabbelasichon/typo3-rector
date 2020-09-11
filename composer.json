@@ -8,7 +8,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "rector/rector": "^0.7.26",
+        "rector/rector": "^0.8.6",
         "typo3fluid/fluid": "^2.6"
     },
     "require-dev": {
@@ -26,7 +26,8 @@
             "Ssch\\TYPO3Rector\\Tests\\": "tests",
             "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src"
         },
-        "classmap": [".code", "fixes"]
+        "classmap": [".code", "fixes"],
+        "exclude-from-classmap": ["**.php.inc"]
     },
     "config": {
         "optimize-autoloader": true,
