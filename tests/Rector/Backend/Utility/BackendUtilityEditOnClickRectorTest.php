@@ -20,6 +20,6 @@ final class BackendUtilityEditOnClickRectorTest extends AbstractRectorWithConfig
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/backend_utility_edit_on_click.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/backend_utility_edit_on_click.php.inc')];
     }
 }

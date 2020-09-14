@@ -21,11 +21,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorIdnaEncodeMethodToNativeFunctionRector::class);
 
     $services->set(RenameNamespaceRector::class)
-        ->call('configure', [[
+        ->call('configure', [
             RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [
                 ['TYPO3\CMS\Backend\Controller\File' => 'TYPO3\CMS\Filelist\Controller\File'],
             ],
-        ]]);
+        ]);
 
     $services->set(UseMetaDataAspectRector::class);
 };

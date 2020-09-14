@@ -9,9 +9,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(RenameNamespaceRector::class)
-        ->call('configure', [[
+        ->call('configure', [
             RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [
                 'TYPO3\CMS\Core\Tests' => 'TYPO3\TestingFramework\Core',
-            ], ],
+            ],
         ]);
 };

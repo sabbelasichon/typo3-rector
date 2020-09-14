@@ -20,6 +20,6 @@ final class CallEnableFieldsFromPageRepositoryRectorTest extends AbstractRectorW
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/call_enable_fields_from_page_repository.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/call_enable_fields_from_page_repository.php.inc')];
     }
 }

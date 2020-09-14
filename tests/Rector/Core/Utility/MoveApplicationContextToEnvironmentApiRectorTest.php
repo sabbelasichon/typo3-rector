@@ -20,6 +20,6 @@ final class MoveApplicationContextToEnvironmentApiRectorTest extends AbstractRec
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/use-environment-api.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/use-environment-api.php.inc')];
     }
 }

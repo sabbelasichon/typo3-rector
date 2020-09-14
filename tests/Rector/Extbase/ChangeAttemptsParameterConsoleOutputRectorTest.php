@@ -21,7 +21,7 @@ final class ChangeAttemptsParameterConsoleOutputRectorTest extends AbstractRecto
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/console_output.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/console_output.php.inc')];
     }
 
     protected function getRectorsWithConfiguration(): array

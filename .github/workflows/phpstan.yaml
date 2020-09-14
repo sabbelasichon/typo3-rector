@@ -15,5 +15,5 @@ jobs:
                 with:
                     php-version: 7.2
                     coverage: none
-            -   run: composer update --prefer-lowest --no-progress
+            -   run: composer install --no-progress
             -   run: composer analyze

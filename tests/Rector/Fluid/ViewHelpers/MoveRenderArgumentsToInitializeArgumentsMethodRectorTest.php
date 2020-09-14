@@ -21,7 +21,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRectorTest extends Abs
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/my_viewhelper.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/my_viewhelper.php.inc')];
     }
 
     protected function getRectorClass(): string

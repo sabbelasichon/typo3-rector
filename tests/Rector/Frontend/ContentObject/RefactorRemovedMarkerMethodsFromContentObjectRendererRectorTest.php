@@ -20,6 +20,6 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRectorTest exte
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/refactor_contentobjectrenderer_marker_methods.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/refactor_contentobjectrenderer_marker_methods.php.inc')];
     }
 }

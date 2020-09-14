@@ -20,6 +20,8 @@ final class ConfigurationManagerAddControllerConfigurationMethodRectorTest exten
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/configuration_manager_add_controller_configuration_method.php.inc'];
+        yield [
+            new SmartFileInfo(__DIR__ . '/Fixture/configuration_manager_add_controller_configuration_method.php.inc'),
+        ];
     }
 }

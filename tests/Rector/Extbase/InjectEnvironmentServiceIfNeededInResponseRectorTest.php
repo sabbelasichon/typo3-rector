@@ -20,6 +20,6 @@ final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends Abstrac
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/inject_environment_service_if_needed.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/inject_environment_service_if_needed.php.inc')];
     }
 }

@@ -20,6 +20,6 @@ final class BackendUtilityGetRecordRawRectorTest extends AbstractRectorWithConfi
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/backend_utility_get_record_raw.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/backend_utility_get_record_raw.php.inc')];
     }
 }

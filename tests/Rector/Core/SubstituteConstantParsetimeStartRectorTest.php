@@ -20,6 +20,6 @@ final class SubstituteConstantParsetimeStartRectorTest extends AbstractRectorWit
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/substitute_globals_parsetime.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/substitute_globals_parsetime.php.inc')];
     }
 }

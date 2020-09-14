@@ -20,6 +20,6 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRectorTest extends Abstrac
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/explode_url2_array.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/explode_url2_array.php.inc')];
     }
 }

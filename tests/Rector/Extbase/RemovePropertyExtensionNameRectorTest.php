@@ -20,6 +20,6 @@ final class RemovePropertyExtensionNameRectorTest extends AbstractRectorWithConf
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/remove_extensionname_property.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/remove_extensionname_property.php.inc')];
     }
 }

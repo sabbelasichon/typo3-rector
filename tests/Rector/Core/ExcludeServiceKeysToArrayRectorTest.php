@@ -20,6 +20,6 @@ final class ExcludeServiceKeysToArrayRectorTest extends AbstractRectorWithConfig
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/exclude_service_keys_to_array.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/exclude_service_keys_to_array.php.inc')];
     }
 }

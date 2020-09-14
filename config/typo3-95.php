@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
+use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\Annotation\IgnoreValidationAnnotationRector;
 use Ssch\TYPO3Rector\Rector\Annotation\InjectAnnotationRector;
 use Ssch\TYPO3Rector\Rector\Annotation\ReplaceAnnotationRector;
@@ -52,9 +53,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(RenameMethodRector::class)
         ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => [
+            RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
                 new MethodCallRename('TYPO3\CMS\Core\Resource\ResourceStorage', 'dumpFileContents', 'streamFile'),
-            ], ]]);
+            ]),
+        ]]);
 
     $services->set(RemoveFlushCachesRector::class);
 

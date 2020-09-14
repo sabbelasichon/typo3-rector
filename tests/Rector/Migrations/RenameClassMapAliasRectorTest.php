@@ -22,4 +22,9 @@ final class RenameClassMapAliasRectorTest extends AbstractRectorWithConfigTestCa
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
+
+    protected function provideConfigFileInfo(): ?SmartFileInfo
+    {
+        return new SmartFileInfo(__DIR__ . '/../../config/typo3_rectors.php');
+    }
 }

@@ -21,8 +21,10 @@ final class RefactorRemovedMethodsFromContentObjectRendererRectorTest extends Ab
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/refactor_contentobjectrenderer_methods.php.inc'];
-        yield [__DIR__ . '/Fixture/refactor_contentobjectrenderer_methods_frontend_controller.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/refactor_contentobjectrenderer_methods.php.inc')];
+        yield [
+            new SmartFileInfo(__DIR__ . '/Fixture/refactor_contentobjectrenderer_methods_frontend_controller.php.inc'),
+        ];
     }
 
     protected function getRectorClass(): string

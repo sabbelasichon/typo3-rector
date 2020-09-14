@@ -12,8 +12,8 @@ GeneralUtility::mkdir_deep(PATH_site.'typo3temp/', PATH_site.'myfolder');
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-\TYPO3\CMS\Core\Utility\GeneralUtility::mkdir_deep(PATH_site.'typo3temp/' . 'myfolder');
+GeneralUtility::mkdir_deep(PATH_site.'typo3temp/' . 'myfolder');
 GeneralUtility::mkdir_deep(PATH_site.'typo3temp/');
-\TYPO3\CMS\Core\Utility\GeneralUtility::mkdir_deep(PATH_site.'typo3temp/' . (PATH_site.'myfolder'));
+GeneralUtility::mkdir_deep(PATH_site.'typo3temp/' . (PATH_site.'myfolder'));
 
 ?>

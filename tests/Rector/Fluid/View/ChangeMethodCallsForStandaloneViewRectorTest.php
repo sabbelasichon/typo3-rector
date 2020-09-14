@@ -21,7 +21,7 @@ final class ChangeMethodCallsForStandaloneViewRectorTest extends AbstractRectorW
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/fluid_standaloneview.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/fluid_standaloneview.php.inc')];
     }
 
     protected function getRectorClass(): string

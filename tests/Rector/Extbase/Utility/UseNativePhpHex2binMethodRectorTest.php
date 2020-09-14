@@ -20,6 +20,6 @@ final class UseNativePhpHex2binMethodRectorTest extends AbstractRectorWithConfig
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/native_hex2bin.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/native_hex2bin.php.inc')];
     }
 }

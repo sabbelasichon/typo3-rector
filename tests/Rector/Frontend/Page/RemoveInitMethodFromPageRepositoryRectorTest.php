@@ -20,6 +20,6 @@ final class RemoveInitMethodFromPageRepositoryRectorTest extends AbstractRectorW
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/remove_init_method_call_from_page_repository.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/remove_init_method_call_from_page_repository.php.inc')];
     }
 }
