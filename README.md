@@ -20,7 +20,7 @@ $ composer require --dev ssch/typo3-rector
 
 ## What Can Rector Do for You?
 
-...**look at the overview of [all available TYPO3 Rectors](/docs/AllRectorsOverview.md)** with before/after diffs and configuration examples.
+...**look at the overview of [all available TYPO3 Rectors](/docs/all_rectors_overview.md)** with before/after diffs and configuration examples.
 
 ## Configuration and Processing
 

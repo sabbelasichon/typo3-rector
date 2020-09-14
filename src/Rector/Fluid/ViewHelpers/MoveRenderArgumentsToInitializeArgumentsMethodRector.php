@@ -68,7 +68,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
             return null;
         }
 
-        if ($renderMethod->getParams() === []) {
+        if ([] === $renderMethod->getParams()) {
             return null;
         }
 
