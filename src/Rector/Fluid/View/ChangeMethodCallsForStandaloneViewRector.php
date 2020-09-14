@@ -23,7 +23,7 @@ final class ChangeMethodCallsForStandaloneViewRector extends AbstractRector
      *     oldMethod => newMethod
      * ].
      *
-     * @var string[][]
+     * @var array<string, array<string, string>>
      */
     private const OLD_TO_NEW_METHODS_BY_CLASS = [
         StandaloneView::class => [

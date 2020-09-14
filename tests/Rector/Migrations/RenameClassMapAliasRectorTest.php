@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Migrations;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RenameClassMapAliasRectorTest extends AbstractRectorWithConfigTestCase
+final class RenameClassMapAliasRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -23,8 +24,14 @@ final class RenameClassMapAliasRectorTest extends AbstractRectorWithConfigTestCa
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function provideConfigFileInfo(): ?SmartFileInfo
+    protected function getRectorsWithConfiguration(): array
     {
-        return new SmartFileInfo(__DIR__ . '/../../config/typo3_rectors.php');
+        return [
+            RenameClassMapAliasRector::class => [
+                RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
+                    __DIR__ . '/../../../Migrations/Fluid/ClassAliasMap.php',
+                ],
+            ],
+        ];
     }
 }
