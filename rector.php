@@ -13,8 +13,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         SetList::PRIVATIZATION, SetList::SOLID, SetList::DEAD_CODE, SetList::CODING_STYLE, SetList::CODE_QUALITY]
     );
 
-    $parameters->set(Option::PATHS, [
-        __DIR__ . '/src',
-        __DIR__ . '/tests',
-    ]);
+    $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
 };

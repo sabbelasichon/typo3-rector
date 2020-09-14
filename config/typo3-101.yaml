@@ -1,6 +1,0 @@
-imports:
-    - { resource: 'services.yaml' }
-
-services:
-    Ssch\TYPO3Rector\Rector\Extbase\RegisterPluginWithVendorNameRector: ~
-    Ssch\TYPO3Rector\Rector\Backend\Utility\BackendUtilityEditOnClickRector: ~

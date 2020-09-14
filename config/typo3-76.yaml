@@ -1,5 +1,0 @@
-imports:
-    - { resource: 'services.yaml' }
-
-services:
-    Ssch\TYPO3Rector\Rector\IndexedSearch\Controller\RenamePiListBrowserResultsRector: ~
