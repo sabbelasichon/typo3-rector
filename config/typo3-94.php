@@ -8,6 +8,7 @@ use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorExplodeUrl2ArrayFromGeneralUtil
 use Ssch\TYPO3Rector\Rector\Frontend\ContentObject\CallEnableFieldsFromPageRepositoryRector;
 use Ssch\TYPO3Rector\Rector\Frontend\Controller\RemoveInitTemplateMethodCallRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use TYPO3\CMS\Saltedpasswords\Salt\Argon2iSalt;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services.php');
@@ -25,7 +26,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RenameClassRector::class)
         ->call('configure', [[
             RenameClassRector::OLD_TO_NEW_CLASSES => [
-                'TYPO3\CMS\Saltedpasswords\Salt\Argon2iSalt' => 'TYPO3\CMS\Core\Crypto\PasswordHashing\Argon2iPasswordHash',
+                Argon2iSalt::class => 'TYPO3\CMS\Core\Crypto\PasswordHashing\Argon2iPasswordHash',
                 'TYPO3\CMS\Saltedpasswords\Salt\BcryptSalt' => 'TYPO3\CMS\Core\Crypto\PasswordHashing\BcryptPasswordHash',
                 'TYPO3\CMS\Saltedpasswords\Salt\BlowfishSalt' => 'TYPO3\CMS\Core\Crypto\PasswordHashing\BlowfishPasswordHash',
                 'TYPO3\CMS\Saltedpasswords\Exception\InvalidSaltException' => 'TYPO3\CMS\Core\Crypto\PasswordHashing\InvalidPasswordHashException',

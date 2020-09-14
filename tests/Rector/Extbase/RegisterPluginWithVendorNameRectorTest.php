@@ -20,6 +20,6 @@ final class RegisterPluginWithVendorNameRectorTest extends AbstractRectorWithCon
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/register_plugin_with_vendor_name.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/register_plugin_with_vendor_name.php.inc')];
     }
 }

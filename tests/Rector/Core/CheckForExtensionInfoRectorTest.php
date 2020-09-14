@@ -20,6 +20,6 @@ final class CheckForExtensionInfoRectorTest extends AbstractRectorWithConfigTest
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/check_for_info_instead_of_infopagetsconfig.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/check_for_info_instead_of_infopagetsconfig.php.inc')];
     }
 }

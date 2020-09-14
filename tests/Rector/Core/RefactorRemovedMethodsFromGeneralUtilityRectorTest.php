@@ -21,7 +21,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRectorTest extends AbstractR
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/remove_generalutility_methods.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/remove_generalutility_methods.php.inc')];
     }
 
     protected function getRectorClass(): string

@@ -20,6 +20,6 @@ final class UseRenderingContextGetControllerContextRectorTest extends AbstractRe
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/use_rendering_context_get_controller_context.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/use_rendering_context_get_controller_context.php.inc')];
     }
 }

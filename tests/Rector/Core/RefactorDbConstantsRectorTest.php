@@ -20,6 +20,6 @@ final class RefactorDbConstantsRectorTest extends AbstractRectorWithConfigTestCa
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/change_db_constants.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/change_db_constants.php.inc')];
     }
 }

@@ -29,7 +29,7 @@
             "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src",
             "Ssch\\TYPO3Rector\\PHPStan\\Tests\\": "utils/phpstan/tests"
         },
-        "classmap": [".code", "fixes"],
+        "classmap": [".code"],
         "exclude-from-classmap": ["**.php.inc"]
     },
     "config": {

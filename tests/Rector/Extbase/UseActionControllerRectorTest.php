@@ -20,6 +20,6 @@ final class UseActionControllerRectorTest extends AbstractRectorWithConfigTestCa
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/use_action_controller_class.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/use_action_controller_class.php.inc')];
     }
 }

@@ -20,6 +20,6 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRectorTest extends AbstractR
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/idna_convert_to_idn_to_ascii.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/idna_convert_to_idn_to_ascii.php.inc')];
     }
 }

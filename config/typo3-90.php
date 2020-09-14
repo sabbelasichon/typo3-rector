@@ -13,6 +13,10 @@ use Ssch\TYPO3Rector\Rector\Core\Utility\RemoveSecondArgumentGeneralUtilityMkdir
 use Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\UseRenderingContextGetControllerContextRector;
 use Ssch\TYPO3Rector\Rector\SysNote\Domain\Repository\FindByPidsAndAuthorIdRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use TYPO3\CMS\Core\Authentication\AbstractAuthenticationService as CoreAbstractAuthenticationService;
+use TYPO3\CMS\Core\Authentication\AuthenticationService as CoreAuthenticationService;
+use TYPO3\CMS\Sv\AbstractAuthenticationService;
+use TYPO3\CMS\Sv\AuthenticationService;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services.php');
@@ -32,8 +36,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RenameClassRector::class)
         ->call('configure', [[
             RenameClassRector::OLD_TO_NEW_CLASSES => [
-                'TYPO3\CMS\Sv\AbstractAuthenticationService' => 'TYPO3\CMS\Core\Authentication\AbstractAuthenticationService',
-                'TYPO3\CMS\Sv\AuthenticationService' => 'TYPO3\CMS\Core\Authentication\AuthenticationService', ],
+                AbstractAuthenticationService::class => CoreAbstractAuthenticationService::class,
+                AuthenticationService::class => CoreAuthenticationService::class, ],
         ]]);
 
     $services->set(SubstituteConstantParsetimeStartRector::class);

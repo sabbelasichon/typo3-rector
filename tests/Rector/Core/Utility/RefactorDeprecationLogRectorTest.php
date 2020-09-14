@@ -20,6 +20,6 @@ final class RefactorDeprecationLogRectorTest extends AbstractRectorWithConfigTes
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/deprecation_log.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/deprecation_log.php.inc')];
     }
 }

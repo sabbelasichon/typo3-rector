@@ -9,6 +9,8 @@ use Ssch\TYPO3Rector\Rector\Core\TypoScript\TemplateServiceSplitConfArrayRector;
 use Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector;
 use Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMarkerMethodsFromContentObjectRendererRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use TYPO3\CMS\Core\TypoScript\TypoScriptService as CoreTypoScriptService;
+use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services.php');
@@ -28,7 +30,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RenameClassRector::class)
         ->call('configure', [[
             RenameClassRector::OLD_TO_NEW_CLASSES => [
-                ['TYPO3\CMS\Extbase\Service\TypoScriptService' => 'TYPO3\CMS\Core\TypoScript\TypoScriptService'],
+                TypoScriptService::class => CoreTypoScriptService::class,
             ],
         ]]);
 };

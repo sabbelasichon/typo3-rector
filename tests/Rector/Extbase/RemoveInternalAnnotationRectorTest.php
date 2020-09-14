@@ -20,7 +20,7 @@ final class RemoveInternalAnnotationRectorTest extends AbstractRectorWithConfigT
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/remove_internal_annotation.php.inc'];
-        yield [__DIR__ . '/Fixture/keep_internal_annotation.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/remove_internal_annotation.php.inc')];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/keep_internal_annotation.php.inc')];
     }
 }

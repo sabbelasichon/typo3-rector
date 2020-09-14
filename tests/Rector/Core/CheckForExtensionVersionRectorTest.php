@@ -20,6 +20,6 @@ final class CheckForExtensionVersionRectorTest extends AbstractRectorWithConfigT
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/check_for_workspaces_instead_of_version.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/check_for_workspaces_instead_of_version.php.inc')];
     }
 }

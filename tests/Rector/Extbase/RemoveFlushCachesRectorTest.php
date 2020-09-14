@@ -20,6 +20,6 @@ final class RemoveFlushCachesRectorTest extends AbstractRectorWithConfigTestCase
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/remove_flush_caches.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/remove_flush_caches.php.inc')];
     }
 }

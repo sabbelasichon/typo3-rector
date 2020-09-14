@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\Class_;
-use Rector\Core\PhpParser\Node\Manipulator\ClassManipulator;
+use PhpParser\Node\Stmt\Property;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
@@ -19,16 +19,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper as CmsAbstractViewHelper
  */
 final class UseRenderingContextGetControllerContextRector extends AbstractRector
 {
-    /**
-     * @var ClassManipulator
-     */
-    private $classManipulator;
-
-    public function __construct(ClassManipulator $classManipulator)
-    {
-        $this->classManipulator = $classManipulator;
-    }
-
     /**
      * @return string[]
      */
@@ -46,7 +36,7 @@ final class UseRenderingContextGetControllerContextRector extends AbstractRector
             return null;
         }
 
-        $this->classManipulator->removeProperty($node, 'controllerContext');
+        $this->removeProperties($node, ['controllerContext']);
 
         $this->replaceWithRenderingContextGetControllerContext($node);
 
@@ -103,5 +93,23 @@ CODE_SAMPLE
                 );
             });
         }
+    }
+
+    /**
+     * @param string[] $propertyNames
+     */
+    private function removeProperties(Class_ $class, array $propertyNames): void
+    {
+        $this->traverseNodesWithCallable($class, function (Node $node) use ($propertyNames) {
+            if (! $node instanceof Property) {
+                return null;
+            }
+
+            if (! $this->isNames($node, $propertyNames)) {
+                return null;
+            }
+
+            $this->removeNode($node);
+        });
     }
 }

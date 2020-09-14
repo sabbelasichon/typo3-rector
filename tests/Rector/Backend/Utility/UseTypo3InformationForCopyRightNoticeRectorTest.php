@@ -20,6 +20,6 @@ final class UseTypo3InformationForCopyRightNoticeRectorTest extends AbstractRect
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/use_typo3_information.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/use_typo3_information.php.inc')];
     }
 }

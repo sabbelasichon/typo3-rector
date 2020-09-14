@@ -42,7 +42,7 @@ final class MyAuthenticationService extends \TYPO3\CMS\Core\Authentication\Authe
 final class MyAuthenticationServiceUser
 {
     /**
-     * @var AuthenticationService
+     * @var \TYPO3\CMS\Core\Authentication\AuthenticationService
      */
     private $authenticationService;
 
