@@ -71,4 +71,9 @@ class GeneralUtility
     {
         return 'foo';
     }
+
+    public static function isRunningOnCgiServerApi(): bool
+    {
+        return false;
+    }
 }

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Core\Environment;
+namespace Ssch\TYPO3Rector\Tests\Rector\Core\Utility;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class EnvironmentApiTest extends AbstractRectorWithConfigTestCase
+final class MoveIsRunningOnCgiServerApiToEnvironmentApiRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -20,6 +20,6 @@ final class EnvironmentApiTest extends AbstractRectorWithConfigTestCase
 
     public function provideDataForTest(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/use-environment-api2.php.inc')];
     }
 }
