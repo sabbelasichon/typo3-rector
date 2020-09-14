@@ -12,5 +12,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->autowire();
 
     $services->load('Ssch\TYPO3Rector\\', __DIR__ . '/../src/')
-        ->exclude([__DIR__ . '/../src/{Rector/**/*Rector.php}', __DIR__ . '/../src/Console']);
+        ->exclude([__DIR__ . '/../src/Rector']);
 };
