@@ -14,6 +14,10 @@ class GeneralUtility
     {
     }
 
+    public static function isRunningOnCgiServerApi()
+    {
+    }
+
     /**
      * @return object
      */

@@ -1,11 +1,11 @@
 <?php
 
-\TYPO3\CMS\Core\Utility\GeneralUtility::getApplicationContext();
+\TYPO3\CMS\Core\Utility\GeneralUtility::isRunningOnCgiServerApi();
 
 ?>
 -----
 <?php
 
-\TYPO3\CMS\Core\Core\Environment::getContext();
+\TYPO3\CMS\Core\Core\Environment::isRunningOnCgiServer();
 
 ?>
