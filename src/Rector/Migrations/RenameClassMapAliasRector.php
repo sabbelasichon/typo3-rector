@@ -103,7 +103,7 @@ PHP
      */
     public function refactor(Node $node): ?Node
     {
-        return $this->classRenamer->renameNode($node, $this->changeConfiguration->getOldToNewClasses());
+        return $this->classRenamer->renameNode($node, $this->oldToNewClasses);
     }
 
     /**
