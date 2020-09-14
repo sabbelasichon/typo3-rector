@@ -69,7 +69,8 @@ Check if everything makes sense and run the process command without the `--dry-r
 
 ## Contributing
 
-Want to help? Great!
+Want to help? Great! 
+Joing TYPO3 slack channel #ext-typo3-rector
 
 ### Fork the project
 
