@@ -12,10 +12,17 @@ final class Environment
 {
     public static function isCli(): bool
     {
+        return false;
     }
 
     public static function getProjectPath(): string
     {
+        return '';
+    }
+
+    public static function isRunningOnCgiServer(): bool
+    {
+        return false;
     }
 
     public static function getContext(): string
