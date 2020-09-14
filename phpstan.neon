@@ -2,6 +2,7 @@ includes:
     # see https://github.com/symplify/phpstan-extensions
     - vendor/symplify/phpstan-extensions/config/config.neon
     - utils/phpstan/config/typo3-rector.neon
+    - phpstan-baseline.neon
 
 parameters:
     level: 8
