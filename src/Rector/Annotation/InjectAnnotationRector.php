@@ -20,7 +20,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Renaming\ValueObject\RenamedAnnotationInType;
+use Rector\Renaming\ValueObject\RenameAnnotation;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Feature-82869-ReplaceInjectWithTYPO3CMSExtbaseAnnotationInject.html
@@ -68,7 +68,7 @@ final class InjectAnnotationRector extends AbstractRector
             if ($property->isPublic()) {
                 $this->docBlockManipulator->replaceAnnotationInNode(
                     $property,
-                    new RenamedAnnotationInType('', self::OLD_ANNOTATION, self::NEW_ANNOTATION)
+                    new RenameAnnotation('', self::OLD_ANNOTATION, self::NEW_ANNOTATION)
                 );
                 continue;
             }
