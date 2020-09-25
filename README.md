@@ -110,7 +110,7 @@ Assign the issue to yourself so others can see that you are working on it.
 2. Create a stub class in `stubs` if needed.
 3. Write your rector.
 4. Make sure your new Rector class is autoloaded: `composer du`
-5. Register your rector in one of the yaml files in the `config` directory
+5. Register your rector in one of the php files in the `config` directory
 6. Write a test for your rector.
 
 Or you can use `rector-recipe.php` [file to generate base structure for the rule](https://github.com/rectorphp/rector/blob/master/docs/rector_recipe.md).
