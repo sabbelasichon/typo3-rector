@@ -25,7 +25,7 @@ $ composer require --dev ssch/typo3-rector
 ## Configuration and Processing
 
 This library ships already with a bunch of configuration files organized by TYPO3 version.
-In order to "fix" your code with the desired rectors create your own configuration file in the yaml format:
+In order to "fix" your code with the desired rectors create your own configuration file in the PHP format:
 
 ```php
 <?php
@@ -51,6 +51,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::IMPORT_DOC_BLOCKS, false);
 
     $parameters->set(Option::PHP_VERSION_FEATURES, '7.2');
+
+    // If you set option Option::AUTO_IMPORT_NAMES to true, you should consider excluding some TYPO3 files.
+    $parameters->set(Option::EXCLUDE_PATHS, [
+        'ClassAliasMap.php',
+        'class.ext_update.php',
+        'ext_localconf.php',
+        'ext_emconf.php',
+        'ext_tables.php',
+        __DIR__ . '/packages/my_package/Configuration/*'
+    ]);
+
 };
 ```
 
@@ -69,7 +80,7 @@ Check if everything makes sense and run the process command without the `--dry-r
 
 ## Contributing
 
-Want to help? Great! 
+Want to help? Great!
 Joing TYPO3 slack channel #ext-typo3-rector
 
 ### Fork the project
