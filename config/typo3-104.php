@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
-use Rector\Renaming\ValueObject\StaticCallRename;
+use Rector\Renaming\ValueObject\RenameStaticMethod;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\Core\Environment;
@@ -18,7 +18,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->call('configure', [
             [
                 RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => inline_value_objects([
-                    new StaticCallRename(
+                    new RenameStaticMethod(
                        GeneralUtility::class,
                        'isRunningOnCgiServerApi',
                        Environment::class,
