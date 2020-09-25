@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Backend\Utility;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
-use Rector\Rector\AbstractRector;
-use Rector\RectorDefinition\CodeSample;
-use Rector\RectorDefinition\RectorDefinition;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
+use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -28,13 +29,17 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
             return null;
         }
 
-        if (!$this->isName($node, 'getModuleUrl')) {
+        if (!$this->isName($node->name, 'getModuleUrl')) {
             return null;
         }
 
         /** @var Node\Arg[] $args */
         $args = $node->args;
         $firstArgument = array_shift($args);
+        if (null === $firstArgument) {
+            return null;
+        }
+
         $secondArgument = array_shift($args);
 
         return $this->createUriBuilderCall($firstArgument, $secondArgument);
@@ -70,7 +75,7 @@ PHP
         ]);
     }
 
-    private function createUriBuilderCall(Node\Arg $firstArgument, ?Node\Arg $secondArgument): MethodCall
+    private function createUriBuilderCall(Arg $firstArgument, ?Arg $secondArgument): MethodCall
     {
         $buildUriArguments = [$firstArgument->value];
         if (null !== $secondArgument) {
@@ -81,9 +86,7 @@ PHP
                     $this->createStaticCall(
                         GeneralUtility::class,
                         'makeInstance',
-                        [
-                            $this->createClassConstant(UriBuilder::class, 'class'),
-                        ]
+                        [$this->createClassConstantReference(UriBuilder::class)]
                     ), 'buildUriFromRoute', $buildUriArguments
                 );
     }

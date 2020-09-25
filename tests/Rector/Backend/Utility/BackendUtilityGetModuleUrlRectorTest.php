@@ -4,22 +4,23 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Utility;
 
 use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 class BackendUtilityGetModuleUrlRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
      *
-     * @param string $file
+     * @param SmartFileInfo $file
      */
-    public function test(string $file): void
+    public function test(SmartFileInfo $file): void
     {
-        $this->doTestFile($file);
+        $this->doTestFileInfo($file);
     }
 
     public function provideDataForTest(): Iterator
     {
-        yield [__DIR__ . '/Fixture/backend_utility_get_module_url.php.inc'];
-        yield [__DIR__ . '/Fixture/backend_utility_get_module_url_no_second_param.php.inc'];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/backend_utility_get_module_url.php.inc')];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/backend_utility_get_module_url_no_second_param.php.inc')];
     }
 }
