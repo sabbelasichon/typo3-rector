@@ -33,7 +33,7 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
             return null;
         }
 
-        /** @var Node\Arg[] $args */
+        /** @var Arg[] $args */
         $args = $node->args;
         $firstArgument = array_shift($args);
         if (null === $firstArgument) {

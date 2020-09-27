@@ -6,7 +6,7 @@ use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-class BackendUtilityGetModuleUrlRectorTest extends AbstractRectorWithConfigTestCase
+final class BackendUtilityGetModuleUrlRectorTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
