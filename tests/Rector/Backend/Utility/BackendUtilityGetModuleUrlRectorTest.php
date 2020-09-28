@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Utility;
 
 use Iterator;
@@ -10,8 +12,6 @@ final class BackendUtilityGetModuleUrlRectorTest extends AbstractRectorWithConfi
 {
     /**
      * @dataProvider provideDataForTest()
-     *
-     * @param SmartFileInfo $file
      */
     public function test(SmartFileInfo $file): void
     {

@@ -25,11 +25,11 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
             return null;
         }
 
-        if (!$this->isName($node->name, 'getModuleUrl')) {
+        if (! $this->isName($node->name, 'getModuleUrl')) {
             return null;
         }
 
@@ -45,9 +45,7 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
         return $this->createUriBuilderCall($firstArgument, $secondArgument);
     }
 
-    /**
-     * @inheritDoc
-     */
+
     public function getNodeTypes(): array
     {
         return [StaticCall::class];
