@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\Core\Database\Refactorings;
+namespace Ssch\TYPO3Rector\Helper\Database\Refactorings;
 
 use PhpParser\Node\Expr\MethodCall;
 
