@@ -22,6 +22,11 @@ $ composer require --dev ssch/typo3-rector
 
 ...**look at the overview of [all available TYPO3 Rectors](/docs/all_rectors_overview.md)** with before/after diffs and configuration examples.
 
+You can also watch the video from the T3CRR conference:
+
+[![RectorPHP for TYPO3](https://img.youtube.com/vi/FeU3XEG0AW4/0.jpg)](https://www.youtube.com/watch?v=FeU3XEG0AW4)
+
+
 ## Configuration and Processing
 
 This library ships already with a bunch of configuration files organized by TYPO3 version.
