@@ -85,7 +85,7 @@ private $someProperty;
 
 CODE_SAMPLE
                 , [
-                    '$oldToNewAnnotations' => [
+                    self::OLD_TO_NEW_ANNOTATIONS => [
                         'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
                     ],
                 ]),
