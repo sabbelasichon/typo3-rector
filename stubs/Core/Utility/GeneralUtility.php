@@ -76,4 +76,9 @@ class GeneralUtility
     {
         return false;
     }
+
+    public static function getUrl($url): void
+    {
+
+    }
 }
