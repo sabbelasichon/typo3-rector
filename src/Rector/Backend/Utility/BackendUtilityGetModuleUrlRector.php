@@ -45,7 +45,6 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
         return $this->createUriBuilderCall($firstArgument, $secondArgument);
     }
 
-
     public function getNodeTypes(): array
     {
         return [StaticCall::class];
