@@ -4,7 +4,7 @@ class LegacyDatabaseConnectionTruncateQueryUsage
 {
     public function insertData()
     {
-        $GLOBALS['TYPO3_DB']->TRUNCATEquery('pages');
+        $GLOBALS['TYPO3_DB']->exec_TRUNCATEquery('pages');
     }
 }
 

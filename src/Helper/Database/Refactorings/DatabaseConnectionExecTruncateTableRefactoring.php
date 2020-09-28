@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Helper\Database\Refactorings;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 
-final class DatabaseConnectionTruncateTableRefactoring implements DatabaseConnectionToDbalRefactoring
+final class DatabaseConnectionExecTruncateTableRefactoring implements DatabaseConnectionToDbalRefactoring
 {
     use ConnectionCallTrait;
 
@@ -30,6 +30,6 @@ final class DatabaseConnectionTruncateTableRefactoring implements DatabaseConnec
 
     public function canHandle(string $methodName): bool
     {
-        return 'TRUNCATEquery' === $methodName;
+        return 'exec_TRUNCATEquery' === $methodName;
     }
 }
