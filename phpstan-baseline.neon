@@ -29,4 +29,3 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: src/Rector/IndexedSearch/Controller/RenamePiListBrowserResultsRector.php
-
