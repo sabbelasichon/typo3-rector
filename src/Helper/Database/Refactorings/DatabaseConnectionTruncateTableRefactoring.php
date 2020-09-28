@@ -7,23 +7,22 @@ namespace Ssch\TYPO3Rector\Helper\Database\Refactorings;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 
-final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConnectionToDbalRefactoring
+final class DatabaseConnectionTruncateTableRefactoring implements DatabaseConnectionToDbalRefactoring
 {
     use ConnectionCallTrait;
 
     public function refactor(MethodCall $oldNode): array
     {
         $tableArgument = array_shift($oldNode->args);
-        $dataArgument = array_shift($oldNode->args);
 
-        if (null === $tableArgument || null === $dataArgument) {
+        if (null === $tableArgument) {
             return [];
         }
 
         $connectionAssignment = $this->createConnectionCall($tableArgument);
 
         $connectionInsertCall = $this->createMethodCall(
-            new Variable('connection'), 'insert', [$tableArgument->value, $dataArgument->value]
+            new Variable('connection'), 'truncate', [$tableArgument->value]
         );
 
         return [$connectionAssignment, $connectionInsertCall];
@@ -31,6 +30,6 @@ final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConn
 
     public function canHandle(string $methodName): bool
     {
-        return 'exec_INSERTquery' === $methodName;
+        return 'TRUNCATEquery' === $methodName;
     }
 }
