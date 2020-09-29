@@ -6,7 +6,9 @@ namespace Ssch\TYPO3Rector\Rector\Core\Environment;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\BooleanOr;
+use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
@@ -58,7 +60,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
             case 'PATH_thisScript':
                 return $this->createStaticCall(Environment::class, 'getCurrentScript');
             case 'PATH_site':
-                return $this->createStaticCall(Environment::class, 'getPublicPath');
+                return new Concat($this->createStaticCall(Environment::class, 'getPublicPath'), new String_('/'));
             case 'PATH_typo3':
                 return $this->createStaticCall(Environment::class, 'getBackendPath');
             case 'PATH_typo3conf':
