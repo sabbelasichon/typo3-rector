@@ -81,4 +81,9 @@ class GeneralUtility
     {
 
     }
+
+    public function verifyFilenameAgainstDenyPattern($filename): void
+    {
+
+    }
 }

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Ssch\TYPO3Rector\Stubs\StubLoader;
+use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -27,7 +28,9 @@ $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] = 'dbname'
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['user'] = 'user';
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = 'password';
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'] = 'host';
+$GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] = FileNameValidator::DEFAULT_FILE_DENY_PATTERN;
 
+define('FILE_DENY_PATTERN_DEFAULT', 'some');
 define('PATH_site', getcwd());
 define('TYPO3_db', 'TYPO3_db');
 define('TYPO3_db_username', 'TYPO3_db_username');
