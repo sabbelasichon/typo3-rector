@@ -11,6 +11,7 @@
 !.code
 .code/*
 !.code/.gitkeep
+.class-alias-map-generator
 composer.lock
 # Other ignored paths and files.
 /vendor

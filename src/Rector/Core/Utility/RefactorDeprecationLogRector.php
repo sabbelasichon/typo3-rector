@@ -43,7 +43,7 @@ final class RefactorDeprecationLogRector extends AbstractRector
         }
 
         $const = new ConstFetch(new Name([
-            'name' => 'E_USER_DEPRECATED'
+            'name' => 'E_USER_DEPRECATED',
         ]));
         $usefulMessage = new String_('A useful message');
         $emptyFallbackString = new String_('');
