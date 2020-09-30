@@ -42,7 +42,9 @@ final class RefactorDeprecationLogRector extends AbstractRector
             return null;
         }
 
-        $const = new ConstFetch(new Name(['name' => 'E_USER_DEPRECATED']));
+        $const = new ConstFetch(new Name([
+            'name' => 'E_USER_DEPRECATED'
+        ]));
         $usefulMessage = new String_('A useful message');
         $emptyFallbackString = new String_('');
         $arguments = $node->args;
