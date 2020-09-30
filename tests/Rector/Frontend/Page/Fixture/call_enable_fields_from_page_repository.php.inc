@@ -26,9 +26,9 @@ final class ContentObjectRendererEnableFieldsMethodCall
     public function method(): void
     {
         $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-        $enableFields1 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class)->enableFields('pages');
-        $enableFields2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class)->enableFields('pages', true);
-        $enableFields3 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\Page\PageRepository::class)->enableFields('pages', -1, []);
+        $enableFields1 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Domain\Repository\PageRepository::class)->enableFields('pages');
+        $enableFields2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Domain\Repository\PageRepository::class)->enableFields('pages', true);
+        $enableFields3 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Domain\Repository\PageRepository::class)->enableFields('pages', -1, []);
     }
 }
 
