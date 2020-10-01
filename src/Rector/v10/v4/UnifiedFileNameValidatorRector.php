@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\v10_4;
+namespace Ssch\TYPO3Rector\Rector\v10\v4;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
