@@ -33,5 +33,5 @@ parameters:
 		-
 			message: "#^Access to an undefined property PhpParser\\\\Node\\\\Expr\\\\ConstFetch\\|PhpParser\\\\Node\\\\Expr\\\\StaticCall\\:\\:\\$args\\.$#"
 			count: 1
-			path: src/Rector/v10_4/UnifiedFileNameValidatorRector.php
+			path: src/Rector/v10/v4/UnifiedFileNameValidatorRector.php
 
