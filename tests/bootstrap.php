@@ -58,3 +58,6 @@ define('TYPO3_db', 'TYPO3_db');
 define('TYPO3_db_username', 'TYPO3_db_username');
 define('TYPO3_db_password', 'TYPO3_db_password');
 define('TYPO3_db_host', 'TYPO3_db_host');
+
+define('TYPO3_version', '9.5.21');
+define('TYPO3_branch', '9.5');
