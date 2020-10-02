@@ -6,32 +6,27 @@ namespace Ssch\TYPO3Rector\PHPStan\Rules;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\Rule;
+use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
-use Ssch\TYPO3Rector\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 
 /**
- * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddSeeDocBlockForRectorClass\AddCodeCoverageIgnoreForRectorDefinitionTest
+ * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\AddCodeCoverageIgnoreForRectorDefinitionTest
  */
-final class AddSeeDocBlockForRectorClass implements Rule
+final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
 {
     /**
      * @var string
      */
-    public const ERROR_MESSAGE = 'Provide @see doc block for "%s" Rector class';
-
-    /**
-     * @var string[]
-     */
-    private const ALLOWED_CLASSES_WITH_NON_SEE_DOC_BLOCK = [
-        RenameClassMapAliasRector::class,
-        AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class,
-    ];
+    public const ERROR_MESSAGE = 'Provide @codeCoverageIgnore doc block for "%s" RectorDefinition method';
 
     /**
      * @var Broker
@@ -51,31 +46,38 @@ final class AddSeeDocBlockForRectorClass implements Rule
 
     public function getNodeType(): string
     {
-        return Class_::class;
+        return ClassMethod::class;
     }
 
     /**
-     * @param Class_ $node
+     * @param Node|ClassMethod $node
+     *
      * @return string[]
+     * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        $className = $node->name;
-        if (null === $className) {
-            return [];
+        if (!$scope->isInClass()) {
+            throw new ShouldNotHappenException();
         }
 
-        $fullyQualifiedClassName = $scope->getNamespace() . '\\' . $className;
+        $classReflection = $scope->getClassReflection();
 
-        $classReflection = $this->broker->getClass($fullyQualifiedClassName);
+        if($classReflection === null) {
+            return [];
+        }
 
         if (!$classReflection->isSubclassOf(PhpRectorInterface::class)) {
             return [];
         }
 
-        if (in_array($fullyQualifiedClassName, self::ALLOWED_CLASSES_WITH_NON_SEE_DOC_BLOCK, true)) {
+        $methodName = $node->name->toString();
+
+        if($methodName !== 'getDefinition') {
             return [];
         }
+
+        $className = $classReflection->getName();
 
         $docComment = $node->getDocComment();
         if (null === $docComment) {
@@ -86,12 +88,12 @@ final class AddSeeDocBlockForRectorClass implements Rule
             $scope->getFile(),
             $classReflection->getName(),
             null,
-            null,
+            $methodName,
             $docComment->getText()
         );
 
         $phpDocString = $resolvedPhpDoc->getPhpDocString();
-        if (Strings::contains($phpDocString, '@see')) {
+        if (Strings::contains($phpDocString, '@codeCoverageIgnore')) {
             return [];
         }
 

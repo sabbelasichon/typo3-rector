@@ -61,6 +61,9 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Refactor legacy calls of DatabaseConnection to Dbal', [

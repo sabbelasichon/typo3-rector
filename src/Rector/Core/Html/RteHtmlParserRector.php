@@ -51,6 +51,9 @@ final class RteHtmlParserRector extends AbstractRector
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
