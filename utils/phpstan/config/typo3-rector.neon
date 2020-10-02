@@ -5,6 +5,11 @@ services:
             - phpstan.rules.rule
 
     -
+        class: Ssch\TYPO3Rector\PHPStan\Rules\AddCodeCoverageIgnoreForRectorDefinition
+        tags:
+            - phpstan.rules.rule
+
+    -
         class: Ssch\TYPO3Rector\PHPStan\Type\GeneralUtilityDynamicReturnTypeExtension
         tags:
             - phpstan.broker.dynamicStaticMethodReturnTypeExtension

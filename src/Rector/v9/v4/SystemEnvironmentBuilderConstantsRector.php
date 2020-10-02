@@ -83,6 +83,9 @@ final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
         return $string;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(

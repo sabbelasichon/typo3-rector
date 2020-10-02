@@ -59,6 +59,9 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
         return $this->refactorToEmailConcatWithNativeFunction($firstArgumentValue);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Use native function idn_to_ascii instead of GeneralUtility::idnaEncode', [

@@ -40,6 +40,9 @@ final class SubstituteResourceFactoryRector extends AbstractRector
         ]);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
