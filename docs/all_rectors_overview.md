@@ -500,7 +500,7 @@ Remove second argument of GeneralUtility::explodeUrl2Array if it is false or jus
 - class: [`Ssch\TYPO3Rector\Rector\Core\Utility\RefactorIdnaEncodeMethodToNativeFunctionRector`](/src/Rector/Core/Utility/RefactorIdnaEncodeMethodToNativeFunctionRector.php)
 - [test fixtures](/tests/Rector/Core/Utility/Fixture)
 
-Use native function idn_to_ascii instead of GeneralUtility::idnaEncode
+Use native function `idn_to_ascii` instead of GeneralUtility::idnaEncode
 
 ```diff
 -$domain = GeneralUtility::idnaEncode('domain.com');
