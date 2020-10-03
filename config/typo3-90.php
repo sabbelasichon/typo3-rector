@@ -13,6 +13,7 @@ use Ssch\TYPO3Rector\Rector\Core\Utility\RemoveSecondArgumentGeneralUtilityMkdir
 use Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\UseRenderingContextGetControllerContextRector;
 use Ssch\TYPO3Rector\Rector\SysNote\Domain\Repository\FindByPidsAndAuthorIdRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\RemoveMethodInitTCARector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\Authentication\AbstractAuthenticationService as CoreAbstractAuthenticationService;
 use TYPO3\CMS\Core\Authentication\AuthenticationService as CoreAuthenticationService;
@@ -35,6 +36,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseRenderingContextGetControllerContextRector::class);
 
     $services->set(RemovePropertiesFromSimpleDataHandlerControllerRector::class);
+
+    $services->set(RemoveMethodInitTCARector::class);
 
     $services->set(RenameClassRector::class)
         ->call('configure', [[
