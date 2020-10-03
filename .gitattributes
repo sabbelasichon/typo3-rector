@@ -4,8 +4,9 @@
 
 # Ignore from prefer-dist install
 ## Files
-.*                                export-ignore
-*.md                              export-ignore
+.* export-ignore
+*.md export-ignore
 ## Folders
-.github                           export-ignore
-.travis                           export-ignore
+.github export-ignore
+.travis export-ignore
+/tests export-ignore
