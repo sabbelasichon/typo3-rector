@@ -41,7 +41,7 @@
         "fix-style": "vendor/bin/ecs check --fix --ansi",
         "analyze": "vendor/bin/phpstan analyse --memory-limit=-1 --ansi --error-format symplify",
         "test": "vendor/bin/phpunit",
-        "docs": "vendor/bin/rector dump-rectors src/Rector > docs/AllRectorsOverview.md",
+        "docs": "vendor/bin/rector dump-rectors src/Rector --output-file docs/all_rectors_overview.md --ansi",
         "rector": "vendor/bin/rector rectify --dry-run --ansi",
         "fix-rector": "vendor/bin/rector rectify --ansi"
     },
