@@ -7,6 +7,6 @@
 .* export-ignore
 *.md export-ignore
 ## Folders
-.github export-ignore
-.travis export-ignore
+/.github export-ignore
+/stubs export-ignore
 /tests export-ignore
