@@ -1,4 +1,4 @@
-# All 59 Rectors Overview
+# All 60 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -365,6 +365,23 @@ Inject EnvironmentService if needed in subclass of Response
 
      }
  }
+```
+
+<br><br>
+
+## `MetaTagManagementRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector`](/src/Rector/v9/v0/MetaTagManagementRector.php)
+- [test fixtures](/tests/Rector/v9/v0/MetaTagManagement/Fixture)
+
+Use setMetaTag method from PageRenderer class
+
+```diff
+ use TYPO3\CMS\Core\Page\PageRenderer;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+-$pageRenderer->addMetaTag('<meta name="keywords" content="seo, search engine optimisation, search engine optimization, search engine ranking">');
++$pageRenderer->setMetaTag('name', 'keywords', 'seo, search engine optimisation, search engine optimization, search engine ranking');
 ```
 
 <br><br>
