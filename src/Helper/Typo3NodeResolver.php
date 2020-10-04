@@ -109,6 +109,27 @@ final class Typo3NodeResolver
         return $this->isValue($node->dim, $global);
     }
 
+    public function isPropertyFetchOnAnyPropertyOfGlobals(Node $node, string $global): bool
+    {
+        if (! $node instanceof PropertyFetch) {
+            return false;
+        }
+
+        if (! $node->var instanceof ArrayDimFetch) {
+            return false;
+        }
+
+        if (! $this->isName($node->var->var, self::GLOBALS)) {
+            return false;
+        }
+
+        if (null === $node->var->dim) {
+            return false;
+        }
+
+        return $this->isValue($node->var->dim, $global);
+    }
+
     public function isMethodCallOnPropertyOfGlobals(Node $node, string $global, string $property): bool
     {
         if (! $node instanceof MethodCall) {
