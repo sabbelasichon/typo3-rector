@@ -1,4 +1,4 @@
-# All 64 Rectors Overview
+# All 65 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1148,6 +1148,28 @@ Use class Typo3Version instead of the constants
 +use TYPO3\CMS\Core\Information\Typo3Version;
 +$typo3Version = GeneralUtility::makeInstance(Typo3Version::class)->getVersion();
 +$typo3Branch = GeneralUtility::makeInstance(Typo3Version::class)->getBranch();
+```
+
+<br><br>
+
+## `UseContextApiRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector`](/src/Rector/v9/v4/UseContextApiRector.php)
+- [test fixtures](/tests/Rector/v9/v4/UseContextApi/Fixture)
+
+Various public properties in favor of Context API
+
+```diff
+-$frontendUserIsLoggedIn = $GLOBALS['TSFE']->loginUser;
+-$groupList = $GLOBALS['TSFE']->gr_list;
+-$backendUserIsLoggedIn = $GLOBALS['TSFE']->beUserLogin;
+-$showHiddenPage = $GLOBALS['TSFE']->showHiddenPage;
+-$showHiddenRecords = $GLOBALS['TSFE']->showHiddenRecords;
++$frontendUserIsLoggedIn = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('frontend.user', 'isLoggedIn');
++$groupList = implode(',', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('frontend.user', 'groupIds'));
++$backendUserIsLoggedIn = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('backend.user', 'isLoggedIn');
++$showHiddenPage = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('visibility', 'includeHiddenPages');
++$showHiddenRecords = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('visibility', 'includeHiddenContent');
 ```
 
 <br><br>
