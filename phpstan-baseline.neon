@@ -1,6 +1,56 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\$path of static method Nette\\\\Utils\\\\FileSystem\\:\\:delete\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/Helper/Tca/Refactorings/TcaMigrationVersion10.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of static method Nette\\\\Utils\\\\FileSystem\\:\\:delete\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/Helper/Tca/Refactorings/TcaMigrationVersion7.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of static method Nette\\\\Utils\\\\FileSystem\\:\\:delete\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/Helper/Tca/Refactorings/TcaMigrationVersion8.php
+
+		-
+			message: "#^Parameter \\#1 \\$path of static method Nette\\\\Utils\\\\FileSystem\\:\\:delete\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/Helper/Tca/Refactorings/TcaMigrationVersion9.php
+
+		-
+			message: "#^Access to an undefined property PhpParser\\\\Node\\\\Expr\\:\\:\\$value\\.$#"
+			count: 1
+			path: src/NodeFactory/InitializeArgumentsClassMethodFactory.php
+
+		-
+			message: "#^Access to an undefined property PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagNode\\|Rector\\\\BetterPhpDocParser\\\\Contract\\\\PhpDocNode\\\\AttributeAwareNodeInterface\\:\\:\\$value\\.$#"
+			count: 1
+			path: src/NodeFactory/InitializeArgumentsClassMethodFactory.php
+
+		-
+			message: "#^Access to an undefined property PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagNode\\|Rector\\\\BetterPhpDocParser\\\\Contract\\\\PhpDocNode\\\\AttributeAwareNodeInterface\\:\\:\\$value\\.$#"
+			count: 1
+			path: src/Rector/Annotation/IgnoreValidationAnnotationRector.php
+
+		-
+			message: "#^Access to an undefined property PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagNode\\|Rector\\\\BetterPhpDocParser\\\\Contract\\\\PhpDocNode\\\\AttributeAwareNodeInterface\\:\\:\\$value\\.$#"
+			count: 1
+			path: src/Rector/Annotation/ValidateAnnotationRector.php
+
+		-
+			message: "#^Cannot access property \\$key on PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\|null\\.$#"
+			count: 1
+			path: src/Rector/Core/Tca/TcaMigrationRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$expr of method Rector\\\\Core\\\\Rector\\\\AbstractRector\\:\\:getValue\\(\\) expects PhpParser\\\\Node\\\\Expr, PhpParser\\\\Node\\\\Expr\\|null given\\.$#"
+			count: 1
+			path: src/Rector/Core/Tca/TcaMigrationRector.php
+
+		-
 			message: "#^Parameter \\#2 \\$stmt of method Rector\\\\Core\\\\PhpParser\\\\Node\\\\Manipulator\\\\ClassInsertManipulator\\:\\:addAsFirstMethod\\(\\) expects PhpParser\\\\Node\\\\Stmt\\\\ClassConst\\|PhpParser\\\\Node\\\\Stmt\\\\ClassMethod\\|PhpParser\\\\Node\\\\Stmt\\\\Property, PhpParser\\\\Node\\\\Stmt\\\\Nop given\\.$#"
 			count: 1
 			path: src/Rector/v10/v2/InjectEnvironmentServiceIfNeededInResponseRector.php

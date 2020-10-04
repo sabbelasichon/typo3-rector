@@ -10,11 +10,13 @@
         "php": "^7.2",
         "nette/utils": "^3.1",
         "phpstan/phpstan": "^0.12.52",
-        "rector/rector": "0.8.52"
+        "rector/rector": "0.8.52",
+        "symfony/var-exporter": "^5.1"
     },
     "require-dev": {
         "captainhook/captainhook": "^5.4",
         "captainhook/plugin-composer": "^5.2",
+        "migrify/config-transformer": "^0.3.36",
         "phpunit/phpunit": "^8.0|^9.0",
         "symplify/easy-coding-standard": "^8.2.27",
         "symplify/phpstan-extensions": "^8.2"

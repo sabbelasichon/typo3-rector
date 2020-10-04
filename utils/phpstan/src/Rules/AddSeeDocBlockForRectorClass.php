@@ -12,6 +12,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
+use Ssch\TYPO3Rector\Rector\Core\Tca\TcaMigrationRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 
@@ -30,6 +31,7 @@ final class AddSeeDocBlockForRectorClass implements Rule
      */
     private const ALLOWED_CLASSES_WITH_NON_SEE_DOC_BLOCK = [
         RenameClassMapAliasRector::class,
+        TcaMigrationRector::class,
         AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class,
     ];
 
