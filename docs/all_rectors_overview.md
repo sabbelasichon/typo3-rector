@@ -1,4 +1,4 @@
-# All 61 Rectors Overview
+# All 62 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -909,6 +909,31 @@ Remove second argument of HTMLcleaner_db getKeepTags. Substitute calls for siteU
 +            $rteHtmlParser->getKeepTags('arg1');
 +            \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl('http://domain.com');
 +             \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
+```
+
+<br><br>
+
+## `SubstituteCacheWrapperMethodsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector`](/src/Rector/v9/v0/SubstituteCacheWrapperMethodsRector.php)
+- [test fixtures](/tests/Rector/v9/v0/SubstituteCacheMethods/Fixture)
+
+Caching framework wrapper methods in BackendUtility
+
+```diff
+-use TYPO3\CMS\Backend\Utility\BackendUtility;
++use TYPO3\CMS\Core\Cache\CacheManager;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++
+ $hash = 'foo';
+-$content = BackendUtility::getHash($hash);
++$cacheManager = GeneralUtility::makeInstance(CacheManager::class);
++$cacheEntry = $cacheManager->getCache('cache_hash')->get($hash);
++$hashContent = null;
++if ($cacheEntry) {
++    $hashContent = $cacheEntry;
++}
++$content = $hashContent;
 ```
 
 <br><br>
