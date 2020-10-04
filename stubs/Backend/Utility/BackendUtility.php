@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Backend\Utility;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 if (class_exists(BackendUtility::class)) {
     return;
 }
@@ -25,8 +27,16 @@ final class BackendUtility
         return 'notice';
     }
 
-    public static function getModuleUrl($moduleName, $urlParameters = [])
+    public static function getModuleUrl($moduleName, $urlParameters = []): string
     {
         return 'foo';
+    }
+
+    public static function storeHash($hash, $data, $ident): void
+    {
+    }
+
+    public static function getHash($hash): void
+    {
     }
 }
