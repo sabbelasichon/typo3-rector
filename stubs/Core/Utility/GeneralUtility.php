@@ -22,6 +22,11 @@ class GeneralUtility
         return new $class();
     }
 
+    public static function getUserObj(string $class): void
+    {
+
+    }
+
     public static function getIndpEnv(string $var): string
     {
         return 'foo';

@@ -2,7 +2,10 @@
 
 declare(strict_types=1);
 
+use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
+use Rector\Renaming\ValueObject\MethodCallRename;
+use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\Backend\Controller\RemovePropertiesFromSimpleDataHandlerControllerRector;
 use Ssch\TYPO3Rector\Rector\Core\CheckForExtensionInfoRector;
 use Ssch\TYPO3Rector\Rector\Core\CheckForExtensionVersionRector;
@@ -20,6 +23,7 @@ use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\Authentication\AbstractAuthenticationService as CoreAbstractAuthenticationService;
 use TYPO3\CMS\Core\Authentication\AuthenticationService as CoreAuthenticationService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Sv\AbstractAuthenticationService;
 use TYPO3\CMS\Sv\AuthenticationService;
 
@@ -63,4 +67,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CheckForExtensionVersionRector::class);
 
     $services->set(RefactorDeprecationLogRector::class);
+
+    $services->set(RenameMethodRector::class)
+        ->call(
+                 'configure',
+                 [[
+                     RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects(
+                         [new MethodCallRename(GeneralUtility::class, 'getUserObj', 'makeInstance')]
+                     ),
+                 ]]
+             );
 };
