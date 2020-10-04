@@ -12,6 +12,7 @@ use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorMethodsFromExtensionManagementU
 use Ssch\TYPO3Rector\Rector\Core\Utility\RemoveSecondArgumentGeneralUtilityMkdirDeepRector;
 use Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\UseRenderingContextGetControllerContextRector;
 use Ssch\TYPO3Rector\Rector\SysNote\Domain\Repository\FindByPidsAndAuthorIdRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\GeneratePageTitleRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveMethodInitTCARector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector;
@@ -44,6 +45,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SubstituteCacheWrapperMethodsRector::class);
 
     $services->set(UseLogMethodInsteadOfNewLog2Rector::class);
+
+    $services->set(GeneratePageTitleRector::class);
 
     $services->set(RenameClassRector::class)
         ->call('configure', [[
