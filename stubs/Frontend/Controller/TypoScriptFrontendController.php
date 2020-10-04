@@ -28,6 +28,31 @@ final class TypoScriptFrontendController
      */
     public $cObj = '';
 
+    /**
+     * @var string
+     */
+    public $loginUser = '';
+
+    /**
+     * @var string
+     */
+    public $gr_list = '';
+
+    /**
+     * @var string
+     */
+    public $beUserLogin = '';
+
+    /**
+     * @var string
+     */
+    public $showHiddenPage = '';
+
+    /**
+     * @var string
+     */
+    public $showHiddenRecords = '';
+
     public function initTemplate(): void
     {
     }
