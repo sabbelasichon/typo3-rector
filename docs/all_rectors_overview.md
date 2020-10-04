@@ -1,4 +1,4 @@
-# All 62 Rectors Overview
+# All 63 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1132,6 +1132,34 @@ Use class Typo3Version instead of the constants
 +use TYPO3\CMS\Core\Information\Typo3Version;
 +$typo3Version = GeneralUtility::makeInstance(Typo3Version::class)->getVersion();
 +$typo3Branch = GeneralUtility::makeInstance(Typo3Version::class)->getBranch();
+```
+
+<br><br>
+
+## `UseLogMethodInsteadOfNewLog2Rector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector`](/src/Rector/v9/v0/UseLogMethodInsteadOfNewLog2Rector.php)
+- [test fixtures](/tests/Rector/v9/v0/UseLogMethod/Fixture)
+
+Use `log` method instead of newlog2 from class DataHandler
+
+```diff
+ use TYPO3\CMS\Core\DataHandling\DataHandler;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+ $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
+-$logEntryUid1 = $dataHandler->newlog2('Foo', 'pages', 1, null, 0);
+-$logEntryUid2 = $dataHandler->newlog2('Foo', 'tt_content', 1, 2, 1);
+-$logEntryUid3 = $dataHandler->newlog2('Foo', 'tt_content', 1);
++$propArr = $dataHandler->getRecordProperties('pages', 1);
++$pid = $propArr['pid'];
++
++$logEntryUid1 = $dataHandler->log('pages', 1, 0, 0, 0, 'Foo', -1, [], $dataHandler->eventPid('pages', 1, $pid));
++$logEntryUid2 = $dataHandler->log('tt_content', 1, 0, 0, 1, 'Foo', -1, [], $dataHandler->eventPid('tt_content', 1, 2));
++$propArr = $dataHandler->getRecordProperties('tt_content', 1);
++$pid = $propArr['pid'];
++
++$logEntryUid3 = $dataHandler->log('tt_content', 1, 0, 0, 0, 'Foo', -1, [], $dataHandler->eventPid('tt_content', 1, $pid));
 ```
 
 <br><br>
