@@ -1,4 +1,4 @@
-# All 63 Rectors Overview
+# All 64 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -286,6 +286,22 @@ Use findByPidsAndAuthorId instead of findByPidsAndAuthor
  $backendUser = new BackendUser();
 -$sysNoteRepository->findByPidsAndAuthor('1,2,3', $backendUser);
 +$sysNoteRepository->findByPidsAndAuthorId('1,2,3', $backendUser->getUid());
+```
+
+<br><br>
+
+## `GeneratePageTitleRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\GeneratePageTitleRector`](/src/Rector/v9/v0/GeneratePageTitleRector.php)
+- [test fixtures](/tests/Rector/v9/v0/GeneratePageTitle/Fixture)
+
+Use generatePageTitle of TSFE instead of class PageGenerator
+
+```diff
+ use TYPO3\CMS\Frontend\Page\PageGenerator;
+
+-PageGenerator::generatePageTitle();
++$GLOBALS['TSFE']->generatePageTitle();
 ```
 
 <br><br>
