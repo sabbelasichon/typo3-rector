@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\UseRenderingContextGetControllerCo
 use Ssch\TYPO3Rector\Rector\SysNote\Domain\Repository\FindByPidsAndAuthorIdRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveMethodInitTCARector;
+use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\Authentication\AbstractAuthenticationService as CoreAbstractAuthenticationService;
 use TYPO3\CMS\Core\Authentication\AuthenticationService as CoreAuthenticationService;
@@ -38,6 +39,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemovePropertiesFromSimpleDataHandlerControllerRector::class);
 
     $services->set(RemoveMethodInitTCARector::class);
+
+    $services->set(SubstituteCacheWrapperMethodsRector::class);
 
     $services->set(RenameClassRector::class)
         ->call('configure', [[
