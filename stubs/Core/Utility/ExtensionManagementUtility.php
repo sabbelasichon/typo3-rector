@@ -34,4 +34,9 @@ final class ExtensionManagementUtility
     {
         return 'foo';
     }
+
+    public static function configureModule($moduleSignature, $modulePath): array
+    {
+        return [];
+    }
 }

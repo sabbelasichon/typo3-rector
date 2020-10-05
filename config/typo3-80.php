@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
+use Ssch\TYPO3Rector\Rector\Extbase\RefactorRemovedMethodsFromExtensionUtilityRector;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\Core\TimeTracker\TimeTrackerGlobalsToSingletonRector;
 use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector;
@@ -50,4 +51,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 ),
             ]),
         ]]);
+
+    $services->set(RefactorRemovedMethodsFromExtensionUtilityRector::class);
 };
