@@ -48,18 +48,6 @@ final class RefactorRemovedMethodsFromExtensionUtilityRector extends AbstractRec
             ExtensionManagementUtility::class,
             'configureModule', $arguments
         );
-        // change the node
-        /*
-         *                return $this->createStaticCall(
-                    PathUtility::class,
-                    'stripPathSitePrefix',
-                    [$this->createStaticCall(ExtensionManagementUtility::class, 'extPath', [$firstArgument])]
-                );
-         *
-         *
-         *
-         */
-        return $node;
     }
 
     /**
