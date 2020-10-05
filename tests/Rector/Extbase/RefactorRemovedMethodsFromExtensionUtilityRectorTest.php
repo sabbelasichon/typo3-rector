@@ -22,5 +22,4 @@ final class RefactorRemovedMethodsFromExtensionUtilityRectorTest extends Abstrac
     {
         return yield [new SmartFileInfo(__DIR__ . '/Fixture/removed_methods_from_extension_utility.php.inc')];
     }
-
 }

@@ -17,8 +17,6 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
  */
 final class RefactorRemovedMethodsFromExtensionUtilityRector extends AbstractRector
 {
-
-
     /**
      * @return string[]
      */
@@ -44,10 +42,7 @@ final class RefactorRemovedMethodsFromExtensionUtilityRector extends AbstractRec
         }
 
         $arguments = $node->args;
-        return $this->createStaticCall(
-            ExtensionManagementUtility::class,
-            'configureModule', $arguments
-        );
+        return $this->createStaticCall(ExtensionManagementUtility::class, 'configureModule', $arguments);
     }
 
     /**
@@ -55,7 +50,8 @@ final class RefactorRemovedMethodsFromExtensionUtilityRector extends AbstractRec
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configureModule() gets replaced with \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::configureModule()',
+        return new RectorDefinition(
+            '\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configureModule() gets replaced with \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::configureModule()',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
@@ -71,7 +67,8 @@ CODE_SAMPLE
     'modulePath'
 );
 CODE_SAMPLE
-                )
-            ]);
+                ),
+            ]
+        );
     }
 }

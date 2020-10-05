@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
-use Ssch\TYPO3Rector\Rector\Extbase\RefactorRemovedMethodsFromExtensionUtilityRector;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\Core\Html\RteHtmlParserRector;
 use Ssch\TYPO3Rector\Rector\Core\TimeTracker\TimeTrackerGlobalsToSingletonRector;
 use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector;
+use Ssch\TYPO3Rector\Rector\Extbase\RefactorRemovedMethodsFromExtensionUtilityRector;
 use Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyUserAuthenticationRector;
 use Ssch\TYPO3Rector\Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector;
 use Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector;
