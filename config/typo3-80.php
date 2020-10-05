@@ -6,6 +6,7 @@ use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Ssch\TYPO3Rector\Rector\Extbase\RefactorRemovedMethodsFromExtensionUtilityRector;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
+use Ssch\TYPO3Rector\Rector\Core\Html\RteHtmlParserRector;
 use Ssch\TYPO3Rector\Rector\Core\TimeTracker\TimeTrackerGlobalsToSingletonRector;
 use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector;
 use Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyUserAuthenticationRector;
@@ -27,6 +28,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemovePropertyUserAuthenticationRector::class);
 
     $services->set(TimeTrackerGlobalsToSingletonRector::class);
+
+    $services->set(RteHtmlParserRector::class);
 
     $services->set(RenameMethodRector::class)
         ->call('configure', [[

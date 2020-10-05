@@ -13,9 +13,10 @@ use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
+use Ssch\TYPO3Rector\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 
 /**
- * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddSeeDocBlockForRectorClass\AddSeeDocBlockForRectorClassTest
+ * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddSeeDocBlockForRectorClass\AddCodeCoverageIgnoreForRectorDefinitionTest
  */
 final class AddSeeDocBlockForRectorClass implements Rule
 {
@@ -29,6 +30,7 @@ final class AddSeeDocBlockForRectorClass implements Rule
      */
     private const ALLOWED_CLASSES_WITH_NON_SEE_DOC_BLOCK = [
         RenameClassMapAliasRector::class,
+        AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class,
     ];
 
     /**

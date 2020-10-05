@@ -114,6 +114,7 @@ PHP
         $classAliasMaps = $configuration[self::CLASS_ALIAS_MAPS] ?? [];
         foreach ($classAliasMaps as $file) {
             $filePath = realpath($file);
+
             if (false !== $filePath && file_exists($filePath)) {
                 $classAliasMap = require $filePath;
 

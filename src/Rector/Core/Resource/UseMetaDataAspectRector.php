@@ -40,6 +40,9 @@ final class UseMetaDataAspectRector extends AbstractRector
         return $this->createMethodCall($this->createMethodCall($node->var, 'getMetaData'), 'get');
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Use $fileObject->getMetaData()->get() instead of $fileObject->_getMetaData()', [

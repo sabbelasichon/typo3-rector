@@ -20,6 +20,6 @@ final class UseMetaDataAspectRectorTest extends AbstractRectorWithConfigTestCase
 
     public function provideDataForTest(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/use_metadata_aspect.php.inc')];
     }
 }

@@ -6,6 +6,6 @@
 -----
 <?php
 
-TYPO3\CMS\Core\Core\Environment::isRunningOnCgiServer();
+\TYPO3\CMS\Core\Core\Environment::isRunningOnCgiServer();
 
 ?>

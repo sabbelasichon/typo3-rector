@@ -35,13 +35,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(IgnoreValidationAnnotationRector::class);
 
     $services->set(ReplaceAnnotationRector::class)
-        ->call('configure', [[
-            ReplaceAnnotationRector::OLD_TO_NEW_ANNOTATIONS => [
-                'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
-                'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
-                'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
+        ->call('configure', [
+            [
+                ReplaceAnnotationRector::OLD_TO_NEW_ANNOTATIONS => [
+                    'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
+                    'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
+                    'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
+                ],
             ],
-        ]]);
+        ]);
 
     $services->set(ValidateAnnotationRector::class);
 
@@ -52,20 +54,39 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RenameMethodCallToEnvironmentMethodCallRector::class);
 
     $services->set(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
-                new MethodCallRename('TYPO3\CMS\Core\Resource\ResourceStorage', 'dumpFileContents', 'streamFile'),
-            ]),
-        ]]);
+        ->call('configure', [
+            [
+                RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
+                    new MethodCallRename(
+                       'TYPO3\CMS\Core\Resource\ResourceStorage',
+                       'dumpFileContents',
+                       'streamFile'
+                   ),
+                ]),
+            ],
+        ]);
 
     $services->set(RemoveFlushCachesRector::class);
 
     $services->set(RemoveInternalAnnotationRector::class);
 
     $services->set(RenameClassMapAliasRector::class)
-        ->call('configure', [[
-            RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [__DIR__ . '/../Migrations/Fluid/ClassAliasMap.php'],
-        ]]);
+        ->call('configure', [
+            [
+                RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
+                    __DIR__ . '/../Migrations/TYPO3/9.5/typo3/sysext/adminpanel/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/9.5/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/9.5/typo3/sysext/core/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/9.5/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/9.5/typo3/sysext/info/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/9.5/typo3/sysext/lowlevel/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/9.5/typo3/sysext/recordlist/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/9.5/typo3/sysext/reports/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/9.5/typo3/sysext/t3editor/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/9.5/typo3/sysext/workspaces/Migrations/Code/ClassAliasMap.php',
+                ],
+            ],
+        ]);
 
     $services->set(ConfigurationManagerAddControllerConfigurationMethodRector::class);
 

@@ -49,6 +49,9 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Remove method call init from PageRepository', [

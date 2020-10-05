@@ -8,6 +8,7 @@ use Ssch\TYPO3Rector\Rector\Core\DataHandling\DataHandlerRmCommaRector;
 use Ssch\TYPO3Rector\Rector\Core\TypoScript\TemplateServiceSplitConfArrayRector;
 use Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector;
 use Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMarkerMethodsFromContentObjectRendererRector;
+use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService as CoreTypoScriptService;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
@@ -33,4 +34,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 TypoScriptService::class => CoreTypoScriptService::class,
             ],
         ]]);
+
+    $services->set(RenameClassMapAliasRector::class)
+        ->call('configure', [
+            [
+                RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
+                    __DIR__ . '/../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
+                ],
+            ],
+        ]);
 };

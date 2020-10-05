@@ -45,4 +45,14 @@ final class PageRenderer
     public function disableConcatenateCss(): void
     {
     }
+
+    public function addMetaTag($meta): void
+    {
+
+    }
+
+    public function setMetaTag(string $type, string $name, string $content, array $subProperties = [], $replace = true): void
+    {
+
+    }
 }

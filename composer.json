@@ -8,7 +8,7 @@
     ],
     "require": {
         "php": "^7.2",
-        "rector/rector": "0.8.10",
+        "rector/rector": "0.8.14",
         "phpstan/phpstan": "^0.12.42",
         "typo3fluid/fluid": "^2.6"
     },
@@ -29,7 +29,6 @@
             "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src",
             "Ssch\\TYPO3Rector\\PHPStan\\Tests\\": "utils/phpstan/tests"
         },
-        "classmap": [".code"],
         "exclude-from-classmap": ["**.php.inc"]
     },
     "config": {
@@ -42,8 +41,9 @@
         "fix-style": "vendor/bin/ecs check --fix --ansi",
         "analyze": "vendor/bin/phpstan analyse --memory-limit=-1 --ansi --error-format symplify",
         "test": "vendor/bin/phpunit",
-        "docs": "vendor/bin/rector dump-rectors src/Rector > docs/AllRectorsOverview.md",
-        "rector": "vendor/bin/rector rectify --dry-run --ansi"
+        "docs": "vendor/bin/rector dump-rectors src/Rector --output-file docs/all_rectors_overview.md --ansi",
+        "rector": "vendor/bin/rector rectify --dry-run --ansi",
+        "fix-rector": "vendor/bin/rector rectify --ansi"
     },
     "scripts-descriptions": {
         "docs": "Regenerate descriptions of all Rectors to docs/AllRectorsOverview.md file"

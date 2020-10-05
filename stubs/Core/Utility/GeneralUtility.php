@@ -22,6 +22,11 @@ class GeneralUtility
         return new $class();
     }
 
+    public static function getUserObj(string $class): void
+    {
+
+    }
+
     public static function getIndpEnv(string $var): string
     {
         return 'foo';
@@ -75,5 +80,35 @@ class GeneralUtility
     public static function isRunningOnCgiServerApi(): bool
     {
         return false;
+    }
+
+    public static function getUrl($url): void
+    {
+
+    }
+
+    public static function IPv6Hex2Bin(string $hex): string
+    {
+        return '';
+    }
+
+    public static function IPv6Bin2Hex(string $bin): string
+    {
+        return '';
+    }
+
+    public static function compressIPv6(string $address): string
+    {
+        return '';
+    }
+
+    public static function milliseconds(): int
+    {
+        return 1;
+    }
+
+    public function verifyFilenameAgainstDenyPattern($filename): void
+    {
+
     }
 }
