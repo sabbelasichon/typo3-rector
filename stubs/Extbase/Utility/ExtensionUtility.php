@@ -13,4 +13,9 @@ final class ExtensionUtility
     public static function registerPlugin($extensionName, $pluginName, $pluginTitle, $pluginIcon = null): void
     {
     }
+
+    public static function configureModule($moduleSignature, $modulePath): array
+    {
+        return \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::configureModule($moduleSignature, $modulePath);
+    }
 }
