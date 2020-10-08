@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyUserAuthenticationRector;
 use Ssch\TYPO3Rector\Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector;
 use Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMarkerMethodsFromHtmlParserRector;
+use Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
@@ -75,4 +76,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]);
 
     $services->set(RefactorRemovedMarkerMethodsFromHtmlParserRector::class);
+    $services->set(RemoveRteHtmlParserEvalWriteFileRector::class);
 };

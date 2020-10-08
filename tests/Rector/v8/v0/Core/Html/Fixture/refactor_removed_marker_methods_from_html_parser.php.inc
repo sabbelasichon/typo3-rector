@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Html\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\Core\Html\Fixture;
 
 
 use TYPO3\CMS\Core\Html\HtmlParser;
@@ -34,7 +34,7 @@ final class HtmlParserMarkerRendererMethods
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Html\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\Core\Html\Fixture;
 
 
 use TYPO3\CMS\Core\Html\HtmlParser;

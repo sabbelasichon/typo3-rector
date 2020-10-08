@@ -108,11 +108,10 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends AbstractRec
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Refactor removed Marker-related methods from ContentObjectRenderer.', [
+        return new RectorDefinition('Refactor removed Marker-related methods from HtmlParser.', [
             new CodeSample(
                 <<<'PHP'
-use TYPO3\CMS\Core\Html\HtmlParser;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+se TYPO3\CMS\Core\Html\HtmlParser;
 
 final class HtmlParserMarkerRendererMethods
 {
@@ -122,7 +121,7 @@ final class HtmlParserMarkerRendererMethods
         $template = '';
         $markerArray = [];
         $subpartArray = [];
-        $htmlparser = GeneralUtility::makeInstance(HtmlParser::class);;
+        $htmlparser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(HtmlParser::class);
         $template = $htmlparser->getSubpart($this->config['templateFile'], '###TEMPLATE###');
         $html = $htmlparser->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
         $html2 = $htmlparser->substituteSubpartArray($html2, []);
@@ -132,8 +131,7 @@ final class HtmlParserMarkerRendererMethods
 
         $content = $htmlparser->substituteMarker($content, $marker, $markContent);
         $content .= $htmlparser->substituteMarkerArray($content, $markContentArray, $wrap, $uppercase, $deleteUnused);
-        $content .= $htmlparser->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap,
-            $uppercase, $deleteUnused);
+        $content .= $htmlparser->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
         $content = $htmlparser->XHTML_clean($content);
     }
 
@@ -143,7 +141,6 @@ PHP
                 ,
                 <<<'PHP'
 use TYPO3\CMS\Core\Html\HtmlParser;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class HtmlParserMarkerRendererMethods
 {
@@ -153,17 +150,14 @@ final class HtmlParserMarkerRendererMethods
         $template = '';
         $markerArray = [];
         $subpartArray = [];
-        $htmlparser = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class);
-        $template = $htmlparser->getSubpart($this->config['templateFile'], '###TEMPLATE###');
-        $html = $htmlparser->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
-        $html2 = $htmlparser->substituteSubpartArray($html2, []);
+        $htmlparser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(HtmlParser::class);
+        $template = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->getSubpart($this->config['templateFile'], '###TEMPLATE###');
+        $html = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
+        $html2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteSubpartArray($html2, []);
 
-
-
-        $content = $htmlparser->substituteMarker($content, $marker, $markContent);
-        $content .= $htmlparser->substituteMarkerArray($content, $markContentArray, $wrap, $uppercase, $deleteUnused);
-        $content .= $htmlparser->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap,
-            $uppercase, $deleteUnused);
+        $content = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteMarker($content, $marker, $markContent);
+        $content .= \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteMarkerArray($content, $markContentArray, $wrap, $uppercase, $deleteUnused);
+        $content .= \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
         $content = $htmlparser->HTMLcleaner($content);
     }
 
