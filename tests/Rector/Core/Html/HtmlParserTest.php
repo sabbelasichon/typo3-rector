@@ -8,7 +8,7 @@ use Iterator;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RteHtmlParserTest extends AbstractRectorWithConfigTestCase
+final class HtmlParserTest extends AbstractRectorWithConfigTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -20,6 +20,6 @@ final class RteHtmlParserTest extends AbstractRectorWithConfigTestCase
 
     public function provideDataForTest(): Iterator
     {
-        yield [new SmartFileInfo(__DIR__ . '/Fixture/rtehtmlparser.php.inc')];
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/htmlparser.php.inc')];
     }
 }
