@@ -7,7 +7,9 @@ use Ssch\TYPO3Rector\Rector\Core\Resource\UseMetaDataAspectRector;
 use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorIdnaEncodeMethodToNativeFunctionRector;
 use Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyExtensionNameRector;
 use Ssch\TYPO3Rector\Rector\Extbase\Utility\UseNativePhpHex2binMethodRector;
+use Ssch\TYPO3Rector\Rector\v10\v0\ForceTemplateParsingInTsfeAndTemplateServiceRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use const Ssch\TYPO3Rector\Rector\v10\v0\ForceTemplateParsingInTsfeAndTemplateServiceRector;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services.php');
@@ -30,4 +32,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]);
 
     $services->set(UseMetaDataAspectRector::class);
+    $services->set(ForceTemplateParsingInTsfeAndTemplateServiceRector::class);
 };
