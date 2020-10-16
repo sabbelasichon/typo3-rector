@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Extbase;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\Extbase\InjectEnvironmentServiceIfNeededInResponseRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends AbstractRectorWithConfigTestCase
+final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,5 +22,10 @@ final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends Abstrac
     public function provideDataForTest(): Iterator
     {
         yield [new SmartFileInfo(__DIR__ . '/Fixture/inject_environment_service_if_needed.php.inc')];
+    }
+
+    protected function getRectorClass(): string
+    {
+        return InjectEnvironmentServiceIfNeededInResponseRector::class;
     }
 }
