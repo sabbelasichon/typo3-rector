@@ -50,7 +50,6 @@ final class InjectAnnotationRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         $injectMethods = [];
-
         $properties = $node->getProperties();
         foreach ($properties as $property) {
             /** @var PhpDocInfo|null $propertyPhpDocInfo */

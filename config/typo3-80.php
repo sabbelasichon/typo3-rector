@@ -13,6 +13,7 @@ use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilit
 use Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyUserAuthenticationRector;
 use Ssch\TYPO3Rector\Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector;
 use Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector;
+use Ssch\TYPO3Rector\Rector\v8\v0\RemoveWakeupCallFromEntityRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMarkerMethodsFromHtmlParserRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -33,6 +34,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemovePropertyUserAuthenticationRector::class);
 
     $services->set(TimeTrackerGlobalsToSingletonRector::class);
+
+    $services->set(RemoveWakeupCallFromEntityRector::class);
 
     $services->set(RteHtmlParserRector::class);
 

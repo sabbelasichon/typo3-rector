@@ -24,6 +24,7 @@ class MyOtherResponse extends Response
 -----
 <?php
 
+use TYPO3\CMS\Extbase\Service\EnvironmentService;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
 
 class MyResponse extends Response
@@ -40,7 +41,7 @@ class MyResponse extends Response
         }
     }
 
-    public function injectEnvironmentService(\TYPO3\CMS\Extbase\Service\EnvironmentService $environmentService)
+    public function injectEnvironmentService(EnvironmentService $environmentService)
     {
         $this->environmentService = $environmentService;
     }
