@@ -27,17 +27,19 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractRector
 {
     /**
-     * @var Typo3NodeResolver
-     */
-    private $typo3NodeResolver;
-    /**
      * @var string
      */
     private const MAKE_INSTANCE = 'makeInstance';
+
     /**
      * @var string
      */
     private const TYPOSCRIPT = 'typoscript';
+
+    /**
+     * @var Typo3NodeResolver
+     */
+    private $typo3NodeResolver;
 
     public function __construct(Typo3NodeResolver $typo3NodeResolver)
     {
