@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Extbase;
+namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\RemoveWakeupCallFromEntity;
 
 use Iterator;
 use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\Extbase\InjectEnvironmentServiceIfNeededInResponseRector;
+use Ssch\TYPO3Rector\Rector\v8\v0\RemoveWakeupCallFromEntityRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends AbstractRectorTestCase
+final class RemoveWakeupCallFromEntityRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,11 +21,11 @@ final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends Abstrac
 
     public function provideDataForTest(): Iterator
     {
-        yield [new SmartFileInfo(__DIR__ . '/Fixture/inject_environment_service_if_needed.php.inc')];
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
     protected function getRectorClass(): string
     {
-        return InjectEnvironmentServiceIfNeededInResponseRector::class;
+        return RemoveWakeupCallFromEntityRector::class;
     }
 }
