@@ -60,9 +60,8 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends AbstractRec
         if (! $this->isMethodStaticCallOrClassMethodObjectType($node, HtmlParser::class)) {
             return null;
         }
-        if (! $this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)
-            && ! $this->isNames($node->name, self::REMOVED_METHODS)
-            && ! $this->isName($node->name, self::RENAMED_METHOD)) {
+
+        if ($this->shouldSkip($node)) {
             return null;
         }
 
@@ -189,5 +188,19 @@ PHP
             }
         }
         return null;
+    }
+
+    /**
+     * @param StaticCall|MethodCall $node
+     */
+    private function shouldSkip(Node $node): bool
+    {
+        $skip = false;
+        if (! $this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)
+            && ! $this->isNames($node->name, self::REMOVED_METHODS)
+            && ! $this->isName($node->name, self::RENAMED_METHOD)) {
+            $skip = true;
+        }
+        return $skip;
     }
 }
