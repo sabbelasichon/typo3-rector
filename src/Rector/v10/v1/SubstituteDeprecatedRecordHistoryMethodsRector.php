@@ -50,7 +50,7 @@ final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRecto
             $newNode = $this->createMethodCall(
                 $node->var,
                 'getChangelog');
-            $this->addNodeBeforeNode($newNode,$node);
+            $this->addNodeBeforeNode($newNode, $node);
             $this->removeNode($node);
         }
 
@@ -58,38 +58,27 @@ final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRecto
             $newNode = $this->createMethodCall(
                 $node->var,
                 'getLastHistoryEntry');
-            $this->addNodeBeforeNode($newNode,$node);
+            $this->addNodeBeforeNode($newNode, $node);
             $this->removeNode($node);
         }
 
 
-        if ($this->isName($node->name, 'changeLog')) {
-            $staticCallContext = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstantReference(Context::class),
-            ]);
-            if ($node instanceof Assign) {
-                $staticCallAspect = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                    $this->createClassConstantReference(TypoScriptAspect::class),
-                    new ConstFetch(new Name('true'))
-                ]);
-
-                $contextCall = $this->createMethodCall($staticCallContext, 'setAspect');
-
-                $contextCall->args = $this->createArgs(['typoscript', $staticCallAspect]);
-
-                $this->addNodeAfterNode($contextCall, $node);
-
-                try {
-                    $this->removeNode($node);
-                } catch (ShouldNotHappenException $shouldNotHappenException) {
-                    $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-                    $this->removeNode($parentNode);
-                }
-            } elseif ($node instanceof PropertyFetch) {
-                $contextCall = $this->createMethodCall($staticCallContext, 'getPropertyFromAspect');
-                $contextCall->args = $this->createArgs(['typoscript', 'forcedTemplateParsing']);
+        if ($this->isName($node->name, 'getHistoryEntry')) {
+            try {
+                $this->removeNode($node);
+            } catch (ShouldNotHappenException $shouldNotHappenException) {
+                $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+                $this->removeNode($parentNode);
             }
-            return $contextCall;
+        }
+
+        if ($this->isName($node->name, 'php:getHistoryData')) {
+            try {
+                $this->removeNode($node);
+            } catch (ShouldNotHappenException $shouldNotHappenException) {
+                $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+                $this->removeNode($parentNode);
+            }
         }
         return null;
     }
@@ -105,13 +94,35 @@ final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRecto
             [
                 new CodeSample(
                     <<<'PHP'
-$forceTemplateParsing = $GLOBALS['TSFE']->forceTemplateParsing;
-$GLOBALS['TSFE']->forceTemplateParsing = true;
+$recordHistory = \TYPO3\CMS\Core\Utility\GeneralUtility\GeneralUtility::makeInstance(\TYPO3\CMS\Backend\History\RecordHistory::class);
+$historyEntry = $recordHistory->getHistoryEntry();
+$historyData = $recordHistory->getHistoryData();
+$shouldPerformRollback = $recordHistory->shouldPerformRollback();
+
+$propChangelog = $recordHistory->changelog;
+$propLastHistoryEntry = $recordHistory->lastHistoryEntry;
+
+$historyChangelog = $recordHistory->createChangeLog();
+$getElementData = $recordHistory->getElementData();
+$recordHistory->performRollback();
+$diff = $recordHistory->createMultipleDiff($data);
+$recordHistory->setLastHistoryEntry(12345);
 PHP
                     ,
                     <<<'PHP'
-$forceTemplateParsing = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
-\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
+$recordHistory = \TYPO3\CMS\Core\Utility\GeneralUtility\GeneralUtility::makeInstance(\TYPO3\CMS\Backend\History\RecordHistory::class);
+
+
+
+
+$propChangelog = $recordHistory->getChangeLog();
+$propLastHistoryEntry = $recordHistory->getLastHistoryEntryNumber();
+
+$historyChangelog = $recordHistory->getChangeLog();
+$getElementData = $recordHistory->getElementInformation();
+\TYPO3\CMS\Core\Utility\GeneralUtility\GeneralUtility::makeInstance(\TYPO3\CMS\Backend\History\RecordHistoryRollback\RecordHistoryRollback::class)->performRollback('!!!insertRollBackFieldsHere!!!',$recordHistory->getDiff($recordHistory->getChangeLog()));
+$diff = $recordHistory->getDiff($data);
+$recordHistory->setLastHistoryEntryNumber(12345);
 PHP
                 ),
             ]
