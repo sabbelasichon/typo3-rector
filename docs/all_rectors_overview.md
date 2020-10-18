@@ -1,4 +1,4 @@
-# All 65 Rectors Overview
+# All 66 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -797,6 +797,30 @@ Remove second argument of `GeneralUtility::mkdir_deep()`
 ```diff
 -GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/', 'myfolder');
 +GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/' . 'myfolder');
+```
+
+<br><br>
+
+## `RemoveWakeupCallFromEntityRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemoveWakeupCallFromEntityRector`](/src/Rector/v8/v0/RemoveWakeupCallFromEntityRector.php)
+- [test fixtures](/tests/Rector/v8/v0/RemoveWakeupCallFromEntity/Fixture)
+
+Remove __wakeup call for AbstractDomainObject
+
+```diff
+ use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
+
+ class MyWakeupCallerClass extends AbstractDomainObject
+ {
+     private $mySpecialResourceAfterWakeUp;
+
+     public function __wakeup()
+     {
+         $this->mySpecialResourceAfterWakeUp = fopen(__FILE__, 'wb');
+-        parent::__wakeup();
+     }
+ }
 ```
 
 <br><br>
