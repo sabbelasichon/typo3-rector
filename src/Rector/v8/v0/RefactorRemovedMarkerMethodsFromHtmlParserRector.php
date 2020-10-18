@@ -66,40 +66,15 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends AbstractRec
             return null;
         }
 
-        if ($this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
-            $methodName = $this->getName($node->name);
-            if (null === $methodName) {
-                return null;
-            }
-
-            $classConstant = $this->createClassConstantReference(MarkerBasedTemplateService::class);
-            $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
-
-            return $this->createMethodCall($staticCall, $methodName, $node->args);
+        $migratedNode = $this->migrateMethodsToMarkerBasedTemplateService($node);
+        if (null !== $migratedNode) {
+            return $migratedNode;
         }
 
-        if ($this->isName($node->name, self::RENAMED_METHOD)) {
-            $methodName = $this->getName($node->name);
-            if (null === $methodName) {
-                return null;
-            }
+        $this->renameMethod($node);
 
-            $node->name = new Identifier('HTMLcleaner');
-        }
+        $this->removeMethods($node);
 
-        if ($this->isNames($node->name, self::REMOVED_METHODS)) {
-            $methodName = $this->getName($node->name);
-            if (null === $methodName) {
-                return null;
-            }
-
-            try {
-                $this->removeNode($node);
-            } catch (ShouldNotHappenException $shouldNotHappenException) {
-                $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-                $this->removeNode($parentNode);
-            }
-        }
         return null;
     }
 
@@ -166,5 +141,53 @@ final class HtmlParserMarkerRendererMethods
 PHP
             ),
         ]);
+    }
+
+    /**
+     * @param StaticCall|MethodCall $node
+     */
+    public function removeMethods(Node $node): void
+    {
+        if ($this->isNames($node->name, self::REMOVED_METHODS)) {
+            $methodName = $this->getName($node->name);
+            if (null !== $methodName) {
+                try {
+                    $this->removeNode($node);
+                } catch (ShouldNotHappenException $shouldNotHappenException) {
+                    $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+                    $this->removeNode($parentNode);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param StaticCall|MethodCall $node
+     */
+    public function renameMethod(Node $node): void
+    {
+        if ($this->isName($node->name, self::RENAMED_METHOD)) {
+            $methodName = $this->getName($node->name);
+            if (null !== $methodName) {
+                $node->name = new Identifier('HTMLcleaner');
+            }
+        }
+    }
+
+    /**
+     * @param StaticCall|MethodCall $node
+     */
+    private function migrateMethodsToMarkerBasedTemplateService(Node $node): ?Node
+    {
+        if ($this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
+            $methodName = $this->getName($node->name);
+            if (null !== $methodName) {
+                $classConstant = $this->createClassConstantReference(MarkerBasedTemplateService::class);
+                $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
+
+                return $this->createMethodCall($staticCall, $methodName, $node->args);
+            }
+        }
+        return null;
     }
 }
