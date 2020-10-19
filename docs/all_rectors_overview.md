@@ -1,4 +1,4 @@
-# All 66 Rectors Overview
+# All 67 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -286,6 +286,27 @@ Use findByPidsAndAuthorId instead of findByPidsAndAuthor
  $backendUser = new BackendUser();
 -$sysNoteRepository->findByPidsAndAuthor('1,2,3', $backendUser);
 +$sysNoteRepository->findByPidsAndAuthorId('1,2,3', $backendUser->getUid());
+```
+
+<br><br>
+
+## `ForceTemplateParsingInTsfeAndTemplateServiceRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\ForceTemplateParsingInTsfeAndTemplateServiceRector`](/src/Rector/v10/v0/ForceTemplateParsingInTsfeAndTemplateServiceRector.php)
+- [test fixtures](/tests/Rector/v10/v0/Fixture)
+
+Force template parsing in tsfe is replaced with context api and aspects
+
+```diff
+-$myvariable = $GLOBALS['TSFE']->forceTemplateParsing;
+-$myvariable2 = $GLOBALS['TSFE']->tmpl->forceTemplateParsing;
++$myvariable = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
++$myvariable2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
+
+-$GLOBALS['TSFE']->forceTemplateParsing = true;
+-$GLOBALS['TSFE']->tmpl->forceTemplateParsing = true;
++\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
++\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
 ```
 
 <br><br>
