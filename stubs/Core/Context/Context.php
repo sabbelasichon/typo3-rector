@@ -13,4 +13,9 @@ final class Context
     {
 
     }
+
+    public function setAspect(string $name, AspectInterface $aspect): void
+    {
+
+    }
 }
