@@ -1,4 +1,4 @@
-# All 67 Rectors Overview
+# All 69 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -595,6 +595,52 @@ Refactor removed Marker-related methods from ContentObjectRenderer.
 
 <br><br>
 
+## `RefactorRemovedMarkerMethodsFromHtmlParserRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMarkerMethodsFromHtmlParserRector`](/src/Rector/v8/v0/RefactorRemovedMarkerMethodsFromHtmlParserRector.php)
+- [test fixtures](/tests/Rector/v8/v0/Core/Html/Fixture)
+
+Refactor removed Marker-related methods from HtmlParser.
+
+```diff
+-se TYPO3\CMS\Core\Html\HtmlParser;
++use TYPO3\CMS\Core\Html\HtmlParser;
+
+ final class HtmlParserMarkerRendererMethods
+ {
+
+     public function doSomething(): void
+     {
+         $template = '';
+         $markerArray = [];
+         $subpartArray = [];
+         $htmlparser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(HtmlParser::class);
+-        $template = $htmlparser->getSubpart($this->config['templateFile'], '###TEMPLATE###');
+-        $html = $htmlparser->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
+-        $html2 = $htmlparser->substituteSubpartArray($html2, []);
++        $template = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->getSubpart($this->config['templateFile'], '###TEMPLATE###');
++        $html = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
++        $html2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteSubpartArray($html2, []);
+
+-        $html3 = $htmlparser->processTag($value, $conf, $endTag, $protected = 0);
+-        $html4 = $htmlparser->processContent($value, $dir, $conf);
+-
+-        $content = $htmlparser->substituteMarker($content, $marker, $markContent);
+-        $content .= $htmlparser->substituteMarkerArray($content, $markContentArray, $wrap, $uppercase, $deleteUnused);
+-        $content .= $htmlparser->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
+-        $content = $htmlparser->XHTML_clean($content);
++        $content = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteMarker($content, $marker, $markContent);
++        $content .= \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteMarkerArray($content, $markContentArray, $wrap, $uppercase, $deleteUnused);
++        $content .= \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
++        $content = $htmlparser->HTMLcleaner($content);
+     }
+
+
+ }
+```
+
+<br><br>
+
 ## `RefactorRemovedMethodsFromContentObjectRendererRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector`](/src/Rector/Frontend/ContentObject/RefactorRemovedMethodsFromContentObjectRendererRector.php)
@@ -803,6 +849,30 @@ Use method getBackendUserAuthentication instead of removed property `$userAuthen
 
          }
      }
+ }
+```
+
+<br><br>
+
+## `RemoveRteHtmlParserEvalWriteFileRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector`](/src/Rector/v8/v0/RemoveRteHtmlParserEvalWriteFileRector.php)
+- [test fixtures](/tests/Rector/v8/v0/Core/Html/Fixture)
+
+remove evalWriteFile method from RteHtmlparser.
+
+```diff
+ use TYPO3\CMS\Core\Html\RteHtmlParser;
+
+ final class RteHtmlParserRemovedMethods
+ {
+
+     public function doSomething(): void
+     {
+         $rtehtmlparser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(RteHtmlParser::class);
+-        $rtehtmlparser->evalWriteFile();
+     }
+
  }
 ```
 
