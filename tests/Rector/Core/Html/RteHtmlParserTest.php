@@ -20,6 +20,6 @@ final class RteHtmlParserTest extends AbstractRectorWithConfigTestCase
 
     public function provideDataForTest(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/rtehtmlparser.php.inc')];
     }
 }
