@@ -64,7 +64,7 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
                         Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
                 )
             ) &&
-            (property_exists($node, 'name') && $this->isName($node->name, 'forceTemplateParsing'));
+            (property_exists($node, 'name') && $this->isName($node, 'forceTemplateParsing'));
     }
 
     /**
