@@ -1,4 +1,4 @@
-# All 69 Rectors Overview
+# All 70 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -558,6 +558,25 @@ Refactor deprecated methods from ExtensionManagementUtility.
 ```diff
 -ExtensionManagementUtility::removeCacheFiles();
 +GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->flushCachesInGroup('system');
+```
+
+<br><br>
+
+## `RefactorProcessOutputRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector`](/src/Rector/v9/v5/RefactorProcessOutputRector.php)
+- [test fixtures](/tests/Rector/v9/v5/ProcessOutput/Fixture)
+
+`TypoScriptFrontendController->processOutput()` to `TypoScriptFrontendController->applyHttpHeadersToResponse()` and `TypoScriptFrontendController->processContentForOutput()`
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+
+ $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
+-$tsfe->processOutput();
++$tsfe->applyHttpHeadersToResponse();
++$tsfe->processContentForOutput();
 ```
 
 <br><br>
