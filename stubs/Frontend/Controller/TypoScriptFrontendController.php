@@ -76,4 +76,19 @@ final class TypoScriptFrontendController
         //fake template object, otherwise tests cannot access this property
         $this->tmpl = new TemplateService();
     }
+
+    public function applyHttpHeadersToResponse(): void
+    {
+
+    }
+
+    public function processContentForOutput(): void
+    {
+
+    }
+
+    public function processOutput(): void
+    {
+
+    }
 }

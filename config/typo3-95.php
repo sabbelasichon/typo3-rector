@@ -19,6 +19,7 @@ use Ssch\TYPO3Rector\Rector\Extbase\RemoveInternalAnnotationRector;
 use Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethodRector;
 use Ssch\TYPO3Rector\Rector\Frontend\Page\RemoveInitMethodFromPageRepositoryRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
+use Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -91,4 +92,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ConfigurationManagerAddControllerConfigurationMethodRector::class);
 
     $services->set(RemoveInitMethodFromPageRepositoryRector::class);
+
+    $services->set(RefactorProcessOutputRector::class);
 };
