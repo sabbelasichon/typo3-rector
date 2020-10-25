@@ -9,7 +9,7 @@ use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3InformationRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseClassTypo3VInformationRectorTest extends AbstractRectorTestCase
+final class UseClassTypo3InformationRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
