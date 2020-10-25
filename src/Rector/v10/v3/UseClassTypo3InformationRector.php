@@ -63,7 +63,7 @@ final class UseClassTypo3InformationRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
-            'Use constants from Typo3Information',
+            'Use class Typo3Information',
             [
                 new CodeSample(
                     <<<'PHP'
@@ -75,6 +75,7 @@ $urlOpcache = TYPO3_URL_WIKI_OPCODECACHE;
 PHP
                     ,
                     <<<'PHP'
+use TYPO3\CMS\Core\Information\Typo3Information;
 $urlGeneral = Typo3Information::TYPO3_URL_GENERAL;
 $urlLicense = Typo3Information::TYPO3_URL_LICENSE;
 $urlException = Typo3Information::TYPO3_URL_EXCEPTION;
