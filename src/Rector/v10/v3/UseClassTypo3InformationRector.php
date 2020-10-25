@@ -53,6 +53,8 @@ final class UseClassTypo3InformationRector extends AbstractRector
             case 'TYPO3_URL_WIKI_OPCODECACHE':
                 return $this->createClassConstFetch(Typo3Information::class, 'URL_OPCACHE');
         }
+
+        return null;
     }
 
     /**
