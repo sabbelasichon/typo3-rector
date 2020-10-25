@@ -1,4 +1,4 @@
-# All 70 Rectors Overview
+# All 72 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -82,6 +82,24 @@ Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
 +    ->where(QueryHelper::stripLogicalOperatorPrefix($where))
 +    ->execute()
 +    ->fetch();
+```
+
+<br><br>
+
+## `BackendUtilityGetViewDomainToPageRouterRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\BackendUtilityGetViewDomainToPageRouterRector`](/src/Rector/v10/v0/BackendUtilityGetViewDomainToPageRouterRector.php)
+- [test fixtures](/tests/Rector/v10/v0/BackendUtilityViewDomainToPageRouter/Fixture)
+
+Refactor method call `BackendUtility::getViewDomain()` to PageRouter
+
+```diff
+-use TYPO3\CMS\Backend\Utility\BackendUtility;
+-$domain1 = BackendUtility::getViewDomain(1);
++use TYPO3\CMS\Core\Site\SiteFinder;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++$site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId(1);
++$domain1 = $site->getRouter()->generateUri(1);
 ```
 
 <br><br>
@@ -1268,10 +1286,33 @@ Use ActionController class instead of AbstractController if used
 
 <br><br>
 
+## `UseClassTypo3InformationRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3InformationRector`](/src/Rector/v10/v3/UseClassTypo3InformationRector.php)
+- [test fixtures](/tests/Rector/v10/v3/UseClassTypo3Information/Fixture)
+
+Use class Typo3Information
+
+```diff
+-$urlGeneral = TYPO3_URL_GENERAL;
+-$urlLicense = TYPO3_URL_LICENSE;
+-$urlException = TYPO3_URL_EXCEPTION;
+-$urlDonate = TYPO3_URL_DONATE;
+-$urlOpcache = TYPO3_URL_WIKI_OPCODECACHE;
++use TYPO3\CMS\Core\Information\Typo3Information;
++$urlGeneral = Typo3Information::TYPO3_URL_GENERAL;
++$urlLicense = Typo3Information::TYPO3_URL_LICENSE;
++$urlException = Typo3Information::TYPO3_URL_EXCEPTION;
++$urlDonate = Typo3Information::TYPO3_URL_DONATE;
++$urlOpcache = Typo3Information::TYPO3_URL_WIKI_OPCODECACHE;
+```
+
+<br><br>
+
 ## `UseClassTypo3VersionRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3VersionRector`](/src/Rector/v10/v3/UseClassTypo3VersionRector.php)
-- [test fixtures](/tests/Rector/v10/v3/Fixture)
+- [test fixtures](/tests/Rector/v10/v3/UseClassTypo3Version/Fixture)
 
 Use class Typo3Version instead of the constants
 
