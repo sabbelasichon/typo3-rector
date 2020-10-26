@@ -7,6 +7,7 @@ use Rector\Renaming\ValueObject\RenameStaticMethod;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3VersionRector;
+use Ssch\TYPO3Rector\Rector\v10\v4\RemoveFormatConstantsEmailFinisherRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\UnifiedFileNameValidatorRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -45,4 +46,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 ],
             ],
         ]);
+
+    $services->set(RemoveFormatConstantsEmailFinisherRector::class);
 };
