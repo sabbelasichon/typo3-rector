@@ -10,6 +10,11 @@ if (class_exists(PageRepository::class)) {
 
 final class PageRepository
 {
+    /**
+     * @var int
+     */
+    public $versioningWorkspaceId = 0;
+
     public function enableFields($table, $show_hidden = -1, $ignore_array = [], $noVersionPreview = false): void
     {
     }

@@ -8,6 +8,7 @@ use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorExplodeUrl2ArrayFromGeneralUtil
 use Ssch\TYPO3Rector\Rector\Frontend\ContentObject\CallEnableFieldsFromPageRepositoryRector;
 use Ssch\TYPO3Rector\Rector\Frontend\Controller\RemoveInitTemplateMethodCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Saltedpasswords\Salt\Argon2iSalt;
@@ -28,6 +29,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorExplodeUrl2ArrayFromGeneralUtilityRector::class);
 
     $services->set(SystemEnvironmentBuilderConstantsRector::class);
+
     $services->set(RenameClassRector::class)
         ->call('configure', [[
             RenameClassRector::OLD_TO_NEW_CLASSES => [
@@ -47,4 +49,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'TYPO3\CMS\Saltedpasswords\Utility\SaltedPasswordsUtility' => 'TYPO3\CMS\Core\Crypto\PasswordHashing\SaltedPasswordsUtility',
             ],
         ]]);
+
+    $services->set(UseContextApiForVersioningWorkspaceIdRector::class);
 };
