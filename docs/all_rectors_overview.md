@@ -1,4 +1,4 @@
-# All 72 Rectors Overview
+# All 73 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1323,6 +1323,25 @@ Use class Typo3Version instead of the constants
 +use TYPO3\CMS\Core\Information\Typo3Version;
 +$typo3Version = GeneralUtility::makeInstance(Typo3Version::class)->getVersion();
 +$typo3Branch = GeneralUtility::makeInstance(Typo3Version::class)->getBranch();
+```
+
+<br><br>
+
+## `UseContextApiForVersioningWorkspaceIdRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector`](/src/Rector/v9/v4/UseContextApiForVersioningWorkspaceIdRector.php)
+- [test fixtures](/tests/Rector/v9/v4/UseContextApiForVersioningWorkspaceId/Fixture)
+
+Use context API instead of versioningWorkspaceId
+
+```diff
++use TYPO3\CMS\Core\Context\Context;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
+ $workspaceId = null;
+-$workspaceId = $workspaceId ?? $GLOBALS['TSFE']->sys_page->versioningWorkspaceId;
++$workspaceId = $workspaceId ?? GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id', 0);
+
+ $GLOBALS['TSFE']->sys_page->versioningWorkspaceId = 1;
 ```
 
 <br><br>
