@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Frontend\Controller;
 
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Page\PageRepository;
@@ -73,6 +74,11 @@ final class TypoScriptFrontendController
      */
     public $sys_page;
 
+    /**
+     * @var SiteLanguage
+     */
+    protected $language;
+
     public function initTemplate(): void
     {
     }
@@ -82,6 +88,7 @@ final class TypoScriptFrontendController
         //fake template object, otherwise tests cannot access this property
         $this->tmpl = new TemplateService();
         $this->sys_page = new PageRepository();
+        $this->language = new SiteLanguage();
     }
 
     public function applyHttpHeadersToResponse(): void
@@ -97,5 +104,19 @@ final class TypoScriptFrontendController
     public function processOutput(): void
     {
 
+    }
+
+    public function settingLocale(): void
+    {
+
+    }
+
+    public function getLanguage(): SiteLanguage
+    {
+        return $this->language;
+    }
+
+    public function settingLanguage(): void
+    {
     }
 }
