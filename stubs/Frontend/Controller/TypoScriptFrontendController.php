@@ -6,6 +6,7 @@ namespace TYPO3\CMS\Frontend\Controller;
 
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 if (class_exists(TypoScriptFrontendController::class)) {
     return;
@@ -67,6 +68,11 @@ final class TypoScriptFrontendController
      */
     public $tmpl;
 
+    /**
+     * @var PageRepository
+     */
+    public $sys_page;
+
     public function initTemplate(): void
     {
     }
@@ -75,6 +81,7 @@ final class TypoScriptFrontendController
     {
         //fake template object, otherwise tests cannot access this property
         $this->tmpl = new TemplateService();
+        $this->sys_page = new PageRepository();
     }
 
     public function applyHttpHeadersToResponse(): void
