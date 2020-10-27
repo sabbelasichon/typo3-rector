@@ -79,6 +79,11 @@ final class TypoScriptFrontendController
      */
     protected $language;
 
+    /**
+     * @var string
+     */
+    public $sys_language_isocode;
+
     public function initTemplate(): void
     {
     }
@@ -89,6 +94,7 @@ final class TypoScriptFrontendController
         $this->tmpl = new TemplateService();
         $this->sys_page = new PageRepository();
         $this->language = new SiteLanguage();
+        $this->sys_language_isocode = 'ch';
     }
 
     public function applyHttpHeadersToResponse(): void

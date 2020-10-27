@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 use Ssch\TYPO3Rector\Stubs\StubLoader;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -22,6 +24,7 @@ $stubLoader->loadStubs();
 $GLOBALS['TSFE'] = new TypoScriptFrontendController();
 $GLOBALS['TT'] = new TimeTracker();
 $GLOBALS['TYPO3_LOADED_EXT'] = [];
+$GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageService::class);
 $GLOBALS['PARSETIME_START'] = time();
 $GLOBALS['TYPO3_MISC']['microtime_start'] = microtime();
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] = 'dbname';

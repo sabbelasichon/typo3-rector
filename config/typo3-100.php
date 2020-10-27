@@ -12,6 +12,7 @@ use Ssch\TYPO3Rector\Rector\v10\v0\RemovePropertyExtensionNameRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\SetSystemLocaleFromSiteLanguageRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector;
+use Ssch\TYPO3Rector\Rector\v10\v0\UseTwoLetterIsoCodeFromSiteLanguageRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -40,4 +41,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SetSystemLocaleFromSiteLanguageRector::class);
     $services->set(ConfigurationManagerAddControllerConfigurationMethodRector::class);
     $services->set(RemoveFormatConstantsEmailFinisherRector::class);
+    $services->set(UseTwoLetterIsoCodeFromSiteLanguageRector::class);
 };

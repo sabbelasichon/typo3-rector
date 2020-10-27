@@ -9,5 +9,8 @@ if (class_exists(SiteLanguage::class)) {
 
 final class SiteLanguage
 {
-
+    public function getTwoLetterIsoCode(): string
+    {
+        return 'ch';
+    }
 }
