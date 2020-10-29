@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
-use Ssch\TYPO3Rector\Rector\Core\Database\DatabaseConnectionToDbalRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\DatabaseConnectionToDbalRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 use function Symfony\Component\DependencyInjection\Loader\Configurator\tagged_iterator;

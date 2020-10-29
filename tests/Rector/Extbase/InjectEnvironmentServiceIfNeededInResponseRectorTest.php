@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Extbase;
 
 use Iterator;
 use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\Extbase\InjectEnvironmentServiceIfNeededInResponseRector;
+use Ssch\TYPO3Rector\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponseRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends AbstractRectorTestCase

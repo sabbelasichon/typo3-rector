@@ -13,25 +13,70 @@ parameters:
 		-
 			message: "#^Access to an undefined property PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagNode\\|Rector\\\\BetterPhpDocParser\\\\Contract\\\\PhpDocNode\\\\AttributeAwareNodeInterface\\:\\:\\$value\\.$#"
 			count: 1
-			path: src/Rector/Annotation/IgnoreValidationAnnotationRector.php
+			path: src/Rector/Misc/MoveNamespaceToCorrectVersionRector.php
 
 		-
-			message: "#^Access to an undefined property PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagNode\\|Rector\\\\BetterPhpDocParser\\\\Contract\\\\PhpDocNode\\\\AttributeAwareNodeInterface\\:\\:\\$value\\.$#"
+			message: "#^Access to an undefined property PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\:\\:\\$value\\.$#"
 			count: 1
-			path: src/Rector/Annotation/ValidateAnnotationRector.php
+			path: src/Rector/Misc/MoveNamespaceToCorrectVersionRector.php
 
 		-
 			message: "#^Parameter \\#2 \\$stmt of method Rector\\\\Core\\\\PhpParser\\\\Node\\\\Manipulator\\\\ClassInsertManipulator\\:\\:addAsFirstMethod\\(\\) expects PhpParser\\\\Node\\\\Stmt\\\\ClassConst\\|PhpParser\\\\Node\\\\Stmt\\\\ClassMethod\\|PhpParser\\\\Node\\\\Stmt\\\\Property, PhpParser\\\\Node\\\\Stmt\\\\Nop given\\.$#"
 			count: 1
-			path: src/Rector/Extbase/InjectEnvironmentServiceIfNeededInResponseRector.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: src/Rector/IndexedSearch/Controller/RenamePiListBrowserResultsRector.php
+			path: src/Rector/v10/v2/InjectEnvironmentServiceIfNeededInResponseRector.php
 
 		-
 			message: "#^Access to an undefined property PhpParser\\\\Node\\\\Expr\\\\ConstFetch\\|PhpParser\\\\Node\\\\Expr\\\\StaticCall\\:\\:\\$args\\.$#"
 			count: 1
 			path: src/Rector/v10/v4/UnifiedFileNameValidatorRector.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: src/Rector/v7/v6/RenamePiListBrowserResultsRector.php
+
+		-
+			message: "#^Access to an undefined property PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagNode\\|Rector\\\\BetterPhpDocParser\\\\Contract\\\\PhpDocNode\\\\AttributeAwareNodeInterface\\:\\:\\$value\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/IgnoreValidationAnnotationRector.php
+
+		-
+			message: "#^Access to an undefined property PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagNode\\|Rector\\\\BetterPhpDocParser\\\\Contract\\\\PhpDocNode\\\\AttributeAwareNodeInterface\\:\\:\\$value\\.$#"
+			count: 1
+			path: src/Rector/v9/v3/ValidateAnnotationRector.php
+
+		-
+			message: "#^Class Ssch\\\\TYPO3Rector\\\\Rector\\\\Backend\\\\Controller\\\\RemovePropertiesFromSimpleDataHandlerControllerRector not found\\.$#"
+			count: 1
+			path: tests/Rector/Backend/Controller/RemovePropertiesFromSimpleDataHandlerControllerRectorTest.php
+
+		-
+			message: "#^Class Ssch\\\\TYPO3Rector\\\\Rector\\\\Core\\\\Utility\\\\RefactorRemovedMethodsFromGeneralUtilityRector not found\\.$#"
+			count: 1
+			path: tests/Rector/Core/RefactorRemovedMethodsFromGeneralUtilityRectorTest.php
+
+		-
+			message: "#^Class Ssch\\\\TYPO3Rector\\\\Rector\\\\Extbase\\\\ChangeAttemptsParameterConsoleOutputRector not found\\.$#"
+			count: 1
+			path: tests/Rector/Extbase/ChangeAttemptsParameterConsoleOutputRectorTest.php
+
+		-
+			message: "#^Class Ssch\\\\TYPO3Rector\\\\Rector\\\\Fluid\\\\View\\\\ChangeMethodCallsForStandaloneViewRector not found\\.$#"
+			count: 1
+			path: tests/Rector/Fluid/View/ChangeMethodCallsForStandaloneViewRectorTest.php
+
+		-
+			message: "#^Class Ssch\\\\TYPO3Rector\\\\Rector\\\\Fluid\\\\ViewHelpers\\\\MoveRenderArgumentsToInitializeArgumentsMethodRector not found\\.$#"
+			count: 1
+			path: tests/Rector/Fluid/ViewHelpers/MoveRenderArgumentsToInitializeArgumentsMethodRectorTest.php
+
+		-
+			message: "#^Class Ssch\\\\TYPO3Rector\\\\Rector\\\\Frontend\\\\ContentObject\\\\RefactorRemovedMethodsFromContentObjectRendererRector not found\\.$#"
+			count: 1
+			path: tests/Rector/Frontend/ContentObject/RefactorRemovedMethodsFromContentObjectRendererRectorTest.php
+
+		-
+			message: "#^Class Ssch\\\\TYPO3Rector\\\\Rector\\\\IndexedSearch\\\\Controller\\\\RenamePiListBrowserResultsRector not found\\.$#"
+			count: 1
+			path: tests/Rector/IndexedSearch/Controller/RenamePiListBrowserResultsRectorTest.php
 
