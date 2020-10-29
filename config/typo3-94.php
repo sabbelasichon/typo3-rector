@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use Rector\Renaming\Rector\Name\RenameClassRector;
-use Ssch\TYPO3Rector\Rector\Core\Page\RefactorDeprecatedConcatenateMethodsPageRendererRector;
-use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorExplodeUrl2ArrayFromGeneralUtilityRector;
-use Ssch\TYPO3Rector\Rector\Frontend\ContentObject\CallEnableFieldsFromPageRepositoryRector;
-use Ssch\TYPO3Rector\Rector\Frontend\Controller\RemoveInitTemplateMethodCallRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector;

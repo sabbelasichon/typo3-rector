@@ -6,7 +6,7 @@ use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
-use Ssch\TYPO3Rector\Rector\Core\Resource\SubstituteResourceFactoryRector;
+use Ssch\TYPO3Rector\Rector\v10\v3\SubstituteResourceFactoryRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\Response;

@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Core\Resource;
 
 use Iterator;
 use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\Core\Resource\SubstituteResourceFactoryRector;
+use Ssch\TYPO3Rector\Rector\v10\v3\SubstituteResourceFactoryRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SubstituteResourceFactoryRectorTest extends AbstractRectorTestCase

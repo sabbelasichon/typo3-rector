@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Rector\Backend\Utility\BackendUtilityEditOnClickRector;
-use Ssch\TYPO3Rector\Rector\Extbase\RegisterPluginWithVendorNameRector;
+use Ssch\TYPO3Rector\Rector\v10\v1\BackendUtilityEditOnClickRector;
+use Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
