@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\ConstantToEnvironmentCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector;
@@ -21,6 +22,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorDeprecatedConcatenateMethodsPageRendererRector::class);
 
     $services->set(CallEnableFieldsFromPageRepositoryRector::class);
+
+    $services->set(ConstantToEnvironmentCallRector::class);
 
     $services->set(RemoveInitTemplateMethodCallRector::class);
 

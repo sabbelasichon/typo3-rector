@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
@@ -10,12 +11,16 @@ use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionVersionRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\FindByPidsAndAuthorIdRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\GeneratePageTitleRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\IgnoreValidationAnnotationRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorDeprecationLogRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveMethodInitTCARector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemovePropertiesFromSimpleDataHandlerControllerRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveSecondArgumentGeneralUtilityMkdirDeepRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
@@ -31,6 +36,25 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services.php');
 
     $services = $containerConfigurator->services();
+
+    $services->set(MoveRenderArgumentsToInitializeArgumentsMethodRector::class);
+
+    $services->set(StringClassNameToClassConstantRector::class);
+
+    $services->set(InjectAnnotationRector::class);
+
+    $services->set(IgnoreValidationAnnotationRector::class);
+
+    $services->set(ReplaceAnnotationRector::class)
+        ->call('configure', [
+            [
+                ReplaceAnnotationRector::OLD_TO_NEW_ANNOTATIONS => [
+                    'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
+                    'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
+                    'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
+                ],
+            ],
+        ]);
 
     $services->set(CheckForExtensionInfoRector::class);
 
