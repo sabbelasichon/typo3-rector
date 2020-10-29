@@ -7,10 +7,6 @@ if (class_exists(HtmlParser::class)) {
     return;
 }
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\MathUtility;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-
 final class HtmlParser
 {
     public function getSubpart($content, $marker): string
