@@ -14,6 +14,8 @@
         "typo3fluid/fluid": "^2.6"
     },
     "require-dev": {
+        "captainhook/captainhook": "^5.4",
+        "captainhook/plugin-composer": "^5.2",
         "migrify/config-transformer": "^0.3.36",
         "phpunit/phpunit": "^8.0|^9.0",
         "symplify/easy-coding-standard": "^8.2.27",
@@ -44,7 +46,8 @@
         "test": "vendor/bin/phpunit",
         "docs": "vendor/bin/rector dump-rectors src/Rector --output-file docs/all_rectors_overview.md --ansi",
         "rector": "vendor/bin/rector rectify --dry-run --ansi",
-        "fix-rector": "vendor/bin/rector rectify --ansi"
+        "fix-rector": "vendor/bin/rector rectify --ansi",
+        "post-autoload-dump": "vendor/bin/captainhook install -f -s"
     },
     "scripts-descriptions": {
         "docs": "Regenerate descriptions of all Rectors to docs/AllRectorsOverview.md file"
