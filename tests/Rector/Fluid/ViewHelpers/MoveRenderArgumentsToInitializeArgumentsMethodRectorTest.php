@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Fluid\ViewHelpers;
 
 use Iterator;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class MoveRenderArgumentsToInitializeArgumentsMethodRectorTest extends AbstractRectorWithConfigTestCase
+final class MoveRenderArgumentsToInitializeArgumentsMethodRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

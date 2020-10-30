@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
-use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector;
@@ -26,11 +25,7 @@ use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use TYPO3\CMS\Core\Authentication\AbstractAuthenticationService as CoreAbstractAuthenticationService;
-use TYPO3\CMS\Core\Authentication\AuthenticationService as CoreAuthenticationService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Sv\AbstractAuthenticationService;
-use TYPO3\CMS\Sv\AuthenticationService;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services.php');
@@ -75,14 +70,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseLogMethodInsteadOfNewLog2Rector::class);
 
     $services->set(GeneratePageTitleRector::class);
-
-    $services->set(RenameClassRector::class)
-        ->call('configure', [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                AbstractAuthenticationService::class => CoreAbstractAuthenticationService::class,
-                AuthenticationService::class => CoreAuthenticationService::class,
-            ],
-        ]]);
 
     $services->set(SubstituteConstantParsetimeStartRector::class);
 

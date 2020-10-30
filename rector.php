@@ -8,6 +8,8 @@ use Ssch\TYPO3Rector\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRe
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->import(__DIR__ . '/config/services.php');
+
     $parameters = $containerConfigurator->parameters();
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
     $parameters->set(Option::SETS, [
@@ -18,4 +20,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
 
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
+    # so Rector code is still PHP 7.2 compatible
+    $parameters->set(Option::PHP_VERSION_FEATURES, '7.2');
 };

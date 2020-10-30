@@ -17,16 +17,19 @@ final class ClassWithOldExtensionManagementUtilityMethods
 -----
 <?php
 
+use TYPO3\CMS\Core\Utility\PathUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Core\CacheManager;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 final class ClassWithOldExtensionManagementUtilityMethods
 {
     public function method(): void
     {
-        \TYPO3\CMS\Core\Utility\PathUtility::stripPathSitePrefix(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('news'));
+        PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath('news'));
         ExtensionManagementUtility::isLoaded('news');
         ExtensionManagementUtility::isLoaded('news');
-        \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Core\CacheManager::class)->flushCachesInGroup('system');
+        GeneralUtility::makeInstance(CacheManager::class)->flushCachesInGroup('system');
     }
 }
 

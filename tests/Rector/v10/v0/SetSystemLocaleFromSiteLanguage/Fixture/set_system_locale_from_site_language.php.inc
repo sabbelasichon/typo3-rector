@@ -44,6 +44,7 @@ class ExtbaseBridge
 -----
 <?php
 
+use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -61,18 +62,18 @@ class ExtbaseBridge
         $GLOBALS['TSFE']->getFromCache();
         $GLOBALS['TSFE']->getConfigArray();
         $GLOBALS['TSFE']->settingLanguage();
-        \TYPO3\CMS\Core\Localization\Locales::setSystemLocaleFromSiteLanguage($GLOBALS['TSFE']->getLanguage());
+        Locales::setSystemLocaleFromSiteLanguage($GLOBALS['TSFE']->getLanguage());
         $GLOBALS['TSFE']->newCObj();
 
         $controller = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, 0, 0);
-        \TYPO3\CMS\Core\Localization\Locales::setSystemLocaleFromSiteLanguage($controller->getLanguage());
+        Locales::setSystemLocaleFromSiteLanguage($controller->getLanguage());
     }
 
     protected function initLanguage(): void
     {
         $controller = $this->getTypoScriptFrontendController();
         $controller->settingLanguage();
-        \TYPO3\CMS\Core\Localization\Locales::setSystemLocaleFromSiteLanguage($controller->getLanguage());
+        Locales::setSystemLocaleFromSiteLanguage($controller->getLanguage());
     }
 
     /**

@@ -1,13 +1,15 @@
 <?php
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
+ExtensionUtility::registerPlugin(
     'TYPO3.CMS.Form',
     'Formframework',
     'Form',
     'content-form'
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+ExtensionUtility::registerPlugin(
     'Form',
     'Formframework',
     'Form',
@@ -18,14 +20,16 @@
 -----
 <?php
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
+ExtensionUtility::registerPlugin(
     'Form',
     'Formframework',
     'Form',
     'content-form'
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+ExtensionUtility::registerPlugin(
     'Form',
     'Formframework',
     'Form',

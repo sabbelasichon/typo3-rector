@@ -6,6 +6,5 @@
 -----
 <?php
 
-\TYPO3\CMS\Core\Core\Environment::getContext();
-
-?>
+use TYPO3\CMS\Core\Core\Environment;
+Environment::getContext();
