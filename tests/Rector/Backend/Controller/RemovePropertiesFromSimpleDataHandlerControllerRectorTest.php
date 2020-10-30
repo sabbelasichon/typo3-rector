@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Controller;
 
 use Iterator;
-use Ssch\TYPO3Rector\Rector\Backend\Controller\RemovePropertiesFromSimpleDataHandlerControllerRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\RemovePropertiesFromSimpleDataHandlerControllerRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 

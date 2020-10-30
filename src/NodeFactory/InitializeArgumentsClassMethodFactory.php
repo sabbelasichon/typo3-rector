@@ -126,7 +126,9 @@ final class InitializeArgumentsClassMethodFactory
 
             if ($param->default instanceof Expr) {
                 $args[] = new ConstFetch(new Name('false'));
-                $args[] = $param->default->value;
+                if (property_exists($param->default, 'value')) {
+                    $args[] = $param->default->value;
+                }
             } else {
                 $args[] = new ConstFetch(new Name('true'));
             }
@@ -152,10 +154,11 @@ final class InitializeArgumentsClassMethodFactory
         $paramTagsByName = [];
         foreach ($phpDocInfo->getTagsByName('param') as $phpDocTagNode) {
             /** @var ParamTagValueNode $paramTagValueNode */
-            $paramTagValueNode = $phpDocTagNode->value;
-
-            $paramName = ltrim($paramTagValueNode->parameterName, '$');
-            $paramTagsByName[$paramName] = $paramTagValueNode;
+            if (property_exists($phpDocTagNode, 'value')) {
+                $paramTagValueNode = $phpDocTagNode->value;
+                $paramName = ltrim($paramTagValueNode->parameterName, '$');
+                $paramTagsByName[$paramName] = $paramTagValueNode;
+            }
         }
 
         return $paramTagsByName;

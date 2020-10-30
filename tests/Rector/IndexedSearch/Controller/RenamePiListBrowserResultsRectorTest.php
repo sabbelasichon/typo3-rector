@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\IndexedSearch\Controller;
 
 use Iterator;
-use Ssch\TYPO3Rector\Rector\IndexedSearch\Controller\RenamePiListBrowserResultsRector;
+use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 

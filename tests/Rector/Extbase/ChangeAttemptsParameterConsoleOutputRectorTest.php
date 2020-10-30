@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Extbase;
 
 use Iterator;
-use Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector;
+use Ssch\TYPO3Rector\Rector\v8\v7\ChangeAttemptsParameterConsoleOutputRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 

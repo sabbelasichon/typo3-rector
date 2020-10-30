@@ -39,10 +39,8 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
             return null;
         }
         $newNode = $this->process($node, 'renderPagination');
-        if (null !== $newNode) {
-            return $newNode;
-        }
-        return $node;
+
+        return $newNode ?? $node;
     }
 
     /**

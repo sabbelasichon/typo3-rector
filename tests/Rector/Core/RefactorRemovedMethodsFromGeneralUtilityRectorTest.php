@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Core;
 
 use Iterator;
-use Ssch\TYPO3Rector\Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector;
+use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromGeneralUtilityRector;
 use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 

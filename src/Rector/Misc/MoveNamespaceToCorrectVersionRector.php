@@ -45,6 +45,10 @@ final class MoveNamespaceToCorrectVersionRector extends AbstractFileMovingFileSy
 
         $targetVersion = null;
         foreach ($seeDocs as $seeDoc) {
+            if (! property_exists($seeDoc, 'value') || ! property_exists($seeDoc->value, 'value')) {
+                continue;
+            }
+
             if (1 === preg_match(
                 '#https://docs\.typo3\.org/c/typo3/cms-core/master/en-us/Changelog/(.*)/#',
                 $seeDoc->value->value,

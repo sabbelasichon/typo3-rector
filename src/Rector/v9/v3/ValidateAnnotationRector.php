@@ -50,6 +50,11 @@ final class ValidateAnnotationRector extends AbstractRector
         $tagNodes = $phpDocInfo->getTagsByName(self::OLD_ANNOTATION);
         foreach ($tagNodes as $tagNode) {
             $explodePatternMultipleValidators = '),';
+
+            if (! property_exists($tagNode, 'value')) {
+                continue;
+            }
+
             $validators = explode($explodePatternMultipleValidators, (string) $tagNode->value);
             if (count($validators) > 1) {
                 $validators[0] .= $explodePatternMultipleValidators;

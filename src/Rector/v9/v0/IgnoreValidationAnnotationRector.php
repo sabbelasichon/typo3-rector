@@ -44,6 +44,11 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
             return null;
         }
         $tagNode = $phpDocInfo->getTagsByName(self::OLD_ANNOTATION)[0];
+
+        if (! property_exists($tagNode, 'value')) {
+            return null;
+        }
+
         $tagName = '@TYPO3\CMS\Extbase\Annotation\IgnoreValidation("' . ltrim((string) $tagNode->value, '$') . '")';
         $phpDocInfo->addBareTag($tagName);
         $phpDocInfo->removeByName(self::OLD_ANNOTATION);
