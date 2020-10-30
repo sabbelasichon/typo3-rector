@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\SysNote\Domain\Repository;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v9\v0\FindByPidsAndAuthorIdRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FindByPidsAndAuthorIdRectorTest extends AbstractRectorWithConfigTestCase
+final class FindByPidsAndAuthorIdRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -16,6 +17,11 @@ final class FindByPidsAndAuthorIdRectorTest extends AbstractRectorWithConfigTest
     public function test(SmartFileInfo $fileInfo): void
     {
         $this->doTestFileInfo($fileInfo);
+    }
+
+    protected function getRectorClass(): string
+    {
+        return FindByPidsAndAuthorIdRector::class;
     }
 
     public function provideDataForTest(): Iterator
