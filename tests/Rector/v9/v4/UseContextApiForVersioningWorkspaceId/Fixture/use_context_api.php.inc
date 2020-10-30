@@ -18,15 +18,16 @@ $stdClassVersioningWorkspaceId = $stdClass->versioningWorkspaceId;
 -----
 <?php
 
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Domain\Repository\PageRepository;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
-$pageRepository = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Domain\Repository\PageRepository::class);
+$pageRepository = GeneralUtility::makeInstance(PageRepository::class);
 $workspaceId = null;
-$workspaceId = $workspaceId ?? \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('workspace', 'id', 0);
+$workspaceId = $workspaceId ?? GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id', 0);
 
 $pageRepository->versioningWorkspaceId = 1;
-$workspaceId = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('workspace', 'id', 0);
+$workspaceId = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id', 0);
 
 $stdClass = new stdClass();
 $stdClass->versioningWorkspaceId = 1;

@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Core\Utility;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorMethodsFromExtensionManagementUtilityRectorTest extends AbstractRectorWithConfigTestCase
+final class RefactorMethodsFromExtensionManagementUtilityRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,5 +22,10 @@ final class RefactorMethodsFromExtensionManagementUtilityRectorTest extends Abst
     public function provideDataForTest(): Iterator
     {
         yield [new SmartFileInfo(__DIR__ . '/Fixture/refactor_extensionmanagement_utility_methods.php.inc')];
+    }
+
+    protected function getRectorClass(): string
+    {
+        return RefactorMethodsFromExtensionManagementUtilityRector::class;
     }
 }

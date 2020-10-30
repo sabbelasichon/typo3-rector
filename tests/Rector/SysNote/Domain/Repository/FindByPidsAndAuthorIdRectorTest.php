@@ -19,13 +19,13 @@ final class FindByPidsAndAuthorIdRectorTest extends AbstractRectorTestCase
         $this->doTestFileInfo($fileInfo);
     }
 
-    protected function getRectorClass(): string
-    {
-        return FindByPidsAndAuthorIdRector::class;
-    }
-
     public function provideDataForTest(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+    }
+
+    protected function getRectorClass(): string
+    {
+        return FindByPidsAndAuthorIdRector::class;
     }
 }

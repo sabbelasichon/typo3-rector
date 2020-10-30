@@ -6,6 +6,6 @@ $extensionList = $GLOBALS['TYPO3_LOADED_EXT'];
 -----
 <?php
 
-$extensionList = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Package\PackageManager::class)->getActivePackages();
-
-?>
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Package\PackageManager;
+$extensionList = GeneralUtility::makeInstance(PackageManager::class)->getActivePackages();

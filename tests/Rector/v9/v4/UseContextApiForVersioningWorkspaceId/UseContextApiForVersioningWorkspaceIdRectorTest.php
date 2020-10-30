@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseContextApiForVersioningWorkspaceId;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseContextApiForVersioningWorkspaceIdRectorTest extends AbstractRectorWithConfigTestCase
+final class UseContextApiForVersioningWorkspaceIdRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,5 +22,10 @@ final class UseContextApiForVersioningWorkspaceIdRectorTest extends AbstractRect
     public function provideDataForTest(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+    }
+
+    protected function getRectorClass(): string
+    {
+        return UseContextApiForVersioningWorkspaceIdRector::class;
     }
 }

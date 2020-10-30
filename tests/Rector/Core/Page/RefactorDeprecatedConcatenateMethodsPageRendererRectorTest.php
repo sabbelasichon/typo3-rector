@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Core\Page;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorDeprecatedConcatenateMethodsPageRendererRectorTest extends AbstractRectorWithConfigTestCase
+final class RefactorDeprecatedConcatenateMethodsPageRendererRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,5 +22,10 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRectorTest extends A
     public function provideDataForTest(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+    }
+
+    protected function getRectorClass(): string
+    {
+        return RefactorDeprecatedConcatenateMethodsPageRendererRector::class;
     }
 }

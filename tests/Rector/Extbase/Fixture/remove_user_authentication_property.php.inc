@@ -22,6 +22,9 @@ final class TestCommandControllerWithUserAuthentication extends CommandControlle
 
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
+/**
+ * @internal
+ */
 final class TestCommandControllerWithUserAuthentication extends CommandController
 {
     public function myMethod()

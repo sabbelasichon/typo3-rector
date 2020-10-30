@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\ProcessOutput;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorProcessOutputRectorTest extends AbstractRectorWithConfigTestCase
+final class RefactorProcessOutputRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,5 +22,10 @@ final class RefactorProcessOutputRectorTest extends AbstractRectorWithConfigTest
     public function provideDataForTest(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+    }
+
+    protected function getRectorClass(): string
+    {
+        return RefactorProcessOutputRector::class;
     }
 }

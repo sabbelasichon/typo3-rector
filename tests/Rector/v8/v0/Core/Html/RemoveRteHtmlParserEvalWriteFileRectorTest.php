@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\Core\Html;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-/**
- * @see \Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-72384-RemovedDeprecatedCodeFromHtmlParser.html
- */
-final class RemoveRteHtmlParserEvalWriteFileRectorTest extends AbstractRectorWithConfigTestCase
+final class RemoveRteHtmlParserEvalWriteFileRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -25,5 +22,10 @@ final class RemoveRteHtmlParserEvalWriteFileRectorTest extends AbstractRectorWit
     public function provideDataForTest(): Iterator
     {
         yield [new SmartFileInfo(__DIR__ . '/Fixture/remove_rte_html_parser_eval_write_file.php.inc')];
+    }
+
+    protected function getRectorClass(): string
+    {
+        return RemoveRteHtmlParserEvalWriteFileRector::class;
     }
 }

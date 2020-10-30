@@ -6,6 +6,6 @@ $GLOBALS['TT']->setTSlogMessage('content');
 -----
 <?php
 
-\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\TimeTracker\TimeTracker::class)->setTSlogMessage('content');
-
-?>
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage('content');

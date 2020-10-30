@@ -25,24 +25,26 @@ final class ClassWithOldGeneralUtilityMethods
 -----
 <?php
 
+use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class ClassWithOldGeneralUtilityMethods
 {
     public function method(): void
     {
-        \TYPO3\CMS\Core\Imaging\GraphicalFunctions::gifCompress('theFile', 'theType');
-        $theFile = \TYPO3\CMS\Core\Imaging\GraphicalFunctions::pngToGifByImagemagick('theFile');
-        $theNewFile = \TYPO3\CMS\Core\Imaging\GraphicalFunctions::readPngGif('theFile');
-        $isInArray = \TYPO3\CMS\Core\Utility\ArrayUtility::inArray(['1', '2'], '1');
-        $newArray = \TYPO3\CMS\Core\Utility\ArrayUtility::removeArrayEntryByValue(['1', '2'], '1');
-        $theFilteredArray = \TYPO3\CMS\Core\Utility\ArrayUtility::keepItemsInArray(['1', '2'], '1');
+        GraphicalFunctions::gifCompress('theFile', 'theType');
+        $theFile = GraphicalFunctions::pngToGifByImagemagick('theFile');
+        $theNewFile = GraphicalFunctions::readPngGif('theFile');
+        $isInArray = ArrayUtility::inArray(['1', '2'], '1');
+        $newArray = ArrayUtility::removeArrayEntryByValue(['1', '2'], '1');
+        $theFilteredArray = ArrayUtility::keepItemsInArray(['1', '2'], '1');
         $theArray = ['firstKey' => '1', 'secondKey' => '2'];
-        \TYPO3\CMS\Core\Utility\ArrayUtility::remapArrayKeys($theArray, ['firstKey' => 'first', 'secondKey' => 'second']);
+        ArrayUtility::remapArrayKeys($theArray, ['firstKey' => 'first', 'secondKey' => 'second']);
         $newArray = ['1'] + ['2'];
-        $diffArray = \TYPO3\CMS\Core\Utility\ArrayUtility::arrayDiffAssocRecursive(['1', '2'], ['1', '2']);
-        \TYPO3\CMS\Core\Utility\ArrayUtility::naturalKeySortRecursive($theArray);
-        \TYPO3\CMS\Core\Utility\GeneralUtility::flushOutputBuffers();
+        $diffArray = ArrayUtility::arrayDiffAssocRecursive(['1', '2'], ['1', '2']);
+        ArrayUtility::naturalKeySortRecursive($theArray);
+        GeneralUtility::flushOutputBuffers();
     }
 }
 

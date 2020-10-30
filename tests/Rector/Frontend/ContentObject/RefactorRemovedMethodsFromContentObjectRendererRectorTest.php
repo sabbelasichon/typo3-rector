@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Frontend\ContentObject;
 
 use Iterator;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromContentObjectRendererRector;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorRemovedMethodsFromContentObjectRendererRectorTest extends AbstractRectorWithConfigTestCase
+final class RefactorRemovedMethodsFromContentObjectRendererRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
