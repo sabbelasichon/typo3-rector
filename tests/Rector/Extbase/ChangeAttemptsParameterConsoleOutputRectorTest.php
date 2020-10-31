@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Extbase;
 
 use Iterator;
-use Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v8\v7\ChangeAttemptsParameterConsoleOutputRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ChangeAttemptsParameterConsoleOutputRectorTest extends AbstractRectorWithConfigTestCase
+final class ChangeAttemptsParameterConsoleOutputRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

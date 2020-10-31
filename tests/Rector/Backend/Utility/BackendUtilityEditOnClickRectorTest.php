@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Utility;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v10\v1\BackendUtilityEditOnClickRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class BackendUtilityEditOnClickRectorTest extends AbstractRectorWithConfigTestCase
+final class BackendUtilityEditOnClickRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,5 +22,10 @@ final class BackendUtilityEditOnClickRectorTest extends AbstractRectorWithConfig
     public function provideDataForTest(): Iterator
     {
         yield [new SmartFileInfo(__DIR__ . '/Fixture/backend_utility_edit_on_click.php.inc')];
+    }
+
+    protected function getRectorClass(): string
+    {
+        return BackendUtilityEditOnClickRector::class;
     }
 }

@@ -61,3 +61,9 @@ define('TYPO3_db_host', 'TYPO3_db_host');
 
 define('TYPO3_version', '9.5.21');
 define('TYPO3_branch', '9.5');
+
+define('TYPO3_URL_GENERAL', 'https://typo3.org/');
+define('TYPO3_URL_LICENSE', 'https://typo3.org/typo3-cms/overview/licenses/');
+define('TYPO3_URL_EXCEPTION', 'https://typo3.org/go/exception/CMS/');
+define('TYPO3_URL_DONATE', 'https://typo3.org/community/contribute/donate/');
+define('TYPO3_URL_WIKI_OPCODECACHE', 'https://wiki.typo3.orgOpcode_Cache/');

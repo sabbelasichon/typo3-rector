@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Core\Package;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v9\v5\UsePackageManagerActivePackagesRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UsePackageManagerActivePackagesRectorTest extends AbstractRectorWithConfigTestCase
+final class UsePackageManagerActivePackagesRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,5 +22,10 @@ final class UsePackageManagerActivePackagesRectorTest extends AbstractRectorWith
     public function provideDataForTest(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+    }
+
+    protected function getRectorClass(): string
+    {
+        return UsePackageManagerActivePackagesRector::class;
     }
 }

@@ -82,7 +82,7 @@ class GeneralUtility
         return false;
     }
 
-    public static function getUrl($url): void
+    public static function getUrl($url, $includeHeader = 0, $requestHeaders = null, &$report = null): void
     {
 
     }

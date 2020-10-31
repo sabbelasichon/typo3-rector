@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Frontend\Controller;
 
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
+use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\CMS\Frontend\Page\PageRepository;
 
 if (class_exists(TypoScriptFrontendController::class)) {
     return;
@@ -53,7 +56,67 @@ final class TypoScriptFrontendController
      */
     public $showHiddenRecords = '';
 
+    /**
+     * Passed to TypoScript template class and tells it to force template rendering
+     * @var bool
+     */
+    public $forceTemplateParsing = false;
+
+    /**
+     * The TypoScript template object. Used to parse the TypoScript template
+     *
+     * @var TemplateService
+     */
+    public $tmpl;
+
+    /**
+     * @var PageRepository
+     */
+    public $sys_page;
+
+    /**
+     * @var SiteLanguage
+     */
+    protected $language;
+
     public function initTemplate(): void
+    {
+    }
+
+    public function __construct()
+    {
+        //fake template object, otherwise tests cannot access this property
+        $this->tmpl = new TemplateService();
+        $this->sys_page = new PageRepository();
+        $this->language = new SiteLanguage();
+    }
+
+    public function applyHttpHeadersToResponse(): void
+    {
+
+    }
+
+    public function processContentForOutput(): void
+    {
+
+    }
+
+    public function processOutput(): void
+    {
+
+    }
+
+    public function settingLocale(): void
+    {
+
+    }
+
+    public function getLanguage(): SiteLanguage
+    {
+        return $this->language;
+    }
+
+    public function settingLanguage(): void
     {
     }
 }

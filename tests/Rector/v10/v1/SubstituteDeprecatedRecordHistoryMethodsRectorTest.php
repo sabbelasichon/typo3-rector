@@ -7,7 +7,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v10\v1;
 use Iterator;
 use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v1\SubstituteDeprecatedRecordHistoryMethodsRector;
-use Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3VersionRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SubstituteDeprecatedRecordHistoryMethodsRectorTest extends AbstractRectorTestCase

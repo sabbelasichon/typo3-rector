@@ -39,4 +39,9 @@ final class BackendUtility
     public static function getHash($hash): void
     {
     }
+
+    public static function getViewDomain($pageId, $rootLine = null): string
+    {
+        return 'foo';
+    }
 }

@@ -5,51 +5,30 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v10\v1;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\String_;
-use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Context\TypoScriptAspect;
-use TYPO3\CMS\Core\TypoScript\TemplateService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Backend\History\RecordHistory;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-88792-ForceTemplateParsingInTSFEAndTemplateService.html
  */
 final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRector
 {
-
-
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
     }
 
-    /**
-     * @param Node $node
-     * @return Node|null
-     */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isObjectType($node->var, \TYPO3\CMS\Backend\History\RecordHistory::class)
+        if (! $this->isObjectType($node->var, RecordHistory::class)
         ) {
             return null;
         }
-
-
-
 
         if ($this->isName($node->name, 'getHistoryEntry')) {
             try {
@@ -83,8 +62,7 @@ final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRecto
     /**
      * @codeCoverageIgnore
      */
-    public
-    function getDefinition(): RectorDefinition
+    public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
             'Force template parsing in tsfe is replaced with context api and aspects',
@@ -125,5 +103,4 @@ PHP
             ]
         );
     }
-
 }

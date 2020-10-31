@@ -1,4 +1,4 @@
-# All 66 Rectors Overview
+# All 73 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -82,6 +82,24 @@ Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
 +    ->where(QueryHelper::stripLogicalOperatorPrefix($where))
 +    ->execute()
 +    ->fetch();
+```
+
+<br><br>
+
+## `BackendUtilityGetViewDomainToPageRouterRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\BackendUtilityGetViewDomainToPageRouterRector`](/src/Rector/v10/v0/BackendUtilityGetViewDomainToPageRouterRector.php)
+- [test fixtures](/tests/Rector/v10/v0/BackendUtilityViewDomainToPageRouter/Fixture)
+
+Refactor method call `BackendUtility::getViewDomain()` to PageRouter
+
+```diff
+-use TYPO3\CMS\Backend\Utility\BackendUtility;
+-$domain1 = BackendUtility::getViewDomain(1);
++use TYPO3\CMS\Core\Site\SiteFinder;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++$site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId(1);
++$domain1 = $site->getRouter()->generateUri(1);
 ```
 
 <br><br>
@@ -286,6 +304,27 @@ Use findByPidsAndAuthorId instead of findByPidsAndAuthor
  $backendUser = new BackendUser();
 -$sysNoteRepository->findByPidsAndAuthor('1,2,3', $backendUser);
 +$sysNoteRepository->findByPidsAndAuthorId('1,2,3', $backendUser->getUid());
+```
+
+<br><br>
+
+## `ForceTemplateParsingInTsfeAndTemplateServiceRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\ForceTemplateParsingInTsfeAndTemplateServiceRector`](/src/Rector/v10/v0/ForceTemplateParsingInTsfeAndTemplateServiceRector.php)
+- [test fixtures](/tests/Rector/v10/v0/Fixture)
+
+Force template parsing in tsfe is replaced with context api and aspects
+
+```diff
+-$myvariable = $GLOBALS['TSFE']->forceTemplateParsing;
+-$myvariable2 = $GLOBALS['TSFE']->tmpl->forceTemplateParsing;
++$myvariable = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
++$myvariable2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
+
+-$GLOBALS['TSFE']->forceTemplateParsing = true;
+-$GLOBALS['TSFE']->tmpl->forceTemplateParsing = true;
++\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
++\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
 ```
 
 <br><br>
@@ -541,6 +580,25 @@ Refactor deprecated methods from ExtensionManagementUtility.
 
 <br><br>
 
+## `RefactorProcessOutputRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector`](/src/Rector/v9/v5/RefactorProcessOutputRector.php)
+- [test fixtures](/tests/Rector/v9/v5/ProcessOutput/Fixture)
+
+`TypoScriptFrontendController->processOutput()` to `TypoScriptFrontendController->applyHttpHeadersToResponse()` and `TypoScriptFrontendController->processContentForOutput()`
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+
+ $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
+-$tsfe->processOutput();
++$tsfe->applyHttpHeadersToResponse();
++$tsfe->processContentForOutput();
+```
+
+<br><br>
+
 ## `RefactorRemovedMarkerMethodsFromContentObjectRendererRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMarkerMethodsFromContentObjectRendererRector`](/src/Rector/Frontend/ContentObject/RefactorRemovedMarkerMethodsFromContentObjectRendererRector.php)
@@ -570,6 +628,52 @@ Refactor removed Marker-related methods from ContentObjectRenderer.
 +$content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteMarkerInObject($tree, $markContentArray);
 +$content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
 +$content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC, !empty($GLOBALS['TSFE']->xhtmlDoctype));
+```
+
+<br><br>
+
+## `RefactorRemovedMarkerMethodsFromHtmlParserRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMarkerMethodsFromHtmlParserRector`](/src/Rector/v8/v0/RefactorRemovedMarkerMethodsFromHtmlParserRector.php)
+- [test fixtures](/tests/Rector/v8/v0/Core/Html/Fixture)
+
+Refactor removed Marker-related methods from HtmlParser.
+
+```diff
+-se TYPO3\CMS\Core\Html\HtmlParser;
++use TYPO3\CMS\Core\Html\HtmlParser;
+
+ final class HtmlParserMarkerRendererMethods
+ {
+
+     public function doSomething(): void
+     {
+         $template = '';
+         $markerArray = [];
+         $subpartArray = [];
+         $htmlparser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(HtmlParser::class);
+-        $template = $htmlparser->getSubpart($this->config['templateFile'], '###TEMPLATE###');
+-        $html = $htmlparser->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
+-        $html2 = $htmlparser->substituteSubpartArray($html2, []);
++        $template = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->getSubpart($this->config['templateFile'], '###TEMPLATE###');
++        $html = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
++        $html2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteSubpartArray($html2, []);
+
+-        $html3 = $htmlparser->processTag($value, $conf, $endTag, $protected = 0);
+-        $html4 = $htmlparser->processContent($value, $dir, $conf);
+-
+-        $content = $htmlparser->substituteMarker($content, $marker, $markContent);
+-        $content .= $htmlparser->substituteMarkerArray($content, $markContentArray, $wrap, $uppercase, $deleteUnused);
+-        $content .= $htmlparser->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
+-        $content = $htmlparser->XHTML_clean($content);
++        $content = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteMarker($content, $marker, $markContent);
++        $content .= \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteMarkerArray($content, $markContentArray, $wrap, $uppercase, $deleteUnused);
++        $content .= \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\MarkerBasedTemplateService::class)->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
++        $content = $htmlparser->HTMLcleaner($content);
+     }
+
+
+ }
 ```
 
 <br><br>
@@ -782,6 +886,30 @@ Use method getBackendUserAuthentication instead of removed property `$userAuthen
 
          }
      }
+ }
+```
+
+<br><br>
+
+## `RemoveRteHtmlParserEvalWriteFileRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector`](/src/Rector/v8/v0/RemoveRteHtmlParserEvalWriteFileRector.php)
+- [test fixtures](/tests/Rector/v8/v0/Core/Html/Fixture)
+
+remove evalWriteFile method from RteHtmlparser.
+
+```diff
+ use TYPO3\CMS\Core\Html\RteHtmlParser;
+
+ final class RteHtmlParserRemovedMethods
+ {
+
+     public function doSomething(): void
+     {
+         $rtehtmlparser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(RteHtmlParser::class);
+-        $rtehtmlparser->evalWriteFile();
+     }
+
  }
 ```
 
@@ -1158,10 +1286,33 @@ Use ActionController class instead of AbstractController if used
 
 <br><br>
 
+## `UseClassTypo3InformationRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3InformationRector`](/src/Rector/v10/v3/UseClassTypo3InformationRector.php)
+- [test fixtures](/tests/Rector/v10/v3/UseClassTypo3Information/Fixture)
+
+Use class Typo3Information
+
+```diff
+-$urlGeneral = TYPO3_URL_GENERAL;
+-$urlLicense = TYPO3_URL_LICENSE;
+-$urlException = TYPO3_URL_EXCEPTION;
+-$urlDonate = TYPO3_URL_DONATE;
+-$urlOpcache = TYPO3_URL_WIKI_OPCODECACHE;
++use TYPO3\CMS\Core\Information\Typo3Information;
++$urlGeneral = Typo3Information::TYPO3_URL_GENERAL;
++$urlLicense = Typo3Information::TYPO3_URL_LICENSE;
++$urlException = Typo3Information::TYPO3_URL_EXCEPTION;
++$urlDonate = Typo3Information::TYPO3_URL_DONATE;
++$urlOpcache = Typo3Information::TYPO3_URL_WIKI_OPCODECACHE;
+```
+
+<br><br>
+
 ## `UseClassTypo3VersionRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3VersionRector`](/src/Rector/v10/v3/UseClassTypo3VersionRector.php)
-- [test fixtures](/tests/Rector/v10/v3/Fixture)
+- [test fixtures](/tests/Rector/v10/v3/UseClassTypo3Version/Fixture)
 
 Use class Typo3Version instead of the constants
 
@@ -1172,6 +1323,25 @@ Use class Typo3Version instead of the constants
 +use TYPO3\CMS\Core\Information\Typo3Version;
 +$typo3Version = GeneralUtility::makeInstance(Typo3Version::class)->getVersion();
 +$typo3Branch = GeneralUtility::makeInstance(Typo3Version::class)->getBranch();
+```
+
+<br><br>
+
+## `UseContextApiForVersioningWorkspaceIdRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector`](/src/Rector/v9/v4/UseContextApiForVersioningWorkspaceIdRector.php)
+- [test fixtures](/tests/Rector/v9/v4/UseContextApiForVersioningWorkspaceId/Fixture)
+
+Use context API instead of versioningWorkspaceId
+
+```diff
++use TYPO3\CMS\Core\Context\Context;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
+ $workspaceId = null;
+-$workspaceId = $workspaceId ?? $GLOBALS['TSFE']->sys_page->versioningWorkspaceId;
++$workspaceId = $workspaceId ?? GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id', 0);
+
+ $GLOBALS['TSFE']->sys_page->versioningWorkspaceId = 1;
 ```
 
 <br><br>

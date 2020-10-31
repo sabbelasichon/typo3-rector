@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Core;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v10\v2\ExcludeServiceKeysToArrayRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ExcludeServiceKeysToArrayRectorTest extends AbstractRectorWithConfigTestCase
+final class ExcludeServiceKeysToArrayRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,5 +22,10 @@ final class ExcludeServiceKeysToArrayRectorTest extends AbstractRectorWithConfig
     public function provideDataForTest(): Iterator
     {
         yield [new SmartFileInfo(__DIR__ . '/Fixture/exclude_service_keys_to_array.php.inc')];
+    }
+
+    protected function getRectorClass(): string
+    {
+        return ExcludeServiceKeysToArrayRector::class;
     }
 }

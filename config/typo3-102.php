@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Rector\Backend\Utility\UseTypo3InformationForCopyRightNoticeRector;
-use Ssch\TYPO3Rector\Rector\Core\ExcludeServiceKeysToArrayRector;
-use Ssch\TYPO3Rector\Rector\Core\Utility\MoveApplicationContextToEnvironmentApiRector;
-use Ssch\TYPO3Rector\Rector\Extbase\InjectEnvironmentServiceIfNeededInResponseRector;
-use Ssch\TYPO3Rector\Rector\Extbase\UseActionControllerRector;
+use Ssch\TYPO3Rector\Rector\v10\v2\ExcludeServiceKeysToArrayRector;
+use Ssch\TYPO3Rector\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponseRector;
+use Ssch\TYPO3Rector\Rector\v10\v2\MoveApplicationContextToEnvironmentApiRector;
+use Ssch\TYPO3Rector\Rector\v10\v2\UseActionControllerRector;
+use Ssch\TYPO3Rector\Rector\v10\v2\UseTypo3InformationForCopyRightNoticeRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {

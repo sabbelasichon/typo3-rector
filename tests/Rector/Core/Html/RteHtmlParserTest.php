@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Core\Html;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v8\v0\RteHtmlParserRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RteHtmlParserTest extends AbstractRectorWithConfigTestCase
+final class RteHtmlParserTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -20,6 +21,11 @@ final class RteHtmlParserTest extends AbstractRectorWithConfigTestCase
 
     public function provideDataForTest(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+        yield [new SmartFileInfo(__DIR__ . '/Fixture/rtehtmlparser.php.inc')];
+    }
+
+    protected function getRectorClass(): string
+    {
+        return RteHtmlParserRector::class;
     }
 }

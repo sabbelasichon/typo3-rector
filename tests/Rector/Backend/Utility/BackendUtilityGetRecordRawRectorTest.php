@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Utility;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class BackendUtilityGetRecordRawRectorTest extends AbstractRectorWithConfigTestCase
+final class BackendUtilityGetRecordRawRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,5 +22,10 @@ final class BackendUtilityGetRecordRawRectorTest extends AbstractRectorWithConfi
     public function provideDataForTest(): Iterator
     {
         yield [new SmartFileInfo(__DIR__ . '/Fixture/backend_utility_get_record_raw.php.inc')];
+    }
+
+    protected function getRectorClass(): string
+    {
+        return BackendUtilityGetRecordRawRector::class;
     }
 }

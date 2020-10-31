@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Backend\Controller;
 
 use Iterator;
-use Ssch\TYPO3Rector\Rector\Backend\Controller\RemovePropertiesFromSimpleDataHandlerControllerRector;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v9\v0\RemovePropertiesFromSimpleDataHandlerControllerRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemovePropertiesFromSimpleDataHandlerControllerRectorTest extends AbstractRectorWithConfigTestCase
+final class RemovePropertiesFromSimpleDataHandlerControllerRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

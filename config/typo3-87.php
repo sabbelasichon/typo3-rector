@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use Rector\Renaming\Rector\Name\RenameClassRector;
-use Ssch\TYPO3Rector\Rector\Backend\Utility\BackendUtilityGetRecordRawRector;
-use Ssch\TYPO3Rector\Rector\Core\DataHandling\DataHandlerRmCommaRector;
-use Ssch\TYPO3Rector\Rector\Core\TypoScript\TemplateServiceSplitConfArrayRector;
-use Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector;
-use Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMarkerMethodsFromContentObjectRendererRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
+use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector;
+use Ssch\TYPO3Rector\Rector\v8\v7\ChangeAttemptsParameterConsoleOutputRector;
+use Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerRmCommaRector;
+use Ssch\TYPO3Rector\Rector\v8\v7\RefactorRemovedMarkerMethodsFromContentObjectRendererRector;
+use Ssch\TYPO3Rector\Rector\v8\v7\TemplateServiceSplitConfArrayRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService as CoreTypoScriptService;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
