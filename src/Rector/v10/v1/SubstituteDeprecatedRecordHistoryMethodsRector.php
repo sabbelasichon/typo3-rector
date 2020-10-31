@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v10\v1;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -33,11 +34,12 @@ final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRecto
 
     public function getNodeTypes(): array
     {
-        return [PropertyFetch::class];
+        return [MethodCall::class];
     }
 
     /**
-     * @param PropertyFetch|Assign $node
+     * @param Node $node
+     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -46,21 +48,7 @@ final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRecto
             return null;
         }
 
-        if ($this->isName($node->name, 'changeLog')) {
-            $newNode = $this->createMethodCall(
-                $node->var,
-                'getChangelog');
-            $this->addNodeBeforeNode($newNode, $node);
-            $this->removeNode($node);
-        }
 
-        if ($this->isName($node->name, 'lastHistoryEntry')) {
-            $newNode = $this->createMethodCall(
-                $node->var,
-                'getLastHistoryEntry');
-            $this->addNodeBeforeNode($newNode, $node);
-            $this->removeNode($node);
-        }
 
 
         if ($this->isName($node->name, 'getHistoryEntry')) {
@@ -72,7 +60,7 @@ final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRecto
             }
         }
 
-        if ($this->isName($node->name, 'php:getHistoryData')) {
+        if ($this->isName($node->name, 'getHistoryData')) {
             try {
                 $this->removeNode($node);
             } catch (ShouldNotHappenException $shouldNotHappenException) {
@@ -80,6 +68,15 @@ final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRecto
                 $this->removeNode($parentNode);
             }
         }
+        if ($this->isName($node->name, 'shouldPerformRollback')) {
+            try {
+                $this->removeNode($node);
+            } catch (ShouldNotHappenException $shouldNotHappenException) {
+                $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+                $this->removeNode($parentNode);
+            }
+        }
+
         return null;
     }
 

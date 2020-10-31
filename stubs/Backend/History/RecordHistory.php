@@ -11,8 +11,10 @@ if (class_exists(RecordHistory::class)) {
 final class RecordHistory
 {
 
-    public $changelog;
+    public $changeLog;
     public $lastHistoryEntry;
+
+    public function getChangeLog(){}
 
     public function getHistoryEntry()
     {
