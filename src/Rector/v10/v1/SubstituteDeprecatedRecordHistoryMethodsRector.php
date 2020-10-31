@@ -14,7 +14,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use TYPO3\CMS\Backend\History\RecordHistory;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-88792-ForceTemplateParsingInTSFEAndTemplateService.html
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-89127-CleanupRecordHistoryHandling.html
  */
 final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRector
 {
@@ -23,6 +23,9 @@ final class SubstituteDeprecatedRecordHistoryMethodsRector extends AbstractRecto
         return [MethodCall::class];
     }
 
+    /**
+     * @param MethodCall $node
+     */
     public function refactor(Node $node): ?Node
     {
         if (! $this->isObjectType($node->var, RecordHistory::class)
