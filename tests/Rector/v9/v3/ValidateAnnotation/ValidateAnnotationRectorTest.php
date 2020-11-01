@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Annotation;
+namespace Ssch\TYPO3Rector\Tests\Rector\v9\v3\ValidateAnnotation;
 
 use Iterator;
-use Ssch\TYPO3Rector\Tests\AbstractRectorWithConfigTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v9\v3\ValidateAnnotationRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class AnnotationTest extends AbstractRectorWithConfigTestCase
+final class ValidateAnnotationRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -21,5 +22,10 @@ final class AnnotationTest extends AbstractRectorWithConfigTestCase
     public function provideDataForTest(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+    }
+
+    protected function getRectorClass(): string
+    {
+        return ValidateAnnotationRector::class;
     }
 }
