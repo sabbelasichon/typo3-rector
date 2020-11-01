@@ -1,4 +1,4 @@
-# All 73 Rectors Overview
+# All 76 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -31,8 +31,8 @@ Adds @codeCoverageIgnore annotation to to method getDefinition
 
 ## `BackendUtilityEditOnClickRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Backend\Utility\BackendUtilityEditOnClickRector`](/src/Rector/Backend/Utility/BackendUtilityEditOnClickRector.php)
-- [test fixtures](/tests/Rector/Backend/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v1\BackendUtilityEditOnClickRector`](/src/Rector/v10/v1/BackendUtilityEditOnClickRector.php)
+- [test fixtures](/tests/Rector/v10/v1/BackendUtilityEditOnClick/Fixture)
 
 Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
 
@@ -47,8 +47,8 @@ Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
 
 ## `BackendUtilityGetModuleUrlRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Backend\Utility\BackendUtilityGetModuleUrlRector`](/src/Rector/Backend/Utility/BackendUtilityGetModuleUrlRector.php)
-- [test fixtures](/tests/Rector/Backend/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v3\BackendUtilityGetModuleUrlRector`](/src/Rector/v9/v3/BackendUtilityGetModuleUrlRector.php)
+- [test fixtures](/tests/Rector/v9/v3/BackendUtilityGetModuleUrl/Fixture)
 
 Migrate the method `BackendUtility::getModuleUrl()` to use UriBuilder API
 
@@ -63,8 +63,8 @@ Migrate the method `BackendUtility::getModuleUrl()` to use UriBuilder API
 
 ## `BackendUtilityGetRecordRawRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Backend\Utility\BackendUtilityGetRecordRawRector`](/src/Rector/Backend/Utility/BackendUtilityGetRecordRawRector.php)
-- [test fixtures](/tests/Rector/Backend/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector`](/src/Rector/v8/v7/BackendUtilityGetRecordRawRector.php)
+- [test fixtures](/tests/Rector/v8/v7/BackendUtilityGetRecordRaw/Fixture)
 
 Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
 
@@ -106,8 +106,8 @@ Refactor method call `BackendUtility::getViewDomain()` to PageRouter
 
 ## `CallEnableFieldsFromPageRepositoryRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Frontend\ContentObject\CallEnableFieldsFromPageRepositoryRector`](/src/Rector/Frontend/ContentObject/CallEnableFieldsFromPageRepositoryRector.php)
-- [test fixtures](/tests/Rector/Frontend/Page/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector`](/src/Rector/v9/v4/CallEnableFieldsFromPageRepositoryRector.php)
+- [test fixtures](/tests/Rector/v9/v4/CallEnableFieldsFromPageRepository/Fixture)
 
 Call enable fields from PageRepository instead of ContentObjectRenderer
 
@@ -121,8 +121,8 @@ Call enable fields from PageRepository instead of ContentObjectRenderer
 
 ## `ChangeAttemptsParameterConsoleOutputRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Extbase\ChangeAttemptsParameterConsoleOutputRector`](/src/Rector/Extbase/ChangeAttemptsParameterConsoleOutputRector.php)
-- [test fixtures](/tests/Rector/Extbase/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\ChangeAttemptsParameterConsoleOutputRector`](/src/Rector/v8/v7/ChangeAttemptsParameterConsoleOutputRector.php)
+- [test fixtures](/tests/Rector/v8/v7/ChangeAttemptsParameterConsoleOutput/Fixture)
 
 Turns old default value to parameter in `ConsoleOutput->askAndValidate()` and/or `ConsoleOutput->select()` method
 
@@ -135,8 +135,8 @@ Turns old default value to parameter in `ConsoleOutput->askAndValidate()` and/or
 
 ## `ChangeMethodCallsForStandaloneViewRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Fluid\View\ChangeMethodCallsForStandaloneViewRector`](/src/Rector/Fluid/View/ChangeMethodCallsForStandaloneViewRector.php)
-- [test fixtures](/tests/Rector/Fluid/View/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\ChangeMethodCallsForStandaloneViewRector`](/src/Rector/v8/v0/ChangeMethodCallsForStandaloneViewRector.php)
+- [test fixtures](/tests/Rector/v8/v0/ChangeMethodCallsForStandaloneView/Fixture)
 
 Turns method call names to new ones.
 
@@ -156,8 +156,8 @@ Turns method call names to new ones.
 
 ## `CheckForExtensionInfoRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\CheckForExtensionInfoRector`](/src/Rector/Core/CheckForExtensionInfoRector.php)
-- [test fixtures](/tests/Rector/Core/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector`](/src/Rector/v9/v0/CheckForExtensionInfoRector.php)
+- [test fixtures](/tests/Rector/v9/v0/CheckForExtensionInfo/Fixture)
 
 Change the extensions to check for info instead of info_pagetsconfig.
 
@@ -179,8 +179,8 @@ Change the extensions to check for info instead of info_pagetsconfig.
 
 ## `CheckForExtensionVersionRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\CheckForExtensionVersionRector`](/src/Rector/Core/CheckForExtensionVersionRector.php)
-- [test fixtures](/tests/Rector/Core/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionVersionRector`](/src/Rector/v9/v0/CheckForExtensionVersionRector.php)
+- [test fixtures](/tests/Rector/v9/v0/CheckForExtensionVersion/Fixture)
 
 Change the extensions to check for workspaces instead of version.
 
@@ -199,8 +199,8 @@ Change the extensions to check for workspaces instead of version.
 
 ## `ConfigurationManagerAddControllerConfigurationMethodRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Extbase\ConfigurationManagerAddControllerConfigurationMethodRector`](/src/Rector/Extbase/ConfigurationManagerAddControllerConfigurationMethodRector.php)
-- [test fixtures](/tests/Rector/Extbase/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\ConfigurationManagerAddControllerConfigurationMethodRector`](/src/Rector/v10/v0/ConfigurationManagerAddControllerConfigurationMethodRector.php)
+- [test fixtures](/tests/Rector/v10/v0/ConfigurationManagerAddControllerConfigurationMethod/Fixture)
 
 Add additional method getControllerConfiguration for AbstractConfigurationManager
 
@@ -228,7 +228,7 @@ Add additional method getControllerConfiguration for AbstractConfigurationManage
 
 ## `ConstantToEnvironmentCallRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Environment\ConstantToEnvironmentCallRector`](/src/Rector/Core/Environment/ConstantToEnvironmentCallRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\ConstantToEnvironmentCallRector`](/src/Rector/v9/v4/ConstantToEnvironmentCallRector.php)
 
 Turns defined constant to static method call of new Environment API.
 
@@ -241,8 +241,8 @@ Turns defined constant to static method call of new Environment API.
 
 ## `DataHandlerRmCommaRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\DataHandling\DataHandlerRmCommaRector`](/src/Rector/Core/DataHandling/DataHandlerRmCommaRector.php)
-- [test fixtures](/tests/Rector/Core/DataHandling/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerRmCommaRector`](/src/Rector/v8/v7/DataHandlerRmCommaRector.php)
+- [test fixtures](/tests/Rector/v8/v7/DataHandlerRmComma/Fixture)
 
 Migrate the method `DataHandler::rmComma()` to use `rtrim()`
 
@@ -257,7 +257,7 @@ Migrate the method `DataHandler::rmComma()` to use `rtrim()`
 
 ## `DatabaseConnectionToDbalRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Database\DatabaseConnectionToDbalRector`](/src/Rector/Core/Database/DatabaseConnectionToDbalRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\DatabaseConnectionToDbalRector`](/src/Rector/v9/v0/DatabaseConnectionToDbalRector.php)
 
 Refactor legacy calls of DatabaseConnection to Dbal
 
@@ -278,8 +278,8 @@ Refactor legacy calls of DatabaseConnection to Dbal
 
 ## `ExcludeServiceKeysToArrayRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\ExcludeServiceKeysToArrayRector`](/src/Rector/Core/ExcludeServiceKeysToArrayRector.php)
-- [test fixtures](/tests/Rector/Core/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v2\ExcludeServiceKeysToArrayRector`](/src/Rector/v10/v2/ExcludeServiceKeysToArrayRector.php)
+- [test fixtures](/tests/Rector/v10/v2/ExcludeServiceKeysToArray/Fixture)
 
 Change parameter `$excludeServiceKeys` explicity to an array
 
@@ -294,8 +294,8 @@ Change parameter `$excludeServiceKeys` explicity to an array
 
 ## `FindByPidsAndAuthorIdRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\SysNote\Domain\Repository\FindByPidsAndAuthorIdRector`](/src/Rector/SysNote/Domain/Repository/FindByPidsAndAuthorIdRector.php)
-- [test fixtures](/tests/Rector/SysNote/Domain/Repository/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\FindByPidsAndAuthorIdRector`](/src/Rector/v9/v0/FindByPidsAndAuthorIdRector.php)
+- [test fixtures](/tests/Rector/v9/v0/FindByPidsAndAuthorId/Fixture)
 
 Use findByPidsAndAuthorId instead of findByPidsAndAuthor
 
@@ -347,7 +347,7 @@ Use generatePageTitle of TSFE instead of class PageGenerator
 
 ## `IgnoreValidationAnnotationRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Annotation\IgnoreValidationAnnotationRector`](/src/Rector/Annotation/IgnoreValidationAnnotationRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\IgnoreValidationAnnotationRector`](/src/Rector/v9/v0/IgnoreValidationAnnotationRector.php)
 
 Turns properties with `@ignorevalidation` to properties with `@TYPO3\CMS\Extbase\Annotation\IgnoreValidation`
 
@@ -365,7 +365,7 @@ Turns properties with `@ignorevalidation` to properties with `@TYPO3\CMS\Extbase
 
 ## `InjectAnnotationRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Annotation\InjectAnnotationRector`](/src/Rector/Annotation/InjectAnnotationRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector`](/src/Rector/v9/v0/InjectAnnotationRector.php)
 
 Turns properties with `@inject` to setter injection
 
@@ -387,8 +387,8 @@ Turns properties with `@inject` to setter injection
 
 ## `InjectEnvironmentServiceIfNeededInResponseRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Extbase\InjectEnvironmentServiceIfNeededInResponseRector`](/src/Rector/Extbase/InjectEnvironmentServiceIfNeededInResponseRector.php)
-- [test fixtures](/tests/Rector/Extbase/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponseRector`](/src/Rector/v10/v2/InjectEnvironmentServiceIfNeededInResponseRector.php)
+- [test fixtures](/tests/Rector/v10/v2/InjectEnvironmentServiceIfNeededInResponse/Fixture)
 
 Inject EnvironmentService if needed in subclass of Response
 
@@ -443,8 +443,8 @@ Use setMetaTag method from PageRenderer class
 
 ## `MoveApplicationContextToEnvironmentApiRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Utility\MoveApplicationContextToEnvironmentApiRector`](/src/Rector/Core/Utility/MoveApplicationContextToEnvironmentApiRector.php)
-- [test fixtures](/tests/Rector/Core/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v2\MoveApplicationContextToEnvironmentApiRector`](/src/Rector/v10/v2/MoveApplicationContextToEnvironmentApiRector.php)
+- [test fixtures](/tests/Rector/v10/v2/MoveApplicationContextToEnvironmentApi/Fixture)
 
 Use Environment API to fetch application context
 
@@ -457,8 +457,8 @@ Use Environment API to fetch application context
 
 ## `MoveRenderArgumentsToInitializeArgumentsMethodRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\MoveRenderArgumentsToInitializeArgumentsMethodRector`](/src/Rector/Fluid/ViewHelpers/MoveRenderArgumentsToInitializeArgumentsMethodRector.php)
-- [test fixtures](/tests/Rector/Fluid/ViewHelpers/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector`](/src/Rector/v9/v0/MoveRenderArgumentsToInitializeArgumentsMethodRector.php)
+- [test fixtures](/tests/Rector/v9/v0/MoveRenderArgumentsToInitializeArgumentsMethod/Fixture)
 
 Move render method arguments to initializeArguments method
 
@@ -484,8 +484,8 @@ Move render method arguments to initializeArguments method
 
 ## `RefactorDbConstantsRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\RefactorDbConstantsRector`](/src/Rector/Core/RefactorDbConstantsRector.php)
-- [test fixtures](/tests/Rector/Core/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v1\RefactorDbConstantsRector`](/src/Rector/v8/v1/RefactorDbConstantsRector.php)
+- [test fixtures](/tests/Rector/v8/v1/RefactorDbConstants/Fixture)
 
 Changes TYPO3_db constants to `$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default'].`
 
@@ -504,8 +504,8 @@ Changes TYPO3_db constants to `$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections'][
 
 ## `RefactorDeprecatedConcatenateMethodsPageRendererRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Page\RefactorDeprecatedConcatenateMethodsPageRendererRector`](/src/Rector/Core/Page/RefactorDeprecatedConcatenateMethodsPageRendererRector.php)
-- [test fixtures](/tests/Rector/Core/Page/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector`](/src/Rector/v9/v4/RefactorDeprecatedConcatenateMethodsPageRendererRector.php)
+- [test fixtures](/tests/Rector/v9/v4/RefactorDeprecatedConcatenateMethodsPageRenderer/Fixture)
 
 Turns method call names to new ones.
 
@@ -519,8 +519,8 @@ Turns method call names to new ones.
 
 ## `RefactorDeprecationLogRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Utility\RefactorDeprecationLogRector`](/src/Rector/Core/Utility/RefactorDeprecationLogRector.php)
-- [test fixtures](/tests/Rector/Core/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RefactorDeprecationLogRector`](/src/Rector/v9/v0/RefactorDeprecationLogRector.php)
+- [test fixtures](/tests/Rector/v9/v0/RefactorDeprecationLog/Fixture)
 
 Refactor GeneralUtility deprecationLog methods
 
@@ -536,8 +536,8 @@ Refactor GeneralUtility deprecationLog methods
 
 ## `RefactorExplodeUrl2ArrayFromGeneralUtilityRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Utility\RefactorExplodeUrl2ArrayFromGeneralUtilityRector`](/src/Rector/Core/Utility/RefactorExplodeUrl2ArrayFromGeneralUtilityRector.php)
-- [test fixtures](/tests/Rector/Core/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRector`](/src/Rector/v9/v4/RefactorExplodeUrl2ArrayFromGeneralUtilityRector.php)
+- [test fixtures](/tests/Rector/v9/v4/RefactorExplodeUrl2ArrayFromGeneralUtility/Fixture)
 
 Remove second argument of GeneralUtility::explodeUrl2Array if it is false or just use function `parse_str` if it is true
 
@@ -552,10 +552,10 @@ Remove second argument of GeneralUtility::explodeUrl2Array if it is false or jus
 
 ## `RefactorIdnaEncodeMethodToNativeFunctionRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Utility\RefactorIdnaEncodeMethodToNativeFunctionRector`](/src/Rector/Core/Utility/RefactorIdnaEncodeMethodToNativeFunctionRector.php)
-- [test fixtures](/tests/Rector/Core/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RefactorIdnaEncodeMethodToNativeFunctionRector`](/src/Rector/v10/v0/RefactorIdnaEncodeMethodToNativeFunctionRector.php)
+- [test fixtures](/tests/Rector/v10/v0/RefactorIdnaEncodeMethodToNativeFunction/Fixture)
 
-Use native function `idn_to_ascii` instead of GeneralUtility::idnaEncode
+Use native function idn_to_ascii instead of GeneralUtility::idnaEncode
 
 ```diff
 -$domain = GeneralUtility::idnaEncode('domain.com');
@@ -568,8 +568,8 @@ Use native function `idn_to_ascii` instead of GeneralUtility::idnaEncode
 
 ## `RefactorMethodsFromExtensionManagementUtilityRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Utility\RefactorMethodsFromExtensionManagementUtilityRector`](/src/Rector/Core/Utility/RefactorMethodsFromExtensionManagementUtilityRector.php)
-- [test fixtures](/tests/Rector/Core/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector`](/src/Rector/v9/v0/RefactorMethodsFromExtensionManagementUtilityRector.php)
+- [test fixtures](/tests/Rector/v9/v0/RefactorMethodsFromExtensionManagementUtility/Fixture)
 
 Refactor deprecated methods from ExtensionManagementUtility.
 
@@ -601,8 +601,8 @@ Refactor deprecated methods from ExtensionManagementUtility.
 
 ## `RefactorRemovedMarkerMethodsFromContentObjectRendererRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMarkerMethodsFromContentObjectRendererRector`](/src/Rector/Frontend/ContentObject/RefactorRemovedMarkerMethodsFromContentObjectRendererRector.php)
-- [test fixtures](/tests/Rector/Frontend/ContentObject/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RefactorRemovedMarkerMethodsFromContentObjectRendererRector`](/src/Rector/v8/v7/RefactorRemovedMarkerMethodsFromContentObjectRendererRector.php)
+- [test fixtures](/tests/Rector/v8/v7/RefactorRemovedMarkerMethodsFromContentObjectRenderer/Fixture)
 
 Refactor removed Marker-related methods from ContentObjectRenderer.
 
@@ -680,8 +680,8 @@ Refactor removed Marker-related methods from HtmlParser.
 
 ## `RefactorRemovedMethodsFromContentObjectRendererRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Frontend\ContentObject\RefactorRemovedMethodsFromContentObjectRendererRector`](/src/Rector/Frontend/ContentObject/RefactorRemovedMethodsFromContentObjectRendererRector.php)
-- [test fixtures](/tests/Rector/Frontend/ContentObject/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromContentObjectRendererRector`](/src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php)
+- [test fixtures](/tests/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRenderer/Fixture)
 
 Refactor removed methods from ContentObjectRenderer.
 
@@ -694,8 +694,8 @@ Refactor removed methods from ContentObjectRenderer.
 
 ## `RefactorRemovedMethodsFromGeneralUtilityRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Utility\RefactorRemovedMethodsFromGeneralUtilityRector`](/src/Rector/Core/Utility/RefactorRemovedMethodsFromGeneralUtilityRector.php)
-- [test fixtures](/tests/Rector/Core/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromGeneralUtilityRector`](/src/Rector/v8/v0/RefactorRemovedMethodsFromGeneralUtilityRector.php)
+- [test fixtures](/tests/Rector/v8/v0/RefactorRemovedMethodsFromGeneralUtility/Fixture)
 
 Refactor removed methods from GeneralUtility.
 
@@ -708,8 +708,8 @@ Refactor removed methods from GeneralUtility.
 
 ## `RegisterPluginWithVendorNameRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Extbase\RegisterPluginWithVendorNameRector`](/src/Rector/Extbase/RegisterPluginWithVendorNameRector.php)
-- [test fixtures](/tests/Rector/Extbase/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector`](/src/Rector/v10/v1/RegisterPluginWithVendorNameRector.php)
+- [test fixtures](/tests/Rector/v10/v1/RegisterPluginWithVendorName/Fixture)
 
 Remove vendor name from registerPlugin call
 
@@ -727,7 +727,7 @@ Remove vendor name from registerPlugin call
 
 ## `RemoveColPosParameterRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Backend\Domain\Repository\Localization\RemoveColPosParameterRector`](/src/Rector/Backend/Domain/Repository/Localization/RemoveColPosParameterRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v3\RemoveColPosParameterRector`](/src/Rector/v9/v3/RemoveColPosParameterRector.php)
 
 Remove parameter colPos from methods.
 
@@ -741,8 +741,8 @@ Remove parameter colPos from methods.
 
 ## `RemoveFlushCachesRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Extbase\RemoveFlushCachesRector`](/src/Rector/Extbase/RemoveFlushCachesRector.php)
-- [test fixtures](/tests/Rector/Extbase/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RemoveFlushCachesRector`](/src/Rector/v9/v5/RemoveFlushCachesRector.php)
+- [test fixtures](/tests/Rector/v9/v5/RemoveFlushCaches/Fixture)
 
 Remove @flushesCaches annotation
 
@@ -761,10 +761,24 @@ Remove @flushesCaches annotation
 
 <br><br>
 
+## `RemoveFormatConstantsEmailFinisherRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RemoveFormatConstantsEmailFinisherRector`](/src/Rector/v10/v0/RemoveFormatConstantsEmailFinisherRector.php)
+- [test fixtures](/tests/Rector/v10/v4/RemoveFormatConstantsEmailFinisher/Fixture)
+
+Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
+
+```diff
+-$this->setOption(self::FORMAT, EmailFinisher::FORMAT_HTML);
++$this->setOption('addHtmlPart', true);
+```
+
+<br><br>
+
 ## `RemoveInitMethodFromPageRepositoryRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Frontend\Page\RemoveInitMethodFromPageRepositoryRector`](/src/Rector/Frontend/Page/RemoveInitMethodFromPageRepositoryRector.php)
-- [test fixtures](/tests/Rector/Frontend/Page/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RemoveInitMethodFromPageRepositoryRector`](/src/Rector/v9/v5/RemoveInitMethodFromPageRepositoryRector.php)
+- [test fixtures](/tests/Rector/v9/v5/RemoveInitMethodFromPageRepository/Fixture)
 
 Remove method call init from PageRepository
 
@@ -778,8 +792,8 @@ Remove method call init from PageRepository
 
 ## `RemoveInitTemplateMethodCallRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Frontend\Controller\RemoveInitTemplateMethodCallRector`](/src/Rector/Frontend/Controller/RemoveInitTemplateMethodCallRector.php)
-- [test fixtures](/tests/Rector/Frontend/Controller/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector`](/src/Rector/v9/v4/RemoveInitTemplateMethodCallRector.php)
+- [test fixtures](/tests/Rector/v9/v4/RemoveInitTemplateMethodCall/Fixture)
 
 Remove method call initTemplate from TypoScriptFrontendController
 
@@ -793,8 +807,8 @@ Remove method call initTemplate from TypoScriptFrontendController
 
 ## `RemoveInternalAnnotationRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Extbase\RemoveInternalAnnotationRector`](/src/Rector/Extbase/RemoveInternalAnnotationRector.php)
-- [test fixtures](/tests/Rector/Extbase/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RemoveInternalAnnotationRector`](/src/Rector/v9/v5/RemoveInternalAnnotationRector.php)
+- [test fixtures](/tests/Rector/v9/v5/RemoveInternalAnnotation/Fixture)
 
 Remove @internal annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Controller\CommandController
 
@@ -825,8 +839,8 @@ Remove superfluous EidUtility::initTCA call
 
 ## `RemovePropertiesFromSimpleDataHandlerControllerRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Backend\Controller\RemovePropertiesFromSimpleDataHandlerControllerRector`](/src/Rector/Backend/Controller/RemovePropertiesFromSimpleDataHandlerControllerRector.php)
-- [test fixtures](/tests/Rector/Backend/Controller/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RemovePropertiesFromSimpleDataHandlerControllerRector`](/src/Rector/v9/v0/RemovePropertiesFromSimpleDataHandlerControllerRector.php)
+- [test fixtures](/tests/Rector/v9/v0/RemovePropertiesFromSimpleDataHandlerController/Fixture)
 
 Remove assignments or accessing of properties prErr and uPT from class SimpleDataHandlerController
 
@@ -846,8 +860,8 @@ Remove assignments or accessing of properties prErr and uPT from class SimpleDat
 
 ## `RemovePropertyExtensionNameRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyExtensionNameRector`](/src/Rector/Extbase/RemovePropertyExtensionNameRector.php)
-- [test fixtures](/tests/Rector/Extbase/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RemovePropertyExtensionNameRector`](/src/Rector/v10/v0/RemovePropertyExtensionNameRector.php)
+- [test fixtures](/tests/Rector/v10/v0/RemovePropertyExtensionName/Fixture)
 
 Use method getControllerExtensionName from `$request` property instead of removed property `$extensionName`
 
@@ -871,8 +885,8 @@ Use method getControllerExtensionName from `$request` property instead of remove
 
 ## `RemovePropertyUserAuthenticationRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Extbase\RemovePropertyUserAuthenticationRector`](/src/Rector/Extbase/RemovePropertyUserAuthenticationRector.php)
-- [test fixtures](/tests/Rector/Extbase/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemovePropertyUserAuthenticationRector`](/src/Rector/v8/v0/RemovePropertyUserAuthenticationRector.php)
+- [test fixtures](/tests/Rector/v8/v0/RemovePropertyUserAuthentication/Fixture)
 
 Use method getBackendUserAuthentication instead of removed property `$userAuthentication`
 
@@ -917,8 +931,8 @@ remove evalWriteFile method from RteHtmlparser.
 
 ## `RemoveSecondArgumentGeneralUtilityMkdirDeepRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Utility\RemoveSecondArgumentGeneralUtilityMkdirDeepRector`](/src/Rector/Core/Utility/RemoveSecondArgumentGeneralUtilityMkdirDeepRector.php)
-- [test fixtures](/tests/Rector/Core/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RemoveSecondArgumentGeneralUtilityMkdirDeepRector`](/src/Rector/v9/v0/RemoveSecondArgumentGeneralUtilityMkdirDeepRector.php)
+- [test fixtures](/tests/Rector/v9/v0/RemoveSecondArgumentGeneralUtilityMkdirDeep/Fixture)
 
 Remove second argument of `GeneralUtility::mkdir_deep()`
 
@@ -995,7 +1009,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
 ## `RenameMethodCallToEnvironmentMethodCallRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Environment\RenameMethodCallToEnvironmentMethodCallRector`](/src/Rector/Core/Environment/RenameMethodCallToEnvironmentMethodCallRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v2\RenameMethodCallToEnvironmentMethodCallRector`](/src/Rector/v9/v2/RenameMethodCallToEnvironmentMethodCallRector.php)
 
 Turns method call names to new ones from new Environment API.
 
@@ -1012,8 +1026,8 @@ Turns method call names to new ones from new Environment API.
 
 ## `RenamePiListBrowserResultsRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\IndexedSearch\Controller\RenamePiListBrowserResultsRector`](/src/Rector/IndexedSearch/Controller/RenamePiListBrowserResultsRector.php)
-- [test fixtures](/tests/Rector/IndexedSearch/Controller/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector`](/src/Rector/v7/v6/RenamePiListBrowserResultsRector.php)
+- [test fixtures](/tests/Rector/v7/v6/RenamePiListBrowserResults/Fixture)
 
 Rename pi_list_browseresults calls to renderPagination
 
@@ -1026,7 +1040,7 @@ Rename pi_list_browseresults calls to renderPagination
 
 ## `ReplaceAnnotationRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Annotation\ReplaceAnnotationRector`](/src/Rector/Annotation/ReplaceAnnotationRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector`](/src/Rector/v9/v0/ReplaceAnnotationRector.php)
 
 Replace old annotation by new one
 
@@ -1035,7 +1049,7 @@ Replace old annotation by new one
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Rector\Annotation\ReplaceAnnotationRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -1061,7 +1075,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
 ## `RteHtmlParserRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Html\RteHtmlParserRector`](/src/Rector/Core/Html/RteHtmlParserRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RteHtmlParserRector`](/src/Rector/v8/v0/RteHtmlParserRector.php)
 
 Remove second argument of HTMLcleaner_db getKeepTags. Substitute calls for siteUrl getUrl
 
@@ -1077,6 +1091,26 @@ Remove second argument of HTMLcleaner_db getKeepTags. Substitute calls for siteU
 +            $rteHtmlParser->getKeepTags('arg1');
 +            \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl('http://domain.com');
 +             \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
+```
+
+<br><br>
+
+## `SetSystemLocaleFromSiteLanguageRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\SetSystemLocaleFromSiteLanguageRector`](/src/Rector/v10/v0/SetSystemLocaleFromSiteLanguageRector.php)
+- [test fixtures](/tests/Rector/v10/v0/SetSystemLocaleFromSiteLanguage/Fixture)
+
+Refactor `TypoScriptFrontendController->settingLocale()` to `Locales::setSystemLocaleFromSiteLanguage()`
+
+```diff
+-
++use TYPO3\CMS\Core\Localization\Locales;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+
+ $controller = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, 0, 0);
+-$controller->settingLocale();
++Locales::setSystemLocaleFromSiteLanguage($controller->getLanguage());
 ```
 
 <br><br>
@@ -1108,8 +1142,8 @@ Caching framework wrapper methods in BackendUtility
 
 ## `SubstituteConstantParsetimeStartRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\SubstituteConstantParsetimeStartRector`](/src/Rector/Core/SubstituteConstantParsetimeStartRector.php)
-- [test fixtures](/tests/Rector/Core/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector`](/src/Rector/v9/v0/SubstituteConstantParsetimeStartRector.php)
+- [test fixtures](/tests/Rector/v9/v0/SubstituteConstantParsetimeStart/Fixture)
 
 Substitute `$GLOBALS['PARSETIME_START']` with round($GLOBALS['TYPO3_MISC']['microtime_start'] * 1000)
 
@@ -1147,8 +1181,8 @@ Substitute deprecated method calls of class GeneralUtility
 
 ## `SubstituteResourceFactoryRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Resource\SubstituteResourceFactoryRector`](/src/Rector/Core/Resource/SubstituteResourceFactoryRector.php)
-- [test fixtures](/tests/Rector/Core/Resource/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v3\SubstituteResourceFactoryRector`](/src/Rector/v10/v3/SubstituteResourceFactoryRector.php)
+- [test fixtures](/tests/Rector/v10/v3/SubstituteResourceFactory/Fixture)
 
 Substitue `ResourceFactory::getInstance()` through GeneralUtility::makeInstance(ResourceFactory::class)
 
@@ -1217,8 +1251,8 @@ GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(Fi
 
 ## `TemplateServiceSplitConfArrayRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\TypoScript\TemplateServiceSplitConfArrayRector`](/src/Rector/Core/TypoScript/TemplateServiceSplitConfArrayRector.php)
-- [test fixtures](/tests/Rector/Core/TypoScript/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\TemplateServiceSplitConfArrayRector`](/src/Rector/v8/v7/TemplateServiceSplitConfArrayRector.php)
+- [test fixtures](/tests/Rector/v8/v7/TemplateServiceSplitConfArray/Fixture)
 
 Substitute `TemplateService->splitConfArray()` with `TypoScriptService->explodeConfigurationForOptionSplit()`
 
@@ -1231,8 +1265,8 @@ Substitute `TemplateService->splitConfArray()` with `TypoScriptService->explodeC
 
 ## `TimeTrackerGlobalsToSingletonRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\TimeTracker\TimeTrackerGlobalsToSingletonRector`](/src/Rector/Core/TimeTracker/TimeTrackerGlobalsToSingletonRector.php)
-- [test fixtures](/tests/Rector/Core/TimeTracker/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector`](/src/Rector/v8/v0/TimeTrackerGlobalsToSingletonRector.php)
+- [test fixtures](/tests/Rector/v8/v0/TimeTrackerGlobalsToSingleton/Fixture)
 
 Substitute `$GLOBALS['TT']` method calls
 
@@ -1269,8 +1303,8 @@ GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(Fi
 
 ## `UseActionControllerRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Extbase\UseActionControllerRector`](/src/Rector/Extbase/UseActionControllerRector.php)
-- [test fixtures](/tests/Rector/Extbase/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v2\UseActionControllerRector`](/src/Rector/v10/v2/UseActionControllerRector.php)
+- [test fixtures](/tests/Rector/v10/v2/UseActionController/Fixture)
 
 Use ActionController class instead of AbstractController if used
 
@@ -1368,6 +1402,26 @@ Various public properties in favor of Context API
 
 <br><br>
 
+## `UseFileGetContentsForGetUrlRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v4\UseFileGetContentsForGetUrlRector`](/src/Rector/v10/v4/UseFileGetContentsForGetUrlRector.php)
+- [test fixtures](/tests/Rector/v10/v4/UseFileGetContentsForGetUrl/Fixture)
+
+Rewirte Method Calls of GeneralUtility::getUrl("somefile.csv") to @file_get_contents
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Core\Http\RequestFactory;
+
+-GeneralUtility::getUrl('some.csv');
++@file_get_contents('some.csv');
+ $externalUrl = 'https://domain.com';
+-GeneralUtility::getUrl($externalUrl);
++GeneralUtility::makeInstance(RequestFactory::class)->request($externalUrl)->getBody()->getContents();
+```
+
+<br><br>
+
 ## `UseLogMethodInsteadOfNewLog2Rector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector`](/src/Rector/v9/v0/UseLogMethodInsteadOfNewLog2Rector.php)
@@ -1398,8 +1452,8 @@ Use `log` method instead of newlog2 from class DataHandler
 
 ## `UseMetaDataAspectRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Resource\UseMetaDataAspectRector`](/src/Rector/Core/Resource/UseMetaDataAspectRector.php)
-- [test fixtures](/tests/Rector/Core/Resource/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector`](/src/Rector/v10/v0/UseMetaDataAspectRector.php)
+- [test fixtures](/tests/Rector/v10/v0/UseMetaDataAspect/Fixture)
 
 Use `$fileObject->getMetaData()->get()` instead of `$fileObject->_getMetaData()`
 
@@ -1413,8 +1467,8 @@ Use `$fileObject->getMetaData()->get()` instead of `$fileObject->_getMetaData()`
 
 ## `UseNativePhpHex2binMethodRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Extbase\Utility\UseNativePhpHex2binMethodRector`](/src/Rector/Extbase/Utility/UseNativePhpHex2binMethodRector.php)
-- [test fixtures](/tests/Rector/Extbase/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector`](/src/Rector/v10/v0/UseNativePhpHex2binMethodRector.php)
+- [test fixtures](/tests/Rector/v10/v0/UseNativePhpHex2binMethod/Fixture)
 
 Turns \TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php `hex2bin`
 
@@ -1427,8 +1481,8 @@ Turns \TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native ph
 
 ## `UsePackageManagerActivePackagesRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Core\Package\UsePackageManagerActivePackagesRector`](/src/Rector/Core/Package/UsePackageManagerActivePackagesRector.php)
-- [test fixtures](/tests/Rector/Core/Package/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\UsePackageManagerActivePackagesRector`](/src/Rector/v9/v5/UsePackageManagerActivePackagesRector.php)
+- [test fixtures](/tests/Rector/v9/v5/UsePackageManagerActivePackages/Fixture)
 
 Use PackageManager API instead of `$GLOBALS['TYPO3_LOADED_EXT']`
 
@@ -1441,8 +1495,8 @@ Use PackageManager API instead of `$GLOBALS['TYPO3_LOADED_EXT']`
 
 ## `UseRenderingContextGetControllerContextRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Fluid\ViewHelpers\UseRenderingContextGetControllerContextRector`](/src/Rector/Fluid/ViewHelpers/UseRenderingContextGetControllerContextRector.php)
-- [test fixtures](/tests/Rector/Fluid/ViewHelpers/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector`](/src/Rector/v9/v0/UseRenderingContextGetControllerContextRector.php)
+- [test fixtures](/tests/Rector/v9/v0/UseRenderingContextGetControllerContext/Fixture)
 
 Get controllerContext from renderingContext
 
@@ -1463,8 +1517,8 @@ Get controllerContext from renderingContext
 
 ## `UseTypo3InformationForCopyRightNoticeRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Backend\Utility\UseTypo3InformationForCopyRightNoticeRector`](/src/Rector/Backend/Utility/UseTypo3InformationForCopyRightNoticeRector.php)
-- [test fixtures](/tests/Rector/Backend/Utility/Fixture)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v2\UseTypo3InformationForCopyRightNoticeRector`](/src/Rector/v10/v2/UseTypo3InformationForCopyRightNoticeRector.php)
+- [test fixtures](/tests/Rector/v10/v2/UseTypo3InformationForCopyRightNotice/Fixture)
 
 Migrate the method `BackendUtility::TYPO3_copyRightNotice()` to use Typo3Information API
 
@@ -1477,7 +1531,7 @@ Migrate the method `BackendUtility::TYPO3_copyRightNotice()` to use Typo3Informa
 
 ## `ValidateAnnotationRector`
 
-- class: [`Ssch\TYPO3Rector\Rector\Annotation\ValidateAnnotationRector`](/src/Rector/Annotation/ValidateAnnotationRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v3\ValidateAnnotationRector`](/src/Rector/v9/v3/ValidateAnnotationRector.php)
 
 Turns properties with `@validate` to properties with `@TYPO3\CMS\Extbase\Annotation\Validate`
 

@@ -14,6 +14,7 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
 use TYPO3\CMS\Form\Domain\Finishers\EmailFinisher;
 
@@ -80,7 +81,15 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
     {
         return new RectorDefinition(
             'Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class TYPO3\CMS\Form\Domain\Finishers\EmailFinisher',
-            []
+            [
+                new CodeSample(<<<'PHP'
+$this->setOption(self::FORMAT, EmailFinisher::FORMAT_HTML);
+PHP
+                    , <<<'PHP'
+$this->setOption('addHtmlPart', true);
+PHP
+                ),
+            ]
         );
     }
 
