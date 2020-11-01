@@ -26,6 +26,94 @@ You can also watch the video from the T3CRR conference:
 
 [![RectorPHP for TYPO3](https://img.youtube.com/vi/FeU3XEG0AW4/0.jpg)](https://www.youtube.com/watch?v=FeU3XEG0AW4)
 
+## Let´s see some examples in action
+Let´s see some "rules" in action. Let´s say you have a Fluid ViewHelper looking like this:
+
+```php
+class InArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+{
+    /**
+     * Checks if given $uid is in a given $array
+     *
+     * @param int $uid the uid
+     * @param array $arrayToCheckAgainst the array to check for the given $uid
+     * @return bool
+     */
+    public function render($uid, array $arrayToCheckAgainst)
+    {
+        if (in_array($uid, $arrayToCheckAgainst)) {
+           return true;
+        } else {
+           return false;
+        }
+    }
+}
+```
+
+What´s "wrong" with this code? Well, it depends on the context. But, if we assume you would like to have this code ready for TYPO3 version 10 you should move the render method arguments to the method initializeArguments and you should rename the namespace \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper to \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper.
+
+And we are not taking about the superfluous else statement and not having Type Declarations if we would like to use modern PHP. That´s a different story.
+
+Do you like to do these changes manually on a codebase with let´s say 40-100 ViewHelpers? We don´t. So let Rector do the heavy work for us and apply the "rules" MoveRenderArgumentsToInitializeArgumentsMethodRector and RenameClassMapAliasRector for Version 9.5.
+
+Rector transforms this code for us to the following one:
+```php
+class InArrayViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper
+{
+    public function initializeArguments(): void
+    {
+        $this->registerArgument('uid', 'int', 'the uid', true);
+        $this->registerArgument('arrayToCheckAgainst', 'array', 'the array to check for the given $uid', true);
+    }
+
+    /**
+     * Checks if given $uid is in a given $array
+     *
+     * @return bool
+     */
+    public function render()
+    {
+        $uid = $this->arguments['uid'];
+        $arrayToCheckAgainst = $this->arguments['arrayToCheckAgainst'];
+        if (in_array($uid, $arrayToCheckAgainst)) {
+           return true;
+        } else {
+           return false;
+        }
+    }
+}
+```
+Isn´t this amazing? You don´t even have to know that these change has to be done. Your changelog resides in living code.
+
+Let´s see another one:
+```php
+final class SomeService
+{
+    /**
+     * @var \Ssch\TYPO3Rector\Tests\Rector\Annotation\Source\InjectionClass
+     * @inject
+     */
+    protected $injectMe;
+}
+```
+So we guess, everyone knows that TYPO3 switched to Doctrine Annotations on the one hand and you should better use either constructor injection or setter injection. Again, if you have only one class, this change is not a problem. But most of the time you have hundreds of them and you have to remember what to do. This is cumbersome and error prone. So let´s run Rector for us with the InjectAnnotationRector and you get this:
+```php
+use Ssch\TYPO3Rector\Tests\Rector\Annotation\Source\InjectionClass;
+
+final class SomeInjectClass
+{
+    /**
+     * @var \Ssch\TYPO3Rector\Tests\Rector\Annotation\Source\InjectionClass
+     */
+    protected $injectMe;
+
+    public function injectInjectMe(InjectionClass $inject): void
+    {
+        $this->inject = $inject;
+    }
+}
+```
+Cool. And there is more...
 
 ## Configuration and Processing
 
