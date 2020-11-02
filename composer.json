@@ -46,8 +46,7 @@
         "test": "vendor/bin/phpunit",
         "docs": "vendor/bin/rector dump-rectors src/Rector --output-file docs/all_rectors_overview.md --ansi",
         "rector": "vendor/bin/rector rectify --dry-run --ansi",
-        "fix-rector": "vendor/bin/rector rectify --ansi",
-        "post-autoload-dump": "vendor/bin/captainhook install -f -s"
+        "fix-rector": "vendor/bin/rector rectify --ansi"
     },
     "scripts-descriptions": {
         "docs": "Regenerate descriptions of all Rectors to docs/AllRectorsOverview.md file"
