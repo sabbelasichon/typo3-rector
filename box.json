@@ -1,0 +1,13 @@
+{
+    "main": "vendor/rector/rector/bin/rector",
+    "check-requirements": false,
+    "files": [
+        "vendor/rector/rector/composer.json"
+    ],
+    "directories": [
+        "src"
+    ],
+    "exclude-composer-files": false,
+    "force-autodiscovery": true,
+    "output": "build/typo3-rector"
+}
