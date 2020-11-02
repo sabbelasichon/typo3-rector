@@ -1,0 +1,42 @@
+name: Build Phar
+
+on: [push]
+jobs:
+    build:
+        name: Build Phar
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '7.2'
+                  coverage: none
+
+            - name: Get Composer Cache Directory
+              id: composer-cache
+              run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            - name: Cache Composer Dependencies
+              uses: actions/cache@v1
+              with:
+                  path: ${{ steps.composer-cache.outputs.dir }}
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                  restore-keys: ${{ runner.os }}-composer-
+
+            - name: Install Box global
+              run: composer global require "humbug/box:^3.8" --no-ansi --no-interaction --no-progress --classmap-authoritative
+
+            - name: Install Composer Dependencies
+              run: composer install --no-ansi --no-interaction --no-progress --classmap-authoritative
+
+            - name: Compile Phar with Box
+              run: box compile
+
+            - name: Upload TYPO3 Rector Phar
+              uses: actions/upload-artifact@v1
+              with:
+                  name: TYPO3 Rector Phar
+                  path: typo3-rector.phar

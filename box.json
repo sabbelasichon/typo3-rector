@@ -7,7 +7,11 @@
     "directories": [
         "src"
     ],
+    "git-version": "git-version",
+    "compactors" : [
+        "KevinGH\\Box\\Compactor\\PhpScoper"
+    ],
     "exclude-composer-files": false,
     "force-autodiscovery": true,
-    "output": "build/typo3-rector"
+    "output": "typo3-rector.phar"
 }
