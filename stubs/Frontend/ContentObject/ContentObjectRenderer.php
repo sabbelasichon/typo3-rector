@@ -63,6 +63,5 @@ final class ContentObjectRenderer
 
     public function fileResource($file): void
     {
-
     }
 }
