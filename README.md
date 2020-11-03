@@ -10,22 +10,6 @@ Apply automatic fixes on your TYPO3 code.
 
 [Rector](https://getrector.org/) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases.
 
-## Installation
-
-Install the library.
-
-```bash
-$ composer require --dev ssch/typo3-rector
-```
-
-## What Can Rector Do for You?
-
-...**look at the overview of [all available TYPO3 Rectors](/docs/all_rectors_overview.md)** with before/after diffs and configuration examples.
-
-You can also watch the video from the T3CRR conference:
-
-[![RectorPHP for TYPO3](https://img.youtube.com/vi/FeU3XEG0AW4/0.jpg)](https://www.youtube.com/watch?v=FeU3XEG0AW4)
-
 ## Let´s see some examples in action
 Let´s see some "rules" in action. Let´s say you have a Fluid ViewHelper looking like this:
 
@@ -52,7 +36,7 @@ class InArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 
 What´s "wrong" with this code? Well, it depends on the context. But, if we assume you would like to have this code ready for TYPO3 version 10 you should move the render method arguments to the method initializeArguments and you should rename the namespace \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper to \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper.
 
-And we are not taking about the superfluous else statement and not having Type Declarations if we would like to use modern PHP. That´s a different story.
+And we are not talking about the superfluous else statement and not having Type Declarations if we would like to use modern PHP. That´s a different story.
 
 Do you like to do these changes manually on a codebase with let´s say 40-100 ViewHelpers? We don´t. So let Rector do the heavy work for us and apply the "rules" MoveRenderArgumentsToInitializeArgumentsMethodRector and RenameClassMapAliasRector for Version 9.5.
 
@@ -114,6 +98,22 @@ final class SomeInjectClass
 }
 ```
 Cool. And there is more...
+
+## Installation
+
+Install the library.
+
+```bash
+$ composer require --dev ssch/typo3-rector
+```
+
+## What Can Rector Do for You?
+
+...**look at the overview of [all available TYPO3 Rectors](/docs/all_rectors_overview.md)** with before/after diffs and configuration examples.
+
+You can also watch the video from the T3CRR conference:
+
+[![RectorPHP for TYPO3](https://img.youtube.com/vi/FeU3XEG0AW4/0.jpg)](https://www.youtube.com/watch?v=FeU3XEG0AW4)
 
 ## Configuration and Processing
 
