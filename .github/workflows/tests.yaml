@@ -16,9 +16,17 @@ jobs:
         name: PHP ${{ matrix.php }} tests
         steps:
             -   uses: actions/checkout@v2.0.0
+            -   id: composer-cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+            -   uses: actions/cache@v1
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: |
+                        ${{ runner.os }}-composer-
             -   uses: shivammathur/setup-php@v1
                 with:
                     php-version: 7.2
                     coverage: none # disable xdebug, pcov
-            -   run: composer install --no-progress
+            -   run: composer install --no-suggest --no-progress
             -   run: vendor/bin/phpunit

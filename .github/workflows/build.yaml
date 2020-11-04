@@ -41,5 +41,5 @@ jobs:
             - name: Upload TYPO3 Rector Phar
               uses: actions/upload-artifact@v1
               with:
-                  name: TYPO3 Rector Phar
+                  name: typo3-rector.phar
                   path: typo3-rector.phar
