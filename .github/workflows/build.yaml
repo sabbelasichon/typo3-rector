@@ -1,6 +1,9 @@
 name: Build Phar
 
-on: [push]
+on:
+    push:
+        branches:
+            - master
 jobs:
     build:
         name: Build Phar
