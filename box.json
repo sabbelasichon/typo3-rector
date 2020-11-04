@@ -1,0 +1,17 @@
+{
+    "main": "vendor/rector/rector/bin/rector",
+    "check-requirements": false,
+    "files": [
+        "vendor/rector/rector/composer.json"
+    ],
+    "directories": [
+        "src"
+    ],
+    "git-version": "git-version",
+    "compactors" : [
+        "KevinGH\\Box\\Compactor\\PhpScoper"
+    ],
+    "exclude-composer-files": false,
+    "force-autodiscovery": true,
+    "output": "typo3-rector.phar"
+}
