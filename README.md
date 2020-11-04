@@ -149,7 +149,7 @@ Afterwards run rector:
 php ~/.composer/vendor/bin/rector process public/typo3conf/ext/your_extension/  -c .rector/config.php -n --autoload-file autoload.php
 ```
 
-### Composer conflics ###
+### Composer conflicts ###
 It is not uncommon to run into unresolvable composer conflicts when installing typo3-rector, especially with older TYPO3 Versions (< 9.5 LTS), for example TYPO3 8.7 LTS. In this case, you have two options:
 
 #### Solution #1 ####
