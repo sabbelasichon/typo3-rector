@@ -11,6 +11,7 @@
     "compactors" : [
         "KevinGH\\Box\\Compactor\\PhpScoper"
     ],
+    "compression": "GZ",
     "exclude-composer-files": false,
     "force-autodiscovery": true,
     "output": "typo3-rector.phar"
