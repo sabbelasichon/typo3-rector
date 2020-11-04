@@ -10,3 +10,11 @@
 /.github export-ignore
 /stubs export-ignore
 /tests export-ignore
+/docs export-ignore
+captainhook.json export-ignore
+ecs.php export-ignore
+phpstan-baseline.neon export-ignore
+phpstan.neon export-ignore
+phpunit.xml export-ignore
+rector.php export-ignore
+/utils export-ignore
