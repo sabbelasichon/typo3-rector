@@ -11,3 +11,4 @@
 composer.lock
 # Other ignored paths and files.
 /vendor
+/docs/all_rectors_overview.md
