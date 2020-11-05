@@ -27,7 +27,6 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Core\Bootstrap;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\EnvironmentService;
-
 final class ClassWithALotOfMethodCallsToRefactorToEnvironmentApi
 {
     public function method(): void
@@ -42,5 +41,3 @@ final class ClassWithALotOfMethodCallsToRefactorToEnvironmentApi
         }
     }
 }
-
-?>

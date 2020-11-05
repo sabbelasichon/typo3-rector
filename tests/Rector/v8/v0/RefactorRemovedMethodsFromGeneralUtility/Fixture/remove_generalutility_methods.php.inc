@@ -28,7 +28,6 @@ final class ClassWithOldGeneralUtilityMethods
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 final class ClassWithOldGeneralUtilityMethods
 {
     public function method(): void
@@ -47,5 +46,3 @@ final class ClassWithOldGeneralUtilityMethods
         GeneralUtility::flushOutputBuffers();
     }
 }
-
-?>

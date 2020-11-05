@@ -26,7 +26,6 @@ class MyOtherResponse extends Response
 
 use TYPO3\CMS\Extbase\Service\EnvironmentService;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
-
 class MyResponse extends Response
 {
     /**
@@ -46,7 +45,6 @@ class MyResponse extends Response
         $this->environmentService = $environmentService;
     }
 }
-
 class MyOtherResponse extends Response
 {
     public function myMethod()
@@ -54,5 +52,3 @@ class MyOtherResponse extends Response
 
     }
 }
-
-?>

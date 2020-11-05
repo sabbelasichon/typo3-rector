@@ -40,7 +40,6 @@ $var9 = 'https://typo3.org/typo3-cms/overview/requirements/';
 $nul = "\0";
 $tab = "\t";
 $sub = chr(26);
-
 $var10 = AbstractService::ERROR_GENERAL;
 $var11 = AbstractService::ERROR_SERVICE_NOT_AVAILABLE;
 $var12 = AbstractService::ERROR_WRONG_SUBTYPE;
@@ -50,5 +49,3 @@ $var15 = AbstractService::ERROR_FILE_NOT_READABLE;
 $var16 = AbstractService::ERROR_FILE_NOT_WRITEABLE;
 $var17 = AbstractService::ERROR_PROGRAM_NOT_FOUND;
 $var18 = AbstractService::ERROR_PROGRAM_FAILED;
-
-?>

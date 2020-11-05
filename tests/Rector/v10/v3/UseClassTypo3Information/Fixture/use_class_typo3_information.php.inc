@@ -16,5 +16,3 @@ $urlLicense = Typo3Information::URL_LICENSE;
 $urlException = Typo3Information::URL_EXCEPTION;
 $urlDonate = Typo3Information::URL_DONATE;
 $urlOpcache = Typo3Information::URL_OPCACHE;
-
-?>

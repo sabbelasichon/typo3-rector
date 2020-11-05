@@ -9,5 +9,8 @@ if (class_exists(AbstractDomainObject::class)) {
 
 class AbstractDomainObject
 {
+    public function __wakeup()
+    {
 
+    }
 }

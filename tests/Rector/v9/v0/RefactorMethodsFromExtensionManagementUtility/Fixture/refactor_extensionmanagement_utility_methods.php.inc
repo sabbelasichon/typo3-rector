@@ -21,7 +21,6 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Core\CacheManager;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-
 final class ClassWithOldExtensionManagementUtilityMethods
 {
     public function method(): void
@@ -32,5 +31,3 @@ final class ClassWithOldExtensionManagementUtilityMethods
         GeneralUtility::makeInstance(CacheManager::class)->flushCachesInGroup('system');
     }
 }
-
-?>
