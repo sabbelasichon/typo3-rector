@@ -1,4 +1,4 @@
-# All 78 Rectors Overview
+# All 79 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -485,6 +485,24 @@ Use `GeneralUtility::getFileAbsFileName()` instead of `GraphicalFunctions->prepe
 +        GeneralUtility::getFileAbsFileName('some.font');
      }
  }
+```
+
+<br><br>
+
+## `RandomMethodsToRandomClassRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RandomMethodsToRandomClassRector`](/src/Rector/v8/v0/RandomMethodsToRandomClassRector.php)
+
+Deprecated random generator methods in GeneralUtility
+
+```diff
++use TYPO3\CMS\Core\Crypto\Random;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-
+-$randomBytes = GeneralUtility::generateRandomBytes();
+-$randomHex = GeneralUtility::getRandomHexString();
++$randomBytes = GeneralUtility::makeInstance(Random::class)->generateRandomBytes();
++$randomHex = GeneralUtility::makeInstance(Random::class)->generateRandomHexString();
 ```
 
 <br><br>
