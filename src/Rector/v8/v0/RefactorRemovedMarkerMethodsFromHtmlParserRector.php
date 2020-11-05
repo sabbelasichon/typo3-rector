@@ -85,7 +85,7 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends AbstractRec
         return new RectorDefinition('Refactor removed Marker-related methods from HtmlParser.', [
             new CodeSample(
                 <<<'PHP'
-se TYPO3\CMS\Core\Html\HtmlParser;
+use TYPO3\CMS\Core\Html\HtmlParser;
 
 final class HtmlParserMarkerRendererMethods
 {

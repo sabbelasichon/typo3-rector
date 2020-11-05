@@ -10,4 +10,8 @@ if (class_exists(GraphicalFunctions::class)) {
 
 final class GraphicalFunctions
 {
+    public function prependAbsolutePath($fontFile): void
+    {
+
+    }
 }

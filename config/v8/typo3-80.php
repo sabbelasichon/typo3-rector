@@ -8,6 +8,7 @@ use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\v8\v0\ChangeMethodCallsForStandaloneViewRector;
+use Ssch\TYPO3Rector\Rector\v8\v0\PrependAbsolutePathToGetFileAbsFileNameRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMarkerMethodsFromHtmlParserRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromContentObjectRendererRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromGeneralUtilityRector;
@@ -78,6 +79,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]);
 
+    $services->set(PrependAbsolutePathToGetFileAbsFileNameRector::class);
     $services->set(RefactorRemovedMarkerMethodsFromHtmlParserRector::class);
     $services->set(RemoveRteHtmlParserEvalWriteFileRector::class);
 };
