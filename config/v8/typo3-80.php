@@ -16,6 +16,7 @@ use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromGeneralUtilityRector
 use Ssch\TYPO3Rector\Rector\v8\v0\RemovePropertyUserAuthenticationRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RemoveWakeupCallFromEntityRector;
+use Ssch\TYPO3Rector\Rector\v8\v0\RequireMethodsToNativeFunctionsRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RteHtmlParserRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -84,4 +85,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorRemovedMarkerMethodsFromHtmlParserRector::class);
     $services->set(RemoveRteHtmlParserEvalWriteFileRector::class);
     $services->set(RandomMethodsToRandomClassRector::class);
+    $services->set(RequireMethodsToNativeFunctionsRector::class);
 };

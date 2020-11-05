@@ -126,4 +126,12 @@ class GeneralUtility
     {
         return 'hex';
     }
+
+    public static function requireOnce($requireFile): void
+    {
+    }
+
+    public static function requireFile($requireFile): void
+    {
+    }
 }

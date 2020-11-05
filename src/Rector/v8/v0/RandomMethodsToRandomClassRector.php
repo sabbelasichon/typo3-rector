@@ -46,15 +46,11 @@ final class RandomMethodsToRandomClassRector extends AbstractRector
             [$this->createClassConstantReference(Random::class)]
         );
 
-        if ($this->isName($node->name, 'getRandomHexString')) {
-            return $this->createMethodCall($randomClass, 'generateRandomHexString');
-        }
-
         if ($this->isName($node->name, self::GENERATE_RANDOM_BYTES)) {
             return $this->createMethodCall($randomClass, self::GENERATE_RANDOM_BYTES);
         }
 
-        return null;
+        return $this->createMethodCall($randomClass, 'generateRandomHexString');
     }
 
     /**
