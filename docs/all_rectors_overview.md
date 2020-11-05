@@ -1,4 +1,4 @@
-# All 79 Rectors Overview
+# All 80 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1068,6 +1068,23 @@ return static function (ContainerConfigurator $containerConfigurator): void {
   */
 -private $someProperty;
 +private $someProperty;
+```
+
+<br><br>
+
+## `RequireMethodsToNativeFunctionsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RequireMethodsToNativeFunctionsRector`](/src/Rector/v8/v0/RequireMethodsToNativeFunctionsRector.php)
+
+Refactor GeneralUtility::requireOnce and GeneralUtility::requireFile
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+-
+-GeneralUtility::requireOnce('somefile.php');
+-GeneralUtility::requireFile('some_other_file.php');
++require_once 'somefile.php';
++require 'some_other_file.php';
 ```
 
 <br><br>
