@@ -14,7 +14,7 @@ use TYPO3\CMS\Core\TypoScript\TypoScriptService as CoreTypoScriptService;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/services.php');
+    $containerConfigurator->import(__DIR__ . '/../services.php');
 
     $services = $containerConfigurator->services();
 
@@ -39,9 +39,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->call('configure', [
             [
                 RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
-                    __DIR__ . '/../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
-                    __DIR__ . '/../Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
-                    __DIR__ . '/../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
                 ],
             ],
         ]);
