@@ -14,7 +14,7 @@ use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/services.php');
+    $containerConfigurator->import(__DIR__ . '/../services.php');
 
     $services = $containerConfigurator->services();
 
@@ -39,8 +39,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->call('configure', [
             [
                 RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
-                    __DIR__ . '/../Migrations/TYPO3/10.4/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
-                    __DIR__ . '/../Migrations/TYPO3/10.4/typo3/sysext/core/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../../Migrations/TYPO3/10.4/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
+                    __DIR__ . '/../../Migrations/TYPO3/10.4/typo3/sysext/core/Migrations/Code/ClassAliasMap.php',
                 ],
             ],
         ]);

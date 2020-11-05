@@ -16,7 +16,7 @@ use TYPO3\CMS\Extbase\Mvc\Web\Response as WebResponse;
 use TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/services.php');
+    $containerConfigurator->import(__DIR__ . '/../services.php');
 
     $services = $containerConfigurator->services();
 

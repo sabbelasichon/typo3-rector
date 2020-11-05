@@ -97,7 +97,35 @@ final class SomeInjectClass
     }
 }
 ```
-Cool. And there is more...
+Cool. Let me show you one more example.
+
+Let´s say you want to upgrade vom version 9 to 10 and you have the following code:
+
+```php
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Configuration\Exception\NoSuchOptionException;
+
+class MyActionController extends ActionController
+{
+    public function exceptionAction()
+    {
+        $foo = 'foo';
+        $bar = 'bar';
+        if($foo !== $bar) {
+            throw new NoSuchOptionException();
+        }
+    }
+}
+```
+
+Can you spot the error? Guess not. At least i couldn´t.
+The exception class NoSuchOptionException does not exist anymore in version 10. What. But it still worked in version 9. Why?
+Because TYPO3 offers a nice way to deprecate such changes for one major version with these handy ClassAliasMap.php files.
+But, postponed is not abandoned. You have to react to these changes at a certain time. Do you know all these changes by heart? Sure not.
+
+So, again, let rector do it for you with the RenameClassMapAliasRector. Have a look at an example [config file](/config/v9/typo3-95.php#L44) shipped with typo3-rector
+
+And there is more...
 
 ...**look at the overview of [all available TYPO3 Rectors](/docs/all_rectors_overview.md)** with before/after diffs and configuration examples.
 
@@ -194,8 +222,9 @@ $ composer require --dev ssch/typo3-rector
 
 ## Configuration and Processing
 
-This library ships already with a bunch of configuration files organized by TYPO3 version.
-In order to "fix" your code with the desired rectors create your own configuration file in the PHP format:
+This library ships already with a bunch of configuration files organized by TYPO3 version. [show config](/config/)
+Let´s say want to migrate from version 8.x to 9.x, you could import the config for v8 and v9.
+So create your own configuration file called rector.php in the root of your project the following way:
 
 ```php
 <?php
@@ -204,10 +233,10 @@ use Rector\Core\Configuration\Option;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-90.php');
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-93.php');
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-94.php');
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-95.php');
+    // Import all rectors for version 8
+    // Import all rectors for version 9
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-8.7.php');
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-9.5.php');
 
     $parameters = $containerConfigurator->parameters();
 
@@ -237,16 +266,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
 See [Rector README](https://github.com/rectorphp/rector#configuration) for full configuration options.
 
-This configuration applies all available rectors defined in the different PHP files for version 9.x with PHP 7.2 capabilities.
-Additionally we auto import the Full Qualified Class Names except for PHP core classes and within DocBlocks.
+This configuration applies all available rectors defined in the different PHP files for version 8.x to 9.x with PHP 7.2 capabilities.
+Additionally we auto import the FQCN except for PHP core classes and within DocBlocks.
 
 After the configuration run rector to simulate (hence the option -n) the code fixes:
 
 ```bash
-./vendor/bin/rector process packages/my_custom_extension --config=my_config.php --dry-run
+./vendor/bin/rector process packages/my_custom_extension --dry-run
 ```
 
-Check if everything makes sense and run the process command without the `--dry-run` option to apply changes.
+Check if everything makes sense and run the process command without the `--dry-run` option to apply the changes.
 
 ## Contributing
 
