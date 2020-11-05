@@ -1,6 +1,6 @@
-## Disclaimer
+## Caution
 
-!!! This repository is still under active development. No stable version released yet. !!!
+Never run this tool on production, only on development environment where code is under version control (e.g. git). Always review and test automatic changes before releasing to production.
 
 # Rector for TYPO3
 
