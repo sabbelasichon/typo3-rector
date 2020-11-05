@@ -111,4 +111,9 @@ class GeneralUtility
     {
 
     }
+
+    public static function getFileAbsFileName($filename): void
+    {
+
+    }
 }
