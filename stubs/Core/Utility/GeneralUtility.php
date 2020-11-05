@@ -116,4 +116,14 @@ class GeneralUtility
     {
 
     }
+
+    public static function generateRandomBytes(): string
+    {
+        return 'bytes';
+    }
+
+    public static function getRandomHexString(): string
+    {
+        return 'hex';
+    }
 }
