@@ -1,4 +1,4 @@
-# All 77 Rectors Overview
+# All 78 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -464,6 +464,31 @@ Move render method arguments to initializeArguments method
 
 <br><br>
 
+## `PrependAbsolutePathToGetFileAbsFileNameRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\PrependAbsolutePathToGetFileAbsFileNameRector`](/src/Rector/v8/v0/PrependAbsolutePathToGetFileAbsFileNameRector.php)
+
+Use `GeneralUtility::getFileAbsFileName()` instead of `GraphicalFunctions->prependAbsolutePath()`
+
+```diff
++use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
+
+ class SomeFooBar
+ {
+     private $graphicalFunctions;
+
+     public function __construct(GraphicalFunctions $graphicalFunctions)
+     {
+         $this->graphicalFunctions = $graphicalFunctions;
+-        $this->graphicalFunctions->prependAbsolutePath('some.font');
++        GeneralUtility::getFileAbsFileName('some.font');
+     }
+ }
+```
+
+<br><br>
+
 ## `RefactorDbConstantsRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v8\v1\RefactorDbConstantsRector`](/src/Rector/v8/v1/RefactorDbConstantsRector.php)
@@ -613,8 +638,7 @@ Refactor removed Marker-related methods from ContentObjectRenderer.
 Refactor removed Marker-related methods from HtmlParser.
 
 ```diff
--se TYPO3\CMS\Core\Html\HtmlParser;
-+use TYPO3\CMS\Core\Html\HtmlParser;
+ use TYPO3\CMS\Core\Html\HtmlParser;
 
  final class HtmlParserMarkerRendererMethods
  {
