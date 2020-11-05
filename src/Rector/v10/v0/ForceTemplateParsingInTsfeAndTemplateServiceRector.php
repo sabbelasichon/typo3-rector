@@ -51,22 +51,6 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
         return [Assign::class];
     }
 
-    public function isPropertyForceTemplateParsing(Node $node): bool
-    {
-        return (
-                $this->isObjectType($node, TypoScriptFrontendController::class)
-                || $this->isObjectType($node, TemplateService::class)
-                || $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node,
-                    Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
-                )
-                || (property_exists($node,
-                        'var') && $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node->var,
-                        Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
-                )
-            ) &&
-            (property_exists($node, 'name') && $this->isName($node, 'forceTemplateParsing'));
-    }
-
     /**
      * @param Assign $node
      */
@@ -153,5 +137,21 @@ PHP
         $contextCall = $this->createMethodCall($staticCallContext, 'setAspect');
         $contextCall->args = $this->createArgs([self::TYPOSCRIPT, $staticCallAspect]);
         return $contextCall;
+    }
+
+    private function isPropertyForceTemplateParsing(Node $node): bool
+    {
+        return (
+                $this->isObjectType($node, TypoScriptFrontendController::class)
+                || $this->isObjectType($node, TemplateService::class)
+                || $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node,
+                    Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
+                )
+                || (property_exists($node,
+                        'var') && $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node->var,
+                        Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
+                )
+            ) &&
+            (property_exists($node, 'name') && $this->isName($node, 'forceTemplateParsing'));
     }
 }

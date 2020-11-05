@@ -47,7 +47,6 @@ class ExtbaseBridge
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-
 class ExtbaseBridge
 {
     public function __construct()
@@ -84,5 +83,3 @@ class ExtbaseBridge
         return $GLOBALS['TSFE'];
     }
 }
-
-?>
