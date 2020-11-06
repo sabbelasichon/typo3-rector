@@ -1,4 +1,4 @@
-# All 81 Rectors Overview
+# All 82 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -312,6 +312,23 @@ Force template parsing in tsfe is replaced with context api and aspects
 -$GLOBALS['TSFE']->tmpl->forceTemplateParsing = true;
 +\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
 +\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
+```
+
+<br><br>
+
+## `GeneralUtilityToUpperAndLowerRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v1\GeneralUtilityToUpperAndLowerRector`](/src/Rector/v8/v1/GeneralUtilityToUpperAndLowerRector.php)
+
+Use `mb_strtolower` and `mb_strtoupper`
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+-
+-$toUpper = GeneralUtility::strtoupper('foo');
+-$toLower = GeneralUtility::strtolower('FOO');
++$toUpper = mb_strtoupper('foo', 'utf-8');
++$toLower = mb_strtolower('FOO', 'utf-8');
 ```
 
 <br><br>
