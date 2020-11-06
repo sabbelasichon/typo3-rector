@@ -107,6 +107,11 @@ class GeneralUtility
         return 1;
     }
 
+    public static function intExplode(): void
+    {
+
+    }
+
     public function verifyFilenameAgainstDenyPattern($filename): void
     {
 
