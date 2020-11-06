@@ -135,13 +135,18 @@ class GeneralUtility
     {
     }
 
-    public static function strtoupper($str)
+    public static function strtoupper($str): string
     {
         return 'FOO';
     }
 
-    public static function strtolower($str)
+    public static function strtolower($str): string
     {
         return 'foo';
+    }
+
+    public static function loadTCA(): void
+    {
+
     }
 }
