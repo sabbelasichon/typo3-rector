@@ -1,4 +1,4 @@
-# All 82 Rectors Overview
+# All 83 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -858,6 +858,18 @@ Remove @internal annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Contro
  class MyCommandController extends CommandController
  {
  }
+```
+
+<br><br>
+
+## `RemoveMethodCallLoadTcaRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallLoadTcaRector`](/src/Rector/v7/v0/RemoveMethodCallLoadTcaRector.php)
+
+Remove `GeneralUtility::loadTCA()` call
+
+```diff
+-GeneralUtility::loadTCA()
 ```
 
 <br><br>
