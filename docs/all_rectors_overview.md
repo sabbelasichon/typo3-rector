@@ -1,4 +1,4 @@
-# All 83 Rectors Overview
+# All 84 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -858,6 +858,18 @@ Remove @internal annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Contro
  class MyCommandController extends CommandController
  {
  }
+```
+
+<br><br>
+
+## `RemoveMethodCallConnectDbRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallConnectDbRector`](/src/Rector/v7/v0/RemoveMethodCallConnectDbRector.php)
+
+Remove `EidUtility::connectDB()` call
+
+```diff
+-EidUtility::connectDB()
 ```
 
 <br><br>
