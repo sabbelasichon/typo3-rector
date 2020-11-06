@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Frontend\Controller;
 
+use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -84,6 +85,11 @@ final class TypoScriptFrontendController
      */
     public $sys_language_isocode;
 
+    /**
+     * @var CharsetConverter
+     */
+    public $csConvObj;
+
     public function initTemplate(): void
     {
     }
@@ -95,6 +101,7 @@ final class TypoScriptFrontendController
         $this->sys_page = new PageRepository();
         $this->language = new SiteLanguage();
         $this->sys_language_isocode = 'ch';
+        $this->csConvObj = new CharsetConverter();
     }
 
     public function applyHttpHeadersToResponse(): void
