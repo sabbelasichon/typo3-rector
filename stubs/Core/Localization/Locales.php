@@ -14,4 +14,9 @@ final class Locales
     public static function setSystemLocaleFromSiteLanguage(SiteLanguage $siteLanguage): void
     {
     }
+
+    public function getPreferredClientLanguage($languageCodesList): string
+    {
+        return 'foo';
+    }
 }
