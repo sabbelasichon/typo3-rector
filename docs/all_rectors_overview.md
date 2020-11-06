@@ -1,4 +1,4 @@
-# All 80 Rectors Overview
+# All 81 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -327,6 +327,21 @@ Use generatePageTitle of TSFE instead of class PageGenerator
 
 -PageGenerator::generatePageTitle();
 +$GLOBALS['TSFE']->generatePageTitle();
+```
+
+<br><br>
+
+## `GetPreferredClientLanguageRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\GetPreferredClientLanguageRector`](/src/Rector/v8/v0/GetPreferredClientLanguageRector.php)
+
+Use `Locales->getPreferredClientLanguage()` instead of `CharsetConverter::getPreferredClientLanguage()`
+
+```diff
++use TYPO3\CMS\Core\Localization\Locales;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-$preferredLanguage = $GLOBALS['TSFE']->csConvObj->getPreferredClientLanguage(GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'));
++$preferredLanguage = GeneralUtility::makeInstance(Locales::class)->getPreferredClientLanguage(GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'));
 ```
 
 <br><br>
