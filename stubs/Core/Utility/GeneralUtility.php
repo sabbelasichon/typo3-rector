@@ -154,4 +154,17 @@ class GeneralUtility
     {
         return 1;
     }
+
+    public static function array2xml_cs(array $array, $docTag = 'phparray', array $options = [], $charset = ''): string
+    {
+        // Set default charset unless explicitly specified
+        $charset = $charset ?: 'utf-8';
+        // Return XML:
+        return '<?xml version="1.0" encoding="' . htmlspecialchars($charset) . '" standalone="yes" ?>' . LF . self::array2xml($array, '', 0, $docTag, 0, $options);
+    }
+
+    public static function array2xml(array $array, $NSprefix = '', $level = 0, $docTag = 'phparray', $spaceInd = 0, array $options = [], array $stackData = []): string
+    {
+        return 'xml';
+    }
 }
