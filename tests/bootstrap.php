@@ -45,6 +45,7 @@ define('TYPO3_URL_SYSTEMREQUIREMENTS', 'https://typo3.org/typo3-cms/overview/req
 defined('NUL') ?: define('NUL', "\0");
 defined('TAB') ?: define('TAB', "\t");
 defined('SUB') ?: define('SUB', chr(26));
+defined('LF') ?: define('LF', chr(10));
 define('T3_ERR_SV_GENERAL', -1);
 define('T3_ERR_SV_NOT_AVAIL', -2);
 define('T3_ERR_SV_WRONG_SUBTYPE', -3);
