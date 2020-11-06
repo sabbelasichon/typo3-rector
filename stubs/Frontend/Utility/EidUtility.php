@@ -13,4 +13,9 @@ final class EidUtility
     {
 
     }
+
+    public static function connectDB(): void
+    {
+
+    }
 }
