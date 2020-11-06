@@ -1,4 +1,4 @@
-# All 84 Rectors Overview
+# All 85 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -25,6 +25,21 @@ Adds @codeCoverageIgnore annotation to to method getDefinition
      {
      }
  }
+```
+
+<br><br>
+
+## `Array2XmlCsToArray2XmlRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v1\Array2XmlCsToArray2XmlRector`](/src/Rector/v8/v1/Array2XmlCsToArray2XmlRector.php)
+
+array2xml_cs to array2xml
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+-GeneralUtility::array2xml_cs();
++GeneralUtility::array2xml();
 ```
 
 <br><br>
