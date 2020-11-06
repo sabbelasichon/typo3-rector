@@ -149,4 +149,9 @@ class GeneralUtility
     {
 
     }
+
+    public static function int_from_ver($verNumberStr): int
+    {
+        return 1;
+    }
 }
