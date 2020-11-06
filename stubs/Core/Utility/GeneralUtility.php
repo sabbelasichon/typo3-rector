@@ -134,4 +134,14 @@ class GeneralUtility
     public static function requireFile($requireFile): void
     {
     }
+
+    public static function strtoupper($str)
+    {
+        return 'FOO';
+    }
+
+    public static function strtolower($str)
+    {
+        return 'foo';
+    }
 }
