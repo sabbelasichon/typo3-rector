@@ -235,8 +235,8 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     // Import all rectors for version 8
     // Import all rectors for version 9
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-8.7.php');
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-9.5.php');
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-87.php');
+    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-95.php');
 
     $parameters = $containerConfigurator->parameters();
 
