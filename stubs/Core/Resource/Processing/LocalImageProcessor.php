@@ -1,20 +1,14 @@
 <?php
-
 declare(strict_types=1);
 
-namespace TYPO3\CMS\Core\Imaging;
+namespace TYPO3\CMS\Core\Resource\Processing;
 
-if (class_exists(GraphicalFunctions::class)) {
+if (class_exists(LocalImageProcessor::class)) {
     return;
 }
 
-final class GraphicalFunctions
+final class LocalImageProcessor
 {
-    public function prependAbsolutePath($fontFile): void
-    {
-
-    }
-
     public function getTemporaryImageWithText(string $filename, string $textline1, string $textline2, string $textline3): string
     {
         return 'foo';
