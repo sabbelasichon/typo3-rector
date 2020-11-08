@@ -1,4 +1,4 @@
-# All 87 Rectors Overview
+# All 88 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -40,6 +40,19 @@ array2xml_cs to array2xml
 
 -GeneralUtility::array2xml_cs();
 +GeneralUtility::array2xml();
+```
+
+<br><br>
+
+## `ArrayUtilityInArrayToFuncInArrayRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v6\ArrayUtilityInArrayToFuncInArrayRector`](/src/Rector/v8/v6/ArrayUtilityInArrayToFuncInArrayRector.php)
+
+Method inArray from ArrayUtility to `in_array`
+
+```diff
+-ArrayUtility::inArray()
++in_array
 ```
 
 <br><br>
