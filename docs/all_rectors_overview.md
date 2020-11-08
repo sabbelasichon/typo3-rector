@@ -1,4 +1,4 @@
-# All 88 Rectors Overview
+# All 89 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -546,6 +546,19 @@ Move render method arguments to initializeArguments method
 +        $secondParameter = $this->arguments['secondParameter'];
      }
  }
+```
+
+<br><br>
+
+## `PhpOptionsUtilityRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v3\PhpOptionsUtilityRector`](/src/Rector/v9/v3/PhpOptionsUtilityRector.php)
+
+Refactor methods from PhpOptionsUtility
+
+```diff
+-PhpOptionsUtility::isSessionAutoStartEnabled()
++filter_var(ini_get('session.auto_start'), FILTER_VALIDATE_BOOLEAN, [FILTER_REQUIRE_SCALAR, FILTER_NULL_ON_FAILURE])
 ```
 
 <br><br>
