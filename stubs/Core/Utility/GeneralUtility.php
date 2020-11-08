@@ -167,4 +167,9 @@ class GeneralUtility
     {
         return 'xml';
     }
+
+    public static function csvValues(array $row, $delim = ',', $quote = '"'): void
+    {
+
+    }
 }
