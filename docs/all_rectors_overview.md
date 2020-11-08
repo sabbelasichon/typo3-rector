@@ -1,4 +1,4 @@
-# All 85 Rectors Overview
+# All 86 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -374,6 +374,19 @@ Use `Locales->getPreferredClientLanguage()` instead of `CharsetConverter::getPre
  use TYPO3\CMS\Core\Utility\GeneralUtility;
 -$preferredLanguage = $GLOBALS['TSFE']->csConvObj->getPreferredClientLanguage(GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'));
 +$preferredLanguage = GeneralUtility::makeInstance(Locales::class)->getPreferredClientLanguage(GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'));
+```
+
+<br><br>
+
+## `GetTemporaryImageWithTextRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v1\GetTemporaryImageWithTextRector`](/src/Rector/v7/v1/GetTemporaryImageWithTextRector.php)
+
+Use GraphicalFunctions->getTemporaryImageWithText instead of LocalImageProcessor->getTemporaryImageWithText
+
+```diff
+-GeneralUtility::makeInstance(LocalImageProcessor::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")
++GeneralUtility::makeInstance(GraphicalFunctions::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")
 ```
 
 <br><br>
