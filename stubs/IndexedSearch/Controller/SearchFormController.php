@@ -10,6 +10,9 @@ if (class_exists(SearchFormController::class)) {
 
 class SearchFormController
 {
+    public const WILDCARD_LEFT = 'foo';
+    public const WILDCARD_RIGHT = 'foo';
+
     public function pi_list_browseresults($showResultCount = true, $addString = '', $addPart = '', $freeIndexUid = -1)
     {
         return '';
