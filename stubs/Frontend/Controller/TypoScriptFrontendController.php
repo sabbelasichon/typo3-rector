@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TYPO3\CMS\Frontend\Controller;
 
 use TYPO3\CMS\Core\Charset\CharsetConverter;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -131,5 +132,10 @@ final class TypoScriptFrontendController
 
     public function settingLanguage(): void
     {
+    }
+
+    public function getPageRenderer(): PageRenderer
+    {
+        return new PageRenderer();
     }
 }
