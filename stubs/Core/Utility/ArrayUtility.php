@@ -10,4 +10,8 @@ if (class_exists(ArrayUtility::class)) {
 
 final class ArrayUtility
 {
+    public static function inArray(array $in_array, $item): bool
+    {
+        return true;
+    }
 }
