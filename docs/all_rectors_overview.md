@@ -1,4 +1,4 @@
-# All 86 Rectors Overview
+# All 87 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -465,6 +465,19 @@ Inject EnvironmentService if needed in subclass of Response
 
      }
  }
+```
+
+<br><br>
+
+## `InstantiatePageRendererExplicitlyRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v4\InstantiatePageRendererExplicitlyRector`](/src/Rector/v7/v4/InstantiatePageRendererExplicitlyRector.php)
+
+Instantiate PageRenderer explicitly
+
+```diff
+-$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
++$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 ```
 
 <br><br>
