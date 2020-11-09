@@ -1,4 +1,4 @@
-# All 89 Rectors Overview
+# All 90 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -289,6 +289,20 @@ Refactor legacy calls of DatabaseConnection to Dbal
                  'title' => 'Home',
              ]
          );
+```
+
+<br><br>
+
+## `DocumentTemplateAddStyleSheetRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\DocumentTemplateAddStyleSheetRector`](/src/Rector/v9/v4/DocumentTemplateAddStyleSheetRector.php)
+
+Use PageRenderer::addCssFile instead of `DocumentTemplate::addStyleSheet()` 
+
+```diff
+-$documentTemplate = GeneralUtility::makeInstance(DocumentTemplate::class);
+-$documentTemplate->addStyleSheet('foo', 'foo.css');
++GeneralUtility::makeInstance(PageRenderer::class)->addCssFile('foo.css', 'stylesheet', 'screen', '');
 ```
 
 <br><br>
@@ -1331,7 +1345,6 @@ Substitue `ResourceFactory::getInstance()` through GeneralUtility::makeInstance(
 ## `SystemEnvironmentBuilderConstantsRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector`](/src/Rector/v9/v4/SystemEnvironmentBuilderConstantsRector.php)
-- [test fixtures](/tests/Rector/v9/v4/Fixture)
 
 GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename)
 
