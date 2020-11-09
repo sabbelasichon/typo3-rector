@@ -1,0 +1,18 @@
+{
+    "alias": "typo3-rector.phar",
+    "banner": false,
+    "base-path": "..",
+    "check-requirements": false,
+    "directories": [
+        "vendor/rector/rector/config",
+        "vendor/rector/rector/src",
+        "vendor/rector/rector/rules",
+        "vendor/rector/rector/packages",
+        "config",
+        "src",
+        "Migrations"
+    ],
+    "exclude-composer-files": false,
+    "force-autodiscovery": true,
+    "output": "tmp/typo3-rector.phar"
+}

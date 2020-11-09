@@ -25,6 +25,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
 
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
+    $parameters->set(
+        Option::EXCLUDE_PATHS,
+        [__DIR__ . '/src/Bootstrap', __DIR__ . '/src/Set', __DIR__ . '/src/Compiler']
+    );
     # so Rector code is still PHP 7.2 compatible
     $parameters->set(Option::PHP_VERSION_FEATURES, '7.2');
 };

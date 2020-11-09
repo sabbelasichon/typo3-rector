@@ -17,6 +17,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\ConfiguredCodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RenameClassMapAliasRector extends AbstractRector implements ConfigurableRectorInterface
 {
@@ -113,14 +114,10 @@ PHP
     {
         $classAliasMaps = $configuration[self::CLASS_ALIAS_MAPS] ?? [];
         foreach ($classAliasMaps as $file) {
-            $filePath = realpath($file);
-
-            if (false !== $filePath && file_exists($filePath)) {
-                $classAliasMap = require $filePath;
-
-                foreach ($classAliasMap as $oldClass => $newClass) {
-                    $this->oldToNewClasses[$oldClass] = $newClass;
-                }
+            $filePath = new SmartFileInfo($file);
+            $classAliasMap = require $filePath->getRealPath();
+            foreach ($classAliasMap as $oldClass => $newClass) {
+                $this->oldToNewClasses[$oldClass] = $newClass;
             }
         }
 

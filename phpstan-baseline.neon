@@ -5,4 +5,8 @@ parameters:
 			count: 1
 			path: src/Rector/v10/v2/InjectEnvironmentServiceIfNeededInResponseRector.php
 
+		-
+			message: "#^Method Ssch\\\\TYPO3Rector\\\\Set\\\\Typo3RectorSetProvider\\:\\:hydrateSetsFromConstants\\(\\) has parameter \\$setListReflectionClass with generic class ReflectionClass but does not specify its types\\: T$#"
+			count: 1
+			path: src/Set/Typo3RectorSetProvider.php
 
