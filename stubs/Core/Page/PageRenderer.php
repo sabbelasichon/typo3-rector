@@ -55,4 +55,9 @@ final class PageRenderer
     {
 
     }
+
+    public function addCssFile($file, $rel = 'stylesheet', $media = 'all', $title = '', $compress = true, $forceOnTop = false, $allWrap = '', $excludeFromConcatenation = false, $splitChar = '|', $inline = false): void
+    {
+
+    }
 }

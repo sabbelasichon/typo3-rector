@@ -20,4 +20,9 @@ final class DocumentTemplate
     {
         return new PageRenderer();
     }
+
+    public function addStyleSheet($key, $href, $title = '', $relation = 'stylesheet'): void
+    {
+        // $this->pageRenderer->addCssFile($href, $relation, 'screen', $title);
+    }
 }
