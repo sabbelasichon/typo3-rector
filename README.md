@@ -141,6 +141,27 @@ Install the library.
 $ composer require --dev ssch/typo3-rector
 ```
 
+### Composer conflicts ###
+
+It is not uncommon to run into unresolvable composer conflicts when installing typo3-rector, especially with older TYPO3 Versions (< 9.5 LTS), for example TYPO3 8.7 LTS. In this case, you have multiple options:
+
+#### Solution #1 ####
+
+The best solution is to install the package [ssch/typo3-rector-shim](https://github.com/sabbelasichon/typo3-rector-shim)
+
+```bash
+$ composer require --dev ssch/typo3-rector-shim
+```
+
+#### Solution #2 ####
+
+As an alternative to installing ssch/typo3-rector-shim, you may also want to use the package [rector/rector-prefixed](https://github.com/rectorphp/rector-prefixed), which aims for maximum compatibility. Just install it via composer before installing ssch/typo3-rector, it works as a drop-in-replacement for rector/rector:
+
+```bash
+$ composer require --dev rector/rector-prefixed
+$ composer require --dev ssch/typo3-rector
+```
+
 ### Non composer installations
 
 If you have a non composer TYPO3 installation. Don´t worry.
@@ -174,56 +195,13 @@ Bootstrap::initializeClassLoader($classLoader);
 Afterwards run rector:
 
 ```bash
-php ~/.composer/vendor/bin/rector process public/typo3conf/ext/your_extension/  -c .rector/config.php -n --autoload-file autoload.php
-```
-
-### Composer conflicts ###
-It is not uncommon to run into unresolvable composer conflicts when installing typo3-rector, especially with older TYPO3 Versions (< 9.5 LTS), for example TYPO3 8.7 LTS. In this case, you have two options:
-
-#### Solution #1 ####
-
-Install typo3-rector as a global dependency. It should do the job just as with non-composer-installations (see above).
-
-```bash
-$ composer global require --dev ssch/typo3-rector
-```
-
-When running rector, make sure to explicitly point to your config file:
-```bash
-cd /path/to/your/project-root
-php ~/.composer/vendor/bin/rector process typo3conf/ext/your_extension/ --config my_config.php
-```
-
-Also, in your config file, make sure to adjust paths in the 'import' statements relative to your config file. Example:
-
-```php
-<?php
-
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-87.php');
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-93.php');
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-94.php');
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-95.php');
-};
-```
-
-As long as you place your config file in your project's root folder, creating or pointing to an autoloader should not be nescessary.
-
-#### Solution #2
-
-As an alternative to installing typo3-rector globally, you may also want to use the package [rector/rector-prefixed](https://github.com/rectorphp/rector-prefixed), which aims for maximum compatibility. Just install it via composer before installing typo3-rector, it works as a drop-in-replacement for rector/rector:
-
-```bash
-$ composer require --dev rector/rector-prefixed
-$ composer require --dev ssch/typo3-rector
+php ~/.composer/vendor/bin/typo3-rector process public/typo3conf/ext/your_extension/  -c .rector/config.php -n --autoload-file autoload.php
 ```
 
 ## Configuration and Processing
 
 This library ships already with a bunch of configuration files organized by TYPO3 version. [show config](/config/)
-Let´s say want to migrate from version 8.x to 9.x, you could import the config for v8 and v9.
+Let´s say want to migrate from version 8.x to 9.x, you could import the config sets for v8 and v9.
 So create your own configuration file called rector.php in the root of your project the following way:
 
 ```php
@@ -233,12 +211,12 @@ use Rector\Core\Configuration\Option;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    // Import all rectors for version 8
-    // Import all rectors for version 9
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-87.php');
-    $containerConfigurator->import(__DIR__ . '/vendor/ssch/typo3-rector/config/typo3-95.php');
-
     $parameters = $containerConfigurator->parameters();
+    $parameters->set(Option::SETS, [
+            Typo3SetList::TYPO3_87,
+            Typo3SetList::TYPO3_95,
+        ]
+    );
 
     // FQN classes are not imported by default. If you don't to do do it manually after every Rector run, enable it by:
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
@@ -269,10 +247,10 @@ See [Rector README](https://github.com/rectorphp/rector#configuration) for full 
 This configuration applies all available rectors defined in the different PHP files for version 8.x to 9.x with PHP 7.2 capabilities.
 Additionally we auto import the FQCN except for PHP core classes and within DocBlocks.
 
-After the configuration run rector to simulate (hence the option -n) the code fixes:
+After the configuration run typo3-rector to simulate (hence the option -n) the code fixes:
 
 ```bash
-./vendor/bin/rector process packages/my_custom_extension --dry-run
+./vendor/bin/typo3-rector process packages/my_custom_extension --dry-run
 ```
 
 Check if everything makes sense and run the process command without the `--dry-run` option to apply the changes.
