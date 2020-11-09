@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4;
+namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\DocumentTemplateAddStyleSheet;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\DocumentTemplateAddStyleSheetRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SystemEnvironmentBuilderConstantsRectorTest extends AbstractRectorTestCase
+final class DocumentTemplateAddStyleSheetRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -26,6 +26,6 @@ final class SystemEnvironmentBuilderConstantsRectorTest extends AbstractRectorTe
 
     protected function getRectorClass(): string
     {
-        return SystemEnvironmentBuilderConstantsRector::class;
+        return DocumentTemplateAddStyleSheetRector::class;
     }
 }
