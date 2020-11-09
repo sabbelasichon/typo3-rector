@@ -9,6 +9,7 @@
     "require": {
         "php": "^7.2",
         "nette/utils": "^3.1",
+        "phpstan/phpstan": "^0.12.52",
         "rector/rector": "0.8.48"
     },
     "require-dev": {
@@ -24,6 +25,9 @@
             "Ssch\\TYPO3Rector\\": "src"
         }
     },
+    "bin": [
+        "bin/typo3-rector"
+    ],
     "autoload-dev": {
         "psr-4": {
             "Ssch\\TYPO3Rector\\Tests\\": "tests",
