@@ -18,17 +18,11 @@ if (class_exists(TypoScriptFrontendController::class)) {
 final class TypoScriptFrontendController
 {
     /**
-     * Doctype to use.
-     *
-     * Currently set via PageGenerator
-     *
      * @var string
      */
     public $xhtmlDoctype = '';
 
     /**
-     * Page content render object.
-     *
      * @var ContentObjectRenderer
      */
     public $cObj = '';
@@ -59,14 +53,11 @@ final class TypoScriptFrontendController
     public $showHiddenRecords = '';
 
     /**
-     * Passed to TypoScript template class and tells it to force template rendering
      * @var bool
      */
     public $forceTemplateParsing = false;
 
     /**
-     * The TypoScript template object. Used to parse the TypoScript template
-     *
      * @var TemplateService
      */
     public $tmpl;
@@ -123,6 +114,7 @@ final class TypoScriptFrontendController
         $this->language = new SiteLanguage();
         $this->sys_language_isocode = 'ch';
         $this->csConvObj = new CharsetConverter();
+        $this->cObj = new ContentObjectRenderer();
     }
 
     public function applyHttpHeadersToResponse(): void

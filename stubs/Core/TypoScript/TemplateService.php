@@ -11,8 +11,12 @@ if (class_exists(TemplateService::class)) {
 class TemplateService
 {
     /**
-     * Passed to TypoScript template class and tells it to force template rendering
      * @var bool
      */
     public $forceTemplateParsing = false;
+
+    public function getFileName($file): void
+    {
+
+    }
 }
