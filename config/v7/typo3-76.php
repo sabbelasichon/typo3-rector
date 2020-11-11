@@ -8,6 +8,7 @@ use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
+use Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -63,4 +64,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 ]),
             ],
         ]);
+
+    $services->set(WrapClickMenuOnIconRector::class);
 };
