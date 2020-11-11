@@ -10,6 +10,7 @@ final class ClassWithALotOfEnvironmentVariables
         PATH_typo3conf;
         PATH_typo3;
         TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_CLI;
+        TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE;
     }
 }
 
@@ -27,6 +28,7 @@ final class ClassWithALotOfEnvironmentVariables
         Environment::isUnix() || Environment::isWindows();
         Environment::getLegacyConfigPath();
         Environment::getBackendPath();
-        Environment::isCli() & Environment::isCli();
+        Environment::isCli();
+        TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE;
     }
 }

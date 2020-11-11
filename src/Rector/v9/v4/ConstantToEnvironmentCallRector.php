@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v4;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp\BitwiseAnd;
 use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\ConstFetch;
@@ -20,6 +21,11 @@ use TYPO3\CMS\Core\Core\Environment;
 final class ConstantToEnvironmentCallRector extends AbstractRector
 {
     /**
+     * @var string[]
+     */
+    private const ALLOWED_NAMES = ['TYPO3_REQUESTTYPE_CLI', 'TYPO3_REQUESTTYPE'];
+
+    /**
      * @codeCoverageIgnore
      */
     public function getDefinition(): RectorDefinition
@@ -34,30 +40,43 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [ConstFetch::class];
+        return [ConstFetch::class, BitwiseAnd::class];
     }
 
+    /**
+     * @param ConstFetch|BitwiseAnd $node
+     */
     public function refactor(Node $node): ?Node
+    {
+        if ($node instanceof ConstFetch) {
+            return $this->refactorConstants($node);
+        }
+
+        if (! $node->left instanceof ConstFetch || ! $node->right instanceof ConstFetch) {
+            return null;
+        }
+        if (! $this->isNames($node->left, self::ALLOWED_NAMES) || ! $this->isNames($node->right, self::ALLOWED_NAMES)) {
+            return null;
+        }
+
+        return $this->createStaticCall(Environment::class, 'isCli');
+    }
+
+    private function refactorConstants(ConstFetch $node): ?Node
     {
         $constantName = $this->getName($node);
         if (null === $constantName) {
             return null;
         }
+
         if (! in_array(
             $constantName,
-            [
-                'PATH_thisScript',
-                'PATH_site',
-                'PATH_typo3',
-                'TYPO3_REQUESTTYPE',
-                'TYPO3_REQUESTTYPE_CLI',
-                'PATH_typo3conf',
-                'TYPO3_OS',
-            ],
+            ['PATH_thisScript', 'PATH_site', 'PATH_typo3', 'PATH_typo3conf', 'TYPO3_OS'],
             false
         )) {
             return null;
         }
+
         switch ($constantName) {
             case 'PATH_thisScript':
                 return $this->createStaticCall(Environment::class, 'getCurrentScript');
@@ -72,10 +91,8 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
                     Environment::class,
                     'isWindows'
                 ));
-            case 'TYPO3_REQUESTTYPE_CLI':
-            case 'TYPO3_REQUESTTYPE':
-                return $this->createStaticCall(Environment::class, 'isCli');
         }
+
         return null;
     }
 }
