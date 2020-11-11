@@ -1,4 +1,4 @@
-# All 91 Rectors Overview
+# All 92 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1419,6 +1419,22 @@ Substitute `$GLOBALS['TT']` method calls
 ```diff
 -$GLOBALS['TT']->setTSlogMessage('content');
 +GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage('content');
+```
+
+<br><br>
+
+## `TypeHandlingServiceToTypeHandlingUtilityRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector`](/src/Rector/v7/v0/TypeHandlingServiceToTypeHandlingUtilityRector.php)
+
+Use TypeHandlingUtility instead of TypeHandlingService
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+-use TYPO3\CMS\Extbase\Service\TypeHandlingService;
+-GeneralUtility::makeInstance(TypeHandlingService::class)->isSimpleType('string');
++use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
++TypeHandlingUtility::isSimpleType('string');
 ```
 
 <br><br>
