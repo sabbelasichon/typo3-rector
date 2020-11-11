@@ -94,22 +94,22 @@ final class TypoScriptFrontendController
     /**
      * @var int
      */
-    protected $sys_language_uid = 0;
+    public $sys_language_uid = 0;
 
     /**
      * @var string
      */
-    protected $sys_language_mode = '';
+    public $sys_language_mode = '';
 
     /**
      * @var int
      */
-    protected $sys_language_content = 0;
+    public $sys_language_content = 0;
 
     /**
      * @var int
      */
-    protected $sys_language_contentOL = 0;
+    public $sys_language_contentOL = 0;
 
     public function initTemplate(): void
     {

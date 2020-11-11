@@ -12,6 +12,7 @@ use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\UseLanguageAspectForTsfeLanguagePropertiesRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Saltedpasswords\Salt\Argon2iSalt;
 
@@ -56,4 +57,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(UseContextApiForVersioningWorkspaceIdRector::class);
     $services->set(DocumentTemplateAddStyleSheetRector::class);
+    $services->set(UseLanguageAspectForTsfeLanguagePropertiesRector::class);
 };

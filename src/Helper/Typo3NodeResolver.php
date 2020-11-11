@@ -6,15 +6,19 @@ namespace Ssch\TYPO3Rector\Helper;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector\NameResolverTrait;
+use Rector\Core\Rector\AbstractRector\NodeTypeResolverTrait;
 use Rector\Core\Rector\AbstractRector\ValueResolverTrait;
 
 final class Typo3NodeResolver
 {
     use NameResolverTrait;
     use ValueResolverTrait;
+    use NodeTypeResolverTrait;
 
     /**
      * @var string
@@ -109,6 +113,16 @@ final class Typo3NodeResolver
         return $this->isValue($node->dim, $global);
     }
 
+    public function isPropertyFetchOnParentVariableOfTypeTypoScriptFrontendController(Node $node): bool
+    {
+        return $this->isPropertyFetchOnParentVariableOfType($node, 'TypoScriptFrontendController');
+    }
+
+    public function isPropertyFetchOnParentVariableOfTypePageRepository(Node $node): bool
+    {
+        return $this->isPropertyFetchOnParentVariableOfType($node, 'PageRepository');
+    }
+
     public function isPropertyFetchOnAnyPropertyOfGlobals(Node $node, string $global): bool
     {
         if (! $node instanceof PropertyFetch) {
@@ -157,5 +171,26 @@ final class Typo3NodeResolver
         }
 
         return $this->isValue($node->var->var->dim, $global);
+    }
+
+    private function isPropertyFetchOnParentVariableOfType(Node $node, string $type): bool
+    {
+        $parentNode = $node->getAttribute('parent');
+
+        if (! $parentNode instanceof Assign) {
+            return false;
+        }
+
+        if (! $parentNode->expr instanceof PropertyFetch) {
+            return false;
+        }
+
+        $objectType = $this->getObjectType($parentNode->expr->var);
+
+        if (! $objectType instanceof ObjectType) {
+            return false;
+        }
+
+        return $type === $objectType->getClassName();
     }
 }

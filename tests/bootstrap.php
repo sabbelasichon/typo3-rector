@@ -21,7 +21,11 @@ gc_disable();
 $stubLoader = new StubLoader();
 $stubLoader->loadStubs();
 
-$GLOBALS['TSFE'] = new TypoScriptFrontendController();
+/** @var TypoScriptFrontendController $typoScriptFrontendController */
+$typoScriptFrontendController = new TypoScriptFrontendController();
+/** @var TypoScriptFrontendController $GLOBALS['TSFE'] */
+$GLOBALS['TSFE'] = $typoScriptFrontendController;
+
 $GLOBALS['TT'] = new TimeTracker();
 $GLOBALS['TYPO3_LOADED_EXT'] = [];
 $GLOBALS['LANG'] = GeneralUtility::makeInstance(LanguageService::class);
