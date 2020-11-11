@@ -1,4 +1,4 @@
-# All 90 Rectors Overview
+# All 91 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1558,6 +1558,21 @@ Rewirte Method Calls of GeneralUtility::getUrl("somefile.csv") to @file_get_cont
  $externalUrl = 'https://domain.com';
 -GeneralUtility::getUrl($externalUrl);
 +GeneralUtility::makeInstance(RequestFactory::class)->request($externalUrl)->getBody()->getContents();
+```
+
+<br><br>
+
+## `UseLanguageAspectForTsfeLanguagePropertiesRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseLanguageAspectForTsfeLanguagePropertiesRector`](/src/Rector/v9/v4/UseLanguageAspectForTsfeLanguagePropertiesRector.php)
+
+Use LanguageAspect instead of language properties of TSFE
+
+```diff
+-$languageUid = $GLOBALS['TSFE']->sys_language_uid;
++use TYPO3\CMS\Core\Context\Context;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++$languageUid = GeneralUtility::makeInstance(Context::class)->getAspect('language')->getId();
 ```
 
 <br><br>
