@@ -1,4 +1,4 @@
-# All 92 Rectors Overview
+# All 93 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1724,6 +1724,19 @@ Turns properties with `@validate` to properties with `@TYPO3\CMS\Extbase\Annotat
 + * @TYPO3\CMS\Extbase\Annotation\Validate("StringLength", options={"minimum": 3, "maximum": 50})
   */
  private $someProperty;
+```
+
+<br><br>
+
+## `WrapClickMenuOnIconRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector`](/src/Rector/v7/v6/WrapClickMenuOnIconRector.php)
+
+Use method wrapClickMenuOnIcon of class BackendUtility
+
+```diff
+-DocumentTemplate->wrapClickMenuOnIcon
++BackendUtility::wrapClickMenuOnIcon()
 ```
 
 <br><br>
