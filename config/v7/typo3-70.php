@@ -8,6 +8,7 @@ use Rector\Renaming\ValueObject\RenameStaticMethod;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallConnectDbRector;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallLoadTcaRector;
+use Ssch\TYPO3Rector\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Backend\Template\BigDocumentTemplate;
 use TYPO3\CMS\Backend\Template\DocumentTemplate;
@@ -45,4 +46,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     ),
             ]),
         ]]);
+
+    $services->set(TypeHandlingServiceToTypeHandlingUtilityRector::class);
 };

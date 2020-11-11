@@ -14,4 +14,24 @@ final class TypeHandlingUtility
     {
         return 'foo';
     }
+
+    public static function normalizeType($type): void
+    {
+
+    }
+
+    public static function isLiteral($type): void
+    {
+
+    }
+
+    public static function isSimpleType($type): void
+    {
+
+    }
+
+    public static function parseType($type): void
+    {
+
+    }
 }
