@@ -91,6 +91,26 @@ final class TypoScriptFrontendController
      */
     public $csConvObj;
 
+    /**
+     * @var int
+     */
+    public $sys_language_uid = 0;
+
+    /**
+     * @var string
+     */
+    public $sys_language_mode = '';
+
+    /**
+     * @var int
+     */
+    public $sys_language_content = 0;
+
+    /**
+     * @var int
+     */
+    public $sys_language_contentOL = 0;
+
     public function initTemplate(): void
     {
     }
