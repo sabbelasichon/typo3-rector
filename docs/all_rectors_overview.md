@@ -1,4 +1,4 @@
-# All 93 Rectors Overview
+# All 94 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -253,6 +253,22 @@ Turns defined constant to static method call of new Environment API.
 ```diff
 -PATH_thisScript;
 +Environment::getCurrentScript();
+```
+
+<br><br>
+
+## `ContentObjectRendererFileResourceRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v5\ContentObjectRendererFileResourceRector`](/src/Rector/v8/v5/ContentObjectRendererFileResourceRector.php)
+
+Migrate fileResource method of class ContentObjectRenderer
+
+```diff
+-$template = $this->cObj->fileResource('EXT:vendor/Resources/Private/Templates/Template.html');
++$path = $GLOBALS['TSFE']->tmpl->getFileName('EXT:vendor/Resources/Private/Templates/Template.html');
++if ($path !== null && file_exists($path)) {
++    $template = file_get_contents($path);
++}
 ```
 
 <br><br>
