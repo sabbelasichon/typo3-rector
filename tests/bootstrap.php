@@ -75,3 +75,14 @@ define('TYPO3_URL_LICENSE', 'https://typo3.org/typo3-cms/overview/licenses/');
 define('TYPO3_URL_EXCEPTION', 'https://typo3.org/go/exception/CMS/');
 define('TYPO3_URL_DONATE', 'https://typo3.org/community/contribute/donate/');
 define('TYPO3_URL_WIKI_OPCODECACHE', 'https://wiki.typo3.orgOpcode_Cache/');
+
+define('TYPO3_REQUESTTYPE_FE', 1);
+define('TYPO3_REQUESTTYPE_BE', 2);
+define('TYPO3_REQUESTTYPE_CLI', 4);
+define('TYPO3_REQUESTTYPE_AJAX', 8);
+define('TYPO3_REQUESTTYPE_INSTALL', 16);
+define('PATH_thisScript', 'foo');
+define('TYPO3_OS', 'foo');
+define('PATH_typo3conf', 'foo');
+define('PATH_typo3', 'foo');
+define('TYPO3_REQUESTTYPE', 'foo');
