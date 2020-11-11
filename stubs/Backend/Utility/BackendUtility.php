@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Backend\Utility;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 if (class_exists(BackendUtility::class)) {
     return;
 }
@@ -43,5 +41,10 @@ final class BackendUtility
     public static function getViewDomain($pageId, $rootLine = null): string
     {
         return 'foo';
+    }
+
+    public static function wrapClickMenuOnIcon($content, $table, $uid, $listFr, $addParams, $enDisItems, $returnTagParameters): void
+    {
+
     }
 }

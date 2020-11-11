@@ -23,6 +23,10 @@ final class DocumentTemplate
 
     public function addStyleSheet($key, $href, $title = '', $relation = 'stylesheet'): void
     {
-        // $this->pageRenderer->addCssFile($href, $relation, 'screen', $title);
+    }
+
+    public function wrapClickMenuOnIcon($content, $table, $uid = 0, $listFr = true, $addParams = '', $enDisItems = '', $returnTagParameters = false): void
+    {
+
     }
 }
