@@ -7,4 +7,5 @@
 <?php
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Backend\Shortcut\ShortcutRepository::class)->shortcutExists('http://example.com');
+use TYPO3\CMS\Backend\Backend\Shortcut\ShortcutRepository;
+GeneralUtility::makeInstance(ShortcutRepository::class)->shortcutExists('http://example.com');
