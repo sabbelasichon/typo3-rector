@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Renaming\Rector\Name\RenameClassRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\BackendUtilityShortcutExistsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\ConstantToEnvironmentCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\DocumentTemplateAddStyleSheetRector;
@@ -58,4 +59,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseContextApiForVersioningWorkspaceIdRector::class);
     $services->set(DocumentTemplateAddStyleSheetRector::class);
     $services->set(UseLanguageAspectForTsfeLanguagePropertiesRector::class);
+    $services->set(BackendUtilityShortcutExistsRector::class);
 };

@@ -47,4 +47,9 @@ final class BackendUtility
     {
 
     }
+
+    public static function shortcutExists(string $url): bool
+    {
+        return true;
+    }
 }
