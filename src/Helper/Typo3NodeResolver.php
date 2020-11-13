@@ -48,6 +48,11 @@ final class Typo3NodeResolver
     /**
      * @var string
      */
+    public const BACKEND_USER = 'BE_USER';
+
+    /**
+     * @var string
+     */
     private const GLOBALS = 'GLOBALS';
 
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool

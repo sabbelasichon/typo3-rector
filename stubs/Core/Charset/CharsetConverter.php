@@ -15,35 +15,27 @@ final class CharsetConverter
         return 'foo';
     }
 
-    public function strlen($charset, $string)
+    public function strlen($charset, $string): void
     {
-        return mb_strlen($string, $charset);
     }
 
-    public function convCapitalize($charset, $string)
+    public function convCapitalize($charset, $string): void
     {
-        return mb_convert_case($string, MB_CASE_TITLE, $charset);
     }
 
-    public function substr($charset, $string, $start, $len = null)
+    public function substr($charset, $string, $start, $len = null): void
     {
-        return mb_substr($string, $start, $len, $charset);
     }
 
-    public function conv_case($charset, $string, $case)
+    public function conv_case($charset, $string, $case): void
     {
-        return $case === 'toLower'
-            ? mb_strtolower($string, $charset)
-            : mb_strtoupper($string, $charset);
     }
 
-    public function utf8_strpos($haystack, $needle, $offset = 0)
+    public function utf8_strpos($haystack, $needle, $offset = 0): void
     {
-        return mb_strpos($haystack, $needle, $offset, 'utf-8');
     }
 
-    public function utf8_strrpos($haystack, $needle)
+    public function utf8_strrpos($haystack, $needle): void
     {
-        return mb_strrpos($haystack, $needle, 'utf-8');
     }
 }
