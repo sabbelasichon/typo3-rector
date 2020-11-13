@@ -1,4 +1,4 @@
-# All 97 Rectors Overview
+# All 98 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1690,6 +1690,19 @@ Use `$fileObject->getMetaData()->get()` instead of `$fileObject->_getMetaData()`
  $fileObject = new File();
 -$fileObject->_getMetaData();
 +$fileObject->getMetaData()->get();
+```
+
+<br><br>
+
+## `UseMethodGetPageShortcutDirectlyFromSysPageRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v3\UseMethodGetPageShortcutDirectlyFromSysPageRector`](/src/Rector/v9/v3/UseMethodGetPageShortcutDirectlyFromSysPageRector.php)
+
+Use method getPageShortcut directly from PageRepository
+
+```diff
+-$GLOBALS['TSFE']->getPageShortcut('shortcut', 1, 1);
++$GLOBALS['TSFE']->sys_page->getPageShortcut('shortcut', 1, 1);
 ```
 
 <br><br>
