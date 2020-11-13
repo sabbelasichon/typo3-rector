@@ -52,4 +52,9 @@ final class BackendUtility
     {
         return true;
     }
+
+    public static function getPidForModTSconfig($table, $uid, $pid): int
+    {
+        return 1;
+    }
 }
