@@ -1,4 +1,4 @@
-# All 95 Rectors Overview
+# All 96 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -184,6 +184,22 @@ Turns method call names to new ones.
 +$someObject->getLayoutRootPaths();
 +$someObject->setPartialRootPaths();
 +$someObject->getPartialRootPaths();
+```
+
+<br><br>
+
+## `CharsetConverterToMultiByteFunctionsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v5\CharsetConverterToMultiByteFunctionsRector`](/src/Rector/v8/v5/CharsetConverterToMultiByteFunctionsRector.php)
+
+Move from CharsetConverter methods to mb_string functions
+
+```diff
+-        use TYPO3\CMS\Core\Charset\CharsetConverter;
+-        use TYPO3\CMS\Core\Utility\GeneralUtility;
+-        $charsetConverter = GeneralUtility::makeInstance(CharsetConverter::class);
+-        $charsetConverter->strlen('utf-8', 'string');
++mb_strlen('string', 'utf-8');
 ```
 
 <br><br>
