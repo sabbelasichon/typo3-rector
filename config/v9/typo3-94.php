@@ -9,6 +9,7 @@ use Ssch\TYPO3Rector\Rector\v9\v4\DocumentTemplateAddStyleSheetRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodGraphicalFunctionsRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodTemplateServiceRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector;
@@ -50,4 +51,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseGetMenuInsteadOfGetFirstWebPageRector::class);
 
     $services->set(RemoveInitMethodGraphicalFunctionsRector::class);
+
+    $services->set(RemoveInitMethodTemplateServiceRector::class);
 };

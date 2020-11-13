@@ -19,4 +19,9 @@ class TemplateService
     {
 
     }
+
+    public static function init(): void
+    {
+
+    }
 }
