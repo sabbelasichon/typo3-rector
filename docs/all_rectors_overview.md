@@ -1,4 +1,4 @@
-# All 96 Rectors Overview
+# All 97 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -642,6 +642,21 @@ Use `GeneralUtility::getFileAbsFileName()` instead of `GraphicalFunctions->prepe
 -        $this->graphicalFunctions->prependAbsolutePath('some.font');
 +        GeneralUtility::getFileAbsFileName('some.font');
      }
+ }
+```
+
+<br><br>
+
+## `PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v3\PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector`](/src/Rector/v9/v3/PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector.php)
+
+Use method getTSConfig instead of property userTS
+
+```diff
+-if(is_array($GLOBALS['BE_USER']->userTS['tx_news.']) && $GLOBALS['BE_USER']->userTS['tx_news.']['singleCategoryAcl'] === '1') {
++if(is_array($GLOBALS['BE_USER']->getTSConfig()['tx_news.']) && $GLOBALS['BE_USER']->getTSConfig()['tx_news.']['singleCategoryAcl'] === '1') {
+     return true;
  }
 ```
 
