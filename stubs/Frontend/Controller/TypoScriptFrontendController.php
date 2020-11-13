@@ -150,4 +150,9 @@ final class TypoScriptFrontendController
     {
         return new PageRenderer();
     }
+
+    public function getPageShortcut($SC, $mode, $thisUid, $itera = 20, $pageLog = [], $disableGroupCheck = false): array
+    {
+        return [];
+    }
 }
