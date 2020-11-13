@@ -19,4 +19,9 @@ final class GraphicalFunctions
     {
         return 'foo';
     }
+
+    public function init(): void
+    {
+
+    }
 }
