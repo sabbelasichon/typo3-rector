@@ -1,4 +1,4 @@
-# All 99 Rectors Overview
+# All 100 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1768,6 +1768,30 @@ Get controllerContext from renderingContext
 +        $controllerContext = $this->renderingContext->getControllerContext();
      }
  }
+```
+
+<br><br>
+
+## `UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector`](/src/Rector/v9/v4/UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector.php)
+
+Use the signal tablesDefinitionIsBeingBuilt of class SqlExpectedSchemaService
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+-use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
++use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
+ $signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
+-$signalSlotDispatcher->connect(
+-        InstallUtility::class,
++    $signalSlotDispatcher->connect(
++        SqlExpectedSchemaService::class,
+         'tablesDefinitionIsBeingBuilt',
+         \stdClass::class,
+         'foo'
+     );
 ```
 
 <br><br>
