@@ -1,4 +1,4 @@
-# All 94 Rectors Overview
+# All 95 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -124,6 +124,19 @@ Refactor method call `BackendUtility::getViewDomain()` to PageRouter
 +use TYPO3\CMS\Core\Utility\GeneralUtility;
 +$site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId(1);
 +$domain1 = $site->getRouter()->generateUri(1);
+```
+
+<br><br>
+
+## `BackendUtilityShortcutExistsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\BackendUtilityShortcutExistsRector`](/src/Rector/v9/v4/BackendUtilityShortcutExistsRector.php)
+
+shortcutExists Static call replaced by method call of ShortcutRepository
+
+```diff
+-TYPO3\CMS\Backend\Utility\BackendUtility::shortcutExists($url);
++GeneralUtility::makeInstance(ShortcutRepository::class)->shortcutExists($url);
 ```
 
 <br><br>
