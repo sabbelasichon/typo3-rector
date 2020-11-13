@@ -1,4 +1,4 @@
-# All 101 Rectors Overview
+# All 103 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -986,6 +986,38 @@ Remove method call init from PageRepository
 -$repository = GeneralUtility::makeInstance(PageRepository::class);
 -$repository->init(true);
 +$repository = GeneralUtility::makeInstance(PageRepository::class);
+```
+
+<br><br>
+
+## `RemoveInitMethodGraphicalFunctionsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodGraphicalFunctionsRector`](/src/Rector/v9/v4/RemoveInitMethodGraphicalFunctionsRector.php)
+
+Remove method call init of class GraphicalFunctions
+
+```diff
+ use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-$graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
+-$graphicalFunctions->init();
++$graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
+```
+
+<br><br>
+
+## `RemoveInitMethodTemplateServiceRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodTemplateServiceRector`](/src/Rector/v9/v4/RemoveInitMethodTemplateServiceRector.php)
+
+Remove method call init of class TemplateService
+
+```diff
+ use TYPO3\CMS\Core\TypoScript\TemplateService;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-$templateService = GeneralUtility::makeInstance(TemplateService::class);
+-$templateService->init();
++$templateService = GeneralUtility::makeInstance(TemplateService::class);
 ```
 
 <br><br>
