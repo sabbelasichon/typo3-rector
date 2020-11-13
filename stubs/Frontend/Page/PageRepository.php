@@ -28,4 +28,14 @@ final class PageRepository
     {
         return [];
     }
+
+    public function getFirstWebPage($uid): array
+    {
+        return [];
+    }
+
+    public function getMenu($pageId, $fields = '*', $sortField = 'sorting', $additionalWhereClause = '', $checkShortcuts = true): array
+    {
+        return [];
+    }
 }
