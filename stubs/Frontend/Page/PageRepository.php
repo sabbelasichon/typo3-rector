@@ -23,4 +23,9 @@ final class PageRepository
     {
         return 'foo';
     }
+
+    public function getPageShortcut($SC, $mode, $thisUid, int $itera, array $pageLog, bool $disableGroupCheck): array
+    {
+        return [];
+    }
 }
