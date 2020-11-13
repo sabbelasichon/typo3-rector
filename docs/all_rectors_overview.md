@@ -1,4 +1,4 @@
-# All 100 Rectors Overview
+# All 101 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1652,6 +1652,22 @@ Rewirte Method Calls of GeneralUtility::getUrl("somefile.csv") to @file_get_cont
  $externalUrl = 'https://domain.com';
 -GeneralUtility::getUrl($externalUrl);
 +GeneralUtility::makeInstance(RequestFactory::class)->request($externalUrl)->getBody()->getContents();
+```
+
+<br><br>
+
+## `UseGetMenuInsteadOfGetFirstWebPageRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseGetMenuInsteadOfGetFirstWebPageRector`](/src/Rector/v9/v4/UseGetMenuInsteadOfGetFirstWebPageRector.php)
+
+Use method getMenu instead of getFirstWebPage
+
+```diff
+-$theFirstPage = $GLOBALS['TSFE']->sys_page->getFirstWebPage(0);
++$rootLevelPages = $GLOBALS['TSFE']->sys_page->getMenu(0, 'uid', 'sorting', '', false);
++if (!empty($rootLevelPages)) {
++    $theFirstPage = reset($rootLevelPages);
++}
 ```
 
 <br><br>
