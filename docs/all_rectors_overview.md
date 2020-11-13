@@ -1,4 +1,4 @@
-# All 98 Rectors Overview
+# All 99 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -298,6 +298,24 @@ Migrate fileResource method of class ContentObjectRenderer
 +if ($path !== null && file_exists($path)) {
 +    $template = file_get_contents($path);
 +}
+```
+
+<br><br>
+
+## `CopyMethodGetPidForModTSconfigRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v3\CopyMethodGetPidForModTSconfigRector`](/src/Rector/v9/v3/CopyMethodGetPidForModTSconfigRector.php)
+
+`Copy` method getPidForModTSconfig of class BackendUtility over
+
+```diff
+-use TYPO3\CMS\Backend\Utility\BackendUtility;BackendUtility::getPidForModTSconfig('pages', 1, 2);
++use TYPO3\CMS\Core\Utility\MathUtility;
++
++$table = 'pages';
++$uid = 1;
++$pid = 2;
++$table === 'pages' && MathUtility::canBeInterpretedAsInteger($uid) ? $uid : $pid;
 ```
 
 <br><br>
