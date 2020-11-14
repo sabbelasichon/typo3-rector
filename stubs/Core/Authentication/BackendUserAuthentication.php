@@ -23,4 +23,9 @@ final class BackendUserAuthentication
     {
         return [];
     }
+
+    public function simplelog($message, $extKey = '', $error = 0)
+    {
+        return 1;
+    }
 }
