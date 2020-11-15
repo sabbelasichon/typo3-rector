@@ -47,7 +47,7 @@
         "analyze": "vendor/bin/phpstan analyse --memory-limit=-1 --ansi --error-format symplify",
         "test": "vendor/bin/phpunit",
         "docs": "vendor/bin/rector dump-rectors src/Rector --output-file docs/all_rectors_overview.md --ansi",
-        "rector": "vendor/bin/rector rectify --dry-run --ansi",
+        "rector": "vendor/bin/rector rectify --dry-run --ansi --match-git-diff",
         "fix-rector": "vendor/bin/rector rectify --ansi"
     },
     "scripts-descriptions": {
