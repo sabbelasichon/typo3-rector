@@ -16,17 +16,17 @@
                 "conditions": []
             },
             {
-                "action": "vendor/bin/ecs check --ansi",
+                "action": "composer run check-style",
                 "options": [],
                 "conditions": []
             },
             {
-                "action": "vendor/bin/rector rectify --dry-run --ansi",
+                "action": "composer run rector",
                 "options": [],
                 "conditions": []
             },
             {
-                "action": "vendor/bin/phpstan analyse --memory-limit=-1 --ansi --error-format symplify",
+                "action": "composer run analyze",
                 "options": [],
                 "conditions": []
             }
