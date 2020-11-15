@@ -23,6 +23,7 @@ use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
@@ -88,4 +89,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RandomMethodsToRandomClassRector::class);
     $services->set(RequireMethodsToNativeFunctionsRector::class);
     $services->set(GetPreferredClientLanguageRector::class);
+
+    $services->set(RenameMethodRector::class)
+        ->call('configure', [[
+            RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
+                new MethodCallRename(
+                   RenderingContext::class,
+                   'getTemplateVariableContainer',
+                   'getVariableProvider'
+                    ),
+            ]),
+        ]]);
 };
