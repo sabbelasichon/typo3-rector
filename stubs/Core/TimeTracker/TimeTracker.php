@@ -10,6 +10,11 @@ if (class_exists(TimeTracker::class)) {
 
 final class TimeTracker
 {
+    public function __construct($isEnabled = true)
+    {
+
+    }
+
     public function setTSlogMessage($content, $num = 0): void
     {
     }
