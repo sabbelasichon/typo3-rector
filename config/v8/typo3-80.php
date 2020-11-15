@@ -20,6 +20,7 @@ use Ssch\TYPO3Rector\Rector\v8\v0\RemoveWakeupCallFromEntityRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RequireMethodsToNativeFunctionsRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RteHtmlParserRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector;
+use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTrackerRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
@@ -100,4 +101,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     ),
             ]),
         ]]);
+    $services->set(TimeTrackerInsteadOfNullTimeTrackerRector::class);
 };

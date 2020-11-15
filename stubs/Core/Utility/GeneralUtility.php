@@ -17,9 +17,9 @@ class GeneralUtility
     /**
      * @return object
      */
-    public static function makeInstance(string $class)
+    public static function makeInstance(string $class, ...$constructorArguments)
     {
-        return new $class();
+        return new $class(...$constructorArguments);
     }
 
     public static function getUserObj(string $class): void
