@@ -8,6 +8,7 @@ use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\v8\v0\ChangeMethodCallsForStandaloneViewRector;
+use Ssch\TYPO3Rector\Rector\v8\v0\DeprecatedNullTimeTrackerRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\GetPreferredClientLanguageRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\PrependAbsolutePathToGetFileAbsFileNameRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RandomMethodsToRandomClassRector;
@@ -88,4 +89,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RandomMethodsToRandomClassRector::class);
     $services->set(RequireMethodsToNativeFunctionsRector::class);
     $services->set(GetPreferredClientLanguageRector::class);
+    $services->set(DeprecatedNullTimeTrackerRector::class);
 };
