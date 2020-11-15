@@ -113,7 +113,7 @@ PHP
             return null;
         }
 
-        if (! $this->isMakeInstanceCall($node) && ! $this->isObjectMangerCall($node)) {
+        if (! $this->isMakeInstanceCall($node) && ! $this->isObjectManagerCall($node)) {
             return null;
         }
 
@@ -139,7 +139,7 @@ PHP
         return $this->isName($node->name, 'makeInstance');
     }
 
-    private function isObjectMangerCall(Node $node): bool
+    private function isObjectManagerCall(Node $node): bool
     {
         if (! $node instanceof MethodCall) {
             return false;
