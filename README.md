@@ -209,6 +209,7 @@ So create your own configuration file called rector.php in the root of your proj
 
 use Rector\Core\Configuration\Option;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
@@ -218,7 +219,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]
     );
 
-    // FQN classes are not imported by default. If you don't to do do it manually after every Rector run, enable it by:
+    // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
 
     // this will not import root namespace classes, like \DateTime or \Exception
