@@ -1,4 +1,4 @@
-# All 103 Rectors Overview
+# All 104 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -53,6 +53,20 @@ Method inArray from ArrayUtility to `in_array`
 ```diff
 -ArrayUtility::inArray()
 +in_array
+```
+
+<br><br>
+
+## `BackendUserAuthenticationSimplelogRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v3\BackendUserAuthenticationSimplelogRector`](/src/Rector/v9/v3/BackendUserAuthenticationSimplelogRector.php)
+
+Migrate the method `BackendUserAuthentication->simplelog()` to `BackendUserAuthentication->writelog()`
+
+```diff
+ $someObject = GeneralUtility::makeInstance(TYPO3\CMS\Core\Authentication\BackendUserAuthentication::class);
+-$someObject->simplelog($message, $extKey, $error);
++$someObject->writelog(4, 0, $error, 0, ($extKey ? '[' . $extKey . '] ' : '') . $message, []);
 ```
 
 <br><br>
