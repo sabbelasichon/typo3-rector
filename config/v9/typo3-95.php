@@ -6,6 +6,7 @@ use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\RefactorPropertiesOfTypoScriptFrontendControllerRector;
 
 use Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RemoveFlushCachesRector;
@@ -59,4 +60,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveInitMethodFromPageRepositoryRector::class);
 
     $services->set(RefactorProcessOutputRector::class);
+
+    $services->set(RefactorPropertiesOfTypoScriptFrontendControllerRector::class);
 };
