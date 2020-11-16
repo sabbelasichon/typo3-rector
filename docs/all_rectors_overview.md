@@ -1297,8 +1297,8 @@ Turns method call names to new ones from new Environment API.
 -Bootstrap::usesComposerClassLoading();
 -GeneralUtility::getApplicationContext();
 -EnvironmentService::isEnvironmentInCliMode();
-+Environment::getContext();
 +Environment::isComposerMode();
++Environment::getContext();
 +Environment::isCli();
 ```
 
