@@ -1,4 +1,4 @@
-# All 105 Rectors Overview
+# All 106 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1619,6 +1619,23 @@ Use ActionController class instead of AbstractController if used
 +class MyController extends ActionController
  {
  }
+```
+
+<br><br>
+
+## `UseAddJsFileInsteadOfLoadJavascriptLibRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseAddJsFileInsteadOfLoadJavascriptLibRector`](/src/Rector/v9/v4/UseAddJsFileInsteadOfLoadJavascriptLibRector.php)
+
+Use method addJsFile of class PageRenderer instead of method loadJavascriptLib of class ModuleTemplate
+
+```diff
+ use TYPO3\CMS\Backend\Template\ModuleTemplate;
++use TYPO3\CMS\Core\Page\PageRenderer;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ $moduleTemplate = GeneralUtility::makeInstance(ModuleTemplate::class);
+-$moduleTemplate->loadJavascriptLib('sysext/backend/Resources/Public/JavaScript/md5.js');
++GeneralUtility::makeInstance(PageRenderer::class)->addJsFile('sysext/backend/Resources/Public/JavaScript/md5.js');
 ```
 
 <br><br>
