@@ -12,6 +12,7 @@ use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodGraphicalFunctionsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodTemplateServiceRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\UseAddJsFileInsteadOfLoadJavascriptLibRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseGetMenuInsteadOfGetFirstWebPageRector;
@@ -53,4 +54,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveInitMethodGraphicalFunctionsRector::class);
 
     $services->set(RemoveInitMethodTemplateServiceRector::class);
+
+    $services->set(UseAddJsFileInsteadOfLoadJavascriptLibRector::class);
 };
