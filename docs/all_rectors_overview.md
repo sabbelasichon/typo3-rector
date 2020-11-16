@@ -1,4 +1,4 @@
-# All 107 Rectors Overview
+# All 108 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -818,6 +818,25 @@ Refactor deprecated methods from ExtensionManagementUtility.
 -$tsfe->processOutput();
 +$tsfe->applyHttpHeadersToResponse();
 +$tsfe->processContentForOutput();
+```
+
+<br><br>
+
+## `RefactorPropertiesOfTypoScriptFrontendControllerRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendControllerRector`](/src/Rector/v9/v5/RefactorPropertiesOfTypoScriptFrontendControllerRector.php)
+
+Refactor some properties of TypoScriptFrontendController
+
+```diff
+-$previewBeUserUid = $GLOBALS['TSFE']->ADMCMD_preview_BEUSER_uid;
+-$workspacePreview = $GLOBALS['TSFE']->workspacePreview;
+-$loginAllowedInBranch = $GLOBALS['TSFE']->loginAllowedInBranch;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Core\Context\Context;
++$previewBeUserUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('backend.user', 'id', 0);
++$workspacePreview = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id', 0);
++$loginAllowedInBranch = $GLOBALS['TSFE']->checkIfLoginAllowedInBranch();
 ```
 
 <br><br>
