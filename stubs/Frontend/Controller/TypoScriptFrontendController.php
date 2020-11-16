@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace TYPO3\CMS\Frontend\Controller;
 
 use TYPO3\CMS\Core\Charset\CharsetConverter;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -102,8 +103,28 @@ final class TypoScriptFrontendController
      */
     public $sys_language_contentOL = 0;
 
+    /**
+     * @var int
+     */
+    public $ADMCMD_preview_BEUSER_uid = 0;
+
+    /**
+     * @var int
+     */
+    public $workspacePreview = 0;
+
+    /**
+     * @var bool
+     */
+    public $loginAllowedInBranch = false;
+
     public function initTemplate(): void
     {
+    }
+
+    public function checkIfLoginAllowedInBranch(): bool
+    {
+        return false;
     }
 
     public function __construct()
