@@ -31,8 +31,8 @@ GeneralUtility::getApplicationContext();
 EnvironmentService::isEnvironmentInCliMode();
 PHP
 , <<<'PHP'
-Environment::getContext();
 Environment::isComposerMode();
+Environment::getContext();
 Environment::isCli();
 PHP
 ),

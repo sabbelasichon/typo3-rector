@@ -36,12 +36,13 @@ final class BackendUserAuthenticationSimplelogRector extends AbstractRector
         $extKey = $this->getValue($currentArgs[1]->value);
         $details = ($extKey ? '[' . $extKey . '] ' : '') . $message;
 
-        $args = [];
-        $args[] = $this->createArg(4);
-        $args[] = $this->createArg(0);
-        $args[] = $currentArgs[2] ?? 0;
-        $args[] = $this->createArg($details);
-        $args[] = $this->createArg([]);
+        $args = [
+            $this->createArg(4),
+            $this->createArg(0),
+            $currentArgs[2] ?? $this->createArg(0),
+            $this->createArg($details),
+            $this->createArg([]),
+        ];
 
         return $this->createMethodCall($node->var, 'writelog', $args);
     }
