@@ -1,4 +1,4 @@
-# All 106 Rectors Overview
+# All 107 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1865,6 +1865,21 @@ Get controllerContext from renderingContext
 +        $controllerContext = $this->renderingContext->getControllerContext();
      }
  }
+```
+
+<br><br>
+
+## `UseRootlineUtilityInsteadOfGetRootlineMethodRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseRootlineUtilityInsteadOfGetRootlineMethodRector`](/src/Rector/v9/v4/UseRootlineUtilityInsteadOfGetRootlineMethodRector.php)
+
+Use class RootlineUtility instead of method getRootLine
+
+```diff
+-$rootline = $GLOBALS['TSFE']->sys_page->getRootLine(1);
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Core\Utility\RootlineUtility;
++$rootline = GeneralUtility::makeInstance(RootlineUtility::class, 1)->get();
 ```
 
 <br><br>
