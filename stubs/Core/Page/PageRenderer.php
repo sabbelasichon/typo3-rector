@@ -60,4 +60,9 @@ final class PageRenderer
     {
 
     }
+
+    public function addJsFile($file, $type = 'text/javascript', $compress = true, $forceOnTop = false, $allWrap = '', $excludeFromConcatenation = false, $splitChar = '|', $async = false, $integrity = '', $defer = false, $crossorigin = ''): void
+    {
+
+    }
 }
