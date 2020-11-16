@@ -17,6 +17,7 @@ use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseGetMenuInsteadOfGetFirstWebPageRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseLanguageAspectForTsfeLanguagePropertiesRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\UseRootlineUtilityInsteadOfGetRootlineMethodRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -56,4 +57,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveInitMethodTemplateServiceRector::class);
 
     $services->set(UseAddJsFileInsteadOfLoadJavascriptLibRector::class);
+
+    $services->set(UseRootlineUtilityInsteadOfGetRootlineMethodRector::class);
 };

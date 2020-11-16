@@ -38,4 +38,9 @@ final class PageRepository
     {
         return [];
     }
+
+    public function getRootLine($uid, $MP = '', $ignoreMPerrors = null): array
+    {
+        return [];
+    }
 }
