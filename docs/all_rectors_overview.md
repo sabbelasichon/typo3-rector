@@ -1,4 +1,4 @@
-# All 104 Rectors Overview
+# All 105 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1543,6 +1543,24 @@ Substitute `$GLOBALS['TT']` method calls
 ```diff
 -$GLOBALS['TT']->setTSlogMessage('content');
 +GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage('content');
+```
+
+<br><br>
+
+## `TimeTrackerInsteadOfNullTimeTrackerRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTrackerRector`](/src/Rector/v8/v0/TimeTrackerInsteadOfNullTimeTrackerRector.php)
+
+Use class TimeTracker instead of NullTimeTracker
+
+```diff
+-use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
++use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-$timeTracker1 = new NullTimeTracker();
+-$timeTracker2 = GeneralUtility::makeInstance(NullTimeTracker::class);
++$timeTracker1 = new TimeTracker(false);
++$timeTracker2 = GeneralUtility::makeInstance(TimeTracker::class, false);
 ```
 
 <br><br>
