@@ -58,7 +58,17 @@ final class Typo3RectorKernel extends Kernel implements ExtraConfigAwareKernelIn
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load(__DIR__ . '/../../vendor/rector/rector/config/config.php');
+        $rectorConfigs = [
+            __DIR__ . '/../../vendor/rector/rector/config/config.php',
+            __DIR__ . '/../../../../rector/rector/config/config.php',
+        ];
+
+        foreach ($rectorConfigs as $rectorConfig) {
+            if (file_exists($rectorConfig)) {
+                $loader->load($rectorConfig);
+            }
+        }
+
         $loader->load(__DIR__ . '/../../config/services.php');
 
         foreach ($this->configs as $config) {
