@@ -52,7 +52,7 @@ final class Typo3RectorSetProvider extends AbstractSetProvider
                 return $foundSet;
             }
 
-            // sencond approach by set path
+            // second approach by set path
             foreach ($this->sets as $set) {
                 if (! file_exists($desiredSetName)) {
                     continue;

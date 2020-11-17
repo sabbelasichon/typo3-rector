@@ -22,7 +22,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Ssch\\TYPO3Rector\\": "src"
+            "Ssch\\TYPO3Rector\\": "src",
+            "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src"
         }
     },
     "bin": [
@@ -31,7 +32,6 @@
     "autoload-dev": {
         "psr-4": {
             "Ssch\\TYPO3Rector\\Tests\\": "tests",
-            "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src",
             "Ssch\\TYPO3Rector\\PHPStan\\Tests\\": "utils/phpstan/tests"
         },
         "exclude-from-classmap": ["**.php.inc"]

@@ -26,6 +26,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 __DIR__ . '/../src/Rector',
                 __DIR__ . '/../src/Set',
                 __DIR__ . '/../src/Bootstrap',
+                __DIR__ . '/../src/DependencyInjection',
+                __DIR__ . '/../src/HttpKernel',
                 __DIR__ . '/../src/Compiler',
             ]
         );
