@@ -1,24 +1,3 @@
-services:
-    -
-        class: Ssch\TYPO3Rector\PHPStan\Rules\AddSeeDocBlockForRectorClass
-        tags:
-            - phpstan.rules.rule
-
-    -
-        class: Ssch\TYPO3Rector\PHPStan\Rules\AddCodeCoverageIgnoreForRectorDefinition
-        tags:
-            - phpstan.rules.rule
-
-    -
-        class: Ssch\TYPO3Rector\PHPStan\Type\GeneralUtilityDynamicReturnTypeExtension
-        tags:
-            - phpstan.broker.dynamicStaticMethodReturnTypeExtension
-
-    -
-        class: Ssch\TYPO3Rector\PHPStan\Type\ObjectManagerDynamicReturnTypeExtension
-        tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
-    -
-        class: Ssch\TYPO3Rector\PHPStan\Type\ContextGetAspectDynamicReturnTypeExtension
-        tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+includes:
+    - rules.neon
+    - extension.neon
