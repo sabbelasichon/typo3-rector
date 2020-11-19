@@ -121,7 +121,7 @@ PHP
         $typoscriptFrontendControllerVariable = new Variable('typoscriptFrontendController');
         $typoscriptFrontendControllerNode = new Assign(
             $typoscriptFrontendControllerVariable,
-            new ArrayDimFetch(new Variable('GLOBALS'), new String_('TSFE'))
+            new ArrayDimFetch(new Variable('GLOBALS'), new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER))
         );
         $this->addNodeBeforeNode($typoscriptFrontendControllerNode, $node);
     }

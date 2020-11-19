@@ -12,6 +12,7 @@ use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodGraphicalFunctionsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodTemplateServiceRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\TemplateGetFileNameToFilePathSanitizerRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseAddJsFileInsteadOfLoadJavascriptLibRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector;
@@ -59,4 +60,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseAddJsFileInsteadOfLoadJavascriptLibRector::class);
 
     $services->set(UseRootlineUtilityInsteadOfGetRootlineMethodRector::class);
+
+    $services->set(TemplateGetFileNameToFilePathSanitizerRector::class);
 };
