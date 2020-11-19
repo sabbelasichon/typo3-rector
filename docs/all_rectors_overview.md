@@ -1,4 +1,4 @@
-# All 109 Rectors Overview
+# All 110 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1879,6 +1879,35 @@ Turns \TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native ph
 ```diff
 -\TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin("6578616d706c65206865782064617461");
 +hex2bin("6578616d706c65206865782064617461");
+```
+
+<br><br>
+
+## `UseNewComponentIdForPageTreeRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector`](/src/Rector/v9/v0/UseNewComponentIdForPageTreeRector.php)
+
+Use TYPO3/CMS/Backend/PageTree/PageTreeElement instead of typo3-pagetree
+
+```diff
+ \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+       'TYPO3.CMS.Workspaces',
+       'web',
+       'workspaces',
+       'before:info',
+       [
+           // An array holding the controller-action-combinations that are accessible
+           'Review' => 'index,fullIndex,singleIndex',
+           'Preview' => 'index,newPage'
+       ],
+       [
+           'access' => 'user,group',
+           'icon' => 'EXT:workspaces/Resources/Public/Icons/module-workspaces.svg',
+           'labels' => 'LLL:EXT:workspaces/Resources/Private/Language/locallang_mod.xlf',
+-          'navigationComponentId' => 'typo3-pagetree'
++          'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement'
+       ]
+   );
 ```
 
 <br><br>
