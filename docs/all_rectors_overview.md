@@ -1,4 +1,4 @@
-# All 108 Rectors Overview
+# All 109 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1536,6 +1536,35 @@ GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(Fi
 +$var16 = AbstractService::ERROR_FILE_NOT_WRITEABLE;
 +$var17 = AbstractService::ERROR_PROGRAM_NOT_FOUND;
 +$var18 = AbstractService::ERROR_PROGRAM_FAILED;
+```
+
+<br><br>
+
+## `TemplateGetFileNameToFilePathSanitizerRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\TemplateGetFileNameToFilePathSanitizerRector`](/src/Rector/v9/v4/TemplateGetFileNameToFilePathSanitizerRector.php)
+
+Use `FilePathSanitizer->sanitize()` instead of `TemplateService->getFileName()`
+
+```diff
+-$fileName = $GLOBALS['TSFE']->tmpl->getFileName('foo.text');
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
++use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
++use TYPO3\CMS\Core\Resource\Exception\InvalidPathException;
++use TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException;
++use TYPO3\CMS\Core\Resource\Exception\InvalidFileException;
++use TYPO3\CMS\Core\TimeTracker\TimeTracker;
++try {
++    $fileName = GeneralUtility::makeInstance(FilePathSanitizer::class)->sanitize((string) 'foo.text');
++} catch (InvalidFileNameException $e) {
++    $fileName = null;
++} catch (InvalidPathException|FileDoesNotExistException|InvalidFileException $e) {
++    $fileName = null;
++    if ($GLOBALS['TSFE']->tmpl->tt_track) {
++        GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage($e->getMessage(), 3);
++    }
++}
 ```
 
 <br><br>
