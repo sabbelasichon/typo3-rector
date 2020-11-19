@@ -11,6 +11,9 @@ final class LanguageService
 {
     public function init(string $language): void
     {
+    }
 
+    public function sL($label): void
+    {
     }
 }
