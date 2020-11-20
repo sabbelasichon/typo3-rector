@@ -81,7 +81,7 @@ PHP
     {
         $newHeaders = [];
         foreach ($requestHeaders as $requestHeader) {
-            $parts = preg_split('/:[ \t]*/', $requestHeader, 2, PREG_SPLIT_NO_EMPTY);
+            $parts = preg_split('#:[ \t]*#', $requestHeader, 2, PREG_SPLIT_NO_EMPTY);
             if (false === $parts) {
                 continue;
             }

@@ -39,6 +39,7 @@ $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = 'passw
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'] = 'host';
 $GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] = FileNameValidator::DEFAULT_FILE_DENY_PATTERN;
 
+define('TYPO3_MODE', 'BE');
 define('TYPO3_URL_MAILINGLISTS', 'http://lists.typo3.org/cgi-bin/mailman/listinfo');
 define('TYPO3_URL_DOCUMENTATION', 'https://typo3.org/documentation/');
 define('TYPO3_URL_DOCUMENTATION_TSREF', 'https://docs.typo3.org/typo3cms/TyposcriptReference/');

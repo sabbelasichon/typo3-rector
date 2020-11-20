@@ -10,6 +10,16 @@ if (class_exists(ExtensionUtility::class)) {
 
 final class ExtensionUtility
 {
+    /**
+     * @var string
+     */
+    public const PLUGIN_TYPE_PLUGIN = 'list_type';
+
+    /**
+     * @var string
+     */
+    public const PLUGIN_TYPE_CONTENT_ELEMENT = 'CType';
+
     public static function registerPlugin($extensionName, $pluginName, $pluginTitle, $pluginIcon = null): void
     {
     }
@@ -20,6 +30,10 @@ final class ExtensionUtility
     }
 
     public static function registerModule($extensionName, $mainModuleName = '', $subModuleName = '', $position = '', array $controllerActions = [], array $moduleConfiguration = []): void
+    {
+    }
+
+    public static function configurePlugin($extensionName, $pluginName, array $controllerActions, array $nonCacheableControllerActions = [], $pluginType = self::PLUGIN_TYPE_PLUGIN): void
     {
     }
 }
