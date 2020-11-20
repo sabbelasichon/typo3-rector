@@ -45,26 +45,65 @@ PHP
      */
     public function refactor(Node $node): ?Node
     {
-        if (!$this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
             return null;
         }
-        if (!$this->isName($node->name, 'getUrl')) {
+        if (! $this->isName($node->name, 'getUrl')) {
             return null;
         }
 
-        $args = $node->args;
-        if (isset($args[2])) {
-            $newHeaders = [];
-            $oldHeaders = $this->getValue($args[2]->value);
-            foreach ($oldHeaders as $header) {
-                $singleHeader = explode(':', $header);
-                $newHeaders[trim($singleHeader[0])] = trim($singleHeader[1]);
+        if (! isset($node->args[2])) {
+            return null;
+        }
+
+        $requestHeadersArgumentValue = $node->args[2]->value;
+
+        $requestHeaders = $this->getValue($requestHeadersArgumentValue);
+
+        if (! is_array($requestHeaders)) {
+            return null;
+        }
+
+        $newHeaders = $this->buildHeaders($requestHeaders);
+
+        if ([] === $newHeaders) {
+            return null;
+        }
+
+        $newHeadersNode = $this->createArray($newHeaders);
+
+        $node->args[2]->value = $newHeadersNode;
+
+        return null;
+    }
+
+    private function buildHeaders(array $requestHeaders): array
+    {
+        $newHeaders = [];
+        foreach ($requestHeaders as $requestHeader) {
+            $parts = preg_split('/:[ \t]*/', $requestHeader, 2, PREG_SPLIT_NO_EMPTY);
+            if (false === $parts) {
+                continue;
             }
-            // Replace headers argument
-            unset($args[2]);
-            $args[2] = $this->createArg($newHeaders);
 
+            if (2 !== count($parts)) {
+                continue;
+            }
+            $key = &$parts[0];
+            $value = &$parts[1];
+
+            if (array_key_exists($key, $newHeaders)) {
+                if (is_array($newHeaders[$key])) {
+                    $newHeaders[$key][] = $value;
+                } else {
+                    $prevValue = &$newHeaders[$key];
+                    $newHeaders[$key] = [$prevValue, $value];
+                }
+            } else {
+                $newHeaders[$key] = $value;
+            }
         }
-        return $this->createStaticCall(GeneralUtility::class, 'getUrl', $args);
+
+        return $newHeaders;
     }
 }

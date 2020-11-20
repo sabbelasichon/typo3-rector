@@ -8,6 +8,7 @@ GeneralUtility::getUrl('https://typo3.org');
 
 $headers = ['Content-Language: de-DE', 'Pragma: no-cache'];
 GeneralUtility::getUrl('https://typo3.org', 0, $headers);
+GeneralUtility::getUrl('https://typo3.org', 0, ['Content-Language' => 'de-DE', 'Pragma' => 'no-cache']);
 
 ?>
 -----
@@ -19,7 +20,8 @@ GeneralUtility::getUrl('https://typo3.org', 1, ['Content-Language' => 'de-DE']);
 GeneralUtility::getUrl('https://typo3.org', 1, ['Content-Language' => 'de-DE', 'Pragma' => 'no-cache']);
 GeneralUtility::getUrl('https://typo3.org');
 
-$headers = ['Content-Language' => 'de-DE', 'Pragma' => 'no-cache'];
-GeneralUtility::getUrl('https://typo3.org', 0, $headers);
+$headers = ['Content-Language: de-DE', 'Pragma: no-cache'];
+GeneralUtility::getUrl('https://typo3.org', 0, ['Content-Language' => 'de-DE', 'Pragma' => 'no-cache']);
+GeneralUtility::getUrl('https://typo3.org', 0, ['Content-Language' => 'de-DE', 'Pragma' => 'no-cache']);
 
 ?>
