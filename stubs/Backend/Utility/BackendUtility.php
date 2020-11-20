@@ -57,4 +57,13 @@ final class BackendUtility
     {
         return 1;
     }
+
+    public static function getPagesTSconfig($id, $rootLine = null, $returnPartArray = false): void
+    {
+    }
+
+    public static function getRawPagesTSconfig($id, array $rootLine = null): void
+    {
+
+    }
 }

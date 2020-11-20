@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\Rector\v9\v0\IgnoreValidationAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\RefactorBackendUtilityGetPagesTSconfigRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorDeprecationLogRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveMethodInitTCARector;
@@ -91,4 +92,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
              );
 
     $services->set(UseNewComponentIdForPageTreeRector::class);
+
+    $services->set(RefactorBackendUtilityGetPagesTSconfigRector::class);
 };
