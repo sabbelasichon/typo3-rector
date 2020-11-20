@@ -122,12 +122,12 @@ class GeneralUtility
 
     }
 
-    public static function generateRandomBytes(): string
+    public static function generateRandomBytes($bytesToReturn): string
     {
         return 'bytes';
     }
 
-    public static function getRandomHexString(): string
+    public static function getRandomHexString($count): string
     {
         return 'hex';
     }
