@@ -1,13 +1,21 @@
+parameters:
+    inferPrivatePropertyTypeFromConstructor: true
 services:
     -
+        class: Rector\NodeTypeResolver\PHPStan\TypeExtension\StaticContainerGetDynamicMethodReturnTypeExtension
+        tags: [phpstan.broker.dynamicMethodReturnTypeExtension]
+    -
+        class: Rector\NodeTypeResolver\PHPStan\TypeExtension\KernelGetContainerAfterBootReturnTypeExtension
+        tags: [phpstan.broker.dynamicMethodReturnTypeExtension]
+    -
+        class: Rector\Core\PHPStan\Type\ComponentModelDynamicReturnTypeExtension
+        tags: [phpstan.broker.dynamicMethodReturnTypeExtension]
+    -
         class: Ssch\TYPO3Rector\PHPStan\Type\GeneralUtilityDynamicReturnTypeExtension
-        tags:
-            - phpstan.broker.dynamicStaticMethodReturnTypeExtension
+        tags: [phpstan.broker.dynamicStaticMethodReturnTypeExtension]
     -
         class: Ssch\TYPO3Rector\PHPStan\Type\ObjectManagerDynamicReturnTypeExtension
-        tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+        tags: [phpstan.broker.dynamicMethodReturnTypeExtension]
     -
         class: Ssch\TYPO3Rector\PHPStan\Type\ContextGetAspectDynamicReturnTypeExtension
-        tags:
-            - phpstan.broker.dynamicMethodReturnTypeExtension
+        tags: [phpstan.broker.dynamicMethodReturnTypeExtension]

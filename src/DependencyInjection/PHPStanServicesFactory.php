@@ -71,11 +71,7 @@ final class PHPStanServicesFactory
             }
         }
 
-        $additionalConfigFiles[] = $currentWorkingDirectory . '/vendor/rector/rector/packages/node-type-resolver/config/phpstan/type-extensions.neon';
         $additionalConfigFiles[] = __DIR__ . '/../../utils/phpstan/config/extension.neon';
-
-        // enable type inferring from constructor
-        $additionalConfigFiles[] = $currentWorkingDirectory . '/vendor/rector/rector/packages/node-type-resolver/config/phpstan/better-infer.neon';
 
         $this->container = $containerFactory->create(sys_get_temp_dir(), $additionalConfigFiles, []);
 
