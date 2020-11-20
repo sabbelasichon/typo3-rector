@@ -10,6 +10,7 @@ use Ssch\TYPO3Rector\Rector\v10\v0\RefactorIdnaEncodeMethodToNativeFunctionRecto
 use Ssch\TYPO3Rector\Rector\v10\v0\RemoveFormatConstantsEmailFinisherRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\RemovePropertyExtensionNameRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\SetSystemLocaleFromSiteLanguageRector;
+use Ssch\TYPO3Rector\Rector\v10\v0\UseControllerClassesInExtbasePluginsAndModulesRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseTwoLetterIsoCodeFromSiteLanguageRector;
@@ -42,4 +43,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ConfigurationManagerAddControllerConfigurationMethodRector::class);
     $services->set(RemoveFormatConstantsEmailFinisherRector::class);
     $services->set(UseTwoLetterIsoCodeFromSiteLanguageRector::class);
+    $services->set(UseControllerClassesInExtbasePluginsAndModulesRector::class);
 };

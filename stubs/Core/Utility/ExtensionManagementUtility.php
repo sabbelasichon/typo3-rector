@@ -39,4 +39,8 @@ final class ExtensionManagementUtility
     {
         return [];
     }
+
+    public static function loadExtLocalconf(bool $false): void
+    {
+    }
 }
