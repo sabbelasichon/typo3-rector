@@ -8,6 +8,7 @@ use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\v9\v3\BackendUserAuthenticationSimplelogRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\BackendUtilityGetModuleUrlRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\CopyMethodGetPidForModTSconfigRector;
+use Ssch\TYPO3Rector\Rector\v9\v3\MoveLanguageFilesFromExtensionLangRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\RemoveColPosParameterRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\UseMethodGetPageShortcutDirectlyFromSysPageRector;
@@ -40,4 +41,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseMethodGetPageShortcutDirectlyFromSysPageRector::class);
     $services->set(CopyMethodGetPidForModTSconfigRector::class);
     $services->set(BackendUserAuthenticationSimplelogRector::class);
+    $services->set(MoveLanguageFilesFromExtensionLangRector::class);
 };
