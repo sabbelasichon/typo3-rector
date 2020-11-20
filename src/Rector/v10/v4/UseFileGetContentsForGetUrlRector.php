@@ -41,8 +41,14 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
             return null;
         }
 
+        $urlValue = $this->getValue($node->args[0]->value);
+
+        if (null === $urlValue) {
+            return null;
+        }
+
         // Cannot rewrite for external urls
-        if (preg_match('#^(?:http|ftp)s?|s(?:ftp|cp):#', $this->getValue($node->args[0]->value))) {
+        if (preg_match('#^(?:http|ftp)s?|s(?:ftp|cp):#', $urlValue)) {
             return $this->createMethodCall(
                 $this->createMethodCall(
                     $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
