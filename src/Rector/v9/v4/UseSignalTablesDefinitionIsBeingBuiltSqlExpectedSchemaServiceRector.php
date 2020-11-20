@@ -69,7 +69,8 @@ $signalSlotDispatcher->connect(
 PHP
                 , <<<'PHP'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
 $signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
     $signalSlotDispatcher->connect(
         SqlExpectedSchemaService::class,
