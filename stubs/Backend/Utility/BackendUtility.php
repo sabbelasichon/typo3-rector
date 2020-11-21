@@ -64,6 +64,10 @@ final class BackendUtility
 
     public static function getRawPagesTSconfig($id, array $rootLine = null): void
     {
+    }
 
+    public static function getRecordsByField($theTable, $theField, $theValue, $whereClause = '', $groupBy = '', $orderBy = '', $limit = '', $useDeleteClause = true, $queryBuilder = null): array
+    {
+        return [];
     }
 }

@@ -10,4 +10,7 @@ if (class_exists(ConnectionPool::class)) {
 
 final class ConnectionPool
 {
+    public function getQueryBuilderForTable($table): void
+    {
+    }
 }
