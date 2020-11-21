@@ -45,7 +45,7 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
         }
 
         $node->args[0]->value = $this->createClassConstantReference(InstallUtility::class);
-        $node->args[1]->value = $this->createArg('afterExtensionInstall');
+        $node->args[1] = $this->createArg('afterExtensionInstall');
 
         return null;
     }
