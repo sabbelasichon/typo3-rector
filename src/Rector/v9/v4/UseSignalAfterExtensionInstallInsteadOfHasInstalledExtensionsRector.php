@@ -55,7 +55,7 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Use the signal tablesDefinitionIsBeingBuilt of class SqlExpectedSchemaService', [
+        return new RectorDefinition('Use the signal afterExtensionInstall of class InstallUtility', [
             new CodeSample(<<<'PHP'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
