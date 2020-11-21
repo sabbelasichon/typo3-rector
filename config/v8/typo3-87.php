@@ -8,6 +8,7 @@ use Rector\Renaming\ValueObject\RenameStaticMethod;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector;
+use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordsByFieldToQueryBuilderRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\ChangeAttemptsParameterConsoleOutputRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerRmCommaRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorRemovedMarkerMethodsFromContentObjectRendererRector;
@@ -59,4 +60,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 ]),
             ],
         ]);
+
+    $services->set(BackendUtilityGetRecordsByFieldToQueryBuilderRector::class);
 };

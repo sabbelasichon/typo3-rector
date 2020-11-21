@@ -107,9 +107,9 @@ class GeneralUtility
         return 1;
     }
 
-    public static function intExplode(): void
+    public static function intExplode($delimiter, $limit): array
     {
-
+        return [];
     }
 
     public function verifyFilenameAgainstDenyPattern($filename): void
