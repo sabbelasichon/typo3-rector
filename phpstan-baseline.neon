@@ -10,3 +10,7 @@ parameters:
 			count: 1
 			path: src/Set/Typo3RectorSetProvider.php
 
+		-
+			message: '#Property PhpParser\\Node\\Arg\:\:\$value \(PhpParser\\Node\\Expr\) does not accept PhpParser\\Node\\Arg#'
+			count: 1
+			path: src/Rector/v9/v4/UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector.php
