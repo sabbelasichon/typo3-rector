@@ -1,4 +1,4 @@
-# All 119 Rectors Overview
+# All 120 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -877,6 +877,19 @@ Use native function `idn_to_ascii` instead of GeneralUtility::idnaEncode
 -$email = GeneralUtility::idnaEncode('email@domain.com');
 +$domain = idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
 +$email = 'email@' . idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+```
+
+<br><br>
+
+## `RefactorMethodFileContentRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v3\RefactorMethodFileContentRector`](/src/Rector/v8/v3/RefactorMethodFileContentRector.php)
+
+Refactor method fileContent of class TemplateService
+
+```diff
+-$content = $GLOBALS['TSFE']->tmpl->fileContent('foo.txt');
++$content = $GLOBALS['TSFE']->tmpl->getFileName('foo.txt') ? file_get_contents('foo.txt') : null;
 ```
 
 <br><br>
