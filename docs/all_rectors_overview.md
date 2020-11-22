@@ -1,4 +1,4 @@
-# All 118 Rectors Overview
+# All 119 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -890,6 +890,28 @@ Refactor deprecated methods from ExtensionManagementUtility.
 ```diff
 -ExtensionManagementUtility::removeCacheFiles();
 +GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->flushCachesInGroup('system');
+```
+
+<br><br>
+
+## `RefactorPrintContentMethodsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RefactorPrintContentMethodsRector`](/src/Rector/v8/v7/RefactorPrintContentMethodsRector.php)
+
+Refactor printContent methods of classes TaskModuleController and PageLayoutController
+
+```diff
+ use TYPO3\CMS\Backend\Controller\PageLayoutController;
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+-use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
++use TYPO3\CMS\Core\Utility\GeneralUtility;use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
+ $pageLayoutController = GeneralUtility::makeInstance(PageLayoutController::class);
+-$pageLayoutController->printContent();
+-
++echo $pageLayoutController->getModuleTemplate()->renderContent();
+ $taskLayoutController = GeneralUtility::makeInstance(TaskModuleController::class);
+-$taskLayoutController->printContent();
++echo $taskLayoutController->content;
 ```
 
 <br><br>
