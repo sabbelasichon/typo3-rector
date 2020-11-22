@@ -1,4 +1,4 @@
-# All 121 Rectors Overview
+# All 122 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1781,6 +1781,22 @@ Use TypeHandlingUtility instead of TypeHandlingService
 -GeneralUtility::makeInstance(TypeHandlingService::class)->isSimpleType('string');
 +use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 +TypeHandlingUtility::isSimpleType('string');
+```
+
+<br><br>
+
+## `TypoScriptFrontendControllerCharsetConverterRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v1\TypoScriptFrontendControllerCharsetConverterRector`](/src/Rector/v8/v1/TypoScriptFrontendControllerCharsetConverterRector.php)
+
+Refactor `$TSFE->csConvObj` and `$TSFE->csConv()`
+
+```diff
+-$output = $GLOBALS['TSFE']->csConvObj->conv_case('utf-8', 'foobar', 'lower');
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Core\Charset\CharsetConverter;
++$charsetConverter = GeneralUtility::makeInstance(CharsetConverter::class);
++$output = $charsetConverter->conv_case('utf-8', 'foobar', 'lower');
 ```
 
 <br><br>
