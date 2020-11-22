@@ -17,11 +17,13 @@ class TemplateService
 
     public function getFileName($file): void
     {
+    }
 
+    public function fileContent($fileName): void
+    {
     }
 
     public static function init(): void
     {
-
     }
 }
