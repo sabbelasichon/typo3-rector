@@ -1,4 +1,4 @@
-# All 110 Rectors Overview
+# All 117 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -125,6 +125,28 @@ Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
 
 <br><br>
 
+## `BackendUtilityGetRecordsByFieldToQueryBuilderRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordsByFieldToQueryBuilderRector`](/src/Rector/v8/v7/BackendUtilityGetRecordsByFieldToQueryBuilderRector.php)
+
+BackendUtility::getRecordsByField to QueryBuilder
+
+```diff
+-use TYPO3\CMS\Backend\Utility\BackendUtility;
+-$rows = BackendUtility::getRecordsByField('table', 'uid', 3);
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Core\Database\ConnectionPool;
++use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
++use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
++$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('table');
++$queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(BackendWorkspaceRestriction::class));
++$queryBuilder->getRestrictions()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
++$queryBuilder->select('*')->from('table')->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter(3)));
++$rows = $queryBuilder->execute()->fetchAll();
+```
+
+<br><br>
+
 ## `BackendUtilityGetViewDomainToPageRouterRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v0\BackendUtilityGetViewDomainToPageRouterRector`](/src/Rector/v10/v0/BackendUtilityGetViewDomainToPageRouterRector.php)
@@ -178,6 +200,32 @@ Turns old default value to parameter in `ConsoleOutput->askAndValidate()` and/or
 ```diff
 -$this->output->select('The question', [1, 2, 3], null, false, false);
 +$this->output->select('The question', [1, 2, 3], null, false, null);
+```
+
+<br><br>
+
+## `ChangeDefaultCachingFrameworkNamesRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\ChangeDefaultCachingFrameworkNamesRector`](/src/Rector/v10/v0/ChangeDefaultCachingFrameworkNamesRector.php)
+
+Use new default cache names like core instead of cache_core)
+
+```diff
+ $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+-$cacheManager->getCache('cache_core');
+-$cacheManager->getCache('cache_hash');
+-$cacheManager->getCache('cache_pages');
+-$cacheManager->getCache('cache_pagesection');
+-$cacheManager->getCache('cache_runtime');
+-$cacheManager->getCache('cache_rootline');
+-$cacheManager->getCache('cache_imagesizes');
++$cacheManager->getCache('core');
++$cacheManager->getCache('hash');
++$cacheManager->getCache('pages');
++$cacheManager->getCache('pagesection');
++$cacheManager->getCache('runtime');
++$cacheManager->getCache('rootline');
++$cacheManager->getCache('imagesizes');
 ```
 
 <br><br>
@@ -435,6 +483,19 @@ Force template parsing in tsfe is replaced with context api and aspects
 
 <br><br>
 
+## `GeneralUtilityGetUrlRequestHeadersRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v2\GeneralUtilityGetUrlRequestHeadersRector`](/src/Rector/v9/v2/GeneralUtilityGetUrlRequestHeadersRector.php)
+
+Refactor `GeneralUtility::getUrl()` request headers in a associative way
+
+```diff
+-GeneralUtility::getUrl('https://typo3.org', 1, ['Content-Language: de-DE']);
++GeneralUtility::getUrl('https://typo3.org', 1, ['Content-Language' => 'de-DE']);
+```
+
+<br><br>
+
 ## `GeneralUtilityToUpperAndLowerRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v8\v1\GeneralUtilityToUpperAndLowerRector`](/src/Rector/v8/v1/GeneralUtilityToUpperAndLowerRector.php)
@@ -615,6 +676,21 @@ Use Environment API to fetch application context
 
 <br><br>
 
+## `MoveLanguageFilesFromExtensionLangRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v3\MoveLanguageFilesFromExtensionLangRector`](/src/Rector/v9/v3/MoveLanguageFilesFromExtensionLangRector.php)
+
+Move language resources from ext:lang to their new locations
+
+```diff
+ use TYPO3\CMS\Core\Localization\LanguageService;
+ $languageService = new LanguageService();
+-$languageService->sL('LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.no_title');
++$languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.no_title');
+```
+
+<br><br>
+
 ## `MoveRenderArgumentsToInitializeArgumentsMethodRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector`](/src/Rector/v9/v0/MoveRenderArgumentsToInitializeArgumentsMethodRector.php)
@@ -708,6 +784,20 @@ Deprecated random generator methods in GeneralUtility
 -$randomHex = GeneralUtility::getRandomHexString();
 +$randomBytes = GeneralUtility::makeInstance(Random::class)->generateRandomBytes();
 +$randomHex = GeneralUtility::makeInstance(Random::class)->generateRandomHexString();
+```
+
+<br><br>
+
+## `RefactorBackendUtilityGetPagesTSconfigRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RefactorBackendUtilityGetPagesTSconfigRector`](/src/Rector/v9/v0/RefactorBackendUtilityGetPagesTSconfigRector.php)
+
+Refactor method getPagesTSconfig of class BackendUtility if possible
+
+```diff
+ use TYPO3\CMS\Backend\Utility\BackendUtility;
+-$pagesTsConfig = BackendUtility::getPagesTSconfig(1, $rootLine = null, $returnPartArray = true);
++$pagesTsConfig = BackendUtility::getRawPagesTSconfig(1, $rootLine = null);
 ```
 
 <br><br>
@@ -1766,6 +1856,29 @@ Various public properties in favor of Context API
 
 <br><br>
 
+## `UseControllerClassesInExtbasePluginsAndModulesRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\UseControllerClassesInExtbasePluginsAndModulesRector`](/src/Rector/v10/v0/UseControllerClassesInExtbasePluginsAndModulesRector.php)
+
+Use controller classes when registering extbase plugins/modules
+
+```diff
+-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+-ExtensionUtility::configurePlugin(
+-    'TYPO3.CMS.Form',
++use TYPO3\CMS\Extbase\Utility\ExtensionUtility;ExtensionUtility::configurePlugin(
++    'Form',
+     'Formframework',
+-    ['FormFrontend' => 'render, perform'],
+-    ['FormFrontend' => 'perform'],
++    [\TYPO3\CMS\Form\Controller\FormFrontendController::class => 'render, perform'],
++    [\TYPO3\CMS\Form\Controller\FormFrontendController::class => 'perform'],
+     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+ );
+```
+
+<br><br>
+
 ## `UseFileGetContentsForGetUrlRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v4\UseFileGetContentsForGetUrlRector`](/src/Rector/v10/v4/UseFileGetContentsForGetUrlRector.php)
@@ -1961,6 +2074,31 @@ Use class RootlineUtility instead of method getRootLine
 
 <br><br>
 
+## `UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector`](/src/Rector/v9/v4/UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector.php)
+
+Use the signal afterExtensionInstall of class InstallUtility
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+-use TYPO3\CMS\Extensionmanager\Service\ExtensionManagementService;
++use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
+ $signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
+-$signalSlotDispatcher->connect(
+-        ExtensionManagementService::class,
+-        'hasInstalledExtensions',
++    $signalSlotDispatcher->connect(
++        InstallUtility::class,
++        'afterExtensionInstall',
+         \stdClass::class,
+         'foo'
+     );
+```
+
+<br><br>
+
 ## `UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector`](/src/Rector/v9/v4/UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector.php)
@@ -1969,9 +2107,9 @@ Use the signal tablesDefinitionIsBeingBuilt of class SqlExpectedSchemaService
 
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
--use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+ use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 -use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
-+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
++use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
  $signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
 -$signalSlotDispatcher->connect(
 -        InstallUtility::class,
