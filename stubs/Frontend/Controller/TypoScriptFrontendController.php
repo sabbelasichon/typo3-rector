@@ -176,4 +176,8 @@ final class TypoScriptFrontendController
     {
         return [];
     }
+
+    public function csConv($str, $from = ''): void
+    {
+    }
 }
