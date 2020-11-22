@@ -1,4 +1,4 @@
-# All 120 Rectors Overview
+# All 121 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -687,6 +687,21 @@ Move language resources from ext:lang to their new locations
  $languageService = new LanguageService();
 -$languageService->sL('LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.no_title');
 +$languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.no_title');
+```
+
+<br><br>
+
+## `MoveLanguageFilesFromLocallangToResourcesRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v5\MoveLanguageFilesFromLocallangToResourcesRector`](/src/Rector/v8/v5/MoveLanguageFilesFromLocallangToResourcesRector.php)
+
+Move language files from EXT:lang/locallang_* to Resources/Private/Language
+
+```diff
+ use TYPO3\CMS\Core\Localization\LanguageService;
+ $languageService = new LanguageService();
+-$languageService->sL('LLL:EXT:lang/locallang_alt_doc.xlf:label.confirm.delete_record.title');
++$languageService->sL('LLL:EXT:lang/Resources/Private/Language/locallang_alt_doc.xlf:label.confirm.delete_record.title');
 ```
 
 <br><br>
