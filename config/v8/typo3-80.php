@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\Rector\v8\v0\RandomMethodsToRandomClassRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMarkerMethodsFromHtmlParserRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromContentObjectRendererRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromGeneralUtilityRector;
+use Ssch\TYPO3Rector\Rector\v8\v0\RemoveCharsetConverterParametersRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RemovePropertyUserAuthenticationRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RemoveWakeupCallFromEntityRector;
@@ -102,4 +103,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ]),
         ]]);
     $services->set(TimeTrackerInsteadOfNullTimeTrackerRector::class);
+    $services->set(RemoveCharsetConverterParametersRector::class);
 };
