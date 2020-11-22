@@ -176,4 +176,28 @@ final class TypoScriptFrontendController
     {
         return [];
     }
+
+    public function pageUnavailableAndExit($reason = '', $header = '')
+    {
+    }
+
+    public function pageNotFoundAndExit($reason = '', $header = '')
+    {
+    }
+
+    public function checkPageUnavailableHandler()
+    {
+    }
+
+    public function pageUnavailableHandler($code, $header, $reason)
+    {
+    }
+
+    public function pageNotFoundHandler($code, $header = '', $reason = '')
+    {
+    }
+
+    public function pageErrorHandler($code, $header = '', $reason = '')
+    {
+    }
 }

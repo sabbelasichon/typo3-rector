@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Ssch\TYPO3Rector\Rector\v9\v2\GeneralUtilityGetUrlRequestHeadersRector;
+use Ssch\TYPO3Rector\Rector\v9\v2\PageNotFoundAndErrorHandlingInFrontendRector;
 use Ssch\TYPO3Rector\Rector\v9\v2\RenameMethodCallToEnvironmentMethodCallRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\Cache\Frontend\StringFrontend;
@@ -24,4 +25,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]]);
 
     $services->set(GeneralUtilityGetUrlRequestHeadersRector::class);
+    $services->set(PageNotFoundAndErrorHandlingInFrontendRector::class);
 };
