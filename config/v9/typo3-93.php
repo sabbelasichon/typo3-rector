@@ -15,6 +15,8 @@ use Ssch\TYPO3Rector\Rector\v9\v3\UseMethodGetPageShortcutDirectlyFromSysPageRec
 use Ssch\TYPO3Rector\Rector\v9\v3\ValidateAnnotationRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Backend\Controller\Page\LocalizationController;
+use TYPO3\CMS\Extbase\Mvc\Controller\Argument;
+use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
@@ -42,4 +44,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CopyMethodGetPidForModTSconfigRector::class);
     $services->set(BackendUserAuthenticationSimplelogRector::class);
     $services->set(MoveLanguageFilesFromExtensionLangRector::class);
+
+    $services->set(RenameMethodRector::class)
+        ->call('configure', [[
+            RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
+                new MethodCallRename(Argument::class, 'getValidationResults', 'validate'),
+                new MethodCallRename(Arguments::class, 'getValidationResults', 'validate'),
+            ]),
+        ]]);
 };
