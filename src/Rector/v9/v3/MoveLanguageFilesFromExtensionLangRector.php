@@ -61,7 +61,7 @@ final class MoveLanguageFilesFromExtensionLangRector extends AbstractRector
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('', [
+        return new RectorDefinition('Move language resources from ext:lang to their new locations', [
             new CodeSample(<<<'PHP'
 use TYPO3\CMS\Core\Localization\LanguageService;
 $languageService = new LanguageService();
