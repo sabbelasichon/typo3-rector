@@ -13,4 +13,8 @@ final class ModuleTemplate
     public function loadJavascriptLib($lib): void
     {
     }
+
+    public function renderContent(): void
+    {
+    }
 }
