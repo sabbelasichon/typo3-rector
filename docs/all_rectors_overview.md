@@ -1,4 +1,4 @@
-# All 117 Rectors Overview
+# All 118 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1047,6 +1047,22 @@ Remove vendor name from registerPlugin call
     'Form',
     'content-form',
  );
+```
+
+<br><br>
+
+## `RemoveCharsetConverterParametersRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemoveCharsetConverterParametersRector`](/src/Rector/v8/v0/RemoveCharsetConverterParametersRector.php)
+
+Remove CharsetConvertParameters
+
+```diff
+ $charsetConvert = GeneralUtility::makeInstance(CharsetConverter::class);
+-$charsetConvert->entities_to_utf8('string', false);
+-$charsetConvert->utf8_to_numberarray('string', false, false);
++$charsetConvert->entities_to_utf8('string');
++$charsetConvert->utf8_to_numberarray('string');
 ```
 
 <br><br>
