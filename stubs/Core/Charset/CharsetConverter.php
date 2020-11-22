@@ -38,4 +38,8 @@ final class CharsetConverter
     public function utf8_strrpos($haystack, $needle): void
     {
     }
+
+    public function conv($inputString, $fromCharset, $toCharset, $useEntityForNoChar = false): void
+    {
+    }
 }
