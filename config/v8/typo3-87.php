@@ -11,6 +11,7 @@ use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordsByFieldToQueryBuilderRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\ChangeAttemptsParameterConsoleOutputRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerRmCommaRector;
+use Ssch\TYPO3Rector\Rector\v8\v7\RefactorPrintContentMethodsRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorRemovedMarkerMethodsFromContentObjectRendererRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\TemplateServiceSplitConfArrayRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -62,4 +63,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]);
 
     $services->set(BackendUtilityGetRecordsByFieldToQueryBuilderRector::class);
+
+    $services->set(RefactorPrintContentMethodsRector::class);
 };
