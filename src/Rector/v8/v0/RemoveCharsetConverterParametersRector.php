@@ -37,15 +37,7 @@ final class RemoveCharsetConverterParametersRector extends AbstractRector
             return null;
         }
 
-        if (count($node->args) <= 1) {
-            return null;
-        }
-
-        if (3 === count($node->args)) {
-            $this->removeNode($node->args[2]);
-        }
-
-        $this->removeNode($node->args[1]);
+        $node->args = [$node->args[0]];
 
         return $node;
     }
