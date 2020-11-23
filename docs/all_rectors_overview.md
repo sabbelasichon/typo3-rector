@@ -1,4 +1,4 @@
-# All 123 Rectors Overview
+# All 124 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -813,6 +813,20 @@ Deprecated random generator methods in GeneralUtility
 -$randomHex = GeneralUtility::getRandomHexString();
 +$randomBytes = GeneralUtility::makeInstance(Random::class)->generateRandomBytes();
 +$randomHex = GeneralUtility::makeInstance(Random::class)->generateRandomHexString();
+```
+
+<br><br>
+
+## `RefactorArrayBrowserWrapValueRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RefactorArrayBrowserWrapValueRector`](/src/Rector/v8/v7/RefactorArrayBrowserWrapValueRector.php)
+
+Migrate the method `ArrayBrowser->wrapValue()` to use `htmlspecialchars()`
+
+```diff
+ $arrayBrowser = GeneralUtility::makeInstance(ArrayBrowser::class);
+-$arrayBrowser->wrapValue('value');
++htmlspecialchars('value');
 ```
 
 <br><br>
