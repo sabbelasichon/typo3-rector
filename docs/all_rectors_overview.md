@@ -1,4 +1,4 @@
-# All 122 Rectors Overview
+# All 123 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -524,6 +524,20 @@ Use generatePageTitle of TSFE instead of class PageGenerator
 
 -PageGenerator::generatePageTitle();
 +$GLOBALS['TSFE']->generatePageTitle();
+```
+
+<br><br>
+
+## `GetFileAbsFileNameRemoveDeprecatedArgumentsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\GetFileAbsFileNameRemoveDeprecatedArgumentsRector`](/src/Rector/v8/v0/GetFileAbsFileNameRemoveDeprecatedArgumentsRector.php)
+
+Remove second and third argument of `GeneralUtility::getFileAbsFileName()`
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-GeneralUtility::getFileAbsFileName('foo.txt', false, true);
++GeneralUtility::getFileAbsFileName('foo.txt');
 ```
 
 <br><br>
