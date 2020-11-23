@@ -38,6 +38,7 @@ $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['user'] = 'user';
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = 'password';
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'] = 'host';
 $GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] = FileNameValidator::DEFAULT_FILE_DENY_PATTERN;
+$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo'] = 'a:6:{s:9:"loginLogo";s:8:"logo.jpg";s:19:"loginHighlightColor";s:7:"#000000";s:20:"loginBackgroundImage";s:8:"logo.jpg";s:13:"loginFootnote";s:8:"Footnote";s:11:"backendLogo";s:0:"";s:14:"backendFavicon";s:0:"";}';
 
 define('TYPO3_MODE', 'BE');
 define('TYPO3_URL_MAILINGLISTS', 'http://lists.typo3.org/cgi-bin/mailman/listinfo');
