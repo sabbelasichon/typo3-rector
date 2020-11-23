@@ -164,8 +164,9 @@ class GeneralUtility
     {
         // Set default charset unless explicitly specified
         $charset = $charset ?: 'utf-8';
+
         // Return XML:
-        return '<?xml version="1.0" encoding="' . htmlspecialchars($charset) . '" standalone="yes" ?>' . LF . self::array2xml($array, '', 0, $docTag, 0, $options);
+        return '<?xml version="1.0" encoding="'.htmlspecialchars($charset).'" standalone="yes" ?>'.LF.self::array2xml($array, '', 0, $docTag, 0, $options);
     }
 
     public static function array2xml(array $array, $NSprefix = '', $level = 0, $docTag = 'phparray', $spaceInd = 0, array $options = [], array $stackData = []): string
@@ -176,5 +177,41 @@ class GeneralUtility
     public static function csvValues(array $row, $delim = ',', $quote = '"'): void
     {
 
+    }
+
+    public static function compat_version(): void
+    {
+    }
+
+    public static function convertMicrotime(): void
+    {
+    }
+
+    public static function deHSCentities(): void
+    {
+    }
+
+    public static function slashJS(): void
+    {
+    }
+
+    public static function rawUrlEncodeJS(): void
+    {
+    }
+
+    public static function rawUrlEncodeFP(): void
+    {
+    }
+
+    public static function lcfirst(): void
+    {
+    }
+
+    public static function getMaximumPathLength(): void
+    {
+    }
+
+    public static function wrapJS($string, $_ = null): void
+    {
     }
 }
