@@ -1,4 +1,4 @@
-# All 125 Rectors Overview
+# All 126 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -393,6 +393,22 @@ Migrate the method `DataHandler::rmComma()` to use `rtrim()`
  $dataHandler = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\DataHandler::class);
 -$inList = $dataHandler->rmComma(trim($inList));
 +$inList = rtrim(trim($inList), ',');
+```
+
+<br><br>
+
+## `DataHandlerVariousMethodsAndMethodArgumentsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerVariousMethodsAndMethodArgumentsRector`](/src/Rector/v8/v7/DataHandlerVariousMethodsAndMethodArgumentsRector.php)
+
+Remove CharsetConvertParameters
+
+```diff
+ $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
+-$dest = $dataHandler->destPathFromUploadFolder('uploadFolder');
+-$dataHandler->extFileFunctions('table', 'field', 'theField', 'deleteAll');
++$dest = PATH_site . 'uploadFolder';
++$dataHandler->extFileFunctions('table', 'field', 'theField');
 ```
 
 <br><br>
