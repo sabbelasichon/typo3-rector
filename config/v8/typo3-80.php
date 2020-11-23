@@ -23,6 +23,8 @@ use Ssch\TYPO3Rector\Rector\v8\v0\RteHtmlParserRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTrackerRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use TYPO3\CMS\Core\TypoScript\TemplateService;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
@@ -80,6 +82,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     [
                         new RenameStaticMethod(ExtensionUtility::class, 'configureModule',
                             ExtensionManagementUtility::class, 'configureModule'),
+                        new RenameStaticMethod(TemplateService::class, 'sortedKeyList',
+                            ArrayUtility::class, 'filterAndSortByNumericKeys'),
                     ]
                 ),
             ],
