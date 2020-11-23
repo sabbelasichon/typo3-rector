@@ -8,6 +8,7 @@ use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\v8\v0\ChangeMethodCallsForStandaloneViewRector;
+use Ssch\TYPO3Rector\Rector\v8\v0\GetFileAbsFileNameRemoveDeprecatedArgumentsRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\GetPreferredClientLanguageRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\PrependAbsolutePathToGetFileAbsFileNameRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RandomMethodsToRandomClassRector;
@@ -25,7 +26,9 @@ use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTrackerRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
+use TYPO3\CMS\Core\Utility\CommandUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 
@@ -84,6 +87,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                             ExtensionManagementUtility::class, 'configureModule'),
                         new RenameStaticMethod(TemplateService::class, 'sortedKeyList',
                             ArrayUtility::class, 'filterAndSortByNumericKeys'),
+                        new RenameStaticMethod(GeneralUtility::class, 'imageMagickCommand',
+                            CommandUtility::class, 'imageMagickCommand'),
                     ]
                 ),
             ],
@@ -108,4 +113,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]]);
     $services->set(TimeTrackerInsteadOfNullTimeTrackerRector::class);
     $services->set(RemoveCharsetConverterParametersRector::class);
+    $services->set(GetFileAbsFileNameRemoveDeprecatedArgumentsRector::class);
 };
