@@ -1,4 +1,4 @@
-# All 124 Rectors Overview
+# All 125 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -1005,6 +1005,20 @@ Refactor some properties of TypoScriptFrontendController
 +$previewBeUserUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('backend.user', 'id', 0);
 +$workspacePreview = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id', 0);
 +$loginAllowedInBranch = $GLOBALS['TSFE']->checkIfLoginAllowedInBranch();
+```
+
+<br><br>
+
+## `RefactorQueryViewTableWrapRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v3\RefactorQueryViewTableWrapRector`](/src/Rector/v8/v3/RefactorQueryViewTableWrapRector.php)
+
+Migrate the method `QueryView->tableWrap()` to use <pre>
+
+```diff
+ $queryView = GeneralUtility::makeInstance(QueryView::class);
+-$output = $queryView->tableWrap('value');
++$output = '<pre>' . 'value' . '</pre>';
 ```
 
 <br><br>
