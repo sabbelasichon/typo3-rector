@@ -6,7 +6,9 @@ namespace Ssch\TYPO3Rector\Rector\v8\v3;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
@@ -37,11 +39,14 @@ final class RefactorQueryViewTableWrapRector extends AbstractRector
             return null;
         }
 
-        ///** @var Arg[] $args */
-        //$args = $node->args;
-        //$firstArgument = array_shift($args);
+        /** @var Arg[] $args */
+        $args = $node->args;
+        $firstArgument = array_shift($args);
 
-        return null;
+        return new Concat(
+                new Concat(new String_('<pre>'), $firstArgument->value),
+                new String_('</pre>')
+            );
     }
 
     /**
