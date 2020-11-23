@@ -47,7 +47,7 @@ final class RefactorArrayBrowserWrapValueRector extends AbstractRector
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Migrate the method DataHandler::rmComma() to use rtrim()', [
+        return new RectorDefinition('Migrate the method ArrayBrowser->wrapValue() to use htmlspecialchars()', [
             new CodeSample(<<<'PHP'
 $arrayBrowser = GeneralUtility::makeInstance(ArrayBrowser::class);
 $arrayBrowser->wrapValue('value');
