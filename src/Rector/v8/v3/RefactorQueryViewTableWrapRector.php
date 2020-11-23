@@ -43,10 +43,11 @@ final class RefactorQueryViewTableWrapRector extends AbstractRector
         $args = $node->args;
         $firstArgument = array_shift($args);
 
-        return new Concat(
-                new Concat(new String_('<pre>'), $firstArgument->value),
-                new String_('</pre>')
-            );
+        if (null === $firstArgument) {
+            return null;
+        }
+
+        return new Concat(new Concat(new String_('<pre>'), $firstArgument->value), new String_('</pre>'));
     }
 
     /**
