@@ -6,8 +6,11 @@ namespace Ssch\TYPO3Rector\Rector\v8\v7;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Name;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
@@ -36,10 +39,16 @@ final class DataHandlerVariousMethodsAndMethodArgumentsRector extends AbstractRe
         }
 
         if ($this->isName($node->name, 'destPathFromUploadFolder')) {
-            ///** @var Arg[] $args */
-            //$args = $node->args;
-            //$firstArgument = array_shift($args);
-            //$dest = PATH_SITE . $firstArgument
+
+            /** @var Arg[] $args */
+            $args = $node->args;
+            $firstArgument = array_shift($args);
+
+            if (null === $firstArgument) {
+                return null;
+            }
+
+            return new Concat(new ConstFetch(new Name('PATH_site')), $firstArgument->value);
         }
 
         if ($this->isName($node->name, 'extFileFunctions') && 4 === count($node->args)) {
@@ -65,7 +74,7 @@ $dataHandler->extFileFunctions('table', 'field', 'theField', 'deleteAll');
 PHP
                     , <<<'PHP'
 $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
-$dest = PATH_SITE . 'uploadFolder';
+$dest = PATH_site . 'uploadFolder';
 $dataHandler->extFileFunctions('table', 'field', 'theField');
 PHP
                 ),

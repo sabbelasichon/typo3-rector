@@ -24,7 +24,7 @@ class DataHandlerVariousMethodsAndMethodArguments
     public function method(): void
     {
         $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
-        $dest = PATH_SITE . 'uploadFolder';
+        $dest = PATH_site . 'uploadFolder';
         $dataHandler->extFileFunctions('table', 'field', 'theField');
     }
 }
