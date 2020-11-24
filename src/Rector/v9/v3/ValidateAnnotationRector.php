@@ -101,13 +101,25 @@ CODE_SAMPLE
     private function createPropertyAnnotation(string $validatorAnnotation): PhpDocTagNode
     {
         if (false !== strpos($validatorAnnotation, '(')) {
-            preg_match('#(.*)\((.*)\)#', $validatorAnnotation, $matches);
-            [, $validator, $options] = $matches;
+            preg_match_all('#(?P<validatorName>.*)\((?P<validatorOptions>.*)\)#', $validatorAnnotation, $matches);
+
+            $validator = $matches['validatorName'][0];
+            $options = $matches['validatorOptions'][0];
+
+            preg_match_all(
+                '#\s*(?P<optionName>[a-z0-9]+)\s*=\s*(?P<optionValue>"(?:\\\"|[^"])*"|\'(?:\\\\\'|[^\'])*\'|(?:\s|[^,"\']*))#ixS',
+                $options,
+                $optionNamesValues
+            );
+
+            $optionNames = $optionNamesValues['optionName'];
+            $optionValues = $optionNamesValues['optionValue'];
+
             $optionsArray = [];
-            foreach (explode(',', $options) as $option) {
-                [$optionKey, $optionValue] = explode('=', $option);
-                $optionsArray[] = sprintf('"%s": %s', trim($optionKey), trim($optionValue));
+            foreach ($optionNames as $key => $optionName) {
+                $optionsArray[] = sprintf('"%s": %s', trim($optionName), trim($optionValues[$key]));
             }
+
             $annotation = sprintf(
                 '@TYPO3\CMS\Extbase\Annotation\Validate("%s", options={%s})',
                 trim($validator),
