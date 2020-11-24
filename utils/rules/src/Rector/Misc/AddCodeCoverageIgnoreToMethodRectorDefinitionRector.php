@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\Misc;
+namespace Ssch\TYPO3Rector\Rules\Rector\Misc;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
