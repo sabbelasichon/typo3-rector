@@ -284,14 +284,17 @@ Assign the issue to yourself so others can see that you are working on it.
 
 ### Create Rector
 
-1. Find a place to store the Rector in `src/Rector`. What is the most logical folder structure?
-2. Create a stub class in `stubs` if needed.
-3. Write your rector.
-4. Make sure your new Rector class is autoloaded: `composer du`
-5. Register your rector in one of the php files in the `config` directory
-6. Write a test for your rector.
+Run command and answer all questions properly
+```bash
+./bin/typo3-rector typo3-create
+```
 
-Or you can use `rector-recipe.php` [file to generate base structure for the rule](https://github.com/rectorphp/rector/blob/master/docs/rector_recipe.md).
+Afterwards you have to write your Rector and your tests for it.
+If you need, you have to create so called stubs.
+Stubs contain basically the skeleton of the classes you would like to refactor.
+Have a look at the stubs folder.
+
+Last but not least, register your file in the right config file under the config folder (Maybe not necessary anymore in the near future).
 
 ### All Tests must be Green
 
