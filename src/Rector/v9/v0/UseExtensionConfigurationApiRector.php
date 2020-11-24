@@ -6,10 +6,15 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\FuncCall;
+use PhpParser\Node\Expr\Isset_;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -21,32 +26,50 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
 {
     public function getNodeTypes(): array
     {
-        return [FuncCall::class];
+        return [FuncCall::class, ArrayDimFetch::class];
     }
 
     /**
-     * @param FuncCall $node
+     * @param FuncCall|ArrayDimFetch $node
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isName($node->name, 'unserialize')) {
+        if ($node instanceof FuncCall && ! $this->isName($node->name, 'unserialize')) {
             return null;
         }
 
-        $firstArgument = array_shift($node->args);
+        // We assume ArrayDimFetch as default value here.
+        if ($node instanceof FuncCall) {
+            $firstArgument = $node->args[0] ?? null;
 
-        if (null === $firstArgument) {
-            return null;
+            if (null === $firstArgument) {
+                return null;
+            }
+
+            if (! $firstArgument->value instanceof ArrayDimFetch) {
+                return null;
+            }
+
+            $extensionConfiguration = $firstArgument->value;
+        } else {
+            $extensionConfiguration = $node;
         }
-
-        if (! $firstArgument->value instanceof ArrayDimFetch) {
-            return null;
-        }
-
-        $extensionConfiguration = $firstArgument->value;
 
         if ($this->shouldSkip($extensionConfiguration)) {
             return null;
+        }
+
+        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+
+        // Assignments are not handled. Makes no sense at the moment
+        if ($parentNode instanceof Assign && $parentNode->var === $extensionConfiguration) {
+            return null;
+        }
+
+        if ($parentNode instanceof Isset_) {
+            return new ArrayDimFetch(new ArrayDimFetch(new ArrayDimFetch(
+                new Variable('GLOBALS'), new String_('TYPO3_CONF_VARS')
+            ), new String_('EXTENSIONS')), $extensionConfiguration->dim);
         }
 
         return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
