@@ -15,6 +15,12 @@ class ChangeDefaultCachingFrameworkNames
         $cacheManager->getCache('cache_runtime');
         $cacheManager->getCache('cache_rootline');
         $cacheManager->getCache('cache_imagesizes');
+        $cacheManager->getCache('cache_ttaddress_category');
+    }
+
+    public function getCache($name)
+    {
+        return GeneralUtility::makeInstance(CacheManager::class)->getCache($name);
     }
 }
 ?>
@@ -36,6 +42,12 @@ class ChangeDefaultCachingFrameworkNames
         $cacheManager->getCache('runtime');
         $cacheManager->getCache('rootline');
         $cacheManager->getCache('imagesizes');
+        $cacheManager->getCache('cache_ttaddress_category');
+    }
+
+    public function getCache($name)
+    {
+        return GeneralUtility::makeInstance(CacheManager::class)->getCache($name);
     }
 }
 ?>
