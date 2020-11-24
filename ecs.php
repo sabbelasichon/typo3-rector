@@ -28,6 +28,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/rector.php',
         __DIR__ . '/config',
         __DIR__ . '/utils/generator',
+        __DIR__ . '/utils/rules',
     ]);
 
     $services = $containerConfigurator->services();
