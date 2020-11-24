@@ -1015,7 +1015,7 @@ Refactor some properties of TypoScriptFrontendController
 
 - class: [`Ssch\TYPO3Rector\Rector\v8\v3\RefactorQueryViewTableWrapRector`](/src/Rector/v8/v3/RefactorQueryViewTableWrapRector.php)
 
-Migrate the method `QueryView->tableWrap()` to use <pre>
+Migrate the method `QueryView->tableWrap()` to use pre-Tag
 
 ```diff
  $queryView = GeneralUtility::makeInstance(QueryView::class);
