@@ -43,4 +43,8 @@ final class ExtensionManagementUtility
     public static function loadExtLocalconf(bool $false): void
     {
     }
+
+    public static function extRelPath(string $key): void
+    {
+    }
 }

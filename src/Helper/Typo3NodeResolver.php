@@ -53,7 +53,7 @@ final class Typo3NodeResolver
     /**
      * @var string
      */
-    private const GLOBALS = 'GLOBALS';
+    public const GLOBALS = 'GLOBALS';
 
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool
     {

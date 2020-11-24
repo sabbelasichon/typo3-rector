@@ -23,6 +23,7 @@ use Ssch\TYPO3Rector\Rector\v9\v0\RemoveSecondArgumentGeneralUtilityMkdirDeepRec
 use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\UseExtensionConfigurationApiRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector;
@@ -94,4 +95,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseNewComponentIdForPageTreeRector::class);
 
     $services->set(RefactorBackendUtilityGetPagesTSconfigRector::class);
+
+    $services->set(UseExtensionConfigurationApiRector::class);
 };
