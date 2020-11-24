@@ -55,7 +55,7 @@ final class RefactorQueryViewTableWrapRector extends AbstractRector
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Migrate the method QueryView->tableWrap() to use <pre>', [
+        return new RectorDefinition('Migrate the method QueryView->tableWrap() to use pre-Tag', [
             new CodeSample(<<<'PHP'
 $queryView = GeneralUtility::makeInstance(QueryView::class);
 $output = $queryView->tableWrap('value');
