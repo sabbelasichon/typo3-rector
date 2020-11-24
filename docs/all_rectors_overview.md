@@ -1,33 +1,4 @@
-# All 129 Rectors Overview
-
-## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector`](/src/Rector/Misc/AddCodeCoverageIgnoreToMethodRectorDefinitionRector.php)
-- [test fixtures](/tests/Rector/Misc/Fixture)
-
-Adds @codeCoverageIgnore annotation to to method getDefinition
-
-```diff
- class SomeClass extends AbstractRector
- {
-     public function getNodeTypes(): array
-     {
-     }
-
-     public function refactor(Node $node): ?Node
-     {
-     }
-
-+    /**
-+     * @codeCoverageIgnore
-+     */
-     public function getDefinition(): RectorDefinition
-     {
-     }
- }
-```
-
-<br><br>
+# All 128 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
