@@ -1,4 +1,4 @@
-# All 128 Rectors Overview
+# All 129 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -2045,6 +2045,21 @@ Use controller classes when registering extbase plugins/modules
 +    [\TYPO3\CMS\Form\Controller\FormFrontendController::class => 'perform'],
      ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
  );
+```
+
+<br><br>
+
+## `UseExtensionConfigurationApiRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\UseExtensionConfigurationApiRector`](/src/Rector/v9/v0/UseExtensionConfigurationApiRector.php)
+
+Use the new ExtensionConfiguration API instead of `$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo']`
+
+```diff
+-$extensionConfiguration2 = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo'], ['allowed_classes' => false]);
++use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++$extensionConfiguration2 = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('foo');
 ```
 
 <br><br>
