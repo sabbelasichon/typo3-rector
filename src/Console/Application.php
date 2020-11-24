@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Console;
 
 use Composer\XdebugHandler\XdebugHandler;
-use OutOfBoundsException;
 use Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
 use Rector\ChangesReporting\Output\JsonOutputFormatter;
 use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
@@ -24,6 +23,11 @@ use Throwable;
 
 final class Application extends SymfonyApplication
 {
+    /**
+     * @var string
+     */
+    public const VERSION = '0.6.6';
+
     /**
      * @var string
      */
@@ -47,13 +51,7 @@ final class Application extends SymfonyApplication
         NoRectorsLoadedReporter $noRectorsLoadedReporter,
         array $commands = []
     ) {
-        try {
-            $version = $configuration->getPrettyVersion();
-        } catch (OutOfBoundsException $outOfBoundsException) {
-            $version = 'Unknown';
-        }
-
-        parent::__construct(self::NAME, $version);
+        parent::__construct(self::NAME, self::VERSION);
 
         $this->addCommands($commands);
         $this->configuration = $configuration;
