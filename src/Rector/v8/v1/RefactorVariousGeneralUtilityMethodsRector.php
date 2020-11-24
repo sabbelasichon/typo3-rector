@@ -132,7 +132,8 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('', [new CodeSample(<<<'PHP'
+        return new RectorDefinition('Refactor various deprecated methods of class GeneralUtility', [
+            new CodeSample(<<<'PHP'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $url = 'https://www.domain.com/';
 $url = GeneralUtility::rawUrlEncodeFP($url);
@@ -141,6 +142,7 @@ PHP
 $url = 'https://www.domain.com/';
 $url = str_replace('%2F', '/', rawurlencode($url));
 PHP
-            )]);
+            ),
+        ]);
     }
 }
