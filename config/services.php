@@ -14,6 +14,8 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, true);
+
     $services = $containerConfigurator->services();
     $services->defaults()
         ->public()
@@ -46,6 +48,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 __DIR__ . '/../src/Bootstrap',
                 __DIR__ . '/../src/HttpKernel',
                 __DIR__ . '/../src/Compiler',
+                __DIR__ . '/../src/ValueObject',
             ]
         );
 };
