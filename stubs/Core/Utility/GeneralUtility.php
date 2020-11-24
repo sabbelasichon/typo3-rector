@@ -214,4 +214,8 @@ class GeneralUtility
     public static function wrapJS($string, $_ = null): void
     {
     }
+
+    public static function readLLfile($fileRef, $langKey, $charset = '', $errorMode = 0): void
+    {
+    }
 }
