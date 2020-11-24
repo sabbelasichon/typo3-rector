@@ -1,4 +1,4 @@
-# All 126 Rectors Overview
+# All 128 Rectors Overview
 
 ## `AddCodeCoverageIgnoreToMethodRectorDefinitionRector`
 
@@ -693,6 +693,21 @@ Use setMetaTag method from PageRenderer class
 
 <br><br>
 
+## `MethodReadLLFileToLocalizationFactoryRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v4\MethodReadLLFileToLocalizationFactoryRector`](/src/Rector/v7/v4/MethodReadLLFileToLocalizationFactoryRector.php)
+
+Use LocalizationFactory->getParsedData instead of GeneralUtility::readLLfile
+
+```diff
++use TYPO3\CMS\Core\Localization\LocalizationFactory;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-$locallangs = GeneralUtility::readLLfile('EXT:foo/locallang.xml', 'de');
++$locallangs = GeneralUtility::makeInstance(LocalizationFactory::class)->getParsedData('EXT:foo/locallang.xml', 'de');
+```
+
+<br><br>
+
 ## `MoveApplicationContextToEnvironmentApiRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v2\MoveApplicationContextToEnvironmentApiRector`](/src/Rector/v10/v2/MoveApplicationContextToEnvironmentApiRector.php)
@@ -1137,6 +1152,21 @@ Refactor removed methods from GeneralUtility.
 ```diff
 -GeneralUtility::gif_compress();
 +\TYPO3\CMS\Core\Imaging\GraphicalFunctions::gifCompress();
+```
+
+<br><br>
+
+## `RefactorVariousGeneralUtilityMethodsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v1\RefactorVariousGeneralUtilityMethodsRector`](/src/Rector/v8/v1/RefactorVariousGeneralUtilityMethodsRector.php)
+
+Refactor various deprecated methods of class GeneralUtility
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+ $url = 'https://www.domain.com/';
+-$url = GeneralUtility::rawUrlEncodeFP($url);
++$url = str_replace('%2F', '/', rawurlencode($url));
 ```
 
 <br><br>
