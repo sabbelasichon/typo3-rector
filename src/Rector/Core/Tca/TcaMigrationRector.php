@@ -101,13 +101,15 @@ final class TcaMigrationRector extends AbstractRector
         $returnStatement = new Return_($node->expr);
 
         $pathToFile = (string) tempnam(sys_get_temp_dir(), 'tca');
-        $this->printToFile($returnStatement, $pathToFile);
+        $this->printToFile([$returnStatement], $pathToFile);
 
         $tca = include $pathToFile;
 
         $tcaMigrated = $tca;
-        foreach ($this->tcaMigrations as $tcaMigration) {
-            $tcaMigrated = $tcaMigration->migrate($tcaMigrated);
+        if (is_iterable($this->tcaMigrations)) {
+            foreach ($this->tcaMigrations as $tcaMigration) {
+                $tcaMigrated = $tcaMigration->migrate($tcaMigrated);
+            }
         }
 
         $codeForAst = 'return ' . VarExporter::export($tcaMigrated['table']) . ';' . PHP_EOL;

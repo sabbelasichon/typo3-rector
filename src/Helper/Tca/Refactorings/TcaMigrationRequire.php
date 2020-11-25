@@ -23,7 +23,9 @@ trait TcaMigrationRequire
             ];
         }
 
-        $tca = $tcaMigration->migrate($tca);
+        if (is_array($tca)) {
+            $tca = $tcaMigration->migrate($tca);
+        }
 
         FileSystem::delete(realpath($pathToFile));
 
@@ -56,6 +58,6 @@ trait TcaMigrationRequire
 
     private function getNamespace(): string
     {
-        return sprintf('TYPO3\CMS\Core\Migrations_%s', str_replace('.', '_', static::VERSION . random_int(1, 400)));
+        return sprintf('TYPO3\CMS\Core\Migrations_%s', str_replace('.', '_', static::VERSION . random_int(1, 100000)));
     }
 }

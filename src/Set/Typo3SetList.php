@@ -35,4 +35,9 @@ final class Typo3SetList
      * @var string
      */
     public const UNDERSCORE_TO_NAMESPACE = __DIR__ . '/../../config/underscore-to-namespace.php';
+
+    /**
+     * @var string
+     */
+    public const TCA_MIGRATION = __DIR__ . '/../../config/tca-migration.php';
 }

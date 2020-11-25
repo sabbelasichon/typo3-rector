@@ -4,6 +4,11 @@ return [
     'ctrl' => [
         'requestUpdate' => 'my_field'
     ],
+    'types' => [
+        'aType' => [
+            'showitem' => 'aField;aLabel;anAdditionalPaletteName',
+        ],
+    ],
     'columns' => [
         'my_field' => [
             'config' => [
@@ -17,6 +22,6 @@ return [
 -----
 <?php
 
-return ['ctrl' => [], 'columns' => ['my_field' => ['config' => ['type' => 'input'], 'onChange' => 'reload']]];
+return ['ctrl' => [], 'types' => ['aType' => ['showitem' => 'aField;aLabel,--palette--;;anAdditionalPaletteName']], 'columns' => ['my_field' => ['config' => ['type' => 'input'], 'onChange' => 'reload']]];
 
 ?>
