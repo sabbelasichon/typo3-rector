@@ -14,6 +14,9 @@ use Rector\Core\RectorDefinition\RectorDefinition;
  */
 final class __Name__ extends AbstractRector
 {
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('__Description__', [new CodeSample(<<<'PHP'
