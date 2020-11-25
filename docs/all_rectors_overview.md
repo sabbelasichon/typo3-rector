@@ -1,4 +1,4 @@
-# All 129 Rectors Overview
+# All 130 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -1751,6 +1751,27 @@ GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(Fi
 +$var16 = AbstractService::ERROR_FILE_NOT_WRITEABLE;
 +$var17 = AbstractService::ERROR_PROGRAM_NOT_FOUND;
 +$var18 = AbstractService::ERROR_PROGRAM_FAILED;
+```
+
+<br><br>
+
+## `TcaMigrationRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\Core\Tca\TcaMigrationRector`](/src/Rector/Core/Tca/TcaMigrationRector.php)
+
+This Rector migrates the TCA configuration for all configurations in separate files in folder TCA\Configuration. This is done on runtime via core migration classes \TYPO3\CMS\Core\Migrations\TcaMigration for different versions
+
+```diff
+-return [
+-    'ctrl' => [
+-        'divider2tabs' => true,
+-    ],
+-    'columns' => [
+-        'sys_language_uid' => [
+-        ],
+-    ],
+-];
++return ['ctrl' => ['divider2tabs' => true], 'columns' => ['sys_language_uid' => ['config' => ['type' => 'none']]]];
 ```
 
 <br><br>
