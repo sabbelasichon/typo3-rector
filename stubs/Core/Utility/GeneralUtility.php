@@ -130,7 +130,7 @@ class GeneralUtility
         return [];
     }
 
-    public function verifyFilenameAgainstDenyPattern($filename): void
+    public static function verifyFilenameAgainstDenyPattern($filename): void
     {
 
     }
