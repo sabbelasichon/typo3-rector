@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\__Major__\__Minor__\__Test_Directory__;
+namespace Ssch\TYPO3Rector\Tests\Rector\v7\v5\UseExtPrefixForTcaIconFile;
 
+use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Rector\v7\v5\UseExtPrefixForTcaIconFileRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class __Name__Test extends AbstractRectorTestCase
+final class UseExtPrefixForTcaIconFileRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -17,13 +19,13 @@ final class __Name__Test extends AbstractRectorTestCase
         $this->doTestFileInfo($fileInfo);
     }
 
-    public function provideData(): \Iterator
+    public function provideData(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
     protected function getRectorClass(): string
     {
-        return \Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Name__::class;
+        return UseExtPrefixForTcaIconFileRector::class;
     }
 }
