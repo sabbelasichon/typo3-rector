@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Helper\Tca\Refactorings;
 
 use Nette\Utils\FileSystem;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 trait TcaMigrationRequire
 {
@@ -27,7 +28,9 @@ trait TcaMigrationRequire
             $tca = $tcaMigration->migrate($tca);
         }
 
-        FileSystem::delete(realpath($pathToFile));
+        $smartFileInfo = new SmartFileInfo($pathToFile);
+
+        FileSystem::delete($smartFileInfo->getRealPath());
 
         return $tca;
     }

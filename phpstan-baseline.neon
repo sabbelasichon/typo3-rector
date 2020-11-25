@@ -1,26 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$path of static method Nette\\\\Utils\\\\FileSystem\\:\\:delete\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/Helper/Tca/Refactorings/TcaMigrationVersion10.php
-
-		-
-			message: "#^Parameter \\#1 \\$path of static method Nette\\\\Utils\\\\FileSystem\\:\\:delete\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/Helper/Tca/Refactorings/TcaMigrationVersion7.php
-
-		-
-			message: "#^Parameter \\#1 \\$path of static method Nette\\\\Utils\\\\FileSystem\\:\\:delete\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/Helper/Tca/Refactorings/TcaMigrationVersion8.php
-
-		-
-			message: "#^Parameter \\#1 \\$path of static method Nette\\\\Utils\\\\FileSystem\\:\\:delete\\(\\) expects string, string\\|false given\\.$#"
-			count: 1
-			path: src/Helper/Tca/Refactorings/TcaMigrationVersion9.php
-
-		-
 			message: "#^Cannot access property \\$key on PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\|null\\.$#"
 			count: 1
 			path: src/Rector/Core/Tca/TcaMigrationRector.php

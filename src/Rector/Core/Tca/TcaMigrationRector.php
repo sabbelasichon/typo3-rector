@@ -26,7 +26,7 @@ final class TcaMigrationRector extends AbstractRector
     /**
      * @var TcaMigrationRefactoring[]
      */
-    private $tcaMigrations;
+    private $tcaMigrations = [];
 
     public function __construct(ParserFactory $parserFactory, array $tcaMigrations)
     {
