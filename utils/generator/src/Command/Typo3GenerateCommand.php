@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Generator\Command;
 use Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
 use RuntimeException;
+use Ssch\TYPO3Rector\Generator\Config\ConfigFilesystem;
 use Ssch\TYPO3Rector\Generator\Finder\TemplateFinder;
 use Ssch\TYPO3Rector\Generator\Generator\FileGenerator;
 use Ssch\TYPO3Rector\Generator\ValueObject\Description;
@@ -40,22 +41,29 @@ final class Typo3GenerateCommand extends Command
      */
     private $symfonyStyle;
 
+    /**
+     * @var ConfigFilesystem
+     */
+    private $configFilesystem;
+
     public function __construct(
         TemplateFinder $templateFinder,
         FileGenerator $fileGenerator,
-        SymfonyStyle $symfonyStyle
+        SymfonyStyle $symfonyStyle,
+        ConfigFilesystem $configFilesystem
     ) {
         parent::__construct();
 
         $this->templateFinder = $templateFinder;
         $this->fileGenerator = $fileGenerator;
         $this->symfonyStyle = $symfonyStyle;
+        $this->configFilesystem = $configFilesystem;
     }
 
     protected function configure(): void
     {
         $this->setName(CommandNaming::classToName(self::class));
-        $this->setAliases(['typo3-create']);
+        $this->setAliases(['typo3-create', 'typo3-rector']);
         $this->setDescription('[DEV] Create a new TYPO3 Rector, in a proper location, with new tests');
     }
 
@@ -91,6 +99,8 @@ final class Typo3GenerateCommand extends Command
         );
 
         $testCaseDirectoryPath = $this->resolveTestCaseDirectoryPath($generatedFilePaths);
+
+        $this->configFilesystem->appendRectorServiceToSet($recipe, $templateVariables);
 
         $this->printSuccess($recipe->getName(), $generatedFilePaths, $testCaseDirectoryPath);
 

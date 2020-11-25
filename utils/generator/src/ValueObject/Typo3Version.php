@@ -42,4 +42,9 @@ final class Typo3Version
 
         return new self((int) $major, (int) $minor);
     }
+
+    public function getFullVersion(): string
+    {
+        return sprintf('%d%d', $this->major, $this->minor);
+    }
 }
