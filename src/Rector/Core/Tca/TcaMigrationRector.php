@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\ParserFactory;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\Tca\Refactorings\TcaMigrationRefactoring;
 use Symfony\Component\VarExporter\Exception\ExceptionInterface;
@@ -89,7 +90,23 @@ final class TcaMigrationRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition(
-            'This Rector migrates the TCA configuration for all configurations in separate files in folder TCA\Configuration. This is done on runtime via core migration classes \TYPO3\CMS\Core\Migrations\TcaMigration for different versions'
+            'This Rector migrates the TCA configuration for all configurations in separate files in folder TCA\Configuration. This is done on runtime via core migration classes \TYPO3\CMS\Core\Migrations\TcaMigration for different versions',
+            [
+                new CodeSample(<<<'PHP'
+return [
+    'ctrl' => [
+        'divider2tabs' => true,
+    ],
+    'columns' => [
+        'sys_language_uid' => [
+        ],
+    ],
+];
+PHP
+                    , <<<'PHP'
+return ['ctrl' => ['divider2tabs' => true], 'columns' => ['sys_language_uid' => ['config' => ['type' => 'none']]]];
+PHP
+                ), ]
         );
     }
 
