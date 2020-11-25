@@ -1,4 +1,4 @@
-# All 128 Rectors Overview
+# All 129 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -2016,6 +2016,23 @@ Use controller classes when registering extbase plugins/modules
 +    [\TYPO3\CMS\Form\Controller\FormFrontendController::class => 'perform'],
      ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
  );
+```
+
+<br><br>
+
+## `UseExtPrefixForTcaIconFileRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v5\UseExtPrefixForTcaIconFileRector`](/src/Rector/v7/v5/UseExtPrefixForTcaIconFileRector.php)
+
+Deprecate relative path to extension directory and using filename only in TCA ctrl iconfile
+
+```diff
+ return [
+     'ctrl' => [
+-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('foo').'Resources/Public/Icons/image.png',
++        'iconfile' => 'EXT:foo/Resources/Public/Icons/image.png',
+     ],
+ ];
 ```
 
 <br><br>
