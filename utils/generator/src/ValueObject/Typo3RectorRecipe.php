@@ -54,7 +54,12 @@ final class Typo3RectorRecipe
         return $this->description->getDescription();
     }
 
-    public function getName(): string
+    public function getRectorName(): string
+    {
+        return $this->name->getRectorName();
+    }
+
+    public function getTestDirectory(): string
     {
         return $this->name->getName();
     }

@@ -23,6 +23,11 @@ final class Name
 
     public function getName(): string
     {
+        return $this->name;
+    }
+
+    public function getRectorName(): string
+    {
         return sprintf('%sRector', $this->name);
     }
 

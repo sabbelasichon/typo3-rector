@@ -85,8 +85,9 @@ final class Typo3GenerateCommand extends Command
         $templateVariables = [
             '__Major__' => $recipe->getMajorVersion(),
             '__Minor__' => $recipe->getMinorVersion(),
-            '__Name__' => $recipe->getName(),
-            '__RST_FILE__' => $recipe->getUrlToRstFile(),
+            '__Name__' => $recipe->getRectorName(),
+            '__Test_Directory__' => $recipe->getTestDirectory(),
+            '__Rst_File__' => $recipe->getUrlToRstFile(),
             '__Description__' => $recipe->getDescription(),
         ];
 
@@ -102,7 +103,7 @@ final class Typo3GenerateCommand extends Command
 
         $this->configFilesystem->appendRectorServiceToSet($recipe, $templateVariables);
 
-        $this->printSuccess($recipe->getName(), $generatedFilePaths, $testCaseDirectoryPath);
+        $this->printSuccess($recipe->getRectorName(), $generatedFilePaths, $testCaseDirectoryPath);
 
         return ShellCode::SUCCESS;
     }

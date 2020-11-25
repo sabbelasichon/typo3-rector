@@ -10,7 +10,7 @@ use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
 
 /**
- * @see __RST_FILE__
+ * @see __Rst_File__
  */
 final class __Name__ extends AbstractRector
 {

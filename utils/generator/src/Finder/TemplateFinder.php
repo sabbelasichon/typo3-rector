@@ -52,14 +52,14 @@ final class TemplateFinder
         $filePaths = [];
 
         $filePaths[] = __DIR__ . '/../../templates/src/Rector/__Major__/__Minor__/__Name__.php';
-        $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/__Name__/__Name__Test.php.inc';
+        $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/__Test_Directory__/__Name__Test.php.inc';
 
         return $filePaths;
     }
 
     private function resolveFixtureFilePath(): string
     {
-        return __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/__Name__/Fixture/fixture.php.inc';
+        return __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/__Test_Directory__/Fixture/fixture.php.inc';
     }
 
     /**
