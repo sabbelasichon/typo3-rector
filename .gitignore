@@ -8,6 +8,7 @@
 !.gitkeep
 .code
 .class-alias-map-generator
+.tca-migrations-generator
 composer.lock
 # Other ignored paths and files.
 /vendor
