@@ -57,22 +57,25 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
                 return null;
             }
 
-            if (null === $this->getValue($firstArgument->value)) {
+            $argumentValue = $this->getValue($firstArgument->value);
+
+            if (null === $argumentValue) {
                 return null;
             }
 
-            $param = new String_('typo3temp/' . $this->getValue($firstArgument->value));
+            $param = new String_('typo3temp/' . $argumentValue);
 
             return $this->createStaticCall(GeneralUtility::class, 'mkdir_deep', [
                 new Concat(new ConstFetch(new Name('PATH_site')), $param),
             ]);
         }
 
-        if (! isset($node->name->name)) {
+        $nodeName = $this->getName($node->name);
+        if (null === $nodeName) {
             return null;
         }
 
-        if ('tempPath' === $node->name->name) {
+        if ('tempPath' === $nodeName) {
             return new String_('typo3temp/');
         }
 
