@@ -8,7 +8,13 @@ final class ContentObjectRendererMethodsFrontendController
 {
     public function doSomethingElse(): void
     {
-        $this->records = $this->getTypoScriptFrontendController()->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
+        $records = $this->getTypoScriptFrontendController()->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
+        $typoscriptFrontendController = $this->getTypoScriptFrontendController();
+        $typoscriptFrontendController->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
+
+        /** @var TypoScriptFrontendController $typoscriptFrontendController2 */
+        $typoscriptFrontendController2 = $GLOBALS['TSFE'];
+        $typoscriptFrontendController2->cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
     }
 
     private function getTypoScriptFrontendController(): TypoScriptFrontendController
@@ -29,7 +35,13 @@ final class ContentObjectRendererMethodsFrontendController
 {
     public function doSomethingElse(): void
     {
-        $this->records = $this->getTypoScriptFrontendController()->cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
+        $records = $this->getTypoScriptFrontendController()->cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
+        $typoscriptFrontendController = $this->getTypoScriptFrontendController();
+        $typoscriptFrontendController->cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
+
+        /** @var TypoScriptFrontendController $typoscriptFrontendController2 */
+        $typoscriptFrontendController2 = $GLOBALS['TSFE'];
+        $typoscriptFrontendController2->cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
     }
 
     private function getTypoScriptFrontendController(): TypoScriptFrontendController
