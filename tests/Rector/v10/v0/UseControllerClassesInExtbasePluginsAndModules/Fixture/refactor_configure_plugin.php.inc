@@ -6,7 +6,7 @@ use TYPO3\CMS\Form\Controller\FormFrontendController;
 $_EXTKEY = 'Form';
 
 ExtensionUtility::configurePlugin(
-    'TYPO3.CMS.' . $_EXTKEY,
+    'TYPO3.CMS.'.$_EXTKEY,
     'Formframework',
     ['FormFrontend' => 'render, perform'],
     ['FormFrontend' => 'perform'],
@@ -33,11 +33,23 @@ ExtensionUtility::configurePlugin(
     'FriendsOfTYPO3.tt_address',
     'ListView',
     [
-        'Address' => 'list,show'
+        'Address' => 'list,show',
     ],
     [
-        'Address' => ''
+        'Address' => '',
     ]
+);
+
+call_user_func(
+    static function ($extensionKey) {
+        ExtensionUtility::configurePlugin(
+            'TYPO3.CMS.'.$extensionKey,
+            'Formframework',
+            ['FormFrontend' => 'render, perform'],
+            ['FormFrontend' => 'perform'],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+        );
+    }, ('Form')
 );
 
 ?>
@@ -78,6 +90,18 @@ ExtensionUtility::configurePlugin(
     'ListView',
     [\FriendsOfTYPO3\TtAddress\Controller\AddressController::class => 'list,show'],
     [\FriendsOfTYPO3\TtAddress\Controller\AddressController::class => '']
+);
+
+call_user_func(
+    static function ($extensionKey) {
+        ExtensionUtility::configurePlugin(
+            'TempFixtureEasyTesting',
+            'Formframework',
+            [\TYPO3\CMS\TempFixtureEasyTesting\Controller\FormFrontendController::class => 'render, perform'],
+            [\TYPO3\CMS\TempFixtureEasyTesting\Controller\FormFrontendController::class => 'perform'],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+        );
+    }, ('Form')
 );
 
 ?>
