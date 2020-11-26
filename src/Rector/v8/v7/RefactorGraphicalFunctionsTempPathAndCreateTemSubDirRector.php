@@ -57,10 +57,6 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
                 return null;
             }
 
-            //if (null === $firstArgument->value) {
-            //    return null;
-            //}
-
             if (null === $this->getValue($firstArgument->value)) {
                 return null;
             }
