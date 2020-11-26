@@ -8,10 +8,10 @@ Apply automatic fixes on your TYPO3 code.
 
 [![Coverage Status](https://img.shields.io/coveralls/sabbelasichon/typo3-rector/master.svg?style=flat-square)](https://coveralls.io/github/sabbelasichon/typo3-rector?branch=master)
 
-[Rector](https://getrector.org/) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases.
+[Rector](https://getrector.org/) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases or keep your code deprecation free.
 
 ## Let´s see some examples in action
-Let´s see some "rules" in action. Let´s say you have a Fluid ViewHelper looking like this:
+Let´s say you have a Fluid ViewHelper looking like this:
 
 ```php
 class InArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
@@ -36,7 +36,7 @@ class InArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 
 What´s "wrong" with this code? Well, it depends on the context. But, if we assume you would like to have this code ready for TYPO3 version 10 you should move the render method arguments to the method initializeArguments and you should rename the namespace \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper to \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper.
 
-And we are not talking about the superfluous else statement and not having Type Declarations if we would like to use modern PHP. That´s a different story.
+And we are not talking about the superfluous else statement, not having Type Declarations or in_array could be used. That´s a different story.
 
 Do you like to do these changes manually on a codebase with let´s say 40-100 ViewHelpers? We don´t. So let Rector do the heavy work for us and apply the "rules" MoveRenderArgumentsToInitializeArgumentsMethodRector and RenameClassMapAliasRector for Version 9.5.
 
@@ -200,60 +200,19 @@ php ~/.composer/vendor/bin/typo3-rector process public/typo3conf/ext/your_extens
 
 ## Configuration and Processing
 
-This library ships already with a bunch of configuration files organized by TYPO3 version. [show config](/config/)
-Let´s say want to migrate from version 8.x to 9.x, you could import the config sets for v8 and v9.
-So create your own configuration file called rector.php in the root of your project the following way:
+This library ships already with a bunch of configuration files organized by TYPO3 version.
+To get you started quickly run the following command inside the root directory of your project:
 
-```php
-<?php
-
-use Rector\Core\Configuration\Option;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Ssch\TYPO3Rector\Set\Typo3SetList;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::SETS, [
-            Typo3SetList::TYPO3_87,
-            Typo3SetList::TYPO3_95,
-        ]
-    );
-
-    // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
-    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
-
-    // this will not import root namespace classes, like \DateTime or \Exception
-    $parameters->set(Option::IMPORT_SHORT_CLASSES, false);
-
-    // this will not import classes used in PHP DocBlocks, like in /** @var \Some\Class */
-    $parameters->set(Option::IMPORT_DOC_BLOCKS, false);
-
-    $parameters->set(Option::PHP_VERSION_FEATURES, '7.2');
-
-    // If you set option Option::AUTO_IMPORT_NAMES to true, you should consider excluding some TYPO3 files.
-    $parameters->set(Option::EXCLUDE_PATHS, [
-        'ClassAliasMap.php',
-        'class.ext_update.php',
-        'ext_localconf.php',
-        'ext_emconf.php',
-        'ext_tables.php',
-        __DIR__ . '/packages/my_package/Configuration/*'
-    ]);
-
-    // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file
-    // Have a look at https://github.com/sabbelasichon/typo3-rector/typo3.constants.php
-    $parameters->set(Option::AUTOLOAD_PATHS, [
-        __DIR__ . '/typo3.constants.php'
-    ]);
-};
+```bash
+./vendor/bin/typo3-rector typo3-init
 ```
 
-See [Rector README](https://github.com/rectorphp/rector#configuration) for full configuration options.
+The command generates a basic configuration skeleton which you can adapt to your needs.
+The file is fully of comments so you can follow along what is going on.
 
-This configuration applies all available rectors defined in the different PHP files for version 8.x to 9.x with PHP 7.2 capabilities.
-Additionally we auto import the FQCN except for PHP core classes and within DocBlocks.
+For more configuration options see [Rector README](https://github.com/rectorphp/rector#configuration).
 
-After the configuration run typo3-rector to simulate (hence the option -n) the code fixes:
+After your adopt the configuration to your needs, run typo3-rector to simulate (hence the option -n) the future code fixes:
 
 ```bash
 ./vendor/bin/typo3-rector process packages/my_custom_extension --dry-run
