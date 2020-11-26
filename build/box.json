@@ -10,6 +10,7 @@
         "vendor/rector/rector/packages",
         "config",
         "src",
+        "typo3.constants.php",
         "utils/phpstan/config",
         "utils/phpstan/src",
         "Migrations"

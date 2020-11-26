@@ -240,6 +240,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/packages/my_package/Configuration/*'
     ]);
 
+    // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file
+    // Have a look at https://github.com/sabbelasichon/typo3-rector/typo3.constants.php
+    $parameters->set(Option::AUTOLOAD_PATHS, [
+        __DIR__ . '/typo3.constants.php'
+    ]);
 };
 ```
 
