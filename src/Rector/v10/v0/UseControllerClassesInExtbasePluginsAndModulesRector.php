@@ -50,9 +50,14 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
         )) {
             /** @var SmartFileInfo $fileInfo */
             $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
+
             $extensionName = $this->getValue($extensionNameArgumentValue->left) . basename(
                 $fileInfo->getRelativeDirectoryPath()
             );
+        }
+
+        if (! is_string($extensionName)) {
+            return null;
         }
 
         $delimiterPosition = strrpos($extensionName, '.');
@@ -169,7 +174,7 @@ PHP
         if (null !== $this->getValue($extensionNameArgumentValue->right)) {
             return false;
         }
-        return $this->isName($extensionNameArgumentValue->right, '_EXTKEY');
+        return $this->isNames($extensionNameArgumentValue->right, ['_EXTKEY', 'extensionKey']);
     }
 
     private function prepareExtensionName(string $extensionName, int $delimiterPosition): string
