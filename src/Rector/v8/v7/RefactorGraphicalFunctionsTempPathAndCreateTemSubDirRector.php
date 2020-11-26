@@ -40,7 +40,11 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
             return null;
         }
 
-        if (null !== $node->name && $this->isName($node->name, 'createTempSubDir')) {
+        if (null === $node->name) {
+            return null;
+        }
+
+        if ($this->isName($node->name, 'createTempSubDir')) {
             if (! isset($node->args)) {
                 return null;
             }
@@ -48,18 +52,31 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
             /** @var Arg[] $args */
             $args = $node->args;
             $firstArgument = array_shift($args);
-            if (null === $firstArgument || ! isset($firstArgument->value->value)) {
+
+            if (null === $firstArgument) {
                 return null;
             }
 
-            $param = new String_('typo3temp/' . $firstArgument->value->value);
+            //if (null === $firstArgument->value) {
+            //    return null;
+            //}
+
+            if (null === $this->getValue($firstArgument->value)) {
+                return null;
+            }
+
+            $param = new String_('typo3temp/' . $this->getValue($firstArgument->value));
 
             return $this->createStaticCall(GeneralUtility::class, 'mkdir_deep', [
                 new Concat(new ConstFetch(new Name('PATH_site')), $param),
             ]);
         }
 
-        if (isset($node->name->name) && 'tempPath' === $node->name->name) {
+        if (! isset($node->name->name)) {
+            return null;
+        }
+
+        if ('tempPath' === $node->name->name) {
             return new String_('typo3temp/');
         }
 
