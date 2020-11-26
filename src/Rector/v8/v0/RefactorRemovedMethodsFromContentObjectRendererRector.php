@@ -91,22 +91,29 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Refactor removed methods from ContentObjectRenderer.', [new CodeSample(<<<'PHP'
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+$cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 $cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
 PHP
 , <<<'PHP'
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+$cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 $cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
 PHP
 )]);
     }
 
-    private function shouldSkip(MethodCall $methodCall): bool
+    private function shouldSkip(MethodCall $node): bool
     {
-        $staticType = $this->getStaticType($methodCall->var);
+        $staticType = $this->getStaticType($node->var);
         if ($staticType instanceof TypeWithClassName && ContentObjectRenderer::class === $staticType->getClassName()) {
             return false;
         }
+
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
-            $methodCall,
+            $node,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
             'cObj'
         );
