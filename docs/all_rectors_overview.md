@@ -1108,6 +1108,9 @@ Refactor removed Marker-related methods from HtmlParser.
 Refactor removed methods from ContentObjectRenderer.
 
 ```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+ $cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 -$cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
 +$cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
 ```
