@@ -10,10 +10,13 @@
         "vendor/rector/rector/packages",
         "config",
         "src",
-        "typo3.constants.php",
+        "templates",
         "utils/phpstan/config",
         "utils/phpstan/src",
         "Migrations"
+    ],
+    "files": [
+        "typo3.constants.php"
     ],
     "exclude-composer-files": false,
     "force-autodiscovery": true,

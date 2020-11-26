@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Ssch\TYPO3Rector\Set;
+use Ssch\TYPO3Rector\Set\Typo3SetList;
 use Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -35,14 +35,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'ext_localconf.php',
         'ext_emconf.php',
         'ext_tables.php',
-        __DIR__ . '/packages/my_package/Configuration/*'
+        __DIR__ . '/**/TCA/*'
     ]);
 
     // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file
     // Have a look at https://github.com/sabbelasichon/typo3-rector/typo3.constants.php
-    $parameters->set(Option::AUTOLOAD_PATHS, [
-        __DIR__ . '/typo3.constants.php'
-    ]);
+    //$parameters->set(Option::AUTOLOAD_PATHS, [
+    //    __DIR__ . '/typo3.constants.php'
+    //]);
 
     // get services (needed for register a single rule)
     // $services = $containerConfigurator->services();
