@@ -1,6 +1,7 @@
 {
     "alias": "typo3-rector.phar",
     "banner": false,
+    "compression": "GZ",
     "base-path": "..",
     "check-requirements": false,
     "directories": [
