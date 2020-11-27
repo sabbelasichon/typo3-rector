@@ -35,8 +35,32 @@ final class UseHtmlSpecialCharsDirectlyForTranslationRector extends AbstractRect
     {
         return new RectorDefinition('htmlspecialchars directly to properly escape the content.', [
             new CodeSample(<<<'PHP'
+use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+class MyPlugin extends AbstractPlugin
+{
+    public function translate($hsc): void
+    {
+        $translation = $this->pi_getLL('label', '', true);
+        $translation2 = $this->pi_getLL('label', '', false);
+        $translation3 = $this->pi_getLL('label', '', $hsc);
+        $translation9 = $GLOBALS['LANG']->sL('foobar', true);
+        $translation10 = $GLOBALS['LANG']->sL('foobar', false);
+    }
+}
 PHP
                 , <<<'PHP'
+use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+class MyPlugin extends AbstractPlugin
+{
+    public function translate($hsc): void
+    {
+        $translation = htmlspecialchars($this->pi_getLL('label', ''));
+        $translation2 = $this->pi_getLL('label', '');
+        $translation3 = $this->pi_getLL('label', '', $hsc);
+        $translation9 = htmlspecialchars($GLOBALS['LANG']->sL('foobar'));
+        $translation10 = $GLOBALS['LANG']->sL('foobar');
+    }
+}
 PHP
             ),
         ]);
