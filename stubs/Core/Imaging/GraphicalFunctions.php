@@ -10,6 +10,11 @@ if (class_exists(GraphicalFunctions::class)) {
 
 final class GraphicalFunctions
 {
+    /**
+     * @var string
+     */
+    public $tempPath = 'typo3temp/';
+
     public function prependAbsolutePath($fontFile): void
     {
 
@@ -23,5 +28,9 @@ final class GraphicalFunctions
     public function init(): void
     {
 
+    }
+
+    public function createTempSubDir($dirName)
+    {
     }
 }

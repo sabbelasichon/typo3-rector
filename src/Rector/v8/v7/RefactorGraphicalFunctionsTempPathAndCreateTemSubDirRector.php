@@ -5,16 +5,26 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v7;
 
 use PhpParser\Node;
-use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\BooleanNot;
+use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Expr\ErrorSuppress;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
+use PhpParser\Node\Param;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Else_;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\If_;
+use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -23,6 +33,21 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends AbstractRector
 {
+    /**
+     * @var string
+     */
+    private const CREATE_TEMP_SUB_DIR = 'createTempSubDir';
+
+    /**
+     * @var string
+     */
+    private const TEMP_PATH = 'tempPath';
+
+    /**
+     * @var string
+     */
+    private const TMP_PATH = 'tmpPath';
+
     /**
      * @return string[]
      */
@@ -36,50 +61,11 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node->var, GraphicalFunctions::class)) {
-            return null;
+        if ($node instanceof MethodCall) {
+            return $this->refactorMethodCall($node);
         }
 
-        if (null === $node->name) {
-            return null;
-        }
-
-        if ($this->isName($node->name, 'createTempSubDir')) {
-            if (! (property_exists($node, 'args') && null !== $node->args)) {
-                return null;
-            }
-
-            /** @var Arg[] $args */
-            $args = $node->args;
-            $firstArgument = array_shift($args);
-
-            if (null === $firstArgument) {
-                return null;
-            }
-
-            $argumentValue = $this->getValue($firstArgument->value);
-
-            if (null === $argumentValue) {
-                return null;
-            }
-
-            $param = new String_('typo3temp/' . $argumentValue);
-
-            return $this->createStaticCall(GeneralUtility::class, 'mkdir_deep', [
-                new Concat(new ConstFetch(new Name('PATH_site')), $param),
-            ]);
-        }
-
-        $nodeName = $this->getName($node->name);
-        if (null === $nodeName) {
-            return null;
-        }
-
-        if ('tempPath' === $nodeName) {
-            return new String_('typo3temp/');
-        }
-
-        return null;
+        return $this->refactorPropertyFetch($node);
     }
 
     /**
@@ -93,12 +79,106 @@ $graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
 $graphicalFunctions->createTempSubDir('var/transient/');
 return $graphicalFunctions->tempPath . 'var/transient/';
 PHP
-            , <<<'PHP'
+                , <<<'PHP'
 $graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
 GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/var/transient/');
 return 'typo3temp/' . 'var/transient/';
 PHP
-        ),
+            ),
         ]);
+    }
+
+    private function refactorMethodCall(MethodCall $node): ?Node
+    {
+        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, GraphicalFunctions::class)) {
+            return null;
+        }
+
+        if (! $this->isName($node->name, self::CREATE_TEMP_SUB_DIR)) {
+            return null;
+        }
+
+        if (0 === count($node->args)) {
+            return null;
+        }
+
+        $argumentValue = $this->getValue($node->args[0]->value);
+
+        if (null === $argumentValue) {
+            return null;
+        }
+
+        $anonymousFunction = new Closure();
+        $anonymousFunction->params = [
+            new Param(new Variable(self::TEMP_PATH)),
+            new Param(new Variable('dirName')),
+        ];
+
+        $ifIsPartOfStrMethodCall = $this->createStaticCall(GeneralUtility::class, 'isFirstPartOfStr', [
+            new Variable(self::TEMP_PATH),
+            new ConstFetch(new Name('PATH_site')),
+        ]);
+        $ifIsPartOfStr = new If_($ifIsPartOfStrMethodCall);
+        $ifIsPartOfStr->stmts[] = new Expression(new Assign(new Variable(self::TMP_PATH), new Variable(
+            self::TEMP_PATH
+        )));
+        $ifIsPartOfStr->else = new Else_();
+        $ifIsPartOfStr->else->stmts[] = new Expression(
+            new Assign(
+                new Variable(self::TMP_PATH),
+                new Concat(new ConstFetch(new Name('PATH_site')), new Variable(self::TEMP_PATH))
+            )
+        );
+
+        $anonymousFunction->stmts[] = $ifIsPartOfStr;
+
+        $concatTempPathAndDirName = $this->createConcat([new Variable(self::TMP_PATH), new Variable('dirName')]);
+
+        if (null === $concatTempPathAndDirName) {
+            return null;
+        }
+
+        $isDirFunc = new ErrorSuppress($this->createFuncCall('is_dir', [$concatTempPathAndDirName]));
+        $ifIsNotDir = new If_(new BooleanNot($isDirFunc));
+        $ifIsNotDir->stmts[] = new Expression($this->createStaticCall(
+            GeneralUtility::class,
+            'mkdir_deep',
+            [$concatTempPathAndDirName]
+        ));
+        $ifIsNotDir->stmts[] = new Return_($isDirFunc);
+        $anonymousFunction->stmts[] = $ifIsNotDir;
+        $anonymousFunction->stmts[] = new Return_($this->createFalse());
+
+        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+
+        $this->addNodeBeforeNode(
+            new Expression(new Assign(new Variable(self::CREATE_TEMP_SUB_DIR), $anonymousFunction)),
+            $parentNode
+        );
+
+        // Could not figure how to call the closure like that $function();
+        return $this->createFuncCall('call_user_func',
+            [new Variable(self::CREATE_TEMP_SUB_DIR), new String_('typo3temp'), $node->args[0]->value]
+        );
+    }
+
+    private function refactorPropertyFetch(PropertyFetch $node): ?Node
+    {
+        if (! $this->isObjectType($node->var, GraphicalFunctions::class)) {
+            return null;
+        }
+
+        if (! $this->isName($node->name, self::TEMP_PATH)) {
+            return null;
+        }
+
+        $parentNode = $node->getAttribute('parent');
+
+        // Check if we have an assigment to the property, if so do not change it
+        if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
+            return null;
+        }
+
+        return new String_('typo3temp/');
     }
 }
