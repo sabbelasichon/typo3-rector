@@ -13,15 +13,15 @@ final class LanguageService
     {
     }
 
-    public function sL($input, $hsc = false): void
+    public function sL($input): void
     {
     }
 
-    public function getLL($index, $hsc = false): void
+    public function getLL($index): void
     {
     }
 
-    public function getLLL($index, $localLanguage, $hsc = false): void
+    public function getLLL($index, $localLanguage): void
     {
     }
 }
