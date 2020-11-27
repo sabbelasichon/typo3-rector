@@ -55,6 +55,11 @@ final class Typo3NodeResolver
      */
     public const GLOBALS = 'GLOBALS';
 
+    /**
+     * @var string
+     */
+    public const LANG = 'LANG';
+
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool
     {
         if (! $node instanceof MethodCall) {

@@ -13,7 +13,15 @@ final class LanguageService
     {
     }
 
-    public function sL($label): void
+    public function sL($input): void
+    {
+    }
+
+    public function getLL($index): void
+    {
+    }
+
+    public function getLLL($index, $localLanguage): void
     {
     }
 }
