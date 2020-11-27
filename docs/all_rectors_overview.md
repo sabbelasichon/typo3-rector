@@ -929,7 +929,6 @@ Remove second argument of GeneralUtility::explodeUrl2Array if it is false or jus
 ## `RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v8\v7\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector`](/src/Rector/v8/v7/RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector.php)
-- [test fixtures](/tests/Rector/v8/v7/RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector/Fixture)
 
 Refactor `tempPath()` and createTempSubDir on GraphicalFunctions
 
