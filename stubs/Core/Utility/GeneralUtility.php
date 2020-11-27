@@ -236,4 +236,8 @@ class GeneralUtility
     public static function readLLfile($fileRef, $langKey, $charset = '', $errorMode = 0): void
     {
     }
+
+    public static function isFirstPartOfStr($str, $partStr)
+    {
+    }
 }

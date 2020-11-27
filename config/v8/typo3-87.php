@@ -13,6 +13,7 @@ use Ssch\TYPO3Rector\Rector\v8\v7\ChangeAttemptsParameterConsoleOutputRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerRmCommaRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerVariousMethodsAndMethodArgumentsRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorArrayBrowserWrapValueRector;
+use Ssch\TYPO3Rector\Rector\v8\v7\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorPrintContentMethodsRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorRemovedMarkerMethodsFromContentObjectRendererRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\TemplateServiceSplitConfArrayRector;
@@ -71,4 +72,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorArrayBrowserWrapValueRector::class);
 
     $services->set(DataHandlerVariousMethodsAndMethodArgumentsRector::class);
+
+    $services->set(RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector::class);
 };
