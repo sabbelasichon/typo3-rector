@@ -1,4 +1,4 @@
-# All 132 Rectors Overview
+# All 133 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -2139,6 +2139,33 @@ Use method getMenu instead of getFirstWebPage
 +if (!empty($rootLevelPages)) {
 +    $theFirstPage = reset($rootLevelPages);
 +}
+```
+
+<br><br>
+
+## `UseHtmlSpecialCharsDirectlyForTranslationRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v2\UseHtmlSpecialCharsDirectlyForTranslationRector`](/src/Rector/v8/v2/UseHtmlSpecialCharsDirectlyForTranslationRector.php)
+
+`htmlspecialchars` directly to properly escape the content.
+
+```diff
+ use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+ class MyPlugin extends AbstractPlugin
+ {
+     public function translate($hsc): void
+     {
+-        $translation = $this->pi_getLL('label', '', true);
+-        $translation2 = $this->pi_getLL('label', '', false);
++        $translation = htmlspecialchars($this->pi_getLL('label', ''));
++        $translation2 = $this->pi_getLL('label', '');
+         $translation3 = $this->pi_getLL('label', '', $hsc);
+-        $translation9 = $GLOBALS['LANG']->sL('foobar', true);
+-        $translation10 = $GLOBALS['LANG']->sL('foobar', false);
++        $translation9 = htmlspecialchars($GLOBALS['LANG']->sL('foobar'));
++        $translation10 = $GLOBALS['LANG']->sL('foobar');
+     }
+ }
 ```
 
 <br><br>
