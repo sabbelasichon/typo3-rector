@@ -47,6 +47,10 @@ final class MoveLanguageFilesFromExtensionLangRector extends AbstractRector
     {
         $value = $this->getValue($node);
 
+        if (null === $value || ! is_string($value)) {
+            return null;
+        }
+
         foreach (self::MAPPING_OLD_TO_NEW_PATHS as $oldPath => $newPath) {
             if (Strings::contains($value, $oldPath)) {
                 return new String_(str_replace($oldPath, $newPath, $value));

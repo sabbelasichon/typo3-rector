@@ -35,6 +35,8 @@ final class MoveLanguageFilesFromLocallangToResourcesRector extends AbstractRect
         'LLL:EXT:lang/locallang_csh_web_func.xlf' => 'func/Resources/Private/Language/locallang_csh_web_func.xlf',
         'LLL:EXT:lang/locallang_csh_web_info.xlf' => 'LLL:EXT:lang/Resources/Private/Language/locallang_csh_web_info.xlf',
         'LLL:EXT:lang/locallang_general.xlf' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf',
+        'LLL:EXT:lang/locallang_general.xml' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf',
+        'LLL:EXT:lang/locallang_general.php' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf',
         'LLL:EXT:lang/locallang_login.xlf' => 'LLL:EXT:lang/Resources/Private/Language/locallang_login.xlf',
         'LLL:EXT:lang/locallang_misc.xlf' => 'LLL:EXT:lang/Resources/Private/Language/locallang_misc.xlf',
         'LLL:EXT:lang/locallang_mod_admintools.xlf' => 'LLL:EXT:lang/Resources/Private/Language/locallang_mod_admintools.xlf',

@@ -45,7 +45,7 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
         }
 
         if ($this->isName($node->name, 'createTempSubDir')) {
-            if (! isset($node->args)) {
+            if (! (property_exists($node, 'args') && null !== $node->args)) {
                 return null;
             }
 
