@@ -1,4 +1,4 @@
-# All 131 Rectors Overview
+# All 132 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -718,6 +718,21 @@ Move language files from EXT:lang/locallang_* to Resources/Private/Language
  $languageService = new LanguageService();
 -$languageService->sL('LLL:EXT:lang/locallang_alt_doc.xlf:label.confirm.delete_record.title');
 +$languageService->sL('LLL:EXT:lang/Resources/Private/Language/locallang_alt_doc.xlf:label.confirm.delete_record.title');
+```
+
+<br><br>
+
+## `MoveLanguageFilesFromRemovedCmsExtensionRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v4\MoveLanguageFilesFromRemovedCmsExtensionRector`](/src/Rector/v7/v4/MoveLanguageFilesFromRemovedCmsExtensionRector.php)
+
+Move language files of removed cms to new location
+
+```diff
+ use TYPO3\CMS\Core\Localization\LanguageService;
+ $languageService = new LanguageService();
+-$languageService->sL('LLL:EXT:cms/web_info/locallang.xlf:pages_1');
++$languageService->sL('LLL:EXT:frontend/Resources/Private/Language/locallang_webinfo.xlf:pages_1');
 ```
 
 <br><br>
