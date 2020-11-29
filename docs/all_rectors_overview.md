@@ -1,4 +1,4 @@
-# All 134 Rectors Overview
+# All 135 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -1990,6 +1990,32 @@ Use method addJsFile of class PageRenderer instead of method loadJavascriptLib o
  $moduleTemplate = GeneralUtility::makeInstance(ModuleTemplate::class);
 -$moduleTemplate->loadJavascriptLib('sysext/backend/Resources/Public/JavaScript/md5.js');
 +GeneralUtility::makeInstance(PageRenderer::class)->addJsFile('sysext/backend/Resources/Public/JavaScript/md5.js');
+```
+
+<br><br>
+
+## `UseClassSchemaInsteadReflectionServiceMethodsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseClassSchemaInsteadReflectionServiceMethodsRector`](/src/Rector/v9/v4/UseClassSchemaInsteadReflectionServiceMethodsRector.php)
+
+Instead of fetching reflection data via ReflectionService use ClassSchema directly
+
+```diff
+ use TYPO3\CMS\Extbase\Reflection\ReflectionService;
+ class MyService
+ {
+     /**
+      * @var ReflectionService
+      * @inject
+      */
+     protected $reflectionService;
+
+     public function init(): void
+     {
+-        $properties = $this->reflectionService->getClassPropertyNames(\stdClass::class);
++        $properties = array_keys($this->reflectionService->getClassSchema(stdClass::class)->getProperties());
+     }
+ }
 ```
 
 <br><br>
