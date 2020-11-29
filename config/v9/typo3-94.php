@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\TemplateGetFileNameToFilePathSanitizerRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseAddJsFileInsteadOfLoadJavascriptLibRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\UseClassSchemaInsteadReflectionServiceMethodsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseGetMenuInsteadOfGetFirstWebPageRector;
@@ -25,44 +26,25 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
-
     $services = $containerConfigurator->services();
-
     $services->set(RefactorDeprecatedConcatenateMethodsPageRendererRector::class);
-
     $services->set(CallEnableFieldsFromPageRepositoryRector::class);
-
     $services->set(ConstantToEnvironmentCallRector::class);
-
     $services->set(RemoveInitTemplateMethodCallRector::class);
-
     $services->set(UseContextApiRector::class);
-
     $services->set(RefactorExplodeUrl2ArrayFromGeneralUtilityRector::class);
-
     $services->set(SystemEnvironmentBuilderConstantsRector::class);
-
     $services->set(UseContextApiForVersioningWorkspaceIdRector::class);
-
     $services->set(DocumentTemplateAddStyleSheetRector::class);
-
     $services->set(UseLanguageAspectForTsfeLanguagePropertiesRector::class);
-
     $services->set(BackendUtilityShortcutExistsRector::class);
-
     $services->set(UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector::class);
-
     $services->set(UseGetMenuInsteadOfGetFirstWebPageRector::class);
-
     $services->set(RemoveInitMethodGraphicalFunctionsRector::class);
-
     $services->set(RemoveInitMethodTemplateServiceRector::class);
-
     $services->set(UseAddJsFileInsteadOfLoadJavascriptLibRector::class);
-
     $services->set(UseRootlineUtilityInsteadOfGetRootlineMethodRector::class);
-
     $services->set(TemplateGetFileNameToFilePathSanitizerRector::class);
-
     $services->set(UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector::class);
+    $services->set(UseClassSchemaInsteadReflectionServiceMethodsRector::class);
 };
