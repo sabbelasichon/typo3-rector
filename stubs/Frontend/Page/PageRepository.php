@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Frontend\Page;
 
+use TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 if (class_exists(PageRepository::class)) {
     return;
 }
@@ -42,5 +45,14 @@ final class PageRepository
     public function getRootLine($uid, $MP = '', $ignoreMPerrors = null): array
     {
         return [];
+    }
+
+    public static function storeHash($hash, $data, $ident, $lifetime = 0): void
+    {
+    }
+
+    public static function getHash($hash): void
+    {
+        GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_hash')->get($hash) ?? null;
     }
 }

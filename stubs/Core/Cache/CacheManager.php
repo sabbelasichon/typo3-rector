@@ -26,4 +26,8 @@ final class CacheManager
             }
         };
     }
+
+    public function flushCachesInGroup($group): void
+    {
+    }
 }
