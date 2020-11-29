@@ -8,8 +8,10 @@ class RemoveLangCsConvObjAndParserFactory
     public function method(): void
     {
         $languageService = GeneralUtility::makeInstance(LanguageService::class);
-        $charsetConverter = $languageService->csConvObj();
+        $charsetConverter = $languageService->csConvObj;
         $Localization = $languageService->parserFactory();
+        $charsetConverterGlobals = $GLOBALS['LANG']->csConvObj;
+        $LocalizationGlobals = $GLOBALS['LANG']->parserFactory();
     }
 }
 ?>
@@ -28,6 +30,8 @@ class RemoveLangCsConvObjAndParserFactory
         $languageService = GeneralUtility::makeInstance(LanguageService::class);
         $charsetConverter = GeneralUtility::makeInstance(CharsetConverter::class);
         $Localization = GeneralUtility::makeInstance(LocalizationFactory::class);
+        $charsetConverterGlobals = GeneralUtility::makeInstance(CharsetConverter::class);
+        $LocalizationGlobals = GeneralUtility::makeInstance(LocalizationFactory::class);
     }
 }
 ?>
