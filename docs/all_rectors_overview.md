@@ -1,4 +1,4 @@
-# All 136 Rectors Overview
+# All 137 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -1656,6 +1656,40 @@ Remove second argument of HTMLcleaner_db getKeepTags. Substitute calls for siteU
 +            $rteHtmlParser->getKeepTags('arg1');
 +            \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl('http://domain.com');
 +             \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
+```
+
+<br><br>
+
+## `SendNotifyEmailToMailApiRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v1\SendNotifyEmailToMailApiRector`](/src/Rector/v10/v1/SendNotifyEmailToMailApiRector.php)
+
+Refactor ContentObjectRenderer::sendNotifyEmail to MailMessage-API
+
+```diff
+-$GLOBALS['TSFE']->cObj->sendNotifyEmail("Subject\nMessage", 'max.mustermann@domain.com', 'max.mustermann@domain.com', 'max.mustermann@domain.com');
++use Symfony\Component\Mime\Address;
++use TYPO3\CMS\Core\Mail\MailMessage;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Core\Utility\MailUtility;$success = false;
++$mail = GeneralUtility::makeInstance(MailMessage::class);
++$message = trim("Subject\nMessage");
++$senderName = trim(null);
++$senderAddress = trim('max.mustermann@domain.com');
++if ($senderAddress !== '') {
++    $mail->from(new Address($senderAddress, $senderName));
++}
++if ($message !== '') {
++    $messageParts = explode(LF, $message, 2);
++    $subject = trim($messageParts[0]);
++    $plainMessage = trim($messageParts[1]);
++    $parsedRecipients = MailUtility::parseAddresses('max.mustermann@domain.com');
++    if (!empty($parsedRecipients)) {
++        $mail->to(...$parsedRecipients)->subject($subject)->text($plainMessage);
++        $mail->send();
++    }
++    $success = true;
++}
 ```
 
 <br><br>
