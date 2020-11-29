@@ -16,7 +16,6 @@ use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-73482-LANG-csConvObjAndLANG-parserFactory.html
@@ -54,7 +53,7 @@ final class RemoveLangCsConvObjAndParserFactoryRector extends AbstractRector
             return $this->refactorLanguageServiceCall($node);
         }
 
-        return $this->refactorAbstractPluginCall($node);
+        return null;
     }
 
     /**
@@ -92,12 +91,7 @@ PHP
         if ($this->isLanguageServiceCall($node)) {
             return false;
         }
-
-        if ($node instanceof PropertyFetch) {
-            return true;
-        }
-
-        return ! $this->isMethodStaticCallOrClassMethodObjectType($node, AbstractPlugin::class);
+        return $node instanceof PropertyFetch;
     }
 
     private function isLanguageServiceCall(Node $node): bool
@@ -110,7 +104,7 @@ PHP
             return true;
         }
 
-        if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node, 'LANG')) {
+        if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node, Typo3NodeResolver::LANG)) {
             return true;
         }
 
@@ -127,7 +121,7 @@ PHP
             return null;
         }
 
-        if ('csConvObj' === $this->getName($node->name)) {
+        if ($this->isName($node->name, 'csConvObj')) {
             return $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
                 $this->createClassConstantReference(CharsetConverter::class),
             ]);
@@ -140,10 +134,5 @@ PHP
         }
 
         return null;
-    }
-
-    private function refactorAbstractPluginCall(Node $node): ?Node
-    {
-        return $this->refactorLanguageServiceCall($node);
     }
 }
