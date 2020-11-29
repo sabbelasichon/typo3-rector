@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\DependencyInjection;
 use Psr\Container\ContainerInterface;
 use Rector\Core\Stubs\StubLoader;
 use Ssch\TYPO3Rector\HttpKernel\Typo3RectorKernel;
+use Ssch\TYPO3Rector\Stubs\StubLoader as Typo3StubsLoader;
 use Symplify\PackageBuilder\Console\Input\InputDetector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
@@ -30,6 +31,9 @@ final class Typo3RectorContainerFactory
 
         $stubLoader = new StubLoader();
         $stubLoader->loadStubs();
+
+        $typo3StubLoader = new Typo3StubsLoader();
+        $typo3StubLoader->loadStubs();
 
         $rectorKernel->boot();
 
