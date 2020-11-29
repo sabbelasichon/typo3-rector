@@ -9,6 +9,7 @@
         "vendor/rector/rector/src",
         "vendor/rector/rector/rules",
         "vendor/rector/rector/packages",
+        "stubs",
         "config",
         "src",
         "templates",
