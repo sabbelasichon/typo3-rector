@@ -6,7 +6,9 @@ use PHPStan\Analyser\NodeScopeResolver;
 use PHPStan\Analyser\ScopeFactory;
 use PHPStan\PhpDoc\TypeNodeResolver;
 use PHPStan\Reflection\ReflectionProvider;
+use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Ssch\TYPO3Rector\Console\Application;
+use Ssch\TYPO3Rector\Console\Output\DecoratedConsoleOutputFormatter;
 use Ssch\TYPO3Rector\DependencyInjection\PHPStanServicesFactory;
 use Ssch\TYPO3Rector\Helper\Database\Refactorings\DatabaseConnectionToDbalRefactoring;
 use Symfony\Component\Console\Application as SymfonyApplication;
@@ -51,4 +53,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 __DIR__ . '/../src/ValueObject',
             ]
         );
+
+    $services->set(DecoratedConsoleOutputFormatter::class)->decorate(ConsoleOutputFormatter::class);
 };
