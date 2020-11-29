@@ -9,6 +9,7 @@ use Rector\Transform\Rector\Assign\PropertyToMethodRector;
 use Rector\Transform\ValueObject\PropertyToMethod;
 use Ssch\TYPO3Rector\Rector\v10\v1\BackendUtilityEditOnClickRector;
 use Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector;
+use Ssch\TYPO3Rector\Rector\v10\v1\SendNotifyEmailToMailApiRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Backend\History\RecordHistory;
 
@@ -46,4 +47,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 ]),
             ],
         ]);
+
+    $services->set(SendNotifyEmailToMailApiRector::class);
 };
