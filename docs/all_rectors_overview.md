@@ -1,4 +1,4 @@
-# All 133 Rectors Overview
+# All 134 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -1331,6 +1331,26 @@ Remove @internal annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Contro
  class MyCommandController extends CommandController
  {
  }
+```
+
+<br><br>
+
+## `RemoveLangCsConvObjAndParserFactoryRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemoveLangCsConvObjAndParserFactoryRector`](/src/Rector/v8/v0/RemoveLangCsConvObjAndParserFactoryRector.php)
+
+Remove CsConvObj and ParserFactory from LanguageService::class and `$GLOBALS['lang']`
+
+```diff
+ $languageService = GeneralUtility::makeInstance(LanguageService::class);
+-$charsetConverter = $languageService->csConvObj;
+-$Localization = $languageService->parserFactory();
+-$charsetConverterGlobals = $GLOBALS['LANG']->csConvObj;
+-$LocalizationGlobals = $GLOBALS['LANG']->parserFactory();
++$charsetConverter = GeneralUtility::makeInstance(CharsetConverter::class);
++$Localization = GeneralUtility::makeInstance(LocalizationFactory::class);
++$charsetConverterGlobals = GeneralUtility::makeInstance(CharsetConverter::class);
++$LocalizationGlobals = GeneralUtility::makeInstance(LocalizationFactory::class);
 ```
 
 <br><br>
