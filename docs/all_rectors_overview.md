@@ -1,4 +1,4 @@
-# All 135 Rectors Overview
+# All 136 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -1990,6 +1990,23 @@ Use method addJsFile of class PageRenderer instead of method loadJavascriptLib o
  $moduleTemplate = GeneralUtility::makeInstance(ModuleTemplate::class);
 -$moduleTemplate->loadJavascriptLib('sysext/backend/Resources/Public/JavaScript/md5.js');
 +GeneralUtility::makeInstance(PageRenderer::class)->addJsFile('sysext/backend/Resources/Public/JavaScript/md5.js');
+```
+
+<br><br>
+
+## `UseCachingFrameworkInsteadGetAndStoreHashRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\UseCachingFrameworkInsteadGetAndStoreHashRector`](/src/Rector/v8/v7/UseCachingFrameworkInsteadGetAndStoreHashRector.php)
+
+Use the Caching Framework directly instead of methods PageRepository::getHash and PageRepository::storeHash
+
+```diff
+-$GLOBALS['TSFE']->sys_page->storeHash('hash', ['foo', 'bar', 'baz'], 'ident');
+-$hashContent2 = $GLOBALS['TSFE']->sys_page->getHash('hash');
++use TYPO3\CMS\Core\Cache\CacheManager;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_hash')->set('hash', ['foo', 'bar', 'baz'], ['ident_' . 'ident'], 0);
++$hashContent = GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_hash')->get('hash');
 ```
 
 <br><br>
