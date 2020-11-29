@@ -154,6 +154,11 @@ final class Typo3NodeResolver
         return $this->isValue($node->var->dim, $global);
     }
 
+    public function isMethodCallOnSysPageOfTSFE(Node $node): bool
+    {
+        return $this->isMethodCallOnPropertyOfGlobals($node, self::TYPO_SCRIPT_FRONTEND_CONTROLLER, 'sys_page');
+    }
+
     public function isMethodCallOnPropertyOfGlobals(Node $node, string $global, string $property): bool
     {
         if (! $node instanceof MethodCall) {
