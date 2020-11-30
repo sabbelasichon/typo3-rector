@@ -1,4 +1,4 @@
-# All 138 Rectors Overview
+# All 139 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -953,6 +953,18 @@ Use native function `idn_to_ascii` instead of GeneralUtility::idnaEncode
 -$email = GeneralUtility::idnaEncode('email@domain.com');
 +$domain = idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
 +$email = 'email@' . idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+```
+
+<br><br>
+
+## `RefactorInternalPropertiesOfTSFERector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector`](/src/Rector/v10/v1/RefactorInternalPropertiesOfTSFERector.php)
+
+Refactor Internal public TSFE properties
+
+```diff
+
 ```
 
 <br><br>
