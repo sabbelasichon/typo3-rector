@@ -19,6 +19,21 @@ if (class_exists(TypoScriptFrontendController::class)) {
 final class TypoScriptFrontendController
 {
     /**
+     * @var array
+     */
+    public $cHash_array = [];
+
+    /**
+     * @var string
+     */
+    public $cHash = '';
+
+    /**
+     * @var int
+     */
+    public $domainStartPage = 0;
+
+    /**
      * @var string
      */
     public $xhtmlDoctype = '';

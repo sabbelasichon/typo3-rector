@@ -240,4 +240,9 @@ class GeneralUtility
     public static function isFirstPartOfStr($str, $partStr)
     {
     }
+
+    public static function implodeArrayForUrl(string $string, $cHash_array): string
+    {
+        return 'foo';
+    }
 }
