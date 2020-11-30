@@ -195,4 +195,28 @@ final class TypoScriptFrontendController
     public function csConv($str, $from = ''): void
     {
     }
+
+    public function pageUnavailableAndExit($reason = '', $header = ''): void
+    {
+    }
+
+    public function pageNotFoundAndExit($reason = '', $header = ''): void
+    {
+    }
+
+    public function checkPageUnavailableHandler(): void
+    {
+    }
+
+    public function pageUnavailableHandler($code, $header, $reason): void
+    {
+    }
+
+    public function pageNotFoundHandler($code, $header = '', $reason = ''): void
+    {
+    }
+
+    public function pageErrorHandler($code, $header = '', $reason = ''): void
+    {
+    }
 }

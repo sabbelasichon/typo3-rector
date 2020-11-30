@@ -245,4 +245,9 @@ class GeneralUtility
     {
         return 'foo';
     }
+
+    public static function cmpIP(string $getIndpEnv, $devIPmask): bool
+    {
+        return false;
+    }
 }
