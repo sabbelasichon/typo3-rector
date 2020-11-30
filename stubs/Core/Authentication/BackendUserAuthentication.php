@@ -24,8 +24,20 @@ final class BackendUserAuthentication
         return [];
     }
 
-    public function simplelog($message, $extKey = '', $error = 0)
+    public function simplelog($message, $extKey = '', $error = 0): int
     {
         return 1;
+    }
+
+    public function getTSConfigVal($objectString)
+    {
+        $TSConf = $this->getTSConfig($objectString);
+        return $TSConf['value'];
+    }
+
+    public function getTSConfigProp($objectString)
+    {
+        $TSConf = $this->getTSConfig($objectString);
+        return $TSConf['properties'];
     }
 }

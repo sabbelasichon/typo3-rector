@@ -10,6 +10,7 @@ use Ssch\TYPO3Rector\Rector\v9\v3\BackendUtilityGetModuleUrlRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\CopyMethodGetPidForModTSconfigRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\MoveLanguageFilesFromExtensionLangRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector;
+use Ssch\TYPO3Rector\Rector\v9\v3\RefactorTsConfigRelatedMethodsRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\RemoveColPosParameterRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\UseMethodGetPageShortcutDirectlyFromSysPageRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\ValidateAnnotationRector;
@@ -20,36 +21,29 @@ use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
-
     $services = $containerConfigurator->services();
-
     $services->set(RemoveColPosParameterRector::class);
-
     $services->set(ValidateAnnotationRector::class);
-
-    $services->set(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
-                new MethodCallRename(
-                    LocalizationController::class,
-                    'getUsedLanguagesInPageAndColumn',
-                    'getUsedLanguagesInPage'
-                ),
-            ]),
-        ]]);
-
+    $services->set(RenameMethodRector::class)->call('configure', [[
+        RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
+            new MethodCallRename(
+                LocalizationController::class,
+                'getUsedLanguagesInPageAndColumn',
+                'getUsedLanguagesInPage'
+            ),
+        ]),
+    ]]);
     $services->set(BackendUtilityGetModuleUrlRector::class);
     $services->set(PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector::class);
     $services->set(UseMethodGetPageShortcutDirectlyFromSysPageRector::class);
     $services->set(CopyMethodGetPidForModTSconfigRector::class);
     $services->set(BackendUserAuthenticationSimplelogRector::class);
     $services->set(MoveLanguageFilesFromExtensionLangRector::class);
-
-    $services->set(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
-                new MethodCallRename(Argument::class, 'getValidationResults', 'validate'),
-                new MethodCallRename(Arguments::class, 'getValidationResults', 'validate'),
-            ]),
-        ]]);
+    $services->set(RenameMethodRector::class)->call('configure', [[
+        RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
+            new MethodCallRename(Argument::class, 'getValidationResults', 'validate'),
+            new MethodCallRename(Arguments::class, 'getValidationResults', 'validate'),
+        ]),
+    ]]);
+    $services->set(RefactorTsConfigRelatedMethodsRector::class);
 };
