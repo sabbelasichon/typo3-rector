@@ -188,6 +188,11 @@ final class Typo3NodeResolver
         return $this->isValue($node->var->var->dim, $global);
     }
 
+    public function isMethodCallOnBackendUser(Node $node): bool
+    {
+        return $this->isAnyMethodCallOnGlobals($node, self::BACKEND_USER);
+    }
+
     private function isPropertyFetchOnParentVariableOfType(Node $node, string $type): bool
     {
         $parentNode = $node->getAttribute('parent');
