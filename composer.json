@@ -10,8 +10,7 @@
         "php": "^7.2",
         "nette/utils": "^3.1",
         "phpstan/phpstan": "^0.12.52",
-        "rector/rector": "0.8.52",
-        "symfony/var-exporter": "^5.1"
+        "rector/rector": "0.8.52"
     },
     "require-dev": {
         "captainhook/captainhook": "^5.4",
