@@ -1,4 +1,4 @@
-# All 137 Rectors Overview
+# All 138 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -1157,6 +1157,19 @@ Refactor removed methods from GeneralUtility.
 ```diff
 -GeneralUtility::gif_compress();
 +\TYPO3\CMS\Core\Imaging\GraphicalFunctions::gifCompress();
+```
+
+<br><br>
+
+## `RefactorTsConfigRelatedMethodsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v3\RefactorTsConfigRelatedMethodsRector`](/src/Rector/v9/v3/RefactorTsConfigRelatedMethodsRector.php)
+
+Refactor TSconfig related methods
+
+```diff
+-$hasFilterBox = !$GLOBALS['BE_USER']->getTSConfigVal('options.pageTree.hideFilter');
++$hasFilterBox = !($GLOBALS['BE_USER']->getTSConfig()['options.']['pageTree.']['hideFilter.'] ?? null);
 ```
 
 <br><br>
