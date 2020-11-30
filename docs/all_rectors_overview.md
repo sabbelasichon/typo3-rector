@@ -1,4 +1,4 @@
-# All 139 Rectors Overview
+# All 140 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -757,6 +757,31 @@ Move render method arguments to initializeArguments method
 +    {
 +        $firstParameter = $this->arguments['firstParameter'];
 +        $secondParameter = $this->arguments['secondParameter'];
+     }
+ }
+```
+
+<br><br>
+
+## `PageNotFoundAndErrorHandlingRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v2\PageNotFoundAndErrorHandlingRector`](/src/Rector/v9/v2/PageNotFoundAndErrorHandlingRector.php)
+
+Page Not Found And Error handling in Frontend
+
+```diff
++use TYPO3\CMS\Core\Http\ImmediateResponseException;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
++use TYPO3\CMS\Frontend\Controller\ErrorController;
+ class SomeController extends ActionController
+ {
+     public function unavailableAction(): void
+     {
+         $message = 'No entry found.';
+-        $GLOBALS['TSFE']->pageUnavailableAndExit($message);
++        $response = GeneralUtility::makeInstance(ErrorController::class)->unavailableAction($GLOBALS['TYPO3_REQUEST'], $message);
++        throw new ImmediateResponseException($response);
      }
  }
 ```
