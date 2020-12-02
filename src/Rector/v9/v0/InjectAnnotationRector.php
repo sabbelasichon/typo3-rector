@@ -19,6 +19,8 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PHPStan\Type\FullyQualifiedObjectType;
+use Rector\PHPStan\Type\ShortenedObjectType;
 use Rector\Renaming\ValueObject\RenameAnnotation;
 
 /**
@@ -77,7 +79,13 @@ final class InjectAnnotationRector extends AbstractRector
             if (! $varType instanceof ObjectType) {
                 continue;
             }
-            $paramBuilder->setType(new FullyQualified($varType->getClassName()));
+
+            if ($varType instanceof FullyQualifiedObjectType) {
+                $paramBuilder->setType(new FullyQualified($varType->getClassName()));
+            } elseif ($varType instanceof ShortenedObjectType) {
+                $paramBuilder->setType($varType->getShortName());
+            }
+
             $param = $paramBuilder->getNode();
             $propertyFetch = new PropertyFetch(new Variable('this'), $variableName);
             $assign = new Assign($propertyFetch, new Variable($variableName));
