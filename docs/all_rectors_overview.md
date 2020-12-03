@@ -679,6 +679,46 @@ Use LocalizationFactory->getParsedData instead of GeneralUtility::readLLfile
 
 <br><br>
 
+## `MigrateT3editorWizardToRenderTypeT3editorRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v6\MigrateT3editorWizardToRenderTypeT3editorRector`](/src/Rector/v7/v6/MigrateT3editorWizardToRenderTypeT3editorRector.php)
+
+t3editor is no longer configured and enabled as wizard
+
+```diff
+ return [
+     'ctrl' => [
+     ],
+     'columns' => [
+         'bodytext' => [
+             'config' => [
+                 'type' => 'text',
+                 'rows' => '42',
+-                'wizards' => [
+-                    't3editor' => [
+-                        'type' => 'userFunc',
+-                        'userFunc' => 'TYPO3\CMS\T3editor\FormWizard->main',
+-                        'title' => 't3editor',
+-                        'icon' => 'wizard_table.gif',
+-                        'module' => [
+-                            'name' => 'wizard_table'
+-                        ],
+-                        'params' => [
+-                            'format' => 'html',
+-                            'style' => 'width:98%; height: 60%;'
+-                        ],
+-                    ],
+-                ],
++                'renderType' => 't3editor',
++                'format' => 'html',
+             ],
+         ],
+     ],
+ ];
+```
+
+<br><br>
+
 ## `MoveApplicationContextToEnvironmentApiRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v2\MoveApplicationContextToEnvironmentApiRector`](/src/Rector/v10/v2/MoveApplicationContextToEnvironmentApiRector.php)
@@ -1901,27 +1941,6 @@ GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(Fi
 +$var16 = AbstractService::ERROR_FILE_NOT_WRITEABLE;
 +$var17 = AbstractService::ERROR_PROGRAM_NOT_FOUND;
 +$var18 = AbstractService::ERROR_PROGRAM_FAILED;
-```
-
-<br><br>
-
-## `TcaMigrationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\Core\Tca\TcaMigrationRector`](/src/Rector/Core/Tca/TcaMigrationRector.php)
-
-This Rector migrates the TCA configuration for all configurations in separate files in folder TCA\Configuration. This is done on runtime via core migration classes \TYPO3\CMS\Core\Migrations\TcaMigration for different versions
-
-```diff
--return [
--    'ctrl' => [
--        'divider2tabs' => true,
--    ],
--    'columns' => [
--        'sys_language_uid' => [
--        ],
--    ],
--];
-+return ['ctrl' => ['divider2tabs' => true], 'columns' => ['sys_language_uid' => ['config' => ['type' => 'none']]]];
 ```
 
 <br><br>
