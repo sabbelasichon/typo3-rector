@@ -47,28 +47,7 @@ class TcaMigration
      */
     public function migrate(array $tca): array
     {
-        $this->validateTcaType($tca);
-
         $tca = $this->migrateColumnsConfig($tca);
-        $tca = $this->migrateT3editorWizardToRenderTypeT3editorIfNotEnabledByTypeConfig($tca);
-        $tca = $this->migrateSpecialConfigurationAndRemoveShowItemStylePointerConfig($tca);
-        $tca = $this->migrateT3editorWizardWithEnabledByTypeConfigToColumnsOverrides($tca);
-        $tca = $this->migrateShowItemAdditionalPaletteToOwnPalette($tca);
-        $tca = $this->migrateIconsForFormFieldWizardToNewLocation($tca);
-        $tca = $this->migrateExtAndSysextPathToEXTPath($tca);
-        $tca = $this->migrateIconsInOptionTags($tca);
-        $tca = $this->migrateIconfileRelativePathOrFilenameOnlyToExtReference($tca);
-        $tca = $this->migrateSelectFieldRenderType($tca);
-        $tca = $this->migrateSelectFieldIconTable($tca);
-        $tca = $this->migrateElementBrowserWizardToLinkHandler($tca);
-        $tca = $this->migrateDefaultExtrasRteTransFormOptions($tca);
-        $tca = $this->migrateSelectTreeOptions($tca);
-        $tca = $this->migrateTSconfigSoftReferences($tca);
-        $tca = $this->migrateShowIfRteOption($tca);
-        $tca = $this->migrateWorkspacesOptions($tca);
-        $tca = $this->migrateTranslationTable($tca);
-        $tca = $this->migrateL10nModeDefinitions($tca);
-        $tca = $this->migratePageLocalizationDefinitions($tca);
         $tca = $this->migrateInlineLocalizationMode($tca);
         $tca = $this->migrateRequestUpdate($tca);
         $tca = $this->migrateInputDateTimeToRenderType($tca);

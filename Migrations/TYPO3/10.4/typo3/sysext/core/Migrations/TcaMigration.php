@@ -46,14 +46,7 @@ class TcaMigration
      */
     public function migrate(array $tca): array
     {
-        $this->validateTcaType($tca);
-
-        $tca = $this->migrateColumnsConfig($tca);
-        $tca = $this->migrateLocalizeChildrenAtParentLocalization($tca);
-        $tca = $this->migratePagesLanguageOverlayRemoval($tca);
-        $tca = $this->removeSelIconFieldPath($tca);
         $tca = $this->removeSetToDefaultOnCopy($tca);
-        $tca = $this->sanitizeControlSectionIntegrity($tca);
         $tca = $this->removeEnableMultiSelectFilterTextfieldConfiguration($tca);
         $tca = $this->removeExcludeFieldForTransOrigPointerField($tca);
         $tca = $this->removeShowRecordFieldListField($tca);

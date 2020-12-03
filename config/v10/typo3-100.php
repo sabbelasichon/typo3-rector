@@ -10,6 +10,7 @@ use Ssch\TYPO3Rector\Rector\v10\v0\ForceTemplateParsingInTsfeAndTemplateServiceR
 use Ssch\TYPO3Rector\Rector\v10\v0\RefactorIdnaEncodeMethodToNativeFunctionRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\RemoveFormatConstantsEmailFinisherRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\RemovePropertyExtensionNameRector;
+use Ssch\TYPO3Rector\Rector\v10\v0\RemoveSeliconFieldPathRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\SetSystemLocaleFromSiteLanguageRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseControllerClassesInExtbasePluginsAndModulesRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector;
@@ -19,24 +20,15 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
-
     $services = $containerConfigurator->services();
-
     $services->set(RemovePropertyExtensionNameRector::class);
-
     $services->set(UseNativePhpHex2binMethodRector::class);
-
     $services->set(RefactorIdnaEncodeMethodToNativeFunctionRector::class);
-
-    $services->set(RenameNamespaceRector::class)
-        ->call('configure', [
-            RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [
-                [
-                    'TYPO3\CMS\Backend\Controller\File' => 'TYPO3\CMS\Filelist\Controller\File',
-                ],
-            ],
+    $services->set(RenameNamespaceRector::class)->call('configure', [
+        RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [[
+            'TYPO3\CMS\Backend\Controller\File' => 'TYPO3\CMS\Filelist\Controller\File',
+        ]],
         ]);
-
     $services->set(UseMetaDataAspectRector::class);
     $services->set(ForceTemplateParsingInTsfeAndTemplateServiceRector::class);
     $services->set(BackendUtilityGetViewDomainToPageRouterRector::class);
@@ -46,4 +38,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseTwoLetterIsoCodeFromSiteLanguageRector::class);
     $services->set(UseControllerClassesInExtbasePluginsAndModulesRector::class);
     $services->set(ChangeDefaultCachingFrameworkNamesRector::class);
+    $services->set(RemoveSeliconFieldPathRector::class);
 };

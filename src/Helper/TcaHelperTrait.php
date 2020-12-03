@@ -42,6 +42,16 @@ trait TcaHelperTrait
 
     private function extractColumns(Return_ $node): ?ArrayItem
     {
+        return $this->extractByTypeOnFirstLevel($node);
+    }
+
+    private function extractCtrl(Return_ $node): ?ArrayItem
+    {
+        return $this->extractByTypeOnFirstLevel($node, 'ctrl');
+    }
+
+    private function extractByTypeOnFirstLevel(Return_ $node, string $type = 'columns'): ?ArrayItem
+    {
         if (! $node->expr instanceof Array_) {
             return null;
         }
@@ -58,7 +68,7 @@ trait TcaHelperTrait
             }
 
             $itemKey = (string) $this->getValue($item->key);
-            if ('columns' === $itemKey) {
+            if ($type === $itemKey) {
                 return $item;
             }
         }

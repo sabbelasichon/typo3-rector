@@ -1,7 +1,5 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v7\v6\MigrateT3editorWizardToRenderTypeT3editor\Fixture;
-
 $rows = 42;
 $format = 'html';
 
@@ -46,8 +44,6 @@ return [
 ?>
 -----
 <?php
-
-namespace Ssch\TYPO3Rector\Tests\Rector\v7\v6\MigrateT3editorWizardToRenderTypeT3editor\Fixture;
 
 $rows = 42;
 $format = 'html';
