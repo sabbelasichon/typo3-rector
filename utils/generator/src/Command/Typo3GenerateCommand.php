@@ -111,8 +111,8 @@ final class Typo3GenerateCommand extends Command
     protected function askForRstFile(): Question
     {
         $whatIsTheUrlToRstFile = new Question('Url to rst file: ');
-        $whatIsTheUrlToRstFile->setNormalizer(function ($version) {
-            return Url::createFromString($version);
+        $whatIsTheUrlToRstFile->setNormalizer(function ($url) {
+            return Url::createFromString(trim($url));
         });
 
         return $whatIsTheUrlToRstFile;
@@ -122,7 +122,7 @@ final class Typo3GenerateCommand extends Command
     {
         $whatTypo3Version = new Question('TYPO3-Version (i.e. 8.1): ');
         $whatTypo3Version->setNormalizer(function ($version) {
-            return Typo3Version::createFromString($version);
+            return Typo3Version::createFromString(trim($version));
         });
 
         return $whatTypo3Version;
@@ -132,7 +132,7 @@ final class Typo3GenerateCommand extends Command
     {
         $giveMeYourName = new Question('Name: ');
         $giveMeYourName->setNormalizer(function ($name) {
-            return Name::createFromString($name);
+            return Name::createFromString(trim($name));
         });
 
         return $giveMeYourName;
