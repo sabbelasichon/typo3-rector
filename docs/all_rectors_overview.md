@@ -1,4 +1,4 @@
-# All 140 Rectors Overview
+# All 141 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -1667,6 +1667,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
   */
 -private $someProperty;
 +private $someProperty;
+```
+
+<br><br>
+
+## `ReplaceExtKeyWithExtensionKeyRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector`](/src/Rector/v9/v0/ReplaceExtKeyWithExtensionKeyRector.php)
+
+Replace $_EXTKEY with extension `key`
+
+```diff
+
 ```
 
 <br><br>
