@@ -1,4 +1,28 @@
-# All 146 Rectors Overview
+# All 147 Rectors Overview
+
+## `AddRenderTypeToSelectFieldRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v6\AddRenderTypeToSelectFieldRector`](/src/Rector/v7/v6/AddRenderTypeToSelectFieldRector.php)
+
+Add renderType for select fields
+
+```diff
+ return [
+     'ctrl' => [
+     ],
+     'columns' => [
+         'sys_language_uid' => [
+             'config' => [
+                 'type' => 'select',
+                 'maxitems' => 1,
++                'renderType' => 'selectSingle',
+             ],
+         ],
+     ],
+ ];
+```
+
+<br><br>
 
 ## `Array2XmlCsToArray2XmlRector`
 
