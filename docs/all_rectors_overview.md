@@ -1,4 +1,4 @@
-# All 145 Rectors Overview
+# All 146 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -1946,6 +1946,34 @@ Substitute deprecated method calls of class GeneralUtility
 -GeneralUtility::milliseconds();
 +inet_ntop(inet_pton($address));
 +round(microtime(true) * 1000);
+```
+
+<br><br>
+
+## `SubstituteOldWizardIconsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v4\SubstituteOldWizardIconsRector`](/src/Rector/v8/v4/SubstituteOldWizardIconsRector.php)
+
+The TCA migration migrates the icon calls to the new output if used as wizard icon
+
+```diff
+ return [
+     'ctrl' => [
+     ],
+     'columns' => [
+         'bodytext' => [
+             'config' => [
+                 'type' => 'text',
+                 'wizards' => [
+                     't3editorHtml' => [
+-                        'icon' => 'wizard_table.gif',
++                        'icon' => 'content-table',
+                     ],
+                 ],
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br><br>
