@@ -41,7 +41,6 @@ class TcaMigration
      */
     public function migrate(array $tca)
     {
-        $tca = $this->migrateT3editorWizardToRenderTypeT3editorIfNotEnabledByTypeConfig($tca);
         $tca = $this->migrateSpecialConfigurationAndRemoveShowItemStylePointerConfig($tca);
         $tca = $this->migrateT3editorWizardWithEnabledByTypeConfigToColumnsOverrides($tca);
         $tca = $this->migrateShowItemAdditionalPaletteToOwnPalette($tca);

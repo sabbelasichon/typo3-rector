@@ -42,23 +42,11 @@ class TcaMigration
      * See unit tests for details.
      *
      * @param array $tca
-     * @return array
+     * @return arraymigrateIconsInOptionTags
      */
     public function migrate(array $tca): array
     {
-        $this->validateTcaType($tca);
-
-        $tca = $this->migrateT3editorWizardToRenderTypeT3editorIfNotEnabledByTypeConfig($tca);
-        $tca = $this->migrateSpecialConfigurationAndRemoveShowItemStylePointerConfig($tca);
-        $tca = $this->migrateT3editorWizardWithEnabledByTypeConfigToColumnsOverrides($tca);
-        $tca = $this->migrateShowItemAdditionalPaletteToOwnPalette($tca);
         $tca = $this->migrateIconsForFormFieldWizardToNewLocation($tca);
-        $tca = $this->migrateExtAndSysextPathToEXTPath($tca);
-        $tca = $this->migrateIconsInOptionTags($tca);
-        $tca = $this->migrateIconfileRelativePathOrFilenameOnlyToExtReference($tca);
-        $tca = $this->migrateSelectFieldRenderType($tca);
-        $tca = $this->migrateSelectFieldIconTable($tca);
-        $tca = $this->migrateElementBrowserWizardToLinkHandler($tca);
         $tca = $this->migrateDefaultExtrasRteTransFormOptions($tca);
         $tca = $this->migrateSelectTreeOptions($tca);
         $tca = $this->migrateTSconfigSoftReferences($tca);
@@ -67,26 +55,6 @@ class TcaMigration
         $tca = $this->migrateTranslationTable($tca);
         $tca = $this->migrateL10nModeDefinitions($tca);
         $tca = $this->migratePageLocalizationDefinitions($tca);
-        $tca = $this->migrateInlineLocalizationMode($tca);
-        $tca = $this->migrateRequestUpdate($tca);
-        $tca = $this->migrateInputDateTimeToRenderType($tca);
-        $tca = $this->migrateWizardEnableByTypeConfigToColumnsOverrides($tca);
-        $tca = $this->migrateColorPickerWizardToRenderType($tca);
-        $tca = $this->migrateSelectWizardToValuePicker($tca);
-        $tca = $this->migrateSliderWizardToSliderConfiguration($tca);
-        $tca = $this->migrateLinkWizardToRenderTypeAndFieldControl($tca);
-        $tca = $this->migrateEditWizardToFieldControl($tca);
-        $tca = $this->migrateAddWizardToFieldControl($tca);
-        $tca = $this->migrateListWizardToFieldControl($tca);
-        $tca = $this->migrateLastPiecesOfDefaultExtras($tca);
-        $tca = $this->migrateTableWizardToRenderType($tca);
-        $tca = $this->migrateFullScreenRichtextToFieldControl($tca);
-        $tca = $this->migrateSuggestWizardTypeGroup($tca);
-        $tca = $this->migrateOptionsOfTypeGroup($tca);
-        $tca = $this->migrateSelectShowIconTable($tca);
-        $tca = $this->migrateImageManipulationConfig($tca);
-        $tca = $this->migrateinputDateTimeMax($tca);
-        $tca = $this->migrateInlineOverrideChildTca($tca);
         return $tca;
     }
 
