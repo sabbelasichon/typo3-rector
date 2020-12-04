@@ -1,4 +1,4 @@
-# All 141 Rectors Overview
+# All 145 Rectors Overview
 
 ## `Array2XmlCsToArray2XmlRector`
 
@@ -1314,6 +1314,30 @@ Remove parameter colPos from methods.
 
 <br><br>
 
+## `RemoveExcludeOnTransOrigPointerFieldRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v3\RemoveExcludeOnTransOrigPointerFieldRector`](/src/Rector/v10/v3/RemoveExcludeOnTransOrigPointerFieldRector.php)
+
+transOrigPointerField is not longer allowed to be excluded
+
+```diff
+ return [
+     'ctrl' => [
+         'transOrigPointerField' => 'l10n_parent',
+     ],
+     'columns' => [
+         'l10n_parent' => [
+-            'exclude' => true,
+             'config' => [
+                 'type' => 'select',
+             ],
+         ],
+     ],
+ ];
+```
+
+<br><br>
+
 ## `RemoveFlushCachesRector`
 
 - class: [`Ssch\TYPO3Rector\Rector\v9\v5\RemoveFlushCachesRector`](/src/Rector/v9/v5/RemoveFlushCachesRector.php)
@@ -1579,6 +1603,55 @@ Remove second argument of `GeneralUtility::mkdir_deep()`
 ```diff
 -GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/', 'myfolder');
 +GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/' . 'myfolder');
+```
+
+<br><br>
+
+## `RemoveSeliconFieldPathRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RemoveSeliconFieldPathRector`](/src/Rector/v10/v0/RemoveSeliconFieldPathRector.php)
+
+TCA option "selicon_field_path" removed
+
+```diff
+ return [
+     'ctrl' => [
+         'selicon_field' => 'icon',
+-        'selicon_field_path' => 'uploads/media'
+     ],
+ ];
+```
+
+<br><br>
+
+## `RemoveShowRecordFieldListInsideInterfaceSectionRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v3\RemoveShowRecordFieldListInsideInterfaceSectionRector`](/src/Rector/v10/v3/RemoveShowRecordFieldListInsideInterfaceSectionRector.php)
+
+Remove showRecordFieldList inside section interface
+
+```diff
+
+```
+
+<br><br>
+
+## `RemoveTcaOptionSetToDefaultOnCopyRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RemoveTcaOptionSetToDefaultOnCopyRector`](/src/Rector/v10/v0/RemoveTcaOptionSetToDefaultOnCopyRector.php)
+
+TCA option setToDefaultOnCopy removed
+
+```diff
+ return [
+     'ctrl' => [
+-        'selicon_field' => 'icon',
+-        'setToDefaultOnCopy' => 'foo'
++        'selicon_field' => 'icon'
+     ],
+     'columns' => [
+     ],
+ ];
 ```
 
 <br><br>
