@@ -9,6 +9,7 @@ use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Ssch\TYPO3Rector\Rector\v7\v6\AddRenderTypeToSelectFieldRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\MigrateT3editorWizardToRenderTypeT3editorRector;
+use Ssch\TYPO3Rector\Rector\v7\v6\RemoveIconOptionForRenderTypeSelectRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector;
 use Ssch\TYPO3Rector\Rector\v8\v4\SubstituteOldWizardIconsRector;
@@ -71,4 +72,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ],
         ]]);
     $services->set(AddRenderTypeToSelectFieldRector::class);
+    $services->set(RemoveIconOptionForRenderTypeSelectRector::class);
 };
