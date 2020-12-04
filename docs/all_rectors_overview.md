@@ -1,4 +1,4 @@
-# All 147 Rectors Overview
+# All 148 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1392,6 +1392,29 @@ Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class TYPO3\CMS\Form\Domain
 ```diff
 -$this->setOption(self::FORMAT, EmailFinisher::FORMAT_HTML);
 +$this->setOption('addHtmlPart', true);
+```
+
+<br><br>
+
+## `RemoveIconOptionForRenderTypeSelectRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v6\RemoveIconOptionForRenderTypeSelectRector`](/src/Rector/v7/v6/RemoveIconOptionForRenderTypeSelectRector.php)
+
+TCA icon options have been removed
+
+```diff
+ return [
+     'columns' => [
+         'foo' => [
+             'config' => [
+                 'type' => 'select',
+                 'renderType' => 'selectSingle',
+-                'noIconsBelowSelect' => false,
++                'showIconTable' => true,
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br><br>
