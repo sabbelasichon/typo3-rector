@@ -11,6 +11,7 @@ use Ssch\TYPO3Rector\Rector\v10\v0\RefactorIdnaEncodeMethodToNativeFunctionRecto
 use Ssch\TYPO3Rector\Rector\v10\v0\RemoveFormatConstantsEmailFinisherRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\RemovePropertyExtensionNameRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\RemoveSeliconFieldPathRector;
+use Ssch\TYPO3Rector\Rector\v10\v0\RemoveTcaOptionSetToDefaultOnCopyRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\SetSystemLocaleFromSiteLanguageRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseControllerClassesInExtbasePluginsAndModulesRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector;
@@ -39,4 +40,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseControllerClassesInExtbasePluginsAndModulesRector::class);
     $services->set(ChangeDefaultCachingFrameworkNamesRector::class);
     $services->set(RemoveSeliconFieldPathRector::class);
+    $services->set(RemoveTcaOptionSetToDefaultOnCopyRector::class);
 };
