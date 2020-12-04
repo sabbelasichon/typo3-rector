@@ -7,6 +7,7 @@ use Rector\Renaming\ValueObject\RenameClassConstant;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
+use Ssch\TYPO3Rector\Rector\v7\v6\AddRenderTypeToSelectFieldRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\MigrateT3editorWizardToRenderTypeT3editorRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector;
@@ -68,5 +69,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'list.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_list.gif',
             'wizard_forms.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_forms.gif',
         ],
-    ]]);
+        ]]);
+    $services->set(AddRenderTypeToSelectFieldRector::class);
 };
