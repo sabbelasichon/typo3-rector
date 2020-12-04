@@ -233,6 +233,6 @@ PHP
             }
         }
 
-        return null;
+        return $node;
     }
 }

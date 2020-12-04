@@ -46,9 +46,6 @@ class TcaMigration
      */
     public function migrate(array $tca): array
     {
-        $tca = $this->removeSetToDefaultOnCopy($tca);
-        $tca = $this->removeEnableMultiSelectFilterTextfieldConfiguration($tca);
-        $tca = $this->removeExcludeFieldForTransOrigPointerField($tca);
         $tca = $this->removeShowRecordFieldListField($tca);
 
         return $tca;
