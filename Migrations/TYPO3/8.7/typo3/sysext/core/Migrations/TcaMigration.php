@@ -46,7 +46,6 @@ class TcaMigration
      */
     public function migrate(array $tca): array
     {
-        $tca = $this->migrateIconsForFormFieldWizardToNewLocation($tca);
         $tca = $this->migrateDefaultExtrasRteTransFormOptions($tca);
         $tca = $this->migrateSelectTreeOptions($tca);
         $tca = $this->migrateTSconfigSoftReferences($tca);
