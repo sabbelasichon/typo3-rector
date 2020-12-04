@@ -50,6 +50,11 @@ trait TcaHelperTrait
         return $this->extractByTypeOnFirstLevel($node, 'ctrl');
     }
 
+    private function extractInterface(Return_ $node): ?ArrayItem
+    {
+        return $this->extractByTypeOnFirstLevel($node, 'interface');
+    }
+
     private function extractByTypeOnFirstLevel(Return_ $node, string $type = 'columns'): ?ArrayItem
     {
         if (! $node->expr instanceof Array_) {
