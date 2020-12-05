@@ -1,4 +1,4 @@
-# All 148 Rectors Overview
+# All 149 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1411,6 +1411,30 @@ TCA icon options have been removed
                  'renderType' => 'selectSingle',
 -                'noIconsBelowSelect' => false,
 +                'showIconTable' => true,
+             ],
+         ],
+     ],
+ ];
+```
+
+<br><br>
+
+## `RemoveIconsInOptionTagsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v5\RemoveIconsInOptionTagsRector`](/src/Rector/v7/v5/RemoveIconsInOptionTagsRector.php)
+
+Select option iconsInOptionTags removed
+
+```diff
+ return [
+     'columns' => [
+         'foo' => [
+             'label' => 'Label',
+             'config' => [
+                 'type' => 'select',
+                 'maxitems' => 25,
+                 'autoSizeMax' => 10,
+-                'iconsInOptionTags' => 1,
              ],
          ],
      ],
