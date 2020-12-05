@@ -5,13 +5,16 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v7\v5;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\RectorDefinition\CodeSample;
 use Rector\Core\RectorDefinition\RectorDefinition;
+use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
@@ -19,6 +22,8 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
  */
 final class UseExtPrefixForTcaIconFileRector extends AbstractRector
 {
+    use TcaHelperTrait;
+
     /**
      * @codeCoverageIgnore
      */
@@ -28,17 +33,17 @@ final class UseExtPrefixForTcaIconFileRector extends AbstractRector
             'Deprecate relative path to extension directory and using filename only in TCA ctrl iconfile',
             [
                 new CodeSample(<<<'PHP'
-return [
+[
     'ctrl' => [
-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('foo').'Resources/Public/Icons/image.png',
-    ],
+        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('my_extension') . 'Resources/Public/Icons/image.png'
+    ]
 ];
 PHP
                     , <<<'PHP'
-return [
+[
     'ctrl' => [
-        'iconfile' => 'EXT:foo/Resources/Public/Icons/image.png',
-    ],
+        'iconfile' => 'EXT:my_extension/Resources/Public/Icons/image.png'
+    ]
 ];
 PHP
                 ),
@@ -51,61 +56,107 @@ PHP
      */
     public function getNodeTypes(): array
     {
-        return [ArrayItem::class];
+        return [Return_::class];
     }
 
     /**
-     * @param ArrayItem $node
+     * @param Return_ $node
      */
     public function refactor(Node $node): ?Node
     {
-        if (null === $node->key) {
+        if (! $this->isTca($node)) {
             return null;
         }
 
-        if (! $this->isValue($node->key, 'iconfile')) {
+        $ctrl = $this->extractCtrl($node);
+
+        if (! $ctrl instanceof ArrayItem) {
             return null;
         }
 
-        if (! $node->value instanceof Concat) {
+        $ctrlItems = $ctrl->value;
+
+        if (! $ctrlItems instanceof Array_) {
             return null;
         }
 
-        $staticCall = $node->value->left;
-        if (! $staticCall instanceof StaticCall) {
-            return null;
+        foreach ($ctrlItems->items as $fieldValue) {
+            if (! $fieldValue instanceof ArrayItem) {
+                continue;
+            }
+
+            if (null === $fieldValue->key) {
+                continue;
+            }
+
+            if ($this->isValue($fieldValue->key, 'iconfile')) {
+                $this->refactorIconFile($fieldValue);
+                break;
+            }
         }
-
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($staticCall, ExtensionManagementUtility::class)) {
-            return null;
-        }
-
-        if (! $this->isName($staticCall->name, 'extRelPath')) {
-            return null;
-        }
-
-        if (0 === count($staticCall->args)) {
-            return null;
-        }
-
-        $extensionKey = $this->getValue($staticCall->args[0]->value);
-
-        if (null === $extensionKey) {
-            return null;
-        }
-
-        if (! $node->value->right instanceof String_) {
-            return null;
-        }
-
-        $pathToIconFile = $this->getValue($node->value->right);
-
-        if (null === $pathToIconFile) {
-            return null;
-        }
-
-        $node->value = new String_(sprintf('EXT:%s/%s', $extensionKey, $pathToIconFile));
 
         return $node;
+    }
+
+    private function refactorIconFile(ArrayItem $fieldValue): void
+    {
+        if (null === $fieldValue->value) {
+            return;
+        }
+
+        if ($fieldValue->value instanceof Concat) {
+            $staticCall = $fieldValue->value->left;
+
+            if (! $staticCall instanceof StaticCall) {
+                return;
+            }
+
+            if (! $this->isMethodStaticCallOrClassMethodObjectType($staticCall, ExtensionManagementUtility::class)) {
+                return;
+            }
+
+            if (! $this->isName($staticCall->name, 'extRelPath')) {
+                return;
+            }
+
+            if (! isset($staticCall->args[0])) {
+                return;
+            }
+
+            $extensionKey = $this->getValue($staticCall->args[0]->value);
+
+            if (null === $extensionKey) {
+                return;
+            }
+
+            $pathToFileNode = $fieldValue->value->right;
+            if (! $pathToFileNode instanceof String_) {
+                return;
+            }
+
+            $pathToFile = $this->getValue($pathToFileNode);
+
+            if (null === $pathToFile) {
+                return;
+            }
+
+            $fieldValue->value = new String_(sprintf('EXT:%s/%s', $extensionKey, ltrim($pathToFile, '/')));
+        }
+
+        if (! $fieldValue->value instanceof String_) {
+            return;
+        }
+
+        $pathToFile = $this->getValue($fieldValue->value);
+
+        if (null === $pathToFile) {
+            return;
+        }
+
+        if (false !== strpos($pathToFile, '/')) {
+            return;
+        }
+
+        $fieldValue->value = new String_(sprintf('EXT:t3skin/icons/gfx/i/%s', $pathToFile));
     }
 }
