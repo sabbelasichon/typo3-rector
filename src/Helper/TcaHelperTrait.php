@@ -52,6 +52,31 @@ trait TcaHelperTrait
         return false;
     }
 
+    private function hasRenderType(Array_ $columnItemConfiguration): bool
+    {
+        foreach ($columnItemConfiguration->items as $configValue) {
+            if (null === $configValue) {
+                continue;
+            }
+
+            if (! $configValue instanceof ArrayItem) {
+                continue;
+            }
+
+            if (null === $configValue->key) {
+                continue;
+            }
+
+            if (! $this->isValue($configValue->key, 'renderType')) {
+                continue;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
     private function extractColumns(Return_ $node): ?ArrayItem
     {
         return $this->extractByTypeOnFirstLevel($node, 'columns');

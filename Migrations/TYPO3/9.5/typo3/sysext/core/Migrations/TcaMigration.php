@@ -48,26 +48,14 @@ class TcaMigration
     public function migrate(array $tca): array
     {
         $tca = $this->migrateColumnsConfig($tca);
-        $tca = $this->migrateInputDateTimeToRenderType($tca);
         $tca = $this->migrateWizardEnableByTypeConfigToColumnsOverrides($tca);
-        $tca = $this->migrateColorPickerWizardToRenderType($tca);
-        $tca = $this->migrateSelectWizardToValuePicker($tca);
-        $tca = $this->migrateSliderWizardToSliderConfiguration($tca);
-        $tca = $this->migrateLinkWizardToRenderTypeAndFieldControl($tca);
-        $tca = $this->migrateEditWizardToFieldControl($tca);
-        $tca = $this->migrateAddWizardToFieldControl($tca);
-        $tca = $this->migrateListWizardToFieldControl($tca);
         $tca = $this->migrateLastPiecesOfDefaultExtras($tca);
-        $tca = $this->migrateTableWizardToRenderType($tca);
-        $tca = $this->migrateFullScreenRichtextToFieldControl($tca);
         $tca = $this->migrateSuggestWizardTypeGroup($tca);
         $tca = $this->migrateOptionsOfTypeGroup($tca);
         $tca = $this->migrateSelectShowIconTable($tca);
         $tca = $this->migrateImageManipulationConfig($tca);
         $tca = $this->migrateInlineOverrideChildTca($tca);
-        $tca = $this->migrateLocalizeChildrenAtParentLocalization($tca);
         $tca = $this->migratePagesLanguageOverlayRemoval($tca);
-        $tca = $this->deprecateTypeGroupInternalTypeFile($tca);
         $tca = $this->sanitizeControlSectionIntegrity($tca);
 
         return $tca;
