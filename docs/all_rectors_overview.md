@@ -2432,11 +2432,11 @@ Use controller classes when registering extbase plugins/modules
 Deprecate relative path to extension directory and using filename only in TCA ctrl iconfile
 
 ```diff
- return [
+ [
      'ctrl' => [
--        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('foo').'Resources/Public/Icons/image.png',
-+        'iconfile' => 'EXT:foo/Resources/Public/Icons/image.png',
-     ],
+-        'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('my_extension') . 'Resources/Public/Icons/image.png'
++        'iconfile' => 'EXT:my_extension/Resources/Public/Icons/image.png'
+     ]
  ];
 ```
 
