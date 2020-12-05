@@ -46,7 +46,6 @@ class TcaMigration
         $tca = $this->migrateShowItemAdditionalPaletteToOwnPalette($tca);
         $tca = $this->migrateIconsForFormFieldWizardsToNewLocation($tca);
         $tca = $this->migrateExtAndSysextPathToEXTPath($tca);
-        $tca = $this->migrateIconfileRelativePathOrFilenameOnlyToExtReference($tca);
         $tca = $this->migrateElementBrowserWizardToLinkHandler($tca);
         // @todo: if showitem/defaultExtras wizards[xy] is migrated to columnsOverrides here, enableByTypeConfig could be dropped
         return $tca;
