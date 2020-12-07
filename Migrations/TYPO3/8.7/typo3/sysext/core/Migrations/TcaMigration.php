@@ -46,7 +46,6 @@ class TcaMigration
      */
     public function migrate(array $tca): array
     {
-        $tca = $this->migrateDefaultExtrasRteTransFormOptions($tca);
         $tca = $this->migrateTSconfigSoftReferences($tca);
         $tca = $this->migrateTranslationTable($tca);
         $tca = $this->migrateL10nModeDefinitions($tca);
