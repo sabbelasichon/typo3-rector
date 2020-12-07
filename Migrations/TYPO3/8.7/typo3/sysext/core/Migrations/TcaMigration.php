@@ -48,7 +48,6 @@ class TcaMigration
     {
         $tca = $this->migrateDefaultExtrasRteTransFormOptions($tca);
         $tca = $this->migrateTSconfigSoftReferences($tca);
-        $tca = $this->migrateWorkspacesOptions($tca);
         $tca = $this->migrateTranslationTable($tca);
         $tca = $this->migrateL10nModeDefinitions($tca);
         $tca = $this->migratePageLocalizationDefinitions($tca);
