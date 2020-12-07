@@ -42,7 +42,12 @@ trait TcaHelperTrait
 
     private function extractColumns(Return_ $node): ?ArrayItem
     {
-        return $this->extractByTypeOnFirstLevel($node);
+        return $this->extractByTypeOnFirstLevel($node, 'columns');
+    }
+
+    private function extractTypes(Return_ $node): ?ArrayItem
+    {
+        return $this->extractByTypeOnFirstLevel($node, 'types');
     }
 
     private function extractCtrl(Return_ $node): ?ArrayItem
@@ -55,7 +60,7 @@ trait TcaHelperTrait
         return $this->extractByTypeOnFirstLevel($node, 'interface');
     }
 
-    private function extractByTypeOnFirstLevel(Return_ $node, string $type = 'columns'): ?ArrayItem
+    private function extractByTypeOnFirstLevel(Return_ $node, string $type): ?ArrayItem
     {
         if (! $node->expr instanceof Array_) {
             return null;
