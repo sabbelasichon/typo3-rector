@@ -1,4 +1,4 @@
-# All 149 Rectors Overview
+# All 150 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1746,6 +1746,38 @@ Remove __wakeup call for AbstractDomainObject
 -        parent::__wakeup();
      }
  }
+```
+
+<br><br>
+
+## `RemovedTcaSelectTreeOptionsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v3\RemovedTcaSelectTreeOptionsRector`](/src/Rector/v8/v3/RemovedTcaSelectTreeOptionsRector.php)
+
+Removed TCA tree options: width, allowRecursiveMode, autoSizeMax
+
+```diff
+ return [
+     'ctrl' => [
+     ],
+     'columns' => [
+         'categories' => [
+             'config' => [
+                 'type' => 'input',
+                 'renderType' => 'selectTree',
+-                'autoSizeMax' => 5,
++                'size' => 5,
+                 'treeConfig' => [
+-                    'appearance' => [
+-                        'width' => 100,
+-                        'allowRecursiveMode' => true
+-                    ]
++                    'appearance' => []
+                 ]
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br><br>
