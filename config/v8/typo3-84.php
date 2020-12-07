@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
+use Ssch\TYPO3Rector\Rector\v8\v4\RemoveOptionShowIfRteRector;
 use Ssch\TYPO3Rector\Rector\v8\v4\SubstituteOldWizardIconsRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Backend\Routing\FormResultCompiler;
@@ -42,5 +43,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif' => 'actions-wizard-link',
             'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_rte.gif' => 'actions-wizard-rte',
         ],
-    ]]);
+        ]]);
+    $services->set(RemoveOptionShowIfRteRector::class);
 };
