@@ -1,4 +1,4 @@
-# All 151 Rectors Overview
+# All 152 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1597,6 +1597,26 @@ Dropped TCA option showIfRTE in type=check
              ]
          ],
      ],
+ ];
+```
+
+<br><br>
+
+## `RemoveOptionVersioningFollowPagesRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v5\RemoveOptionVersioningFollowPagesRector`](/src/Rector/v8/v5/RemoveOptionVersioningFollowPagesRector.php)
+
+TCA option versioning_followPages removed
+
+```diff
+ return [
+     'ctrl' => [
+-        'versioningWS' => 2,
+-        'versioning_followPages' => TRUE,
++        'versioningWS' => true,
+     ],
+     'columns' => [
+     ]
  ];
 ```
 
