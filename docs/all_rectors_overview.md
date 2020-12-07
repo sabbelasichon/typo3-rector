@@ -1,4 +1,4 @@
-# All 150 Rectors Overview
+# All 151 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1573,6 +1573,31 @@ Remove superfluous EidUtility::initTCA call
 ```diff
 -use TYPO3\CMS\Frontend\Utility\EidUtility;
 -EidUtility::initTCA();
+```
+
+<br><br>
+
+## `RemoveOptionShowIfRteRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v4\RemoveOptionShowIfRteRector`](/src/Rector/v8/v4/RemoveOptionShowIfRteRector.php)
+
+Dropped TCA option showIfRTE in type=check
+
+```diff
+ return [
+     'ctrl' => [
+     ],
+     'columns' => [
+         'rte_enabled' => [
+             'exclude' => 1,
+             'label' => 'LLL:EXT:lang/locallang_general.php:LGL.disableRTE',
+             'config' => [
+                 'type' => 'check',
+-                'showIfRTE' => 1
+             ]
+         ],
+     ],
+ ];
 ```
 
 <br><br>
