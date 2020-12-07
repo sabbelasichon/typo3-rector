@@ -1,4 +1,4 @@
-# All 152 Rectors Overview
+# All 153 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -823,6 +823,28 @@ Move render method arguments to initializeArguments method
 +        $secondParameter = $this->arguments['secondParameter'];
      }
  }
+```
+
+<br><br>
+
+## `MoveRequestUpdateOptionFromControlToColumnsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v6\MoveRequestUpdateOptionFromControlToColumnsRector`](/src/Rector/v8/v6/MoveRequestUpdateOptionFromControlToColumnsRector.php)
+
+TCA ctrl field requestUpdate dropped
+
+```diff
+ return [
+     'ctrl' => [
+-        'requestUpdate' => 'foo',
+     ],
+     'columns' => [
+-        'foo' => []
++        'foo' => [
++            'onChange' => 'reload'
++        ]
+     ]
+ ];
 ```
 
 <br><br>
