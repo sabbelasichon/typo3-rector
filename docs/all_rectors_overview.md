@@ -1,4 +1,4 @@
-# All 153 Rectors Overview
+# All 154 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1979,6 +1979,28 @@ Refactor GeneralUtility::requireOnce and GeneralUtility::requireFile
 -GeneralUtility::requireFile('some_other_file.php');
 +require_once 'somefile.php';
 +require 'some_other_file.php';
+```
+
+<br><br>
+
+## `RichtextFromDefaultExtrasToEnableRichtextRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v6\RichtextFromDefaultExtrasToEnableRichtextRector`](/src/Rector/v8/v6/RichtextFromDefaultExtrasToEnableRichtextRector.php)
+
+TCA richtext configuration in defaultExtras dropped
+
+```diff
+ [
+     'columns' => [
+         'content' => [
+             'config' => [
+                 'type' => 'text',
++                'enableRichtext' => true,
+             ],
+-            'defaultExtras' => 'richtext:rte_transform',
+         ],
+     ],
+ ];
 ```
 
 <br><br>
