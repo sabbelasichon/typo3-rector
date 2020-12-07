@@ -48,7 +48,6 @@ class TcaMigration
     public function migrate(array $tca): array
     {
         $tca = $this->migrateColumnsConfig($tca);
-        $tca = $this->migrateRequestUpdate($tca);
         $tca = $this->migrateInputDateTimeToRenderType($tca);
         $tca = $this->migrateWizardEnableByTypeConfigToColumnsOverrides($tca);
         $tca = $this->migrateColorPickerWizardToRenderType($tca);
