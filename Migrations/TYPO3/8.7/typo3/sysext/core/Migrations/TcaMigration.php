@@ -47,7 +47,6 @@ class TcaMigration
     public function migrate(array $tca): array
     {
         $tca = $this->migrateDefaultExtrasRteTransFormOptions($tca);
-        $tca = $this->migrateSelectTreeOptions($tca);
         $tca = $this->migrateTSconfigSoftReferences($tca);
         $tca = $this->migrateShowIfRteOption($tca);
         $tca = $this->migrateWorkspacesOptions($tca);
