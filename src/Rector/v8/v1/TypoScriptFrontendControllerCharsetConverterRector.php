@@ -51,6 +51,10 @@ final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractR
             return null;
         }
 
+        if (! $this->isNames($node->name, ['csConv', 'conv_case'])) {
+            return null;
+        }
+
         if ($this->isName($node->name, 'csConv')) {
             return $this->refactorMethodCsConv($node);
         }
@@ -90,6 +94,7 @@ PHP
         if ($this->isMethodStaticCallOrClassMethodObjectType($node, TypoScriptFrontendController::class)) {
             return false;
         }
+
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
             $node,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,

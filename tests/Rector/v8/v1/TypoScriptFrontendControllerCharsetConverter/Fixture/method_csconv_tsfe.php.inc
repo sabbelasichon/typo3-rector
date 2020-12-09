@@ -10,6 +10,7 @@ $output2 = $GLOBALS['TSFE']->csConv($string);
 /** @var TypoScriptFrontendController $typoscriptFrontendController */
 $typoscriptFrontendController = $GLOBALS['TSFE'];
 $output3 = $typoscriptFrontendController->csConv($string, $from);
+$typoscriptFrontendController->setContentType('text/text');
 
 ?>
 -----
@@ -27,3 +28,4 @@ $output2 = $string;
 $typoscriptFrontendController = $GLOBALS['TSFE'];
 $charsetConverter = GeneralUtility::makeInstance(CharsetConverter::class);
 $output3 = $charsetConverter->conv($string, $charsetConverter->parse_charset($from), 'utf-8');
+$typoscriptFrontendController->setContentType('text/text');
