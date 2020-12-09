@@ -219,4 +219,8 @@ final class TypoScriptFrontendController
     public function pageErrorHandler($code, $header = '', $reason = ''): void
     {
     }
+
+    public function setContentType($contentType): void
+    {
+    }
 }
