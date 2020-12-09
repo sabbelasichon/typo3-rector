@@ -105,8 +105,7 @@ final class ComposerJsonManipulator
 
         $phpstanVersion = $json[self::REQUIRE][self::PHPSTAN_PHPSTAN];
         $phpstanVersion = ltrim($phpstanVersion, '^');
-        // use dev-master till this get's to tagged: https://github.com/phpstan/phpstan-src/commit/535c0e25429c1e3dd0dd05f61b43a34830da2a09
-        $json[self::REQUIRE]['phpstan/phpstan-src'] = 'dev-master';
+        $json[self::REQUIRE]['phpstan/phpstan-src'] = '^0.12.52';
         unset($json[self::REQUIRE][self::PHPSTAN_PHPSTAN]);
 
         $json['repositories'][] = [
