@@ -1,4 +1,4 @@
-# All 154 Rectors Overview
+# All 155 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1356,6 +1356,31 @@ Remove parameter colPos from methods.
  $someObject = GeneralUtility::makeInstance(LocalizationRepository::class);
 -$someObject->fetchOriginLanguage($pageId, $colPos, $localizedLanguage);
 +$someObject->fetchOriginLanguage($pageId, $localizedLanguage);
+```
+
+<br><br>
+
+## `RemoveConfigMaxFromInputDateTimeFieldsRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RemoveConfigMaxFromInputDateTimeFieldsRector`](/src/Rector/v8/v7/RemoveConfigMaxFromInputDateTimeFieldsRector.php)
+
+Remove TCA config 'max' on inputDateTime fields
+
+```diff
+ return [
+     'ctrl' => [
+     ],
+     'columns' => [
+         'date' => [
+             'exclude' => false,
+             'label' => 'Date',
+             'config' => [
+                 'renderType' => 'inputDateTime',
+-                'max' => 1,
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br><br>
