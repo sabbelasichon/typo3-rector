@@ -47,4 +47,19 @@ final class ExtensionManagementUtility
     public static function extRelPath(string $key): void
     {
     }
+
+    /**
+     * Gets the TCA configuration for a field handling (FAL) files.
+     *
+     * @param string $fieldName Name of the field to be used
+     * @param array $customSettingOverride Custom field settings overriding the basics
+     * @param string $allowedFileExtensions Comma list of allowed file extensions (e.g. "jpg,gif,pdf")
+     * @param string $disallowedFileExtensions
+     *
+     * @return array
+     */
+    public static function getFileFieldTCAConfig($fieldName, array $customSettingOverride = [], $allowedFileExtensions = '', $disallowedFileExtensions = '')
+    {
+        return [];
+    }
 }
