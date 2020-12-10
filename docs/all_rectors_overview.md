@@ -1,4 +1,4 @@
-# All 156 Rectors Overview
+# All 157 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1379,6 +1379,27 @@ Remove TCA config 'max' on inputDateTime fields
 -                'max' => 1,
              ],
          ],
+     ],
+ ];
+```
+
+<br><br>
+
+## `RemoveDivider2TabsConfigurationRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v7\v0\RemoveDivider2TabsConfigurationRector`](/src/Rector/v7/v0/RemoveDivider2TabsConfigurationRector.php)
+
+Removed dividers2tabs functionality
+
+```diff
+ return [
+     'ctrl' => [
+-        'dividers2tabs' => true,
+         'label' => 'complete_identifier',
+         'tstamp' => 'tstamp',
+         'crdate' => 'crdate',
+     ],
+     'columns' => [
      ],
  ];
 ```
