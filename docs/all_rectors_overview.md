@@ -1,4 +1,4 @@
-# All 155 Rectors Overview
+# All 156 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1583,6 +1583,33 @@ Remove CsConvObj and ParserFactory from LanguageService::class and `$GLOBALS['la
 +$Localization = GeneralUtility::makeInstance(LocalizationFactory::class);
 +$charsetConverterGlobals = GeneralUtility::makeInstance(CharsetConverter::class);
 +$LocalizationGlobals = GeneralUtility::makeInstance(LocalizationFactory::class);
+```
+
+<br><br>
+
+## `RemoveLocalizationModeKeepIfNeededRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RemoveLocalizationModeKeepIfNeededRector`](/src/Rector/v8/v7/RemoveLocalizationModeKeepIfNeededRector.php)
+
+Remove localizationMode keep if allowLanguageSynchronization is enabled
+
+```diff
+ return [
+     'columns' => [
+         'foo' => [
+             'label' => 'Bar',
+             'config' => [
+                 'type' => 'inline',
+                 'appearance' => [
+                     'behaviour' => [
+-                        'localizationMode' => 'keep',
+                         'allowLanguageSynchronization' => true,
+                     ],
+                 ],
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br><br>
