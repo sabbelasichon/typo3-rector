@@ -28,6 +28,11 @@ final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractR
     private const CHARSET_CONVERTER = 'charsetConverter';
 
     /**
+     * @var string
+     */
+    private const CS_CONV = 'csConv';
+
+    /**
      * @var Typo3NodeResolver
      */
     private $typo3NodeResolver;
@@ -51,11 +56,11 @@ final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractR
             return null;
         }
 
-        if (! $this->isNames($node->name, ['csConv', 'conv_case'])) {
+        if (! $this->isNames($node->name, [self::CS_CONV, 'conv_case'])) {
             return null;
         }
 
-        if ($this->isName($node->name, 'csConv')) {
+        if ($this->isName($node->name, self::CS_CONV)) {
             return $this->refactorMethodCsConv($node);
         }
 
@@ -85,7 +90,7 @@ PHP
     {
         if ($this->typo3NodeResolver->isMethodCallOnGlobals(
             $node,
-            'csConv',
+            self::CS_CONV,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
         )) {
             return false;

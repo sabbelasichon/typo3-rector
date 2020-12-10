@@ -16,6 +16,7 @@ use Ssch\TYPO3Rector\Rector\v8\v7\RefactorArrayBrowserWrapValueRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorPrintContentMethodsRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorRemovedMarkerMethodsFromContentObjectRendererRector;
+use Ssch\TYPO3Rector\Rector\v8\v7\RemoveConfigMaxFromInputDateTimeFieldsRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\TemplateServiceSplitConfArrayRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\UseCachingFrameworkInsteadGetAndStoreHashRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -55,4 +56,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(DataHandlerVariousMethodsAndMethodArgumentsRector::class);
     $services->set(RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector::class);
     $services->set(UseCachingFrameworkInsteadGetAndStoreHashRector::class);
+    $services->set(RemoveConfigMaxFromInputDateTimeFieldsRector::class);
 };
