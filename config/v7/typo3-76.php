@@ -70,7 +70,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'list.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_list.gif',
             'wizard_forms.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_forms.gif',
         ],
-        ]]);
+    ]]);
     $services->set(AddRenderTypeToSelectFieldRector::class);
     $services->set(RemoveIconOptionForRenderTypeSelectRector::class);
 };

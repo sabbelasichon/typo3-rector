@@ -18,7 +18,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         RenameClassRector::OLD_TO_NEW_CLASSES => [
             StringFrontend::class => VariableFrontend::class,
         ],
-        ]]);
+    ]]);
     $services->set(GeneralUtilityGetUrlRequestHeadersRector::class);
     $services->set(PageNotFoundAndErrorHandlingRector::class);
 };

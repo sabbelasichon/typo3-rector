@@ -13,7 +13,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [
             'TYPO3\CMS\Core\Tests' => 'TYPO3\TestingFramework\Core',
         ],
-        ]);
+    ]);
     $services->set(MoveRequestUpdateOptionFromControlToColumnsRector::class);
     $services->set(RichtextFromDefaultExtrasToEnableRichtextRector::class);
 };

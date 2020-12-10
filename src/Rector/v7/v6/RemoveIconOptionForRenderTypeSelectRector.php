@@ -156,7 +156,7 @@ PHP
                     $configValue->value->items[] = new ArrayItem($this->createTrue(), new String_(
                         self::SHOW_ICON_TABLE
                     ));
-                } elseif (! $noIconsBelowSelect) {
+                } elseif (! $noIconsBelowSelect && null === $showIconTable) {
                     $configValue->value->items[] = new ArrayItem($this->createTrue(), new String_(
                         self::SHOW_ICON_TABLE
                     ));

@@ -44,7 +44,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
             'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
         ],
-        ]]);
+    ]]);
     $services->set(CheckForExtensionInfoRector::class);
     $services->set(RefactorMethodsFromExtensionManagementUtilityRector::class);
     $services->set(MetaTagManagementRector::class);
