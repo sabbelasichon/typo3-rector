@@ -38,8 +38,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     StandardDocumentTemplate::class => DocumentTemplate::class,
                     BigDocumentTemplate::class => DocumentTemplate::class,
                 ],
-                 ],
-             ]);
+            ],
+        ]);
 
     $services->set(RenameStaticMethodRector::class)
         ->call('configure', [

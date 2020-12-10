@@ -36,14 +36,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         RenameClassRector::OLD_TO_NEW_CLASSES => [
             TypoScriptService::class => CoreTypoScriptService::class,
         ],
-        ]]);
+    ]]);
     $services->set(RenameClassMapAliasRector::class)->call('configure', [[
         RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
             __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
             __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
             __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
         ],
-        ]]);
+    ]]);
     $services->set(RenameStaticMethodRector::class)->call('configure', [[
         RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => inline_value_objects([
             new RenameStaticMethod(GeneralUtility::class, 'csvValues', CsvUtility::class, 'csvValues'),

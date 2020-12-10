@@ -21,6 +21,13 @@ return [
                 'noIconsBelowSelect' => false,
             ],
         ],
+        'bar' => [
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'showIconTable' => true,
+            ],
+        ],
     ],
 ];
 
@@ -41,6 +48,13 @@ return [
             ],
         ],
         'foo' => [
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'showIconTable' => true,
+            ],
+        ],
+        'bar' => [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',

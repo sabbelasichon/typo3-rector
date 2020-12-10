@@ -29,7 +29,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [[
             'TYPO3\CMS\Backend\Controller\File' => 'TYPO3\CMS\Filelist\Controller\File',
         ]],
-        ]);
+    ]);
     $services->set(UseMetaDataAspectRector::class);
     $services->set(ForceTemplateParsingInTsfeAndTemplateServiceRector::class);
     $services->set(BackendUtilityGetViewDomainToPageRouterRector::class);

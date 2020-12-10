@@ -43,6 +43,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif' => 'actions-wizard-link',
             'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_rte.gif' => 'actions-wizard-rte',
         ],
-        ]]);
+    ]]);
     $services->set(RemoveOptionShowIfRteRector::class);
 };

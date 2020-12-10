@@ -32,7 +32,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             WebRequest::class => Request::class,
             WebResponse::class => Response::class,
         ],
-        ]]);
+    ]]);
     $services->set(RemoveExcludeOnTransOrigPointerFieldRector::class);
     $services->set(RemoveShowRecordFieldListInsideInterfaceSectionRector::class);
 };
