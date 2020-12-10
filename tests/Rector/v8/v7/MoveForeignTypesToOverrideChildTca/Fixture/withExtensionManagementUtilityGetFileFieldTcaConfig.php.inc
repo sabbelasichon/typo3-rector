@@ -58,6 +58,7 @@ return [
 ?>
 -----
 <?php
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 $xlf = 'LLL:EXT:...';
 return [
     'ctrl' => [
@@ -90,7 +91,7 @@ return [
         'files' => [
             'exclude' => true,
             'label' => $xlf . 'files',
-            'config' => TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
                 'files',
                 [
                     'appearance' => [
