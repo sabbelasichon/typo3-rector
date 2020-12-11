@@ -1,4 +1,4 @@
-# All 157 Rectors Overview
+# All 158 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -752,6 +752,36 @@ Use Environment API to fetch application context
 ```diff
 -GeneralUtility::getApplicationContext();
 +Environment::getContext();
+```
+
+<br><br>
+
+## `MoveForeignTypesToOverrideChildTcaRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v7\MoveForeignTypesToOverrideChildTcaRector`](/src/Rector/v8/v7/MoveForeignTypesToOverrideChildTcaRector.php)
+
+TCA InlineOverrideChildTca
+
+```diff
+ return [
+     'columns' => [
+         'aField' => [
+             'config' => [
+                 'type' => 'inline',
+-                'foreign_types' => [
+-                    'aForeignType' => [
+-                        'showitem' => 'aChildField',
++                'overrideChildTca' => [
++                    'types' => [
++                        'aForeignType' => [
++                            'showitem' => 'aChildField',
++                        ],
+                     ],
+                 ],
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br><br>
