@@ -87,6 +87,7 @@ PHP
 
     /**
      * @param Return_ $node
+     * @return ?Return_
      */
     public function refactor(Node $node): ?Node
     {
@@ -106,24 +107,7 @@ PHP
 
         foreach ($this->extractColumnConfig($columns->value) as $columnConfig) {
             //handle the special case of ExtensionManagementUtility::getFileFieldTCAConfig
-            if ($columnConfig instanceof StaticCall) {
-                if (! $this->isMethodStaticCallOrClassMethodObjectType(
-                    $columnConfig,
-                    ExtensionManagementUtility::class
-                )) {
-                    continue;
-                }
-                if (! $this->isName($columnConfig->name, 'getFileFieldTCAConfig')) {
-                    continue;
-                }
-                if (count($columnConfig->args) < 2) {
-                    continue;
-                }
-                if (! $columnConfig->args[1]->value instanceof Array_) {
-                    continue;
-                }
-                $columnConfig = $columnConfig->args[1]->value;
-            }
+            $columnConfig = $this->extractConfigFromGetFileFieldTcaConfig($columnConfig);
 
             if (! $columnConfig instanceof Array_) {
                 continue;
@@ -199,5 +183,28 @@ PHP
         }
 
         return $node;
+    }
+
+    private function extractConfigFromGetFileFieldTcaConfig(Node $columnConfig): Node
+    {
+        if ($columnConfig instanceof StaticCall) {
+            if (! $this->isMethodStaticCallOrClassMethodObjectType(
+                $columnConfig,
+                ExtensionManagementUtility::class
+            )) {
+                return $columnConfig;
+            }
+            if (! $this->isName($columnConfig->name, 'getFileFieldTCAConfig')) {
+                return $columnConfig;
+            }
+            if (count($columnConfig->args) < 2) {
+                return $columnConfig;
+            }
+            if (! $columnConfig->args[1]->value instanceof Array_) {
+                return $columnConfig;
+            }
+            return $columnConfig->args[1]->value;
+        }
+        return $columnConfig;
     }
 }
