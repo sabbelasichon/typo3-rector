@@ -47,4 +47,16 @@ final class ExtensionManagementUtility
     public static function extRelPath(string $key): void
     {
     }
+
+    /**
+     * @param string $fieldName
+     * @param array $customSettingOverride
+     * @param string $allowedFileExtensions
+     * @param string $disallowedFileExtensions
+     * @return array
+     */
+    public static function getFileFieldTCAConfig($fieldName, array $customSettingOverride = [], $allowedFileExtensions = '', $disallowedFileExtensions = '')
+    {
+        return [];
+    }
 }
