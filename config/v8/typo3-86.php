@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MoveRequestUpdateOptionFromControlToColumnsRector;
+use Ssch\TYPO3Rector\Rector\v8\v6\RefactorTCARector;
 use Ssch\TYPO3Rector\Rector\v8\v6\RichtextFromDefaultExtrasToEnableRichtextRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -16,4 +17,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]);
     $services->set(MoveRequestUpdateOptionFromControlToColumnsRector::class);
     $services->set(RichtextFromDefaultExtrasToEnableRichtextRector::class);
+    $services->set(RefactorTCARector::class);
 };
