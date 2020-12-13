@@ -1,4 +1,4 @@
-# All 158 Rectors Overview
+# All 159 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1698,6 +1698,32 @@ Remove superfluous EidUtility::initTCA call
 ```diff
 -use TYPO3\CMS\Frontend\Utility\EidUtility;
 -EidUtility::initTCA();
+```
+
+<br><br>
+
+## `RemoveOptionLocalizeChildrenAtParentLocalizationRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RemoveOptionLocalizeChildrenAtParentLocalizationRector`](/src/Rector/v9/v0/RemoveOptionLocalizeChildrenAtParentLocalizationRector.php)
+
+Remove option localizeChildrenAtParentLocalization
+
+```diff
+ return [
+     'ctrl' => [],
+     'columns' => [
+         'foo' => [
+             'config' =>
+                 [
+                     'type' => 'inline',
+-                    'behaviour' => [
+-                        'localizeChildrenAtParentLocalization' => '1',
+-                    ],
++                    'behaviour' => [],
+                 ],
+         ],
+     ],
+ ];
 ```
 
 <br><br>
