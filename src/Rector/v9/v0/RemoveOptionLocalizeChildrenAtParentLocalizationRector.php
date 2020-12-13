@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\v8\v7;
+namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
@@ -14,60 +14,48 @@ use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-79770-DeprecateInlineLocalizationMode.html
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82709-TCAOptionLocalizeChildrenAtParentLocalizationRemoved.html
  */
-final class RemoveLocalizationModeKeepIfNeededRector extends AbstractRector
+final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends AbstractRector
 {
     use TcaHelperTrait;
-
-    /**
-     * @var string
-     */
-    private const LOCALIZATION_MODE = 'localizationMode';
 
     /**
      * @codeCoverageIgnore
      */
     public function getDefinition(): RectorDefinition
     {
-        return new RectorDefinition('Remove localizationMode keep if allowLanguageSynchronization is enabled', [
-            new CodeSample(<<<'PHP'
+        return new RectorDefinition('Remove option localizeChildrenAtParentLocalization', [new CodeSample(<<<'PHP'
 return [
+    'ctrl' => [],
     'columns' => [
         'foo' => [
-            'label' => 'Bar',
-            'config' => [
-                'type' => 'inline',
-                'appearance' => [
+            'config' =>
+                [
+                    'type' => 'inline',
                     'behaviour' => [
-                        'localizationMode' => 'keep',
-                        'allowLanguageSynchronization' => true,
+                        'localizeChildrenAtParentLocalization' => '1',
                     ],
                 ],
-            ],
         ],
     ],
 ];
 PHP
                 , <<<'PHP'
 return [
+    'ctrl' => [],
     'columns' => [
         'foo' => [
-            'label' => 'Bar',
-            'config' => [
-                'type' => 'inline',
-                'appearance' => [
-                    'behaviour' => [
-                        'allowLanguageSynchronization' => true,
-                    ],
+            'config' =>
+                [
+                    'type' => 'inline',
+                    'behaviour' => [],
                 ],
-            ],
         ],
     ],
 ];
 PHP
-            ),
-        ]);
+            )]);
     }
 
     /**
@@ -147,10 +135,6 @@ PHP
                         continue;
                     }
 
-                    if (! $this->isLocalizationModeKeepAndAllowLanguageSynchronization($configItemValue->value)) {
-                        continue;
-                    }
-
                     foreach ($configItemValue->value->items as $behaviourConfigurationItem) {
                         if (null === $behaviourConfigurationItem) {
                             continue;
@@ -164,9 +148,8 @@ PHP
                             continue;
                         }
 
-                        if ($this->isValue($behaviourConfigurationItem->key, self::LOCALIZATION_MODE)) {
+                        if ($this->isValue($behaviourConfigurationItem->key, 'localizeChildrenAtParentLocalization')) {
                             $this->removeNode($behaviourConfigurationItem);
-                            break;
                         }
                     }
                 }
@@ -174,42 +157,5 @@ PHP
         }
 
         return $node;
-    }
-
-    private function isLocalizationModeKeepAndAllowLanguageSynchronization(Array_ $behaviourConfiguration): bool
-    {
-        $localizationMode = null;
-        $allowLanguageSynchronization = null;
-
-        foreach ($behaviourConfiguration->items as $behaviourConfigurationItem) {
-            if (null === $behaviourConfigurationItem) {
-                continue;
-            }
-
-            if (! $behaviourConfigurationItem instanceof ArrayItem) {
-                continue;
-            }
-
-            if (null === $behaviourConfigurationItem->key) {
-                continue;
-            }
-
-            if (! $this->isValues(
-                $behaviourConfigurationItem->key,
-                [self::LOCALIZATION_MODE, 'allowLanguageSynchronization']
-            )) {
-                continue;
-            }
-
-            $behaviourConfigurationValue = $this->getValue($behaviourConfigurationItem->value);
-
-            if ($this->isValue($behaviourConfigurationItem->key, self::LOCALIZATION_MODE)) {
-                $localizationMode = $behaviourConfigurationValue;
-            } else {
-                $allowLanguageSynchronization = $behaviourConfigurationValue;
-            }
-        }
-
-        return $allowLanguageSynchronization && 'keep' === $localizationMode;
     }
 }

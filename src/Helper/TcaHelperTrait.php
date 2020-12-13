@@ -14,32 +14,42 @@ trait TcaHelperTrait
 {
     private function isTca(Return_ $node): bool
     {
-        if (! $node->expr instanceof Array_) {
-            return false;
-        }
+        $ctrl = $this->extractCtrl($node);
+        $columns = $this->extractColumns($node);
 
-        $items = $node->expr->items;
-
-        $ctrl = null;
-        $columns = null;
-
-        foreach ($items as $item) {
-            if (! $item instanceof ArrayItem) {
-                continue;
-            }
-
-            if (null === $item->key) {
-                continue;
-            }
-
-            $itemKey = (string) $this->getValue($item->key);
-            if ('ctrl' === $itemKey) {
-                $ctrl = $item;
-            } elseif ('columns' === $itemKey) {
-                $columns = $item;
-            }
-        }
         return null !== $ctrl && null !== $columns;
+    }
+
+    private function isInlineType(Array_ $columnItemConfiguration): bool
+    {
+        return $this->isConfigType($columnItemConfiguration, 'inline');
+    }
+
+    private function isConfigType(Array_ $columnItemConfiguration, string $type): bool
+    {
+        foreach ($columnItemConfiguration->items as $configValue) {
+            if (null === $configValue) {
+                continue;
+            }
+
+            if (! $configValue instanceof ArrayItem) {
+                continue;
+            }
+
+            if (null === $configValue->key) {
+                continue;
+            }
+
+            if (! $this->isValue($configValue->key, 'type')) {
+                continue;
+            }
+
+            if ($this->isValue($configValue->value, $type)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private function extractColumns(Return_ $node): ?ArrayItem
