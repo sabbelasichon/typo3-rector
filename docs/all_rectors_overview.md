@@ -1,4 +1,4 @@
-# All 159 Rectors Overview
+# All 160 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -1310,6 +1310,18 @@ Refactor removed methods from GeneralUtility.
 ```diff
 -GeneralUtility::gif_compress();
 +\TYPO3\CMS\Core\Imaging\GraphicalFunctions::gifCompress();
+```
+
+<br><br>
+
+## `RefactorTCARector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v6\RefactorTCARector`](/src/Rector/v8/v6/RefactorTCARector.php)
+
+A lot of different TCA changes
+
+```diff
+
 ```
 
 <br><br>
