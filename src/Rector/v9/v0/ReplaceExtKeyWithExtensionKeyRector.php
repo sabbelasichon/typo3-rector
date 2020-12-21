@@ -25,8 +25,22 @@ final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
     public function getDefinition(): RectorDefinition
     {
         return new RectorDefinition('Replace $_EXTKEY with extension key', [new CodeSample(<<<'PHP'
+ExtensionUtility::configurePlugin(
+    'Foo.'.$_EXTKEY,
+    'ArticleTeaser',
+    [
+        'FooBar' => 'baz',
+    ]
+);
 PHP
                 , <<<'PHP'
+ExtensionUtility::configurePlugin(
+    'Foo.'.'bar',
+    'ArticleTeaser',
+    [
+        'FooBar' => 'baz',
+    ]
+);
 PHP
             )]);
     }
@@ -46,6 +60,10 @@ PHP
     {
         /** @var SmartFileInfo $fileInfo */
         $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
+
+        if (! $fileInfo instanceof SmartFileInfo) {
+            return null;
+        }
 
         if (! $this->isExtLocalConf($fileInfo) && ! $this->isExtTables($fileInfo)) {
             return null;
