@@ -2102,7 +2102,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 Replace $_EXTKEY with extension `key`
 
 ```diff
-
+ ExtensionUtility::configurePlugin(
+-    'Foo.'.$_EXTKEY,
++    'Foo.'.'bar',
+     'ArticleTeaser',
+     [
+         'FooBar' => 'baz',
+     ]
+ );
 ```
 
 <br><br>
