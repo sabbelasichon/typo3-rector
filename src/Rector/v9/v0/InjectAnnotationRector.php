@@ -91,7 +91,12 @@ final class InjectAnnotationRector extends AbstractRector
             $assign = new Assign($propertyFetch, new Variable($variableName));
             // Add new line and then the method
             $injectMethods[] = new Nop();
-            $injectMethods[] = $this->createInjectClassMethod($variableName, $param, $assign);
+
+            $methodAlreadyExists = $node->getMethod($this->createInjectMethodName($variableName));
+
+            if (null === $methodAlreadyExists) {
+                $injectMethods[] = $this->createInjectClassMethod($variableName, $param, $assign);
+            }
         }
         $node->stmts = array_merge($node->stmts, $injectMethods);
         return $node;
@@ -128,12 +133,17 @@ CODE_SAMPLE
 
     private function createInjectClassMethod(string $variableName, Param $param, Assign $assign): ClassMethod
     {
-        $injectMethodName = 'inject' . ucfirst($variableName);
+        $injectMethodName = $this->createInjectMethodName($variableName);
         $injectMethodBuilder = $this->builderFactory->method($injectMethodName);
         $injectMethodBuilder->makePublic();
         $injectMethodBuilder->addParam($param);
         $injectMethodBuilder->setReturnType('void');
         $injectMethodBuilder->addStmt($assign);
         return $injectMethodBuilder->getNode();
+    }
+
+    private function createInjectMethodName(string $variableName): string
+    {
+        return 'inject' . ucfirst($variableName);
     }
 }

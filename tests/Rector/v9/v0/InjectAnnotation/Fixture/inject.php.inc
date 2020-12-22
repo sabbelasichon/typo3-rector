@@ -29,6 +29,17 @@ final class SomeInjectClass
      * @inject
      */
     private $inject4;
+
+    /**
+     * @var ShortInjectionClass
+     * @inject
+     */
+    private $inject5;
+
+    public function injectInject5(ShortInjectionClass $inject5): void
+    {
+        $this->inject5 = $inject5;
+    }
 }
 
 ?>
@@ -63,6 +74,16 @@ final class SomeInjectClass
      */
     private $inject4;
 
+    /**
+     * @var ShortInjectionClass
+     */
+    private $inject5;
+
+    public function injectInject5(ShortInjectionClass $inject5): void
+    {
+        $this->inject5 = $inject5;
+    }
+
     public function injectInject(InjectionClass $inject): void
     {
         $this->inject = $inject;
@@ -77,6 +98,7 @@ final class SomeInjectClass
     {
         $this->inject4 = $inject4;
     }
+
 }
 
 ?>
