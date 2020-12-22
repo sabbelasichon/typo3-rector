@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaService;
+namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensions;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
