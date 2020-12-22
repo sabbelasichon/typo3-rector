@@ -26,7 +26,7 @@ final class Application extends SymfonyApplication
     /**
      * @var string
      */
-    private const VERSION = '0.7.6';
+    private const VERSION = '0.7.7';
 
     /**
      * @var string
