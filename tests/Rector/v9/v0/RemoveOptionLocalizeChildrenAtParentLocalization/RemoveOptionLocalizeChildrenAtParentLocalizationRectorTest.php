@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\RemoveOptionLocalizeChildrenAtParentLocalization;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveOptionLocalizeChildrenAtParentLocalizationRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 

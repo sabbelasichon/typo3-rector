@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v0\RemoveDivider2TabsConfiguration;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Core\Testing\PHPUnit\AbstractRectorTestCase;
+
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveDivider2TabsConfigurationRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
