@@ -29,6 +29,11 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const TYPO3_11 = __DIR__ . '/../../config/typo3-11.0.php';
+
+    /**
+     * @var string
+     */
     public const DATABASE_TO_DBAL = __DIR__ . '/../../config/database-connection-to-dbal.php';
 
     /**
