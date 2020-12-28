@@ -21,6 +21,7 @@ final class ContentObjectRendererEnableFieldsMethodCall
 use TYPO3\CMS\Frontend\Page\PageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+
 final class ContentObjectRendererEnableFieldsMethodCall
 {
     public function method(): void
@@ -31,3 +32,5 @@ final class ContentObjectRendererEnableFieldsMethodCall
         $enableFields3 = GeneralUtility::makeInstance(PageRepository::class)->enableFields('pages', -1, []);
     }
 }
+
+?>

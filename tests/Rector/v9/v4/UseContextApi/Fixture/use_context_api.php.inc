@@ -17,3 +17,5 @@ $groupList = implode(',', GeneralUtility::makeInstance(Context::class)->getPrope
 $backendUserIsLoggedIn = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('backend.user', 'isLoggedIn');
 $showHiddenPage = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('visibility', 'includeHiddenPages');
 $showHiddenRecords = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('visibility', 'includeHiddenContent');
+
+?>

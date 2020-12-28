@@ -18,9 +18,14 @@ $workspaceId = $typoScriptFrontendController->sys_page->versioningWorkspaceId;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+
 $workspaceId = null;
 $workspaceId = $workspaceId ?? GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id', 0);
+
 $GLOBALS['TSFE']->sys_page->versioningWorkspaceId = 1;
+
 /** @var TypoScriptFrontendController $typoScriptFrontendController */
 $typoScriptFrontendController = $GLOBALS['TSFE'];
 $workspaceId = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id', 0);
+
+?>
