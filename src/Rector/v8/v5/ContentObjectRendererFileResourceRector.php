@@ -16,10 +16,10 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -79,9 +79,9 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Migrate fileResource method of class ContentObjectRenderer', [
+        return new RuleDefinition('Migrate fileResource method of class ContentObjectRenderer', [
             new CodeSample(<<<'PHP'
 $template = $this->cObj->fileResource('EXT:vendor/Resources/Private/Templates/Template.html');
 PHP

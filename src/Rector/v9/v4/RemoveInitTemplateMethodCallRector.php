@@ -9,10 +9,10 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -72,9 +72,9 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Remove method call initTemplate from TypoScriptFrontendController', [
+        return new RuleDefinition('Remove method call initTemplate from TypoScriptFrontendController', [
             new CodeSample(<<<'PHP'
 $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 $tsfe->initTemplate();

@@ -20,9 +20,9 @@ use PhpParser\Node\Stmt\Foreach_;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryHelper;
@@ -88,9 +88,9 @@ final class BackendUtilityGetRecordsByFieldToQueryBuilderRector extends Abstract
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('BackendUtility::getRecordsByField to QueryBuilder', [
+        return new RuleDefinition('BackendUtility::getRecordsByField to QueryBuilder', [
             new CodeSample(<<<'PHP'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $rows = BackendUtility::getRecordsByField('table', 'uid', 3);

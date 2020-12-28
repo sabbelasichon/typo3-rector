@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\HttpKernel;
 
-use Migrify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
 use Rector\Core\DependencyInjection\CompilerPass\MakeRectorsPublicCompilerPass;
@@ -20,10 +19,11 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symfony\Component\HttpKernel\Kernel;
 use Symplify\AutowireArrayParameter\DependencyInjection\CompilerPass\AutowireArrayParameterCompilerPass;
-use Symplify\ComposerJsonManipulator\ComposerJsonManipulatorBundle;
-use Symplify\ConsoleColorDiff\ConsoleColorDiffBundle;
+use Symplify\ComposerJsonManipulator\Bundle\ComposerJsonManipulatorBundle;
+use Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
+use Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
 
 final class Typo3RectorKernel extends Kernel implements ExtraConfigAwareKernelInterface
 {

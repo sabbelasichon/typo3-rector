@@ -7,9 +7,9 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-80929-TYPO3_DBMovedToExtension.html
@@ -61,9 +61,9 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor legacy calls of DatabaseConnection to Dbal', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Refactor legacy calls of DatabaseConnection to Dbal', [new CodeSample(<<<'PHP'
 $GLOBALS['TYPO3_DB']->exec_INSERTquery(
             'pages',
             [

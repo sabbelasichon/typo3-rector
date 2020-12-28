@@ -15,8 +15,8 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
 use TYPO3\CMS\Extbase\Service\EnvironmentService;
 
@@ -68,9 +68,9 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Inject EnvironmentService if needed in subclass of Response', [
+        return new RuleDefinition('Inject EnvironmentService if needed in subclass of Response', [
             new CodeSample(<<<'CODE_SAMPLE'
 class MyResponse extends Response
 {

@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Compiler\HttpKernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\Kernel;
-use Symplify\ConsoleColorDiff\ConsoleColorDiffBundle;
+use Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 
 final class RectorCompilerKernel extends Kernel
 {

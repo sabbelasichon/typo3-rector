@@ -10,7 +10,6 @@ use PhpParser\Node\Name;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\CodingStyle\Node\NameImporter;
 use Rector\Core\Configuration\Option;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter;
@@ -18,6 +17,8 @@ use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use Rector\PostRector\Rector\AbstractPostRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class NameImportingPostRector extends AbstractPostRector
@@ -111,10 +112,12 @@ final class NameImportingPostRector extends AbstractPostRector
         return 601;
     }
 
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition(
-            'Imports fully qualified class names in parameter types, return types, extended classes, implemented, interfaces and even docblocks'
+        return new RuleDefinition(
+            'Imports fully qualified class names in parameter types, return types, extended classes, implemented, interfaces and even docblocks', [
+                new CodeSample('', ''),
+            ]
         );
     }
 

@@ -10,9 +10,9 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -25,9 +25,9 @@ final class MoveRequestUpdateOptionFromControlToColumnsRector extends AbstractRe
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('TCA ctrl field requestUpdate dropped', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('TCA ctrl field requestUpdate dropped', [new CodeSample(<<<'PHP'
 return [
     'ctrl' => [
         'requestUpdate' => 'foo',

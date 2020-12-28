@@ -8,9 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
@@ -49,9 +49,9 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Remove method call init from PageRepository', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Remove method call init from PageRepository', [new CodeSample(<<<'PHP'
 $repository = GeneralUtility::makeInstance(PageRepository::class);
 $repository->init(true);
 PHP

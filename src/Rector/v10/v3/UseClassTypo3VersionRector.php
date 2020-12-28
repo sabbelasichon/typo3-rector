@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v10\v3;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -46,9 +46,9 @@ final class UseClassTypo3VersionRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition(
+        return new RuleDefinition(
             'Use class Typo3Version instead of the constants',
             [
                 new CodeSample(

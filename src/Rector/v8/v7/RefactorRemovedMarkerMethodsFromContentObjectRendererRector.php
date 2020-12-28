@@ -11,8 +11,8 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -107,9 +107,9 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor removed Marker-related methods from ContentObjectRenderer.', [
+        return new RuleDefinition('Refactor removed Marker-related methods from ContentObjectRenderer.', [
             new CodeSample(<<<'PHP'
 // build template
 $template = $this->cObj->getSubpart($this->config['templateFile'], '###TEMPLATE###');

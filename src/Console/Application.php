@@ -7,11 +7,9 @@ namespace Ssch\TYPO3Rector\Console;
 use Composer\XdebugHandler\XdebugHandler;
 use Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
 use Rector\ChangesReporting\Output\JsonOutputFormatter;
-use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
-use Rector\Core\Exception\NoRectorsLoadedException;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -19,7 +17,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use Throwable;
 
 final class Application extends SymfonyApplication
 {
@@ -41,10 +38,8 @@ final class Application extends SymfonyApplication
     /**
      * @param Command[] $commands
      */
-    public function __construct(
-        Configuration $configuration,
-        array $commands = []
-    ) {
+    public function __construct(Configuration $configuration, array $commands = [])
+    {
         parent::__construct(self::NAME, self::VERSION);
 
         $this->addCommands($commands);

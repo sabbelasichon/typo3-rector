@@ -9,11 +9,11 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\NodeFactory\HelperArgumentAssignFactory;
 use Ssch\TYPO3Rector\NodeFactory\InitializeArgumentsClassMethodFactory;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper as FluidCoreAbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -77,9 +77,9 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Move render method arguments to initializeArguments method', [
+        return new RuleDefinition('Move render method arguments to initializeArguments method', [
             new CodeSample(<<<'CODE_SAMPLE'
 class MyViewHelper implements ViewHelperInterface
 {

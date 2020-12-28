@@ -11,12 +11,12 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Property;
-use Rector\Core\Configuration\ChangeConfiguration;
+use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\ConfiguredCodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RenameClassMapAliasRector extends AbstractRector implements ConfigurableRectorInterface
@@ -38,22 +38,22 @@ final class RenameClassMapAliasRector extends AbstractRector implements Configur
     private $classRenamer;
 
     /**
-     * @var ChangeConfiguration
+     * @var RenamedClassesDataCollector
      */
-    private $changeConfiguration;
+    private $renamedClassesDataCollector;
 
-    public function __construct(ChangeConfiguration $changeConfiguration, ClassRenamer $classRenamer)
+    public function __construct(RenamedClassesDataCollector $renamedClassesDataCollector, ClassRenamer $classRenamer)
     {
         $this->classRenamer = $classRenamer;
-        $this->changeConfiguration = $changeConfiguration;
+        $this->renamedClassesDataCollector = $renamedClassesDataCollector;
     }
 
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Replaces defined classes by new ones.', [
+        return new RuleDefinition('Replaces defined classes by new ones.', [
             new ConfiguredCodeSample(
                 <<<'PHP'
 namespace App;
@@ -122,7 +122,7 @@ PHP
         }
 
         if ([] !== $this->oldToNewClasses) {
-            $this->changeConfiguration->setOldToNewClasses($this->oldToNewClasses);
+            $this->renamedClassesDataCollector->setOldToNewClasses($this->oldToNewClasses);
         }
     }
 }

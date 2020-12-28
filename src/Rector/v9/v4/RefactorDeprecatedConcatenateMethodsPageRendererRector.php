@@ -10,8 +10,8 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Page\PageRenderer;
 
 /**
@@ -47,9 +47,9 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Turns method call names to new ones.', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Turns method call names to new ones.', [new CodeSample(<<<'PHP'
 $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 $files = $someObject->getConcatenateFiles();
 PHP

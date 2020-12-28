@@ -8,8 +8,8 @@ use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.4/Deprecation-67991-RemovedExtCms.html
@@ -33,9 +33,9 @@ final class MoveLanguageFilesFromRemovedCmsExtensionRector extends AbstractRecto
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Move language files of removed cms to new location', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Move language files of removed cms to new location', [new CodeSample(<<<'PHP'
 use TYPO3\CMS\Core\Localization\LanguageService;
 $languageService = new LanguageService();
 $languageService->sL('LLL:EXT:cms/web_info/locallang.xlf:pages_1');

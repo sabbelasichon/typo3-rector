@@ -8,8 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Lowlevel\Utility\ArrayBrowser;
 
 /**
@@ -45,9 +45,9 @@ final class RefactorArrayBrowserWrapValueRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Migrate the method ArrayBrowser->wrapValue() to use htmlspecialchars()', [
+        return new RuleDefinition('Migrate the method ArrayBrowser->wrapValue() to use htmlspecialchars()', [
             new CodeSample(<<<'PHP'
 $arrayBrowser = GeneralUtility::makeInstance(ArrayBrowser::class);
 $arrayBrowser->wrapValue('value');

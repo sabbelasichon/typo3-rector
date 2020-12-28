@@ -20,10 +20,10 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Throw_;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Controller\ErrorPageController;
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -65,9 +65,9 @@ final class PageNotFoundAndErrorHandlingRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Page Not Found And Error handling in Frontend', [
+        return new RuleDefinition('Page Not Found And Error handling in Frontend', [
             new CodeSample(<<<'PHP'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class SomeController extends ActionController

@@ -10,8 +10,8 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -63,9 +63,9 @@ final class RefactorDeprecationLogRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor GeneralUtility deprecationLog methods', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Refactor GeneralUtility deprecationLog methods', [new CodeSample(<<<'PHP'
 GeneralUtility::logDeprecatedFunction();
 GeneralUtility::logDeprecatedViewHelperAttribute();
 GeneralUtility::deprecationLog('Message');

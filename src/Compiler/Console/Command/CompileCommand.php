@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Compiler\Console\Command;
 
-use OndraM\CiDetector\CiDetector;
 use Ssch\TYPO3Rector\Compiler\Composer\ComposerJsonManipulator;
 use Ssch\TYPO3Rector\Compiler\Renaming\JetbrainsStubsRenamer;
 use Ssch\TYPO3Rector\Compiler\ValueObject\Option;
@@ -58,11 +57,6 @@ final class CompileCommand extends Command
     private $jetbrainsStubsRenamer;
 
     /**
-     * @var CiDetector
-     */
-    private $ciDetector;
-
-    /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
@@ -71,7 +65,6 @@ final class CompileCommand extends Command
         ComposerJsonManipulator $composerJsonManipulator,
         SymfonyStyle $symfonyStyle,
         JetbrainsStubsRenamer $jetbrainsStubsRenamer,
-        CiDetector $ciDetector,
         SmartFileSystem $smartFileSystem,
         ParameterProvider $parameterProvider
     ) {
@@ -81,7 +74,6 @@ final class CompileCommand extends Command
         $this->composerJsonManipulator = $composerJsonManipulator;
         $this->jetbrainsStubsRenamer = $jetbrainsStubsRenamer;
         $this->symfonyStyle = $symfonyStyle;
-        $this->ciDetector = $ciDetector;
         $this->smartFileSystem = $smartFileSystem;
 
         parent::__construct();
@@ -183,10 +175,6 @@ final class CompileCommand extends Command
 
     private function restoreDependenciesLocallyIfNotCi(OutputInterface $output): void
     {
-        if ($this->ciDetector->isCiDetected()) {
-            return;
-        }
-
         $process = new Process(['composer', 'install', self::ANSI], $this->buildDir, null, null, null);
         $process->mustRun(static function (string $type, string $buffer) use ($output): void {
             $output->write($buffer);

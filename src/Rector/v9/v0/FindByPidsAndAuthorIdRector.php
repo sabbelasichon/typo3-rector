@@ -8,8 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\SysNote\Domain\Repository\SysNoteRepository;
 
 /**
@@ -48,9 +48,9 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Use findByPidsAndAuthorId instead of findByPidsAndAuthor', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Use findByPidsAndAuthorId instead of findByPidsAndAuthor', [new CodeSample(<<<'PHP'
 $sysNoteRepository = GeneralUtility::makeInstance(SysNoteRepository::class);
 $backendUser = new BackendUser();
 $sysNoteRepository->findByPidsAndAuthor('1,2,3', $backendUser);

@@ -9,9 +9,9 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Html\RteHtmlParser;
 
 /**
@@ -55,9 +55,9 @@ final class RemoveRteHtmlParserEvalWriteFileRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('remove evalWriteFile method from RteHtmlparser.', [
+        return new RuleDefinition('remove evalWriteFile method from RteHtmlparser.', [
             new CodeSample(
                 <<<'PHP'
 use TYPO3\CMS\Core\Html\RteHtmlParser;

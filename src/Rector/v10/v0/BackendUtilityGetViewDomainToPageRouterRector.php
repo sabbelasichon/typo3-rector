@@ -9,8 +9,8 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -58,9 +58,9 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor method call BackendUtility::getViewDomain() to PageRouter', [
+        return new RuleDefinition('Refactor method call BackendUtility::getViewDomain() to PageRouter', [
             new CodeSample(
                 <<<'PHP'
 use TYPO3\CMS\Backend\Utility\BackendUtility;

@@ -10,9 +10,9 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -70,9 +70,9 @@ final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractR
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor $TSFE->csConvObj and $TSFE->csConv()', [
+        return new RuleDefinition('Refactor $TSFE->csConvObj and $TSFE->csConv()', [
             new CodeSample(<<<'PHP'
 $output = $GLOBALS['TSFE']->csConvObj->conv_case('utf-8', 'foobar', 'lower');
 PHP

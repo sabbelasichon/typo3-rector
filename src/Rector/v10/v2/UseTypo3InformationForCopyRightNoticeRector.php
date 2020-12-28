@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v10\v2;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Information\Typo3Information;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -48,9 +48,9 @@ final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition(
+        return new RuleDefinition(
             'Migrate the method BackendUtility::TYPO3_copyRightNotice() to use Typo3Information API',
             [
                 new CodeSample(<<<'PHP'

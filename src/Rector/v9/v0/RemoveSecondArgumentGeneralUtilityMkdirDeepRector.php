@@ -8,8 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -47,9 +47,9 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Remove second argument of GeneralUtility::mkdir_deep()', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Remove second argument of GeneralUtility::mkdir_deep()', [new CodeSample(<<<'PHP'
 GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/', 'myfolder');
 PHP
 , <<<'PHP'

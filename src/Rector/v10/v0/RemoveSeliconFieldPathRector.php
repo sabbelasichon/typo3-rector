@@ -9,9 +9,9 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-87937-TCAOption_selicon_field_path_removed.html
@@ -23,9 +23,9 @@ final class RemoveSeliconFieldPathRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('TCA option "selicon_field_path" removed', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('TCA option "selicon_field_path" removed', [new CodeSample(<<<'PHP'
 return [
     'ctrl' => [
         'selicon_field' => 'icon',

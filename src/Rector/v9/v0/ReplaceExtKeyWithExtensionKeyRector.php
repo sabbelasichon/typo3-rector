@@ -9,9 +9,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
@@ -22,9 +22,9 @@ final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Replace $_EXTKEY with extension key', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Replace $_EXTKEY with extension key', [new CodeSample(<<<'PHP'
 ExtensionUtility::configurePlugin(
     'Foo.'.$_EXTKEY,
     'ArticleTeaser',

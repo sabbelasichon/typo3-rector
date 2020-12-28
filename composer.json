@@ -7,16 +7,17 @@
         { "name": "Sebastian Schreiber", "email": "breakpoint@schreibersebastian.de" }
     ],
     "require": {
-        "php": "^7.2",
-        "phpstan/phpstan": "^0.12.52",
-        "rector/rector": "0.8.8"
+        "php": "^7.3|^8.0",
+        "phpstan/phpstan": "^0.12.64",
+        "rector/rector": "0.9.1"
     },
     "require-dev": {
         "captainhook/captainhook": "^5.4",
         "captainhook/plugin-composer": "^5.2",
-        "phpunit/phpunit": "^8.0|^9.0",
-        "symplify/easy-coding-standard": "^8.2.27",
-        "symplify/phpstan-extensions": "^8.2"
+        "phpunit/phpunit": "^9.5",
+        "symplify/coding-standard": "^9.0.17",
+        "symplify/easy-coding-standard": "^9.0.17",
+        "symplify/phpstan-extensions": "^9.0.17"
     },
     "autoload": {
         "psr-4": {
@@ -54,5 +55,10 @@
     },
     "scripts-descriptions": {
         "docs": "Regenerate descriptions of all Rectors to docs/AllRectorsOverview.md file"
-    }
+    },
+    "replace": {
+        "ssch/typo3-rector-shim": "self.version"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

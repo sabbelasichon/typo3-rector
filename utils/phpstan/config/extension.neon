@@ -1,15 +1,32 @@
 parameters:
     inferPrivatePropertyTypeFromConstructor: true
 services:
+    # Symplify\PackageBuilder\Testing\AbstractKernelTestCase::getService($1) => $1 type
     -
-        class: Rector\NodeTypeResolver\PHPStan\TypeExtension\StaticContainerGetDynamicMethodReturnTypeExtension
+        class: Symplify\PHPStanExtensions\ReturnTypeExtension\GetServiceReturnTypeExtension
         tags: [phpstan.broker.dynamicMethodReturnTypeExtension]
+
+    # Symfony Container::get($1) => $1 type
     -
-        class: Rector\NodeTypeResolver\PHPStan\TypeExtension\KernelGetContainerAfterBootReturnTypeExtension
+        class: Symplify\PHPStanExtensions\ReturnTypeExtension\ContainerGetReturnTypeExtension
         tags: [phpstan.broker.dynamicMethodReturnTypeExtension]
+
+    # Symfony SplFileInfo::getContent() => string type
     -
-        class: Rector\Core\PHPStan\Type\ComponentModelDynamicReturnTypeExtension
+        class: Symplify\PHPStanExtensions\ReturnTypeExtension\SplFileInfoTolerantReturnTypeExtension
         tags: [phpstan.broker.dynamicMethodReturnTypeExtension]
+
+    # Symfony Kernel::getContainer() after Kernel::boot() => ContainerInterface type
+    -
+        class: Symplify\PHPStanExtensions\ReturnTypeExtension\KernelGetContainerAfterBootReturnTypeExtension
+        tags: [phpstan.broker.dynamicMethodReturnTypeExtension]
+
+    # - Symplify\PHPStanExtensions\TypeResolver\ClassConstFetchReturnTypeResolver
+
+    # getcwd -> returns always "string"
+    -
+        class: Symplify\PHPStanExtensions\Php\Type\NativeFunctionDynamicFunctionReturnTypeExtension
+        tags: [phpstan.broker.dynamicFunctionReturnTypeExtension]
     -
         class: Ssch\TYPO3Rector\PHPStan\Type\GeneralUtilityDynamicReturnTypeExtension
         tags: [phpstan.broker.dynamicStaticMethodReturnTypeExtension]
