@@ -10,4 +10,7 @@ if (class_exists(ActionController::class)) {
 
 class ActionController extends AbstractController
 {
+    public function forward(string $actionName, string $controllerName = null, string $extensionName = null, array $arguments = null): void
+    {
+    }
 }
