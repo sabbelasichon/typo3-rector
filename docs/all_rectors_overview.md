@@ -1,4 +1,4 @@
-# All 160 Rectors Overview
+# All 161 Rectors Overview
 
 ## `AddRenderTypeToSelectFieldRector`
 
@@ -490,6 +490,30 @@ Force template parsing in tsfe is replaced with context api and aspects
 -$GLOBALS['TSFE']->tmpl->forceTemplateParsing = true;
 +\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
 +\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
+```
+
+<br><br>
+
+## `ForwardResponseInsteadOfForwardMethodRector`
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector`](/src/Rector/v11/v0/ForwardResponseInsteadOfForwardMethodRector.php)
+
+Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of `TYPO3\CMS\Extbase\Mvc\Controller\ActionController::forward()`
+
+```diff
++use Psr\Http\Message\ResponseInterface;
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
++use TYPO3\CMS\Extbase\Http\ForwardResponse;
++
+ class FooController extends ActionController
+ {
+-   public function listAction()
++   public function listAction(): ResponseInterface
+    {
+-        $this->forward('show');
++        return new ForwardResponse('show');
+    }
+ }
 ```
 
 <br><br>
