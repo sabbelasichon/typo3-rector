@@ -57,8 +57,51 @@ final class RefactorTCARector extends AbstractRector
     {
         return new RuleDefinition('A lot of different TCA changes', [
             new CodeSample(<<<'PHP'
+return [
+    'ctrl' => [
+    ],
+    'columns' => [
+        'text_17' => [
+            'label' => 'text_17',
+            'config' => [
+                'type' => 'text',
+                'cols' => '40',
+                'rows' => '5',
+                'wizards' => [
+                    'table' => [
+                        'notNewRecords' => 1,
+                        'type' => 'script',
+                        'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.table',
+                        'icon' => 'content-table',
+                        'module' => [
+                            'name' => 'wizard_table'
+                        ],
+                        'params' => [
+                            'xmlOutput' => 0
+                        ]
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
 PHP
                 , <<<'PHP'
+return [
+    'ctrl' => [
+    ],
+    'columns' => [
+        'text_17' => [
+            'label' => 'text_17',
+            'config' => [
+                'type' => 'text',
+                'cols' => '40',
+                'rows' => '5',
+                'renderType' => 'textTable',
+            ],
+        ],
+    ],
+];
 PHP
             ),
         ]);

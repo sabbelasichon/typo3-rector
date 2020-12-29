@@ -1,10 +1,10 @@
-# All 161 Rectors Overview
+# 161 Rules Overview
 
-## `AddRenderTypeToSelectFieldRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v6\AddRenderTypeToSelectFieldRector`](/src/Rector/v7/v6/AddRenderTypeToSelectFieldRector.php)
+## AddRenderTypeToSelectFieldRector
 
 Add renderType for select fields
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v6\AddRenderTypeToSelectFieldRector`
 
 ```diff
  return [
@@ -22,13 +22,13 @@ Add renderType for select fields
  ];
 ```
 
-<br><br>
+<br>
 
-## `Array2XmlCsToArray2XmlRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v1\Array2XmlCsToArray2XmlRector`](/src/Rector/v8/v1/Array2XmlCsToArray2XmlRector.php)
+## Array2XmlCsToArray2XmlRector
 
 array2xml_cs to array2xml
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v1\Array2XmlCsToArray2XmlRector`
 
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -37,26 +37,26 @@ array2xml_cs to array2xml
 +GeneralUtility::array2xml();
 ```
 
-<br><br>
+<br>
 
-## `ArrayUtilityInArrayToFuncInArrayRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v6\ArrayUtilityInArrayToFuncInArrayRector`](/src/Rector/v8/v6/ArrayUtilityInArrayToFuncInArrayRector.php)
+## ArrayUtilityInArrayToFuncInArrayRector
 
 Method inArray from ArrayUtility to `in_array`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v6\ArrayUtilityInArrayToFuncInArrayRector`
 
 ```diff
 -ArrayUtility::inArray()
 +in_array
 ```
 
-<br><br>
+<br>
 
-## `BackendUserAuthenticationSimplelogRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v3\BackendUserAuthenticationSimplelogRector`](/src/Rector/v9/v3/BackendUserAuthenticationSimplelogRector.php)
+## BackendUserAuthenticationSimplelogRector
 
 Migrate the method `BackendUserAuthentication->simplelog()` to `BackendUserAuthentication->writelog()`
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v3\BackendUserAuthenticationSimplelogRector`
 
 ```diff
  $someObject = GeneralUtility::makeInstance(TYPO3\CMS\Core\Authentication\BackendUserAuthentication::class);
@@ -64,13 +64,13 @@ Migrate the method `BackendUserAuthentication->simplelog()` to `BackendUserAuthe
 +$someObject->writelog(4, 0, $error, 0, ($extKey ? '[' . $extKey . '] ' : '') . $message, []);
 ```
 
-<br><br>
+<br>
 
-## `BackendUtilityEditOnClickRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v1\BackendUtilityEditOnClickRector`](/src/Rector/v10/v1/BackendUtilityEditOnClickRector.php)
+## BackendUtilityEditOnClickRector
 
 Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v1\BackendUtilityEditOnClickRector`
 
 ```diff
  $pid = 2;
@@ -79,13 +79,13 @@ Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
 +$url = GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute('record_edit') . $params . '&returnUrl=' . rawurlencode(GeneralUtility::getIndpEnv('REQUEST_URI'));;
 ```
 
-<br><br>
+<br>
 
-## `BackendUtilityGetModuleUrlRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v3\BackendUtilityGetModuleUrlRector`](/src/Rector/v9/v3/BackendUtilityGetModuleUrlRector.php)
+## BackendUtilityGetModuleUrlRector
 
 Migrate the method `BackendUtility::getModuleUrl()` to use UriBuilder API
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v3\BackendUtilityGetModuleUrlRector`
 
 ```diff
  $moduleName = 'record_edit';
@@ -94,13 +94,13 @@ Migrate the method `BackendUtility::getModuleUrl()` to use UriBuilder API
 +$url = GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute($moduleName, $params);
 ```
 
-<br><br>
+<br>
 
-## `BackendUtilityGetRecordRawRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector`](/src/Rector/v8/v7/BackendUtilityGetRecordRawRector.php)
+## BackendUtilityGetRecordRawRector
 
 Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector`
 
 ```diff
  $table = 'fe_users';
@@ -118,13 +118,13 @@ Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
 +    ->fetch();
 ```
 
-<br><br>
+<br>
 
-## `BackendUtilityGetRecordsByFieldToQueryBuilderRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordsByFieldToQueryBuilderRector`](/src/Rector/v8/v7/BackendUtilityGetRecordsByFieldToQueryBuilderRector.php)
+## BackendUtilityGetRecordsByFieldToQueryBuilderRector
 
 BackendUtility::getRecordsByField to QueryBuilder
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordsByFieldToQueryBuilderRector`
 
 ```diff
 -use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -140,13 +140,13 @@ BackendUtility::getRecordsByField to QueryBuilder
 +$rows = $queryBuilder->execute()->fetchAll();
 ```
 
-<br><br>
+<br>
 
-## `BackendUtilityGetViewDomainToPageRouterRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\BackendUtilityGetViewDomainToPageRouterRector`](/src/Rector/v10/v0/BackendUtilityGetViewDomainToPageRouterRector.php)
+## BackendUtilityGetViewDomainToPageRouterRector
 
 Refactor method call `BackendUtility::getViewDomain()` to PageRouter
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\BackendUtilityGetViewDomainToPageRouterRector`
 
 ```diff
 -use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -157,26 +157,26 @@ Refactor method call `BackendUtility::getViewDomain()` to PageRouter
 +$domain1 = $site->getRouter()->generateUri(1);
 ```
 
-<br><br>
+<br>
 
-## `BackendUtilityShortcutExistsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\BackendUtilityShortcutExistsRector`](/src/Rector/v9/v4/BackendUtilityShortcutExistsRector.php)
+## BackendUtilityShortcutExistsRector
 
 shortcutExists Static call replaced by method call of ShortcutRepository
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\BackendUtilityShortcutExistsRector`
 
 ```diff
 -TYPO3\CMS\Backend\Utility\BackendUtility::shortcutExists($url);
 +GeneralUtility::makeInstance(ShortcutRepository::class)->shortcutExists($url);
 ```
 
-<br><br>
+<br>
 
-## `CallEnableFieldsFromPageRepositoryRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector`](/src/Rector/v9/v4/CallEnableFieldsFromPageRepositoryRector.php)
+## CallEnableFieldsFromPageRepositoryRector
 
 Call enable fields from PageRepository instead of ContentObjectRenderer
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector`
 
 ```diff
  $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
@@ -184,26 +184,26 @@ Call enable fields from PageRepository instead of ContentObjectRenderer
 +GeneralUtility::makeInstance(PageRepository::class)->enableFields('pages', -1, []);
 ```
 
-<br><br>
+<br>
 
-## `ChangeAttemptsParameterConsoleOutputRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\ChangeAttemptsParameterConsoleOutputRector`](/src/Rector/v8/v7/ChangeAttemptsParameterConsoleOutputRector.php)
+## ChangeAttemptsParameterConsoleOutputRector
 
 Turns old default value to parameter in `ConsoleOutput->askAndValidate()` and/or `ConsoleOutput->select()` method
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\ChangeAttemptsParameterConsoleOutputRector`
 
 ```diff
 -$this->output->select('The question', [1, 2, 3], null, false, false);
 +$this->output->select('The question', [1, 2, 3], null, false, null);
 ```
 
-<br><br>
+<br>
 
-## `ChangeDefaultCachingFrameworkNamesRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\ChangeDefaultCachingFrameworkNamesRector`](/src/Rector/v10/v0/ChangeDefaultCachingFrameworkNamesRector.php)
+## ChangeDefaultCachingFrameworkNamesRector
 
 Use new default cache names like core instead of cache_core)
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\ChangeDefaultCachingFrameworkNamesRector`
 
 ```diff
  $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
@@ -223,13 +223,13 @@ Use new default cache names like core instead of cache_core)
 +$cacheManager->getCache('imagesizes');
 ```
 
-<br><br>
+<br>
 
-## `ChangeMethodCallsForStandaloneViewRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\ChangeMethodCallsForStandaloneViewRector`](/src/Rector/v8/v0/ChangeMethodCallsForStandaloneViewRector.php)
+## ChangeMethodCallsForStandaloneViewRector
 
 Turns method call names to new ones.
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\ChangeMethodCallsForStandaloneViewRector`
 
 ```diff
  $someObject = new StandaloneView();
@@ -243,13 +243,13 @@ Turns method call names to new ones.
 +$someObject->getPartialRootPaths();
 ```
 
-<br><br>
+<br>
 
-## `CharsetConverterToMultiByteFunctionsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v5\CharsetConverterToMultiByteFunctionsRector`](/src/Rector/v8/v5/CharsetConverterToMultiByteFunctionsRector.php)
+## CharsetConverterToMultiByteFunctionsRector
 
 Move from CharsetConverter methods to mb_string functions
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v5\CharsetConverterToMultiByteFunctionsRector`
 
 ```diff
 -        use TYPO3\CMS\Core\Charset\CharsetConverter;
@@ -259,13 +259,13 @@ Move from CharsetConverter methods to mb_string functions
 +mb_strlen('string', 'utf-8');
 ```
 
-<br><br>
+<br>
 
-## `CheckForExtensionInfoRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector`](/src/Rector/v9/v0/CheckForExtensionInfoRector.php)
+## CheckForExtensionInfoRector
 
 Change the extensions to check for info instead of info_pagetsconfig.
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector`
 
 ```diff
 -if(ExtensionManagementUtility::isLoaded('info_pagetsconfig')) {
@@ -281,13 +281,13 @@ Change the extensions to check for info instead of info_pagetsconfig.
  }
 ```
 
-<br><br>
+<br>
 
-## `CheckForExtensionVersionRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionVersionRector`](/src/Rector/v9/v0/CheckForExtensionVersionRector.php)
+## CheckForExtensionVersionRector
 
 Change the extensions to check for workspaces instead of version.
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionVersionRector`
 
 ```diff
 -if (ExtensionManagementUtility::isLoaded('version')) {
@@ -300,13 +300,13 @@ Change the extensions to check for workspaces instead of version.
  }
 ```
 
-<br><br>
+<br>
 
-## `ConfigurationManagerAddControllerConfigurationMethodRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\ConfigurationManagerAddControllerConfigurationMethodRector`](/src/Rector/v10/v0/ConfigurationManagerAddControllerConfigurationMethodRector.php)
+## ConfigurationManagerAddControllerConfigurationMethodRector
 
 Add additional method getControllerConfiguration for AbstractConfigurationManager
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\ConfigurationManagerAddControllerConfigurationMethodRector`
 
 ```diff
  final class MyExtbaseConfigurationManager extends AbstractConfigurationManager
@@ -328,26 +328,26 @@ Add additional method getControllerConfiguration for AbstractConfigurationManage
  }
 ```
 
-<br><br>
+<br>
 
-## `ConstantToEnvironmentCallRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\ConstantToEnvironmentCallRector`](/src/Rector/v9/v4/ConstantToEnvironmentCallRector.php)
+## ConstantToEnvironmentCallRector
 
 Turns defined constant to static method call of new Environment API.
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\ConstantToEnvironmentCallRector`
 
 ```diff
 -PATH_thisScript;
 +Environment::getCurrentScript();
 ```
 
-<br><br>
+<br>
 
-## `ContentObjectRendererFileResourceRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v5\ContentObjectRendererFileResourceRector`](/src/Rector/v8/v5/ContentObjectRendererFileResourceRector.php)
+## ContentObjectRendererFileResourceRector
 
 Migrate fileResource method of class ContentObjectRenderer
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v5\ContentObjectRendererFileResourceRector`
 
 ```diff
 -$template = $this->cObj->fileResource('EXT:vendor/Resources/Private/Templates/Template.html');
@@ -357,13 +357,13 @@ Migrate fileResource method of class ContentObjectRenderer
 +}
 ```
 
-<br><br>
+<br>
 
-## `CopyMethodGetPidForModTSconfigRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v3\CopyMethodGetPidForModTSconfigRector`](/src/Rector/v9/v3/CopyMethodGetPidForModTSconfigRector.php)
+## CopyMethodGetPidForModTSconfigRector
 
 `Copy` method getPidForModTSconfig of class BackendUtility over
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v3\CopyMethodGetPidForModTSconfigRector`
 
 ```diff
 -use TYPO3\CMS\Backend\Utility\BackendUtility;BackendUtility::getPidForModTSconfig('pages', 1, 2);
@@ -375,13 +375,13 @@ Migrate fileResource method of class ContentObjectRenderer
 +$table === 'pages' && MathUtility::canBeInterpretedAsInteger($uid) ? $uid : $pid;
 ```
 
-<br><br>
+<br>
 
-## `DataHandlerRmCommaRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerRmCommaRector`](/src/Rector/v8/v7/DataHandlerRmCommaRector.php)
+## DataHandlerRmCommaRector
 
 Migrate the method `DataHandler::rmComma()` to use `rtrim()`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerRmCommaRector`
 
 ```diff
  $inList = '1,2,3,';
@@ -390,13 +390,13 @@ Migrate the method `DataHandler::rmComma()` to use `rtrim()`
 +$inList = rtrim(trim($inList), ',');
 ```
 
-<br><br>
+<br>
 
-## `DataHandlerVariousMethodsAndMethodArgumentsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerVariousMethodsAndMethodArgumentsRector`](/src/Rector/v8/v7/DataHandlerVariousMethodsAndMethodArgumentsRector.php)
+## DataHandlerVariousMethodsAndMethodArgumentsRector
 
 Remove CharsetConvertParameters
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\DataHandlerVariousMethodsAndMethodArgumentsRector`
 
 ```diff
  $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
@@ -406,13 +406,13 @@ Remove CharsetConvertParameters
 +$dataHandler->extFileFunctions('table', 'field', 'theField');
 ```
 
-<br><br>
+<br>
 
-## `DatabaseConnectionToDbalRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\DatabaseConnectionToDbalRector`](/src/Rector/v9/v0/DatabaseConnectionToDbalRector.php)
+## DatabaseConnectionToDbalRector
 
 Refactor legacy calls of DatabaseConnection to Dbal
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\DatabaseConnectionToDbalRector`
 
 ```diff
 -$GLOBALS['TYPO3_DB']->exec_INSERTquery(
@@ -427,13 +427,13 @@ Refactor legacy calls of DatabaseConnection to Dbal
          );
 ```
 
-<br><br>
+<br>
 
-## `DocumentTemplateAddStyleSheetRector`
+## DocumentTemplateAddStyleSheetRector
 
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\DocumentTemplateAddStyleSheetRector`](/src/Rector/v9/v4/DocumentTemplateAddStyleSheetRector.php)
+Use PageRenderer::addCssFile instead of `DocumentTemplate::addStyleSheet()`
 
-Use PageRenderer::addCssFile instead of `DocumentTemplate::addStyleSheet()` 
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\DocumentTemplateAddStyleSheetRector`
 
 ```diff
 -$documentTemplate = GeneralUtility::makeInstance(DocumentTemplate::class);
@@ -441,13 +441,13 @@ Use PageRenderer::addCssFile instead of `DocumentTemplate::addStyleSheet()`
 +GeneralUtility::makeInstance(PageRenderer::class)->addCssFile('foo.css', 'stylesheet', 'screen', '');
 ```
 
-<br><br>
+<br>
 
-## `ExcludeServiceKeysToArrayRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v2\ExcludeServiceKeysToArrayRector`](/src/Rector/v10/v2/ExcludeServiceKeysToArrayRector.php)
+## ExcludeServiceKeysToArrayRector
 
 Change parameter `$excludeServiceKeys` explicity to an array
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v2\ExcludeServiceKeysToArrayRector`
 
 ```diff
 -GeneralUtility::makeInstanceService('serviceType', 'serviceSubType', 'key1, key2');
@@ -456,13 +456,13 @@ Change parameter `$excludeServiceKeys` explicity to an array
 +ExtensionManagementUtility::findService('serviceType', 'serviceSubType', ['key1', 'key2']);
 ```
 
-<br><br>
+<br>
 
-## `FindByPidsAndAuthorIdRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\FindByPidsAndAuthorIdRector`](/src/Rector/v9/v0/FindByPidsAndAuthorIdRector.php)
+## FindByPidsAndAuthorIdRector
 
 Use findByPidsAndAuthorId instead of findByPidsAndAuthor
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\FindByPidsAndAuthorIdRector`
 
 ```diff
  $sysNoteRepository = GeneralUtility::makeInstance(SysNoteRepository::class);
@@ -471,14 +471,13 @@ Use findByPidsAndAuthorId instead of findByPidsAndAuthor
 +$sysNoteRepository->findByPidsAndAuthorId('1,2,3', $backendUser->getUid());
 ```
 
-<br><br>
+<br>
 
-## `ForceTemplateParsingInTsfeAndTemplateServiceRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\ForceTemplateParsingInTsfeAndTemplateServiceRector`](/src/Rector/v10/v0/ForceTemplateParsingInTsfeAndTemplateServiceRector.php)
-- [test fixtures](/tests/Rector/v10/v0/Fixture)
+## ForceTemplateParsingInTsfeAndTemplateServiceRector
 
 Force template parsing in tsfe is replaced with context api and aspects
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\ForceTemplateParsingInTsfeAndTemplateServiceRector`
 
 ```diff
 -$myvariable = $GLOBALS['TSFE']->forceTemplateParsing;
@@ -492,13 +491,13 @@ Force template parsing in tsfe is replaced with context api and aspects
 +\TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
 ```
 
-<br><br>
+<br>
 
-## `ForwardResponseInsteadOfForwardMethodRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector`](/src/Rector/v11/v0/ForwardResponseInsteadOfForwardMethodRector.php)
+## ForwardResponseInsteadOfForwardMethodRector
 
 Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of `TYPO3\CMS\Extbase\Mvc\Controller\ActionController::forward()`
+
+- class: `Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector`
 
 ```diff
 +use Psr\Http\Message\ResponseInterface;
@@ -516,26 +515,26 @@ Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of `TYPO3\CMS\Extbase\Mvc\
  }
 ```
 
-<br><br>
+<br>
 
-## `GeneralUtilityGetUrlRequestHeadersRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v2\GeneralUtilityGetUrlRequestHeadersRector`](/src/Rector/v9/v2/GeneralUtilityGetUrlRequestHeadersRector.php)
+## GeneralUtilityGetUrlRequestHeadersRector
 
 Refactor `GeneralUtility::getUrl()` request headers in a associative way
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v2\GeneralUtilityGetUrlRequestHeadersRector`
 
 ```diff
 -GeneralUtility::getUrl('https://typo3.org', 1, ['Content-Language: de-DE']);
 +GeneralUtility::getUrl('https://typo3.org', 1, ['Content-Language' => 'de-DE']);
 ```
 
-<br><br>
+<br>
 
-## `GeneralUtilityToUpperAndLowerRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v1\GeneralUtilityToUpperAndLowerRector`](/src/Rector/v8/v1/GeneralUtilityToUpperAndLowerRector.php)
+## GeneralUtilityToUpperAndLowerRector
 
 Use `mb_strtolower` and `mb_strtoupper`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v1\GeneralUtilityToUpperAndLowerRector`
 
 ```diff
 -use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -546,13 +545,13 @@ Use `mb_strtolower` and `mb_strtoupper`
 +$toLower = mb_strtolower('FOO', 'utf-8');
 ```
 
-<br><br>
+<br>
 
-## `GeneratePageTitleRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\GeneratePageTitleRector`](/src/Rector/v9/v0/GeneratePageTitleRector.php)
+## GeneratePageTitleRector
 
 Use generatePageTitle of TSFE instead of class PageGenerator
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\GeneratePageTitleRector`
 
 ```diff
  use TYPO3\CMS\Frontend\Page\PageGenerator;
@@ -561,13 +560,13 @@ Use generatePageTitle of TSFE instead of class PageGenerator
 +$GLOBALS['TSFE']->generatePageTitle();
 ```
 
-<br><br>
+<br>
 
-## `GetFileAbsFileNameRemoveDeprecatedArgumentsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\GetFileAbsFileNameRemoveDeprecatedArgumentsRector`](/src/Rector/v8/v0/GetFileAbsFileNameRemoveDeprecatedArgumentsRector.php)
+## GetFileAbsFileNameRemoveDeprecatedArgumentsRector
 
 Remove second and third argument of `GeneralUtility::getFileAbsFileName()`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\GetFileAbsFileNameRemoveDeprecatedArgumentsRector`
 
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -575,13 +574,13 @@ Remove second and third argument of `GeneralUtility::getFileAbsFileName()`
 +GeneralUtility::getFileAbsFileName('foo.txt');
 ```
 
-<br><br>
+<br>
 
-## `GetPreferredClientLanguageRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\GetPreferredClientLanguageRector`](/src/Rector/v8/v0/GetPreferredClientLanguageRector.php)
+## GetPreferredClientLanguageRector
 
 Use `Locales->getPreferredClientLanguage()` instead of `CharsetConverter::getPreferredClientLanguage()`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\GetPreferredClientLanguageRector`
 
 ```diff
 +use TYPO3\CMS\Core\Localization\Locales;
@@ -590,26 +589,26 @@ Use `Locales->getPreferredClientLanguage()` instead of `CharsetConverter::getPre
 +$preferredLanguage = GeneralUtility::makeInstance(Locales::class)->getPreferredClientLanguage(GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'));
 ```
 
-<br><br>
+<br>
 
-## `GetTemporaryImageWithTextRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v1\GetTemporaryImageWithTextRector`](/src/Rector/v7/v1/GetTemporaryImageWithTextRector.php)
+## GetTemporaryImageWithTextRector
 
 Use GraphicalFunctions->getTemporaryImageWithText instead of LocalImageProcessor->getTemporaryImageWithText
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v1\GetTemporaryImageWithTextRector`
 
 ```diff
 -GeneralUtility::makeInstance(LocalImageProcessor::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")
 +GeneralUtility::makeInstance(GraphicalFunctions::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")
 ```
 
-<br><br>
+<br>
 
-## `IgnoreValidationAnnotationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\IgnoreValidationAnnotationRector`](/src/Rector/v9/v0/IgnoreValidationAnnotationRector.php)
+## IgnoreValidationAnnotationRector
 
 Turns properties with `@ignorevalidation` to properties with `@TYPO3\CMS\Extbase\Annotation\IgnoreValidation`
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\IgnoreValidationAnnotationRector`
 
 ```diff
  /**
@@ -621,13 +620,13 @@ Turns properties with `@ignorevalidation` to properties with `@TYPO3\CMS\Extbase
  }
 ```
 
-<br><br>
+<br>
 
-## `InjectAnnotationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector`](/src/Rector/v9/v0/InjectAnnotationRector.php)
+## InjectAnnotationRector
 
 Turns properties with `@inject` to setter injection
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector`
 
 ```diff
  /**
@@ -643,13 +642,13 @@ Turns properties with `@inject` to setter injection
 +}
 ```
 
-<br><br>
+<br>
 
-## `InjectEnvironmentServiceIfNeededInResponseRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponseRector`](/src/Rector/v10/v2/InjectEnvironmentServiceIfNeededInResponseRector.php)
+## InjectEnvironmentServiceIfNeededInResponseRector
 
 Inject EnvironmentService if needed in subclass of Response
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponseRector`
 
 ```diff
  class MyResponse extends Response
@@ -681,26 +680,26 @@ Inject EnvironmentService if needed in subclass of Response
  }
 ```
 
-<br><br>
+<br>
 
-## `InstantiatePageRendererExplicitlyRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v4\InstantiatePageRendererExplicitlyRector`](/src/Rector/v7/v4/InstantiatePageRendererExplicitlyRector.php)
+## InstantiatePageRendererExplicitlyRector
 
 Instantiate PageRenderer explicitly
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v4\InstantiatePageRendererExplicitlyRector`
 
 ```diff
 -$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
 +$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 ```
 
-<br><br>
+<br>
 
-## `MetaTagManagementRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector`](/src/Rector/v9/v0/MetaTagManagementRector.php)
+## MetaTagManagementRector
 
 Use setMetaTag method from PageRenderer class
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector`
 
 ```diff
  use TYPO3\CMS\Core\Page\PageRenderer;
@@ -710,13 +709,13 @@ Use setMetaTag method from PageRenderer class
 +$pageRenderer->setMetaTag('name', 'keywords', 'seo, search engine optimisation, search engine optimization, search engine ranking');
 ```
 
-<br><br>
+<br>
 
-## `MethodReadLLFileToLocalizationFactoryRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v4\MethodReadLLFileToLocalizationFactoryRector`](/src/Rector/v7/v4/MethodReadLLFileToLocalizationFactoryRector.php)
+## MethodReadLLFileToLocalizationFactoryRector
 
 Use LocalizationFactory->getParsedData instead of GeneralUtility::readLLfile
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v4\MethodReadLLFileToLocalizationFactoryRector`
 
 ```diff
 +use TYPO3\CMS\Core\Localization\LocalizationFactory;
@@ -725,13 +724,13 @@ Use LocalizationFactory->getParsedData instead of GeneralUtility::readLLfile
 +$locallangs = GeneralUtility::makeInstance(LocalizationFactory::class)->getParsedData('EXT:foo/locallang.xml', 'de');
 ```
 
-<br><br>
+<br>
 
-## `MigrateT3editorWizardToRenderTypeT3editorRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v6\MigrateT3editorWizardToRenderTypeT3editorRector`](/src/Rector/v7/v6/MigrateT3editorWizardToRenderTypeT3editorRector.php)
+## MigrateT3editorWizardToRenderTypeT3editorRector
 
 t3editor is no longer configured and enabled as wizard
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v6\MigrateT3editorWizardToRenderTypeT3editorRector`
 
 ```diff
  return [
@@ -765,26 +764,26 @@ t3editor is no longer configured and enabled as wizard
  ];
 ```
 
-<br><br>
+<br>
 
-## `MoveApplicationContextToEnvironmentApiRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v2\MoveApplicationContextToEnvironmentApiRector`](/src/Rector/v10/v2/MoveApplicationContextToEnvironmentApiRector.php)
+## MoveApplicationContextToEnvironmentApiRector
 
 Use Environment API to fetch application context
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v2\MoveApplicationContextToEnvironmentApiRector`
 
 ```diff
 -GeneralUtility::getApplicationContext();
 +Environment::getContext();
 ```
 
-<br><br>
+<br>
 
-## `MoveForeignTypesToOverrideChildTcaRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\MoveForeignTypesToOverrideChildTcaRector`](/src/Rector/v8/v7/MoveForeignTypesToOverrideChildTcaRector.php)
+## MoveForeignTypesToOverrideChildTcaRector
 
 TCA InlineOverrideChildTca
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\MoveForeignTypesToOverrideChildTcaRector`
 
 ```diff
  return [
@@ -808,13 +807,13 @@ TCA InlineOverrideChildTca
  ];
 ```
 
-<br><br>
+<br>
 
-## `MoveLanguageFilesFromExtensionLangRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v3\MoveLanguageFilesFromExtensionLangRector`](/src/Rector/v9/v3/MoveLanguageFilesFromExtensionLangRector.php)
+## MoveLanguageFilesFromExtensionLangRector
 
 Move language resources from ext:lang to their new locations
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v3\MoveLanguageFilesFromExtensionLangRector`
 
 ```diff
  use TYPO3\CMS\Core\Localization\LanguageService;
@@ -823,13 +822,13 @@ Move language resources from ext:lang to their new locations
 +$languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.no_title');
 ```
 
-<br><br>
+<br>
 
-## `MoveLanguageFilesFromLocallangToResourcesRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v5\MoveLanguageFilesFromLocallangToResourcesRector`](/src/Rector/v8/v5/MoveLanguageFilesFromLocallangToResourcesRector.php)
+## MoveLanguageFilesFromLocallangToResourcesRector
 
 Move language files from EXT:lang/locallang_* to Resources/Private/Language
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v5\MoveLanguageFilesFromLocallangToResourcesRector`
 
 ```diff
  use TYPO3\CMS\Core\Localization\LanguageService;
@@ -838,13 +837,13 @@ Move language files from EXT:lang/locallang_* to Resources/Private/Language
 +$languageService->sL('LLL:EXT:lang/Resources/Private/Language/locallang_alt_doc.xlf:label.confirm.delete_record.title');
 ```
 
-<br><br>
+<br>
 
-## `MoveLanguageFilesFromRemovedCmsExtensionRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v4\MoveLanguageFilesFromRemovedCmsExtensionRector`](/src/Rector/v7/v4/MoveLanguageFilesFromRemovedCmsExtensionRector.php)
+## MoveLanguageFilesFromRemovedCmsExtensionRector
 
 Move language files of removed cms to new location
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v4\MoveLanguageFilesFromRemovedCmsExtensionRector`
 
 ```diff
  use TYPO3\CMS\Core\Localization\LanguageService;
@@ -853,13 +852,13 @@ Move language files of removed cms to new location
 +$languageService->sL('LLL:EXT:frontend/Resources/Private/Language/locallang_webinfo.xlf:pages_1');
 ```
 
-<br><br>
+<br>
 
-## `MoveRenderArgumentsToInitializeArgumentsMethodRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector`](/src/Rector/v9/v0/MoveRenderArgumentsToInitializeArgumentsMethodRector.php)
+## MoveRenderArgumentsToInitializeArgumentsMethodRector
 
 Move render method arguments to initializeArguments method
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector`
 
 ```diff
  class MyViewHelper implements ViewHelperInterface
@@ -879,13 +878,13 @@ Move render method arguments to initializeArguments method
  }
 ```
 
-<br><br>
+<br>
 
-## `MoveRequestUpdateOptionFromControlToColumnsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v6\MoveRequestUpdateOptionFromControlToColumnsRector`](/src/Rector/v8/v6/MoveRequestUpdateOptionFromControlToColumnsRector.php)
+## MoveRequestUpdateOptionFromControlToColumnsRector
 
 TCA ctrl field requestUpdate dropped
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v6\MoveRequestUpdateOptionFromControlToColumnsRector`
 
 ```diff
  return [
@@ -901,13 +900,13 @@ TCA ctrl field requestUpdate dropped
  ];
 ```
 
-<br><br>
+<br>
 
-## `PageNotFoundAndErrorHandlingRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v2\PageNotFoundAndErrorHandlingRector`](/src/Rector/v9/v2/PageNotFoundAndErrorHandlingRector.php)
+## PageNotFoundAndErrorHandlingRector
 
 Page Not Found And Error handling in Frontend
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v2\PageNotFoundAndErrorHandlingRector`
 
 ```diff
 +use TYPO3\CMS\Core\Http\ImmediateResponseException;
@@ -926,26 +925,26 @@ Page Not Found And Error handling in Frontend
  }
 ```
 
-<br><br>
+<br>
 
-## `PhpOptionsUtilityRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v3\PhpOptionsUtilityRector`](/src/Rector/v9/v3/PhpOptionsUtilityRector.php)
+## PhpOptionsUtilityRector
 
 Refactor methods from PhpOptionsUtility
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v3\PhpOptionsUtilityRector`
 
 ```diff
 -PhpOptionsUtility::isSessionAutoStartEnabled()
 +filter_var(ini_get('session.auto_start'), FILTER_VALIDATE_BOOLEAN, [FILTER_REQUIRE_SCALAR, FILTER_NULL_ON_FAILURE])
 ```
 
-<br><br>
+<br>
 
-## `PrependAbsolutePathToGetFileAbsFileNameRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\PrependAbsolutePathToGetFileAbsFileNameRector`](/src/Rector/v8/v0/PrependAbsolutePathToGetFileAbsFileNameRector.php)
+## PrependAbsolutePathToGetFileAbsFileNameRector
 
 Use `GeneralUtility::getFileAbsFileName()` instead of `GraphicalFunctions->prependAbsolutePath()`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\PrependAbsolutePathToGetFileAbsFileNameRector`
 
 ```diff
 +use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -964,13 +963,13 @@ Use `GeneralUtility::getFileAbsFileName()` instead of `GraphicalFunctions->prepe
  }
 ```
 
-<br><br>
+<br>
 
-## `PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v3\PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector`](/src/Rector/v9/v3/PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector.php)
+## PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector
 
 Use method getTSConfig instead of property userTS
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v3\PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector`
 
 ```diff
 -if(is_array($GLOBALS['BE_USER']->userTS['tx_news.']) && $GLOBALS['BE_USER']->userTS['tx_news.']['singleCategoryAcl'] === '1') {
@@ -979,13 +978,13 @@ Use method getTSConfig instead of property userTS
  }
 ```
 
-<br><br>
+<br>
 
-## `RandomMethodsToRandomClassRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RandomMethodsToRandomClassRector`](/src/Rector/v8/v0/RandomMethodsToRandomClassRector.php)
+## RandomMethodsToRandomClassRector
 
 Deprecated random generator methods in GeneralUtility
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RandomMethodsToRandomClassRector`
 
 ```diff
 +use TYPO3\CMS\Core\Crypto\Random;
@@ -997,13 +996,13 @@ Deprecated random generator methods in GeneralUtility
 +$randomHex = GeneralUtility::makeInstance(Random::class)->generateRandomHexString();
 ```
 
-<br><br>
+<br>
 
-## `RefactorArrayBrowserWrapValueRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RefactorArrayBrowserWrapValueRector`](/src/Rector/v8/v7/RefactorArrayBrowserWrapValueRector.php)
+## RefactorArrayBrowserWrapValueRector
 
 Migrate the method `ArrayBrowser->wrapValue()` to use `htmlspecialchars()`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\RefactorArrayBrowserWrapValueRector`
 
 ```diff
  $arrayBrowser = GeneralUtility::makeInstance(ArrayBrowser::class);
@@ -1011,13 +1010,13 @@ Migrate the method `ArrayBrowser->wrapValue()` to use `htmlspecialchars()`
 +htmlspecialchars('value');
 ```
 
-<br><br>
+<br>
 
-## `RefactorBackendUtilityGetPagesTSconfigRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RefactorBackendUtilityGetPagesTSconfigRector`](/src/Rector/v9/v0/RefactorBackendUtilityGetPagesTSconfigRector.php)
+## RefactorBackendUtilityGetPagesTSconfigRector
 
 Refactor method getPagesTSconfig of class BackendUtility if possible
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\RefactorBackendUtilityGetPagesTSconfigRector`
 
 ```diff
  use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -1025,13 +1024,13 @@ Refactor method getPagesTSconfig of class BackendUtility if possible
 +$pagesTsConfig = BackendUtility::getRawPagesTSconfig(1, $rootLine = null);
 ```
 
-<br><br>
+<br>
 
-## `RefactorDbConstantsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v1\RefactorDbConstantsRector`](/src/Rector/v8/v1/RefactorDbConstantsRector.php)
+## RefactorDbConstantsRector
 
 Changes TYPO3_db constants to `$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default'].`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v1\RefactorDbConstantsRector`
 
 ```diff
 -$database = TYPO3_db;
@@ -1044,13 +1043,13 @@ Changes TYPO3_db constants to `$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections'][
 +$host = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'];
 ```
 
-<br><br>
+<br>
 
-## `RefactorDeprecatedConcatenateMethodsPageRendererRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector`](/src/Rector/v9/v4/RefactorDeprecatedConcatenateMethodsPageRendererRector.php)
+## RefactorDeprecatedConcatenateMethodsPageRendererRector
 
 Turns method call names to new ones.
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector`
 
 ```diff
  $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
@@ -1058,13 +1057,13 @@ Turns method call names to new ones.
 +$files = array_merge($this->getConcatenateCss(), $this->getConcatenateJavascript());
 ```
 
-<br><br>
+<br>
 
-## `RefactorDeprecationLogRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RefactorDeprecationLogRector`](/src/Rector/v9/v0/RefactorDeprecationLogRector.php)
+## RefactorDeprecationLogRector
 
 Refactor GeneralUtility deprecationLog methods
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\RefactorDeprecationLogRector`
 
 ```diff
 -GeneralUtility::logDeprecatedFunction();
@@ -1074,13 +1073,13 @@ Refactor GeneralUtility deprecationLog methods
 +trigger_error('A useful message', E_USER_DEPRECATED);
 ```
 
-<br><br>
+<br>
 
-## `RefactorExplodeUrl2ArrayFromGeneralUtilityRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRector`](/src/Rector/v9/v4/RefactorExplodeUrl2ArrayFromGeneralUtilityRector.php)
+## RefactorExplodeUrl2ArrayFromGeneralUtilityRector
 
 Remove second argument of GeneralUtility::explodeUrl2Array if it is false or just use function `parse_str` if it is true
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRector`
 
 ```diff
 -$variable = GeneralUtility::explodeUrl2Array('https://www.domain.com', true);
@@ -1089,13 +1088,13 @@ Remove second argument of GeneralUtility::explodeUrl2Array if it is false or jus
 +$variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com');
 ```
 
-<br><br>
+<br>
 
-## `RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector`](/src/Rector/v8/v7/RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector.php)
+## RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector
 
 Refactor `tempPath()` and createTempSubDir on GraphicalFunctions
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector`
 
 ```diff
  $graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
@@ -1105,13 +1104,13 @@ Refactor `tempPath()` and createTempSubDir on GraphicalFunctions
 +return 'typo3temp/' . 'var/transient/';
 ```
 
-<br><br>
+<br>
 
-## `RefactorIdnaEncodeMethodToNativeFunctionRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RefactorIdnaEncodeMethodToNativeFunctionRector`](/src/Rector/v10/v0/RefactorIdnaEncodeMethodToNativeFunctionRector.php)
+## RefactorIdnaEncodeMethodToNativeFunctionRector
 
 Use native function `idn_to_ascii` instead of GeneralUtility::idnaEncode
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\RefactorIdnaEncodeMethodToNativeFunctionRector`
 
 ```diff
 -$domain = GeneralUtility::idnaEncode('domain.com');
@@ -1120,51 +1119,52 @@ Use native function `idn_to_ascii` instead of GeneralUtility::idnaEncode
 +$email = 'email@' . idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
 ```
 
-<br><br>
+<br>
 
-## `RefactorInternalPropertiesOfTSFERector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector`](/src/Rector/v10/v1/RefactorInternalPropertiesOfTSFERector.php)
+## RefactorInternalPropertiesOfTSFERector
 
 Refactor Internal public TSFE properties
 
-```diff
+- class: `Ssch\TYPO3Rector\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector`
 
+```diff
+-$domainStartPage = $GLOBALS['TSFE']->domainStartPage;
++$cHash = $GLOBALS['REQUEST']->getAttribute('routing')->getArguments()['cHash'];
 ```
 
-<br><br>
+<br>
 
-## `RefactorMethodFileContentRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v3\RefactorMethodFileContentRector`](/src/Rector/v8/v3/RefactorMethodFileContentRector.php)
+## RefactorMethodFileContentRector
 
 Refactor method fileContent of class TemplateService
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v3\RefactorMethodFileContentRector`
 
 ```diff
 -$content = $GLOBALS['TSFE']->tmpl->fileContent('foo.txt');
 +$content = $GLOBALS['TSFE']->tmpl->getFileName('foo.txt') ? file_get_contents('foo.txt') : null;
 ```
 
-<br><br>
+<br>
 
-## `RefactorMethodsFromExtensionManagementUtilityRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector`](/src/Rector/v9/v0/RefactorMethodsFromExtensionManagementUtilityRector.php)
+## RefactorMethodsFromExtensionManagementUtilityRector
 
 Refactor deprecated methods from ExtensionManagementUtility.
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector`
 
 ```diff
 -ExtensionManagementUtility::removeCacheFiles();
 +GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->flushCachesInGroup('system');
 ```
 
-<br><br>
+<br>
 
-## `RefactorPrintContentMethodsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RefactorPrintContentMethodsRector`](/src/Rector/v8/v7/RefactorPrintContentMethodsRector.php)
+## RefactorPrintContentMethodsRector
 
 Refactor printContent methods of classes TaskModuleController and PageLayoutController
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\RefactorPrintContentMethodsRector`
 
 ```diff
  use TYPO3\CMS\Backend\Controller\PageLayoutController;
@@ -1180,13 +1180,13 @@ Refactor printContent methods of classes TaskModuleController and PageLayoutCont
 +echo $taskLayoutController->content;
 ```
 
-<br><br>
+<br>
 
-## `RefactorProcessOutputRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector`](/src/Rector/v9/v5/RefactorProcessOutputRector.php)
+## RefactorProcessOutputRector
 
 `TypoScriptFrontendController->processOutput()` to `TypoScriptFrontendController->applyHttpHeadersToResponse()` and `TypoScriptFrontendController->processContentForOutput()`
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector`
 
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -1198,13 +1198,13 @@ Refactor printContent methods of classes TaskModuleController and PageLayoutCont
 +$tsfe->processContentForOutput();
 ```
 
-<br><br>
+<br>
 
-## `RefactorPropertiesOfTypoScriptFrontendControllerRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendControllerRector`](/src/Rector/v9/v5/RefactorPropertiesOfTypoScriptFrontendControllerRector.php)
+## RefactorPropertiesOfTypoScriptFrontendControllerRector
 
 Refactor some properties of TypoScriptFrontendController
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendControllerRector`
 
 ```diff
 -$previewBeUserUid = $GLOBALS['TSFE']->ADMCMD_preview_BEUSER_uid;
@@ -1217,13 +1217,13 @@ Refactor some properties of TypoScriptFrontendController
 +$loginAllowedInBranch = $GLOBALS['TSFE']->checkIfLoginAllowedInBranch();
 ```
 
-<br><br>
+<br>
 
-## `RefactorQueryViewTableWrapRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v3\RefactorQueryViewTableWrapRector`](/src/Rector/v8/v3/RefactorQueryViewTableWrapRector.php)
+## RefactorQueryViewTableWrapRector
 
 Migrate the method `QueryView->tableWrap()` to use pre-Tag
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v3\RefactorQueryViewTableWrapRector`
 
 ```diff
  $queryView = GeneralUtility::makeInstance(QueryView::class);
@@ -1231,13 +1231,13 @@ Migrate the method `QueryView->tableWrap()` to use pre-Tag
 +$output = '<pre>' . 'value' . '</pre>';
 ```
 
-<br><br>
+<br>
 
-## `RefactorRemovedMarkerMethodsFromContentObjectRendererRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RefactorRemovedMarkerMethodsFromContentObjectRendererRector`](/src/Rector/v8/v7/RefactorRemovedMarkerMethodsFromContentObjectRendererRector.php)
+## RefactorRemovedMarkerMethodsFromContentObjectRendererRector
 
 Refactor removed Marker-related methods from ContentObjectRenderer.
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\RefactorRemovedMarkerMethodsFromContentObjectRendererRector`
 
 ```diff
  // build template
@@ -1263,13 +1263,13 @@ Refactor removed Marker-related methods from ContentObjectRenderer.
 +$content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC, !empty($GLOBALS['TSFE']->xhtmlDoctype));
 ```
 
-<br><br>
+<br>
 
-## `RefactorRemovedMarkerMethodsFromHtmlParserRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMarkerMethodsFromHtmlParserRector`](/src/Rector/v8/v0/RefactorRemovedMarkerMethodsFromHtmlParserRector.php)
+## RefactorRemovedMarkerMethodsFromHtmlParserRector
 
 Refactor removed Marker-related methods from HtmlParser.
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMarkerMethodsFromHtmlParserRector`
 
 ```diff
  use TYPO3\CMS\Core\Html\HtmlParser;
@@ -1307,13 +1307,13 @@ Refactor removed Marker-related methods from HtmlParser.
  }
 ```
 
-<br><br>
+<br>
 
-## `RefactorRemovedMethodsFromContentObjectRendererRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromContentObjectRendererRector`](/src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php)
+## RefactorRemovedMethodsFromContentObjectRendererRector
 
 Refactor removed methods from ContentObjectRenderer.
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromContentObjectRendererRector`
 
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -1323,51 +1323,79 @@ Refactor removed methods from ContentObjectRenderer.
 +$cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
 ```
 
-<br><br>
+<br>
 
-## `RefactorRemovedMethodsFromGeneralUtilityRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromGeneralUtilityRector`](/src/Rector/v8/v0/RefactorRemovedMethodsFromGeneralUtilityRector.php)
+## RefactorRemovedMethodsFromGeneralUtilityRector
 
 Refactor removed methods from GeneralUtility.
 
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMethodsFromGeneralUtilityRector`
+
 ```diff
 -GeneralUtility::gif_compress();
-+\TYPO3\CMS\Core\Imaging\GraphicalFunctions::gifCompress();
++TYPO3\CMS\Core\Imaging\GraphicalFunctions::gifCompress();
 ```
 
-<br><br>
+<br>
 
-## `RefactorTCARector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v6\RefactorTCARector`](/src/Rector/v8/v6/RefactorTCARector.php)
+## RefactorTCARector
 
 A lot of different TCA changes
 
-```diff
+- class: `Ssch\TYPO3Rector\Rector\v8\v6\RefactorTCARector`
 
+```diff
+ return [
+     'ctrl' => [
+     ],
+     'columns' => [
+         'text_17' => [
+             'label' => 'text_17',
+             'config' => [
+                 'type' => 'text',
+                 'cols' => '40',
+                 'rows' => '5',
+-                'wizards' => [
+-                    'table' => [
+-                        'notNewRecords' => 1,
+-                        'type' => 'script',
+-                        'title' => 'LLL:EXT:cms/locallang_ttc.xlf:bodytext.W.table',
+-                        'icon' => 'content-table',
+-                        'module' => [
+-                            'name' => 'wizard_table'
+-                        ],
+-                        'params' => [
+-                            'xmlOutput' => 0
+-                        ]
+-                    ],
+-                ],
++                'renderType' => 'textTable',
+             ],
+         ],
+     ],
+ ];
 ```
 
-<br><br>
+<br>
 
-## `RefactorTsConfigRelatedMethodsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v3\RefactorTsConfigRelatedMethodsRector`](/src/Rector/v9/v3/RefactorTsConfigRelatedMethodsRector.php)
+## RefactorTsConfigRelatedMethodsRector
 
 Refactor TSconfig related methods
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v3\RefactorTsConfigRelatedMethodsRector`
 
 ```diff
 -$hasFilterBox = !$GLOBALS['BE_USER']->getTSConfigVal('options.pageTree.hideFilter');
 +$hasFilterBox = !($GLOBALS['BE_USER']->getTSConfig()['options.']['pageTree.']['hideFilter.'] ?? null);
 ```
 
-<br><br>
+<br>
 
-## `RefactorVariousGeneralUtilityMethodsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v1\RefactorVariousGeneralUtilityMethodsRector`](/src/Rector/v8/v1/RefactorVariousGeneralUtilityMethodsRector.php)
+## RefactorVariousGeneralUtilityMethodsRector
 
 Refactor various deprecated methods of class GeneralUtility
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v1\RefactorVariousGeneralUtilityMethodsRector`
 
 ```diff
 -use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -1376,16 +1404,16 @@ Refactor various deprecated methods of class GeneralUtility
 +$url = str_replace('%2F', '/', rawurlencode($url));
 ```
 
-<br><br>
+<br>
 
-## `RegisterPluginWithVendorNameRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector`](/src/Rector/v10/v1/RegisterPluginWithVendorNameRector.php)
+## RegisterPluginWithVendorNameRector
 
 Remove vendor name from registerPlugin call
 
+- class: `Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector`
+
 ```diff
- \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+ TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 -   'TYPO3.CMS.Form',
 +   'Form',
     'Formframework',
@@ -1394,13 +1422,13 @@ Remove vendor name from registerPlugin call
  );
 ```
 
-<br><br>
+<br>
 
-## `RemoveCharsetConverterParametersRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemoveCharsetConverterParametersRector`](/src/Rector/v8/v0/RemoveCharsetConverterParametersRector.php)
+## RemoveCharsetConverterParametersRector
 
 Remove CharsetConvertParameters
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RemoveCharsetConverterParametersRector`
 
 ```diff
  $charsetConvert = GeneralUtility::makeInstance(CharsetConverter::class);
@@ -1410,13 +1438,13 @@ Remove CharsetConvertParameters
 +$charsetConvert->utf8_to_numberarray('string');
 ```
 
-<br><br>
+<br>
 
-## `RemoveColPosParameterRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v3\RemoveColPosParameterRector`](/src/Rector/v9/v3/RemoveColPosParameterRector.php)
+## RemoveColPosParameterRector
 
 Remove parameter colPos from methods.
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v3\RemoveColPosParameterRector`
 
 ```diff
  $someObject = GeneralUtility::makeInstance(LocalizationRepository::class);
@@ -1424,13 +1452,13 @@ Remove parameter colPos from methods.
 +$someObject->fetchOriginLanguage($pageId, $localizedLanguage);
 ```
 
-<br><br>
+<br>
 
-## `RemoveConfigMaxFromInputDateTimeFieldsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RemoveConfigMaxFromInputDateTimeFieldsRector`](/src/Rector/v8/v7/RemoveConfigMaxFromInputDateTimeFieldsRector.php)
+## RemoveConfigMaxFromInputDateTimeFieldsRector
 
 Remove TCA config 'max' on inputDateTime fields
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\RemoveConfigMaxFromInputDateTimeFieldsRector`
 
 ```diff
  return [
@@ -1449,13 +1477,13 @@ Remove TCA config 'max' on inputDateTime fields
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveDivider2TabsConfigurationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v0\RemoveDivider2TabsConfigurationRector`](/src/Rector/v7/v0/RemoveDivider2TabsConfigurationRector.php)
+## RemoveDivider2TabsConfigurationRector
 
 Removed dividers2tabs functionality
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v0\RemoveDivider2TabsConfigurationRector`
 
 ```diff
  return [
@@ -1470,13 +1498,13 @@ Removed dividers2tabs functionality
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveExcludeOnTransOrigPointerFieldRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v3\RemoveExcludeOnTransOrigPointerFieldRector`](/src/Rector/v10/v3/RemoveExcludeOnTransOrigPointerFieldRector.php)
+## RemoveExcludeOnTransOrigPointerFieldRector
 
 transOrigPointerField is not longer allowed to be excluded
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v3\RemoveExcludeOnTransOrigPointerFieldRector`
 
 ```diff
  return [
@@ -1494,13 +1522,13 @@ transOrigPointerField is not longer allowed to be excluded
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveFlushCachesRector`
+## RemoveFlushCachesRector
 
-- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RemoveFlushCachesRector`](/src/Rector/v9/v5/RemoveFlushCachesRector.php)
+Remove `@flushesCaches` annotation
 
-Remove @flushesCaches annotation
+- class: `Ssch\TYPO3Rector\Rector\v9\v5\RemoveFlushCachesRector`
 
 ```diff
  /**
@@ -1515,26 +1543,26 @@ Remove @flushesCaches annotation
 +}
 ```
 
-<br><br>
+<br>
 
-## `RemoveFormatConstantsEmailFinisherRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RemoveFormatConstantsEmailFinisherRector`](/src/Rector/v10/v0/RemoveFormatConstantsEmailFinisherRector.php)
+## RemoveFormatConstantsEmailFinisherRector
 
 Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\RemoveFormatConstantsEmailFinisherRector`
 
 ```diff
 -$this->setOption(self::FORMAT, EmailFinisher::FORMAT_HTML);
 +$this->setOption('addHtmlPart', true);
 ```
 
-<br><br>
+<br>
 
-## `RemoveIconOptionForRenderTypeSelectRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v6\RemoveIconOptionForRenderTypeSelectRector`](/src/Rector/v7/v6/RemoveIconOptionForRenderTypeSelectRector.php)
+## RemoveIconOptionForRenderTypeSelectRector
 
 TCA icon options have been removed
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v6\RemoveIconOptionForRenderTypeSelectRector`
 
 ```diff
  return [
@@ -1551,13 +1579,13 @@ TCA icon options have been removed
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveIconsInOptionTagsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v5\RemoveIconsInOptionTagsRector`](/src/Rector/v7/v5/RemoveIconsInOptionTagsRector.php)
+## RemoveIconsInOptionTagsRector
 
 Select option iconsInOptionTags removed
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v5\RemoveIconsInOptionTagsRector`
 
 ```diff
  return [
@@ -1575,13 +1603,13 @@ Select option iconsInOptionTags removed
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveInitMethodFromPageRepositoryRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RemoveInitMethodFromPageRepositoryRector`](/src/Rector/v9/v5/RemoveInitMethodFromPageRepositoryRector.php)
+## RemoveInitMethodFromPageRepositoryRector
 
 Remove method call init from PageRepository
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v5\RemoveInitMethodFromPageRepositoryRector`
 
 ```diff
 -$repository = GeneralUtility::makeInstance(PageRepository::class);
@@ -1589,13 +1617,13 @@ Remove method call init from PageRepository
 +$repository = GeneralUtility::makeInstance(PageRepository::class);
 ```
 
-<br><br>
+<br>
 
-## `RemoveInitMethodGraphicalFunctionsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodGraphicalFunctionsRector`](/src/Rector/v9/v4/RemoveInitMethodGraphicalFunctionsRector.php)
+## RemoveInitMethodGraphicalFunctionsRector
 
 Remove method call init of class GraphicalFunctions
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodGraphicalFunctionsRector`
 
 ```diff
  use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
@@ -1605,13 +1633,13 @@ Remove method call init of class GraphicalFunctions
 +$graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
 ```
 
-<br><br>
+<br>
 
-## `RemoveInitMethodTemplateServiceRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodTemplateServiceRector`](/src/Rector/v9/v4/RemoveInitMethodTemplateServiceRector.php)
+## RemoveInitMethodTemplateServiceRector
 
 Remove method call init of class TemplateService
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodTemplateServiceRector`
 
 ```diff
  use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -1621,13 +1649,13 @@ Remove method call init of class TemplateService
 +$templateService = GeneralUtility::makeInstance(TemplateService::class);
 ```
 
-<br><br>
+<br>
 
-## `RemoveInitTemplateMethodCallRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector`](/src/Rector/v9/v4/RemoveInitTemplateMethodCallRector.php)
+## RemoveInitTemplateMethodCallRector
 
 Remove method call initTemplate from TypoScriptFrontendController
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector`
 
 ```diff
 -$tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
@@ -1635,13 +1663,13 @@ Remove method call initTemplate from TypoScriptFrontendController
 +$tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 ```
 
-<br><br>
+<br>
 
-## `RemoveInternalAnnotationRector`
+## RemoveInternalAnnotationRector
 
-- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RemoveInternalAnnotationRector`](/src/Rector/v9/v5/RemoveInternalAnnotationRector.php)
+Remove `@internal` annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Controller\CommandController
 
-Remove @internal annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Controller\CommandController
+- class: `Ssch\TYPO3Rector\Rector\v9\v5\RemoveInternalAnnotationRector`
 
 ```diff
 -/**
@@ -1652,13 +1680,13 @@ Remove @internal annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Contro
  }
 ```
 
-<br><br>
+<br>
 
-## `RemoveLangCsConvObjAndParserFactoryRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemoveLangCsConvObjAndParserFactoryRector`](/src/Rector/v8/v0/RemoveLangCsConvObjAndParserFactoryRector.php)
+## RemoveLangCsConvObjAndParserFactoryRector
 
 Remove CsConvObj and ParserFactory from LanguageService::class and `$GLOBALS['lang']`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RemoveLangCsConvObjAndParserFactoryRector`
 
 ```diff
  $languageService = GeneralUtility::makeInstance(LanguageService::class);
@@ -1672,13 +1700,13 @@ Remove CsConvObj and ParserFactory from LanguageService::class and `$GLOBALS['la
 +$LocalizationGlobals = GeneralUtility::makeInstance(LocalizationFactory::class);
 ```
 
-<br><br>
+<br>
 
-## `RemoveLocalizationModeKeepIfNeededRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RemoveLocalizationModeKeepIfNeededRector`](/src/Rector/v8/v7/RemoveLocalizationModeKeepIfNeededRector.php)
+## RemoveLocalizationModeKeepIfNeededRector
 
 Remove localizationMode keep if allowLanguageSynchronization is enabled
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\RemoveLocalizationModeKeepIfNeededRector`
 
 ```diff
  return [
@@ -1699,50 +1727,50 @@ Remove localizationMode keep if allowLanguageSynchronization is enabled
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveMethodCallConnectDbRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallConnectDbRector`](/src/Rector/v7/v0/RemoveMethodCallConnectDbRector.php)
+## RemoveMethodCallConnectDbRector
 
 Remove `EidUtility::connectDB()` call
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallConnectDbRector`
 
 ```diff
 -EidUtility::connectDB()
 ```
 
-<br><br>
+<br>
 
-## `RemoveMethodCallLoadTcaRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallLoadTcaRector`](/src/Rector/v7/v0/RemoveMethodCallLoadTcaRector.php)
+## RemoveMethodCallLoadTcaRector
 
 Remove `GeneralUtility::loadTCA()` call
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallLoadTcaRector`
 
 ```diff
 -GeneralUtility::loadTCA()
 ```
 
-<br><br>
+<br>
 
-## `RemoveMethodInitTCARector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RemoveMethodInitTCARector`](/src/Rector/v9/v0/RemoveMethodInitTCARector.php)
+## RemoveMethodInitTCARector
 
 Remove superfluous EidUtility::initTCA call
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\RemoveMethodInitTCARector`
 
 ```diff
 -use TYPO3\CMS\Frontend\Utility\EidUtility;
 -EidUtility::initTCA();
 ```
 
-<br><br>
+<br>
 
-## `RemoveOptionLocalizeChildrenAtParentLocalizationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RemoveOptionLocalizeChildrenAtParentLocalizationRector`](/src/Rector/v9/v0/RemoveOptionLocalizeChildrenAtParentLocalizationRector.php)
+## RemoveOptionLocalizeChildrenAtParentLocalizationRector
 
 Remove option localizeChildrenAtParentLocalization
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\RemoveOptionLocalizeChildrenAtParentLocalizationRector`
 
 ```diff
  return [
@@ -1762,13 +1790,13 @@ Remove option localizeChildrenAtParentLocalization
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveOptionShowIfRteRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v4\RemoveOptionShowIfRteRector`](/src/Rector/v8/v4/RemoveOptionShowIfRteRector.php)
+## RemoveOptionShowIfRteRector
 
 Dropped TCA option showIfRTE in type=check
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v4\RemoveOptionShowIfRteRector`
 
 ```diff
  return [
@@ -1787,13 +1815,13 @@ Dropped TCA option showIfRTE in type=check
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveOptionVersioningFollowPagesRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v5\RemoveOptionVersioningFollowPagesRector`](/src/Rector/v8/v5/RemoveOptionVersioningFollowPagesRector.php)
+## RemoveOptionVersioningFollowPagesRector
 
 TCA option versioning_followPages removed
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v5\RemoveOptionVersioningFollowPagesRector`
 
 ```diff
  return [
@@ -1807,13 +1835,13 @@ TCA option versioning_followPages removed
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemovePropertiesFromSimpleDataHandlerControllerRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RemovePropertiesFromSimpleDataHandlerControllerRector`](/src/Rector/v9/v0/RemovePropertiesFromSimpleDataHandlerControllerRector.php)
+## RemovePropertiesFromSimpleDataHandlerControllerRector
 
 Remove assignments or accessing of properties prErr and uPT from class SimpleDataHandlerController
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\RemovePropertiesFromSimpleDataHandlerControllerRector`
 
 ```diff
  final class MySimpleDataHandlerController extends SimpleDataHandlerController
@@ -1827,13 +1855,13 @@ Remove assignments or accessing of properties prErr and uPT from class SimpleDat
  }
 ```
 
-<br><br>
+<br>
 
-## `RemovePropertyExtensionNameRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RemovePropertyExtensionNameRector`](/src/Rector/v10/v0/RemovePropertyExtensionNameRector.php)
+## RemovePropertyExtensionNameRector
 
 Use method getControllerExtensionName from `$request` property instead of removed property `$extensionName`
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\RemovePropertyExtensionNameRector`
 
 ```diff
  class MyCommandController extends CommandController
@@ -1851,13 +1879,13 @@ Use method getControllerExtensionName from `$request` property instead of remove
  }
 ```
 
-<br><br>
+<br>
 
-## `RemovePropertyUserAuthenticationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemovePropertyUserAuthenticationRector`](/src/Rector/v8/v0/RemovePropertyUserAuthenticationRector.php)
+## RemovePropertyUserAuthenticationRector
 
 Use method getBackendUserAuthentication instead of removed property `$userAuthentication`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RemovePropertyUserAuthenticationRector`
 
 ```diff
  class MyCommandController extends CommandController
@@ -1872,13 +1900,13 @@ Use method getBackendUserAuthentication instead of removed property `$userAuthen
  }
 ```
 
-<br><br>
+<br>
 
-## `RemoveRteHtmlParserEvalWriteFileRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector`](/src/Rector/v8/v0/RemoveRteHtmlParserEvalWriteFileRector.php)
+## RemoveRteHtmlParserEvalWriteFileRector
 
 remove evalWriteFile method from RteHtmlparser.
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector`
 
 ```diff
  use TYPO3\CMS\Core\Html\RteHtmlParser;
@@ -1895,26 +1923,26 @@ remove evalWriteFile method from RteHtmlparser.
  }
 ```
 
-<br><br>
+<br>
 
-## `RemoveSecondArgumentGeneralUtilityMkdirDeepRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\RemoveSecondArgumentGeneralUtilityMkdirDeepRector`](/src/Rector/v9/v0/RemoveSecondArgumentGeneralUtilityMkdirDeepRector.php)
+## RemoveSecondArgumentGeneralUtilityMkdirDeepRector
 
 Remove second argument of `GeneralUtility::mkdir_deep()`
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\RemoveSecondArgumentGeneralUtilityMkdirDeepRector`
 
 ```diff
 -GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/', 'myfolder');
 +GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/' . 'myfolder');
 ```
 
-<br><br>
+<br>
 
-## `RemoveSeliconFieldPathRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RemoveSeliconFieldPathRector`](/src/Rector/v10/v0/RemoveSeliconFieldPathRector.php)
+## RemoveSeliconFieldPathRector
 
 TCA option "selicon_field_path" removed
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\RemoveSeliconFieldPathRector`
 
 ```diff
  return [
@@ -1925,25 +1953,33 @@ TCA option "selicon_field_path" removed
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveShowRecordFieldListInsideInterfaceSectionRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v3\RemoveShowRecordFieldListInsideInterfaceSectionRector`](/src/Rector/v10/v3/RemoveShowRecordFieldListInsideInterfaceSectionRector.php)
+## RemoveShowRecordFieldListInsideInterfaceSectionRector
 
 Remove showRecordFieldList inside section interface
 
-```diff
+- class: `Ssch\TYPO3Rector\Rector\v10\v3\RemoveShowRecordFieldListInsideInterfaceSectionRector`
 
+```diff
+ return [
+     'ctrl' => [
+     ],
+-    'interface' => [
+-        'showRecordFieldList' => 'foo,bar,baz',
+-    ],
+     'columns' => [
+     ],
+ ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveTcaOptionSetToDefaultOnCopyRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RemoveTcaOptionSetToDefaultOnCopyRector`](/src/Rector/v10/v0/RemoveTcaOptionSetToDefaultOnCopyRector.php)
+## RemoveTcaOptionSetToDefaultOnCopyRector
 
 TCA option setToDefaultOnCopy removed
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\RemoveTcaOptionSetToDefaultOnCopyRector`
 
 ```diff
  return [
@@ -1957,13 +1993,13 @@ TCA option setToDefaultOnCopy removed
  ];
 ```
 
-<br><br>
+<br>
 
-## `RemoveWakeupCallFromEntityRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RemoveWakeupCallFromEntityRector`](/src/Rector/v8/v0/RemoveWakeupCallFromEntityRector.php)
+## RemoveWakeupCallFromEntityRector
 
 Remove __wakeup call for AbstractDomainObject
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RemoveWakeupCallFromEntityRector`
 
 ```diff
  use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
@@ -1980,13 +2016,13 @@ Remove __wakeup call for AbstractDomainObject
  }
 ```
 
-<br><br>
+<br>
 
-## `RemovedTcaSelectTreeOptionsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v3\RemovedTcaSelectTreeOptionsRector`](/src/Rector/v8/v3/RemovedTcaSelectTreeOptionsRector.php)
+## RemovedTcaSelectTreeOptionsRector
 
 Removed TCA tree options: width, allowRecursiveMode, autoSizeMax
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v3\RemovedTcaSelectTreeOptionsRector`
 
 ```diff
  return [
@@ -2012,14 +2048,15 @@ Removed TCA tree options: width, allowRecursiveMode, autoSizeMax
  ];
 ```
 
-<br><br>
+<br>
 
-## `RenameClassMapAliasRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector`](/src/Rector/Migrations/RenameClassMapAliasRector.php)
-- [test fixtures](/tests/Rector/Migrations/Fixture)
+## RenameClassMapAliasRector
 
 Replaces defined classes by new ones.
+
+:wrench: **configure it!**
+
+- class: `Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector`
 
 ```php
 <?php
@@ -2052,13 +2089,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
  }
 ```
 
-<br><br>
+<br>
 
-## `RenameMethodCallToEnvironmentMethodCallRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v2\RenameMethodCallToEnvironmentMethodCallRector`](/src/Rector/v9/v2/RenameMethodCallToEnvironmentMethodCallRector.php)
+## RenameMethodCallToEnvironmentMethodCallRector
 
 Turns method call names to new ones from new Environment API.
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v2\RenameMethodCallToEnvironmentMethodCallRector`
 
 ```diff
 -Bootstrap::usesComposerClassLoading();
@@ -2069,26 +2106,28 @@ Turns method call names to new ones from new Environment API.
 +Environment::isCli();
 ```
 
-<br><br>
+<br>
 
-## `RenamePiListBrowserResultsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector`](/src/Rector/v7/v6/RenamePiListBrowserResultsRector.php)
+## RenamePiListBrowserResultsRector
 
 Rename pi_list_browseresults calls to renderPagination
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector`
 
 ```diff
 -$this->pi_list_browseresults
 +$this->renderPagination
 ```
 
-<br><br>
+<br>
 
-## `ReplaceAnnotationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector`](/src/Rector/v9/v0/ReplaceAnnotationRector.php)
+## ReplaceAnnotationRector
 
 Replace old annotation by new one
+
+:wrench: **configure it!**
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector`
 
 ```php
 <?php
@@ -2117,13 +2156,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 +private $someProperty;
 ```
 
-<br><br>
+<br>
 
-## `ReplaceExtKeyWithExtensionKeyRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector`](/src/Rector/v9/v0/ReplaceExtKeyWithExtensionKeyRector.php)
+## ReplaceExtKeyWithExtensionKeyRector
 
 Replace $_EXTKEY with extension `key`
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector`
 
 ```diff
  ExtensionUtility::configurePlugin(
@@ -2136,13 +2175,13 @@ Replace $_EXTKEY with extension `key`
  );
 ```
 
-<br><br>
+<br>
 
-## `RequireMethodsToNativeFunctionsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RequireMethodsToNativeFunctionsRector`](/src/Rector/v8/v0/RequireMethodsToNativeFunctionsRector.php)
+## RequireMethodsToNativeFunctionsRector
 
 Refactor GeneralUtility::requireOnce and GeneralUtility::requireFile
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RequireMethodsToNativeFunctionsRector`
 
 ```diff
 -use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -2153,13 +2192,13 @@ Refactor GeneralUtility::requireOnce and GeneralUtility::requireFile
 +require 'some_other_file.php';
 ```
 
-<br><br>
+<br>
 
-## `RichtextFromDefaultExtrasToEnableRichtextRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v6\RichtextFromDefaultExtrasToEnableRichtextRector`](/src/Rector/v8/v6/RichtextFromDefaultExtrasToEnableRichtextRector.php)
+## RichtextFromDefaultExtrasToEnableRichtextRector
 
 TCA richtext configuration in defaultExtras dropped
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v6\RichtextFromDefaultExtrasToEnableRichtextRector`
 
 ```diff
  [
@@ -2175,13 +2214,13 @@ TCA richtext configuration in defaultExtras dropped
  ];
 ```
 
-<br><br>
+<br>
 
-## `RteHtmlParserRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RteHtmlParserRector`](/src/Rector/v8/v0/RteHtmlParserRector.php)
+## RteHtmlParserRector
 
 Remove second argument of HTMLcleaner_db getKeepTags. Substitute calls for siteUrl getUrl
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\RteHtmlParserRector`
 
 ```diff
              use TYPO3\CMS\Core\Html\RteHtmlParser;
@@ -2197,13 +2236,13 @@ Remove second argument of HTMLcleaner_db getKeepTags. Substitute calls for siteU
 +             \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
 ```
 
-<br><br>
+<br>
 
-## `SendNotifyEmailToMailApiRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v1\SendNotifyEmailToMailApiRector`](/src/Rector/v10/v1/SendNotifyEmailToMailApiRector.php)
+## SendNotifyEmailToMailApiRector
 
 Refactor ContentObjectRenderer::sendNotifyEmail to MailMessage-API
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v1\SendNotifyEmailToMailApiRector`
 
 ```diff
 -$GLOBALS['TSFE']->cObj->sendNotifyEmail("Subject\nMessage", 'max.mustermann@domain.com', 'max.mustermann@domain.com', 'max.mustermann@domain.com');
@@ -2231,13 +2270,13 @@ Refactor ContentObjectRenderer::sendNotifyEmail to MailMessage-API
 +}
 ```
 
-<br><br>
+<br>
 
-## `SetSystemLocaleFromSiteLanguageRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\SetSystemLocaleFromSiteLanguageRector`](/src/Rector/v10/v0/SetSystemLocaleFromSiteLanguageRector.php)
+## SetSystemLocaleFromSiteLanguageRector
 
 Refactor `TypoScriptFrontendController->settingLocale()` to `Locales::setSystemLocaleFromSiteLanguage()`
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\SetSystemLocaleFromSiteLanguageRector`
 
 ```diff
 -
@@ -2250,13 +2289,13 @@ Refactor `TypoScriptFrontendController->settingLocale()` to `Locales::setSystemL
 +Locales::setSystemLocaleFromSiteLanguage($controller->getLanguage());
 ```
 
-<br><br>
+<br>
 
-## `SubstituteCacheWrapperMethodsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector`](/src/Rector/v9/v0/SubstituteCacheWrapperMethodsRector.php)
+## SubstituteCacheWrapperMethodsRector
 
 Caching framework wrapper methods in BackendUtility
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector`
 
 ```diff
 -use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -2274,27 +2313,26 @@ Caching framework wrapper methods in BackendUtility
 +$content = $hashContent;
 ```
 
-<br><br>
+<br>
 
-## `SubstituteConstantParsetimeStartRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector`](/src/Rector/v9/v0/SubstituteConstantParsetimeStartRector.php)
+## SubstituteConstantParsetimeStartRector
 
 Substitute `$GLOBALS['PARSETIME_START']` with round($GLOBALS['TYPO3_MISC']['microtime_start'] * 1000)
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector`
 
 ```diff
 -$parseTime = $GLOBALS['PARSETIME_START'];
 +$parseTime = round($GLOBALS['TYPO3_MISC']['microtime_start'] * 1000);
 ```
 
-<br><br>
+<br>
 
-## `SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector`](/src/Rector/v10/v4/SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector.php)
-- [test fixtures](/tests/Rector/v10/v4/SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector/Fixture)
+## SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector
 
 Substitute deprecated method calls of class GeneralUtility
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector`
 
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -2312,13 +2350,13 @@ Substitute deprecated method calls of class GeneralUtility
 +round(microtime(true) * 1000);
 ```
 
-<br><br>
+<br>
 
-## `SubstituteOldWizardIconsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v4\SubstituteOldWizardIconsRector`](/src/Rector/v8/v4/SubstituteOldWizardIconsRector.php)
+## SubstituteOldWizardIconsRector
 
 The TCA migration migrates the icon calls to the new output if used as wizard icon
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v4\SubstituteOldWizardIconsRector`
 
 ```diff
  return [
@@ -2340,26 +2378,26 @@ The TCA migration migrates the icon calls to the new output if used as wizard ic
  ];
 ```
 
-<br><br>
+<br>
 
-## `SubstituteResourceFactoryRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v3\SubstituteResourceFactoryRector`](/src/Rector/v10/v3/SubstituteResourceFactoryRector.php)
+## SubstituteResourceFactoryRector
 
 Substitue `ResourceFactory::getInstance()` through GeneralUtility::makeInstance(ResourceFactory::class)
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v3\SubstituteResourceFactoryRector`
 
 ```diff
 -$resourceFactory = ResourceFactory::getInstance();
 +$resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
 ```
 
-<br><br>
+<br>
 
-## `SystemEnvironmentBuilderConstantsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector`](/src/Rector/v9/v4/SystemEnvironmentBuilderConstantsRector.php)
+## SystemEnvironmentBuilderConstantsRector
 
 GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename)
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector`
 
 ```diff
 -$var1 = TYPO3_URL_MAILINGLISTS;
@@ -2408,13 +2446,13 @@ GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(Fi
 +$var18 = AbstractService::ERROR_PROGRAM_FAILED;
 ```
 
-<br><br>
+<br>
 
-## `TemplateGetFileNameToFilePathSanitizerRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\TemplateGetFileNameToFilePathSanitizerRector`](/src/Rector/v9/v4/TemplateGetFileNameToFilePathSanitizerRector.php)
+## TemplateGetFileNameToFilePathSanitizerRector
 
 Use `FilePathSanitizer->sanitize()` instead of `TemplateService->getFileName()`
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\TemplateGetFileNameToFilePathSanitizerRector`
 
 ```diff
 -$fileName = $GLOBALS['TSFE']->tmpl->getFileName('foo.text');
@@ -2437,39 +2475,39 @@ Use `FilePathSanitizer->sanitize()` instead of `TemplateService->getFileName()`
 +}
 ```
 
-<br><br>
+<br>
 
-## `TemplateServiceSplitConfArrayRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\TemplateServiceSplitConfArrayRector`](/src/Rector/v8/v7/TemplateServiceSplitConfArrayRector.php)
+## TemplateServiceSplitConfArrayRector
 
 Substitute `TemplateService->splitConfArray()` with `TypoScriptService->explodeConfigurationForOptionSplit()`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\TemplateServiceSplitConfArrayRector`
 
 ```diff
 -$splitConfig = GeneralUtility::makeInstance(TemplateService::class)->splitConfArray($conf, $splitCount);
 +$splitConfig = GeneralUtility::makeInstance(TypoScriptService::class)->explodeConfigurationForOptionSplit($conf, $splitCount);
 ```
 
-<br><br>
+<br>
 
-## `TimeTrackerGlobalsToSingletonRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector`](/src/Rector/v8/v0/TimeTrackerGlobalsToSingletonRector.php)
+## TimeTrackerGlobalsToSingletonRector
 
 Substitute `$GLOBALS['TT']` method calls
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector`
 
 ```diff
 -$GLOBALS['TT']->setTSlogMessage('content');
 +GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage('content');
 ```
 
-<br><br>
+<br>
 
-## `TimeTrackerInsteadOfNullTimeTrackerRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTrackerRector`](/src/Rector/v8/v0/TimeTrackerInsteadOfNullTimeTrackerRector.php)
+## TimeTrackerInsteadOfNullTimeTrackerRector
 
 Use class TimeTracker instead of NullTimeTracker
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTrackerRector`
 
 ```diff
 -use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
@@ -2481,13 +2519,13 @@ Use class TimeTracker instead of NullTimeTracker
 +$timeTracker2 = GeneralUtility::makeInstance(TimeTracker::class, false);
 ```
 
-<br><br>
+<br>
 
-## `TypeHandlingServiceToTypeHandlingUtilityRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector`](/src/Rector/v7/v0/TypeHandlingServiceToTypeHandlingUtilityRector.php)
+## TypeHandlingServiceToTypeHandlingUtilityRector
 
 Use TypeHandlingUtility instead of TypeHandlingService
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector`
 
 ```diff
 -use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -2497,13 +2535,13 @@ Use TypeHandlingUtility instead of TypeHandlingService
 +TypeHandlingUtility::isSimpleType('string');
 ```
 
-<br><br>
+<br>
 
-## `TypoScriptFrontendControllerCharsetConverterRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v1\TypoScriptFrontendControllerCharsetConverterRector`](/src/Rector/v8/v1/TypoScriptFrontendControllerCharsetConverterRector.php)
+## TypoScriptFrontendControllerCharsetConverterRector
 
 Refactor `$TSFE->csConvObj` and `$TSFE->csConv()`
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v1\TypoScriptFrontendControllerCharsetConverterRector`
 
 ```diff
 -$output = $GLOBALS['TSFE']->csConvObj->conv_case('utf-8', 'foobar', 'lower');
@@ -2513,14 +2551,13 @@ Refactor `$TSFE->csConvObj` and `$TSFE->csConv()`
 +$output = $charsetConverter->conv_case('utf-8', 'foobar', 'lower');
 ```
 
-<br><br>
+<br>
 
-## `UnifiedFileNameValidatorRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v4\UnifiedFileNameValidatorRector`](/src/Rector/v10/v4/UnifiedFileNameValidatorRector.php)
-- [test fixtures](/tests/Rector/v10/v4/UnifiedFileNameValidatorRector/Fixture)
+## UnifiedFileNameValidatorRector
 
 GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename)
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v4\UnifiedFileNameValidatorRector`
 
 ```diff
 +use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
@@ -2537,13 +2574,13 @@ GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(Fi
  }
 ```
 
-<br><br>
+<br>
 
-## `UseActionControllerRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v2\UseActionControllerRector`](/src/Rector/v10/v2/UseActionControllerRector.php)
+## UseActionControllerRector
 
 Use ActionController class instead of AbstractController if used
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v2\UseActionControllerRector`
 
 ```diff
 -class MyController extends AbstractController
@@ -2555,13 +2592,13 @@ Use ActionController class instead of AbstractController if used
  }
 ```
 
-<br><br>
+<br>
 
-## `UseAddJsFileInsteadOfLoadJavascriptLibRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseAddJsFileInsteadOfLoadJavascriptLibRector`](/src/Rector/v9/v4/UseAddJsFileInsteadOfLoadJavascriptLibRector.php)
+## UseAddJsFileInsteadOfLoadJavascriptLibRector
 
 Use method addJsFile of class PageRenderer instead of method loadJavascriptLib of class ModuleTemplate
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\UseAddJsFileInsteadOfLoadJavascriptLibRector`
 
 ```diff
  use TYPO3\CMS\Backend\Template\ModuleTemplate;
@@ -2572,13 +2609,13 @@ Use method addJsFile of class PageRenderer instead of method loadJavascriptLib o
 +GeneralUtility::makeInstance(PageRenderer::class)->addJsFile('sysext/backend/Resources/Public/JavaScript/md5.js');
 ```
 
-<br><br>
+<br>
 
-## `UseCachingFrameworkInsteadGetAndStoreHashRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\UseCachingFrameworkInsteadGetAndStoreHashRector`](/src/Rector/v8/v7/UseCachingFrameworkInsteadGetAndStoreHashRector.php)
+## UseCachingFrameworkInsteadGetAndStoreHashRector
 
 Use the Caching Framework directly instead of methods PageRepository::getHash and PageRepository::storeHash
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v7\UseCachingFrameworkInsteadGetAndStoreHashRector`
 
 ```diff
 -$GLOBALS['TSFE']->sys_page->storeHash('hash', ['foo', 'bar', 'baz'], 'ident');
@@ -2589,13 +2626,13 @@ Use the Caching Framework directly instead of methods PageRepository::getHash an
 +$hashContent = GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_hash')->get('hash');
 ```
 
-<br><br>
+<br>
 
-## `UseClassSchemaInsteadReflectionServiceMethodsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseClassSchemaInsteadReflectionServiceMethodsRector`](/src/Rector/v9/v4/UseClassSchemaInsteadReflectionServiceMethodsRector.php)
+## UseClassSchemaInsteadReflectionServiceMethodsRector
 
 Instead of fetching reflection data via ReflectionService use ClassSchema directly
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\UseClassSchemaInsteadReflectionServiceMethodsRector`
 
 ```diff
  use TYPO3\CMS\Extbase\Reflection\ReflectionService;
@@ -2615,13 +2652,13 @@ Instead of fetching reflection data via ReflectionService use ClassSchema direct
  }
 ```
 
-<br><br>
+<br>
 
-## `UseClassTypo3InformationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3InformationRector`](/src/Rector/v10/v3/UseClassTypo3InformationRector.php)
+## UseClassTypo3InformationRector
 
 Use class Typo3Information
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3InformationRector`
 
 ```diff
 -$urlGeneral = TYPO3_URL_GENERAL;
@@ -2637,13 +2674,13 @@ Use class Typo3Information
 +$urlOpcache = Typo3Information::TYPO3_URL_WIKI_OPCODECACHE;
 ```
 
-<br><br>
+<br>
 
-## `UseClassTypo3VersionRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3VersionRector`](/src/Rector/v10/v3/UseClassTypo3VersionRector.php)
+## UseClassTypo3VersionRector
 
 Use class Typo3Version instead of the constants
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3VersionRector`
 
 ```diff
 -$typo3Version = TYPO3_version;
@@ -2654,13 +2691,13 @@ Use class Typo3Version instead of the constants
 +$typo3Branch = GeneralUtility::makeInstance(Typo3Version::class)->getBranch();
 ```
 
-<br><br>
+<br>
 
-## `UseContextApiForVersioningWorkspaceIdRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector`](/src/Rector/v9/v4/UseContextApiForVersioningWorkspaceIdRector.php)
+## UseContextApiForVersioningWorkspaceIdRector
 
 Use context API instead of versioningWorkspaceId
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector`
 
 ```diff
 +use TYPO3\CMS\Core\Context\Context;
@@ -2672,13 +2709,13 @@ Use context API instead of versioningWorkspaceId
  $GLOBALS['TSFE']->sys_page->versioningWorkspaceId = 1;
 ```
 
-<br><br>
+<br>
 
-## `UseContextApiRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector`](/src/Rector/v9/v4/UseContextApiRector.php)
+## UseContextApiRector
 
 Various public properties in favor of Context API
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector`
 
 ```diff
 -$frontendUserIsLoggedIn = $GLOBALS['TSFE']->loginUser;
@@ -2693,13 +2730,13 @@ Various public properties in favor of Context API
 +$showHiddenRecords = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('visibility', 'includeHiddenContent');
 ```
 
-<br><br>
+<br>
 
-## `UseControllerClassesInExtbasePluginsAndModulesRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\UseControllerClassesInExtbasePluginsAndModulesRector`](/src/Rector/v10/v0/UseControllerClassesInExtbasePluginsAndModulesRector.php)
+## UseControllerClassesInExtbasePluginsAndModulesRector
 
 Use controller classes when registering extbase plugins/modules
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\UseControllerClassesInExtbasePluginsAndModulesRector`
 
 ```diff
 -use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
@@ -2716,13 +2753,13 @@ Use controller classes when registering extbase plugins/modules
  );
 ```
 
-<br><br>
+<br>
 
-## `UseExtPrefixForTcaIconFileRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v5\UseExtPrefixForTcaIconFileRector`](/src/Rector/v7/v5/UseExtPrefixForTcaIconFileRector.php)
+## UseExtPrefixForTcaIconFileRector
 
 Deprecate relative path to extension directory and using filename only in TCA ctrl iconfile
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v5\UseExtPrefixForTcaIconFileRector`
 
 ```diff
  [
@@ -2733,13 +2770,13 @@ Deprecate relative path to extension directory and using filename only in TCA ct
  ];
 ```
 
-<br><br>
+<br>
 
-## `UseExtensionConfigurationApiRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\UseExtensionConfigurationApiRector`](/src/Rector/v9/v0/UseExtensionConfigurationApiRector.php)
+## UseExtensionConfigurationApiRector
 
 Use the new ExtensionConfiguration API instead of `$GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo']`
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\UseExtensionConfigurationApiRector`
 
 ```diff
 -$extensionConfiguration2 = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo'], ['allowed_classes' => false]);
@@ -2748,13 +2785,13 @@ Use the new ExtensionConfiguration API instead of `$GLOBALS['TYPO3_CONF_VARS']['
 +$extensionConfiguration2 = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('foo');
 ```
 
-<br><br>
+<br>
 
-## `UseFileGetContentsForGetUrlRector`
+## UseFileGetContentsForGetUrlRector
 
-- class: [`Ssch\TYPO3Rector\Rector\v10\v4\UseFileGetContentsForGetUrlRector`](/src/Rector/v10/v4/UseFileGetContentsForGetUrlRector.php)
+Rewirte Method Calls of GeneralUtility::getUrl("somefile.csv") to `@file_get_contents`
 
-Rewirte Method Calls of GeneralUtility::getUrl("somefile.csv") to @file_get_contents
+- class: `Ssch\TYPO3Rector\Rector\v10\v4\UseFileGetContentsForGetUrlRector`
 
 ```diff
 -use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -2767,13 +2804,13 @@ Rewirte Method Calls of GeneralUtility::getUrl("somefile.csv") to @file_get_cont
 +GeneralUtility::makeInstance(RequestFactory::class)->request($externalUrl)->getBody()->getContents();
 ```
 
-<br><br>
+<br>
 
-## `UseGetMenuInsteadOfGetFirstWebPageRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseGetMenuInsteadOfGetFirstWebPageRector`](/src/Rector/v9/v4/UseGetMenuInsteadOfGetFirstWebPageRector.php)
+## UseGetMenuInsteadOfGetFirstWebPageRector
 
 Use method getMenu instead of getFirstWebPage
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\UseGetMenuInsteadOfGetFirstWebPageRector`
 
 ```diff
 -$theFirstPage = $GLOBALS['TSFE']->sys_page->getFirstWebPage(0);
@@ -2783,13 +2820,13 @@ Use method getMenu instead of getFirstWebPage
 +}
 ```
 
-<br><br>
+<br>
 
-## `UseHtmlSpecialCharsDirectlyForTranslationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v2\UseHtmlSpecialCharsDirectlyForTranslationRector`](/src/Rector/v8/v2/UseHtmlSpecialCharsDirectlyForTranslationRector.php)
+## UseHtmlSpecialCharsDirectlyForTranslationRector
 
 `htmlspecialchars` directly to properly escape the content.
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v2\UseHtmlSpecialCharsDirectlyForTranslationRector`
 
 ```diff
  use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
@@ -2810,13 +2847,13 @@ Use method getMenu instead of getFirstWebPage
  }
 ```
 
-<br><br>
+<br>
 
-## `UseLanguageAspectForTsfeLanguagePropertiesRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseLanguageAspectForTsfeLanguagePropertiesRector`](/src/Rector/v9/v4/UseLanguageAspectForTsfeLanguagePropertiesRector.php)
+## UseLanguageAspectForTsfeLanguagePropertiesRector
 
 Use LanguageAspect instead of language properties of TSFE
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\UseLanguageAspectForTsfeLanguagePropertiesRector`
 
 ```diff
 -$languageUid = $GLOBALS['TSFE']->sys_language_uid;
@@ -2825,13 +2862,13 @@ Use LanguageAspect instead of language properties of TSFE
 +$languageUid = GeneralUtility::makeInstance(Context::class)->getAspect('language')->getId();
 ```
 
-<br><br>
+<br>
 
-## `UseLogMethodInsteadOfNewLog2Rector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector`](/src/Rector/v9/v0/UseLogMethodInsteadOfNewLog2Rector.php)
+## UseLogMethodInsteadOfNewLog2Rector
 
 Use `log` method instead of newlog2 from class DataHandler
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector`
 
 ```diff
  use TYPO3\CMS\Core\DataHandling\DataHandler;
@@ -2852,13 +2889,13 @@ Use `log` method instead of newlog2 from class DataHandler
 +$logEntryUid3 = $dataHandler->log('tt_content', 1, 0, 0, 0, 'Foo', -1, [], $dataHandler->eventPid('tt_content', 1, $pid));
 ```
 
-<br><br>
+<br>
 
-## `UseMetaDataAspectRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector`](/src/Rector/v10/v0/UseMetaDataAspectRector.php)
+## UseMetaDataAspectRector
 
 Use `$fileObject->getMetaData()->get()` instead of `$fileObject->_getMetaData()`
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector`
 
 ```diff
  $fileObject = new File();
@@ -2866,42 +2903,42 @@ Use `$fileObject->getMetaData()->get()` instead of `$fileObject->_getMetaData()`
 +$fileObject->getMetaData()->get();
 ```
 
-<br><br>
+<br>
 
-## `UseMethodGetPageShortcutDirectlyFromSysPageRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v3\UseMethodGetPageShortcutDirectlyFromSysPageRector`](/src/Rector/v9/v3/UseMethodGetPageShortcutDirectlyFromSysPageRector.php)
+## UseMethodGetPageShortcutDirectlyFromSysPageRector
 
 Use method getPageShortcut directly from PageRepository
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v3\UseMethodGetPageShortcutDirectlyFromSysPageRector`
 
 ```diff
 -$GLOBALS['TSFE']->getPageShortcut('shortcut', 1, 1);
 +$GLOBALS['TSFE']->sys_page->getPageShortcut('shortcut', 1, 1);
 ```
 
-<br><br>
+<br>
 
-## `UseNativePhpHex2binMethodRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector`](/src/Rector/v10/v0/UseNativePhpHex2binMethodRector.php)
+## UseNativePhpHex2binMethodRector
 
 Turns \TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php `hex2bin`
 
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector`
+
 ```diff
--\TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin("6578616d706c65206865782064617461");
+-TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin("6578616d706c65206865782064617461");
 +hex2bin("6578616d706c65206865782064617461");
 ```
 
-<br><br>
+<br>
 
-## `UseNewComponentIdForPageTreeRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector`](/src/Rector/v9/v0/UseNewComponentIdForPageTreeRector.php)
+## UseNewComponentIdForPageTreeRector
 
 Use TYPO3/CMS/Backend/PageTree/PageTreeElement instead of typo3-pagetree
 
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector`
+
 ```diff
- \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+ TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
        'TYPO3.CMS.Workspaces',
        'web',
        'workspaces',
@@ -2921,26 +2958,26 @@ Use TYPO3/CMS/Backend/PageTree/PageTreeElement instead of typo3-pagetree
    );
 ```
 
-<br><br>
+<br>
 
-## `UsePackageManagerActivePackagesRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v5\UsePackageManagerActivePackagesRector`](/src/Rector/v9/v5/UsePackageManagerActivePackagesRector.php)
+## UsePackageManagerActivePackagesRector
 
 Use PackageManager API instead of `$GLOBALS['TYPO3_LOADED_EXT']`
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v5\UsePackageManagerActivePackagesRector`
 
 ```diff
 -$extensionList = $GLOBALS['TYPO3_LOADED_EXT'];
 +$extensionList = GeneralUtility::makeInstance(PackageManager::class)->getActivePackages();
 ```
 
-<br><br>
+<br>
 
-## `UseRenderingContextGetControllerContextRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector`](/src/Rector/v9/v0/UseRenderingContextGetControllerContextRector.php)
+## UseRenderingContextGetControllerContextRector
 
 Get controllerContext from renderingContext
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector`
 
 ```diff
  class MyViewHelperAccessingControllerContext extends AbstractViewHelper
@@ -2955,13 +2992,13 @@ Get controllerContext from renderingContext
  }
 ```
 
-<br><br>
+<br>
 
-## `UseRootlineUtilityInsteadOfGetRootlineMethodRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseRootlineUtilityInsteadOfGetRootlineMethodRector`](/src/Rector/v9/v4/UseRootlineUtilityInsteadOfGetRootlineMethodRector.php)
+## UseRootlineUtilityInsteadOfGetRootlineMethodRector
 
 Use class RootlineUtility instead of method getRootLine
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\UseRootlineUtilityInsteadOfGetRootlineMethodRector`
 
 ```diff
 -$rootline = $GLOBALS['TSFE']->sys_page->getRootLine(1);
@@ -2970,13 +3007,13 @@ Use class RootlineUtility instead of method getRootLine
 +$rootline = GeneralUtility::makeInstance(RootlineUtility::class, 1)->get();
 ```
 
-<br><br>
+<br>
 
-## `UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector`](/src/Rector/v9/v4/UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector.php)
+## UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector
 
 Use the signal afterExtensionInstall of class InstallUtility
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector`
 
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -2995,13 +3032,13 @@ Use the signal afterExtensionInstall of class InstallUtility
      );
 ```
 
-<br><br>
+<br>
 
-## `UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector`](/src/Rector/v9/v4/UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector.php)
+## UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector
 
 Use the signal tablesDefinitionIsBeingBuilt of class SqlExpectedSchemaService
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v4\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector`
 
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -3019,13 +3056,13 @@ Use the signal tablesDefinitionIsBeingBuilt of class SqlExpectedSchemaService
      );
 ```
 
-<br><br>
+<br>
 
-## `UseTwoLetterIsoCodeFromSiteLanguageRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\UseTwoLetterIsoCodeFromSiteLanguageRector`](/src/Rector/v10/v0/UseTwoLetterIsoCodeFromSiteLanguageRector.php)
+## UseTwoLetterIsoCodeFromSiteLanguageRector
 
 The usage of the propery sys_language_isocode is deprecated. Use method getTwoLetterIsoCode of SiteLanguage
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v0\UseTwoLetterIsoCodeFromSiteLanguageRector`
 
 ```diff
 -if ($GLOBALS['TSFE']->sys_language_isocode) {
@@ -3035,26 +3072,26 @@ The usage of the propery sys_language_isocode is deprecated. Use method getTwoLe
  }
 ```
 
-<br><br>
+<br>
 
-## `UseTypo3InformationForCopyRightNoticeRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v10\v2\UseTypo3InformationForCopyRightNoticeRector`](/src/Rector/v10/v2/UseTypo3InformationForCopyRightNoticeRector.php)
+## UseTypo3InformationForCopyRightNoticeRector
 
 Migrate the method `BackendUtility::TYPO3_copyRightNotice()` to use Typo3Information API
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v2\UseTypo3InformationForCopyRightNoticeRector`
 
 ```diff
 -$copyright = BackendUtility::TYPO3_copyRightNotice();
 +$copyright = GeneralUtility::makeInstance(Typo3Information::class)->getCopyrightNotice();
 ```
 
-<br><br>
+<br>
 
-## `ValidateAnnotationRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v3\ValidateAnnotationRector`](/src/Rector/v9/v3/ValidateAnnotationRector.php)
+## ValidateAnnotationRector
 
 Turns properties with `@validate` to properties with `@TYPO3\CMS\Extbase\Annotation\Validate`
+
+- class: `Ssch\TYPO3Rector\Rector\v9\v3\ValidateAnnotationRector`
 
 ```diff
  /**
@@ -3066,18 +3103,17 @@ Turns properties with `@validate` to properties with `@TYPO3\CMS\Extbase\Annotat
  private $someProperty;
 ```
 
-<br><br>
+<br>
 
-## `WrapClickMenuOnIconRector`
-
-- class: [`Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector`](/src/Rector/v7/v6/WrapClickMenuOnIconRector.php)
+## WrapClickMenuOnIconRector
 
 Use method wrapClickMenuOnIcon of class BackendUtility
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector`
 
 ```diff
 -DocumentTemplate->wrapClickMenuOnIcon
 +BackendUtility::wrapClickMenuOnIcon()
 ```
 
-<br><br>
-
+<br>
