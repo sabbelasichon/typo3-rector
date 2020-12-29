@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\HttpKernel;
 
+use InvalidArgumentException;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\DependencyInjection\Collector\ConfigureCallValuesCollector;
 use Rector\Core\DependencyInjection\CompilerPass\MakeRectorsPublicCompilerPass;
@@ -24,6 +25,8 @@ use Symplify\ConsoleColorDiff\Bundle\ConsoleColorDiffBundle;
 use Symplify\PackageBuilder\Contract\HttpKernel\ExtraConfigAwareKernelInterface;
 use Symplify\PackageBuilder\DependencyInjection\CompilerPass\AutowireInterfacesCompilerPass;
 use Symplify\PhpConfigPrinter\Bundle\PhpConfigPrinterBundle;
+use Symplify\SimplePhpDocParser\Bundle\SimplePhpDocParserBundle;
+use Symplify\Skipper\Bundle\SkipperBundle;
 
 final class Typo3RectorKernel extends Kernel implements ExtraConfigAwareKernelInterface
 {
@@ -47,13 +50,13 @@ final class Typo3RectorKernel extends Kernel implements ExtraConfigAwareKernelIn
     public function getCacheDir(): string
     {
         // manually configured, so it can be replaced in phar
-        return sys_get_temp_dir() . '/_rector';
+        return sys_get_temp_dir() . '/typo3_rector';
     }
 
     public function getLogDir(): string
     {
         // manually configured, so it can be replaced in phar
-        return sys_get_temp_dir() . '/_rector_log';
+        return sys_get_temp_dir() . '/typo3_rector_log';
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
@@ -89,7 +92,13 @@ final class Typo3RectorKernel extends Kernel implements ExtraConfigAwareKernelIn
      */
     public function registerBundles(): array
     {
-        return [new ConsoleColorDiffBundle(), new PhpConfigPrinterBundle(), new ComposerJsonManipulatorBundle()];
+        return [
+            new ConsoleColorDiffBundle(),
+            new PhpConfigPrinterBundle(),
+            new ComposerJsonManipulatorBundle(),
+            new SkipperBundle(),
+            new SimplePhpDocParserBundle(),
+        ];
     }
 
     protected function build(ContainerBuilder $containerBuilder): void
@@ -109,22 +118,24 @@ final class Typo3RectorKernel extends Kernel implements ExtraConfigAwareKernelIn
 
     /**
      * This allows to use "%vendor%" variables in imports
+     * @param ContainerInterface|ContainerBuilder $container
      */
     protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
     {
         $fileLocator = new FileLocator($this);
 
-        $loaders = [new GlobFileLoader($fileLocator)];
+        if (! $container instanceof ContainerBuilder) {
+            throw new InvalidArgumentException(sprintf('The container must be of type %s', ContainerBuilder::class));
+        }
 
-        if ($container instanceof ContainerBuilder) {
-            $loaders[] = new ConfigurableCallValuesCollectingPhpFileLoader(
+        $loaderResolver = new LoaderResolver([
+            new GlobFileLoader($fileLocator),
+            new ConfigurableCallValuesCollectingPhpFileLoader(
                 $container,
                 $fileLocator,
                 $this->configureCallValuesCollector
-            );
-        }
-
-        $loaderResolver = new LoaderResolver($loaders);
+            ),
+        ]);
 
         return new DelegatingLoader($loaderResolver);
     }

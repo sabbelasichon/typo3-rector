@@ -6,8 +6,6 @@ namespace Ssch\TYPO3Rector\PHPStan\Rules;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
@@ -15,8 +13,6 @@ use PHPStan\Rules\Rule;
 use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 
 /**
  * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\AddCodeCoverageIgnoreForRectorDefinitionTest
@@ -57,23 +53,23 @@ final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if (!$scope->isInClass()) {
+        if (! $scope->isInClass()) {
             throw new ShouldNotHappenException();
         }
 
         $classReflection = $scope->getClassReflection();
 
-        if($classReflection === null) {
+        if (null === $classReflection) {
             return [];
         }
 
-        if (!$classReflection->isSubclassOf(PhpRectorInterface::class)) {
+        if (! $classReflection->isSubclassOf(PhpRectorInterface::class)) {
             return [];
         }
 
         $methodName = $node->name->toString();
 
-        if($methodName !== 'getRuleDefinition') {
+        if ('getRuleDefinition' !== $methodName) {
             return [];
         }
 

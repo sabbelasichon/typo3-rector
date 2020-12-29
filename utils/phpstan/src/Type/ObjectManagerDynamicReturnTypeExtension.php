@@ -22,9 +22,8 @@ final class ObjectManagerDynamicReturnTypeExtension implements DynamicMethodRetu
         return ObjectManagerInterface::class;
     }
 
-    public function isMethodSupported(
-        MethodReflection $methodReflection
-    ): bool {
+    public function isMethodSupported(MethodReflection $methodReflection): bool
+    {
         return 'get' === $methodReflection->getName();
     }
 
@@ -37,7 +36,7 @@ final class ObjectManagerDynamicReturnTypeExtension implements DynamicMethodRetu
         Scope $scope
     ): Type {
         $arg = $methodCall->args[0]->value;
-        if (!($arg instanceof ClassConstFetch)) {
+        if (! ($arg instanceof ClassConstFetch)) {
             return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
         }
         $class = $arg->class;

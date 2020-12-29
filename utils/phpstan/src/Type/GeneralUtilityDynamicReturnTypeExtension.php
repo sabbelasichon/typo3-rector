@@ -22,9 +22,8 @@ final class GeneralUtilityDynamicReturnTypeExtension implements DynamicStaticMet
         return GeneralUtility::class;
     }
 
-    public function isStaticMethodSupported(
-        MethodReflection $methodReflection
-    ): bool {
+    public function isStaticMethodSupported(MethodReflection $methodReflection): bool
+    {
         return 'makeInstance' === $methodReflection->getName();
     }
 
@@ -37,7 +36,7 @@ final class GeneralUtilityDynamicReturnTypeExtension implements DynamicStaticMet
         Scope $scope
     ): Type {
         $arg = $methodCall->args[0]->value;
-        if (!($arg instanceof ClassConstFetch)) {
+        if (! ($arg instanceof ClassConstFetch)) {
             return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
         }
         $class = $arg->class;

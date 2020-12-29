@@ -5,18 +5,24 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Console;
 
 use Composer\XdebugHandler\XdebugHandler;
+use Jean85\PrettyVersions;
 use Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
 use Rector\ChangesReporting\Output\JsonOutputFormatter;
+use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
+use Rector\Core\Exception\NoRectorsLoadedException;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\DependencyInjection\Exception\OutOfBoundsException;
+use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\SmartFileSystem\SmartFileInfo;
+use Throwable;
 
 final class Application extends SymfonyApplication
 {
@@ -36,14 +42,35 @@ final class Application extends SymfonyApplication
     private $configuration;
 
     /**
+     * @var NoRectorsLoadedReporter
+     */
+    private $noRectorsLoadedReporter;
+
+    /**
      * @param Command[] $commands
      */
-    public function __construct(Configuration $configuration, array $commands = [])
-    {
-        parent::__construct(self::NAME, self::VERSION);
+    public function __construct(
+        Configuration $configuration,
+        NoRectorsLoadedReporter $noRectorsLoadedReporter,
+        CommandNaming $commandNaming,
+        array $commands = []
+    ) {
+        try {
+            $version = PrettyVersions::getVersion('ssch/typo3-rector')->getPrettyVersion();
+        } catch (OutOfBoundsException $outOfBoundsException) {
+            $version = 'Unknown';
+        }
+
+        parent::__construct(self::NAME, $version);
+
+        foreach ($commands as $command) {
+            $commandName = $commandNaming->resolveFromCommand($command);
+            $command->setName($commandName);
+        }
 
         $this->addCommands($commands);
         $this->configuration = $configuration;
+        $this->noRectorsLoadedReporter = $noRectorsLoadedReporter;
     }
 
     public function doRun(InputInterface $input, OutputInterface $output): int
@@ -51,7 +78,7 @@ final class Application extends SymfonyApplication
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
         if (! $isXdebugAllowed) {
-            $xdebugHandler = new XdebugHandler('typo3-rector', '--ansi');
+            $xdebugHandler = new XdebugHandler('rector', '--ansi');
             $xdebugHandler->check();
             unset($xdebugHandler);
         }
@@ -85,6 +112,16 @@ final class Application extends SymfonyApplication
         }
 
         return parent::doRun($input, $output);
+    }
+
+    public function renderThrowable(Throwable $throwable, OutputInterface $output): void
+    {
+        if (is_a($throwable, NoRectorsLoadedException::class)) {
+            $this->noRectorsLoadedReporter->report();
+            return;
+        }
+
+        parent::renderThrowable($throwable, $output);
     }
 
     protected function getDefaultInputDefinition(): InputDefinition
@@ -137,7 +174,7 @@ final class Application extends SymfonyApplication
     private function addCustomOptions(InputDefinition $inputDefinition): void
     {
         $inputDefinition->addOption(new InputOption(
-            'config',
+            Option::OPTION_CONFIG,
             'c',
             InputOption::VALUE_REQUIRED,
             'Path to config file',
@@ -145,7 +182,14 @@ final class Application extends SymfonyApplication
         ));
 
         $inputDefinition->addOption(new InputOption(
-            'xdebug',
+            Option::OPTION_DEBUG,
+            null,
+            InputOption::VALUE_NONE,
+            'Enable debug verbosity (-vvv)'
+        ));
+
+        $inputDefinition->addOption(new InputOption(
+            Option::XDEBUG,
             null,
             InputOption::VALUE_NONE,
             'Allow running xdebug'
