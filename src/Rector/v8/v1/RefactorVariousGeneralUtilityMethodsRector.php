@@ -18,8 +18,8 @@ use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
@@ -130,9 +130,9 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor various deprecated methods of class GeneralUtility', [
+        return new RuleDefinition('Refactor various deprecated methods of class GeneralUtility', [
             new CodeSample(<<<'PHP'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $url = 'https://www.domain.com/';

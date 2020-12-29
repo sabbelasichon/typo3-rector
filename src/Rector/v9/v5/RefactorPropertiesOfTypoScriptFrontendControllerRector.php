@@ -8,9 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -77,9 +77,9 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor some properties of TypoScriptFrontendController', [
+        return new RuleDefinition('Refactor some properties of TypoScriptFrontendController', [
             new CodeSample(<<<'PHP'
 $previewBeUserUid = $GLOBALS['TSFE']->ADMCMD_preview_BEUSER_uid;
 $workspacePreview = $GLOBALS['TSFE']->workspacePreview;

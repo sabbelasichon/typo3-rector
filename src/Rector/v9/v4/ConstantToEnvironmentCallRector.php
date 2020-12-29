@@ -11,8 +11,8 @@ use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Core\Environment;
 
 /**
@@ -28,9 +28,9 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Turns defined constant to static method call of new Environment API.', [
+        return new RuleDefinition('Turns defined constant to static method call of new Environment API.', [
             new CodeSample('PATH_thisScript;', 'Environment::getCurrentScript();'),
         ]);
     }

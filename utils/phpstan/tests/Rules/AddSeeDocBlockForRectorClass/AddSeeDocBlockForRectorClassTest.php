@@ -22,12 +22,15 @@ final class AddSeeDocBlockForRectorClassTest extends AbstractServiceAwareRuleTes
     public function provideData(): Iterator
     {
         $message = sprintf(AddSeeDocBlockForRectorClass::ERROR_MESSAGE, 'MissingSee');
-        yield [__DIR__.'/Fixture/MissingSee.php', [[$message, 12]]];
-        yield [__DIR__.'/Fixture/SkipWithSee.php', []];
+        yield [__DIR__ . '/Fixture/MissingSee.php', [[$message, 12]]];
+        yield [__DIR__ . '/Fixture/SkipWithSee.php', []];
     }
 
     protected function getRule(): Rule
     {
-        return $this->getRuleFromConfig(AddSeeDocBlockForRectorClass::class, __DIR__.'/../../../config/typo3-rector.neon');
+        return $this->getRuleFromConfig(
+            AddSeeDocBlockForRectorClass::class,
+            __DIR__ . '/../../../config/typo3-rector.neon'
+        );
     }
 }

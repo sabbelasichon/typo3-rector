@@ -8,7 +8,7 @@ use Psr\Container\ContainerInterface;
 use Rector\Core\Stubs\StubLoader;
 use Ssch\TYPO3Rector\HttpKernel\Typo3RectorKernel;
 use Ssch\TYPO3Rector\Stubs\StubLoader as Typo3StubsLoader;
-use Symplify\PackageBuilder\Console\Input\InputDetector;
+use Symplify\PackageBuilder\Console\Input\StaticInputDetector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Typo3RectorContainerFactory
@@ -21,7 +21,7 @@ final class Typo3RectorContainerFactory
     {
         // to override the configs without clearing cache
         $environment = 'prod' . random_int(1, 10000000);
-        $isDebug = InputDetector::isDebug();
+        $isDebug = StaticInputDetector::isDebug();
 
         $rectorKernel = new Typo3RectorKernel($environment, $isDebug);
         if ([] !== $configFileInfos) {

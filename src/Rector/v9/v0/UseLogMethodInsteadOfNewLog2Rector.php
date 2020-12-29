@@ -16,8 +16,8 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**
@@ -90,9 +90,9 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Use log method instead of newlog2 from class DataHandler', [
+        return new RuleDefinition('Use log method instead of newlog2 from class DataHandler', [
             new CodeSample(
                 <<<'PHP'
 use TYPO3\CMS\Core\DataHandling\DataHandler;

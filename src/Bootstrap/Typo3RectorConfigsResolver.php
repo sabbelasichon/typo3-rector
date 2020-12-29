@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Bootstrap;
 
-use Rector\Core\Set\SetResolver;
 use Rector\Set\RectorSetProvider;
 use Ssch\TYPO3Rector\Set\Typo3RectorSetProvider;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\SetConfigResolver\ConfigResolver;
 use Symplify\SetConfigResolver\SetAwareConfigResolver;
+use Symplify\SetConfigResolver\SetResolver;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Typo3RectorConfigsResolver
@@ -31,9 +31,9 @@ final class Typo3RectorConfigsResolver
 
     public function __construct()
     {
-        $this->setResolver = new SetResolver();
-        $this->configResolver = new ConfigResolver();
         $rectorSetProvider = new Typo3RectorSetProvider(new RectorSetProvider());
+        $this->setResolver = new SetResolver($rectorSetProvider);
+        $this->configResolver = new ConfigResolver();
         $this->setAwareConfigResolver = new SetAwareConfigResolver($rectorSetProvider);
     }
 
@@ -64,9 +64,9 @@ final class Typo3RectorConfigsResolver
         // Detect configuration from --set
         $argvInput = new ArgvInput();
 
-        $set = $this->setResolver->resolveSetFromInput($argvInput);
+        $set = $this->setResolver->detectFromInput($argvInput);
         if (null !== $set) {
-            $configFileInfos[] = $set->getSetFileInfo();
+            $configFileInfos[] = $set;
         }
 
         // And from --config or default one

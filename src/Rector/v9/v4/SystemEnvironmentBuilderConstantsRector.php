@@ -8,9 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Service\AbstractService;
 
 /**
@@ -64,7 +64,7 @@ final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
             return null;
         }
 
-        $value = (string) self::MAP_CONSTANTS_TO_STRING[$constantsName];
+        $value = self::MAP_CONSTANTS_TO_STRING[$constantsName];
 
         if (false !== strpos($constantsName, 'T3_ERR')) {
             return $this->createClassConstFetch(AbstractService::class, $value);
@@ -86,9 +86,9 @@ final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition(
+        return new RuleDefinition(
             'GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename)',
             [
                 new CodeSample(

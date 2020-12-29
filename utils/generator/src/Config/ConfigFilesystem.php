@@ -67,10 +67,6 @@ final class ConfigFilesystem
      */
     public function appendRectorServiceToSet(Typo3RectorRecipe $recipe, array $templateVariables): void
     {
-        if (null === $recipe->getSet()) {
-            return;
-        }
-
         $setFilePath = $recipe->getSet();
         $setFileInfo = new SmartFileInfo($setFilePath);
         $setFileContents = $setFileInfo->getContents();

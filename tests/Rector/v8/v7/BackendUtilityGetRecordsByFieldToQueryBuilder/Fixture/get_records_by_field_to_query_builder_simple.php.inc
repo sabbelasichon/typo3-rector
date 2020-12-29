@@ -17,4 +17,7 @@ $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBui
 $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(BackendWorkspaceRestriction::class));
 $queryBuilder->getRestrictions()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
 $queryBuilder->select('*')->from('table')->where($queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter(3)));
+
 $rows = $queryBuilder->execute()->fetchAll();
+
+?>

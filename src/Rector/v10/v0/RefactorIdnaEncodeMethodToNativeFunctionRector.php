@@ -12,8 +12,8 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -57,9 +57,9 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Use native function idn_to_ascii instead of GeneralUtility::idnaEncode', [
+        return new RuleDefinition('Use native function idn_to_ascii instead of GeneralUtility::idnaEncode', [
             new CodeSample(<<<'PHP'
 $domain = GeneralUtility::idnaEncode('domain.com');
 $email = GeneralUtility::idnaEncode('email@domain.com');

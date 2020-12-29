@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use OndraM\CiDetector\CiDetector;
 use Ssch\TYPO3Rector\Compiler\ValueObject\Option;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
@@ -30,8 +29,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]);
 
     $services->set(SmartFileSystem::class);
-
-    $services->set(CiDetector::class);
 
     $services->set(ParameterProvider::class);
 };

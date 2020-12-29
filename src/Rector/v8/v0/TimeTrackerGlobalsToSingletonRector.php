@@ -7,9 +7,9 @@ namespace Ssch\TYPO3Rector\Rector\v8\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -56,9 +56,9 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Substitute $GLOBALS[\'TT\'] method calls', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Substitute $GLOBALS[\'TT\'] method calls', [new CodeSample(<<<'PHP'
 $GLOBALS['TT']->setTSlogMessage('content');
 PHP
 , <<<'PHP'

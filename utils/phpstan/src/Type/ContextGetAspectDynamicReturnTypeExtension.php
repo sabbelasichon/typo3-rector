@@ -1,6 +1,6 @@
 <?php
-declare(strict_types=1);
 
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PHPStan\Type;
 
@@ -30,19 +30,22 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
 
     public function isMethodSupported(MethodReflection $methodReflection): bool
     {
-        return $methodReflection->getName() === 'getAspect';
+        return 'getAspect' === $methodReflection->getName();
     }
 
-    public function getTypeFromMethodCall(MethodReflection $methodReflection, MethodCall $methodCall, Scope $scope): Type
-    {
+    public function getTypeFromMethodCall(
+        MethodReflection $methodReflection,
+        MethodCall $methodCall,
+        Scope $scope
+    ): Type {
         $defaultObjectType = new ObjectType(AspectInterface::class);
 
-        if (!($argument = $methodCall->args[0] ?? null) instanceof Arg) {
+        if (! ($argument = $methodCall->args[0] ?? null) instanceof Arg) {
             return $defaultObjectType;
         }
         /** @var Arg $argument */
 
-        if (!($string = $argument->value ?? null) instanceof String_) {
+        if (! ($string = $argument->value ?? null) instanceof String_) {
             return $defaultObjectType;
         }
         /** @var String_ $string */

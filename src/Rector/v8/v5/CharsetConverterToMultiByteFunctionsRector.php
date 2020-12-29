@@ -10,8 +10,8 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 
 /**
@@ -54,9 +54,9 @@ final class CharsetConverterToMultiByteFunctionsRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Move from CharsetConverter methods to mb_string functions', [
+        return new RuleDefinition('Move from CharsetConverter methods to mb_string functions', [
             new CodeSample(<<<'PHP'
         use TYPO3\CMS\Core\Charset\CharsetConverter;
         use TYPO3\CMS\Core\Utility\GeneralUtility;

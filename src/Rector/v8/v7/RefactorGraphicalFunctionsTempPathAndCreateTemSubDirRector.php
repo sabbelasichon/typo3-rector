@@ -22,9 +22,9 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -71,9 +71,9 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor tempPath() and createTempSubDir on GraphicalFunctions', [
+        return new RuleDefinition('Refactor tempPath() and createTempSubDir on GraphicalFunctions', [
             new CodeSample(<<<'PHP'
 $graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
 $graphicalFunctions->createTempSubDir('var/transient/');

@@ -11,8 +11,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use Psr\Http\Message\ResponseInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -24,9 +24,9 @@ final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition(
+        return new RuleDefinition(
             'Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of TYPO3\CMS\Extbase\Mvc\Controller\ActionController::forward()',
             [new CodeSample(<<<'PHP'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -38,7 +38,7 @@ class FooController extends ActionController
    }
 }
 PHP
-                    , <<<'PHP'
+                , <<<'PHP'
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
@@ -51,7 +51,7 @@ class FooController extends ActionController
    }
 }
 PHP
-                )]);
+            )]);
     }
 
     /**

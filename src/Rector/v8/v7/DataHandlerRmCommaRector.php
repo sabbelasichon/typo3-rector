@@ -8,8 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**
@@ -45,9 +45,9 @@ final class DataHandlerRmCommaRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Migrate the method DataHandler::rmComma() to use rtrim()', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Migrate the method DataHandler::rmComma() to use rtrim()', [new CodeSample(<<<'PHP'
 $inList = '1,2,3,';
 $dataHandler = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\DataHandler::class);
 $inList = $dataHandler->rmComma(trim($inList));

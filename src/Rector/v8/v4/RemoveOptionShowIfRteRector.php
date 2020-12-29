@@ -9,9 +9,9 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Breaking-77592-DroppedTCAOptionShowIfRTEInTypecheck.html
@@ -23,9 +23,9 @@ final class RemoveOptionShowIfRteRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Dropped TCA option showIfRTE in type=check', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Dropped TCA option showIfRTE in type=check', [new CodeSample(<<<'PHP'
 return [
     'ctrl' => [
     ],

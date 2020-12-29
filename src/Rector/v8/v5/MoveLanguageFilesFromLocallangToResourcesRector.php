@@ -8,8 +8,8 @@ use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.5/Deprecation-78647-MoveLanguageFilesFromEXTlanglocallang_ToResourcesPrivateLanguage.html
@@ -86,9 +86,9 @@ final class MoveLanguageFilesFromLocallangToResourcesRector extends AbstractRect
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Move language files from EXT:lang/locallang_* to Resources/Private/Language', [
+        return new RuleDefinition('Move language files from EXT:lang/locallang_* to Resources/Private/Language', [
             new CodeSample(<<<'PHP'
 use TYPO3\CMS\Core\Localization\LanguageService;
 $languageService = new LanguageService();

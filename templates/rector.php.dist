@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
+use Rector\Core\ValueObject\PhpVersion;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
@@ -28,7 +29,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::IMPORT_DOC_BLOCKS, false);
 
     // Define your target version which you want to support
-    $parameters->set(Option::PHP_VERSION_FEATURES, '7.2');
+    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_72);
 
     // If you would like to see the changelog url when a rector is applied
     $parameters->set(Typo3Option::OUTPUT_CHANGELOG, true);

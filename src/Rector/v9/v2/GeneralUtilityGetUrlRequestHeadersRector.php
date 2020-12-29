@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v9\v2;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -19,9 +19,9 @@ final class GeneralUtilityGetUrlRequestHeadersRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor GeneralUtility::getUrl() request headers in a associative way', [
+        return new RuleDefinition('Refactor GeneralUtility::getUrl() request headers in a associative way', [
             new CodeSample(<<<'PHP'
 GeneralUtility::getUrl('https://typo3.org', 1, ['Content-Language: de-DE']);
 PHP

@@ -8,8 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 
 /**
@@ -43,9 +43,9 @@ final class RemoveWakeupCallFromEntityRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Remove __wakeup call for AbstractDomainObject',
+        return new RuleDefinition('Remove __wakeup call for AbstractDomainObject',
             [
                 new CodeSample(
                     <<<'PHP'

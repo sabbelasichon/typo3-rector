@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v7\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Service\TypeHandlingService;
 use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 
@@ -43,9 +43,9 @@ final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRecto
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Use TypeHandlingUtility instead of TypeHandlingService', [
+        return new RuleDefinition('Use TypeHandlingUtility instead of TypeHandlingService', [
             new CodeSample(<<<'PHP'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypeHandlingService;

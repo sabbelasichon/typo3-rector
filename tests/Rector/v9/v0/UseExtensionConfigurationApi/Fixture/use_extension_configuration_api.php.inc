@@ -21,12 +21,17 @@ $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo'] = 1;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 $extensionConfiguration2 = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('foo');
+
 $_EXTKEY = 'foo';
 call_user_func(static function () use($_EXTKEY) {
     $_EXTCONF = isset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS'][$_EXTKEY]) ? GeneralUtility::makeInstance(ExtensionConfiguration::class)->get($_EXTKEY) : [];
 });
+
 $backendConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('foo');
 if (!is_array($backendConfiguration)) {
     $backendConfiguration = unserialize($backendConfiguration);
 }
+
 $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo'] = 1;
+
+?>

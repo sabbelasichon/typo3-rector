@@ -10,8 +10,8 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 /**
@@ -72,47 +72,42 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Use TYPO3/CMS/Backend/PageTree/PageTreeElement instead of typo3-pagetree', [
-            new CodeSample(<<<'PHP'
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-      'TYPO3.CMS.Workspaces',
-      'web',
-      'workspaces',
-      'before:info',
+        return new RuleDefinition('Use TYPO3/CMS/Backend/PageTree/PageTreeElement instead of typo3-pagetree', [
+            new CodeSample(ExtensionUtility::class . '::registerModule(
+      \'TYPO3.CMS.Workspaces\',
+      \'web\',
+      \'workspaces\',
+      \'before:info\',
       [
           // An array holding the controller-action-combinations that are accessible
-          'Review' => 'index,fullIndex,singleIndex',
-          'Preview' => 'index,newPage'
+          \'Review\' => \'index,fullIndex,singleIndex\',
+          \'Preview\' => \'index,newPage\'
       ],
       [
-          'access' => 'user,group',
-          'icon' => 'EXT:workspaces/Resources/Public/Icons/module-workspaces.svg',
-          'labels' => 'LLL:EXT:workspaces/Resources/Private/Language/locallang_mod.xlf',
-          'navigationComponentId' => 'typo3-pagetree'
+          \'access\' => \'user,group\',
+          \'icon\' => \'EXT:workspaces/Resources/Public/Icons/module-workspaces.svg\',
+          \'labels\' => \'LLL:EXT:workspaces/Resources/Private/Language/locallang_mod.xlf\',
+          \'navigationComponentId\' => \'typo3-pagetree\'
       ]
-  );
-PHP
-                , <<<'PHP'
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-      'TYPO3.CMS.Workspaces',
-      'web',
-      'workspaces',
-      'before:info',
+  );', ExtensionUtility::class . '::registerModule(
+      \'TYPO3.CMS.Workspaces\',
+      \'web\',
+      \'workspaces\',
+      \'before:info\',
       [
           // An array holding the controller-action-combinations that are accessible
-          'Review' => 'index,fullIndex,singleIndex',
-          'Preview' => 'index,newPage'
+          \'Review\' => \'index,fullIndex,singleIndex\',
+          \'Preview\' => \'index,newPage\'
       ],
       [
-          'access' => 'user,group',
-          'icon' => 'EXT:workspaces/Resources/Public/Icons/module-workspaces.svg',
-          'labels' => 'LLL:EXT:workspaces/Resources/Private/Language/locallang_mod.xlf',
-          'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement'
+          \'access\' => \'user,group\',
+          \'icon\' => \'EXT:workspaces/Resources/Public/Icons/module-workspaces.svg\',
+          \'labels\' => \'LLL:EXT:workspaces/Resources/Private/Language/locallang_mod.xlf\',
+          \'navigationComponentId\' => \'TYPO3/CMS/Backend/PageTree/PageTreeElement\'
       ]
-  );
-PHP
+  );'
             ),
         ]);
     }

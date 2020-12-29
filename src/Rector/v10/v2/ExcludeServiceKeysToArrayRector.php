@@ -9,8 +9,8 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -55,9 +55,9 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Change parameter $excludeServiceKeys explicity to an array', [
+        return new RuleDefinition('Change parameter $excludeServiceKeys explicity to an array', [
             new CodeSample(<<<'PHP'
 GeneralUtility::makeInstanceService('serviceType', 'serviceSubType', 'key1, key2');
 ExtensionManagementUtility::findService('serviceType', 'serviceSubType', 'key1, key2');

@@ -8,8 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Plus;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -71,13 +71,10 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor removed methods from GeneralUtility.', [
-            new CodeSample(
-                'GeneralUtility::gif_compress();',
-                '\TYPO3\CMS\Core\Imaging\GraphicalFunctions::gifCompress();'
-            ),
+        return new RuleDefinition('Refactor removed methods from GeneralUtility.', [
+            new CodeSample('GeneralUtility::gif_compress();', GraphicalFunctions::class . '::gifCompress();'),
         ]);
     }
 }

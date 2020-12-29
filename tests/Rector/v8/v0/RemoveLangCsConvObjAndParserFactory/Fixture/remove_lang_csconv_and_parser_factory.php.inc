@@ -20,9 +20,9 @@ class RemoveLangCsConvObjAndParserFactory
 
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
-
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 class RemoveLangCsConvObjAndParserFactory
 {
     public function method(): void

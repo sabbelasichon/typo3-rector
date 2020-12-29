@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v7\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 
 /**
@@ -42,9 +42,9 @@ final class RemoveMethodCallConnectDbRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Remove EidUtility::connectDB() call', [
+        return new RuleDefinition('Remove EidUtility::connectDB() call', [
             new CodeSample('EidUtility::connectDB()', ''),
         ]);
     }

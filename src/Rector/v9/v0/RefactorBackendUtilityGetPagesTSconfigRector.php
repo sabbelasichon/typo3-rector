@@ -9,8 +9,8 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
@@ -65,9 +65,9 @@ final class RefactorBackendUtilityGetPagesTSconfigRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor method getPagesTSconfig of class BackendUtility if possible', [
+        return new RuleDefinition('Refactor method getPagesTSconfig of class BackendUtility if possible', [
             new CodeSample(<<<'PHP'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $pagesTsConfig = BackendUtility::getPagesTSconfig(1, $rootLine = null, $returnPartArray = true);

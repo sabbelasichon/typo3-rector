@@ -25,6 +25,7 @@ ExtensionUtility::registerModule(
 use TYPO3\CMS\Beuser\Controller\BackendUserController;
 use TYPO3\CMS\Beuser\Controller\BackendUserGroupController;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
 ExtensionUtility::registerModule(
     'Beuser',
     'system',
@@ -37,3 +38,5 @@ ExtensionUtility::registerModule(
         'labels' => 'LLL:EXT:beuser/Resources/Private/Language/locallang_mod.xlf'
     ]
 );
+
+?>

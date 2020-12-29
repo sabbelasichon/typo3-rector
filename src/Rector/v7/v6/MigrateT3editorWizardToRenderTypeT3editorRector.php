@@ -10,9 +10,9 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.3/Deprecation-67229-TcaChanges.html
@@ -24,9 +24,9 @@ final class MigrateT3editorWizardToRenderTypeT3editorRector extends AbstractRect
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('t3editor is no longer configured and enabled as wizard', [
+        return new RuleDefinition('t3editor is no longer configured and enabled as wizard', [
             new CodeSample(<<<'PHP'
 return [
     'ctrl' => [

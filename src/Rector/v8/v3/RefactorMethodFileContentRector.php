@@ -8,9 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Ternary;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 
 /**
@@ -56,9 +56,9 @@ final class RefactorMethodFileContentRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Refactor method fileContent of class TemplateService', [
+        return new RuleDefinition('Refactor method fileContent of class TemplateService', [
             new CodeSample(<<<'PHP'
 $content = $GLOBALS['TSFE']->tmpl->fileContent('foo.txt');
 PHP

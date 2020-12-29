@@ -10,8 +10,8 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\IndexedSearch\Controller\SearchFormController;
 
 /**
@@ -46,9 +46,9 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Rename pi_list_browseresults calls to renderPagination', [
+        return new RuleDefinition('Rename pi_list_browseresults calls to renderPagination', [
             new CodeSample('$this->pi_list_browseresults', '$this->renderPagination'),
         ]);
     }

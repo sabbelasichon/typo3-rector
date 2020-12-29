@@ -9,9 +9,9 @@ use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
@@ -47,25 +47,22 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Remove vendor name from registerPlugin call', [new CodeSample(<<<'CODE_SAMPLE'
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-   'TYPO3.CMS.Form',
-   'Formframework',
-   'Form',
-   'content-form',
-);
-CODE_SAMPLE
-, <<<'CODE_SAMPLE'
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-   'Form',
-   'Formframework',
-   'Form',
-   'content-form',
-);
-CODE_SAMPLE
-)]);
+        return new RuleDefinition('Remove vendor name from registerPlugin call', [
+            new CodeSample(ExtensionUtility::class . '::registerPlugin(
+   \'TYPO3.CMS.Form\',
+   \'Formframework\',
+   \'Form\',
+   \'content-form\',
+);', ExtensionUtility::class . '::registerPlugin(
+   \'Form\',
+   \'Formframework\',
+   \'Form\',
+   \'content-form\',
+);'
+),
+        ]);
     }
 
     private function removeVendorNameIfNeeded(StaticCall $node): ?Node

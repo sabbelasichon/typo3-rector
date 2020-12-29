@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v10\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Cache\CacheManager;
 
 /**
@@ -63,9 +63,9 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Use new default cache names like core instead of cache_core)', [
+        return new RuleDefinition('Use new default cache names like core instead of cache_core)', [
             new CodeSample(<<<'PHP'
 $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
 $cacheManager->getCache('cache_core');

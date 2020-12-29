@@ -15,3 +15,5 @@ $GLOBALS['TSFE']->loginAllowedInBranch = false;
 $previewBeUserUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('backend.user', 'id', 0);
 $workspacePreview = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id', 0);
 $loginAllowedInBranch = $GLOBALS['TSFE']->checkIfLoginAllowedInBranch();
+
+?>

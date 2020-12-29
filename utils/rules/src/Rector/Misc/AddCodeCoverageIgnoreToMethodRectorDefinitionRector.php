@@ -8,9 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends AbstractRector
 {
@@ -47,9 +47,9 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Adds @codeCoverageIgnore annotation to to method getDefinition', [
+        return new RuleDefinition('Adds @codeCoverageIgnore annotation to to method getDefinition', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 class SomeClass extends AbstractRector

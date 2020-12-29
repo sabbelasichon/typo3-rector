@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddSeeDocBlockForRectorClass\Fixt
 use PhpParser\Node;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class MissingSee extends AbstractRector implements PhpRectorInterface
 {
@@ -19,7 +19,7 @@ final class MissingSee extends AbstractRector implements PhpRectorInterface
     {
     }
 
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
     }
 }

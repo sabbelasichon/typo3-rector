@@ -9,8 +9,8 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\CodeSample;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -37,9 +37,9 @@ final class ChangeMethodCallsForStandaloneViewRector extends AbstractRector
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new RectorDefinition('Turns method call names to new ones.', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Turns method call names to new ones.', [new CodeSample(<<<'PHP'
 $someObject = new StandaloneView();
 $someObject->setLayoutRootPath();
 $someObject->getLayoutRootPath();
