@@ -8,7 +8,7 @@ Apply automatic fixes on your TYPO3 code.
 
 [![Coverage Status](https://img.shields.io/coveralls/sabbelasichon/typo3-rector/master.svg?style=flat-square)](https://coveralls.io/github/sabbelasichon/typo3-rector?branch=master)
 
-[Rector](https://getrector.org/) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases or keep your code deprecation free.
+[Rector](https://github.com/rectorphp/rector) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases or keep your code deprecation free.
 
 ## Table of Contents
 1. [Examples in action](docs/examples_in_action.md)
@@ -18,14 +18,14 @@ Apply automatic fixes on your TYPO3 code.
 5. [Limitations](docs/limitations.md)
 6. [Contribution](docs/contribution.md)
 
-Please also have a look at the documentation for [Rector](https://getrector.org/) itself.
+Please also have a look at the documentation for [Rector](https://github.com/rectorphp/rector) itself.
 
 ## Support
 Please post questions to TYPO3 Slack (https://typo3.slack.com) in the channel #ext-typo3-rector.
 Or feel free to open an issue or start a discussion on github.
 
 ## Credits
-Many thanks to [Tomas Votruba](https://tomasvotruba.com/) for his on going support and [Rector](https://getrector.org/).
+Many thanks to [Tomas Votruba](https://tomasvotruba.com/) for his on going support and [Rector](https://github.com/rectorphp/rector).
 Many thanks to every other contributor.
 
 Oh, and if you've come down this far, you might as well follow me on [twitter](https://twitter.com/schreiberten).
