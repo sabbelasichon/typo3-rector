@@ -60,6 +60,26 @@ final class Typo3NodeResolver
      */
     public const LANG = 'LANG';
 
+    /**
+     * @var string
+     */
+    public const EXEC_TIME = 'EXEC_TIME';
+
+    /**
+     * @var string
+     */
+    public const SIM_EXEC_TIME = 'SIM_EXEC_TIME';
+
+    /**
+     * @var string
+     */
+    public const ACCESS_TIME = 'ACCESS_TIME';
+
+    /**
+     * @var string
+     */
+    public const SIM_ACCESS_TIME = 'SIM_ACCESS_TIME';
+
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool
     {
         if (! $node instanceof MethodCall) {
@@ -121,6 +141,17 @@ final class Typo3NodeResolver
         }
 
         return $this->isValue($node->dim, $global);
+    }
+
+    public function isTypo3Globals(Node $node, array $globals): bool
+    {
+        foreach ($globals as $global) {
+            if ($this->isTypo3Global($node, $global)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function isPropertyFetchOnParentVariableOfTypeTypoScriptFrontendController(Node $node): bool
