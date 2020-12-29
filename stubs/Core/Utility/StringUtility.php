@@ -24,4 +24,9 @@ final class StringUtility
 
         return '' !== $needle && 0 === strpos($haystack, $needle);
     }
+
+    public static function uniqueList($list)
+    {
+        return [];
+    }
 }
