@@ -3,6 +3,7 @@
     "banner": false,
     "compression": "GZ",
     "base-path": "..",
+    "chmod": "777",
     "check-requirements": false,
     "directories": [
         "vendor/rector/rector/config",
@@ -18,7 +19,8 @@
         "Migrations"
     ],
     "files": [
-        "typo3.constants.php"
+        "typo3.constants.php",
+        "bin/typo3-rector.php"
     ],
     "exclude-composer-files": false,
     "force-autodiscovery": true,
