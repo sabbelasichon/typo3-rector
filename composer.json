@@ -14,7 +14,7 @@
     "require-dev": {
         "captainhook/captainhook": "^5.4",
         "captainhook/plugin-composer": "^5.2",
-        "phpunit/phpunit": "^9.5",
+        "phpunit/phpunit": "^8.0|^9.0",
         "symplify/coding-standard": "^9.0.17",
         "symplify/easy-coding-standard": "^9.0.17",
         "symplify/phpstan-extensions": "^9.0.17"
