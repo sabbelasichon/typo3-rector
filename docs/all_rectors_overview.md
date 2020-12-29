@@ -1,4 +1,4 @@
-# 161 Rules Overview
+# 162 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -425,6 +425,21 @@ Refactor legacy calls of DatabaseConnection to Dbal
                  'title' => 'Home',
              ]
          );
+```
+
+<br>
+
+## DateTimeAspectInsteadOfGlobalsExecTimeRector
+
+Use DateTimeAspect instead of superglobals like `$GLOBALS['EXEC_TIME']`
+
+- class: `Ssch\TYPO3Rector\Rector\v11\v0\DateTimeAspectInsteadOfGlobalsExecTimeRector`
+
+```diff
+-$currentTimestamp = $GLOBALS['EXEC_TIME'];
++use TYPO3\CMS\Core\Context\Context;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++$currentTimestamp = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp');
 ```
 
 <br>
