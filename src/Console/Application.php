@@ -29,11 +29,6 @@ final class Application extends SymfonyApplication
     /**
      * @var string
      */
-    private const VERSION = '0.7.7';
-
-    /**
-     * @var string
-     */
     private const NAME = 'TYPO3 Rector';
 
     /**

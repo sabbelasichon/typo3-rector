@@ -47,7 +47,7 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector
             'Turns \TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php hex2bin',
             [
                 new CodeSample(
-                    '\TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin("6578616d706c65206865782064617461");',
+                    TypeHandlingUtility::class . '::hex2bin("6578616d706c65206865782064617461");',
                     'hex2bin("6578616d706c65206865782064617461");'
                 ),
             ]

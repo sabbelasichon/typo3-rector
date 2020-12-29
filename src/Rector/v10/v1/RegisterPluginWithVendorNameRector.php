@@ -49,23 +49,20 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove vendor name from registerPlugin call', [new CodeSample(<<<'CODE_SAMPLE'
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-   'TYPO3.CMS.Form',
-   'Formframework',
-   'Form',
-   'content-form',
-);
-CODE_SAMPLE
-, <<<'CODE_SAMPLE'
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-   'Form',
-   'Formframework',
-   'Form',
-   'content-form',
-);
-CODE_SAMPLE
-)]);
+        return new RuleDefinition('Remove vendor name from registerPlugin call', [
+            new CodeSample(ExtensionUtility::class . '::registerPlugin(
+   \'TYPO3.CMS.Form\',
+   \'Formframework\',
+   \'Form\',
+   \'content-form\',
+);', ExtensionUtility::class . '::registerPlugin(
+   \'Form\',
+   \'Formframework\',
+   \'Form\',
+   \'content-form\',
+);'
+),
+        ]);
     }
 
     private function removeVendorNameIfNeeded(StaticCall $node): ?Node

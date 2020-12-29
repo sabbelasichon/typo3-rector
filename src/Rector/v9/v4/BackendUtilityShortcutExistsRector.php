@@ -24,10 +24,7 @@ final class BackendUtilityShortcutExistsRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('shortcutExists Static call replaced by method call of ShortcutRepository', [
-            new CodeSample(<<<'PHP'
-TYPO3\CMS\Backend\Utility\BackendUtility::shortcutExists($url);
-PHP
-                , <<<'PHP'
+            new CodeSample(BackendUtility::class . '::shortcutExists($url);', <<<'PHP'
 GeneralUtility::makeInstance(ShortcutRepository::class)->shortcutExists($url);
 PHP
             ),

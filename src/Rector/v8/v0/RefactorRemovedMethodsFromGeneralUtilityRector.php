@@ -74,10 +74,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor removed methods from GeneralUtility.', [
-            new CodeSample(
-                'GeneralUtility::gif_compress();',
-                '\TYPO3\CMS\Core\Imaging\GraphicalFunctions::gifCompress();'
-            ),
+            new CodeSample('GeneralUtility::gif_compress();', GraphicalFunctions::class . '::gifCompress();'),
         ]);
     }
 }
