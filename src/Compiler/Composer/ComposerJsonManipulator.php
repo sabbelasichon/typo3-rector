@@ -105,7 +105,7 @@ final class ComposerJsonManipulator
 
         $phpstanVersion = $json[self::REQUIRE][self::PHPSTAN_PHPSTAN];
         $phpstanVersion = ltrim($phpstanVersion, '^');
-        $json[self::REQUIRE]['phpstan/phpstan-src'] = '^0.12.52';
+        $json[self::REQUIRE]['phpstan/phpstan-src'] = '^0.12.64';
         unset($json[self::REQUIRE][self::PHPSTAN_PHPSTAN]);
 
         $json['repositories'][] = [

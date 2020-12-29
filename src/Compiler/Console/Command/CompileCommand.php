@@ -94,11 +94,11 @@ final class CompileCommand extends Command
 
         $this->composerJsonManipulator->fixComposerJson($composerJsonFile);
 
-        $this->symfonyStyle->newLine(1);
+        $this->symfonyStyle->newLine();
 
         $this->symfonyStyle->success(self::DONE);
 
-        $this->symfonyStyle->newLine(1);
+        $this->symfonyStyle->newLine();
 
         $this->symfonyStyle->title('2. Running "composer update" without dev');
 
@@ -117,21 +117,21 @@ final class CompileCommand extends Command
 
         $this->symfonyStyle->success(self::DONE);
 
-        $this->symfonyStyle->newLine(1);
+        $this->symfonyStyle->newLine();
 
         $this->symfonyStyle->title('3. Downgrading PHPStan code to PHP 7.1');
 
         $this->downgradePHPStanCodeToPHP71($output);
 
         $this->symfonyStyle->success(self::DONE);
-        $this->symfonyStyle->newLine(1);
+        $this->symfonyStyle->newLine();
 
         $this->symfonyStyle->title('4. Renaming PHPStorm stubs from "*.php" to ".stub"');
 
         $this->jetbrainsStubsRenamer->renamePhpStormStubs($this->buildDir);
 
         $this->symfonyStyle->success(self::DONE);
-        $this->symfonyStyle->newLine(1);
+        $this->symfonyStyle->newLine();
 
         // the '--no-parallel' is needed, so "scoper.php.inc" can "require __DIR__ ./vendor/autoload.php"
         // and "Nette\Neon\Neon" class can be used there
@@ -150,7 +150,7 @@ final class CompileCommand extends Command
 
         $this->symfonyStyle->success(self::DONE);
 
-        $this->symfonyStyle->newLine(1);
+        $this->symfonyStyle->newLine();
 
         $this->symfonyStyle->title('6. Restoring root composer.json with "require-dev"');
 
