@@ -250,4 +250,9 @@ class GeneralUtility
     {
         return false;
     }
+
+    public static function uniqueList($in_list, $secondParameter = null)
+    {
+        return [];
+    }
 }
