@@ -1,4 +1,4 @@
-# 162 Rules Overview
+# 163 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -2587,6 +2587,21 @@ GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(Fi
 +if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FileNameValidator::DEFAULT_FILE_DENY_PATTERN)
  {
  }
+```
+
+<br>
+
+## UniqueListFromStringUtilityRector
+
+Use `StringUtility::uniqueList()` instead of GeneralUtility::uniqueList
+
+- class: `Ssch\TYPO3Rector\Rector\v11\v0\UniqueListFromStringUtilityRector`
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+-GeneralUtility::uniqueList('1,2,2,3');
++use TYPO3\CMS\Core\Utility\StringUtility;
++StringUtility::uniqueList('1,2,2,3');
 ```
 
 <br>
