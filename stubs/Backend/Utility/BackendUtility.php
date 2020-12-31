@@ -43,8 +43,15 @@ final class BackendUtility
         return 'foo';
     }
 
-    public static function wrapClickMenuOnIcon($content, $table, $uid, $listFr, $addParams, $enDisItems, $returnTagParameters): void
-    {
+    public static function wrapClickMenuOnIcon(
+        $content,
+        $table,
+        $uid = 0,
+        $context = '',
+        $_addParams = '',
+        $_enDisItems = '',
+        $returnTagParameters = false
+    ): void {
 
     }
 
@@ -69,5 +76,10 @@ final class BackendUtility
     public static function getRecordsByField($theTable, $theField, $theValue, $whereClause = '', $groupBy = '', $orderBy = '', $limit = '', $useDeleteClause = true, $queryBuilder = null): array
     {
         return [];
+    }
+
+    public static function getClickMenuOnIconTagParameters(string $table, $uid = 0, string $context = '')
+    {
+
     }
 }
