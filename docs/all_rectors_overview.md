@@ -1,4 +1,4 @@
-# 163 Rules Overview
+# 164 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -573,6 +573,21 @@ Use generatePageTitle of TSFE instead of class PageGenerator
 
 -PageGenerator::generatePageTitle();
 +$GLOBALS['TSFE']->generatePageTitle();
+```
+
+<br>
+
+## GetClickMenuOnIconTagParametersRector
+
+Use `BackendUtility::getClickMenuOnIconTagParameters()` instead `BackendUtility::wrapClickMenuOnIcon()` if needed
+
+- class: `Ssch\TYPO3Rector\Rector\v11\v0\GetClickMenuOnIconTagParametersRector`
+
+```diff
+ use TYPO3\CMS\Backend\Utility\BackendUtility;
+ $returnTagParameters = true;
+-BackendUtility::wrapClickMenuOnIcon('pages', 1, 'foo', '', '', '', $returnTagParameters);
++BackendUtility::getClickMenuOnIconTagParameters('pages', 1, 'foo');
 ```
 
 <br>
