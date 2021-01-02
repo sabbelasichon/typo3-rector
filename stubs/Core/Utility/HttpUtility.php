@@ -11,8 +11,15 @@ if (class_exists(HttpUtility::class)) {
 final class HttpUtility
 {
 
-    public static function buildQueryString($queryParams): string
+    const HTTP_STATUS_400 = 'HTTP/1.1 400 Bad Request';
+
+    public static function buildQueryString(array $queryParams): string
     {
         return '';
+    }
+
+    public static function setResponseCode(string $httpStatus): void
+    {
+
     }
 }
