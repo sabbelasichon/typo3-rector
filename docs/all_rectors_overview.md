@@ -1,4 +1,4 @@
-# 167 Rules Overview
+# 168 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -2355,6 +2355,33 @@ Refactor `TypoScriptFrontendController->settingLocale()` to `Locales::setSystemL
  $controller = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, 0, 0);
 -$controller->settingLocale();
 +Locales::setSystemLocaleFromSiteLanguage($controller->getLanguage());
+```
+
+<br>
+
+## SoftReferencesFunctionalityRemovedRector
+
+TSconfig and TStemplate soft references functionality removed
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v3\SoftReferencesFunctionalityRemovedRector`
+
+```diff
+ return [
+     'ctrl' => [
+     ],
+     'columns' => [
+         'TSconfig' => [
+             'label' => 'TSconfig:',
+             'config' => [
+                 'type' => 'text',
+                 'cols' => '40',
+                 'rows' => '5',
+-                'softref' => 'TSconfig',
+             ],
+             'defaultExtras' => 'fixed-font : enable-tab',
+         ],
+     ],
+ ];
 ```
 
 <br>
