@@ -64,4 +64,9 @@ final class ContentObjectRenderer
     public function fileResource($file): void
     {
     }
+
+    public function getQueryArguments($conf, $overruleQueryArguments = [], $forceOverruleArguments = false)
+    {
+
+    }
 }
