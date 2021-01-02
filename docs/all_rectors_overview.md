@@ -1,4 +1,4 @@
-# 165 Rules Overview
+# 166 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -469,6 +469,28 @@ Change parameter `$excludeServiceKeys` explicity to an array
 -ExtensionManagementUtility::findService('serviceType', 'serviceSubType', 'key1, key2');
 +GeneralUtility::makeInstanceService('serviceType', 'serviceSubType', ['key1', 'key2']);
 +ExtensionManagementUtility::findService('serviceType', 'serviceSubType', ['key1', 'key2']);
+```
+
+<br>
+
+## ExtbaseControllerActionsMustReturnResponseInterfaceRector
+
+Extbase controller actions must return ResponseInterface
+
+- class: `Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector`
+
+```diff
++use Psr\Http\Message\ResponseInterface;
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+ class MyController extends ActionController
+ {
+-    public function someAction()
++    public function someAction(): ResponseInterface
+     {
+         $this->view->assign('foo', 'bar');
++        return $this->htmlResponse();
+     }
+ }
 ```
 
 <br>
