@@ -1,4 +1,4 @@
-# 166 Rules Overview
+# 167 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -2392,6 +2392,19 @@ Substitute `$GLOBALS['PARSETIME_START']` with round($GLOBALS['TYPO3_MISC']['micr
 ```diff
 -$parseTime = $GLOBALS['PARSETIME_START'];
 +$parseTime = round($GLOBALS['TYPO3_MISC']['microtime_start'] * 1000);
+```
+
+<br>
+
+## SubstituteConstantsModeAndRequestTypeRector
+
+Substitute TYPO3_MODE and TYPO3_REQUESTTYPE constants
+
+- class: `Ssch\TYPO3Rector\Rector\v10\v4\SubstituteConstantsModeAndRequestTypeRector`
+
+```diff
+-defined('TYPO3_MODE') or die();
++defined('TYPO3') or die();
 ```
 
 <br>
