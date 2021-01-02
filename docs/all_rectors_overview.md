@@ -1,4 +1,4 @@
-# 164 Rules Overview
+# 165 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -1450,6 +1450,22 @@ Remove vendor name from registerPlugin call
     'Form',
     'content-form',
  );
+```
+
+<br>
+
+## RemoveAddQueryStringMethodRector
+
+Remove TypoScript option addQueryString.method
+
+- class: `Ssch\TYPO3Rector\Rector\v11\v0\RemoveAddQueryStringMethodRector`
+
+```diff
+ $this->uriBuilder->setUseCacheHash(true)
+                          ->setCreateAbsoluteUri(true)
+                          ->setAddQueryString(true)
+-                         ->setAddQueryStringMethod('GET')
+                          ->build();
 ```
 
 <br>
