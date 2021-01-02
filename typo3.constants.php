@@ -28,6 +28,7 @@ define('TYPO3_REQUESTTYPE_CLI', 4);
 define('TYPO3_REQUESTTYPE_AJAX', 8);
 define('TYPO3_REQUESTTYPE_INSTALL', 16);
 
+define('TYPO3', true);
 define('TYPO3_MODE', '');
 define('TYPO3_mainDir', 'typo3/');
 define('TYPO3_version', '');
