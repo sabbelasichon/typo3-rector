@@ -9,5 +9,5 @@ if(interface_exists(ResponseInterface::class)) {
 
 interface ResponseInterface
 {
-
+    public function withStatus(string $code, string $reasonPhrase = ''): ResponseInterface;
 }

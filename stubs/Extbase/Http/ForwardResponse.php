@@ -84,4 +84,8 @@ final class ForwardResponse implements ResponseInterface
 
         return $clone;
     }
+
+    public function withStatus(string $code, string $reasonPhrase = ''): ResponseInterface
+    {
+    }
 }

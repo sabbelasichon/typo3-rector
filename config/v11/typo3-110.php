@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Ssch\TYPO3Rector\Rector\v11\v0\DateTimeAspectInsteadOfGlobalsExecTimeRector;
+use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\GetClickMenuOnIconTagParametersRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\RemoveAddQueryStringMethodRector;
@@ -17,4 +18,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UniqueListFromStringUtilityRector::class);
     $services->set(GetClickMenuOnIconTagParametersRector::class);
     $services->set(RemoveAddQueryStringMethodRector::class);
+    $services->set(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class);
 };
