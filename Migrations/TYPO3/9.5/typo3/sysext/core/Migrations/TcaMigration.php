@@ -53,10 +53,6 @@ class TcaMigration
         $tca = $this->migrateSuggestWizardTypeGroup($tca);
         $tca = $this->migrateOptionsOfTypeGroup($tca);
         $tca = $this->migrateSelectShowIconTable($tca);
-        $tca = $this->migrateImageManipulationConfig($tca);
-        $tca = $this->migrateInlineOverrideChildTca($tca);
-        $tca = $this->migratePagesLanguageOverlayRemoval($tca);
-        $tca = $this->sanitizeControlSectionIntegrity($tca);
 
         return $tca;
     }
