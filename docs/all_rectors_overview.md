@@ -1,4 +1,4 @@
-# 170 Rules Overview
+# 171 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -2091,6 +2091,24 @@ Remove showRecordFieldList inside section interface
 -    ],
      'columns' => [
      ],
+ ];
+```
+
+<br>
+
+## RemoveSupportForTransForeignTableRector
+
+Remove support for transForeignTable in TCA
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v5\RemoveSupportForTransForeignTableRector`
+
+```diff
+ return [
+-    'ctrl' => [
+-        'transForeignTable' => 'l10n_parent',
+-        'transOrigPointerTable' => 'l10n_parent',
+-    ],
++    'ctrl' => [],
  ];
 ```
 
