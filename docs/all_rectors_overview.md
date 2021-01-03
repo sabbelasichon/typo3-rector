@@ -1,4 +1,4 @@
-# 171 Rules Overview
+# 172 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -1799,6 +1799,32 @@ Remove `@internal` annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Cont
  class MyCommandController extends CommandController
  {
  }
+```
+
+<br>
+
+## RemoveL10nModeNoCopyRector
+
+Remove l10n_mode noCopy
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v6\RemoveL10nModeNoCopyRector`
+
+```diff
+ return [
+     'ctrl' => [],
+     'columns' => [
+         'foo' => [
+             'exclude' => 1,
+-            'l10n_mode' => 'mergeIfNotBlank',
+             'label' => 'Bar',
++            'config' => [
++                'behaviour' => [
++                    'allowLanguageSynchronization' => true
++                ]
++            ],
+         ],
+     ],
+ ];
 ```
 
 <br>
