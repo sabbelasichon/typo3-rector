@@ -43,7 +43,6 @@ class TcaMigration
     {
         $tca = $this->migrateSpecialConfigurationAndRemoveShowItemStylePointerConfig($tca);
         $tca = $this->migrateT3editorWizardWithEnabledByTypeConfigToColumnsOverrides($tca);
-        $tca = $this->migrateShowItemAdditionalPaletteToOwnPalette($tca);
         $tca = $this->migrateIconsForFormFieldWizardsToNewLocation($tca);
         // @todo: if showitem/defaultExtras wizards[xy] is migrated to columnsOverrides here, enableByTypeConfig could be dropped
         return $tca;
