@@ -46,7 +46,6 @@ class TcaMigration
      */
     public function migrate(array $tca): array
     {
-        $tca = $this->migrateL10nModeDefinitions($tca);
         $tca = $this->migratePageLocalizationDefinitions($tca);
         return $tca;
     }
