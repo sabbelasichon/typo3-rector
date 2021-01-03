@@ -1,4 +1,4 @@
-# 169 Rules Overview
+# 170 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -454,6 +454,25 @@ Use PageRenderer::addCssFile instead of `DocumentTemplate::addStyleSheet()`
 -$documentTemplate = GeneralUtility::makeInstance(DocumentTemplate::class);
 -$documentTemplate->addStyleSheet('foo', 'foo.css');
 +GeneralUtility::makeInstance(PageRenderer::class)->addCssFile('foo.css', 'stylesheet', 'screen', '');
+```
+
+<br>
+
+## DropAdditionalPaletteRector
+
+TCA: Drop additional palette
+
+- class: `Ssch\TYPO3Rector\Rector\v7\v4\DropAdditionalPaletteRector`
+
+```diff
+ return [
+     'types' => [
+         'aType' => [
+-            'showitem' => 'aField;aLabel;anAdditionalPaletteName',
++            'showitem' => 'aField;aLabel, --palette--;;anAdditionalPaletteName',
+         ],
+      ],
+ ];
 ```
 
 <br>
