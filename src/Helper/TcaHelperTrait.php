@@ -126,7 +126,7 @@ trait TcaHelperTrait
     /**
      * @return Generator<string, Node>
      */
-    private function extractColumnConfig(Array_ $items)
+    private function extractColumnConfig(Array_ $items): Generator
     {
         foreach ($items->items as $columnConfig) {
             if (! $columnConfig instanceof ArrayItem) {

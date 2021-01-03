@@ -52,7 +52,6 @@ class TcaMigration
         $tca = $this->migrateLastPiecesOfDefaultExtras($tca);
         $tca = $this->migrateSuggestWizardTypeGroup($tca);
         $tca = $this->migrateOptionsOfTypeGroup($tca);
-        $tca = $this->migrateSelectShowIconTable($tca);
 
         return $tca;
     }
