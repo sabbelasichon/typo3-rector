@@ -10,6 +10,7 @@ use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\v8\v5\CharsetConverterToMultiByteFunctionsRector;
 use Ssch\TYPO3Rector\Rector\v8\v5\MoveLanguageFilesFromLocallangToResourcesRector;
 use Ssch\TYPO3Rector\Rector\v8\v5\RemoveOptionVersioningFollowPagesRector;
+use Ssch\TYPO3Rector\Rector\v8\v5\RemoveSupportForTransForeignTableRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\CMS\Backend\Clipboard\ClipBoard;
 use TYPO3\CMS\Core\Utility\ArrayUtility as CoreArrayUtility;
@@ -56,4 +57,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]]);
     $services->set(RemoveOptionVersioningFollowPagesRector::class);
     $services->set(MoveLanguageFilesFromLocallangToResourcesRector::class);
+    $services->set(RemoveSupportForTransForeignTableRector::class);
 };
