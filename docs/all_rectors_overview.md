@@ -1,4 +1,4 @@
-# 168 Rules Overview
+# 169 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -774,6 +774,40 @@ Use LocalizationFactory->getParsedData instead of GeneralUtility::readLLfile
  use TYPO3\CMS\Core\Utility\GeneralUtility;
 -$locallangs = GeneralUtility::readLLfile('EXT:foo/locallang.xml', 'de');
 +$locallangs = GeneralUtility::makeInstance(LocalizationFactory::class)->getParsedData('EXT:foo/locallang.xml', 'de');
+```
+
+<br>
+
+## MigrateSelectShowIconTableRector
+
+Migrate select showIconTable
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v6\MigrateSelectShowIconTableRector`
+
+```diff
+ return [
+     'ctrl' => [
+     ],
+     'columns' => [
+         'foo' => [
+             'config' => [
+                 'type' => 'select',
+                 'items' => [
+                     ['foo 1', 'foo1', 'EXT:styleguide/Resources/Public/Icons/tx_styleguide.svg'],
+                     ['foo 2', 'foo2', 'EXT:styleguide/Resources/Public/Icons/tx_styleguide.svg'],
+                 ],
+                 'renderType' => 'selectSingle',
+-                'selicon_cols' => 16,
+-                'showIconTable' => true
++                'fieldWizard' => [
++                    'selectIcons' => [
++                        'disabled' => false,
++                    ],
++                ],
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br>
