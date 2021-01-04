@@ -1,4 +1,4 @@
-# 172 Rules Overview
+# 173 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -19,6 +19,27 @@ Add renderType for select fields
              ],
          ],
      ],
+ ];
+```
+
+<br>
+
+## AddTypeToColumnConfigRector
+
+Add type to column config if not exists
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v6\AddTypeToColumnConfigRector`
+
+```diff
+ return [
+     'columns' => [
+-        'bar' => []
++        'bar' => [
++            'config' => [
++                'type' => 'none'
++            ]
++        ]
+     ]
  ];
 ```
 
