@@ -47,7 +47,6 @@ class TcaMigration
      */
     public function migrate(array $tca): array
     {
-        $tca = $this->migrateColumnsConfig($tca);
         $tca = $this->migrateWizardEnableByTypeConfigToColumnsOverrides($tca);
         $tca = $this->migrateLastPiecesOfDefaultExtras($tca);
         $tca = $this->migrateSuggestWizardTypeGroup($tca);
