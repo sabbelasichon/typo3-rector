@@ -14,7 +14,7 @@ use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
-use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
+use TYPO3\CMS\Extbase\Validation\ValidatorResolver\ValidatorResolver;
 
 final class ValidatorResolverDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
