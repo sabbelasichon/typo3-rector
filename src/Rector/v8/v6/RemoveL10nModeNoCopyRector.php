@@ -22,6 +22,16 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
     use TcaHelperTrait;
 
     /**
+     * @var string
+     */
+    private const BEHAVIOUR = 'behaviour';
+
+    /**
+     * @var string
+     */
+    private const ALLOW_LANGUAGE_SYNCHRONIZATION = 'allowLanguageSynchronization';
+
+    /**
      * @return string[]
      */
     public function getNodeTypes(): array
@@ -66,8 +76,8 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
             $addAllowLanguageSynchronization = false;
             $configArray = $fieldValue->value;
             $newConfiguration = new ArrayItem($this->createArray([
-                'behaviour' => [
-                    'allowLanguageSynchronization' => true,
+                self::BEHAVIOUR => [
+                    self::ALLOW_LANGUAGE_SYNCHRONIZATION => true,
                 ],
             ]
             ), new String_('config'));
@@ -93,8 +103,8 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                 } elseif ($configValue->value instanceof Array_) {
                     $configArray = $configValue->value;
                     $newConfiguration = new ArrayItem($this->createArray([
-                        'behaviour' => [
-                            'allowLanguageSynchronization' => true,
+                        self::BEHAVIOUR => [
+                            self::ALLOW_LANGUAGE_SYNCHRONIZATION => true,
                         ],
                     ]
                     ));
@@ -111,13 +121,13 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                             continue;
                         }
 
-                        if (! $this->isValue($configItemValue->key, 'behaviour')) {
+                        if (! $this->isValue($configItemValue->key, self::BEHAVIOUR)) {
                             continue;
                         }
 
                         $configArray = $configItemValue->value;
                         $newConfiguration = new ArrayItem($this->createTrue(), new String_(
-                            'allowLanguageSynchronization'
+                            self::ALLOW_LANGUAGE_SYNCHRONIZATION
                         ));
 
                         foreach ($configItemValue->value->items as $behaviourConfiguration) {
@@ -129,7 +139,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                                 continue;
                             }
 
-                            if (! $this->isValue($behaviourConfiguration->key, 'allowLanguageSynchronization')) {
+                            if (! $this->isValue($behaviourConfiguration->key, self::ALLOW_LANGUAGE_SYNCHRONIZATION)) {
                                 continue;
                             }
 

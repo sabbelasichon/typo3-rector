@@ -125,7 +125,7 @@ PHP
                     continue;
                 }
 
-                if (! $this->isRenderTypeSelectTree($configValue->value)) {
+                if (! $this->configIsOfRenderType($configValue->value, 'selectTree')) {
                     continue;
                 }
 
@@ -183,27 +183,5 @@ PHP
         }
 
         return $node;
-    }
-
-    private function isRenderTypeSelectTree(Array_ $configValue): bool
-    {
-        foreach ($configValue->items as $configItemValue) {
-            if (! $configItemValue instanceof ArrayItem) {
-                continue;
-            }
-
-            if (null === $configItemValue->key) {
-                continue;
-            }
-
-            if ($this->isValue($configItemValue->key, 'renderType') && $this->isValue(
-                    $configItemValue->value,
-                    'selectTree'
-                )) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

@@ -50,7 +50,6 @@ class TcaMigration
         $tca = $this->migrateLastPiecesOfDefaultExtras($tca);
         $tca = $this->migrateSpecialConfigurationAndRemoveShowItemStylePointerConfig($tca);
         $tca = $this->migrateSuggestWizardTypeGroup($tca);
-        $tca = $this->migrateOptionsOfTypeGroup($tca);
 
         return $tca;
     }
@@ -321,60 +320,12 @@ class TcaMigration
             if (isset($tableDefinition['columns']) && is_array($tableDefinition['columns'])) {
                 foreach ($tableDefinition['columns'] as $fieldName => &$fieldConfig) {
                     if (isset($fieldConfig['config']['type']) && $fieldConfig['config']['type'] === 'group') {
-                        if (isset($fieldConfig['config']['selectedListStyle'])) {
-                            unset($fieldConfig['config']['selectedListStyle']);
-                            $this->messages[] = 'The \'type\' = \'group\' option \'selectedListStyle\' is obsolete and has been dropped'
-                                . ' from TCA ' . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\']';
-                        }
                         if (isset($fieldConfig['config']['show_thumbs'])) {
                             if ((bool)$fieldConfig['config']['show_thumbs'] === false && $fieldConfig['config']['internal_type'] === 'db') {
                                 $fieldConfig['config']['fieldWizard']['recordsOverview']['disabled'] = true;
-                                $this->messages[] = 'The \'type\' = \'group\' option \'show_thumbs\' = false is obsolete'
-                                    . ' from TCA ' . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\']'
-                                    . ' and has been migrated to'
-                                    . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\'][\'fieldWizard\'][\'recordsOverview\'][\'disabled\'] = true';
                             } elseif ((bool)$fieldConfig['config']['show_thumbs'] === false && $fieldConfig['config']['internal_type'] === 'file') {
                                 $fieldConfig['config']['fieldWizard']['fileThumbnails']['disabled'] = true;
-                                $this->messages[] = 'The \'type\' = \'group\' option \'show_thumbs\' = false is obsolete'
-                                    . ' from TCA ' . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\']'
-                                    . ' and has been migrated to'
-                                    . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\'][\'fieldWizard\'][\'fileThumbnails\'][\'disabled\'] = true';
-                            } else {
-                                $this->messages[] = 'The \'type\' = \'group\' option \'show_thumbs\' is obsolete and has been dropped'
-                                    . ' from TCA ' . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\']';
                             }
-                            unset($fieldConfig['config']['show_thumbs']);
-                        }
-                        if (isset($fieldConfig['config']['disable_controls']) && is_string($fieldConfig['config']['disable_controls'])) {
-                            $controls = GeneralUtility::trimExplode(',', $fieldConfig['config']['disable_controls'], true);
-                            foreach ($controls as $control) {
-                                if ($control === 'browser') {
-                                    $fieldConfig['config']['fieldControl']['elementBrowser']['disabled'] = true;
-                                    $this->messages[] = 'The \'type\' = \'group\' option \'disable_controls\' = \'browser\''
-                                        . ' from TCA ' . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\']'
-                                        . ' and has been migrated to'
-                                        . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\'][\'fieldControl\'][\'elementBrowser\'][\'disabled\'] = true';
-                                } elseif ($control === 'delete') {
-                                    $this->messages[] = 'The \'type\' = \'group\' option \'disable_controls\' = \'delete\''
-                                        . ' from TCA ' . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\']'
-                                        . ' and has been migrated to'
-                                        . $table . '[\'columns\'][\' . $fieldName . \'][\'config\'][\'hideDeleteIcon\'] = true';
-                                    $fieldConfig['config']['hideDeleteIcon'] = true;
-                                } elseif ($control === 'allowedTables') {
-                                    $fieldConfig['config']['fieldWizard']['tableList']['disabled'] = true;
-                                    $this->messages[] = 'The \'type\' = \'group\' option \'disable_controls\' = \'allowedTables\''
-                                        . ' from TCA ' . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\']'
-                                        . ' and has been migrated to'
-                                        . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\'][\'fieldWizard\'][\'tableList\'][\'disabled\'] = true';
-                                } elseif ($control === 'upload') {
-                                    $fieldConfig['config']['fieldWizard']['fileUpload']['disabled'] = true;
-                                    $this->messages[] = 'The \'type\' = \'group\' option \'disable_controls\' = \'upload\''
-                                        . ' from TCA ' . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\']'
-                                        . ' and has been migrated to'
-                                        . $table . '[\'columns\'][\'' . $fieldName . '\'][\'config\'][\'fieldWizard\'][\'fileUpload\'][\'disabled\'] = true';
-                                }
-                            }
-                            unset($fieldConfig['config']['disable_controls']);
                         }
                     }
                 }

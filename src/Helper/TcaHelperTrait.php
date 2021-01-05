@@ -123,6 +123,43 @@ trait TcaHelperTrait
         return null;
     }
 
+    private function configIsOfType(Array_ $configValue, string $expectedType): bool
+    {
+        return $this->configKeyIsOfValue($configValue, 'type', $expectedType);
+    }
+
+    private function configIsOfInternalType(Array_ $configValue, string $expectedType): bool
+    {
+        return $this->configKeyIsOfValue($configValue, 'internal_type', $expectedType);
+    }
+
+    private function configIsOfRenderType(Array_ $configValue, string $expectedRenderType): bool
+    {
+        return $this->configKeyIsOfValue($configValue, 'renderType', $expectedRenderType);
+    }
+
+    private function configKeyIsOfValue(Array_ $configValue, string $configKey, string $expectedValue): bool
+    {
+        foreach ($configValue->items as $configItemValue) {
+            if (! $configItemValue instanceof ArrayItem) {
+                continue;
+            }
+
+            if (null === $configItemValue->key) {
+                continue;
+            }
+
+            if ($this->isValue($configItemValue->key, $configKey) && $this->isValue(
+                    $configItemValue->value,
+                    $expectedValue
+                )) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     /**
      * @return Generator<string, Node>
      */
