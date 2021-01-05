@@ -4,12 +4,17 @@
     "license": "MIT",
     "type": "library",
     "authors": [
-        { "name": "Sebastian Schreiber", "email": "breakpoint@schreibersebastian.de" }
+        {
+            "name": "Sebastian Schreiber",
+            "email": "breakpoint@schreibersebastian.de"
+        }
     ],
     "require": {
         "php": "^7.3|^8.0",
-        "phpstan/phpstan": "^0.12.64",
-        "rector/rector": "0.9.1"
+        "rector/rector": "0.9.1",
+        "nette/bootstrap": "3.0.2",
+        "phpstan/phpstan-src": "^0.12.64",
+        "jetbrains/phpstorm-stubs": "dev-master#b2402e4a525593f68ff46303dcc6bc625437276a"
     },
     "require-dev": {
         "captainhook/captainhook": "^5.4",
@@ -37,7 +42,9 @@
             "Ssch\\TYPO3Rector\\Rules\\Tests\\": "utils/rules/tests",
             "Ssch\\TYPO3Rector\\Rules\\": "utils/rules/src"
         },
-        "exclude-from-classmap": ["**.php.inc"]
+        "exclude-from-classmap": [
+            "**.php.inc"
+        ]
     },
     "config": {
         "optimize-autoloader": true,
@@ -56,9 +63,12 @@
     "scripts-descriptions": {
         "docs": "Regenerate descriptions of all Rectors to docs/AllRectorsOverview.md file"
     },
-    "replace": {
-        "ssch/typo3-rector-shim": "self.version"
-    },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/phpstan/phpstan-src.git"
+        }
+    ]
 }
