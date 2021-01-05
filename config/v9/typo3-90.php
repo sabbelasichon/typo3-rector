@@ -18,7 +18,6 @@ use Ssch\TYPO3Rector\Rector\v9\v0\RefactorBackendUtilityGetPagesTSconfigRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorDeprecationLogRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveMethodInitTCARector;
-use Ssch\TYPO3Rector\Rector\v9\v0\RemoveOptionLocalizeChildrenAtParentLocalizationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemovePropertiesFromSimpleDataHandlerControllerRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveSecondArgumentGeneralUtilityMkdirDeepRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
@@ -69,5 +68,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorBackendUtilityGetPagesTSconfigRector::class);
     $services->set(UseExtensionConfigurationApiRector::class);
     $services->set(ReplaceExtKeyWithExtensionKeyRector::class);
-    $services->set(RemoveOptionLocalizeChildrenAtParentLocalizationRector::class);
 };

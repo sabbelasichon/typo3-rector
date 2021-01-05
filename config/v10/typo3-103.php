@@ -6,8 +6,6 @@ use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
-use Ssch\TYPO3Rector\Rector\v10\v3\RemoveExcludeOnTransOrigPointerFieldRector;
-use Ssch\TYPO3Rector\Rector\v10\v3\RemoveShowRecordFieldListInsideInterfaceSectionRector;
 use Ssch\TYPO3Rector\Rector\v10\v3\SubstituteResourceFactoryRector;
 use Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3VersionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -33,6 +31,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             WebResponse::class => Response::class,
         ],
     ]]);
-    $services->set(RemoveExcludeOnTransOrigPointerFieldRector::class);
-    $services->set(RemoveShowRecordFieldListInsideInterfaceSectionRector::class);
 };

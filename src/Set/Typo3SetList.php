@@ -14,7 +14,17 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const TCA_76 = __DIR__ . '/../../config/v7/tca-76.php';
+
+    /**
+     * @var string
+     */
     public const TYPO3_87 = __DIR__ . '/../../config/typo3-8.7.php';
+
+    /**
+     * @var string
+     */
+    public const TCA_87 = __DIR__ . '/../../config/v8/tca-87.php';
 
     /**
      * @var string
@@ -24,7 +34,17 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const TCA_95 = __DIR__ . '/../../config/v9/tca-9.5.php';
+
+    /**
+     * @var string
+     */
     public const TYPO3_104 = __DIR__ . '/../../config/typo3-10.4.php';
+
+    /**
+     * @var string
+     */
+    public const TCA_104 = __DIR__ . '/../../config/v10/tca-104.php';
 
     /**
      * @var string
