@@ -22,6 +22,11 @@ final class AddTypeToColumnConfigRector extends AbstractRector
     use TcaHelperTrait;
 
     /**
+     * @var string
+     */
+    private const TYPE = 'type';
+
+    /**
      * @return string[]
      */
     public function getNodeTypes(): array
@@ -66,7 +71,7 @@ final class AddTypeToColumnConfigRector extends AbstractRector
             $configArray = $fieldValue->value;
             $addConfig = true;
             $newConfiguration = new ArrayItem($this->createArray([
-                'type' => 'none',
+                self::TYPE => 'none',
             ]), new String_('config'));
 
             foreach ($fieldValue->value->items as $configValue) {
@@ -83,7 +88,7 @@ final class AddTypeToColumnConfigRector extends AbstractRector
                 }
 
                 $newConfiguration = new ArrayItem($this->createArray([
-                    'type' => 'none',
+                    self::TYPE => 'none',
                 ]));
 
                 $configArray = $configValue->value;
@@ -101,7 +106,7 @@ final class AddTypeToColumnConfigRector extends AbstractRector
                         continue;
                     }
 
-                    if (! $this->isValue($configItemValue->key, 'type')) {
+                    if (! $this->isValue($configItemValue->key, self::TYPE)) {
                         continue;
                     }
 
