@@ -7,11 +7,11 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
-use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallConnectDbRector;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallLoadTcaRector;
 use Ssch\TYPO3Rector\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 use TYPO3\CMS\Backend\Template\BigDocumentTemplate;
 use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Backend\Template\MediumDocumentTemplate;
@@ -36,7 +36,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ],
     ]]);
     $services->set(RenameStaticMethodRector::class)->call('configure', [[
-        RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => inline_value_objects([
+        RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
             new RenameStaticMethod(
                 GeneralUtility::class,
                 'int_from_ver',
@@ -47,7 +47,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]]);
     $services->set(TypeHandlingServiceToTypeHandlingUtilityRector::class);
     $services->set(RenameMethodRector::class)->call('configure', [[
-        RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
+        RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
             new MethodCallRename(Typo3QuerySettings::class, 'setSysLanguageUid', 'setLanguageUid'),
             new MethodCallRename(Typo3QuerySettings::class, 'getSysLanguageUid', 'getLanguageUid'),
             new MethodCallRename(ObjectManager::class, 'create', 'get'),
