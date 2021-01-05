@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
-use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendControllerRector;
@@ -13,6 +12,7 @@ use Ssch\TYPO3Rector\Rector\v9\v5\RemoveInitMethodFromPageRepositoryRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RemoveInternalAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\UsePackageManagerActivePackagesRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
@@ -24,7 +24,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RenameMethodRector::class)
         ->call('configure', [
             [
-                RenameMethodRector::METHOD_CALL_RENAMES => inline_value_objects([
+                RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
                     new MethodCallRename(
                        'TYPO3\CMS\Core\Resource\ResourceStorage',
                        'dumpFileContents',

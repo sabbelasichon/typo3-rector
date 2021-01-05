@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector;
 use Rector\Renaming\ValueObject\RenameClassConstant;
-use function Rector\SymfonyPhpConfig\inline_value_objects;
 use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\IndexedSearch\Controller\SearchFormController;
@@ -21,7 +21,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(RenamePiListBrowserResultsRector::class);
     $services->set(MethodCallToStaticCallRector::class)->call('configure', [[
-        MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => inline_value_objects([
+        MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => ValueObjectInliner::inline([
             new MethodCallToStaticCall(
                 DocumentTemplate::class,
                 'issueCommand',
@@ -31,7 +31,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]),
     ]]);
     $services->set(RenameClassConstantRector::class)->call('configure', [[
-        RenameClassConstantRector::CLASS_CONSTANT_RENAME => inline_value_objects([
+        RenameClassConstantRector::CLASS_CONSTANT_RENAME => ValueObjectInliner::inline([
             new RenameClassConstant(
                 SearchFormController::class,
                 'WILDCARD_LEFT',
