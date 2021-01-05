@@ -34,7 +34,7 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const TCA_95 = __DIR__ . '/../../config/v9/tca-9.5.php';
+    public const TCA_95 = __DIR__ . '/../../config/v9/tca-95.php';
 
     /**
      * @var string
