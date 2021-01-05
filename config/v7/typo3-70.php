@@ -8,7 +8,6 @@ use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use function Rector\SymfonyPhpConfig\inline_value_objects;
-use Ssch\TYPO3Rector\Rector\v7\v0\RemoveDivider2TabsConfigurationRector;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallConnectDbRector;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallLoadTcaRector;
 use Ssch\TYPO3Rector\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector;
@@ -54,5 +53,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             new MethodCallRename(ObjectManager::class, 'create', 'get'),
         ]),
     ]]);
-    $services->set(RemoveDivider2TabsConfigurationRector::class);
 };
