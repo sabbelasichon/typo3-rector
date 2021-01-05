@@ -1,4 +1,4 @@
-# 173 Rules Overview
+# 174 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -814,6 +814,37 @@ Use LocalizationFactory->getParsedData instead of GeneralUtility::readLLfile
  use TYPO3\CMS\Core\Utility\GeneralUtility;
 -$locallangs = GeneralUtility::readLLfile('EXT:foo/locallang.xml', 'de');
 +$locallangs = GeneralUtility::makeInstance(LocalizationFactory::class)->getParsedData('EXT:foo/locallang.xml', 'de');
+```
+
+<br>
+
+## MigrateOptionsOfTypeGroupRector
+
+Migrate options if type group in TCA
+
+- class: `Ssch\TYPO3Rector\Rector\v8\v6\MigrateOptionsOfTypeGroupRector`
+
+```diff
+ return [
+     'ctrl' => [],
+     'columns' => [
+         'image2' => [
+             'config' => [
+-                'selectedListStyle' => 'foo',
+                 'type' => 'group',
+                 'internal_type' => 'file',
+-                'show_thumbs' => '0',
+-                'disable_controls' => 'browser'
++                'fieldControl' => [
++                    'elementBrowser' => ['disabled' => true]
++                ],
++                'fieldWizard' => [
++                    'fileThumbnails' => ['disabled' => true]
++                ]
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br>
