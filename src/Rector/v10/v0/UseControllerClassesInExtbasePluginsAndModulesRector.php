@@ -151,12 +151,14 @@ PHP
         $controllerActions = $this->getValue($node->args[2]->value);
         $node->args[2]->value = $this->createNewControllerActionsArray($controllerActions, $vendorName, $extensionName);
 
-        $nonCacheableControllerActions = $this->getValue($node->args[3]->value);
-        $node->args[3]->value = $this->createNewControllerActionsArray(
-            $nonCacheableControllerActions,
-            $vendorName,
-            $extensionName
-        );
+        if (isset($node->args[3])) {
+            $nonCacheableControllerActions = $this->getValue($node->args[3]->value);
+            $node->args[3]->value = $this->createNewControllerActionsArray(
+                $nonCacheableControllerActions,
+                $vendorName,
+                $extensionName
+            );
+        }
     }
 
     private function refactorRegisterPluginMethod(StaticCall $node, string $vendorName, string $extensionName): void

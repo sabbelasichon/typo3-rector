@@ -34,6 +34,14 @@ ExtensionUtility::configurePlugin(
     'ListView',
     [
         'Address' => 'list,show',
+    ]
+);
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'FriendsOfTYPO3.tt_address',
+    'ListView',
+    [
+        'Address' => 'list,show',
     ],
     [
         'Address' => '',
@@ -83,6 +91,12 @@ ExtensionUtility::configurePlugin(
     [FormFrontendController::class => 'render, perform'],
     [FormFrontendController::class => 'perform'],
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+ExtensionUtility::configurePlugin(
+    'TtAddress',
+    'ListView',
+    [\FriendsOfTYPO3\TtAddress\Controller\AddressController::class => 'list,show']
 );
 
 ExtensionUtility::configurePlugin(
