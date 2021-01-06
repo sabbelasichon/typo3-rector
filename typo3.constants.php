@@ -39,7 +39,7 @@ define('PATH_thisScript', '');
 define('TYPO3_OS', '');
 define('PATH_typo3conf', '');
 define('PATH_typo3', '');
-define('TYPO3_COMPOSER_MODE', false);
+defined('TYPO3_COMPOSER_MODE') ?: define('TYPO3_COMPOSER_MODE', false);
 
 define('TYPO3_URL_MAILINGLISTS', 'http://lists.typo3.org/cgi-bin/mailman/listinfo');
 define('TYPO3_URL_DOCUMENTATION', 'https://typo3.org/documentation/');
