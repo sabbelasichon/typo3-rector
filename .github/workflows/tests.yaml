@@ -28,5 +28,8 @@ jobs:
                 with:
                     php-version: 7.3
                     coverage: none # disable xdebug, pcov
-            -   run: composer install --no-suggest --no-progress
+                env:
+                    COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            -   run: composer update --no-suggest --no-progress
             -   run: vendor/bin/phpunit

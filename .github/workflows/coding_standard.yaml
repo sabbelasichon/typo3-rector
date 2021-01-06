@@ -23,8 +23,10 @@ jobs:
                 with:
                     php-version: 7.3
                     coverage: none
+                env:
+                    COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            -   run: composer install --no-progress
+            -   run: composer update --no-progress
             -   run: vendor/bin/ecs check --fix
 
             -   uses: stefanzweifel/git-auto-commit-action@v2.5.0

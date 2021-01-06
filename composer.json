@@ -62,11 +62,5 @@
         "docs": "Regenerate descriptions of all Rectors to docs/AllRectorsOverview.md file"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/phpstan/phpstan-src.git"
-        }
-    ]
+    "prefer-stable": true
 }
