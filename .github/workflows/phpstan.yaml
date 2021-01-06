@@ -23,5 +23,8 @@ jobs:
                 with:
                     php-version: 7.3
                     coverage: none
-            -   run: composer install --no-progress
+                env:
+                    COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            -   run: composer update --no-progress
             -   run: composer analyze

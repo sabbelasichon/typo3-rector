@@ -19,12 +19,14 @@ jobs:
                     key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
                     restore-keys: |
                         ${{ runner.os }}-composer-
-            -   uses: shivammathur/setup-php@v1
+            -   uses: shivammathur/setup-php@v2
                 with:
                     php-version: 7.3
                     coverage: none
+                env:
+                    COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            -   run: composer install --no-progress
+            -   run: composer update --no-progress
 
             -   run: |
                     phpdbg -qrr -d memory_limit=-1 vendor/bin/phpunit --coverage-clover build/logs/clover.xml
