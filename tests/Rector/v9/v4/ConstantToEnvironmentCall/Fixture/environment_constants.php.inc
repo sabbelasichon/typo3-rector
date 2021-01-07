@@ -2,6 +2,8 @@
 
 final class ClassWithALotOfEnvironmentVariables
 {
+    private $foo = PATH_site . '/bar/';
+
     public function method(): void
     {
         PATH_thisScript . 'something';
@@ -21,6 +23,8 @@ final class ClassWithALotOfEnvironmentVariables
 use TYPO3\CMS\Core\Core\Environment;
 final class ClassWithALotOfEnvironmentVariables
 {
+    private $foo = PATH_site . '/bar/';
+
     public function method(): void
     {
         Environment::getCurrentScript() . 'something';

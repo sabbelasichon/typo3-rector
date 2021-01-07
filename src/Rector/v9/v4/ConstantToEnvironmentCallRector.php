@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Property;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -74,6 +75,12 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
             ['PATH_thisScript', 'PATH_site', 'PATH_typo3', 'PATH_typo3conf', 'TYPO3_OS'],
             false
         )) {
+            return null;
+        }
+
+        $property = $this->betterNodeFinder->findFirstAncestorInstanceOf($node, Property::class);
+
+        if (null !== $property) {
             return null;
         }
 
