@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
-use Ssch\TYPO3Rector\Rector\v10\v4\SubstituteConstantsModeAndRequestTypeRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\UnifiedFileNameValidatorRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\UseFileGetContentsForGetUrlRector;
@@ -36,5 +35,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ],
     ]]);
     $services->set(UseFileGetContentsForGetUrlRector::class);
-    $services->set(SubstituteConstantsModeAndRequestTypeRector::class);
 };

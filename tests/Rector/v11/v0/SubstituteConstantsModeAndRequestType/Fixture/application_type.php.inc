@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\SubstituteConstantsModeAndRequestType\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\SubstituteConstantsModeAndRequestType\Fixture;
 
 class MyController
 {
@@ -40,7 +40,7 @@ class MyController
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\SubstituteConstantsModeAndRequestType\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\SubstituteConstantsModeAndRequestType\Fixture;
 
 use TYPO3\CMS\Core\Http\ApplicationType;
 class MyController
