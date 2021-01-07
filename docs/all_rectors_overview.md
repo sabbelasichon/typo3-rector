@@ -2576,7 +2576,7 @@ Substitute `$GLOBALS['PARSETIME_START']` with round($GLOBALS['TYPO3_MISC']['micr
 
 Substitute TYPO3_MODE and TYPO3_REQUESTTYPE constants
 
-- class: `Ssch\TYPO3Rector\Rector\v10\v4\SubstituteConstantsModeAndRequestTypeRector`
+- class: `Ssch\TYPO3Rector\Rector\v11\v0\SubstituteConstantsModeAndRequestTypeRector`
 
 ```diff
 -defined('TYPO3_MODE') or die();
