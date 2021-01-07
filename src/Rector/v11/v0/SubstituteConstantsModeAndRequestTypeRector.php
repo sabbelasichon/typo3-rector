@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\v10\v4;
+namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;

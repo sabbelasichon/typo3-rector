@@ -7,6 +7,7 @@ use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInt
 use Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\GetClickMenuOnIconTagParametersRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\RemoveAddQueryStringMethodRector;
+use Ssch\TYPO3Rector\Rector\v11\v0\SubstituteConstantsModeAndRequestTypeRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\UniqueListFromStringUtilityRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -19,4 +20,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(GetClickMenuOnIconTagParametersRector::class);
     $services->set(RemoveAddQueryStringMethodRector::class);
     $services->set(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class);
+    $services->set(SubstituteConstantsModeAndRequestTypeRector::class);
 };
