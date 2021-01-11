@@ -39,8 +39,11 @@ jobs:
                         composer-${{ runner.os }}-
                         composer-
 
+            -   name: Install Box global
+                run: composer global require "humbug/box:^3.11" --no-ansi --no-interaction --no-progress --classmap-authoritative
+
             -   name: Install dependencies
-                run: composer update --no-interaction --no-progress --prefer-dist
+                run: composer update --no-ansi --no-interaction --no-dev --no-progress --classmap-authoritative
 
             -   name: Build PHAR
                 run: bin/compile

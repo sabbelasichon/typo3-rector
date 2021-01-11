@@ -1,5 +1,5 @@
 {
-    "alias": "typo3-rector.phar",
+    "main": "bin/typo3-rector.php",
     "banner": [
         "This file is part of the typo3-rector project.",
         "",
@@ -7,7 +7,6 @@
         "with this source code in the file LICENSE."
     ],
     "compression": "GZ",
-    "base-path": "..",
     "chmod": "777",
     "directories": [
         "vendor/rector/rector/config",
@@ -23,8 +22,7 @@
         "Migrations"
     ],
     "files": [
-        "typo3.constants.php",
-        "bin/typo3-rector.php"
+        "typo3.constants.php"
     ],
     "exclude-composer-files": false,
     "force-autodiscovery": true,

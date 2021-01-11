@@ -10,7 +10,7 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::DATA_DIR, __DIR__ . '/../build');
+    $parameters->set(Option::DATA_DIR, __DIR__ . '/..');
     $parameters->set(Option::BUILD_DIR, __DIR__ . '/..');
 
     $services = $containerConfigurator->services();
