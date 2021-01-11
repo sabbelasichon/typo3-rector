@@ -139,7 +139,7 @@ final class CompileCommand extends Command
 
         $process = new Process([
             'php',
-            'box',
+            'box.phar',
             'compile',
             '--no-parallel',
             self::ANSI,
