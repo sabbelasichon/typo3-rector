@@ -123,6 +123,8 @@ PHP
                 $selicon_cols = null;
                 $showIconTable = null;
                 $noIconsBelowSelect = null;
+                $doSomething = false;
+
                 foreach ($configValue->value->items as $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;
@@ -136,16 +138,22 @@ PHP
                         $renderType = $this->getValue($configItemValue->value);
                     } elseif ($this->isValue($configItemValue->key, 'selicon_cols')) {
                         $selicon_cols = $this->getValue($configItemValue->value);
+                        $doSomething = true;
                     } elseif ($this->isValue($configItemValue->key, self::SHOW_ICON_TABLE)) {
                         $showIconTable = $this->getValue($configItemValue->value);
                     } elseif ($this->isValue($configItemValue->key, 'suppress_icons')) {
                         $this->removeNode($configItemValue);
                     } elseif ($this->isValue($configItemValue->key, 'noIconsBelowSelect')) {
                         $noIconsBelowSelect = $this->getValue($configItemValue->value);
+                        $doSomething = true;
                         $this->removeNode($configItemValue);
                     } elseif ($this->isValue($configItemValue->key, 'foreign_table_loadIcons')) {
                         $this->removeNode($configItemValue);
                     }
+                }
+
+                if (! $doSomething) {
+                    continue;
                 }
 
                 if (null === $renderType || 'selectSingle' !== $renderType) {
