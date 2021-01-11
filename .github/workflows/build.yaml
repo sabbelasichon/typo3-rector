@@ -55,6 +55,8 @@ jobs:
     publish-phar:
         runs-on: ubuntu-latest
         name: Publish the PHAR
+        needs:
+            - build-phar
         if: github.event_name == 'release'
         steps:
             -   uses: actions/download-artifact@v1
