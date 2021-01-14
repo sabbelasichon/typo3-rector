@@ -57,7 +57,7 @@ final class InjectAnnotationRector extends AbstractRector
             /** @var PhpDocInfo|null $propertyPhpDocInfo */
             $propertyPhpDocInfo = $property->getAttribute(AttributeKey::PHP_DOC_INFO);
             if (null === $propertyPhpDocInfo) {
-                return null;
+                continue;
             }
             if (! $propertyPhpDocInfo->hasByName(self::OLD_ANNOTATION)) {
                 continue;
@@ -70,8 +70,7 @@ final class InjectAnnotationRector extends AbstractRector
                 );
                 continue;
             }
-            // Remove the old annotation and use setterInjection instead
-            $propertyPhpDocInfo->removeByName(self::OLD_ANNOTATION);
+
             /** @var string $variableName */
             $variableName = $this->getName($property);
             $paramBuilder = $this->builderFactory->param($variableName);
@@ -79,6 +78,9 @@ final class InjectAnnotationRector extends AbstractRector
             if (! $varType instanceof ObjectType) {
                 continue;
             }
+
+            // Remove the old annotation and use setterInjection instead
+            $propertyPhpDocInfo->removeByName(self::OLD_ANNOTATION);
 
             if ($varType instanceof FullyQualifiedObjectType) {
                 $paramBuilder->setType(new FullyQualified($varType->getClassName()));

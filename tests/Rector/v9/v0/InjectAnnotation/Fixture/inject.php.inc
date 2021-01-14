@@ -36,6 +36,21 @@ final class SomeInjectClass
      */
     private $inject5;
 
+    /**
+     * @inject
+     * @var \Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotation\Source\ManufacturerRepository
+     */
+    protected $manufacturerRepository;
+
+    // Properties to be parsed as typolink
+    protected $keysTypolinks         = array('uri', 'imageLink', 'flexLink', 'filterUrl');
+
+    // Properties to rewrite containing storage object keys
+    protected $keysObjectStorages   = array('links');
+
+    // Properties parse as rte content
+    protected $keysRteFields        = array('sublineSmall', 'sublineMedium', 'sublineLarge');
+
     public function injectInject5(ShortInjectionClass $inject5): void
     {
         $this->inject5 = $inject5;
@@ -49,6 +64,7 @@ final class SomeInjectClass
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotation\Fixture;
 
 use Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotation\Source\InjectionClass;
+use Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotation\Source\ManufacturerRepository;
 use Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotation\Source\ShortInjectionClass;
 
 final class SomeInjectClass
@@ -79,6 +95,20 @@ final class SomeInjectClass
      */
     private $inject5;
 
+    /**
+     * @var ManufacturerRepository
+     */
+    protected $manufacturerRepository;
+
+    // Properties to be parsed as typolink
+    protected $keysTypolinks         = array('uri', 'imageLink', 'flexLink', 'filterUrl');
+
+    // Properties to rewrite containing storage object keys
+    protected $keysObjectStorages   = array('links');
+
+    // Properties parse as rte content
+    protected $keysRteFields        = array('sublineSmall', 'sublineMedium', 'sublineLarge');
+
     public function injectInject5(ShortInjectionClass $inject5): void
     {
         $this->inject5 = $inject5;
@@ -99,6 +129,11 @@ final class SomeInjectClass
         $this->inject4 = $inject4;
     }
 
+
+    public function injectManufacturerRepository(ManufacturerRepository $manufacturerRepository): void
+    {
+        $this->manufacturerRepository = $manufacturerRepository;
+    }
 }
 
 ?>
