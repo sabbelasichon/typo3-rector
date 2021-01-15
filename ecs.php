@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
-use SlevomatCodingStandard\Sniffs\Namespaces\ReferenceUsedNamesOnlySniff;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
 use Symplify\EasyCodingStandard\ValueObject\Option;
@@ -18,7 +17,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         SetList::PHP_71,
         SetList::COMMON,
         SetList::CLEAN_CODE,
-        SetList::DEAD_CODE,
     ]);
 
     $parameters->set(Option::PATHS, [
@@ -34,10 +32,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(LineLengthFixer::class);
     $services->set(YodaStyleFixer::class);
-
-    $services->set(ReferenceUsedNamesOnlySniff::class)
-        ->property('searchAnnotations', true)
-        ->property('allowFullyQualifiedGlobalFunctions', true)
-        ->property('allowFullyQualifiedGlobalConstants', true)
-        ->property('allowPartialUses', false);
 };
