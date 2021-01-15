@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector;
@@ -35,7 +34,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
     $services = $containerConfigurator->services();
     $services->set(MoveRenderArgumentsToInitializeArgumentsMethodRector::class);
-    $services->set(StringClassNameToClassConstantRector::class);
     $services->set(InjectAnnotationRector::class);
     $services->set(IgnoreValidationAnnotationRector::class);
     $services->set(ReplaceAnnotationRector::class)->call('configure', [[
