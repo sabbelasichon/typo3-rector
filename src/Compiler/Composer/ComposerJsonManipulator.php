@@ -60,6 +60,7 @@ final class ComposerJsonManipulator
         $json = Json::decode($fileContent, Json::FORCE_ARRAY);
         $json = $this->removeDevKeys($json);
         $json = $this->replacePHPStanWithPHPStanSrc($json);
+        $json = $this->setPlatformCheckToFalse($json);
 
         $encodedJson = Json::encode($json, Json::PRETTY);
 
@@ -163,5 +164,16 @@ final class ComposerJsonManipulator
         $jsonFileContent = $this->smartFileSystem->readFile($jsonFilePath);
 
         return (array) Json::decode($jsonFileContent, Json::FORCE_ARRAY);
+    }
+
+    /**
+     * @param mixed[] $json
+     * @return mixed[]
+     */
+    private function setPlatformCheckToFalse(array $json): array
+    {
+        $json['config']['platform-check'] = false;
+
+        return $json;
     }
 }
