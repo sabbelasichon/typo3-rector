@@ -8,6 +8,7 @@ use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
 use Rector\CodingStyle\Node\NameImporter;
 use Rector\Core\Configuration\Option;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
@@ -36,16 +37,6 @@ final class NameImportingPostRector extends AbstractPostRector
     private const ONLY_STARTS_WITH_ASTERISK_REGEX = '#^\*(.*?)[^*]$#';
 
     /**
-     * @var CurrentFileInfoProvider
-     */
-    private $currentFileInfoProvider;
-
-    /**
-     * @var bool
-     */
-    private $importDocBlocks = false;
-
-    /**
      * @var ParameterProvider
      */
     private $parameterProvider;
@@ -60,16 +51,27 @@ final class NameImportingPostRector extends AbstractPostRector
      */
     private $docBlockNameImporter;
 
+    /**
+     * @var ClassNameImportSkipper
+     */
+    private $classNameImportSkipper;
+
+    /**
+     * @var CurrentFileInfoProvider
+     */
+    private $currentFileInfoProvider;
+
     public function __construct(
-        CurrentFileInfoProvider $currentFileInfoProvider,
         ParameterProvider $parameterProvider,
         NameImporter $nameImporter,
-        DocBlockNameImporter $docBlockNameImporter
+        DocBlockNameImporter $docBlockNameImporter,
+        ClassNameImportSkipper $classNameImportSkipper,
+        CurrentFileInfoProvider $currentFileInfoProvider
     ) {
         $this->parameterProvider = $parameterProvider;
         $this->nameImporter = $nameImporter;
-        $this->importDocBlocks = (bool) $parameterProvider->provideParameter(Option::IMPORT_DOC_BLOCKS);
         $this->docBlockNameImporter = $docBlockNameImporter;
+        $this->classNameImportSkipper = $classNameImportSkipper;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
     }
 
@@ -85,10 +87,11 @@ final class NameImportingPostRector extends AbstractPostRector
         }
 
         if ($node instanceof Name) {
-            return $this->nameImporter->importName($node);
+            return $this->processNodeName($node);
         }
 
-        if (! $this->importDocBlocks) {
+        $importDocBlocks = (bool) $this->parameterProvider->provideParameter(Option::IMPORT_DOC_BLOCKS);
+        if (! $importDocBlocks) {
             return null;
         }
 
@@ -115,8 +118,19 @@ final class NameImportingPostRector extends AbstractPostRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Imports fully qualified class names in parameter types, return types, extended classes, implemented, interfaces and even docblocks', [
-                new CodeSample('', ''),
+            'Imports fully qualified class names in parameter types, return types, extended classes, implemented, interfaces and even docblocks',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
+$someClass = new \Some\FullyQualified\SomeClass();
+CODE_SAMPLE
+                    ,
+                    <<<'CODE_SAMPLE'
+use Some\FullyQualified\SomeClass;
+
+$someClass = new SomeClass();
+CODE_SAMPLE
+                ),
             ]
         );
     }
@@ -159,6 +173,23 @@ final class NameImportingPostRector extends AbstractPostRector
         }
 
         return false;
+    }
+
+    private function processNodeName(Name $name): ?Node
+    {
+        $importName = $this->getName($name);
+
+        if (! is_callable($importName)) {
+            return $this->nameImporter->importName($name);
+        }
+
+        if (substr_count($name->toCodeString(), '\\') > 1
+            && $this->classNameImportSkipper->isFoundInUse($name)
+            && ! function_exists($name->getLast())) {
+            return null;
+        }
+
+        return $this->nameImporter->importName($name);
     }
 
     /**
