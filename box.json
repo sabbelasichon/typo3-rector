@@ -7,24 +7,19 @@
         "with this source code in the file LICENSE."
     ],
     "compression": "GZ",
-    "chmod": "777",
-    "directories": [
-        "vendor/rector/rector/config",
-        "vendor/rector/rector/src",
-        "vendor/rector/rector/rules",
-        "vendor/rector/rector/packages",
-        "stubs",
-        "config",
-        "src",
-        "templates",
-        "utils/phpstan/config",
-        "utils/phpstan/src",
-        "Migrations"
+    "finder": [
+        {
+            "in": ["src", "vendor", "utils/phpstan/config", "utils/phpstan/src", "Migrations", "config", "stubs", "templates"],
+            "exclude": [
+                "test",
+                "tests"
+            ]
+        }
     ],
+    "check-requirements": false,
     "files": [
-        "typo3.constants.php"
+        "typo3.constants.php",
+        "vendor/rector/rector/rules/restoration/tests/Rector/Use_/RestoreFullyQualifiedNameRector/Source/ShortClassOnly.php"
     ],
-    "exclude-composer-files": false,
-    "force-autodiscovery": true,
     "output": "tmp/typo3-rector.phar"
 }
