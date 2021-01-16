@@ -36,7 +36,7 @@ final class MethodReadLLFileToLocalizationFactoryRector extends AbstractRector
         }
 
         return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance',
-            [$this->createClassConstantReference(LocalizationFactory::class)]
+            [$this->createClassConstReference(LocalizationFactory::class)]
         ), 'getParsedData', $node->args);
     }
 

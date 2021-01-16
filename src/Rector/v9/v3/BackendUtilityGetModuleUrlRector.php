@@ -76,7 +76,7 @@ PHP
             $this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstantReference(UriBuilder::class)]
+                [$this->createClassConstReference(UriBuilder::class)]
             ),
             'buildUriFromRoute',
             $buildUriArguments

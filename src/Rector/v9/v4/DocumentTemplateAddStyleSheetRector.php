@@ -50,7 +50,7 @@ final class DocumentTemplateAddStyleSheetRector extends AbstractRector
             $this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstantReference(PageRenderer::class)]
+                [$this->createClassConstReference(PageRenderer::class)]
             ), 'addCssFile', [$href, $relation, 'screen', $title]);
     }
 

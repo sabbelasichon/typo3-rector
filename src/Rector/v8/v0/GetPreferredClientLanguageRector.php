@@ -42,7 +42,7 @@ final class GetPreferredClientLanguageRector extends AbstractRector
             $this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstantReference(Locales::class)]
+                [$this->createClassConstReference(Locales::class)]
             ),
             self::GET_PREFERRED_CLIENT_LANGUAGE,
             $node->args

@@ -76,7 +76,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             if (null === $methodName) {
                 return null;
             }
-            $classConstant = $this->createClassConstantReference(MarkerBasedTemplateService::class);
+            $classConstant = $this->createClassConstReference(MarkerBasedTemplateService::class);
             $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
             return $this->createMethodCall($staticCall, $methodName, $node->args);
         }
@@ -95,7 +95,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
                 $this->createStaticCall(
                     GeneralUtility::class,
                     'makeInstance',
-                    [$this->createClassConstantReference(MarkerBasedTemplateService::class)]
+                    [$this->createClassConstReference(MarkerBasedTemplateService::class)]
                 ),
                 self::FILL_IN_MARKER_ARRAY,
                 $node->args

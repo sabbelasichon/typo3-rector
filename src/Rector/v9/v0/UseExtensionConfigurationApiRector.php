@@ -73,7 +73,7 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
         }
 
         return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstantReference(ExtensionConfiguration::class),
+            $this->createClassConstReference(ExtensionConfiguration::class),
         ]), 'get', [$extensionConfiguration->dim]);
     }
 

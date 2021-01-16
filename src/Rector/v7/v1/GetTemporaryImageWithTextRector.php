@@ -40,7 +40,7 @@ final class GetTemporaryImageWithTextRector extends AbstractRector
             $this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstantReference(GraphicalFunctions::class)]
+                [$this->createClassConstReference(GraphicalFunctions::class)]
             ), 'getTemporaryImageWithText', $node->args
         );
     }

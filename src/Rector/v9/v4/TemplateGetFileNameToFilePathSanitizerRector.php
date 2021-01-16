@@ -133,7 +133,7 @@ PHP
     {
         return new Expression(new Assign($parentNode->var, $this->createMethodCall($this->createStaticCall(
             GeneralUtility::class, 'makeInstance',
-            [$this->createClassConstantReference(FilePathSanitizer::class)]
+            [$this->createClassConstReference(FilePathSanitizer::class)]
         ), 'sanitize', [$filePath])));
     }
 
@@ -147,7 +147,7 @@ PHP
         $makeInstanceOfTimeTracker = $this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [$this->createClassConstantReference(TimeTracker::class)]
+            [$this->createClassConstReference(TimeTracker::class)]
         );
 
         return new Expression($this->createMethodCall($makeInstanceOfTimeTracker, 'setTSlogMessage', [

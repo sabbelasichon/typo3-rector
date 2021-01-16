@@ -52,7 +52,7 @@ final class UseRootlineUtilityInsteadOfGetRootlineMethodRector extends AbstractR
             $this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstantReference(RootlineUtility::class), $node->args[0], $mountPointParameter]
+                [$this->createClassConstReference(RootlineUtility::class), $node->args[0], $mountPointParameter]
             ),
             'get'
         );

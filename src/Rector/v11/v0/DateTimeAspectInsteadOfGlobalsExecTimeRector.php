@@ -54,7 +54,7 @@ final class DateTimeAspectInsteadOfGlobalsExecTimeRector extends AbstractRector
             $this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstantReference(Context::class)]
+                [$this->createClassConstReference(Context::class)]
             ),
             'getPropertyFromAspect',
             ['date', 'timestamp']

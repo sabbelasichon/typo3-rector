@@ -185,7 +185,7 @@ PHP
                 $this->createMethodCall(
                     $this->createStaticCall(
                         GeneralUtility::class, 'makeInstance', [
-                            $this->createClassConstantReference(ErrorController::class),
+                            $this->createClassConstReference(ErrorController::class),
                         ]
                     ),
                     self::MAP_METHODS[$methodCall],
@@ -270,7 +270,7 @@ PHP
                 $this->createMethodCall($this->createStaticCall(
                     GeneralUtility::class,
                     'makeInstance',
-                    [$this->createClassConstantReference(ErrorPageController::class)]
+                    [$this->createClassConstReference(ErrorPageController::class)]
                 ), 'errorAction', ['Page Not Found', $message]),
             ]);
         }

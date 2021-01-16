@@ -18,7 +18,7 @@ trait ConnectionCallTrait
     private function createConnectionCall(Arg $firstArgument): Assign
     {
         $connection = $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstantReference(ConnectionPool::class),
+            $this->createClassConstReference(ConnectionPool::class),
         ]), 'getConnectionForTable', [$this->createArg($firstArgument->value)]);
 
         return new Assign(new Variable('connection'), $connection);

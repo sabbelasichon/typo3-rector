@@ -37,7 +37,7 @@ final class UseAddJsFileInsteadOfLoadJavascriptLibRector extends AbstractRector
         }
 
         return $this->createMethodCall($this->createStaticCall(
-            GeneralUtility::class, 'makeInstance', [$this->createClassConstantReference(PageRenderer::class)]
+            GeneralUtility::class, 'makeInstance', [$this->createClassConstReference(PageRenderer::class)]
         ), 'addJsFile', $node->args);
     }
 

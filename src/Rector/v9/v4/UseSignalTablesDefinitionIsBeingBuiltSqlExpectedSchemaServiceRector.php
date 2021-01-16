@@ -44,7 +44,7 @@ final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector 
             return null;
         }
 
-        $node->args[0]->value = $this->createClassConstantReference(SqlExpectedSchemaService::class);
+        $node->args[0]->value = $this->createClassConstReference(SqlExpectedSchemaService::class);
 
         return null;
     }

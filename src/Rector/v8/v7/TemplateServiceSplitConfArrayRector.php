@@ -41,7 +41,7 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
             $this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstantReference(TypoScriptService::class)]
+                [$this->createClassConstReference(TypoScriptService::class)]
             ),
             'explodeConfigurationForOptionSplit',
             $node->args

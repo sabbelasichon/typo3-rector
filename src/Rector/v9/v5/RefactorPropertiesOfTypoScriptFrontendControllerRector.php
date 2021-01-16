@@ -64,7 +64,7 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
         }
 
         $contextInstanceNode = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstantReference(Context::class),
+            $this->createClassConstReference(Context::class),
         ]);
 
         if ($this->isName($node->name, 'ADMCMD_preview_BEUSER_uid')) {

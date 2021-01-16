@@ -111,7 +111,7 @@ PHP
     private function createCacheManager(): StaticCall
     {
         return $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstantReference(CacheManager::class),
+            $this->createClassConstReference(CacheManager::class),
         ]);
     }
 
