@@ -80,7 +80,7 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
 
         return $this->createMethodCall(
             $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstantReference(Context::class),
+                $this->createClassConstReference(Context::class),
             ]), 'getAspect', ['language']),
             $methodCall
         );

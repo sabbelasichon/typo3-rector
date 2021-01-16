@@ -66,7 +66,7 @@ final class UseContextApiRector extends AbstractRector
         $propertyName = $this->getName($node->name);
 
         $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstantReference(Context::class),
+            $this->createClassConstReference(Context::class),
         ]);
 
         $contextCall = $this->createMethodCall($staticCall, 'getPropertyFromAspect');

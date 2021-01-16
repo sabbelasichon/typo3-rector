@@ -170,7 +170,7 @@ PHP
                 new Variable(self::RELEVANT_PARAMETERS_FOR_CACHING_FROM_PAGE_ARGUMENTS),
                 $this->createMethodCall($this->createStaticCall(
                     GeneralUtility::class, 'makeInstance', [
-                        $this->createClassConstantReference(CacheHashCalculator::class),
+                        $this->createClassConstReference(CacheHashCalculator::class),
                     ]
                 ), 'getRelevantParameters', [
                     $this->createStaticCall(HttpUtility::class, 'buildQueryString', [new Variable(self::QUERY_PARAMS)]),

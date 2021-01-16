@@ -44,7 +44,7 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
             $this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstantReference(PageRepository::class)]
+                [$this->createClassConstReference(PageRepository::class)]
             ),
             'enableFields',
             $node->args

@@ -127,7 +127,7 @@ PHP
 
             $queryBuilder = $this->createMethodCall($this->createStaticCall(GeneralUtility::class,
                 self::MAKE_INSTANCE,
-                [$this->createClassConstantReference(ConnectionPool::class)]
+                [$this->createClassConstReference(ConnectionPool::class)]
             ), 'getQueryBuilderForTable', [$table]);
         } else {
             $queryBuilder = $queryBuilderArgument->value;
@@ -164,7 +164,7 @@ PHP
             ), 'add', [
                 $this->createStaticCall(GeneralUtility::class,
                     self::MAKE_INSTANCE,
-                    [$this->createClassConstantReference(BackendWorkspaceRestriction::class)]
+                    [$this->createClassConstReference(BackendWorkspaceRestriction::class)]
                 ),
             ]
         );
@@ -188,7 +188,7 @@ PHP
             'add', [
                 $this->createStaticCall(GeneralUtility::class,
                     self::MAKE_INSTANCE,
-                    [$this->createClassConstantReference(DeletedRestriction::class)]
+                    [$this->createClassConstReference(DeletedRestriction::class)]
                 ),
             ]
         );

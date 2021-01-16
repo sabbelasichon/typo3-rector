@@ -132,7 +132,7 @@ PHP
                 $this->createStaticCall(
                     GeneralUtility::class,
                     'makeInstance',
-                    [$this->createClassConstantReference(CharsetConverter::class)]
+                    [$this->createClassConstReference(CharsetConverter::class)]
                 )
             )
         );

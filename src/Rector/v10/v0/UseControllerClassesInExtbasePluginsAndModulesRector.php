@@ -136,7 +136,7 @@ PHP
                 continue;
             }
             $arrayItem = new ArrayItem(BuilderHelpers::normalizeValue($actionsList));
-            $arrayItem->key = $this->createClassConstantReference(
+            $arrayItem->key = $this->createClassConstReference(
                 $this->getControllerClassName($vendorName, $extensionName, '', $controllerClassName)
             );
 

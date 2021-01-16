@@ -110,10 +110,10 @@ PHP
     public function createCallForFetchingProperty(): MethodCall
     {
         $staticCallContext = $this->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
-            $this->createClassConstantReference(Context::class),
+            $this->createClassConstReference(Context::class),
         ]);
         $staticCallAspect = $this->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
-            $this->createClassConstantReference(TypoScriptAspect::class),
+            $this->createClassConstReference(TypoScriptAspect::class),
             new ConstFetch(new Name('true')),
         ]);
 
@@ -128,10 +128,10 @@ PHP
     public function createCallForSettingProperty(): MethodCall
     {
         $staticCallContext = $this->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
-            $this->createClassConstantReference(Context::class),
+            $this->createClassConstReference(Context::class),
         ]);
         $staticCallAspect = $this->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
-            $this->createClassConstantReference(TypoScriptAspect::class),
+            $this->createClassConstReference(TypoScriptAspect::class),
             new ConstFetch(new Name('true')),
         ]);
         $contextCall = $this->createMethodCall($staticCallContext, 'setAspect');

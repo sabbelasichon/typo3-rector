@@ -175,7 +175,7 @@ PHP
         return new Expression(new Assign(new Variable(self::MAIL), $this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [$this->createClassConstantReference(MailMessage::class)]
+            [$this->createClassConstReference(MailMessage::class)]
         )));
     }
 

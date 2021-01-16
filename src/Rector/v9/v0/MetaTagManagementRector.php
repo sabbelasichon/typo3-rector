@@ -152,7 +152,7 @@ PHP
         }
 
         return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstantReference(PageRenderer::class),
+            $this->createClassConstReference(PageRenderer::class),
         ]), 'setMetaTag', ['http-equiv', 'X-UA-Compatible', $value]);
     }
 }

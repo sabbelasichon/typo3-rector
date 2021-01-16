@@ -123,13 +123,13 @@ PHP
 
         if ($this->isName($node->name, 'csConvObj')) {
             return $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstantReference(CharsetConverter::class),
+                $this->createClassConstReference(CharsetConverter::class),
             ]);
         }
 
         if ($this->isName($node->name, 'parserFactory')) {
             return $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstantReference(LocalizationFactory::class),
+                $this->createClassConstReference(LocalizationFactory::class),
             ]);
         }
 

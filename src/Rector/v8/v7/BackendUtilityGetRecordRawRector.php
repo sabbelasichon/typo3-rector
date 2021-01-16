@@ -100,7 +100,7 @@ PHP
             $this->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstantReference(ConnectionPool::class)]
+                [$this->createClassConstReference(ConnectionPool::class)]
             ),
             'getQueryBuilderForTable',
             [$this->createArg($firstArgument->value)]

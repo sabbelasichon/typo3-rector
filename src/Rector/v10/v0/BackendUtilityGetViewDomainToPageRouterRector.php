@@ -40,7 +40,7 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
 
         $siteNode = new Assign(new Variable('site'), $this->createMethodCall(
             $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstantReference(SiteFinder::class),
+                $this->createClassConstReference(SiteFinder::class),
             ]),
             'getSiteByPageId',
             $node->args

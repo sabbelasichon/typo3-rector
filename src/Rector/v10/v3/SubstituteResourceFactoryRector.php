@@ -36,7 +36,7 @@ final class SubstituteResourceFactoryRector extends AbstractRector
         return $this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [$this->createClassConstantReference(ResourceFactory::class)]
+            [$this->createClassConstReference(ResourceFactory::class)]
         );
     }
 

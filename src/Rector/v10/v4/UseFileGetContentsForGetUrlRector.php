@@ -52,7 +52,7 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
             return $this->createMethodCall(
                 $this->createMethodCall(
                     $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                        $this->createClassConstantReference(RequestFactory::class),
+                        $this->createClassConstReference(RequestFactory::class),
                     ]), 'request', $node->args),
                     'getBody'
                 ),

@@ -53,7 +53,7 @@ PHP
 
         return $this->createMethodCall(
             $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstantReference(ShortcutRepository::class),
+                $this->createClassConstReference(ShortcutRepository::class),
             ]),
             'shortcutExists',
             $node->args

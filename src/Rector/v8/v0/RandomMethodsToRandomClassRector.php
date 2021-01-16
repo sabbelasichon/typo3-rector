@@ -43,7 +43,7 @@ final class RandomMethodsToRandomClassRector extends AbstractRector
         $randomClass = $this->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [$this->createClassConstantReference(Random::class)]
+            [$this->createClassConstReference(Random::class)]
         );
 
         if ($this->isName($node->name, self::GENERATE_RANDOM_BYTES)) {
