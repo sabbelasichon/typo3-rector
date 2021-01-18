@@ -57,33 +57,30 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
             return null;
         }
 
-        $methodCall = null;
+        $property = null;
 
         switch ($this->getName($node->name)) {
             case 'sys_language_uid':
-                $methodCall = 'getId';
+                $property = 'id';
                 break;
             case 'sys_language_content':
-                $methodCall = 'getContentId';
+                $property = 'contentId';
                 break;
             case 'sys_language_contentOL':
-                $methodCall = 'getLegacyOverlayType';
+                $property = 'legacyOverlayType';
                 break;
             case 'sys_language_mode':
-                $methodCall = 'getLegacyLanguageMode';
+                $property = 'legacyLanguageMode';
                 break;
         }
 
-        if (null === $methodCall) {
+        if (null === $property) {
             return null;
         }
 
-        return $this->createMethodCall(
-            $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstReference(Context::class),
-            ]), 'getAspect', ['language']),
-            $methodCall
-        );
+        return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
+            $this->createClassConstReference(Context::class),
+        ]), 'getPropertyFromAspect', ['language', $property]);
     }
 
     /**
@@ -100,7 +97,7 @@ PHP
                 <<<'PHP'
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-$languageUid = GeneralUtility::makeInstance(Context::class)->getAspect('language')->getId();
+$languageUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id');
 PHP
             ),
         ]);

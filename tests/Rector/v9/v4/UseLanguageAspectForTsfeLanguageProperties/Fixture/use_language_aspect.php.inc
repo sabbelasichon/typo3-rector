@@ -39,20 +39,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-$languageId = GeneralUtility::makeInstance(Context::class)->getAspect('language')->getId();
-$languageContent = GeneralUtility::makeInstance(Context::class)->getAspect('language')->getContentId();
-$languageContentOl = GeneralUtility::makeInstance(Context::class)->getAspect('language')->getLegacyOverlayType();
-$languageMode = GeneralUtility::makeInstance(Context::class)->getAspect('language')->getLegacyLanguageMode();
+$languageId = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id');
+$languageContent = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'contentId');
+$languageContentOl = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'legacyOverlayType');
+$languageMode = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'legacyLanguageMode');
 
 /** @var TypoScriptFrontendController $typoScriptFrontendController */
 $typoScriptFrontendController = $GLOBALS['TSFE'];
-$languageContentOl = GeneralUtility::makeInstance(Context::class)->getAspect('language')->getLegacyOverlayType();
+$languageContentOl = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'legacyOverlayType');
 
 class MyClass
 {
     public function __construct()
     {
-        $languageId = GeneralUtility::makeInstance(Context::class)->getAspect('language')->getId();
+        $languageId = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id');
     }
 
     /**
