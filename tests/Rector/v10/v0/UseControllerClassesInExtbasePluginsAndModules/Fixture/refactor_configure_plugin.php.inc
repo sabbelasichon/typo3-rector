@@ -6,6 +6,14 @@ use TYPO3\CMS\Form\Controller\FormFrontendController;
 $_EXTKEY = 'Form';
 
 ExtensionUtility::configurePlugin(
+    'TICH.TichPinacoteca',
+    'Foo',
+    ['Mostra' => 'render, perform'],
+    [],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
+
+ExtensionUtility::configurePlugin(
     'TYPO3.CMS.'.$_EXTKEY,
     'Formframework',
     ['FormFrontend' => 'render, perform'],
@@ -76,6 +84,14 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Form\Controller\FormFrontendController;
 
 $_EXTKEY = 'Form';
+
+ExtensionUtility::configurePlugin(
+    'TichPinacoteca',
+    'Foo',
+    [\TICH\TichPinacoteca\Controller\MostraController::class => 'render, perform'],
+    [],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
 
 ExtensionUtility::configurePlugin(
     'Form',

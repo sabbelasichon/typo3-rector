@@ -188,7 +188,7 @@ PHP
     private function prepareExtensionName(string $extensionName, int $delimiterPosition): string
     {
         $extensionName = substr($extensionName, $delimiterPosition + 1);
-        return str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($extensionName))));
+        return str_replace(' ', '', ucwords(str_replace('_', ' ', $extensionName)));
     }
 
     private function prepareVendorName(string $extensionName, int $delimiterPosition): string
