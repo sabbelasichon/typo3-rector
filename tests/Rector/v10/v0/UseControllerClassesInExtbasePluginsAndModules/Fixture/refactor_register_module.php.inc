@@ -31,7 +31,10 @@ ExtensionUtility::registerModule(
     'system',
     'tx_Beuser',
     'top',
-    [BackendUserController::class => 'index, addToCompareList, removeFromCompareList, compare, online, terminateBackendUserSession', BackendUserGroupController::class => 'index'],
+    [
+        BackendUserController::class => 'index, addToCompareList, removeFromCompareList, compare, online, terminateBackendUserSession',
+        BackendUserGroupController::class => 'index'
+    ],
     [
         'access' => 'admin',
         'icon' => 'EXT:beuser/Resources/Public/Icons/module-beuser.svg',

@@ -29,7 +29,7 @@ ExtensionUtility::configurePlugin(
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'FriendsOfTYPO3.tt_address',
     'ListView',
     [
@@ -37,7 +37,7 @@ ExtensionUtility::configurePlugin(
     ]
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'FriendsOfTYPO3.tt_address',
     'ListView',
     [
@@ -46,6 +46,14 @@ ExtensionUtility::configurePlugin(
     [
         'Address' => '',
     ]
+);
+
+ExtensionUtility::configurePlugin(
+    'TYPO3.CMS.form',
+    'Formframework',
+    [FormFrontendController::class => 'render, perform'],
+    [FormFrontendController::class => 'perform'],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 call_user_func(
@@ -96,14 +104,28 @@ ExtensionUtility::configurePlugin(
 ExtensionUtility::configurePlugin(
     'TtAddress',
     'ListView',
-    [\FriendsOfTYPO3\TtAddress\Controller\AddressController::class => 'list,show']
+    [
+        \FriendsOfTYPO3\TtAddress\Controller\AddressController::class => 'list,show',
+    ]
 );
 
 ExtensionUtility::configurePlugin(
     'TtAddress',
     'ListView',
-    [\FriendsOfTYPO3\TtAddress\Controller\AddressController::class => 'list,show'],
-    [\FriendsOfTYPO3\TtAddress\Controller\AddressController::class => '']
+    [
+        \FriendsOfTYPO3\TtAddress\Controller\AddressController::class => 'list,show',
+    ],
+    [
+        \FriendsOfTYPO3\TtAddress\Controller\AddressController::class => '',
+    ]
+);
+
+ExtensionUtility::configurePlugin(
+    'Form',
+    'Formframework',
+    [FormFrontendController::class => 'render, perform'],
+    [FormFrontendController::class => 'perform'],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 call_user_func(
