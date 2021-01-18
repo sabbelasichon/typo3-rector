@@ -3160,7 +3160,7 @@ Use LanguageAspect instead of language properties of TSFE
 -$languageUid = $GLOBALS['TSFE']->sys_language_uid;
 +use TYPO3\CMS\Core\Context\Context;
 +use TYPO3\CMS\Core\Utility\GeneralUtility;
-+$languageUid = GeneralUtility::makeInstance(Context::class)->getAspect('language')->getId();
++$languageUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id');
 ```
 
 <br>
