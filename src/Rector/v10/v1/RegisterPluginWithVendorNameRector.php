@@ -91,7 +91,7 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
             return null;
         }
 
-        $extensionName = substr($extensionName, $delimiterPosition + 1);
+        $extensionName = $this->prepareExtensionName($extensionName, $delimiterPosition);
         $node->args[0] = $this->createArg($extensionName);
         return $node;
     }
@@ -106,5 +106,11 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
             return false;
         }
         return $this->isNames($extensionNameArgumentValue->right, ['_EXTKEY', 'extensionKey']);
+    }
+
+    private function prepareExtensionName(string $extensionName, int $delimiterPosition): string
+    {
+        $extensionName = substr($extensionName, $delimiterPosition + 1);
+        return str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($extensionName))));
     }
 }
