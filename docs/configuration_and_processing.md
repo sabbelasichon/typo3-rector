@@ -56,13 +56,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::SKIP, [
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
-            'class.ext_update.php',
             'ext_localconf.php',
             'ext_emconf.php',
             'ext_tables.php',
             __DIR__ . '/**/TCA/*',
             __DIR__ . '/**/Configuration/RequestMiddlewares.php',
             __DIR__ . '/**/Configuration/Commands.php',
+            __DIR__ . '/**/Configuration/AjaxRoutes.php',
             __DIR__ . '/**/Configuration/Extbase/Persistence/Classes.php',
         ],
     ]);
