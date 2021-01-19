@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v10\v0;
 
-use PhpParser\BuilderHelpers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -126,45 +125,52 @@ PHP
     }
 
     private function createNewControllerActionsArray(
-        array $controllerActions,
+        Array_ $controllerActions,
         string $vendorName,
         string $extensionName
-    ): Array_ {
-        $modifiedControllerActions = new Array_();
-        foreach ($controllerActions as $controllerClassName => $actionsList) {
+    ): void {
+        foreach ($controllerActions->items as $controllerActions) {
+            if (! $controllerActions instanceof ArrayItem) {
+                continue;
+            }
+
+            if (null === $controllerActions->key) {
+                continue;
+            }
+
+            $controllerClassName = $this->getValue($controllerActions->key);
+
+            if (null === $controllerClassName) {
+                continue;
+            }
+
+            // If already transformed
             if (class_exists($controllerClassName)) {
                 continue;
             }
-            $arrayItem = new ArrayItem(BuilderHelpers::normalizeValue($actionsList));
-            $arrayItem->key = $this->createClassConstReference(
-                $this->getControllerClassName($vendorName, $extensionName, '', $controllerClassName)
-            );
 
-            $modifiedControllerActions->items[] = $arrayItem;
+            $controllerActions->key = $this->createClassConstReference(
+                    $this->getControllerClassName($vendorName, $extensionName, '', $controllerClassName)
+                );
         }
-
-        return $modifiedControllerActions;
     }
 
     private function refactorConfigurePluginMethod(StaticCall $node, string $vendorName, string $extensionName): void
     {
-        $controllerActions = $this->getValue($node->args[2]->value);
-        $node->args[2]->value = $this->createNewControllerActionsArray($controllerActions, $vendorName, $extensionName);
+        if (isset($node->args[2]) && $node->args[2]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($node->args[2]->value, $vendorName, $extensionName);
+        }
 
-        if (isset($node->args[3])) {
-            $nonCacheableControllerActions = $this->getValue($node->args[3]->value);
-            $node->args[3]->value = $this->createNewControllerActionsArray(
-                $nonCacheableControllerActions,
-                $vendorName,
-                $extensionName
-            );
+        if (isset($node->args[3]) && $node->args[3]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($node->args[3]->value, $vendorName, $extensionName);
         }
     }
 
     private function refactorRegisterPluginMethod(StaticCall $node, string $vendorName, string $extensionName): void
     {
-        $controllerActions = $this->getValue($node->args[4]->value);
-        $node->args[4]->value = $this->createNewControllerActionsArray($controllerActions, $vendorName, $extensionName);
+        if (isset($node->args[4]) && $node->args[4]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($node->args[4]->value, $vendorName, $extensionName);
+        }
     }
 
     private function isPotentiallyUndefinedExtensionKeyVariable(Concat $extensionNameArgumentValue): bool
@@ -182,7 +188,7 @@ PHP
     private function prepareExtensionName(string $extensionName, int $delimiterPosition): string
     {
         $extensionName = substr($extensionName, $delimiterPosition + 1);
-        return str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($extensionName))));
+        return str_replace(' ', '', ucwords(str_replace('_', ' ', $extensionName)));
     }
 
     private function prepareVendorName(string $extensionName, int $delimiterPosition): string
