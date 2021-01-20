@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -82,9 +83,12 @@ PHP
             return false;
         }
 
-        if ($this->isObjectType($node->var, 'PageRepository')) {
+        $node->var->setAttribute(AttributeKey::PHP_DOC_INFO, $node->getAttribute(AttributeKey::PHP_DOC_INFO));
+
+        if ($this->isObjectType($node->var, PageRepository::class)) {
             return false;
         }
+
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
             $node,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,

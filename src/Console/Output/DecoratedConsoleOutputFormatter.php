@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Console\Output;
 
 use Nette\Utils\Strings;
+use PHPStan\PhpDocParser\Lexer\Lexer;
+use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Contract\Output\OutputFormatterInterface;
@@ -59,13 +61,19 @@ final class DecoratedConsoleOutputFormatter implements OutputFormatterInterface
      */
     private $parameterProvider;
 
+    /**
+     * @var Lexer
+     */
+    private $lexer;
+
     public function __construct(
         OutputFormatterInterface $consoleOutputFormatter,
         BetterStandardPrinter $betterStandardPrinter,
         Configuration $configuration,
         SymfonyStyle $symfonyStyle,
         BetterPhpDocParser $betterPhpDocParser,
-        ParameterProvider $parameterProvider
+        ParameterProvider $parameterProvider,
+        Lexer $lexer
     ) {
         $this->symfonyStyle = $symfonyStyle;
         $this->betterStandardPrinter = $betterStandardPrinter;
@@ -73,6 +81,7 @@ final class DecoratedConsoleOutputFormatter implements OutputFormatterInterface
         $this->consoleOutputFormatter = $consoleOutputFormatter;
         $this->betterPhpDocParser = $betterPhpDocParser;
         $this->parameterProvider = $parameterProvider;
+        $this->lexer = $lexer;
     }
 
     public function report(ErrorAndDiffCollector $errorAndDiffCollector): void
@@ -163,7 +172,9 @@ final class DecoratedConsoleOutputFormatter implements OutputFormatterInterface
                         if (! is_string($rectorReflection->getDocComment())) {
                             continue;
                         }
-                        $phpDocNode = $this->betterPhpDocParser->parseString($rectorReflection->getDocComment());
+                        $tokens = $this->lexer->tokenize($rectorReflection->getDocComment());
+                        $tokenIterator = new TokenIterator($tokens);
+                        $phpDocNode = $this->betterPhpDocParser->parse($tokenIterator);
                         $seeTags = $phpDocNode->getTagsByName('@see');
 
                         if (count($seeTags) > 0) {

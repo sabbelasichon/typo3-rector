@@ -8,8 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\NodeFactory\HelperArgumentAssignFactory;
 use Ssch\TYPO3Rector\NodeFactory\InitializeArgumentsClassMethodFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -32,12 +32,19 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
      */
     private $initializeArgumentsClassMethodFactory;
 
+    /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+
     public function __construct(
         HelperArgumentAssignFactory $helperArgumentAssignFactory,
-        InitializeArgumentsClassMethodFactory $initializeArgumentsClassMethodFactory
+        InitializeArgumentsClassMethodFactory $initializeArgumentsClassMethodFactory,
+        PhpDocTagRemover $phpDocTagRemover
     ) {
         $this->helperArgumentAssignFactory = $helperArgumentAssignFactory;
         $this->initializeArgumentsClassMethodFactory = $initializeArgumentsClassMethodFactory;
+        $this->phpDocTagRemover = $phpDocTagRemover;
     }
 
     /**
@@ -111,10 +118,11 @@ CODE_SAMPLE
     private function removeParamTags(ClassMethod $classMethod): void
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNode($classMethod);
         if (null === $phpDocInfo) {
             return;
         }
-        $phpDocInfo->removeByName('param');
+
+        $this->phpDocTagRemover->removeByName($phpDocInfo, 'param');
     }
 }

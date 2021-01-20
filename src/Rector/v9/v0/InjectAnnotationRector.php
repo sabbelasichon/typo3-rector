@@ -15,9 +15,9 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Nop;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Renaming\ValueObject\RenameAnnotation;
+use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -39,6 +39,22 @@ final class InjectAnnotationRector extends AbstractRector
     private const NEW_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\Inject';
 
     /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+
+    /**
+     * @var DocBlockTagReplacer
+     */
+    private $docBlockTagReplacer;
+
+    public function __construct(PhpDocTagRemover $phpDocTagRemover, DocBlockTagReplacer $docBlockTagReplacer)
+    {
+        $this->phpDocTagRemover = $phpDocTagRemover;
+        $this->docBlockTagReplacer = $docBlockTagReplacer;
+    }
+
+    /**
      * @return string[]
      */
     public function getNodeTypes(): array
@@ -55,7 +71,7 @@ final class InjectAnnotationRector extends AbstractRector
         $properties = $node->getProperties();
         foreach ($properties as $property) {
             /** @var PhpDocInfo|null $propertyPhpDocInfo */
-            $propertyPhpDocInfo = $property->getAttribute(AttributeKey::PHP_DOC_INFO);
+            $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
             if (null === $propertyPhpDocInfo) {
                 continue;
             }
@@ -64,9 +80,10 @@ final class InjectAnnotationRector extends AbstractRector
             }
             // If the property is public, then change the annotation name
             if ($property->isPublic()) {
-                $this->docBlockManipulator->replaceAnnotationInNode(
-                    $property,
-                    new RenameAnnotation('', self::OLD_ANNOTATION, self::NEW_ANNOTATION)
+                $this->docBlockTagReplacer->replaceTagByAnother(
+                    $propertyPhpDocInfo,
+                    self::OLD_ANNOTATION,
+                    self::NEW_ANNOTATION
                 );
                 continue;
             }
@@ -80,7 +97,7 @@ final class InjectAnnotationRector extends AbstractRector
             }
 
             // Remove the old annotation and use setterInjection instead
-            $propertyPhpDocInfo->removeByName(self::OLD_ANNOTATION);
+            $this->phpDocTagRemover->removeByName($propertyPhpDocInfo, self::OLD_ANNOTATION);
 
             if ($varType instanceof FullyQualifiedObjectType) {
                 $paramBuilder->setType(new FullyQualified($varType->getClassName()));

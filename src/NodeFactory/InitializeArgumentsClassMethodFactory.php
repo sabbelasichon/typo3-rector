@@ -25,6 +25,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
 use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\Rector\AbstractRector\NameResolverTrait;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -69,18 +70,25 @@ final class InitializeArgumentsClassMethodFactory
      */
     private $paramTypeInferer;
 
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+
     public function __construct(
         BuilderFactory $builderFactory,
         NodeFactory $nodeFactory,
         NodeNameResolver $nodeNameResolver,
         StaticTypeMapper $staticTypeMapper,
-        ParamTypeInferer $paramTypeInferer
+        ParamTypeInferer $paramTypeInferer,
+        PhpDocInfoFactory $phpDocInfoFactory
     ) {
         $this->builderFactory = $builderFactory;
         $this->nodeFactory = $nodeFactory;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->paramTypeInferer = $paramTypeInferer;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
 
     public function decorateClass(Class_ $class): void
@@ -167,7 +175,7 @@ final class InitializeArgumentsClassMethodFactory
     private function getParamTagsByName(ClassMethod $classMethod): array
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $classMethod->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNode($classMethod);
         if (null === $phpDocInfo) {
             return [];
         }

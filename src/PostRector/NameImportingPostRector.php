@@ -7,12 +7,11 @@ namespace Ssch\TYPO3Rector\PostRector;
 use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
 use Rector\CodingStyle\Node\NameImporter;
 use Rector\Core\Configuration\Option;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
 use Rector\PostRector\Rector\AbstractPostRector;
@@ -61,18 +60,25 @@ final class NameImportingPostRector extends AbstractPostRector
      */
     private $currentFileInfoProvider;
 
+    /**
+     * @var PhpDocInfoFactory
+     */
+    private $phpDocInfoFactory;
+
     public function __construct(
         ParameterProvider $parameterProvider,
         NameImporter $nameImporter,
         DocBlockNameImporter $docBlockNameImporter,
         ClassNameImportSkipper $classNameImportSkipper,
-        CurrentFileInfoProvider $currentFileInfoProvider
+        CurrentFileInfoProvider $currentFileInfoProvider,
+        PhpDocInfoFactory $phpDocInfoFactory
     ) {
         $this->parameterProvider = $parameterProvider;
         $this->nameImporter = $nameImporter;
         $this->docBlockNameImporter = $docBlockNameImporter;
         $this->classNameImportSkipper = $classNameImportSkipper;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
 
     public function enterNode(Node $node): ?Node
@@ -95,16 +101,8 @@ final class NameImportingPostRector extends AbstractPostRector
             return null;
         }
 
-        /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
-        if (null === $phpDocInfo) {
-            return null;
-        }
-
-        $hasChanged = $this->docBlockNameImporter->importNames($phpDocInfo, $node);
-        if (! $hasChanged) {
-            return null;
-        }
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
+        $this->docBlockNameImporter->importNames($phpDocInfo, $node);
 
         return $node;
     }

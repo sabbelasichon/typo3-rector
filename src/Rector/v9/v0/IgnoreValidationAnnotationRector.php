@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -21,6 +21,16 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
      * @var string
      */
     private const OLD_ANNOTATION = 'ignorevalidation';
+
+    /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+
+    public function __construct(PhpDocTagRemover $phpDocTagRemover)
+    {
+        $this->phpDocTagRemover = $phpDocTagRemover;
+    }
 
     /**
      * @return string[]
@@ -36,7 +46,7 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
         if (null === $phpDocInfo) {
             return null;
         }
@@ -51,7 +61,7 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
 
         $tagName = '@TYPO3\CMS\Extbase\Annotation\IgnoreValidation("' . ltrim((string) $tagNode->value, '$') . '")';
         $phpDocInfo->addBareTag($tagName);
-        $phpDocInfo->removeByName(self::OLD_ANNOTATION);
+        $this->phpDocTagRemover->removeByName($phpDocInfo, self::OLD_ANNOTATION);
         return $node;
     }
 

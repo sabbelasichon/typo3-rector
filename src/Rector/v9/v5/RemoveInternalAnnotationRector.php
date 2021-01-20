@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
@@ -18,6 +18,16 @@ use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
  */
 final class RemoveInternalAnnotationRector extends AbstractRector
 {
+    /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+
+    public function __construct(PhpDocTagRemover $phpDocTagRemover)
+    {
+        $this->phpDocTagRemover = $phpDocTagRemover;
+    }
+
     /**
      * @return string[]
      */
@@ -35,11 +45,11 @@ final class RemoveInternalAnnotationRector extends AbstractRector
             return null;
         }
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
         if (null === $phpDocInfo) {
             return null;
         }
-        $phpDocInfo->removeByName('internal');
+        $this->phpDocTagRemover->removeByName($phpDocInfo, 'internal');
         return $node;
     }
 
