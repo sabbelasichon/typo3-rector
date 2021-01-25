@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
-use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\Equal;
@@ -16,6 +15,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Ssch\TYPO3Rector\Helper\FileHelperTrait;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -27,6 +27,8 @@ use TYPO3\CMS\Core\Http\ApplicationType;
  */
 final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
 {
+    use FileHelperTrait;
+
     /**
      * @return string[]
      */
@@ -104,16 +106,6 @@ defined('TYPO3') or die();
 PHP
             ),
         ]);
-    }
-
-    private function isExtLocalConf(SmartFileInfo $fileInfo): bool
-    {
-        return Strings::endsWith($fileInfo->getFilename(), 'ext_localconf.php');
-    }
-
-    private function isExtTables(SmartFileInfo $fileInfo): bool
-    {
-        return Strings::endsWith($fileInfo->getFilename(), 'ext_tables.php');
     }
 
     private function refactorProbablySecurityGate(Node $node): ?Node
