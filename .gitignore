@@ -1,6 +1,7 @@
 # Ignore all hidden files exept these.
 .*
 /var
+!.dockerignore
 !.github
 !/.gitignore
 !/.gitattributes

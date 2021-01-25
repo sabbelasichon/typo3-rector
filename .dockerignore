@@ -1,0 +1,15 @@
+*.md
+.*
+/box.*
+/captainhook.json
+/composer.lock
+/Dockerfile
+/docs
+/ecs.php
+/phpstan-baseline.neon
+/phpstan.neon
+/phpunit.xml
+/rector.php
+/tests
+/utils/phpstan/tests
+/vendor
