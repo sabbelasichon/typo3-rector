@@ -1,4 +1,4 @@
-# 175 Rules Overview
+# 176 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -376,6 +376,19 @@ Migrate fileResource method of class ContentObjectRenderer
 +if ($path !== null && file_exists($path)) {
 +    $template = file_get_contents($path);
 +}
+```
+
+<br>
+
+## ConvertTypo3ConfVarsRector
+
+Convert `$TYPO3_CONF_VARS` to `$GLOBALS['TYPO3_CONF_VARS']`
+
+- class: `Ssch\TYPO3Rector\Rector\General\ConvertTypo3ConfVarsRector`
+
+```diff
+-$TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_userauth.php']['postUserLookUp']['foo'] = 'FooBarBaz->handle';
++$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_userauth.php']['postUserLookUp']['foo'] = 'FooBarBaz->handle';
 ```
 
 <br>
