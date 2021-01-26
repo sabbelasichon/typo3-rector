@@ -8,9 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -31,6 +31,16 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
     private $oldToNewAnnotations = [];
 
     /**
+     * @var PhpDocTagRemover
+     */
+    private $phpDocTagRemover;
+
+    public function __construct(PhpDocTagRemover $phpDocTagRemover)
+    {
+        $this->phpDocTagRemover = $phpDocTagRemover;
+    }
+
+    /**
      * @return string[]
      */
     public function getNodeTypes(): array
@@ -44,7 +54,7 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
     public function refactor(Node $node): ?Node
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
         if (null === $phpDocInfo) {
             return null;
         }
@@ -52,7 +62,7 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
             if (! $phpDocInfo->hasByName($oldAnnotation)) {
                 continue;
             }
-            $phpDocInfo->removeByName($oldAnnotation);
+            $this->phpDocTagRemover->removeByName($phpDocInfo, $oldAnnotation);
             $phpDocInfo->addBareTag($newAnnotation);
         }
         return $node;
