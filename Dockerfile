@@ -29,8 +29,13 @@ COPY --from=composer /app /opt/typo3-rector
 ENV PATH="/opt/typo3-rector/bin:$PATH"
 
 RUN set -eux; \
-        chmod 777 -R /tmp; \
-        mkdir /tmp/opcache
+        runDeps="$( \
+            scanelf --needed --nobanner --format '%n#p' --recursive /usr/local/lib/php/extensions \
+                | tr ',' '\n' \
+                | sort -u \
+                | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+        )"; \
+        apk add --no-cache --virtual .phpext-rundeps $runDeps
 
 RUN set -eux; \
         docker-php-ext-enable \
@@ -47,21 +52,14 @@ RUN set -eux; \
             echo 'opcache.revalidate_freq=60'; \
         } >> $PHP_INI_DIR/conf.d/docker-php-ext-opcache.ini
 
-RUN set -eux; \
-        runDeps="$( \
-            scanelf --needed --nobanner --format '%n#p' --recursive /usr/local/lib/php/extensions \
-                | tr ',' '\n' \
-                | sort -u \
-                | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
-        )"; \
-        apk add --no-cache --virtual .phpext-rundeps $runDeps
-
 RUN apk add --no-cache tini
 
 RUN set -eux; \
+        mkdir /tmp/opcache; \
         php --version; \
-        typo3-rector --version; \
-        typo3-rector list
+        typo3-rector list; \
+        \
+        chmod 777 -R /tmp
 
 WORKDIR /app
 
