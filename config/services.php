@@ -13,7 +13,6 @@ use Ssch\TYPO3Rector\DependencyInjection\PHPStanServicesFactory;
 use Ssch\TYPO3Rector\Helper\Database\Refactorings\DatabaseConnectionToDbalRefactoring;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, true);
@@ -31,16 +30,30 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->alias(SymfonyApplication::class, Application::class);
 
     $services->set(ReflectionProvider::class)
-        ->factory([service(PHPStanServicesFactory::class), 'createReflectionProvider']);
+        ->factory(
+            [\Ssch\TYPO3Rector\Helper\DependencyInjection::service(
+                PHPStanServicesFactory::class
+            ), 'createReflectionProvider']
+        );
 
     $services->set(NodeScopeResolver::class)
-        ->factory([service(PHPStanServicesFactory::class), 'createNodeScopeResolver']);
+        ->factory(
+            [\Ssch\TYPO3Rector\Helper\DependencyInjection::service(
+                PHPStanServicesFactory::class
+            ), 'createNodeScopeResolver']
+        );
 
     $services->set(ScopeFactory::class)
-        ->factory([service(PHPStanServicesFactory::class), 'createScopeFactory']);
+        ->factory(
+            [\Ssch\TYPO3Rector\Helper\DependencyInjection::service(PHPStanServicesFactory::class), 'createScopeFactory']
+        );
 
     $services->set(TypeNodeResolver::class)
-        ->factory([service(PHPStanServicesFactory::class), 'createTypeNodeResolver']);
+        ->factory(
+            [\Ssch\TYPO3Rector\Helper\DependencyInjection::service(
+                PHPStanServicesFactory::class
+            ), 'createTypeNodeResolver']
+        );
 
     $services->load('Ssch\\TYPO3Rector\\', __DIR__ . '/../src')
         ->exclude(

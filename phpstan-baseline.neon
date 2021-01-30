@@ -9,3 +9,7 @@ parameters:
 			message: "#^Method Ssch\\\\TYPO3Rector\\\\Set\\\\Typo3RectorSetProvider\\:\\:hydrateSetsFromConstants\\(\\) has parameter \\$setListReflectionClass with generic class ReflectionClass but does not specify its types\\: T$#"
 			count: 1
 			path: src/Set/Typo3RectorSetProvider.php
+		- '#Function Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ref not found#'
+		- '#Function Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\service not found#'
+		- '#Used function Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ref not found#'
+		- '#Used function Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\service not found#'
