@@ -34,7 +34,6 @@
     "autoload-dev": {
         "psr-4": {
             "Ssch\\TYPO3Rector\\Generator\\": "utils/generator/src",
-            "Ssch\\TYPO3Rector\\Generator\\Tests\\": "utils/generator/tests",
             "Ssch\\TYPO3Rector\\Tests\\": "tests",
             "Ssch\\TYPO3Rector\\PHPStan\\Tests\\": "utils/phpstan/tests",
             "Ssch\\TYPO3Rector\\Rules\\Tests\\": "utils/rules/tests",
