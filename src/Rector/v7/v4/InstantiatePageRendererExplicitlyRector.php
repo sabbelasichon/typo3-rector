@@ -49,8 +49,8 @@ final class InstantiatePageRendererExplicitlyRector extends AbstractRector
             return null;
         }
 
-        return $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstReference(PageRenderer::class),
+        return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+            $this->nodeFactory->createClassConstReference(PageRenderer::class),
         ]);
     }
 

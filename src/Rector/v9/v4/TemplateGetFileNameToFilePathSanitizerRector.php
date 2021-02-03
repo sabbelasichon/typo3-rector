@@ -131,30 +131,34 @@ PHP
 
     private function createSanitizeMethod(Assign $parentNode, String_ $filePath): Expression
     {
-        return new Expression(new Assign($parentNode->var, $this->createMethodCall($this->createStaticCall(
-            GeneralUtility::class, 'makeInstance',
-            [$this->createClassConstReference(FilePathSanitizer::class)]
-        ), 'sanitize', [$filePath])));
+        return new Expression(new Assign($parentNode->var, $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(
+                GeneralUtility::class,
+                'makeInstance',
+                [$this->nodeFactory->createClassConstReference(FilePathSanitizer::class)]
+            ),
+            'sanitize',
+            [$filePath]
+        )));
     }
 
     private function createNullAssignment(Assign $parentNode): Expression
     {
-        return new Expression(new Assign($parentNode->var, $this->createNull()));
+        return new Expression(new Assign($parentNode->var, $this->nodeFactory->createNull()));
     }
 
     private function createTimeTrackerLogMessage(): Expression
     {
-        $makeInstanceOfTimeTracker = $this->createStaticCall(
+        $makeInstanceOfTimeTracker = $this->nodeFactory->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [$this->createClassConstReference(TimeTracker::class)]
+            [$this->nodeFactory->createClassConstReference(TimeTracker::class)]
         );
 
-        return new Expression($this->createMethodCall($makeInstanceOfTimeTracker, 'setTSlogMessage', [
-            $this->createMethodCall(new Variable('e'), 'getMessage'),
-            $this->createArg(3),
-        ]
-        ));
+        return new Expression($this->nodeFactory->createMethodCall($makeInstanceOfTimeTracker, 'setTSlogMessage', [
+            $this->nodeFactory->createMethodCall(new Variable('e'), 'getMessage'),
+            $this->nodeFactory->createArg(3),
+        ]));
     }
 
     /**
@@ -176,11 +180,13 @@ PHP
 
     private function createIfLog(): If_
     {
-        $ifNode = new If_($this->createPropertyFetch(
-            $this->createPropertyFetch(new ArrayDimFetch(
-                new Variable('GLOBALS'),
-                new ScalarString_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
-            ), 'tmpl'), 'tt_track'));
+        $ifNode = new If_($this->nodeFactory->createPropertyFetch(
+            $this->nodeFactory->createPropertyFetch(new ArrayDimFetch(
+            new Variable('GLOBALS'),
+            new ScalarString_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
+        ), 'tmpl'),
+            'tt_track'
+        ));
 
         $ifNode->stmts[] = $this->createTimeTrackerLogMessage();
 

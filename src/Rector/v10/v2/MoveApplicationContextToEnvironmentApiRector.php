@@ -36,7 +36,7 @@ final class MoveApplicationContextToEnvironmentApiRector extends AbstractRector
         if (! $this->isName($node->name, 'getApplicationContext')) {
             return null;
         }
-        return $this->createStaticCall(Environment::class, 'getContext', []);
+        return $this->nodeFactory->createStaticCall(Environment::class, 'getContext', []);
     }
 
     /**

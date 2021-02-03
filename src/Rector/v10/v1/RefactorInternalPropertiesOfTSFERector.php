@@ -125,7 +125,9 @@ PHP
     private function initializeEmptyArray(): Node
     {
         return new Expression(
-            new Assign(new Variable(self::RELEVANT_PARAMETERS_FOR_CACHING_FROM_PAGE_ARGUMENTS), $this->createArray([]))
+            new Assign(new Variable(
+                self::RELEVANT_PARAMETERS_FOR_CACHING_FROM_PAGE_ARGUMENTS
+            ), $this->nodeFactory->createArray([]))
         );
     }
 
@@ -139,7 +141,7 @@ PHP
         return new Expression(
             new Assign(
                 new Variable(self::QUERY_PARAMS),
-                $this->createMethodCall(new Variable(self::PAGE_ARGUMENTS), 'getDynamicArguments')
+                $this->nodeFactory->createMethodCall(new Variable(self::PAGE_ARGUMENTS), 'getDynamicArguments')
             )
         );
     }
@@ -151,10 +153,10 @@ PHP
                 new BooleanNot(new Empty_(new Variable(self::QUERY_PARAMS))),
                 new Coalesce(
                     new ArrayDimFetch(
-                        $this->createMethodCall(new Variable(self::PAGE_ARGUMENTS), 'getArguments'),
+                        $this->nodeFactory->createMethodCall(new Variable(self::PAGE_ARGUMENTS), 'getArguments'),
                         new String_(self::HASH)
                     ),
-                    $this->createFalse()
+                    $this->nodeFactory->createFalse()
                 )
             )
         );
@@ -162,19 +164,25 @@ PHP
         $ifNode->stmts[] = new Expression(
             new Assign(
                 new ArrayDimFetch(new Variable(self::QUERY_PARAMS), new String_('id')),
-                $this->createMethodCall(new Variable(self::PAGE_ARGUMENTS), 'getPageId')
+                $this->nodeFactory->createMethodCall(new Variable(self::PAGE_ARGUMENTS), 'getPageId')
             )
         );
         $ifNode->stmts[] = new Expression(
             new Assign(
                 new Variable(self::RELEVANT_PARAMETERS_FOR_CACHING_FROM_PAGE_ARGUMENTS),
-                $this->createMethodCall($this->createStaticCall(
-                    GeneralUtility::class, 'makeInstance', [
-                        $this->createClassConstReference(CacheHashCalculator::class),
+                $this->nodeFactory->createMethodCall(
+                    $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                        $this->nodeFactory->createClassConstReference(CacheHashCalculator::class),
+                    ]),
+                    'getRelevantParameters',
+                    [
+                        $this->nodeFactory->createStaticCall(
+                            HttpUtility::class,
+                            'buildQueryString',
+                            [new Variable(self::QUERY_PARAMS)]
+                        ),
                     ]
-                ), 'getRelevantParameters', [
-                    $this->createStaticCall(HttpUtility::class, 'buildQueryString', [new Variable(self::QUERY_PARAMS)]),
-                ])
+                )
             )
         );
 
@@ -195,22 +203,30 @@ PHP
 
     private function refactorCacheHash(): Node
     {
-        return new ArrayDimFetch($this->createMethodCall($this->createPageArguments(), 'getArguments'), new String_(
-            self::HASH
-        ));
+        return new ArrayDimFetch($this->nodeFactory->createMethodCall(
+            $this->createPageArguments(),
+            'getArguments'
+        ), new String_(self::HASH));
     }
 
     private function createPageArguments(): MethodCall
     {
-        return $this->createMethodCall(
-            new ArrayDimFetch(new Variable('GLOBALS'), new String_('REQUEST')), 'getAttribute', ['routing']
+        return $this->nodeFactory->createMethodCall(
+            new ArrayDimFetch(new Variable('GLOBALS'), new String_('REQUEST')),
+            'getAttribute',
+            ['routing']
         );
     }
 
     private function refactorDomainStartPage(): Node
     {
-        return $this->createMethodCall($this->createMethodCall(
-            new ArrayDimFetch(new Variable('GLOBALS'), new String_('REQUEST')), 'getAttribute', ['site']
-        ), 'getRootPageId');
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall(
+                new ArrayDimFetch(new Variable('GLOBALS'), new String_('REQUEST')),
+                'getAttribute',
+                ['site']
+            ),
+            'getRootPageId'
+        );
     }
 }

@@ -77,7 +77,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                     continue;
                 }
 
-                $configFieldName = $this->getValue($configValue->key);
+                $configFieldName = $this->valueResolver->getValue($configValue->key);
                 if ('config' !== $configFieldName) {
                     continue;
                 }
@@ -91,11 +91,11 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                         continue;
                     }
 
-                    if (! $this->isValue($configItemValue->key, 'softref')) {
+                    if (! $this->valueResolver->isValue($configItemValue->key, 'softref')) {
                         continue;
                     }
 
-                    $configItemValueValue = $this->getValue($configItemValue->value);
+                    $configItemValueValue = $this->valueResolver->getValue($configItemValue->value);
 
                     if (null === $configItemValueValue) {
                         continue;

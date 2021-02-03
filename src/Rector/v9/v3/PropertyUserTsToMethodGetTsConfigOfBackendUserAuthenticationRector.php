@@ -45,7 +45,7 @@ final class PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector e
             return null;
         }
 
-        return $this->createMethodCall($node->var, 'getTSConfig');
+        return $this->nodeFactory->createMethodCall($node->var, 'getTSConfig');
     }
 
     /**

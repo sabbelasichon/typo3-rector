@@ -58,7 +58,7 @@ PHP
 
         $requestHeadersArgumentValue = $node->args[2]->value;
 
-        $requestHeaders = $this->getValue($requestHeadersArgumentValue);
+        $requestHeaders = $this->valueResolver->getValue($requestHeadersArgumentValue);
 
         if (! is_array($requestHeaders)) {
             return null;
@@ -70,7 +70,7 @@ PHP
             return null;
         }
 
-        $newHeadersNode = $this->createArray($newHeaders);
+        $newHeadersNode = $this->nodeFactory->createArray($newHeaders);
 
         $node->args[2]->value = $newHeadersNode;
 

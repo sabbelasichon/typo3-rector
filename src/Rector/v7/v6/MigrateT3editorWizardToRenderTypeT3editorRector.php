@@ -114,7 +114,7 @@ PHP
                 continue;
             }
 
-            $fieldName = $this->getValue($fieldValue->key);
+            $fieldName = $this->valueResolver->getValue($fieldValue->key);
 
             if (null === $fieldName) {
                 continue;
@@ -142,7 +142,7 @@ PHP
                         continue;
                     }
 
-                    if (! $this->isValue($configItemValue->key, 'wizards')) {
+                    if (! $this->valueResolver->isValue($configItemValue->key, 'wizards')) {
                         continue;
                     }
 
@@ -164,7 +164,7 @@ PHP
                             continue;
                         }
 
-                        if (! $this->isValue($wizardItemValue->key, 't3editor')) {
+                        if (! $this->valueResolver->isValue($wizardItemValue->key, 't3editor')) {
                             continue;
                         }
 
@@ -180,17 +180,20 @@ PHP
                                 continue;
                             }
 
-                            if ($this->isValue($wizardItemSubValue->key, 'userFunc') && $this->isValue(
+                            if ($this->valueResolver->isValue(
+                                $wizardItemSubValue->key,
+                                'userFunc'
+                            ) && $this->valueResolver->isValue(
                                 $wizardItemSubValue->value,
                                 'TYPO3\CMS\T3editor\FormWizard->main'
                             )) {
                                 $isUserFunc = true;
-                            } elseif ($this->isValue($wizardItemSubValue->key, 'enableByTypeConfig') && $this->isValue(
-                                $wizardItemSubValue->value,
+                            } elseif ($this->valueResolver->isValue(
+                                $wizardItemSubValue->key,
                                 'enableByTypeConfig'
-                            )) {
+                            ) && $this->valueResolver->isValue($wizardItemSubValue->value, 'enableByTypeConfig')) {
                                 $enableByTypeConfig = true;
-                            } elseif ($wizardItemSubValue->value instanceof Array_ && $this->isValue(
+                            } elseif ($wizardItemSubValue->value instanceof Array_ && $this->valueResolver->isValue(
                                 $wizardItemSubValue->key,
                                 'params'
                             )) {
@@ -203,7 +206,7 @@ PHP
                                         continue;
                                     }
 
-                                    if ($this->isValue($paramsValue->key, 'format')) {
+                                    if ($this->valueResolver->isValue($paramsValue->key, 'format')) {
                                         $format = $paramsValue->value;
                                     }
                                 }

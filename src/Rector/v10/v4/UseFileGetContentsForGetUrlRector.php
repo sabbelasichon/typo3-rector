@@ -41,7 +41,7 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
             return null;
         }
 
-        $urlValue = $this->getValue($node->args[0]->value);
+        $urlValue = $this->valueResolver->getValue($node->args[0]->value);
 
         if (null === $urlValue) {
             return null;
@@ -49,18 +49,22 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
 
         // Cannot rewrite for external urls
         if (preg_match('#^(?:http|ftp)s?|s(?:ftp|cp):#', $urlValue)) {
-            return $this->createMethodCall(
-                $this->createMethodCall(
-                    $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                        $this->createClassConstReference(RequestFactory::class),
-                    ]), 'request', $node->args),
+            return $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createMethodCall(
+                    $this->nodeFactory->createMethodCall(
+                        $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                            $this->nodeFactory->createClassConstReference(RequestFactory::class),
+                        ]),
+                        'request',
+                        $node->args
+                    ),
                     'getBody'
                 ),
                 'getContents'
             );
         }
 
-        return new ErrorSuppress($this->createFuncCall('file_get_contents', $node->args));
+        return new ErrorSuppress($this->nodeFactory->createFuncCall('file_get_contents', $node->args));
     }
 
     /**

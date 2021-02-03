@@ -118,7 +118,7 @@ PHP
                 continue;
             }
 
-            $fieldName = $this->getValue($fieldValue->key);
+            $fieldName = $this->valueResolver->getValue($fieldValue->key);
 
             if (null === $fieldName) {
                 continue;
@@ -146,7 +146,7 @@ PHP
                         continue;
                     }
 
-                    if (! $this->isValue($configItemValue->key, 'wizards')) {
+                    if (! $this->valueResolver->isValue($configItemValue->key, 'wizards')) {
                         continue;
                     }
 
@@ -176,13 +176,15 @@ PHP
                                 continue;
                             }
 
-                            if ($this->isValue($wizardItemSubValue->key, 'icon') && $this->isValues(
-                                $wizardItemSubValue->value,
-                                $oldFileNames
-                            )) {
-                                $wizardItemSubValue->value = new String_($this->oldToNewFileLocations[$this->getValue(
+                            if ($this->valueResolver->isValue(
+                                $wizardItemSubValue->key,
+                                'icon'
+                            ) && $this->valueResolver->isValues($wizardItemSubValue->value, $oldFileNames)) {
+                                $wizardItemSubValue->value = new String_(
+                                    $this->oldToNewFileLocations[$this->valueResolver->getValue(
                                     $wizardItemSubValue->value
-                                )]);
+                                )]
+                                );
                             }
                         }
                     }

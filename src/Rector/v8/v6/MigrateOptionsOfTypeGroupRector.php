@@ -98,7 +98,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                         continue;
                     }
 
-                    if (! $this->isValues(
+                    if (! $this->valueResolver->isValues(
                         $configItemValue->key,
                         ['selectedListStyle', 'show_thumbs', 'disable_controls']
                     )) {
@@ -107,24 +107,27 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
 
                     $this->removeNode($configItemValue);
 
-                    $configItemValueValue = $this->getValue($configItemValue->value);
+                    $configItemValueValue = $this->valueResolver->getValue($configItemValue->value);
 
-                    if ($this->isValue($configItemValue->key, 'disable_controls') && is_string($configItemValueValue)) {
+                    if ($this->valueResolver->isValue($configItemValue->key, 'disable_controls') && is_string(
+                        $configItemValueValue
+                    )) {
                         $controls = GeneralUtility::trimExplode(',', $configItemValueValue, true);
                         foreach ($controls as $control) {
                             if ('browser' === $control) {
                                 $addFieldControls['elementBrowser'][self::DISABLED] = true;
                             } elseif ('delete' === $control) {
-                                $configValue->value->items[] = new ArrayItem($this->createTrue(), new String_(
-                                    'hideDeleteIcon'
-                                ));
+                                $configValue->value->items[] = new ArrayItem(
+                                    $this->nodeFactory->createTrue(),
+                                    new String_('hideDeleteIcon')
+                                );
                             } elseif ('allowedTables' === $control) {
                                 $addFieldWizards['tableList'][self::DISABLED] = true;
                             } elseif ('upload' === $control) {
                                 $addFieldWizards['fileUpload'][self::DISABLED] = true;
                             }
                         }
-                    } elseif ($this->isValue(
+                    } elseif ($this->valueResolver->isValue(
                         $configItemValue->key,
                         'show_thumbs'
                     ) && false === (bool) $configItemValueValue) {
@@ -137,15 +140,15 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                 }
 
                 if ([] !== $addFieldControls) {
-                    $configValue->value->items[] = new ArrayItem($this->createArray($addFieldControls), new String_(
-                        'fieldControl'
-                    ));
+                    $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                        $addFieldControls
+                    ), new String_('fieldControl'));
                 }
 
                 if ([] !== $addFieldWizards) {
-                    $configValue->value->items[] = new ArrayItem($this->createArray($addFieldWizards), new String_(
-                        'fieldWizard'
-                    ));
+                    $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                        $addFieldWizards
+                    ), new String_('fieldWizard'));
                 }
             }
         }

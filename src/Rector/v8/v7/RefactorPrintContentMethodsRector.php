@@ -40,10 +40,13 @@ final class RefactorPrintContentMethodsRector extends AbstractRector
 
         if ($this->isPageLayoutControllerClass($node)) {
             $newNode = new Echo_([
-                $this->createMethodCall($this->createMethodCall($node->var, 'getModuleTemplate'), 'renderContent'),
+                $this->nodeFactory->createMethodCall(
+                    $this->nodeFactory->createMethodCall($node->var, 'getModuleTemplate'),
+                    'renderContent'
+                ),
             ]);
         } else {
-            $newNode = new Echo_([$this->createPropertyFetch($node->var, 'content')]);
+            $newNode = new Echo_([$this->nodeFactory->createPropertyFetch($node->var, 'content')]);
         }
 
         try {

@@ -72,7 +72,7 @@ final class MoveLanguageFilesFromLocallangToResourcesRector extends AbstractRect
      */
     public function refactor(Node $node): ?Node
     {
-        $value = $this->getValue($node);
+        $value = $this->valueResolver->getValue($node);
 
         foreach (self::MAPPING_OLD_TO_NEW_PATHS as $oldPath => $newPath) {
             if (Strings::contains($value, $oldPath)) {

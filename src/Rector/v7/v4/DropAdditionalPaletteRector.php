@@ -88,11 +88,11 @@ final class DropAdditionalPaletteRector extends AbstractRector
                     continue;
                 }
 
-                if (! $this->isValue($typeItem->key, 'showitem')) {
+                if (! $this->valueResolver->isValue($typeItem->key, 'showitem')) {
                     continue;
                 }
 
-                $showItemValue = $this->getValue($typeItem->value);
+                $showItemValue = $this->valueResolver->getValue($typeItem->value);
 
                 if (
                     null === $showItemValue

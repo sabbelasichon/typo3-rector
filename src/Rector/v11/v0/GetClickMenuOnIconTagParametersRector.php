@@ -41,7 +41,7 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector
             return null;
         }
 
-        $returnTagParameters = isset($node->args[6]) ? $this->getValue($node->args[6]->value) : false;
+        $returnTagParameters = isset($node->args[6]) ? $this->valueResolver->getValue($node->args[6]->value) : false;
 
         if (null === $returnTagParameters) {
             return null;
@@ -52,7 +52,7 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector
             return $node;
         }
 
-        return $this->createStaticCall(BackendUtility::class, 'getClickMenuOnIconTagParameters', [
+        return $this->nodeFactory->createStaticCall(BackendUtility::class, 'getClickMenuOnIconTagParameters', [
             $node->args[0],
             $node->args[1],
             $node->args[2],

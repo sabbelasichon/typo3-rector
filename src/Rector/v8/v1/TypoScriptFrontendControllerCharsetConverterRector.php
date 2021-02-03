@@ -109,7 +109,7 @@ PHP
 
     private function refactorMethodCsConv(MethodCall $node): Node
     {
-        $from = isset($node->args[1]) ? $this->getValue($node->args[1]->value) : null;
+        $from = isset($node->args[1]) ? $this->valueResolver->getValue($node->args[1]->value) : null;
 
         if ('' === $from || 'null' === $from || null === $from) {
             return $node->args[0]->value;
@@ -117,9 +117,9 @@ PHP
 
         $this->addCharsetConverterNode($node);
 
-        return $this->createMethodCall(self::CHARSET_CONVERTER, 'conv', [
+        return $this->nodeFactory->createMethodCall(self::CHARSET_CONVERTER, 'conv', [
             $node->args[0],
-            $this->createMethodCall(self::CHARSET_CONVERTER, 'parse_charset', [$node->args[1]]),
+            $this->nodeFactory->createMethodCall(self::CHARSET_CONVERTER, 'parse_charset', [$node->args[1]]),
             'utf-8',
         ]);
     }
@@ -129,10 +129,10 @@ PHP
         $charsetConverterNode = new Expression(
             new Assign(
                 new Variable(self::CHARSET_CONVERTER),
-                $this->createStaticCall(
+                $this->nodeFactory->createStaticCall(
                     GeneralUtility::class,
                     'makeInstance',
-                    [$this->createClassConstReference(CharsetConverter::class)]
+                    [$this->nodeFactory->createClassConstReference(CharsetConverter::class)]
                 )
             )
         );
@@ -148,6 +148,6 @@ PHP
             return null;
         }
 
-        return $this->createMethodCall(self::CHARSET_CONVERTER, $methodName, $node->args);
+        return $this->nodeFactory->createMethodCall(self::CHARSET_CONVERTER, $methodName, $node->args);
     }
 }

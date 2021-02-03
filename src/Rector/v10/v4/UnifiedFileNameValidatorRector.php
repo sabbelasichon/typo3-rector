@@ -33,13 +33,17 @@ final class UnifiedFileNameValidatorRector extends AbstractRector
         }
 
         if ($node instanceof StaticCall && $this->isMethodVerifyFilenameAgainstDenyPattern($node)) {
-            return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstReference(FileNameValidator::class),
-            ]), 'isValid', $node->args);
+            return $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                    $this->nodeFactory->createClassConstReference(FileNameValidator::class),
+                ]),
+                'isValid',
+                $node->args
+            );
         }
 
         if ($this->isConstFileDenyPatternDefault($node)) {
-            return $this->createClassConstFetch(FileNameValidator::class, 'DEFAULT_FILE_DENY_PATTERN');
+            return $this->nodeFactory->createClassConstFetch(FileNameValidator::class, 'DEFAULT_FILE_DENY_PATTERN');
         }
 
         return null;

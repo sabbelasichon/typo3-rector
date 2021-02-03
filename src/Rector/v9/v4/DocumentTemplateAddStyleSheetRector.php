@@ -42,16 +42,19 @@ final class DocumentTemplateAddStyleSheetRector extends AbstractRector
             return null;
         }
 
-        $href = $this->getValue($args[1]->value);
-        $title = isset($args[2]) ? $this->getValue($args[2]->value) : '';
-        $relation = isset($args[3]) ? $this->getValue($args[3]->value) : 'stylesheet';
+        $href = $this->valueResolver->getValue($args[1]->value);
+        $title = isset($args[2]) ? $this->valueResolver->getValue($args[2]->value) : '';
+        $relation = isset($args[3]) ? $this->valueResolver->getValue($args[3]->value) : 'stylesheet';
 
-        return $this->createMethodCall(
-            $this->createStaticCall(
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstReference(PageRenderer::class)]
-            ), 'addCssFile', [$href, $relation, 'screen', $title]);
+                [$this->nodeFactory->createClassConstReference(PageRenderer::class)]
+            ),
+            'addCssFile',
+            [$href, $relation, 'screen', $title]
+        );
     }
 
     /**

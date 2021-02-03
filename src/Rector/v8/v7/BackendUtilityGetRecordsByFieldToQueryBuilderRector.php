@@ -82,7 +82,10 @@ final class BackendUtilityGetRecordsByFieldToQueryBuilderRector extends Abstract
         $this->addOrderByNode($queryBuilderVariableName, $node, $positionNode);
         $this->addLimitNode($queryBuilderVariableName, $node, $positionNode);
 
-        return $this->createMethodCall($this->createMethodCall($queryBuilderVariableName, 'execute'), 'fetchAll');
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'execute'),
+            'fetchAll'
+        );
     }
 
     /**
@@ -119,16 +122,21 @@ PHP
 
         $tableArgument = $node->args[0];
 
-        if (null === $queryBuilderArgument || 'null' === $this->getValue($queryBuilderArgument->value)) {
-            $table = $this->getValue($tableArgument->value);
+        if (null === $queryBuilderArgument || 'null' === $this->valueResolver->getValue($queryBuilderArgument->value)) {
+            $table = $this->valueResolver->getValue($tableArgument->value);
             if (null === $table) {
                 $table = $tableArgument;
             }
 
-            $queryBuilder = $this->createMethodCall($this->createStaticCall(GeneralUtility::class,
-                self::MAKE_INSTANCE,
-                [$this->createClassConstReference(ConnectionPool::class)]
-            ), 'getQueryBuilderForTable', [$table]);
+            $queryBuilder = $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createStaticCall(
+                    GeneralUtility::class,
+                    self::MAKE_INSTANCE,
+                    [$this->nodeFactory->createClassConstReference(ConnectionPool::class)]
+                ),
+                'getQueryBuilderForTable',
+                [$table]
+            );
         } else {
             $queryBuilder = $queryBuilderArgument->value;
         }
@@ -157,14 +165,17 @@ PHP
         string $queryBuilderVariableName,
         Node $positionNode
     ): void {
-        $newNode = $this->createMethodCall(
-            $this->createMethodCall(
-                $this->createMethodCall($queryBuilderVariableName, 'getRestrictions'),
+        $newNode = $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'getRestrictions'),
                 'removeAll'
-            ), 'add', [
-                $this->createStaticCall(GeneralUtility::class,
+            ),
+            'add',
+            [
+                $this->nodeFactory->createStaticCall(
+                    GeneralUtility::class,
                     self::MAKE_INSTANCE,
-                    [$this->createClassConstReference(BackendWorkspaceRestriction::class)]
+                    [$this->nodeFactory->createClassConstReference(BackendWorkspaceRestriction::class)]
                 ),
             ]
         );
@@ -177,18 +188,22 @@ PHP
         Node $positionNode
     ): void {
         $useDeleteClauseArgument = $node->args[7] ?? null;
-        $useDeleteClause = null !== $useDeleteClauseArgument ? $this->getValue($useDeleteClauseArgument->value) : true;
+        $useDeleteClause = null !== $useDeleteClauseArgument ? $this->valueResolver->getValue(
+            $useDeleteClauseArgument->value
+        ) : true;
 
         if (false === $useDeleteClause) {
             return;
         }
 
-        $deletedRestrictionNode = $this->createMethodCall(
-            $this->createMethodCall($queryBuilderVariableName, 'getRestrictions'),
-            'add', [
-                $this->createStaticCall(GeneralUtility::class,
+        $deletedRestrictionNode = $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'getRestrictions'),
+            'add',
+            [
+                $this->nodeFactory->createStaticCall(
+                    GeneralUtility::class,
                     self::MAKE_INSTANCE,
-                    [$this->createClassConstReference(DeletedRestriction::class)]
+                    [$this->nodeFactory->createClassConstReference(DeletedRestriction::class)]
                 ),
             ]
         );
@@ -214,30 +229,41 @@ PHP
         StaticCall $node,
         Node $positionNode
     ): void {
-        $queryBuilderWhereExpressionNode = $this->createMethodCall($this->createMethodCall(
-            $queryBuilderVariableName,
-            'expr'
-        ), 'eq', [
-            $node->args[1]->value,
-            $this->createMethodCall($queryBuilderVariableName, 'createNamedParameter', [$node->args[2]->value]),
-        ]);
-        $queryBuilderWhereNode = $this->createMethodCall($this->createMethodCall(
-            $this->createMethodCall($queryBuilderVariableName, 'select', ['*']),
-            'from', [$node->args[0]->value]), 'where', [$queryBuilderWhereExpressionNode]);
+        $queryBuilderWhereExpressionNode = $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'expr'),
+            'eq',
+            [
+                $node->args[1]->value,
+                $this->nodeFactory->createMethodCall(
+                    $queryBuilderVariableName,
+                    'createNamedParameter',
+                    [$node->args[2]->value]
+                ),
+            ]
+        );
+        $queryBuilderWhereNode = $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'select', ['*']),
+                'from',
+                [$node->args[0]->value]
+            ),
+            'where',
+            [$queryBuilderWhereExpressionNode]
+        );
         $this->addNodeBeforeNode($queryBuilderWhereNode, $positionNode);
     }
 
     private function addQueryWhereNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
     {
         $whereClauseArgument = $node->args[3] ?? null;
-        $whereClause = null !== $whereClauseArgument ? $this->getValue($whereClauseArgument->value) : '';
+        $whereClause = null !== $whereClauseArgument ? $this->valueResolver->getValue($whereClauseArgument->value) : '';
 
         if ('' === $whereClause) {
             return;
         }
 
-        $whereClauseNode = $this->createMethodCall($queryBuilderVariableName, 'andWhere', [
-            $this->createStaticCall(QueryHelper::class, 'stripLogicalOperatorPrefix', [$node->args[3]]),
+        $whereClauseNode = $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'andWhere', [
+            $this->nodeFactory->createStaticCall(QueryHelper::class, 'stripLogicalOperatorPrefix', [$node->args[3]]),
         ]);
 
         if ($whereClause) {
@@ -259,14 +285,14 @@ PHP
     private function addQueryGroupByNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
     {
         $groupByArgument = $node->args[4] ?? null;
-        $groupBy = null !== $groupByArgument ? $this->getValue($groupByArgument->value) : '';
+        $groupBy = null !== $groupByArgument ? $this->valueResolver->getValue($groupByArgument->value) : '';
 
         if ('' === $groupBy) {
             return;
         }
 
-        $groupByNode = $this->createMethodCall($queryBuilderVariableName, 'groupBy', [
-            $this->createStaticCall(QueryHelper::class, 'parseGroupBy', [$node->args[4]]),
+        $groupByNode = $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'groupBy', [
+            $this->nodeFactory->createStaticCall(QueryHelper::class, 'parseGroupBy', [$node->args[4]]),
         ]);
 
         if ($groupBy) {
@@ -288,7 +314,7 @@ PHP
     private function addOrderByNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
     {
         $orderByArgument = $node->args[5] ?? null;
-        $orderBy = null !== $orderByArgument ? $this->getValue($orderByArgument->value) : '';
+        $orderBy = null !== $orderByArgument ? $this->valueResolver->getValue($orderByArgument->value) : '';
 
         if ('' === $orderBy || 'null' === $orderBy) {
             return;
@@ -299,19 +325,20 @@ PHP
         }
 
         $orderByNode = new Foreach_(
-            $this->createStaticCall(QueryHelper::class, 'parseOrderBy', [$orderByArgument->value]),
+            $this->nodeFactory->createStaticCall(QueryHelper::class, 'parseOrderBy', [$orderByArgument->value]),
             new Variable('orderPair')
         );
         $orderByNode->stmts[] = new Expression(
             new Assign(
-                $this->createFuncCall('list', [new Variable('fieldName'), new Variable('order')]),
+                $this->nodeFactory->createFuncCall('list', [new Variable('fieldName'), new Variable('order')]),
                 new Variable('orderPair')
             )
         );
-        $orderByNode->stmts[] = new Expression($this->createMethodCall($queryBuilderVariableName, 'addOrderBy', [
-            new Variable('fieldName'),
-            new Variable('order'),
-        ]));
+        $orderByNode->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+            $queryBuilderVariableName,
+            'addOrderBy',
+            [new Variable('fieldName'), new Variable('order')]
+        ));
 
         if ($orderBy) {
             $this->addNodeBeforeNode($orderByNode, $positionNode);
@@ -328,7 +355,7 @@ PHP
     private function addLimitNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
     {
         $limitArgument = $node->args[6] ?? null;
-        $limit = null !== $limitArgument ? $this->getValue($limitArgument->value) : '';
+        $limit = null !== $limitArgument ? $this->valueResolver->getValue($limitArgument->value) : '';
 
         if ('' === $limit) {
             return;
@@ -338,26 +365,34 @@ PHP
             return;
         }
 
-        $limitNode = new If_($this->createFuncCall('strpos', [$limitArgument->value, ',']));
+        $limitNode = new If_($this->nodeFactory->createFuncCall('strpos', [$limitArgument->value, ',']));
         $limitNode->stmts[] = new Expression(
             new Assign(
                 new Variable(self::LIMIT_OFFSET_AND_MAX),
-                $this->createStaticCall(GeneralUtility::class, 'intExplode', [new String_(','), new Variable('limit')])
+                $this->nodeFactory->createStaticCall(
+                    GeneralUtility::class,
+                    'intExplode',
+                    [new String_(','), new Variable('limit')]
+                )
             )
         );
-        $limitNode->stmts[] = new Expression($this->createMethodCall($queryBuilderVariableName, 'setFirstResult', [
-            new Int_(new ArrayDimFetch(new Variable(self::LIMIT_OFFSET_AND_MAX), new LNumber(0))),
-        ]));
+        $limitNode->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+            $queryBuilderVariableName,
+            'setFirstResult',
+            [new Int_(new ArrayDimFetch(new Variable(self::LIMIT_OFFSET_AND_MAX), new LNumber(0)))]
+        ));
         $limitNode->stmts[] = new Expression(
-            $this->createMethodCall($queryBuilderVariableName, 'setMaxResults', [
+            $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'setMaxResults', [
                 new Int_(new ArrayDimFetch(new Variable(self::LIMIT_OFFSET_AND_MAX), new LNumber(1))),
             ])
         );
 
         $limitNode->else = new Else_();
-        $limitNode->else->stmts[] = new Expression($this->createMethodCall($queryBuilderVariableName, 'setMaxResults', [
-            new Int_(new Variable('limit')),
-        ]));
+        $limitNode->else->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+            $queryBuilderVariableName,
+            'setMaxResults',
+            [new Int_(new Variable('limit'))]
+        ));
 
         if ($limit) {
             $this->addNodeBeforeNode($limitNode, $positionNode);

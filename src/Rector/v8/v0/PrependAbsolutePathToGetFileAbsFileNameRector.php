@@ -35,7 +35,7 @@ final class PrependAbsolutePathToGetFileAbsFileNameRector extends AbstractRector
             return null;
         }
 
-        return $this->createStaticCall(GeneralUtility::class, 'getFileAbsFileName', $node->args);
+        return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'getFileAbsFileName', $node->args);
     }
 
     /**

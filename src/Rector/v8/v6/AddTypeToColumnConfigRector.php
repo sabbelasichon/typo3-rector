@@ -70,7 +70,7 @@ final class AddTypeToColumnConfigRector extends AbstractRector
 
             $configArray = $fieldValue->value;
             $addConfig = true;
-            $newConfiguration = new ArrayItem($this->createArray([
+            $newConfiguration = new ArrayItem($this->nodeFactory->createArray([
                 self::TYPE => 'none',
             ]), new String_('config'));
 
@@ -83,11 +83,11 @@ final class AddTypeToColumnConfigRector extends AbstractRector
                     continue;
                 }
 
-                if (! $this->isValue($configValue->key, 'config')) {
+                if (! $this->valueResolver->isValue($configValue->key, 'config')) {
                     continue;
                 }
 
-                $newConfiguration = new ArrayItem($this->createArray([
+                $newConfiguration = new ArrayItem($this->nodeFactory->createArray([
                     self::TYPE => 'none',
                 ]));
 
@@ -106,7 +106,7 @@ final class AddTypeToColumnConfigRector extends AbstractRector
                         continue;
                     }
 
-                    if (! $this->isValue($configItemValue->key, self::TYPE)) {
+                    if (! $this->valueResolver->isValue($configItemValue->key, self::TYPE)) {
                         continue;
                     }
 

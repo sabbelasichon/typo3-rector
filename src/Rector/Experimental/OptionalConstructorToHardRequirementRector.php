@@ -53,7 +53,7 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
                 continue;
             }
 
-            if (! $this->isNull($param->default)) {
+            if (! $this->valueResolver->isNull($param->default)) {
                 continue;
             }
 

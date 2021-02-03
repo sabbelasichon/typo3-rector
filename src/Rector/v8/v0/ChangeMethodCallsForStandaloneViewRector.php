@@ -84,13 +84,13 @@ PHP
                     case 'setLayoutRootPath':
                         $firstArgument = $node->args[0];
                         $node->name = new Identifier($newMethod);
-                        $array = $this->createArray([$firstArgument->value]);
+                        $array = $this->nodeFactory->createArray([$firstArgument->value]);
                         $node->args = [new Arg($array)];
                         return $node;
                     case 'getLayoutRootPath':
                     case 'getPartialRootPath':
                         $node->name = new Identifier($newMethod);
-                        return $this->createFuncCall('array_shift', [$node]);
+                        return $this->nodeFactory->createFuncCall('array_shift', [$node]);
                 }
             }
         }

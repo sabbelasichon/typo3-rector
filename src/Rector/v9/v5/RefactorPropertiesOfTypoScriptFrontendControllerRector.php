@@ -60,18 +60,26 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
         }
 
         if ($this->isName($node->name, 'loginAllowedInBranch')) {
-            return $this->createMethodCall($node->var, 'checkIfLoginAllowedInBranch');
+            return $this->nodeFactory->createMethodCall($node->var, 'checkIfLoginAllowedInBranch');
         }
 
-        $contextInstanceNode = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstReference(Context::class),
+        $contextInstanceNode = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+            $this->nodeFactory->createClassConstReference(Context::class),
         ]);
 
         if ($this->isName($node->name, 'ADMCMD_preview_BEUSER_uid')) {
-            return $this->createMethodCall($contextInstanceNode, 'getPropertyFromAspect', ['backend.user', 'id', 0]);
+            return $this->nodeFactory->createMethodCall(
+                $contextInstanceNode,
+                'getPropertyFromAspect',
+                ['backend.user', 'id', 0]
+            );
         }
 
-        return $this->createMethodCall($contextInstanceNode, 'getPropertyFromAspect', ['workspace', 'id', 0]);
+        return $this->nodeFactory->createMethodCall(
+            $contextInstanceNode,
+            'getPropertyFromAspect',
+            ['workspace', 'id', 0]
+        );
     }
 
     /**

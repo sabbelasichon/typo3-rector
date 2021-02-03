@@ -100,7 +100,7 @@ PHP
                 continue;
             }
 
-            $fieldName = $this->getValue($fieldValue->key);
+            $fieldName = $this->valueResolver->getValue($fieldValue->key);
 
             if (null === $fieldName) {
                 continue;
@@ -134,20 +134,20 @@ PHP
                         continue;
                     }
 
-                    if ($this->isValue($configItemValue->key, 'renderType')) {
-                        $renderType = $this->getValue($configItemValue->value);
-                    } elseif ($this->isValue($configItemValue->key, 'selicon_cols')) {
-                        $selicon_cols = $this->getValue($configItemValue->value);
+                    if ($this->valueResolver->isValue($configItemValue->key, 'renderType')) {
+                        $renderType = $this->valueResolver->getValue($configItemValue->value);
+                    } elseif ($this->valueResolver->isValue($configItemValue->key, 'selicon_cols')) {
+                        $selicon_cols = $this->valueResolver->getValue($configItemValue->value);
                         $doSomething = true;
-                    } elseif ($this->isValue($configItemValue->key, self::SHOW_ICON_TABLE)) {
-                        $showIconTable = $this->getValue($configItemValue->value);
-                    } elseif ($this->isValue($configItemValue->key, 'suppress_icons')) {
+                    } elseif ($this->valueResolver->isValue($configItemValue->key, self::SHOW_ICON_TABLE)) {
+                        $showIconTable = $this->valueResolver->getValue($configItemValue->value);
+                    } elseif ($this->valueResolver->isValue($configItemValue->key, 'suppress_icons')) {
                         $this->removeNode($configItemValue);
-                    } elseif ($this->isValue($configItemValue->key, 'noIconsBelowSelect')) {
-                        $noIconsBelowSelect = $this->getValue($configItemValue->value);
+                    } elseif ($this->valueResolver->isValue($configItemValue->key, 'noIconsBelowSelect')) {
+                        $noIconsBelowSelect = $this->valueResolver->getValue($configItemValue->value);
                         $doSomething = true;
                         $this->removeNode($configItemValue);
-                    } elseif ($this->isValue($configItemValue->key, 'foreign_table_loadIcons')) {
+                    } elseif ($this->valueResolver->isValue($configItemValue->key, 'foreign_table_loadIcons')) {
                         $this->removeNode($configItemValue);
                     }
                 }
@@ -161,11 +161,11 @@ PHP
                 }
 
                 if (null !== $selicon_cols && null === $showIconTable) {
-                    $configValue->value->items[] = new ArrayItem($this->createTrue(), new String_(
+                    $configValue->value->items[] = new ArrayItem($this->nodeFactory->createTrue(), new String_(
                         self::SHOW_ICON_TABLE
                     ));
                 } elseif (! $noIconsBelowSelect && null === $showIconTable) {
-                    $configValue->value->items[] = new ArrayItem($this->createTrue(), new String_(
+                    $configValue->value->items[] = new ArrayItem($this->nodeFactory->createTrue(), new String_(
                         self::SHOW_ICON_TABLE
                     ));
                 }

@@ -42,7 +42,7 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
 
         $extensionNameArgumentValue = $node->args[0]->value;
 
-        $extensionName = $this->getValue($extensionNameArgumentValue);
+        $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue);
 
         if ($extensionNameArgumentValue instanceof Concat && $this->isPotentiallyUndefinedExtensionKeyVariable(
             $extensionNameArgumentValue
@@ -50,7 +50,7 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
             /** @var SmartFileInfo $fileInfo */
             $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
 
-            $extensionName = $this->getValue($extensionNameArgumentValue->left) . basename(
+            $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue->left) . basename(
                 $fileInfo->getRelativeDirectoryPath()
             );
         }
@@ -67,7 +67,7 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
         $vendorName = $this->prepareVendorName($extensionName, $delimiterPosition);
         $extensionName = $this->prepareExtensionName($extensionName, $delimiterPosition);
 
-        $node->args[0] = $this->createArg($extensionName);
+        $node->args[0] = $this->nodeFactory->createArg($extensionName);
 
         if ($this->isName($node->name, 'configurePlugin')) {
             $this->refactorConfigurePluginMethod($node, $vendorName, $extensionName);
@@ -138,7 +138,7 @@ PHP
                 continue;
             }
 
-            $controllerClassName = $this->getValue($controllerActions->key);
+            $controllerClassName = $this->valueResolver->getValue($controllerActions->key);
 
             if (null === $controllerClassName) {
                 continue;
@@ -149,9 +149,9 @@ PHP
                 continue;
             }
 
-            $controllerActions->key = $this->createClassConstReference(
-                    $this->getControllerClassName($vendorName, $extensionName, '', $controllerClassName)
-                );
+            $controllerActions->key = $this->nodeFactory->createClassConstReference(
+                $this->getControllerClassName($vendorName, $extensionName, '', $controllerClassName)
+            );
         }
     }
 
@@ -179,7 +179,7 @@ PHP
             return false;
         }
 
-        if (null !== $this->getValue($extensionNameArgumentValue->right)) {
+        if (null !== $this->valueResolver->getValue($extensionNameArgumentValue->right)) {
             return false;
         }
         return $this->isNames($extensionNameArgumentValue->right, ['_EXTKEY', 'extensionKey']);

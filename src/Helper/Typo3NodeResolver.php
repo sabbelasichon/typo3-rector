@@ -10,14 +10,13 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
+use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\Rector\AbstractRector\NameResolverTrait;
 use Rector\Core\Rector\AbstractRector\NodeTypeResolverTrait;
-use Rector\Core\Rector\AbstractRector\ValueResolverTrait;
 
 final class Typo3NodeResolver
 {
     use NameResolverTrait;
-    use ValueResolverTrait;
     use NodeTypeResolverTrait;
 
     /**
@@ -80,6 +79,19 @@ final class Typo3NodeResolver
      */
     public const SIM_ACCESS_TIME = 'SIM_ACCESS_TIME';
 
+    /**
+     * @var ValueResolver
+     */
+    private $valueResolver;
+
+    /**
+     * @required
+     */
+    public function autowireValueResolverTrait(ValueResolver $valueResolver): void
+    {
+        $this->valueResolver = $valueResolver;
+    }
+
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool
     {
         if (! $node instanceof MethodCall) {
@@ -102,7 +114,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        return $this->isValue($node->var->dim, $global);
+        return $this->valueResolver->isValue($node->var->dim, $global);
     }
 
     public function isAnyMethodCallOnGlobals(Node $node, string $global): bool
@@ -123,7 +135,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        return $this->isValue($node->var->dim, $global);
+        return $this->valueResolver->isValue($node->var->dim, $global);
     }
 
     public function isTypo3Global(Node $node, string $global): bool
@@ -140,7 +152,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        return $this->isValue($node->dim, $global);
+        return $this->valueResolver->isValue($node->dim, $global);
     }
 
     public function isTypo3Globals(Node $node, array $globals): bool
@@ -182,7 +194,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        return $this->isValue($node->var->dim, $global);
+        return $this->valueResolver->isValue($node->var->dim, $global);
     }
 
     public function isMethodCallOnSysPageOfTSFE(Node $node): bool
@@ -216,7 +228,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        return $this->isValue($node->var->var->dim, $global);
+        return $this->valueResolver->isValue($node->var->var->dim, $global);
     }
 
     public function isMethodCallOnBackendUser(Node $node): bool

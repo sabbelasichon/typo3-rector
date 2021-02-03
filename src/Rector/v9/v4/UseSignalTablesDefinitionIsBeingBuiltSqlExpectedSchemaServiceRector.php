@@ -40,11 +40,11 @@ final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector 
             return null;
         }
 
-        if (! $this->isValue($node->args[1]->value, 'tablesDefinitionIsBeingBuilt')) {
+        if (! $this->valueResolver->isValue($node->args[1]->value, 'tablesDefinitionIsBeingBuilt')) {
             return null;
         }
 
-        $node->args[0]->value = $this->createClassConstReference(SqlExpectedSchemaService::class);
+        $node->args[0]->value = $this->nodeFactory->createClassConstReference(SqlExpectedSchemaService::class);
 
         return null;
     }

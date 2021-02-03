@@ -38,9 +38,12 @@ final class UseClassTypo3VersionRector extends AbstractRector
 
         $methodCall = $this->isName($node->name, 'TYPO3_version') ? 'getVersion' : 'getBranch';
 
-        return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstReference(Typo3Version::class),
-        ]), $methodCall);
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                $this->nodeFactory->createClassConstReference(Typo3Version::class),
+            ]),
+            $methodCall
+        );
     }
 
     /**

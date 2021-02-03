@@ -108,7 +108,7 @@ PHP
                 continue;
             }
 
-            $fieldName = $this->getValue($columnItem->key);
+            $fieldName = $this->valueResolver->getValue($columnItem->key);
 
             if (null === $fieldName) {
                 continue;
@@ -139,7 +139,7 @@ PHP
                     if (null === $configItemValue->key) {
                         continue;
                     }
-                    if (! $this->isValue($configItemValue->key, 'behaviour')) {
+                    if (! $this->valueResolver->isValue($configItemValue->key, 'behaviour')) {
                         continue;
                     }
 
@@ -164,7 +164,7 @@ PHP
                             continue;
                         }
 
-                        if ($this->isValue($behaviourConfigurationItem->key, self::LOCALIZATION_MODE)) {
+                        if ($this->valueResolver->isValue($behaviourConfigurationItem->key, self::LOCALIZATION_MODE)) {
                             $this->removeNode($behaviourConfigurationItem);
                             break;
                         }
@@ -194,16 +194,16 @@ PHP
                 continue;
             }
 
-            if (! $this->isValues(
+            if (! $this->valueResolver->isValues(
                 $behaviourConfigurationItem->key,
                 [self::LOCALIZATION_MODE, 'allowLanguageSynchronization']
             )) {
                 continue;
             }
 
-            $behaviourConfigurationValue = $this->getValue($behaviourConfigurationItem->value);
+            $behaviourConfigurationValue = $this->valueResolver->getValue($behaviourConfigurationItem->value);
 
-            if ($this->isValue($behaviourConfigurationItem->key, self::LOCALIZATION_MODE)) {
+            if ($this->valueResolver->isValue($behaviourConfigurationItem->key, self::LOCALIZATION_MODE)) {
                 $localizationMode = $behaviourConfigurationValue;
             } else {
                 $allowLanguageSynchronization = $behaviourConfigurationValue;

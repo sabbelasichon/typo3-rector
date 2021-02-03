@@ -75,12 +75,11 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
 
             $addAllowLanguageSynchronization = false;
             $configArray = $fieldValue->value;
-            $newConfiguration = new ArrayItem($this->createArray([
+            $newConfiguration = new ArrayItem($this->nodeFactory->createArray([
                 self::BEHAVIOUR => [
                     self::ALLOW_LANGUAGE_SYNCHRONIZATION => true,
                 ],
-            ]
-            ), new String_('config'));
+            ]), new String_('config'));
 
             foreach ($fieldValue->value->items as $configValue) {
                 if (null === $configValue) {
@@ -91,23 +90,22 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                     continue;
                 }
 
-                if (! $this->isValues($configValue->key, ['l10n_mode', 'config'])) {
+                if (! $this->valueResolver->isValues($configValue->key, ['l10n_mode', 'config'])) {
                     continue;
                 }
 
-                if ($this->isValue($configValue->value, 'mergeIfNotBlank')) {
+                if ($this->valueResolver->isValue($configValue->value, 'mergeIfNotBlank')) {
                     $addAllowLanguageSynchronization = true;
                     $this->removeNode($configValue);
-                } elseif ($this->isValue($configValue->value, 'noCopy')) {
+                } elseif ($this->valueResolver->isValue($configValue->value, 'noCopy')) {
                     $this->removeNode($configValue);
                 } elseif ($configValue->value instanceof Array_) {
                     $configArray = $configValue->value;
-                    $newConfiguration = new ArrayItem($this->createArray([
+                    $newConfiguration = new ArrayItem($this->nodeFactory->createArray([
                         self::BEHAVIOUR => [
                             self::ALLOW_LANGUAGE_SYNCHRONIZATION => true,
                         ],
-                    ]
-                    ));
+                    ]));
                     foreach ($configValue->value->items as $configItemValue) {
                         if (! $configItemValue instanceof ArrayItem) {
                             continue;
@@ -121,12 +119,12 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                             continue;
                         }
 
-                        if (! $this->isValue($configItemValue->key, self::BEHAVIOUR)) {
+                        if (! $this->valueResolver->isValue($configItemValue->key, self::BEHAVIOUR)) {
                             continue;
                         }
 
                         $configArray = $configItemValue->value;
-                        $newConfiguration = new ArrayItem($this->createTrue(), new String_(
+                        $newConfiguration = new ArrayItem($this->nodeFactory->createTrue(), new String_(
                             self::ALLOW_LANGUAGE_SYNCHRONIZATION
                         ));
 
@@ -139,14 +137,17 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                                 continue;
                             }
 
-                            if (! $this->isValue($behaviourConfiguration->key, self::ALLOW_LANGUAGE_SYNCHRONIZATION)) {
+                            if (! $this->valueResolver->isValue(
+                                $behaviourConfiguration->key,
+                                self::ALLOW_LANGUAGE_SYNCHRONIZATION
+                            )) {
                                 continue;
                             }
 
                             $addAllowLanguageSynchronization = false;
 
-                            if (empty($this->getValue($behaviourConfiguration->value))) {
-                                $behaviourConfiguration->value = $this->createTrue();
+                            if (empty($this->valueResolver->getValue($behaviourConfiguration->value))) {
+                                $behaviourConfiguration->value = $this->nodeFactory->createTrue();
                             }
                         }
                     }

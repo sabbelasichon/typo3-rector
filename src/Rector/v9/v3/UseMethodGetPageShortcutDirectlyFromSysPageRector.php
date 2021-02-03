@@ -47,7 +47,7 @@ final class UseMethodGetPageShortcutDirectlyFromSysPageRector extends AbstractRe
             return null;
         }
 
-        return $this->createMethodCall(
+        return $this->nodeFactory->createMethodCall(
             new PropertyFetch($node->var, new Identifier('sys_page')),
             'getPageShortcut',
             $node->args

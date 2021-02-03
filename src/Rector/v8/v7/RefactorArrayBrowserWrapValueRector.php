@@ -39,7 +39,7 @@ final class RefactorArrayBrowserWrapValueRector extends AbstractRector
         /** @var Arg[] $args */
         $args = $node->args;
         $firstArgument = array_shift($args);
-        return $this->createFuncCall('htmlspecialchars', [$firstArgument]);
+        return $this->nodeFactory->createFuncCall('htmlspecialchars', [$firstArgument]);
     }
 
     /**

@@ -62,7 +62,7 @@ final class UseGetMenuInsteadOfGetFirstWebPageRector extends AbstractRector
         $rootLevelPagesVariable = new Variable('rootLevelPages');
         $this->addRootLevelPagesAssignment($rootLevelPagesVariable, $node);
 
-        $resetRootLevelPagesNode = $this->createFuncCall('reset', [$rootLevelPagesVariable]);
+        $resetRootLevelPagesNode = $this->nodeFactory->createFuncCall('reset', [$rootLevelPagesVariable]);
 
         $ifNode = new If_(new BooleanNot(new Empty_($rootLevelPagesVariable)));
         $parentNode->expr = $resetRootLevelPagesNode;
@@ -114,7 +114,7 @@ PHP
 
     private function addRootLevelPagesAssignment(Variable $rootLevelPagesVariable, MethodCall $node): void
     {
-        $rootLevelPagesNode = new Assign($rootLevelPagesVariable, $this->createMethodCall(
+        $rootLevelPagesNode = new Assign($rootLevelPagesVariable, $this->nodeFactory->createMethodCall(
             $node->var,
             'getMenu',
             [$node->args[0], 'uid', 'sorting', '', false]

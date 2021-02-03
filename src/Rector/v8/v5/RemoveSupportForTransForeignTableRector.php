@@ -58,7 +58,7 @@ final class RemoveSupportForTransForeignTableRector extends AbstractRector
                 continue;
             }
 
-            if ($this->isValues($fieldValue->key, ['transForeignTable', 'transOrigPointerTable'])) {
+            if ($this->valueResolver->isValues($fieldValue->key, ['transForeignTable', 'transOrigPointerTable'])) {
                 $this->removeNode($fieldValue);
             }
         }

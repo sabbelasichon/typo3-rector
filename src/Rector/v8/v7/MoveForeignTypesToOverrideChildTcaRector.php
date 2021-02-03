@@ -124,9 +124,9 @@ PHP
                     continue;
                 }
 
-                if ($this->isValue($configItemValue->key, self::FOREIGN_TYPES)) {
+                if ($this->valueResolver->isValue($configItemValue->key, self::FOREIGN_TYPES)) {
                     $foreignTypesArrayItem = $configItemValue;
-                } elseif ($this->isValue($configItemValue->key, self::OVERRIDE_CHILD_TCA)) {
+                } elseif ($this->valueResolver->isValue($configItemValue->key, self::OVERRIDE_CHILD_TCA)) {
                     $overrideChildTcaNode = $configItemValue->value;
                 }
             }
@@ -160,7 +160,7 @@ PHP
                 if (null === $overrideChildTcaOption->key) {
                     continue;
                 }
-                if ($this->isValue($overrideChildTcaOption->key, 'types')) {
+                if ($this->valueResolver->isValue($overrideChildTcaOption->key, 'types')) {
                     $overrideChildTcaTypesArrayItem = $overrideChildTcaOption;
                 }
             }

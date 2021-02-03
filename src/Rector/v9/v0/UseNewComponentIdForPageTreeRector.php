@@ -41,7 +41,7 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
             return null;
         }
 
-        if (! $this->isValue($node->args[1]->value, 'web')) {
+        if (! $this->valueResolver->isValue($node->args[1]->value, 'web')) {
             return null;
         }
 
@@ -60,7 +60,7 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
                 continue;
             }
 
-            if ('navigationComponentId' !== $this->getValue($item->key)) {
+            if ('navigationComponentId' !== $this->valueResolver->getValue($item->key)) {
                 continue;
             }
             $item->value = new String_('TYPO3/CMS/Backend/PageTree/PageTreeElement');

@@ -65,38 +65,38 @@ final class UseContextApiRector extends AbstractRector
 
         $propertyName = $this->getName($node->name);
 
-        $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstReference(Context::class),
+        $staticCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+            $this->nodeFactory->createClassConstReference(Context::class),
         ]);
 
-        $contextCall = $this->createMethodCall($staticCall, 'getPropertyFromAspect');
+        $contextCall = $this->nodeFactory->createMethodCall($staticCall, 'getPropertyFromAspect');
 
         if ('loginUser' === $propertyName) {
-            $contextCall->args = $this->createArgs(['frontend.user', 'isLoggedIn']);
+            $contextCall->args = $this->nodeFactory->createArgs(['frontend.user', 'isLoggedIn']);
 
             return $contextCall;
         }
 
         if ('gr_list' === $propertyName) {
-            $contextCall->args = $this->createArgs(['frontend.user', 'groupIds']);
+            $contextCall->args = $this->nodeFactory->createArgs(['frontend.user', 'groupIds']);
 
-            return $this->createFuncCall('implode', [new String_(','), $contextCall]);
+            return $this->nodeFactory->createFuncCall('implode', [new String_(','), $contextCall]);
         }
 
         if ('beUserLogin' === $propertyName) {
-            $contextCall->args = $this->createArgs(['backend.user', 'isLoggedIn']);
+            $contextCall->args = $this->nodeFactory->createArgs(['backend.user', 'isLoggedIn']);
 
             return $contextCall;
         }
 
         if ('showHiddenPage' === $propertyName) {
-            $contextCall->args = $this->createArgs(['visibility', 'includeHiddenPages']);
+            $contextCall->args = $this->nodeFactory->createArgs(['visibility', 'includeHiddenPages']);
 
             return $contextCall;
         }
 
         if ('showHiddenRecords' === $propertyName) {
-            $contextCall->args = $this->createArgs(['visibility', 'includeHiddenContent']);
+            $contextCall->args = $this->nodeFactory->createArgs(['visibility', 'includeHiddenContent']);
 
             return $contextCall;
         }

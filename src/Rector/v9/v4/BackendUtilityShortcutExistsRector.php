@@ -51,9 +51,9 @@ PHP
             return null;
         }
 
-        return $this->createMethodCall(
-            $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstReference(ShortcutRepository::class),
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                $this->nodeFactory->createClassConstReference(ShortcutRepository::class),
             ]),
             'shortcutExists',
             $node->args

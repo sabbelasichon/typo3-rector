@@ -33,10 +33,10 @@ final class SubstituteResourceFactoryRector extends AbstractRector
         if (! $this->isName($node->name, 'getInstance')) {
             return null;
         }
-        return $this->createStaticCall(
+        return $this->nodeFactory->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [$this->createClassConstReference(ResourceFactory::class)]
+            [$this->nodeFactory->createClassConstReference(ResourceFactory::class)]
         );
     }
 

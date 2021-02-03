@@ -56,13 +56,17 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
                 $returnCallExpression->name,
                 'json_encode'
             )) {
-                $returnCall->expr = $this->createMethodCall(
-                    $this->createPropertyFetch(self::THIS, 'responseFactory'),
+                $returnCall->expr = $this->nodeFactory->createMethodCall(
+                    $this->nodeFactory->createPropertyFetch(self::THIS, 'responseFactory'),
                     'createJsonResponse',
                     [$returnCall->expr]
                 );
             } else {
-                $returnCall->expr = $this->createMethodCall(self::THIS, 'htmlResponse', [$returnCall->expr]);
+                $returnCall->expr = $this->nodeFactory->createMethodCall(
+                    self::THIS,
+                    'htmlResponse',
+                    [$returnCall->expr]
+                );
             }
         }
 
@@ -76,7 +80,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
         }
 
         if (! $lastStatement instanceof Return_) {
-            $returnResponse = $this->createMethodCall(self::THIS, 'htmlResponse');
+            $returnResponse = $this->nodeFactory->createMethodCall(self::THIS, 'htmlResponse');
 
             $node->stmts[] = new Return_($returnResponse);
         }

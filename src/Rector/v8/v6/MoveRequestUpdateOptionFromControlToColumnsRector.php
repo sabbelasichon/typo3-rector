@@ -91,8 +91,8 @@ PHP
                 continue;
             }
 
-            if ($this->isValue($fieldValue->key, 'requestUpdate')) {
-                $fields = $this->getValue($fieldValue->value);
+            if ($this->valueResolver->isValue($fieldValue->key, 'requestUpdate')) {
+                $fields = $this->valueResolver->getValue($fieldValue->value);
                 if (null === $fields) {
                     return null;
                 }
@@ -126,7 +126,7 @@ PHP
                 continue;
             }
 
-            $fieldName = $this->getValue($columnItem->key);
+            $fieldName = $this->valueResolver->getValue($columnItem->key);
 
             if (! in_array($fieldName, $requestUpdateFields, true)) {
                 continue;

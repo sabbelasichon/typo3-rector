@@ -94,7 +94,7 @@ PHP
     private function refactorToNewMethodCalls(MethodCall $node): void
     {
         $node->name = new Identifier('applyHttpHeadersToResponse');
-        $newNode = $this->createMethodCall($node->var, 'processContentForOutput');
+        $newNode = $this->nodeFactory->createMethodCall($node->var, 'processContentForOutput');
         $this->addNodeAfterNode($newNode, $node);
     }
 }

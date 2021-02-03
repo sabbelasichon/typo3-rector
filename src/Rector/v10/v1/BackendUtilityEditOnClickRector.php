@@ -68,25 +68,25 @@ PHP
 
     private function createUriBuilderCall(Arg $firstArgument): Concat
     {
-        return new Concat(new Concat($this->createMethodCall(
-            $this->createStaticCall(
+        return new Concat(new Concat($this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstReference(UriBuilder::class)]
+                [$this->nodeFactory->createClassConstReference(UriBuilder::class)]
             ),
             'buildUriFromRoute',
-            [$this->createArg('record_edit')]
+            [$this->nodeFactory->createArg('record_edit')]
         ), $firstArgument->value), new String_('&returnUrl='));
     }
 
     private function createRequestUriCall(): FuncCall
     {
         return new FuncCall(new Name('rawurlencode'), [
-            $this->createArg($this->createStaticCall(
-                GeneralUtility::class,
-                'getIndpEnv',
-                [$this->createArg('REQUEST_URI')]
-            )),
+            $this->nodeFactory->createArg(
+                $this->nodeFactory->createStaticCall(GeneralUtility::class, 'getIndpEnv', [
+                    $this->nodeFactory->createArg('REQUEST_URI'),
+                ])
+            ),
         ]);
     }
 }

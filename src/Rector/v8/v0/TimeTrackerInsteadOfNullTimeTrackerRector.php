@@ -79,7 +79,7 @@ final class TimeTrackerInsteadOfNullTimeTrackerRector extends AbstractRector
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
         if ($parentNode instanceof New_) {
-            $parentNode->args = $this->createArgs([false]);
+            $parentNode->args = $this->nodeFactory->createArgs([false]);
         }
 
         return $renamedNode;
@@ -117,11 +117,11 @@ PHP
             return null;
         }
 
-        if (! $this->isValue($node->args[0]->value, NullTimeTracker::class)) {
+        if (! $this->valueResolver->isValue($node->args[0]->value, NullTimeTracker::class)) {
             return null;
         }
 
-        $node->args[1] = $this->createArg(false);
+        $node->args[1] = $this->nodeFactory->createArg(false);
 
         return $node;
     }

@@ -46,8 +46,8 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
         if ($this->isArrayType($excludeServiceKeys->value)) {
             return null;
         }
-        $args = [new String_(','), $excludeServiceKeys, $this->createTrue()];
-        $staticCall = $this->createStaticCall(GeneralUtility::class, 'trimExplode', $args);
+        $args = [new String_(','), $excludeServiceKeys, $this->nodeFactory->createTrue()];
+        $staticCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'trimExplode', $args);
         $node->args[2] = new Arg($staticCall);
         return $node;
     }

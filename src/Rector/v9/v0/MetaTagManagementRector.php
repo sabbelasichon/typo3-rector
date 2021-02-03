@@ -120,7 +120,7 @@ PHP
     private function createSetMetaTagMethod(MethodCall $node): ?MethodCall
     {
         $arg = $node->args[0];
-        $metaTag = $this->getValue($arg->value);
+        $metaTag = $this->valueResolver->getValue($arg->value);
 
         $arguments = $this->parseMetaTag($metaTag);
 
@@ -132,7 +132,7 @@ PHP
         }
 
         $node->name = new Identifier('setMetaTag');
-        $node->args = $this->createArgs(array_values($arguments));
+        $node->args = $this->nodeFactory->createArgs(array_values($arguments));
 
         return $node;
     }
@@ -151,8 +151,12 @@ PHP
             }
         }
 
-        return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstReference(PageRenderer::class),
-        ]), 'setMetaTag', ['http-equiv', 'X-UA-Compatible', $value]);
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                $this->nodeFactory->createClassConstReference(PageRenderer::class),
+            ]),
+            'setMetaTag',
+            ['http-equiv', 'X-UA-Compatible', $value]
+        );
     }
 }

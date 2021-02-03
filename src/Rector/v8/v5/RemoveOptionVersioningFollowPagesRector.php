@@ -85,12 +85,12 @@ PHP
                 continue;
             }
 
-            if ($this->isValue($fieldValue->key, 'versioning_followPages')) {
+            if ($this->valueResolver->isValue($fieldValue->key, 'versioning_followPages')) {
                 $this->removeNode($fieldValue);
-            } elseif ($this->isValue($fieldValue->key, 'versioningWS')) {
-                $versioningWS = $this->getValue($fieldValue->value);
+            } elseif ($this->valueResolver->isValue($fieldValue->key, 'versioningWS')) {
+                $versioningWS = $this->valueResolver->getValue($fieldValue->value);
                 if (! is_bool($versioningWS)) {
-                    $fieldValue->value = (bool) $versioningWS ? $this->createTrue() : $this->createFalse();
+                    $fieldValue->value = (bool) $versioningWS ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
                 }
             }
         }

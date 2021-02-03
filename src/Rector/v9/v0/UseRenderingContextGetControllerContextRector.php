@@ -77,8 +77,8 @@ CODE_SAMPLE
                 if (! $this->isName($node, 'controllerContext')) {
                     return null;
                 }
-                return $this->createMethodCall(
-                    $this->createPropertyFetch('this', 'renderingContext'),
+                return $this->nodeFactory->createMethodCall(
+                    $this->nodeFactory->createPropertyFetch('this', 'renderingContext'),
                     'getControllerContext'
                 );
             });

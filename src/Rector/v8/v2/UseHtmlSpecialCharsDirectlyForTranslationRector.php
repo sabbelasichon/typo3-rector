@@ -135,7 +135,7 @@ PHP
             return null;
         }
 
-        $hsc = $this->getValue($node->args[$argumentPosition]->value);
+        $hsc = $this->valueResolver->getValue($node->args[$argumentPosition]->value);
 
         if (null === $hsc) {
             return null;
@@ -148,6 +148,6 @@ PHP
             return null;
         }
 
-        return $this->createFuncCall('htmlspecialchars', [$node]);
+        return $this->nodeFactory->createFuncCall('htmlspecialchars', [$node]);
     }
 }

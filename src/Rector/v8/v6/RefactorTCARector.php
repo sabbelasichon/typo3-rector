@@ -152,7 +152,7 @@ PHP
                 continue;
             }
 
-            $fieldName = $this->getValue($fieldValue->key);
+            $fieldName = $this->valueResolver->getValue($fieldValue->key);
 
             if (null === $fieldName) {
                 continue;
@@ -185,7 +185,7 @@ PHP
                         continue;
                     }
 
-                    if (! $this->isValues($configItemValue->key, ['wizards', 'RTE'])) {
+                    if (! $this->valueResolver->isValues($configItemValue->key, ['wizards', 'RTE'])) {
                         continue;
                     }
 
@@ -196,7 +196,7 @@ PHP
                     $fieldControl = [];
                     $customTypeOptions = [];
 
-                    if ($this->isValue($configItemValue->key, 'RTE')) {
+                    if ($this->valueResolver->isValue($configItemValue->key, 'RTE')) {
                         $fieldControl['fullScreenRichtext']['disabled'] = false;
                     }
 
@@ -212,14 +212,11 @@ PHP
 
                         --$remainingWizards;
 
-                        if (! $this->isValues(
-                            $wizardItemValue->key,
-                            array_merge(
-                                array_keys(self::MAP_WIZARD_TO_FIELD_CONTROL),
-                                array_keys(self::MAP_WIZARD_TO_RENDER_TYPE),
-                                array_keys(self::MAP_WIZARD_TO_CUSTOM_TYPE)
-                            )
-                        )) {
+                        if (! $this->valueResolver->isValues($wizardItemValue->key, array_merge(
+                            array_keys(self::MAP_WIZARD_TO_FIELD_CONTROL),
+                            array_keys(self::MAP_WIZARD_TO_RENDER_TYPE),
+                            array_keys(self::MAP_WIZARD_TO_CUSTOM_TYPE)
+                        ))) {
                             continue;
                         }
 
@@ -229,7 +226,7 @@ PHP
                             continue;
                         }
 
-                        $wizardItemValueKey = $this->getValue($wizardItemValue->key);
+                        $wizardItemValueKey = $this->valueResolver->getValue($wizardItemValue->key);
 
                         if (null === $wizardItemValueKey) {
                             continue;
@@ -262,19 +259,24 @@ PHP
                             }
 
                             // Configuration of slider wizard
-                            if ('angle' === $wizardItemValueKey && ! $this->isValue($wizardItemSubValue->key, 'type')) {
-                                $sliderValue = $this->getValue($wizardItemSubValue->value);
+                            if ('angle' === $wizardItemValueKey && ! $this->valueResolver->isValue(
+                                $wizardItemSubValue->key,
+                                'type'
+                            )) {
+                                $sliderValue = $this->valueResolver->getValue($wizardItemSubValue->value);
                                 if ($sliderValue) {
-                                    $customTypeOptions[$this->getValue($wizardItemSubValue->key)] = $sliderValue;
+                                    $customTypeOptions[$this->valueResolver->getValue(
+                                        $wizardItemSubValue->key
+                                    )] = $sliderValue;
                                 }
-                            } elseif ('select' === $wizardItemValueKey && $this->isValue(
+                            } elseif ('select' === $wizardItemValueKey && $this->valueResolver->isValue(
                                 $wizardItemSubValue->key,
                                 'items'
                             )) {
                                 $configValue->value->items[] = new ArrayItem(new Array_([
                                     new ArrayItem($wizardItemSubValue->value, $wizardItemSubValue->key),
                                 ]), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
-                            } elseif ('suggest' === $wizardItemValueKey && $this->isValue(
+                            } elseif ('suggest' === $wizardItemValueKey && $this->valueResolver->isValue(
                                 $wizardItemSubValue->key,
                                 'default'
                             )) {
@@ -283,10 +285,10 @@ PHP
                                 ]), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
                             }
 
-                            if ($wizardItemSubValue->value instanceof Array_ && $this->isValue(
-                                    $wizardItemSubValue->key,
-                                    'params'
-                                )) {
+                            if ($wizardItemSubValue->value instanceof Array_ && $this->valueResolver->isValue(
+                                $wizardItemSubValue->key,
+                                'params'
+                            )) {
                                 foreach ($wizardItemSubValue->value->items as $paramsValue) {
                                     if (! $paramsValue instanceof ArrayItem) {
                                         continue;
@@ -296,24 +298,21 @@ PHP
                                         continue;
                                     }
 
-                                    $value = $this->getValue($paramsValue->value);
+                                    $value = $this->valueResolver->getValue($paramsValue->value);
                                     if (null === $value) {
                                         continue;
                                     }
 
-                                    if (null !== $fieldControlKey && $this->isValues(
-                                        $paramsValue->key,
-                                        [
-                                            'table',
-                                            'pid',
-                                            'setValue',
-                                            'blindLinkOptions',
-                                            'JSopenParams',
-                                            'blindLinkFields',
-                                            'allowedExtensions',
-                                        ]
-                                    )) {
-                                        $paramsValueKey = $this->getValue($paramsValue->key);
+                                    if (null !== $fieldControlKey && $this->valueResolver->isValues($paramsValue->key, [
+                                        'table',
+                                        'pid',
+                                        'setValue',
+                                        'blindLinkOptions',
+                                        'JSopenParams',
+                                        'blindLinkFields',
+                                        'allowedExtensions',
+                                    ])) {
+                                        $paramsValueKey = $this->valueResolver->getValue($paramsValue->key);
                                         if (null !== $paramsValueKey) {
                                             if ('JSopenParams' === $paramsValueKey) {
                                                 $paramsValueKey = 'windowOpenParameters';
@@ -322,12 +321,15 @@ PHP
                                         }
                                     }
                                 }
-                            } elseif (null !== $fieldControlKey && $this->isValue($wizardItemSubValue->key, 'title')) {
-                                $value = $this->getValue($wizardItemSubValue->value);
+                            } elseif (null !== $fieldControlKey && $this->valueResolver->isValue(
+                                $wizardItemSubValue->key,
+                                'title'
+                            )) {
+                                $value = $this->valueResolver->getValue($wizardItemSubValue->value);
                                 if (null === $value) {
                                     continue;
                                 }
-                                $fieldControl[$fieldControlKey]['options'][$this->getValue(
+                                $fieldControl[$fieldControlKey]['options'][$this->valueResolver->getValue(
                                     $wizardItemSubValue->key
                                 )] = $value;
                             }
@@ -337,16 +339,16 @@ PHP
                             $wizardItemValueKey,
                             self::MAP_WIZARD_TO_CUSTOM_TYPE
                         )) {
-                            $configValue->value->items[] = new ArrayItem($this->createArray(
+                            $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
                                 $customTypeOptions
                             ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
                         }
                     }
 
                     if ([] !== $fieldControl) {
-                        $configValue->value->items[] = new ArrayItem($this->createArray($fieldControl), new String_(
-                            'fieldControl'
-                        ));
+                        $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                            $fieldControl
+                        ), new String_('fieldControl'));
                     }
 
                     if (0 === $remainingWizards) {
@@ -372,11 +374,11 @@ PHP
                 continue;
             }
 
-            if (! $this->isValue($configItemValue->key, 'eval')) {
+            if (! $this->valueResolver->isValue($configItemValue->key, 'eval')) {
                 continue;
             }
 
-            $eval = $this->getValue($configItemValue->value);
+            $eval = $this->valueResolver->getValue($configItemValue->value);
 
             if (null === $eval) {
                 continue;

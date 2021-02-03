@@ -35,7 +35,7 @@ final class WrapClickMenuOnIconRector extends AbstractRector
             return null;
         }
 
-        return $this->createStaticCall(BackendUtility::class, 'wrapClickMenuOnIcon', $node->args);
+        return $this->nodeFactory->createStaticCall(BackendUtility::class, 'wrapClickMenuOnIcon', $node->args);
     }
 
     /**

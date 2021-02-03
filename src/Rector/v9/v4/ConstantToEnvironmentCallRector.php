@@ -60,7 +60,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
             return null;
         }
 
-        return $this->createStaticCall(Environment::class, 'isCli');
+        return $this->nodeFactory->createStaticCall(Environment::class, 'isCli');
     }
 
     private function refactorConstants(ConstFetch $node): ?Node
@@ -86,18 +86,21 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
 
         switch ($constantName) {
             case 'PATH_thisScript':
-                return $this->createStaticCall(Environment::class, 'getCurrentScript');
+                return $this->nodeFactory->createStaticCall(Environment::class, 'getCurrentScript');
             case 'PATH_site':
-                return new Concat($this->createStaticCall(Environment::class, 'getPublicPath'), new String_('/'));
-            case 'PATH_typo3':
-                return $this->createStaticCall(Environment::class, 'getBackendPath');
-            case 'PATH_typo3conf':
-                return $this->createStaticCall(Environment::class, 'getLegacyConfigPath');
-            case 'TYPO3_OS':
-                return new BooleanOr($this->createStaticCall(Environment::class, 'isUnix'), $this->createStaticCall(
+                return new Concat($this->nodeFactory->createStaticCall(
                     Environment::class,
-                    'isWindows'
-                ));
+                    'getPublicPath'
+                ), new String_('/'));
+            case 'PATH_typo3':
+                return $this->nodeFactory->createStaticCall(Environment::class, 'getBackendPath');
+            case 'PATH_typo3conf':
+                return $this->nodeFactory->createStaticCall(Environment::class, 'getLegacyConfigPath');
+            case 'TYPO3_OS':
+                return new BooleanOr($this->nodeFactory->createStaticCall(
+                    Environment::class,
+                    'isUnix'
+                ), $this->nodeFactory->createStaticCall(Environment::class, 'isWindows'));
         }
 
         return null;

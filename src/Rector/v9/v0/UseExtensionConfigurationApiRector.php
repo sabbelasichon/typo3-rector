@@ -72,9 +72,13 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
             ), new String_('EXTENSIONS')), $extensionConfiguration->dim);
         }
 
-        return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstReference(ExtensionConfiguration::class),
-        ]), 'get', [$extensionConfiguration->dim]);
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                $this->nodeFactory->createClassConstReference(ExtensionConfiguration::class),
+            ]),
+            'get',
+            [$extensionConfiguration->dim]
+        );
     }
 
     /**
@@ -109,7 +113,7 @@ PHP
             return true;
         }
 
-        if (! $this->isValue($extConf->dim, 'extConf')) {
+        if (! $this->valueResolver->isValue($extConf->dim, 'extConf')) {
             return true;
         }
 
@@ -126,7 +130,7 @@ PHP
             return true;
         }
 
-        if (! $this->isValue($ext->dim, 'EXT')) {
+        if (! $this->valueResolver->isValue($ext->dim, 'EXT')) {
             return true;
         }
 
@@ -139,7 +143,7 @@ PHP
             return true;
         }
 
-        if (! $this->isValue($typo3ConfVars->dim, 'TYPO3_CONF_VARS')) {
+        if (! $this->valueResolver->isValue($typo3ConfVars->dim, 'TYPO3_CONF_VARS')) {
             return true;
         }
 
@@ -152,6 +156,6 @@ PHP
             return true;
         }
 
-        return ! $this->isName($node->dim, '_EXTKEY') && null === $this->getValue($node->dim);
+        return ! $this->isName($node->dim, '_EXTKEY') && null === $this->valueResolver->getValue($node->dim);
     }
 }

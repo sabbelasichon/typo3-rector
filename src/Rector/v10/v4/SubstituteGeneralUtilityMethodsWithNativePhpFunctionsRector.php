@@ -43,16 +43,19 @@ final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector extends 
 
         switch ($node->name) {
             case 'IPv6Hex2Bin':
-                return $this->createFuncCall('inet_pton', $node->args);
+                return $this->nodeFactory->createFuncCall('inet_pton', $node->args);
             case 'IPv6Bin2Hex':
-                return $this->createFuncCall('inet_ntop', $node->args);
+                return $this->nodeFactory->createFuncCall('inet_ntop', $node->args);
             case 'compressIPv6':
-                return $this->createFuncCall('inet_ntop', [$this->createFuncCall('inet_pton', $node->args)]);
+                return $this->nodeFactory->createFuncCall(
+                    'inet_ntop',
+                    [$this->nodeFactory->createFuncCall('inet_pton', $node->args)]
+                );
             case 'milliseconds':
-                return $this->createFuncCall('round', [
-                    new Mul($this->createFuncCall(
+                return $this->nodeFactory->createFuncCall('round', [
+                    new Mul($this->nodeFactory->createFuncCall(
                         'microtime',
-                        [$this->createArg($this->createTrue())]
+                        [$this->nodeFactory->createArg($this->nodeFactory->createTrue())]
                     ), new LNumber(1000)),
                 ]);
         }

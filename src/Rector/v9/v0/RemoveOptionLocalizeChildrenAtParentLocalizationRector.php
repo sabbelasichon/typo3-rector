@@ -96,7 +96,7 @@ PHP
                 continue;
             }
 
-            $fieldName = $this->getValue($columnItem->key);
+            $fieldName = $this->valueResolver->getValue($columnItem->key);
 
             if (null === $fieldName) {
                 continue;
@@ -127,7 +127,7 @@ PHP
                     if (null === $configItemValue->key) {
                         continue;
                     }
-                    if (! $this->isValue($configItemValue->key, 'behaviour')) {
+                    if (! $this->valueResolver->isValue($configItemValue->key, 'behaviour')) {
                         continue;
                     }
 
@@ -148,7 +148,10 @@ PHP
                             continue;
                         }
 
-                        if ($this->isValue($behaviourConfigurationItem->key, 'localizeChildrenAtParentLocalization')) {
+                        if ($this->valueResolver->isValue(
+                            $behaviourConfigurationItem->key,
+                            'localizeChildrenAtParentLocalization'
+                        )) {
                             $this->removeNode($behaviourConfigurationItem);
                         }
                     }

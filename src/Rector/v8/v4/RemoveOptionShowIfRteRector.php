@@ -127,7 +127,7 @@ PHP
                         continue;
                     }
 
-                    if ($this->isValue($configItemValue->key, 'showIfRTE')) {
+                    if ($this->valueResolver->isValue($configItemValue->key, 'showIfRTE')) {
                         $this->removeNode($configItemValue);
                         break;
                     }
@@ -149,10 +149,10 @@ PHP
                 continue;
             }
 
-            if ($this->isValue($configItemValue->key, 'type') && $this->isValue(
-                    $configItemValue->value,
-                    'check'
-                )) {
+            if ($this->valueResolver->isValue($configItemValue->key, 'type') && $this->valueResolver->isValue(
+                $configItemValue->value,
+                'check'
+            )) {
                 return true;
             }
         }

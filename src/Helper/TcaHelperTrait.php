@@ -6,12 +6,19 @@ namespace Ssch\TYPO3Rector\Helper;
 
 use Generator;
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
+use Rector\Core\PhpParser\Node\Value\ValueResolver;
 
 trait TcaHelperTrait
 {
+    /**
+     * @var ValueResolver
+     */
+    protected $valueResolver;
+
     private function isTca(Return_ $node): bool
     {
         $ctrl = $this->extractCtrl($node);
@@ -197,5 +204,21 @@ trait TcaHelperTrait
                 yield $columnName => $configValue->value;
             }
         }
+    }
+
+    /**
+     * @param mixed $value
+     */
+    private function isValue(Expr $expr, $value): bool
+    {
+        return $this->valueResolver->isValue($expr, $value);
+    }
+
+    /**
+     * @return mixed|null
+     */
+    private function getValue(Expr $expr, bool $resolvedClassReference = false)
+    {
+        return $this->valueResolver->getValue($expr, $resolvedClassReference);
     }
 }

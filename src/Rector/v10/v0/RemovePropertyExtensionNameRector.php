@@ -35,7 +35,10 @@ final class RemovePropertyExtensionNameRector extends AbstractRector
         if (! $this->isName($node, 'extensionName')) {
             return null;
         }
-        return $this->createMethodCall($this->createPropertyFetch($node->var, 'request'), 'getControllerExtensionName');
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createPropertyFetch($node->var, 'request'),
+            'getControllerExtensionName'
+        );
     }
 
     /**

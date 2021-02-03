@@ -39,7 +39,7 @@ final class DataHandlerRmCommaRector extends AbstractRector
         /** @var Arg[] $args */
         $args = $node->args;
         $firstArgument = array_shift($args);
-        return $this->createFuncCall('rtrim', [$firstArgument, $this->createArg(',')]);
+        return $this->nodeFactory->createFuncCall('rtrim', [$firstArgument, $this->nodeFactory->createArg(',')]);
     }
 
     /**

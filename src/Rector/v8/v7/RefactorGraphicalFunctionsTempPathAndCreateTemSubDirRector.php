@@ -102,7 +102,7 @@ PHP
             return null;
         }
 
-        $argumentValue = $this->getValue($node->args[0]->value);
+        $argumentValue = $this->valueResolver->getValue($node->args[0]->value);
 
         if (null === $argumentValue) {
             return null;
@@ -114,7 +114,7 @@ PHP
             new Param(new Variable('dirName')),
         ];
 
-        $ifIsPartOfStrMethodCall = $this->createStaticCall(GeneralUtility::class, 'isFirstPartOfStr', [
+        $ifIsPartOfStrMethodCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'isFirstPartOfStr', [
             new Variable(self::TEMP_PATH),
             new ConstFetch(new Name('PATH_site')),
         ]);
@@ -132,22 +132,24 @@ PHP
 
         $anonymousFunction->stmts[] = $ifIsPartOfStr;
 
-        $concatTempPathAndDirName = $this->createConcat([new Variable(self::TMP_PATH), new Variable('dirName')]);
+        $concatTempPathAndDirName = $this->nodeFactory->createConcat(
+            [new Variable(self::TMP_PATH), new Variable('dirName')]
+        );
 
         if (null === $concatTempPathAndDirName) {
             return null;
         }
 
-        $isDirFunc = new ErrorSuppress($this->createFuncCall('is_dir', [$concatTempPathAndDirName]));
+        $isDirFunc = new ErrorSuppress($this->nodeFactory->createFuncCall('is_dir', [$concatTempPathAndDirName]));
         $ifIsNotDir = new If_(new BooleanNot($isDirFunc));
-        $ifIsNotDir->stmts[] = new Expression($this->createStaticCall(
+        $ifIsNotDir->stmts[] = new Expression($this->nodeFactory->createStaticCall(
             GeneralUtility::class,
             'mkdir_deep',
             [$concatTempPathAndDirName]
         ));
         $ifIsNotDir->stmts[] = new Return_($isDirFunc);
         $anonymousFunction->stmts[] = $ifIsNotDir;
-        $anonymousFunction->stmts[] = new Return_($this->createFalse());
+        $anonymousFunction->stmts[] = new Return_($this->nodeFactory->createFalse());
 
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
@@ -157,7 +159,8 @@ PHP
         );
 
         // Could not figure how to call the closure like that $function();
-        return $this->createFuncCall('call_user_func',
+        return $this->nodeFactory->createFuncCall(
+            'call_user_func',
             [new Variable(self::CREATE_TEMP_SUB_DIR), new String_('typo3temp'), $node->args[0]->value]
         );
     }

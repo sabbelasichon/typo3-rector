@@ -85,7 +85,7 @@ PHP
                 continue;
             }
 
-            if ($this->isValue($fieldValue->key, 'setToDefaultOnCopy')) {
+            if ($this->valueResolver->isValue($fieldValue->key, 'setToDefaultOnCopy')) {
                 $this->removeNode($fieldValue);
             }
         }

@@ -44,18 +44,22 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
         }
         switch ($methodName) {
             case 'gif_compress':
-                return $this->createStaticCall(GraphicalFunctions::class, 'gifCompress', $node->args);
+                return $this->nodeFactory->createStaticCall(GraphicalFunctions::class, 'gifCompress', $node->args);
             case 'png_to_gif_by_imagemagick':
-                return $this->createStaticCall(GraphicalFunctions::class, 'pngToGifByImagemagick', $node->args);
+                return $this->nodeFactory->createStaticCall(
+                    GraphicalFunctions::class,
+                    'pngToGifByImagemagick',
+                    $node->args
+                );
             case 'read_png_gif':
-                return $this->createStaticCall(GraphicalFunctions::class, 'readPngGif', $node->args);
+                return $this->nodeFactory->createStaticCall(GraphicalFunctions::class, 'readPngGif', $node->args);
             case 'inArray':
             case 'removeArrayEntryByValue':
             case 'keepItemsInArray':
             case 'remapArrayKeys':
             case 'arrayDiffAssocRecursive':
             case 'naturalKeySortRecursive':
-                return $this->createStaticCall(ArrayUtility::class, $methodName, $node->args);
+                return $this->nodeFactory->createStaticCall(ArrayUtility::class, $methodName, $node->args);
             case 'array_merge':
                 [$arg1, $arg2] = $node->args;
                 return new Plus($arg1->value, $arg2->value);
@@ -63,7 +67,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
                 // TODO: This is not implemented yet. What is the correct equivalent within getIndpEnv
                 break;
             case 'cleanOutputBuffers':
-                return $this->createStaticCall(GeneralUtility::class, 'flushOutputBuffers');
+                return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'flushOutputBuffers');
         }
         return null;
     }

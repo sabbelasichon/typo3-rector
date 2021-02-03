@@ -48,12 +48,14 @@ final class UseRootlineUtilityInsteadOfGetRootlineMethodRector extends AbstractR
             return null;
         }
 
-        $mountPointParameter = $node->args[1] ?? $this->createArg('');
-        return $this->createMethodCall(
-            $this->createStaticCall(
+        $mountPointParameter = $node->args[1] ?? $this->nodeFactory->createArg('');
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstReference(RootlineUtility::class), $node->args[0], $mountPointParameter]
+                [$this->nodeFactory->createClassConstReference(
+                    RootlineUtility::class
+                ), $node->args[0], $mountPointParameter]
             ),
             'get'
         );

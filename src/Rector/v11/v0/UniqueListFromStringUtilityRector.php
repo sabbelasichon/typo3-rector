@@ -38,7 +38,7 @@ final class UniqueListFromStringUtilityRector extends AbstractRector
             return null;
         }
 
-        return $this->createStaticCall(StringUtility::class, 'uniqueList', [$node->args[0]]);
+        return $this->nodeFactory->createStaticCall(StringUtility::class, 'uniqueList', [$node->args[0]]);
     }
 
     /**

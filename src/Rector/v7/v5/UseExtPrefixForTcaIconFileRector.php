@@ -89,7 +89,7 @@ PHP
                 continue;
             }
 
-            if ($this->isValue($fieldValue->key, 'iconfile')) {
+            if ($this->valueResolver->isValue($fieldValue->key, 'iconfile')) {
                 $this->refactorIconFile($fieldValue);
                 break;
             }
@@ -123,7 +123,7 @@ PHP
                 return;
             }
 
-            $extensionKey = $this->getValue($staticCall->args[0]->value);
+            $extensionKey = $this->valueResolver->getValue($staticCall->args[0]->value);
 
             if (null === $extensionKey) {
                 return;
@@ -134,7 +134,7 @@ PHP
                 return;
             }
 
-            $pathToFile = $this->getValue($pathToFileNode);
+            $pathToFile = $this->valueResolver->getValue($pathToFileNode);
 
             if (null === $pathToFile) {
                 return;
@@ -147,7 +147,7 @@ PHP
             return;
         }
 
-        $pathToFile = $this->getValue($fieldValue->value);
+        $pathToFile = $this->valueResolver->getValue($fieldValue->value);
 
         if (null === $pathToFile) {
             return;

@@ -40,19 +40,18 @@ final class PhpOptionsUtilityRector extends AbstractRector
 
         $configOption = 'session.auto_start';
         if ($this->isName($node->name, 'getIniValueBoolean')) {
-            $configOption = $this->getValue($node->args[0]->value);
+            $configOption = $this->valueResolver->getValue($node->args[0]->value);
         }
 
-        return $this->createFuncCall('filter_var', [
-            $this->createFuncCall('ini_get', [$configOption]),
+        return $this->nodeFactory->createFuncCall('filter_var', [
+            $this->nodeFactory->createFuncCall('ini_get', [$configOption]),
             new ConstFetch(new Name('FILTER_VALIDATE_BOOLEAN')),
             new Array_([
                 new ArrayItem(new ConstFetch(new Name('FILTER_REQUIRE_SCALAR'))),
                 new ArrayItem(new ConstFetch(new Name('FILTER_NULL_ON_FAILURE'))),
             ]
             ),
-        ]
-        );
+        ]);
     }
 
     /**

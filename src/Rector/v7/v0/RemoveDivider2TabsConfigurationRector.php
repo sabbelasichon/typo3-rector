@@ -89,7 +89,7 @@ PHP
                 continue;
             }
 
-            if ($this->isValue($fieldValue->key, 'dividers2tabs')) {
+            if ($this->valueResolver->isValue($fieldValue->key, 'dividers2tabs')) {
                 $this->removeNode($fieldValue);
                 break;
             }

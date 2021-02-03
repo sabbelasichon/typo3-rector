@@ -37,11 +37,11 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
         if (! $this->isName($node->name, 'splitConfArray')) {
             return null;
         }
-        return $this->createMethodCall(
-            $this->createStaticCall(
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstReference(TypoScriptService::class)]
+                [$this->nodeFactory->createClassConstReference(TypoScriptService::class)]
             ),
             'explodeConfigurationForOptionSplit',
             $node->args

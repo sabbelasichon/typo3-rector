@@ -182,12 +182,10 @@ PHP
 
         return new Expression(
             new Assign(new Variable('response'),
-                $this->createMethodCall(
-                    $this->createStaticCall(
-                        GeneralUtility::class, 'makeInstance', [
-                            $this->createClassConstReference(ErrorController::class),
-                        ]
-                    ),
+                $this->nodeFactory->createMethodCall(
+                    $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                        $this->nodeFactory->createClassConstReference(ErrorController::class),
+                    ]),
                     self::MAP_METHODS[$methodCall],
                     $arguments
                 )
@@ -198,7 +196,9 @@ PHP
     private function throwException(): Node
     {
         return new Throw_(
-            new New_(new Name(ImmediateResponseException::class), $this->createArgs([new Variable('response')]))
+            new New_(new Name(ImmediateResponseException::class), $this->nodeFactory->createArgs(
+                [new Variable('response')]
+            ))
         );
     }
 
@@ -221,14 +221,14 @@ PHP
         return new BooleanAnd(
             $pageUnavailableHandling,
             new BooleanNot(
-                $this->createStaticCall(
-                    GeneralUtility::class,
-                    'cmpIP',
-                    [
-                        $this->createStaticCall(GeneralUtility::class, 'getIndpEnv', [new String_('REMOTE_ADDR')]),
-                        $devIpMask,
-                    ]
-                )
+                $this->nodeFactory->createStaticCall(GeneralUtility::class, 'cmpIP', [
+                    $this->nodeFactory->createStaticCall(
+                        GeneralUtility::class,
+                        'getIndpEnv',
+                        [new String_('REMOTE_ADDR')]
+                    ),
+                    $devIpMask,
+                ])
             )
         );
     }
@@ -239,7 +239,7 @@ PHP
             return null;
         }
 
-        $code = $this->getValue($node->args[0]->value);
+        $code = $this->valueResolver->getValue($node->args[0]->value);
 
         if (null === $code) {
             return null;
@@ -250,9 +250,11 @@ PHP
             $message = new String_('The page did not exist or was inaccessible.');
             if (isset($node->args[2])) {
                 $reason = $node->args[2]->value;
-                $message = $this->createConcat([
+                $message = $this->nodeFactory->createConcat([
                     $message,
-                    new Ternary($reason, $this->createConcat([new String_(' Reason: '), $reason]), new String_('')),
+                    new Ternary($reason, $this->nodeFactory->createConcat(
+                        [new String_(' Reason: '), $reason]
+                    ), new String_('')),
                 ]);
             }
         }
@@ -261,17 +263,23 @@ PHP
             $message = new String_('Page cannot be found.');
             if (isset($node->args[2])) {
                 $reason = $node->args[2]->value;
-                $message = new Ternary($reason, $this->createConcat([new String_('Reason: '), $reason]), $message);
+                $message = new Ternary($reason, $this->nodeFactory->createConcat(
+                    [new String_('Reason: '), $reason]
+                ), $message);
             }
         }
 
         if (null !== $message) {
             return new Echo_([
-                $this->createMethodCall($this->createStaticCall(
-                    GeneralUtility::class,
-                    'makeInstance',
-                    [$this->createClassConstReference(ErrorPageController::class)]
-                ), 'errorAction', ['Page Not Found', $message]),
+                $this->nodeFactory->createMethodCall(
+                    $this->nodeFactory->createStaticCall(
+                        GeneralUtility::class,
+                        'makeInstance',
+                        [$this->nodeFactory->createClassConstReference(ErrorPageController::class)]
+                    ),
+                    'errorAction',
+                    ['Page Not Found', $message]
+                ),
             ]);
         }
 

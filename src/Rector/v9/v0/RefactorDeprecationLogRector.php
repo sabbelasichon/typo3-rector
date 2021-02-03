@@ -49,9 +49,12 @@ final class RefactorDeprecationLogRector extends AbstractRector
         switch ($methodName) {
             case 'logDeprecatedFunction':
             case 'logDeprecatedViewHelperAttribute':
-                return $this->createFuncCall('trigger_error', [$usefulMessage, $const]);
+                return $this->nodeFactory->createFuncCall('trigger_error', [$usefulMessage, $const]);
             case 'deprecationLog':
-                return $this->createFuncCall('trigger_error', [$arguments[0] ?? $emptyFallbackString, $const]);
+                return $this->nodeFactory->createFuncCall(
+                    'trigger_error',
+                    [$arguments[0] ?? $emptyFallbackString, $const]
+                );
             case 'getDeprecationLogFileName':
                 $this->removeNode($node);
                 return null;
