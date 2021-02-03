@@ -56,9 +56,13 @@ final class UseContextApiForVersioningWorkspaceIdRector extends AbstractRector
             return null;
         }
 
-        return $this->createMethodCall($this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstReference(Context::class),
-        ]), 'getPropertyFromAspect', ['workspace', 'id', 0]);
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                $this->nodeFactory->createClassConstReference(Context::class),
+            ]),
+            'getPropertyFromAspect',
+            ['workspace', 'id', 0]
+        );
     }
 
     /**

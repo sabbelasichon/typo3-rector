@@ -138,12 +138,12 @@ PHP
                         continue;
                     }
 
-                    if ($this->isValue($configItemValue->key, 'autoSizeMax')) {
+                    if ($this->valueResolver->isValue($configItemValue->key, 'autoSizeMax')) {
                         $configItemValue->key = new String_('size');
-                    } elseif ($configItemValue->value instanceof Array_ && $this->isValue(
-                            $configItemValue->key,
-                            'treeConfig'
-                        )) {
+                    } elseif ($configItemValue->value instanceof Array_ && $this->valueResolver->isValue(
+                        $configItemValue->key,
+                        'treeConfig'
+                    )) {
                         foreach ($configItemValue->value->items as $treeConfigValue) {
                             if (! $treeConfigValue instanceof ArrayItem) {
                                 continue;
@@ -153,7 +153,7 @@ PHP
                                 continue;
                             }
 
-                            if (! $this->isValue($treeConfigValue->key, 'appearance')) {
+                            if (! $this->valueResolver->isValue($treeConfigValue->key, 'appearance')) {
                                 continue;
                             }
 
@@ -170,7 +170,10 @@ PHP
                                     continue;
                                 }
 
-                                if (! $this->isValues($appearanceConfigValue->key, ['width', 'allowRecursiveMode'])) {
+                                if (! $this->valueResolver->isValues(
+                                    $appearanceConfigValue->key,
+                                    ['width', 'allowRecursiveMode']
+                                )) {
                                     continue;
                                 }
 

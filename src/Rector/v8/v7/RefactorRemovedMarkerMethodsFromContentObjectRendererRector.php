@@ -76,26 +76,26 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             if (null === $methodName) {
                 return null;
             }
-            $classConstant = $this->createClassConstReference(MarkerBasedTemplateService::class);
-            $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
-            return $this->createMethodCall($staticCall, $methodName, $node->args);
+            $classConstant = $this->nodeFactory->createClassConstReference(MarkerBasedTemplateService::class);
+            $staticCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
+            return $this->nodeFactory->createMethodCall($staticCall, $methodName, $node->args);
         }
         if ($this->isName($node->name, self::FILL_IN_MARKER_ARRAY)) {
-            $node->args[] = $this->createArg(
-                new BooleanNot($this->createFuncCall(
+            $node->args[] = $this->nodeFactory->createArg(
+                new BooleanNot($this->nodeFactory->createFuncCall(
                     'empty',
-                    [$this->createArg(
-                        $this->createPropertyFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_(
-                            'TSFE'
-                        )), 'xhtmlDoctype')
+                    [$this->nodeFactory->createArg(
+                        $this->nodeFactory->createPropertyFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_(
+                'TSFE'
+            )), 'xhtmlDoctype')
                     )]
                 ))
             );
-            return $this->createMethodCall(
-                $this->createStaticCall(
+            return $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createStaticCall(
                     GeneralUtility::class,
                     'makeInstance',
-                    [$this->createClassConstReference(MarkerBasedTemplateService::class)]
+                    [$this->nodeFactory->createClassConstReference(MarkerBasedTemplateService::class)]
                 ),
                 self::FILL_IN_MARKER_ARRAY,
                 $node->args

@@ -35,7 +35,10 @@ final class UseMetaDataAspectRector extends AbstractRector
         if (! $this->isName($node->name, '_getMetaData')) {
             return null;
         }
-        return $this->createMethodCall($this->createMethodCall($node->var, 'getMetaData'), 'get');
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall($node->var, 'getMetaData'),
+            'get'
+        );
     }
 
     /**

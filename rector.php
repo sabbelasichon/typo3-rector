@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Set\ValueObject\SetList;
+use Ssch\TYPO3Rector\Rector\Internal\NodeFactoryRector;
 use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -23,6 +24,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
+    $services->set(NodeFactoryRector::class);
 
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
     $parameters->set(Option::SKIP, [__DIR__ . '/src/Bootstrap', __DIR__ . '/src/Set', __DIR__ . '/src/Compiler']);

@@ -67,11 +67,11 @@ final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
         $value = self::MAP_CONSTANTS_TO_STRING[$constantsName];
 
         if (false !== strpos($constantsName, 'T3_ERR')) {
-            return $this->createClassConstFetch(AbstractService::class, $value);
+            return $this->nodeFactory->createClassConstFetch(AbstractService::class, $value);
         }
 
         if ('SUB' === $constantsName) {
-            return $this->createFuncCall('chr', [(int) $value]);
+            return $this->nodeFactory->createFuncCall('chr', [(int) $value]);
         }
 
         $string = new String_($value);

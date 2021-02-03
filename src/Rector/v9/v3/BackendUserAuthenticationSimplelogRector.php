@@ -32,19 +32,19 @@ final class BackendUserAuthenticationSimplelogRector extends AbstractRector
         /** @var Arg[] $currentArgs */
         $currentArgs = $node->args;
 
-        $message = $this->getValue($currentArgs[0]->value);
-        $extKey = $this->getValue($currentArgs[1]->value);
+        $message = $this->valueResolver->getValue($currentArgs[0]->value);
+        $extKey = $this->valueResolver->getValue($currentArgs[1]->value);
         $details = ($extKey ? '[' . $extKey . '] ' : '') . $message;
 
         $args = [
-            $this->createArg(4),
-            $this->createArg(0),
-            $currentArgs[2] ?? $this->createArg(0),
-            $this->createArg($details),
-            $this->createArg([]),
+            $this->nodeFactory->createArg(4),
+            $this->nodeFactory->createArg(0),
+            $currentArgs[2] ?? $this->nodeFactory->createArg(0),
+            $this->nodeFactory->createArg($details),
+            $this->nodeFactory->createArg([]),
         ];
 
-        return $this->createMethodCall($node->var, 'writelog', $args);
+        return $this->nodeFactory->createMethodCall($node->var, 'writelog', $args);
     }
 
     public function getNodeTypes(): array

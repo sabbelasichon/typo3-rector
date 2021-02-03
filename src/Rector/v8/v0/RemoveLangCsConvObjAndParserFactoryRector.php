@@ -122,14 +122,14 @@ PHP
         }
 
         if ($this->isName($node->name, 'csConvObj')) {
-            return $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstReference(CharsetConverter::class),
+            return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                $this->nodeFactory->createClassConstReference(CharsetConverter::class),
             ]);
         }
 
         if ($this->isName($node->name, 'parserFactory')) {
-            return $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstReference(LocalizationFactory::class),
+            return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                $this->nodeFactory->createClassConstReference(LocalizationFactory::class),
             ]);
         }
 

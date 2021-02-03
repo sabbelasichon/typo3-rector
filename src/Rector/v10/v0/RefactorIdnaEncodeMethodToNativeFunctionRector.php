@@ -44,7 +44,7 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
         if (0 === count($arguments)) {
             return null;
         }
-        $firstArgumentValue = $this->getValue($arguments[0]->value);
+        $firstArgumentValue = $this->valueResolver->getValue($arguments[0]->value);
         if (! is_string($firstArgumentValue)) {
             return null;
         }
@@ -74,11 +74,11 @@ PHP
 
     private function refactorToNativeFunction(string $value): FuncCall
     {
-        return $this->createFuncCall(
+        return $this->nodeFactory->createFuncCall(
             'idn_to_ascii',
             [new String_($value), new ConstFetch(new Name('IDNA_DEFAULT')), new ConstFetch(new Name(
-                'INTL_IDNA_VARIANT_UTS46'
-            ))]
+            'INTL_IDNA_VARIANT_UTS46'
+        ))]
         );
     }
 

@@ -109,33 +109,33 @@ PHP
 
     public function createCallForFetchingProperty(): MethodCall
     {
-        $staticCallContext = $this->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
-            $this->createClassConstReference(Context::class),
+        $staticCallContext = $this->nodeFactory->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
+            $this->nodeFactory->createClassConstReference(Context::class),
         ]);
-        $staticCallAspect = $this->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
-            $this->createClassConstReference(TypoScriptAspect::class),
+        $staticCallAspect = $this->nodeFactory->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
+            $this->nodeFactory->createClassConstReference(TypoScriptAspect::class),
             new ConstFetch(new Name('true')),
         ]);
 
-        $contextCall = $this->createMethodCall($staticCallContext, 'setAspect');
+        $contextCall = $this->nodeFactory->createMethodCall($staticCallContext, 'setAspect');
 
-        $contextCall->args = $this->createArgs([self::TYPOSCRIPT, $staticCallAspect]);
-        $contextCall = $this->createMethodCall($staticCallContext, 'getPropertyFromAspect');
-        $contextCall->args = $this->createArgs([self::TYPOSCRIPT, 'forcedTemplateParsing']);
+        $contextCall->args = $this->nodeFactory->createArgs([self::TYPOSCRIPT, $staticCallAspect]);
+        $contextCall = $this->nodeFactory->createMethodCall($staticCallContext, 'getPropertyFromAspect');
+        $contextCall->args = $this->nodeFactory->createArgs([self::TYPOSCRIPT, 'forcedTemplateParsing']);
         return $contextCall;
     }
 
     public function createCallForSettingProperty(): MethodCall
     {
-        $staticCallContext = $this->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
-            $this->createClassConstReference(Context::class),
+        $staticCallContext = $this->nodeFactory->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
+            $this->nodeFactory->createClassConstReference(Context::class),
         ]);
-        $staticCallAspect = $this->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
-            $this->createClassConstReference(TypoScriptAspect::class),
+        $staticCallAspect = $this->nodeFactory->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
+            $this->nodeFactory->createClassConstReference(TypoScriptAspect::class),
             new ConstFetch(new Name('true')),
         ]);
-        $contextCall = $this->createMethodCall($staticCallContext, 'setAspect');
-        $contextCall->args = $this->createArgs([self::TYPOSCRIPT, $staticCallAspect]);
+        $contextCall = $this->nodeFactory->createMethodCall($staticCallContext, 'setAspect');
+        $contextCall->args = $this->nodeFactory->createArgs([self::TYPOSCRIPT, $staticCallAspect]);
         return $contextCall;
     }
 

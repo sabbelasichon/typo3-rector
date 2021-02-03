@@ -88,7 +88,7 @@ PHP
                 continue;
             }
 
-            if ($this->isValue($interfaceItem->key, 'showRecordFieldList')) {
+            if ($this->valueResolver->isValue($interfaceItem->key, 'showRecordFieldList')) {
                 $this->removeNode($interfaceItem);
                 --$remainingInterfaceItems;
                 break;

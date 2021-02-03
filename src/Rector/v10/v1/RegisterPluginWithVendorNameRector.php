@@ -69,7 +69,7 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
     {
         $extensionNameArgumentValue = $node->args[0]->value;
 
-        $extensionName = $this->getValue($extensionNameArgumentValue);
+        $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue);
 
         if ($extensionNameArgumentValue instanceof Concat && $this->isPotentiallyUndefinedExtensionKeyVariable(
                 $extensionNameArgumentValue
@@ -77,7 +77,7 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
             /** @var SmartFileInfo $fileInfo */
             $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
 
-            $extensionName = $this->getValue($extensionNameArgumentValue->left) . basename(
+            $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue->left) . basename(
                     $fileInfo->getRelativeDirectoryPath()
                 );
         }
@@ -92,7 +92,7 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
         }
 
         $extensionName = $this->prepareExtensionName($extensionName, $delimiterPosition);
-        $node->args[0] = $this->createArg($extensionName);
+        $node->args[0] = $this->nodeFactory->createArg($extensionName);
         return $node;
     }
 
@@ -102,7 +102,7 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
             return false;
         }
 
-        if (null !== $this->getValue($extensionNameArgumentValue->right)) {
+        if (null !== $this->valueResolver->getValue($extensionNameArgumentValue->right)) {
             return false;
         }
         return $this->isNames($extensionNameArgumentValue->right, ['_EXTKEY', 'extensionKey']);

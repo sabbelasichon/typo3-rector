@@ -110,8 +110,8 @@ PHP
 
     private function createCacheManager(): StaticCall
     {
-        return $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->createClassConstReference(CacheManager::class),
+        return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+            $this->nodeFactory->createClassConstReference(CacheManager::class),
         ]);
     }
 
@@ -119,14 +119,14 @@ PHP
     {
         $this->addCacheManagerNode($node);
 
-        $cacheEntryNode = new Assign(new Variable(self::CACHE_ENTRY), $this->createMethodCall(
-            $this->createMethodCall(self::CACHE_MANAGER, 'getCache', ['cache_hash']),
+        $cacheEntryNode = new Assign(new Variable(self::CACHE_ENTRY), $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall(self::CACHE_MANAGER, 'getCache', ['cache_hash']),
             'get',
             [$node->args[0]]
         ));
         $this->addNodeAfterNode($cacheEntryNode, $node);
 
-        $hashContentNode = new Assign(new Variable(self::HASH_CONTENT), $this->createNull());
+        $hashContentNode = new Assign(new Variable(self::HASH_CONTENT), $this->nodeFactory->createNull());
         $this->addNodeAfterNode($hashContentNode, $node);
 
         $ifNode = new If_(new Variable(self::CACHE_ENTRY));
@@ -152,11 +152,11 @@ PHP
             $node->args[0],
             $node->args[1],
             new Array_([new ArrayItem(new Concat(new String_('ident_'), $node->args[2]->value))]),
-            $this->createArg(0),
+            $this->nodeFactory->createArg(0),
         ];
 
-        $cacheEntryNode = $this->createMethodCall(
-            $this->createMethodCall(self::CACHE_MANAGER, 'getCache', ['cache_hash']),
+        $cacheEntryNode = $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall(self::CACHE_MANAGER, 'getCache', ['cache_hash']),
             'set',
             $arguments
         );

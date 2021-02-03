@@ -127,7 +127,7 @@ PHP
                         continue;
                     }
 
-                    if ($this->isValue($configItemValue->key, 'max')) {
+                    if ($this->valueResolver->isValue($configItemValue->key, 'max')) {
                         $this->removeNode($configItemValue);
                         break;
                     }
@@ -149,10 +149,10 @@ PHP
                 continue;
             }
 
-            if ($this->isValue($configItemValue->key, 'renderType') && $this->isValue(
-                    $configItemValue->value,
-                    'inputDateTime'
-                )) {
+            if ($this->valueResolver->isValue($configItemValue->key, 'renderType') && $this->valueResolver->isValue(
+                $configItemValue->value,
+                'inputDateTime'
+            )) {
                 return true;
             }
         }

@@ -81,8 +81,8 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         if (! in_array($methodName, self::METHODS_TO_REFACTOR, true)) {
             return null;
         }
-        $args = [$this->createArg($methodName), array_shift($node->args)];
-        return $this->createMethodCall($node->var, 'cObjGetSingle', $args);
+        $args = [$this->nodeFactory->createArg($methodName), array_shift($node->args)];
+        return $this->nodeFactory->createMethodCall($node->var, 'cObjGetSingle', $args);
     }
 
     /**

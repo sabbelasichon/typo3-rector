@@ -110,8 +110,8 @@ PHP
                 continue;
             }
 
-            if ($this->isValue($fieldValue->key, 'transOrigPointerField')) {
-                $transOrigPointerField = $this->getValue($fieldValue->value);
+            if ($this->valueResolver->isValue($fieldValue->key, 'transOrigPointerField')) {
+                $transOrigPointerField = $this->valueResolver->getValue($fieldValue->value);
                 break;
             }
         }
@@ -129,7 +129,7 @@ PHP
                 continue;
             }
 
-            $fieldName = $this->getValue($columnItem->key);
+            $fieldName = $this->valueResolver->getValue($columnItem->key);
 
             if ($fieldName !== $transOrigPointerField) {
                 continue;
@@ -148,7 +148,7 @@ PHP
                     continue;
                 }
 
-                $configFieldName = $this->getValue($configValue->key);
+                $configFieldName = $this->valueResolver->getValue($configValue->key);
 
                 if ('exclude' === $configFieldName) {
                     $this->removeNode($configValue);

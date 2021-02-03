@@ -38,9 +38,9 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
             return null;
         }
 
-        $siteNode = new Assign(new Variable('site'), $this->createMethodCall(
-            $this->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->createClassConstReference(SiteFinder::class),
+        $siteNode = new Assign(new Variable('site'), $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
+                $this->nodeFactory->createClassConstReference(SiteFinder::class),
             ]),
             'getSiteByPageId',
             $node->args
@@ -48,8 +48,8 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
 
         $this->addNodeBeforeNode($siteNode, $node);
 
-        return $this->createMethodCall(
-            $this->createMethodCall(new Variable('site'), 'getRouter'),
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall(new Variable('site'), 'getRouter'),
             'generateUri',
             [$node->args[0]]
         );

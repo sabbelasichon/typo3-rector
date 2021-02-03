@@ -40,8 +40,8 @@ final class RefactorBackendUtilityGetPagesTSconfigRector extends AbstractRector
             return null;
         }
 
-        $rootLine = $this->getValue($node->args[1]->value);
-        $returnPartArray = $this->getValue($node->args[2]->value);
+        $rootLine = $this->valueResolver->getValue($node->args[1]->value);
+        $returnPartArray = $this->valueResolver->getValue($node->args[2]->value);
 
         // If a custom non default rootline is given, nothing can be done
         if ('null' !== $rootLine) {

@@ -33,7 +33,10 @@ final class ArrayUtilityInArrayToFuncInArrayRector extends AbstractRector
             return null;
         }
 
-        return $this->createFuncCall('in_array', [$node->args[1], $node->args[0], $this->createTrue()]);
+        return $this->nodeFactory->createFuncCall(
+            'in_array',
+            [$node->args[1], $node->args[0], $this->nodeFactory->createTrue()]
+        );
     }
 
     /**

@@ -79,7 +79,7 @@ PHP
                 return null;
             }
 
-            return $this->createMethodCall($this->createCacheManager(), 'get', [$node->args[0]->value]);
+            return $this->nodeFactory->createMethodCall($this->createCacheManager(), 'get', [$node->args[0]->value]);
         }
 
         if (! isset($node->args[0], $node->args[1], $node->args[2])) {
@@ -91,14 +91,12 @@ PHP
         $ident = $node->args[2]->value;
         $lifetime = isset($node->args[3]) ? new Int_($node->args[3]->value) : new LNumber(0);
 
-        return $this->createMethodCall(
-            $this->createCacheManager(), 'set', [
-                $hash,
-                $data,
-                $this->createArray([$this->createConcat([new String_('ident_'), $ident])]),
-                $lifetime,
-            ]
-        );
+        return $this->nodeFactory->createMethodCall($this->createCacheManager(), 'set', [
+            $hash,
+            $data,
+            $this->nodeFactory->createArray([$this->nodeFactory->createConcat([new String_('ident_'), $ident])]),
+            $lifetime,
+        ]);
     }
 
     /**
@@ -114,12 +112,14 @@ PHP
 
     private function createCacheManager(): MethodCall
     {
-        return $this->createMethodCall(
-            $this->createStaticCall(
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstReference(CacheManager::class)]),
-            'getCache', [new String_('cache_hash')]
+                [$this->nodeFactory->createClassConstReference(CacheManager::class)]
+            ),
+            'getCache',
+            [new String_('cache_hash')]
         );
     }
 }

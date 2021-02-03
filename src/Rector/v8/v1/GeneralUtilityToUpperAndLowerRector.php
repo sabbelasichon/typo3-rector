@@ -39,7 +39,7 @@ final class GeneralUtilityToUpperAndLowerRector extends AbstractRector
             $funcCall = 'mb_strtoupper';
         }
 
-        return $this->createFuncCall($funcCall, [$node->args[0], $this->createArg('utf-8')]);
+        return $this->nodeFactory->createFuncCall($funcCall, [$node->args[0], $this->nodeFactory->createArg('utf-8')]);
     }
 
     /**

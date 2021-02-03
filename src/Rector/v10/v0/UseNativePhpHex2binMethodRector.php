@@ -35,7 +35,7 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector
         if (! $this->isName($node->name, 'hex2bin')) {
             return null;
         }
-        return $this->createFuncCall('hex2bin', $node->args);
+        return $this->nodeFactory->createFuncCall('hex2bin', $node->args);
     }
 
     /**

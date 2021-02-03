@@ -77,7 +77,9 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
             return null;
         }
 
-        $type = $parentNode->left === $node ? $this->getValue($parentNode->right) : $this->getValue($parentNode->left);
+        $type = $parentNode->left === $node ? $this->valueResolver->getValue(
+            $parentNode->right
+        ) : $this->valueResolver->getValue($parentNode->left);
 
         if (null === $type || ! in_array($type, ['FE', 'BE'], true)) {
             return null;
@@ -120,7 +122,7 @@ PHP
             return null;
         }
 
-        if (! $this->isValue($firstArgument, 'TYPO3_MODE')) {
+        if (! $this->valueResolver->isValue($firstArgument, 'TYPO3_MODE')) {
             return null;
         }
 
@@ -131,16 +133,16 @@ PHP
 
     private function createIsBackendCall(array $arguments): MethodCall
     {
-        return $this->createMethodCall(
-            $this->createStaticCall(ApplicationType::class, 'fromRequest', $arguments),
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(ApplicationType::class, 'fromRequest', $arguments),
             'isBackend'
         );
     }
 
     private function createIsFrontendCall(array $arguments): MethodCall
     {
-        return $this->createMethodCall(
-            $this->createStaticCall(ApplicationType::class, 'fromRequest', $arguments),
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(ApplicationType::class, 'fromRequest', $arguments),
             'isFrontend'
         );
     }

@@ -104,7 +104,7 @@ PHP
                 continue;
             }
 
-            $fieldName = $this->getValue($fieldValue->key);
+            $fieldName = $this->valueResolver->getValue($fieldValue->key);
 
             if (null === $fieldName) {
                 continue;
@@ -136,14 +136,14 @@ PHP
                         continue;
                     }
 
-                    if ($this->isValue($configItemValue->key, 'type')) {
-                        $configType = $this->getValue($configItemValue->value);
-                    } elseif ($this->isValue($configItemValue->key, 'renderMode')) {
-                        $renderMode = $this->getValue($configItemValue->value);
-                    } elseif ($this->isValue($configItemValue->key, 'maxitems')) {
-                        $maxItems = $this->getValue($configItemValue->value);
-                    } elseif ($this->isValue($configItemValue->key, self::RENDER_TYPE)) {
-                        $renderType = $this->getValue($configItemValue->value);
+                    if ($this->valueResolver->isValue($configItemValue->key, 'type')) {
+                        $configType = $this->valueResolver->getValue($configItemValue->value);
+                    } elseif ($this->valueResolver->isValue($configItemValue->key, 'renderMode')) {
+                        $renderMode = $this->valueResolver->getValue($configItemValue->value);
+                    } elseif ($this->valueResolver->isValue($configItemValue->key, 'maxitems')) {
+                        $maxItems = $this->valueResolver->getValue($configItemValue->value);
+                    } elseif ($this->valueResolver->isValue($configItemValue->key, self::RENDER_TYPE)) {
+                        $renderType = $this->valueResolver->getValue($configItemValue->value);
                     }
                 }
 

@@ -97,7 +97,7 @@ CODE_SAMPLE
         );
         $newMethod = $methodBuilder->getNode();
         $newMethod->returnType = new Identifier('array');
-        $newMethod->stmts[] = new Return_($this->createMethodCall(
+        $newMethod->stmts[] = new Return_($this->nodeFactory->createMethodCall(
             'this',
             'getSwitchableControllerActions',
             [new Variable('extensionName'), new Variable('pluginName')]

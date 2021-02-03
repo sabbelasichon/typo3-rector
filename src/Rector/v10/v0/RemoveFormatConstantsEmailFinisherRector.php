@@ -102,22 +102,22 @@ PHP
         if (! $this->isName($parent->name, 'setOption')) {
             return;
         }
-        if (! $this->isValue($parent->args[0]->value, self::FORMAT)) {
+        if (! $this->valueResolver->isValue($parent->args[0]->value, self::FORMAT)) {
             return;
         }
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
         $parent->args[0]->value = new String_(self::ADD_HTML_PART);
-        $parent->args[1]->value = $addHtmlPart ? $this->createTrue() : $this->createFalse();
+        $parent->args[1]->value = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
     }
 
     private function refactorArrayItemOption(ArrayItem $parent, ClassConstFetch $node): void
     {
-        if (null === $parent->key || ! $this->isValue($parent->key, self::FORMAT)) {
+        if (null === $parent->key || ! $this->valueResolver->isValue($parent->key, self::FORMAT)) {
             return;
         }
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
         $parent->key = new String_(self::ADD_HTML_PART);
-        $parent->value = $addHtmlPart ? $this->createTrue() : $this->createFalse();
+        $parent->value = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
     }
 
     private function refactorOptionAssignment(Assign $parent, ClassConstFetch $node): void
@@ -128,12 +128,12 @@ PHP
         if (! $this->isName($parent->var->var, 'options')) {
             return;
         }
-        if (null === $parent->var->dim || ! $this->isValue($parent->var->dim, self::FORMAT)) {
+        if (null === $parent->var->dim || ! $this->valueResolver->isValue($parent->var->dim, self::FORMAT)) {
             return;
         }
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
         $parent->var->dim = new String_(self::ADD_HTML_PART);
-        $parent->expr = $addHtmlPart ? $this->createTrue() : $this->createFalse();
+        $parent->expr = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
     }
 
     private function refactorCondition(Identical $parent, ClassConstFetch $node): void
@@ -144,11 +144,11 @@ PHP
         if (! $this->isName($parent->left->var, 'options')) {
             return;
         }
-        if (null === $parent->left->dim || ! $this->isValue($parent->left->dim, self::FORMAT)) {
+        if (null === $parent->left->dim || ! $this->valueResolver->isValue($parent->left->dim, self::FORMAT)) {
             return;
         }
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
         $parent->left->dim = new String_(self::ADD_HTML_PART);
-        $parent->right = $addHtmlPart ? $this->createTrue() : $this->createFalse();
+        $parent->right = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
     }
 }

@@ -50,8 +50,8 @@ final class SetSystemLocaleFromSiteLanguageRector extends AbstractRector
             return null;
         }
 
-        return $this->createStaticCall(Locales::class, 'setSystemLocaleFromSiteLanguage', [
-            $this->createMethodCall($node->var, 'getLanguage'),
+        return $this->nodeFactory->createStaticCall(Locales::class, 'setSystemLocaleFromSiteLanguage', [
+            $this->nodeFactory->createMethodCall($node->var, 'getLanguage'),
         ]);
     }
 

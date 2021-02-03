@@ -181,10 +181,14 @@ PHP
         if ($this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
             $methodName = $this->getName($node->name);
             if (null !== $methodName) {
-                $classConstant = $this->createClassConstReference(MarkerBasedTemplateService::class);
-                $staticCall = $this->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
+                $classConstant = $this->nodeFactory->createClassConstReference(MarkerBasedTemplateService::class);
+                $staticCall = $this->nodeFactory->createStaticCall(
+                    GeneralUtility::class,
+                    'makeInstance',
+                    [$classConstant]
+                );
 
-                return $this->createMethodCall($staticCall, $methodName, $node->args);
+                return $this->nodeFactory->createMethodCall($staticCall, $methodName, $node->args);
             }
         }
         return null;

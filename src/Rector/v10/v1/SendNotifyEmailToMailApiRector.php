@@ -167,26 +167,29 @@ PHP
 
     private function initializeSuccessVariable(): Node
     {
-        return new Expression(new Assign(new Variable(self::SUCCESS), $this->createFalse()));
+        return new Expression(new Assign(new Variable(self::SUCCESS), $this->nodeFactory->createFalse()));
     }
 
     private function initializeMailClass(): Node
     {
-        return new Expression(new Assign(new Variable(self::MAIL), $this->createStaticCall(
+        return new Expression(new Assign(new Variable(self::MAIL), $this->nodeFactory->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [$this->createClassConstReference(MailMessage::class)]
+            [$this->nodeFactory->createClassConstReference(MailMessage::class)]
         )));
     }
 
     private function trimMessage(MethodCall $node): Node
     {
-        return new Assign(new Variable(self::MESSAGE), $this->createFuncCall(self::TRIM, [$node->args[0]]));
+        return new Assign(new Variable(self::MESSAGE), $this->nodeFactory->createFuncCall(
+            self::TRIM,
+            [$node->args[0]]
+        ));
     }
 
     private function trimSenderName(MethodCall $node): Node
     {
-        return new Expression(new Assign(new Variable('senderName'), $this->createFuncCall(
+        return new Expression(new Assign(new Variable('senderName'), $this->nodeFactory->createFuncCall(
             self::TRIM,
             [$node->args[4]]
         )));
@@ -194,7 +197,7 @@ PHP
 
     private function trimSenderAddress(MethodCall $node): Node
     {
-        return new Expression(new Assign(new Variable(self::SENDER_ADDRESS), $this->createFuncCall(
+        return new Expression(new Assign(new Variable(self::SENDER_ADDRESS), $this->nodeFactory->createFuncCall(
             self::TRIM,
             [$node->args[3]]
         )));
@@ -202,10 +205,10 @@ PHP
 
     private function mailFromMethodCall(): MethodCall
     {
-        return $this->createMethodCall(self::MAIL, 'from', [
+        return $this->nodeFactory->createMethodCall(self::MAIL, 'from', [
             new New_(new FullyQualified(Address::class), [
-                $this->createArg(new Variable(self::SENDER_ADDRESS)),
-                $this->createArg(new Variable('senderName')),
+                $this->nodeFactory->createArg(new Variable(self::SENDER_ADDRESS)),
+                $this->nodeFactory->createArg(new Variable('senderName')),
             ]),
         ]);
     }
@@ -226,23 +229,22 @@ PHP
 
     private function messageParts(): Expression
     {
-        return new Expression(new Assign(new Variable(self::MESSAGE_PARTS), $this->createFuncCall('explode', [
-            new ConstFetch(new Name('LF')),
-            new Variable(self::MESSAGE),
-            new LNumber(2),
-        ])));
+        return new Expression(new Assign(new Variable(self::MESSAGE_PARTS), $this->nodeFactory->createFuncCall(
+            'explode',
+            [new ConstFetch(new Name('LF')), new Variable(self::MESSAGE), new LNumber(2)]
+        )));
     }
 
     private function subjectFromMessageParts(): Expression
     {
-        return new Expression(new Assign(new Variable(self::SUBJECT), $this->createFuncCall(self::TRIM, [
+        return new Expression(new Assign(new Variable(self::SUBJECT), $this->nodeFactory->createFuncCall(self::TRIM, [
             new ArrayDimFetch(new Variable(self::MESSAGE_PARTS), new LNumber(0)),
         ])));
     }
 
     private function bodyFromMessageParts(): Expression
     {
-        return new Expression(new Assign(new Variable('plainMessage'), $this->createFuncCall(self::TRIM, [
+        return new Expression(new Assign(new Variable('plainMessage'), $this->nodeFactory->createFuncCall(self::TRIM, [
             new ArrayDimFetch(new Variable(self::MESSAGE_PARTS), new LNumber(1)),
         ])));
     }
@@ -251,34 +253,39 @@ PHP
     {
         return new Expression(
             new Assign(new Variable(self::PARSED_RECIPIENTS),
-                $this->createStaticCall(MailUtility::class, 'parseAddresses', [$node->args[1]]))
+                $this->nodeFactory->createStaticCall(MailUtility::class, 'parseAddresses', [$node->args[1]]))
         );
     }
 
     private function ifParsedRecipients(): If_
     {
         $ifParsedRecipients = new If_(new BooleanNot(new Empty_(new Variable(self::PARSED_RECIPIENTS))));
-        $ifParsedRecipients->stmts[] = new Expression($this->createMethodCall($this->createMethodCall(
-            $this->createMethodCall(self::MAIL, 'to', [new Arg(new Variable(self::PARSED_RECIPIENTS), false, true)]),
-            self::SUBJECT,
-            [new Variable(self::SUBJECT)]
-        ),
+        $ifParsedRecipients->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createMethodCall(
+                    self::MAIL,
+                    'to',
+                    [new Arg(new Variable(self::PARSED_RECIPIENTS), false, true)]
+                ),
+                self::SUBJECT,
+                [new Variable(self::SUBJECT)]
+            ),
             'text',
             [new Variable('plainMessage')]
         ));
-        $ifParsedRecipients->stmts[] = new Expression($this->createMethodCall(self::MAIL, 'send'));
+        $ifParsedRecipients->stmts[] = new Expression($this->nodeFactory->createMethodCall(self::MAIL, 'send'));
 
         return $ifParsedRecipients;
     }
 
     private function createSuccessTrue(): Expression
     {
-        return new Expression(new Assign(new Variable(self::SUCCESS), $this->createTrue()));
+        return new Expression(new Assign(new Variable(self::SUCCESS), $this->nodeFactory->createTrue()));
     }
 
     private function parsedReplyTo(Expr $replyTo): Node
     {
-        return new Expression(new Assign(new Variable(self::PARSED_REPLY_TO), $this->createStaticCall(
+        return new Expression(new Assign(new Variable(self::PARSED_REPLY_TO), $this->nodeFactory->createStaticCall(
             MailUtility::class,
             'parseAddresses',
             [$replyTo]
@@ -288,7 +295,7 @@ PHP
     private function methodReplyTo(): Node
     {
         $ifNode = new If_(new BooleanNot(new Empty_(new Variable(self::PARSED_REPLY_TO))));
-        $ifNode->stmts[] = new Expression($this->createMethodCall(
+        $ifNode->stmts[] = new Expression($this->nodeFactory->createMethodCall(
             self::MAIL,
             'setReplyTo',
             [new Variable(self::PARSED_REPLY_TO)]

@@ -53,8 +53,8 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
         $args = $node->args;
         [$firstArgument, $secondArgument, $thirdArgument] = $args;
         $queryBuilderAssignment = $this->createQueryBuilderCall($firstArgument);
-        $queryBuilderRemoveRestrictions = $this->createMethodCall(
-            $this->createMethodCall(new Variable(self::QUERY_BUILDER), 'getRestrictions'),
+        $queryBuilderRemoveRestrictions = $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall(new Variable(self::QUERY_BUILDER), 'getRestrictions'),
             'removeAll'
         );
         $this->addNodeBeforeNode(new Nop(), $node);
@@ -96,14 +96,14 @@ PHP
 
     private function createQueryBuilderCall(Arg $firstArgument): Assign
     {
-        $queryBuilder = $this->createMethodCall(
-            $this->createStaticCall(
+        $queryBuilder = $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstReference(ConnectionPool::class)]
+                [$this->nodeFactory->createClassConstReference(ConnectionPool::class)]
             ),
             'getQueryBuilderForTable',
-            [$this->createArg($firstArgument->value)]
+            [$this->nodeFactory->createArg($firstArgument->value)]
         );
         return new Assign(new Variable(self::QUERY_BUILDER), $queryBuilder);
     }
@@ -111,27 +111,29 @@ PHP
     private function fetchQueryBuilderResults(Arg $table, Arg $where, Arg $fields): MethodCall
     {
         $queryBuilder = new Variable(self::QUERY_BUILDER);
-        return $this->createMethodCall(
-            $this->createMethodCall(
-                $this->createMethodCall(
-                    $this->createMethodCall(
-                        $this->createMethodCall(
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createMethodCall(
+                    $this->nodeFactory->createMethodCall(
+                        $this->nodeFactory->createMethodCall(
                             $queryBuilder,
                             'select',
-                            [$this->createStaticCall(
+                            [$this->nodeFactory->createStaticCall(
                                 GeneralUtility::class,
                                 'trimExplode',
-                                [new String_(','), $this->createArg($fields->value), $this->createTrue()]
+                                [new String_(','), $this->nodeFactory->createArg(
+                                    $fields->value
+                                ), $this->nodeFactory->createTrue()]
                             )]
                         ),
                         'from',
-                        [$this->createArg($table->value)]
+                        [$this->nodeFactory->createArg($table->value)]
                     ),
                     'where',
-                    [$this->createStaticCall(
+                    [$this->nodeFactory->createStaticCall(
                         QueryHelper::class,
                         'stripLogicalOperatorPrefix',
-                        [$this->createArg($where->value)]
+                        [$this->nodeFactory->createArg($where->value)]
                     )]
                 ),
                 'execute'

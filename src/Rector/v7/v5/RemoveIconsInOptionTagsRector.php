@@ -95,7 +95,7 @@ PHP
                 continue;
             }
 
-            $fieldName = $this->getValue($fieldValue->key);
+            $fieldName = $this->valueResolver->getValue($fieldValue->key);
 
             if (null === $fieldName) {
                 continue;
@@ -123,7 +123,7 @@ PHP
                         continue;
                     }
 
-                    if ($this->isValue($configItemValue->key, 'iconsInOptionTags')) {
+                    if ($this->valueResolver->isValue($configItemValue->key, 'iconsInOptionTags')) {
                         $this->removeNode($configItemValue);
                         break;
                     }

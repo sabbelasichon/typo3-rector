@@ -55,13 +55,13 @@ PHP
         $className = $this->getName($node->class);
         $methodName = $this->getName($node->name);
         if (Bootstrap::class === $className && 'usesComposerClassLoading' === $methodName) {
-            return $this->createStaticCall(Environment::class, 'isComposerMode');
+            return $this->nodeFactory->createStaticCall(Environment::class, 'isComposerMode');
         }
         if (GeneralUtility::class === $className && 'getApplicationContext' === $methodName) {
-            return $this->createStaticCall(Environment::class, 'getContext');
+            return $this->nodeFactory->createStaticCall(Environment::class, 'getContext');
         }
         if (EnvironmentService::class === $className && 'isEnvironmentInCliMode' === $methodName) {
-            return $this->createStaticCall(Environment::class, 'isCli');
+            return $this->nodeFactory->createStaticCall(Environment::class, 'isCli');
         }
         return null;
     }

@@ -89,14 +89,15 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                         continue;
                     }
 
-                    if (! $this->isValues($configItemValue->key, ['selicon_cols', 'showIconTable'])) {
+                    if (! $this->valueResolver->isValues($configItemValue->key, ['selicon_cols', 'showIconTable'])) {
                         continue;
                     }
 
-                    if ($this->isValue($configItemValue->key, 'showIconTable') && $this->isTrue(
-                        $configItemValue->value
-                    )) {
-                        $configValue->value->items[] = new ArrayItem($this->createArray([
+                    if ($this->valueResolver->isValue(
+                        $configItemValue->key,
+                        'showIconTable'
+                    ) && $this->valueResolver->isTrue($configItemValue->value)) {
+                        $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray([
                             'selectIcons' => [
                                 'disabled' => false,
                             ],

@@ -35,14 +35,14 @@ final class RteHtmlParserRector extends AbstractRector
             return $this->removeSecondArgumentFromMethod($node);
         }
         if ($this->isName($node->name, 'siteUrl')) {
-            return $this->createStaticCall(
+            return $this->nodeFactory->createStaticCall(
                 GeneralUtility::class,
                 'getIndpEnv',
-                [$this->createArg(new String_('TYPO3_SITE_URL'))]
+                [$this->nodeFactory->createArg(new String_('TYPO3_SITE_URL'))]
             );
         }
         if ($this->isName($node->name, 'getUrl')) {
-            return $this->createStaticCall(GeneralUtility::class, 'getUrl', [$node->args[0]]);
+            return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'getUrl', [$node->args[0]]);
         }
         return null;
     }

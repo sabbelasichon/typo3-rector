@@ -43,19 +43,22 @@ final class Array2XmlCsToArray2XmlRector extends AbstractRector
 
         $args = $node->args;
 
-        $array = isset($args[0]) ? $this->getValue($args[0]->value) : [];
-        $doctag = isset($args[1]) ? $this->getValue($args[1]->value) : 'phparray';
-        $options = isset($args[2]) ? $this->getValue($args[2]->value) : [];
-        $charset = isset($args[3]) ? $this->getValue($args[3]->value) : 'utf-8';
+        $array = isset($args[0]) ? $this->valueResolver->getValue($args[0]->value) : [];
+        $doctag = isset($args[1]) ? $this->valueResolver->getValue($args[1]->value) : 'phparray';
+        $options = isset($args[2]) ? $this->valueResolver->getValue($args[2]->value) : [];
+        $charset = isset($args[3]) ? $this->valueResolver->getValue($args[3]->value) : 'utf-8';
 
-        $node->args = $this->createArgs([$array, '', 0, $doctag, 0, $options]);
+        $node->args = $this->nodeFactory->createArgs([$array, '', 0, $doctag, 0, $options]);
 
         return new Concat(
             new Concat(
                 new Concat(
                     new Concat(
                         new String_('<?xml version="1.0" encoding="'),
-                        $this->createFuncCall('htmlspecialchars', $this->createArgs([$charset]))
+                        $this->nodeFactory->createFuncCall(
+                            'htmlspecialchars',
+                            $this->nodeFactory->createArgs([$charset])
+                        )
                     ),
                     new String_('" standalone="yes" ?>')
                 ),

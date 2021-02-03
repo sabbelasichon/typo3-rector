@@ -40,12 +40,12 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
             return null;
         }
 
-        if (! $this->isValue($node->args[1]->value, 'hasInstalledExtensions')) {
+        if (! $this->valueResolver->isValue($node->args[1]->value, 'hasInstalledExtensions')) {
             return null;
         }
 
-        $node->args[0]->value = $this->createClassConstReference(InstallUtility::class);
-        $node->args[1] = $this->createArg('afterExtensionInstall');
+        $node->args[0]->value = $this->nodeFactory->createClassConstReference(InstallUtility::class);
+        $node->args[1] = $this->nodeFactory->createArg('afterExtensionInstall');
 
         return null;
     }

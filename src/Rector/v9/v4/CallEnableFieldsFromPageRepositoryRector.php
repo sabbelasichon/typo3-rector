@@ -38,13 +38,15 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
         }
         $numberOfMethodArguments = count($node->args);
         if ($numberOfMethodArguments > 1) {
-            $node->args[1] = new Arg(BuilderHelpers::normalizeValue($this->isTrue($node->args[1]->value) ? true : -1));
+            $node->args[1] = new Arg(BuilderHelpers::normalizeValue(
+                $this->valueResolver->isTrue($node->args[1]->value) ? true : -1
+            ));
         }
-        return $this->createMethodCall(
-            $this->createStaticCall(
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstReference(PageRepository::class)]
+                [$this->nodeFactory->createClassConstReference(PageRepository::class)]
             ),
             'enableFields',
             $node->args

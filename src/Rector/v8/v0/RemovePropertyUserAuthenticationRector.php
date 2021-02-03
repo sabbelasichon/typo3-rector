@@ -35,7 +35,7 @@ final class RemovePropertyUserAuthenticationRector extends AbstractRector
         if (! $this->isObjectType($node->var, CommandController::class)) {
             return $node;
         }
-        return $this->createMethodCall($node->var, 'getBackendUserAuthentication');
+        return $this->nodeFactory->createMethodCall($node->var, 'getBackendUserAuthentication');
     }
 
     /**

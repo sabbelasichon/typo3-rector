@@ -36,7 +36,7 @@ final class CheckForExtensionVersionRector extends AbstractRector
             return null;
         }
         $firstArgument = $node->args[0];
-        if (! $this->isValue($firstArgument->value, 'version')) {
+        if (! $this->valueResolver->isValue($firstArgument->value, 'version')) {
             return null;
         }
         $firstArgument->value = new String_('workspaces');

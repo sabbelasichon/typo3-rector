@@ -38,13 +38,10 @@ final class GeneratePageTitleRector extends AbstractRector
             return null;
         }
 
-        return $this->createMethodCall(
-            new ArrayDimFetch(
-                new Variable('GLOBALS'),
-                new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
-            ),
-            'generatePageTitle'
-        );
+        return $this->nodeFactory->createMethodCall(new ArrayDimFetch(
+            new Variable('GLOBALS'),
+            new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
+        ), 'generatePageTitle');
     }
 
     /**

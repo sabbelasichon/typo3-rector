@@ -130,8 +130,8 @@ PHP
     {
         $fileNameNode = new Assign(
             new Variable(self::PATH),
-            $this->createMethodCall(
-                $this->createPropertyFetch(new Variable('typoscriptFrontendController'), 'tmpl'),
+            $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createPropertyFetch(new Variable('typoscriptFrontendController'), 'tmpl'),
                 'getFileName',
                 $node->args
             )
@@ -144,11 +144,11 @@ PHP
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
         $ifNode = new If_(new BooleanAnd(
-            new NotIdentical(new Variable(self::PATH), $this->createNull()),
-            $this->createFuncCall('file_exists', [new Variable(self::PATH)])
+            new NotIdentical(new Variable(self::PATH), $this->nodeFactory->createNull()),
+            $this->nodeFactory->createFuncCall('file_exists', [new Variable(self::PATH)])
         ));
 
-        $templateAssignment = new Assign($parentNode->var, $this->createFuncCall(
+        $templateAssignment = new Assign($parentNode->var, $this->nodeFactory->createFuncCall(
             'file_get_contents',
             [new Variable(self::PATH)]
         ));

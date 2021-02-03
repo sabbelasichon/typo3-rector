@@ -43,15 +43,15 @@ final class UseClassTypo3InformationRector extends AbstractRector
 
         switch ($node->name) {
             case 'TYPO3_URL_GENERAL':
-                return $this->createClassConstFetch(Typo3Information::class, 'URL_COMMUNITY');
+                return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_COMMUNITY');
             case 'TYPO3_URL_LICENSE':
-                return $this->createClassConstFetch(Typo3Information::class, 'URL_LICENSE');
+                return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_LICENSE');
             case 'TYPO3_URL_EXCEPTION':
-                return $this->createClassConstFetch(Typo3Information::class, 'URL_EXCEPTION');
+                return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_EXCEPTION');
             case 'TYPO3_URL_DONATE':
-                return $this->createClassConstFetch(Typo3Information::class, 'URL_DONATE');
+                return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_DONATE');
             case 'TYPO3_URL_WIKI_OPCODECACHE':
-                return $this->createClassConstFetch(Typo3Information::class, 'URL_OPCACHE');
+                return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_OPCACHE');
         }
 
         return null;

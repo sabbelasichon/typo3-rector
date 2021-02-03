@@ -6,6 +6,8 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
@@ -60,7 +62,13 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
         }
 
         $tagName = '@TYPO3\CMS\Extbase\Annotation\IgnoreValidation("' . ltrim((string) $tagNode->value, '$') . '")';
-        $phpDocInfo->addBareTag($tagName);
+
+        $tag = '@' . ltrim($tagName, '@');
+
+        $attributeAwarePhpDocTagNode = new AttributeAwarePhpDocTagNode($tag, new GenericTagValueNode(''));
+
+        $phpDocInfo->addPhpDocTagNode($attributeAwarePhpDocTagNode);
+
         $this->phpDocTagRemover->removeByName($phpDocInfo, self::OLD_ANNOTATION);
         return $node;
     }

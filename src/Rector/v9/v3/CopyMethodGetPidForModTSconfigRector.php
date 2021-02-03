@@ -49,7 +49,7 @@ final class CopyMethodGetPidForModTSconfigRector extends AbstractRector
 
         return new Ternary(new BooleanAnd(
             new Identical($tableVariableNode, new String_('pages')),
-            $this->createStaticCall(MathUtility::class, 'canBeInterpretedAsInteger', [$node->args[1]])
+            $this->nodeFactory->createStaticCall(MathUtility::class, 'canBeInterpretedAsInteger', [$node->args[1]])
         ), $node->args[1]->value, $node->args[2]->value);
     }
 

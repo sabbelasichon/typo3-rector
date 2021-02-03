@@ -49,11 +49,11 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
         }
         /** @var Arg $lastArgument */
         $lastArgument = array_pop($arguments);
-        if ($this->isFalse($lastArgument->value)) {
+        if ($this->valueResolver->isFalse($lastArgument->value)) {
             $call->args = $arguments;
             return null;
         }
-        return $this->createFuncCall('parse_str', [$arguments[0], $node->var]);
+        return $this->nodeFactory->createFuncCall('parse_str', [$arguments[0], $node->var]);
     }
 
     /**

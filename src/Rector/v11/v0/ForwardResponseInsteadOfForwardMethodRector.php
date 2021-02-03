@@ -73,24 +73,31 @@ PHP
         }
 
         foreach ($forwardMethodCalls as $forwardMethodCall) {
-            $action = $this->getValue($forwardMethodCall->args[0]->value);
+            $action = $this->valueResolver->getValue($forwardMethodCall->args[0]->value);
 
             if (null === $action) {
                 return null;
             }
 
-            $forwardResponse = $this->builderFactory->new(ForwardResponse::class, $this->createArgs([$action]));
+            $forwardResponse = $this->builderFactory->new(
+                ForwardResponse::class,
+                $this->nodeFactory->createArgs([$action])
+            );
 
-            if (isset($forwardMethodCall->args[1]) && ! $this->isNull($forwardMethodCall->args[1]->value)) {
-                $forwardResponse = $this->createMethodCall(
+            if (isset($forwardMethodCall->args[1]) && ! $this->valueResolver->isNull(
+                $forwardMethodCall->args[1]->value
+            )) {
+                $forwardResponse = $this->nodeFactory->createMethodCall(
                     $forwardResponse,
                     'withControllerName',
                     [$forwardMethodCall->args[1]->value]
                 );
             }
 
-            if (isset($forwardMethodCall->args[2]) && ! $this->isNull($forwardMethodCall->args[2]->value)) {
-                $forwardResponse = $this->createMethodCall(
+            if (isset($forwardMethodCall->args[2]) && ! $this->valueResolver->isNull(
+                $forwardMethodCall->args[2]->value
+            )) {
+                $forwardResponse = $this->nodeFactory->createMethodCall(
                     $forwardResponse,
                     'withExtensionName',
                     [$forwardMethodCall->args[2]->value]
@@ -98,7 +105,7 @@ PHP
             }
 
             if (isset($forwardMethodCall->args[3])) {
-                $forwardResponse = $this->createMethodCall(
+                $forwardResponse = $this->nodeFactory->createMethodCall(
                     $forwardResponse,
                     'withArguments',
                     [$forwardMethodCall->args[3]->value]

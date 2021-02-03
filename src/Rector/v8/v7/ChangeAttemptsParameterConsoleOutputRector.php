@@ -58,7 +58,7 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
         } elseif ($this->isName($node->name, self::SELECT) && 'false' === $this->getName($arguments[4]->value)) {
             $arguments[4] = null;
         }
-        $node->args = $this->createArgs($arguments);
+        $node->args = $this->nodeFactory->createArgs($arguments);
         return $node;
     }
 

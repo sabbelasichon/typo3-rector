@@ -40,17 +40,17 @@ final class RandomMethodsToRandomClassRector extends AbstractRector
             return null;
         }
 
-        $randomClass = $this->createStaticCall(
+        $randomClass = $this->nodeFactory->createStaticCall(
             GeneralUtility::class,
             'makeInstance',
-            [$this->createClassConstReference(Random::class)]
+            [$this->nodeFactory->createClassConstReference(Random::class)]
         );
 
         if ($this->isName($node->name, self::GENERATE_RANDOM_BYTES)) {
-            return $this->createMethodCall($randomClass, self::GENERATE_RANDOM_BYTES, $node->args);
+            return $this->nodeFactory->createMethodCall($randomClass, self::GENERATE_RANDOM_BYTES, $node->args);
         }
 
-        return $this->createMethodCall($randomClass, 'generateRandomHexString', $node->args);
+        return $this->nodeFactory->createMethodCall($randomClass, 'generateRandomHexString', $node->args);
     }
 
     /**

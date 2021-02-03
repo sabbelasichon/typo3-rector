@@ -84,7 +84,7 @@ PHP
             return null;
         }
 
-        $value = $this->getValue($node->args[0]->value);
+        $value = $this->valueResolver->getValue($node->args[0]->value);
 
         if (null === $value) {
             return null;
@@ -96,11 +96,11 @@ PHP
 
         $configuration = $this->createConfiguration($value);
 
-        $newNode = $this->createMethodCall($node->var, 'getTSConfig');
+        $newNode = $this->nodeFactory->createMethodCall($node->var, 'getTSConfig');
 
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
-        $defaultValueNode = $this->createNull();
+        $defaultValueNode = $this->nodeFactory->createNull();
         if ($parentNode instanceof Cast) {
             $defaultValueNode = $this->transformToSpecificCast($parentNode);
         }
@@ -131,7 +131,7 @@ PHP
     private function transformToSpecificCast(Cast $node): Expr
     {
         if ($node instanceof Array_) {
-            return $this->createArray([]);
+            return $this->nodeFactory->createArray([]);
         }
 
         if ($node instanceof StringCast) {
@@ -139,13 +139,13 @@ PHP
         }
 
         if ($node instanceof Bool_) {
-            return $this->createFalse();
+            return $this->nodeFactory->createFalse();
         }
 
         if ($node instanceof Int_) {
             return new LNumber(0);
         }
 
-        return $this->createNull();
+        return $this->nodeFactory->createNull();
     }
 }

@@ -81,7 +81,7 @@ PHP
                 continue;
             }
 
-            if ($this->isValue($fieldValue->key, 'selicon_field_path')) {
+            if ($this->valueResolver->isValue($fieldValue->key, 'selicon_field_path')) {
                 $this->removeNode($fieldValue);
             }
         }

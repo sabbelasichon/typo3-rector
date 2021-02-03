@@ -120,7 +120,7 @@ PHP
                     continue;
                 }
 
-                if (! $this->isValue($configValue->key, 'columnsOverrides')) {
+                if (! $this->valueResolver->isValue($configValue->key, 'columnsOverrides')) {
                     continue;
                 }
 
@@ -141,11 +141,11 @@ PHP
             return false;
         }
 
-        if (! $this->isValue($configValue->key, 'defaultExtras')) {
+        if (! $this->valueResolver->isValue($configValue->key, 'defaultExtras')) {
             return false;
         }
 
-        $defaultExtras = $this->getValue($configValue->value);
+        $defaultExtras = $this->valueResolver->getValue($configValue->value);
 
         if (! is_string($defaultExtras)) {
             return false;
@@ -195,7 +195,7 @@ PHP
                         continue;
                     }
 
-                    if (! $this->isValue($configValue->key, 'config')) {
+                    if (! $this->valueResolver->isValue($configValue->key, 'config')) {
                         continue;
                     }
 
@@ -212,7 +212,7 @@ PHP
                 }
 
                 if ($configurationArray instanceof ArrayItem && $configurationArray->value instanceof Array_) {
-                    $configurationArray->value->items[] = new ArrayItem($this->createTrue(), new String_(
+                    $configurationArray->value->items[] = new ArrayItem($this->nodeFactory->createTrue(), new String_(
                         'enableRichtext'
                     ));
                     $configurationArray->value->items[] = new ArrayItem(new String_('default'), new String_(

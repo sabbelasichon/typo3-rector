@@ -37,7 +37,7 @@ final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRecto
             return null;
         }
 
-        return $this->createStaticCall(TypeHandlingUtility::class, $methodCall, $node->args);
+        return $this->nodeFactory->createStaticCall(TypeHandlingUtility::class, $methodCall, $node->args);
     }
 
     /**

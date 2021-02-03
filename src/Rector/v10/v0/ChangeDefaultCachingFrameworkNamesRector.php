@@ -37,7 +37,7 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
             return null;
         }
 
-        $argument = $this->getValue($node->args[0]->value);
+        $argument = $this->valueResolver->getValue($node->args[0]->value);
 
         if (null === $argument) {
             return null;
@@ -55,7 +55,7 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
             return null;
         }
 
-        $node->args[0] = $this->createArg(str_replace('cache_', '', $argument));
+        $node->args[0] = $this->nodeFactory->createArg(str_replace('cache_', '', $argument));
 
         return null;
     }

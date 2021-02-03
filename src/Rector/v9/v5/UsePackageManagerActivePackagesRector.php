@@ -42,11 +42,11 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         if ($this->typo3NodeResolver->isTypo3Global($node, Typo3NodeResolver::TYPO3_LOADED_EXT)) {
-            return $this->createMethodCall(
-                $this->createStaticCall(
+            return $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createStaticCall(
                     GeneralUtility::class,
                     'makeInstance',
-                    [$this->createClassConstReference(PackageManager::class)]
+                    [$this->nodeFactory->createClassConstReference(PackageManager::class)]
                 ),
                 'getActivePackages'
             );

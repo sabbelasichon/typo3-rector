@@ -22,7 +22,7 @@ final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConn
 
         $connectionAssignment = $this->createConnectionCall($tableArgument);
 
-        $connectionInsertCall = $this->createMethodCall(
+        $connectionInsertCall = $this->nodeFactory->createMethodCall(
             new Variable('connection'), 'insert', [$tableArgument->value, $dataArgument->value]
         );
 

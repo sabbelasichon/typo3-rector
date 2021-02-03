@@ -48,8 +48,8 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
             return null;
         }
 
-        if (! isset($node->args[3]) || (isset($node->args[3]) && $this->isNull($node->args[3]->value))) {
-            $propArrayNode = new Assign(new Variable('propArr'), $this->createMethodCall(
+        if (! isset($node->args[3]) || (isset($node->args[3]) && $this->valueResolver->isNull($node->args[3]->value))) {
+            $propArrayNode = new Assign(new Variable('propArr'), $this->nodeFactory->createMethodCall(
                 $node->var,
                 'getRecordProperties',
                 [$node->args[1], $node->args[2]]
@@ -66,7 +66,7 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
 
         $node->name = new Identifier('log');
 
-        $node->args = $this->createArgs([
+        $node->args = $this->nodeFactory->createArgs([
             $node->args[1],
             $node->args[2],
             new LNumber(0),
@@ -75,12 +75,12 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
             $node->args[0],
             new LNumber(-1),
             new Array_(),
-            $this->createMethodCall($node->var, 'eventPid', [
+            $this->nodeFactory->createMethodCall($node->var, 'eventPid', [
                 $node->args[1],
                 $node->args[2],
-                isset($node->args[3]) && ! $this->isNull($node->args[3]->value) ? $node->args[3] : new Variable(
-                    self::PID
-                ),
+                isset($node->args[3]) && ! $this->valueResolver->isNull(
+                    $node->args[3]->value
+                ) ? $node->args[3] : new Variable(self::PID),
             ]),
         ]);
 

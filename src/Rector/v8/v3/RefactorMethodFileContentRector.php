@@ -47,9 +47,9 @@ final class RefactorMethodFileContentRector extends AbstractRector
         }
 
         return new Ternary(
-            $this->createMethodCall($node->var, 'getFileName', $node->args),
-            $this->createFuncCall('file_get_contents', $node->args),
-            $this->createNull()
+            $this->nodeFactory->createMethodCall($node->var, 'getFileName', $node->args),
+            $this->nodeFactory->createFuncCall('file_get_contents', $node->args),
+            $this->nodeFactory->createNull()
         );
     }
 

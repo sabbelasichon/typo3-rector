@@ -72,11 +72,11 @@ PHP
         if (null !== $secondArgument) {
             $buildUriArguments[] = $secondArgument->value;
         }
-        return $this->createMethodCall(
-            $this->createStaticCall(
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstReference(UriBuilder::class)]
+                [$this->nodeFactory->createClassConstReference(UriBuilder::class)]
             ),
             'buildUriFromRoute',
             $buildUriArguments

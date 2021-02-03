@@ -68,23 +68,23 @@ PHP
     private function createNewMethodCallForSiteRelPath(StaticCall $node): StaticCall
     {
         $firstArgument = $node->args[0];
-        return $this->createStaticCall(
+        return $this->nodeFactory->createStaticCall(
             PathUtility::class,
             'stripPathSitePrefix',
-            [$this->createStaticCall(ExtensionManagementUtility::class, 'extPath', [$firstArgument])]
+            [$this->nodeFactory->createStaticCall(ExtensionManagementUtility::class, 'extPath', [$firstArgument])]
         );
     }
 
     private function createNewMethodCallForRemoveCacheFiles(): MethodCall
     {
-        return $this->createMethodCall(
-            $this->createStaticCall(
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createStaticCall(
                 GeneralUtility::class,
                 'makeInstance',
-                [$this->createClassConstReference(CacheManager::class)]
+                [$this->nodeFactory->createClassConstReference(CacheManager::class)]
             ),
             'flushCachesInGroup',
-            [$this->createArg('system')]
+            [$this->nodeFactory->createArg('system')]
         );
     }
 
