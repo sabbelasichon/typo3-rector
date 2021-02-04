@@ -31,6 +31,16 @@ final class MoveForeignTypesToOverrideChildTcaRector extends AbstractRector
     /**
      * @var string
      */
+    private const FOREIGN_SELECTOR_FIELDTCAOVERRIDE = 'foreign_selector_fieldTcaOverride';
+
+    /**
+     * @var string
+     */
+    private const FOREIGN_SELECTOR = 'foreign_selector';
+
+    /**
+     * @var string
+     */
     private const OVERRIDE_CHILD_TCA = 'overrideChildTca';
 
     /**
@@ -114,7 +124,9 @@ PHP
             }
 
             $foreignTypesArrayItem = null;
+            $foreignSelector = null;
             $overrideChildTcaNode = null;
+            $foreignSelectorOverrideNode = null;
             foreach ($columnConfig->items as $configItemValue) {
                 if (! $configItemValue instanceof ArrayItem) {
                     continue;
@@ -126,17 +138,20 @@ PHP
 
                 if ($this->valueResolver->isValue($configItemValue->key, self::FOREIGN_TYPES)) {
                     $foreignTypesArrayItem = $configItemValue;
+                } elseif ($this->valueResolver->isValue($configItemValue->key, self::FOREIGN_SELECTOR)) {
+                    $foreignSelector = $configItemValue->value;
+                } elseif ($this->valueResolver->isValue(
+                    $configItemValue->key,
+                    self::FOREIGN_SELECTOR_FIELDTCAOVERRIDE
+                )) {
+                    $foreignSelectorOverrideNode = $configItemValue;
                 } elseif ($this->valueResolver->isValue($configItemValue->key, self::OVERRIDE_CHILD_TCA)) {
                     $overrideChildTcaNode = $configItemValue->value;
                 }
             }
 
             // don't search further if no foreign_types is configured
-            if (null === $foreignTypesArrayItem) {
-                continue;
-            }
-
-            if (! $foreignTypesArrayItem->value instanceof Array_) {
+            if (null === $foreignSelectorOverrideNode && null === $foreignTypesArrayItem) {
                 continue;
             }
 
@@ -151,35 +166,18 @@ PHP
                 ));
             }
 
-            // search for an existing overrideChildTca['types']
-            $overrideChildTcaTypesArrayItem = null;
-            foreach ($overrideChildTcaNode->items as $overrideChildTcaOption) {
-                if (! $overrideChildTcaOption instanceof ArrayItem) {
-                    continue;
-                }
-                if (null === $overrideChildTcaOption->key) {
-                    continue;
-                }
-                if ($this->valueResolver->isValue($overrideChildTcaOption->key, 'types')) {
-                    $overrideChildTcaTypesArrayItem = $overrideChildTcaOption;
-                }
+            if (null !== $foreignTypesArrayItem && $foreignTypesArrayItem->value instanceof Array_) {
+                $this->injectOverrideChildTca($overrideChildTcaNode, 'types', $foreignTypesArrayItem->value);
+                $this->removeNode($foreignTypesArrayItem);
             }
 
-            if (null === $overrideChildTcaTypesArrayItem) {
-                $overrideChildTcaTypesArrayItem = new ArrayItem($foreignTypesArrayItem->value, new String_(
-                    'types'
-                ));
-                $overrideChildTcaNode->items[] = $overrideChildTcaTypesArrayItem;
-            } else {
-                if (! $overrideChildTcaTypesArrayItem->value instanceof Array_) {
-                    continue;
-                }
-                foreach ($foreignTypesArrayItem->value->items as $item) {
-                    $overrideChildTcaTypesArrayItem->value->items[] = $item;
-                }
+            if (null !== $foreignSelectorOverrideNode && $foreignSelectorOverrideNode->value instanceof Array_ && $foreignSelector instanceof String_) {
+                $columnItem = new Array_([
+                    new ArrayItem($foreignSelectorOverrideNode->value, new String_($foreignSelector->value)),
+                ]);
+                $this->injectOverrideChildTca($overrideChildTcaNode, 'columns', $columnItem);
+                $this->removeNode($foreignSelectorOverrideNode);
             }
-
-            $this->removeNode($foreignTypesArrayItem);
         }
 
         return $node;
@@ -206,5 +204,42 @@ PHP
             return $columnConfig->args[1]->value;
         }
         return $columnConfig;
+    }
+
+    private function extractExistingOverrideChildTca(Array_ $overrideChildTcaNode, string $key): ?ArrayItem
+    {
+        $overrideChildTcaTypesArrayItem = null;
+        foreach ($overrideChildTcaNode->items as $overrideChildTcaOption) {
+            if (! $overrideChildTcaOption instanceof ArrayItem) {
+                continue;
+            }
+            if (null === $overrideChildTcaOption->key) {
+                continue;
+            }
+            if ($this->valueResolver->isValue($overrideChildTcaOption->key, $key)) {
+                $overrideChildTcaTypesArrayItem = $overrideChildTcaOption;
+            }
+        }
+        return $overrideChildTcaTypesArrayItem;
+    }
+
+    private function injectOverrideChildTca(
+        Array_ $overrideChildTcaNode,
+        string $overrideKey,
+        Array_ $overrideValue
+    ): void {
+        $newOverrideChildTcaSetting = $this->extractExistingOverrideChildTca($overrideChildTcaNode, $overrideKey);
+        if (null === $newOverrideChildTcaSetting) {
+            $newOverrideChildTcaSetting = new ArrayItem($overrideValue, new String_($overrideKey));
+            $overrideChildTcaNode->items[] = $newOverrideChildTcaSetting;
+        } else {
+            if (! $newOverrideChildTcaSetting->value instanceof Array_) {
+                // do not alter overrideChildTca nodes that are not an array (which would be invalid tca, but lets be sure here)
+                return;
+            }
+            foreach ($overrideValue->items as $item) {
+                $newOverrideChildTcaSetting->value->items[] = $item;
+            }
+        }
     }
 }
