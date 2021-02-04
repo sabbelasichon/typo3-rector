@@ -41,6 +41,11 @@ final class MoveForeignTypesToOverrideChildTcaRector extends AbstractRector
     /**
      * @var string
      */
+    private const FOREIGN_RECORD_DEFAULTS = 'foreign_record_defaults';
+
+    /**
+     * @var string
+     */
     private const OVERRIDE_CHILD_TCA = 'overrideChildTca';
 
     /**
@@ -124,6 +129,7 @@ PHP
             }
 
             $foreignTypesArrayItem = null;
+            $foreignRecordDefaults = null;
             $foreignSelector = null;
             $overrideChildTcaNode = null;
             $foreignSelectorOverrideNode = null;
@@ -138,6 +144,8 @@ PHP
 
                 if ($this->valueResolver->isValue($configItemValue->key, self::FOREIGN_TYPES)) {
                     $foreignTypesArrayItem = $configItemValue;
+                } elseif ($this->valueResolver->isValue($configItemValue->key, self::FOREIGN_RECORD_DEFAULTS)) {
+                    $foreignRecordDefaults = $configItemValue;
                 } elseif ($this->valueResolver->isValue($configItemValue->key, self::FOREIGN_SELECTOR)) {
                     $foreignSelector = $configItemValue->value;
                 } elseif ($this->valueResolver->isValue(
@@ -151,7 +159,7 @@ PHP
             }
 
             // don't search further if no foreign_types is configured
-            if (null === $foreignSelectorOverrideNode && null === $foreignTypesArrayItem) {
+            if (null === $foreignSelectorOverrideNode && null === $foreignTypesArrayItem && null === $foreignRecordDefaults) {
                 continue;
             }
 
@@ -177,6 +185,25 @@ PHP
                 ]);
                 $this->injectOverrideChildTca($overrideChildTcaNode, 'columns', $columnItem);
                 $this->removeNode($foreignSelectorOverrideNode);
+            }
+
+            if (null !== $foreignRecordDefaults && $foreignRecordDefaults->value instanceof Array_) {
+                $newOverrideColumns = new Array_();
+                foreach ($foreignRecordDefaults->value->items as $item) {
+                    if (! $item instanceof ArrayItem) {
+                        continue;
+                    }
+                    $value = new Array_([
+                        new ArrayItem(
+                            new Array_([new ArrayItem($item->value, new String_('default'))]),
+                            new String_('config')
+                        ),
+                    ]);
+                    $newOverrideColumns->items[] = new ArrayItem($value, $item->key);
+                }
+
+                $this->injectOverrideChildTca($overrideChildTcaNode, 'columns', $newOverrideColumns);
+                $this->removeNode($foreignRecordDefaults);
             }
         }
 
