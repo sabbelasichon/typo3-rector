@@ -29,7 +29,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new PackageAndVersion('typo3/cms-impexp', '^10.4'),
                 new PackageAndVersion('typo3/cms-info', '^10.4'),
                 new PackageAndVersion('typo3/cms-filelist', '^10.4'),
-                new PackageAndVersion('typo3/cms-info-pagetsconfig', '^10.4'),
                 new PackageAndVersion('typo3/cms-recordlist', '^10.4'),
                 new PackageAndVersion('typo3/cms-extensionmanager', '^10.4'),
                 new PackageAndVersion('typo3/cms-extbase', '^10.4'),
@@ -53,7 +52,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new PackageAndVersion('typo3/cms-filemetadata', '^10.4'),
                 new PackageAndVersion('typo3/cms-dashboard', '^10.4'),
                 new PackageAndVersion('typo3/cms-base-distribution', '^10.4'),
-                new PackageAndVersion('typo3/cms-sys-action', '^10.4'),
             ]),
         ]]);
 };
