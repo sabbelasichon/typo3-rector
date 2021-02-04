@@ -124,6 +124,10 @@ final class DropAdditionalPaletteRector extends AbstractRector
                         $newFieldStrings[] = $fieldString;
                     }
                 }
+                if ($newFieldStrings === $itemList) {
+                    // do not alter the syntax tree, if there are no changes. This will keep formatting of the code intact
+                    continue;
+                }
                 $typeItem->value = new String_(implode(',', $newFieldStrings));
             }
         }
