@@ -20,6 +20,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
+use Ssch\TYPO3Rector\ValueObject\PhpDocNode\Doctrine\InjectTagValueNode;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -70,18 +71,25 @@ final class InjectAnnotationRector extends AbstractRector
         $injectMethods = [];
         $properties = $node->getProperties();
         foreach ($properties as $property) {
-            /** @var PhpDocInfo|null $propertyPhpDocInfo */
-            $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if (null === $propertyPhpDocInfo) {
+            /** @var PhpDocInfo|null $phpDocInfo */
+            $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+
+            if (null === $phpDocInfo) {
                 continue;
             }
-            if (! $propertyPhpDocInfo->hasByName(self::OLD_ANNOTATION)) {
+
+            if (! $phpDocInfo->hasByName(self::OLD_ANNOTATION) && ! $phpDocInfo->hasByType(InjectTagValueNode::class)) {
                 continue;
             }
+
+            if ($property->isPublic() && $phpDocInfo->hasByType(InjectTagValueNode::class)) {
+                continue;
+            }
+
             // If the property is public, then change the annotation name
             if ($property->isPublic()) {
                 $this->docBlockTagReplacer->replaceTagByAnother(
-                    $propertyPhpDocInfo,
+                    $phpDocInfo,
                     self::OLD_ANNOTATION,
                     self::NEW_ANNOTATION
                 );
@@ -91,13 +99,14 @@ final class InjectAnnotationRector extends AbstractRector
             /** @var string $variableName */
             $variableName = $this->getName($property);
             $paramBuilder = $this->builderFactory->param($variableName);
-            $varType = $propertyPhpDocInfo->getVarType();
+            $varType = $phpDocInfo->getVarType();
             if (! $varType instanceof ObjectType) {
                 continue;
             }
 
-            // Remove the old annotation and use setterInjection instead
-            $this->phpDocTagRemover->removeByName($propertyPhpDocInfo, self::OLD_ANNOTATION);
+            // Remove the old or new annotation and use setterInjection instead
+            $this->phpDocTagRemover->removeByName($phpDocInfo, self::OLD_ANNOTATION);
+            $phpDocInfo->removeByType(InjectTagValueNode::class);
 
             if ($varType instanceof FullyQualifiedObjectType) {
                 $paramBuilder->setType(new FullyQualified($varType->getClassName()));
