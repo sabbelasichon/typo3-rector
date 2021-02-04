@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstantRector;
-use Rector\Renaming\ValueObject\RenameClassConstant;
+use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
+use Rector\Renaming\ValueObject\RenameClassConstFetch;
 use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
@@ -30,24 +30,24 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ),
         ]),
     ]]);
-    $services->set(RenameClassConstantRector::class)->call('configure', [[
-        RenameClassConstantRector::CLASS_CONSTANT_RENAME => ValueObjectInliner::inline([
-            new RenameClassConstant(
+    $services->set(RenameClassConstFetchRector::class)->call('configure', [[
+        RenameClassConstFetchRector::CLASS_CONSTANT_RENAME => ValueObjectInliner::inline([
+            new RenameClassConstFetch(
                 SearchFormController::class,
                 'WILDCARD_LEFT',
                 LikeWildcard::class . '::WILDCARD_LEFT'
             ),
-            new RenameClassConstant(
+            new RenameClassConstFetch(
                 SearchFormController::class,
                 'WILDCARD_RIGHT',
                 LikeWildcard::class . '::WILDCARD_RIGHT'
             ),
-            new RenameClassConstant(
+            new RenameClassConstFetch(
                 IndexSearchRepository::class,
                 'WILDCARD_LEFT',
                 LikeWildcard::class . '::WILDCARD_LEFT'
             ),
-            new RenameClassConstant(
+            new RenameClassConstFetch(
                 IndexSearchRepository::class,
                 'WILDCARD_RIGHT',
                 LikeWildcard::class . '::WILDCARD_RIGHT'
