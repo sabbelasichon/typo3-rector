@@ -9,6 +9,7 @@ parameters:
 
     paths:
         - src
+        - config
         - tests
 
     bootstrapFiles:

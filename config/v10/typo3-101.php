@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
-use Rector\Transform\Rector\Assign\PropertyToMethodRector;
-use Rector\Transform\ValueObject\PropertyToMethod;
+use Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector;
+use Rector\Transform\ValueObject\PropertyFetchToMethodCall;
 use Ssch\TYPO3Rector\Rector\v10\v1\BackendUtilityEditOnClickRector;
 use Ssch\TYPO3Rector\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector;
 use Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector;
@@ -19,11 +19,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(RegisterPluginWithVendorNameRector::class);
     $services->set(BackendUtilityEditOnClickRector::class);
-    $services->set(PropertyToMethodRector::class)->call('configure', [[
-        PropertyToMethodRector::PROPERTIES_TO_METHOD_CALLS => ValueObjectInliner::inline([
-            new PropertyToMethod(RecordHistory::class, 'changeLog', 'getChangeLog', 'setChangelog', [
+    $services->set(PropertyFetchToMethodCallRector::class)->call('configure', [[
+        PropertyFetchToMethodCallRector::PROPERTIES_TO_METHOD_CALLS => ValueObjectInliner::inline([
+            new PropertyFetchToMethodCall(RecordHistory::class, 'changeLog', 'getChangeLog', 'setChangelog', [
                 'bla',
-            ]), new PropertyToMethod(
+            ]), new PropertyFetchToMethodCall(
                 RecordHistory::class,
                 'lastHistoryEntry',
                 'getLastHistoryEntryNumber',
