@@ -87,6 +87,7 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($columnItems->items as $columnItem) {
             if (! $columnItem instanceof ArrayItem) {
                 continue;
@@ -153,12 +154,13 @@ PHP
                             'localizeChildrenAtParentLocalization'
                         )) {
                             $this->removeNode($behaviourConfigurationItem);
+                            $hasAstBeenChanged = true;
                         }
                     }
                 }
             }
         }
 
-        return $node;
+        return $hasAstBeenChanged ? $node : null;
     }
 }

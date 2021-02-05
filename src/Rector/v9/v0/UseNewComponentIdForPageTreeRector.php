@@ -51,6 +51,7 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($moduleConfiguration->items as $item) {
             if (! $item instanceof ArrayItem) {
                 continue;
@@ -64,9 +65,10 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
                 continue;
             }
             $item->value = new String_('TYPO3/CMS/Backend/PageTree/PageTreeElement');
+            $hasAstBeenChanged = true;
         }
 
-        return null;
+        return $hasAstBeenChanged ? $node : null;
     }
 
     /**

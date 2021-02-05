@@ -91,11 +91,11 @@ PHP
 
             if ($this->valueResolver->isValue($fieldValue->key, 'iconfile')) {
                 $this->refactorIconFile($fieldValue);
-                break;
+                return $node;
             }
         }
 
-        return $node;
+        return null;
     }
 
     private function refactorIconFile(ArrayItem $fieldValue): void

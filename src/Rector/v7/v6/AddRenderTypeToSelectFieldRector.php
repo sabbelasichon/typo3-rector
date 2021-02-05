@@ -95,6 +95,8 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
+
         foreach ($items->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
@@ -181,6 +183,7 @@ PHP
                         $configValue->value->items[] = new ArrayItem(new String_($renderType), new String_(
                             self::RENDER_TYPE
                         ));
+                        $hasAstBeenChanged = true;
                     }
 
                     continue;
@@ -192,10 +195,14 @@ PHP
                     $configValue->value->items[] = new ArrayItem(new String_($renderType), new String_(
                         self::RENDER_TYPE
                     ));
+                    $hasAstBeenChanged = true;
                 }
             }
         }
 
-        return $node;
+        if ($hasAstBeenChanged) {
+            return $node;
+        }
+        return null;
     }
 }

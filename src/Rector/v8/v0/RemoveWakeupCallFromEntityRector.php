@@ -37,7 +37,7 @@ final class RemoveWakeupCallFromEntityRector extends AbstractRector
 
         $this->removeNode($node);
 
-        return null;
+        return $node;
     }
 
     /**

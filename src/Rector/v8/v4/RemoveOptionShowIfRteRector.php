@@ -129,13 +129,13 @@ PHP
 
                     if ($this->valueResolver->isValue($configItemValue->key, 'showIfRTE')) {
                         $this->removeNode($configItemValue);
-                        break;
+                        return $node;
                     }
                 }
             }
         }
 
-        return $node;
+        return null;
     }
 
     private function isRenderTypeCheck(Array_ $configValue): bool

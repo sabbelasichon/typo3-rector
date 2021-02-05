@@ -55,6 +55,7 @@ final class AddTypeToColumnConfigRector extends AbstractRector
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($columnItems->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
@@ -120,10 +121,14 @@ final class AddTypeToColumnConfigRector extends AbstractRector
 
             if ($configArray instanceof Array_) {
                 $configArray->items[] = $newConfiguration;
+                $hasAstBeenChanged = true;
             }
         }
 
-        return $node;
+        if ($hasAstBeenChanged) {
+            return $node;
+        }
+        return null;
     }
 
     /**

@@ -57,7 +57,7 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
 
         $node->args[0] = $this->nodeFactory->createArg(str_replace('cache_', '', $argument));
 
-        return null;
+        return $node;
     }
 
     /**

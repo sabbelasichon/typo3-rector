@@ -57,15 +57,16 @@ final class DropAdditionalPaletteRector extends AbstractRector
         $types = $this->extractTypes($node);
 
         if (! $types instanceof ArrayItem) {
-            return $node;
+            return null;
         }
 
         $typesItems = $types->value;
 
         if (! $typesItems instanceof Array_) {
-            return $node;
+            return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($typesItems->items as $typesItem) {
             if (! $typesItem instanceof ArrayItem) {
                 continue;
@@ -129,10 +130,14 @@ final class DropAdditionalPaletteRector extends AbstractRector
                     continue;
                 }
                 $typeItem->value = new String_(implode(',', $newFieldStrings));
+                $hasAstBeenChanged = true;
             }
         }
 
-        return $node;
+        if ($hasAstBeenChanged) {
+            return $node;
+        }
+        return null;
     }
 
     /**

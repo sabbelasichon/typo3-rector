@@ -36,7 +36,7 @@ final class RemoveMethodCallConnectDbRector extends AbstractRector
 
         $this->removeNode($node);
 
-        return null;
+        return $node;
     }
 
     /**

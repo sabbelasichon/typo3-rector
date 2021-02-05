@@ -74,7 +74,7 @@ PHP
 
         $node->args[2]->value = $newHeadersNode;
 
-        return null;
+        return $node;
     }
 
     private function buildHeaders(array $requestHeaders): array

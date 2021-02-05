@@ -58,7 +58,7 @@ final class RefactorPrintContentMethodsRector extends AbstractRector
 
         $this->addNodeBeforeNode($newNode, $node);
 
-        return null;
+        return $node;
     }
 
     /**

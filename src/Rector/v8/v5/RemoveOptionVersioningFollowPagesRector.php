@@ -76,6 +76,7 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($ctrlItems->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
@@ -87,14 +88,19 @@ PHP
 
             if ($this->valueResolver->isValue($fieldValue->key, 'versioning_followPages')) {
                 $this->removeNode($fieldValue);
+                $hasAstBeenChanged = true;
             } elseif ($this->valueResolver->isValue($fieldValue->key, 'versioningWS')) {
                 $versioningWS = $this->valueResolver->getValue($fieldValue->value);
                 if (! is_bool($versioningWS)) {
                     $fieldValue->value = (bool) $versioningWS ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
+                    $hasAstBeenChanged = true;
                 }
             }
         }
 
-        return $node;
+        if ($hasAstBeenChanged) {
+            return $node;
+        }
+        return null;
     }
 }

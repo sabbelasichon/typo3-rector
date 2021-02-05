@@ -91,10 +91,10 @@ PHP
 
             if ($this->valueResolver->isValue($fieldValue->key, 'dividers2tabs')) {
                 $this->removeNode($fieldValue);
-                break;
+                return $node;
             }
         }
 
-        return $node;
+        return null;
     }
 }

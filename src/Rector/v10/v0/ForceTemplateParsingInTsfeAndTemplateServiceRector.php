@@ -69,10 +69,12 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
                     $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
                     $this->removeNode($parentNode);
                 }
+                return $node;
             } elseif ($this->isPropertyForceTemplateParsing($node->expr)) {
                 //$node->expr (right side is the target property, so its an fetch to it)
                 $contextCall = $this->createCallForFetchingProperty();
                 $node->expr = $contextCall;
+                return $node;
             }
         }
         return null;

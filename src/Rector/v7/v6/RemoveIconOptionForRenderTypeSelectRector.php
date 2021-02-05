@@ -91,6 +91,7 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($items->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
@@ -143,12 +144,15 @@ PHP
                         $showIconTable = $this->valueResolver->getValue($configItemValue->value);
                     } elseif ($this->valueResolver->isValue($configItemValue->key, 'suppress_icons')) {
                         $this->removeNode($configItemValue);
+                        $hasAstBeenChanged = true;
                     } elseif ($this->valueResolver->isValue($configItemValue->key, 'noIconsBelowSelect')) {
                         $noIconsBelowSelect = $this->valueResolver->getValue($configItemValue->value);
                         $doSomething = true;
                         $this->removeNode($configItemValue);
+                        $hasAstBeenChanged = true;
                     } elseif ($this->valueResolver->isValue($configItemValue->key, 'foreign_table_loadIcons')) {
                         $this->removeNode($configItemValue);
+                        $hasAstBeenChanged = true;
                     }
                 }
 
@@ -164,14 +168,19 @@ PHP
                     $configValue->value->items[] = new ArrayItem($this->nodeFactory->createTrue(), new String_(
                         self::SHOW_ICON_TABLE
                     ));
+                    $hasAstBeenChanged = true;
                 } elseif (! $noIconsBelowSelect && null === $showIconTable) {
                     $configValue->value->items[] = new ArrayItem($this->nodeFactory->createTrue(), new String_(
                         self::SHOW_ICON_TABLE
                     ));
+                    $hasAstBeenChanged = true;
                 }
             }
         }
 
-        return $node;
+        if ($hasAstBeenChanged) {
+            return $node;
+        }
+        return null;
     }
 }

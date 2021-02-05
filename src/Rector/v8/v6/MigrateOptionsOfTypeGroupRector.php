@@ -56,6 +56,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($columnItems->items as $columnItem) {
             if (! $columnItem instanceof ArrayItem) {
                 continue;
@@ -106,6 +107,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                     }
 
                     $this->removeNode($configItemValue);
+                    $hasAstBeenChanged = true;
 
                     $configItemValueValue = $this->valueResolver->getValue($configItemValue->value);
 
@@ -153,7 +155,10 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
             }
         }
 
-        return $node;
+        if ($hasAstBeenChanged) {
+            return $node;
+        }
+        return null;
     }
 
     /**

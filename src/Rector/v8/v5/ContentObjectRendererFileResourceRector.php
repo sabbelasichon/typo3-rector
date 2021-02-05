@@ -73,7 +73,7 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
 
         $this->removeNode($parentNode);
 
-        return null;
+        return $node;
     }
 
     /**

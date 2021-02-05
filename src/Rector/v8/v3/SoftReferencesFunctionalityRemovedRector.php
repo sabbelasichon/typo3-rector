@@ -51,6 +51,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($columnItems->items as $columnItem) {
             if (! $columnItem instanceof ArrayItem) {
                 continue;
@@ -119,12 +120,16 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                         } else {
                             $this->removeNode($configItemValue);
                         }
+                        $hasAstBeenChanged = true;
                     }
                 }
             }
         }
 
-        return $node;
+        if ($hasAstBeenChanged) {
+            return $node;
+        }
+        return null;
     }
 
     /**

@@ -109,6 +109,7 @@ PHP
 
         $oldFileNames = array_keys($this->oldToNewFileLocations);
 
+        $hasAstBeenChanged = false;
         foreach ($items->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
@@ -185,6 +186,7 @@ PHP
                                     $wizardItemSubValue->value
                                 )]
                                 );
+                                $hasAstBeenChanged = true;
                             }
                         }
                     }
@@ -192,8 +194,10 @@ PHP
             }
         }
 
-        // change the node
-        return $node;
+        if ($hasAstBeenChanged) {
+            return $node;
+        }
+        return null;
     }
 
     public function configure(array $configuration): void

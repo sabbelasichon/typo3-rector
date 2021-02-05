@@ -58,7 +58,7 @@ final class RefactorProcessOutputRector extends AbstractRector
 
         $this->refactorToNewMethodCalls($node);
 
-        return null;
+        return $node;
     }
 
     /**

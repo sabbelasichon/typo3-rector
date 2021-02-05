@@ -23,6 +23,11 @@ final class RichtextFromDefaultExtrasToEnableRichtextRector extends AbstractRect
     use TcaHelperTrait;
 
     /**
+     * @var bool
+     */
+    private $hasAstBeenChanged = false;
+
+    /**
      * @codeCoverageIgnore
      */
     public function getRuleDefinition(): RuleDefinition
@@ -69,6 +74,7 @@ PHP
      */
     public function refactor(Node $node): ?Node
     {
+        $this->hasAstBeenChanged = false;
         if (! $this->isTca($node)) {
             return null;
         }
@@ -89,13 +95,13 @@ PHP
 
         $types = $this->extractTypes($node);
         if (! $types instanceof ArrayItem) {
-            return $node;
+            return $this->hasAstBeenChanged ? $node : null;
         }
 
         $typesItems = $types->value;
 
         if (! $typesItems instanceof Array_) {
-            return $node;
+            return $this->hasAstBeenChanged ? $node : null;
         }
 
         foreach ($typesItems->items as $typesItem) {
@@ -132,7 +138,7 @@ PHP
             }
         }
 
-        return $node;
+        return $this->hasAstBeenChanged ? $node : null;
     }
 
     private function isRichtextInDefaultExtras(ArrayItem $configValue): bool
@@ -181,6 +187,7 @@ PHP
 
                 $hasRichTextConfiguration = true;
                 $this->removeNode($configValue);
+                $this->hasAstBeenChanged = true;
             }
 
             if ($hasRichTextConfiguration) {
@@ -209,6 +216,7 @@ PHP
                 if (null === $configurationArray) {
                     $configurationArray = new ArrayItem(new Array_(), new String_('config'));
                     $columnItem->value->items[] = $configurationArray;
+                    $this->hasAstBeenChanged = true;
                 }
 
                 if ($configurationArray instanceof ArrayItem && $configurationArray->value instanceof Array_) {
@@ -218,6 +226,7 @@ PHP
                     $configurationArray->value->items[] = new ArrayItem(new String_('default'), new String_(
                         'richtextConfiguration'
                     ));
+                    $this->hasAstBeenChanged = true;
                 }
             }
         }

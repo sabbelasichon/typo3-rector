@@ -99,6 +99,7 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($columnItems->items as $columnItem) {
             if (! $columnItem instanceof ArrayItem) {
                 continue;
@@ -178,6 +179,7 @@ PHP
                                 }
 
                                 $this->removeNode($appearanceConfigValue);
+                                $hasAstBeenChanged = true;
                             }
                         }
                     }
@@ -185,6 +187,9 @@ PHP
             }
         }
 
-        return $node;
+        if ($hasAstBeenChanged) {
+            return $node;
+        }
+        return null;
     }
 }
