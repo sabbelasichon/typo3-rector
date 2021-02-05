@@ -39,6 +39,11 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const COMPOSER_PACKAGES_95 = __DIR__ . '/../../config/v9/typo3-95-composer-packages.php';
+
+    /**
+     * @var string
+     */
     public const TYPO3_104 = __DIR__ . '/../../config/typo3-10.4.php';
 
     /**
