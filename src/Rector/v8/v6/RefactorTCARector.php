@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -196,7 +197,8 @@ PHP
                     $fieldControl = [];
                     $customTypeOptions = [];
 
-                    if ($this->valueResolver->isValue($configItemValue->key, 'RTE')) {
+                    $isRte = $this->valueResolver->isValue($configItemValue->key, 'RTE');
+                    if ($isRte) {
                         $fieldControl['fullScreenRichtext']['disabled'] = false;
                     }
 
@@ -210,13 +212,15 @@ PHP
                             continue;
                         }
 
-                        --$remainingWizards;
+                        $validWizard = $this->isValidWizard($wizardItemValue);
+                        if ($validWizard ||
+                           Strings::startsWith($this->valueResolver->getValue($wizardItemValue->key), '_') ||
+                           $isRte
+                        ) {
+                            --$remainingWizards;
+                        }
 
-                        if (! $this->valueResolver->isValues($wizardItemValue->key, array_merge(
-                            array_keys(self::MAP_WIZARD_TO_FIELD_CONTROL),
-                            array_keys(self::MAP_WIZARD_TO_RENDER_TYPE),
-                            array_keys(self::MAP_WIZARD_TO_CUSTOM_TYPE)
-                        ))) {
+                        if (! $validWizard) {
                             continue;
                         }
 
@@ -276,9 +280,9 @@ PHP
                                 $configValue->value->items[] = new ArrayItem(new Array_([
                                     new ArrayItem($wizardItemSubValue->value, $wizardItemSubValue->key),
                                 ]), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
-                            } elseif ('suggest' === $wizardItemValueKey && $this->valueResolver->isValue(
+                            } elseif ('suggest' === $wizardItemValueKey && ! $this->valueResolver->isValue(
                                 $wizardItemSubValue->key,
-                                'default'
+                                'type'
                             )) {
                                 $configValue->value->items[] = new ArrayItem(new Array_([
                                     new ArrayItem($wizardItemSubValue->value, $wizardItemSubValue->key),
@@ -393,5 +397,17 @@ PHP
                 $configValue->value->items[] = new ArrayItem(new String_('inputDateTime'), new String_('renderType'));
             }
         }
+    }
+
+    /**
+     * @param mixed $wizardItemValue
+     */
+    private function isValidWizard($wizardItemValue): bool
+    {
+        return $this->valueResolver->isValues($wizardItemValue->key, array_merge(
+            array_keys(self::MAP_WIZARD_TO_FIELD_CONTROL),
+            array_keys(self::MAP_WIZARD_TO_RENDER_TYPE),
+            array_keys(self::MAP_WIZARD_TO_CUSTOM_TYPE)
+        ));
     }
 }
