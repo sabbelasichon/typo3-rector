@@ -76,6 +76,7 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($items->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
@@ -87,9 +88,10 @@ PHP
 
             if ($this->valueResolver->isValue($fieldValue->key, 'setToDefaultOnCopy')) {
                 $this->removeNode($fieldValue);
+                $hasAstBeenChanged = true;
             }
         }
 
-        return null;
+        return $hasAstBeenChanged ? $node : null;
     }
 }

@@ -146,7 +146,7 @@ PHP
         $this->addNodeBeforeNode($this->throwException(), $positionNode);
         $this->removeNodeOrParentNode($node);
 
-        return null;
+        return $node;
     }
 
     private function shouldSkip(MethodCall $node): bool

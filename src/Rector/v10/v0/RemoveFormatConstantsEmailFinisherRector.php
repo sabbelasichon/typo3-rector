@@ -57,19 +57,15 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
         $parent = $node->getAttribute('parent');
         if ($parent instanceof Arg) {
             $this->refactorSetOptionMethodCall($parent, $node);
-            return null;
         }
         if ($parent instanceof ArrayItem) {
             $this->refactorArrayItemOption($parent, $node);
-            return null;
         }
         if ($parent instanceof Assign) {
             $this->refactorOptionAssignment($parent, $node);
-            return null;
         }
         if ($parent instanceof Identical) {
             $this->refactorCondition($parent, $node);
-            return null;
         }
         return null;
     }

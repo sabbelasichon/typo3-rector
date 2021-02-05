@@ -74,7 +74,7 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends AbstractRec
 
         $this->removeMethods($node);
 
-        return null;
+        return $node;
     }
 
     /**

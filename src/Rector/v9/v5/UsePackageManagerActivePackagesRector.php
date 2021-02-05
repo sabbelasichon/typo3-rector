@@ -51,7 +51,7 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
                 'getActivePackages'
             );
         }
-        return $node;
+        return null;
     }
 
     /**

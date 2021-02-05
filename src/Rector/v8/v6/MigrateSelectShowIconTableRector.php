@@ -50,6 +50,7 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($columnItems->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
@@ -105,11 +106,11 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                     }
 
                     $this->removeNode($configItemValue);
+                    $hasAstBeenChanged = true;
                 }
             }
         }
-
-        return $node;
+        return $hasAstBeenChanged ? $node : null;
     }
 
     /**

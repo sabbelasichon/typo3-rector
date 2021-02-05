@@ -88,6 +88,7 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($columnItems->items as $columnItem) {
             if (! $columnItem instanceof ArrayItem) {
                 continue;
@@ -129,13 +130,14 @@ PHP
 
                     if ($this->valueResolver->isValue($configItemValue->key, 'max')) {
                         $this->removeNode($configItemValue);
+                        $hasAstBeenChanged = true;
                         break;
                     }
                 }
             }
         }
 
-        return $node;
+        return $hasAstBeenChanged ? $node : null;
     }
 
     private function isRenderTypeInputDateTime(Array_ $configValue): bool

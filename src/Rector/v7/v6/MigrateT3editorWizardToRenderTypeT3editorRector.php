@@ -105,6 +105,7 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($items->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
@@ -216,6 +217,7 @@ PHP
                         if ($isUserFunc && ! $enableByTypeConfig) {
                             if ($wizardItemValue instanceof ArrayItem) {
                                 $this->removeNode($wizardItemValue);
+                                $hasAstBeenChanged = true;
                             }
 
                             $configValue->value->items[] = new ArrayItem(new String_('t3editor'), new String_(
@@ -231,11 +233,11 @@ PHP
 
                     if (0 === $remainingWizards) {
                         $this->removeNode($configItemValue);
+                        $hasAstBeenChanged = true;
                     }
                 }
             }
         }
-
-        return $node;
+        return $hasAstBeenChanged ? $node : null;
     }
 }

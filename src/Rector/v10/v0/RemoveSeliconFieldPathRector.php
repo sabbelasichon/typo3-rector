@@ -72,6 +72,7 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($items->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
@@ -83,9 +84,10 @@ PHP
 
             if ($this->valueResolver->isValue($fieldValue->key, 'selicon_field_path')) {
                 $this->removeNode($fieldValue);
+                $hasAstBeenChanged = true;
             }
         }
 
-        return $node;
+        return $hasAstBeenChanged ? $node : null;
     }
 }

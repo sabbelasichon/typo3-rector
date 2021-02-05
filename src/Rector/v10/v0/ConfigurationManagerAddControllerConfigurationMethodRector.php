@@ -37,7 +37,7 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
             return null;
         }
         $this->addMethodGetControllerConfiguration($node);
-        return null;
+        return $node;
     }
 
     /**

@@ -97,8 +97,9 @@ PHP
 
         if (0 === $remainingInterfaceItems) {
             $this->removeNode($interface);
+            return $node;
         }
 
-        return $node;
+        return null;
     }
 }

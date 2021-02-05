@@ -99,6 +99,7 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($columnItems->items as $columnItem) {
             if (! $columnItem instanceof ArrayItem) {
                 continue;
@@ -166,6 +167,7 @@ PHP
 
                         if ($this->valueResolver->isValue($behaviourConfigurationItem->key, self::LOCALIZATION_MODE)) {
                             $this->removeNode($behaviourConfigurationItem);
+                            $hasAstBeenChanged = true;
                             break;
                         }
                     }
@@ -173,7 +175,7 @@ PHP
             }
         }
 
-        return $node;
+        return $hasAstBeenChanged ? $node : null;
     }
 
     private function isLocalizationModeKeepAndAllowLanguageSynchronization(Array_ $behaviourConfiguration): bool

@@ -120,6 +120,7 @@ PHP
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($this->extractColumnConfig($columns->value) as $columnConfig) {
             //handle the special case of ExtensionManagementUtility::getFileFieldTCAConfig
             $columnConfig = $this->extractConfigFromGetFileFieldTcaConfig($columnConfig);
@@ -177,6 +178,7 @@ PHP
             if (null !== $foreignTypesArrayItem && $foreignTypesArrayItem->value instanceof Array_) {
                 $this->injectOverrideChildTca($overrideChildTcaNode, 'types', $foreignTypesArrayItem->value);
                 $this->removeNode($foreignTypesArrayItem);
+                $hasAstBeenChanged = true;
             }
 
             if (null !== $foreignSelectorOverrideNode && $foreignSelectorOverrideNode->value instanceof Array_ && $foreignSelector instanceof String_) {
@@ -185,6 +187,7 @@ PHP
                 ]);
                 $this->injectOverrideChildTca($overrideChildTcaNode, 'columns', $columnItem);
                 $this->removeNode($foreignSelectorOverrideNode);
+                $hasAstBeenChanged = true;
             }
 
             if (null !== $foreignRecordDefaults && $foreignRecordDefaults->value instanceof Array_) {
@@ -204,10 +207,11 @@ PHP
 
                 $this->injectOverrideChildTca($overrideChildTcaNode, 'columns', $newOverrideColumns);
                 $this->removeNode($foreignRecordDefaults);
+                $hasAstBeenChanged = true;
             }
         }
 
-        return $node;
+        return $hasAstBeenChanged ? $node : null;
     }
 
     private function extractConfigFromGetFileFieldTcaConfig(Node $columnConfig): Node

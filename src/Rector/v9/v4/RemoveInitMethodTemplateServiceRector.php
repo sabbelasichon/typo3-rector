@@ -35,7 +35,7 @@ final class RemoveInitMethodTemplateServiceRector extends AbstractRector
 
         $this->removeNode($node);
 
-        return null;
+        return $node;
     }
 
     /**

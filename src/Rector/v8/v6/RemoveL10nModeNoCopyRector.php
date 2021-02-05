@@ -60,6 +60,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
             return null;
         }
 
+        $hasAstBeenChanged = false;
         foreach ($columnItems->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
@@ -97,8 +98,10 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                 if ($this->valueResolver->isValue($configValue->value, 'mergeIfNotBlank')) {
                     $addAllowLanguageSynchronization = true;
                     $this->removeNode($configValue);
+                    $hasAstBeenChanged = true;
                 } elseif ($this->valueResolver->isValue($configValue->value, 'noCopy')) {
                     $this->removeNode($configValue);
+                    $hasAstBeenChanged = true;
                 } elseif ($configValue->value instanceof Array_) {
                     $configArray = $configValue->value;
                     $newConfiguration = new ArrayItem($this->nodeFactory->createArray([
@@ -148,6 +151,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
 
                             if (empty($this->valueResolver->getValue($behaviourConfiguration->value))) {
                                 $behaviourConfiguration->value = $this->nodeFactory->createTrue();
+                                $hasAstBeenChanged = true;
                             }
                         }
                     }
@@ -160,10 +164,10 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
 
             if ($configArray instanceof Array_) {
                 $configArray->items[] = $newConfiguration;
+                $hasAstBeenChanged = true;
             }
         }
-
-        return $node;
+        return $hasAstBeenChanged ? $node : null;
     }
 
     /**

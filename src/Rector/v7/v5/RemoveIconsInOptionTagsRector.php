@@ -125,12 +125,12 @@ PHP
 
                     if ($this->valueResolver->isValue($configItemValue->key, 'iconsInOptionTags')) {
                         $this->removeNode($configItemValue);
-                        break;
+                        return $node;
                     }
                 }
             }
         }
 
-        return $node;
+        return null;
     }
 }

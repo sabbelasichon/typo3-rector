@@ -84,7 +84,7 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
             ]),
         ]);
 
-        return null;
+        return $node;
     }
 
     /**

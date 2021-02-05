@@ -75,7 +75,7 @@ final class SubstituteCacheWrapperMethodsRector extends AbstractRector
             $this->removeNode($parentNode);
         }
 
-        return null;
+        return $node;
     }
 
     /**

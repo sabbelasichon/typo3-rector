@@ -36,7 +36,7 @@ final class RemoveMethodCallLoadTcaRector extends AbstractRector
 
         $this->removeNode($node);
 
-        return null;
+        return $node;
     }
 
     /**
