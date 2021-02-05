@@ -1,13 +1,13 @@
 <?php
-
 declare(strict_types=1);
 
 namespace TYPO3\TestingFramework\Core;
 
-if (class_exists(UnitTestCase::class)) {
+if (class_exists(Exception::class)) {
     return;
 }
 
-class UnitTestCase
+class Exception
 {
+
 }

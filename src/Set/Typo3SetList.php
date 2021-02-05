@@ -70,4 +70,9 @@ final class Typo3SetList
      * @var string
      */
     public const UNDERSCORE_TO_NAMESPACE = __DIR__ . '/../../config/underscore-to-namespace.php';
+
+    /**
+     * @var string
+     */
+    public const NIMUT_TESTING_FRAMEWORK_TO_TYPO3_TESTING_FRAMEWORK = __DIR__ . '/../../config/nimut-testing-framework-to-typo3-testing-framework.php';
 }
