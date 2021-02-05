@@ -177,10 +177,6 @@ PHP
                 }
             }
         }
-
-        if ($hasAstBeenChanged) {
-            return $node;
-        }
-        return null;
+        return $hasAstBeenChanged ? $node : null;
     }
 }

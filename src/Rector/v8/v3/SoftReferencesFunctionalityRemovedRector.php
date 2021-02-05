@@ -125,11 +125,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                 }
             }
         }
-
-        if ($hasAstBeenChanged) {
-            return $node;
-        }
-        return null;
+        return $hasAstBeenChanged ? $node : null;
     }
 
     /**
