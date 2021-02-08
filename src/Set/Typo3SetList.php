@@ -39,7 +39,7 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const COMPOSER_PACKAGES_95 = __DIR__ . '/../../config/v9/typo3-95-composer-packages.php';
+    public const COMPOSER_PACKAGES_95 = __DIR__ . '/../../config/typo3-95-composer-packages.php';
 
     /**
      * @var string
@@ -54,7 +54,7 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const COMPOSER_PACKAGES_104 = __DIR__ . '/../../config/v10/typo3-104-composer-packages.php';
+    public const COMPOSER_PACKAGES_104 = __DIR__ . '/../../config/typo3-104-composer-packages.php';
 
     /**
      * @var string
@@ -64,7 +64,7 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const COMPOSER_PACKAGES_11 = __DIR__ . '/../../config/v11/typo3-110-composer-packages.php';
+    public const COMPOSER_PACKAGES_11 = __DIR__ . '/../../config/typo3-110-composer-packages.php';
 
     /**
      * @var string
