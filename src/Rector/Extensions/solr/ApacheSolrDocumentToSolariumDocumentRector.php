@@ -49,8 +49,12 @@ final class ApacheSolrDocumentToSolariumDocumentRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Apache_Solr_Document to solarium based document', [new CodeSample(<<<'PHP'
+$document = new Apache_Solr_Document();
+$document->setMultiValue('foo', 'bar', true);
 PHP
             , <<<'PHP'
+$document = new Apache_Solr_Document();
+$document->addField('foo', 'bar', true);
 PHP
         )]);
     }
