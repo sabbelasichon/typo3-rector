@@ -79,5 +79,10 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const NIMUT_TESTING_FRAMEWORK_TO_TYPO3_TESTING_FRAMEWORK = __DIR__ . '/../../config/nimut-testing-framework-to-typo3-testing-framework.php';
+    public const NIMUT_TESTING_FRAMEWORK_TO_TYPO3_TESTING_FRAMEWORK = __DIR__ . '/../../config/nimut-testingframework/nimut-testing-framework-to-typo3-testing-framework.php';
+
+    /**
+     * @var string
+     */
+    public const SOLR_SOLR_PHP_CLIENT_TO_SOLARIUM = __DIR__ . '/../../config/solr/solr_php_client_to_solarium.php';
 }

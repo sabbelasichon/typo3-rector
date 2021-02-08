@@ -9,9 +9,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
-
     $services = $containerConfigurator->services();
-
     $services->set(RefactorDbConstantsRector::class);
     $services->set(Array2XmlCsToArray2XmlRector::class);
     $services->set(TypoScriptFrontendControllerCharsetConverterRector::class);
