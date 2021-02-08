@@ -83,7 +83,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
 For more configuration options see [Rector README](https://github.com/rectorphp/rector#configuration).
 
-After your adopt the configuration to your needs, run typo3-rector to simulate (hence the option -n) the future code fixes:
+After your adopt the configuration to your needs, run typo3-rector to simulate (hence the option `--dry-run`) the future code fixes:
 
 ```bash
 ./vendor/bin/typo3-rector process packages/my_custom_extension --dry-run
