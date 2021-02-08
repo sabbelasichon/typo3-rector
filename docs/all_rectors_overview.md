@@ -1,4 +1,4 @@
-# 176 Rules Overview
+# 177 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -41,6 +41,20 @@ Add type to column config if not exists
 +        ]
      ]
  ];
+```
+
+<br>
+
+## ApacheSolrDocumentToSolariumDocumentRector
+
+Apache_Solr_Document to solarium based document
+
+- class: `Ssch\TYPO3Rector\Rector\Extensions\solr\ApacheSolrDocumentToSolariumDocumentRector`
+
+```diff
+ $document = new Apache_Solr_Document();
+-$document->setMultiValue('foo', 'bar', true);
++$document->addField('foo', 'bar', true);
 ```
 
 <br>
