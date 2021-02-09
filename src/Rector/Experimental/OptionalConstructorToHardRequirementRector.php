@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\Experimental;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
@@ -67,7 +68,50 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
             }
 
             $param->default = null;
-            $paramsToCheck[] = $paramName;
+            $paramsToCheck[$paramName] = $param;
+        }
+
+        $potentialStmtsToRemove = [];
+        foreach ($node->stmts as $stmt) {
+            if (! $stmt instanceof Expression) {
+                continue;
+            }
+
+            if (! $stmt->expr instanceof Assign) {
+                continue;
+            }
+
+            if (! $stmt->expr->expr instanceof Coalesce) {
+                continue;
+            }
+
+            if ($stmt->expr->var instanceof Variable && $variableName = $this->getName($stmt->expr->var)) {
+                $potentialStmtsToRemove[$variableName] = $stmt;
+            }
+
+            if (! $stmt->expr->var instanceof PropertyFetch) {
+                continue;
+            }
+
+            if (! $stmt->expr->expr->left instanceof Variable) {
+                continue;
+            }
+
+            if (! $this->isNames($stmt->expr->expr->left, array_keys($paramsToCheck))) {
+                continue;
+            }
+
+            if ($stmt->expr->expr->right instanceof Coalesce) {
+                // Reset param default value
+                if (null === $this->getName($stmt->expr->expr->left)) {
+                    continue;
+                }
+
+                $paramsToCheck[$this->getName($stmt->expr->expr->left)]->default = $this->nodeFactory->createNull();
+                continue;
+            }
+
+            $stmt->expr->expr = $stmt->expr->expr->left;
         }
 
         foreach ($node->stmts as $stmt) {
@@ -79,23 +123,21 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
                 continue;
             }
 
-            if (! $stmt->expr->var instanceof PropertyFetch) {
+            if (! $stmt->expr->expr instanceof MethodCall) {
                 continue;
             }
 
-            if (! $stmt->expr->expr instanceof Coalesce) {
+            if (! $this->isNames($stmt->expr->expr->var, array_keys($potentialStmtsToRemove))) {
                 continue;
             }
 
-            if (! $stmt->expr->expr->left instanceof Variable) {
+            $variableName = $this->getName($stmt->expr->expr->var);
+
+            if (null === $variableName) {
                 continue;
             }
 
-            if (! $this->isNames($stmt->expr->expr->left, $paramsToCheck)) {
-                continue;
-            }
-
-            $stmt->expr->expr = $stmt->expr->expr->left;
+            $this->removeNode($potentialStmtsToRemove[$variableName]);
         }
 
         return $node;
