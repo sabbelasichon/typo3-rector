@@ -104,10 +104,9 @@ final class ComposerJsonManipulator
             return $json;
         }
 
-        $phpstanVersion = $json[self::REQUIRE][self::PHPSTAN_PHPSTAN];
-        $phpstanVersion = ltrim($phpstanVersion, '^');
+        $phpstanVersion = '0.12.69';
         $json[self::REQUIRE]['nette/bootstrap'] = '3.0.2';
-        $json[self::REQUIRE]['phpstan/phpstan-src'] = '0.12.69';
+        $json[self::REQUIRE]['phpstan/phpstan-src'] = $phpstanVersion;
         unset($json[self::REQUIRE][self::PHPSTAN_PHPSTAN]);
 
         $json['repositories'][] = [
