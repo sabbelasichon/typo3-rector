@@ -87,7 +87,7 @@ final class SomeInjectClass
 ```
 Cool. Let me show you one more example.
 
-Let´s say you want to upgrade vom version 9 to 10 and you have the following code:
+Let´s say you want to upgrade from version 9 to 10 and you have the following code:
 
 ```php
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
