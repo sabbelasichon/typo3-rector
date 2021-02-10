@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Experimental\OptionalConstructorToHardRe
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
-use Ssch\TYPO3Rector\Rector\Experimental\OptionalConstructorToHardRequirementRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class OptionalConstructorToHardRequirementRectorTest extends AbstractCommunityRectorTestCase
@@ -24,8 +23,8 @@ final class OptionalConstructorToHardRequirementRectorTest extends AbstractCommu
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return OptionalConstructorToHardRequirementRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }
