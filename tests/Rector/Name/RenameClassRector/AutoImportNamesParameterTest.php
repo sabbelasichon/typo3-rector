@@ -6,12 +6,8 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Name\RenameClassRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
-use Ssch\TYPO3Rector\PostRector\NameImportingPostRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-/**
- * @see NameImportingPostRector
- */
 final class AutoImportNamesParameterTest extends AbstractCommunityRectorTestCase
 {
     /**

@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Set\ValueObject\SetList;
+use Rector\Transform\Rector\Class_\CommunityTestCaseRector;
 use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -21,6 +22,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]
     );
     $services = $containerConfigurator->services();
+
+    $services->set(CommunityTestCaseRector::class);
 
     $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
 
