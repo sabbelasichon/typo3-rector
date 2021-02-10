@@ -22,7 +22,7 @@ final class BackendUserAuthenticationSimplelogRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, BackendUserAuthentication::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, BackendUserAuthentication::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'simplelog')) {

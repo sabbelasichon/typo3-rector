@@ -92,7 +92,7 @@ PHP
      */
     public function isMethodVerifyFilenameAgainstDenyPattern(Node $node): bool
     {
-        return $node instanceof StaticCall && $this->isMethodStaticCallOrClassMethodObjectType(
+        return $node instanceof StaticCall && $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             GeneralUtility::class
         ) && $this->isName($node->name, 'verifyFilenameAgainstDenyPattern');

@@ -111,7 +111,7 @@ PHP
                 return;
             }
 
-            if (! $this->isMethodStaticCallOrClassMethodObjectType($staticCall, ExtensionManagementUtility::class)) {
+            if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($staticCall, ExtensionManagementUtility::class)) {
                 return;
             }
 

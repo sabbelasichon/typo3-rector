@@ -30,7 +30,7 @@ final class DataHandlerRmCommaRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, DataHandler::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, DataHandler::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'rmComma')) {

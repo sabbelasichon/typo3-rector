@@ -39,7 +39,7 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ConsoleOutput::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ConsoleOutput::class)) {
             return null;
         }
         if (! $this->isName($node->name, self::SELECT) && ! $this->isName($node->name, self::ASK_AND_VALIDATE)) {

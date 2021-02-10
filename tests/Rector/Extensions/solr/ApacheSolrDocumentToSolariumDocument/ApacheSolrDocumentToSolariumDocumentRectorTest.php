@@ -17,7 +17,6 @@ final class ApacheSolrDocumentToSolariumDocumentRectorTest extends AbstractRecto
      */
     public function test(SmartFileInfo $fileInfo): void
     {
-        $this->setParameter(Option::AUTO_IMPORT_NAMES, true);
         $this->doTestFileInfo($fileInfo);
     }
 
@@ -28,6 +27,6 @@ final class ApacheSolrDocumentToSolariumDocumentRectorTest extends AbstractRecto
 
     protected function provideConfigFileInfo(): ?SmartFileInfo
     {
-        return new SmartFileInfo(Typo3SetList::SOLR_SOLR_PHP_CLIENT_TO_SOLARIUM);
+        return new SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

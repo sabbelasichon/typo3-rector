@@ -97,11 +97,11 @@ PHP
         if ($this->isPageLayoutControllerClass($node)) {
             return false;
         }
-        return ! $this->isMethodStaticCallOrClassMethodObjectType($node, TaskModuleController::class);
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, TaskModuleController::class);
     }
 
     private function isPageLayoutControllerClass(MethodCall $node): bool
     {
-        return $this->isMethodStaticCallOrClassMethodObjectType($node, PageLayoutController::class);
+        return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, PageLayoutController::class);
     }
 }

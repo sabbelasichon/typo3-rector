@@ -75,7 +75,7 @@ PHP
 
     private function isCharsetConverterMethodCall(MethodCall $node): bool
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, CharsetConverter::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, CharsetConverter::class)) {
             return false;
         }
         return $this->isName($node->name, self::GET_PREFERRED_CLIENT_LANGUAGE);

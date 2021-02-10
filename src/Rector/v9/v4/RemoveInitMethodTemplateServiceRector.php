@@ -26,7 +26,7 @@ final class RemoveInitMethodTemplateServiceRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, TemplateService::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, TemplateService::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'init')) {

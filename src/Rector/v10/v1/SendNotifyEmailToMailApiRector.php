@@ -92,7 +92,7 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if ($this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
             return null;
         }
 

@@ -133,7 +133,7 @@ PHP
                 return false;
             }
 
-            if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
+            if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
                 return false;
             }
 

@@ -72,9 +72,9 @@ PHP
 
     private function isExpectedObjectType(StaticCall $node): bool
     {
-        if ($this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionManagementUtility::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ExtensionManagementUtility::class)) {
             return true;
         }
-        return $this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class);
+        return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class);
     }
 }

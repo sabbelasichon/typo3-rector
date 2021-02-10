@@ -32,7 +32,7 @@ final class RemoveRteHtmlParserEvalWriteFileRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, RteHtmlParser::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, RteHtmlParser::class)) {
             return null;
         }
 

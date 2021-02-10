@@ -77,7 +77,7 @@ PHP
 
     private function isMethodCallOnUriBuilder(MethodCall $node): bool
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, UriBuilder::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, UriBuilder::class)) {
             return false;
         }
         return $this->isName($node->name, 'setAddQueryStringMethod');
@@ -85,7 +85,7 @@ PHP
 
     private function isMethodCallOnContentObjectRenderer(MethodCall $node): bool
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
             return false;
         }
         return $this->isName($node->name, 'getQueryArguments');

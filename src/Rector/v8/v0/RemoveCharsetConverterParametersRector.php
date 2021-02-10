@@ -29,7 +29,7 @@ final class RemoveCharsetConverterParametersRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, CharsetConverter::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, CharsetConverter::class)) {
             return null;
         }
 

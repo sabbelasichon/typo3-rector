@@ -34,7 +34,7 @@ final class DataHandlerVariousMethodsAndMethodArgumentsRector extends AbstractRe
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, DataHandler::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, DataHandler::class)) {
             return null;
         }
 

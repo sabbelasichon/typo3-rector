@@ -32,7 +32,7 @@ final class RefactorQueryViewTableWrapRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, QueryView::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, QueryView::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'tableWrap')) {

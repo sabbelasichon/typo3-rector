@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\PostRector;
 use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Name;
+use PhpParser\NodeVisitorAbstract;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
 use Rector\CodingStyle\Node\NameImporter;
@@ -14,14 +15,13 @@ use Rector\Core\Configuration\Option;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
-use Rector\PostRector\Rector\AbstractPostRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class NameImportingPostRector extends AbstractPostRector
+final class NameImportingPostRector extends NodeVisitorAbstract implements PostRectorInterface
 {
     /**
      * @var string

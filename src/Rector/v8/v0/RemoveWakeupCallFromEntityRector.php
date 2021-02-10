@@ -27,7 +27,7 @@ final class RemoveWakeupCallFromEntityRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, AbstractDomainObject::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, AbstractDomainObject::class)) {
             return null;
         }
 

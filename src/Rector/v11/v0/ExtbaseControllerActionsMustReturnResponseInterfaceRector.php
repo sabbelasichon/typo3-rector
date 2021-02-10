@@ -120,7 +120,7 @@ PHP
 
     private function shouldSkip(ClassMethod $node): bool
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
             return true;
         }
 
@@ -169,7 +169,7 @@ PHP
                 return false;
             }
 
-            if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
+            if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
                 return false;
             }
 

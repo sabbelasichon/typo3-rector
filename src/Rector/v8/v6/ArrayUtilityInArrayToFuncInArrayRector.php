@@ -26,7 +26,7 @@ final class ArrayUtilityInArrayToFuncInArrayRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ArrayUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ArrayUtility::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'inArray')) {

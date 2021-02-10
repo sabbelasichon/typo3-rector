@@ -27,7 +27,7 @@ final class WrapClickMenuOnIconRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, DocumentTemplate::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, DocumentTemplate::class)) {
             return null;
         }
 

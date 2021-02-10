@@ -90,7 +90,7 @@ PHP
 
     private function refactorMethodCall(MethodCall $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, GraphicalFunctions::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, GraphicalFunctions::class)) {
             return null;
         }
 

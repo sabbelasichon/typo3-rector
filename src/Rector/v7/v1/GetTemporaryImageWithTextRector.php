@@ -28,7 +28,7 @@ final class GetTemporaryImageWithTextRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, LocalImageProcessor::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, LocalImageProcessor::class)) {
             return null;
         }
 

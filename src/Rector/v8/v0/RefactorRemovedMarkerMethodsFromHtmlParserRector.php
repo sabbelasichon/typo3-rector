@@ -57,7 +57,7 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends AbstractRec
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, HtmlParser::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, HtmlParser::class)) {
             return null;
         }
 

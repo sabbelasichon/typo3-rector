@@ -88,6 +88,6 @@ PHP
 
     private function shouldSkip(MethodCall $node): bool
     {
-        return ! $this->isMethodStaticCallOrClassMethodObjectType($node, RteHtmlParser::class);
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, RteHtmlParser::class);
     }
 }

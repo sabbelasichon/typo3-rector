@@ -27,7 +27,6 @@ use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\PhpParser\Node\NodeFactory;
-use Rector\Core\Rector\AbstractRector\NameResolverTrait;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
@@ -38,8 +37,6 @@ use ReflectionClass;
 
 final class InitializeArgumentsClassMethodFactory
 {
-    use NameResolverTrait;
-
     /**
      * @var string
      */
@@ -74,6 +71,11 @@ final class InitializeArgumentsClassMethodFactory
      * @var PhpDocInfoFactory
      */
     private $phpDocInfoFactory;
+
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
 
     public function __construct(
         BuilderFactory $builderFactory,
@@ -274,6 +276,6 @@ final class InitializeArgumentsClassMethodFactory
             return $paramType->toCodeString();
         }
 
-        return $this->getName($paramType) ?? self::MIXED;
+        return $this->nodeNameResolver->getName($paramType) ?? self::MIXED;
     }
 }

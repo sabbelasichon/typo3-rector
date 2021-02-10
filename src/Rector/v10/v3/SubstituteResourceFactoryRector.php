@@ -27,7 +27,7 @@ final class SubstituteResourceFactoryRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ResourceFactory::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ResourceFactory::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'getInstance')) {

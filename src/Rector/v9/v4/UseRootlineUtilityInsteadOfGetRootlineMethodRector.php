@@ -81,7 +81,7 @@ PHP
 
     private function shouldSkip(MethodCall $node): bool
     {
-        if ($this->isMethodStaticCallOrClassMethodObjectType($node, PageRepository::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, PageRepository::class)) {
             return false;
         }
 

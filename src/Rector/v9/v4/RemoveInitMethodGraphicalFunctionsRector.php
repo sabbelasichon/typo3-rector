@@ -26,7 +26,7 @@ final class RemoveInitMethodGraphicalFunctionsRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, GraphicalFunctions::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, GraphicalFunctions::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'init')) {

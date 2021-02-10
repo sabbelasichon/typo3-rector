@@ -27,7 +27,7 @@ final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRecto
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, TypeHandlingService::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, TypeHandlingService::class)) {
             return null;
         }
 

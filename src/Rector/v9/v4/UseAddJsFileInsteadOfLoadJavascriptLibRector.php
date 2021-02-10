@@ -28,7 +28,7 @@ final class UseAddJsFileInsteadOfLoadJavascriptLibRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ModuleTemplate::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ModuleTemplate::class)) {
             return null;
         }
 

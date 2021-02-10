@@ -29,7 +29,7 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, TypeHandlingUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, TypeHandlingUtility::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'hex2bin')) {

@@ -103,7 +103,7 @@ PHP
 
     private function isMethodAddMetaTag(MethodCall $node): bool
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, PageRenderer::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, PageRenderer::class)) {
             return false;
         }
         return $this->isName($node->name, 'addMetaTag');
@@ -111,7 +111,7 @@ PHP
 
     private function isMethodXUaCompatible(MethodCall $node): bool
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, DocumentTemplate::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, DocumentTemplate::class)) {
             return false;
         }
         return $this->isName($node->name, 'xUaCompatible');
