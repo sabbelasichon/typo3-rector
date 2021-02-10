@@ -18,6 +18,16 @@ use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
  */
 final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector extends AbstractRector
 {
+    /**
+     * @var \Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer
+     */
+    private $classConstAnalyzer;
+
+    public function __construct(\Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer $classConstAnalyzer)
+    {
+        $this->classConstAnalyzer = $classConstAnalyzer;
+    }
+
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
@@ -36,7 +46,7 @@ final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector 
             return null;
         }
 
-        if (! $this->isClassConstReference($node->args[0]->value, InstallUtility::class)) {
+        if (! $this->classConstAnalyzer->isClassConstReference($node->args[0]->value, InstallUtility::class)) {
             return null;
         }
 
