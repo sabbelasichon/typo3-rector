@@ -38,7 +38,10 @@ final class SetSystemLocaleFromSiteLanguageRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, TypoScriptFrontendController::class) &&
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            TypoScriptFrontendController::class
+        ) &&
              ! $this->typo3NodeResolver->isAnyMethodCallOnGlobals(
                 $node,
                 Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER

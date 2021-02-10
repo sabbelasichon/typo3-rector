@@ -68,15 +68,18 @@ final class InstantiatePageRendererExplicitlyRector extends AbstractRector
 
     private function shouldSkip(MethodCall $node): bool
     {
-        if ($this->isMethodStaticCallOrClassMethodObjectType($node, BackendController::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, BackendController::class)) {
             return false;
         }
 
-        if ($this->isMethodStaticCallOrClassMethodObjectType($node, DocumentTemplate::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, DocumentTemplate::class)) {
             return false;
         }
 
-        if ($this->isMethodStaticCallOrClassMethodObjectType($node, TypoScriptFrontendController::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            TypoScriptFrontendController::class
+        )) {
             return false;
         }
 

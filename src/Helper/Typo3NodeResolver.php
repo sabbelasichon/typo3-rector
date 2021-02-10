@@ -11,14 +11,12 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
-use Rector\Core\Rector\AbstractRector\NameResolverTrait;
-use Rector\Core\Rector\AbstractRector\NodeTypeResolverTrait;
+use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\NodeTypeResolver\NodeTypeResolver;
 
 final class Typo3NodeResolver
 {
-    use NameResolverTrait;
-    use NodeTypeResolverTrait;
-
     /**
      * @var string
      */
@@ -85,11 +83,23 @@ final class Typo3NodeResolver
     private $valueResolver;
 
     /**
-     * @required
+     * @var NodeNameResolver
      */
-    public function autowireValueResolverTrait(ValueResolver $valueResolver): void
-    {
+    private $nodeNameResolver;
+
+    /**
+     * @var NodeTypeResolver
+     */
+    private $nodeTypeResolver;
+
+    public function __construct(
+        ValueResolver $valueResolver,
+        NodeNameResolver $nodeNameResolver,
+        NodeTypeResolver $nodeTypeResolver
+    ) {
         $this->valueResolver = $valueResolver;
+        $this->nodeNameResolver = $nodeNameResolver;
+        $this->nodeTypeResolver = $nodeTypeResolver;
     }
 
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool
@@ -102,11 +112,11 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (! $this->isName($node->name, $methodCall)) {
+        if (! $this->nodeNameResolver->isName($node->name, $methodCall)) {
             return false;
         }
 
-        if (! $this->isName($node->var->var, self::GLOBALS)) {
+        if (! $this->nodeNameResolver->isName($node->var->var, self::GLOBALS)) {
             return false;
         }
 
@@ -127,7 +137,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (! $this->isName($node->var->var, self::GLOBALS)) {
+        if (! $this->nodeNameResolver->isName($node->var->var, self::GLOBALS)) {
             return false;
         }
 
@@ -144,7 +154,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (! $this->isName($node->var, self::GLOBALS)) {
+        if (! $this->nodeNameResolver->isName($node->var, self::GLOBALS)) {
             return false;
         }
 
@@ -186,7 +196,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (! $this->isName($node->var->var, self::GLOBALS)) {
+        if (! $this->nodeNameResolver->isName($node->var->var, self::GLOBALS)) {
             return false;
         }
 
@@ -216,11 +226,11 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (! $this->isName($node->var->var->var, self::GLOBALS)) {
+        if (! $this->nodeNameResolver->isName($node->var->var->var, self::GLOBALS)) {
             return false;
         }
 
-        if (! $this->isName($node->var->name, $property)) {
+        if (! $this->nodeNameResolver->isName($node->var->name, $property)) {
             return false;
         }
 
@@ -238,7 +248,7 @@ final class Typo3NodeResolver
 
     private function isPropertyFetchOnParentVariableOfType(Node $node, string $type): bool
     {
-        $parentNode = $node->getAttribute('parent');
+        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
         if (! $parentNode instanceof Assign) {
             return false;
@@ -248,7 +258,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        $objectType = $this->getObjectType($parentNode->expr->var);
+        $objectType = $this->nodeTypeResolver->getStaticType($parentNode->expr->var);
 
         if (! $objectType instanceof ObjectType) {
             return false;

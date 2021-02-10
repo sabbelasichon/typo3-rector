@@ -14,6 +14,7 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Form\Domain\Finishers\EmailFinisher;
@@ -54,7 +55,7 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
         if (! $this->isNames($node->name, [self::FORMAT_HTML, 'FORMAT_PLAINTEXT'])) {
             return null;
         }
-        $parent = $node->getAttribute('parent');
+        $parent = $node->getAttribute(AttributeKey::PARENT_NODE);
         if ($parent instanceof Arg) {
             $this->refactorSetOptionMethodCall($parent, $node);
         }
@@ -91,7 +92,7 @@ PHP
 
     private function refactorSetOptionMethodCall(Arg $parent, ClassConstFetch $node): void
     {
-        $parent = $parent->getAttribute('parent');
+        $parent = $parent->getAttribute(AttributeKey::PARENT_NODE);
         if (! $parent instanceof MethodCall) {
             return;
         }

@@ -11,6 +11,8 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
+use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Configuration\AbstractConfigurationManager;
@@ -88,13 +90,14 @@ CODE_SAMPLE
 
     private function addMethodGetControllerConfiguration(Class_ $node): void
     {
-        $methodBuilder = $this->builderFactory->method('getControllerConfiguration');
+        $methodBuilder = new MethodBuilder('getControllerConfiguration');
         $methodBuilder->makeProtected();
-        $methodBuilder->addParams(
-            [$this->builderFactory->param('extensionName')->getNode(), $this->builderFactory->param(
-                'pluginName'
-            )->getNode()]
-        );
+
+        $methodBuilder->addParams([
+            (new ParamBuilder('extensionName'))->getNode(),
+            (new ParamBuilder('pluginName'))->getNode(),
+        ]);
+
         $newMethod = $methodBuilder->getNode();
         $newMethod->returnType = new Identifier('array');
         $newMethod->stmts[] = new Return_($this->nodeFactory->createMethodCall(

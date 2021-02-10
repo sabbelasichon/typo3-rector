@@ -217,7 +217,7 @@ PHP
     private function extractConfigFromGetFileFieldTcaConfig(Node $columnConfig): Node
     {
         if ($columnConfig instanceof StaticCall) {
-            if (! $this->isMethodStaticCallOrClassMethodObjectType(
+            if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
                 $columnConfig,
                 ExtensionManagementUtility::class
             )) {

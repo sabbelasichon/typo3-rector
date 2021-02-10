@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
@@ -18,6 +19,16 @@ use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
  */
 final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector extends AbstractRector
 {
+    /**
+     * @var ClassConstAnalyzer
+     */
+    private $classConstAnalyzer;
+
+    public function __construct(ClassConstAnalyzer $classConstAnalyzer)
+    {
+        $this->classConstAnalyzer = $classConstAnalyzer;
+    }
+
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
@@ -28,7 +39,7 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, Dispatcher::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, Dispatcher::class)) {
             return null;
         }
 
@@ -36,7 +47,10 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
             return null;
         }
 
-        if (! $this->isClassConstReference($node->args[0]->value, ExtensionManagementService::class)) {
+        if (! $this->classConstAnalyzer->isClassConstReference(
+            $node->args[0]->value,
+            ExtensionManagementService::class
+        )) {
             return null;
         }
 

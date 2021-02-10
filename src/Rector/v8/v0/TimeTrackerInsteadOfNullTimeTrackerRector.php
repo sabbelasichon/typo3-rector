@@ -132,7 +132,7 @@ PHP
             return false;
         }
 
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
             return false;
         }
 
@@ -145,7 +145,7 @@ PHP
             return false;
         }
 
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ObjectManager::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ObjectManager::class)) {
             return false;
         }
 

@@ -30,7 +30,7 @@ final class ApacheSolrDocumentToSolariumDocumentRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, Apache_Solr_Document::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, Apache_Solr_Document::class)) {
             return null;
         }
 

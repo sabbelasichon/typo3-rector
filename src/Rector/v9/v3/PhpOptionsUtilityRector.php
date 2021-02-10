@@ -30,7 +30,7 @@ final class PhpOptionsUtilityRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, PhpOptionsUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, PhpOptionsUtility::class)) {
             return null;
         }
 

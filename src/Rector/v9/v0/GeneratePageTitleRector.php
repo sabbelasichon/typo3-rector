@@ -30,7 +30,7 @@ final class GeneratePageTitleRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, PageGenerator::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, PageGenerator::class)) {
             return null;
         }
 

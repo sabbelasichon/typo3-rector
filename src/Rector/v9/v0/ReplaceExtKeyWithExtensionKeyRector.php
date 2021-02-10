@@ -16,6 +16,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Important-82692-GuidelinesForExtensionFiles.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplaceExtKeyWithExtensionKey\ReplaceExtKeyWithExtensionKeyRectorTest
  */
 final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
 {

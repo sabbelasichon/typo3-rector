@@ -40,7 +40,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
             return null;
         }
         if (! $this->isNames(

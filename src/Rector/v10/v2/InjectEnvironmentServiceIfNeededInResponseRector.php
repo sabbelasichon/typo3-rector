@@ -13,8 +13,11 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
-use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
+use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
@@ -22,6 +25,8 @@ use TYPO3\CMS\Extbase\Service\EnvironmentService;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89468-DeprecateInjectionOfEnvironmentServiceInWebRequest.html
+ *
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponse\InjectEnvironmentServiceIfNeededInResponseRectorTest
  */
 final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRector
 {
@@ -59,9 +64,11 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
         if (! $this->isPropertyEnvironmentServiceInUse($node)) {
             return null;
         }
+
         $this->addInjectEnvironmentServiceMethod($node);
         $this->classInsertManipulator->addAsFirstMethod($node, $this->createEnvironmentServiceProperty());
         $this->classInsertManipulator->addAsFirstMethod($node, new Nop());
+
         return $node;
     }
 
@@ -125,7 +132,7 @@ CODE_SAMPLE
 
     private function createEnvironmentServiceProperty(): Property
     {
-        $propertyBuilder = $this->builderFactory->property(self::ENVIRONMENT_SERVICE);
+        $propertyBuilder = new PropertyBuilder(self::ENVIRONMENT_SERVICE);
         $propertyBuilder->makeProtected();
 
         $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(new ObjectType(EnvironmentService::class));
@@ -152,7 +159,7 @@ CODE_SAMPLE
 
     private function addInjectEnvironmentServiceMethod(Class_ $node): void
     {
-        $paramBuilder = $this->builderFactory->param(self::ENVIRONMENT_SERVICE);
+        $paramBuilder = new ParamBuilder(self::ENVIRONMENT_SERVICE);
         $paramBuilder->setType(new FullyQualified(EnvironmentService::class));
 
         $param = $paramBuilder->getNode();
@@ -160,7 +167,8 @@ CODE_SAMPLE
             self::ENVIRONMENT_SERVICE,
             new Variable(self::ENVIRONMENT_SERVICE)
         );
-        $classMethodBuilder = $this->builderFactory->method('injectEnvironmentService');
+
+        $classMethodBuilder = new MethodBuilder('injectEnvironmentService');
         $classMethodBuilder->addParam($param);
         $classMethodBuilder->addStmt($propertyAssignNode);
         $classMethodBuilder->makePublic();

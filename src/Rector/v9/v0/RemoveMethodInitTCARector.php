@@ -26,7 +26,7 @@ final class RemoveMethodInitTCARector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, EidUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, EidUtility::class)) {
             return null;
         }
 

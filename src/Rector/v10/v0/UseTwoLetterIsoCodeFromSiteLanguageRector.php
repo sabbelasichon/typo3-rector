@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -52,7 +53,7 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
             return null;
         }
 
-        $parentNode = $node->getAttribute('parent');
+        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
         // Check if we have an assigment to the property, if so do not change it
         if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {

@@ -96,12 +96,12 @@ PHP
             return false;
         }
 
-        return ! $this->isMethodStaticCallOrClassMethodObjectType($node, AbstractPlugin::class);
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, AbstractPlugin::class);
     }
 
     private function isLanguageServiceCall(MethodCall $node): bool
     {
-        if ($this->isMethodStaticCallOrClassMethodObjectType($node, LanguageService::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, LanguageService::class)) {
             return true;
         }
         return $this->typo3NodeResolver->isAnyMethodCallOnGlobals($node, Typo3NodeResolver::LANG);

@@ -9,6 +9,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -16,9 +17,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89579-ServiceChainsRequireAnArrayForExcludedServiceKeys.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v2\ExcludeServiceKeysToArray\ExcludeServiceKeysToArrayRectorTest
  */
 final class ExcludeServiceKeysToArrayRector extends AbstractRector
 {
+    /**
+     * @var ArrayTypeAnalyzer
+     */
+    private $arrayTypeAnalyzer;
+
+    public function __construct(ArrayTypeAnalyzer $arrayTypeAnalyzer)
+    {
+        $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
+    }
+
     /**
      * @return string[]
      */
@@ -43,9 +55,10 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
             return null;
         }
         $excludeServiceKeys = $arguments[2];
-        if ($this->isArrayType($excludeServiceKeys->value)) {
+        if ($this->arrayTypeAnalyzer->isArrayType($excludeServiceKeys->value)) {
             return null;
         }
+
         $args = [new String_(','), $excludeServiceKeys, $this->nodeFactory->createTrue()];
         $staticCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'trimExplode', $args);
         $node->args[2] = new Arg($staticCall);
@@ -72,9 +85,12 @@ PHP
 
     private function isExpectedObjectType(StaticCall $node): bool
     {
-        if ($this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionManagementUtility::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            ExtensionManagementUtility::class
+        )) {
             return true;
         }
-        return $this->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class);
+        return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class);
     }
 }

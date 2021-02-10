@@ -32,7 +32,7 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ExtensionUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ExtensionUtility::class)) {
             return null;
         }
 

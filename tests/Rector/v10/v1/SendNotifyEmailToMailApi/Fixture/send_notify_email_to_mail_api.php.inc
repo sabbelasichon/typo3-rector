@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\v10\v1\SendNotifyEmailToMailApi\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v10\v1\SendNotifyEmailToMailApi\Fixture;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -39,7 +39,7 @@ class TxSomePluginBase extends AbstractPlugin
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\v10\v1\SendNotifyEmailToMailApi\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v10\v1\SendNotifyEmailToMailApi\Fixture;
 
 use TYPO3\CMS\Core\Mail\MailMessage;
 use Symfony\Component\Mime\Address;

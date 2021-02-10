@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\NodeFactory;
 
-use PhpParser\BuilderFactory;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ConstFetch;
@@ -27,7 +26,6 @@ use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\PhpParser\Node\NodeFactory;
-use Rector\Core\Rector\AbstractRector\NameResolverTrait;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
@@ -35,11 +33,10 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use ReflectionClass;
+use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 
 final class InitializeArgumentsClassMethodFactory
 {
-    use NameResolverTrait;
-
     /**
      * @var string
      */
@@ -49,11 +46,6 @@ final class InitializeArgumentsClassMethodFactory
      * @var string
      */
     private const MIXED = 'mixed';
-
-    /**
-     * @var BuilderFactory
-     */
-    private $builderFactory;
 
     /**
      * @var NodeFactory
@@ -75,15 +67,18 @@ final class InitializeArgumentsClassMethodFactory
      */
     private $phpDocInfoFactory;
 
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+
     public function __construct(
-        BuilderFactory $builderFactory,
         NodeFactory $nodeFactory,
         NodeNameResolver $nodeNameResolver,
         StaticTypeMapper $staticTypeMapper,
         ParamTypeInferer $paramTypeInferer,
         PhpDocInfoFactory $phpDocInfoFactory
     ) {
-        $this->builderFactory = $builderFactory;
         $this->nodeFactory = $nodeFactory;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->staticTypeMapper = $staticTypeMapper;
@@ -132,7 +127,7 @@ final class InitializeArgumentsClassMethodFactory
 
     private function createNewClassMethod(): ClassMethod
     {
-        $methodBuilder = $this->builderFactory->method(self::METHOD_NAME);
+        $methodBuilder = new MethodBuilder(self::METHOD_NAME);
         $methodBuilder->makePublic();
         $methodBuilder->setReturnType('void');
 
@@ -174,9 +169,8 @@ final class InitializeArgumentsClassMethodFactory
      */
     private function getParamTagsByName(ClassMethod $classMethod): array
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($classMethod);
-        if (null === $phpDocInfo) {
+        if (! $phpDocInfo instanceof PhpDocInfo) {
             return [];
         }
 
@@ -274,6 +268,6 @@ final class InitializeArgumentsClassMethodFactory
             return $paramType->toCodeString();
         }
 
-        return $this->getName($paramType) ?? self::MIXED;
+        return $this->nodeNameResolver->getName($paramType) ?? self::MIXED;
     }
 }

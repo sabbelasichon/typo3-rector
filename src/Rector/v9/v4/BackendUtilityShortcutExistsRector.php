@@ -44,7 +44,7 @@ PHP
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, BackendUtility::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'shortcutExists')) {

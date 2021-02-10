@@ -98,7 +98,7 @@ PHP
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ReflectionService::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ReflectionService::class)) {
             return null;
         }
 

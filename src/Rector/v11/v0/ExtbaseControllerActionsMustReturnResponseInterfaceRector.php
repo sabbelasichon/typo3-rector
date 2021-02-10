@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
+use PHPStan\Type\TypeWithClassName;
 use Psr\Http\Message\ResponseInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -20,6 +21,8 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92784-ExtbaseControllerActionsMustReturnResponseInterface.html
+ *
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterface\ExtbaseControllerActionsMustReturnResponseInterfaceRectorTest
  */
 final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends AbstractRector
 {
@@ -62,11 +65,14 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
                     [$returnCall->expr]
                 );
             } else {
-                $returnCall->expr = $this->nodeFactory->createMethodCall(
-                    self::THIS,
-                    'htmlResponse',
-                    [$returnCall->expr]
-                );
+                // avoid duplication
+                if ($returnCall->expr instanceof MethodCall && $this->isName($returnCall->expr->name, 'htmlResponse')) {
+                    $args = [];
+                } else {
+                    $args = [$returnCall->expr];
+                }
+
+                $returnCall->expr = $this->nodeFactory->createMethodCall(self::THIS, 'htmlResponse', $args);
             }
         }
 
@@ -120,7 +126,7 @@ PHP
 
     private function shouldSkip(ClassMethod $node): bool
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
             return true;
         }
 
@@ -169,7 +175,7 @@ PHP
                 return false;
             }
 
-            if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
+            if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
                 return false;
             }
 
@@ -191,10 +197,20 @@ PHP
                 continue;
             }
 
-            if ($this->isReturnOfObjectType($returnCall, ResponseInterface::class)) {
+            if (null === $returnCall->expr) {
+                continue;
+            }
+
+            $returnType = $this->nodeTypeResolver->getStaticType($returnCall->expr);
+            if (! $returnType instanceof TypeWithClassName) {
+                continue;
+            }
+
+            if (is_a($returnType->getClassName(), ResponseInterface::class)) {
                 return true;
             }
         }
+
         return false;
     }
 }

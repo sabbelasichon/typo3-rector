@@ -24,7 +24,7 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, AbstractRector::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, AbstractRector::class)) {
             return null;
         }
 

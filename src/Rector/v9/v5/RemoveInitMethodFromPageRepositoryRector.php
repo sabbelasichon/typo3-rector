@@ -31,7 +31,7 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, PageRepository::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, PageRepository::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'init')) {

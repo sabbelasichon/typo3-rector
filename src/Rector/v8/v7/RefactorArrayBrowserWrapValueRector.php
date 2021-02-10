@@ -30,7 +30,7 @@ final class RefactorArrayBrowserWrapValueRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, ArrayBrowser::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ArrayBrowser::class)) {
             return null;
         }
         if (! $this->isName($node->name, 'wrapValue')) {

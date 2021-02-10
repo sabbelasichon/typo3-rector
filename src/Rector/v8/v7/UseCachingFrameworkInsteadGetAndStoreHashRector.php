@@ -107,7 +107,7 @@ PHP
         if ($this->typo3NodeResolver->isMethodCallOnSysPageOfTSFE($node)) {
             return false;
         }
-        return ! $this->isMethodStaticCallOrClassMethodObjectType($node, PageRepository::class);
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, PageRepository::class);
     }
 
     private function createCacheManager(): MethodCall

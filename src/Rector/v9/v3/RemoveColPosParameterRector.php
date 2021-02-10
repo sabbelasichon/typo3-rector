@@ -29,7 +29,10 @@ final class RemoveColPosParameterRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, LocalizationRepository::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            LocalizationRepository::class
+        )) {
             return null;
         }
         if (! $this->isNames(

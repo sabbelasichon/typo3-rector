@@ -72,7 +72,7 @@ PHP
 
     private function shouldSkip(MethodCall $node): bool
     {
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, CharsetConverter::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, CharsetConverter::class)) {
             return true;
         }
         return ! $this->isNames($node->name, [

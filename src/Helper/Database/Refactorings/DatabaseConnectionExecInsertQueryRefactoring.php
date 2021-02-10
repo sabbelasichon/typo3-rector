@@ -6,10 +6,25 @@ namespace Ssch\TYPO3Rector\Helper\Database\Refactorings;
 
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
+use Rector\Core\PhpParser\Node\NodeFactory;
 
 final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConnectionToDbalRefactoring
 {
-    use ConnectionCallTrait;
+    /**
+     * @var ConnectionCallFactory
+     */
+    private $connectionCallFactory;
+
+    /**
+     * @var NodeFactory
+     */
+    private $nodeFactory;
+
+    public function __construct(ConnectionCallFactory $connectionCallFactory, NodeFactory $nodeFactory)
+    {
+        $this->connectionCallFactory = $connectionCallFactory;
+        $this->nodeFactory = $nodeFactory;
+    }
 
     public function refactor(MethodCall $oldNode): array
     {
@@ -20,7 +35,7 @@ final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConn
             return [];
         }
 
-        $connectionAssignment = $this->createConnectionCall($tableArgument);
+        $connectionAssignment = $this->connectionCallFactory->createConnectionCall($tableArgument);
 
         $connectionInsertCall = $this->nodeFactory->createMethodCall(
             new Variable('connection'), 'insert', [$tableArgument->value, $dataArgument->value]

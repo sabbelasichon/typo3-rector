@@ -48,7 +48,10 @@ final class RefactorProcessOutputRector extends AbstractRector
             return null;
         }
 
-        if (! $this->isMethodStaticCallOrClassMethodObjectType($node, TypoScriptFrontendController::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            TypoScriptFrontendController::class
+        )) {
             return null;
         }
 
