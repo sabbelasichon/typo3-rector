@@ -17,7 +17,6 @@ final class NimutTestingFrameworkToTYPO3TestingFrameworkTest extends AbstractRec
      */
     public function test(SmartFileInfo $fileInfo): void
     {
-        $this->setParameter(Option::AUTO_IMPORT_NAMES, true);
         $this->doTestFileInfo($fileInfo);
     }
 
@@ -28,6 +27,6 @@ final class NimutTestingFrameworkToTYPO3TestingFrameworkTest extends AbstractRec
 
     protected function provideConfigFileInfo(): ?SmartFileInfo
     {
-        return new SmartFileInfo(Typo3SetList::NIMUT_TESTING_FRAMEWORK_TO_TYPO3_TESTING_FRAMEWORK);
+        return new SmartFileInfo(__DIR__ . '/config/configured_rule.php');
     }
 }

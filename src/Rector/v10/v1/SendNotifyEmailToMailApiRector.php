@@ -34,6 +34,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-88850-ContentObjectRendererSendNotifyEmail.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v1\SendNotifyEmailToMailApi\SendNotifyEmailToMailApiRectorTest
  */
 final class SendNotifyEmailToMailApiRector extends AbstractRector
 {
@@ -142,13 +143,16 @@ use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;$success = false;
+
 $mail = GeneralUtility::makeInstance(MailMessage::class);
 $message = trim("Subject\nMessage");
 $senderName = trim(null);
 $senderAddress = trim('max.mustermann@domain.com');
+
 if ($senderAddress !== '') {
     $mail->from(new Address($senderAddress, $senderName));
 }
+
 if ($message !== '') {
     $messageParts = explode(LF, $message, 2);
     $subject = trim($messageParts[0]);
