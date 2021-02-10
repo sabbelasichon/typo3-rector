@@ -47,7 +47,10 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
             return null;
         }
 
-        if (! $this->classConstAnalyzer->isClassConstReference($node->args[0]->value, ExtensionManagementService::class)) {
+        if (! $this->classConstAnalyzer->isClassConstReference(
+            $node->args[0]->value,
+            ExtensionManagementService::class
+        )) {
             return null;
         }
 

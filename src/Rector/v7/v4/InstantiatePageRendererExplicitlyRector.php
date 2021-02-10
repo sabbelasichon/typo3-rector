@@ -76,7 +76,10 @@ final class InstantiatePageRendererExplicitlyRector extends AbstractRector
             return false;
         }
 
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, TypoScriptFrontendController::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            TypoScriptFrontendController::class
+        )) {
             return false;
         }
 

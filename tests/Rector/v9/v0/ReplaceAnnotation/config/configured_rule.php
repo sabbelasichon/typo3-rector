@@ -14,6 +14,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
                 'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
                 'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
-            ]
+            ],
         ]]);
 };

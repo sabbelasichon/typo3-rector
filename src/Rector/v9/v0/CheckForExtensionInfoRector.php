@@ -90,9 +90,9 @@ PHP
      */
     private function isPackageManagerIsActivePackage(Node $node): bool
     {
-        return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, PackageManager::class) && $this->isName(
-            $node->name,
-            'isPackageActive'
-        );
+        return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            PackageManager::class
+        ) && $this->isName($node->name, 'isPackageActive');
     }
 }

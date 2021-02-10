@@ -72,7 +72,10 @@ PHP
 
     private function shouldSkip(MethodCall $node): bool
     {
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, TypoScriptFrontendController::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            TypoScriptFrontendController::class
+        )) {
             return false;
         }
         return ! $this->typo3NodeResolver->isAnyMethodCallOnGlobals(

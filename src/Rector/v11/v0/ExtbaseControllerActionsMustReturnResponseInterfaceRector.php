@@ -192,7 +192,7 @@ PHP
                 continue;
             }
 
-            if ($returnCall->expr === null) {
+            if (null === $returnCall->expr) {
                 continue;
             }
 

@@ -96,7 +96,10 @@ PHP
             return false;
         }
 
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, TypoScriptFrontendController::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            TypoScriptFrontendController::class
+        )) {
             return false;
         }
 

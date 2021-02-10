@@ -5,13 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Name\RenameClassRector;
 
 use Iterator;
-use Rector\Core\Configuration\Option;
-use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\PostRector\NameImportingPostRector;
-use Ssch\TYPO3Rector\Tests\Rector\Name\RenameClassRector\Source\FirstOriginalClass;
-use Ssch\TYPO3Rector\Tests\Rector\Name\RenameClassRector\Source\SecondOriginalClass;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**

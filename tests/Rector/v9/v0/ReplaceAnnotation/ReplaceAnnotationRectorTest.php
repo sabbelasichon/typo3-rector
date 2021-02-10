@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplaceAnnotation;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ReplaceAnnotationRectorTest extends AbstractRectorTestCase

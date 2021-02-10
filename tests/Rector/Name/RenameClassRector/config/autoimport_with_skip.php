@@ -20,6 +20,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->call('configure', [[
             RenameClassRector::OLD_TO_NEW_CLASSES => [
                 OldClass::class => NewClass::class,
-            ]
+            ],
         ]]);
 };
