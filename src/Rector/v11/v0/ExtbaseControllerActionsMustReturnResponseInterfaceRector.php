@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
+use Attribute;
 use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Exit_;
@@ -15,12 +16,15 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\TypeWithClassName;
 use Psr\Http\Message\ResponseInterface;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92784-ExtbaseControllerActionsMustReturnResponseInterface.html
+ *
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterface\ExtbaseControllerActionsMustReturnResponseInterfaceRectorTest
  */
 final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends AbstractRector
 {
@@ -63,11 +67,14 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
                     [$returnCall->expr]
                 );
             } else {
-                $returnCall->expr = $this->nodeFactory->createMethodCall(
-                    self::THIS,
-                    'htmlResponse',
-                    [$returnCall->expr]
-                );
+                // avoid duplication
+                if ($returnCall->expr instanceof MethodCall && $this->isName($returnCall->expr->name, 'htmlResponse')) {
+                    $args = [];
+                } else {
+                    $args = [$returnCall->expr];
+                }
+
+                $returnCall->expr = $this->nodeFactory->createMethodCall(self::THIS, 'htmlResponse', $args);
             }
         }
 
