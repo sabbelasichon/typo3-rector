@@ -13,10 +13,10 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::AUTO_IMPORT_NAMES, false);
-    $parameters->set(Typo3Option::AUTO_IMPORT_NAMES, true);
+    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
+
     $parameters->set(Option::SKIP, [
-        NameImportingPostRector::class => ['*_skip_import_names.php'],
+        \Rector\PostRector\Rector\NameImportingPostRector::class => ['*_skip_import_names.php'],
     ]);
 
     $services = $containerConfigurator->services();
