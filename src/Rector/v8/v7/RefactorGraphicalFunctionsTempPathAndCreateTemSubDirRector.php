@@ -175,7 +175,7 @@ PHP
             return null;
         }
 
-        $parentNode = $node->getAttribute('parent');
+        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
         // Check if we have an assigment to the property, if so do not change it
         if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {

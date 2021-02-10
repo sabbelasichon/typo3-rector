@@ -109,7 +109,7 @@ PHP
 
     private function addInitializeVariableNode(MethodCall $node): void
     {
-        $parentNode = $node->getAttribute('parent');
+        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
         if (! $parentNode->var instanceof PropertyFetch) {
             $initializeVariable = new Expression(new Assign($parentNode->var, new String_('')));
             $this->addNodeBeforeNode($initializeVariable, $node);
