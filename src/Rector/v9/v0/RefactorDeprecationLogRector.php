@@ -40,20 +40,21 @@ final class RefactorDeprecationLogRector extends AbstractRector
         if (GeneralUtility::class !== $className) {
             return null;
         }
-        $const = new ConstFetch(new Name([
-            'name' => 'E_USER_DEPRECATED',
-        ]));
+
+        $constFetch = new ConstFetch(new Name('E_USER_DEPRECATED'));
+
         $usefulMessage = new String_('A useful message');
         $emptyFallbackString = new String_('');
         $arguments = $node->args;
+
         switch ($methodName) {
             case 'logDeprecatedFunction':
             case 'logDeprecatedViewHelperAttribute':
-                return $this->nodeFactory->createFuncCall('trigger_error', [$usefulMessage, $const]);
+                return $this->nodeFactory->createFuncCall('trigger_error', [$usefulMessage, $constFetch]);
             case 'deprecationLog':
                 return $this->nodeFactory->createFuncCall(
                     'trigger_error',
-                    [$arguments[0] ?? $emptyFallbackString, $const]
+                    [$arguments[0] ?? $emptyFallbackString, $constFetch]
                 );
             case 'getDeprecationLogFileName':
                 $this->removeNode($node);

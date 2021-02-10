@@ -191,11 +191,11 @@ PHP
         ));
     }
 
-    private function trimSenderName(MethodCall $node): Node
+    private function trimSenderName(MethodCall $methodCall): Node
     {
         return new Expression(new Assign(new Variable('senderName'), $this->nodeFactory->createFuncCall(
             self::TRIM,
-            [$node->args[4]]
+            [$methodCall->args[4] ?? new Expr\ConstFetch(new Name('null'))]
         )));
     }
 

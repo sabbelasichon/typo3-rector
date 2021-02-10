@@ -2,6 +2,9 @@
 
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
+// must be defined
+$_EXTKEY = '___';
+
 if ( ! defined('TYPO3_MODE')) {
     die('Access denied.');
 }
@@ -39,6 +42,9 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php'][
 <?php
 
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
+// must be defined
+'_temp_fixture_easy_testing' = '___';
 
 if ( ! defined('TYPO3_MODE')) {
     die('Access denied.');
