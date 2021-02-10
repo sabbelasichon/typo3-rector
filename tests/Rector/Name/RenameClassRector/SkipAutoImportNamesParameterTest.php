@@ -29,6 +29,6 @@ final class SkipAutoImportNamesParameterTest extends AbstractCommunityRectorTest
 
     public function provideConfigFilePath(): string
     {
-        return new SmartFileInfo(__DIR__ . '/config/autoimport_with_skip.php');
+        return __DIR__ . '/config/autoimport_with_skip.php';
     }
 }

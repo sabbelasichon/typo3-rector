@@ -25,6 +25,6 @@ final class DatabaseConnectionToDbalTest extends AbstractCommunityRectorTestCase
 
     public function provideConfigFilePath(): string
     {
-        return new SmartFileInfo(__DIR__ . '/../../../../config/database-connection-to-dbal.php');
+        return __DIR__ . '/../../../../config/database-connection-to-dbal.php';
     }
 }

@@ -29,6 +29,6 @@ final class AutoImportNamesParameterTest extends AbstractCommunityRectorTestCase
 
     public function provideConfigFilePath(): string
     {
-        return new SmartFileInfo(__DIR__ . '/config/autoimport_rename.php');
+        return __DIR__ . '/config/autoimport_rename.php';
     }
 }

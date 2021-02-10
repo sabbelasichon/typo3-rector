@@ -10,7 +10,6 @@ use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Ssch\TYPO3Rector\Console\Application;
 use Ssch\TYPO3Rector\Console\Output\DecoratedConsoleOutputFormatter;
 use Ssch\TYPO3Rector\DependencyInjection\PHPStanServicesFactory;
-use Ssch\TYPO3Rector\Helper\Database\Refactorings\DatabaseConnectionToDbalRefactoring;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -21,11 +20,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->defaults()
         ->public()
         ->autowire();
-
-    $services
-        ->instanceof(DatabaseConnectionToDbalRefactoring::class)
-        ->tag('database.dbal.refactoring')
-        ->share(false);
 
     $services->alias(SymfonyApplication::class, Application::class);
 

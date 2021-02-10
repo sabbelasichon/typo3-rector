@@ -7,12 +7,16 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\Helper\Database\Refactorings\DatabaseConnectionToDbalRefactoring;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Symfony\Component\VarDumper\Cloner\Data;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-80929-TYPO3_DBMovedToExtension.html
+ *
+ * @see \Ssch\TYPO3Rector\Tests\Rector\Core\Database\DatabaseConnectionToDbalTest
  */
 final class DatabaseConnectionToDbalRector extends AbstractRector
 {
@@ -22,11 +26,14 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
     private $typo3NodeResolver;
 
     /**
-     * @noRector
+     * @var DatabaseConnectionToDbalRefactoring[]
      */
     private $databaseConnectionRefactorings;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, iterable $databaseConnectionRefactorings)
+    /**
+     * @param DatabaseConnectionToDbalRefactoring[] $databaseConnectionRefactorings
+     */
+    public function __construct(Typo3NodeResolver $typo3NodeResolver, array $databaseConnectionRefactorings)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
         $this->databaseConnectionRefactorings = $databaseConnectionRefactorings;
