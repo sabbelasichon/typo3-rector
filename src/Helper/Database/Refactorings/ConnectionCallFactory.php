@@ -11,22 +11,19 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-trait ConnectionCallTrait
+final class ConnectionCallFactory
 {
     /**
      * @var NodeFactory
      */
-    protected $nodeFactory;
+    private $nodeFactory;
 
-    /**
-     * @required
-     */
-    public function autowireNodeFactoryTrait(NodeFactory $nodeFactory): void
+    public function __construct(NodeFactory $nodeFactory)
     {
         $this->nodeFactory = $nodeFactory;
     }
 
-    private function createConnectionCall(Arg $firstArgument): Assign
+    public function createConnectionCall(Arg $firstArgument): Assign
     {
         $connection = $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
