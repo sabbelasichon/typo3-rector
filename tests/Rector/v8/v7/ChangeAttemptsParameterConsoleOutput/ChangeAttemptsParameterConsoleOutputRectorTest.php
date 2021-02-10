@@ -24,10 +24,8 @@ final class ChangeAttemptsParameterConsoleOutputRectorTest extends AbstractRecto
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorsWithConfiguration(): array
+    protected function getRectorClass(): string
     {
-        return [
-            ChangeAttemptsParameterConsoleOutputRector::class => [],
-        ];
+        return ChangeAttemptsParameterConsoleOutputRector::class;
     }
 }

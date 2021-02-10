@@ -24,12 +24,6 @@ final class SkipAutoImportNamesParameterTest extends AbstractRectorTestCase
      */
     public function test(SmartFileInfo $fileInfo): void
     {
-        $this->setParameter(Option::AUTO_IMPORT_NAMES, false);
-        $this->setParameter(Typo3Option::AUTO_IMPORT_NAMES, true);
-        $this->setParameter(Option::SKIP, [
-            NameImportingPostRector::class => ['*_skip_import_names.php'],
-        ]);
-
         $this->doTestFileInfo($fileInfo);
     }
 
@@ -38,17 +32,8 @@ final class SkipAutoImportNamesParameterTest extends AbstractRectorTestCase
         return $this->yieldFilesFromDirectory(__DIR__ . '/SkipAutoImportNames');
     }
 
-    /**
-     * @return array<string, mixed[]>
-     */
-    protected function getRectorsWithConfiguration(): array
+    protected function provideConfigFileInfo(): ?SmartFileInfo
     {
-        return [
-            RenameClassRector::class => [
-                RenameClassRector::OLD_TO_NEW_CLASSES => [
-                    FirstOriginalClass::class => SecondOriginalClass::class,
-                ],
-            ],
-        ];
+        return new SmartFileInfo(__DIR__ . '/config/autoimport_with_skip.php');
     }
 }
