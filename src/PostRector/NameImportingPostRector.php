@@ -12,6 +12,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\CodingStyle\ClassNameImport\ClassNameImportSkipper;
 use Rector\CodingStyle\Node\NameImporter;
 use Rector\Core\Configuration\Option;
+use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\FileSystem\CurrentFileInfoProvider;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockNameImporter;
 use Rector\PostRector\Contract\Rector\PostRectorInterface;
@@ -65,13 +66,19 @@ final class NameImportingPostRector extends NodeVisitorAbstract implements PostR
      */
     private $phpDocInfoFactory;
 
+    /**
+     * @var NodeNameResolver
+     */
+    private $nodeNameResolver;
+
     public function __construct(
         ParameterProvider $parameterProvider,
         NameImporter $nameImporter,
         DocBlockNameImporter $docBlockNameImporter,
         ClassNameImportSkipper $classNameImportSkipper,
         CurrentFileInfoProvider $currentFileInfoProvider,
-        PhpDocInfoFactory $phpDocInfoFactory
+        PhpDocInfoFactory $phpDocInfoFactory,
+        NodeNameResolver $nodeNameResolver
     ) {
         $this->parameterProvider = $parameterProvider;
         $this->nameImporter = $nameImporter;
@@ -79,6 +86,7 @@ final class NameImportingPostRector extends NodeVisitorAbstract implements PostR
         $this->classNameImportSkipper = $classNameImportSkipper;
         $this->currentFileInfoProvider = $currentFileInfoProvider;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->nodeNameResolver = $nodeNameResolver;
     }
 
     public function enterNode(Node $node): ?Node
@@ -175,7 +183,7 @@ CODE_SAMPLE
 
     private function processNodeName(Name $name): ?Node
     {
-        $importName = $this->getName($name);
+        $importName = $this->nodeNameResolver->getName($name);
 
         if (! is_callable($importName)) {
             return $this->nameImporter->importName($name);

@@ -169,9 +169,8 @@ final class InitializeArgumentsClassMethodFactory
      */
     private function getParamTagsByName(ClassMethod $classMethod): array
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNode($classMethod);
-        if (null === $phpDocInfo) {
+        if (! $phpDocInfo instanceof PhpDocInfo) {
             return [];
         }
 

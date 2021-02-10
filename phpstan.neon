@@ -17,6 +17,9 @@ parameters:
 
     inferPrivatePropertyTypeFromConstructor: true
     checkMissingIterableValueType: false
+
+    checkGenericClassInNonGenericObjectType: false
+
     ignoreErrors:
         - '#Function Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\ref not found#'
         - '#Function Symfony\\Component\\DependencyInjection\\Loader\\Configurator\\service not found#'

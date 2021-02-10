@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
-use Attribute;
 use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Exit_;
@@ -16,7 +15,6 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\TypeWithClassName;
 use Psr\Http\Message\ResponseInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
