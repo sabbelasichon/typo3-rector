@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v6\RemoveIconOptionForRenderTypeSelect;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v7\v6\RemoveIconOptionForRenderTypeSelectRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveIconOptionForRenderTypeSelectRectorTest extends AbstractRectorTestCase
+final class RemoveIconOptionForRenderTypeSelectRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()

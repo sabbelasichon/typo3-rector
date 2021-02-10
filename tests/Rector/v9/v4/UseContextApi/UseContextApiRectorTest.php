@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseContextApi;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseContextApiRectorTest extends AbstractRectorTestCase
+final class UseContextApiRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

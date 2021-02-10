@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendController;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendControllerRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorPropertiesOfTypoScriptFrontendControllerRectorTest extends AbstractRectorTestCase
+final class RefactorPropertiesOfTypoScriptFrontendControllerRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

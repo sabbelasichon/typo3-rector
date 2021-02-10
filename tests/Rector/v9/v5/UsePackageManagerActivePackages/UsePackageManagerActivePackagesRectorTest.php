@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\UsePackageManagerActivePackages;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v5\UsePackageManagerActivePackagesRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UsePackageManagerActivePackagesRectorTest extends AbstractRectorTestCase
+final class UsePackageManagerActivePackagesRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

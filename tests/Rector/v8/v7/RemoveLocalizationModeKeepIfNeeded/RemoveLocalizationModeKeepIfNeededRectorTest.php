@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v7\RemoveLocalizationModeKeepIfNeeded;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v7\RemoveLocalizationModeKeepIfNeededRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveLocalizationModeKeepIfNeededRectorTest extends AbstractRectorTestCase
+final class RemoveLocalizationModeKeepIfNeededRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()

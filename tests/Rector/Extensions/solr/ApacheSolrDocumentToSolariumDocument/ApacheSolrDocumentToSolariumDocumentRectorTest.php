@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\ApacheSolrDocumentToSolariumDocument;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ApacheSolrDocumentToSolariumDocumentRectorTest extends AbstractRectorTestCase
+final class ApacheSolrDocumentToSolariumDocumentRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -23,8 +23,8 @@ final class ApacheSolrDocumentToSolariumDocumentRectorTest extends AbstractRecto
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function provideConfigFileInfo(): ?SmartFileInfo
+    public function provideConfigFilePath(): string
     {
-        return new SmartFileInfo(__DIR__ . '/config/configured_rule.php');
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

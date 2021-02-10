@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v1\GeneralUtilityToUpperAndLower;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v1\GeneralUtilityToUpperAndLowerRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class GeneralUtilityToUpperAndLowerRectorTest extends AbstractRectorTestCase
+final class GeneralUtilityToUpperAndLowerRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

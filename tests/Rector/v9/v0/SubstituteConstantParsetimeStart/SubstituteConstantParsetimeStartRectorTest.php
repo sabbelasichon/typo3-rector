@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\SubstituteConstantParsetimeStart;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SubstituteConstantParsetimeStartRectorTest extends AbstractRectorTestCase
+final class SubstituteConstantParsetimeStartRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

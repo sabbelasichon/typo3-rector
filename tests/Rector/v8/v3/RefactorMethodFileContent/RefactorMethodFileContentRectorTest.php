@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v3\RefactorMethodFileContent;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v3\RefactorMethodFileContentRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorMethodFileContentRectorTest extends AbstractRectorTestCase
+final class RefactorMethodFileContentRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

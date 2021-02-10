@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v5\CharsetConverterToMultiByteFunctions;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v5\CharsetConverterToMultiByteFunctionsRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class CharsetConverterToMultiByteFunctionsRectorTest extends AbstractRectorTestCase
+final class CharsetConverterToMultiByteFunctionsRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v6\WrapClickMenuOnIcon;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class WrapClickMenuOnIconRectorTest extends AbstractRectorTestCase
+final class WrapClickMenuOnIconRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Nimut\TestingFramework;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class NimutTestingFrameworkToTYPO3TestingFrameworkTest extends AbstractRectorTestCase
+final class NimutTestingFrameworkToTYPO3TestingFrameworkTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -23,8 +23,8 @@ final class NimutTestingFrameworkToTYPO3TestingFrameworkTest extends AbstractRec
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function provideConfigFileInfo(): ?SmartFileInfo
+    public function provideConfigFilePath(): string
     {
-        return new SmartFileInfo(__DIR__ . '/config/configured_rule.php');
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

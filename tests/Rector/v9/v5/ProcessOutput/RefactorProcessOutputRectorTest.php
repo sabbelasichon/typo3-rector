@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\ProcessOutput;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorProcessOutputRectorTest extends AbstractRectorTestCase
+final class RefactorProcessOutputRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

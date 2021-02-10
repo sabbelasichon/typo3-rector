@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\ArrayUtilityInArrayToFuncInArray;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v6\ArrayUtilityInArrayToFuncInArrayRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ArrayUtilityInArrayToFuncInArrayRectorTest extends AbstractRectorTestCase
+final class ArrayUtilityInArrayToFuncInArrayRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

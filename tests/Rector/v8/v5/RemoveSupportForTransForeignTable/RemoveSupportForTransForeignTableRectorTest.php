@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v5\RemoveSupportForTransForeignTable;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v5\RemoveSupportForTransForeignTableRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveSupportForTransForeignTableRectorTest extends AbstractRectorTestCase
+final class RemoveSupportForTransForeignTableRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()

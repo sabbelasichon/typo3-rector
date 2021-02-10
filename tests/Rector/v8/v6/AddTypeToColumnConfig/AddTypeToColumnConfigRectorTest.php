@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\AddTypeToColumnConfig;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v6\AddTypeToColumnConfigRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class AddTypeToColumnConfigRectorTest extends AbstractRectorTestCase
+final class AddTypeToColumnConfigRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()

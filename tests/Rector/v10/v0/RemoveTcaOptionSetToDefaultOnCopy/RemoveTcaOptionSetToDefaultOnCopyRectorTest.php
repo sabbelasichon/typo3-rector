@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v0\RemoveTcaOptionSetToDefaultOnCopy;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v0\RemoveTcaOptionSetToDefaultOnCopyRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveTcaOptionSetToDefaultOnCopyRectorTest extends AbstractRectorTestCase
+final class RemoveTcaOptionSetToDefaultOnCopyRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
