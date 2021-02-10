@@ -20,6 +20,8 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
+use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -90,7 +92,8 @@ final class InjectAnnotationRector extends AbstractRector
 
             /** @var string $variableName */
             $variableName = $this->getName($property);
-            $paramBuilder = $this->builderFactory->param($variableName);
+
+            $paramBuilder = new ParamBuilder($variableName);
             $varType = $propertyPhpDocInfo->getVarType();
             if (! $varType instanceof ObjectType) {
                 continue;
@@ -153,11 +156,13 @@ CODE_SAMPLE
     private function createInjectClassMethod(string $variableName, Param $param, Assign $assign): ClassMethod
     {
         $injectMethodName = $this->createInjectMethodName($variableName);
-        $injectMethodBuilder = $this->builderFactory->method($injectMethodName);
+
+        $injectMethodBuilder = new MethodBuilder($injectMethodName);
         $injectMethodBuilder->makePublic();
         $injectMethodBuilder->addParam($param);
         $injectMethodBuilder->setReturnType('void');
         $injectMethodBuilder->addStmt($assign);
+
         return $injectMethodBuilder->getNode();
     }
 

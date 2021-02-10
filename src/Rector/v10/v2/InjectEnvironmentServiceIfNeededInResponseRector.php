@@ -15,6 +15,9 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\Manipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
@@ -125,7 +128,7 @@ CODE_SAMPLE
 
     private function createEnvironmentServiceProperty(): Property
     {
-        $propertyBuilder = $this->builderFactory->property(self::ENVIRONMENT_SERVICE);
+        $propertyBuilder = new PropertyBuilder(self::ENVIRONMENT_SERVICE);
         $propertyBuilder->makeProtected();
 
         $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(new ObjectType(EnvironmentService::class));
@@ -152,7 +155,7 @@ CODE_SAMPLE
 
     private function addInjectEnvironmentServiceMethod(Class_ $node): void
     {
-        $paramBuilder = $this->builderFactory->param(self::ENVIRONMENT_SERVICE);
+        $paramBuilder = new ParamBuilder(self::ENVIRONMENT_SERVICE);
         $paramBuilder->setType(new FullyQualified(EnvironmentService::class));
 
         $param = $paramBuilder->getNode();
@@ -160,7 +163,8 @@ CODE_SAMPLE
             self::ENVIRONMENT_SERVICE,
             new Variable(self::ENVIRONMENT_SERVICE)
         );
-        $classMethodBuilder = $this->builderFactory->method('injectEnvironmentService');
+
+        $classMethodBuilder = new MethodBuilder('injectEnvironmentService');
         $classMethodBuilder->addParam($param);
         $classMethodBuilder->addStmt($propertyAssignNode);
         $classMethodBuilder->makePublic();

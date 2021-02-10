@@ -34,6 +34,7 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use ReflectionClass;
+use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 
 final class InitializeArgumentsClassMethodFactory
 {
@@ -46,11 +47,6 @@ final class InitializeArgumentsClassMethodFactory
      * @var string
      */
     private const MIXED = 'mixed';
-
-    /**
-     * @var BuilderFactory
-     */
-    private $builderFactory;
 
     /**
      * @var NodeFactory
@@ -78,14 +74,12 @@ final class InitializeArgumentsClassMethodFactory
     private $nodeNameResolver;
 
     public function __construct(
-        BuilderFactory $builderFactory,
         NodeFactory $nodeFactory,
         NodeNameResolver $nodeNameResolver,
         StaticTypeMapper $staticTypeMapper,
         ParamTypeInferer $paramTypeInferer,
         PhpDocInfoFactory $phpDocInfoFactory
     ) {
-        $this->builderFactory = $builderFactory;
         $this->nodeFactory = $nodeFactory;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->staticTypeMapper = $staticTypeMapper;
@@ -134,7 +128,7 @@ final class InitializeArgumentsClassMethodFactory
 
     private function createNewClassMethod(): ClassMethod
     {
-        $methodBuilder = $this->builderFactory->method(self::METHOD_NAME);
+        $methodBuilder = new MethodBuilder(self::METHOD_NAME);
         $methodBuilder->makePublic();
         $methodBuilder->setReturnType('void');
 

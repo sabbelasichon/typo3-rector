@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
@@ -79,10 +80,8 @@ PHP
                 return null;
             }
 
-            $forwardResponse = $this->builderFactory->new(
-                ForwardResponse::class,
-                $this->nodeFactory->createArgs([$action])
-            );
+            $args = $this->nodeFactory->createArgs([$action]);
+            $forwardResponse = new New_(new FullyQualified(ForwardResponse::class), $args);
 
             if (isset($forwardMethodCall->args[1]) && ! $this->valueResolver->isNull(
                 $forwardMethodCall->args[1]->value
