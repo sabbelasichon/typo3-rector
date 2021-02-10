@@ -12,11 +12,13 @@ Apply automatic fixes on your TYPO3 code.
 
 ## Table of Contents
 1. [Examples in action](docs/examples_in_action.md)
-2. [Overview of all rules](docs/all_rectors_overview.md)
-3. [Installation](docs/installation.md)
-4. [Configuration and Processing](docs/configuration_and_processing.md)
-5. [Limitations](docs/limitations.md)
-6. [Contribution](docs/contribution.md)
+1. [Overview of all rules](docs/all_rectors_overview.md)
+1. [Installation](docs/installation.md)
+1. [Usage with Docker](docs/docker.md)
+1. [Configuration and Processing](docs/configuration_and_processing.md)
+1. [Continuous integration](docs/ci.md)
+1. [Limitations](docs/limitations.md)
+1. [Contribution](docs/contribution.md)
 
 Please also have a look at the documentation for [Rector](https://github.com/rectorphp/rector) itself.
 
