@@ -2523,13 +2523,16 @@ Refactor ContentObjectRenderer::sendNotifyEmail to MailMessage-API
 +use TYPO3\CMS\Core\Mail\MailMessage;
 +use TYPO3\CMS\Core\Utility\GeneralUtility;
 +use TYPO3\CMS\Core\Utility\MailUtility;$success = false;
++
 +$mail = GeneralUtility::makeInstance(MailMessage::class);
 +$message = trim("Subject\nMessage");
 +$senderName = trim(null);
 +$senderAddress = trim('max.mustermann@domain.com');
++
 +if ($senderAddress !== '') {
 +    $mail->from(new Address($senderAddress, $senderName));
 +}
++
 +if ($message !== '') {
 +    $messageParts = explode(LF, $message, 2);
 +    $subject = trim($messageParts[0]);
