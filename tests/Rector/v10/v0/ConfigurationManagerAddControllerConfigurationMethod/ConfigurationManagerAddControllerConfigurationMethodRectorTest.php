@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v0\ConfigurationManagerAddControllerConfigurationMethod;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ConfigurationManagerAddControllerConfigurationMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class ConfigurationManagerAddControllerConfigurationMethodRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\RemoveWakeupCallFromEntity;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveWakeupCallFromEntityRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class RemoveWakeupCallFromEntityRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

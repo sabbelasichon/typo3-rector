@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v3\CopyMethodGetPidForModTSconfig;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class CopyMethodGetPidForModTSconfigRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class CopyMethodGetPidForModTSconfigRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

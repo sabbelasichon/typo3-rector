@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\RemoveInitMethodTemplateService;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveInitMethodTemplateServiceRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class RemoveInitMethodTemplateServiceRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

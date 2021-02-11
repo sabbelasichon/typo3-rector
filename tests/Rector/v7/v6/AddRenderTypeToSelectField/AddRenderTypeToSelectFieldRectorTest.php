@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v6\AddRenderTypeToSelectField;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class AddRenderTypeToSelectFieldRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class AddRenderTypeToSelectFieldRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()

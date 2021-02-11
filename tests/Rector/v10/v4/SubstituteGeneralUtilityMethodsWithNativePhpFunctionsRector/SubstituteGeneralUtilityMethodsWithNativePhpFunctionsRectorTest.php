@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

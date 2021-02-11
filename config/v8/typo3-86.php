@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
+
     $services = $containerConfigurator->services();
     $services->set(RenameNamespaceRector::class)->call('configure', [
         RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [

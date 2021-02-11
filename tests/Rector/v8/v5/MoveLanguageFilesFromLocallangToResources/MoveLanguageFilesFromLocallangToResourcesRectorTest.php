@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v5\MoveLanguageFilesFromLocallangToResources;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class MoveLanguageFilesFromLocallangToResourcesRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class MoveLanguageFilesFromLocallangToResourcesRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

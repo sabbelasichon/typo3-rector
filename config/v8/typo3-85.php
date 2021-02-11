@@ -16,6 +16,7 @@ use TYPO3\CMS\Extbase\Utility\ArrayUtility;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
+
     $services = $containerConfigurator->services();
     $services->set(RenameMethodRector::class)->call('configure', [[
         RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([

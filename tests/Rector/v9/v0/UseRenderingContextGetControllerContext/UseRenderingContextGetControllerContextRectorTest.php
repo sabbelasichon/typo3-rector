@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\UseRenderingContextGetControllerContext;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseRenderingContextGetControllerContextRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class UseRenderingContextGetControllerContextRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

@@ -32,6 +32,11 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
     private const THIS = 'this';
 
     /**
+     * @var string
+     */
+    private const HTML_RESPONSE = 'htmlResponse';
+
+    /**
      * @return string[]
      */
     public function getNodeTypes(): array
@@ -66,13 +71,16 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
                 );
             } else {
                 // avoid duplication
-                if ($returnCall->expr instanceof MethodCall && $this->isName($returnCall->expr->name, 'htmlResponse')) {
+                if ($returnCall->expr instanceof MethodCall && $this->isName(
+                    $returnCall->expr->name,
+                    self::HTML_RESPONSE
+                )) {
                     $args = [];
                 } else {
                     $args = [$returnCall->expr];
                 }
 
-                $returnCall->expr = $this->nodeFactory->createMethodCall(self::THIS, 'htmlResponse', $args);
+                $returnCall->expr = $this->nodeFactory->createMethodCall(self::THIS, self::HTML_RESPONSE, $args);
             }
         }
 
@@ -86,7 +94,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
         }
 
         if (! $lastStatement instanceof Return_) {
-            $returnResponse = $this->nodeFactory->createMethodCall(self::THIS, 'htmlResponse');
+            $returnResponse = $this->nodeFactory->createMethodCall(self::THIS, self::HTML_RESPONSE);
 
             $node->stmts[] = new Return_($returnResponse);
         }
@@ -206,7 +214,7 @@ PHP
                 continue;
             }
 
-            if (is_a($returnType->getClassName(), ResponseInterface::class)) {
+            if (is_a($returnType->getClassName(), ResponseInterface::class, true)) {
                 return true;
             }
         }

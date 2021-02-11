@@ -27,7 +27,7 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
     /**
      * @var DatabaseConnectionToDbalRefactoring[]
      */
-    private $databaseConnectionRefactorings;
+    private $databaseConnectionRefactorings = [];
 
     /**
      * @param DatabaseConnectionToDbalRefactoring[] $databaseConnectionRefactorings

@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\UsePackageManagerActivePackages;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UsePackageManagerActivePackagesRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class UsePackageManagerActivePackagesRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

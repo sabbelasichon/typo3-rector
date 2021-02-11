@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\MigrateOptionsOfTypeGroup;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class MigrateOptionsOfTypeGroupRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class MigrateOptionsOfTypeGroupRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()

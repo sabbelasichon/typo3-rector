@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
-    $services = $containerConfigurator->services();
 
+    $services = $containerConfigurator->services();
     $services->set(SoftReferencesFunctionalityRemovedRector::class);
 };

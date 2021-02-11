@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\RteHtmlParser;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RteHtmlParserTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class RteHtmlParserTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

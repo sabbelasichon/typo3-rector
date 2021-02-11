@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\SubstituteCacheMethods;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SubstituteCacheWrapperMethodsRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class SubstituteCacheWrapperMethodsRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

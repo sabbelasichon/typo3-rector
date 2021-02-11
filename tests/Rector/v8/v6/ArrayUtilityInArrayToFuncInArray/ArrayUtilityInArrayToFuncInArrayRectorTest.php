@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\ArrayUtilityInArrayToFuncInArray;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ArrayUtilityInArrayToFuncInArrayRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class ArrayUtilityInArrayToFuncInArrayRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

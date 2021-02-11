@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v2\ExcludeServiceKeysToArray;
 
 use Iterator;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ExcludeServiceKeysToArrayRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
+final class ExcludeServiceKeysToArrayRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

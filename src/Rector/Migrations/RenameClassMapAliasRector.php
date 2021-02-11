@@ -19,6 +19,9 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
+/**
+ * @see \Ssch\TYPO3Rector\Tests\Rector\Migrations\RenameClassMapAliasRectorTest
+ */
 final class RenameClassMapAliasRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
