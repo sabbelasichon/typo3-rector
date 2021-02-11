@@ -6,7 +6,8 @@ use Ssch\TYPO3Rector\Rector\v8\v0\RemoveRteHtmlParserEvalWriteFileRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
+    $containerConfigurator->import(__DIR__ . '/../../../../../../../config/services.php');
 
+    $services = $containerConfigurator->services();
     $services->set(RemoveRteHtmlParserEvalWriteFileRector::class);
 };

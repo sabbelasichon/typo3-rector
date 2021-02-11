@@ -13,6 +13,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, true);
 
     $parameters = $containerConfigurator->parameters();
+    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
     $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, __DIR__ . '/../phpstan.neon');
 
     $services = $containerConfigurator->services();

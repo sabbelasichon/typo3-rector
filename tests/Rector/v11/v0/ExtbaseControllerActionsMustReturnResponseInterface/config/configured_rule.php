@@ -6,6 +6,7 @@ use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInt
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
+    $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
     $services = $containerConfigurator->services();
 
     $services->set(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class);
