@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v5\ContentObjectRendererFileResource;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v8\v5\ContentObjectRendererFileResourceRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ContentObjectRendererFileResourceRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase

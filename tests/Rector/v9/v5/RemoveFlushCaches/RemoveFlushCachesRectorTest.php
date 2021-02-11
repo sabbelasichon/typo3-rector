@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\RemoveFlushCaches;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v5\RemoveFlushCachesRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RemoveFlushCachesRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase

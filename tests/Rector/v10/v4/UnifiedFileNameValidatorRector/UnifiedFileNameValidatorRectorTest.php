@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\UnifiedFileNameValidatorRector;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v10\v4\UnifiedFileNameValidatorRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class UnifiedFileNameValidatorRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase

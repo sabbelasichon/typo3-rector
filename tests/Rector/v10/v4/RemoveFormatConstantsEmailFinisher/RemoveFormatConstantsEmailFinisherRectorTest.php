@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\RemoveFormatConstantsEmailFinisher;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v10\v0\RemoveFormatConstantsEmailFinisherRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RemoveFormatConstantsEmailFinisherRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase

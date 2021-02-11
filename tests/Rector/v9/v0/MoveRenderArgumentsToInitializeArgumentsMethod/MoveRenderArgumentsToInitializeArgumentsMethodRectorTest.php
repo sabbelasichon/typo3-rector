@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethod;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class MoveRenderArgumentsToInitializeArgumentsMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase

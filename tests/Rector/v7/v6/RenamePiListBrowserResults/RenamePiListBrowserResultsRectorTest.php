@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v6\RenamePiListBrowserResults;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RenamePiListBrowserResultsRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
