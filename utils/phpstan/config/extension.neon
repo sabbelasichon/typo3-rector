@@ -1,5 +1,6 @@
 parameters:
     inferPrivatePropertyTypeFromConstructor: true
+
 services:
     -
         class: Ssch\TYPO3Rector\PHPStan\Type\GeneralUtilityDynamicReturnTypeExtension
