@@ -51,7 +51,12 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
         if ($this->shouldSkip($node)) {
             return null;
         }
+
         $methodName = $this->getName($node->name);
+        if ($methodName === null) {
+            return null;
+        }
+
         foreach ($this->databaseConnectionRefactorings as $databaseConnectionRefactoring) {
             if ($databaseConnectionRefactoring->canHandle($methodName)) {
                 $nodes = $databaseConnectionRefactoring->refactor($node);

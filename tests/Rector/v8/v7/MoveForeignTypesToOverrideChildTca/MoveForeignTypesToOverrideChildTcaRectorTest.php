@@ -14,7 +14,7 @@ final class MoveForeignTypesToOverrideChildTcaRectorTest extends \Rector\Testing
      */
     public function test(SmartFileInfo $fileInfo): void
     {
-        $this->doTestFileInfoWithoutAutoload($fileInfo);
+        $this->doTestFileInfo($fileInfo, false);
     }
 
     public function provideData(): Iterator
