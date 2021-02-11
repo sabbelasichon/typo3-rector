@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v0\ChangeDefaultCachingFrameworkNamesRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ChangeDefaultCachingFrameworkNamesRectorTest extends AbstractCommunityRectorTestCase
+final class ChangeDefaultCachingFrameworkNamesRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class ChangeDefaultCachingFrameworkNamesRectorTest extends AbstractCommuni
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return ChangeDefaultCachingFrameworkNamesRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

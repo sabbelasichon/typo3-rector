@@ -13,19 +13,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/config/services.php');
 
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
-    $parameters->set(Option::SETS, [
-        SetList::PRIVATIZATION,
-        SetList::DEAD_CODE,
-        SetList::CODING_STYLE,
-        SetList::CODE_QUALITY,
-    ]
-    );
-    $services = $containerConfigurator->services();
+//    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
 
+//    $parameters->set(Option::SETS, [
+//        SetList::PRIVATIZATION,
+//        SetList::DEAD_CODE,
+//        SetList::CODING_STYLE,
+//        SetList::CODE_QUALITY,
+//    ]);
+
+    $services = $containerConfigurator->services();
     $services->set(CommunityTestCaseRector::class);
 
-    $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
+//    $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
 
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
     $parameters->set(Option::SKIP, [__DIR__ . '/src/Bootstrap', __DIR__ . '/src/Set', __DIR__ . '/src/Compiler']);

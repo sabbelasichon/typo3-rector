@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class WrapClickMenuOnIconRectorTest extends AbstractCommunityRectorTestCase
+final class WrapClickMenuOnIconRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class WrapClickMenuOnIconRectorTest extends AbstractCommunityRectorTestCas
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return WrapClickMenuOnIconRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

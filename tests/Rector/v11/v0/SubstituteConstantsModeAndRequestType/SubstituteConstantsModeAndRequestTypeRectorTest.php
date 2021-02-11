@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v11\v0\SubstituteConstantsModeAndRequestTypeRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SubstituteConstantsModeAndRequestTypeRectorTest extends AbstractCommunityRectorTestCase
+final class SubstituteConstantsModeAndRequestTypeRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class SubstituteConstantsModeAndRequestTypeRectorTest extends AbstractComm
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return SubstituteConstantsModeAndRequestTypeRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

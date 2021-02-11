@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseContextApiForVersioningWorkspaceIdRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseContextApiForVersioningWorkspaceIdRectorTest extends AbstractCommunityRectorTestCase
+final class UseContextApiForVersioningWorkspaceIdRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class UseContextApiForVersioningWorkspaceIdRectorTest extends AbstractComm
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UseContextApiForVersioningWorkspaceIdRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

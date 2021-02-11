@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class MoveRenderArgumentsToInitializeArgumentsMethodRectorTest extends AbstractCommunityRectorTestCase
+final class MoveRenderArgumentsToInitializeArgumentsMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRectorTest extends Abs
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return MoveRenderArgumentsToInitializeArgumentsMethodRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

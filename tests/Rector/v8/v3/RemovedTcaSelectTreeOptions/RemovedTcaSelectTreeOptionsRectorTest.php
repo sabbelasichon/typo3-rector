@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v3\RemovedTcaSelectTreeOptionsRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemovedTcaSelectTreeOptionsRectorTest extends AbstractCommunityRectorTestCase
+final class RemovedTcaSelectTreeOptionsRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemovedTcaSelectTreeOptionsRectorTest extends AbstractCommunityRecto
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemovedTcaSelectTreeOptionsRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

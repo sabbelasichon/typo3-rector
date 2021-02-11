@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v4\RemoveOptionShowIfRteRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveOptionShowIfRteRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveOptionShowIfRteRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemoveOptionShowIfRteRectorTest extends AbstractCommunityRectorTestC
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveOptionShowIfRteRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v7\ChangeAttemptsParameterConsoleOutputRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ChangeAttemptsParameterConsoleOutputRectorTest extends AbstractCommunityRectorTestCase
+final class ChangeAttemptsParameterConsoleOutputRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class ChangeAttemptsParameterConsoleOutputRectorTest extends AbstractCommu
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return ChangeAttemptsParameterConsoleOutputRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

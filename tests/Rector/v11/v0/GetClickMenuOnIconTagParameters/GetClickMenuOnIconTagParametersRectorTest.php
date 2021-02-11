@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v11\v0\GetClickMenuOnIconTagParametersRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class GetClickMenuOnIconTagParametersRectorTest extends AbstractCommunityRectorTestCase
+final class GetClickMenuOnIconTagParametersRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class GetClickMenuOnIconTagParametersRectorTest extends AbstractCommunityR
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return GetClickMenuOnIconTagParametersRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

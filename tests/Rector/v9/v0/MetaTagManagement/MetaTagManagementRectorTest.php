@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class MetaTagManagementRectorTest extends AbstractCommunityRectorTestCase
+final class MetaTagManagementRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class MetaTagManagementRectorTest extends AbstractCommunityRectorTestCase
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return MetaTagManagementRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

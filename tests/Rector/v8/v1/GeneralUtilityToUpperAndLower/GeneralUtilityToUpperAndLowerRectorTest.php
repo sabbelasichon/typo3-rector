@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v1\GeneralUtilityToUpperAndLowerRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class GeneralUtilityToUpperAndLowerRectorTest extends AbstractCommunityRectorTestCase
+final class GeneralUtilityToUpperAndLowerRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class GeneralUtilityToUpperAndLowerRectorTest extends AbstractCommunityRec
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return GeneralUtilityToUpperAndLowerRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

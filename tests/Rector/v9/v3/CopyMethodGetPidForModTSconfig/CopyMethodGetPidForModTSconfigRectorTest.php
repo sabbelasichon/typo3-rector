@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v3\CopyMethodGetPidForModTSconfigRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class CopyMethodGetPidForModTSconfigRectorTest extends AbstractCommunityRectorTestCase
+final class CopyMethodGetPidForModTSconfigRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class CopyMethodGetPidForModTSconfigRectorTest extends AbstractCommunityRe
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return CopyMethodGetPidForModTSconfigRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

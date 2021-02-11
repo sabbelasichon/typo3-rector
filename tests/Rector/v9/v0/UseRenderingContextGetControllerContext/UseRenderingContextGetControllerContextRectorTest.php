@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseRenderingContextGetControllerContextRectorTest extends AbstractCommunityRectorTestCase
+final class UseRenderingContextGetControllerContextRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class UseRenderingContextGetControllerContextRectorTest extends AbstractCo
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UseRenderingContextGetControllerContextRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

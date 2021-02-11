@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v0\RemoveLangCsConvObjAndParserFactoryRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveLangCsConvObjAndParserFactoryRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveLangCsConvObjAndParserFactoryRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class RemoveLangCsConvObjAndParserFactoryRectorTest extends AbstractCommun
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveLangCsConvObjAndParserFactoryRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

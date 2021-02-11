@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v5\RemoveSupportForTransForeignTableRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveSupportForTransForeignTableRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveSupportForTransForeignTableRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemoveSupportForTransForeignTableRectorTest extends AbstractCommunit
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveSupportForTransForeignTableRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

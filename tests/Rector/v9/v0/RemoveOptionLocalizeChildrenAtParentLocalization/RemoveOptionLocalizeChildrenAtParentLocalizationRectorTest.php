@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveOptionLocalizeChildrenAtParentLocalizationRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveOptionLocalizeChildrenAtParentLocalizationRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveOptionLocalizeChildrenAtParentLocalizationRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemoveOptionLocalizeChildrenAtParentLocalizationRectorTest extends A
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveOptionLocalizeChildrenAtParentLocalizationRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

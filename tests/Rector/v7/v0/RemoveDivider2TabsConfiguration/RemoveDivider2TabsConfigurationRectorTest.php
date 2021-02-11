@@ -10,7 +10,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveDivider2TabsConfigurationRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveDivider2TabsConfigurationRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveDivider2TabsConfigurationRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -25,8 +25,8 @@ final class RemoveDivider2TabsConfigurationRectorTest extends AbstractCommunityR
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveDivider2TabsConfigurationRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

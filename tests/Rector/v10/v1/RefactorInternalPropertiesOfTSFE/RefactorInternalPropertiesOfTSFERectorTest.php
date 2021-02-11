@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorInternalPropertiesOfTSFERectorTest extends AbstractCommunityRectorTestCase
+final class RefactorInternalPropertiesOfTSFERectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RefactorInternalPropertiesOfTSFERectorTest extends AbstractCommunity
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RefactorInternalPropertiesOfTSFERector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

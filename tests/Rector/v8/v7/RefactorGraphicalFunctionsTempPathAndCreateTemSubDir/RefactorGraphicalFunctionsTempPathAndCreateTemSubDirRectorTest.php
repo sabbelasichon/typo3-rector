@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRectorTest extends AbstractCommunityRectorTestCase
+final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRectorTest exten
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorMethodsFromExtensionManagementUtilityRectorTest extends AbstractCommunityRectorTestCase
+final class RefactorMethodsFromExtensionManagementUtilityRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class RefactorMethodsFromExtensionManagementUtilityRectorTest extends Abst
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RefactorMethodsFromExtensionManagementUtilityRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

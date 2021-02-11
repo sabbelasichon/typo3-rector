@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v2\ExcludeServiceKeysToArrayRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ExcludeServiceKeysToArrayRectorTest extends AbstractCommunityRectorTestCase
+final class ExcludeServiceKeysToArrayRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class ExcludeServiceKeysToArrayRectorTest extends AbstractCommunityRectorT
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return ExcludeServiceKeysToArrayRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

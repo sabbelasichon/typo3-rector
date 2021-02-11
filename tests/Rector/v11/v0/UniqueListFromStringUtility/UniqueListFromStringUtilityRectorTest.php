@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v11\v0\UniqueListFromStringUtilityRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UniqueListFromStringUtilityRectorTest extends AbstractCommunityRectorTestCase
+final class UniqueListFromStringUtilityRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class UniqueListFromStringUtilityRectorTest extends AbstractCommunityRecto
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UniqueListFromStringUtilityRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

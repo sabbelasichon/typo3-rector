@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RenamePiListBrowserResultsRectorTest extends AbstractCommunityRectorTestCase
+final class RenamePiListBrowserResultsRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class RenamePiListBrowserResultsRectorTest extends AbstractCommunityRector
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RenamePiListBrowserResultsRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

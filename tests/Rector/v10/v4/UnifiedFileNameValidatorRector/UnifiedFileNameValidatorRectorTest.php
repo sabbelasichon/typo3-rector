@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v4\UnifiedFileNameValidatorRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UnifiedFileNameValidatorRectorTest extends AbstractCommunityRectorTestCase
+final class UnifiedFileNameValidatorRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class UnifiedFileNameValidatorRectorTest extends AbstractCommunityRectorTe
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UnifiedFileNameValidatorRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

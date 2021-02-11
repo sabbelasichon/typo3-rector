@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseTwoLetterIsoCodeFromSiteLanguageRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseTwoLetterIsoCodeFromSiteLanguageRectorTest extends AbstractCommunityRectorTestCase
+final class UseTwoLetterIsoCodeFromSiteLanguageRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRectorTest extends AbstractCommun
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UseTwoLetterIsoCodeFromSiteLanguageRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

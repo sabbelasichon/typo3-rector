@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v0\RemovePropertyUserAuthenticationRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemovePropertyUserAuthenticationRectorTest extends AbstractCommunityRectorTestCase
+final class RemovePropertyUserAuthenticationRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class RemovePropertyUserAuthenticationRectorTest extends AbstractCommunity
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemovePropertyUserAuthenticationRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

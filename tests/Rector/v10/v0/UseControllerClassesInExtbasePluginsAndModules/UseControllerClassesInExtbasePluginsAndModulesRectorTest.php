@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseControllerClassesInExtbasePluginsAndModulesRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseControllerClassesInExtbasePluginsAndModulesRectorTest extends AbstractCommunityRectorTestCase
+final class UseControllerClassesInExtbasePluginsAndModulesRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class UseControllerClassesInExtbasePluginsAndModulesRectorTest extends Abs
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UseControllerClassesInExtbasePluginsAndModulesRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

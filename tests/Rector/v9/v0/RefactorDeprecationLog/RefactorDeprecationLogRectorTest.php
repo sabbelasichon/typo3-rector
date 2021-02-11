@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorDeprecationLogRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorDeprecationLogRectorTest extends AbstractCommunityRectorTestCase
+final class RefactorDeprecationLogRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class RefactorDeprecationLogRectorTest extends AbstractCommunityRectorTest
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RefactorDeprecationLogRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

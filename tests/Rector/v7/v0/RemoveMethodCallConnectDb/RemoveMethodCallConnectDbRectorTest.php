@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallConnectDbRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveMethodCallConnectDbRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveMethodCallConnectDbRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class RemoveMethodCallConnectDbRectorTest extends AbstractCommunityRectorT
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveMethodCallConnectDbRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

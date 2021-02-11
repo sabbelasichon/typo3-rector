@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v1\TypoScriptFrontendControllerCharsetConverterRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class TypoScriptFrontendControllerCharsetConverterRectorTest extends AbstractCommunityRectorTestCase
+final class TypoScriptFrontendControllerCharsetConverterRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class TypoScriptFrontendControllerCharsetConverterRectorTest extends Abstr
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return TypoScriptFrontendControllerCharsetConverterRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v6\AddTypeToColumnConfigRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class AddTypeToColumnConfigRectorTest extends AbstractCommunityRectorTestCase
+final class AddTypeToColumnConfigRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class AddTypeToColumnConfigRectorTest extends AbstractCommunityRectorTestC
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return AddTypeToColumnConfigRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

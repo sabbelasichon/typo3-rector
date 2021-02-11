@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v2\GeneralUtilityGetUrlRequestHeadersRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class GeneralUtilityGetUrlRequestHeadersRectorTest extends AbstractCommunityRectorTestCase
+final class GeneralUtilityGetUrlRequestHeadersRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class GeneralUtilityGetUrlRequestHeadersRectorTest extends AbstractCommuni
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return GeneralUtilityGetUrlRequestHeadersRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

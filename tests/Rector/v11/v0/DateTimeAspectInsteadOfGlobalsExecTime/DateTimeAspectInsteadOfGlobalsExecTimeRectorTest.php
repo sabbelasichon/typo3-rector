@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v11\v0\DateTimeAspectInsteadOfGlobalsExecTimeRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class DateTimeAspectInsteadOfGlobalsExecTimeRectorTest extends AbstractCommunityRectorTestCase
+final class DateTimeAspectInsteadOfGlobalsExecTimeRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class DateTimeAspectInsteadOfGlobalsExecTimeRectorTest extends AbstractCom
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return DateTimeAspectInsteadOfGlobalsExecTimeRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

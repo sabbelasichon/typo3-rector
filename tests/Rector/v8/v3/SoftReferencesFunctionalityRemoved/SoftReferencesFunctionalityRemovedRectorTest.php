@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v3\SoftReferencesFunctionalityRemovedRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SoftReferencesFunctionalityRemovedRectorTest extends AbstractCommunityRectorTestCase
+final class SoftReferencesFunctionalityRemovedRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class SoftReferencesFunctionalityRemovedRectorTest extends AbstractCommuni
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return SoftReferencesFunctionalityRemovedRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

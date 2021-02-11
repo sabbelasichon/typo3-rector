@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v7\v5\RemoveIconsInOptionTagsRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveIconsInOptionTagsRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveIconsInOptionTagsRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemoveIconsInOptionTagsRectorTest extends AbstractCommunityRectorTes
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveIconsInOptionTagsRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v0\RemoveTcaOptionSetToDefaultOnCopyRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveTcaOptionSetToDefaultOnCopyRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveTcaOptionSetToDefaultOnCopyRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemoveTcaOptionSetToDefaultOnCopyRectorTest extends AbstractCommunit
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveTcaOptionSetToDefaultOnCopyRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

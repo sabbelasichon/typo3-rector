@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v0\RemoveSeliconFieldPathRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveSeliconFieldPathRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveSeliconFieldPathRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemoveSeliconFieldPathRectorTest extends AbstractCommunityRectorTest
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveSeliconFieldPathRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

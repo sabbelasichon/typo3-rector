@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\FindByPidsAndAuthorIdRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FindByPidsAndAuthorIdRectorTest extends AbstractCommunityRectorTestCase
+final class FindByPidsAndAuthorIdRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class FindByPidsAndAuthorIdRectorTest extends AbstractCommunityRectorTestC
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return FindByPidsAndAuthorIdRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

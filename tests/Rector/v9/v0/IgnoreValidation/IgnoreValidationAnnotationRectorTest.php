@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\IgnoreValidationAnnotationRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class IgnoreValidationAnnotationRectorTest extends AbstractCommunityRectorTestCase
+final class IgnoreValidationAnnotationRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class IgnoreValidationAnnotationRectorTest extends AbstractCommunityRector
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return IgnoreValidationAnnotationRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

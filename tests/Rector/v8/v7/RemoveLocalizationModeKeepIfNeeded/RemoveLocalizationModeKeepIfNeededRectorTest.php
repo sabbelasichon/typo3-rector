@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v7\RemoveLocalizationModeKeepIfNeededRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveLocalizationModeKeepIfNeededRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveLocalizationModeKeepIfNeededRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemoveLocalizationModeKeepIfNeededRectorTest extends AbstractCommuni
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveLocalizationModeKeepIfNeededRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

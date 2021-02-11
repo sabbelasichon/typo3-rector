@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseLogMethodInsteadOfNewLog2RectorTest extends AbstractCommunityRectorTestCase
+final class UseLogMethodInsteadOfNewLog2RectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class UseLogMethodInsteadOfNewLog2RectorTest extends AbstractCommunityRect
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UseLogMethodInsteadOfNewLog2Rector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

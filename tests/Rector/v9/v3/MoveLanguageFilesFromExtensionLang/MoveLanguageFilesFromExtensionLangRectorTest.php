@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v3\MoveLanguageFilesFromExtensionLangRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class MoveLanguageFilesFromExtensionLangRectorTest extends AbstractCommunityRectorTestCase
+final class MoveLanguageFilesFromExtensionLangRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class MoveLanguageFilesFromExtensionLangRectorTest extends AbstractCommuni
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return MoveLanguageFilesFromExtensionLangRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

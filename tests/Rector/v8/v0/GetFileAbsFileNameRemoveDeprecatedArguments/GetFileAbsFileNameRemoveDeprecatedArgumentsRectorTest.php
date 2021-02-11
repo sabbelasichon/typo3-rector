@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v0\GetFileAbsFileNameRemoveDeprecatedArgumentsRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class GetFileAbsFileNameRemoveDeprecatedArgumentsRectorTest extends AbstractCommunityRectorTestCase
+final class GetFileAbsFileNameRemoveDeprecatedArgumentsRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class GetFileAbsFileNameRemoveDeprecatedArgumentsRectorTest extends Abstra
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return GetFileAbsFileNameRemoveDeprecatedArgumentsRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

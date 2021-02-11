@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponseRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends AbstractCommunityRectorTestCase
+final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class InjectEnvironmentServiceIfNeededInResponseRectorTest extends Abstrac
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return InjectEnvironmentServiceIfNeededInResponseRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

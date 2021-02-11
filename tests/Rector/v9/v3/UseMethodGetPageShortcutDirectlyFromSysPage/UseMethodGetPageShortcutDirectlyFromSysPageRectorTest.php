@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v3\UseMethodGetPageShortcutDirectlyFromSysPageRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseMethodGetPageShortcutDirectlyFromSysPageRectorTest extends AbstractCommunityRectorTestCase
+final class UseMethodGetPageShortcutDirectlyFromSysPageRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class UseMethodGetPageShortcutDirectlyFromSysPageRectorTest extends Abstra
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UseMethodGetPageShortcutDirectlyFromSysPageRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

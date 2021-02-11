@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v0\RefactorIdnaEncodeMethodToNativeFunctionRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorIdnaEncodeMethodToNativeFunctionRectorTest extends AbstractCommunityRectorTestCase
+final class RefactorIdnaEncodeMethodToNativeFunctionRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRectorTest extends AbstractC
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RefactorIdnaEncodeMethodToNativeFunctionRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

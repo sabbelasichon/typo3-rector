@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v3\RemoveShowRecordFieldListInsideInterfaceSectionRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveShowRecordFieldListInsideInterfaceSectionRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveShowRecordFieldListInsideInterfaceSectionRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemoveShowRecordFieldListInsideInterfaceSectionRectorTest extends Ab
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveShowRecordFieldListInsideInterfaceSectionRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

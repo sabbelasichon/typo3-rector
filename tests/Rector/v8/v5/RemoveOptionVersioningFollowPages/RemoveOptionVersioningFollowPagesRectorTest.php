@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v5\RemoveOptionVersioningFollowPagesRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveOptionVersioningFollowPagesRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveOptionVersioningFollowPagesRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemoveOptionVersioningFollowPagesRectorTest extends AbstractCommunit
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveOptionVersioningFollowPagesRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

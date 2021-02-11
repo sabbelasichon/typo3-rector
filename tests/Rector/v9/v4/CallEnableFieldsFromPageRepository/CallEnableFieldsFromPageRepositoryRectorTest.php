@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class CallEnableFieldsFromPageRepositoryRectorTest extends AbstractCommunityRectorTestCase
+final class CallEnableFieldsFromPageRepositoryRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class CallEnableFieldsFromPageRepositoryRectorTest extends AbstractCommuni
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return CallEnableFieldsFromPageRepositoryRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

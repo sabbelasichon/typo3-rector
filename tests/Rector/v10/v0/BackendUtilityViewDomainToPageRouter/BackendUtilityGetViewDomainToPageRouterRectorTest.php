@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v0\BackendUtilityGetViewDomainToPageRouterRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class BackendUtilityGetViewDomainToPageRouterRectorTest extends AbstractCommunityRectorTestCase
+final class BackendUtilityGetViewDomainToPageRouterRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class BackendUtilityGetViewDomainToPageRouterRectorTest extends AbstractCo
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return BackendUtilityGetViewDomainToPageRouterRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

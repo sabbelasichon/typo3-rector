@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorDeprecatedConcatenateMethodsPageRendererRectorTest extends AbstractCommunityRectorTestCase
+final class RefactorDeprecatedConcatenateMethodsPageRendererRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRectorTest extends A
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RefactorDeprecatedConcatenateMethodsPageRendererRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

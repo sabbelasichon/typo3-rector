@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\General\ConvertTypo3ConfVarsRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ConvertTypo3ConfVarsRectorTest extends AbstractCommunityRectorTestCase
+final class ConvertTypo3ConfVarsRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class ConvertTypo3ConfVarsRectorTest extends AbstractCommunityRectorTestCa
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return ConvertTypo3ConfVarsRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

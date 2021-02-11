@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class TimeTrackerGlobalsToSingletonRectorTest extends AbstractCommunityRectorTestCase
+final class TimeTrackerGlobalsToSingletonRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class TimeTrackerGlobalsToSingletonRectorTest extends AbstractCommunityRec
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return TimeTrackerGlobalsToSingletonRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

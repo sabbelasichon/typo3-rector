@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodTemplateServiceRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveInitMethodTemplateServiceRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveInitMethodTemplateServiceRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class RemoveInitMethodTemplateServiceRectorTest extends AbstractCommunityR
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveInitMethodTemplateServiceRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

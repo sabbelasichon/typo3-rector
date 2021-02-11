@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v7\v6\MigrateT3editorWizardToRenderTypeT3editorRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class MigrateT3editorWizardToRenderTypeT3editorRectorTest extends AbstractCommunityRectorTestCase
+final class MigrateT3editorWizardToRenderTypeT3editorRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class MigrateT3editorWizardToRenderTypeT3editorRectorTest extends Abstract
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return MigrateT3editorWizardToRenderTypeT3editorRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

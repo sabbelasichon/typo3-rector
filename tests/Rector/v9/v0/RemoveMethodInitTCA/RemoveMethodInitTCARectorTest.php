@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveMethodInitTCARector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveMethodInitTCARectorTest extends AbstractCommunityRectorTestCase
+final class RemoveMethodInitTCARectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class RemoveMethodInitTCARectorTest extends AbstractCommunityRectorTestCas
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveMethodInitTCARector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v7\v5\UseExtPrefixForTcaIconFileRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseExtPrefixForTcaIconFileRectorTest extends AbstractCommunityRectorTestCase
+final class UseExtPrefixForTcaIconFileRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class UseExtPrefixForTcaIconFileRectorTest extends AbstractCommunityRector
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UseExtPrefixForTcaIconFileRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SubstituteCacheWrapperMethodsRectorTest extends AbstractCommunityRectorTestCase
+final class SubstituteCacheWrapperMethodsRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class SubstituteCacheWrapperMethodsRectorTest extends AbstractCommunityRec
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return SubstituteCacheWrapperMethodsRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

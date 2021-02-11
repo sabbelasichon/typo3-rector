@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v10\v0\SetSystemLocaleFromSiteLanguageRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SetSystemLocaleFromSiteLanguageRectorTest extends AbstractCommunityRectorTestCase
+final class SetSystemLocaleFromSiteLanguageRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class SetSystemLocaleFromSiteLanguageRectorTest extends AbstractCommunityR
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return SetSystemLocaleFromSiteLanguageRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

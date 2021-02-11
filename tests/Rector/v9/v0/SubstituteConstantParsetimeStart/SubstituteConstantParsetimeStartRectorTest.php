@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SubstituteConstantParsetimeStartRectorTest extends AbstractCommunityRectorTestCase
+final class SubstituteConstantParsetimeStartRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +24,8 @@ final class SubstituteConstantParsetimeStartRectorTest extends AbstractCommunity
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return SubstituteConstantParsetimeStartRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

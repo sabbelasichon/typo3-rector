@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v11\v0\RemoveAddQueryStringMethodRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveAddQueryStringMethodRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveAddQueryStringMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class RemoveAddQueryStringMethodRectorTest extends AbstractCommunityRector
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveAddQueryStringMethodRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

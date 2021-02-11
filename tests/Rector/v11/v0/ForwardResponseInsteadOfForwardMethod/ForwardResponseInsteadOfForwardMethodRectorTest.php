@@ -9,7 +9,7 @@ use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ForwardResponseInsteadOfForwardMethodRectorTest extends AbstractCommunityRectorTestCase
+final class ForwardResponseInsteadOfForwardMethodRectorTest extends \Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +24,8 @@ final class ForwardResponseInsteadOfForwardMethodRectorTest extends AbstractComm
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return ForwardResponseInsteadOfForwardMethodRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }
