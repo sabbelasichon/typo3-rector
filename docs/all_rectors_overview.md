@@ -2340,9 +2340,8 @@ use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
-
     $services = $containerConfigurator->services();
+
     $services->set(RenameClassMapAliasRector::class)
         ->call('configure', [[RenameClassMapAliasRector::CLASS_ALIAS_MAPS => 'config/Migrations/Code/ClassAliasMap.php']]);
 };
@@ -2412,9 +2411,8 @@ use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
-
     $services = $containerConfigurator->services();
+
     $services->set(ReplaceAnnotationRector::class)
         ->call('configure', [[ReplaceAnnotationRector::OLD_TO_NEW_ANNOTATIONS => ['transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient']]]);
 };
