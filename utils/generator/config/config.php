@@ -5,8 +5,9 @@ declare(strict_types=1);
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
+    $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
 
+    $services = $containerConfigurator->services();
     $services->defaults()
         ->public()
         ->autowire()

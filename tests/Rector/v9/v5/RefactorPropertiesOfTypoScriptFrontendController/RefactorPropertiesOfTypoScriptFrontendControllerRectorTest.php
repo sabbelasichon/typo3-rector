@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendController;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendControllerRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorPropertiesOfTypoScriptFrontendControllerRectorTest extends AbstractRectorTestCase
+final class RefactorPropertiesOfTypoScriptFrontendControllerRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRectorTest extends A
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RefactorPropertiesOfTypoScriptFrontendControllerRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtility;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class TypeHandlingServiceToTypeHandlingUtilityRectorTest extends AbstractRectorTestCase
+final class TypeHandlingServiceToTypeHandlingUtilityRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class TypeHandlingServiceToTypeHandlingUtilityRectorTest extends AbstractR
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return TypeHandlingServiceToTypeHandlingUtilityRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

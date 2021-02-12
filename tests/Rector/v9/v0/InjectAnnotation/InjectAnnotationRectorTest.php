@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotation;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class InjectAnnotationRectorTest extends AbstractRectorTestCase
+final class InjectAnnotationRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class InjectAnnotationRectorTest extends AbstractRectorTestCase
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return InjectAnnotationRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

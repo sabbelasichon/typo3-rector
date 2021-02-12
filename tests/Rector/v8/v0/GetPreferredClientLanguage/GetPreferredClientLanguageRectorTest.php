@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\GetPreferredClientLanguage;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v8\v0\GetPreferredClientLanguageRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class GetPreferredClientLanguageRectorTest extends AbstractRectorTestCase
+final class GetPreferredClientLanguageRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class GetPreferredClientLanguageRectorTest extends AbstractRectorTestCase
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return GetPreferredClientLanguageRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

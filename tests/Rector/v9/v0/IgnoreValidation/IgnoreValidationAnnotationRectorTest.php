@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\IgnoreValidation;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v0\IgnoreValidationAnnotationRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class IgnoreValidationAnnotationRectorTest extends AbstractRectorTestCase
+final class IgnoreValidationAnnotationRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class IgnoreValidationAnnotationRectorTest extends AbstractRectorTestCase
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return IgnoreValidationAnnotationRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

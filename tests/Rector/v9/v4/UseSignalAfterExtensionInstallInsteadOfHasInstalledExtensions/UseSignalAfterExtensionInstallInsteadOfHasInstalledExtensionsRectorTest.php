@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensions;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v4\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRectorTest extends AbstractRectorTestCase
+final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRectorT
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

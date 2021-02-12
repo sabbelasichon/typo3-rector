@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
@@ -19,11 +20,11 @@ use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
 final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector extends AbstractRector
 {
     /**
-     * @var \Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer
+     * @var ClassConstAnalyzer
      */
     private $classConstAnalyzer;
 
-    public function __construct(\Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer $classConstAnalyzer)
+    public function __construct(ClassConstAnalyzer $classConstAnalyzer)
     {
         $this->classConstAnalyzer = $classConstAnalyzer;
     }

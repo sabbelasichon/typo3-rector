@@ -5,18 +5,17 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v7\MoveForeignTypesToOverrideChildTca;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v8\v7\MoveForeignTypesToOverrideChildTcaRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class MoveForeignTypesToOverrideChildTcaRectorTest extends AbstractRectorTestCase
+final class MoveForeignTypesToOverrideChildTcaRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
     public function test(SmartFileInfo $fileInfo): void
     {
-        $this->doTestFileInfoWithoutAutoload($fileInfo);
+        $this->doTestFileInfo($fileInfo, false);
     }
 
     public function provideData(): Iterator
@@ -24,8 +23,8 @@ final class MoveForeignTypesToOverrideChildTcaRectorTest extends AbstractRectorT
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return MoveForeignTypesToOverrideChildTcaRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

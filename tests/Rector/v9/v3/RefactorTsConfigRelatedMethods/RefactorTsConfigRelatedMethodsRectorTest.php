@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v3\RefactorTsConfigRelatedMethods;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v3\RefactorTsConfigRelatedMethodsRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorTsConfigRelatedMethodsRectorTest extends AbstractRectorTestCase
+final class RefactorTsConfigRelatedMethodsRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +23,8 @@ final class RefactorTsConfigRelatedMethodsRectorTest extends AbstractRectorTestC
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RefactorTsConfigRelatedMethodsRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

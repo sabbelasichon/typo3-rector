@@ -5,14 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Name\RenameClassRector;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\PostRector\NameImportingPostRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-/**
- * @see NameImportingPostRector
- */
-final class SkipAutoImportNamesParameterTest extends AbstractRectorTestCase
+final class SkipAutoImportNamesParameterTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -27,8 +23,8 @@ final class SkipAutoImportNamesParameterTest extends AbstractRectorTestCase
         return $this->yieldFilesFromDirectory(__DIR__ . '/SkipAutoImportNames');
     }
 
-    protected function provideConfigFileInfo(): ?SmartFileInfo
+    public function provideConfigFilePath(): string
     {
-        return new SmartFileInfo(__DIR__ . '/config/autoimport_with_skip.php');
+        return __DIR__ . '/config/autoimport_with_skip.php';
     }
 }

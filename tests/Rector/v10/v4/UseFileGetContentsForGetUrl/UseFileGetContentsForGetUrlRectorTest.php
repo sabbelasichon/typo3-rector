@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\UseFileGetContentsForGetUrl;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v10\v4\UseFileGetContentsForGetUrlRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseFileGetContentsForGetUrlRectorTest extends AbstractRectorTestCase
+final class UseFileGetContentsForGetUrlRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class UseFileGetContentsForGetUrlRectorTest extends AbstractRectorTestCase
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UseFileGetContentsForGetUrlRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

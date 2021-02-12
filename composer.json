@@ -12,7 +12,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "phpstan/phpstan": "^0.12.69, <0.12.70",
-        "rector/rector": "0.9.20"
+        "rector/rector": "^0.9.23"
     },
     "require-dev": {
         "captainhook/captainhook": "^5.4",

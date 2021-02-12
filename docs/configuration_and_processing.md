@@ -23,8 +23,9 @@ Let´s say you want to migrate the TCA from a TYPO3 7 project to a TYPO3 9 proje
 declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
+use Rector\Core\ValueObject\PhpVersion;
+use Rector\PostRector\Rector\NameImportingPostRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
-use Ssch\TYPO3Rector\PostRector\NameImportingPostRector;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -34,11 +35,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
        Typo3SetList::TCA_76,
        Typo3SetList::TCA_87,
        Typo3SetList::TCA_95,
-    ]
-    );
+    ]);
 
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
-    $parameters->set(Typo3Option::AUTO_IMPORT_NAMES, true);
+    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
 
     // this will not import root namespace classes, like \DateTime or \Exception
     $parameters->set(Option::IMPORT_SHORT_CLASSES, false);

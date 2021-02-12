@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v5\MoveLanguageFilesFromLocallangToResources;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v8\v5\MoveLanguageFilesFromLocallangToResourcesRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class MoveLanguageFilesFromLocallangToResourcesRectorTest extends AbstractRectorTestCase
+final class MoveLanguageFilesFromLocallangToResourcesRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class MoveLanguageFilesFromLocallangToResourcesRectorTest extends Abstract
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return MoveLanguageFilesFromLocallangToResourcesRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

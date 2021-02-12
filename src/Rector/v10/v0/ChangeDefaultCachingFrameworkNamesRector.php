@@ -29,7 +29,7 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, CacheManager::class)) {
+        if (! $this->nodeTypeResolver->isObjectType($node->var, CacheManager::class)) {
             return null;
         }
 
@@ -37,8 +37,8 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
             return null;
         }
 
-        $argument = $this->valueResolver->getValue($node->args[0]->value);
-
+        $argValue = $node->args[0]->value;
+        $argument = $this->valueResolver->getValue($argValue);
         if (null === $argument) {
             return null;
         }

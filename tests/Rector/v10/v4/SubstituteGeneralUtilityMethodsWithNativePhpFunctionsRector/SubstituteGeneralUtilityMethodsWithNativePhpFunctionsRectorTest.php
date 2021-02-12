@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRectorTest extends AbstractRectorTestCase
+final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRectorTest exte
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

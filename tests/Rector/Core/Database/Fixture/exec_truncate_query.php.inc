@@ -12,13 +12,13 @@ class LegacyDatabaseConnectionTruncateQueryUsage
 -----
 <?php
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 class LegacyDatabaseConnectionTruncateQueryUsage
 {
     public function insertData()
     {
-        $connection = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getConnectionForTable('pages');
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('pages');
         $connection->truncate('pages');
     }
 }
-
-?>

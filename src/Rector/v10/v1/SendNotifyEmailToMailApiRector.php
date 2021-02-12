@@ -195,7 +195,7 @@ PHP
     {
         return new Expression(new Assign(new Variable('senderName'), $this->nodeFactory->createFuncCall(
             self::TRIM,
-            [$methodCall->args[4] ?? new Expr\ConstFetch(new Name('null'))]
+            [$methodCall->args[4] ?? new ConstFetch(new Name('null'))]
         )));
     }
 

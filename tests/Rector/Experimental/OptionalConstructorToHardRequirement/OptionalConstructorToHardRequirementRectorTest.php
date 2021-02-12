@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Experimental\OptionalConstructorToHardRequirement;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\Experimental\OptionalConstructorToHardRequirementRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class OptionalConstructorToHardRequirementRectorTest extends AbstractRectorTestCase
+final class OptionalConstructorToHardRequirementRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +23,8 @@ final class OptionalConstructorToHardRequirementRectorTest extends AbstractRecto
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return OptionalConstructorToHardRequirementRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

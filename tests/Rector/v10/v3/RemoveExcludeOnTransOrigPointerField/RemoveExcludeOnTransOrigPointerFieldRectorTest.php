@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v3\RemoveExcludeOnTransOrigPointerField;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v10\v3\RemoveExcludeOnTransOrigPointerFieldRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveExcludeOnTransOrigPointerFieldRectorTest extends AbstractRectorTestCase
+final class RemoveExcludeOnTransOrigPointerFieldRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -24,8 +23,8 @@ final class RemoveExcludeOnTransOrigPointerFieldRectorTest extends AbstractRecto
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return RemoveExcludeOnTransOrigPointerFieldRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

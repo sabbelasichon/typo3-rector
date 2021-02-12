@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Core\Database;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class DatabaseConnectionToDbalTest extends AbstractRectorTestCase
+final class DatabaseConnectionToDbalTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -23,8 +23,8 @@ final class DatabaseConnectionToDbalTest extends AbstractRectorTestCase
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function provideConfigFileInfo(): ?SmartFileInfo
+    public function provideConfigFilePath(): string
     {
-        return new SmartFileInfo(__DIR__ . '/../../../../config/database-connection-to-dbal.php');
+        return __DIR__ . '/../../../../config/database-connection-to-dbal.php';
     }
 }

@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaService;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v4\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRectorTest extends AbstractRectorTestCase
+final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRectorT
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

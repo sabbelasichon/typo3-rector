@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v3\PropertyUserTsToMethodGetTsConfigOfBackendUserAuthentication;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rector\v9\v3\PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRectorTest extends AbstractRectorTestCase
+final class PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRectorTest extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
@@ -24,8 +23,8 @@ final class PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRectorTe
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }
