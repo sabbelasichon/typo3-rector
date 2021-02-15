@@ -10,7 +10,7 @@ use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services.php');
     $services = $containerConfigurator->services();
-    $services->set(ChangePackageVersionComposerRector::class)
+    $services->set('change_composer_json_version_110')->class(ChangePackageVersionComposerRector::class)
         ->call('configure', [[
             ChangePackageVersionComposerRector::PACKAGES_AND_VERSIONS => ValueObjectInliner::inline([
                 new PackageAndVersion('typo3/cms-about', '^11.0'),

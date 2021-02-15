@@ -20,39 +20,51 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
     $services = $containerConfigurator->services();
     $services->set(RenamePiListBrowserResultsRector::class);
-    $services->set(MethodCallToStaticCallRector::class)->call('configure', [[
-        MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => ValueObjectInliner::inline([
-            new MethodCallToStaticCall(
-                DocumentTemplate::class,
-                'issueCommand',
-                BackendUtility::class,
-                'getLinkToDataHandlerAction'
-            ),
-        ]),
-    ]]);
-    $services->set(RenameClassConstFetchRector::class)->call('configure', [[
-        RenameClassConstFetchRector::CLASS_CONSTANT_RENAME => ValueObjectInliner::inline([
-            new RenameClassConstFetch(
-                SearchFormController::class,
-                'WILDCARD_LEFT',
-                LikeWildcard::class . '::WILDCARD_LEFT'
-            ),
-            new RenameClassConstFetch(
-                SearchFormController::class,
-                'WILDCARD_RIGHT',
-                LikeWildcard::class . '::WILDCARD_RIGHT'
-            ),
-            new RenameClassConstFetch(
-                IndexSearchRepository::class,
-                'WILDCARD_LEFT',
-                LikeWildcard::class . '::WILDCARD_LEFT'
-            ),
-            new RenameClassConstFetch(
-                IndexSearchRepository::class,
-                'WILDCARD_RIGHT',
-                LikeWildcard::class . '::WILDCARD_RIGHT'
-            ),
-        ]),
-    ]]);
+    $services->set('document_template_issue_command_to_backend_utility_get_link_to_data_handler_action')->class(
+        MethodCallToStaticCallRector::class
+    )
+        ->call(
+        'configure',
+        [[
+            MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => ValueObjectInliner::inline([
+                new MethodCallToStaticCall(
+                    DocumentTemplate::class,
+                    'issueCommand',
+                    BackendUtility::class,
+                    'getLinkToDataHandlerAction'
+                ),
+            ]),
+        ]]
+    );
+    $services->set('search_form_controller_constants_to_like_wildcard_constants')->class(
+        RenameClassConstFetchRector::class
+    )
+        ->call(
+        'configure',
+        [[
+            RenameClassConstFetchRector::CLASS_CONSTANT_RENAME => ValueObjectInliner::inline([
+                new RenameClassConstFetch(
+                    SearchFormController::class,
+                    'WILDCARD_LEFT',
+                    LikeWildcard::class . '::WILDCARD_LEFT'
+                ),
+                new RenameClassConstFetch(
+                    SearchFormController::class,
+                    'WILDCARD_RIGHT',
+                    LikeWildcard::class . '::WILDCARD_RIGHT'
+                ),
+                new RenameClassConstFetch(
+                    IndexSearchRepository::class,
+                    'WILDCARD_LEFT',
+                    LikeWildcard::class . '::WILDCARD_LEFT'
+                ),
+                new RenameClassConstFetch(
+                    IndexSearchRepository::class,
+                    'WILDCARD_RIGHT',
+                    LikeWildcard::class . '::WILDCARD_RIGHT'
+                ),
+            ]),
+        ]]
+    );
     $services->set(WrapClickMenuOnIconRector::class);
 };

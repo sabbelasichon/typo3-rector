@@ -32,23 +32,32 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(TemplateServiceSplitConfArrayRector::class);
     $services->set(RefactorRemovedMarkerMethodsFromContentObjectRendererRector::class);
     $services->set(ChangeAttemptsParameterConsoleOutputRector::class);
-    $services->set(RenameClassRector::class)->call('configure', [[
-        RenameClassRector::OLD_TO_NEW_CLASSES => [
-            TypoScriptService::class => CoreTypoScriptService::class,
-        ],
-    ]]);
-    $services->set(RenameClassMapAliasRector::class)->call('configure', [[
-        RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
-            __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
-            __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
-            __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
-        ],
-    ]]);
-    $services->set(RenameStaticMethodRector::class)->call('configure', [[
-        RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-            new RenameStaticMethod(GeneralUtility::class, 'csvValues', CsvUtility::class, 'csvValues'),
-        ]),
-    ]]);
+    $services->set('extbase_typoscriptservice_to_core_typoscriptservice')->class(RenameClassRector::class)
+        ->call(
+        'configure',
+        [[
+            RenameClassRector::OLD_TO_NEW_CLASSES => [
+                TypoScriptService::class => CoreTypoScriptService::class,
+            ],
+        ]]
+    );
+    $services->set('rename_class_alias_maps_version_87')->class(RenameClassMapAliasRector::class)
+        ->call('configure', [[
+            RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
+                __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
+                __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
+                __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
+            ],
+        ]]);
+    $services->set('general_utility_csv_values_to_csv_utility')->class(RenameStaticMethodRector::class)
+        ->call(
+        'configure',
+        [[
+            RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
+                new RenameStaticMethod(GeneralUtility::class, 'csvValues', CsvUtility::class, 'csvValues'),
+            ]),
+        ]]
+    );
     $services->set(BackendUtilityGetRecordsByFieldToQueryBuilderRector::class);
     $services->set(RefactorPrintContentMethodsRector::class);
     $services->set(RefactorArrayBrowserWrapValueRector::class);

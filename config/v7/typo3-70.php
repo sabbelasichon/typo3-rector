@@ -27,30 +27,38 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(RemoveMethodCallConnectDbRector::class);
     $services->set(RemoveMethodCallLoadTcaRector::class);
-    $services->set(RenameClassRector::class)->call('configure', [[
-        RenameClassRector::OLD_TO_NEW_CLASSES => [
-            MediumDocumentTemplate::class => DocumentTemplate::class,
-            SmallDocumentTemplate::class => DocumentTemplate::class,
-            StandardDocumentTemplate::class => DocumentTemplate::class,
-            BigDocumentTemplate::class => DocumentTemplate::class,
-        ],
-    ]]);
-    $services->set(RenameStaticMethodRector::class)->call('configure', [[
-        RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-            new RenameStaticMethod(
-                GeneralUtility::class,
-                'int_from_ver',
-                VersionNumberUtility::class,
-                'convertVersionNumberToInteger'
-            ),
-        ]),
-    ]]);
+    $services->set('rename_class_templates_to_document_template')->class(RenameClassRector::class)
+        ->call('configure', [[
+            RenameClassRector::OLD_TO_NEW_CLASSES => [
+                MediumDocumentTemplate::class => DocumentTemplate::class,
+                SmallDocumentTemplate::class => DocumentTemplate::class,
+                StandardDocumentTemplate::class => DocumentTemplate::class,
+                BigDocumentTemplate::class => DocumentTemplate::class,
+            ],
+        ]]);
+    $services->set('rename_static_method_generalUtility_int_from_ver_to_convert_version_number_to_integer')->class(
+        RenameStaticMethodRector::class
+    )
+        ->call(
+        'configure',
+        [[
+            RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
+                new RenameStaticMethod(
+                    GeneralUtility::class,
+                    'int_from_ver',
+                    VersionNumberUtility::class,
+                    'convertVersionNumberToInteger'
+                ),
+            ]),
+        ]]
+    );
     $services->set(TypeHandlingServiceToTypeHandlingUtilityRector::class);
-    $services->set(RenameMethodRector::class)->call('configure', [[
-        RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-            new MethodCallRename(Typo3QuerySettings::class, 'setSysLanguageUid', 'setLanguageUid'),
-            new MethodCallRename(Typo3QuerySettings::class, 'getSysLanguageUid', 'getLanguageUid'),
-            new MethodCallRename(ObjectManager::class, 'create', 'get'),
-        ]),
-    ]]);
+    $services->set('rename_method_typo3_query_settings')->class(RenameMethodRector::class)
+        ->call('configure', [[
+            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
+                new MethodCallRename(Typo3QuerySettings::class, 'setSysLanguageUid', 'setLanguageUid'),
+                new MethodCallRename(Typo3QuerySettings::class, 'getSysLanguageUid', 'getLanguageUid'),
+                new MethodCallRename(ObjectManager::class, 'create', 'get'),
+            ]),
+        ]]);
 };

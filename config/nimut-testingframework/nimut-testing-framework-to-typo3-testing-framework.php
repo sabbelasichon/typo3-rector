@@ -19,7 +19,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
 
     $services = $containerConfigurator->services();
-    $services->set(RenameClassRector::class)
+    $services->set('nimut_testing_framework_to_typo3_testing_framework')
+        ->class(RenameClassRector::class)
         ->call('configure', [[
             RenameClassRector::OLD_TO_NEW_CLASSES => [
                 NimutUnitTestCase::class => UnitTestCase::class,

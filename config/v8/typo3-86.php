@@ -9,9 +9,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
 
     $services = $containerConfigurator->services();
-    $services->set(RenameNamespaceRector::class)->call('configure', [
-        RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [
-            'TYPO3\CMS\Core\Tests' => 'TYPO3\TestingFramework\Core',
-        ],
-    ]);
+    $services->set('namespace_typo3_cms_core_tests_to__typo3_testing_framework_core')->class(
+        RenameNamespaceRector::class
+    )
+        ->call(
+        'configure',
+        [
+            RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [
+                'TYPO3\CMS\Core\Tests' => 'TYPO3\TestingFramework\Core',
+            ],
+        ]
+    );
 };

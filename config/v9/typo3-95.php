@@ -21,7 +21,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(UsePackageManagerActivePackagesRector::class);
 
-    $services->set(RenameMethodRector::class)
+    $services->set('resource_storage_dump_file_contents_to_stream_file')->class(RenameMethodRector::class)
         ->call('configure', [
             [
                 RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
@@ -38,7 +38,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(RemoveInternalAnnotationRector::class);
 
-    $services->set(RenameClassMapAliasRector::class)
+    $services->set('rename_class_alias_maps_version_95')->class(RenameClassMapAliasRector::class)
         ->call('configure', [
             [
                 RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
