@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\__Major__\__Minor__\__Test_Directory__;
 
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class __Name__Test extends AbstractRectorTestCase
+final class __Name__Test extends AbstractCommunityRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -22,8 +22,8 @@ final class __Name__Test extends AbstractRectorTestCase
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return \Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Name__::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }
