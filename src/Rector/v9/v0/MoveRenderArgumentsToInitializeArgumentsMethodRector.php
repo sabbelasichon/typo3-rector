@@ -118,7 +118,7 @@ CODE_SAMPLE
     private function removeParamTags(ClassMethod $classMethod): void
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNode($classMethod);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
         if (null === $phpDocInfo) {
             return;
         }

@@ -56,7 +56,7 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
     public function refactor(Node $node): ?Node
     {
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         if (null === $phpDocInfo) {
             return null;
         }

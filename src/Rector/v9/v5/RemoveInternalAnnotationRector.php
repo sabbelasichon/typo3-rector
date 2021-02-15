@@ -45,7 +45,7 @@ final class RemoveInternalAnnotationRector extends AbstractRector
             return null;
         }
         /** @var PhpDocInfo|null $phpDocInfo */
-        $phpDocInfo = $this->phpDocInfoFactory->createFromNode($node);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
         if (null === $phpDocInfo) {
             return null;
         }
