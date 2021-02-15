@@ -19,16 +19,26 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
     $services = $containerConfigurator->services();
     $services->set(UseClassTypo3VersionRector::class);
-    $services->set(RenameMethodRector::class)->call('configure', [[
-        RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-            new MethodCallRename(BrokenLinkRepository::class, 'getNumberOfBrokenLinks', 'isLinkTargetBrokenLink'),
-        ]),
-    ]]);
+    $services->set('rename_broken_link_repository_number_of_broken_links_to_is_link_target_broken_link')->class(
+        RenameMethodRector::class
+    )
+        ->call(
+        'configure',
+        [[
+            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
+                new MethodCallRename(BrokenLinkRepository::class, 'getNumberOfBrokenLinks', 'isLinkTargetBrokenLink'),
+            ]),
+        ]]
+    );
     $services->set(SubstituteResourceFactoryRector::class);
-    $services->set(RenameClassRector::class)->call('configure', [[
-        RenameClassRector::OLD_TO_NEW_CLASSES => [
-            WebRequest::class => Request::class,
-            WebResponse::class => Response::class,
-        ],
-    ]]);
+    $services->set('web_request_to_request_web_response_to_response')->class(RenameClassRector::class)
+        ->call(
+        'configure',
+        [[
+            RenameClassRector::OLD_TO_NEW_CLASSES => [
+                WebRequest::class => Request::class,
+                WebResponse::class => Response::class,
+            ],
+        ]]
+    );
 };

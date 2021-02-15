@@ -53,13 +53,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         new PackageAndVersion('typo3/cms-viewpage', '^9.5'),
         new PackageAndVersion('typo3/cms-workspaces', '^9.5'),
     ];
-    $services->set(RemovePackageComposerRector::class)
+    $services->set('remove_typo3_cms_composer_package_version_95')->class(RemovePackageComposerRector::class)
         ->call('configure', [
             [
                 RemovePackageComposerRector::PACKAGE_NAMES => ['typo3/cms'],
             ],
         ]);
-    $services->set(AddPackageToRequireComposerRector::class)
+    $services->set('add_packages_to_composer_require_version_95')->class(AddPackageToRequireComposerRector::class)
         ->call('configure', [
             [
                 AddPackageToRequireComposerRector::PACKAGES_AND_VERSIONS => ValueObjectInliner::inline(
@@ -67,7 +67,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     ),
             ],
         ]);
-    $services->set(ChangePackageVersionComposerRector::class)
+    $services->set('change_composer_json_version_95')->class(ChangePackageVersionComposerRector::class)
         ->call('configure', [
             [
                 ChangePackageVersionComposerRector::PACKAGES_AND_VERSIONS => ValueObjectInliner::inline(

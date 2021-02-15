@@ -52,7 +52,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(RteHtmlParserRector::class);
 
-    $services->set(RenameMethodRector::class)
+    $services->set('rename_method_print_action_to_main_action')->class(RenameMethodRector::class)
         ->call('configure', [
             [
                 RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
@@ -79,7 +79,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 ]),
             ],
         ]);
-    $services->set(RenameStaticMethodRector::class)
+    $services->set('rename_static_methods_version_80')->class(RenameStaticMethodRector::class)
         ->call('configure', [
             [
                 RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline(
@@ -102,7 +102,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RequireMethodsToNativeFunctionsRector::class);
     $services->set(GetPreferredClientLanguageRector::class);
 
-    $services->set(RenameMethodRector::class)
+    $services->set('rename_method_get_template_variable_container_to_get_variable_provider')->class(
+        RenameMethodRector::class
+    )
         ->call('configure', [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
                 new MethodCallRename(

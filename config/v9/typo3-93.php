@@ -24,26 +24,33 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(RemoveColPosParameterRector::class);
     $services->set(ValidateAnnotationRector::class);
-    $services->set(RenameMethodRector::class)->call('configure', [[
-        RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-            new MethodCallRename(
-                LocalizationController::class,
-                'getUsedLanguagesInPageAndColumn',
-                'getUsedLanguagesInPage'
-            ),
-        ]),
-    ]]);
+    $services->set(
+        'localization_controller_get_used_languages_in_page_and_column_to_get_used_languages_in_page'
+    )->class(RenameMethodRector::class)
+        ->call(
+        'configure',
+        [[
+            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
+                new MethodCallRename(
+                    LocalizationController::class,
+                    'getUsedLanguagesInPageAndColumn',
+                    'getUsedLanguagesInPage'
+                ),
+            ]),
+        ]]
+    );
     $services->set(BackendUtilityGetModuleUrlRector::class);
     $services->set(PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector::class);
     $services->set(UseMethodGetPageShortcutDirectlyFromSysPageRector::class);
     $services->set(CopyMethodGetPidForModTSconfigRector::class);
     $services->set(BackendUserAuthenticationSimplelogRector::class);
     $services->set(MoveLanguageFilesFromExtensionLangRector::class);
-    $services->set(RenameMethodRector::class)->call('configure', [[
-        RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-            new MethodCallRename(Argument::class, 'getValidationResults', 'validate'),
-            new MethodCallRename(Arguments::class, 'getValidationResults', 'validate'),
-        ]),
-    ]]);
+    $services->set('get_validation_results_to_validate')->class(RenameMethodRector::class)
+        ->call('configure', [[
+            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
+                new MethodCallRename(Argument::class, 'getValidationResults', 'validate'),
+                new MethodCallRename(Arguments::class, 'getValidationResults', 'validate'),
+            ]),
+        ]]);
     $services->set(RefactorTsConfigRelatedMethodsRector::class);
 };

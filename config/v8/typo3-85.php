@@ -18,40 +18,51 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
 
     $services = $containerConfigurator->services();
-    $services->set(RenameMethodRector::class)->call('configure', [[
-        RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-            new MethodCallRename(ClipBoard::class, 'printContentFromTab', 'getContentFromTab'),
-        ]),
-    ]]);
+    $services->set('clip_board_print_content_from_tab_to_get_content_from_tab')
+        ->call(RenameMethodRector::class)
+        ->call(
+        'configure',
+        [[
+            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
+                new MethodCallRename(ClipBoard::class, 'printContentFromTab', 'getContentFromTab'),
+            ]),
+        ]]
+    );
     $services->set(CharsetConverterToMultiByteFunctionsRector::class);
-    $services->set(RenameStaticMethodRector::class)->call('configure', [[
-        RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-            new RenameStaticMethod(ArrayUtility::class, 'integerExplode', GeneralUtility::class, 'intExplode'),
-            new RenameStaticMethod(ArrayUtility::class, 'trimExplode', GeneralUtility::class, 'trimExplode'),
-            new RenameStaticMethod(
-                ArrayUtility::class,
-                'getValueByPath',
-                CoreArrayUtility::class,
-                'getValueByPath'
-            ),
-            new RenameStaticMethod(
-                ArrayUtility::class,
-                'setValueByPath',
-                CoreArrayUtility::class,
-                'setValueByPath'
-            ),
-            new RenameStaticMethod(
-                ArrayUtility::class,
-                'unsetValueByPath',
-                CoreArrayUtility::class,
-                'removeByPath'
-            ),
-            new RenameStaticMethod(
-                ArrayUtility::class,
-                'sortArrayWithIntegerKeys',
-                CoreArrayUtility::class,
-                'sortArrayWithIntegerKeys'
-            ),
-        ]),
-    ]]);
+    $services->set('extbase_array_utility_methods_to_core_array_utility_methods')->class(
+        RenameStaticMethodRector::class
+    )
+        ->call(
+        'configure',
+        [[
+            RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
+                new RenameStaticMethod(ArrayUtility::class, 'integerExplode', GeneralUtility::class, 'intExplode'),
+                new RenameStaticMethod(ArrayUtility::class, 'trimExplode', GeneralUtility::class, 'trimExplode'),
+                new RenameStaticMethod(
+                    ArrayUtility::class,
+                    'getValueByPath',
+                    CoreArrayUtility::class,
+                    'getValueByPath'
+                ),
+                new RenameStaticMethod(
+                    ArrayUtility::class,
+                    'setValueByPath',
+                    CoreArrayUtility::class,
+                    'setValueByPath'
+                ),
+                new RenameStaticMethod(
+                    ArrayUtility::class,
+                    'unsetValueByPath',
+                    CoreArrayUtility::class,
+                    'removeByPath'
+                ),
+                new RenameStaticMethod(
+                    ArrayUtility::class,
+                    'sortArrayWithIntegerKeys',
+                    CoreArrayUtility::class,
+                    'sortArrayWithIntegerKeys'
+                ),
+            ]),
+        ]]
+    );
 };
