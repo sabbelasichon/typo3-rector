@@ -80,7 +80,7 @@ final class Typo3GenerateCommand extends Command
             $description
         ));
 
-        $templateFileInfos = $this->templateFinder->find($recipe);
+        $templateFileInfos = $this->templateFinder->find();
 
         $templateVariables = [
             '__Major__' => $recipe->getMajorVersion(),
