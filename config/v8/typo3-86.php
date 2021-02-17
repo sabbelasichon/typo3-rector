@@ -13,11 +13,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         RenameNamespaceRector::class
     )
         ->call(
-        'configure',
-        [
-            RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [
-                'TYPO3\CMS\Core\Tests' => 'TYPO3\TestingFramework\Core',
-            ],
-        ]
-    );
+                 'configure',
+                 [
+                     [
+                         RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [
+                             'TYPO3\CMS\Core\Tests' => 'TYPO3\TestingFramework\Core',
+                         ],
+                     ],
+                 ]
+             );
 };

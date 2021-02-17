@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Composer\Rector\ChangePackageVersionComposerRector;
+use Rector\Composer\Rector\RemovePackageComposerRector;
 use Rector\Composer\ValueObject\PackageAndVersion;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
@@ -10,6 +11,18 @@ use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/services.php');
     $services = $containerConfigurator->services();
+    $services->set('remove_typo3_cms_composer_package_version_104')->class(RemovePackageComposerRector::class)
+        ->call('configure', [
+            [
+                RemovePackageComposerRector::PACKAGE_NAMES => [
+                    'typo3/cms',
+                    'typo3/cms-context-help',
+                    'typo3/cms-info-pagetsconfig',
+                    'typo3/cms-wizard-crpages',
+                ],
+            ],
+        ]);
+
     $services->set('change_composer_json_version_104')->class(ChangePackageVersionComposerRector::class)
         ->call('configure', [
             [
@@ -50,6 +63,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     new PackageAndVersion('typo3/cms-tstemplate', '^10.4'),
                     new PackageAndVersion('typo3/cms-viewpage', '^10.4'),
                     new PackageAndVersion('typo3/cms-workspaces', '^10.4'),
+                    new PackageAndVersion('typo3-console/composer-auto-commands', '^0.4.0'),
+                    new PackageAndVersion('helhum/typo3-console', '^6.0'),
+                    new PackageAndVersion('helhum/dotenv-connector', '^3.0'),
+                    new PackageAndVersion('helhum/typo3-secure-web', '^0.3.0'),
+                    new PackageAndVersion('ssch/typo3-encore', '^3.0'),
+                    new PackageAndVersion('georgringer/news', '^8.0'),
+                    new PackageAndVersion('gridelementsteam/gridelements', '^10.0'),
+                    new PackageAndVersion('typo3/testing-framework', '^6.0'),
+                    new PackageAndVersion('typo3-console/composer-typo3-auto-install', '^0.4'),
                 ]),
             ],
         ]);

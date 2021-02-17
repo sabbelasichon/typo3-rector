@@ -53,12 +53,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         new PackageAndVersion('typo3/cms-viewpage', '^9.5'),
         new PackageAndVersion('typo3/cms-workspaces', '^9.5'),
     ];
+
     $services->set('remove_typo3_cms_composer_package_version_95')->class(RemovePackageComposerRector::class)
         ->call('configure', [
             [
-                RemovePackageComposerRector::PACKAGE_NAMES => ['typo3/cms'],
+                RemovePackageComposerRector::PACKAGE_NAMES => [
+                    'typo3/cms',
+                    'typo3/cms-context-help',
+                    'typo3/cms-info-pagetsconfig',
+                    'typo3/cms-wizard-crpages',
+                ],
             ],
         ]);
+
     $services->set('add_packages_to_composer_require_version_95')->class(AddPackageToRequireComposerRector::class)
         ->call('configure', [
             [
@@ -67,6 +74,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     ),
             ],
         ]);
+
     $services->set('change_composer_json_version_95')->class(ChangePackageVersionComposerRector::class)
         ->call('configure', [
             [
