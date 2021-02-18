@@ -1,4 +1,4 @@
-# 177 Rules Overview
+# 178 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -1953,6 +1953,21 @@ Remove CsConvObj and ParserFactory from LanguageService::class and `$GLOBALS['la
 +$Localization = GeneralUtility::makeInstance(LocalizationFactory::class);
 +$charsetConverterGlobals = GeneralUtility::makeInstance(CharsetConverter::class);
 +$LocalizationGlobals = GeneralUtility::makeInstance(LocalizationFactory::class);
+```
+
+<br>
+
+## RemoveLanguageModeMethodsFromTypo3QuerySettingsRector
+
+Remove language mode methods from class Typo3QuerySettings
+
+- class: `Ssch\TYPO3Rector\Rector\v11\v0\RemoveLanguageModeMethodsFromTypo3QuerySettingsRector`
+
+```diff
+ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+ $querySettings = new Typo3QuerySettings();
+-$querySettings->setLanguageUid(0)->setLanguageMode()->getLanguageMode();
++$querySettings->setLanguageUid(0);
 ```
 
 <br>
