@@ -55,6 +55,7 @@
         "test": "vendor/bin/phpunit",
         "docs": "vendor/bin/rule-doc-generator generate src/Rector --output-file docs/all_rectors_overview.md --ansi",
         "rector": "vendor/bin/rector rectify --dry-run --ansi --match-git-diff",
-        "fix-rector": "vendor/bin/rector rectify --ansi"
+        "fix-rector": "vendor/bin/rector rectify --ansi",
+        "check-typo3-rector": "bin/typo3-rector process src/Bootstrap --config templates/rector.php --dry-run --ansi"
     }
 }

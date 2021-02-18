@@ -1,0 +1,25 @@
+name: Check TYPO3 Rector configs
+
+on:
+    pull_request: null
+    push:
+        branches:
+            - master
+
+jobs:
+    rector:
+        runs-on: ubuntu-latest
+        steps:
+            -   uses: actions/checkout@v2
+
+            -   uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 7.3
+                    coverage: none
+                env:
+                    COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            # see https://github.com/ramsey/composer-install
+            -   uses: "ramsey/composer-install@v1"
+
+            -   run: composer check-typo3-rector
