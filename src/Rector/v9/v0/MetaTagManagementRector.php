@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
+use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -120,6 +121,11 @@ PHP
     private function createSetMetaTagMethod(MethodCall $node): ?MethodCall
     {
         $arg = $node->args[0];
+
+        if (! $arg->value instanceof String_) {
+            return null;
+        }
+
         $metaTag = $this->valueResolver->getValue($arg->value);
 
         $arguments = $this->parseMetaTag($metaTag);
