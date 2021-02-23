@@ -228,7 +228,9 @@ final class InitializeArgumentsClassMethodFactory
             return self::MIXED;
         }
 
-        $docString = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPhpDocString($paramTagValueNode->type, $param);
+        $phpStanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($paramTagValueNode->type, $param);
+
+        $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString($phpStanType);
         if ('[]' === substr($docString, -2)) {
             return 'array';
         }

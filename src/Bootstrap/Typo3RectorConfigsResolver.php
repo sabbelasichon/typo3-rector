@@ -4,21 +4,16 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Bootstrap;
 
+use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
 use Rector\Set\RectorSetProvider;
 use Ssch\TYPO3Rector\Set\Typo3RectorSetProvider;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\SetConfigResolver\ConfigResolver;
 use Symplify\SetConfigResolver\SetAwareConfigResolver;
-use Symplify\SetConfigResolver\SetResolver;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Typo3RectorConfigsResolver
 {
-    /**
-     * @var SetResolver
-     */
-    private $setResolver;
-
     /**
      * @var ConfigResolver
      */
@@ -29,57 +24,48 @@ final class Typo3RectorConfigsResolver
      */
     private $setAwareConfigResolver;
 
+    /**
+     * @var array<string, SmartFileInfo[]>
+     */
+    private $resolvedConfigFileInfos = [];
+
     public function __construct()
     {
-        $rectorSetProvider = new Typo3RectorSetProvider(new RectorSetProvider());
-        $this->setResolver = new SetResolver($rectorSetProvider);
         $this->configResolver = new ConfigResolver();
+        $rectorSetProvider = new Typo3RectorSetProvider(new RectorSetProvider());
         $this->setAwareConfigResolver = new SetAwareConfigResolver($rectorSetProvider);
     }
 
     /**
-     * @noRector
-     */
-    public function getFirstResolvedConfig(): ?SmartFileInfo
-    {
-        return $this->configResolver->getFirstResolvedConfigFileInfo();
-    }
-
-    /**
-     * @param SmartFileInfo[] $configFileInfos
      * @return SmartFileInfo[]
      */
-    public function resolveSetFileInfosFromConfigFileInfos(array $configFileInfos): array
+    public function resolveFromConfigFileInfo(SmartFileInfo $configFileInfo): array
     {
-        return $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles($configFileInfos);
+        $hash = sha1($configFileInfo->getRealPath());
+        if (isset($this->resolvedConfigFileInfos[$hash])) {
+            return $this->resolvedConfigFileInfos[$hash];
+        }
+
+        $setFileInfos = $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles([$configFileInfo]);
+        $configFileInfos = array_merge([$configFileInfo], $setFileInfos);
+
+        $this->resolvedConfigFileInfos[$hash] = $configFileInfos;
+        return $configFileInfos;
     }
 
-    /**
-     * @return SmartFileInfo[]
-     */
-    public function provide(): array
+    public function provide(): BootstrapConfigs
     {
         $configFileInfos = [];
 
-        // Detect configuration from --set
         $argvInput = new ArgvInput();
+        $mainConfigFileInfo = $this->configResolver->resolveFromInputWithFallback($argvInput, ['rector.php']);
 
-        $set = $this->setResolver->detectFromInput($argvInput);
-        if (null !== $set) {
-            $configFileInfos[] = $set;
+        if (null !== $mainConfigFileInfo) {
+            $setFileInfos = $this->setAwareConfigResolver->resolveFromParameterSetsFromConfigFiles(
+                [$mainConfigFileInfo]
+            );
+            $configFileInfos = array_merge($configFileInfos, $setFileInfos);
         }
-
-        // And from --config or default one
-        $inputOrFallbackConfigFileInfo = $this->configResolver->resolveFromInputWithFallback(
-            $argvInput,
-            ['rector.php']
-        );
-
-        if (null !== $inputOrFallbackConfigFileInfo) {
-            $configFileInfos[] = $inputOrFallbackConfigFileInfo;
-        }
-
-        $setFileInfos = $this->resolveSetFileInfosFromConfigFileInfos($configFileInfos);
 
         if (in_array($argvInput->getFirstArgument(), ['generate', 'g', 'create', 'c'], true)) {
             // autoload rector recipe file if present, just for \Rector\RectorGenerator\Command\GenerateCommand
@@ -89,6 +75,6 @@ final class Typo3RectorConfigsResolver
             }
         }
 
-        return array_merge($configFileInfos, $setFileInfos);
+        return new BootstrapConfigs($mainConfigFileInfo, $configFileInfos);
     }
 }

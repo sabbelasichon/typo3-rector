@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Console;
 
 use Composer\XdebugHandler\XdebugHandler;
-use Rector\ChangesReporting\Output\CheckstyleOutputFormatter;
-use Rector\ChangesReporting\Output\JsonOutputFormatter;
+use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
@@ -19,7 +18,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 
 final class Application extends SymfonyApplication
@@ -35,14 +33,15 @@ final class Application extends SymfonyApplication
     private const VERSION = '0.9.3';
 
     /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    /**
      * @var NoRectorsLoadedReporter
      */
     private $noRectorsLoadedReporter;
+
+    /**
+     * @var Configuration
+     * @noRector
+     */
+    private $configuration;
 
     /**
      * @param Command[] $commands
@@ -61,8 +60,9 @@ final class Application extends SymfonyApplication
         }
 
         $this->addCommands($commands);
-        $this->configuration = $configuration;
         $this->noRectorsLoadedReporter = $noRectorsLoadedReporter;
+        /** @noRector configuration */
+        $this->configuration = $configuration;
     }
 
     public function doRun(InputInterface $input, OutputInterface $output): int
@@ -70,7 +70,7 @@ final class Application extends SymfonyApplication
         // @fixes https://github.com/rectorphp/rector/issues/2205
         $isXdebugAllowed = $input->hasParameterOption('--xdebug');
         if (! $isXdebugAllowed) {
-            $xdebugHandler = new XdebugHandler('rector', '--ansi');
+            $xdebugHandler = new XdebugHandler('typo3-rector', '--ansi');
             $xdebugHandler->check();
             unset($xdebugHandler);
         }
@@ -85,18 +85,10 @@ final class Application extends SymfonyApplication
             $output->isDebug() && $output->writeln('Changed CWD form ' . $oldWorkingDir . ' to ' . getcwd());
         }
 
+        // skip in this case, since generate content must be clear from meta-info
         if ($this->shouldPrintMetaInformation($input)) {
             $output->writeln($this->getLongVersion());
             $shouldFollowByNewline = true;
-
-            $configFilePath = $this->configuration->getConfigFilePath();
-            if ($configFilePath) {
-                $configFileInfo = new SmartFileInfo($configFilePath);
-                $relativeConfigPath = $configFileInfo->getRelativeFilePathFromDirectory(getcwd());
-
-                $output->writeln('Config file: ' . $relativeConfigPath);
-                $shouldFollowByNewline = true;
-            }
         }
 
         if ($shouldFollowByNewline) {
@@ -128,11 +120,10 @@ final class Application extends SymfonyApplication
 
     private function getNewWorkingDir(InputInterface $input): string
     {
-        $workingDir = $input->getParameterOption(['--working-dir', '-d']);
+        $workingDir = $input->getParameterOption('--working-dir');
         if (false !== $workingDir && ! is_dir($workingDir)) {
-            throw new InvalidConfigurationException(
-                'Invalid working directory specified, ' . $workingDir . ' does not exist.'
-            );
+            $errorMessage = sprintf('Invalid working directory specified, "%s" does not exist.', $workingDir);
+            throw new InvalidConfigurationException($errorMessage);
         }
 
         return (string) $workingDir;
@@ -151,7 +142,7 @@ final class Application extends SymfonyApplication
         }
 
         $outputFormat = $input->getParameterOption(['-o', '--output-format']);
-        return ! in_array($outputFormat, [JsonOutputFormatter::NAME, CheckstyleOutputFormatter::NAME], true);
+        return ConsoleOutputFormatter::NAME === $outputFormat;
     }
 
     private function removeUnusedOptions(InputDefinition $inputDefinition): void
@@ -195,8 +186,8 @@ final class Application extends SymfonyApplication
         ));
 
         $inputDefinition->addOption(new InputOption(
-            '--working-dir',
-            '-d',
+            'working-dir',
+            null,
             InputOption::VALUE_REQUIRED,
             'If specified, use the given directory as working directory.'
         ));
