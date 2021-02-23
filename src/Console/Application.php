@@ -30,7 +30,7 @@ final class Application extends SymfonyApplication
     /**
      * @var string
      */
-    private const VERSION = '0.9.5';
+    private const VERSION = '0.9.6';
 
     /**
      * @var NoRectorsLoadedReporter
