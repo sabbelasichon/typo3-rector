@@ -42,7 +42,7 @@ note "Running scoper to $SCOPED_DIRECTORY"
 wget https://github.com/humbug/php-scoper/releases/download/0.14.0/php-scoper.phar -N --no-verbose
 
 # Work around possible PHP memory limits
-php -d memory_limit=-1 php-scoper.phar add-prefix bin config src templates stubs Migrations vendor composer.json composer.lock --output-dir "../$SCOPED_DIRECTORY" --config scoper.php --force --ansi --working-dir "$NESTED_DIRECTORY"
+php -d memory_limit=-1 php-scoper.phar add-prefix bin config src templates stubs Migrations vendor composer.json --output-dir "../$SCOPED_DIRECTORY" --config scoper.php --force --ansi --working-dir "$NESTED_DIRECTORY"
 
 
 note "Dumping Composer Autoload"
