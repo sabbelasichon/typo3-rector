@@ -9,16 +9,10 @@ use Ssch\TYPO3Rector\Set\Typo3RectorSetProvider;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symplify\SetConfigResolver\ConfigResolver;
 use Symplify\SetConfigResolver\SetAwareConfigResolver;
-use Symplify\SetConfigResolver\SetResolver;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Typo3RectorConfigsResolver
 {
-    /**
-     * @var SetResolver
-     */
-    private $setResolver;
-
     /**
      * @var ConfigResolver
      */
@@ -29,12 +23,33 @@ final class Typo3RectorConfigsResolver
      */
     private $setAwareConfigResolver;
 
+    /**
+     * @var array<string, SmartFileInfo[]>
+     */
+    private $resolvedConfigFileInfos = [];
+
     public function __construct()
     {
-        $rectorSetProvider = new Typo3RectorSetProvider(new RectorSetProvider());
-        $this->setResolver = new SetResolver($rectorSetProvider);
         $this->configResolver = new ConfigResolver();
+        $rectorSetProvider = new Typo3RectorSetProvider(new RectorSetProvider());
         $this->setAwareConfigResolver = new SetAwareConfigResolver($rectorSetProvider);
+    }
+
+    /**
+     * @return SmartFileInfo[]
+     */
+    public function resolveFromConfigFileInfo(SmartFileInfo $configFileInfo): array
+    {
+        $hash = sha1($configFileInfo->getRealPath());
+        if (isset($this->resolvedConfigFileInfos[$hash])) {
+            return $this->resolvedConfigFileInfos[$hash];
+        }
+
+        $setFileInfos = $this->resolveSetFileInfosFromConfigFileInfos([$configFileInfo]);
+        $configFileInfos = array_merge([$configFileInfo], $setFileInfos);
+
+        $this->resolvedConfigFileInfos[$hash] = $configFileInfos;
+        return $configFileInfos;
     }
 
     /**
@@ -61,15 +76,7 @@ final class Typo3RectorConfigsResolver
     {
         $configFileInfos = [];
 
-        // Detect configuration from --set
         $argvInput = new ArgvInput();
-
-        $set = $this->setResolver->detectFromInput($argvInput);
-        if (null !== $set) {
-            $configFileInfos[] = $set;
-        }
-
-        // And from --config or default one
         $inputOrFallbackConfigFileInfo = $this->configResolver->resolveFromInputWithFallback(
             $argvInput,
             ['rector.php']
