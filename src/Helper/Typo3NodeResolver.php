@@ -154,6 +154,10 @@ final class Typo3NodeResolver
             return false;
         }
 
+        if ($node->var instanceof MethodCall) {
+            return false;
+        }
+
         if (! $this->nodeNameResolver->isName($node->var, self::GLOBALS)) {
             return false;
         }
