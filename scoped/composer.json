@@ -1,0 +1,12 @@
+{
+    "name": "ssch/typo3-rector-prefixed",
+    "description": "Prefixed scoped version of ssch/typo3-rector package",
+    "license": "MIT",
+    "bin": [
+        "bin/typo3-rector"
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "phpstan/phpstan": "^0.12.64"
+    }
+}
