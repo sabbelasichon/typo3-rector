@@ -13,3 +13,4 @@
 composer.lock
 # Other ignored paths and files.
 /vendor
+php-scoper.phar
