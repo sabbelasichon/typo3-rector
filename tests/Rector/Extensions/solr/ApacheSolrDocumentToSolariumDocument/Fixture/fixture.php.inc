@@ -34,6 +34,7 @@ class MySolrIndexer
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v1\ApacheSolrDocumentToSolariumDocument\Fixture;
 
 use ApacheSolrForTypo3\Solr\System\Solr\Document\Document;
+use Apache_Solr_Document;
 
 class MySolrIndexer
 {

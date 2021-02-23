@@ -29,6 +29,11 @@
                 "action": "composer run analyze",
                 "options": [],
                 "conditions": []
+            },
+            {
+                "action": "composer run check-typo3-rector",
+                "options": [],
+                "conditions": []
             }
         ]
     },

@@ -15,9 +15,9 @@ class MyFunctionalTest extends FunctionalTestCase
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Nimut\TestingFramework\Fixture;
 
-use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
+use Nimut\TestingFramework\TestCase\FunctionalTestCase;
 
-class MyFunctionalTest extends FunctionalTestCase
+class MyFunctionalTest extends \TYPO3\TestingFramework\Core\Functional\FunctionalTestCase
 {
 
 }

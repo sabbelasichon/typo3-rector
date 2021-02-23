@@ -30,6 +30,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
     $parameters->set(Option::SKIP, [__DIR__ . '/src/Bootstrap', __DIR__ . '/src/Set', __DIR__ . '/src/Compiler']);
-    # so Rector code is still PHP 7.2 compatible
-    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_72);
+
+    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_73);
+    $parameters->set(Option::ENABLE_CACHE, true);
 };

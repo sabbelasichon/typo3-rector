@@ -14,6 +14,7 @@ $timeTracker3 = $objectManager->get(NullTimeTracker::class);
 <?php
 
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
+use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 

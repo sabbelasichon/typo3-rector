@@ -7,7 +7,7 @@ if (class_exists(ViewHelperBaseTestcase::class)) {
     return;
 }
 
-final class ViewHelperBaseTestcase
+class ViewHelperBaseTestcase
 {
 
 }

@@ -10,7 +10,7 @@ use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase as NimutViewHelperBas
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
-use TYPO3\TestingFramework\Core\Exception as TestingFrameworkException;
+use TYPO3\TestingFramework\Core\Exception;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use TYPO3\TestingFramework\Fluid\Unit\ViewHelpers\ViewHelperBaseTestcase;
@@ -27,7 +27,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 NimutFunctionalTestCase::class => FunctionalTestCase::class,
                 NimutViewHelperBaseTestcase::class => ViewHelperBaseTestcase::class,
                 NimutAccessibleMockObjectInterface::class => AccessibleObjectInterface::class,
-                NimutException::class => TestingFrameworkException::class,
+                NimutException::class => Exception::class,
             ],
         ]]);
 };

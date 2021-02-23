@@ -15,9 +15,9 @@ class MyViewHelperTest extends ViewHelperBaseTestcase
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Nimut\TestingFramework\Fixture;
 
-use TYPO3\TestingFramework\Fluid\Unit\ViewHelpers\ViewHelperBaseTestcase;
+use Nimut\TestingFramework\TestCase\ViewHelperBaseTestcase;
 
-class MyViewHelperTest extends ViewHelperBaseTestcase
+class MyViewHelperTest extends \TYPO3\TestingFramework\Fluid\Unit\ViewHelpers\ViewHelperBaseTestcase
 {
 
 }

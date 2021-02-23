@@ -1,13 +1,11 @@
 <?php
 
+
 declare(strict_types=1);
 
-use Rector\Caching\Detector\ChangedFilesDetector;
-use Rector\Core\Bootstrap\ConfigShifter;
-use Rector\Core\Configuration\Configuration;
+use Ssch\TYPO3Rector\Console\Application;
 use Rector\Core\Console\Style\SymfonyStyleFactory;
 use Ssch\TYPO3Rector\Bootstrap\Typo3RectorConfigsResolver;
-use Ssch\TYPO3Rector\Console\Application;
 use Ssch\TYPO3Rector\DependencyInjection\Typo3RectorContainerFactory;
 use Ssch\TYPO3Rector\HttpKernel\Typo3RectorKernel;
 use Symplify\PackageBuilder\Console\ShellCode;
@@ -29,8 +27,8 @@ define('__RECTOR_RUNNING__', true);
 $autoloadIncluder = new AutoloadIncluder();
 $autoloadIncluder->includeDependencyOrRepositoryVendorAutoloadIfExists();
 
-$autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/scoper-autoload.php');
-$autoloadIncluder->loadIfExistsAndNotLoadedYet(getcwd() . '/vendor/autoload.php');
+$autoloadIncluder->loadIfExistsAndNotLoadedYet(__DIR__.'/../vendor/scoper-autoload.php');
+$autoloadIncluder->loadIfExistsAndNotLoadedYet(getcwd().'/vendor/autoload.php');
 
 $autoloadIncluder->autoloadProjectAutoloaderFile();
 $autoloadIncluder->autoloadFromCommandLine();
@@ -38,32 +36,13 @@ $autoloadIncluder->autoloadFromCommandLine();
 $symfonyStyleFactory = new SymfonyStyleFactory(new PrivatesCaller());
 $symfonyStyle = $symfonyStyleFactory->create();
 
+$rectorConfigsResolver = new Typo3RectorConfigsResolver();
+
 try {
-    $rectorConfigsResolver = new Typo3RectorConfigsResolver();
-    $configFileInfos = $rectorConfigsResolver->provide();
+    $bootstrapConfigs = $rectorConfigsResolver->provide();
 
-    // Build DI container
     $rectorContainerFactory = new Typo3RectorContainerFactory();
-
-    // shift configs as last so parameters with main config have higher priority
-    $configShifter = new ConfigShifter();
-    $firstResolvedConfig = $rectorConfigsResolver->getFirstResolvedConfig();
-    if ($firstResolvedConfig !== null) {
-        $configFileInfos = $configShifter->shiftInputConfigAsLast($configFileInfos, $firstResolvedConfig);
-    }
-
-    $container = $rectorContainerFactory->createFromConfigs($configFileInfos);
-
-    $firstResolvedConfig = $rectorConfigsResolver->getFirstResolvedConfig();
-    if ($firstResolvedConfig) {
-        /** @var Configuration $configuration */
-        $configuration = $container->get(Configuration::class);
-        $configuration->setFirstResolverConfigFileInfo($firstResolvedConfig);
-
-        /** @var ChangedFilesDetector $changedFilesDetector */
-        $changedFilesDetector = $container->get(ChangedFilesDetector::class);
-        $changedFilesDetector->setFirstResolvedConfigFileInfo($firstResolvedConfig);
-    }
+    $container = $rectorContainerFactory->createFromBootstrapConfigs($bootstrapConfigs);
 } catch (SetNotFoundException $setNotFoundException) {
     $invalidSetReporter = new InvalidSetReporter();
     $invalidSetReporter->report($setNotFoundException);
@@ -86,13 +65,12 @@ final class AutoloadIncluder
 
     public function includeDependencyOrRepositoryVendorAutoloadIfExists(): void
     {
-        // Rector's vendor is already loaded
         if (class_exists(Typo3RectorKernel::class)) {
             return;
         }
 
         // in Rector develop repository
-        $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../vendor/autoload.php');
+        $this->loadIfExistsAndNotLoadedYet(__DIR__.'/../vendor/autoload.php');
     }
 
     /**
@@ -101,7 +79,7 @@ final class AutoloadIncluder
      */
     public function autoloadProjectAutoloaderFile(): void
     {
-        $this->loadIfExistsAndNotLoadedYet(__DIR__ . '/../../autoload.php');
+        $this->loadIfExistsAndNotLoadedYet(__DIR__.'/../../autoload.php');
     }
 
     public function autoloadFromCommandLine(): void
@@ -109,7 +87,7 @@ final class AutoloadIncluder
         $cliArgs = $_SERVER['argv'];
 
         $autoloadOptionPosition = array_search('-a', $cliArgs, true) ?: array_search('--autoload-file', $cliArgs, true);
-        if (! $autoloadOptionPosition) {
+        if ( ! $autoloadOptionPosition) {
             return;
         }
 
@@ -124,7 +102,7 @@ final class AutoloadIncluder
 
     public function loadIfExistsAndNotLoadedYet(string $filePath): void
     {
-        if (! file_exists($filePath)) {
+        if ( ! file_exists($filePath)) {
             return;
         }
 
@@ -137,3 +115,4 @@ final class AutoloadIncluder
         require_once $filePath;
     }
 }
+
