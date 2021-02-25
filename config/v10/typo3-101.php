@@ -19,9 +19,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(RegisterPluginWithVendorNameRector::class);
     $services->set(BackendUtilityEditOnClickRector::class);
-    $services->set('record_history_property_fetch_changelog_to_method_call_get_changelog')->class(
-        PropertyFetchToMethodCallRector::class
-    )
+    $services->set('record_history_property_fetch_changelog_to_method_call_get_changelog')
+        ->class(PropertyFetchToMethodCallRector::class)
         ->call(
         'configure',
         [[
@@ -37,7 +36,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ),
         ]]
     );
-    $services->set('record_history_rename_methods')->class(RenameMethodRector::class)
+    $services->set('record_history_rename_methods')
+        ->class(RenameMethodRector::class)
         ->call('configure', [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
                 new MethodCallRename(RecordHistory::class, 'createChangeLog', 'getChangeLog'),

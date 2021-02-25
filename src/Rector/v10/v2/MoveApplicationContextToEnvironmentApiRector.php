@@ -44,12 +44,12 @@ final class MoveApplicationContextToEnvironmentApiRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use Environment API to fetch application context', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Use Environment API to fetch application context', [new CodeSample(<<<'CODE_SAMPLE'
 GeneralUtility::getApplicationContext();
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 Environment::getContext();
-PHP
+CODE_SAMPLE
 )]);
     }
 }

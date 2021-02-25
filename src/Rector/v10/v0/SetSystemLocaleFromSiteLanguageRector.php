@@ -67,23 +67,23 @@ final class SetSystemLocaleFromSiteLanguageRector extends AbstractRector
             'Refactor TypoScriptFrontendController->settingLocale() to Locales::setSystemLocaleFromSiteLanguage()',
             [
                 new CodeSample(
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 $controller = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, 0, 0);
 $controller->settingLocale();
-PHP
+CODE_SAMPLE
                     ,
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 $controller = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, 0, 0);
 Locales::setSystemLocaleFromSiteLanguage($controller->getLanguage());
-PHP
+CODE_SAMPLE
                 ),
             ]
         );

@@ -29,6 +29,11 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const COMPOSER_PACKAGES_87_EXTENSIONS = __DIR__ . '/../../config/composer/typo3-87-composer-packages-extensions.php';
+
+    /**
+     * @var string
+     */
     public const TYPO3_95 = __DIR__ . '/../../config/typo3-9.5.php';
 
     /**
@@ -39,7 +44,12 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const COMPOSER_PACKAGES_95 = __DIR__ . '/../../config/typo3-95-composer-packages.php';
+    public const COMPOSER_PACKAGES_95_CORE = __DIR__ . '/../../config/composer/typo3-95-composer-packages-core.php';
+
+    /**
+     * @var string
+     */
+    public const COMPOSER_PACKAGES_95_EXTENSIONS = __DIR__ . '/../../config/composer/typo3-95-composer-packages-extensions.php';
 
     /**
      * @var string
@@ -54,7 +64,12 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const COMPOSER_PACKAGES_104 = __DIR__ . '/../../config/typo3-104-composer-packages.php';
+    public const COMPOSER_PACKAGES_104_CORE = __DIR__ . '/../../config/composer/typo3-104-composer-packages-core.php';
+
+    /**
+     * @var string
+     */
+    public const COMPOSER_PACKAGES_104_EXTENSIONS = __DIR__ . '/../../config/composer/typo3-104-composer-packages-extensions.php';
 
     /**
      * @var string
@@ -64,7 +79,12 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const COMPOSER_PACKAGES_11 = __DIR__ . '/../../config/typo3-110-composer-packages.php';
+    public const COMPOSER_PACKAGES_110_CORE = __DIR__ . '/../../config/composer/typo3-110-composer-packages-core.php';
+
+    /**
+     * @var string
+     */
+    public const COMPOSER_PACKAGES_110_EXTENSIONS = __DIR__ . '/../../config/composer/typo3-110-composer-packages-extensions.php';
 
     /**
      * @var string

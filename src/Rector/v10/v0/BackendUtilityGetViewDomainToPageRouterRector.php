@@ -62,17 +62,17 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
     {
         return new RuleDefinition('Refactor method call BackendUtility::getViewDomain() to PageRouter', [
             new CodeSample(
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $domain1 = BackendUtility::getViewDomain(1);
-PHP
+CODE_SAMPLE
                 ,
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId(1);
 $domain1 = $site->getRouter()->generateUri(1);
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

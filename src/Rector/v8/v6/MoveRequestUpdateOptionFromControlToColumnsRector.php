@@ -27,7 +27,7 @@ final class MoveRequestUpdateOptionFromControlToColumnsRector extends AbstractRe
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('TCA ctrl field requestUpdate dropped', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('TCA ctrl field requestUpdate dropped', [new CodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'requestUpdate' => 'foo',
@@ -36,8 +36,8 @@ return [
         'foo' => []
     ]
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -47,7 +47,7 @@ return [
         ]
     ]
 ];
-PHP
+CODE_SAMPLE
             )]);
     }
 

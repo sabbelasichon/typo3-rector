@@ -49,7 +49,7 @@ final class RemovePropertyExtensionNameRector extends AbstractRector
         return new RuleDefinition(
             'Use method getControllerExtensionName from $request property instead of removed property $extensionName',
             [
-                new CodeSample(<<<'PHP'
+                new CodeSample(<<<'CODE_SAMPLE'
 class MyCommandController extends CommandController
 {
     public function myMethod()
@@ -61,8 +61,8 @@ class MyCommandController extends CommandController
         $extensionName = $this->extensionName;
     }
 }
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 class MyCommandController extends CommandController
 {
     public function myMethod()
@@ -74,7 +74,7 @@ class MyCommandController extends CommandController
         $extensionName = $this->request->getControllerExtensionName();
     }
 }
-PHP
+CODE_SAMPLE
 ),
             ]
         );

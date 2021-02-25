@@ -33,7 +33,7 @@ final class RichtextFromDefaultExtrasToEnableRichtextRector extends AbstractRect
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('TCA richtext configuration in defaultExtras dropped', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 [
     'columns' => [
         'content' => [
@@ -44,8 +44,8 @@ final class RichtextFromDefaultExtrasToEnableRichtextRector extends AbstractRect
         ],
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 [
     'columns' => [
         'content' => [
@@ -56,7 +56,7 @@ PHP
         ],
     ],
 ];
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

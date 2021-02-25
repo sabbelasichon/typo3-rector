@@ -61,7 +61,7 @@ final class RemoveRteHtmlParserEvalWriteFileRector extends AbstractRector
     {
         return new RuleDefinition('remove evalWriteFile method from RteHtmlparser.', [
             new CodeSample(
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Html\RteHtmlParser;
 
 final class RteHtmlParserRemovedMethods
@@ -74,9 +74,9 @@ final class RteHtmlParserRemovedMethods
     }
 
 }
-PHP
+CODE_SAMPLE
                 ,
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Html\RteHtmlParser;
 
 final class RteHtmlParserRemovedMethods
@@ -88,7 +88,7 @@ final class RteHtmlParserRemovedMethods
     }
 
 }
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

@@ -22,7 +22,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveIconsInOptionTagsRector::class);
     $services->set(UseExtPrefixForTcaIconFileRector::class);
     $services->set(MigrateT3editorWizardToRenderTypeT3editorRector::class);
-    $services->set('substitute_old_wizard_icons_version_76')->class(SubstituteOldWizardIconsRector::class)
+    $services->set('substitute_old_wizard_icons_version_76')
+        ->class(SubstituteOldWizardIconsRector::class)
         ->call(
         'configure',
         [[

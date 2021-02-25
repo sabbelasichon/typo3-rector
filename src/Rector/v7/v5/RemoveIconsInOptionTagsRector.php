@@ -25,7 +25,7 @@ final class RemoveIconsInOptionTagsRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Select option iconsInOptionTags removed', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Select option iconsInOptionTags removed', [new CodeSample(<<<'CODE_SAMPLE'
 return [
     'columns' => [
         'foo' => [
@@ -39,8 +39,8 @@ return [
         ],
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'foo' => [
@@ -53,7 +53,7 @@ return [
         ],
     ],
 ];
-PHP
+CODE_SAMPLE
             )]);
     }
 

@@ -132,14 +132,14 @@ final class AddTypeToColumnConfigRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Add type to column config if not exists', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Add type to column config if not exists', [new CodeSample(<<<'CODE_SAMPLE'
 return [
     'columns' => [
         'bar' => []
     ]
 ];
-PHP
-            , <<<'PHP'
+CODE_SAMPLE
+            , <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'bar' => [
@@ -149,7 +149,7 @@ return [
         ]
     ]
 ];
-PHP
+CODE_SAMPLE
         )]);
     }
 }

@@ -55,17 +55,17 @@ final class UseClassTypo3VersionRector extends AbstractRector
             'Use class Typo3Version instead of the constants',
             [
                 new CodeSample(
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 $typo3Version = TYPO3_version;
 $typo3Branch = TYPO3_branch;
-PHP
+CODE_SAMPLE
                     ,
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Information\Typo3Version;
 $typo3Version = GeneralUtility::makeInstance(Typo3Version::class)->getVersion();
 $typo3Branch = GeneralUtility::makeInstance(Typo3Version::class)->getBranch();
-PHP
+CODE_SAMPLE
                 ),
             ]
         );

@@ -26,7 +26,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(RemovedTcaSelectTreeOptionsRector::class);
     $services->set(SoftReferencesFunctionalityRemovedRector::class);
-    $services->set('substitute_old_wizard_icons_version_87')->class(SubstituteOldWizardIconsRector::class)
+    $services->set('substitute_old_wizard_icons_version_87')
+        ->class(SubstituteOldWizardIconsRector::class)
         ->call(
         'configure',
         [[

@@ -91,18 +91,18 @@ final class TimeTrackerInsteadOfNullTimeTrackerRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use class TimeTracker instead of NullTimeTracker', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $timeTracker1 = new NullTimeTracker();
 $timeTracker2 = GeneralUtility::makeInstance(NullTimeTracker::class);
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $timeTracker1 = new TimeTracker(false);
 $timeTracker2 = GeneralUtility::makeInstance(TimeTracker::class, false);
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

@@ -36,7 +36,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(MoveRenderArgumentsToInitializeArgumentsMethodRector::class);
     $services->set(InjectAnnotationRector::class);
     $services->set(IgnoreValidationAnnotationRector::class);
-    $services->set('replace_extbase_annotations_to_doctrine_annotations')->class(ReplaceAnnotationRector::class)
+    $services->set('replace_extbase_annotations_to_doctrine_annotations')
+        ->class(ReplaceAnnotationRector::class)
         ->call(
         'configure',
         [[
@@ -61,7 +62,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveSecondArgumentGeneralUtilityMkdirDeepRector::class);
     $services->set(CheckForExtensionVersionRector::class);
     $services->set(RefactorDeprecationLogRector::class);
-    $services->set('general_utility_get_user_obj_to_make_instance')->class(RenameMethodRector::class)
+    $services->set('general_utility_get_user_obj_to_make_instance')
+        ->class(RenameMethodRector::class)
         ->call(
         'configure',
         [[

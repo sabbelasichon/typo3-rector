@@ -48,14 +48,14 @@ final class GetFileAbsFileNameRemoveDeprecatedArgumentsRector extends AbstractRe
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove second and third argument of GeneralUtility::getFileAbsFileName()', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 GeneralUtility::getFileAbsFileName('foo.txt', false, true);
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 GeneralUtility::getFileAbsFileName('foo.txt');
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

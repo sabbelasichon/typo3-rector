@@ -48,14 +48,14 @@ final class RefactorArrayBrowserWrapValueRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate the method ArrayBrowser->wrapValue() to use htmlspecialchars()', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $arrayBrowser = GeneralUtility::makeInstance(ArrayBrowser::class);
 $arrayBrowser->wrapValue('value');
-PHP
-            , <<<'PHP'
+CODE_SAMPLE
+            , <<<'CODE_SAMPLE'
 $arrayBrowser = GeneralUtility::makeInstance(ArrayBrowser::class);
 htmlspecialchars('value');
-PHP
+CODE_SAMPLE
             ), ]);
     }
 }

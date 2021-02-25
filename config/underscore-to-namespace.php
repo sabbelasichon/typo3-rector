@@ -10,7 +10,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
 
-    $services->set('rename_class_alias_map_underscore_to_namespaces')->class(RenameClassMapAliasRector::class)
+    $services->set('rename_class_alias_map_underscore_to_namespaces')
+        ->class(RenameClassMapAliasRector::class)
         ->call('configure', [[
             RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [__DIR__ . '/../Migrations/Code/ClassAliasMap.php'],
         ]]);

@@ -119,7 +119,7 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate select showIconTable', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -138,8 +138,8 @@ return [
         ],
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -161,7 +161,7 @@ return [
         ],
     ],
 ];
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

@@ -95,15 +95,15 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
     {
         return new RuleDefinition('Use LanguageAspect instead of language properties of TSFE', [
             new CodeSample(
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 $languageUid = $GLOBALS['TSFE']->sys_language_uid;
-PHP
+CODE_SAMPLE
                 ,
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $languageUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id');
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

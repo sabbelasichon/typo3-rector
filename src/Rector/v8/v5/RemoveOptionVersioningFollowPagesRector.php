@@ -25,7 +25,7 @@ final class RemoveOptionVersioningFollowPagesRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('TCA option versioning_followPages removed', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('TCA option versioning_followPages removed', [new CodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'versioningWS' => 2,
@@ -34,8 +34,8 @@ return [
     'columns' => [
     ]
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'versioningWS' => true,
@@ -43,7 +43,7 @@ return [
     'columns' => [
     ]
 ];
-PHP
+CODE_SAMPLE
             )]);
     }
 

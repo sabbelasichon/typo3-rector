@@ -59,14 +59,14 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Call enable fields from PageRepository instead of ContentObjectRenderer', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 $contentObjectRenderer->enableFields('pages', false, []);
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 GeneralUtility::makeInstance(PageRepository::class)->enableFields('pages', -1, []);
-PHP
+CODE_SAMPLE
 ),
         ]);
     }

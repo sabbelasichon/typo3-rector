@@ -23,9 +23,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemovePropertyExtensionNameRector::class);
     $services->set(UseNativePhpHex2binMethodRector::class);
     $services->set(RefactorIdnaEncodeMethodToNativeFunctionRector::class);
-    $services->set('rename_namespace_backend_controller_file_to_filelist_controller_file')->class(
-        RenameNamespaceRector::class
-    )
+    $services->set('rename_namespace_backend_controller_file_to_filelist_controller_file')
+        ->class(RenameNamespaceRector::class)
         ->call(
         'configure',
         [[

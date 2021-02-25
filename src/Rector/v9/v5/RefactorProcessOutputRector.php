@@ -73,22 +73,22 @@ final class RefactorProcessOutputRector extends AbstractRector
             'TypoScriptFrontendController->processOutput() to TypoScriptFrontendController->applyHttpHeadersToResponse() and TypoScriptFrontendController->processContentForOutput()',
             [
                 new CodeSample(
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 $tsfe->processOutput();
-PHP
+CODE_SAMPLE
                     ,
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 $tsfe->applyHttpHeadersToResponse();
 $tsfe->processContentForOutput();
-PHP
+CODE_SAMPLE
                 ),
             ]
         );

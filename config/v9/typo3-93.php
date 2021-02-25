@@ -45,7 +45,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CopyMethodGetPidForModTSconfigRector::class);
     $services->set(BackendUserAuthenticationSimplelogRector::class);
     $services->set(MoveLanguageFilesFromExtensionLangRector::class);
-    $services->set('get_validation_results_to_validate')->class(RenameMethodRector::class)
+    $services->set('get_validation_results_to_validate')
+        ->class(RenameMethodRector::class)
         ->call('configure', [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
                 new MethodCallRename(Argument::class, 'getValidationResults', 'validate'),

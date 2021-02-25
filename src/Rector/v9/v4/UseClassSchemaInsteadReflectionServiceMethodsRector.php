@@ -50,7 +50,7 @@ final class UseClassSchemaInsteadReflectionServiceMethodsRector extends Abstract
     {
         return new RuleDefinition(
             'Instead of fetching reflection data via ReflectionService use ClassSchema directly',
-            [new CodeSample(<<<'PHP'
+            [new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Reflection\ReflectionService;
 class MyService
 {
@@ -65,8 +65,8 @@ class MyService
         $properties = $this->reflectionService->getClassPropertyNames(\stdClass::class);
     }
 }
-PHP
-                    , <<<'PHP'
+CODE_SAMPLE
+                    , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Reflection\ReflectionService;
 class MyService
 {
@@ -81,7 +81,7 @@ class MyService
         $properties = array_keys($this->reflectionService->getClassSchema(stdClass::class)->getProperties());
     }
 }
-PHP
+CODE_SAMPLE
                 )]);
     }
 

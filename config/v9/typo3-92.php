@@ -14,7 +14,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
     $services = $containerConfigurator->services();
     $services->set(RenameMethodCallToEnvironmentMethodCallRector::class);
-    $services->set('string_frontend_to_variable_frontend')->class(RenameClassRector::class)
+    $services->set('string_frontend_to_variable_frontend')
+        ->class(RenameClassRector::class)
         ->call('configure', [[
             RenameClassRector::OLD_TO_NEW_CLASSES => [
                 StringFrontend::class => VariableFrontend::class,

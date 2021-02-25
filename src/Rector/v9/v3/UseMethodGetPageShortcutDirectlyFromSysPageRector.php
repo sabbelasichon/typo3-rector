@@ -60,12 +60,12 @@ final class UseMethodGetPageShortcutDirectlyFromSysPageRector extends AbstractRe
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use method getPageShortcut directly from PageRepository', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $GLOBALS['TSFE']->getPageShortcut('shortcut', 1, 1);
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 $GLOBALS['TSFE']->sys_page->getPageShortcut('shortcut', 1, 1);
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Generator\Finder;
 
-use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 use Symplify\SmartFileSystem\FileSystemGuard;
 use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -34,7 +33,6 @@ final class TemplateFinder
 
     /**
      * @return SmartFileInfo[]
-     * @throws FileNotFoundException
      */
     public function find(): array
     {
@@ -59,7 +57,6 @@ final class TemplateFinder
 
     /**
      * @param string[] $filePaths
-     * @throws FileNotFoundException
      */
     private function ensureFilePathsExists(array $filePaths): void
     {

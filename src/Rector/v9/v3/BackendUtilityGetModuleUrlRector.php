@@ -52,16 +52,16 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate the method BackendUtility::getModuleUrl() to use UriBuilder API', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $moduleName = 'record_edit';
 $params = ['pid' => 2];
 $url = BackendUtility::getModuleUrl($moduleName, $params);
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $moduleName = 'record_edit';
 $params = ['pid' => 2];
 $url = GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute($moduleName, $params);
-PHP
+CODE_SAMPLE
 ),
         ]);
     }

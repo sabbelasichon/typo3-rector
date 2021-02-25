@@ -25,21 +25,21 @@ final class RemoveSeliconFieldPathRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('TCA option "selicon_field_path" removed', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('TCA option "selicon_field_path" removed', [new CodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'selicon_field' => 'icon',
         'selicon_field_path' => 'uploads/media'
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'selicon_field' => 'icon',
     ],
 ];
-PHP
+CODE_SAMPLE
             )]);
     }
 

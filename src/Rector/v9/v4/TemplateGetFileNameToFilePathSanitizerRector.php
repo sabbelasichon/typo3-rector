@@ -103,10 +103,10 @@ final class TemplateGetFileNameToFilePathSanitizerRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use FilePathSanitizer->sanitize() instead of TemplateService->getFileName()', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $fileName = $GLOBALS['TSFE']->tmpl->getFileName('foo.text');
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
 use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
@@ -124,7 +124,7 @@ try {
         GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage($e->getMessage(), 3);
     }
 }
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

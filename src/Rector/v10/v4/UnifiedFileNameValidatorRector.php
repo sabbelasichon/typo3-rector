@@ -59,7 +59,7 @@ final class UnifiedFileNameValidatorRector extends AbstractRector
             'GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename)',
             [
                 new CodeSample(
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $filename = 'somefile.php';
@@ -69,9 +69,9 @@ if(!GeneralUtility::verifyFilenameAgainstDenyPattern($filename)) {
 if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FILE_DENY_PATTERN_DEFAULT)
 {
 }
-PHP
+CODE_SAMPLE
                     ,
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -82,7 +82,7 @@ if(!GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename)) 
 if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FileNameValidator::DEFAULT_FILE_DENY_PATTERN)
 {
 }
-PHP
+CODE_SAMPLE
                 ),
             ]
         );

@@ -32,20 +32,20 @@ final class UseExtPrefixForTcaIconFileRector extends AbstractRector
         return new RuleDefinition(
             'Deprecate relative path to extension directory and using filename only in TCA ctrl iconfile',
             [
-                new CodeSample(<<<'PHP'
+                new CodeSample(<<<'CODE_SAMPLE'
 [
     'ctrl' => [
         'iconfile' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('my_extension') . 'Resources/Public/Icons/image.png'
     ]
 ];
-PHP
-                    , <<<'PHP'
+CODE_SAMPLE
+                    , <<<'CODE_SAMPLE'
 [
     'ctrl' => [
         'iconfile' => 'EXT:my_extension/Resources/Public/Icons/image.png'
     ]
 ];
-PHP
+CODE_SAMPLE
                 ),
 
             ]);

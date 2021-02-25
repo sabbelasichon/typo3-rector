@@ -33,7 +33,7 @@ final class AddRenderTypeToSelectFieldRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Add renderType for select fields', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -46,8 +46,8 @@ return [
         ],
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -61,7 +61,7 @@ return [
         ],
     ],
 ];
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

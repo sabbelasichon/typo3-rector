@@ -86,7 +86,7 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use controller classes when registering extbase plugins/modules', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 ExtensionUtility::configurePlugin(
     'TYPO3.CMS.Form',
@@ -95,8 +95,8 @@ ExtensionUtility::configurePlugin(
     ['FormFrontend' => 'perform'],
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;ExtensionUtility::configurePlugin(
     'Form',
     'Formframework',
@@ -104,7 +104,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;ExtensionUtility::configurePlugin
     [\TYPO3\CMS\Form\Controller\FormFrontendController::class => 'perform'],
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

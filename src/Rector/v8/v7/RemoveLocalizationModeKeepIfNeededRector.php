@@ -31,7 +31,7 @@ final class RemoveLocalizationModeKeepIfNeededRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove localizationMode keep if allowLanguageSynchronization is enabled', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 return [
     'columns' => [
         'foo' => [
@@ -48,8 +48,8 @@ return [
         ],
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'foo' => [
@@ -65,7 +65,7 @@ return [
         ],
     ],
 ];
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

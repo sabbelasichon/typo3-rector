@@ -110,7 +110,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor removed Marker-related methods from ContentObjectRenderer.', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 // build template
 $template = $this->cObj->getSubpart($this->config['templateFile'], '###TEMPLATE###');
 $html = $this->cObj->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
@@ -121,8 +121,8 @@ $content .= $this->cObj->substituteMarkerArray($content, $markContentArray, $wra
 $content .= $this->cObj->substituteMarkerInObject($tree, $markContentArray);
 $content .= $this->cObj->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
 $content .= $this->cObj->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC);
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 // build template
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -135,7 +135,7 @@ $content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->sub
 $content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteMarkerInObject($tree, $markContentArray);
 $content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
 $content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC, !empty($GLOBALS['TSFE']->xhtmlDoctype));
-PHP
+CODE_SAMPLE
 ),
         ]);
     }

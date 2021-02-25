@@ -32,7 +32,7 @@ final class RemoveIconOptionForRenderTypeSelectRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('TCA icon options have been removed', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 return [
     'columns' => [
         'foo' => [
@@ -44,8 +44,8 @@ return [
         ],
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'foo' => [
@@ -57,7 +57,7 @@ return [
         ],
     ],
 ];
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

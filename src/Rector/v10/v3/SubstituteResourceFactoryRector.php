@@ -48,12 +48,12 @@ final class SubstituteResourceFactoryRector extends AbstractRector
         return new RuleDefinition(
             'Substitue ResourceFactory::getInstance() through GeneralUtility::makeInstance(ResourceFactory::class)',
             [
-                new CodeSample(<<<'PHP'
+                new CodeSample(<<<'CODE_SAMPLE'
 $resourceFactory = ResourceFactory::getInstance();
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
-PHP
+CODE_SAMPLE
 ),
             ]
         );

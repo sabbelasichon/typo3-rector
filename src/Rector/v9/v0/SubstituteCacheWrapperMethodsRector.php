@@ -85,13 +85,13 @@ final class SubstituteCacheWrapperMethodsRector extends AbstractRector
     {
         return new RuleDefinition('Caching framework wrapper methods in BackendUtility', [
             new CodeSample(
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $hash = 'foo';
 $content = BackendUtility::getHash($hash);
-PHP
+CODE_SAMPLE
                 ,
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -103,7 +103,7 @@ if ($cacheEntry) {
     $hashContent = $cacheEntry;
 }
 $content = $hashContent;
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

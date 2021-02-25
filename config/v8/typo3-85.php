@@ -29,9 +29,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]]
     );
     $services->set(CharsetConverterToMultiByteFunctionsRector::class);
-    $services->set('extbase_array_utility_methods_to_core_array_utility_methods')->class(
-        RenameStaticMethodRector::class
-    )
+    $services->set('extbase_array_utility_methods_to_core_array_utility_methods')
+        ->class(RenameStaticMethodRector::class)
         ->call(
         'configure',
         [[

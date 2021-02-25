@@ -50,19 +50,19 @@ final class RemoveAddQueryStringMethodRector extends AbstractFluentChainMethodCa
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove TypoScript option addQueryString.method', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $this->uriBuilder->setUseCacheHash(true)
                          ->setCreateAbsoluteUri(true)
                          ->setAddQueryString(true)
                          ->setAddQueryStringMethod('GET')
                          ->build();
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 $this->uriBuilder->setUseCacheHash(true)
                          ->setCreateAbsoluteUri(true)
                          ->setAddQueryString(true)
                          ->build();
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

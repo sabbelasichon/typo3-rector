@@ -47,7 +47,7 @@ final class PrependAbsolutePathToGetFileAbsFileNameRector extends AbstractRector
             'Use GeneralUtility::getFileAbsFileName() instead of GraphicalFunctions->prependAbsolutePath()',
             [
                 new CodeSample(
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 
 class SomeFooBar
@@ -60,9 +60,9 @@ class SomeFooBar
         $this->graphicalFunctions->prependAbsolutePath('some.font');
     }
 }
-PHP
+CODE_SAMPLE
                     ,
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 
@@ -76,7 +76,7 @@ class SomeFooBar
         GeneralUtility::getFileAbsFileName('some.font');
     }
 }
-PHP
+CODE_SAMPLE
                 ),
 
             ]);

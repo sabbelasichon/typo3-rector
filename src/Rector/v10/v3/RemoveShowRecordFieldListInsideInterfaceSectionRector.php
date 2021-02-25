@@ -25,7 +25,8 @@ final class RemoveShowRecordFieldListInsideInterfaceSectionRector extends Abstra
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove showRecordFieldList inside section interface', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Remove showRecordFieldList inside section interface', [
+            new CodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -35,16 +36,17 @@ return [
     'columns' => [
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
     'columns' => [
     ],
 ];
-PHP
-            )]);
+CODE_SAMPLE
+            ),
+        ]);
     }
 
     /**

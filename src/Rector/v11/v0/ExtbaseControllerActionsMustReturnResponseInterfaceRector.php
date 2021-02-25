@@ -107,7 +107,8 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Extbase controller actions must return ResponseInterface', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Extbase controller actions must return ResponseInterface', [
+            new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class MyController extends ActionController
 {
@@ -116,8 +117,8 @@ class MyController extends ActionController
         $this->view->assign('foo', 'bar');
     }
 }
-PHP
-            , <<<'PHP'
+CODE_SAMPLE
+            , <<<'CODE_SAMPLE'
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class MyController extends ActionController
@@ -128,8 +129,9 @@ class MyController extends ActionController
         return $this->htmlResponse();
     }
 }
-PHP
-        )]);
+CODE_SAMPLE
+        ),
+        ]);
     }
 
     private function shouldSkip(ClassMethod $node): bool

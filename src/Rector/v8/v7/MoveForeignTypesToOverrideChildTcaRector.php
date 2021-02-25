@@ -54,7 +54,7 @@ final class MoveForeignTypesToOverrideChildTcaRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('TCA InlineOverrideChildTca', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 return [
     'columns' => [
         'aField' => [
@@ -69,8 +69,8 @@ return [
         ],
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'aField' => [
@@ -87,7 +87,7 @@ return [
         ],
     ],
 ];
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

@@ -25,7 +25,7 @@ final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends Abstr
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove option localizeChildrenAtParentLocalization', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Remove option localizeChildrenAtParentLocalization', [new CodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [],
     'columns' => [
@@ -40,8 +40,8 @@ return [
         ],
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'ctrl' => [],
     'columns' => [
@@ -54,7 +54,7 @@ return [
         ],
     ],
 ];
-PHP
+CODE_SAMPLE
             )]);
     }
 

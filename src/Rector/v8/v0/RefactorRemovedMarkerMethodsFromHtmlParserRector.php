@@ -84,7 +84,7 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends AbstractRec
     {
         return new RuleDefinition('Refactor removed Marker-related methods from HtmlParser.', [
             new CodeSample(
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Html\HtmlParser;
 
 final class HtmlParserMarkerRendererMethods
@@ -111,9 +111,9 @@ final class HtmlParserMarkerRendererMethods
 
 
 }
-PHP
+CODE_SAMPLE
                 ,
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Html\HtmlParser;
 
 final class HtmlParserMarkerRendererMethods
@@ -137,7 +137,7 @@ final class HtmlParserMarkerRendererMethods
 
 
 }
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

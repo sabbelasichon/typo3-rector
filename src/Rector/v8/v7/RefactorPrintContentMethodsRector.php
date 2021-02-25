@@ -69,7 +69,7 @@ final class RefactorPrintContentMethodsRector extends AbstractRector
         return new RuleDefinition(
             'Refactor printContent methods of classes TaskModuleController and PageLayoutController',
             [
-                new CodeSample(<<<'PHP'
+                new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Controller\PageLayoutController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
@@ -78,15 +78,15 @@ $pageLayoutController->printContent();
 
 $taskLayoutController = GeneralUtility::makeInstance(TaskModuleController::class);
 $taskLayoutController->printContent();
-PHP
-                    , <<<'PHP'
+CODE_SAMPLE
+                    , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Controller\PageLayoutController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
 $pageLayoutController = GeneralUtility::makeInstance(PageLayoutController::class);
 echo $pageLayoutController->getModuleTemplate()->renderContent();
 $taskLayoutController = GeneralUtility::makeInstance(TaskModuleController::class);
 echo $taskLayoutController->content;
-PHP
+CODE_SAMPLE
                 ),
 
             ]);

@@ -58,7 +58,7 @@ final class RenameClassMapAliasRector extends AbstractRector implements Configur
     {
         return new RuleDefinition('Replaces defined classes by new ones.', [
             new ConfiguredCodeSample(
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 namespace App;
 
 use t3lib_div;
@@ -67,9 +67,9 @@ function someFunction()
 {
     t3lib_div::makeInstance(\tx_cms_BackendLayout::class);
 }
-PHP
+CODE_SAMPLE
                 ,
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 namespace App;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -78,7 +78,7 @@ function someFunction()
 {
     GeneralUtility::makeInstance(\TYPO3\CMS\Backend\View\BackendLayoutView::class);
 }
-PHP
+CODE_SAMPLE
                 ,
                 [
                     self::CLASS_ALIAS_MAPS => 'config/Migrations/Code/ClassAliasMap.php',

@@ -148,7 +148,7 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Option constructor arguments to hard requirement', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Option constructor arguments to hard requirement', [new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -163,8 +163,8 @@ public function __construct(Dispatcher $dispatcher = null, StandaloneView $view 
         $backendUtility = $backendUtility ?? GeneralUtility::makeInstance(BackendUtility::class);
     }
 }
-PHP
-            , <<<'PHP'
+CODE_SAMPLE
+            , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -177,7 +177,7 @@ public function __construct(Dispatcher $dispatcher, StandaloneView $view, Backen
         $backendUtility = $backendUtility;
     }
 }
-PHP
+CODE_SAMPLE
         )]);
     }
 }

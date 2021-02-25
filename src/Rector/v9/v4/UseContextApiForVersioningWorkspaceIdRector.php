@@ -72,21 +72,21 @@ final class UseContextApiForVersioningWorkspaceIdRector extends AbstractRector
     {
         return new RuleDefinition('Use context API instead of versioningWorkspaceId', [
             new CodeSample(
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 $workspaceId = null;
 $workspaceId = $workspaceId ?? $GLOBALS['TSFE']->sys_page->versioningWorkspaceId;
 
 $GLOBALS['TSFE']->sys_page->versioningWorkspaceId = 1;
-PHP
+CODE_SAMPLE
                 ,
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $workspaceId = null;
 $workspaceId = $workspaceId ?? GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('workspace', 'id', 0);
 
 $GLOBALS['TSFE']->sys_page->versioningWorkspaceId = 1;
-PHP
+CODE_SAMPLE
             ),
         ]);
     }
