@@ -6,7 +6,7 @@ Never run this tool on production, only on development environment where code is
 
 Apply automatic fixes on your TYPO3 code.
 
-[![Downloads](https://img.shields.io/packagist/dt/sabbelasichon/typo3-rector.svg?style=flat-square)](https://packagist.org/packages/ssch/typo3-rector)
+[![Downloads](https://img.shields.io/packagist/dt/ssch/typo3-rector.svg?style=flat-square)](https://packagist.org/packages/ssch/typo3-rector)
 
 [Rector](https://github.com/rectorphp/rector) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases or keep your code deprecation free.
 
