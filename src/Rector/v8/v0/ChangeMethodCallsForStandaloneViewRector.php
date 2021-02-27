@@ -39,20 +39,20 @@ final class ChangeMethodCallsForStandaloneViewRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Turns method call names to new ones.', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Turns method call names to new ones.', [new CodeSample(<<<'CODE_SAMPLE'
 $someObject = new StandaloneView();
 $someObject->setLayoutRootPath();
 $someObject->getLayoutRootPath();
 $someObject->setPartialRootPath();
 $someObject->getPartialRootPath();
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $someObject = new StandaloneView();
 $someObject->setLayoutRootPaths();
 $someObject->getLayoutRootPaths();
 $someObject->setPartialRootPaths();
 $someObject->getPartialRootPaths();
-PHP
+CODE_SAMPLE
 )]);
     }
 

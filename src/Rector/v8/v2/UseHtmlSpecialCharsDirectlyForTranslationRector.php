@@ -34,7 +34,7 @@ final class UseHtmlSpecialCharsDirectlyForTranslationRector extends AbstractRect
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('htmlspecialchars directly to properly escape the content.', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 class MyPlugin extends AbstractPlugin
 {
@@ -47,8 +47,8 @@ class MyPlugin extends AbstractPlugin
         $translation10 = $GLOBALS['LANG']->sL('foobar', false);
     }
 }
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
 class MyPlugin extends AbstractPlugin
 {
@@ -61,7 +61,7 @@ class MyPlugin extends AbstractPlugin
         $translation10 = $GLOBALS['LANG']->sL('foobar');
     }
 }
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

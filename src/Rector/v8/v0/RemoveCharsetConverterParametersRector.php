@@ -50,16 +50,16 @@ final class RemoveCharsetConverterParametersRector extends AbstractRector
         return new RuleDefinition(
             'Remove CharsetConvertParameters',
             [
-                new CodeSample(<<<'PHP'
+                new CodeSample(<<<'CODE_SAMPLE'
 $charsetConvert = GeneralUtility::makeInstance(CharsetConverter::class);
 $charsetConvert->entities_to_utf8('string', false);
 $charsetConvert->utf8_to_numberarray('string', false, false);
-PHP
-                    , <<<'PHP'
+CODE_SAMPLE
+                    , <<<'CODE_SAMPLE'
 $charsetConvert = GeneralUtility::makeInstance(CharsetConverter::class);
 $charsetConvert->entities_to_utf8('string');
 $charsetConvert->utf8_to_numberarray('string');
-PHP
+CODE_SAMPLE
                 ),
             ]
         );

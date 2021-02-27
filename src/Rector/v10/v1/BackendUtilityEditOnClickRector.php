@@ -52,16 +52,16 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate the method BackendUtility::editOnClick() to use UriBuilder API', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $pid = 2;
 $params = '&edit[pages][' . $pid . ']=new&returnNewPageId=1';
 $url = BackendUtility::editOnClick($params);
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $pid = 2;
 $params = '&edit[pages][' . $pid . ']=new&returnNewPageId=1';
 $url = GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute('record_edit') . $params . '&returnUrl=' . rawurlencode(GeneralUtility::getIndpEnv('REQUEST_URI'));;
-PHP
+CODE_SAMPLE
 ),
         ]);
     }

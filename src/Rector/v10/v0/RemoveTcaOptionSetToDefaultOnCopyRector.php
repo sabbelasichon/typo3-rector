@@ -25,7 +25,7 @@ final class RemoveTcaOptionSetToDefaultOnCopyRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('TCA option setToDefaultOnCopy removed', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('TCA option setToDefaultOnCopy removed', [new CodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'selicon_field' => 'icon',
@@ -34,8 +34,8 @@ return [
     'columns' => [
     ],
 ];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'selicon_field' => 'icon'
@@ -43,7 +43,7 @@ return [
     'columns' => [
     ],
 ];
-PHP
+CODE_SAMPLE
             )]);
     }
 

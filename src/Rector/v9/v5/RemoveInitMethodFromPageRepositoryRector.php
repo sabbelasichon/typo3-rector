@@ -51,13 +51,13 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove method call init from PageRepository', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Remove method call init from PageRepository', [new CodeSample(<<<'CODE_SAMPLE'
 $repository = GeneralUtility::makeInstance(PageRepository::class);
 $repository->init(true);
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $repository = GeneralUtility::makeInstance(PageRepository::class);
-PHP
+CODE_SAMPLE
 )]);
     }
 }

@@ -67,14 +67,14 @@ final class UseRootlineUtilityInsteadOfGetRootlineMethodRector extends AbstractR
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use class RootlineUtility instead of method getRootLine', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $rootline = $GLOBALS['TSFE']->sys_page->getRootLine(1);
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\RootlineUtility;
 $rootline = GeneralUtility::makeInstance(RootlineUtility::class, 1)->get();
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

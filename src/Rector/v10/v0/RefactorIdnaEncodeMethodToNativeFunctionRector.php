@@ -60,14 +60,14 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use native function idn_to_ascii instead of GeneralUtility::idnaEncode', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $domain = GeneralUtility::idnaEncode('domain.com');
 $email = GeneralUtility::idnaEncode('email@domain.com');
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $domain = idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
 $email = 'email@' . idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
-PHP
+CODE_SAMPLE
 ),
         ]);
     }

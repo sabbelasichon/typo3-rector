@@ -59,17 +59,17 @@ final class CopyMethodGetPidForModTSconfigRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Copy method getPidForModTSconfig of class BackendUtility over', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;BackendUtility::getPidForModTSconfig('pages', 1, 2);
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\MathUtility;
 
 $table = 'pages';
 $uid = 1;
 $pid = 2;
 $table === 'pages' && MathUtility::canBeInterpretedAsInteger($uid) ? $uid : $pid;
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

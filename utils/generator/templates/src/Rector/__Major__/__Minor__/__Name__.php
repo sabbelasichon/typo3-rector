@@ -33,10 +33,10 @@ final class __Name__ extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('__Description__', [new CodeSample(<<<'PHP'
-PHP
-            , <<<'PHP'
-PHP
+        return new RuleDefinition('__Description__', [new CodeSample(<<<'CODE_SAMPLE'
+CODE_SAMPLE
+            , <<<'CODE_SAMPLE'
+CODE_SAMPLE
         )]);
     }
 }

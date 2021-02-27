@@ -46,13 +46,13 @@ final class RemoveMethodInitTCARector extends AbstractRector
     {
         return new RuleDefinition('Remove superfluous EidUtility::initTCA call', [
             new CodeSample(
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 EidUtility::initTCA();
-PHP
+CODE_SAMPLE
                 ,
-                <<<'PHP'
-PHP
+                <<<'CODE_SAMPLE'
+CODE_SAMPLE
             ),
         ]);
     }

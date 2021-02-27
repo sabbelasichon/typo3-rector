@@ -76,23 +76,23 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
             'Rewirte Method Calls of GeneralUtility::getUrl("somefile.csv") to @file_get_contents',
             [
                 new CodeSample(
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 GeneralUtility::getUrl('some.csv');
 $externalUrl = 'https://domain.com';
 GeneralUtility::getUrl($externalUrl);
 
-PHP
+CODE_SAMPLE
                     ,
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Http\RequestFactory;
 
 @file_get_contents('some.csv');
 $externalUrl = 'https://domain.com';
 GeneralUtility::makeInstance(RequestFactory::class)->request($externalUrl)->getBody()->getContents();
 
-PHP
+CODE_SAMPLE
                 ),
             ]
         );

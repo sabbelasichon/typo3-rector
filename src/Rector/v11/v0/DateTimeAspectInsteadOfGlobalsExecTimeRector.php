@@ -67,14 +67,14 @@ final class DateTimeAspectInsteadOfGlobalsExecTimeRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use DateTimeAspect instead of superglobals like $GLOBALS[\'EXEC_TIME\']', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $currentTimestamp = $GLOBALS['EXEC_TIME'];
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $currentTimestamp = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('date', 'timestamp');
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

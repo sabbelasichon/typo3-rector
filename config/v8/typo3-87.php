@@ -32,7 +32,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(TemplateServiceSplitConfArrayRector::class);
     $services->set(RefactorRemovedMarkerMethodsFromContentObjectRendererRector::class);
     $services->set(ChangeAttemptsParameterConsoleOutputRector::class);
-    $services->set('extbase_typoscriptservice_to_core_typoscriptservice')->class(RenameClassRector::class)
+    $services->set('extbase_typoscriptservice_to_core_typoscriptservice')
+        ->class(RenameClassRector::class)
         ->call(
         'configure',
         [[
@@ -41,7 +42,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]]
     );
-    $services->set('rename_class_alias_maps_version_87')->class(RenameClassMapAliasRector::class)
+    $services->set('rename_class_alias_maps_version_87')
+        ->class(RenameClassMapAliasRector::class)
         ->call('configure', [[
             RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
                 __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
@@ -49,7 +51,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
             ],
         ]]);
-    $services->set('general_utility_csv_values_to_csv_utility')->class(RenameStaticMethodRector::class)
+    $services->set('general_utility_csv_values_to_csv_utility')
+        ->class(RenameStaticMethodRector::class)
         ->call(
         'configure',
         [[

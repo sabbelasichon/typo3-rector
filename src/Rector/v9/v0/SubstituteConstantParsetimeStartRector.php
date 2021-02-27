@@ -63,12 +63,12 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
         return new RuleDefinition(
             'Substitute $GLOBALS[\'PARSETIME_START\'] with round($GLOBALS[\'TYPO3_MISC\'][\'microtime_start\'] * 1000)',
             [
-                new CodeSample(<<<'PHP'
+                new CodeSample(<<<'CODE_SAMPLE'
 $parseTime = $GLOBALS['PARSETIME_START'];
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $parseTime = round($GLOBALS['TYPO3_MISC']['microtime_start'] * 1000);
-PHP
+CODE_SAMPLE
 ),
             ]
         );

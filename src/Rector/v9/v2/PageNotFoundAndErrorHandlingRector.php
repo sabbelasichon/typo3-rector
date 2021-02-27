@@ -68,7 +68,7 @@ final class PageNotFoundAndErrorHandlingRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Page Not Found And Error handling in Frontend', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class SomeController extends ActionController
 {
@@ -78,8 +78,8 @@ class SomeController extends ActionController
         $GLOBALS['TSFE']->pageUnavailableAndExit($message);
     }
 }
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -93,7 +93,7 @@ class SomeController extends ActionController
         throw new ImmediateResponseException($response);
     }
 }
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

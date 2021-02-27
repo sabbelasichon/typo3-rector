@@ -63,14 +63,14 @@ final class BackendUserAuthenticationSimplelogRector extends AbstractRector
         return new RuleDefinition(
             'Migrate the method BackendUserAuthentication->simplelog() to BackendUserAuthentication->writelog()',
             [
-                new CodeSample(<<<'PHP'
+                new CodeSample(<<<'CODE_SAMPLE'
 $someObject = GeneralUtility::makeInstance(TYPO3\CMS\Core\Authentication\BackendUserAuthentication::class);
 $someObject->simplelog($message, $extKey, $error);
-PHP
-                    , <<<'PHP'
+CODE_SAMPLE
+                    , <<<'CODE_SAMPLE'
 $someObject = GeneralUtility::makeInstance(TYPO3\CMS\Core\Authentication\BackendUserAuthentication::class);
 $someObject->writelog(4, 0, $error, 0, ($extKey ? '[' . $extKey . '] ' : '') . $message, []);
-PHP
+CODE_SAMPLE
                 ),
             ]
         );

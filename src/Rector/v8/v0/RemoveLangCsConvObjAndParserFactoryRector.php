@@ -64,20 +64,20 @@ final class RemoveLangCsConvObjAndParserFactoryRector extends AbstractRector
         return new RuleDefinition(
             'Remove CsConvObj and ParserFactory from LanguageService::class and $GLOBALS[\'lang\']',
             [
-                new CodeSample(<<<'PHP'
+                new CodeSample(<<<'CODE_SAMPLE'
 $languageService = GeneralUtility::makeInstance(LanguageService::class);
 $charsetConverter = $languageService->csConvObj;
 $Localization = $languageService->parserFactory();
 $charsetConverterGlobals = $GLOBALS['LANG']->csConvObj;
 $LocalizationGlobals = $GLOBALS['LANG']->parserFactory();
-PHP
-                    , <<<'PHP'
+CODE_SAMPLE
+                    , <<<'CODE_SAMPLE'
 $languageService = GeneralUtility::makeInstance(LanguageService::class);
 $charsetConverter = GeneralUtility::makeInstance(CharsetConverter::class);
 $Localization = GeneralUtility::makeInstance(LocalizationFactory::class);
 $charsetConverterGlobals = GeneralUtility::makeInstance(CharsetConverter::class);
 $LocalizationGlobals = GeneralUtility::makeInstance(LocalizationFactory::class);
-PHP
+CODE_SAMPLE
                 ),
             ]
         );

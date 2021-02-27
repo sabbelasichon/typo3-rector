@@ -39,7 +39,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
     {
         return new RuleDefinition(
             'The TCA migration migrates the icon calls to the new output if used as wizard icon',
-            [new CodeSample(<<<'PHP'
+            [new CodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -56,8 +56,8 @@ return [
         ],
     ],
 ];
-PHP
-                    , <<<'PHP'
+CODE_SAMPLE
+                    , <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -74,7 +74,7 @@ return [
         ],
     ],
 ];
-PHP
+CODE_SAMPLE
                 )]);
     }
 

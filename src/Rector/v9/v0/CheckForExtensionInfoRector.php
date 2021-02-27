@@ -49,7 +49,7 @@ final class CheckForExtensionInfoRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Change the extensions to check for info instead of info_pagetsconfig.', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 if(ExtensionManagementUtility::isLoaded('info_pagetsconfig')) {
 
 }
@@ -58,8 +58,8 @@ $packageManager = GeneralUtility::makeInstance(PackageManager::class);
 if($packageManager->isActive('info_pagetsconfig')) {
 
 }
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 
 if(ExtensionManagementUtility::isLoaded('info')) {
 
@@ -69,7 +69,7 @@ $packageManager = GeneralUtility::makeInstance(PackageManager::class);
 if($packageManager->isActive('info')) {
 
 }
-PHP
+CODE_SAMPLE
 ),
         ]);
     }

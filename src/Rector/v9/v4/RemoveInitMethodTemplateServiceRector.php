@@ -44,17 +44,17 @@ final class RemoveInitMethodTemplateServiceRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove method call init of class TemplateService', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $templateService = GeneralUtility::makeInstance(TemplateService::class);
 $templateService->init();
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $templateService = GeneralUtility::makeInstance(TemplateService::class);
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

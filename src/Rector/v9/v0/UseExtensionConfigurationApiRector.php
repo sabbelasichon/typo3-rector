@@ -89,14 +89,14 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
         return new RuleDefinition(
             'Use the new ExtensionConfiguration API instead of $GLOBALS[\'TYPO3_CONF_VARS\'][\'EXT\'][\'extConf\'][\'foo\']',
             [
-                new CodeSample(<<<'PHP'
+                new CodeSample(<<<'CODE_SAMPLE'
 $extensionConfiguration2 = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo'], ['allowed_classes' => false]);
-PHP
-                    , <<<'PHP'
+CODE_SAMPLE
+                    , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $extensionConfiguration2 = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('foo');
-PHP
+CODE_SAMPLE
                 ),
 
             ]);

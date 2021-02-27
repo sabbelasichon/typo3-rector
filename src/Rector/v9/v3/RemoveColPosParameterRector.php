@@ -58,14 +58,14 @@ final class RemoveColPosParameterRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove parameter colPos from methods.', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Remove parameter colPos from methods.', [new CodeSample(<<<'CODE_SAMPLE'
 $someObject = GeneralUtility::makeInstance(LocalizationRepository::class);
 $someObject->fetchOriginLanguage($pageId, $colPos, $localizedLanguage);
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $someObject = GeneralUtility::makeInstance(LocalizationRepository::class);
 $someObject->fetchOriginLanguage($pageId, $localizedLanguage);
-PHP
+CODE_SAMPLE
 )]);
     }
 }

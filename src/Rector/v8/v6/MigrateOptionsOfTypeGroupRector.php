@@ -162,7 +162,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate options if type group in TCA', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Migrate options if type group in TCA', [new CodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [],
     'columns' => [
@@ -177,8 +177,8 @@ return [
         ],
     ],
 ];
-PHP
-            , <<<'PHP'
+CODE_SAMPLE
+            , <<<'CODE_SAMPLE'
 return [
     'ctrl' => [],
     'columns' => [
@@ -196,7 +196,7 @@ return [
         ],
     ],
 ];
-PHP
+CODE_SAMPLE
         )]);
     }
 }

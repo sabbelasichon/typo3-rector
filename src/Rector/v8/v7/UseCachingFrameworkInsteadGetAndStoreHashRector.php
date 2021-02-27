@@ -40,16 +40,16 @@ final class UseCachingFrameworkInsteadGetAndStoreHashRector extends AbstractRect
     {
         return new RuleDefinition(
             'Use the Caching Framework directly instead of methods PageRepository::getHash and PageRepository::storeHash',
-            [new CodeSample(<<<'PHP'
+            [new CodeSample(<<<'CODE_SAMPLE'
 $GLOBALS['TSFE']->sys_page->storeHash('hash', ['foo', 'bar', 'baz'], 'ident');
 $hashContent2 = $GLOBALS['TSFE']->sys_page->getHash('hash');
-PHP
-                    , <<<'PHP'
+CODE_SAMPLE
+                    , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_hash')->set('hash', ['foo', 'bar', 'baz'], ['ident_' . 'ident'], 0);
 $hashContent = GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_hash')->get('hash');
-PHP
+CODE_SAMPLE
                 )]);
     }
 

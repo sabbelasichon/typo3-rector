@@ -51,17 +51,17 @@ final class RequireMethodsToNativeFunctionsRector extends AbstractRector
     {
         return new RuleDefinition('Refactor GeneralUtility::requireOnce and GeneralUtility::requireFile', [
             new CodeSample(
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 GeneralUtility::requireOnce('somefile.php');
 GeneralUtility::requireFile('some_other_file.php');
-PHP
+CODE_SAMPLE
                 ,
-                <<<'PHP'
+                <<<'CODE_SAMPLE'
 require_once 'somefile.php';
 require 'some_other_file.php';
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

@@ -55,19 +55,19 @@ final class UseAddJsFileInsteadOfLoadJavascriptLibRector extends AbstractRector
         return new RuleDefinition(
             'Use method addJsFile of class PageRenderer instead of method loadJavascriptLib of class ModuleTemplate',
             [
-                new CodeSample(<<<'PHP'
+                new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $moduleTemplate = GeneralUtility::makeInstance(ModuleTemplate::class);
 $moduleTemplate->loadJavascriptLib('sysext/backend/Resources/Public/JavaScript/md5.js');
-PHP
-                            , <<<'PHP'
+CODE_SAMPLE
+                            , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $moduleTemplate = GeneralUtility::makeInstance(ModuleTemplate::class);
 GeneralUtility::makeInstance(PageRenderer::class)->addJsFile('sysext/backend/Resources/Public/JavaScript/md5.js');
-PHP
+CODE_SAMPLE
                         ),
 
             ]);

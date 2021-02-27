@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
@@ -27,9 +26,6 @@ final class GeneralUtilityDynamicReturnTypeExtension implements DynamicStaticMet
         return 'makeInstance' === $methodReflection->getName();
     }
 
-    /**
-     * @throws ShouldNotHappenException
-     */
     public function getTypeFromStaticMethodCall(
         MethodReflection $methodReflection,
         StaticCall $methodCall,

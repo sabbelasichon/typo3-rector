@@ -59,19 +59,19 @@ final class RandomMethodsToRandomClassRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Deprecated random generator methods in GeneralUtility', [new CodeSample(
-            <<<'PHP'
+            <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $randomBytes = GeneralUtility::generateRandomBytes();
 $randomHex = GeneralUtility::getRandomHexString();
-PHP
+CODE_SAMPLE
             ,
-            <<<'PHP'
+            <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Crypto\Random;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $randomBytes = GeneralUtility::makeInstance(Random::class)->generateRandomBytes();
 $randomHex = GeneralUtility::makeInstance(Random::class)->generateRandomHexString();
-PHP
+CODE_SAMPLE
         )]);
     }
 }

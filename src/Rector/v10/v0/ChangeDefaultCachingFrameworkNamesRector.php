@@ -66,7 +66,7 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use new default cache names like core instead of cache_core)', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
 $cacheManager->getCache('cache_core');
 $cacheManager->getCache('cache_hash');
@@ -75,8 +75,8 @@ $cacheManager->getCache('cache_pagesection');
 $cacheManager->getCache('cache_runtime');
 $cacheManager->getCache('cache_rootline');
 $cacheManager->getCache('cache_imagesizes');
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
 $cacheManager->getCache('core');
 $cacheManager->getCache('hash');
@@ -85,7 +85,7 @@ $cacheManager->getCache('pagesection');
 $cacheManager->getCache('runtime');
 $cacheManager->getCache('rootline');
 $cacheManager->getCache('imagesizes');
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

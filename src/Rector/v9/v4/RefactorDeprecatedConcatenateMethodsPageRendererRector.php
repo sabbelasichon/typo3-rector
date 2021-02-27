@@ -49,14 +49,14 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Turns method call names to new ones.', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Turns method call names to new ones.', [new CodeSample(<<<'CODE_SAMPLE'
 $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 $files = $someObject->getConcatenateFiles();
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 $files = array_merge($this->getConcatenateCss(), $this->getConcatenateJavascript());
-PHP
+CODE_SAMPLE
 )]);
     }
 

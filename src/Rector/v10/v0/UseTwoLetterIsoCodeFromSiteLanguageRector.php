@@ -75,17 +75,17 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
             'The usage of the propery sys_language_isocode is deprecated. Use method getTwoLetterIsoCode of SiteLanguage',
             [
                 new CodeSample(
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 if ($GLOBALS['TSFE']->sys_language_isocode) {
     $GLOBALS['LANG']->init($GLOBALS['TSFE']->sys_language_isocode);
 }
-PHP
+CODE_SAMPLE
                     ,
-                    <<<'PHP'
+                    <<<'CODE_SAMPLE'
 if ($GLOBALS['TSFE']->getLanguage()->getTwoLetterIsoCode()) {
     $GLOBALS['LANG']->init($GLOBALS['TSFE']->getLanguage()->getTwoLetterIsoCode());
 }
-PHP
+CODE_SAMPLE
                 ),
             ]
         );

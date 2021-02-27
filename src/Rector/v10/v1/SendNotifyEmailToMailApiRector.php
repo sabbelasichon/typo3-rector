@@ -135,10 +135,10 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor ContentObjectRenderer::sendNotifyEmail to MailMessage-API', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $GLOBALS['TSFE']->cObj->sendNotifyEmail("Subject\nMessage", 'max.mustermann@domain.com', 'max.mustermann@domain.com', 'max.mustermann@domain.com');
-PHP
-                , <<<'PHP'
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -164,7 +164,7 @@ if ($message !== '') {
     }
     $success = true;
 }
-PHP
+CODE_SAMPLE
             ),
         ]);
     }

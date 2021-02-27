@@ -49,12 +49,14 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove second argument of GeneralUtility::mkdir_deep()', [new CodeSample(<<<'PHP'
+        return new RuleDefinition('Remove second argument of GeneralUtility::mkdir_deep()', [
+            new CodeSample(<<<'CODE_SAMPLE'
 GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/', 'myfolder');
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/' . 'myfolder');
-PHP
-)]);
+CODE_SAMPLE
+),
+        ]);
     }
 }

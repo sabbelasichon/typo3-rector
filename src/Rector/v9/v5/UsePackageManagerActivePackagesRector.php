@@ -60,12 +60,12 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use PackageManager API instead of $GLOBALS[\'TYPO3_LOADED_EXT\']', [
-            new CodeSample(<<<'PHP'
+            new CodeSample(<<<'CODE_SAMPLE'
 $extensionList = $GLOBALS['TYPO3_LOADED_EXT'];
-PHP
-, <<<'PHP'
+CODE_SAMPLE
+, <<<'CODE_SAMPLE'
 $extensionList = GeneralUtility::makeInstance(PackageManager::class)->getActivePackages();
-PHP
+CODE_SAMPLE
 ),
         ]);
     }

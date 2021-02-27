@@ -17,6 +17,7 @@
     "require-dev": {
         "captainhook/captainhook": "^5.4",
         "captainhook/plugin-composer": "^5.2",
+        "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.0",
         "symplify/coding-standard": "^9.1",
         "symplify/easy-coding-standard": "^9.1",
@@ -25,6 +26,7 @@
     "autoload": {
         "psr-4": {
             "Ssch\\TYPO3Rector\\Compiler\\": "utils/compiler/src",
+            "Ssch\\TYPO3Rector\\ComposerPackages\\": "utils/composer-packages/src",
             "Ssch\\TYPO3Rector\\": "src",
             "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src"
         }
@@ -35,6 +37,7 @@
     "autoload-dev": {
         "psr-4": {
             "Ssch\\TYPO3Rector\\Generator\\": "utils/generator/src",
+            "Ssch\\TYPO3Rector\\ComposerPackages\\Tests\\": "utils/composer-packages/tests",
             "Ssch\\TYPO3Rector\\Tests\\": "tests",
             "Ssch\\TYPO3Rector\\PHPStan\\Tests\\": "utils/phpstan/tests",
             "Ssch\\TYPO3Rector\\Rules\\Tests\\": "utils/rules/tests",
