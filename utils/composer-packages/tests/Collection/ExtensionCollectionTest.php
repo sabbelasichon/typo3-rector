@@ -42,8 +42,8 @@ final class ExtensionCollectionTest extends TestCase
         $this->subject->addExtension($version7);
         $this->subject->addExtension($version5);
 
-        $lowestVersion = $this->subject->findLowestVersion(new Typo3Version('9.5.99'));
+        $lowestVersion = $this->subject->findHighestVersion(new Typo3Version('9.5.99'));
 
-        $this->assertSame($version5, $lowestVersion);
+        $this->assertSame($version7, $lowestVersion);
     }
 }

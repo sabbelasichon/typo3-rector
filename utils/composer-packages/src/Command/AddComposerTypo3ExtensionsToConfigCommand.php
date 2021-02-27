@@ -105,7 +105,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 
             foreach (PackageParser::TYPO3_UPPER_BOUNDS as $version) {
                 $typo3Version = new Typo3Version($version);
-                $extension = $collection->findLowestVersion($typo3Version);
+                $extension = $collection->findHighestVersion($typo3Version);
 
                 if ($extension instanceof ExtensionVersion) {
                     $smartFileInfo = $this->composerConfigurationPathResolver->resolveByTypo3Version($typo3Version);

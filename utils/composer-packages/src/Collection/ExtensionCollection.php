@@ -26,9 +26,9 @@ final class ExtensionCollection implements Countable
         return count($this->extensions);
     }
 
-    public function findLowestVersion(Typo3Version $typo3Version): ?ExtensionVersion
+    public function findHighestVersion(Typo3Version $typo3Version): ?ExtensionVersion
     {
-        $extensions = Semver::sort($this->extensions);
+        $extensions = Semver::rsort($this->extensions);
 
         foreach ($extensions as $extension) {
             if ($extension->supportsVersion($typo3Version)) {
