@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v10\v0;
+namespace Ssch\TYPO3Rector\Tests\Rector\v10\v0\ForceTemplateParsingInTsfeAndTemplateServiceRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
