@@ -5,6 +5,7 @@ $myvariable2 = $GLOBALS['TSFE']->tmpl->forceTemplateParsing;
 
 $GLOBALS['TSFE']->forceTemplateParsing = true;
 $GLOBALS['TSFE']->tmpl->forceTemplateParsing = true;
+$sesCategory = $GLOBALS['TSFE']->fe_user->getKey('ses', 'category');
 
 ?>
 -----
@@ -18,5 +19,6 @@ $myvariable2 = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspe
 
 GeneralUtility::makeInstance(Context::class)->setAspect('typoscript', GeneralUtility::makeInstance(TypoScriptAspect::class, true));
 GeneralUtility::makeInstance(Context::class)->setAspect('typoscript', GeneralUtility::makeInstance(TypoScriptAspect::class, true));
+$sesCategory = $GLOBALS['TSFE']->fe_user->getKey('ses', 'category');
 
 ?>

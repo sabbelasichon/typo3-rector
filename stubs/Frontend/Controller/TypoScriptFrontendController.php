@@ -9,6 +9,7 @@ use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
@@ -133,6 +134,11 @@ final class TypoScriptFrontendController
      */
     public $loginAllowedInBranch = false;
 
+    /**
+     * @var FrontendUserAuthentication
+     */
+    public $fe_user;
+
     public function initTemplate(): void
     {
     }
@@ -151,6 +157,7 @@ final class TypoScriptFrontendController
         $this->sys_language_isocode = 'ch';
         $this->csConvObj = new CharsetConverter();
         $this->cObj = new ContentObjectRenderer();
+        $this->fe_user = new FrontendUserAuthentication();
     }
 
     public function applyHttpHeadersToResponse(): void
