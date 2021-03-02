@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Console;
 
 use Composer\XdebugHandler\XdebugHandler;
+use Jean85\PrettyVersions;
+use OutOfBoundsException;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
 use Rector\Core\Configuration\Configuration;
@@ -28,11 +30,6 @@ final class Application extends SymfonyApplication
     private const NAME = 'TYPO3 Rector';
 
     /**
-     * @var string
-     */
-    private const VERSION = '0.9.9';
-
-    /**
      * @var NoRectorsLoadedReporter
      */
     private $noRectorsLoadedReporter;
@@ -52,7 +49,21 @@ final class Application extends SymfonyApplication
         CommandNaming $commandNaming,
         array $commands = []
     ) {
-        parent::__construct(self::NAME, self::VERSION);
+        try {
+            $typo3RectorVersion = PrettyVersions::getVersion('ssch/typo3-rector')->getPrettyVersion();
+        } catch (OutOfBoundsException $outOfBoundsException) {
+            $typo3RectorVersion = 'Unknown';
+        }
+
+        try {
+            $rectorVersion = $configuration->getPrettyVersion();
+        } catch (OutOfBoundsException $e) {
+            $rectorVersion = 'Unknown';
+        }
+
+        $version = sprintf('%s with Rector %s', $typo3RectorVersion, $rectorVersion);
+
+        parent::__construct(self::NAME, $version);
 
         foreach ($commands as $command) {
             $commandName = $commandNaming->resolveFromCommand($command);
