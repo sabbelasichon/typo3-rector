@@ -22,28 +22,62 @@ final class ExtensionCollectionTest extends TestCase
         $this->subject = new ExtensionCollection();
     }
 
-    public function testAddExtensions(): void
+    /**
+     * @dataProvider extensionsProvider
+     *
+     * @param ExtensionVersion[] $extensions
+     */
+    public function testAddExtensions(
+        array $extensions,
+        ?ExtensionVersion $expectedVersion,
+        Typo3Version $typo3Version
+    ): void {
+        foreach ($extensions as $extension) {
+            $this->subject->addExtension($extension);
+        }
+
+        $extractedVersion = $this->subject->findHighestVersion($typo3Version);
+
+        $this->assertSame($expectedVersion, $extractedVersion);
+    }
+
+    public function extensionsProvider(): array
     {
-        $version5 = new ExtensionVersion(
-            new PackageAndVersion('georgringer/news', '5.0'),
-            [new Typo3Version('8.7.99'), new Typo3Version('9.5.99')]
-        );
-
-        $version7 = new ExtensionVersion(
-            new PackageAndVersion('georgringer/news', '7.0'),
-            [new Typo3Version('9.5.99'), new Typo3Version('10.4.99')]
-        );
-
-        $version6 = new ExtensionVersion(
-            new PackageAndVersion('georgringer/news', '6.0'),
-            [new Typo3Version('9.5.99')]
-        );
-        $this->subject->addExtension($version6);
-        $this->subject->addExtension($version7);
-        $this->subject->addExtension($version5);
-
-        $lowestVersion = $this->subject->findHighestVersion(new Typo3Version('9.5.99'));
-
-        $this->assertSame($version7, $lowestVersion);
+        return [
+            'News Version 7 is selected for TYPO3 version 9.5.99' =>
+                [
+                    [
+                        new ExtensionVersion(
+                            new PackageAndVersion('georgringer/news', '5.0'),
+                            [new Typo3Version('8.7.99'), new Typo3Version('9.5.99')]
+                        ),
+                        new ExtensionVersion(
+                            new PackageAndVersion('georgringer/news', '7.0'),
+                            [new Typo3Version('9.5.99'), new Typo3Version('10.4.99')]
+                        ),
+                        new ExtensionVersion(
+                            new PackageAndVersion('georgringer/news', '6.0'),
+                            [new Typo3Version('9.5.99')]
+                        ),
+                    ],
+                    new ExtensionVersion(
+                        new PackageAndVersion('georgringer/news', '7.0'),
+                        [new Typo3Version('9.5.99'), new Typo3Version('10.4.99')]
+                    ),
+                    new Typo3Version('9.5.99'),
+                ],
+            'None found due to misconfiguration of previous version' =>
+                [
+                    [
+                        new ExtensionVersion(
+                            new PackageAndVersion('foo/bar', '5.0'),
+                            [new Typo3Version('9.5.99'), new Typo3Version('11.0.99')]
+                        ),
+                        new ExtensionVersion(new PackageAndVersion('foo/bar', '7.0'), [new Typo3Version('9.5.99')]),
+                    ],
+                    null,
+                    new Typo3Version('11.0.99'),
+                ],
+        ];
     }
 }

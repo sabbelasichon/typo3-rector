@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\ComposerPackages\ComposerConfigurationPathResolver;
 use Ssch\TYPO3Rector\ComposerPackages\PackageParser;
 use Ssch\TYPO3Rector\ComposerPackages\PackageResolver;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
+use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
 use Symfony\Component\Console\Command\Command;
@@ -61,6 +62,11 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
      */
     private $addPackageVersionRector;
 
+    /**
+     * @var RemovePackageVersionsRector
+     */
+    private $removePackageVersionsRector;
+
     public function __construct(
         PackageResolver $packageResolver,
         VersionParser $versionParser,
@@ -68,7 +74,8 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         ComposerConfigurationPathResolver $composerConfigurationPathResolver,
         SmartFileSystem $smartFileSystem,
         BetterStandardPrinter $betterStandardPrinter,
-        AddPackageVersionRector $addPackageVersionRector
+        AddPackageVersionRector $addPackageVersionRector,
+        RemovePackageVersionsRector $removePackageVersionsRector
     ) {
         parent::__construct();
 
@@ -79,6 +86,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $this->smartFileSystem = $smartFileSystem;
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->addPackageVersionRector = $addPackageVersionRector;
+        $this->removePackageVersionsRector = $removePackageVersionsRector;
     }
 
     protected function configure(): void
@@ -90,7 +98,10 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $typo3Versions = $this->createTypo3Versions();
         $packages = $this->packageResolver->findAllPackagesByType('typo3-cms-extension');
+
+        $this->resetComposerExtensions($typo3Versions);
 
         $progressBar = new ProgressBar($output, count($packages));
 
@@ -103,8 +114,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                 continue;
             }
 
-            foreach (PackageParser::TYPO3_UPPER_BOUNDS as $version) {
-                $typo3Version = new Typo3Version($version);
+            foreach ($typo3Versions as $typo3Version) {
                 $extension = $collection->findHighestVersion($typo3Version);
 
                 if ($extension instanceof ExtensionVersion) {
@@ -144,5 +154,43 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $nameResolverNodeTraverser = new NodeTraverser();
         $nameResolverNodeTraverser->addVisitor(new NameResolver());
         $nameResolverNodeTraverser->traverse($nodes);
+    }
+
+    /**
+     * @return Typo3Version[]
+     */
+    private function createTypo3Versions(): array
+    {
+        $typo3Versions = [];
+        foreach (PackageParser::TYPO3_UPPER_BOUNDS as $version) {
+            $typo3Versions[] = new Typo3Version($version);
+        }
+
+        return $typo3Versions;
+    }
+
+    /**
+     * @param Typo3Version[] $typo3Versions
+     */
+    private function resetComposerExtensions(array $typo3Versions): void
+    {
+        foreach ($typo3Versions as $typo3Version) {
+            $smartFileInfo = $this->composerConfigurationPathResolver->resolveByTypo3Version($typo3Version);
+
+            if (null === $smartFileInfo) {
+                continue;
+            }
+
+            $nodes = $this->parser->parseFileInfo($smartFileInfo);
+            $this->decorateNamesToFullyQualified($nodes);
+
+            $nodeTraverser = new NodeTraverser();
+
+            $nodeTraverser->addVisitor($this->removePackageVersionsRector);
+            $nodes = $nodeTraverser->traverse($nodes);
+
+            $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
+            $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
+        }
     }
 }
