@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\ValueObject;
 
+use Composer\Semver\Semver;
 use Rector\Composer\ValueObject\PackageAndVersion;
 use Stringable;
 use Webmozart\Assert\Assert;
@@ -38,6 +39,11 @@ final class ExtensionVersion implements Stringable
     public function supportsVersion(Typo3Version $typo3Version): bool
     {
         return in_array($typo3Version, $this->typo3Versions, false);
+    }
+
+    public function highestSupportedTypo3Version(): Typo3Version
+    {
+        return Semver::rsort($this->typo3Versions)[0];
     }
 
     public function version(): string
