@@ -58,17 +58,20 @@ final class ValidateAnnotationRector extends AbstractRector
             return null;
         }
         $tagNodes = $phpDocInfo->getTagsByName(self::OLD_ANNOTATION);
-        foreach ($tagNodes as $tagNode) {
-            $explodePatternMultipleValidators = '),';
 
+        foreach ($tagNodes as $tagNode) {
             if (! property_exists($tagNode, 'value')) {
                 continue;
             }
 
-            $validators = explode($explodePatternMultipleValidators, (string) $tagNode->value);
-            if (count($validators) > 1) {
-                $validators[0] .= $explodePatternMultipleValidators;
+            $validators = preg_split('#[,](?![^(]*\))#', (string) $tagNode->value);
+
+            if (! is_array($validators)) {
+                continue;
             }
+
+            $validators = array_map('trim', $validators);
+
             foreach ($validators as $validator) {
                 if ($node instanceof Property) {
                     $phpDocInfo->addPhpDocTagNode($this->createPropertyAnnotation($validator));
