@@ -10,10 +10,10 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\ArrayUtility;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.4/Deprecation-67737-TcaDropAdditionalPalette.html
@@ -102,11 +102,10 @@ final class DropAdditionalPaletteRector extends AbstractRector
                 ) {
                     continue;
                 }
-
-                $itemList = GeneralUtility::trimExplode(',', $showItemValue, true);
+                $itemList = ArrayUtility::trimExplode(',', $showItemValue, true);
                 $newFieldStrings = [];
                 foreach ($itemList as $fieldString) {
-                    $fieldArray = GeneralUtility::trimExplode(';', $fieldString);
+                    $fieldArray = ArrayUtility::trimExplode(';', $fieldString);
                     $fieldArray = [
                         self::FIELD_NAME => $fieldArray[0] ?? '',
                         self::FIELD_LABEL => $fieldArray[1] ?? null,

@@ -10,10 +10,10 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\ArrayUtility;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Breaking-77156-TSconfigAndTStemplateSoftReferencesFunctionalityRemoved.html
@@ -102,7 +102,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                         continue;
                     }
 
-                    $softReferences = array_flip(GeneralUtility::trimExplode(',', $configItemValueValue));
+                    $softReferences = array_flip(ArrayUtility::trimExplode(',', $configItemValueValue));
                     $changed = false;
 
                     if (isset($softReferences['TSconfig'])) {
