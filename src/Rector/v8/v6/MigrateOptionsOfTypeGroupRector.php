@@ -10,10 +10,10 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\ArrayUtility;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.6/Deprecation-79440-TcaChanges.html
@@ -114,7 +114,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                     if ($this->valueResolver->isValue($configItemValue->key, 'disable_controls') && is_string(
                         $configItemValueValue
                     )) {
-                        $controls = GeneralUtility::trimExplode(',', $configItemValueValue, true);
+                        $controls = ArrayUtility::trimExplode(',', $configItemValueValue, true);
                         foreach ($controls as $control) {
                             if ('browser' === $control) {
                                 $addFieldControls['elementBrowser'][self::DISABLED] = true;
