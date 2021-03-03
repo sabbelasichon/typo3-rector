@@ -1,4 +1,4 @@
-# 178 Rules Overview
+# 179 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -840,6 +840,54 @@ Use LocalizationFactory->getParsedData instead of GeneralUtility::readLLfile
  use TYPO3\CMS\Core\Utility\GeneralUtility;
 -$locallangs = GeneralUtility::readLLfile('EXT:foo/locallang.xml', 'de');
 +$locallangs = GeneralUtility::makeInstance(LocalizationFactory::class)->getParsedData('EXT:foo/locallang.xml', 'de');
+```
+
+<br>
+
+## MigrateLastPiecesOfDefaultExtrasRector
+
+Migrate last pieces of default extras
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v6\MigrateLastPiecesOfDefaultExtrasRector`](/src/Rector/v8/v6/MigrateLastPiecesOfDefaultExtrasRector.php)
+
+```diff
+ return [
+             'ctrl' => [],
+             'columns' => [
+                 'constants' => [
+                     'label' => 'Foo',
+                     'config' => [
+                         'type' => 'text',
+                         'cols' => 48,
+                         'rows' => 15,
+-                    ],
+-                    'defaultExtras' => 'rte_only:nowrap:enable-tab:fixed-font'
++                        'wrap' => 'off',
++                        'enableTabulator' => true,
++                        'fixedFont' => true,
++                    ]
+                 ],
+             ],
+             'types' => [
+                 'myType' => [
+                     'columnsOverrides' => [
+                         'constants' => [
+                             'label' => 'Foo',
+                             'config' => [
+                                 'type' => 'text',
+                                 'cols' => 48,
+                                 'rows' => 15,
+-                            ],
+-                            'defaultExtras' => 'rte_only:nowrap:enable-tab:fixed-font'
++                                'wrap' => 'off',
++                                'enableTabulator' => true,
++                                'fixedFont' => true,
++                            ]
+                         ],
+                     ],
+                 ],
+             ],
+         ];
 ```
 
 <br>
