@@ -76,6 +76,22 @@ call_user_func(
     }, ('Form')
 );
 
+call_user_func(function ($extKey) {
+    ExtensionUtility::configurePlugin(
+        'Enw.'.$extKey,
+        'Messages',
+        [
+            'Message' => 'list, show, ajaxReloadTeaserResults',
+        ],
+        // non-cacheable actions
+        [
+            'Message' => 'ajaxReloadTeaserResults',
+        ]
+    );
+},
+    $_EXTKEY
+);
+
 ?>
 -----
 <?php
@@ -154,6 +170,22 @@ call_user_func(
             ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
     }, ('Form')
+);
+
+call_user_func(function ($extKey) {
+    ExtensionUtility::configurePlugin(
+        'TempFixtureEasyTesting',
+        'Messages',
+        [
+            \Enw\TempFixtureEasyTesting\Controller\MessageController::class => 'list, show, ajaxReloadTeaserResults',
+        ],
+        // non-cacheable actions
+        [
+            \Enw\TempFixtureEasyTesting\Controller\MessageController::class => 'ajaxReloadTeaserResults',
+        ]
+    );
+},
+    $_EXTKEY
 );
 
 ?>
