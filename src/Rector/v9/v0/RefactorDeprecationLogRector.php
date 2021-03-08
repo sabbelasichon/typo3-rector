@@ -20,8 +20,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class RefactorDeprecationLogRector extends AbstractRector
 {
     /**
-     * List of nodes this class checks, classes that implements \PhpParser\Node
-     * See beautiful map of all nodes https://github.com/rectorphp/rector/blob/master/docs/NodesOverview.md.
+     * List of nodes this class checks, classes that implements \PhpParser\Node See beautiful map of all nodes
+     * https://github.com/rectorphp/rector/blob/master/docs/NodesOverview.md.
      *
      * @return string[]
      */

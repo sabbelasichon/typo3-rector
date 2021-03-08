@@ -14,8 +14,8 @@ final class StubLoader
     private $areStubsLoaded = false;
 
     /**
-     * Load stubs after composer autoload is loaded + rector "process <src>" is loaded,
-     * so it is loaded only if the classes are really missing.
+     * Load stubs after composer autoload is loaded + rector "process <src>" is loaded, so it is loaded only if the
+     * classes are really missing.
      */
     public function loadStubs(): void
     {

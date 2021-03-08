@@ -118,6 +118,7 @@ final class Typo3RectorKernel extends Kernel implements ExtraConfigAwareKernelIn
 
     /**
      * This allows to use "%vendor%" variables in imports
+     *
      * @param ContainerInterface|ContainerBuilder $container
      */
     protected function getContainerLoader(ContainerInterface $container): DelegatingLoader
