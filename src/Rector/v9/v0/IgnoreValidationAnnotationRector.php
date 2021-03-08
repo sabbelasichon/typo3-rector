@@ -25,6 +25,11 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
     private const OLD_ANNOTATION = 'ignorevalidation';
 
     /**
+     * @var string
+     */
+    private const VERY_OLD_ANNOTATION = 'dontvalidate';
+
+    /**
      * @var PhpDocTagRemover
      */
     private $phpDocTagRemover;
@@ -47,30 +52,17 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        if (null === $phpDocInfo) {
-            return null;
-        }
-        if (! $phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
-            return null;
-        }
-        $tagNode = $phpDocInfo->getTagsByName(self::OLD_ANNOTATION)[0];
 
-        if (! property_exists($tagNode, 'value')) {
+        if (! $phpDocInfo->hasByNames([self::OLD_ANNOTATION, self::VERY_OLD_ANNOTATION])) {
             return null;
         }
 
-        $tagName = '@TYPO3\CMS\Extbase\Annotation\IgnoreValidation("' . ltrim((string) $tagNode->value, '$') . '")';
+        if ($phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
+            return $this->refactorValidation(self::OLD_ANNOTATION, $phpDocInfo, $node);
+        }
 
-        $tag = '@' . ltrim($tagName, '@');
-
-        $attributeAwarePhpDocTagNode = new AttributeAwarePhpDocTagNode($tag, new GenericTagValueNode(''));
-
-        $phpDocInfo->addPhpDocTagNode($attributeAwarePhpDocTagNode);
-
-        $this->phpDocTagRemover->removeByName($phpDocInfo, self::OLD_ANNOTATION);
-        return $node;
+        return $this->refactorValidation(self::VERY_OLD_ANNOTATION, $phpDocInfo, $node);
     }
 
     /**
@@ -100,5 +92,29 @@ CODE_SAMPLE
 ),
             ]
         );
+    }
+
+    private function refactorValidation(
+        string $oldAnnotation,
+        PhpDocInfo $phpDocInfo,
+        ClassMethod $node
+    ): ?ClassMethod {
+        $tagNode = $phpDocInfo->getTagsByName($oldAnnotation)[0];
+
+        if (! property_exists($tagNode, 'value')) {
+            return null;
+        }
+
+        $tagName = '@TYPO3\CMS\Extbase\Annotation\IgnoreValidation("' . ltrim((string) $tagNode->value, '$') . '")';
+
+        $tag = '@' . ltrim($tagName, '@');
+
+        $attributeAwarePhpDocTagNode = new AttributeAwarePhpDocTagNode($tag, new GenericTagValueNode(''));
+
+        $phpDocInfo->addPhpDocTagNode($attributeAwarePhpDocTagNode);
+
+        $this->phpDocTagRemover->removeByName($phpDocInfo, $oldAnnotation);
+
+        return $node;
     }
 }
