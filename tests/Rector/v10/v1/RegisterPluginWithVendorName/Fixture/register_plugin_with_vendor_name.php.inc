@@ -44,6 +44,12 @@ call_user_func(
     'my_package'
 );
 
+ExtensionUtility::registerPlugin(
+    'Enw.PpwEnwProducts',
+    'Search',
+    'Product: Search'
+);
+
 ?>
 -----
 <?php
@@ -90,6 +96,12 @@ call_user_func(
         }
     },
     'my_package'
+);
+
+ExtensionUtility::registerPlugin(
+    'PpwEnwProducts',
+    'Search',
+    'Product: Search'
 );
 
 ?>
