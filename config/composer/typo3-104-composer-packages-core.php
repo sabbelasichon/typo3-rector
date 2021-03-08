@@ -21,6 +21,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'typo3/cms-context-help',
                 'typo3/cms-info-pagetsconfig',
                 'typo3/cms-wizard-crpages',
+                'typo3/cms-rsaauth',
             ],
         ]]
     );
