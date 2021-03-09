@@ -1,0 +1,20 @@
+{
+    "name": "foo/bar",
+    "type": "typo3-cms-extension",
+    "require": {
+        "typo3/cms-core": "^8.7"
+    }
+}
+-----
+{
+    "name": "foo/bar",
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "_temp_fixture_easy_testing"
+        }
+    },
+    "type": "typo3-cms-extension",
+    "require": {
+        "typo3/cms-core": "^9.5"
+    }
+}

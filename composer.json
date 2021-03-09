@@ -41,7 +41,8 @@
             "Ssch\\TYPO3Rector\\Tests\\": "tests",
             "Ssch\\TYPO3Rector\\PHPStan\\Tests\\": "utils/phpstan/tests",
             "Ssch\\TYPO3Rector\\Rules\\Tests\\": "utils/rules/tests",
-            "Ssch\\TYPO3Rector\\Rules\\": "utils/rules/src"
+            "Ssch\\TYPO3Rector\\Rules\\": "utils/rules/src",
+            "Rector\\Composer\\Tests\\": "vendor/rector/rector/rules/composer/tests"
         },
         "exclude-from-classmap": [
             "**.php.inc"
