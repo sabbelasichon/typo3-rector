@@ -1,4 +1,4 @@
-# 179 Rules Overview
+# 181 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -539,6 +539,77 @@ Change parameter `$excludeServiceKeys` explicity to an array
 
 <br>
 
+## ExtEmConfRector
+
+Refactor file ext_emconf.php
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\Rector\General\ExtEmConfRector`](/src/Rector/General/ExtEmConfRector.php)
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+
+    $services->set(ExtEmConfRector::class)
+        ->call('configure', [[ExtEmConfRector::TYPO3_VERSION_CONSTRAINT => '9.5.0-10.4.99', ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder']]]);
+};
+```
+
+↓
+
+```diff
+ $EM_CONF[$_EXTKEY] = [
+     'title' => 'Package Extension',
+     'description' => 'Package Extension',
+     'category' => 'fe',
+-    'shy' => 0,
+     'version' => '2.0.1',
+-    'dependencies' => '',
+-    'conflicts' => '',
+-    'priority' => '',
+-    'loadOrder' => '',
+-    'module' => '',
+     'state' => 'stable',
+-    'uploadfolder' => 0,
+-    'createDirs' => '',
+-    'modify_tables' => '',
+-    'clearcacheonload' => 0,
+-    'lockType' => '',
+     'author' => 'Max Mustrmann',
+     'author_email' => 'max.mustermann@mustermann.de',
+     'author_company' => 'Mustermann GmbH',
+-    'CGLcompliance' => '',
+-    'CGLcompliance_note' => '',
+     'constraints' => [
+         'depends' => [
+             'php' => '5.6.0-0.0.0',
+-            'typo3' => '7.6.0-8.99.99',
++            'typo3' => '9.5.0-10.4.99',
+         ],
+         'conflicts' => [],
+         'suggests' => [],
+     ],
+     'autoload' =>
+         [
+             'psr-4' =>
+                 [
+                     'Foo\\Bar\\' => 'Classes/',
+                 ],
+         ],
+     '_md5_values_when_last_written' => 'a:0:{}',
+ ];
+```
+
+<br>
+
 ## ExtbaseControllerActionsMustReturnResponseInterfaceRector
 
 Extbase controller actions must return ResponseInterface
@@ -556,6 +627,50 @@ Extbase controller actions must return ResponseInterface
          $this->view->assign('foo', 'bar');
 +        return $this->htmlResponse();
      }
+ }
+```
+
+<br>
+
+## ExtensionComposerRector
+
+Add extra extension_key in `composer.json` and add option default constraint
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\Rector\Composer\ExtensionComposerRector`](/src/Rector/Composer/ExtensionComposerRector.php)
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Ssch\TYPO3Rector\Rector\Composer\ExtensionComposerRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+
+    $services->set(ExtensionComposerRector::class)
+        ->call('configure', [[ExtensionComposerRector::TYPO3_VERSION_CONSTRAINT => '^10.4']]);
+};
+```
+
+↓
+
+```diff
+ {
+-    "require": {
+-      "typo3/cms-core": "^9.5"
++   "require": {
++      "typo3/cms-core": "^10.4"
+    },
+-    "extra": {}
++   "extra": {
++      "typo3/cms": {
++         "extension-key": "my_extension"
++      }
++   }
  }
 ```
 
