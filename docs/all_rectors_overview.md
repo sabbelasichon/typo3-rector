@@ -591,8 +591,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
      'constraints' => [
          'depends' => [
              'php' => '5.6.0-0.0.0',
--            'typo3' => '7.6.0-8.99.99',
-+            'typo3' => '9.5.0-10.4.99',
+             'typo3' => '7.6.0-8.99.99',
          ],
          'conflicts' => [],
          'suggests' => [],
