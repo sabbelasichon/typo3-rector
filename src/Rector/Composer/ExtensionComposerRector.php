@@ -6,12 +6,16 @@ namespace Ssch\TYPO3Rector\Rector\Composer;
 
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
+ * @see https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ComposerJson/Index.html#extra
  * @see \Ssch\TYPO3Rector\Tests\Rector\Composer\ExtensionComposerRector\ExtensionComposerRectorTest
  */
-final class ExtensionComposerRector implements ComposerRectorInterface
+final class ExtensionComposerRector implements ComposerRectorInterface, DocumentedRuleInterface
 {
     /**
      * @var string
@@ -59,5 +63,36 @@ final class ExtensionComposerRector implements ComposerRectorInterface
     public function configure(array $configuration): void
     {
         $this->defaultTypo3VersionConstraint = $configuration[self::TYPO3_VERSION_CONSTRAINT] ?? '*';
+    }
+
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Add extra extension_key in `composer.json` and add option default constraint', [new ConfiguredCodeSample(
+            <<<'CODE_SAMPLE'
+{
+    "require": {
+      "typo3/cms-core": "^9.5"
+   },
+    "extra": {}
+}
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+{
+   "require": {
+      "typo3/cms-core": "^10.4"
+   },
+   "extra": {
+      "typo3/cms": {
+         "extension-key": "my_extension"
+      }
+   }
+}
+CODE_SAMPLE
+            , [
+                self::TYPO3_VERSION_CONSTRAINT => '^10.4',
+            ]
+        ),
+        ]);
     }
 }
