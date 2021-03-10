@@ -90,3 +90,45 @@ After your adopt the configuration to your needs, run typo3-rector to simulate (
 ```
 
 Check if everything makes sense and run the process command without the `--dry-run` option to apply the changes.
+
+---
+
+## Use with the --config option
+If the Rector configuration is not in the main directory (e.g. /var/www/html/), the CLI option --config must be added.
+If the CLI option `--config` is used, the paths in the Rector configuration file must be adapted, as this is based on the path of the rector.php file in the standard configuration.
+
+Instead of `__DIR__` the PHP method `getcwd()` must be used. This takes the starting point for the execution of Rector.
+
+### Example with the option --config and custom rector.php location
+The file `rector.php` is located in the directory` /var/www/Build/Apps/` and it is executed
+via` cd /var/www/html/ && ./vendor/bin/typo3-rector process --config ../Build/Apps/rector.php --dry-run`.
+The starting point with the PHP method `getcwd()` is then `/var/www/html/` instead of `/var/www/html/Build/Apps/` with `__DIR__`.
+```php
+$parameters->set(
+    Option::SKIP,
+    [
+        NameImportingPostRector::class => [
+            'ClassAliasMap.php',
+            'ext_localconf.php',
+            'ext_emconf.php',
+            'ext_tables.php',
+            getcwd() . '/**/TCA/*',
+            getcwd() . '/**/Configuration/RequestMiddlewares.php',
+            getcwd() . '/**/Configuration/Commands.php',
+            getcwd() . '/**/Configuration/AjaxRoutes.php',
+            getcwd() . '/**/Configuration/Extbase/Persistence/Classes.php'
+        ]
+    ]
+);
+```
+
+### Example with the option --config and predefined paths in a custom rector.php location
+```php
+// paths to refactor; solid alternative to CLI arguments
+$parameters->set(
+    Option::PATHS,
+    [
+        getcwd() . '/**/acme_demo/'
+    ]
+);
+```
