@@ -94,7 +94,7 @@ Check if everything makes sense and run the process command without the `--dry-r
 ---
 
 ## Use with the --config option
-If the Rector configuration is not in the main directory (e.g. /var/www /html/), the CLI option --config must be added.
+If the Rector configuration is not in the main directory (e.g. /var/www/html/), the CLI option --config must be added.
 If the CLI option `--config` is used, the paths in the Rector configuration file must be adapted, as this is based on the path of the rector.php file in the standard configuration.
 
 Instead of `__DIR__` the PHP method `getcwd()` must be used. This takes the starting point for the execution of Rector.
