@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
+use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\BackendUtilityGetViewDomainToPageRouterRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\ChangeDefaultCachingFrameworkNamesRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\ConfigurationManagerAddControllerConfigurationMethodRector;
@@ -42,4 +43,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseTwoLetterIsoCodeFromSiteLanguageRector::class);
     $services->set(UseControllerClassesInExtbasePluginsAndModulesRector::class);
     $services->set(ChangeDefaultCachingFrameworkNamesRector::class);
+    $services->set(ExtEmConfRector::class)
+        ->call(
+                 'configure',
+                 [[
+                     ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
+                 ]]
+             );
 };
