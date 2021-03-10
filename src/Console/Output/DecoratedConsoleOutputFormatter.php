@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Console\Output;
 
 use Nette\Utils\Strings;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
@@ -178,7 +179,15 @@ final class DecoratedConsoleOutputFormatter implements OutputFormatterInterface
                         $seeTags = $phpDocNode->getTagsByName('@see');
 
                         if (count($seeTags) > 0) {
-                            $appliedRules[$appliedRuleKey] = sprintf('%s (%s)', $rectorClass, $seeTags[0]->value);
+                            $firstSeeTag = array_shift($seeTags);
+
+                            if ($firstSeeTag instanceof PhpDocTagNode) {
+                                $appliedRules[$appliedRuleKey] = sprintf(
+                                    '%s (%s)',
+                                    $rectorClass,
+                                    (string) $firstSeeTag->value
+                                );
+                            }
                         }
                     } catch (ReflectionException $reflectionException) {
                     }
