@@ -260,7 +260,6 @@ $EM_CONF[$_EXTKEY] = [
 ];
 CODE_SAMPLE
             , [
-                self::TYPO3_VERSION_CONSTRAINT => '9.5.0-10.4.99',
                 self::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
             ]),
         ]);
