@@ -11,6 +11,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see __Rst_File__
+ * @see __Name__Test
  */
 final class __Name__ extends AbstractRector
 {
