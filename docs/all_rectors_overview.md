@@ -1,4 +1,4 @@
-# 181 Rules Overview
+# 182 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -2878,6 +2878,34 @@ Substitue `ResourceFactory::getInstance()` through GeneralUtility::makeInstance(
 ```diff
 -$resourceFactory = ResourceFactory::getInstance();
 +$resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
+```
+
+<br>
+
+## SwiftMailerBasedMailMessageToMailerBasedMessageRector
+
+New `Mail` API based on symfony/mailer and symfony/mime
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\SwiftMailerBasedMailMessageToMailerBasedMessageRector`](/src/Rector/v10/v0/SwiftMailerBasedMailMessageToMailerBasedMessageRector.php)
+
+```diff
+-use Swift_Attachment;
+ use TYPO3\CMS\Core\Mail\MailMessage;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+ $mail = GeneralUtility::makeInstance(MailMessage::class);
+
+ $mail
+     ->setSubject('Your subject')
+     ->setFrom(['john@doe.com' => 'John Doe'])
+     ->setTo(['receiver@domain.org', 'other@domain.org' => 'A name'])
+-    ->setBody('Here is the message itself')
+-    ->addPart('<p>Here is the message itself</p>', 'text/html')
+-    ->attach(Swift_Attachment::fromPath('my-document.pdf'))
++    ->text('Here is the message itself')
++    ->html('<p>Here is the message itself</p>')
++    ->attachFromPath('my-document.pdf')
+     ->send();
 ```
 
 <br>
