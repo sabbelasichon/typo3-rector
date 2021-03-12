@@ -50,9 +50,7 @@ final class ExtensionComposerRector implements ComposerRectorInterface, Document
             return;
         }
 
-        $extra['typo3/cms'] = [
-            'extension-key' => basename(dirname($fileInfo->getRealPath())),
-        ];
+        $extra['typo3/cms']['extension-key'] = \basename(\dirname($fileInfo->getRealPath()));
 
         $composerJson->setExtra($extra);
     }
