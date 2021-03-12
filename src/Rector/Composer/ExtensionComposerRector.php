@@ -41,6 +41,7 @@ final class ExtensionComposerRector implements ComposerRectorInterface, Document
         $this->addExtensionKey($composerJson);
         $this->addDescription($composerJson);
         $this->addLicense($composerJson);
+        $this->fixPackageName($composerJson);
     }
 
     /**
@@ -121,5 +122,24 @@ CODE_SAMPLE
         }
 
         $composerJson->setLicense('GPL-2.0-or-later');
+    }
+
+    private function fixPackageName(ComposerJson $composerJson): void
+    {
+        $name = $composerJson->getName();
+
+        if ('' === $name) {
+            return;
+        }
+
+        if (null === $name) {
+            return;
+        }
+
+        if (false === strpos($name, '_')) {
+            return;
+        }
+
+        $composerJson->setName(str_replace('_', '-', $name));
     }
 }
