@@ -1,0 +1,31 @@
+{
+    "name": "foo/bar",
+    "license": "",
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/Web"
+        }
+    },
+    "type": "typo3-cms-extension",
+    "require": {
+        "typo3/cms-core": "^8.7"
+    }
+}
+-----
+{
+    "name": "foo/bar",
+    "license": "GPL-2.0-or-later",
+    "description": "Add description...",
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/Web",
+            "extension-key": "_temp_fixture_easy_testing"
+        }
+    },
+    "type": "typo3-cms-extension",
+    "require": {
+        "typo3/cms-core": "^9.5"
+    }
+}

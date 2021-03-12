@@ -38,21 +38,9 @@ final class ExtensionComposerRector implements ComposerRectorInterface, Document
             $composerJson->changePackageVersion('typo3/cms-core', $this->defaultTypo3VersionConstraint);
         }
 
-        $extra = $composerJson->getExtra();
-
-        if (isset($extra['typo3/cms']['extension-key'])) {
-            return;
-        }
-
-        $fileInfo = $composerJson->getFileInfo();
-
-        if (! $fileInfo instanceof SmartFileInfo) {
-            return;
-        }
-
-        $extra['typo3/cms']['extension-key'] = \basename(\dirname($fileInfo->getRealPath()));
-
-        $composerJson->setExtra($extra);
+        $this->addExtensionKey($composerJson);
+        $this->addDescription($composerJson);
+        $this->addLicense($composerJson);
     }
 
     /**
@@ -92,5 +80,46 @@ CODE_SAMPLE
             ]
         ),
         ]);
+    }
+
+    private function addExtensionKey(ComposerJson $composerJson): void
+    {
+        $extra = $composerJson->getExtra();
+
+        if (isset($extra['typo3/cms']['extension-key'])) {
+            return;
+        }
+
+        $fileInfo = $composerJson->getFileInfo();
+
+        if (! $fileInfo instanceof SmartFileInfo) {
+            return;
+        }
+
+        $extra['typo3/cms']['extension-key'] = \basename(\dirname($fileInfo->getRealPath()));
+
+        $composerJson->setExtra($extra);
+    }
+
+    private function addDescription(ComposerJson $composerJson): void
+    {
+        $description = $composerJson->getDescription();
+
+        if ('' !== $description && null !== $description) {
+            return;
+        }
+
+        $composerJson->setDescription('Add description...');
+    }
+
+    private function addLicense(ComposerJson $composerJson): void
+    {
+        $license = $composerJson->getLicense();
+
+        if ('' !== $license && null !== $license && [] !== $license) {
+            return;
+        }
+
+        $composerJson->setLicense('GPL-2.0-or-later');
     }
 }
