@@ -31,6 +31,7 @@ final class RefactorTCARector extends AbstractRector
         'add' => 'addRecord',
         'list' => 'listModule',
         'link' => 'linkPopup',
+        'RTE' => 'fullScreenRichtext',
     ];
 
     /**
@@ -186,7 +187,7 @@ CODE_SAMPLE
                         continue;
                     }
 
-                    if (! $this->valueResolver->isValues($configItemValue->key, ['wizards', 'RTE'])) {
+                    if (! $this->valueResolver->isValues($configItemValue->key, ['wizards'])) {
                         continue;
                     }
 
@@ -197,11 +198,11 @@ CODE_SAMPLE
                     $fieldControl = [];
                     $customTypeOptions = [];
 
-                    $isRte = $this->valueResolver->isValue($configItemValue->key, 'RTE');
-                    if ($isRte) {
-                        $fieldControl['fullScreenRichtext']['disabled'] = false;
-                    }
-
+//                    $isRte = $this->valueResolver->isValue($configItemValue->key, 'RTE');
+//                    if ($isRte) {
+//                        $fieldControl['fullScreenRichtext']['disabled'] = false;
+//                    }
+//
                     $remainingWizards = count($configItemValue->value->items);
                     foreach ($configItemValue->value->items as $wizardItemValue) {
                         if (null === $wizardItemValue) {
@@ -214,8 +215,7 @@ CODE_SAMPLE
 
                         $validWizard = $this->isValidWizard($wizardItemValue);
                         if ($validWizard ||
-                           Strings::startsWith($this->valueResolver->getValue($wizardItemValue->key), '_') ||
-                           $isRte
+                           Strings::startsWith($this->valueResolver->getValue($wizardItemValue->key), '_')
                         ) {
                             --$remainingWizards;
                         }
