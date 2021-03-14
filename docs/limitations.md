@@ -13,3 +13,9 @@ At the moment typo3-rector is not able to refactor the following things:
 This list does not claim to be exhaustive. There are certainly many other things that typo3-rector cannot yet take on.
 
 Have a look at all the currently [available rules](all_rectors_overview.md)
+
+## Known Drawbacks
+
+### How to Apply Coding Standards?
+
+Rector uses [nikic/php-parser](https://github.com/nikic/PHP-Parser/), built on technology called an *abstract syntax tree* (AST). An AST doesn't know about spaces and when written to a file it produces poorly formatted code in both PHP and docblock annotations. **That's why your project needs to have a coding standard tool** and a set of formatting rules, so it can make Rector's output code nice and shiny again.
