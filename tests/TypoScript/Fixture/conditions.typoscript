@@ -1,0 +1,15 @@
+[globalVar = GP:L = 1]
+    lib.breadcrumb = TEXT
+    lib.breadcrumb.value = Foo
+[else]
+    lib.breadcrumb = TEXT
+    lib.breadcrumb.value = Baz
+[global]
+-----
+[globalVar = GP:L = 2]
+    lib.breadcrumb = TEXT
+    lib.breadcrumb.value = Foo
+[else]
+    lib.breadcrumb = TEXT
+    lib.breadcrumb.value = Baz
+[global]

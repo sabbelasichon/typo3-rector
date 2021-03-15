@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Console\Command;
 
-use Nette\Utils\JsonException;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
@@ -14,14 +13,14 @@ use Rector\Core\Configuration\Option;
 use Rector\Core\Console\Command\AbstractCommand;
 use Rector\Core\Console\Output\OutputFormatterCollector;
 use Rector\Core\FileSystem\FilesFinder;
-use Ssch\TYPO3Rector\Composer\ComposerProcessor;
+use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\ShellCode;
 
-final class ComposerCommand extends AbstractCommand
+final class TypoScriptCommand extends AbstractCommand
 {
     /**
      * @var FilesFinder
@@ -49,9 +48,9 @@ final class ComposerCommand extends AbstractCommand
     private $outputFormatterCollector;
 
     /**
-     * @var ComposerProcessor
+     * @var TypoScriptProcessor
      */
-    private $composerProcessor;
+    private $typoScriptProcessor;
 
     public function __construct(
         AdditionalAutoloader $additionalAutoloader,
@@ -60,7 +59,7 @@ final class ComposerCommand extends AbstractCommand
         ErrorAndDiffCollector $errorAndDiffCollector,
         FilesFinder $phpFilesFinder,
         OutputFormatterCollector $outputFormatterCollector,
-        ComposerProcessor $typoScriptProcessor
+        TypoScriptProcessor $typoScriptProcessor
     ) {
         $this->filesFinder = $phpFilesFinder;
         $this->additionalAutoloader = $additionalAutoloader;
@@ -68,16 +67,16 @@ final class ComposerCommand extends AbstractCommand
         $this->configuration = $configuration;
         $this->outputFormatterCollector = $outputFormatterCollector;
         $this->changedFilesDetector = $changedFilesDetector;
-        $this->composerProcessor = $typoScriptProcessor;
+        $this->typoScriptProcessor = $typoScriptProcessor;
 
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this->setAliases(['composer']);
+        $this->setAliases(['typoscript']);
 
-        $this->setDescription('Upgrade custom composer.json');
+        $this->setDescription('Upgrade TypoScript files');
         $this->addArgument(
             Option::SOURCE,
             InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
@@ -106,21 +105,13 @@ final class ComposerCommand extends AbstractCommand
     {
         $this->configuration->setIsDryRun((bool) $input->getOption(Option::OPTION_DRY_RUN));
         $paths = $this->configuration->getPaths();
-        $commandLinePaths = (array) $input->getArgument(Option::SOURCE);
-        // manual command line value has priority
-        if ([] !== $commandLinePaths) {
-            $paths = $commandLinePaths;
-        }
 
         $this->additionalAutoloader->autoloadWithInputAndSource($input, $paths);
 
-        $composerJsonFiles = $this->filesFinder->findInDirectoriesAndFiles($paths, ['json']);
+        $typoscriptFiles = $this->filesFinder->findInDirectoriesAndFiles($paths, ['typoscript', 'ts', 'txt']);
 
-        foreach ($composerJsonFiles as $composerJsonFile) {
-            try {
-                $this->composerProcessor->process($composerJsonFile->getRealPath());
-            } catch (JsonException $jsonException) {
-            }
+        foreach ($typoscriptFiles as $typoscriptFile) {
+            $this->typoScriptProcessor->process($typoscriptFile->getRealPath());
         }
 
         $outputFormatOption = $input->getOption(Option::OPTION_OUTPUT_FORMAT);

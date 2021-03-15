@@ -7,6 +7,7 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Ssch\TYPO3Rector\Rector\v10\v3\SubstituteResourceFactoryRector;
 use Ssch\TYPO3Rector\Rector\v10\v3\UseClassTypo3VersionRector;
+use Ssch\TYPO3Rector\TypoScript\Conditions\PIDupinRootlineConditionMatcher;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 use TYPO3\CMS\Extbase\Mvc\Request;
@@ -41,4 +42,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]]
     );
+
+    $services->set(PIDupinRootlineConditionMatcher::class);
 };

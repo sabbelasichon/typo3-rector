@@ -23,6 +23,7 @@ use Ssch\TYPO3Rector\Rector\v9\v4\UseLanguageAspectForTsfeLanguagePropertiesRect
 use Ssch\TYPO3Rector\Rector\v9\v4\UseRootlineUtilityInsteadOfGetRootlineMethodRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector;
+use Ssch\TYPO3Rector\TypoScript\Visitors\OldConditionToExpressionLanguageVisitor;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -49,4 +50,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector::class);
     $services->set(UseClassSchemaInsteadReflectionServiceMethodsRector::class);
     $services->set(RemoveMethodsFromEidUtilityAndTsfeRector::class);
+
+    // Old TypoScript syntax to new one
+    $services->set(OldConditionToExpressionLanguageVisitor::class);
 };

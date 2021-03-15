@@ -2,11 +2,20 @@
 
 declare(strict_types=1);
 
+use Helmich\TypoScriptParser\Parser\Parser;
+use Helmich\TypoScriptParser\Parser\ParserInterface;
+use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
+use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
+use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
+use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
+use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Configuration\Option;
 use Ssch\TYPO3Rector\Console\Application;
 use Ssch\TYPO3Rector\Console\Output\DecoratedConsoleOutputFormatter;
 use Symfony\Component\Console\Application as SymfonyApplication;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -31,8 +40,24 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/HttpKernel',
             __DIR__ . '/../src/Compiler',
             __DIR__ . '/../src/ValueObject',
+            __DIR__ . '/../src/TypoScript/Conditions',
+            __DIR__ . '/../src/TypoScript/Visitors',
         ]);
 
     $services->set(DecoratedConsoleOutputFormatter::class)
         ->decorate(ConsoleOutputFormatter::class);
+
+    $services->set(Traverser::class);
+
+    $services->set(Tokenizer::class);
+    $services->alias(TokenizerInterface::class, Tokenizer::class);
+
+    $services->set(PrettyPrinter::class);
+    $services->alias(ASTPrinterInterface::class, PrettyPrinter::class);
+
+    $services->set(Parser::class);
+    $services->alias(ParserInterface::class, Parser::class);
+
+    $services->set(BufferedOutput::class);
+    $services->alias(OutputInterface::class, BufferedOutput::class);
 };
