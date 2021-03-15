@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\Property;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper as CoreAbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -31,10 +33,10 @@ final class UseRenderingContextGetControllerContextRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectTypes($node, [AbstractViewHelper::class, AbstractViewHelper::class])) {
+        if (! $this->isObjectTypes($node, [AbstractViewHelper::class, CoreAbstractViewHelper::class])) {
             return null;
         }
-        $this->removeProperties($node, ['controllerContext']);
+
         $this->replaceWithRenderingContextGetControllerContext($node);
         return null;
     }
@@ -47,8 +49,6 @@ final class UseRenderingContextGetControllerContextRector extends AbstractRector
         return new RuleDefinition('Get controllerContext from renderingContext', [new CodeSample(<<<'CODE_SAMPLE'
 class MyViewHelperAccessingControllerContext extends AbstractViewHelper
 {
-    protected $controllerContext;
-
     public function render()
     {
         $controllerContext = $this->controllerContext;
@@ -77,27 +77,18 @@ CODE_SAMPLE
                 if (! $this->isName($node, 'controllerContext')) {
                     return null;
                 }
+
+                $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+
+                if ($parentNode instanceof Assign && $parentNode->var === $node) {
+                    return null;
+                }
+
                 return $this->nodeFactory->createMethodCall(
                     $this->nodeFactory->createPropertyFetch('this', 'renderingContext'),
                     'getControllerContext'
                 );
             });
         }
-    }
-
-    /**
-     * @param string[] $propertyNames
-     */
-    private function removeProperties(Class_ $class, array $propertyNames): void
-    {
-        $this->traverseNodesWithCallable($class, function (Node $node) use ($propertyNames) {
-            if (! $node instanceof Property) {
-                return null;
-            }
-            if (! $this->isNames($node, $propertyNames)) {
-                return null;
-            }
-            $this->removeNode($node);
-        });
     }
 }
