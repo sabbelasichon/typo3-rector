@@ -1,6 +1,6 @@
 <?php
 
-use Rector\Composer\Rector\ReplacePackageAndVersionComposerRector;
+use Ssch\TYPO3Rector\Rector\Composer\ReplacePackageComposerRector;
 use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
@@ -881,11 +881,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         new ReplacePackage('typo3-ter/yoast-seo', 'yoast-seo-for-typo3/yoast_seo'),
     ];
     $services->set('move')
-        ->class(ReplacePackageAndVersionComposerRector::class)
+        ->class(ReplacePackageComposerRector::class)
         ->call('configure',
         [[
-            ReplacePackageAndVersionComposerRector::REPLACE_PACKAGES_AND_VERSIONS => ValueObjectInliner::inline(
-                $composerExtensions
-            ),
+            ReplacePackageComposerRector::REPLACE_PACKAGES => ValueObjectInliner::inline($composerExtensions),
         ]]);
 };

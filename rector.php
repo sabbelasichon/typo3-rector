@@ -32,7 +32,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
     $parameters->set(
         Option::SKIP,
-        [RemovePackageVersionsRector::class, __DIR__ . '/src/Bootstrap', __DIR__ . '/src/Set', __DIR__ . '/src/Compiler']
+        [
+            RemovePackageVersionsRector::class,
+            __DIR__ . '/src/Bootstrap',
+            __DIR__ . '/src/Set',
+            __DIR__ . '/src/Compiler',
+        ]
     );
 
     $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_73);
