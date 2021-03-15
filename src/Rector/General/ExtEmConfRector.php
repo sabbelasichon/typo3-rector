@@ -272,7 +272,7 @@ CODE_SAMPLE
     {
         $additionalValuesToBeRemoved = $configuration[self::ADDITIONAL_VALUES_TO_BE_REMOVED] ?? [];
         $this->valuesToBeRemoved = array_merge($this->valuesToBeRemoved, $additionalValuesToBeRemoved);
-        $this->targetTypo3VersionConstraint = $configuration[self::TYPO3_VERSION_CONSTRAINT] ? (string) $configuration[self::TYPO3_VERSION_CONSTRAINT] : '';
+        $this->targetTypo3VersionConstraint = isset($configuration[self::TYPO3_VERSION_CONSTRAINT]) ? (string) $configuration[self::TYPO3_VERSION_CONSTRAINT] : '';
     }
 
     private function propertyCanBeRemoved(ArrayItem $item): bool
