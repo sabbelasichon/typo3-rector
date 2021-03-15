@@ -6,11 +6,13 @@ namespace Ssch\TYPO3Rector\ComposerPackages;
 
 use Composer\Semver\Semver;
 use Nette\Utils\Json;
+use Nette\Utils\Strings;
 use Rector\Composer\ValueObject\PackageAndVersion;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ComposerPackage;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
+use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 
 final class ComposerPackageParser implements PackageParser
 {
@@ -55,15 +57,29 @@ final class ComposerPackageParser implements PackageParser
                 continue;
             }
 
+            $replacePackage = null;
+            if (array_key_exists('replace', $package) && is_array($package['replace'])) {
+                foreach ($package['replace'] as $replace => $version) {
+                    if (Strings::startsWith($replace, 'typo3-ter')) {
+                        $replacePackage = new ReplacePackage($replace, (string) $composerPackage);
+                        break;
+                    }
+                }
+            }
+
             $extensionCollection->addExtension(new ExtensionVersion(
                 new PackageAndVersion((string) $composerPackage, $package['version']),
-                $typo3Versions
+                $typo3Versions,
+                $replacePackage
             ));
         }
 
         return $extensionCollection;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function parsePackages(string $content): array
     {
         $json = Json::decode($content, Json::FORCE_ARRAY);

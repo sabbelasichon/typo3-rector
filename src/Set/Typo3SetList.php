@@ -84,6 +84,11 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const COMPOSER_PACKAGES_TER_TO_PACKAGIST = __DIR__ . '/../../config/composer/move_extension_from_ter_to_packagist.php';
+
+    /**
+     * @var string
+     */
     public const COMPOSER_PACKAGES_110_EXTENSIONS = __DIR__ . '/../../config/composer/typo3-110-composer-packages-extensions.php';
 
     /**

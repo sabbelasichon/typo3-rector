@@ -10,4 +10,6 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 interface ComposerConfigurationPathResolver
 {
     public function resolveByTypo3Version(Typo3Version $typo3Version): ?SmartFileInfo;
+
+    public function replacePackages(): ?SmartFileInfo;
 }

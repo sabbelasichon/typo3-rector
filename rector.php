@@ -6,6 +6,7 @@ use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\Set\ValueObject\SetList;
+use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
 use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -29,7 +30,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(AddSeeTestAnnotationRector::class);
 
     $parameters->set(Option::PATHS, [__DIR__ . '/src', __DIR__ . '/tests']);
-    $parameters->set(Option::SKIP, [__DIR__ . '/src/Bootstrap', __DIR__ . '/src/Set', __DIR__ . '/src/Compiler']);
+    $parameters->set(Option::SKIP, [RemovePackageVersionsRector::class, __DIR__ . '/src/Bootstrap', __DIR__ . '/src/Set', __DIR__ . '/src/Compiler']);
 
     $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_73);
     $parameters->set(Option::ENABLE_CACHE, true);

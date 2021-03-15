@@ -29,4 +29,19 @@ final class Typo3SetListComposerConfigurationPathResolver implements ComposerCon
             return null;
         }
     }
+
+    public function replacePackages(): ?SmartFileInfo
+    {
+        $constant = sprintf('%s::COMPOSER_PACKAGES_TER_TO_PACKAGIST', Typo3SetList::class);
+
+        if (! defined($constant)) {
+            return null;
+        }
+
+        try {
+            return new SmartFileInfo(constant($constant));
+        } catch (FileNotFoundException $e) {
+            return null;
+        }
+    }
 }

@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\Collection;
 
+use ArrayIterator;
 use Composer\Semver\Comparator;
 use Composer\Semver\Semver;
 use Composer\Semver\VersionParser;
 use Countable;
+use IteratorAggregate;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
+use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 
-final class ExtensionCollection implements Countable
+final class ExtensionCollection implements Countable, IteratorAggregate
 {
     /**
      * @var VersionParser
@@ -75,5 +78,22 @@ final class ExtensionCollection implements Countable
         }
 
         return $supportedVersion;
+    }
+
+    public function getIterator(): ArrayIterator
+    {
+        return new ArrayIterator($this->extensions);
+    }
+
+    public function getReplacePackages(): array
+    {
+        $replacePackages = [];
+        foreach ($this->extensions as $extension) {
+            $replacePackage = $extension->getReplacePackage();
+            if ($replacePackage instanceof ReplacePackage) {
+                $replacePackages[$replacePackage->getOldPackageName()] = $replacePackage;
+            }
+        }
+        return $replacePackages;
     }
 }
