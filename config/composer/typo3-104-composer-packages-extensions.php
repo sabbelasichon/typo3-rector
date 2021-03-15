@@ -1045,13 +1045,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         new PackageAndVersion('zwo3/newsletter_subscribe', '^3.1.0'),
         new PackageAndVersion('zwo3/onetimesecret', '^1.2.1'),
     ];
+
+    $manualAddedComposerExtensions = [new PackageAndVersion('koehlersimon/slug', '^3.0')];
+
     $services->set('change_composer_json_for_extensions')
         ->class(ChangePackageVersionComposerRector::class)
         ->call(
         'configure',
         [[
             ChangePackageVersionComposerRector::PACKAGES_AND_VERSIONS => ValueObjectInliner::inline(
-                $composerExtensions
+                array_merge($composerExtensions, $manualAddedComposerExtensions)
             ),
         ]]
     );
