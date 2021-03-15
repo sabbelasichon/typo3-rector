@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\ComposerPackages\Tests;
 use PHPUnit\Framework\TestCase;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerPackageParser;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ComposerPackage;
+use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use UnexpectedValueException;
 
 final class ComposerPackageParserTest extends TestCase
@@ -25,6 +26,15 @@ final class ComposerPackageParserTest extends TestCase
     {
         $extensions = $this->subject->parsePackage($this->packageJson(), new ComposerPackage('georgringer/news'));
 
+        $replacePackages = [];
+        foreach ($extensions as $extension) {
+            $replacePackage = $extension->getReplacePackage();
+            if ($replacePackage instanceof ReplacePackage) {
+                $replacePackages[$replacePackage->getOldPackageName()] = $replacePackage;
+            }
+        }
+
+        self::assertArrayHasKey('typo3-ter/news', $replacePackages);
         self::assertCount(8, $extensions);
     }
 

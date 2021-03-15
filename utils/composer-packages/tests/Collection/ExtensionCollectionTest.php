@@ -38,7 +38,11 @@ final class ExtensionCollectionTest extends TestCase
 
         $extractedVersion = $this->subject->findHighestVersion($typo3Version);
 
-        $this->assertSame($expectedVersion, $extractedVersion);
+        if (null === $expectedVersion) {
+            $this->assertNull($extractedVersion);
+        } elseif (null !== $extractedVersion) {
+            $this->assertObjectEquals($expectedVersion, $extractedVersion);
+        }
     }
 
     public function extensionsProvider(): array

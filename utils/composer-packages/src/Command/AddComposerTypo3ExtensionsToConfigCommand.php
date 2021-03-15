@@ -10,10 +10,12 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use Rector\Core\PhpParser\Parser\Parser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerConfigurationPathResolver;
 use Ssch\TYPO3Rector\ComposerPackages\PackageParser;
 use Ssch\TYPO3Rector\ComposerPackages\PackageResolver;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
+use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
@@ -67,6 +69,11 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
      */
     private $removePackageVersionsRector;
 
+    /**
+     * @var AddReplacePackageRector
+     */
+    private $replacePackageRector;
+
     public function __construct(
         PackageResolver $packageResolver,
         VersionParser $versionParser,
@@ -75,7 +82,8 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         SmartFileSystem $smartFileSystem,
         BetterStandardPrinter $betterStandardPrinter,
         AddPackageVersionRector $addPackageVersionRector,
-        RemovePackageVersionsRector $removePackageVersionsRector
+        RemovePackageVersionsRector $removePackageVersionsRector,
+        AddReplacePackageRector $replacePackageRector
     ) {
         parent::__construct();
 
@@ -87,6 +95,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->addPackageVersionRector = $addPackageVersionRector;
         $this->removePackageVersionsRector = $removePackageVersionsRector;
+        $this->replacePackageRector = $replacePackageRector;
     }
 
     protected function configure(): void
@@ -101,7 +110,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $typo3Versions = $this->createTypo3Versions();
         $packages = $this->packageResolver->findAllPackagesByType('typo3-cms-extension');
 
-        $this->resetComposerExtensions($typo3Versions);
+        #$this->resetComposerExtensions($typo3Versions);
 
         $progressBar = new ProgressBar($output, count($packages));
 
@@ -113,6 +122,8 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
             if (0 === count($collection)) {
                 continue;
             }
+
+            $this->addReplacePackages($collection);
 
             foreach ($typo3Versions as $typo3Version) {
                 $extension = $collection->findHighestVersion($typo3Version);
@@ -192,5 +203,26 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
             $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
             $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
         }
+    }
+
+    private function addReplacePackages(ExtensionCollection $collection): void
+    {
+        $smartFileInfo = $this->composerConfigurationPathResolver->replacePackages();
+
+        if (null === $smartFileInfo) {
+            return;
+        }
+
+        $nodes = $this->parser->parseFileInfo($smartFileInfo);
+        $this->decorateNamesToFullyQualified($nodes);
+
+        $nodeTraverser = new NodeTraverser();
+        $this->replacePackageRector->setReplacePackages($collection->getReplacePackages());
+
+        $nodeTraverser->addVisitor($this->replacePackageRector);
+        $nodes = $nodeTraverser->traverse($nodes);
+
+        $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
+        $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
     }
 }
