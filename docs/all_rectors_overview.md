@@ -3514,8 +3514,6 @@ Get controllerContext from renderingContext
 ```diff
  class MyViewHelperAccessingControllerContext extends AbstractViewHelper
  {
--    protected $controllerContext;
--
      public function render()
      {
 -        $controllerContext = $this->controllerContext;
