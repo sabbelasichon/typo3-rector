@@ -1,4 +1,4 @@
-# 183 Rules Overview
+# 184 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -1826,6 +1826,24 @@ Remove CharsetConvertParameters
 -$charsetConvert->utf8_to_numberarray('string', false, false);
 +$charsetConvert->entities_to_utf8('string');
 +$charsetConvert->utf8_to_numberarray('string');
+```
+
+<br>
+
+## RemoveCmsPackageDirFromExtraRector
+
+Change package name in `composer.json`
+
+- class: [`Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraRector`](../src/Rector/Composer/RemoveCmsPackageDirFromExtraRector.php)
+
+```diff
+ {
+     "extra": {
+         "typo3/cms": {
+-            "cms-package-dir": "{$vendor-dir}/typo3/cms"
+         }
+     }
+ }
 ```
 
 <br>
