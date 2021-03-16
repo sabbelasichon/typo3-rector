@@ -1,0 +1,8 @@
+{
+    "name": "foo/bar",
+    "license": "GPL-2.0-or-later",
+    "description": "Add description...",
+    "extra": {
+        "typo3/cms": []
+    }
+}
