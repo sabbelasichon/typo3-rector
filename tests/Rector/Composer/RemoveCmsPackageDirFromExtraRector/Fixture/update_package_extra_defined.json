@@ -1,0 +1,20 @@
+{
+    "name": "foo/bar",
+    "license": "GPL-2.0-or-later",
+    "description": "Add description...",
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms"
+        }
+    }
+}
+-----
+{
+    "name": "foo/bar",
+    "license": "GPL-2.0-or-later",
+    "description": "Add description...",
+    "extra": {
+        "typo3/cms": []
+    }
+}
+

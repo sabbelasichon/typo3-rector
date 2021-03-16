@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
+use Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionVersionRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\FindByPidsAndAuthorIdRector;
@@ -76,4 +77,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorBackendUtilityGetPagesTSconfigRector::class);
     $services->set(UseExtensionConfigurationApiRector::class);
     $services->set(ReplaceExtKeyWithExtensionKeyRector::class);
+    $services->set(RemoveCmsPackageDirFromExtraRector::class);
 };
