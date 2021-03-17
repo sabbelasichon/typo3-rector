@@ -23,6 +23,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'typo3/cms-wizard-crpages',
                 'typo3/cms-wizard-sortpages',
                 'typo3/cms-cshmanual',
+                'typo3/cms-func',
                 'typo3/cms-documentation',
             ],
         ]]

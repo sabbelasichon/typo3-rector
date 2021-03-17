@@ -139,6 +139,11 @@ final class TypoScriptFrontendController
      */
     public $fe_user;
 
+    /**
+     * @var string
+     */
+    public $renderCharset = '';
+
     public function initTemplate(): void
     {
     }
