@@ -55,6 +55,11 @@ final class BackendUtility
 
     }
 
+    public static function thumbCode($row, $table, $field): string
+    {
+        return '';
+    }
+
     public static function shortcutExists(string $url): bool
     {
         return true;
