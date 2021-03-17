@@ -69,7 +69,7 @@ CODE_SAMPLE
 
         foreach (self::MAPPING_OLD_TO_NEW_PATHS as $oldPath => $newPath) {
             $oldPathPrefixed = sprintf('LLL:EXT:%s', $oldPath);
-            if (Strings::startsWith($value, $oldPathPrefixed)) {
+            if (Strings::contains($value, $oldPathPrefixed)) {
                 $newPathPrefixed = sprintf('LLL:EXT:%s', $newPath);
                 return new String_(str_replace($oldPathPrefixed, $newPathPrefixed, $value));
             }
