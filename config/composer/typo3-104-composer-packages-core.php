@@ -17,11 +17,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'configure',
         [[
             RemovePackageComposerRector::PACKAGE_NAMES => [
+                'typo3/cms-rsaauth',
                 'typo3/cms',
                 'typo3/cms-context-help',
                 'typo3/cms-info-pagetsconfig',
                 'typo3/cms-wizard-crpages',
-                'typo3/cms-rsaauth',
+                'typo3/cms-wizard-sortpages',
+                'typo3/cms-cshmanual',
+                'typo3/cms-func',
+                'typo3/cms-documentation',
             ],
         ]]
     );
