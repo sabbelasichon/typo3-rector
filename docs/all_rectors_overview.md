@@ -1,4 +1,4 @@
-# 184 Rules Overview
+# 185 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -2583,6 +2583,19 @@ Rename pi_list_browseresults calls to renderPagination
 ```diff
 -$this->pi_list_browseresults
 +$this->renderPagination
+```
+
+<br>
+
+## RenderCharsetDefaultsToUtf8Rector
+
+The property `$TSFE->renderCharset` is now always set to utf-8
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v0\RenderCharsetDefaultsToUtf8Rector`](../src/Rector/v8/v0/RenderCharsetDefaultsToUtf8Rector.php)
+
+```diff
+-mb_strlen(trim($this->gp[$this->formFieldName]), $GLOBALS['TSFE']->renderCharset) > 0;
++mb_strlen(trim($this->gp[$this->formFieldName]), 'utf-8') > 0;
 ```
 
 <br>
