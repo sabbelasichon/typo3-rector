@@ -1,4 +1,4 @@
-# 185 Rules Overview
+# 186 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -671,6 +671,22 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 +      }
 +   }
  }
+```
+
+<br>
+
+## ExtensionManagementUtilityExtRelPathRector
+
+Substitute `ExtensionManagementUtility::extRelPath()`
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v4\ExtensionManagementUtilityExtRelPathRector`](../src/Rector/v8/v4/ExtensionManagementUtilityExtRelPathRector.php)
+
+```diff
++use TYPO3\CMS\Core\Utility\PathUtility;
+ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+-$relPath = ExtensionManagementUtility::extRelPath('my_extension');
++$relPath = PathUtility::getAbsoluteWebPath(ExtensionManagementUtility::extPath('my_extension'));
 ```
 
 <br>
