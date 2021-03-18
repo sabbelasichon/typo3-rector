@@ -1,4 +1,4 @@
-# 186 Rules Overview
+# 187 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -2899,6 +2899,22 @@ Substitute TYPO3_MODE and TYPO3_REQUESTTYPE constants
 ```diff
 -defined('TYPO3_MODE') or die();
 +defined('TYPO3') or die();
+```
+
+<br>
+
+## SubstituteGeneralUtilityDevLogRector
+
+Substitute `GeneralUtility::devLog()` to Logging API
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\SubstituteGeneralUtilityDevLogRector`](../src/Rector/v9/v0/SubstituteGeneralUtilityDevLogRector.php)
+
+```diff
++use TYPO3\CMS\Core\Log\LogLevel;
++use TYPO3\CMS\Core\Log\LogManager;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-GeneralUtility::devLog('message', 'foo', 0, $data);
++GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(LogLevel::INFO, 'message', $data);
 ```
 
 <br>
