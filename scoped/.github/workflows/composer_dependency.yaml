@@ -45,6 +45,6 @@ jobs:
             -   run: |
                     cd standalone
                     # run
-                    composer require ssch/typo3-rector-prefixed:dev-master --dev --ansi
+                    composer require ssch/typo3-rector-prefixed:dev-main --dev --ansi
                     composer require symfony/console ${{ matrix.symfony_version }}
                     vendor/bin/typo3-rector --debug --ansi

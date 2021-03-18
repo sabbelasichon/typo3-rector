@@ -30,7 +30,7 @@ jobs:
             -   run: |
                     cd standalone
                     # run
-                    composer require ssch/typo3-rector-prefixed:dev-master --dev --ansi
+                    composer require ssch/typo3-rector-prefixed:dev-main --dev --ansi
                     composer require doctrine/orm
 
             -
