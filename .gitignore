@@ -7,6 +7,7 @@
 !/.gitattributes
 !/.editorconfig
 !.gitkeep
+!.phpstorm.meta.php
 .code
 .class-alias-map-generator
 .tca-migrations-generator

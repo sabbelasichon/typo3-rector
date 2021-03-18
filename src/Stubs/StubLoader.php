@@ -26,6 +26,7 @@ final class StubLoader
         $stubDirectory = __DIR__ . '/../../stubs';
 
         $robotLoader = new RobotLoader();
+        $robotLoader->acceptFiles = ['*.php', '*.stub'];
         $robotLoader->addDirectory($stubDirectory);
         $robotLoader->setTempDirectory(sys_get_temp_dir() . '/_typo3_rector_stubs');
         $robotLoader->register();
