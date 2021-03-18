@@ -14,4 +14,9 @@ final class PathUtility
     {
         return $path;
     }
+
+    public static function getAbsoluteWebPath($path)
+    {
+        return $path;
+    }
 }
