@@ -10,6 +10,12 @@ if (class_exists(GeneralUtility::class)) {
 
 class GeneralUtility
 {
+    const SYSLOG_SEVERITY_INFO = 0;
+    const SYSLOG_SEVERITY_NOTICE = 1;
+    const SYSLOG_SEVERITY_WARNING = 2;
+    const SYSLOG_SEVERITY_ERROR = 3;
+    const SYSLOG_SEVERITY_FATAL = 4;
+
     public static function getApplicationContext(): void
     {
     }
@@ -236,5 +242,10 @@ class GeneralUtility
     public static function uniqueList($in_list, $secondParameter = null)
     {
         return [];
+    }
+
+    public static function devLog($msg, $extKey, $severity = 0, $dataVar = false)
+    {
+
     }
 }

@@ -23,13 +23,13 @@ use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteGeneralUtilityDevLogRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseExtensionConfigurationApiRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
@@ -46,6 +46,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
                 'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
                 'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
+
             ],
         ]]
     );
@@ -69,7 +70,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'configure',
         [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename(GeneralUtility::class, 'getUserObj', 'makeInstance'),
+                new MethodCallRename(\TYPO3\CMS\Core\Utility\GeneralUtility::class, 'getUserObj', 'makeInstance'),
             ]),
         ]]
     );
@@ -78,4 +79,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseExtensionConfigurationApiRector::class);
     $services->set(ReplaceExtKeyWithExtensionKeyRector::class);
     $services->set(RemoveCmsPackageDirFromExtraRector::class);
+    $services->set(SubstituteGeneralUtilityDevLogRector::class);
 };
