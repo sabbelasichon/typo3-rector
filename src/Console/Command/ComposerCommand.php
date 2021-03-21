@@ -106,6 +106,11 @@ final class ComposerCommand extends AbstractCommand
     {
         $this->configuration->setIsDryRun((bool) $input->getOption(Option::OPTION_DRY_RUN));
         $paths = $this->configuration->getPaths();
+        $commandLinePaths = (array) $input->getArgument(Option::SOURCE);
+        // manual command line value has priority
+        if ([] !== $commandLinePaths) {
+            $paths = $commandLinePaths;
+        }
 
         $this->additionalAutoloader->autoloadWithInputAndSource($input, $paths);
 

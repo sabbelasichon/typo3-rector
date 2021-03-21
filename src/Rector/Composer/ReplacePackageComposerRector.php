@@ -67,7 +67,7 @@ CODE_SAMPLE
 }
 CODE_SAMPLE
             , [
-                self::REPLACE_PACKAGES => [new ReplacePackage('typo3-ter/news', 'georgringer/news', )],
+                self::REPLACE_PACKAGES => [new ReplacePackage('typo3-ter/news', 'georgringer/news',)],
             ]
         ),
         ]);
