@@ -37,7 +37,7 @@ final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends Abstra
             return null;
         }
 
-        if (! $this->isNames($node->name, ['setBody', 'addPart', 'attach'])) {
+        if (! $this->isNames($node->name, ['setBody', 'addPart', 'attach', 'embed'])) {
             return null;
         }
 
@@ -49,7 +49,11 @@ final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends Abstra
             return $this->refactorMethodAddPart($node);
         }
 
-        return $this->refactorAttachMethod($node);
+        if ($this->isName($node->name, 'attach')) {
+            return $this->refactorAttachMethod($node);
+        }
+
+        return $this->refactorEmbedMethod($node);
     }
 
     /**
@@ -156,6 +160,31 @@ CODE_SAMPLE
         }
 
         $node->name = new Identifier('attachFromPath');
+        $node->args = $this->nodeFactory->createArgs($firstArgument->args);
+
+        return $node;
+    }
+
+    private function refactorEmbedMethod(MethodCall $node): ?Node
+    {
+        $firstArgument = $node->args[0]->value;
+
+        if (! $firstArgument instanceof StaticCall) {
+            return null;
+        }
+
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $firstArgument,
+            \Swift_Image::class
+        )) {
+            return null;
+        }
+
+        if (! $this->isName($firstArgument->name, 'fromPath')) {
+            return null;
+        }
+
+        $node->name = new Identifier('embedFromPath');
         $node->args = $this->nodeFactory->createArgs($firstArgument->args);
 
         return $node;
