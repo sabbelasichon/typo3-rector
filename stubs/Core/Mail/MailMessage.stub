@@ -48,6 +48,16 @@ final class MailMessage
         return $this;
     }
 
+    public function embed($embed): self
+    {
+        return $this;
+    }
+
+    public function embedFromPath($embed): self
+    {
+        return $this;
+    }
+
     public function attachFromPath(string $path, string $name = null, string $contentType = null): self
     {
         return $this;
