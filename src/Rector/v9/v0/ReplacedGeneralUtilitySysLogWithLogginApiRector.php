@@ -17,9 +17,9 @@ use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-52694-DeprecatedGeneralUtilitydevLog.html
+ * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82430-ReplacedGeneralUtilitysysLogWithLoggingAPI.html
  */
-final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
+final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRector
 {
     /**
      * @var OldSeverityToLogLevelMapper
@@ -48,7 +48,12 @@ final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
             return null;
         }
 
-        if (! $this->isName($node->name, 'devLog')) {
+        if (! $this->isNames($node->name, ['initSysLog', 'sysLog'])) {
+            return null;
+        }
+
+        if ($this->isName($node->name, 'initSysLog')) {
+            $this->removeNode($node);
             return null;
         }
 
@@ -69,7 +74,6 @@ final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
         $args[] = $severity;
 
         $args[] = $node->args[0] ?? $this->nodeFactory->createArg(new String_(''));
-        $args[] = $node->args[3] ?? $this->nodeFactory->createArg(new String_(''));
 
         return $this->nodeFactory->createMethodCall($loggerCall, 'log', $args);
     }
@@ -79,18 +83,17 @@ final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Substitute GeneralUtility::devLog() to Logging API', [
-            new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Replaced GeneralUtility::sysLog with Logging API', [new CodeSample(<<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-GeneralUtility::devLog('message', 'foo', 0, $data);
+GeneralUtility::initSysLog();
+GeneralUtility::sysLog('message', 'foo', 0);
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
-use TYPO3\CMS\Core\Log\LogLevel;
+        , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Log\LogManager;
+use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(LogLevel::INFO, 'message', $data);
+GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(LogLevel::INFO, 'message');
 CODE_SAMPLE
-            ),
-        ]);
+        )]);
     }
 }
