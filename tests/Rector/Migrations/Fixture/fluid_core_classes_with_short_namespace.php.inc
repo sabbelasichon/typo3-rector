@@ -1,6 +1,8 @@
 <?php
 
-final class MySpecialViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+
+final class MySpecialViewHelper extends AbstractViewHelper
 {
 
 }
@@ -10,7 +12,10 @@ final class MySpecialViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\Abstrac
 <?php
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 final class MySpecialViewHelper extends AbstractViewHelper
 {
 
 }
+
+?>
