@@ -248,4 +248,14 @@ class GeneralUtility
     {
 
     }
+
+    public static function sysLog($msg, $extKey, $severity = 0)
+    {
+
+    }
+
+    public static function initSysLog()
+    {
+
+    }
 }
