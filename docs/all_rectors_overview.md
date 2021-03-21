@@ -1,4 +1,4 @@
-# 187 Rules Overview
+# 188 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -2706,6 +2706,23 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 +        "georgringer/news": "^8.0"
      }
  }
+```
+
+<br>
+
+## ReplacedGeneralUtilitySysLogWithLogginApiRector
+
+Replaced GeneralUtility::sysLog with Logging API
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\ReplacedGeneralUtilitySysLogWithLogginApiRector`](../src/Rector/v9/v0/ReplacedGeneralUtilitySysLogWithLogginApiRector.php)
+
+```diff
++use TYPO3\CMS\Core\Log\LogManager;
++use TYPO3\CMS\Core\Log\LogLevel;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-GeneralUtility::initSysLog();
+-GeneralUtility::sysLog('message', 'foo', 0);
++GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(LogLevel::INFO, 'message');
 ```
 
 <br>
