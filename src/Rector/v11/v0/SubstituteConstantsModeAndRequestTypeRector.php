@@ -49,7 +49,7 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
             return null;
         }
 
-        if ($this->isFuncCallName($node, 'defined')) {
+        if ($this->nodeNameResolver->isFuncCallName($node, 'defined')) {
             return $this->refactorProbablySecurityGate($node);
         }
 

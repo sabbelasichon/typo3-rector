@@ -81,7 +81,8 @@ final class ValidateAnnotationRector extends AbstractRector
             }
         }
         $this->phpDocTagRemover->removeByName($phpDocInfo, self::OLD_ANNOTATION);
-        return $node;
+
+        return null;
     }
 
     /**
