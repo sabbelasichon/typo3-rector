@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\Composer;
 
-use Rector\Composer\Contract\Rector\ComposerRectorInterface;
+use Ssch\TYPO3Rector\Composer\ExtensionComposerRectorInterface;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -15,7 +15,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
  * @see https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ComposerJson/Index.html#extra
  * @see \Ssch\TYPO3Rector\Tests\Rector\Composer\ExtensionComposerRector\ExtensionComposerRectorTest
  */
-final class ExtensionComposerRector implements ComposerRectorInterface, DocumentedRuleInterface
+final class ExtensionComposerRector implements ExtensionComposerRectorInterface, DocumentedRuleInterface
 {
     /**
      * @var string
