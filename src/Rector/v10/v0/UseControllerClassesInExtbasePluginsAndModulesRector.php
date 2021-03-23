@@ -12,11 +12,11 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Ssch\TYPO3Rector\Helper\Strings;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
-use UnexpectedValueException;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-87550-UseControllerClassesWhenRegisteringPluginsmodules.html
@@ -66,7 +66,7 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
         }
 
         $vendorName = $this->prepareVendorName($extensionName, $delimiterPosition);
-        $extensionName = $this->prepareExtensionName($extensionName, $delimiterPosition);
+        $extensionName = Strings::prepareExtensionName($extensionName, $delimiterPosition);
 
         if ('' === $extensionName) {
             return null;
@@ -189,19 +189,6 @@ CODE_SAMPLE
         }
 
         return true;
-    }
-
-    private function prepareExtensionName(string $extensionName, int $delimiterPosition): string
-    {
-        $extensionName = substr($extensionName, $delimiterPosition + 1);
-
-        $underScoredExtensionName = preg_replace('#[A-Z]#', '_\\0', lcfirst($extensionName));
-
-        if (! is_string($underScoredExtensionName)) {
-            throw new UnexpectedValueException('The extension name could not be parsed');
-        }
-
-        return str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($underScoredExtensionName))));
     }
 
     private function prepareVendorName(string $extensionName, int $delimiterPosition): string

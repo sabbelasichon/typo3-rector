@@ -16,6 +16,7 @@ $filePathsToSkip = [
     'vendor/symfony/deprecation-contracts/function.php',
     'stubs/SolrPhpClient/Apache_Solr_Document.php',
     'stubs/SolrPhpClient/Apache_Solr_Response.php',
+    'src/Helper/Strings.php',
 ];
 
 // remove phpstan, because it is already prefixed in its own scope
