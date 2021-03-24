@@ -25,6 +25,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'typo3/cms-cshmanual',
                 'typo3/cms-func',
                 'typo3/cms-documentation',
+                'dmitryd/typo3-realurl',
+                'typo3-ter/typo3-realurl',
             ],
         ]]
     );
@@ -73,6 +75,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new PackageAndVersion('typo3/cms-tstemplate', '^9.5'),
                 new PackageAndVersion('typo3/cms-viewpage', '^9.5'),
                 new PackageAndVersion('typo3/cms-workspaces', '^9.5'),
+                new PackageAndVersion('helhum/typo3-console', '^5.0'),
+                new PackageAndVersion('helhum/dotenv-connector', '^3.0'),
+                new PackageAndVersion('helhum/typo3-secure-web', '^0.3.0'),
+                new PackageAndVersion('typo3-console/composer-typo3-auto-install', '^0.3.0'),
             ]),
         ]]
     );
