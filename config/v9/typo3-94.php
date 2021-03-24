@@ -11,6 +11,7 @@ use Ssch\TYPO3Rector\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRect
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodGraphicalFunctionsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodTemplateServiceRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitTemplateMethodCallRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\RemoveMethodsFromEidUtilityAndTsfeRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\TemplateGetFileNameToFilePathSanitizerRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseAddJsFileInsteadOfLoadJavascriptLibRector;
@@ -47,4 +48,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(TemplateGetFileNameToFilePathSanitizerRector::class);
     $services->set(UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector::class);
     $services->set(UseClassSchemaInsteadReflectionServiceMethodsRector::class);
+    $services->set(RemoveMethodsFromEidUtilityAndTsfeRector::class);
 };
