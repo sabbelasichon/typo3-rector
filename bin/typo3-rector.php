@@ -17,7 +17,7 @@ use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 @ini_set('memory_limit', '-1');
 
 // Performance boost
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 'stderr');
 gc_disable();
 
