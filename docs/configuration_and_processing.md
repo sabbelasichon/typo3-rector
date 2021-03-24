@@ -123,6 +123,7 @@ $parameters->set(
 ```
 
 ### Example with the option --config and predefined paths in a custom rector.php location
+In order to process the source files of only one TYPO3 extension it's recommended to defined said extension's path via the `Option::PATHS` parameter within the config file:
 ```php
 // paths to refactor; solid alternative to CLI arguments
 $parameters->set(
