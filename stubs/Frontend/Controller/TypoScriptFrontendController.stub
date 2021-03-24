@@ -235,4 +235,28 @@ final class TypoScriptFrontendController
     public function setContentType($contentType): void
     {
     }
+
+    public function initFEuser(): void
+    {
+    }
+
+    public function storeSessionData(): void
+    {
+    }
+
+    public function previewInfo(): void
+    {
+    }
+
+    public function hook_eofe(): void
+    {
+    }
+
+    public function addTempContentHttpHeaders(): void
+    {
+    }
+
+    public function sendCacheHeaders(): void
+    {
+    }
 }
