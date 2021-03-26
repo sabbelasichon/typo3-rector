@@ -78,8 +78,14 @@ final class RemoveMethodsFromEidUtilityAndTsfeRector extends AbstractRector
     {
         return new RuleDefinition('Remove EidUtility and various TSFE methods', [
             new CodeSample(<<<'CODE_SAMPLE'
+use TYPO3\CMS\Frontend\Utility\EidUtility;
+EidUtility::initExtensionTCA('foo');
+EidUtility::initFeUser();
+EidUtility::initLanguage();
+EidUtility::initTCA();
 CODE_SAMPLE
                 , <<<'CODE_SAMPLE'
+''
 CODE_SAMPLE
             ),
         ]);
