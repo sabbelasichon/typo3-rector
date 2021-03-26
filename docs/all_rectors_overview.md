@@ -1,4 +1,4 @@
-# 188 Rules Overview
+# 189 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -2226,6 +2226,23 @@ Remove superfluous EidUtility::initTCA call
 ```diff
 -use TYPO3\CMS\Frontend\Utility\EidUtility;
 -EidUtility::initTCA();
+```
+
+<br>
+
+## RemoveMethodsFromEidUtilityAndTsfeRector
+
+Remove EidUtility and various TSFE methods
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\RemoveMethodsFromEidUtilityAndTsfeRector`](../src/Rector/v9/v4/RemoveMethodsFromEidUtilityAndTsfeRector.php)
+
+```diff
+-use TYPO3\CMS\Frontend\Utility\EidUtility;
+-EidUtility::initExtensionTCA('foo');
+-EidUtility::initFeUser();
+-EidUtility::initLanguage();
+-EidUtility::initTCA();
++''
 ```
 
 <br>
