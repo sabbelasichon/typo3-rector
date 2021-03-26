@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v6;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
@@ -155,6 +156,9 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                             }
                         }
                     }
+                } elseif ($configValue->value instanceof StaticCall) {
+                    $addAllowLanguageSynchronization = false;
+                    break;
                 }
             }
 
@@ -167,6 +171,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                 $hasAstBeenChanged = true;
             }
         }
+
         return $hasAstBeenChanged ? $node : null;
     }
 

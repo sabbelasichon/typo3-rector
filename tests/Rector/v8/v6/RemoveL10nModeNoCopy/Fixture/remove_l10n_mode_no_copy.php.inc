@@ -2,6 +2,8 @@
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\RemoveL10nModeNoCopy\Fixture;
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 return [
     'ctrl' => [],
     'columns' => [
@@ -42,6 +44,12 @@ return [
                 ]
             ],
         ],
+        'image' => [
+            'exclude' => 1,
+            'l10n_mode' => 'mergeIfNotBlank',
+            'label' => 'Bar',
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig('pictures', [], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
+        ]
     ],
 ];
 
@@ -50,6 +58,8 @@ return [
 <?php
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\RemoveL10nModeNoCopy\Fixture;
+
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 return [
     'ctrl' => [],
@@ -86,6 +96,11 @@ return [
                 'behaviour' => ['allowLanguageSynchronization' => true]
             ],
         ],
+        'image' => [
+            'exclude' => 1,
+            'label' => 'Bar',
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig('pictures', [], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'])
+        ]
     ],
 ];
 
