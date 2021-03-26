@@ -30,6 +30,7 @@ $GLOBALS['LANG'] = new LanguageService();
 $GLOBALS['TYPO3_LOADED_EXT'] = [];
 $GLOBALS['PARSETIME_START'] = time();
 $GLOBALS['TYPO3_MISC']['microtime_start'] = microtime();
+$GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'] = 'jpg, gif';
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'] = 'dbname';
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['user'] = 'user';
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = 'password';
