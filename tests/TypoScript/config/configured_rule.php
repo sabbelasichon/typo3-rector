@@ -2,8 +2,13 @@
 
 declare(strict_types=1);
 
+use Ssch\TYPO3Rector\TypoScript\Conditions\GlobalVarConditionMatcher;
+use Ssch\TYPO3Rector\TypoScript\Visitors\OldConditionToExpressionLanguageVisitor;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../../../config/services.php');
+    $services = $containerConfigurator->services();
+    $services->set(GlobalVarConditionMatcher::class);
+    $services->set(OldConditionToExpressionLanguageVisitor::class);
 };

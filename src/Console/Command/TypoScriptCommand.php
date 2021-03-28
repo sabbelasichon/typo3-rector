@@ -19,6 +19,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\ShellCode;
+use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class TypoScriptCommand extends AbstractCommand
 {
@@ -52,6 +53,11 @@ final class TypoScriptCommand extends AbstractCommand
      */
     private $typoScriptProcessor;
 
+    /**
+     * @var SmartFileSystem
+     */
+    private $smartFileSystem;
+
     public function __construct(
         AdditionalAutoloader $additionalAutoloader,
         ChangedFilesDetector $changedFilesDetector,
@@ -59,7 +65,8 @@ final class TypoScriptCommand extends AbstractCommand
         ErrorAndDiffCollector $errorAndDiffCollector,
         FilesFinder $phpFilesFinder,
         OutputFormatterCollector $outputFormatterCollector,
-        TypoScriptProcessor $typoScriptProcessor
+        TypoScriptProcessor $typoScriptProcessor,
+        SmartFileSystem $smartFileSystem
     ) {
         $this->filesFinder = $phpFilesFinder;
         $this->additionalAutoloader = $additionalAutoloader;
@@ -68,6 +75,7 @@ final class TypoScriptCommand extends AbstractCommand
         $this->outputFormatterCollector = $outputFormatterCollector;
         $this->changedFilesDetector = $changedFilesDetector;
         $this->typoScriptProcessor = $typoScriptProcessor;
+        $this->smartFileSystem = $smartFileSystem;
 
         parent::__construct();
     }
@@ -111,7 +119,11 @@ final class TypoScriptCommand extends AbstractCommand
         $typoscriptFiles = $this->filesFinder->findInDirectoriesAndFiles($paths, ['typoscript', 'ts', 'txt']);
 
         foreach ($typoscriptFiles as $typoscriptFile) {
-            $this->typoScriptProcessor->process($typoscriptFile->getRealPath());
+            $typoScriptContent = $this->typoScriptProcessor->process($typoscriptFile->getRealPath());
+
+            if (! $this->configuration->isDryRun() && null !== $typoScriptContent) {
+                $this->smartFileSystem->dumpFile($typoscriptFile->getPathname(), $typoScriptContent);
+            }
         }
 
         $outputFormatOption = $input->getOption(Option::OPTION_OUTPUT_FORMAT);

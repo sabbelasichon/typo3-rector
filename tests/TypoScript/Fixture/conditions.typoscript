@@ -1,4 +1,4 @@
-[globalVar = GP:L = 1]
+[globalVar = GP:L = 2]
     lib.breadcrumb = TEXT
     lib.breadcrumb.value = Foo
 [else]
@@ -6,10 +6,11 @@
     lib.breadcrumb.value = Baz
 [global]
 -----
-[globalVar = GP:L = 2]
-    lib.breadcrumb = TEXT
-    lib.breadcrumb.value = Foo
+
+[siteLanguage("languageId") == "2"]
+lib.breadcrumb = TEXT
+lib.breadcrumb.value = Foo
 [else]
-    lib.breadcrumb = TEXT
-    lib.breadcrumb.value = Baz
+lib.breadcrumb = TEXT
+lib.breadcrumb.value = Baz
 [global]

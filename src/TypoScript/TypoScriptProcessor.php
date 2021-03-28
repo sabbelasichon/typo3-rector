@@ -10,11 +10,13 @@ use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
-use Rector\Core\Configuration\Configuration;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
+/**
+ * @see \Ssch\TYPO3Rector\Tests\TypoScript\TypoScriptProcessorTest
+ */
 final class TypoScriptProcessor
 {
     /**
@@ -48,11 +50,6 @@ final class TypoScriptProcessor
     private $errorAndDiffCollector;
 
     /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    /**
      * @param Visitor[] $visitors
      */
     public function __construct(
@@ -61,7 +58,6 @@ final class TypoScriptProcessor
         BufferedOutput $output,
         ASTPrinterInterface $typoscriptPrinter,
         ErrorAndDiffCollector $errorAndDiffCollector,
-        Configuration $configuration,
         array $visitors = []
     ) {
         $this->smartFileSystem = $smartFileSystem;
@@ -72,13 +68,12 @@ final class TypoScriptProcessor
         $this->visitors = $visitors;
 
         $this->errorAndDiffCollector = $errorAndDiffCollector;
-        $this->configuration = $configuration;
     }
 
-    public function process(string $typoScriptFilePath): void
+    public function process(string $typoScriptFilePath): ?string
     {
         if (! $this->smartFileSystem->exists($typoScriptFilePath)) {
-            return;
+            return null;
         }
 
         $smartFileInfo = new SmartFileInfo($typoScriptFilePath);
@@ -102,13 +97,9 @@ final class TypoScriptProcessor
                 $smartFileInfo->getContents()
             );
 
-            if ($this->configuration->isDryRun()) {
-                return;
-            }
-
-            $this->smartFileSystem->dumpFile($smartFileInfo->getPathname(), $typoScriptContent);
+            return $typoScriptContent;
         } catch (TokenizerException $tokenizerException) {
-            return;
+            return null;
         }
     }
 }

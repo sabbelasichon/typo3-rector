@@ -55,7 +55,7 @@ final class TypoScriptProcessorTest extends AbstractKernelTestCase implements Co
 
         $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
 
-        $this->typoScriptProcessor->process($smartFileInfo->getRealPath());
+        $changedTypoScript = $this->typoScriptProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
         $this->assertSame($inputFileInfoAndExpected->getExpected(), $changedTypoScript);
     }
 }
