@@ -10,6 +10,7 @@ use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\Processor\ProcessorInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -17,8 +18,13 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Ssch\TYPO3Rector\Tests\TypoScript\TypoScriptProcessorTest
  */
-final class TypoScriptProcessor implements ProcessorInterface
+final class TypoScriptProcessor implements ProcessorInterface, ConfigurableProcessorInterface
 {
+    /**
+     * @var string
+     */
+    private const ALLOWED_FILE_EXTENSIONS = 'allowed_file_extensions';
+
     /**
      * @var ParserInterface
      */
@@ -43,6 +49,11 @@ final class TypoScriptProcessor implements ProcessorInterface
      * @var ErrorAndDiffCollector
      */
     private $errorAndDiffCollector;
+
+    /**
+     * @var string[]
+     */
+    private $allowedFileExtensions = ['typoscript', 'ts', 'txt'];
 
     /**
      * @param Visitor[] $visitors
@@ -101,6 +112,11 @@ final class TypoScriptProcessor implements ProcessorInterface
      */
     public function allowedFileExtensions(): array
     {
-        return ['typoscript', 'ts', 'txt'];
+        return $this->allowedFileExtensions;
+    }
+
+    public function configure(array $configuration): void
+    {
+        $this->allowedFileExtensions = $configuration[self::ALLOWED_FILE_EXTENSIONS] ?? [];
     }
 }
