@@ -15,7 +15,11 @@ final class CompatVersionConditionMatcher implements TyposcriptConditionMatcher
 
     public function change(string $condition): ?string
     {
-        preg_match('#^' . self::TYPE . '\s*=\s*(?<value>.*)$#iUm', $condition, $matches);
+        preg_match(
+            '#' . self::TYPE
+            . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
+            . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#iUm',
+            $condition, $matches);
 
         if (! is_string($matches['value'])) {
             return $condition;

@@ -11,7 +11,11 @@ abstract class AbstractRootlineConditionMatcher implements TyposcriptConditionMa
 {
     public function change(string $condition): ?string
     {
-        preg_match('#' . $this->getType() . '\s*=\s*(.*)#', $condition, $matches);
+        preg_match(
+            '#' . $this->getType()
+            . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
+            . self::ZERO_ONE_OR_MORE_WHITESPACES . '(.*)#',
+            $condition, $matches);
 
         if (! is_array($matches)) {
             return $condition;

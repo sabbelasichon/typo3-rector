@@ -23,7 +23,10 @@ final class GlobalStringConditionMatcher implements TyposcriptConditionMatcher
 
     public function change(string $condition): ?string
     {
-        preg_match('#' . self::TYPE . '\s*=\s*(?<subCondition>.*)#', $condition, $subConditions);
+        preg_match('#' . self::TYPE
+                   . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
+                   . self::ZERO_ONE_OR_MORE_WHITESPACES .
+                   '(?<subCondition>.*)#', $condition, $subConditions);
 
         if (! is_string($subConditions['subCondition'])) {
             return $condition;
@@ -34,7 +37,11 @@ final class GlobalStringConditionMatcher implements TyposcriptConditionMatcher
         $newConditions = [];
         foreach ($subConditions as $subCondition) {
             preg_match(
-                '#(?<type>ENV|IENV):(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')\s*(?<value>.*)$#Ui',
+                '#(?<type>ENV|IENV):(?<property>.*) '
+                . self::ZERO_ONE_OR_MORE_WHITESPACES .
+                '(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')'
+                . self::ZERO_ONE_OR_MORE_WHITESPACES .
+                '(?<value>.*)$#Ui',
                 $subCondition,
                 $matches,
             );

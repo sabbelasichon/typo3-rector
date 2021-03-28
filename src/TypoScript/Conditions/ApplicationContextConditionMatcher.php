@@ -16,7 +16,11 @@ final class ApplicationContextConditionMatcher implements TyposcriptConditionMat
 
     public function change(string $condition): ?string
     {
-        preg_match('#' . self::TYPE . '\s*=\s*(.*)#', $condition, $matches);
+        preg_match(
+            '#' . self::TYPE
+            . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
+            . self::ZERO_ONE_OR_MORE_WHITESPACES . '(.*)#',
+            $condition, $matches);
 
         if (! is_array($matches)) {
             return $condition;
