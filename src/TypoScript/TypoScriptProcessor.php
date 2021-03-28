@@ -10,20 +10,15 @@ use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use Ssch\TYPO3Rector\Processor\ProcessorInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\TypoScript\TypoScriptProcessorTest
  */
-final class TypoScriptProcessor
+final class TypoScriptProcessor implements ProcessorInterface
 {
-    /**
-     * @var SmartFileSystem
-     */
-    private $smartFileSystem;
-
     /**
      * @var ParserInterface
      */
@@ -53,14 +48,12 @@ final class TypoScriptProcessor
      * @param Visitor[] $visitors
      */
     public function __construct(
-        SmartFileSystem $smartFileSystem,
         ParserInterface $typoscriptParser,
         BufferedOutput $output,
         ASTPrinterInterface $typoscriptPrinter,
         ErrorAndDiffCollector $errorAndDiffCollector,
         array $visitors = []
     ) {
-        $this->smartFileSystem = $smartFileSystem;
         $this->typoscriptParser = $typoscriptParser;
 
         $this->typoscriptPrinter = $typoscriptPrinter;
@@ -70,14 +63,8 @@ final class TypoScriptProcessor
         $this->errorAndDiffCollector = $errorAndDiffCollector;
     }
 
-    public function process(string $typoScriptFilePath): ?string
+    public function process(SmartFileInfo $smartFileInfo): ?string
     {
-        if (! $this->smartFileSystem->exists($typoScriptFilePath)) {
-            return null;
-        }
-
-        $smartFileInfo = new SmartFileInfo($typoScriptFilePath);
-
         try {
             $originalStatements = $this->typoscriptParser->parseString($smartFileInfo->getContents());
 
@@ -101,5 +88,19 @@ final class TypoScriptProcessor
         } catch (TokenizerException $tokenizerException) {
             return null;
         }
+    }
+
+    public function canProcess(SmartFileInfo $smartFileInfo): bool
+    {
+        // TODO: Make this configurable
+        return in_array($smartFileInfo->getExtension(), $this->allowedFileExtensions(), true);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function allowedFileExtensions(): array
+    {
+        return ['typoscript', 'ts', 'txt'];
     }
 }

@@ -13,7 +13,7 @@ use Rector\Core\Configuration\Option;
 use Rector\Core\Console\Command\AbstractCommand;
 use Rector\Core\Console\Output\OutputFormatterCollector;
 use Rector\Core\FileSystem\FilesFinder;
-use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
+use Ssch\TYPO3Rector\Processor\ProcessorInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -21,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
-final class TypoScriptCommand extends AbstractCommand
+final class Typo3ProcessCommand extends AbstractCommand
 {
     /**
      * @var FilesFinder
@@ -49,15 +49,18 @@ final class TypoScriptCommand extends AbstractCommand
     private $outputFormatterCollector;
 
     /**
-     * @var TypoScriptProcessor
-     */
-    private $typoScriptProcessor;
-
-    /**
      * @var SmartFileSystem
      */
     private $smartFileSystem;
 
+    /**
+     * @var ProcessorInterface[]
+     */
+    private $processors = [];
+
+    /**
+     * @param ProcessorInterface[] $processors
+     */
     public function __construct(
         AdditionalAutoloader $additionalAutoloader,
         ChangedFilesDetector $changedFilesDetector,
@@ -65,7 +68,7 @@ final class TypoScriptCommand extends AbstractCommand
         ErrorAndDiffCollector $errorAndDiffCollector,
         FilesFinder $phpFilesFinder,
         OutputFormatterCollector $outputFormatterCollector,
-        TypoScriptProcessor $typoScriptProcessor,
+        array $processors,
         SmartFileSystem $smartFileSystem
     ) {
         $this->filesFinder = $phpFilesFinder;
@@ -74,17 +77,17 @@ final class TypoScriptCommand extends AbstractCommand
         $this->configuration = $configuration;
         $this->outputFormatterCollector = $outputFormatterCollector;
         $this->changedFilesDetector = $changedFilesDetector;
-        $this->typoScriptProcessor = $typoScriptProcessor;
         $this->smartFileSystem = $smartFileSystem;
+        $this->processors = $processors;
 
         parent::__construct();
     }
 
     protected function configure(): void
     {
-        $this->setAliases(['typoscript']);
+        $this->setAliases(['typoscript', 'composer']);
 
-        $this->setDescription('Upgrade TypoScript files');
+        $this->setDescription('Upgrade non php files in your TYPO3 installation');
         $this->addArgument(
             Option::SOURCE,
             InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
@@ -116,13 +119,19 @@ final class TypoScriptCommand extends AbstractCommand
 
         $this->additionalAutoloader->autoloadWithInputAndSource($input, $paths);
 
-        $typoscriptFiles = $this->filesFinder->findInDirectoriesAndFiles($paths, ['typoscript', 'ts', 'txt']);
+        $fileExtensions = [];
+        foreach ($this->processors as $processor) {
+            $fileExtensions = array_merge($processor->allowedFileExtensions());
+        }
 
-        foreach ($typoscriptFiles as $typoscriptFile) {
-            $typoScriptContent = $this->typoScriptProcessor->process($typoscriptFile->getRealPath());
+        $files = $this->filesFinder->findInDirectoriesAndFiles($paths, $fileExtensions);
 
-            if (! $this->configuration->isDryRun() && null !== $typoScriptContent) {
-                $this->smartFileSystem->dumpFile($typoscriptFile->getPathname(), $typoScriptContent);
+        foreach ($files as $file) {
+            foreach ($this->processors as $processor) {
+                $content = $processor->process($file);
+                if (! $this->configuration->isDryRun() && null !== $content) {
+                    $this->smartFileSystem->dumpFile($file->getPathname(), $content);
+                }
             }
         }
 
