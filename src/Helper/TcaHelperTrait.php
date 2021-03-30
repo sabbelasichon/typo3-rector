@@ -130,11 +130,6 @@ trait TcaHelperTrait
         return null;
     }
 
-    private function configIsOfType(Array_ $configValue, string $expectedType): bool
-    {
-        return $this->configKeyIsOfValue($configValue, 'type', $expectedType);
-    }
-
     private function configIsOfInternalType(Array_ $configValue, string $expectedType): bool
     {
         return $this->configKeyIsOfValue($configValue, 'internal_type', $expectedType);
