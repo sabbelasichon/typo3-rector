@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Renaming\Rector\Name\RenameClassRector;
-use Ssch\TYPO3Rector\Rector\v8\v6\MigrateLastPiecesOfDefaultExtrasRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -20,5 +19,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]]
     );
-    $services->set(MigrateLastPiecesOfDefaultExtrasRector::class);
 };

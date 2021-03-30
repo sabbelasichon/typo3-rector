@@ -10,6 +10,7 @@ use Ssch\TYPO3Rector\Rector\v8\v5\MoveLanguageFilesFromLocallangToResourcesRecto
 use Ssch\TYPO3Rector\Rector\v8\v5\RemoveOptionVersioningFollowPagesRector;
 use Ssch\TYPO3Rector\Rector\v8\v5\RemoveSupportForTransForeignTableRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\AddTypeToColumnConfigRector;
+use Ssch\TYPO3Rector\Rector\v8\v6\MigrateLastPiecesOfDefaultExtrasRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MigrateOptionsOfTypeGroupRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MigrateSelectShowIconTableRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MoveRequestUpdateOptionFromControlToColumnsRector;
@@ -63,4 +64,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveConfigMaxFromInputDateTimeFieldsRector::class);
     $services->set(RemoveLocalizationModeKeepIfNeededRector::class);
     $services->set(MoveForeignTypesToOverrideChildTcaRector::class);
+    $services->set(MigrateLastPiecesOfDefaultExtrasRector::class);
 };
