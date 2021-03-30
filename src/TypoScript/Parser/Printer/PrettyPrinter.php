@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TypoScript\Parser\Printer;
 
+use Helmich\TypoScriptParser\Parser\AST\Comment;
 use Helmich\TypoScriptParser\Parser\AST\ConditionalStatement;
 use Helmich\TypoScriptParser\Parser\AST\DirectoryIncludeStatement;
 use Helmich\TypoScriptParser\Parser\AST\FileIncludeStatement;
 use Helmich\TypoScriptParser\Parser\AST\IncludeStatement;
+use Helmich\TypoScriptParser\Parser\AST\MultilineComment;
 use Helmich\TypoScriptParser\Parser\AST\NestedAssignment;
 use Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
 use Helmich\TypoScriptParser\Parser\AST\Operator\BinaryObjectOperator;
@@ -74,6 +76,10 @@ final class PrettyPrinter implements ASTPrinterInterface
                 );
             } elseif ($statement instanceof IncludeStatement) {
                 $this->printIncludeStatement($output, $statement);
+            } elseif ($statement instanceof Comment) {
+                $output->writeln($indent . $statement->comment);
+            } elseif ($statement instanceof MultilineComment) {
+                $output->writeln($indent . $statement->comment);
             }
         }
     }
@@ -154,10 +160,6 @@ final class PrettyPrinter implements ASTPrinterInterface
         bool $hasNext = false,
         bool $hasPrevious = false
     ): void {
-        if (! $hasPrevious) {
-            $output->writeln('');
-        }
-
         $output->writeln($statement->condition);
         $this->printStatementList($statement->ifStatements, $output, $nesting);
 
