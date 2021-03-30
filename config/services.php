@@ -62,7 +62,15 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(BufferedOutput::class);
     $services->alias(OutputInterface::class, BufferedOutput::class);
 
-    $services->set(TypoScriptProcessor::class)->call('configure', [[
-        TypoScriptProcessor::ALLOWED_FILE_EXTENSIONS => ['typoscript', 'ts', 'txt', 'pagets', 'tsconfig', 'typoscriptconstants']
-    ]]);
+    $services->set(TypoScriptProcessor::class)
+        ->call('configure', [[
+            TypoScriptProcessor::ALLOWED_FILE_EXTENSIONS => [
+                'typoscript',
+                'ts',
+                'txt',
+                'pagets',
+                'tsconfig',
+                'typoscriptconstants',
+            ],
+        ]]);
 };
