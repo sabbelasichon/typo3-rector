@@ -64,11 +64,7 @@ final class PrettyPrinter implements ASTPrinterInterface
                     )
                 );
             } elseif ($statement instanceof ConditionalStatement) {
-                $this->printConditionalStatement(
-                    $output,
-                    $nesting,
-                    $statement,
-                );
+                $this->printConditionalStatement($output, $nesting, $statement,);
             } elseif ($statement instanceof IncludeStatement) {
                 $this->printIncludeStatement($output, $statement);
             } elseif ($statement instanceof Comment) {
