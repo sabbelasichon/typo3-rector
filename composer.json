@@ -9,8 +9,15 @@
             "email": "breakpoint@schreibersebastian.de"
         }
     ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/sabbelasichon/typo3-typoscript-parser.git"
+        }
+    ],
     "require": {
         "php": "^7.3|^8.0",
+        "helmich/typo3-typoscript-parser": "dev-task/keep-comments as 2.1",
         "phpstan/phpstan": "^0.12.76",
         "rector/rector": "0.9.33"
     },
