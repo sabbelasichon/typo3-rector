@@ -84,6 +84,11 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
             'newCondition' => '[applicationContext matches /^Development\/Preview\/d+$/]',
         ];
 
+        yield 'Keep new applicationContext condition' => [
+            'oldCondition' => '[applicationContext == Development/Debugging || applicationContext == Development/ClientA]',
+            'newCondition' => '[applicationContext == Development/Debugging || applicationContext == Development/ClientA]',
+        ];
+
         yield 'PIDinRootline' => [
             'oldCondition' => '[PIDinRootline = 34,36]',
             'newCondition' => '[34 in tree.rootLineIds || 36 in tree.rootLineIds]',
@@ -104,6 +109,11 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
             'newCondition' => '[loginUser("*")]',
         ];
 
+        yield 'Keep new condition loginUser' => [
+            'oldCondition' => '[loginUser("*")]',
+            'newCondition' => '[loginUser("*")]',
+        ];
+
         yield 'loginUser not logged in' => [
             'oldCondition' => '[loginUser = ]',
             'newCondition' => '[loginUser("*") == false]',
@@ -116,6 +126,11 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
 
         yield 'page' => [
             'oldCondition' => '[page|field = value]',
+            'newCondition' => '[page["field"] == "value"]',
+        ];
+
+        yield 'Keep new page condition' => [
+            'oldCondition' => '[page["field"] == "value"]',
             'newCondition' => '[page["field"] == "value"]',
         ];
 
@@ -241,6 +256,11 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
 
         yield 'Multiple usergroups' => [
             'oldCondition' => '[usergroup = 1,2]',
+            'newCondition' => '[usergroup("1,2")]',
+        ];
+
+        yield 'Keep new usergroups condition' => [
+            'oldCondition' => '[usergroup("1,2")]',
             'newCondition' => '[usergroup("1,2")]',
         ];
     }

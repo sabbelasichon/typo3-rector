@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TypoScript\Conditions;
 
-use Nette\Utils\Strings;
-
 final class PageConditionMatcher implements TyposcriptConditionMatcher
 {
     /**
@@ -34,6 +32,6 @@ final class PageConditionMatcher implements TyposcriptConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        return Strings::startsWith($condition, self::TYPE);
+        return 1 === preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '\|#', $condition);
     }
 }

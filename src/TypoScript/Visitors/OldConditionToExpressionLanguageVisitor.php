@@ -8,6 +8,7 @@ use Helmich\TypoScriptParser\Parser\AST\ConditionalStatement;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use LogicException;
 use Ssch\TYPO3Rector\TypoScript\Conditions\TyposcriptConditionMatcher;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\TypoScript\Visitors\OldConditionToExpressionLanguageVisitorTest
@@ -48,12 +49,6 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
             $applied = false;
             if (is_array($conditions)) {
                 foreach ($conditions as $condition) {
-
-                    // Little guard clause. Every old condition is starting with TYPE = CONDITION
-                    if (1 !== preg_match('#.*\s+=\s+#iUm', $condition)) {
-                        continue;
-                    }
-
                     foreach ($this->conditionMatchers as $conditionMatcher) {
                         $condition = trim($condition);
                         if ($conditionMatcher->shouldApply($condition)) {
@@ -73,6 +68,7 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
 
             if ([] === $newConditions) {
                 $statement->condition = '';
+
                 return;
             }
 

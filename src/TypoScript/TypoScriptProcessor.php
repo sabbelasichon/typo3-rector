@@ -23,7 +23,7 @@ final class TypoScriptProcessor implements ProcessorInterface, ConfigurableProce
     /**
      * @var string
      */
-    private const ALLOWED_FILE_EXTENSIONS = 'allowed_file_extensions';
+    public const ALLOWED_FILE_EXTENSIONS = 'allowed_file_extensions';
 
     /**
      * @var ParserInterface
