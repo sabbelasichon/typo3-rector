@@ -13,6 +13,7 @@ use Rector\Core\Configuration\Option;
 use Ssch\TYPO3Rector\Console\Application;
 use Ssch\TYPO3Rector\Console\Output\DecoratedConsoleOutputFormatter;
 use Ssch\TYPO3Rector\TypoScript\Parser\Printer\PrettyPrinter;
+use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -60,4 +61,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(BufferedOutput::class);
     $services->alias(OutputInterface::class, BufferedOutput::class);
+
+    $services->set(TypoScriptProcessor::class)->call('configure', [[
+        TypoScriptProcessor::ALLOWED_FILE_EXTENSIONS => ['typoscript', 'ts', 'txt', 'pagets', 'tsconfig', 'typoscriptconstants']
+    ]]);
 };
