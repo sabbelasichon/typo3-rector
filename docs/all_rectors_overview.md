@@ -1,4 +1,4 @@
-# 189 Rules Overview
+# 190 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -1777,6 +1777,46 @@ Refactor TSconfig related methods
 ```diff
 -$hasFilterBox = !$GLOBALS['BE_USER']->getTSConfigVal('options.pageTree.hideFilter');
 +$hasFilterBox = !($GLOBALS['BE_USER']->getTSConfig()['options.']['pageTree.']['hideFilter.'] ?? null);
+```
+
+<br>
+
+## RefactorTypeInternalTypeFileAndFileReferenceToFalRector
+
+Move TCA type group internal_type file and file_reference to FAL configuration
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RefactorTypeInternalTypeFileAndFileReferenceToFalRector`](../src/Rector/v9/v5/RefactorTypeInternalTypeFileAndFileReferenceToFalRector.php)
+
+```diff
+ return [
+             'ctrl' => [],
+             'columns' => [
+                 'feedback_image' => [
+                     'exclude' => 1,
+                     'label' => 'FeedbackImage',
+-                    'config' => [
+-                        'type' => 'group',
+-                        'internal_type' => 'file',
+-                        'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
+-                        'max_size' => '20000',
+-                        'uploadfolder' => 'fileadmin/feedbacks',
+-                        'maxitems' => '1',
+-                    ],
++                    'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
++                        'feedback_image',
++                        [
++                            'max_size' => '20000',
++                            'uploadfolder' => 'fileadmin/feedbacks',
++                            'maxitems' => 1,
++                            'appearance' => [
++                                'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference',
++                            ],
++                        ],
++                        $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
++                    ),
+                 ],
+             ],
+         ];
 ```
 
 <br>
