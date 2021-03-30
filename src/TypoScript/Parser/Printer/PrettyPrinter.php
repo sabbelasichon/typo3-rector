@@ -156,9 +156,7 @@ final class PrettyPrinter implements ASTPrinterInterface
     private function printConditionalStatement(
         OutputInterface $output,
         int $nesting,
-        ConditionalStatement $statement,
-        bool $hasNext = false,
-        bool $hasPrevious = false
+        ConditionalStatement $statement
     ): void {
         $output->writeln($statement->condition);
         $this->printStatementList($statement->ifStatements, $output, $nesting);

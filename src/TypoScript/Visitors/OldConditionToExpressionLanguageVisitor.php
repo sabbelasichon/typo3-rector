@@ -48,6 +48,12 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
             $applied = false;
             if (is_array($conditions)) {
                 foreach ($conditions as $condition) {
+
+                    // Little guard clause. Every old condition is starting with TYPE = CONDITION
+                    if (1 !== preg_match('#.*\s+=\s+#iUm', $condition)) {
+                        continue;
+                    }
+
                     foreach ($this->conditionMatchers as $conditionMatcher) {
                         $condition = trim($condition);
                         if ($conditionMatcher->shouldApply($condition)) {
