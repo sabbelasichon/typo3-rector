@@ -22,6 +22,7 @@ use Ssch\TYPO3Rector\Rector\v10\v0\UseControllerClassesInExtbasePluginsAndModule
 use Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseTwoLetterIsoCodeFromSiteLanguageRector;
+use Ssch\TYPO3Rector\Yaml\Form\Transformer\EmailFinisherTransformer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -79,4 +80,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 new MethodCallRename(DatabaseRecordList::class, 'requestUri', 'listURL'),
             ]),
         ]]);
+
+    $services->set(EmailFinisherTransformer::class);
 };
