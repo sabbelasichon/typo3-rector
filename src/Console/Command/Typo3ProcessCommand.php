@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Console\Command;
 
+use Exception;
 use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
@@ -172,9 +173,15 @@ final class Typo3ProcessCommand extends AbstractCommand
 
             foreach ($files as $file) {
                 foreach ($this->processors as $processor) {
-                    $content = $processor->process($file);
-                    if (! $this->configuration->isDryRun() && null !== $content) {
-                        $this->smartFileSystem->dumpFile($file->getPathname(), $content);
+                    if ($processor->canProcess($file)) {
+                        try {
+                            $content = $processor->process($file);
+                        } catch (Exception $exception) {
+                            $content = null;
+                        }
+                        if (! $this->configuration->isDryRun() && null !== $content) {
+                            $this->smartFileSystem->dumpFile($file->getPathname(), $content);
+                        }
                     }
                 }
                 $this->advanceProgressBar();
