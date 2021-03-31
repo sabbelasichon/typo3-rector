@@ -162,7 +162,7 @@ final class Typo3ProcessCommand extends AbstractCommand
 
         $fileExtensions = [];
         foreach ($this->processors as $processor) {
-            $fileExtensions = array_merge($processor->allowedFileExtensions());
+            $fileExtensions = array_merge($processor->allowedFileExtensions(), $fileExtensions);
         }
 
         $files = $this->filesFinder->findInDirectoriesAndFiles($paths, $fileExtensions);
