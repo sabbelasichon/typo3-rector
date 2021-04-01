@@ -173,15 +173,17 @@ final class Typo3ProcessCommand extends AbstractCommand
 
             foreach ($files as $file) {
                 foreach ($this->processors as $processor) {
-                    if ($processor->canProcess($file)) {
-                        try {
-                            $content = $processor->process($file);
-                        } catch (Exception $exception) {
-                            $content = null;
-                        }
-                        if (! $this->configuration->isDryRun() && null !== $content) {
-                            $this->smartFileSystem->dumpFile($file->getPathname(), $content);
-                        }
+                    if (! $processor->canProcess($file)) {
+                        continue;
+                    }
+
+                    try {
+                        $content = $processor->process($file);
+                    } catch (Exception $exception) {
+                        $content = null;
+                    }
+                    if (! $this->configuration->isDryRun() && null !== $content) {
+                        $this->smartFileSystem->dumpFile($file->getPathname(), $content);
                     }
                 }
                 $this->advanceProgressBar();
@@ -195,6 +197,7 @@ final class Typo3ProcessCommand extends AbstractCommand
         if (is_array($outputFormatOption)) {
             $outputFormatOption = ConsoleOutputFormatter::NAME;
         }
+
         // report diffs and errors
         $outputFormat = (string) $outputFormatOption;
 
@@ -208,6 +211,7 @@ final class Typo3ProcessCommand extends AbstractCommand
         if ([] !== $this->errorAndDiffCollector->getErrors()) {
             return ShellCode::ERROR;
         }
+
         // inverse error code for CI dry-run
         if (! $this->configuration->isDryRun()) {
             return ShellCode::SUCCESS;
