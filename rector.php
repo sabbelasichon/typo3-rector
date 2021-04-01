@@ -30,6 +30,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(AddSeeTestAnnotationRector::class);
 
     $parameters->set(Option::PATHS, [__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
+
     $parameters->set(
         Option::SKIP,
         [
