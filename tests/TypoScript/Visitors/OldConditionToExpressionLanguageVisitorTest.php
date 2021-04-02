@@ -10,6 +10,7 @@ use Ssch\TYPO3Rector\TypoScript\Conditions\BrowserConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\CompatVersionConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\GlobalStringConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\GlobalVarConditionMatcher;
+use Ssch\TYPO3Rector\TypoScript\Conditions\HostnameConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\IPConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\LanguageConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\LoginUserConditionMatcher;
@@ -37,6 +38,7 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
             new CompatVersionConditionMatcher(),
             new GlobalStringConditionMatcher(),
             new GlobalVarConditionMatcher(),
+            new HostnameConditionMatcher(),
             new IPConditionMatcher(),
             new LanguageConditionMatcher(),
             new LoginUserConditionMatcher(),
@@ -177,6 +179,26 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
         yield 'IENV:HTTP_HOST' => [
             'oldCondition' => '[globalString = IENV:HTTP_HOST = www.example.org]',
             'newCondition' => '[request.getNormalizedParams().getHttpHost() == "www.example.org"]',
+        ];
+
+        yield 'hostname condition is removed' => [
+            'oldCondition' => '[hostname = www.typo3.org]',
+            'newCondition' => '[request.getNormalizedParams().getHttpHost() == "www.typo3.org"]',
+        ];
+
+        yield 'hostname condition with multiple values is removed' => [
+            'oldCondition' => '[hostname = www.typo3.org,typo3.org]',
+            'newCondition' => '[request.getNormalizedParams().getHttpHost() == "www.typo3.org" || request.getNormalizedParams().getHttpHost() == "typo3.org"]',
+        ];
+
+        yield 'hostname condition with wildcard is removed' => [
+            'oldCondition' => '[hostname = *.typo3.org]',
+            'newCondition' => '[like(request.getNormalizedParams().getHttpHost(), "*.typo3.org")]',
+        ];
+
+        yield 'hostname condition with multiple values and wildcard is removed' => [
+            'oldCondition' => '[hostname = www.typo3.org,typo3.org,*.typo3.org]',
+            'newCondition' => '[request.getNormalizedParams().getHttpHost() == "www.typo3.org" || request.getNormalizedParams().getHttpHost() == "typo3.org" || like(request.getNormalizedParams().getHttpHost(), "*.typo3.org")]',
         ];
 
         yield 'beUserLogin' => [
