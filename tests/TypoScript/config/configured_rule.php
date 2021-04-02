@@ -7,6 +7,7 @@ use Ssch\TYPO3Rector\TypoScript\Conditions\BrowserConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\CompatVersionConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\GlobalStringConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\GlobalVarConditionMatcher;
+use Ssch\TYPO3Rector\TypoScript\Conditions\HostnameConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\IPConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\LanguageConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\LoginUserConditionMatcher;
@@ -27,6 +28,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CompatVersionConditionMatcher::class);
     $services->set(GlobalStringConditionMatcher::class);
     $services->set(GlobalVarConditionMatcher::class);
+    $services->set(HostnameConditionMatcher::class);
     $services->set(IPConditionMatcher::class);
     $services->set(LanguageConditionMatcher::class);
     $services->set(LoginUserConditionMatcher::class);
