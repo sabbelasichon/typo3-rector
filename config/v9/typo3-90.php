@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
+use Ssch\TYPO3Rector\FlexForms\Transformer\RenderTypeTransformer;
 use Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionVersionRector;
@@ -76,4 +77,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveCmsPackageDirFromExtraRector::class);
     $services->set(SubstituteGeneralUtilityDevLogRector::class);
     $services->set(ReplacedGeneralUtilitySysLogWithLogginApiRector::class);
+    $services->set(RenderTypeTransformer::class);
 };

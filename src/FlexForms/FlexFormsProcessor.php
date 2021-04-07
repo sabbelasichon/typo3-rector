@@ -51,6 +51,10 @@ final class FlexFormsProcessor implements ProcessorInterface
 
     public function canProcess(SmartFileInfo $smartFileInfo): bool
     {
+        if ([] === $this->transformer) {
+            return false;
+        }
+
         if ('xml' !== $smartFileInfo->getExtension()) {
             return false;
         }
