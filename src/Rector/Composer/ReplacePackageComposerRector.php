@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\Composer\ReplacePackageComposerRector\ReplacePackageComposerRectorTest
  */
-final class ReplacePackageComposerRector implements ComposerRectorInterface, DocumentedRuleInterface
+final class ReplacePackageComposerRector implements ComposerRectorInterface
 {
     /**
      * @var string

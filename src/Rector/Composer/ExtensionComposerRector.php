@@ -15,7 +15,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
  * @see https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ComposerJson/Index.html#extra
  * @see \Ssch\TYPO3Rector\Tests\Rector\Composer\ExtensionComposerRector\ExtensionComposerRectorTest
  */
-final class ExtensionComposerRector implements ExtensionComposerRectorInterface, DocumentedRuleInterface
+final class ExtensionComposerRector implements ExtensionComposerRectorInterface
 {
     /**
      * @var string

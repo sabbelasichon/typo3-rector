@@ -28,23 +28,7 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
     private const SELECT = 'select';
 
     /**
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
      * @return array<class-string<Node>>
-=======
-=======
->>>>>>> da7142f... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
-     * @return array<class-string<\PhpParser\Node>>
->>>>>>> f7cbd4b... make PHPStan smarted on getNodeTypes()
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
-=======
->>>>>>> cd548b8... use ObjectType wrapper
-     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

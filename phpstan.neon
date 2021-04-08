@@ -28,4 +28,4 @@ parameters:
         - '#Parameter \#2 \$stmt of method Rector\\Core\\NodeManipulator\\ClassInsertManipulator\:\:addAsFirstMethod\(\) expects PhpParser\\Node\\Stmt\\ClassConst\|PhpParser\\Node\\Stmt\\ClassMethod\|PhpParser\\Node\\Stmt\\Property, PhpParser\\Node\\Stmt\\Nop given#'
 
         # false positive
-        - '#Strict comparison using \=\=\= between array<int, string\> and false will always evaluate to false#'
+        - '#Strict comparison using \=\=\= between (array<int, string\>|false) and (false|array<int, string\>) will always evaluate to false#'

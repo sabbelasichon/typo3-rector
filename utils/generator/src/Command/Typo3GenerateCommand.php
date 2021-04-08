@@ -6,8 +6,8 @@ namespace Ssch\TYPO3Rector\Generator\Command;
 
 use Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
+use Rector\RectorGenerator\FileSystem\ConfigFilesystem;
 use RuntimeException;
-use Ssch\TYPO3Rector\Generator\Config\ConfigFilesystem;
 use Ssch\TYPO3Rector\Generator\Finder\TemplateFinder;
 use Ssch\TYPO3Rector\Generator\Generator\FileGenerator;
 use Ssch\TYPO3Rector\Generator\ValueObject\Description;
@@ -26,6 +26,11 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Typo3GenerateCommand extends Command
 {
+    /**
+     * @var string
+     */
+    public const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Name__';
+
     /**
      * @var TemplateFinder
      */
@@ -101,8 +106,11 @@ final class Typo3GenerateCommand extends Command
 
         $testCaseDirectoryPath = $this->resolveTestCaseDirectoryPath($generatedFilePaths);
 
-        $recipe->getSet();
-        $this->configFilesystem->appendRectorServiceToSet($recipe, $templateVariables);
+        $this->configFilesystem->appendRectorServiceToSet(
+            $recipe->getSet(),
+            $templateVariables,
+            self::RECTOR_FQN_NAME_PATTERN
+        );
 
         $this->printSuccess($recipe->getRectorName(), $generatedFilePaths, $testCaseDirectoryPath);
 
