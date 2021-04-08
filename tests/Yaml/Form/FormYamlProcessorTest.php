@@ -3,32 +3,24 @@
 namespace Ssch\TYPO3Rector\Tests\Yaml\Form;
 
 use Iterator;
-use Rector\Composer\Tests\Contract\ConfigFileAwareInterface;
 use Rector\Core\HttpKernel\RectorKernel;
-use Rector\Testing\Guard\FixtureGuard;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Yaml\Form\FormYamlProcessor;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FormYamlProcessorTest extends AbstractKernelTestCase implements ConfigFileAwareInterface
+final class FormYamlProcessorTest extends AbstractRectorTestCase
 {
     /**
      * @var FormYamlProcessor
      */
     private $formYamlProcessor;
 
-    /**
-     * @var FixtureGuard
-     */
-    private $fixtureGuard;
-
     protected function setUp(): void
     {
         $this->bootKernelWithConfigs(RectorKernel::class, [$this->provideConfigFile()]);
         $this->formYamlProcessor = $this->getService(FormYamlProcessor::class);
-        $this->fixtureGuard = $this->getService(FixtureGuard::class);
     }
 
     /**
@@ -36,7 +28,10 @@ final class FormYamlProcessorTest extends AbstractKernelTestCase implements Conf
      */
     public function test(SmartFileInfo $fileInfo): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
+
+        $changedTypoScript = $this->formYamlProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
+        $this->assertSame($inputFileInfoAndExpected->getExpected(), $changedTypoScript);
     }
 
     public function provideData(): Iterator
@@ -47,15 +42,5 @@ final class FormYamlProcessorTest extends AbstractKernelTestCase implements Conf
     public function provideConfigFile(): string
     {
         return __DIR__ . '/config/configured_rule.php';
-    }
-
-    private function doTestFileInfo(SmartFileInfo $smartFileInfo): void
-    {
-        $this->fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($smartFileInfo);
-
-        $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
-
-        $changedTypoScript = $this->formYamlProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
-        $this->assertSame($inputFileInfoAndExpected->getExpected(), $changedTypoScript);
     }
 }

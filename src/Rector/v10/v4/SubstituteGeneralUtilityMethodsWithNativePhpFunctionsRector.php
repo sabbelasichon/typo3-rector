@@ -24,6 +24,9 @@ final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector extends 
      */
     private const METHOD_CALL_TO_REFACTOR = ['IPv6Hex2Bin', 'IPv6Bin2Hex', 'compressIPv6', 'milliseconds'];
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

@@ -22,6 +22,9 @@ final class RandomMethodsToRandomClassRector extends AbstractRector
      */
     private const GENERATE_RANDOM_BYTES = 'generateRandomBytes';
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

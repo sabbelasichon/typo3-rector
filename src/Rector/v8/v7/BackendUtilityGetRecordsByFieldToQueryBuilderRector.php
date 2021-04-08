@@ -45,6 +45,9 @@ final class BackendUtilityGetRecordsByFieldToQueryBuilderRector extends Abstract
      */
     private const LIMIT_OFFSET_AND_MAX = 'limitOffsetAndMax';
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

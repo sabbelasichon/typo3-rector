@@ -38,6 +38,10 @@ CODE_SAMPLE
      * @return array<class-string<\PhpParser\Node>>
 >>>>>>> f7cbd4b... make PHPStan smarted on getNodeTypes()
      */
+
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

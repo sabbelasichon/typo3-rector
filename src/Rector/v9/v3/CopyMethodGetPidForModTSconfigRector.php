@@ -23,6 +23,9 @@ use TYPO3\CMS\Core\Utility\MathUtility;
  */
 final class CopyMethodGetPidForModTSconfigRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

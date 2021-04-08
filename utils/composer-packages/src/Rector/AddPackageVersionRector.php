@@ -14,8 +14,7 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Composer\ValueObject\PackageAndVersion;
 use Rector\Core\Rector\AbstractRector;
-use Rector\RectorGenerator\Contract\InternalRectorInterface;
-use Rector\SymfonyPhpConfig\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
+use Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
 use Ssch\TYPO3Rector\ComposerPackages\Tests\Rector\AddPackageVersionRector\AddPackageVersionRectorTest;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -24,7 +23,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see AddPackageVersionRectorTest
  */
-final class AddPackageVersionRector extends AbstractRector implements InternalRectorInterface
+final class AddPackageVersionRector extends AbstractRector
 {
     /**
      * @var ExtensionVersion
@@ -46,6 +45,13 @@ final class AddPackageVersionRector extends AbstractRector implements InternalRe
         $this->extensionVersion = $extensionVersion;
     }
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
+
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [Closure::class];

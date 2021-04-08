@@ -27,6 +27,9 @@ final class UseClassTypo3InformationRector extends AbstractRector
         'TYPO3_URL_WIKI_OPCODECACHE',
     ];
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [ConstFetch::class];

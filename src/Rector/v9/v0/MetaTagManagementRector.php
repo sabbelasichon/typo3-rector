@@ -38,6 +38,9 @@ final class MetaTagManagementRector extends AbstractRector
             ([^"\'>]*?)(?=\s*/?\s*>|\s\w+\s*=))
             [^>]*>~ix';
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

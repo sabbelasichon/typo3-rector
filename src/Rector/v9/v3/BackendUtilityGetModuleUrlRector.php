@@ -41,6 +41,9 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
         return $this->createUriBuilderCall($firstArgument, $secondArgument);
     }
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

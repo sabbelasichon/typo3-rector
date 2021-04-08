@@ -26,6 +26,10 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
      * @return array<class-string<\PhpParser\Node>>
 >>>>>>> f7cbd4b... make PHPStan smarted on getNodeTypes()
      */
+
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [Assign::class];

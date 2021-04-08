@@ -7,6 +7,9 @@ use Rector\Core\RectorDefinition\RectorDefinition;
 
 final class AddToMissingCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
     }
@@ -22,6 +25,9 @@ final class AddToMissingCodeCoverageIgnore extends AbstractRector implements Php
 
 final class HasCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
     }
@@ -50,6 +56,9 @@ use Rector\Core\RectorDefinition\RectorDefinition;
 
 final class AddToMissingCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
     }
@@ -68,6 +77,9 @@ final class AddToMissingCodeCoverageIgnore extends AbstractRector implements Php
 
 final class HasCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
     }

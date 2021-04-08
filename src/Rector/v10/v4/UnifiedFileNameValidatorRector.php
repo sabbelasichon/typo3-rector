@@ -19,6 +19,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class UnifiedFileNameValidatorRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [ConstFetch::class, StaticCall::class];

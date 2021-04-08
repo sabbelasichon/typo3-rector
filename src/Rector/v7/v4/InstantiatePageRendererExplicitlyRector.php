@@ -31,6 +31,9 @@ final class InstantiatePageRendererExplicitlyRector extends AbstractRector
         $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

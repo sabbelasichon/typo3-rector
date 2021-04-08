@@ -21,6 +21,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class Array2XmlCsToArray2XmlRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

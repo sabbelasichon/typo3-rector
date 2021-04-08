@@ -19,6 +19,9 @@ use TYPO3\CMS\Core\Page\PageRenderer;
  */
 final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

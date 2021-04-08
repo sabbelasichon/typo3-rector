@@ -30,6 +30,9 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
      */
     private const PID = 'pid';
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

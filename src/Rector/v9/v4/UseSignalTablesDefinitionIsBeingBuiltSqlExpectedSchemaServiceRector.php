@@ -29,6 +29,9 @@ final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector 
         $this->classConstAnalyzer = $classConstAnalyzer;
     }
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

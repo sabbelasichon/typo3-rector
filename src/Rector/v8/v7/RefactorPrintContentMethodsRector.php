@@ -20,6 +20,9 @@ use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
  */
 final class RefactorPrintContentMethodsRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

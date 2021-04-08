@@ -38,6 +38,9 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
         $this->databaseConnectionRefactorings = $databaseConnectionRefactorings;
     }
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

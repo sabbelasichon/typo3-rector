@@ -20,6 +20,9 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
  */
 final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

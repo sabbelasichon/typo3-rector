@@ -43,6 +43,9 @@ final class SubstituteCacheWrapperMethodsRector extends AbstractRector
      */
     private const HASH_CONTENT = 'hashContent';
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

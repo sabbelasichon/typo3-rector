@@ -16,6 +16,9 @@ use TYPO3\CMS\Core\TypoScript\TemplateService;
  */
 final class RemoveInitMethodTemplateServiceRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

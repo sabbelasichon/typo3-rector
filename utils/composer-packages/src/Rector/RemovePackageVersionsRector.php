@@ -10,15 +10,14 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Rector\AbstractRector;
-use Rector\RectorGenerator\Contract\InternalRectorInterface;
-use Rector\SymfonyPhpConfig\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
+use Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see
  */
-final class RemovePackageVersionsRector extends AbstractRector implements InternalRectorInterface
+final class RemovePackageVersionsRector extends AbstractRector
 {
     /**
      * @var SymfonyPhpConfigClosureAnalyzer
@@ -30,6 +29,13 @@ final class RemovePackageVersionsRector extends AbstractRector implements Intern
         $this->symfonyPhpConfigClosureAnalyzer = $symfonyPhpConfigClosureAnalyzer;
     }
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
+
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [Closure::class];

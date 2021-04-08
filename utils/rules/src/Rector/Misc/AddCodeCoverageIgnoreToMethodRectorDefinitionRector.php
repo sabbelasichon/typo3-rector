@@ -14,6 +14,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [ClassMethod::class];
@@ -54,6 +57,9 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
                 <<<'CODE_SAMPLE'
 class SomeClass extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
     }
@@ -71,6 +77,9 @@ CODE_SAMPLE
                 <<<'CODE_SAMPLE'
 class SomeClass extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
     }

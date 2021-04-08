@@ -19,6 +19,10 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
     /*
      * @return string[]
      */
+
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

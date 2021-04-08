@@ -47,6 +47,10 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends AbstractRec
     /**
      * @return array<class-string<\PhpParser\Node>>
      */
+
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class, StaticCall::class];

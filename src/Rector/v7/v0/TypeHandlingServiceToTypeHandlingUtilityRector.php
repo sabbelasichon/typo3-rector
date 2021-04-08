@@ -17,6 +17,9 @@ use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
  */
 final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

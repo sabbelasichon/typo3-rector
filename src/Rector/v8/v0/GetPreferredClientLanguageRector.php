@@ -24,6 +24,9 @@ final class GetPreferredClientLanguageRector extends AbstractRector
      */
     private const GET_PREFERRED_CLIENT_LANGUAGE = 'getPreferredClientLanguage';
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

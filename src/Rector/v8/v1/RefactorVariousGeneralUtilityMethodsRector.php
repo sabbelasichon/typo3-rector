@@ -63,6 +63,9 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
      */
     private const PARTS = 'parts';
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

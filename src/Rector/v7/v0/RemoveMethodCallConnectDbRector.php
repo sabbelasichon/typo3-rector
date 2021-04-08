@@ -16,6 +16,9 @@ use TYPO3\CMS\Frontend\Utility\EidUtility;
  */
 final class RemoveMethodCallConnectDbRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

@@ -20,6 +20,9 @@ use TYPO3\CMS\Core\Utility\PhpOptionsUtility;
  */
 final class PhpOptionsUtilityRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

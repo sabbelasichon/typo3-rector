@@ -13,16 +13,15 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Rector\AbstractRector;
-use Rector\RectorGenerator\Contract\InternalRectorInterface;
-use Rector\SymfonyPhpConfig\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
+use Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
 use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-final class AddReplacePackageRector extends AbstractRector implements InternalRectorInterface
+final class AddReplacePackageRector extends AbstractRector
 {
     /**
-     * @var SymfonyPhpConfigClosureAnalyzer
+     * @var \Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer
      */
     private $symfonyPhpConfigClosureAnalyzer;
 
@@ -41,6 +40,9 @@ final class AddReplacePackageRector extends AbstractRector implements InternalRe
         $this->replacePackges = $replacePackages;
     }
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [Closure::class];

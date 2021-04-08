@@ -48,6 +48,9 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
         $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [Assign::class];

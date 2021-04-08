@@ -39,6 +39,9 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
      */
     private const ADD_HTML_PART = 'addHtmlPart';
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [ClassConstFetch::class];

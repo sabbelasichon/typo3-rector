@@ -17,6 +17,9 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
  */
 final class RemoveWakeupCallFromEntityRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

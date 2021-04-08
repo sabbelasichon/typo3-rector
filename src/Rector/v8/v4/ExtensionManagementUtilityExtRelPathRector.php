@@ -21,6 +21,10 @@ final class ExtensionManagementUtilityExtRelPathRector extends AbstractRector
     /**
      * @return array<class-string<\PhpParser\Node>>
      */
+
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];

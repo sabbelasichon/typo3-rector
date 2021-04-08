@@ -50,6 +50,9 @@ final class BackendUserAuthenticationSimplelogRector extends AbstractRector
         return $this->nodeFactory->createMethodCall($node->var, 'writelog', $args);
     }
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];

@@ -11,6 +11,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class MissingSee extends AbstractRector implements PhpRectorInterface
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
     }

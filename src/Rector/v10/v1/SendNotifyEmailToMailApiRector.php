@@ -83,6 +83,9 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
      */
     private const PARSED_REPLY_TO = 'parsedReplyTo';
 
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
