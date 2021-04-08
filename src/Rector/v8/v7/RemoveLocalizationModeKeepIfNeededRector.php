@@ -153,10 +153,6 @@ CODE_SAMPLE
                     }
 
                     foreach ($configItemValue->value->items as $behaviourConfigurationItem) {
-                        if (null === $behaviourConfigurationItem) {
-                            continue;
-                        }
-
                         if (! $behaviourConfigurationItem instanceof ArrayItem) {
                             continue;
                         }
@@ -184,10 +180,6 @@ CODE_SAMPLE
         $allowLanguageSynchronization = null;
 
         foreach ($behaviourConfiguration->items as $behaviourConfigurationItem) {
-            if (null === $behaviourConfigurationItem) {
-                continue;
-            }
-
             if (! $behaviourConfigurationItem instanceof ArrayItem) {
                 continue;
             }

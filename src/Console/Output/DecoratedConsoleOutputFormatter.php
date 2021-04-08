@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Console\Output;
 
 use Nette\Utils\Strings;
-use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Lexer\Lexer;
 use PHPStan\PhpDocParser\Parser\TokenIterator;
 use Rector\BetterPhpDocParser\PhpDocParser\BetterPhpDocParser;
@@ -87,7 +86,7 @@ final class DecoratedConsoleOutputFormatter implements OutputFormatterInterface
 
     public function report(ErrorAndDiffCollector $errorAndDiffCollector): void
     {
-        if (false === (bool) $this->parameterProvider->provideParameter(Typo3Option::OUTPUT_CHANGELOG)) {
+        if (! (bool) $this->parameterProvider->provideParameter(Typo3Option::OUTPUT_CHANGELOG)) {
             $this->consoleOutputFormatter->report($errorAndDiffCollector);
             return;
         }
@@ -181,13 +180,11 @@ final class DecoratedConsoleOutputFormatter implements OutputFormatterInterface
                         if (count($seeTags) > 0) {
                             $firstSeeTag = array_shift($seeTags);
 
-                            if ($firstSeeTag instanceof PhpDocTagNode) {
-                                $appliedRules[$appliedRuleKey] = sprintf(
-                                    '%s (%s)',
-                                    $rectorClass,
-                                    (string) $firstSeeTag->value
-                                );
-                            }
+                            $appliedRules[$appliedRuleKey] = sprintf(
+                                '%s (%s)',
+                                $rectorClass,
+                                (string) $firstSeeTag->value
+                            );
                         }
                     } catch (ReflectionException $reflectionException) {
                     }

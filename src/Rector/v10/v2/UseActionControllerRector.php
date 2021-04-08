@@ -11,6 +11,8 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use TYPO3\CMS\Extbase\Mvc\Controller\AbstractController;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89554-DeprecateTYPO3CMSExtbaseMvcControllerAbstractController.html
@@ -18,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UseActionControllerRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -32,12 +34,12 @@ final class UseActionControllerRector extends AbstractRector
     {
         $classType = $this->getObjectType($node);
 
-        $abstractControllerObjectType = new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\AbstractController');
+        $abstractControllerObjectType = new ObjectType(AbstractController::class);
         if (! $abstractControllerObjectType->isSuperTypeOf($classType)->yes()) {
             return null;
         }
 
-        $node->extends = new FullyQualified('TYPO3\CMS\Extbase\Mvc\Controller\ActionController');
+        $node->extends = new FullyQualified(ActionController::class);
         return $node;
     }
 

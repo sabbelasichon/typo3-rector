@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
@@ -23,6 +24,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
     $services->set(AddSeeTestAnnotationRector::class);
+    $services->set(VarConstantCommentRector::class);
 
     $parameters->set(Option::PATHS, [__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
 

@@ -35,7 +35,7 @@ final class RefactorTCARector extends AbstractRector
     ];
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private const MAP_WIZARD_TO_RENDER_TYPE = [
         'table' => 'textTable',
@@ -44,7 +44,7 @@ final class RefactorTCARector extends AbstractRector
     ];
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private const MAP_WIZARD_TO_CUSTOM_TYPE = [
         'select' => 'valuePicker',
@@ -173,14 +173,14 @@ CODE_SAMPLE
                     continue;
                 }
 
-                $wizzardArray = $configValue->value;
-
                 // Refactor input type
-                if ($this->isConfigType($wizzardArray, 'input') && ! $this->hasRenderType($wizzardArray)) {
+                if ($this->isConfigType($configValue->value, 'input') && ! $this->hasRenderType($configValue->value)) {
                     $this->refactorRenderTypeInputDateTime($configValue);
                 }
 
-                foreach ($wizzardArray->items as $configItemValue) {
+                /** @var Array_ $configValueArray */
+                $configValueArray = $configValue->value;
+                foreach ($configValueArray->items as $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;
                     }
@@ -197,25 +197,27 @@ CODE_SAMPLE
                         continue;
                     }
 
-                    $wizzardArray = $configItemValue->value;
-
                     $fieldControl = [];
                     $customTypeOptions = [];
 
-                    $remainingWizards = count($wizzardArray->items);
-                    foreach ($wizzardArray->items as $wizardItemValue) {
-                        if (null === $wizardItemValue) {
+//                    $isRte = $this->valueResolver->isValue($configItemValue->key, 'RTE');
+//                    if ($isRte) {
+//                        $fieldControl['fullScreenRichtext']['disabled'] = false;
+//                    }
+//
+                    $remainingWizards = count($configItemValue->value->items);
+                    foreach ($configItemValue->value->items as $wizardItemValue) {
+                        if (! $wizardItemValue instanceof ArrayItem) {
                             continue;
                         }
 
-                        $wizardKey = $wizardItemValue->key;
-                        if (null === $wizardKey) {
+                        if (null === $wizardItemValue->key) {
                             continue;
                         }
 
                         $validWizard = $this->isValidWizard($wizardItemValue);
                         if ($validWizard ||
-                           Strings::startsWith($this->valueResolver->getValue($wizardKey), '_')
+                            Strings::startsWith($this->valueResolver->getValue($wizardItemValue->key), '_')
                         ) {
                             --$remainingWizards;
                         }
@@ -230,7 +232,8 @@ CODE_SAMPLE
                             continue;
                         }
 
-                        $wizardItemValueKey = $this->valueResolver->getValue($wizardKey);
+                        $wizardItemValueKey = $this->valueResolver->getValue($wizardItemValue->key);
+
                         if (null === $wizardItemValueKey) {
                             continue;
                         }
@@ -247,7 +250,7 @@ CODE_SAMPLE
                         }
 
                         if (array_key_exists($wizardItemValueKey, self::MAP_WIZARD_TO_RENDER_TYPE)) {
-                            $wizzardArray->items[] = new ArrayItem(new String_(
+                            $configValue->value->items[] = new ArrayItem(new String_(
                                 self::MAP_WIZARD_TO_RENDER_TYPE[$wizardItemValueKey]
                             ), new String_('renderType'));
                         }
@@ -263,9 +266,9 @@ CODE_SAMPLE
 
                             // Configuration of slider wizard
                             if ('angle' === $wizardItemValueKey && ! $this->valueResolver->isValue(
-                                $wizardItemSubValue->key,
-                                'type'
-                            )) {
+                                    $wizardItemSubValue->key,
+                                    'type'
+                                )) {
                                 $sliderValue = $this->valueResolver->getValue($wizardItemSubValue->value);
                                 if ($sliderValue) {
                                     $customTypeOptions[$this->valueResolver->getValue(
@@ -273,25 +276,25 @@ CODE_SAMPLE
                                     )] = $sliderValue;
                                 }
                             } elseif ('select' === $wizardItemValueKey && $this->valueResolver->isValue(
-                                $wizardItemSubValue->key,
-                                'items'
-                            )) {
-                                $wizzardArray->items[] = new ArrayItem(new Array_([
+                                    $wizardItemSubValue->key,
+                                    'items'
+                                )) {
+                                $configValue->value->items[] = new ArrayItem(new Array_([
                                     new ArrayItem($wizardItemSubValue->value, $wizardItemSubValue->key),
                                 ]), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
                             } elseif ('suggest' === $wizardItemValueKey && ! $this->valueResolver->isValue(
-                                $wizardItemSubValue->key,
-                                'type'
-                            )) {
-                                $wizzardArray->items[] = new ArrayItem(new Array_([
+                                    $wizardItemSubValue->key,
+                                    'type'
+                                )) {
+                                $configValue->value->items[] = new ArrayItem(new Array_([
                                     new ArrayItem($wizardItemSubValue->value, $wizardItemSubValue->key),
                                 ]), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
                             }
 
                             if ($wizardItemSubValue->value instanceof Array_ && $this->valueResolver->isValue(
-                                $wizardItemSubValue->key,
-                                'params'
-                            )) {
+                                    $wizardItemSubValue->key,
+                                    'params'
+                                )) {
                                 foreach ($wizardItemSubValue->value->items as $paramsValue) {
                                     if (! $paramsValue instanceof ArrayItem) {
                                         continue;
@@ -325,9 +328,9 @@ CODE_SAMPLE
                                     }
                                 }
                             } elseif (null !== $fieldControlKey && $this->valueResolver->isValue(
-                                $wizardItemSubValue->key,
-                                'title'
-                            )) {
+                                    $wizardItemSubValue->key,
+                                    'title'
+                                )) {
                                 $value = $this->valueResolver->getValue($wizardItemSubValue->value);
                                 if (null === $value) {
                                     continue;
@@ -339,17 +342,17 @@ CODE_SAMPLE
                         }
 
                         if ([] !== $customTypeOptions && array_key_exists(
-                            $wizardItemValueKey,
-                            self::MAP_WIZARD_TO_CUSTOM_TYPE
-                        )) {
-                            $wizzardArray->items[] = new ArrayItem($this->nodeFactory->createArray(
+                                $wizardItemValueKey,
+                                self::MAP_WIZARD_TO_CUSTOM_TYPE
+                            )) {
+                            $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
                                 $customTypeOptions
                             ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
                         }
                     }
 
                     if ([] !== $fieldControl) {
-                        $wizzardArray->items[] = new ArrayItem($this->nodeFactory->createArray(
+                        $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
                             $fieldControl
                         ), new String_('fieldControl'));
                     }

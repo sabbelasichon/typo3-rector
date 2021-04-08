@@ -28,7 +28,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
     private const DISABLED = 'disabled';
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -133,7 +133,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                     } elseif ($this->valueResolver->isValue(
                         $arrayItemKey,
                         'show_thumbs'
-                    ) && false === (bool) $configItemValueValue) {
+                    ) && ! (bool) $configItemValueValue) {
                         if ($this->configIsOfInternalType($configValue->value, 'db')) {
                             $addFieldWizards['recordsOverview'][self::DISABLED] = true;
                         } elseif ($this->configIsOfInternalType($configValue->value, 'file')) {

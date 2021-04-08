@@ -61,9 +61,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        /** @var SmartFileInfo $fileInfo */
         $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
-
         if (! $fileInfo instanceof SmartFileInfo) {
             return null;
         }

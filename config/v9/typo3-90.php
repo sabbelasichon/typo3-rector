@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
+
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Ssch\TYPO3Rector\FlexForms\Transformer\RenderTypeTransformer;
 use Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraRector;
@@ -32,6 +33,7 @@ use Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../services.php');
@@ -67,7 +69,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->class(RenameMethodRector::class)
         ->call('configure', [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename(\TYPO3\CMS\Core\Utility\GeneralUtility::class, 'getUserObj', 'makeInstance'),
+                new MethodCallRename(GeneralUtility::class, 'getUserObj', 'makeInstance'),
             ]),
         ]]);
     $services->set(UseNewComponentIdForPageTreeRector::class);

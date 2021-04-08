@@ -137,10 +137,6 @@ CODE_SAMPLE
                     }
 
                     foreach ($configItemValue->value->items as $behaviourConfigurationItem) {
-                        if (null === $behaviourConfigurationItem) {
-                            continue;
-                        }
-
                         if (! $behaviourConfigurationItem instanceof ArrayItem) {
                             continue;
                         }

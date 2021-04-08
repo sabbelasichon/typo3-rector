@@ -21,7 +21,7 @@ use TYPO3\CMS\IndexedSearch\Controller\SearchFormController;
 final class RenamePiListBrowserResultsRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -33,12 +33,14 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node, new ObjectType(SearchFormController::class))) {
+        if (! $this->isObjectType($node->var, new ObjectType(SearchFormController::class))) {
             return null;
         }
+
         if (! $this->isName($node->name, 'pi_list_browseresults')) {
             return null;
         }
+
         return $this->process($node, 'renderPagination');
     }
 

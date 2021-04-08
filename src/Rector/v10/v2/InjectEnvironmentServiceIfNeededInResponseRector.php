@@ -22,6 +22,7 @@ use Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
+use TYPO3\CMS\Extbase\Service\EnvironmentService;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89468-DeprecateInjectionOfEnvironmentServiceInWebRequest.html
@@ -46,7 +47,7 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -136,7 +137,7 @@ CODE_SAMPLE
         $propertyBuilder->makeProtected();
 
         $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(
-            new FullyQualifiedObjectType('TYPO3\CMS\Extbase\Service\EnvironmentService')
+            new FullyQualifiedObjectType(EnvironmentService::class)
         );
         $propertyBuilder->setDocComment(new Doc(sprintf('/**%s * @var %s%s */', PHP_EOL, $docString, PHP_EOL)));
 
@@ -163,7 +164,7 @@ CODE_SAMPLE
     private function addInjectEnvironmentServiceMethod(Class_ $node): void
     {
         $paramBuilder = new ParamBuilder(self::ENVIRONMENT_SERVICE);
-        $paramBuilder->setType(new FullyQualified('TYPO3\CMS\Extbase\Service\EnvironmentService'));
+        $paramBuilder->setType(new FullyQualified(EnvironmentService::class));
 
         $param = $paramBuilder->getNode();
         $propertyAssignNode = $this->nodeFactory->createPropertyAssignmentWithExpr(

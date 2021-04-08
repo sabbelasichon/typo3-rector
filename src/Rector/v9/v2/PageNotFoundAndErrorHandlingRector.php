@@ -44,6 +44,9 @@ final class PageNotFoundAndErrorHandlingRector extends AbstractRector
         'pageUnavailableAndExit' => 'unavailableAction',
     ];
 
+    /**
+     * @var string[]
+     */
     private const METHODS = [
         'pageNotFoundAndExit',
         'pageUnavailableAndExit',

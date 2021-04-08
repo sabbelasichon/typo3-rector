@@ -38,3 +38,11 @@ parameters:
 
         # false positive
         - '#Strict comparison using \=\=\= between (array<int, string\>|false) and (false|array<int, string\>) will always evaluate to false#'
+
+        -
+            message: '#Access to an undefined property PhpParser\\Node\\Expr\:\:\$items#'
+            path: src/Rector/v8/v6/RefactorTCARector.php
+
+        -
+            message: '#Parameter \#1 \$expr of method Rector\\Core\\PhpParser\\Node\\Value\\ValueResolver\:\:getValue\(\) expects PhpParser\\Node\\Expr, PhpParser\\Node\\Expr\|null given#'
+            path: src/Rector/v8/v6/RefactorTCARector.php

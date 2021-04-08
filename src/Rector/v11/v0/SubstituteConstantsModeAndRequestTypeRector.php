@@ -30,7 +30,7 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
     use FileHelperTrait;
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -42,9 +42,7 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        /** @var SmartFileInfo $fileInfo */
         $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
-
         if (! $fileInfo instanceof SmartFileInfo) {
             return null;
         }

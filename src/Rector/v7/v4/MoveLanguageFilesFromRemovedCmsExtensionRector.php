@@ -17,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class MoveLanguageFilesFromRemovedCmsExtensionRector extends AbstractRector
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private const MAPPING_OLD_TO_NEW_PATHS = [
         'cms/web_info/locallang.xlf' => 'frontend/Resources/Private/Language/locallang_webinfo.xlf',
@@ -49,7 +49,7 @@ CODE_SAMPLE
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
