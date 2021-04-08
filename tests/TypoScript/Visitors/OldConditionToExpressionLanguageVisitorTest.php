@@ -285,6 +285,11 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
             'oldCondition' => '[usergroup("1,2")]',
             'newCondition' => '[usergroup("1,2")]',
         ];
+
+        yield '' => [
+            'oldCondition' => '[globalString = GP:jh_magnificpopup|type=reference]',
+            'newCondition' => "[traverse(request.getQueryParams(), 'jh_magnificpopup/type') == 'reference' || traverse(request.getParsedBody(), 'jh_magnificpopup/type') == 'reference']",
+        ];
     }
 
     /**
