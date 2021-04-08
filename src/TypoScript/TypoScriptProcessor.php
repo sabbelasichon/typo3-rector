@@ -103,6 +103,10 @@ final class TypoScriptProcessor implements ProcessorInterface, ConfigurableProce
 
     public function canProcess(SmartFileInfo $smartFileInfo): bool
     {
+        if ([] === $this->visitors) {
+            return false;
+        }
+
         return in_array($smartFileInfo->getExtension(), $this->allowedFileExtensions, true);
     }
 

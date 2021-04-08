@@ -36,10 +36,6 @@ final class FormYamlProcessor implements ProcessorInterface
     {
         $yaml = Yaml::parseFile($smartFileInfo->getRealPath());
 
-        if ([] === $this->transformer) {
-            return $smartFileInfo->getContents();
-        }
-
         if (! is_array($yaml)) {
             return $smartFileInfo->getContents();
         }
@@ -53,6 +49,10 @@ final class FormYamlProcessor implements ProcessorInterface
 
     public function canProcess(SmartFileInfo $smartFileInfo): bool
     {
+        if ([] === $this->transformer) {
+            return false;
+        }
+
         return in_array($smartFileInfo->getExtension(), self::ALLOWED_FILE_EXTENSIONS, true);
     }
 
