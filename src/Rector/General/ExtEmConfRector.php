@@ -63,7 +63,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
     ];
 
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

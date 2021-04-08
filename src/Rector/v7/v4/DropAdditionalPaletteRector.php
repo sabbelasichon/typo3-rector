@@ -38,7 +38,7 @@ final class DropAdditionalPaletteRector extends AbstractRector
     private const PALETTE_NAME = 'paletteName';
 
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

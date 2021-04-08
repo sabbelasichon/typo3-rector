@@ -18,7 +18,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends AbstractFluentChainMethodCallRector
 {
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

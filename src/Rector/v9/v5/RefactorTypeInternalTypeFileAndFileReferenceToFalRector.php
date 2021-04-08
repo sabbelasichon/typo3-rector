@@ -22,7 +22,7 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
     use TcaHelperTrait;
 
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

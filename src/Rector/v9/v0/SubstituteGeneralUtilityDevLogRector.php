@@ -32,7 +32,7 @@ final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
     }
 
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

@@ -48,7 +48,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
     }
 
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

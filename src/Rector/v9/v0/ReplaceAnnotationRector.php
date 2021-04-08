@@ -43,7 +43,7 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
     }
 
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

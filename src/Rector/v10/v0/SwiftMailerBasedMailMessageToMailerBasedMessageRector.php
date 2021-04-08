@@ -21,7 +21,7 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends AbstractRector
 {
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

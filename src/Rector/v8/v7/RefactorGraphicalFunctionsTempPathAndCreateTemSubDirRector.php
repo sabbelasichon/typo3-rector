@@ -49,7 +49,7 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
     private const TMP_PATH = 'tmpPath';
 
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {
