@@ -31,7 +31,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
     private const QUERY_BUILDER = 'queryBuilder';
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

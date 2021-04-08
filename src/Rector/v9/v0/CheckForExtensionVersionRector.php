@@ -20,7 +20,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 final class CheckForExtensionVersionRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
