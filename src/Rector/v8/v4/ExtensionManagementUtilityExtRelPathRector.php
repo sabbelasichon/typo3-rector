@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 final class ExtensionManagementUtilityExtRelPathRector extends AbstractRector
 {
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

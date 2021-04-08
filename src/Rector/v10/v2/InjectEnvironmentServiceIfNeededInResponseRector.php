@@ -46,7 +46,7 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
     }
 
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

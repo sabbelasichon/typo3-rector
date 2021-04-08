@@ -41,7 +41,7 @@ final class TimeTrackerInsteadOfNullTimeTrackerRector extends AbstractRector
     }
 
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

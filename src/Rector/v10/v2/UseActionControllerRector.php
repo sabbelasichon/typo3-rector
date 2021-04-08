@@ -20,7 +20,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 final class UseActionControllerRector extends AbstractRector
 {
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

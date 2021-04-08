@@ -27,7 +27,7 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
     private const SELECT = 'select';
 
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

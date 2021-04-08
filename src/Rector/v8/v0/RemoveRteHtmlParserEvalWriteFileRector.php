@@ -20,7 +20,7 @@ use TYPO3\CMS\Core\Html\RteHtmlParser;
 final class RemoveRteHtmlParserEvalWriteFileRector extends AbstractRector
 {
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

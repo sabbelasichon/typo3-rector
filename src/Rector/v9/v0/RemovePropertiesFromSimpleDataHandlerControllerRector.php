@@ -20,7 +20,7 @@ use TYPO3\CMS\Backend\Controller\SimpleDataHandlerController;
 final class RemovePropertiesFromSimpleDataHandlerControllerRector extends AbstractRector
 {
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

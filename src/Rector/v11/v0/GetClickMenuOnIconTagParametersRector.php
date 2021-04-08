@@ -17,7 +17,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 final class GetClickMenuOnIconTagParametersRector extends AbstractRector
 {
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

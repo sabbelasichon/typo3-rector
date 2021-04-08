@@ -33,7 +33,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
     private const ALLOW_LANGUAGE_SYNCHRONIZATION = 'allowLanguageSynchronization';
 
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

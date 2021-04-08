@@ -32,7 +32,7 @@ final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRect
     }
 
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

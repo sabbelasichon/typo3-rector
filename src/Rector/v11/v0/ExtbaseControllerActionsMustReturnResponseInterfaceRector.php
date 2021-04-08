@@ -37,7 +37,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
     private const HTML_RESPONSE = 'htmlResponse';
 
     /**
-     * @return string[]
+     * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
     {

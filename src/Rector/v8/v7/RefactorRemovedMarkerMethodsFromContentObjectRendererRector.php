@@ -28,7 +28,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
     private const FILL_IN_MARKER_ARRAY = 'fillInMarkerArray';
 
     /**
-     * @return string[]
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
