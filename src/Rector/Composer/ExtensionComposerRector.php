@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Rector\Composer;
 
 use Ssch\TYPO3Rector\Composer\ExtensionComposerRectorInterface;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;

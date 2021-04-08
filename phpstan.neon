@@ -26,6 +26,8 @@ parameters:
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
 
+    reportUnmatchedIgnoredErrors: false
+
     excludePaths:
         # should be included in Rector core
         - src/Renaming/NodeManipulator/ClassRenamer.php

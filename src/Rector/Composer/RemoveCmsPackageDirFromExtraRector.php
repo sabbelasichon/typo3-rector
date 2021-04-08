@@ -7,14 +7,13 @@ namespace Ssch\TYPO3Rector\Rector\Composer;
 use BadMethodCallException;
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\Composer\RemoveCmsPackageDirFromExtraRector\RemoveCmsPackageDirFromExtraRectorTest
  */
-final class RemoveCmsPackageDirFromExtraRector implements ComposerRectorInterface, DocumentedRuleInterface
+final class RemoveCmsPackageDirFromExtraRector implements ComposerRectorInterface
 {
     /**
      * @var string

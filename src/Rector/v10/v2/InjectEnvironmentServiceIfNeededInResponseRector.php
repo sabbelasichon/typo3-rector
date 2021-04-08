@@ -135,7 +135,9 @@ CODE_SAMPLE
         $propertyBuilder = new PropertyBuilder(self::ENVIRONMENT_SERVICE);
         $propertyBuilder->makeProtected();
 
-        $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(new FullyQualifiedObjectType('TYPO3\CMS\Extbase\Service\EnvironmentService'));
+        $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(
+            new FullyQualifiedObjectType('TYPO3\CMS\Extbase\Service\EnvironmentService')
+        );
         $propertyBuilder->setDocComment(new Doc(sprintf('/**%s * @var %s%s */', PHP_EOL, $docString, PHP_EOL)));
 
         return $propertyBuilder->getNode();

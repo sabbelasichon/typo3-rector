@@ -17,9 +17,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
     $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, __DIR__ . '/phpstan.neon');
 
-    $parameters->set(Option::AUTOLOAD_PATHS, [
-        __DIR__ . '/stubs'
-    ]);
+    $parameters->set(Option::AUTOLOAD_PATHS, [__DIR__ . '/stubs']);
 
     $services = $containerConfigurator->services();
 
