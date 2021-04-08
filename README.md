@@ -27,7 +27,8 @@ Please post questions to TYPO3 Slack (https://typo3.slack.com) in the channel #e
 Or feel free to open an issue or start a discussion on github.
 
 ## Credits
-Many thanks to [Tomas Votruba](https://tomasvotruba.com/) for his on going support and [Rector](https://github.com/rectorphp/rector).
+
+Many thanks to [Tomas Votruba](https://tomasvotruba.com) for his on going support and [Rector](https://github.com/rectorphp/rector).
 Many thanks to every other contributor.
 
 Oh, and if you've come down this far, you might as well follow me on [twitter](https://twitter.com/schreiberten).
