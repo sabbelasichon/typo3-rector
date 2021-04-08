@@ -101,6 +101,7 @@ final class Typo3GenerateCommand extends Command
 
         $testCaseDirectoryPath = $this->resolveTestCaseDirectoryPath($generatedFilePaths);
 
+        $recipe->getSet();
         $this->configFilesystem->appendRectorServiceToSet($recipe, $templateVariables);
 
         $this->printSuccess($recipe->getRectorName(), $generatedFilePaths, $testCaseDirectoryPath);

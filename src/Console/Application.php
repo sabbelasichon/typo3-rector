@@ -38,11 +38,7 @@ final class Application extends SymfonyApplication
     /**
      * @param Command[] $commands
      */
-    public function __construct(
-        Configuration $configuration,
-        CommandNaming $commandNaming,
-        array $commands = []
-    ) {
+    public function __construct(Configuration $configuration, CommandNaming $commandNaming, array $commands = []) {
         try {
             $typo3RectorVersion = PrettyVersions::getVersion('ssch/typo3-rector')->getPrettyVersion();
         } catch (OutOfBoundsException $outOfBoundsException) {

@@ -7,12 +7,10 @@ namespace Ssch\TYPO3Rector\Rector\v10\v2;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Mvc\Controller\AbstractController;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89554-DeprecateTYPO3CMSExtbaseMvcControllerAbstractController.html
@@ -32,19 +30,14 @@ final class UseActionControllerRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (null === $node->extends) {
+        $classType = $this->getObjectType($node);
+
+        $AbstractControllerObjectType = new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\AbstractController');
+        if (! $AbstractControllerObjectType->isSuperTypeOf($classType)->yes()) {
             return null;
         }
-        $parentClassName = $node->getAttribute(AttributeKey::PARENT_CLASS_NAME);
-        if (AbstractController::class !== $parentClassName) {
-            return null;
-        }
-        /** @var string|null $className */
-        $className = $node->getAttribute(AttributeKey::CLASS_NAME);
-        if (null === $className) {
-            return null;
-        }
-        $node->extends = new FullyQualified(ActionController::class);
+
+        $node->extends = new FullyQualified('TYPO3\CMS\Extbase\Mvc\Controller\ActionController');
         return $node;
     }
 

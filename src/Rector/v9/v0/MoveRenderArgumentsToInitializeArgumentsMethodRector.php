@@ -83,7 +83,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
 
         $desiredObjectTypes = [
             new ObjectType(AbstractViewHelper::class),
-            new ObjectType(FluidCoreAbstractViewHelper::class)
+            new ObjectType(FluidCoreAbstractViewHelper::class),
         ];
 
         if (! $this->nodeTypeResolver->isObjectTypes($node, $desiredObjectTypes)) {

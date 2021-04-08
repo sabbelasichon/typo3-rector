@@ -75,7 +75,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                     continue;
                 }
 
-                if ($configValue->key === null) {
+                if (null === $configValue->key) {
                     continue;
                 }
 
@@ -96,7 +96,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                     }
 
                     $arrayItemKey = $configItemValue->key;
-                    if ($arrayItemKey === null) {
+                    if (null === $arrayItemKey) {
                         continue;
                     }
 

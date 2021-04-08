@@ -18,6 +18,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\UnionType;
+use PHPStan\Analyser\Scope;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -107,12 +108,9 @@ final class InitializeArgumentsClassMethodFactory
 
         $classMethod = $this->createNewClassMethod();
 
-        $parentClassName = $class->getAttribute(AttributeKey::PARENT_CLASS_NAME);
-
-        // not in analyzed scope, nothing we can do
-        if ((null !== $parentClassName) && method_exists($parentClassName, self::METHOD_NAME)) {
+        if ($this->doesParentClassMethodExist($class, self::METHOD_NAME)) {
+            // not in analyzed scope, nothing we can do
             $parentConstructCallNode = new StaticCall(new Name('parent'), new Identifier(self::METHOD_NAME));
-
             $classMethod->stmts[] = new Expression($parentConstructCallNode);
         }
 
@@ -266,5 +264,26 @@ final class InitializeArgumentsClassMethodFactory
         }
 
         return $this->nodeNameResolver->getName($paramType) ?? self::MIXED;
+    }
+
+    private function doesParentClassMethodExist(Class_ $class, string $methodName): bool
+    {
+        $scope = $class->getAttribute(AttributeKey::SCOPE);
+        if (! $scope instanceof Scope) {
+            return false;
+        }
+
+        $classReflection = $scope->getClassReflection();
+        if (null === $classReflection) {
+            return false;
+        }
+
+        foreach ($classReflection->getParents() as $parentClassReflection) {
+            if ($parentClassReflection->hasMethod($methodName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
