@@ -26,7 +26,7 @@ final class FormYamlProcessorTest extends AbstractRectorTestCase
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(SmartFileInfo $smartFileInfo): void
     {
         $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
 

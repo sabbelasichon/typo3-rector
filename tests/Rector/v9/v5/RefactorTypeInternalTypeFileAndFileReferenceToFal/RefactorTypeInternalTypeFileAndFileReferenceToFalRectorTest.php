@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\RefactorTypeInternalTypeFileAndFileReferenceToFal;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorTypeInternalTypeFileAndFileReferenceToFalRectorTest extends AbstractCommunityRectorTestCase
+final class RefactorTypeInternalTypeFileAndFileReferenceToFalRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

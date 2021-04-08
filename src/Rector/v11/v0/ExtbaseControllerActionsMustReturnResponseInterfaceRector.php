@@ -37,10 +37,13 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
     private const HTML_RESPONSE = 'htmlResponse';
 
     /**
+<<<<<<< HEAD
      * @return array<class-string<\PhpParser\Node>>
      */
 
     /**
+=======
+>>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\RemoveL10nModeNoCopy;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveL10nModeNoCopyRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveL10nModeNoCopyRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

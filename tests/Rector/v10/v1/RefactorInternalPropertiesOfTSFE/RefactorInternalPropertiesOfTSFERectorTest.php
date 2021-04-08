@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v1\RefactorInternalPropertiesOfTSFE;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorInternalPropertiesOfTSFERectorTest extends AbstractCommunityRectorTestCase
+final class RefactorInternalPropertiesOfTSFERectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

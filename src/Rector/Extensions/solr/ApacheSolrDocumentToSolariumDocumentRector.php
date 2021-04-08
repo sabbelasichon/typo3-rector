@@ -18,10 +18,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ApacheSolrDocumentToSolariumDocumentRector extends AbstractRector
 {
     /**
+<<<<<<< HEAD
      * @return array<class-string<\PhpParser\Node>>
      */
 
     /**
+=======
+>>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array

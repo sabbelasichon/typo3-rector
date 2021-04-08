@@ -3,10 +3,10 @@
 namespace Ssch\TYPO3Rector\ComposerPackages\Tests\Rector\RemovePackageVersionsRector;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemovePackageVersionsRectorTest extends AbstractCommunityRectorTestCase
+final class RemovePackageVersionsRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

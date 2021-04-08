@@ -19,6 +19,10 @@ parameters:
 
     checkGenericClassInNonGenericObjectType: false
 
+    excludePaths:
+        # should be included in Rector core
+        - src/Renaming/NodeManipulator/ClassRenamer.php
+
     ignoreErrors:
         - '#Cannot access property \$value on bool\|float\|int\|string#'
         - '#Parameter \#2 \$stmt of method Rector\\Core\\NodeManipulator\\ClassInsertManipulator\:\:addAsFirstMethod\(\) expects PhpParser\\Node\\Stmt\\ClassConst\|PhpParser\\Node\\Stmt\\ClassMethod\|PhpParser\\Node\\Stmt\\Property, PhpParser\\Node\\Stmt\\Nop given#'

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\__Major__\__Minor__\__Test_Directory__;
 
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class __Name__Test extends AbstractCommunityRectorTestCase
+final class __Name__Test extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

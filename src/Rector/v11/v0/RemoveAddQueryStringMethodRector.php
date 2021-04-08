@@ -8,7 +8,9 @@ use PhpParser\Builder\Method;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
+use Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -17,11 +19,29 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Breaking-93041-RemoveTypoScriptOptionAddQueryStringmethod.html
  */
-final class RemoveAddQueryStringMethodRector extends AbstractFluentChainMethodCallRector
+final class RemoveAddQueryStringMethodRector extends AbstractRector
 {
     /**
+<<<<<<< HEAD
      * @return array<class-string<\PhpParser\Node>>
+=======
+     * @var FluentChainMethodCallNodeAnalyzer
+>>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      */
+    private $fluentChainMethodCallNodeAnalyzer;
+
+    /**
+     * @var SameClassMethodCallAnalyzer
+     */
+    private $sameClassMethodCallAnalyzer;
+
+    public function __construct(
+        FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
+        SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer
+    ) {
+        $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
+        $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
+    }
 
     /**
      * @return array<class-string<\PhpParser\Node>>

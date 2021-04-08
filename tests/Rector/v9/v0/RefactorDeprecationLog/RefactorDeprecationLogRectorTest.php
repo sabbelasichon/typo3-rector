@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\RefactorDeprecationLog;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RefactorDeprecationLogRectorTest extends AbstractCommunityRectorTestCase
+final class RefactorDeprecationLogRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

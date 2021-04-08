@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v4\ExtensionManagementUtilityExtRelPath;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ExtensionManagementUtilityExtRelPathRectorTest extends AbstractCommunityRectorTestCase
+final class ExtensionManagementUtilityExtRelPathRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

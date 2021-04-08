@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\ForwardResponseInsteadOfForwardMethod;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ForwardResponseInsteadOfForwardMethodRectorTest extends AbstractCommunityRectorTestCase
+final class ForwardResponseInsteadOfForwardMethodRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\BackendUtilityShortcutExists;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class BackendUtilityShortcutExistsRectorTest extends AbstractCommunityRectorTestCase
+final class BackendUtilityShortcutExistsRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

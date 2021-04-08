@@ -17,17 +17,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
     $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, __DIR__ . '/phpstan.neon');
 
-    $parameters->set(Option::SETS, [
-        SetList::PRIVATIZATION,
-        SetList::DEAD_CODE,
-        SetList::CODING_STYLE,
-        SetList::CODE_QUALITY,
-    ]);
+//    $parameters->set(Option::SETS, [
+//        SetList::PRIVATIZATION,
+//        SetList::DEAD_CODE,
+//        SetList::CODING_STYLE,
+//        SetList::CODE_QUALITY,
+//    ]);
 
     $services = $containerConfigurator->services();
 
-    $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
-    $services->set(AddSeeTestAnnotationRector::class);
+    $services->set(\Ssch\TYPO3Rector\Rector\ObjectTypeRector::class);
+
+//    $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
+//    $services->set(AddSeeTestAnnotationRector::class);
 
     $parameters->set(Option::PATHS, [__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
 

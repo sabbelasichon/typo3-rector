@@ -7,14 +7,12 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-86047-TSFEPropertiesMethodsAndChangeVisibility.html
@@ -44,7 +42,7 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node->var, TypoScriptFrontendController::class)
+        if (! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController'))
             && ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
                 $node,
                 Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
@@ -67,8 +65,8 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
             return $this->nodeFactory->createMethodCall($node->var, 'checkIfLoginAllowedInBranch');
         }
 
-        $contextInstanceNode = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->nodeFactory->createClassConstReference(Context::class),
+        $contextInstanceNode = $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+            $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
         ]);
 
         if ($this->isName($node->name, 'ADMCMD_preview_BEUSER_uid')) {

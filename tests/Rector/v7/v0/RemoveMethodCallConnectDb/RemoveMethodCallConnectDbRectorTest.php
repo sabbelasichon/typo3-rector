@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v0\RemoveMethodCallConnectDb;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveMethodCallConnectDbRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveMethodCallConnectDbRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

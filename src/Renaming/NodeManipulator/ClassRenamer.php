@@ -27,10 +27,14 @@ use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeRemoval\NodeRemover;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockClassRenamer;
+use Rector\NodeTypeResolver\ValueObject\OldToNewType;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 
+/**
+ * @todo why is this class overloaded? maybe something that should be improved in Rector itself :)
+ */
 final class ClassRenamer
 {
     /**
@@ -146,14 +150,13 @@ final class ClassRenamer
             return;
         }
 
+        $oldToNewTypes = [];
         foreach ($oldToNewClasses as $oldClass => $newClass) {
-            $oldClassType = new ObjectType($oldClass);
-            $newClassType = new FullyQualifiedObjectType($newClass);
-
-            $this->docBlockClassRenamer->renamePhpDocType($phpDocInfo, $oldClassType, $newClassType, $node);
+            $oldToNewTypes[] = new OldToNewType(new ObjectType($oldClass), new FullyQualifiedObjectType($newClass));
         }
 
-        $this->phpDocClassRenamer->changeTypeInAnnotationTypes($phpDocInfo, $oldToNewClasses);
+        $this->docBlockClassRenamer->renamePhpDocType($phpDocInfo, $oldToNewTypes);
+        $this->phpDocClassRenamer->changeTypeInAnnotationTypes($node, $phpDocInfo, $oldToNewClasses);
     }
 
     /**

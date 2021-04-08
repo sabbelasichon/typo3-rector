@@ -46,10 +46,13 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
     }
 
     /**
+<<<<<<< HEAD
      * @return array<class-string<\PhpParser\Node>>
      */
 
     /**
+=======
+>>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array

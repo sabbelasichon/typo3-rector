@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\ChangeMethodCallsForStandaloneView;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ChangeMethodCallsForStandaloneViewRectorTest extends AbstractCommunityRectorTestCase
+final class ChangeMethodCallsForStandaloneViewRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

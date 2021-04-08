@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\RemovePropertyUserAuthentication;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemovePropertyUserAuthenticationRectorTest extends AbstractCommunityRectorTestCase
+final class RemovePropertyUserAuthenticationRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

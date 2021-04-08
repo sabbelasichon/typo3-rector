@@ -89,7 +89,6 @@ CODE_SAMPLE
         }
 
         $node->var->setAttribute(AttributeKey::PHP_DOC_INFO, $node->getAttribute(AttributeKey::PHP_DOC_INFO));
-
         if ($this->isObjectType($node->var, PageRepository::class)) {
             return false;
         }

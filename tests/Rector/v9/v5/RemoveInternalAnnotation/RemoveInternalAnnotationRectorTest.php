@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\RemoveInternalAnnotation;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveInternalAnnotationRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveInternalAnnotationRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

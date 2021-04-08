@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
@@ -98,7 +99,7 @@ CODE_SAMPLE
     {
         $node->var->setAttribute(AttributeKey::PHP_DOC_INFO, $node->getAttribute(AttributeKey::PHP_DOC_INFO));
 
-        if ($this->isObjectType($node->var, PageRepository::class)) {
+        if ($this->isObjectType($node->var, new ObjectType(PageRepository::class))) {
             return false;
         }
 

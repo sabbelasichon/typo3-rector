@@ -7,7 +7,9 @@ namespace Ssch\TYPO3Rector\Rector\v11\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Defluent\Rector\AbstractFluentChainMethodCallRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
+use Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
@@ -15,11 +17,29 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-89938-DeprecatedLanguageModeInTypo3QuerySettings.html
  */
-final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends AbstractFluentChainMethodCallRector
+final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends AbstractRector
 {
     /**
+<<<<<<< HEAD
      * @return array<class-string<\PhpParser\Node>>
+=======
+     * @var FluentChainMethodCallNodeAnalyzer
+>>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      */
+    private $fluentChainMethodCallNodeAnalyzer;
+
+    /**
+     * @var SameClassMethodCallAnalyzer
+     */
+    private $sameClassMethodCallAnalyzer;
+
+    public function __construct(
+        FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
+        SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer
+    ) {
+        $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
+        $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
+    }
 
     /**
      * @return array<class-string<\PhpParser\Node>>

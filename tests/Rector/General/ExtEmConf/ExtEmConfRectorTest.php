@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\General\ExtEmConf;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ExtEmConfRectorTest extends AbstractCommunityRectorTestCase
+final class ExtEmConfRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\TemplateGetFileNameToFilePathSanitizer;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class TemplateGetFileNameToFilePathSanitizerRectorTest extends AbstractCommunityRectorTestCase
+final class TemplateGetFileNameToFilePathSanitizerRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
