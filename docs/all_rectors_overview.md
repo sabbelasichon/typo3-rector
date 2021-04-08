@@ -76,7 +76,7 @@ array2xml_cs to array2xml
 
 ## ArrayUtilityInArrayToFuncInArrayRector
 
-Method inArray from ArrayUtility to `in_array`
+Method inArray from ArrayUtility to in_array
 
 - class: [`Ssch\TYPO3Rector\Rector\v8\v6\ArrayUtilityInArrayToFuncInArrayRector`](../src/Rector/v8/v6/ArrayUtilityInArrayToFuncInArrayRector.php)
 
@@ -408,7 +408,7 @@ Convert `$TYPO3_CONF_VARS` to `$GLOBALS['TYPO3_CONF_VARS']`
 
 ## CopyMethodGetPidForModTSconfigRector
 
-`Copy` method getPidForModTSconfig of class BackendUtility over
+Copy method getPidForModTSconfig of class BackendUtility over
 
 - class: [`Ssch\TYPO3Rector\Rector\v9\v3\CopyMethodGetPidForModTSconfigRector`](../src/Rector/v9/v3/CopyMethodGetPidForModTSconfigRector.php)
 
@@ -765,7 +765,7 @@ Refactor `GeneralUtility::getUrl()` request headers in a associative way
 
 ## GeneralUtilityToUpperAndLowerRector
 
-Use `mb_strtolower` and `mb_strtoupper`
+Use mb_strtolower and mb_strtoupper
 
 - class: [`Ssch\TYPO3Rector\Rector\v8\v1\GeneralUtilityToUpperAndLowerRector`](../src/Rector/v8/v1/GeneralUtilityToUpperAndLowerRector.php)
 
@@ -1467,7 +1467,7 @@ Refactor GeneralUtility deprecationLog methods
 
 ## RefactorExplodeUrl2ArrayFromGeneralUtilityRector
 
-Remove second argument of GeneralUtility::explodeUrl2Array if it is false or just use function `parse_str` if it is true
+Remove second argument of GeneralUtility::explodeUrl2Array if it is false or just use function parse_str if it is true
 
 - class: [`Ssch\TYPO3Rector\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRector`](../src/Rector/v9/v4/RefactorExplodeUrl2ArrayFromGeneralUtilityRector.php)
 
@@ -1498,7 +1498,7 @@ Refactor `tempPath()` and createTempSubDir on GraphicalFunctions
 
 ## RefactorIdnaEncodeMethodToNativeFunctionRector
 
-Use native function `idn_to_ascii` instead of GeneralUtility::idnaEncode
+Use native function idn_to_ascii instead of GeneralUtility::idnaEncode
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v0\RefactorIdnaEncodeMethodToNativeFunctionRector`](../src/Rector/v10/v0/RefactorIdnaEncodeMethodToNativeFunctionRector.php)
 
@@ -2711,7 +2711,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
 ## ReplaceExtKeyWithExtensionKeyRector
 
-Replace $_EXTKEY with extension `key`
+Replace $_EXTKEY with extension key
 
 - class: [`Ssch\TYPO3Rector\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector`](../src/Rector/v9/v0/ReplaceExtKeyWithExtensionKeyRector.php)
 
@@ -3060,7 +3060,7 @@ Substitue `ResourceFactory::getInstance()` through GeneralUtility::makeInstance(
 
 ## SwiftMailerBasedMailMessageToMailerBasedMessageRector
 
-New `Mail` API based on symfony/mailer and symfony/mime
+New Mail API based on symfony/mailer and symfony/mime
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v0\SwiftMailerBasedMailMessageToMailerBasedMessageRector`](../src/Rector/v10/v0/SwiftMailerBasedMailMessageToMailerBasedMessageRector.php)
 
@@ -3532,7 +3532,7 @@ Use method getMenu instead of getFirstWebPage
 
 ## UseHtmlSpecialCharsDirectlyForTranslationRector
 
-`htmlspecialchars` directly to properly escape the content.
+htmlspecialchars directly to properly escape the content.
 
 - class: [`Ssch\TYPO3Rector\Rector\v8\v2\UseHtmlSpecialCharsDirectlyForTranslationRector`](../src/Rector/v8/v2/UseHtmlSpecialCharsDirectlyForTranslationRector.php)
 
@@ -3574,7 +3574,7 @@ Use LanguageAspect instead of language properties of TSFE
 
 ## UseLogMethodInsteadOfNewLog2Rector
 
-Use `log` method instead of newlog2 from class DataHandler
+Use log method instead of newlog2 from class DataHandler
 
 - class: [`Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector`](../src/Rector/v9/v0/UseLogMethodInsteadOfNewLog2Rector.php)
 
@@ -3628,7 +3628,7 @@ Use method getPageShortcut directly from PageRepository
 
 ## UseNativePhpHex2binMethodRector
 
-Turns \TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php `hex2bin`
+Turns \TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php hex2bin
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector`](../src/Rector/v10/v0/UseNativePhpHex2binMethodRector.php)
 
