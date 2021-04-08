@@ -20,7 +20,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 final class RemoveAddQueryStringMethodRector extends AbstractFluentChainMethodCallRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

@@ -28,7 +28,7 @@ final class MigrateLastPiecesOfDefaultExtrasRector extends AbstractRector
     private $hasAstBeenChanged = false;
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

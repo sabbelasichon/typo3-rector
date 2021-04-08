@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Resource\File;
 final class UseMetaDataAspectRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

@@ -17,7 +17,7 @@ use TYPO3\CMS\Core\Charset\CharsetConverter;
 final class RemoveCharsetConverterParametersRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

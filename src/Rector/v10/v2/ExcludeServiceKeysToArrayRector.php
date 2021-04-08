@@ -32,7 +32,7 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

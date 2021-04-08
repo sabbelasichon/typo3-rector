@@ -23,7 +23,7 @@ use TYPO3\CMS\Extbase\Configuration\AbstractConfigurationManager;
 final class ConfigurationManagerAddControllerConfigurationMethodRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
