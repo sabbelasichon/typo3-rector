@@ -11,14 +11,21 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
 
     $services = $containerConfigurator->services();
+
     $services->set('typo3_objectmanagerget_to_generalutilitymakeinstance')
         ->class(MethodCallToStaticCallRector::class)
         ->call('configure', [[
             MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => ValueObjectInliner::inline([
                 new MethodCallToStaticCall(
-                    \TYPO3\CMS\Extbase\Object\ObjectManagerInterface::class,
+                    'TYPO3\CMS\Extbase\Object\ObjectManagerInterface',
                     'get',
-                    \TYPO3\CMS\Core\Utility\GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
+                    'makeInstance'
+                ),
+                new MethodCallToStaticCall(
+                    'TYPO3\CMS\Extbase\Object\ObjectManager',
+                    'get',
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     'makeInstance'
                 ),
             ]),

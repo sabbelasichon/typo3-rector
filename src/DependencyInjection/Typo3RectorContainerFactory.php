@@ -9,7 +9,6 @@ use Rector\Caching\Detector\ChangedFilesDetector;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\ValueObject\Bootstrap\BootstrapConfigs;
 use Ssch\TYPO3Rector\HttpKernel\Typo3RectorKernel;
-use Ssch\TYPO3Rector\Stubs\StubLoader as Typo3StubsLoader;
 use Symplify\PackageBuilder\Console\Input\StaticInputDetector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
@@ -31,9 +30,6 @@ final class Typo3RectorContainerFactory
             $configFilePaths = $this->unpackRealPathsFromFileInfos($configFileInfos);
             $rectorKernel->setConfigs($configFilePaths);
         }
-
-        $typo3StubLoader = new Typo3StubsLoader();
-        $typo3StubLoader->loadStubs();
 
         $rectorKernel->boot();
 

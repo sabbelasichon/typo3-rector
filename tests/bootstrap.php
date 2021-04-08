@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Stubs\StubLoader;
+use Tracy\Debugger;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
@@ -17,10 +17,6 @@ error_reporting(E_ALL & ~E_NOTICE | E_DEPRECATED);
 
 // performance boost
 gc_disable();
-
-// load stubs
-$stubLoader = new StubLoader();
-$stubLoader->loadStubs();
 
 // define some globals
 $GLOBALS['TSFE'] = new TypoScriptFrontendController();
@@ -37,3 +33,7 @@ $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'] = 'passw
 $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'] = 'host';
 $GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] = FileNameValidator::DEFAULT_FILE_DENY_PATTERN;
 $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo'] = 'a:6:{s:9:"loginLogo";s:8:"logo.jpg";s:19:"loginHighlightColor";s:7:"#000000";s:20:"loginBackgroundImage";s:8:"logo.jpg";s:13:"loginFootnote";s:8:"Footnote";s:11:"backendLogo";s:0:"";s:14:"backendFavicon";s:0:"";}';
+
+
+// for dump() function
+Debugger::$maxDepth = 2;

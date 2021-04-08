@@ -24,7 +24,8 @@
         "rector/rector-generator": "dev-main",
         "symplify/coding-standard": "^9.2",
         "symplify/easy-coding-standard": "^9.2",
-        "symplify/phpstan-extensions": "^9.2"
+        "symplify/phpstan-extensions": "^9.2",
+        "tracy/tracy": "^2.8"
     },
     "autoload": {
         "psr-4": {
@@ -61,7 +62,13 @@
             "stubs/Core/TimeTracker/TimeTracker.php",
             "stubs/Core/Authentication/BackendUserAuthentication.php",
             "stubs/Core/Localization/LanguageService.php",
-            "stubs/Core/Resource/Security/FileNameValidator.php"
+            "stubs/Core/Resource/Security/FileNameValidator.php",
+            "stubs/Form/Domain/Finishers/EmailFinisher.php",
+            "stubs/Extbase/Mvc/Web/Response.php",
+            "stubs/Extbase/Mvc/Controller/AbstractController.php"
+        ],
+        "classmap": [
+            "stubs"
         ]
     },
     "config": {

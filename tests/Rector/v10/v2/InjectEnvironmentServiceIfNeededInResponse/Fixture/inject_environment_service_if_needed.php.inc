@@ -1,5 +1,7 @@
 <?php
 
+namespace Ssch\TYPO3Rector\Tests;
+
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
 
 class MyResponse extends Response
@@ -23,6 +25,8 @@ class MyOtherResponse extends Response
 ?>
 -----
 <?php
+
+namespace Ssch\TYPO3Rector\Tests;
 
 use TYPO3\CMS\Extbase\Service\EnvironmentService;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;

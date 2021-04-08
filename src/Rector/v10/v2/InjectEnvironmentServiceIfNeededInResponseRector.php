@@ -15,13 +15,13 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 use Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
-use TYPO3\CMS\Extbase\Service\EnvironmentService;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89468-DeprecateInjectionOfEnvironmentServiceInWebRequest.html
@@ -135,8 +135,9 @@ CODE_SAMPLE
         $propertyBuilder = new PropertyBuilder(self::ENVIRONMENT_SERVICE);
         $propertyBuilder->makeProtected();
 
-        $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(new ObjectType(EnvironmentService::class));
+        $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(new FullyQualifiedObjectType('TYPO3\CMS\Extbase\Service\EnvironmentService'));
         $propertyBuilder->setDocComment(new Doc(sprintf('/**%s * @var %s%s */', PHP_EOL, $docString, PHP_EOL)));
+
         return $propertyBuilder->getNode();
     }
 
@@ -160,7 +161,7 @@ CODE_SAMPLE
     private function addInjectEnvironmentServiceMethod(Class_ $node): void
     {
         $paramBuilder = new ParamBuilder(self::ENVIRONMENT_SERVICE);
-        $paramBuilder->setType(new FullyQualified(EnvironmentService::class));
+        $paramBuilder->setType(new FullyQualified('TYPO3\CMS\Extbase\Service\EnvironmentService'));
 
         $param = $paramBuilder->getNode();
         $propertyAssignNode = $this->nodeFactory->createPropertyAssignmentWithExpr(

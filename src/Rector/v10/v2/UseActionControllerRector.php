@@ -11,6 +11,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Tracy\Debugger;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89554-DeprecateTYPO3CMSExtbaseMvcControllerAbstractController.html
@@ -32,8 +33,8 @@ final class UseActionControllerRector extends AbstractRector
     {
         $classType = $this->getObjectType($node);
 
-        $AbstractControllerObjectType = new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\AbstractController');
-        if (! $AbstractControllerObjectType->isSuperTypeOf($classType)->yes()) {
+        $abstractControllerObjectType = new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\AbstractController');
+        if (! $abstractControllerObjectType->isSuperTypeOf($classType)->yes()) {
             return null;
         }
 

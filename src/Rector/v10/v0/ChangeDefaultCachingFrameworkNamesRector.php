@@ -10,7 +10,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Cache\CacheManager;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-88366-DefaultCachingFrameworkCacheNamesChanged.html
@@ -34,7 +33,7 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isObjectType($node->var, new ObjectType(CacheManager::class))) {
+        if (! $this->nodeTypeResolver->isObjectType($node->var, new ObjectType('TYPO3\CMS\Core\Cache\CacheManager'))) {
             return null;
         }
 
