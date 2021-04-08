@@ -32,7 +32,7 @@ final class GlobalVarConditionMatcher implements TyposcriptConditionMatcher
         $conditions = [];
         foreach ($subConditions as $subCondition) {
             preg_match(
-                '#(?<type>TSFE|GP|GPmerged|_POST|_GET|LIT)\s*:\s*(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')\s*(?<value>.*)$#Ui',
+                '#(?<type>TSFE|GP|GPmerged|_POST|_GET|LIT)' . self::ZERO_ONE_OR_MORE_WHITESPACES . ':' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
                 $subCondition,
                 $matches
             );
@@ -54,15 +54,9 @@ final class GlobalVarConditionMatcher implements TyposcriptConditionMatcher
 
             if ('TSFE' === $type) {
                 $conditions[$key][] = $this->refactorTsfe($property, $operator, $value);
-                continue;
-            }
-
-            if ('GP' === $type) {
+            } elseif ('GP' === $type) {
                 $conditions[$key][] = $this->refactorGetPost($property, $operator, $value);
-                continue;
-            }
-
-            if ('LIT' === $type) {
+            } elseif ('LIT' === $type) {
                 $conditions[$key][] = sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property);
                 continue;
             }
@@ -108,16 +102,25 @@ final class GlobalVarConditionMatcher implements TyposcriptConditionMatcher
             return sprintf('siteLanguage("languageId") %s "%s"', self::OPERATOR_MAPPING[$operator], $value);
         }
 
+        if (! is_numeric($value)) {
+            $value = sprintf("'%s'", $value);
+        }
+
         $parameters = ArrayUtility::trimExplode('|', $property);
 
         if (1 === count($parameters)) {
-            return sprintf('request.getQueryParams()[\'%1$s\'] %2$s %3$s', $parameters[0], $operator, $value);
+            return sprintf(
+                'request.getQueryParams()[\'%1$s\'] %2$s %3$s',
+                $parameters[0],
+                self::OPERATOR_MAPPING[$operator],
+                $value
+            );
         }
 
         return sprintf(
             'traverse(request.getQueryParams(), \'%1$s\') %2$s %3$s || traverse(request.getParsedBody(), \'%1$s\') %2$s %3$s',
             implode('/', $parameters),
-            $operator,
+            self::OPERATOR_MAPPING[$operator],
             $value
         );
     }

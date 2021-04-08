@@ -37,13 +37,9 @@ final class GlobalStringConditionMatcher implements TyposcriptConditionMatcher
         $newConditions = [];
         foreach ($subConditions as $subCondition) {
             preg_match(
-                '#(?<type>ENV|IENV):(?<property>.*) '
-                . self::ZERO_ONE_OR_MORE_WHITESPACES .
-                '(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')'
-                . self::ZERO_ONE_OR_MORE_WHITESPACES .
-                '(?<value>.*)$#Ui',
+                '#(?<type>ENV|IENV|GP)' . self::ZERO_ONE_OR_MORE_WHITESPACES . ':' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
                 $subCondition,
-                $matches,
+                $matches
             );
 
             $type = trim($matches['type']);
@@ -55,6 +51,8 @@ final class GlobalStringConditionMatcher implements TyposcriptConditionMatcher
                 $newConditions[] = $this->createEnvCondition($property, $operator, $value);
             } elseif ('IENV' === $type) {
                 $newConditions[] = $this->createIndependentCondition($property, $operator, $value);
+            } elseif ('GP' === $type) {
+                $newConditions[] = $this->refactorGetPost($property, $operator, $value);
             }
         }
 
@@ -80,6 +78,31 @@ final class GlobalStringConditionMatcher implements TyposcriptConditionMatcher
         return sprintf(
             'request.getNormalizedParams().%s() %s "%s"',
             self::IENV_MAPPING[$property],
+            self::OPERATOR_MAPPING[$operator],
+            $value
+        );
+    }
+
+    private function refactorGetPost(string $property, string $operator, string $value): string
+    {
+        $parameters = ArrayUtility::trimExplode('|', $property);
+
+        if (! is_numeric($value)) {
+            $value = sprintf("'%s'", $value);
+        }
+
+        if (1 === count($parameters)) {
+            return sprintf(
+                'request.getQueryParams()[\'%1$s\'] %2$s %3$s',
+                $parameters[0],
+                self::OPERATOR_MAPPING[$operator],
+                $value
+            );
+        }
+
+        return sprintf(
+            'traverse(request.getQueryParams(), \'%1$s\') %2$s %3$s || traverse(request.getParsedBody(), \'%1$s\') %2$s %3$s',
+            implode('/', $parameters),
             self::OPERATOR_MAPPING[$operator],
             $value
         );
