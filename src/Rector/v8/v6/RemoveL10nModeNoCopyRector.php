@@ -33,7 +33,11 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
     private const ALLOW_LANGUAGE_SYNCHRONIZATION = 'allowLanguageSynchronization';
 
     /**
+<<<<<<< HEAD
      * @return array<class-string<Node>>
+=======
+     * @return array<class-string<\PhpParser\Node>>
+>>>>>>> f7cbd4b... make PHPStan smarted on getNodeTypes()
      */
     public function getNodeTypes(): array
     {

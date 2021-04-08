@@ -40,7 +40,11 @@ CODE_SAMPLE
     }
 
     /**
+<<<<<<< HEAD
      * @return array<class-string<Node>>
+=======
+     * @return array<class-string<\PhpParser\Node>>
+>>>>>>> f7cbd4b... make PHPStan smarted on getNodeTypes()
      */
     public function getNodeTypes(): array
     {

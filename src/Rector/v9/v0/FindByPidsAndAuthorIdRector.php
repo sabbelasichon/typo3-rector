@@ -18,7 +18,11 @@ use TYPO3\CMS\SysNote\Domain\Repository\SysNoteRepository;
 final class FindByPidsAndAuthorIdRector extends AbstractRector
 {
     /**
+<<<<<<< HEAD
      * @return array<class-string<Node>>
+=======
+     * @return array<class-string<\PhpParser\Node>>
+>>>>>>> f7cbd4b... make PHPStan smarted on getNodeTypes()
      */
     public function getNodeTypes(): array
     {

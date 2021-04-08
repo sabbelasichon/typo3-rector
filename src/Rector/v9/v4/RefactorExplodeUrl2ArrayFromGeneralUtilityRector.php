@@ -20,7 +20,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRector
 {
     /**
+<<<<<<< HEAD
      * @return array<class-string<Node>>
+=======
+     * @return array<class-string<\PhpParser\Node>>
+>>>>>>> f7cbd4b... make PHPStan smarted on getNodeTypes()
      */
     public function getNodeTypes(): array
     {
