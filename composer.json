@@ -49,6 +49,19 @@
         },
         "exclude-from-classmap": [
             "**.php.inc"
+        ],
+        "files": [
+            "stubs/Frontend/Controller/TypoScriptFrontendController.php",
+            "stubs/Core/TypoScript/TemplateService.php",
+            "stubs/Frontend/Page/PageRepository.php",
+            "stubs/Core/Site/Entity/SiteLanguage.php",
+            "stubs/Core/Charset/CharsetConverter.php",
+            "stubs/Frontend/ContentObject/ContentObjectRenderer.php",
+            "stubs/Frontend/Authentication/FrontendUserAuthentication.php",
+            "stubs/Core/TimeTracker/TimeTracker.php",
+            "stubs/Core/Authentication/BackendUserAuthentication.php",
+            "stubs/Core/Localization/LanguageService.php",
+            "stubs/Core/Resource/Security/FileNameValidator.php"
         ]
     },
     "config": {

@@ -19,6 +19,9 @@ final class StubLoader
      */
     public function loadStubs(): void
     {
+        // let's try to skip it
+        return;
+
         if ($this->areStubsLoaded) {
             return;
         }

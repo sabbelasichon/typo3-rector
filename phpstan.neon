@@ -11,6 +11,10 @@ parameters:
         - config
         - tests
 
+    scanDirectories:
+        # static reflection
+        - stubs
+
     bootstrapFiles:
          - tests/bootstrap.php
 
