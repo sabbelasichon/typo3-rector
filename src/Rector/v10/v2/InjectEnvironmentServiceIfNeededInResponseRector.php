@@ -46,13 +46,6 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
     }
 
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -65,7 +58,7 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node, Response::class)) {
+        if (! $this->isObjectType($node, new ObjectType(Response::class))) {
             return null;
         }
         if (! $this->isPropertyEnvironmentServiceInUse($node)) {

@@ -22,13 +22,12 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwareParamTagValueNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PHPStanStaticTypeMapper\PHPStanStaticTypeMapper;
+use Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
@@ -165,7 +164,7 @@ final class InitializeArgumentsClassMethodFactory
     }
 
     /**
-     * @return ParamTagValueNode[]
+     * @return array<string, ParamTagValueNode>
      */
     private function getParamTagsByName(ClassMethod $classMethod): array
     {
@@ -176,8 +175,8 @@ final class InitializeArgumentsClassMethodFactory
 
         $paramTagsByName = [];
         foreach ($phpDocInfo->getTagsByName('param') as $phpDocTagNode) {
-            /** @var ParamTagValueNode $paramTagValueNode */
             if (property_exists($phpDocTagNode, 'value')) {
+                /** @var ParamTagValueNode $paramTagValueNode */
                 $paramTagValueNode = $phpDocTagNode->value;
                 $paramName = ltrim($paramTagValueNode->parameterName, '$');
                 $paramTagsByName[$paramName] = $paramTagValueNode;
@@ -189,7 +188,7 @@ final class InitializeArgumentsClassMethodFactory
 
     private function getDescription(?ParamTagValueNode $paramTagValueNode): string
     {
-        return $paramTagValueNode instanceof AttributeAwareParamTagValueNode ? $paramTagValueNode->description : '';
+        return $paramTagValueNode instanceof ParamTagValueNode ? $paramTagValueNode->description : '';
     }
 
     private function createTypeInString(?ParamTagValueNode $paramTagValueNode, Param $param): string
@@ -207,11 +206,7 @@ final class InitializeArgumentsClassMethodFactory
             return self::MIXED;
         }
 
-        $paramTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode(
-            $inferedType,
-            PHPStanStaticTypeMapper::KIND_PARAM
-        );
-
+        $paramTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, TypeKind::KIND_PARAM);
         if ($paramTypeNode instanceof UnionType) {
             return self::MIXED;
         }

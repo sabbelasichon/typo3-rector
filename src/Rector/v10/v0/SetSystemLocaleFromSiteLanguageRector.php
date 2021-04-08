@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v10\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -29,7 +30,7 @@ final class SetSystemLocaleFromSiteLanguageRector extends AbstractRector
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -43,7 +44,7 @@ final class SetSystemLocaleFromSiteLanguageRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            TypoScriptFrontendController::class
+            new ObjectType(TypoScriptFrontendController::class)
         ) &&
              ! $this->typo3NodeResolver->isAnyMethodCallOnGlobals(
                 $node,

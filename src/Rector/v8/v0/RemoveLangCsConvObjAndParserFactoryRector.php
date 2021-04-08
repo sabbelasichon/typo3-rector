@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -33,13 +34,6 @@ final class RemoveLangCsConvObjAndParserFactoryRector extends AbstractRector
     }
 
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -107,7 +101,7 @@ CODE_SAMPLE
             return false;
         }
 
-        if ($this->isObjectType($node->var, LanguageService::class)) {
+        if ($this->isObjectType($node->var, new ObjectType(LanguageService::class))) {
             return true;
         }
 

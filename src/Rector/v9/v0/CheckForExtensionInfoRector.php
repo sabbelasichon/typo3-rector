@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -22,6 +23,7 @@ final class CheckForExtensionInfoRector extends AbstractRector
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -33,6 +35,8 @@ final class CheckForExtensionInfoRector extends AbstractRector
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -94,7 +98,7 @@ CODE_SAMPLE
     {
         return $node instanceof StaticCall && $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            ExtensionManagementUtility::class
+            new ObjectType(ExtensionManagementUtility::class)
         ) && $this->isName($node->name, 'isLoaded');
     }
 
@@ -105,7 +109,7 @@ CODE_SAMPLE
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            PackageManager::class
+            new ObjectType(PackageManager::class)
         ) && $this->isName($node->name, 'isPackageActive');
     }
 }

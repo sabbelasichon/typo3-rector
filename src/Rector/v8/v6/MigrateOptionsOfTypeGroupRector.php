@@ -28,13 +28,6 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
     private const DISABLED = 'disabled';
 
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -82,7 +75,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                     continue;
                 }
 
-                if (null === $configValue->key) {
+                if ($configValue->key === null) {
                     continue;
                 }
 
@@ -102,12 +95,13 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                         continue;
                     }
 
-                    if (null === $configItemValue->key) {
+                    $arrayItemKey = $configItemValue->key;
+                    if ($arrayItemKey === null) {
                         continue;
                     }
 
                     if (! $this->valueResolver->isValues(
-                        $configItemValue->key,
+                        $arrayItemKey,
                         ['selectedListStyle', 'show_thumbs', 'disable_controls']
                     )) {
                         continue;
@@ -118,7 +112,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
 
                     $configItemValueValue = $this->valueResolver->getValue($configItemValue->value);
 
-                    if ($this->valueResolver->isValue($configItemValue->key, 'disable_controls') && is_string(
+                    if ($this->valueResolver->isValue($arrayItemKey, 'disable_controls') && is_string(
                         $configItemValueValue
                     )) {
                         $controls = ArrayUtility::trimExplode(',', $configItemValueValue, true);
@@ -137,7 +131,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                             }
                         }
                     } elseif ($this->valueResolver->isValue(
-                        $configItemValue->key,
+                        $arrayItemKey,
                         'show_thumbs'
                     ) && false === (bool) $configItemValueValue) {
                         if ($this->configIsOfInternalType($configValue->value, 'db')) {

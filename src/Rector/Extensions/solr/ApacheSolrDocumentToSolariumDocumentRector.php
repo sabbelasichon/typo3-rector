@@ -8,6 +8,7 @@ use Apache_Solr_Document;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -18,13 +19,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ApacheSolrDocumentToSolariumDocumentRector extends AbstractRector
 {
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -37,7 +31,10 @@ final class ApacheSolrDocumentToSolariumDocumentRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, Apache_Solr_Document::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(Apache_Solr_Document::class)
+        )) {
             return null;
         }
 

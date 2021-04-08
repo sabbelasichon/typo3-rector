@@ -15,6 +15,7 @@ use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -31,7 +32,7 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
     private const PID = 'pid';
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -43,7 +44,10 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, DataHandler::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(DataHandler::class)
+        )) {
             return null;
         }
 

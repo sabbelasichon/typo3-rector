@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v10\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,7 +22,7 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
      */
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -33,7 +34,7 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isObjectType($node->var, CacheManager::class)) {
+        if (! $this->nodeTypeResolver->isObjectType($node->var, new ObjectType(CacheManager::class))) {
             return null;
         }
 

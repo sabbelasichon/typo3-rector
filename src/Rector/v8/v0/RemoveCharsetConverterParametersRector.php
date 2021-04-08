@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -17,13 +18,6 @@ use TYPO3\CMS\Core\Charset\CharsetConverter;
 final class RemoveCharsetConverterParametersRector extends AbstractRector
 {
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -36,7 +30,10 @@ final class RemoveCharsetConverterParametersRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, CharsetConverter::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(CharsetConverter::class)
+        )) {
             return null;
         }
 

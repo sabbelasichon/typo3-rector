@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v3;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -24,7 +25,7 @@ final class BackendUserAuthenticationSimplelogRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            BackendUserAuthentication::class
+            new ObjectType(BackendUserAuthentication::class)
         )) {
             return null;
         }
@@ -51,7 +52,7 @@ final class BackendUserAuthenticationSimplelogRector extends AbstractRector
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

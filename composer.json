@@ -21,6 +21,7 @@
         "captainhook/plugin-composer": "^5.2",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.5",
+        "rector/rector-generator": "dev-main",
         "symplify/coding-standard": "^9.2",
         "symplify/easy-coding-standard": "^9.2",
         "symplify/phpstan-extensions": "^9.2"

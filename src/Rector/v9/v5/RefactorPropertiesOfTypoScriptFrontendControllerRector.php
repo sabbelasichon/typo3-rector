@@ -30,7 +30,7 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -42,7 +42,10 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController'))
+        if (! $this->isObjectType(
+            $node->var,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        )
             && ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
                 $node,
                 Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
@@ -65,9 +68,11 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
             return $this->nodeFactory->createMethodCall($node->var, 'checkIfLoginAllowedInBranch');
         }
 
-        $contextInstanceNode = $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
-            $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
-        ]);
+        $contextInstanceNode = $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
+            'makeInstance',
+            [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context')]
+        );
 
         if ($this->isName($node->name, 'ADMCMD_preview_BEUSER_uid')) {
             return $this->nodeFactory->createMethodCall(

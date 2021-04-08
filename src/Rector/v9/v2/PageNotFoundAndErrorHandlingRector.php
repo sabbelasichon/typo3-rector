@@ -18,6 +18,7 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Echo_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Throw_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -101,6 +102,7 @@ CODE_SAMPLE
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -112,6 +114,8 @@ CODE_SAMPLE
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -171,7 +175,7 @@ CODE_SAMPLE
             return false;
         }
 
-        return ! $this->isObjectType($node->var, TypoScriptFrontendController::class);
+        return ! $this->isObjectType($node->var, new ObjectType(TypoScriptFrontendController::class));
     }
 
     private function createResponse(MethodCall $node): ?Node

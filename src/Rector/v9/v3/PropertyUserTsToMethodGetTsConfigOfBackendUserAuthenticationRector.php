@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v3;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -28,7 +29,7 @@ final class PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector e
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -76,6 +77,6 @@ CODE_SAMPLE
         if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node, Typo3NodeResolver::BACKEND_USER)) {
             return false;
         }
-        return ! $this->isObjectType($node->var, BackendUserAuthentication::class);
+        return ! $this->isObjectType($node->var, new ObjectType(BackendUserAuthentication::class));
     }
 }

@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v7\v4;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -32,7 +33,7 @@ final class InstantiatePageRendererExplicitlyRector extends AbstractRector
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -71,17 +72,23 @@ final class InstantiatePageRendererExplicitlyRector extends AbstractRector
 
     private function shouldSkip(MethodCall $node): bool
     {
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, BackendController::class)) {
-            return false;
-        }
-
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, DocumentTemplate::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(BackendController::class)
+        )) {
             return false;
         }
 
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            TypoScriptFrontendController::class
+            new ObjectType(DocumentTemplate::class)
+        )) {
+            return false;
+        }
+
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(TypoScriptFrontendController::class)
         )) {
             return false;
         }

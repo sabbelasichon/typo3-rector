@@ -16,6 +16,7 @@ use PhpParser\Node\Expr\Cast\String_ as StringCast;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -58,6 +59,7 @@ CODE_SAMPLE
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -69,6 +71,8 @@ CODE_SAMPLE
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -133,7 +137,7 @@ CODE_SAMPLE
         if ($this->typo3NodeResolver->isMethodCallOnBackendUser($node)) {
             return false;
         }
-        return ! $this->isObjectType($node->var, BackendUserAuthentication::class);
+        return ! $this->isObjectType($node->var, new ObjectType(BackendUserAuthentication::class));
     }
 
     private function createConfiguration(string $objectString): array

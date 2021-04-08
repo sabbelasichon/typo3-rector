@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
@@ -31,6 +32,7 @@ final class RemoveInternalAnnotationRector extends AbstractRector
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -42,6 +44,8 @@ final class RemoveInternalAnnotationRector extends AbstractRector
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -54,7 +58,7 @@ final class RemoveInternalAnnotationRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node, CommandController::class)) {
+        if (! $this->isObjectType($node, new ObjectType(CommandController::class))) {
             return null;
         }
         /** @var PhpDocInfo|null $phpDocInfo */

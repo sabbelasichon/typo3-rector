@@ -8,12 +8,11 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper as CoreAbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82414-RemoveCMSBaseViewHelperClasses.html
@@ -21,6 +20,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 final class UseRenderingContextGetControllerContextRector extends AbstractRector
 {
     /**
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
      * @return array<class-string<Node>>
@@ -34,6 +34,8 @@ final class UseRenderingContextGetControllerContextRector extends AbstractRector
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -46,7 +48,12 @@ final class UseRenderingContextGetControllerContextRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectTypes($node, [AbstractViewHelper::class, CoreAbstractViewHelper::class])) {
+        $desiredObjectTypes = [
+            new ObjectType('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper'),
+            new ObjectType('TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper'),
+        ];
+
+        if (! $this->nodeTypeResolver->isObjectTypes($node, $desiredObjectTypes)) {
             return null;
         }
 

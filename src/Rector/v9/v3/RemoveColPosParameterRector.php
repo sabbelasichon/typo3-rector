@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v3;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -19,6 +20,7 @@ final class RemoveColPosParameterRector extends AbstractRector
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -30,6 +32,8 @@ final class RemoveColPosParameterRector extends AbstractRector
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -44,7 +48,7 @@ final class RemoveColPosParameterRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            LocalizationRepository::class
+            new ObjectType(LocalizationRepository::class)
         )) {
             return null;
         }

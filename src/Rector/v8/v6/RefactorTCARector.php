@@ -24,7 +24,7 @@ final class RefactorTCARector extends AbstractRector
     use TcaHelperTrait;
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private const MAP_WIZARD_TO_FIELD_CONTROL = [
         'edit' => 'editPopup',
@@ -112,6 +112,7 @@ CODE_SAMPLE
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -123,6 +124,8 @@ CODE_SAMPLE
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -186,12 +189,14 @@ CODE_SAMPLE
                     continue;
                 }
 
+                $array = $configValue->value;
+
                 // Refactor input type
-                if ($this->isConfigType($configValue->value, 'input') && ! $this->hasRenderType($configValue->value)) {
+                if ($this->isConfigType($array, 'input') && ! $this->hasRenderType($array)) {
                     $this->refactorRenderTypeInputDateTime($configValue);
                 }
 
-                foreach ($configValue->value->items as $configItemValue) {
+                foreach ($array->items as $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;
                     }
@@ -208,16 +213,13 @@ CODE_SAMPLE
                         continue;
                     }
 
+                    $array = $configItemValue->value;
+
                     $fieldControl = [];
                     $customTypeOptions = [];
 
-//                    $isRte = $this->valueResolver->isValue($configItemValue->key, 'RTE');
-//                    if ($isRte) {
-//                        $fieldControl['fullScreenRichtext']['disabled'] = false;
-//                    }
-//
-                    $remainingWizards = count($configItemValue->value->items);
-                    foreach ($configItemValue->value->items as $wizardItemValue) {
+                    $remainingWizards = count($array->items);
+                    foreach ($array->items as $wizardItemValue) {
                         if (null === $wizardItemValue) {
                             continue;
                         }
@@ -244,7 +246,6 @@ CODE_SAMPLE
                         }
 
                         $wizardItemValueKey = $this->valueResolver->getValue($wizardItemValue->key);
-
                         if (null === $wizardItemValueKey) {
                             continue;
                         }
@@ -290,14 +291,14 @@ CODE_SAMPLE
                                 $wizardItemSubValue->key,
                                 'items'
                             )) {
-                                $configValue->value->items[] = new ArrayItem(new Array_([
+                                $array->items[] = new ArrayItem(new Array_([
                                     new ArrayItem($wizardItemSubValue->value, $wizardItemSubValue->key),
                                 ]), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
                             } elseif ('suggest' === $wizardItemValueKey && ! $this->valueResolver->isValue(
                                 $wizardItemSubValue->key,
                                 'type'
                             )) {
-                                $configValue->value->items[] = new ArrayItem(new Array_([
+                                $array->items[] = new ArrayItem(new Array_([
                                     new ArrayItem($wizardItemSubValue->value, $wizardItemSubValue->key),
                                 ]), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
                             }
@@ -356,14 +357,14 @@ CODE_SAMPLE
                             $wizardItemValueKey,
                             self::MAP_WIZARD_TO_CUSTOM_TYPE
                         )) {
-                            $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                            $array->items[] = new ArrayItem($this->nodeFactory->createArray(
                                 $customTypeOptions
                             ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
                         }
                     }
 
                     if ([] !== $fieldControl) {
-                        $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                        $array->items[] = new ArrayItem($this->nodeFactory->createArray(
                             $fieldControl
                         ), new String_('fieldControl'));
                     }

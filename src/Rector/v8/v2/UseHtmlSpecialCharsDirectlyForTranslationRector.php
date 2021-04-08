@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v2;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -67,13 +68,6 @@ CODE_SAMPLE
     }
 
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -103,12 +97,18 @@ CODE_SAMPLE
             return false;
         }
 
-        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, AbstractPlugin::class);
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(AbstractPlugin::class)
+        );
     }
 
     private function isLanguageServiceCall(MethodCall $node): bool
     {
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, LanguageService::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(LanguageService::class)
+        )) {
             return true;
         }
         return $this->typo3NodeResolver->isAnyMethodCallOnGlobals($node, Typo3NodeResolver::LANG);

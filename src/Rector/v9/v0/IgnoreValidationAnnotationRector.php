@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
@@ -42,6 +42,7 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -53,6 +54,8 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -122,9 +125,8 @@ CODE_SAMPLE
 
         $tag = '@' . ltrim($tagName, '@');
 
-        $attributeAwarePhpDocTagNode = new AttributeAwarePhpDocTagNode($tag, new GenericTagValueNode(''));
-
-        $phpDocInfo->addPhpDocTagNode($attributeAwarePhpDocTagNode);
+        $phpDocTagNode = new PhpDocTagNode($tag, new GenericTagValueNode(''));
+        $phpDocInfo->addPhpDocTagNode($phpDocTagNode);
 
         $this->phpDocTagRemover->removeByName($phpDocInfo, $oldAnnotation);
 

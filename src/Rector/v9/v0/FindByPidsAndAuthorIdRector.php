@@ -21,6 +21,7 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -32,6 +33,8 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -44,7 +47,10 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new ObjectType(SysNoteRepository::class))) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(SysNoteRepository::class)
+        )) {
             return null;
         }
         if (! $this->isName($node->name, 'findByPidsAndAuthor')) {

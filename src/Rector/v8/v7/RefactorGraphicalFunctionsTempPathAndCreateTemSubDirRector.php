@@ -21,6 +21,7 @@ use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -51,6 +52,7 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -62,6 +64,8 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -103,7 +107,10 @@ CODE_SAMPLE
 
     private function refactorMethodCall(MethodCall $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, GraphicalFunctions::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(GraphicalFunctions::class)
+        )) {
             return null;
         }
 
@@ -180,7 +187,7 @@ CODE_SAMPLE
 
     private function refactorPropertyFetch(PropertyFetch $node): ?Node
     {
-        if (! $this->isObjectType($node->var, GraphicalFunctions::class)) {
+        if (! $this->isObjectType($node->var, new ObjectType(GraphicalFunctions::class))) {
             return null;
         }
 

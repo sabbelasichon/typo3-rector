@@ -23,6 +23,7 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -34,6 +35,8 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array

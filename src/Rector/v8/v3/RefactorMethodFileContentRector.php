@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v3;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Ternary;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -29,7 +30,7 @@ final class RefactorMethodFileContentRector extends AbstractRector
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -74,7 +75,7 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $node): bool
     {
-        if ($this->isObjectType($node->var, TemplateService::class)) {
+        if ($this->isObjectType($node->var, new ObjectType(TemplateService::class))) {
             return false;
         }
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(

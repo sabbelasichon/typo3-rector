@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v11\v0;
 use PhpParser\Builder\Method;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
@@ -22,11 +23,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 final class RemoveAddQueryStringMethodRector extends AbstractRector
 {
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-=======
      * @var FluentChainMethodCallNodeAnalyzer
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      */
     private $fluentChainMethodCallNodeAnalyzer;
 
@@ -44,7 +41,7 @@ final class RemoveAddQueryStringMethodRector extends AbstractRector
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -101,7 +98,10 @@ CODE_SAMPLE
 
     private function isMethodCallOnUriBuilder(MethodCall $node): bool
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, UriBuilder::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(UriBuilder::class)
+        )) {
             return false;
         }
         return $this->isName($node->name, 'setAddQueryStringMethod');
@@ -109,7 +109,10 @@ CODE_SAMPLE
 
     private function isMethodCallOnContentObjectRenderer(MethodCall $node): bool
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(ContentObjectRenderer::class)
+        )) {
             return false;
         }
         return $this->isName($node->name, 'getQueryArguments');

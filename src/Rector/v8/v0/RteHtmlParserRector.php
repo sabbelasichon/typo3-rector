@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -19,7 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class RteHtmlParserRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -91,6 +92,9 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $node): bool
     {
-        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, RteHtmlParser::class);
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(RteHtmlParser::class)
+        );
     }
 }

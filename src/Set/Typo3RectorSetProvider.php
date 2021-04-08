@@ -6,14 +6,17 @@ namespace Ssch\TYPO3Rector\Set;
 
 use Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\Core\Util\StaticRectorStrings;
 use ReflectionClass;
+use Stringy\Stringy;
 use Symplify\SetConfigResolver\Contract\SetProviderInterface;
 use Symplify\SetConfigResolver\Exception\SetNotFoundException;
 use Symplify\SetConfigResolver\Provider\AbstractSetProvider;
 use Symplify\SetConfigResolver\ValueObject\Set;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
+/**
+ * @todo this class is actually not needed anymore; only direct constants with file paths are used
+ */
 final class Typo3RectorSetProvider extends AbstractSetProvider
 {
     /**
@@ -81,7 +84,8 @@ final class Typo3RectorSetProvider extends AbstractSetProvider
                 throw new ShouldNotHappenException($message);
             }
 
-            $setName = StaticRectorStrings::constantToDashes($name);
+            $stringy = new Stringy($name);
+            $setName = (string) $stringy->dasherize();
 
             // remove `-` before numbers
             $setName = Strings::replace($setName, self::DASH_NUMBER_REGEX, '$1');

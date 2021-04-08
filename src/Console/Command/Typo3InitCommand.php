@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Console\Command;
 
-use Rector\Core\Console\Command\AbstractCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
-final class Typo3InitCommand extends AbstractCommand
+final class Typo3InitCommand extends Command
 {
     /**
      * @var SmartFileSystem

@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\MagicConst\Class_;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\OldSeverityToLogLevelMapper;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -34,6 +35,7 @@ final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRect
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -45,6 +47,8 @@ final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRect
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -57,7 +61,10 @@ final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRect
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(GeneralUtility::class)
+        )) {
             return null;
         }
 

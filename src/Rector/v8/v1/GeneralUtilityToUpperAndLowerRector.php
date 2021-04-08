@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v1;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -17,7 +18,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class GeneralUtilityToUpperAndLowerRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -29,7 +30,10 @@ final class GeneralUtilityToUpperAndLowerRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(GeneralUtility::class)
+        )) {
             return null;
         }
 

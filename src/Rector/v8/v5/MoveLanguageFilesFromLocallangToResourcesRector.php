@@ -63,7 +63,7 @@ final class MoveLanguageFilesFromLocallangToResourcesRector extends AbstractRect
     ];
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

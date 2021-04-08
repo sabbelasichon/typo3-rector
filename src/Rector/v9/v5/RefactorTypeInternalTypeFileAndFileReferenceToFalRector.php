@@ -24,6 +24,7 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -35,6 +36,8 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array

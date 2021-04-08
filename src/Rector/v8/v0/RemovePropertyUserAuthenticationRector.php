@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -17,13 +18,6 @@ use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 final class RemovePropertyUserAuthenticationRector extends AbstractRector
 {
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -39,7 +33,7 @@ final class RemovePropertyUserAuthenticationRector extends AbstractRector
         if (! $this->isName($node, 'userAuthentication')) {
             return null;
         }
-        if (! $this->isObjectType($node->var, CommandController::class)) {
+        if (! $this->isObjectType($node->var, new ObjectType(CommandController::class))) {
             return null;
         }
         return $this->nodeFactory->createMethodCall($node->var, 'getBackendUserAuthentication');

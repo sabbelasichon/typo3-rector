@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
@@ -31,7 +32,7 @@ final class UseRootlineUtilityInsteadOfGetRootlineMethodRector extends AbstractR
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -84,12 +85,15 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $node): bool
     {
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, PageRepository::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(PageRepository::class)
+        )) {
             return false;
         }
 
         $node->var->setAttribute(AttributeKey::PHP_DOC_INFO, $node->getAttribute(AttributeKey::PHP_DOC_INFO));
-        if ($this->isObjectType($node->var, PageRepository::class)) {
+        if ($this->isObjectType($node->var, new ObjectType(PageRepository::class))) {
             return false;
         }
 

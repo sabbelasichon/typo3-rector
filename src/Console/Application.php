@@ -8,11 +8,9 @@ use Composer\XdebugHandler\XdebugHandler;
 use Jean85\PrettyVersions;
 use OutOfBoundsException;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
-use Rector\Core\Bootstrap\NoRectorsLoadedReporter;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
 use Rector\Core\Exception\Configuration\InvalidConfigurationException;
-use Rector\Core\Exception\NoRectorsLoadedException;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputDefinition;
@@ -20,19 +18,16 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
-use Throwable;
 
+/**
+ * @todo why is this class overloaded? what is different here that can be handled in Rector itself?
+ */
 final class Application extends SymfonyApplication
 {
     /**
      * @var string
      */
     private const NAME = 'TYPO3 Rector';
-
-    /**
-     * @var NoRectorsLoadedReporter
-     */
-    private $noRectorsLoadedReporter;
 
     /**
      * @var Configuration
@@ -45,7 +40,6 @@ final class Application extends SymfonyApplication
      */
     public function __construct(
         Configuration $configuration,
-        NoRectorsLoadedReporter $noRectorsLoadedReporter,
         CommandNaming $commandNaming,
         array $commands = []
     ) {
@@ -71,7 +65,7 @@ final class Application extends SymfonyApplication
         }
 
         $this->addCommands($commands);
-        $this->noRectorsLoadedReporter = $noRectorsLoadedReporter;
+
         /** @noRector configuration */
         $this->configuration = $configuration;
     }
@@ -107,16 +101,6 @@ final class Application extends SymfonyApplication
         }
 
         return parent::doRun($input, $output);
-    }
-
-    public function renderThrowable(Throwable $throwable, OutputInterface $output): void
-    {
-        if (is_a($throwable, NoRectorsLoadedException::class)) {
-            $this->noRectorsLoadedReporter->report();
-            return;
-        }
-
-        parent::renderThrowable($throwable, $output);
     }
 
     protected function getDefaultInputDefinition(): InputDefinition

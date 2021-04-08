@@ -15,6 +15,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
@@ -43,7 +44,7 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -100,7 +101,7 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $node): bool
     {
-        if ($this->isObjectType($node->var, ContentObjectRenderer::class)) {
+        if ($this->isObjectType($node->var, new ObjectType(ContentObjectRenderer::class))) {
             return false;
         }
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(

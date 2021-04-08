@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -95,6 +96,7 @@ CODE_SAMPLE
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -106,6 +108,8 @@ CODE_SAMPLE
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -232,7 +236,7 @@ CODE_SAMPLE
         if ($columnConfig instanceof StaticCall) {
             if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
                 $columnConfig,
-                ExtensionManagementUtility::class
+                new ObjectType(ExtensionManagementUtility::class)
             )) {
                 return $columnConfig;
             }

@@ -27,7 +27,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
      */
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

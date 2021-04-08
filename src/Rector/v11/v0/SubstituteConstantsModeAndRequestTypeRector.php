@@ -30,13 +30,6 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
     use FileHelperTrait;
 
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -56,7 +49,7 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
             return null;
         }
 
-        if ($this->nodeNameResolver->isFuncCallName($node, 'defined')) {
+        if ($node instanceof FuncCall && $this->isName($node, 'defined')) {
             return $this->refactorProbablySecurityGate($node);
         }
 

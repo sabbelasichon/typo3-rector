@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -29,13 +30,6 @@ final class RenderCharsetDefaultsToUtf8Rector extends AbstractRector
     }
 
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -77,7 +71,7 @@ CODE_SAMPLE
 
     private function shouldSkip(PropertyFetch $node): bool
     {
-        if ($this->isObjectType($node->var, TypoScriptFrontendController::class)) {
+        if ($this->isObjectType($node->var, new ObjectType(TypoScriptFrontendController::class))) {
             return false;
         }
         return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(

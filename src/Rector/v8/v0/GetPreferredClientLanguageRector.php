@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -25,7 +26,7 @@ final class GetPreferredClientLanguageRector extends AbstractRector
     private const GET_PREFERRED_CLIENT_LANGUAGE = 'getPreferredClientLanguage';
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -78,7 +79,10 @@ CODE_SAMPLE
 
     private function isCharsetConverterMethodCall(MethodCall $node): bool
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, CharsetConverter::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(CharsetConverter::class)
+        )) {
             return false;
         }
         return $this->isName($node->name, self::GET_PREFERRED_CLIENT_LANGUAGE);

@@ -14,7 +14,6 @@ use PhpParser\Node\Stmt\Property;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Core\Environment;
 
 /**
  * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85285-DeprecatedSystemConstants.html
@@ -39,6 +38,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -50,6 +50,8 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -73,7 +75,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
             return null;
         }
 
-        return $this->nodeFactory->createStaticCall(Environment::class, 'isCli');
+        return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isCli');
     }
 
     private function refactorConstants(ConstFetch $node): ?Node
@@ -91,7 +93,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
             return null;
         }
 
-        $property = $this->betterNodeFinder->findFirstAncestorInstanceOf($node, Property::class);
+        $property = $this->betterNodeFinder->findParentType($node, Property::class);
 
         if (null !== $property) {
             return null;
@@ -99,21 +101,21 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
 
         switch ($constantName) {
             case 'PATH_thisScript':
-                return $this->nodeFactory->createStaticCall(Environment::class, 'getCurrentScript');
+                return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getCurrentScript');
             case 'PATH_site':
                 return new Concat($this->nodeFactory->createStaticCall(
-                    Environment::class,
+                    'TYPO3\CMS\Core\Core\Environment',
                     'getPublicPath'
                 ), new String_('/'));
             case 'PATH_typo3':
-                return $this->nodeFactory->createStaticCall(Environment::class, 'getBackendPath');
+                return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getBackendPath');
             case 'PATH_typo3conf':
-                return $this->nodeFactory->createStaticCall(Environment::class, 'getLegacyConfigPath');
+                return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getLegacyConfigPath');
             case 'TYPO3_OS':
                 return new BooleanOr($this->nodeFactory->createStaticCall(
-                    Environment::class,
+                    'TYPO3\CMS\Core\Core\Environment',
                     'isUnix'
-                ), $this->nodeFactory->createStaticCall(Environment::class, 'isWindows'));
+                ), $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isWindows'));
         }
 
         return null;

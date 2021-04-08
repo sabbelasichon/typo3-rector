@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
@@ -50,6 +51,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -61,6 +63,8 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -76,7 +80,13 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
         if ($node->isAbstract()) {
             return null;
         }
-        if (! $this->isObjectTypes($node, [AbstractViewHelper::class, FluidCoreAbstractViewHelper::class])) {
+
+        $desiredObjectTypes = [
+            new ObjectType(AbstractViewHelper::class),
+            new ObjectType(FluidCoreAbstractViewHelper::class)
+        ];
+
+        if (! $this->nodeTypeResolver->isObjectTypes($node, $desiredObjectTypes)) {
             return null;
         }
         // Check if the ViewHelper has a render method with params, if not return immediately

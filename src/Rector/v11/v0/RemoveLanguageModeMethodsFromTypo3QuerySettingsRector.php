@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
@@ -20,11 +21,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends AbstractRector
 {
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-=======
      * @var FluentChainMethodCallNodeAnalyzer
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      */
     private $fluentChainMethodCallNodeAnalyzer;
 
@@ -42,7 +39,7 @@ final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends Abstra
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -54,7 +51,10 @@ final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends Abstra
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, Typo3QuerySettings::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(Typo3QuerySettings::class)
+        )) {
             return null;
         }
 

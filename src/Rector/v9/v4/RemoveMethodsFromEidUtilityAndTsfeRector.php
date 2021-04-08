@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -32,6 +33,7 @@ final class RemoveMethodsFromEidUtilityAndTsfeRector extends AbstractRector
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -43,6 +45,8 @@ final class RemoveMethodsFromEidUtilityAndTsfeRector extends AbstractRector
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -121,7 +125,10 @@ CODE_SAMPLE
      */
     private function isEidUtilityMethodCall(Node $node): bool
     {
-        return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, EidUtility::class);
+        return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(EidUtility::class)
+        );
     }
 
     private function isMethodCallOnTsfe(Node $node): bool
@@ -134,7 +141,7 @@ CODE_SAMPLE
         }
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            TypoScriptFrontendController::class
+            new ObjectType(TypoScriptFrontendController::class)
         );
     }
 }

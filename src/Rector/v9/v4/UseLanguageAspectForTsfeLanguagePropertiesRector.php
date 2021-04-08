@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
@@ -32,7 +33,7 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -113,7 +114,7 @@ CODE_SAMPLE
 
     private function shouldSkip(PropertyFetch $node): bool
     {
-        if ($this->isObjectType($node->var, TypoScriptFrontendController::class)) {
+        if ($this->isObjectType($node->var, new ObjectType(TypoScriptFrontendController::class))) {
             return false;
         }
 

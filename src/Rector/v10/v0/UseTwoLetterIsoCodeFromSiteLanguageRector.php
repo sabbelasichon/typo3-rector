@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v10\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
@@ -30,7 +31,7 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -44,7 +45,7 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
     {
         if (! $this->isObjectType(
                 $node,
-                TypoScriptFrontendController::class
+                new ObjectType(TypoScriptFrontendController::class)
             ) && ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
                 $node,
                 Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER

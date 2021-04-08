@@ -14,6 +14,7 @@ use PhpParser\Node\Stmt\ClassLike;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Property;
+use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -41,13 +42,6 @@ final class TimeTrackerInsteadOfNullTimeTrackerRector extends AbstractRector
     }
 
     /**
-<<<<<<< HEAD
-     * @return array<class-string<\PhpParser\Node>>
-     */
-
-    /**
-=======
->>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -139,7 +133,10 @@ CODE_SAMPLE
             return false;
         }
 
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, GeneralUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(GeneralUtility::class)
+        )) {
             return false;
         }
 
@@ -152,7 +149,10 @@ CODE_SAMPLE
             return false;
         }
 
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ObjectManager::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(ObjectManager::class)
+        )) {
             return false;
         }
 

@@ -9,7 +9,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
@@ -39,6 +38,7 @@ final class ValidateAnnotationRector extends AbstractRector
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -50,6 +50,8 @@ final class ValidateAnnotationRector extends AbstractRector
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -155,7 +157,7 @@ CODE_SAMPLE
         } else {
             $annotation = sprintf('@TYPO3\CMS\Extbase\Annotation\Validate(validator="%s")', $validatorAnnotation);
         }
-        return new AttributeAwarePhpDocTagNode($annotation, $this->createEmptyTagValueNode());
+        return new PhpDocTagNode($annotation, $this->createEmptyTagValueNode());
     }
 
     private function createMethodAnnotation(string $validatorAnnotation): PhpDocTagNode
@@ -166,7 +168,8 @@ CODE_SAMPLE
             $validator,
             ltrim($param, '$')
         );
-        return new AttributeAwarePhpDocTagNode($annotation, $this->createEmptyTagValueNode());
+
+        return new PhpDocTagNode($annotation, $this->createEmptyTagValueNode());
     }
 
     private function createEmptyTagValueNode(): GenericTagValueNode

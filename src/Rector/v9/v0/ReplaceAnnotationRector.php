@@ -8,7 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
@@ -45,6 +45,7 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
     /**
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
      * @return array<class-string<Node>>
 =======
 =======
@@ -56,6 +57,8 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
     /**
 =======
 >>>>>>> 8781ff4... rename AbstractCommunityRectorTestCase to AbstractRectorTestCase
+=======
+>>>>>>> cd548b8... use ObjectType wrapper
      * @return array<class-string<\PhpParser\Node>>
      */
     public function getNodeTypes(): array
@@ -81,9 +84,8 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
 
             $tag = '@' . ltrim($newAnnotation, '@');
 
-            $attributeAwarePhpDocTagNode = new AttributeAwarePhpDocTagNode($tag, new GenericTagValueNode(''));
-
-            $phpDocInfo->addPhpDocTagNode($attributeAwarePhpDocTagNode);
+            $phpDocTagNode = new PhpDocTagNode($tag, new GenericTagValueNode(''));
+            $phpDocInfo->addPhpDocTagNode($phpDocTagNode);
         }
         return $node;
     }
