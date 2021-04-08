@@ -10,11 +10,6 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ReplaceAnnotationRectorTest extends AbstractRectorTestCase
 {
-    protected function setUp(): void
-    {
-        $this->markTestSkipped('Due to an small error in the PhpDocInfoPrinter');
-    }
-
     /**
      * @dataProvider provideDataForTest()
      */

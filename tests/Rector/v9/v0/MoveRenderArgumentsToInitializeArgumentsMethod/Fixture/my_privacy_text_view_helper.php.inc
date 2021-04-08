@@ -58,6 +58,7 @@ class MyPrivacyViewHelper extends AbstractViewHelper
 namespace Ssch\TYPO3Rector\Tests\Rector\Fluid\ViewHelpers\Fixture;
 
 
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class MyPrivacyViewHelper extends AbstractViewHelper
@@ -101,7 +102,7 @@ class MyPrivacyViewHelper extends AbstractViewHelper
      */
     protected function translate($key)
     {
-        return \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, 'ppw_si_programs');
+        return LocalizationUtility::translate($key, 'ppw_si_programs');
     }
 
     public function initializeArguments(): void
