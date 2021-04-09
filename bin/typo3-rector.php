@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Console\Application;
+use Rector\Core\Console\ConsoleApplication;
 use Rector\Core\Console\Style\SymfonyStyleFactory;
 use Ssch\TYPO3Rector\Bootstrap\Typo3RectorConfigsResolver;
 use Ssch\TYPO3Rector\DependencyInjection\Typo3RectorContainerFactory;
@@ -52,8 +52,8 @@ try {
     exit(ShellCode::ERROR);
 }
 
-/** @var Application $application */
-$application = $container->get(Application::class);
+/** @var ConsoleApplication $application */
+$application = $container->get(ConsoleApplication::class);
 exit($application->run());
 
 final class AutoloadIncluder
