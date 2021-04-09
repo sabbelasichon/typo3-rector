@@ -21,6 +21,7 @@ use PhpParser\Node\Stmt\Else_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -90,7 +91,10 @@ CODE_SAMPLE
 
     private function refactorMethodCall(MethodCall $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, GraphicalFunctions::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(GraphicalFunctions::class)
+        )) {
             return null;
         }
 
@@ -167,7 +171,7 @@ CODE_SAMPLE
 
     private function refactorPropertyFetch(PropertyFetch $node): ?Node
     {
-        if (! $this->isObjectType($node->var, GraphicalFunctions::class)) {
+        if (! $this->isObjectType($node->var, new ObjectType(GraphicalFunctions::class))) {
             return null;
         }
 

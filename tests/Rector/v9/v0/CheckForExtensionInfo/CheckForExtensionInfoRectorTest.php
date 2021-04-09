@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\CheckForExtensionInfo;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class CheckForExtensionInfoRectorTest extends AbstractCommunityRectorTestCase
+final class CheckForExtensionInfoRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

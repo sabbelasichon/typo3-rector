@@ -23,7 +23,7 @@ final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractService
     public function provideData(): Iterator
     {
         $message = sprintf(AddCodeCoverageIgnoreForRectorDefinition::ERROR_MESSAGE, MissingCodeCoverageIgnore::class);
-        yield [__DIR__ . '/Fixture/MissingCodeCoverageIgnore.php', [[$message, 22]]];
+        yield [__DIR__ . '/Fixture/MissingCodeCoverageIgnore.php', [[$message, 25]]];
         yield [__DIR__ . '/Fixture/SkipWithCodeCoverageIgnore.php', []];
     }
 

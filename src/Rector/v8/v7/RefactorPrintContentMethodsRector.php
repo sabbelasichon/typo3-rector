@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v7;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Echo_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -20,6 +21,9 @@ use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
  */
 final class RefactorPrintContentMethodsRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
@@ -97,11 +101,17 @@ CODE_SAMPLE
         if ($this->isPageLayoutControllerClass($node)) {
             return false;
         }
-        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, TaskModuleController::class);
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(TaskModuleController::class)
+        );
     }
 
     private function isPageLayoutControllerClass(MethodCall $node): bool
     {
-        return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, PageLayoutController::class);
+        return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(PageLayoutController::class)
+        );
     }
 }

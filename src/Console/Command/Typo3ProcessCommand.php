@@ -11,10 +11,10 @@ use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Autoloading\AdditionalAutoloader;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Configuration\Option;
-use Rector\Core\Console\Command\AbstractCommand;
 use Rector\Core\Console\Output\OutputFormatterCollector;
 use Rector\Core\FileSystem\FilesFinder;
 use Ssch\TYPO3Rector\Processor\ProcessorInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -23,7 +23,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
-final class Typo3ProcessCommand extends AbstractCommand
+final class Typo3ProcessCommand extends Command
 {
     /**
      * @var FilesFinder
@@ -64,6 +64,11 @@ final class Typo3ProcessCommand extends AbstractCommand
      * @var SymfonyStyle
      */
     private $symfonyStyle;
+
+    /**
+     * @var ChangedFilesDetector
+     */
+    private $changedFilesDetector;
 
     /**
      * @param ProcessorInterface[] $processors
@@ -159,7 +164,7 @@ final class Typo3ProcessCommand extends AbstractCommand
 
         $paths = $this->configuration->getPaths();
 
-        $this->additionalAutoloader->autoloadWithInputAndSource($input, $paths);
+        $this->additionalAutoloader->autoloadWithInputAndSource($input);
 
         $fileExtensions = [];
         foreach ($this->processors as $processor) {

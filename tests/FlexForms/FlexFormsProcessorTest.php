@@ -3,40 +3,35 @@
 namespace Ssch\TYPO3Rector\Tests\FlexForms;
 
 use Iterator;
-use Rector\Composer\Tests\Contract\ConfigFileAwareInterface;
 use Rector\Core\HttpKernel\RectorKernel;
-use Rector\Testing\Guard\FixtureGuard;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\FlexForms\FlexFormsProcessor;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FlexFormsProcessorTest extends AbstractKernelTestCase implements ConfigFileAwareInterface
+final class FlexFormsProcessorTest extends AbstractRectorTestCase
 {
     /**
      * @var FlexFormsProcessor
      */
     private $flexformsProcessor;
 
-    /**
-     * @var FixtureGuard
-     */
-    private $fixtureGuard;
-
     protected function setUp(): void
     {
         $this->bootKernelWithConfigs(RectorKernel::class, [$this->provideConfigFile()]);
         $this->flexformsProcessor = $this->getService(FlexFormsProcessor::class);
-        $this->fixtureGuard = $this->getService(FixtureGuard::class);
     }
 
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(SmartFileInfo $smartFileInfo): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
+
+        $changedXml = $this->flexformsProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
+        $this->assertSame($inputFileInfoAndExpected->getExpected(), $changedXml);
     }
 
     public function provideData(): Iterator
@@ -47,15 +42,5 @@ final class FlexFormsProcessorTest extends AbstractKernelTestCase implements Con
     public function provideConfigFile(): string
     {
         return __DIR__ . '/config/configured_rule.php';
-    }
-
-    private function doTestFileInfo(SmartFileInfo $smartFileInfo): void
-    {
-        $this->fixtureGuard->ensureFileInfoHasDifferentBeforeAndAfterContent($smartFileInfo);
-
-        $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
-
-        $changedXml = $this->flexformsProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
-        $this->assertSame($inputFileInfoAndExpected->getExpected(), $changedXml);
     }
 }

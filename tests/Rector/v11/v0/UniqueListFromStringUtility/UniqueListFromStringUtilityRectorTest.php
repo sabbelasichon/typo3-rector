@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\UniqueListFromStringUtility;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UniqueListFromStringUtilityRectorTest extends AbstractCommunityRectorTestCase
+final class UniqueListFromStringUtilityRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

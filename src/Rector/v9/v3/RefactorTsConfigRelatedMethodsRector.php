@@ -16,6 +16,7 @@ use PhpParser\Node\Expr\Cast\String_ as StringCast;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -120,7 +121,7 @@ CODE_SAMPLE
         if ($this->typo3NodeResolver->isMethodCallOnBackendUser($node)) {
             return false;
         }
-        return ! $this->isObjectType($node->var, BackendUserAuthentication::class);
+        return ! $this->isObjectType($node->var, new ObjectType(BackendUserAuthentication::class));
     }
 
     private function createConfiguration(string $objectString): array

@@ -8,8 +8,11 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
+use Swift_Attachment;
+use Swift_Image;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Mail\MailMessage;
@@ -21,7 +24,7 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -33,7 +36,10 @@ final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends Abstra
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, MailMessage::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(MailMessage::class)
+        )) {
             return null;
         }
 
@@ -150,7 +156,7 @@ CODE_SAMPLE
 
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $firstArgument,
-            \Swift_Attachment::class
+            new ObjectType(Swift_Attachment::class)
         )) {
             return null;
         }
@@ -175,7 +181,7 @@ CODE_SAMPLE
 
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $firstArgument,
-            \Swift_Image::class
+            new ObjectType(Swift_Image::class)
         )) {
             return null;
         }

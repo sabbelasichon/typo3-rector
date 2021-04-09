@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -19,7 +20,7 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 final class ExtensionManagementUtilityExtRelPathRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -33,7 +34,7 @@ final class ExtensionManagementUtilityExtRelPathRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            ExtensionManagementUtility::class
+            new ObjectType(ExtensionManagementUtility::class)
         )) {
             return null;
         }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
@@ -17,6 +18,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
     $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, __DIR__ . '/phpstan.neon');
 
+    $parameters->set(Option::AUTOLOAD_PATHS, [__DIR__ . '/stubs']);
+
+    $services = $containerConfigurator->services();
+
+    $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
+    $services->set(AddSeeTestAnnotationRector::class);
+    $services->set(VarConstantCommentRector::class);
+
+    $parameters->set(Option::PATHS, [__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
+
     $parameters->set(Option::SETS, [
         SetList::PRIVATIZATION,
         SetList::DEAD_CODE,
@@ -24,16 +35,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         SetList::CODE_QUALITY,
     ]);
 
-    $services = $containerConfigurator->services();
-
-    $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
-    $services->set(AddSeeTestAnnotationRector::class);
-
-    $parameters->set(Option::PATHS, [__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
-
     $parameters->set(
         Option::SKIP,
         [
+            __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
+
             RemovePackageVersionsRector::class,
             __DIR__ . '/src/Bootstrap',
             __DIR__ . '/src/Set',

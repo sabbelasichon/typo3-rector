@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RefactorDbConstantsRector extends AbstractRector
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private const MAP_CONSTANTS_TO_GLOBALS = [
         'TYPO3_db' => 'dbname',
@@ -29,7 +29,7 @@ final class RefactorDbConstantsRector extends AbstractRector
     ];
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {

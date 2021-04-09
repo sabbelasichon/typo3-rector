@@ -7,14 +7,13 @@ namespace Ssch\TYPO3Rector\Rector\Composer;
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\Composer\ReplacePackageComposerRector\ReplacePackageComposerRectorTest
  */
-final class ReplacePackageComposerRector implements ComposerRectorInterface, DocumentedRuleInterface
+final class ReplacePackageComposerRector implements ComposerRectorInterface
 {
     /**
      * @var string

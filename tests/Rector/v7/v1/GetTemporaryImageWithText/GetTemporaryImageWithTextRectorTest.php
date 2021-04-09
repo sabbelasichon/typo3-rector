@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v1\GetTemporaryImageWithText;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class GetTemporaryImageWithTextRectorTest extends AbstractCommunityRectorTestCase
+final class GetTemporaryImageWithTextRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

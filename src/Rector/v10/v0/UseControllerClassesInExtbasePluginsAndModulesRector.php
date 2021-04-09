@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Strings;
@@ -23,6 +24,9 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
  */
 final class UseControllerClassesInExtbasePluginsAndModulesRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [StaticCall::class];
@@ -33,7 +37,10 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ExtensionUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(ExtensionUtility::class)
+        )) {
             return null;
         }
 

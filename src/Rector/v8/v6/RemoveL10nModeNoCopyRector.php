@@ -76,6 +76,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
             }
 
             $addAllowLanguageSynchronization = false;
+
             $configArray = $fieldValue->value;
             $newConfiguration = new ArrayItem($this->nodeFactory->createArray([
                 self::BEHAVIOUR => [
@@ -166,10 +167,8 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                 continue;
             }
 
-            if ($configArray instanceof Array_) {
-                $configArray->items[] = $newConfiguration;
-                $hasAstBeenChanged = true;
-            }
+            $configArray->items[] = $newConfiguration;
+            $hasAstBeenChanged = true;
         }
 
         return $hasAstBeenChanged ? $node : null;

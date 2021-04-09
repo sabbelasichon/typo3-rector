@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\TypeWithClassName;
 use Psr\Http\Message\ResponseInterface;
 use Rector\Core\Rector\AbstractRector;
@@ -37,7 +38,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
     private const HTML_RESPONSE = 'htmlResponse';
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -136,7 +137,10 @@ CODE_SAMPLE
 
     private function shouldSkip(ClassMethod $node): bool
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(ActionController::class)
+        )) {
             return true;
         }
 
@@ -185,7 +189,10 @@ CODE_SAMPLE
                 return false;
             }
 
-            if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ActionController::class)) {
+            if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+                $node,
+                new ObjectType(ActionController::class)
+            )) {
                 return false;
             }
 

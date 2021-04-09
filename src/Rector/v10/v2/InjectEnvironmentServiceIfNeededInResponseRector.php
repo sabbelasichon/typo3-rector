@@ -15,6 +15,7 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 use Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder;
@@ -46,7 +47,7 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -58,7 +59,7 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node, Response::class)) {
+        if (! $this->isObjectType($node, new ObjectType(Response::class))) {
             return null;
         }
         if (! $this->isPropertyEnvironmentServiceInUse($node)) {
@@ -135,8 +136,11 @@ CODE_SAMPLE
         $propertyBuilder = new PropertyBuilder(self::ENVIRONMENT_SERVICE);
         $propertyBuilder->makeProtected();
 
-        $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(new ObjectType(EnvironmentService::class));
+        $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(
+            new FullyQualifiedObjectType(EnvironmentService::class)
+        );
         $propertyBuilder->setDocComment(new Doc(sprintf('/**%s * @var %s%s */', PHP_EOL, $docString, PHP_EOL)));
+
         return $propertyBuilder->getNode();
     }
 

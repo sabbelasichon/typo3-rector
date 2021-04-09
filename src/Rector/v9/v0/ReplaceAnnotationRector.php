@@ -8,7 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
-use Rector\AttributeAwarePhpDoc\Ast\PhpDoc\AttributeAwarePhpDocTagNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
@@ -68,9 +68,8 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
 
             $tag = '@' . ltrim($newAnnotation, '@');
 
-            $attributeAwarePhpDocTagNode = new AttributeAwarePhpDocTagNode($tag, new GenericTagValueNode(''));
-
-            $phpDocInfo->addPhpDocTagNode($attributeAwarePhpDocTagNode);
+            $phpDocTagNode = new PhpDocTagNode($tag, new GenericTagValueNode(''));
+            $phpDocInfo->addPhpDocTagNode($phpDocTagNode);
         }
         return $node;
     }

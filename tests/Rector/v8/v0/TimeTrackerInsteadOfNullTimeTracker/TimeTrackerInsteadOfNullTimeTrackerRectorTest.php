@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTracker;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class TimeTrackerInsteadOfNullTimeTrackerRectorTest extends AbstractCommunityRectorTestCase
+final class TimeTrackerInsteadOfNullTimeTrackerRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

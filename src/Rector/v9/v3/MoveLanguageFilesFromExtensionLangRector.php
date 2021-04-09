@@ -35,6 +35,9 @@ final class MoveLanguageFilesFromExtensionLangRector extends AbstractRector
         'lang/Resources/Private/Language/locallang_tcemain.xlf' => 'workspaces/Resources/Private/Language/locallang_tcemain.xlf',
     ];
 
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [String_::class];

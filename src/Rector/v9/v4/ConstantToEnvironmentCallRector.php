@@ -78,7 +78,7 @@ final class ConstantToEnvironmentCallRector extends AbstractRector
             return null;
         }
 
-        $property = $this->betterNodeFinder->findFirstAncestorInstanceOf($node, Property::class);
+        $property = $this->betterNodeFinder->findParentType($node, Property::class);
 
         if (null !== $property) {
             return null;

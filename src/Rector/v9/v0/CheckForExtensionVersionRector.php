@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -76,7 +77,7 @@ CODE_SAMPLE
     {
         return $node instanceof StaticCall && $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            ExtensionManagementUtility::class
+            new ObjectType(ExtensionManagementUtility::class)
         ) && $this->isName($node->name, 'isLoaded');
     }
 
@@ -87,7 +88,7 @@ CODE_SAMPLE
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            PackageManager::class
+            new ObjectType(PackageManager::class)
         ) && $this->isName($node->name, 'isPackageActive');
     }
 }

@@ -6,6 +6,9 @@ namespace Ssch\TYPO3Rector\Rules\Rector\Misc;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -14,6 +17,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
         return [ClassMethod::class];
@@ -24,7 +30,10 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, AbstractRector::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType('AbstractRector::class')
+        )) {
             return null;
         }
 
@@ -39,7 +48,7 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
             return null;
         }
 
-        $phpDocInfo->addBareTag('codeCoverageIgnore');
+        $phpDocInfo->addPhpDocTagNode(new PhpDocTagNode('@codeCoverageIgnore', new GenericTagValueNode('')));
 
         return null;
     }
@@ -54,6 +63,9 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
                 <<<'CODE_SAMPLE'
 class SomeClass extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
     }
@@ -71,6 +83,9 @@ CODE_SAMPLE
                 <<<'CODE_SAMPLE'
 class SomeClass extends AbstractRector
 {
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
     public function getNodeTypes(): array
     {
     }

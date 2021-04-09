@@ -28,7 +28,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
     private const DISABLED = 'disabled';
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -95,12 +95,13 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                         continue;
                     }
 
-                    if (null === $configItemValue->key) {
+                    $arrayItemKey = $configItemValue->key;
+                    if (null === $arrayItemKey) {
                         continue;
                     }
 
                     if (! $this->valueResolver->isValues(
-                        $configItemValue->key,
+                        $arrayItemKey,
                         ['selectedListStyle', 'show_thumbs', 'disable_controls']
                     )) {
                         continue;
@@ -111,7 +112,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
 
                     $configItemValueValue = $this->valueResolver->getValue($configItemValue->value);
 
-                    if ($this->valueResolver->isValue($configItemValue->key, 'disable_controls') && is_string(
+                    if ($this->valueResolver->isValue($arrayItemKey, 'disable_controls') && is_string(
                         $configItemValueValue
                     )) {
                         $controls = ArrayUtility::trimExplode(',', $configItemValueValue, true);
@@ -130,9 +131,9 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
                             }
                         }
                     } elseif ($this->valueResolver->isValue(
-                        $configItemValue->key,
+                        $arrayItemKey,
                         'show_thumbs'
-                    ) && false === (bool) $configItemValueValue) {
+                    ) && ! (bool) $configItemValueValue) {
                         if ($this->configIsOfInternalType($configValue->value, 'db')) {
                             $addFieldWizards['recordsOverview'][self::DISABLED] = true;
                         } elseif ($this->configIsOfInternalType($configValue->value, 'file')) {

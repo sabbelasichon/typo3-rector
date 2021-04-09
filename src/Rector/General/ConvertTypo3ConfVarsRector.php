@@ -39,6 +39,9 @@ CODE_SAMPLE
         ]);
     }
 
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [ArrayDimFetch::class];
@@ -57,9 +60,7 @@ CODE_SAMPLE
             return null;
         }
 
-        /** @var SmartFileInfo $fileInfo */
         $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
-
         if (! $fileInfo instanceof SmartFileInfo) {
             return null;
         }

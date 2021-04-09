@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -80,7 +81,7 @@ CODE_SAMPLE
         if (null === $classNode) {
             return;
         }
-        if (! $this->isObjectType($classNode, SimpleDataHandlerController::class)) {
+        if (! $this->isObjectType($classNode, new ObjectType(SimpleDataHandlerController::class))) {
             return;
         }
         if (! $this->isName($assign->expr, 'uPT') && ! $this->isName($assign->expr, 'prErr')) {
@@ -95,7 +96,7 @@ CODE_SAMPLE
         if (null === $classNode) {
             return;
         }
-        if (! $this->isObjectType($classNode, SimpleDataHandlerController::class)) {
+        if (! $this->isObjectType($classNode, new ObjectType(SimpleDataHandlerController::class))) {
             return;
         }
         if (! $this->isName($assign->var, 'uPT') && ! $this->isName($assign->var, 'prErr')) {

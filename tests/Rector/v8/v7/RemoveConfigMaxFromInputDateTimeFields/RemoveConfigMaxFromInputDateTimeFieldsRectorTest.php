@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v7\RemoveConfigMaxFromInputDateTimeFields;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveConfigMaxFromInputDateTimeFieldsRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveConfigMaxFromInputDateTimeFieldsRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

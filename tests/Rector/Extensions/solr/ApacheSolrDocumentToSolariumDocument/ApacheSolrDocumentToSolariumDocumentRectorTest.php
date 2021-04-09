@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\ApacheSolrDocumentToSolariumDocument;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ApacheSolrDocumentToSolariumDocumentRectorTest extends AbstractCommunityRectorTestCase
+final class ApacheSolrDocumentToSolariumDocumentRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

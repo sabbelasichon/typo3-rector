@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v7\v6;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -17,6 +18,9 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
  */
 final class WrapClickMenuOnIconRector extends AbstractRector
 {
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
@@ -27,7 +31,10 @@ final class WrapClickMenuOnIconRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, DocumentTemplate::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(DocumentTemplate::class)
+        )) {
             return null;
         }
 

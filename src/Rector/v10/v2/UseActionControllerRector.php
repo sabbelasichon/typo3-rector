@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v10\v2;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\AbstractController;
@@ -20,7 +20,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 final class UseActionControllerRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -32,18 +32,13 @@ final class UseActionControllerRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (null === $node->extends) {
+        $classType = $this->getObjectType($node);
+
+        $abstractControllerObjectType = new ObjectType(AbstractController::class);
+        if (! $abstractControllerObjectType->isSuperTypeOf($classType)->yes()) {
             return null;
         }
-        $parentClassName = $node->getAttribute(AttributeKey::PARENT_CLASS_NAME);
-        if (AbstractController::class !== $parentClassName) {
-            return null;
-        }
-        /** @var string|null $className */
-        $className = $node->getAttribute(AttributeKey::CLASS_NAME);
-        if (null === $className) {
-            return null;
-        }
+
         $node->extends = new FullyQualified(ActionController::class);
         return $node;
     }

@@ -62,6 +62,9 @@ final class MoveLanguageFilesFromLocallangToResourcesRector extends AbstractRect
         'LLL:EXT:lang/locallang_wizards.xlf' => 'LLL:EXT:lang/Resources/Private/Language/locallang_wizards.xlf',
     ];
 
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [String_::class];

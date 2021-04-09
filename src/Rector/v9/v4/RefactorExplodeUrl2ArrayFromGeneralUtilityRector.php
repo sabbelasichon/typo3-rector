@@ -9,6 +9,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -37,7 +38,10 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
         }
         /** @var StaticCall|MethodCall $call */
         $call = $node->expr;
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($call, GeneralUtility::class)) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $call,
+            new ObjectType(GeneralUtility::class)
+        )) {
             return null;
         }
         if (! $this->isName($call->name, 'explodeUrl2Array')) {

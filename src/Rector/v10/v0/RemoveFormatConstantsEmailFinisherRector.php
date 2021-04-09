@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -39,6 +40,9 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
      */
     private const ADD_HTML_PART = 'addHtmlPart';
 
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [ClassConstFetch::class];
@@ -49,12 +53,14 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node, EmailFinisher::class)) {
+        if (! $this->isObjectType($node->class, new ObjectType(EmailFinisher::class))) {
             return null;
         }
+
         if (! $this->isNames($node->name, [self::FORMAT_HTML, 'FORMAT_PLAINTEXT'])) {
             return null;
         }
+
         $parent = $node->getAttribute(AttributeKey::PARENT_NODE);
         if ($parent instanceof Arg) {
             $this->refactorSetOptionMethodCall($parent, $node);

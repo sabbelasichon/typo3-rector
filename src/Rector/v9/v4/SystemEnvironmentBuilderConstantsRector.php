@@ -45,6 +45,9 @@ final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
         'T3_ERR_SV_PROG_FAILED' => 'ERROR_PROGRAM_FAILED',
     ];
 
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [ConstFetch::class];

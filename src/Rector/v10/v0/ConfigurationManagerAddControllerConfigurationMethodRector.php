@@ -10,6 +10,7 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Return_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
@@ -23,7 +24,7 @@ use TYPO3\CMS\Extbase\Configuration\AbstractConfigurationManager;
 final class ConfigurationManagerAddControllerConfigurationMethodRector extends AbstractRector
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -35,7 +36,7 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node, AbstractConfigurationManager::class)) {
+        if (! $this->isObjectType($node, new ObjectType(AbstractConfigurationManager::class))) {
             return null;
         }
         $this->addMethodGetControllerConfiguration($node);

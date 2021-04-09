@@ -77,7 +77,7 @@ CODE_SAMPLE
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -153,7 +153,7 @@ CODE_SAMPLE
 
                     $remainingWizards = count($configItemValue->value->items);
                     foreach ($configItemValue->value->items as $wizardItemValue) {
-                        if (null === $wizardItemValue) {
+                        if (! $wizardItemValue instanceof ArrayItem) {
                             continue;
                         }
 
@@ -215,11 +215,8 @@ CODE_SAMPLE
                         }
 
                         if ($isUserFunc && ! $enableByTypeConfig) {
-                            if ($wizardItemValue instanceof ArrayItem) {
-                                $this->removeNode($wizardItemValue);
-                                $hasAstBeenChanged = true;
-                            }
-
+                            $this->removeNode($wizardItemValue);
+                            $hasAstBeenChanged = true;
                             $configValue->value->items[] = new ArrayItem(new String_('t3editor'), new String_(
                                 'renderType'
                             ));

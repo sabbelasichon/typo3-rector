@@ -11,14 +11,38 @@ parameters:
         - config
         - tests
 
+    scanDirectories:
+        # static reflection
+        - stubs
+
+    # see https://github.com/rectorphp/rector/issues/3490#issue-634342324
+    featureToggles:
+        disableRuntimeReflectionProvider: true
+
     bootstrapFiles:
          - tests/bootstrap.php
 
     inferPrivatePropertyTypeFromConstructor: true
     checkMissingIterableValueType: false
-
     checkGenericClassInNonGenericObjectType: false
+
+    reportUnmatchedIgnoredErrors: false
+
+    excludePaths:
+        # should be included in Rector core
+        - src/Renaming/NodeManipulator/ClassRenamer.php
 
     ignoreErrors:
         - '#Cannot access property \$value on bool\|float\|int\|string#'
         - '#Parameter \#2 \$stmt of method Rector\\Core\\NodeManipulator\\ClassInsertManipulator\:\:addAsFirstMethod\(\) expects PhpParser\\Node\\Stmt\\ClassConst\|PhpParser\\Node\\Stmt\\ClassMethod\|PhpParser\\Node\\Stmt\\Property, PhpParser\\Node\\Stmt\\Nop given#'
+
+        # false positive
+        - '#Strict comparison using \=\=\= between (array<int, string\>|false) and (false|array<int, string\>) will always evaluate to false#'
+
+        -
+            message: '#Access to an undefined property PhpParser\\Node\\Expr\:\:\$items#'
+            path: src/Rector/v8/v6/RefactorTCARector.php
+
+        -
+            message: '#Parameter \#1 \$expr of method Rector\\Core\\PhpParser\\Node\\Value\\ValueResolver\:\:getValue\(\) expects PhpParser\\Node\\Expr, PhpParser\\Node\\Expr\|null given#'
+            path: src/Rector/v8/v6/RefactorTCARector.php

@@ -18,6 +18,7 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Echo_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Throw_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -43,6 +44,9 @@ final class PageNotFoundAndErrorHandlingRector extends AbstractRector
         'pageUnavailableAndExit' => 'unavailableAction',
     ];
 
+    /**
+     * @var string[]
+     */
     private const METHODS = [
         'pageNotFoundAndExit',
         'pageUnavailableAndExit',
@@ -158,7 +162,7 @@ CODE_SAMPLE
             return false;
         }
 
-        return ! $this->isObjectType($node->var, TypoScriptFrontendController::class);
+        return ! $this->isObjectType($node->var, new ObjectType(TypoScriptFrontendController::class));
     }
 
     private function createResponse(MethodCall $node): ?Node

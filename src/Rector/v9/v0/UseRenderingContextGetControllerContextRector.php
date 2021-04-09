@@ -8,11 +8,11 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\Class_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper as CoreAbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -33,7 +33,12 @@ final class UseRenderingContextGetControllerContextRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectTypes($node, [AbstractViewHelper::class, CoreAbstractViewHelper::class])) {
+        $desiredObjectTypes = [
+            new ObjectType(AbstractViewHelper::class),
+            new ObjectType(\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper::class),
+        ];
+
+        if (! $this->nodeTypeResolver->isObjectTypes($node, $desiredObjectTypes)) {
             return null;
         }
 

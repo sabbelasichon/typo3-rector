@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\RemoveLanguageModeMethodsFromTypo3QuerySettings;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

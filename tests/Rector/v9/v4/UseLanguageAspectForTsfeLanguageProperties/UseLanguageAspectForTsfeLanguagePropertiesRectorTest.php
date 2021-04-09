@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseLanguageAspectForTsfeLanguageProperties;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseLanguageAspectForTsfeLanguagePropertiesRectorTest extends AbstractCommunityRectorTestCase
+final class UseLanguageAspectForTsfeLanguagePropertiesRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

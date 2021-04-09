@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v4\InstantiatePageRendererExplicitly;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class InstantiatePageRendererExplicitlyRectorTest extends AbstractCommunityRectorTestCase
+final class InstantiatePageRendererExplicitlyRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

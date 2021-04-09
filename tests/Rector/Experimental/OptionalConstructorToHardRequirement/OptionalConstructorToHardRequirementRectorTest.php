@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Experimental\OptionalConstructorToHardRequirement;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class OptionalConstructorToHardRequirementRectorTest extends AbstractCommunityRectorTestCase
+final class OptionalConstructorToHardRequirementRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

@@ -96,6 +96,9 @@ call_user_func(function ($extKey) {
 -----
 <?php
 
+use TICH\TichPinacoteca\Controller\MostraController;
+use FriendsOfTYPO3\TtAddress\Controller\AddressController;
+use Enw\TempFixtureEasyTesting\Controller\MessageController;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Form\Controller\FormFrontendController;
 
@@ -104,7 +107,7 @@ $_EXTKEY = 'Form';
 ExtensionUtility::configurePlugin(
     'TichPinacoteca',
     'Foo',
-    [\TICH\TichPinacoteca\Controller\MostraController::class => 'render, perform'],
+    [MostraController::class => 'render, perform'],
     [],
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
@@ -137,7 +140,7 @@ ExtensionUtility::configurePlugin(
     'TtAddress',
     'ListView',
     [
-        \FriendsOfTYPO3\TtAddress\Controller\AddressController::class => 'list,show',
+        AddressController::class => 'list,show',
     ]
 );
 
@@ -145,10 +148,10 @@ ExtensionUtility::configurePlugin(
     'TtAddress',
     'ListView',
     [
-        \FriendsOfTYPO3\TtAddress\Controller\AddressController::class => 'list,show',
+        AddressController::class => 'list,show',
     ],
     [
-        \FriendsOfTYPO3\TtAddress\Controller\AddressController::class => '',
+        AddressController::class => '',
     ]
 );
 
@@ -177,11 +180,11 @@ call_user_func(function ($extKey) {
         'TempFixtureEasyTesting',
         'Messages',
         [
-            \Enw\TempFixtureEasyTesting\Controller\MessageController::class => 'list, show, ajaxReloadTeaserResults',
+            MessageController::class => 'list, show, ajaxReloadTeaserResults',
         ],
         // non-cacheable actions
         [
-            \Enw\TempFixtureEasyTesting\Controller\MessageController::class => 'ajaxReloadTeaserResults',
+            MessageController::class => 'ajaxReloadTeaserResults',
         ]
     );
 },

@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -48,6 +49,9 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
         $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [Assign::class];
@@ -157,11 +161,11 @@ CODE_SAMPLE
             return false;
         }
 
-        if ($this->isObjectType($node, TypoScriptFrontendController::class)) {
+        if ($this->isObjectType($node, new ObjectType(TypoScriptFrontendController::class))) {
             return true;
         }
 
-        if ($this->isObjectType($node, TemplateService::class)) {
+        if ($this->isObjectType($node, new ObjectType(TemplateService::class))) {
             return true;
         }
 

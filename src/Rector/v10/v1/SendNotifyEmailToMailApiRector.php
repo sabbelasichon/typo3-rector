@@ -22,6 +22,7 @@ use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symfony\Component\Mime\Address;
@@ -83,6 +84,9 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
      */
     private const PARSED_REPLY_TO = 'parsedReplyTo';
 
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [MethodCall::class];
@@ -93,7 +97,10 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, ContentObjectRenderer::class)) {
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType(ContentObjectRenderer::class)
+        )) {
             return null;
         }
 

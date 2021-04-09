@@ -34,7 +34,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 final class InArrayViewHelper extends AbstractViewHelper
 {
     /**
-     *
      * @return bool
      */
     public function render()

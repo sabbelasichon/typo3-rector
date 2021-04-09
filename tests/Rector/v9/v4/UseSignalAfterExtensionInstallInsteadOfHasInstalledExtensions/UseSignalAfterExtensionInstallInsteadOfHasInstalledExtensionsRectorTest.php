@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensions;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRectorTest extends AbstractCommunityRectorTestCase
+final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()

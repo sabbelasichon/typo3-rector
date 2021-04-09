@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v5\RemoveIconsInOptionTags;
 
 use Iterator;
-use Rector\Testing\PHPUnit\AbstractCommunityRectorTestCase;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class RemoveIconsInOptionTagsRectorTest extends AbstractCommunityRectorTestCase
+final class RemoveIconsInOptionTagsRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
