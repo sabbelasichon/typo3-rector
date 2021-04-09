@@ -10,11 +10,9 @@ use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Configuration\Option;
-use Ssch\TYPO3Rector\Console\Application;
 use Ssch\TYPO3Rector\Console\Output\DecoratedConsoleOutputFormatter;
 use Ssch\TYPO3Rector\TypoScript\Parser\Printer\PrettyPrinter;
 use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
-use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -30,8 +28,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->defaults()
         ->public()
         ->autowire();
-
-    $services->alias(SymfonyApplication::class, Application::class);
 
     $services->load('Ssch\\TYPO3Rector\\', __DIR__ . '/../src')
         ->exclude([
