@@ -25,6 +25,7 @@
         "symplify/coding-standard": "^9.2",
         "symplify/easy-coding-standard": "^9.2",
         "symplify/phpstan-extensions": "^9.2",
+        "symplify/rule-doc-generator": "^9.2",
         "tracy/tracy": "^2.8"
     },
     "autoload": {
