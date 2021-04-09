@@ -88,6 +88,8 @@ final class Typo3GenerateCommand extends Command
         $templateFileInfos = $this->templateFinder->find();
 
         $templateVariables = [
+            '__Package__' => $recipe->getMajorVersion(),
+            '__Category__' => $recipe->getMinorVersion(),
             '__Major__' => $recipe->getMajorVersion(),
             '__Minor__' => $recipe->getMinorVersion(),
             '__Name__' => $recipe->getRectorName(),
