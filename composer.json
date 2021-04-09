@@ -34,7 +34,10 @@
             "Ssch\\TYPO3Rector\\ComposerPackages\\": "utils/composer-packages/src",
             "Ssch\\TYPO3Rector\\": "src",
             "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src"
-        }
+        },
+        "classmap": [
+            "stubs"
+        ]
     },
     "bin": [
         "bin/typo3-rector"
@@ -50,9 +53,6 @@
         },
         "exclude-from-classmap": [
             "**.php.inc"
-        ],
-        "classmap": [
-            "stubs"
         ]
     },
     "config": {
