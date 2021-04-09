@@ -31,7 +31,13 @@ final class TypoScriptProcessorTest extends AbstractRectorTestCase
         $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
 
         $changedTypoScript = $this->typoScriptProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
-        $this->assertSame($inputFileInfoAndExpected->getExpected(), $changedTypoScript);
+
+        $newContent = '';
+        if (null !== $changedTypoScript) {
+            $newContent = $changedTypoScript->getNewContent();
+        }
+
+        $this->assertSame($inputFileInfoAndExpected->getExpected(), $newContent);
     }
 
     public function provideData(): Iterator
