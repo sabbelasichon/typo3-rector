@@ -69,5 +69,30 @@
         "rector": "vendor/bin/rector process --dry-run --ansi",
         "fix-rector": "vendor/bin/rector process --ansi",
         "check-typo3-rector": "bin/typo3-rector process src/Bootstrap --config templates/rector.php --dry-run --ansi"
+    },
+    "extra": {
+        "typo3/class-alias-loader": {
+            "class-alias-maps": [
+                "Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php",
+
+                "Migrations/TYPO3/9.5/typo3/sysext/adminpanel/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/9.5/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/9.5/typo3/sysext/core/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/9.5/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/9.5/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/9.5/typo3/sysext/info/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/9.5/typo3/sysext/lowlevel/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/9.5/typo3/sysext/recordlist/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/9.5/typo3/sysext/reports/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/9.5/typo3/sysext/t3editor/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/9.5/typo3/sysext/workspaces/Migrations/Code/ClassAliasMap.php",
+
+                "Migrations/TYPO3/10.4/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php",
+                "Migrations/TYPO3/10.4/typo3/sysext/core/Migrations/Code/ClassAliasMap.php"
+            ]
+        }
     }
 }
