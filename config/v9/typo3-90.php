@@ -31,6 +31,7 @@ use Ssch\TYPO3Rector\Rector\v9\v0\UseExtensionConfigurationApiRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector;
+use Ssch\TYPO3Rector\TypoScript\Visitors\FileIncludeToImportStatementVisitor;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -80,4 +81,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SubstituteGeneralUtilityDevLogRector::class);
     $services->set(ReplacedGeneralUtilitySysLogWithLogginApiRector::class);
     $services->set(RenderTypeTransformer::class);
+    # $services->set(FileIncludeToImportStatementVisitor::class);
+    # $services->set(FileIncludeToImportStatementVisitor::class);
 };
