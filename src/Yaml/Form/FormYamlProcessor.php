@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Yaml\Form;
 
-use Ssch\TYPO3Rector\Processor\ProcessorInterface;
+use Rector\Core\Contract\Processor\NonPhpFileProcessorInterface;
+use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
 use Ssch\TYPO3Rector\Yaml\Form\Transformer\FormYamlTransformer;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -12,7 +13,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Ssch\TYPO3Rector\Tests\Yaml\Form\FormYamlProcessorTest
  */
-final class FormYamlProcessor implements ProcessorInterface
+final class FormYamlProcessor implements NonPhpFileProcessorInterface
 {
     /**
      * @var string[]
@@ -32,22 +33,22 @@ final class FormYamlProcessor implements ProcessorInterface
         $this->transformer = $transformer;
     }
 
-    public function process(SmartFileInfo $smartFileInfo): ?string
+    public function process(SmartFileInfo $smartFileInfo): ?NonPhpFileChange
     {
         $yaml = Yaml::parseFile($smartFileInfo->getRealPath());
 
         if (! is_array($yaml)) {
-            return $smartFileInfo->getContents();
+            return null;
         }
 
         foreach ($this->transformer as $transformer) {
             $yaml = $transformer->transform($yaml);
         }
 
-        return Yaml::dump($yaml, 99, 2);
+        return new NonPhpFileChange($smartFileInfo->getContents(), Yaml::dump($yaml, 99, 2));
     }
 
-    public function canProcess(SmartFileInfo $smartFileInfo): bool
+    public function supports(SmartFileInfo $smartFileInfo): bool
     {
         if ([] === $this->transformer) {
             return false;
@@ -56,7 +57,7 @@ final class FormYamlProcessor implements ProcessorInterface
         return in_array($smartFileInfo->getExtension(), self::ALLOWED_FILE_EXTENSIONS, true);
     }
 
-    public function allowedFileExtensions(): array
+    public function getSupportedFileExtensions(): array
     {
         return self::ALLOWED_FILE_EXTENSIONS;
     }

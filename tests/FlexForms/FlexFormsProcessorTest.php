@@ -31,7 +31,13 @@ final class FlexFormsProcessorTest extends AbstractRectorTestCase
         $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
 
         $changedXml = $this->flexformsProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
-        $this->assertSame($inputFileInfoAndExpected->getExpected(), $changedXml);
+
+        $newContent = '';
+        if (null !== $changedXml) {
+            $newContent = $changedXml->getNewContent();
+        }
+
+        $this->assertSame($inputFileInfoAndExpected->getExpected(), $newContent);
     }
 
     public function provideData(): Iterator

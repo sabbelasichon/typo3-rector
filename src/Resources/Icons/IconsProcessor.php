@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Resources\Icons;
 
 use Rector\Core\Configuration\Configuration;
-use Ssch\TYPO3Rector\Processor\ProcessorInterface;
+use Rector\Core\Contract\Processor\NonPhpFileProcessorInterface;
+use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
-final class IconsProcessor implements ProcessorInterface
+final class IconsProcessor implements NonPhpFileProcessorInterface
 {
     /**
      * @var SmartFileSystem
@@ -37,7 +38,7 @@ final class IconsProcessor implements ProcessorInterface
         $this->configuration = $configuration;
     }
 
-    public function process(SmartFileInfo $smartFileInfo): ?string
+    public function process(SmartFileInfo $smartFileInfo): ?NonPhpFileChange
     {
         $relativeFilePath = dirname($smartFileInfo->getRelativeFilePath());
         $realPath = dirname($smartFileInfo->getRealPath());
@@ -68,7 +69,7 @@ final class IconsProcessor implements ProcessorInterface
         return null;
     }
 
-    public function canProcess(SmartFileInfo $smartFileInfo): bool
+    public function supports(SmartFileInfo $smartFileInfo): bool
     {
         if (! in_array($smartFileInfo->getFilename(), ['ext_icon.png', 'ext_icon.svg', 'ext_icon.gif'], true)) {
             return false;
@@ -79,7 +80,7 @@ final class IconsProcessor implements ProcessorInterface
         return $this->smartFileSystem->exists($extEmConf);
     }
 
-    public function allowedFileExtensions(): array
+    public function getSupportedFileExtensions(): array
     {
         return ['png', 'gif', 'svg'];
     }

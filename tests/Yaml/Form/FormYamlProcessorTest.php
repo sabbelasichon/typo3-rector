@@ -30,8 +30,14 @@ final class FormYamlProcessorTest extends AbstractRectorTestCase
     {
         $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
 
-        $changedTypoScript = $this->formYamlProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
-        $this->assertSame($inputFileInfoAndExpected->getExpected(), $changedTypoScript);
+        $changedYaml = $this->formYamlProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
+
+        $newContent = '';
+        if (null !== $changedYaml) {
+            $newContent = $changedYaml->getNewContent();
+        }
+
+        $this->assertSame($inputFileInfoAndExpected->getExpected(), $newContent);
     }
 
     public function provideData(): Iterator

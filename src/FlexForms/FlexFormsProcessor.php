@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\FlexForms;
 
 use DOMDocument;
+use Rector\Core\Contract\Processor\NonPhpFileProcessorInterface;
+use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
 use Ssch\TYPO3Rector\FlexForms\Transformer\FlexFormTransformer;
-use Ssch\TYPO3Rector\Processor\ProcessorInterface;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use UnexpectedValueException;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\FlexForms\FlexFormsProcessorTest
  */
-final class FlexFormsProcessor implements ProcessorInterface
+final class FlexFormsProcessor implements NonPhpFileProcessorInterface
 {
     /**
      * @var FlexFormTransformer[]
@@ -28,7 +29,7 @@ final class FlexFormsProcessor implements ProcessorInterface
         $this->transformer = $transformer;
     }
 
-    public function process(SmartFileInfo $smartFileInfo): ?string
+    public function process(SmartFileInfo $smartFileInfo): ?NonPhpFileChange
     {
         $domDocument = new DOMDocument();
 
@@ -46,10 +47,10 @@ final class FlexFormsProcessor implements ProcessorInterface
             throw new UnexpectedValueException('Could not convert to xml');
         }
 
-        return html_entity_decode($xml) . "\n";
+        return new NonPhpFileChange($smartFileInfo->getContents(), html_entity_decode($xml) . "\n");
     }
 
-    public function canProcess(SmartFileInfo $smartFileInfo): bool
+    public function supports(SmartFileInfo $smartFileInfo): bool
     {
         if ([] === $this->transformer) {
             return false;
@@ -68,7 +69,7 @@ final class FlexFormsProcessor implements ProcessorInterface
         return 'T3DataStructure' === $xml->getName();
     }
 
-    public function allowedFileExtensions(): array
+    public function getSupportedFileExtensions(): array
     {
         return ['xml'];
     }

@@ -10,15 +10,15 @@ use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
 use Rector\ChangesReporting\Application\ErrorAndDiffCollector;
+use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
-use Ssch\TYPO3Rector\Processor\ProcessorInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\TypoScript\TypoScriptProcessorTest
  */
-final class TypoScriptProcessor implements ProcessorInterface, ConfigurableProcessorInterface
+final class TypoScriptProcessor implements ConfigurableProcessorInterface
 {
     /**
      * @var string
@@ -74,7 +74,7 @@ final class TypoScriptProcessor implements ProcessorInterface, ConfigurableProce
         $this->errorAndDiffCollector = $errorAndDiffCollector;
     }
 
-    public function process(SmartFileInfo $smartFileInfo): ?string
+    public function process(SmartFileInfo $smartFileInfo): ?NonPhpFileChange
     {
         try {
             $originalStatements = $this->typoscriptParser->parseString($smartFileInfo->getContents());
@@ -95,13 +95,13 @@ final class TypoScriptProcessor implements ProcessorInterface, ConfigurableProce
                 $smartFileInfo->getContents()
             );
 
-            return $typoScriptContent;
+            return new NonPhpFileChange($smartFileInfo->getContents(), $typoScriptContent);
         } catch (TokenizerException $tokenizerException) {
             return null;
         }
     }
 
-    public function canProcess(SmartFileInfo $smartFileInfo): bool
+    public function supports(SmartFileInfo $smartFileInfo): bool
     {
         if ([] === $this->visitors) {
             return false;
@@ -113,7 +113,7 @@ final class TypoScriptProcessor implements ProcessorInterface, ConfigurableProce
     /**
      * @return string[]
      */
-    public function allowedFileExtensions(): array
+    public function getSupportedFileExtensions(): array
     {
         return $this->allowedFileExtensions;
     }
