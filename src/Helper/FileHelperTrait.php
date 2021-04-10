@@ -18,4 +18,9 @@ trait FileHelperTrait
     {
         return Strings::endsWith($fileInfo->getFilename(), 'ext_tables.php');
     }
+
+    private function isExtEmconf(SmartFileInfo $fileInfo): bool
+    {
+        return Strings::endsWith($fileInfo->getFilename(), 'ext_emconf.php');
+    }
 }
