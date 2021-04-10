@@ -90,7 +90,7 @@ ClassLoadingInformation::registerClassLoadingInformation();
 Afterwards run rector:
 
 ```bash
-php ~/.composer/vendor/bin/typo3-rector process public/typo3conf/ext/your_extension/  -c .rector/config.php -n --autoload-file autoload.php
+php ~/.composer/vendor/bin/rector process public/typo3conf/ext/your_extension/  -c .rector/config.php -n --autoload-file autoload.php
 ```
 
 Note that the path to the typo3-rector executable can vary on your system.

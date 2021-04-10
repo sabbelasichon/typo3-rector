@@ -4,7 +4,7 @@ This library ships already with a bunch of configuration files organized by TYPO
 To get you started quickly run the following command inside the root directory of your project:
 
 ```bash
-./vendor/bin/typo3-rector typo3-init
+./vendor/bin/rector typo3-init
 ```
 
 The command generates a basic configuration skeleton which you can adapt to your needs.
@@ -86,7 +86,7 @@ For more configuration options see [Rector README](https://github.com/rectorphp/
 After your adopt the configuration to your needs, run typo3-rector to simulate (hence the option `--dry-run`) the future code fixes:
 
 ```bash
-./vendor/bin/typo3-rector process packages/my_custom_extension --dry-run
+./vendor/bin/rector process packages/my_custom_extension --dry-run
 ```
 
 Check if everything makes sense and run the process command without the `--dry-run` option to apply the changes.
@@ -101,7 +101,7 @@ Instead of `__DIR__` the PHP method `getcwd()` must be used. This takes the star
 
 ### Example with the option --config and custom rector.php location
 The file `rector.php` is located in the directory` /var/www/Build/Apps/` and it is executed
-via` cd /var/www/html/ && ./vendor/bin/typo3-rector process --config ../Build/Apps/rector.php --dry-run`.
+via` cd /var/www/html/ && ./vendor/bin/rector process --config ../Build/Apps/rector.php --dry-run`.
 The starting point with the PHP method `getcwd()` is then `/var/www/html/` instead of `/var/www/html/Build/Apps/` with `__DIR__`.
 ```php
 $parameters->set(
