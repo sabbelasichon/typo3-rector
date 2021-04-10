@@ -8,9 +8,7 @@ use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
-use Rector\ChangesReporting\Output\ConsoleOutputFormatter;
 use Rector\Core\Configuration\Option;
-use Ssch\TYPO3Rector\Console\Output\DecoratedConsoleOutputFormatter;
 use Ssch\TYPO3Rector\TypoScript\Parser\Printer\PrettyPrinter;
 use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -40,9 +38,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/FlexForms/Transformer',
             __DIR__ . '/../src/Resources/Icons/IconsProcessor.php',
         ]);
-
-    $services->set(DecoratedConsoleOutputFormatter::class)
-        ->decorate(ConsoleOutputFormatter::class);
 
     $services->set(Traverser::class);
 

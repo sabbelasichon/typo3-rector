@@ -50,9 +50,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Define your target version which you want to support
     $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_72);
 
-    // If you would like to see the changelog url when a rector is applied
-    $parameters->set(Typo3Option::OUTPUT_CHANGELOG, true);
-
     // If you set option Option::AUTO_IMPORT_NAMES to true, you should consider excluding some TYPO3 files.
     $parameters->set(Option::SKIP, [
         NameImportingPostRector::class => [

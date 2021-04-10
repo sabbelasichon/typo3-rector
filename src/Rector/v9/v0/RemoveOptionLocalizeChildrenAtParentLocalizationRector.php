@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82709-TCAOptionLocalizeChildrenAtParentLocalizationRemoved.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82709-TCAOptionLocalizeChildrenAtParentLocalizationRemoved.html
  */
 final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends AbstractRector
 {

@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.5/Deprecation-78647-MoveLanguageFilesFromEXTlanglocallang_ToResourcesPrivateLanguage.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.5/Deprecation-78647-MoveLanguageFilesFromEXTlanglocallang_ToResourcesPrivateLanguage.html
  */
 final class MoveLanguageFilesFromLocallangToResourcesRector extends AbstractRector
 {

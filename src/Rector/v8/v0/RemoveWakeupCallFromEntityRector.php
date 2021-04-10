@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-72370-RemovedDeprecatedCodeFromExtbase.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-72370-RemovedDeprecatedCodeFromExtbase.html
  */
 final class RemoveWakeupCallFromEntityRector extends AbstractRector
 {

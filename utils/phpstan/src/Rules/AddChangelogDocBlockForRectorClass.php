@@ -17,19 +17,19 @@ use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 
 /**
- * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddSeeDocBlockForRectorClass\AddCodeCoverageIgnoreForRectorDefinitionTest
+ * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddChangelogDocBlockForRectorClass\AddChangelogDocBlockForRectorClassTest
  */
-final class AddSeeDocBlockForRectorClass implements Rule
+final class AddChangelogDocBlockForRectorClass implements Rule
 {
     /**
      * @var string
      */
-    public const ERROR_MESSAGE = 'Provide @see doc block for "%s" Rector class';
+    public const ERROR_MESSAGE = 'Provide @changelog doc block for "%s" Rector class';
 
     /**
      * @var string[]
      */
-    private const ALLOWED_CLASSES_WITH_NON_SEE_DOC_BLOCK = [
+    private const ALLOWED_CLASSES_WITH_NON_CHANGELOG_DOC_BLOCK = [
         RenameClassMapAliasRector::class,
         AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class,
         ConvertTypo3ConfVarsRector::class,
@@ -75,7 +75,7 @@ final class AddSeeDocBlockForRectorClass implements Rule
             return [];
         }
 
-        if (in_array($fullyQualifiedClassName, self::ALLOWED_CLASSES_WITH_NON_SEE_DOC_BLOCK, true)) {
+        if (in_array($fullyQualifiedClassName, self::ALLOWED_CLASSES_WITH_NON_CHANGELOG_DOC_BLOCK, true)) {
             return [];
         }
 
@@ -93,7 +93,7 @@ final class AddSeeDocBlockForRectorClass implements Rule
         );
 
         $phpDocString = $resolvedPhpDoc->getPhpDocString();
-        if (Strings::contains($phpDocString, '@see')) {
+        if (Strings::contains($phpDocString, '@changelog')) {
             return [];
         }
 
