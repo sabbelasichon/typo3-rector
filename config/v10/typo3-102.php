@@ -10,7 +10,7 @@ use Ssch\TYPO3Rector\Rector\v10\v2\UseTypo3InformationForCopyRightNoticeRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../services.php');
+    $containerConfigurator->import(__DIR__ . '/../config.php');
 
     $services = $containerConfigurator->services();
 

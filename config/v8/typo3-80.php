@@ -36,7 +36,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../services.php');
+    $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(ChangeMethodCallsForStandaloneViewRector::class);
     $services->set(RefactorRemovedMethodsFromGeneralUtilityRector::class);

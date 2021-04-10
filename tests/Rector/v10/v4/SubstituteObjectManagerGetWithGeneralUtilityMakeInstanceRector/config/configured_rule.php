@@ -12,7 +12,7 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../../../config/services.php');
+    $containerConfigurator->import(__DIR__ . '/../../../../../../config/config.php');
 
     $services = $containerConfigurator->services();
 

@@ -15,7 +15,7 @@ use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 use TYPO3\CMS\Backend\History\RecordHistory;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../services.php');
+    $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(RegisterPluginWithVendorNameRector::class);
     $services->set(BackendUtilityEditOnClickRector::class);

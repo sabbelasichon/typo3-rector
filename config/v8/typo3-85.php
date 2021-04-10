@@ -15,7 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\ArrayUtility;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../services.php');
+    $containerConfigurator->import(__DIR__ . '/../config.php');
 
     $services = $containerConfigurator->services();
     $services->set('clip_board_print_content_from_tab_to_get_content_from_tab')
