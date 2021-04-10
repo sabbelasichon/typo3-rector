@@ -12,7 +12,7 @@ use TYPO3\CMS\Backend\Routing\FormResultCompiler;
 use TYPO3\CMS\Saltedpasswords\Salt\SpellCheckingController;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../services.php');
+    $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     // @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Deprecation-75363-DeprecateFormResultCompilerJStop.html
     $services->set('form_result_compiler_jstop_to_add_css_files')

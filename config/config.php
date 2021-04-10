@@ -33,9 +33,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->exclude([
             __DIR__ . '/../src/Rector',
             __DIR__ . '/../src/Set',
-            __DIR__ . '/../src/Bootstrap',
-            __DIR__ . '/../src/HttpKernel',
-            __DIR__ . '/../src/Compiler',
             __DIR__ . '/../src/ValueObject',
             __DIR__ . '/../src/TypoScript/Conditions',
             __DIR__ . '/../src/TypoScript/Visitors',

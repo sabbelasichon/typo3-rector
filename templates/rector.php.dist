@@ -14,14 +14,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // get parameters
     $parameters = $containerConfigurator->parameters();
 
-    // Define what rule sets will be applied
-    $parameters->set(Option::SETS, [
-        Typo3SetList::TYPO3_76,
-        Typo3SetList::TYPO3_87,
-        Typo3SetList::TYPO3_95,
-        Typo3SetList::TYPO3_104,
-        Typo3SetList::TYPO3_11,
-    ]);
+    $containerConfigurator->import(Typo3SetList::TYPO3_76);
+    $containerConfigurator->import(Typo3SetList::TYPO3_87);
+    $containerConfigurator->import(Typo3SetList::TYPO3_95);
+    $containerConfigurator->import(Typo3SetList::TYPO3_104);
+    $containerConfigurator->import(Typo3SetList::TYPO3_11);
 
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);

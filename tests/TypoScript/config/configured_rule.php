@@ -22,7 +22,7 @@ use Ssch\TYPO3Rector\TypoScript\Visitors\OldConditionToExpressionLanguageVisitor
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../config/services.php');
+    $containerConfigurator->import(__DIR__ . '/../../../config/config.php');
     $services = $containerConfigurator->services();
     $services->set(ApplicationContextConditionMatcher::class);
     $services->set(BrowserConditionMatcher::class);
