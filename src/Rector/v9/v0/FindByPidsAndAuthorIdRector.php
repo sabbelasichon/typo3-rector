@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\SysNote\Domain\Repository\SysNoteRepository;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82506-RemoveBackendUserRepositoryInjectionInNoteController.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82506-RemoveBackendUserRepositoryInjectionInNoteController.html
  */
 final class FindByPidsAndAuthorIdRector extends AbstractRector
 {

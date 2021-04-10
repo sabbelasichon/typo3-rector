@@ -15,7 +15,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\AbstractController;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89554-DeprecateTYPO3CMSExtbaseMvcControllerAbstractController.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89554-DeprecateTYPO3CMSExtbaseMvcControllerAbstractController.html
  */
 final class UseActionControllerRector extends AbstractRector
 {

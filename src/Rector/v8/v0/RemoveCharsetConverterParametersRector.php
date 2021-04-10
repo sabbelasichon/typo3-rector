@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-74031-CharsetConverterParametersRemoved.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-74031-CharsetConverterParametersRemoved.html
  */
 final class RemoveCharsetConverterParametersRector extends AbstractRector
 {

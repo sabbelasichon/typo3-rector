@@ -31,7 +31,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85445-TemplateService-getFileName.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85445-TemplateService-getFileName.html
  */
 final class TemplateGetFileNameToFilePathSanitizerRector extends AbstractRector
 {

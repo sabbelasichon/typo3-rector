@@ -18,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Mail\MailMessage;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/10.2/en-us/Changelog/10.0/Feature-88643-NewMailAPIBasedOnSymfonymailerAndSymfonymime.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/10.2/en-us/Changelog/10.0/Feature-88643-NewMailAPIBasedOnSymfonymailerAndSymfonymime.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\SwiftMailerBasedMailMessageToMailerBasedMessage\SwiftMailerBasedMailMessageToMailerBasedMessageRectorTest
  */
 final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends AbstractRector

@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.6/Deprecation-79316-DeprecateArrayUtilityinArray.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.6/Deprecation-79316-DeprecateArrayUtilityinArray.html
  */
 final class ArrayUtilityInArrayToFuncInArrayRector extends AbstractRector
 {

@@ -34,7 +34,7 @@ use TYPO3\CMS\Core\Utility\MailUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-88850-ContentObjectRendererSendNotifyEmail.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-88850-ContentObjectRendererSendNotifyEmail.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v1\SendNotifyEmailToMailApi\SendNotifyEmailToMailApiRectorTest
  */
 final class SendNotifyEmailToMailApiRector extends AbstractRector

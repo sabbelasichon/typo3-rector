@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82430-ReplacedGeneralUtilitysysLogWithLoggingAPI.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82430-ReplacedGeneralUtilitysysLogWithLoggingAPI.html
  */
 final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRector
 {

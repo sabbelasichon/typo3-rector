@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddSeeDocBlockForRectorClass;
+namespace Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddChangelogDocBlockForRectorClass;
 
 use Iterator;
 use PHPStan\Rules\Rule;
-use Ssch\TYPO3Rector\PHPStan\Rules\AddSeeDocBlockForRectorClass;
+use Ssch\TYPO3Rector\PHPStan\Rules\AddChangelogDocBlockForRectorClass;
 use Symplify\PHPStanExtensions\Testing\AbstractServiceAwareRuleTestCase;
 
-final class AddSeeDocBlockForRectorClassTest extends AbstractServiceAwareRuleTestCase
+final class AddChangelogDocBlockForRectorClassTest extends AbstractServiceAwareRuleTestCase
 {
     /**
      * @dataProvider provideData()
@@ -21,15 +21,15 @@ final class AddSeeDocBlockForRectorClassTest extends AbstractServiceAwareRuleTes
 
     public function provideData(): Iterator
     {
-        $message = sprintf(AddSeeDocBlockForRectorClass::ERROR_MESSAGE, 'MissingSee');
-        yield [__DIR__ . '/Fixture/MissingSee.php', [[$message, 12]]];
-        yield [__DIR__ . '/Fixture/SkipWithSee.php', []];
+        $message = sprintf(AddChangelogDocBlockForRectorClass::ERROR_MESSAGE, 'MissingChangelog');
+        yield [__DIR__ . '/Fixture/MissingChangelog.php', [[$message, 12]]];
+        yield [__DIR__ . '/Fixture/SkipWithChangelog.php', []];
     }
 
     protected function getRule(): Rule
     {
         return $this->getRuleFromConfig(
-            AddSeeDocBlockForRectorClass::class,
+            AddChangelogDocBlockForRectorClass::class,
             __DIR__ . '/../../../config/typo3-rector.neon'
         );
     }

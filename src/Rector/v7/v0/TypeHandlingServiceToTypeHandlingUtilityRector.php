@@ -14,7 +14,7 @@ use TYPO3\CMS\Extbase\Service\TypeHandlingService;
 use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.0/Breaking-61786-ExtbaseDeprecatedTypeHandlingServiceRemoved.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.0/Breaking-61786-ExtbaseDeprecatedTypeHandlingServiceRemoved.html
  */
 final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRector
 {

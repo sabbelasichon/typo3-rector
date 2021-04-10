@@ -16,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Breaking-77156-TSconfigAndTStemplateSoftReferencesFunctionalityRemoved.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Breaking-77156-TSconfigAndTStemplateSoftReferencesFunctionalityRemoved.html
  */
 final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
 {

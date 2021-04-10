@@ -30,7 +30,7 @@ use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80514-GraphicalFunctions-tempPathAndCreateTempSubDir.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80514-GraphicalFunctions-tempPathAndCreateTempSubDir.html
  */
 final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends AbstractRector
 {
