@@ -48,6 +48,10 @@ final class ExtensionManagementUtility
     {
     }
 
+    public static function addStaticFile($extKey, $path, $title): void
+    {
+    }
+
     /**
      * @param string $fieldName
      * @param array $customSettingOverride

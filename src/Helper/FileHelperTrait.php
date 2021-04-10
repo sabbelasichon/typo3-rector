@@ -18,4 +18,9 @@ trait FileHelperTrait
     {
         return Strings::endsWith($fileInfo->getFilename(), 'ext_tables.php');
     }
+
+    private function isSysTemplate(SmartFileInfo $fileInfo): bool
+    {
+        return Strings::endsWith($fileInfo->getFilename(), 'sys_template.php');
+    }
 }

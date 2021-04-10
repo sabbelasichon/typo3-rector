@@ -66,7 +66,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $this->isExtLocalConf($fileInfo) && ! $this->isExtTables($fileInfo)) {
+        if (! $this->isExtLocalConf($fileInfo) && ! $this->isExtTables($fileInfo) && ! $this->isSysTemplate($fileInfo)) {
             return null;
         }
 
