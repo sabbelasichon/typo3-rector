@@ -23,6 +23,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\VerbosityLevel;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\PhpParser\Node\NodeFactory;
@@ -223,7 +224,7 @@ final class InitializeArgumentsClassMethodFactory
 
         $phpStanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($paramTagValueNode->type, $param);
 
-        $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString($phpStanType);
+        $docString = $phpStanType->describe(VerbosityLevel::typeOnly());
         if ('[]' === substr($docString, -2)) {
             return 'array';
         }

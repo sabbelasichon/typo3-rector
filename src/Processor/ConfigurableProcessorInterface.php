@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Processor;
 
-use Rector\Core\Contract\Processor\NonPhpFileProcessorInterface;
+use Rector\Core\Contract\Processor\FileProcessorInterface;
 
-interface ConfigurableProcessorInterface extends NonPhpFileProcessorInterface
+interface ConfigurableProcessorInterface extends FileProcessorInterface
 {
     /**
      * @param mixed[] $configuration

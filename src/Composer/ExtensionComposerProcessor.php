@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Composer;
 
-use Rector\Core\Contract\Processor\NonPhpFileProcessorInterface;
+use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ExtensionComposerProcessor implements NonPhpFileProcessorInterface
+final class ExtensionComposerProcessor implements FileProcessorInterface
 {
     /**
      * @var ComposerJsonFactory
