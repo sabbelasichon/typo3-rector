@@ -9,11 +9,14 @@ use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use Rector\Core\Configuration\Option;
+use Ssch\TYPO3Rector\Reporting\Reporter;
+use Ssch\TYPO3Rector\Reporting\ReporterFactory;
 use Ssch\TYPO3Rector\TypoScript\Parser\Printer\PrettyPrinter;
 use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, true);
@@ -36,8 +39,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/TypoScript/Visitors',
             __DIR__ . '/../src/Yaml/Form/Transformer',
             __DIR__ . '/../src/FlexForms/Transformer',
+            __DIR__ . '/../src/Reporting',
             __DIR__ . '/../src/Resources/Icons/IconsProcessor.php',
         ]);
+
+    $services->set(ReporterFactory::class);
+    $services->set(Reporter::class)->factory([service(ReporterFactory::class), 'createReporter']);
 
     $services->set(Traverser::class);
 
