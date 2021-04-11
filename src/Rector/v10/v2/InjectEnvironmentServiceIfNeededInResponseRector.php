@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\VerbosityLevel;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
@@ -136,10 +137,10 @@ CODE_SAMPLE
         $propertyBuilder = new PropertyBuilder(self::ENVIRONMENT_SERVICE);
         $propertyBuilder->makeProtected();
 
-        $docString = $this->staticTypeMapper->mapPHPStanTypeToDocString(
-            new FullyQualifiedObjectType(EnvironmentService::class)
+        $type = new FullyQualifiedObjectType(EnvironmentService::class);
+        $propertyBuilder->setDocComment(
+            new Doc(sprintf('/**%s * @var \%s%s */', PHP_EOL, $type->describe(VerbosityLevel::typeOnly()), PHP_EOL))
         );
-        $propertyBuilder->setDocComment(new Doc(sprintf('/**%s * @var %s%s */', PHP_EOL, $docString, PHP_EOL)));
 
         return $propertyBuilder->getNode();
     }

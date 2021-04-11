@@ -1,0 +1,67 @@
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.content {
+
+}
+
+.header {
+    background-color: #2ab7ca;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+.report-table {
+    display: table;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border-collapse: collapse;
+}
+
+.report-table__row {
+    text-align: left;
+    padding: .75rem;
+    vertical-align: top;
+}
+
+.report-table__row-cell {
+    padding: 1em;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.report-table__row--headers {
+    border-top: 1px solid #dee2e6;
+    border-bottom: 2px solid #dee2e6;
+}
