@@ -11,6 +11,7 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\AbstractController;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-87627-RemovePropertyExtensionNameOfAbstractController.html
@@ -30,7 +31,8 @@ final class RemovePropertyExtensionNameRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node->var, new ObjectType(AbstractController::class))) {
+        if (! $this->isObjectType($node->var, new ObjectType(AbstractController::class))
+            || ! $this->isObjectType($node->var, new ObjectType(ActionController::class))) {
             return null;
         }
         if (! $this->isName($node, 'extensionName')) {
