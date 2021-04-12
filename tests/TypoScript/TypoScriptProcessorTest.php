@@ -2,50 +2,22 @@
 
 namespace Ssch\TYPO3Rector\Tests\TypoScript;
 
-use Iterator;
-use Rector\Core\HttpKernel\RectorKernel;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
 
-final class TypoScriptProcessorTest extends AbstractRectorTestCase
+final class TypoScriptProcessorTest extends AbstractApplicationFileProcessorTest
 {
-    /**
-     * @var TypoScriptProcessor
-     */
-    private $typoScriptProcessor;
-
-    protected function setUp(): void
+    public function test(): void
     {
-        $this->bootKernelWithConfigs(RectorKernel::class, [$this->provideConfigFile()]);
-        $this->typoScriptProcessor = $this->getService(TypoScriptProcessor::class);
+        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture']);
+        $this->assertCount(4, $files);
+
+        $this->applicationFileProcessor->run($files);
+
+        $processResult = $this->processResultFactory->create($files);
+        $this->assertCount(2, $processResult->getFileDiffs());
     }
 
-    /**
-     * @dataProvider provideData()
-     */
-    public function test(SmartFileInfo $smartFileInfo): void
-    {
-        $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
-
-        $changedTypoScript = $this->typoScriptProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
-
-        $newContent = '';
-        if (null !== $changedTypoScript) {
-            $newContent = $changedTypoScript->getNewContent();
-        }
-
-        $this->assertSame($inputFileInfoAndExpected->getExpected(), $newContent);
-    }
-
-    public function provideData(): Iterator
-    {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.typoscript');
-    }
-
-    public function provideConfigFile(): string
+    protected function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

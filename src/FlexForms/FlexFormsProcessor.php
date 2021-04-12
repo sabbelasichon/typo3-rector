@@ -6,9 +6,8 @@ namespace Ssch\TYPO3Rector\FlexForms;
 
 use DOMDocument;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
-use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
+use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\FlexForms\Transformer\FlexFormTransformer;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use UnexpectedValueException;
 
 /**
@@ -29,32 +28,23 @@ final class FlexFormsProcessor implements FileProcessorInterface
         $this->transformer = $transformer;
     }
 
-    public function process(SmartFileInfo $smartFileInfo): ?NonPhpFileChange
-    {
-        $domDocument = new DOMDocument();
-
-        $domDocument->formatOutput = true;
-
-        $domDocument->load($smartFileInfo->getRealPath());
-
-        foreach ($this->transformer as $transformer) {
-            $transformer->transform($domDocument);
-        }
-
-        $xml = $domDocument->saveXML($domDocument->documentElement, LIBXML_NOEMPTYTAG);
-
-        if (false === $xml) {
-            throw new UnexpectedValueException('Could not convert to xml');
-        }
-
-        return new NonPhpFileChange($smartFileInfo->getContents(), html_entity_decode($xml) . "\n");
-    }
-
-    public function supports(SmartFileInfo $smartFileInfo): bool
+    /**
+     * @param File[] $files
+     */
+    public function process(array $files): void
     {
         if ([] === $this->transformer) {
-            return false;
+            return;
         }
+
+        foreach ($files as $file) {
+            $this->processFile($file);
+        }
+    }
+
+    public function supports(File $file): bool
+    {
+        $smartFileInfo = $file->getSmartFileInfo();
 
         if ('xml' !== $smartFileInfo->getExtension()) {
             return false;
@@ -72,5 +62,34 @@ final class FlexFormsProcessor implements FileProcessorInterface
     public function getSupportedFileExtensions(): array
     {
         return ['xml'];
+    }
+
+    private function processFile(File $file): void
+    {
+        $smartFileInfo = $file->getSmartFileInfo();
+
+        $domDocument = new DOMDocument();
+
+        $domDocument->formatOutput = true;
+
+        $domDocument->load($smartFileInfo->getRealPath());
+
+        foreach ($this->transformer as $transformer) {
+            $transformer->transform($domDocument);
+        }
+
+        $xml = $domDocument->saveXML($domDocument->documentElement, LIBXML_NOEMPTYTAG);
+
+        if (false === $xml) {
+            throw new UnexpectedValueException('Could not convert to xml');
+        }
+
+        if ($xml === $file->getFileContent()) {
+            return;
+        }
+
+        $changedContent = html_entity_decode($xml) . "\n";
+
+        $file->changeFileContent($changedContent);
     }
 }
