@@ -25,7 +25,7 @@ docker run --rm \
 If you want to be able to run `typo3-rector` as if it was installed on your host locally, you can define the following function in your `~/.bashrc`, `~/.zshrc` or similar:
 
 ```shell
-typo3-rector () {
+rector () {
     tty=
     test -t 0 && tty=--tty
     docker run \

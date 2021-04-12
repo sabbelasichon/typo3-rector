@@ -56,8 +56,8 @@ note "Copy metafiles like composer.json, .github etc to repository"
 rm -f "$SCOPED_DIRECTORY/composer.json"
 cp -R scoped/. "$SCOPED_DIRECTORY"
 
-# make bin/typo3-rector runnable without "php"
-chmod 777 "$SCOPED_DIRECTORY/bin/typo3-rector"
-chmod 777 "$SCOPED_DIRECTORY/bin/typo3-rector.php"
+# make vendor/bin/rector runnable without "php"
+chmod 777 "$SCOPED_DIRECTORY/bin/rector"
+chmod 777 "$SCOPED_DIRECTORY/bin/rector.php"
 
 note "Finished"

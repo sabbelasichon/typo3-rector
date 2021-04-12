@@ -88,10 +88,6 @@ return [
                 return $content;
             }
 
-            if (Strings::endsWith($filePath, 'bin/typo3-rector.php')) {
-                return $content;
-            }
-
             // skip scoper-autoload
             if (Strings::endsWith($filePath, 'vendor/scoper-autoload.php')) {
                 return $content;

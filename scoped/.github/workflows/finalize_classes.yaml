@@ -36,4 +36,4 @@ jobs:
             -
                 run: |
                     cd standalone
-                    vendor/bin/typo3-rector process ../tests/fixture-finalize --config ../ci/rector-finalize.php --ansi
+                    bin/rector process ../tests/fixture-finalize --config ../ci/rector-finalize.php --ansi

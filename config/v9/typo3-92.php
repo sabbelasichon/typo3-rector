@@ -11,7 +11,7 @@ use TYPO3\CMS\Core\Cache\Frontend\StringFrontend;
 use TYPO3\CMS\Core\Cache\Frontend\VariableFrontend;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../services.php');
+    $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(RenameMethodCallToEnvironmentMethodCallRector::class);
     $services->set('string_frontend_to_variable_frontend')

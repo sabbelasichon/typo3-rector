@@ -17,7 +17,7 @@ use TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository;
 use TYPO3\CMS\IndexedSearch\Utility\LikeWildcard;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../services.php');
+    $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(RenamePiListBrowserResultsRector::class);
     $services->set('document_template_issue_command_to_backend_utility_get_link_to_data_handler_action')

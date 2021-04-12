@@ -28,7 +28,7 @@ Assign the issue to yourself so others can see that you are working on it.
 
 Run command and answer all questions properly
 ```bash
-./bin/typo3-rector typo3-create
+./vendor/bin/rector typo3-create
 ```
 
 Afterwards you have to write your Rector and your tests for it.

@@ -3,4 +3,4 @@
   variables:
     TYPO3_RECTOR_VERSION: latest
   script:
-    - typo3-rector process . --dry-run
+    - rector process . --dry-run

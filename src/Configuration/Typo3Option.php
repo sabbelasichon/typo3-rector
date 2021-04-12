@@ -9,5 +9,5 @@ final class Typo3Option
     /**
      * @var string
      */
-    public const OUTPUT_CHANGELOG = 'output_changelog';
+    public const REPORT_DIRECTORY = 'log-directory';
 }

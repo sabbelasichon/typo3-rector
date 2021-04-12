@@ -27,7 +27,7 @@ use Ssch\TYPO3Rector\TypoScript\Visitors\OldConditionToExpressionLanguageVisitor
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../services.php');
+    $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(RefactorDeprecatedConcatenateMethodsPageRendererRector::class);
     $services->set(CallEnableFieldsFromPageRepositoryRector::class);

@@ -36,5 +36,5 @@ jobs:
             -
                 run: |
                     cd standalone
-                    vendor/bin/typo3-rector -h --ansi
+                    bin/rector -h --ansi
                     vendor/bin/phpstan -h --ansi

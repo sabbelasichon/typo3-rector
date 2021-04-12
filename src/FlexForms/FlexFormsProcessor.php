@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\FlexForms;
 
 use DOMDocument;
-use Rector\Core\Contract\Processor\NonPhpFileProcessorInterface;
+use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
 use Ssch\TYPO3Rector\FlexForms\Transformer\FlexFormTransformer;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -14,7 +14,7 @@ use UnexpectedValueException;
 /**
  * @see \Ssch\TYPO3Rector\Tests\FlexForms\FlexFormsProcessorTest
  */
-final class FlexFormsProcessor implements NonPhpFileProcessorInterface
+final class FlexFormsProcessor implements FileProcessorInterface
 {
     /**
      * @var FlexFormTransformer[]

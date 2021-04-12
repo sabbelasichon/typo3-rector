@@ -9,17 +9,30 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
+use Ssch\TYPO3Rector\Reporting\Reporter;
+use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-86406-TCATypeGroupInternal_typeFileAndFile_reference.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-86406-TCATypeGroupInternal_typeFileAndFile_reference.html
  */
 final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends AbstractRector
 {
     use TcaHelperTrait;
+
+    /**
+     * @var Reporter
+     */
+    private $reportLogger;
+
+    public function __construct(Reporter $reporter)
+    {
+        $this->reportLogger = $reporter;
+    }
 
     /**
      * @return array<class-string<Node>>
@@ -86,7 +99,7 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
                 }
 
                 if (! $this->configIsOfInternalType($configValue->value, 'file') &&
-                   ! $this->configIsOfInternalType($configValue->value, 'file_reference')
+                     ! $this->configIsOfInternalType($configValue->value, 'file_reference')
                 ) {
                     continue;
                 }
@@ -131,6 +144,11 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
             }
         }
 
+        if ($hasAstBeenChanged) {
+            $report = new Report('You have to do more', $this, $node->getAttribute(AttributeKey::FILE_INFO));
+            $this->reportLogger->report($report);
+        }
+
         return $hasAstBeenChanged ? $node : null;
     }
 
@@ -159,7 +177,7 @@ return [
             ],
         ];
 CODE_SAMPLE
-            , <<<'CODE_SAMPLE'
+                , <<<'CODE_SAMPLE'
 return [
             'ctrl' => [],
             'columns' => [
@@ -182,7 +200,7 @@ return [
             ],
         ];
 CODE_SAMPLE
-        ),
+            ),
         ]);
     }
 }

@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Breaking-77592-DroppedTCAOptionShowIfRTEInTypecheck.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Breaking-77592-DroppedTCAOptionShowIfRTEInTypecheck.html
  */
 final class RemoveOptionShowIfRteRector extends AbstractRector
 {

@@ -20,7 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80524-PageRepositorygetHashAndPageRepositorystoreHash.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80524-PageRepositorygetHashAndPageRepositorystoreHash.html
  */
 final class UseCachingFrameworkInsteadGetAndStoreHashRector extends AbstractRector
 {

@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Service\AbstractService;
 
 /**
- * @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.html
  */
 final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
 {

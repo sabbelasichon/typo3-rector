@@ -4,7 +4,7 @@ This library ships already with a bunch of configuration files organized by TYPO
 To get you started quickly run the following command inside the root directory of your project:
 
 ```bash
-./vendor/bin/typo3-rector typo3-init
+./vendor/bin/rector typo3-init
 ```
 
 The command generates a basic configuration skeleton which you can adapt to your needs.
@@ -31,11 +31,12 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::SETS, [
-       Typo3SetList::TCA_76,
-       Typo3SetList::TCA_87,
-       Typo3SetList::TCA_95,
-    ]);
+
+    $containerConfigurator->import(Typo3SetList::TYPO3_76);
+    $containerConfigurator->import(Typo3SetList::TYPO3_87);
+    $containerConfigurator->import(Typo3SetList::TYPO3_95);
+    $containerConfigurator->import(Typo3SetList::TYPO3_104);
+    $containerConfigurator->import(Typo3SetList::TYPO3_11);
 
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
@@ -48,9 +49,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     // Define your target version which you want to support
     $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_72);
-
-    // If you would like to see the changelog url when a rector is applied
-    $parameters->set(Typo3Option::OUTPUT_CHANGELOG, true);
 
     // If you set option Option::AUTO_IMPORT_NAMES to true, you should consider excluding some TYPO3 files.
     $parameters->set(Option::SKIP, [
@@ -86,7 +84,7 @@ For more configuration options see [Rector README](https://github.com/rectorphp/
 After your adopt the configuration to your needs, run typo3-rector to simulate (hence the option `--dry-run`) the future code fixes:
 
 ```bash
-./vendor/bin/typo3-rector process packages/my_custom_extension --dry-run
+./vendor/bin/rector process packages/my_custom_extension --dry-run
 ```
 
 Check if everything makes sense and run the process command without the `--dry-run` option to apply the changes.
@@ -101,7 +99,7 @@ Instead of `__DIR__` the PHP method `getcwd()` must be used. This takes the star
 
 ### Example with the option --config and custom rector.php location
 The file `rector.php` is located in the directory` /var/www/Build/Apps/` and it is executed
-via` cd /var/www/html/ && ./vendor/bin/typo3-rector process --config ../Build/Apps/rector.php --dry-run`.
+via` cd /var/www/html/ && ./vendor/bin/rector process --config ../Build/Apps/rector.php --dry-run`.
 The starting point with the PHP method `getcwd()` is then `/var/www/html/` instead of `/var/www/html/Build/Apps/` with `__DIR__`.
 ```php
 $parameters->set(

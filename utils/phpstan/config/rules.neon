@@ -1,6 +1,6 @@
 services:
     -
-        class: Ssch\TYPO3Rector\PHPStan\Rules\AddSeeDocBlockForRectorClass
+        class: Ssch\TYPO3Rector\PHPStan\Rules\AddChangelogDocBlockForRectorClass
         tags:
             - phpstan.rules.rule
 

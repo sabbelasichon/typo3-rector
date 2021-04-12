@@ -57,7 +57,7 @@ RUN apk add --no-cache tini
 RUN set -eux; \
         mkdir /tmp/opcache; \
         php --version; \
-        typo3-rector list; \
+        rector list; \
         \
         chmod 777 -R /tmp
 
@@ -70,4 +70,4 @@ ENV TYPO3_RECTOR_VERSION=${TYPO3_RECTOR_VERSION} \
 
 ENTRYPOINT ["/opt/typo3-rector/docker-entrypoint.sh"]
 
-CMD ["typo3-rector"]
+CMD ["rector"]
