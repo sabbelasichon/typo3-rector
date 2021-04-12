@@ -2,50 +2,22 @@
 
 namespace Ssch\TYPO3Rector\Tests\FlexForms;
 
-use Iterator;
-use Rector\Core\HttpKernel\RectorKernel;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\FlexForms\FlexFormsProcessor;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
 
-final class FlexFormsProcessorTest extends AbstractRectorTestCase
+final class FlexFormsProcessorTest extends AbstractApplicationFileProcessorTest
 {
-    /**
-     * @var FlexFormsProcessor
-     */
-    private $flexformsProcessor;
-
-    protected function setUp(): void
+    public function test(): void
     {
-        $this->bootKernelWithConfigs(RectorKernel::class, [$this->provideConfigFile()]);
-        $this->flexformsProcessor = $this->getService(FlexFormsProcessor::class);
+        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture']);
+        $this->assertCount(2, $files);
+
+        $this->applicationFileProcessor->run($files);
+
+        $processResult = $this->processResultFactory->create($files);
+        $this->assertCount(1, $processResult->getFileDiffs());
     }
 
-    /**
-     * @dataProvider provideData()
-     */
-    public function test(SmartFileInfo $smartFileInfo): void
-    {
-        $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
-
-        $changedXml = $this->flexformsProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
-
-        $newContent = '';
-        if (null !== $changedXml) {
-            $newContent = $changedXml->getNewContent();
-        }
-
-        $this->assertSame($inputFileInfoAndExpected->getExpected(), $newContent);
-    }
-
-    public function provideData(): Iterator
-    {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.xml');
-    }
-
-    public function provideConfigFile(): string
+    protected function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

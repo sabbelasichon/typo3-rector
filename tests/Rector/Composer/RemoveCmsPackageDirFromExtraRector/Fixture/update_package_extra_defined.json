@@ -4,7 +4,8 @@
     "description": "Add description...",
     "extra": {
         "typo3/cms": {
-            "cms-package-dir": "{$vendor-dir}/typo3/cms"
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build"
         }
     }
 }
@@ -14,7 +15,8 @@
     "license": "GPL-2.0-or-later",
     "description": "Add description...",
     "extra": {
-        "typo3/cms": []
+        "typo3/cms": {
+            "web-dir": ".Build"
+        }
     }
 }
-

@@ -6,9 +6,8 @@ namespace Ssch\TYPO3Rector\Resources\Icons;
 
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
-use Rector\Core\ValueObject\NonPhpFile\NonPhpFileChange;
+use Rector\Core\ValueObject\Application\File;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class IconsProcessor implements FileProcessorInterface
@@ -38,8 +37,38 @@ final class IconsProcessor implements FileProcessorInterface
         $this->configuration = $configuration;
     }
 
-    public function process(SmartFileInfo $smartFileInfo): ?NonPhpFileChange
+    /**
+     * @param File[] $files
+     */
+    public function process(array $files): void
     {
+        foreach ($files as $file) {
+            $this->processFile($file);
+        }
+    }
+
+    public function supports(File $file): bool
+    {
+        $smartFileInfo = $file->getSmartFileInfo();
+
+        if (! in_array($smartFileInfo->getFilename(), ['ext_icon.png', 'ext_icon.svg', 'ext_icon.gif'], true)) {
+            return false;
+        }
+
+        $extEmConf = sprintf('%s/ext_emconf.php', rtrim(dirname($smartFileInfo->getRealPath()), '/'));
+
+        return $this->smartFileSystem->exists($extEmConf);
+    }
+
+    public function getSupportedFileExtensions(): array
+    {
+        return ['png', 'gif', 'svg'];
+    }
+
+    private function processFile(File $file): void
+    {
+        $smartFileInfo = $file->getSmartFileInfo();
+
         $relativeFilePath = dirname($smartFileInfo->getRelativeFilePath());
         $realPath = dirname($smartFileInfo->getRealPath());
         $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());
@@ -65,23 +94,5 @@ final class IconsProcessor implements FileProcessorInterface
             $message = sprintf('File "%s" already exists.', $newFullPath);
             $this->symfonyStyle->warning($message);
         }
-
-        return null;
-    }
-
-    public function supports(SmartFileInfo $smartFileInfo): bool
-    {
-        if (! in_array($smartFileInfo->getFilename(), ['ext_icon.png', 'ext_icon.svg', 'ext_icon.gif'], true)) {
-            return false;
-        }
-
-        $extEmConf = sprintf('%s/ext_emconf.php', rtrim(dirname($smartFileInfo->getRealPath()), '/'));
-
-        return $this->smartFileSystem->exists($extEmConf);
-    }
-
-    public function getSupportedFileExtensions(): array
-    {
-        return ['png', 'gif', 'svg'];
     }
 }

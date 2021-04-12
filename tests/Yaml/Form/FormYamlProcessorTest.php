@@ -2,50 +2,22 @@
 
 namespace Ssch\TYPO3Rector\Tests\Yaml\Form;
 
-use Iterator;
-use Rector\Core\HttpKernel\RectorKernel;
-use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Yaml\Form\FormYamlProcessor;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
 
-final class FormYamlProcessorTest extends AbstractRectorTestCase
+final class FormYamlProcessorTest extends AbstractApplicationFileProcessorTest
 {
-    /**
-     * @var FormYamlProcessor
-     */
-    private $formYamlProcessor;
-
-    protected function setUp(): void
+    public function test(): void
     {
-        $this->bootKernelWithConfigs(RectorKernel::class, [$this->provideConfigFile()]);
-        $this->formYamlProcessor = $this->getService(FormYamlProcessor::class);
+        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture']);
+        $this->assertCount(1, $files);
+
+        $this->applicationFileProcessor->run($files);
+
+        $processResult = $this->processResultFactory->create($files);
+        $this->assertCount(1, $processResult->getFileDiffs());
     }
 
-    /**
-     * @dataProvider provideData()
-     */
-    public function test(SmartFileInfo $smartFileInfo): void
-    {
-        $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
-
-        $changedYaml = $this->formYamlProcessor->process($inputFileInfoAndExpected->getInputFileInfo());
-
-        $newContent = '';
-        if (null !== $changedYaml) {
-            $newContent = $changedYaml->getNewContent();
-        }
-
-        $this->assertSame($inputFileInfoAndExpected->getExpected(), $newContent);
-    }
-
-    public function provideData(): Iterator
-    {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.form.yaml');
-    }
-
-    public function provideConfigFile(): string
+    protected function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }
