@@ -33,6 +33,10 @@ abstract class AbstractRootlineConditionMatcher implements TyposcriptConditionMa
 
     public function shouldApply(string $condition): bool
     {
+        if (Strings::contains($condition, '{$')) {
+            return false;
+        }
+
         return Strings::startsWith($condition, $this->getType());
     }
 

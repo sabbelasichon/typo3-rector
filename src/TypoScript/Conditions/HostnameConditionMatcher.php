@@ -42,6 +42,10 @@ final class HostnameConditionMatcher implements TyposcriptConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
+        if (Strings::contains($condition, '{$')) {
+            return false;
+        }
+
         return 1 === preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#', $condition);
     }
 }

@@ -50,12 +50,13 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
                 foreach ($conditions as $condition) {
                     foreach ($this->conditionMatchers as $conditionMatcher) {
                         $condition = trim($condition);
-                        if ($conditionMatcher->shouldApply($condition)) {
-                            $changedCondition = $conditionMatcher->change($condition);
-                            $applied = true;
-                            if (null !== $changedCondition) {
-                                $newConditions[] = $changedCondition;
-                            }
+                        if (! $conditionMatcher->shouldApply($condition)) {
+                            continue;
+                        }
+                        $changedCondition = $conditionMatcher->change($condition);
+                        $applied = true;
+                        if (null !== $changedCondition) {
+                            $newConditions[] = $changedCondition;
                         }
                     }
                 }

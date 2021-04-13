@@ -29,6 +29,10 @@ final class IPConditionMatcher implements TyposcriptConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
+        if (Strings::contains($condition, '{$')) {
+            return false;
+        }
+
         return Strings::startsWith($condition, self::TYPE);
     }
 }
