@@ -55,7 +55,8 @@
     "config": {
         "optimize-autoloader": true,
         "update-with-dependencies": true,
-        "sort-packages": true
+        "sort-packages": true,
+        "platform-check": false
     },
     "scripts": {
         "check-style": "vendor/bin/ecs check --ansi",

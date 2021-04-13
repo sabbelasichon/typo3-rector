@@ -47,4 +47,4 @@ jobs:
                     # run
                     composer require ssch/typo3-rector-prefixed:dev-main --dev --ansi
                     composer require symfony/console ${{ matrix.symfony_version }}
-                    bin/rector --debug --ansi
+                    vendor/bin/rector --debug --ansi --config ../templates/rector.php
