@@ -11,7 +11,6 @@ use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Strings;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -23,16 +22,6 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
  */
 final class UseControllerClassesInExtbasePluginsAndModulesRector extends AbstractRector
 {
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    public function __construct(CurrentFileProvider $currentFileProvider)
-    {
-        $this->currentFileProvider = $currentFileProvider;
-    }
-
     /**
      * @return array<class-string<Node>>
      */
@@ -61,13 +50,7 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
 
         $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue);
 
-        $file = $this->currentFileProvider->getFile();
-
-        if (null === $file) {
-            return null;
-        }
-
-        $fileInfo = $file->getSmartFileInfo();
+        $fileInfo = $this->file->getSmartFileInfo();
 
         if ($extensionNameArgumentValue instanceof Concat && $this->isPotentiallyUndefinedExtensionKeyVariable(
             $extensionNameArgumentValue

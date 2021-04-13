@@ -9,9 +9,7 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
-use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\Helper\FileHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -22,16 +20,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ConvertTypo3ConfVarsRector extends AbstractRector
 {
     use FileHelperTrait;
-
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    public function __construct(CurrentFileProvider $currentFileProvider)
-    {
-        $this->currentFileProvider = $currentFileProvider;
-    }
 
     /**
      * @codeCoverageIgnore
@@ -70,13 +58,8 @@ CODE_SAMPLE
             return null;
         }
 
-        $fileInfo = $this->currentFileProvider->getFile();
-        if (! $fileInfo instanceof File) {
-            return null;
-        }
-
-        if (! $this->isExtLocalConf($fileInfo->getSmartFileInfo()) && ! $this->isExtTables(
-            $fileInfo->getSmartFileInfo()
+        if (! $this->isExtLocalConf($this->file->getSmartFileInfo()) && ! $this->isExtTables(
+            $this->file->getSmartFileInfo()
         )) {
             return null;
         }

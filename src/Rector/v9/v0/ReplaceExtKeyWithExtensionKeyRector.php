@@ -7,7 +7,6 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
-use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\FileHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -21,16 +20,6 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
 {
     use FileHelperTrait;
-
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    public function __construct(CurrentFileProvider $currentFileProvider)
-    {
-        $this->currentFileProvider = $currentFileProvider;
-    }
 
     /**
      * @codeCoverageIgnore
@@ -71,13 +60,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        $file = $this->currentFileProvider->getFile();
-
-        if (null === $file) {
-            return null;
-        }
-
-        $fileInfo = $file->getSmartFileInfo();
+        $fileInfo = $this->file->getSmartFileInfo();
 
         if ($this->isExtEmconf($fileInfo)) {
             return null;
