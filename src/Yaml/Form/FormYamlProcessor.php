@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Yaml\Form;
 
+use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\Yaml\Form\Transformer\FormYamlTransformer;
@@ -49,7 +50,7 @@ final class FormYamlProcessor implements FileProcessorInterface
         }
         $smartFileInfo = $file->getSmartFileInfo();
 
-        return in_array($smartFileInfo->getExtension(), self::ALLOWED_FILE_EXTENSIONS, true);
+        return Strings::endsWith($smartFileInfo->getFilename(), 'form.yaml');
     }
 
     public function getSupportedFileExtensions(): array
