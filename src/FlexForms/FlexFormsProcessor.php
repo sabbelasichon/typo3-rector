@@ -46,11 +46,11 @@ final class FlexFormsProcessor implements FileProcessorInterface
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
-        if ('xml' !== $smartFileInfo->getExtension()) {
+        if (! in_array($smartFileInfo->getExtension(), $this->getSupportedFileExtensions(), true)) {
             return false;
         }
 
-        $xml = simplexml_load_file($smartFileInfo->getRealPath());
+        $xml = simplexml_load_string($file->getFileContent());
 
         if (false === $xml) {
             return false;
@@ -66,13 +66,11 @@ final class FlexFormsProcessor implements FileProcessorInterface
 
     private function processFile(File $file): void
     {
-        $smartFileInfo = $file->getSmartFileInfo();
-
         $domDocument = new DOMDocument();
 
         $domDocument->formatOutput = true;
 
-        $domDocument->load($smartFileInfo->getRealPath());
+        $domDocument->loadXML($file->getFileContent());
 
         foreach ($this->transformer as $transformer) {
             $transformer->transform($domDocument);
