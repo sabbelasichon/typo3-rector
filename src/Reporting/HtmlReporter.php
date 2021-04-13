@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Reporting;
 
 use Rector\ChangesReporting\Annotation\AnnotationExtractor;
+use Rector\Core\Provider\CurrentFileProvider;
 use ReflectionClass;
 use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -32,28 +33,41 @@ final class HtmlReporter implements Reporter
      */
     private $smartFileSystem;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     public function __construct(
         AnnotationExtractor $annotationExtractor,
         SmartFileInfo $reportFile,
-        SmartFileSystem $smartFileSystem
+        SmartFileSystem $smartFileSystem,
+        CurrentFileProvider $currentFileProvider
     ) {
         $this->annotationExtractor = $annotationExtractor;
         $this->reportFile = $reportFile;
         $this->smartFileSystem = $smartFileSystem;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function report(Report $report): void
     {
+        $file = $this->currentFileProvider->getFile();
+
+        if (null === $file) {
+            return;
+        }
+
+        $smartFileInfo = $file->getSmartFileInfo();
+
         $rectorReflection = new ReflectionClass($report->getRector());
 
         $recordData = [
             'rector' => $rectorReflection->getShortName(),
             'file' => sprintf(
                 '<a href="file:///%s" target="_blank" rel="noopener">%s</a>',
-                $report->getSmartFileInfo()
-                    ->getRealPath(),
-                $report->getSmartFileInfo()
-                    ->getBasename()
+                $smartFileInfo->getRealPath(),
+                $smartFileInfo->getBasename()
             ),
             'changelog' => '-',
             'suggestions' => '-',

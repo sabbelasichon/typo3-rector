@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Reporting\ValueObject;
 
 use Rector\Core\Contract\Rector\RectorInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Report
 {
@@ -20,11 +19,6 @@ final class Report
     private $rector;
 
     /**
-     * @var SmartFileInfo
-     */
-    private $smartFileInfo;
-
-    /**
      * @var string[]
      */
     private $suggestions = [];
@@ -32,15 +26,10 @@ final class Report
     /**
      * @param string[] $suggestions
      */
-    public function __construct(
-        string $message,
-        RectorInterface $rector,
-        SmartFileInfo $smartFileInfo,
-        array $suggestions = [])
+    public function __construct(string $message, RectorInterface $rector, array $suggestions = [])
     {
         $this->message = $message;
         $this->rector = $rector;
-        $this->smartFileInfo = $smartFileInfo;
         $this->suggestions = $suggestions;
     }
 
@@ -52,11 +41,6 @@ final class Report
     public function getRector(): RectorInterface
     {
         return $this->rector;
-    }
-
-    public function getSmartFileInfo(): SmartFileInfo
-    {
-        return $this->smartFileInfo;
     }
 
     public function getSuggestions(): array

@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\FileHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,6 +21,16 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
 {
     use FileHelperTrait;
+
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
+    public function __construct(CurrentFileProvider $currentFileProvider)
+    {
+        $this->currentFileProvider = $currentFileProvider;
+    }
 
     /**
      * @codeCoverageIgnore
@@ -61,10 +71,13 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
-        if (! $fileInfo instanceof SmartFileInfo) {
+        $file = $this->currentFileProvider->getFile();
+
+        if (null === $file) {
             return null;
         }
+
+        $fileInfo = $file->getSmartFileInfo();
 
         if ($this->isExtEmconf($fileInfo)) {
             return null;
@@ -74,7 +87,7 @@ CODE_SAMPLE
             return null;
         }
 
-        return new String_($this->createExtensionKeyFromFolder($node));
+        return new String_($this->createExtensionKeyFromFolder($fileInfo));
     }
 
     private function isExtensionKeyVariable(Variable $variable): bool
@@ -82,11 +95,8 @@ CODE_SAMPLE
         return $this->isName($variable, '_EXTKEY');
     }
 
-    private function createExtensionKeyFromFolder(Node $node): string
+    private function createExtensionKeyFromFolder(SmartFileInfo $fileInfo): string
     {
-        /** @var SmartFileInfo $fileInfo */
-        $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
-
         return basename($fileInfo->getPath());
     }
 }

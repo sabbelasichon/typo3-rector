@@ -13,13 +13,13 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\FileHelperTrait;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
@@ -28,6 +28,16 @@ use TYPO3\CMS\Core\Http\ApplicationType;
 final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
 {
     use FileHelperTrait;
+
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
+    public function __construct(CurrentFileProvider $currentFileProvider)
+    {
+        $this->currentFileProvider = $currentFileProvider;
+    }
 
     /**
      * @return array<class-string<Node>>
@@ -42,10 +52,13 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
-        if (! $fileInfo instanceof SmartFileInfo) {
+        $file = $this->currentFileProvider->getFile();
+
+        if (null === $file) {
             return null;
         }
+
+        $fileInfo = $file->getSmartFileInfo();
 
         if ($node instanceof FuncCall && $this->isName($node, 'defined')) {
             return $this->refactorProbablySecurityGate($node);

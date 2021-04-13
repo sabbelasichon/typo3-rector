@@ -11,12 +11,11 @@ use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Strings;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 /**
@@ -24,6 +23,16 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
  */
 final class UseControllerClassesInExtbasePluginsAndModulesRector extends AbstractRector
 {
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
+    public function __construct(CurrentFileProvider $currentFileProvider)
+    {
+        $this->currentFileProvider = $currentFileProvider;
+    }
+
     /**
      * @return array<class-string<Node>>
      */
@@ -52,14 +61,19 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
 
         $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue);
 
+        $file = $this->currentFileProvider->getFile();
+
+        if (null === $file) {
+            return null;
+        }
+
+        $fileInfo = $file->getSmartFileInfo();
+
         if ($extensionNameArgumentValue instanceof Concat && $this->isPotentiallyUndefinedExtensionKeyVariable(
             $extensionNameArgumentValue
         )) {
-            /** @var SmartFileInfo $fileInfo */
-            $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
-
             $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue->left) . basename(
-                $fileInfo->getRelativeDirectoryPath()
+                    $fileInfo->getRelativeDirectoryPath()
             );
         }
 

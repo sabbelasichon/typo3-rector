@@ -9,12 +9,12 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\Helper\FileHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ConfigurationFiles/Index.html
@@ -22,6 +22,16 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ConvertTypo3ConfVarsRector extends AbstractRector
 {
     use FileHelperTrait;
+
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
+    public function __construct(CurrentFileProvider $currentFileProvider)
+    {
+        $this->currentFileProvider = $currentFileProvider;
+    }
 
     /**
      * @codeCoverageIgnore
@@ -60,12 +70,14 @@ CODE_SAMPLE
             return null;
         }
 
-        $fileInfo = $node->getAttribute(AttributeKey::FILE_INFO);
-        if (! $fileInfo instanceof SmartFileInfo) {
+        $fileInfo = $this->currentFileProvider->getFile();
+        if (! $fileInfo instanceof File) {
             return null;
         }
 
-        if (! $this->isExtLocalConf($fileInfo) && ! $this->isExtTables($fileInfo)) {
+        if (! $this->isExtLocalConf($fileInfo->getSmartFileInfo()) && ! $this->isExtTables(
+            $fileInfo->getSmartFileInfo()
+        )) {
             return null;
         }
 

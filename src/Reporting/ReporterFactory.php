@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Reporting;
 
 use DateTimeImmutable;
 use Rector\ChangesReporting\Annotation\AnnotationExtractor;
+use Rector\Core\Provider\CurrentFileProvider;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -28,14 +29,21 @@ final class ReporterFactory
      */
     private $annotationExtractor;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     public function __construct(
         ParameterProvider $parameterProvider,
         SmartFileSystem $smartFileSystem,
-        AnnotationExtractor $annotationExtractor
+        AnnotationExtractor $annotationExtractor,
+        CurrentFileProvider $currentFileProvider
     ) {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
         $this->annotationExtractor = $annotationExtractor;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function createReporter(): Reporter
@@ -55,6 +63,11 @@ final class ReporterFactory
 
         $this->smartFileSystem->dumpFile($reportFile->getRealPath(), $content);
 
-        return new HtmlReporter($this->annotationExtractor, $reportFile, $this->smartFileSystem);
+        return new HtmlReporter(
+            $this->annotationExtractor,
+            $reportFile,
+            $this->smartFileSystem,
+            $this->currentFileProvider
+        );
     }
 }
