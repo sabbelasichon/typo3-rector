@@ -27,10 +27,16 @@ final class StaticEasyPrefixer
         'Ssch\*',
         // we use this API a lot
         'PhpParser\*',
+
+        // This are things we gonna transform
         'TYPO3Fluid\*',
         'TYPO3\*',
         'ApacheSolrForTypo3\*',
         'Nimut\*',
+        'Psr\*',
+        'Swift_Attachment',
+        'Swift_Image',
+        'Symfony\Component\Mime\*',
 
         // phpstan needs to be here, as phpstan-extracted/vendor autoload is statically generated and namespaces cannot be changed
         'PHPStan\*',
