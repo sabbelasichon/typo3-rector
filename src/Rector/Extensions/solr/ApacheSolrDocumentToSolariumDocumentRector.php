@@ -33,7 +33,7 @@ final class ApacheSolrDocumentToSolariumDocumentRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(Apache_Solr_Document::class)
+            new ObjectType('Apache_Solr_Document')
         )) {
             return null;
         }

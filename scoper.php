@@ -7,6 +7,7 @@ use Nette\Utils\Strings;
 use Ssch\TYPO3Rector\Compiler\PhpScoper\StaticEasyPrefixer;
 use Ssch\TYPO3Rector\Compiler\Unprefixer;
 use Ssch\TYPO3Rector\Compiler\ValueObject\ScoperOption;
+use Symfony\Component\Finder\Finder;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -16,6 +17,13 @@ $filePathsToSkip = [
     'vendor/symfony/deprecation-contracts/function.php',
     'src/Helper/Strings.php',
 ];
+
+$finder = new Finder();
+$finder->in(__DIR__ . '/stubs/')->name('*.php')->files();
+
+foreach ($finder as $file) {
+    $filePathsToSkip[] = 'stubs/'. $file->getRelativePathname();
+}
 
 // remove phpstan, because it is already prefixed in its own scope
 

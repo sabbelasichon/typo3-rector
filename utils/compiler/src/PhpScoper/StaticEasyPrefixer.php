@@ -14,11 +14,7 @@ final class StaticEasyPrefixer
         // part of public interface of configs.php
         'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
         // this is not prefixed on few places by php-scoper by default, probably some bug
-        'Doctrine\Inflector\Inflector',
-        \Swift_Attachment::class,
-        \Swift_Image::class,
-        \Apache_Solr_Document::class,
-        \Apache_Solr_Response::class,
+        'Doctrine\Inflector\Inflector'
     ];
 
     /**
@@ -38,7 +34,8 @@ final class StaticEasyPrefixer
         'ApacheSolrForTypo3\*',
         'Nimut\*',
         'Psr\*',
-
+        'Swift_*',
+        'Apache_Solr_*',
         'Symfony\Component\Mime\*',
 
         // phpstan needs to be here, as phpstan-extracted/vendor autoload is statically generated and namespaces cannot be changed
@@ -52,6 +49,7 @@ final class StaticEasyPrefixer
 
         // doctrine annotations to autocomplete
         'Doctrine\ORM\Mapping\*',
+
     ];
 
     /**
