@@ -15,6 +15,8 @@ final class StaticEasyPrefixer
         'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
         // this is not prefixed on few places by php-scoper by default, probably some bug
         'Doctrine\Inflector\Inflector',
+        'Swift_Attachment',
+        'Swift_Image',
     ];
 
     /**
@@ -34,8 +36,7 @@ final class StaticEasyPrefixer
         'ApacheSolrForTypo3\*',
         'Nimut\*',
         'Psr\*',
-        'Swift_Attachment',
-        'Swift_Image',
+
         'Symfony\Component\Mime\*',
 
         // phpstan needs to be here, as phpstan-extracted/vendor autoload is statically generated and namespaces cannot be changed
