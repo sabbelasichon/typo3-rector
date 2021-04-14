@@ -14,8 +14,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 $filePathsToSkip = [
     // @see https://github.com/rectorphp/rector/issues/2852#issuecomment-586315588
     'vendor/symfony/deprecation-contracts/function.php',
-    'stubs/SolrPhpClient/Apache_Solr_Document.php',
-    'stubs/SolrPhpClient/Apache_Solr_Response.php',
     'src/Helper/Strings.php',
 ];
 

@@ -15,8 +15,10 @@ final class StaticEasyPrefixer
         'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator',
         // this is not prefixed on few places by php-scoper by default, probably some bug
         'Doctrine\Inflector\Inflector',
-        'Swift_Attachment',
-        'Swift_Image',
+        \Swift_Attachment::class,
+        \Swift_Image::class,
+        \Apache_Solr_Document::class,
+        \Apache_Solr_Response::class,
     ];
 
     /**
