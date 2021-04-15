@@ -20,6 +20,7 @@ use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\UnionType;
 use PHPStan\Analyser\Scope;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
+use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
@@ -196,6 +197,10 @@ final class InitializeArgumentsClassMethodFactory
             return $this->resolveParamType($param->type);
         }
 
+        if (null !== $paramTagValueNode && $paramTagValueNode->type instanceof IdentifierTypeNode) {
+            return $paramTagValueNode->type->name;
+        }
+
         $inferedType = $this->paramTypeInferer->inferParam($param);
         if ($inferedType instanceof MixedType) {
             return self::MIXED;
@@ -222,7 +227,10 @@ final class InitializeArgumentsClassMethodFactory
             return self::MIXED;
         }
 
-        $phpStanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType($paramTagValueNode->type, $param);
+        $phpStanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType(
+    $paramTagValueNode->type,
+    $param
+);
 
         $docString = $phpStanType->describe(VerbosityLevel::typeOnly());
         if ('[]' === substr($docString, -2)) {

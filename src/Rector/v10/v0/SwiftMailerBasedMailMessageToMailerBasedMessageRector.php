@@ -154,7 +154,7 @@ CODE_SAMPLE
 
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $firstArgument,
-            new ObjectType('Swift_Attachment')
+            new ObjectType(Swift_Attachment::class)
         )) {
             return null;
         }
@@ -179,7 +179,7 @@ CODE_SAMPLE
 
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $firstArgument,
-            new ObjectType('Swift_Image')
+            new ObjectType(Swift_Image::class)
         )) {
             return null;
         }
