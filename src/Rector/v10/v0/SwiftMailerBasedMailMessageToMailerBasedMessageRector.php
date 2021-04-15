@@ -11,6 +11,8 @@ use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
+use Swift_Attachment;
+use Swift_Image;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Mail\MailMessage;

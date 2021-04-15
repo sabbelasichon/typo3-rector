@@ -1,8 +1,8 @@
 {
     "name": "ssch/typo3-rector",
+    "type": "rector-extension",
     "description": "Instant fixes for your TYPO3 code by using Rector.",
     "license": "MIT",
-    "type": "library",
     "authors": [
         {
             "name": "Sebastian Schreiber",
@@ -69,6 +69,11 @@
         "check-typo3-rector": "vendor/bin/rector process src/Helper --config templates/rector.php --dry-run --ansi"
     },
     "extra": {
+        "rector": {
+            "includes": [
+                "config/config.php"
+            ]
+        },
         "typo3/class-alias-loader": {
             "class-alias-maps": [
                 "Migrations/Code/ClassAliasMap.php",
