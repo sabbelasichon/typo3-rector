@@ -11,6 +11,7 @@ use Ssch\TYPO3Rector\TypoScript\Conditions\TyposcriptConditionMatcher;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\TypoScript\Visitors\OldConditionToExpressionLanguageVisitorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Feature-85829-ImplementSymfonyExpressionLanguageForTypoScriptConditions.html
  */
 final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
 {
