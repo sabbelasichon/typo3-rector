@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Helper;
 
 use UnexpectedValueException;
 
-final class Strings
+final class StringUtility
 {
     public static function prepareExtensionName(string $extensionName, int $delimiterPosition): string
     {
