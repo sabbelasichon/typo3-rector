@@ -50,7 +50,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector::class);
     $services->set(UseClassSchemaInsteadReflectionServiceMethodsRector::class);
     $services->set(RemoveMethodsFromEidUtilityAndTsfeRector::class);
-
-    // Old TypoScript syntax to new one
-    $services->set(OldConditionToExpressionLanguageVisitor::class);
 };
