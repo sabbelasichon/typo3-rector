@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Yaml\Form\Transformer;
 
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/10.2/en-us/Changelog/10.0/Feature-80420-AllowMultipleRecipientsInEmailFinisher.html
  */
@@ -89,5 +92,28 @@ final class EmailFinisherTransformer implements FormYamlTransformer
         }
 
         return $yaml;
+    }
+
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Convert single recipient values to array for EmailFinisher', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+finishers:
+  -
+    options:
+      recipientAddress: bar@domain.com
+      recipientName: 'Bar'
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+finishers:
+  -
+    options:
+      recipients:
+        bar@domain.com: 'Bar'
+CODE_SAMPLE
+            ),
+        ]);
     }
 }

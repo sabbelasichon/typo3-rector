@@ -9,6 +9,8 @@ use DOMElement;
 use DOMNode;
 use DOMNodeList;
 use DOMXPath;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class RenderTypeTransformer implements FlexFormTransformer
 {
@@ -67,5 +69,33 @@ final class RenderTypeTransformer implements FlexFormTransformer
             $insertBefore->parentNode->insertBefore($renderType, $insertBefore->nextSibling);
             $insertBefore->parentNode->insertBefore($domDocument->createTextNode("\n"), $insertBefore->nextSibling);
         }
+    }
+
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Add renderType node in Flexforms xml', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+<type>select</type>
+<items>
+    <numIndex index="0" type="array">
+        <numIndex index="0">
+            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.no-constraint
+        </numIndex>
+</items>
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+<type>select</type>
+<renderType>selectSingle</renderType>
+<items>
+    <numIndex index="0" type="array">
+        <numIndex index="0">
+            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.no-constraint
+        </numIndex>
+</items>
+CODE_SAMPLE
+            ),
+        ]);
     }
 }

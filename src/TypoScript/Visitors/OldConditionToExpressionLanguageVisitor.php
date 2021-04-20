@@ -8,6 +8,8 @@ use Helmich\TypoScriptParser\Parser\AST\ConditionalStatement;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use LogicException;
 use Ssch\TYPO3Rector\TypoScript\Conditions\TyposcriptConditionMatcher;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\TypoScript\Visitors\OldConditionToExpressionLanguageVisitorTest
@@ -106,5 +108,20 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
 
             $statement->condition = sprintf('[%s]', $newCondition);
         }
+    }
+
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Convert old conditions to Symfony Expression Language', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+[globalVar = TSFE:id=17, TSFE:id=24]
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+[getTSFE().id in [17,24]]
+CODE_SAMPLE
+            ),
+        ]);
     }
 }

@@ -6,8 +6,9 @@ namespace Ssch\TYPO3Rector\TypoScript\Visitors;
 
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
+use Rector\Core\Contract\Rector\RectorInterface;
 
-abstract class AbstractVisitor implements Visitor
+abstract class AbstractVisitor implements Visitor, RectorInterface
 {
     public function enterTree(array $statements): void
     {
