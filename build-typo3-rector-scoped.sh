@@ -26,7 +26,7 @@ SCOPED_DIRECTORY="typo3-rector-scoped"
 
 note "Starts"
 
-note "Coping root files to $NESTED_DIRECTORY directory"
+note "Copying root files to $NESTED_DIRECTORY directory"
 # Exclude the scoped/nested directories to prevent rsync from copying in a loop
 rsync --exclude "$NESTED_DIRECTORY" --exclude "$SCOPED_DIRECTORY" -av * "$NESTED_DIRECTORY" --quiet
 
