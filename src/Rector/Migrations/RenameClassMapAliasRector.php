@@ -125,7 +125,7 @@ CODE_SAMPLE
         }
 
         if ([] !== $this->oldToNewClasses) {
-            $this->renamedClassesDataCollector->setOldToNewClasses($this->oldToNewClasses);
+            $this->renamedClassesDataCollector->addOldToNewClasses($this->oldToNewClasses);
         }
     }
 }
