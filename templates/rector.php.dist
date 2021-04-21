@@ -46,7 +46,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'ext_localconf.php',
             'ext_emconf.php',
             'ext_tables.php',
-            __DIR__ . '/**/TCA/*',
+            __DIR__ . '/**/Configuration/TCA/*',
             __DIR__ . '/**/Configuration/RequestMiddlewares.php',
             __DIR__ . '/**/Configuration/Commands.php',
             __DIR__ . '/**/Configuration/AjaxRoutes.php',
