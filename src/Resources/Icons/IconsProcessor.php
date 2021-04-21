@@ -6,11 +6,14 @@ namespace Ssch\TYPO3Rector\Resources\Icons;
 
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
+use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\ValueObject\Application\File;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
-final class IconsProcessor implements FileProcessorInterface
+final class IconsProcessor implements FileProcessorInterface, RectorInterface
 {
     /**
      * @var SmartFileSystem
@@ -63,6 +66,21 @@ final class IconsProcessor implements FileProcessorInterface
     public function getSupportedFileExtensions(): array
     {
         return ['png', 'gif', 'svg'];
+    }
+
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Move ext_icon.* to Resources/Icons/Extension.*', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+ext_icon.gif
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+Resources/Icons/Extension.gif
+CODE_SAMPLE
+            ),
+        ]);
     }
 
     private function processFile(File $file): void
