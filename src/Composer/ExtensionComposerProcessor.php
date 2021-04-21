@@ -83,7 +83,6 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
             return;
         }
 
-        $oldContent = $this->composerJsonPrinter->printToString($oldComposerJson);
         $newContent = $this->composerJsonPrinter->printToString($composerJson);
 
         $file->changeFileContent($newContent);
