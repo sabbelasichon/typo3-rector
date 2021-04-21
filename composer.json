@@ -50,7 +50,7 @@
         },
         "exclude-from-classmap": [
             "**.php.inc"
-        ],
+        ]
     },
     "config": {
         "optimize-autoloader": true,
