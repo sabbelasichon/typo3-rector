@@ -29,15 +29,6 @@ $filePathsToRemoveNamespace = [
     'src/Helper/Strings.php',
 ];
 
-$finder = new Finder();
-$finder->in(__DIR__ . '/stubs/')->name('*.php')->files();
-
-foreach ($finder as $file) {
-    $filePathsToRemoveNamespace[] = 'stubs/'. $file->getRelativePathname();
-}
-
-// remove phpstan, because it is already prefixed in its own scope
-
 $dateTime = DateTime::from('now');
 $timestamp = $dateTime->format('Ymd');
 
