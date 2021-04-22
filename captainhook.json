@@ -11,11 +11,6 @@
         "enabled": true,
         "actions": [
             {
-                "action": "\\CaptainHook\\App\\Hook\\PHP\\Action\\Linting",
-                "options": [],
-                "conditions": []
-            },
-            {
                 "action": "composer run check-style",
                 "options": [],
                 "conditions": []

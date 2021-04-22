@@ -42,6 +42,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/utils',
     ]);
 
+    $parameters->set(Option::SKIP, [__DIR__ . '/utils/stubs/templates']);
+
     $services = $containerConfigurator->services();
 
     $services->set(LineLengthFixer::class);

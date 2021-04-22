@@ -43,11 +43,9 @@
             "Ssch\\TYPO3Rector\\Tests\\": "tests",
             "Ssch\\TYPO3Rector\\PHPStan\\Tests\\": "utils/phpstan/tests",
             "Ssch\\TYPO3Rector\\Rules\\Tests\\": "utils/rules/tests",
-            "Ssch\\TYPO3Rector\\Rules\\": "utils/rules/src"
+            "Ssch\\TYPO3Rector\\Rules\\": "utils/rules/src",
+            "Ssch\\TYPO3Rector\\Stubs\\": "utils/stubs/src"
         },
-        "classmap": [
-            "stubs"
-        ],
         "exclude-from-classmap": [
             "**.php.inc"
         ]
