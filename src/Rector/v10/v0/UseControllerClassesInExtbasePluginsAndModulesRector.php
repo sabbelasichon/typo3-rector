@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\StringUtility;
@@ -153,8 +154,10 @@ CODE_SAMPLE
                 continue;
             }
 
-            // If already transformed
-            if (class_exists($controllerClassName)) {
+            $controllerClassNameType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($controllerActions->key);
+
+            if ($controllerClassNameType instanceof ConstantStringType) {
+                // Already transformed
                 continue;
             }
 

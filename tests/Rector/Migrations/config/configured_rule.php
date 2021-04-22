@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -20,4 +22,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 __DIR__ . '/../../../../Migrations/TYPO3/9.5/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
             ],
         ]]);
+    $services->set(MoveRenderArgumentsToInitializeArgumentsMethodRector::class);
+    $services->set(InjectAnnotationRector::class);
 };

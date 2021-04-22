@@ -10,7 +10,6 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use ReflectionClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Backend\Template\DocumentTemplate;
@@ -158,13 +157,6 @@ CODE_SAMPLE
         $value = 'IE=8';
         if (count($methodCall->args) > 0) {
             $value = $methodCall->args[0]->value;
-        } else {
-            $classReflection = new ReflectionClass(DocumentTemplate::class);
-            $defaultProperties = array_values($classReflection->getDefaultProperties());
-
-            if (count($defaultProperties) > 0) {
-                $value = $defaultProperties[0];
-            }
         }
 
         return $this->nodeFactory->createMethodCall(
