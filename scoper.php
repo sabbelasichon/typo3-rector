@@ -64,6 +64,16 @@ return [
             return Strings::replace($content, '#' . $prefix . '\\\\Composer\\\\InstalledVersions#', 'Composer\InstalledVersions');
         },
 
+        // un-prefix composer plugin
+        function (string $filePath, string $prefix, string $content): string {
+            if (! Strings::endsWith($filePath, 'vendor/rector/rector-installer/src/Plugin.php')) {
+                return $content;
+            }
+
+            // see https://regex101.com/r/v8zRMm/1
+            return Strings::replace($content, '#' . $prefix . '\\\\Composer\\\\#', 'Composer\\');
+        },
+
         // fixes https://github.com/rectorphp/rector/issues/6007
         function (string $filePath, string $prefix, string $content): string {
             if (! Strings::contains($filePath, 'vendor/')) {
