@@ -21,6 +21,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82254-DeprecateGLOBALSTYPO3_CONF_VARSEXTextConf.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\UseExtensionConfigurationApi\UseExtensionConfigurationApiRectorTest;
  */
 final class UseExtensionConfigurationApiRector extends AbstractRector
 {
@@ -154,11 +155,6 @@ CODE_SAMPLE
         if (! $this->isName($globals, Typo3NodeResolver::GLOBALS)) {
             return true;
         }
-
-        if (null === $node->dim) {
-            return true;
-        }
-
-        return ! $this->isName($node->dim, '_EXTKEY') && null === $this->valueResolver->getValue($node->dim);
+        return null === $node->dim;
     }
 }
