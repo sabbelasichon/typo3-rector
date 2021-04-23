@@ -87,8 +87,9 @@ CODE_SAMPLE
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
-        $relativeFilePath = dirname($smartFileInfo->getRelativeFilePath());
-        $realPath = dirname($smartFileInfo->getRealPath());
+        $relativeFileDirectoryPath = $smartFileInfo->getRelativeDirectoryPath();
+        $relativeFilePath = $smartFileInfo->getRelativeFilePath();
+        $realPath = $smartFileInfo->getRealPathDirectory();
         $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());
 
         $newFullPath = $realPath . $relativeTargetFilePath;
@@ -96,11 +97,15 @@ CODE_SAMPLE
             $message = sprintf(
                 'File "%s" will be moved to %s',
                 $relativeFilePath,
-                $relativeFilePath . $relativeTargetFilePath
+                $relativeFileDirectoryPath . $relativeTargetFilePath
             );
             $this->symfonyStyle->info($message);
         } elseif (! $this->smartFileSystem->exists($newFullPath)) {
-            $message = sprintf('File "%s" moved to %s', $relativeFilePath, $relativeFilePath . $relativeTargetFilePath);
+            $message = sprintf(
+                'File "%s" moved to %s',
+                $relativeFilePath,
+                $relativeFileDirectoryPath . $relativeTargetFilePath
+            );
 
             $this->symfonyStyle->info($message);
             if (! $this->smartFileSystem->exists(dirname($newFullPath))) {
