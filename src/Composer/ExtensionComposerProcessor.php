@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Composer;
 
+use Ergebnis\Json\Printer\Printer;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
+use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
 
@@ -32,16 +34,30 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
      */
     private $currentFileProvider;
 
+    /**
+     * @var EditorConfigParser
+     */
+    private $editorConfigParser;
+
+    /**
+     * @var Printer
+     */
+    private $printer;
+
     public function __construct(
         ComposerJsonFactory $composerJsonFactory,
         ComposerJsonPrinter $composerJsonPrinter,
         ComposerModifier $composerModifier,
-        CurrentFileProvider $currentFileProvider
+        CurrentFileProvider $currentFileProvider,
+        EditorConfigParser $editorConfigParser,
+        Printer $printer
     ) {
         $this->composerJsonFactory = $composerJsonFactory;
         $this->composerJsonPrinter = $composerJsonPrinter;
         $this->composerModifier = $composerModifier;
         $this->currentFileProvider = $currentFileProvider;
+        $this->editorConfigParser = $editorConfigParser;
+        $this->printer = $printer;
     }
 
     /**
@@ -93,7 +109,12 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
             return;
         }
 
-        $newContent = $this->composerJsonPrinter->printToString($composerJson);
+        $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile($smartFileInfo);
+
+        $json = $this->composerJsonPrinter->printToString($composerJson);
+        $indent = str_pad($editorConfiguration->getIndentStyleCharacter(), $editorConfiguration->getIndentSize());
+
+        $newContent = $this->printer->print($json, $indent);
 
         $file->changeFileContent($newContent);
     }

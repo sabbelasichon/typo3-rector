@@ -6,11 +6,14 @@ namespace Ssch\TYPO3Rector\TypoScript;
 
 use Helmich\TypoScriptParser\Parser\ParserInterface;
 use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
+use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
+use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinterConfiguration;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
+use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
 
@@ -55,6 +58,11 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     private $currentFileProvider;
 
     /**
+     * @var EditorConfigParser
+     */
+    private $editorConfigParser;
+
+    /**
      * @param Visitor[] $visitors
      */
     public function __construct(
@@ -62,6 +70,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         BufferedOutput $output,
         ASTPrinterInterface $typoscriptPrinter,
         CurrentFileProvider $currentFileProvider,
+        EditorConfigParser $editorConfigParser,
         array $visitors = []
     ) {
         $this->typoscriptParser = $typoscriptParser;
@@ -70,6 +79,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         $this->output = $output;
         $this->visitors = $visitors;
         $this->currentFileProvider = $currentFileProvider;
+        $this->editorConfigParser = $editorConfigParser;
     }
 
     /**
@@ -119,6 +129,19 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
                 $traverser->addVisitor($visitor);
             }
             $traverser->walk();
+
+            $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile($smartFileInfo);
+
+            if ($this->typoscriptPrinter instanceof PrettyPrinter) {
+                $prettyPrinterConfiguration = PrettyPrinterConfiguration::create();
+                $prettyPrinterConfiguration->withSpaceIndentation($editorConfiguration->getIndentSize());
+
+                if ($editorConfiguration->getIsTab()) {
+                    $prettyPrinterConfiguration->withTabs();
+                }
+
+                $this->typoscriptPrinter->setPrettyPrinterConfiguration($prettyPrinterConfiguration);
+            }
 
             $this->typoscriptPrinter->printStatements($originalStatements, $this->output);
 
