@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\FlexForms;
 
 use DOMDocument;
+use PrettyXml\Formatter;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
+use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
 use Ssch\TYPO3Rector\FlexForms\Transformer\FlexFormTransformer;
 use UnexpectedValueException;
 
@@ -21,11 +23,23 @@ final class FlexFormsProcessor implements FileProcessorInterface
     private $transformer = [];
 
     /**
+     * @var EditorConfigParser
+     */
+    private $editorConfigParser;
+
+    /**
+     * @var Formatter
+     */
+    private $xmlFormatter;
+
+    /**
      * @param FlexFormTransformer[] $transformer
      */
-    public function __construct(array $transformer)
+    public function __construct(array $transformer, EditorConfigParser $editorConfigParser, Formatter $xmlFormatter)
     {
         $this->transformer = $transformer;
+        $this->editorConfigParser = $editorConfigParser;
+        $this->xmlFormatter = $xmlFormatter;
     }
 
     /**
@@ -66,6 +80,8 @@ final class FlexFormsProcessor implements FileProcessorInterface
 
     private function processFile(File $file): void
     {
+        $smartFileInfo = $file->getSmartFileInfo();
+
         $domDocument = new DOMDocument();
 
         $domDocument->formatOutput = true;
@@ -86,7 +102,11 @@ final class FlexFormsProcessor implements FileProcessorInterface
             return;
         }
 
-        $changedContent = html_entity_decode($xml) . "\n";
+        $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile($smartFileInfo);
+        $this->xmlFormatter->setIndentCharacter($editorConfiguration->getIndentStyleCharacter());
+        $this->xmlFormatter->setIndentSize($editorConfiguration->getIndentSize());
+
+        $changedContent = html_entity_decode($this->xmlFormatter->format($xml)) . "\n";
 
         $file->changeFileContent($changedContent);
     }
