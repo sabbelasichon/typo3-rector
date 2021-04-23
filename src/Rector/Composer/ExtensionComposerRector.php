@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\Composer;
 
+use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
+use Rector\Core\Provider\CurrentFileProvider;
+use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\Composer\ExtensionComposerRectorInterface;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -26,6 +29,16 @@ final class ExtensionComposerRector implements ExtensionComposerRectorInterface
      */
     private $defaultTypo3VersionConstraint = '';
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
+    public function __construct(CurrentFileProvider $currentFileProvider)
+    {
+        $this->currentFileProvider = $currentFileProvider;
+    }
+
     public function refactor(ComposerJson $composerJson): void
     {
         if ('typo3-cms-extension' !== $composerJson->getType()) {
@@ -41,6 +54,12 @@ final class ExtensionComposerRector implements ExtensionComposerRectorInterface
         $this->addDescription($composerJson);
         $this->addLicense($composerJson);
         $this->fixPackageName($composerJson);
+
+        $file = $this->currentFileProvider->getFile();
+        if ($file instanceof File) {
+            // TODO: How to add correct line number here?
+            $file->addRectorClassWithLine(new RectorWithLineChange($this, 0));
+        }
     }
 
     /**

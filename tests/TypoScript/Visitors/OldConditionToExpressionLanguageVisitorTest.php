@@ -5,6 +5,7 @@ namespace Ssch\TYPO3Rector\Tests\TypoScript\Visitors;
 use Helmich\TypoScriptParser\Parser\AST\ConditionalStatement;
 use Iterator;
 use PHPUnit\Framework\TestCase;
+use Rector\Core\Provider\CurrentFileProvider;
 use Ssch\TYPO3Rector\TypoScript\Conditions\ApplicationContextConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\BrowserConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\CompatVersionConditionMatcher;
@@ -51,7 +52,7 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
             new VersionConditionMatcher(),
         ];
 
-        $this->subject = new OldConditionToExpressionLanguageVisitor($conditionMatchers);
+        $this->subject = new OldConditionToExpressionLanguageVisitor(new CurrentFileProvider(), $conditionMatchers);
     }
 
     public function statements(): Iterator

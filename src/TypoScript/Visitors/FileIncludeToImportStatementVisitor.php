@@ -6,11 +6,27 @@ namespace Ssch\TYPO3Rector\TypoScript\Visitors;
 
 use Helmich\TypoScriptParser\Parser\AST\FileIncludeStatement;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
+use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
+use Rector\Core\Provider\CurrentFileProvider;
+use Rector\Core\ValueObject\Application\File;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
+/**
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Feature-82812-NewSyntaxForImportingTypoScriptFiles.html
+ */
 final class FileIncludeToImportStatementVisitor extends AbstractVisitor
 {
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
+    public function __construct(CurrentFileProvider $currentFileProvider)
+    {
+        $this->currentFileProvider = $currentFileProvider;
+    }
+
     public function enterNode(Statement $statement): void
     {
         if (! $statement instanceof FileIncludeStatement) {
@@ -23,6 +39,12 @@ final class FileIncludeToImportStatementVisitor extends AbstractVisitor
 
         if ($statement->newSyntax) {
             return;
+        }
+
+        $file = $this->currentFileProvider->getFile();
+
+        if ($file instanceof File) {
+            $file->addRectorClassWithLine(new RectorWithLineChange($this, $statement->sourceLine));
         }
 
         $statement->newSyntax = true;

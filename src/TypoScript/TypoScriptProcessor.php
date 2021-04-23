@@ -9,6 +9,7 @@ use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -49,12 +50,18 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     private $allowedFileExtensions = ['typoscript', 'ts', 'txt'];
 
     /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
+    /**
      * @param Visitor[] $visitors
      */
     public function __construct(
         ParserInterface $typoscriptParser,
         BufferedOutput $output,
         ASTPrinterInterface $typoscriptPrinter,
+        CurrentFileProvider $currentFileProvider,
         array $visitors = []
     ) {
         $this->typoscriptParser = $typoscriptParser;
@@ -62,6 +69,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         $this->typoscriptPrinter = $typoscriptPrinter;
         $this->output = $output;
         $this->visitors = $visitors;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     /**
@@ -101,6 +109,8 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     private function processFile(File $file): void
     {
         try {
+            $this->currentFileProvider->setFile($file);
+
             $smartFileInfo = $file->getSmartFileInfo();
             $originalStatements = $this->typoscriptParser->parseString($smartFileInfo->getContents());
 
