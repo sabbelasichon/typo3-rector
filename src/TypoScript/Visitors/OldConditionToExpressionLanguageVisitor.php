@@ -7,6 +7,9 @@ namespace Ssch\TYPO3Rector\TypoScript\Visitors;
 use Helmich\TypoScriptParser\Parser\AST\ConditionalStatement;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use LogicException;
+use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
+use Rector\Core\Provider\CurrentFileProvider;
+use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\TypoScript\Conditions\TyposcriptConditionMatcher;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -23,11 +26,17 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
     private $conditionMatchers = [];
 
     /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
+    /**
      * @param TyposcriptConditionMatcher[] $conditionMatchers
      */
-    public function __construct(array $conditionMatchers = [])
+    public function __construct(CurrentFileProvider $currentFileProvider, array $conditionMatchers = [])
     {
         $this->conditionMatchers = $conditionMatchers;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function enterNode(Statement $statement): void
@@ -67,6 +76,12 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
 
             if (! $applied) {
                 return;
+            }
+
+            $file = $this->currentFileProvider->getFile();
+
+            if ($file instanceof File) {
+                $file->addRectorClassWithLine(new RectorWithLineChange($this, $statement->sourceLine));
             }
 
             if ([] === $newConditions) {

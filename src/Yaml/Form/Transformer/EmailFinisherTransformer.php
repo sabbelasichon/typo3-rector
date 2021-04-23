@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Yaml\Form\Transformer;
 
+use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
+use Rector\Core\Provider\CurrentFileProvider;
+use Rector\Core\ValueObject\Application\File;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -32,12 +35,23 @@ final class EmailFinisherTransformer implements FormYamlTransformer
      */
     private const RECIPIENTS = 'recipients';
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
+    public function __construct(CurrentFileProvider $currentFileProvider)
+    {
+        $this->currentFileProvider = $currentFileProvider;
+    }
+
     public function transform(array $yaml): array
     {
         if (! array_key_exists(self::FINISHERS, $yaml)) {
             return $yaml;
         }
 
+        $applied = false;
         foreach ($yaml[self::FINISHERS] as $finisherKey => $finisher) {
             if (! array_key_exists('identifier', $finisher)) {
                 continue;
@@ -89,6 +103,14 @@ final class EmailFinisherTransformer implements FormYamlTransformer
             } else {
                 $yaml[self::FINISHERS][$finisherKey][self::OPTIONS][self::RECIPIENTS] = $recipients;
             }
+
+            $applied = true;
+        }
+
+        $file = $this->currentFileProvider->getFile();
+        if ($applied && $file instanceof File) {
+            // TODO: How to get the line number of the file?
+            $file->addRectorClassWithLine(new RectorWithLineChange($this, 0));
         }
 
         return $yaml;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Composer;
 
 use Rector\Core\Contract\Processor\FileProcessorInterface;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
@@ -26,14 +27,21 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
      */
     private $composerModifier;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     public function __construct(
         ComposerJsonFactory $composerJsonFactory,
         ComposerJsonPrinter $composerJsonPrinter,
-        ComposerModifier $composerModifier
+        ComposerModifier $composerModifier,
+        CurrentFileProvider $currentFileProvider
     ) {
         $this->composerJsonFactory = $composerJsonFactory;
         $this->composerJsonPrinter = $composerJsonPrinter;
         $this->composerModifier = $composerModifier;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     /**
@@ -71,6 +79,8 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
 
     private function processFile(File $file): void
     {
+        $this->currentFileProvider->setFile($file);
+
         $smartFileInfo = $file->getSmartFileInfo();
 
         $composerJson = $this->composerJsonFactory->createFromFileInfo($smartFileInfo);

@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Yaml\Form;
 
 use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
+use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\Yaml\Form\Transformer\FormYamlTransformer;
 use Symfony\Component\Yaml\Yaml;
@@ -26,11 +27,17 @@ final class FormYamlProcessor implements FileProcessorInterface
     private $transformer = [];
 
     /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
+    /**
      * @param FormYamlTransformer[] $transformer
      */
-    public function __construct(array $transformer)
+    public function __construct(CurrentFileProvider $currentFileProvider, array $transformer)
     {
         $this->transformer = $transformer;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     /**
@@ -60,6 +67,8 @@ final class FormYamlProcessor implements FileProcessorInterface
 
     private function processFile(File $file): void
     {
+        $this->currentFileProvider->setFile($file);
+
         $smartFileInfo = $file->getSmartFileInfo();
 
         $yaml = Yaml::parseFile($smartFileInfo->getRealPath());
