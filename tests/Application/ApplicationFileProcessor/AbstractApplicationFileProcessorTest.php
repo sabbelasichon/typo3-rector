@@ -6,12 +6,12 @@ namespace Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor;
 
 use Rector\Core\Application\ApplicationFileProcessor;
 use Rector\Core\Configuration\Configuration;
-use Rector\Core\HttpKernel\RectorKernel;
 use Rector\Core\ValueObjectFactory\Application\FileFactory;
 use Rector\Core\ValueObjectFactory\ProcessResultFactory;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
+use Rector\Testing\PHPUnit\AbstractTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
-abstract class AbstractApplicationFileProcessorTest extends AbstractKernelTestCase
+abstract class AbstractApplicationFileProcessorTest extends AbstractTestCase
 {
     /**
      * @var ApplicationFileProcessor
@@ -30,7 +30,7 @@ abstract class AbstractApplicationFileProcessorTest extends AbstractKernelTestCa
 
     protected function setUp(): void
     {
-        $this->bootKernelWithConfigs(RectorKernel::class, [$this->provideConfigFilePath()]);
+        $this->bootFromConfigFileInfos([new SmartFileInfo($this->provideConfigFilePath())]);
 
         /** @var Configuration $configuration */
         $configuration = $this->getService(Configuration::class);

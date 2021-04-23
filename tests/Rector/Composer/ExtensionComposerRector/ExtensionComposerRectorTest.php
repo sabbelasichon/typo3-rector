@@ -6,15 +6,14 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Composer\ExtensionComposerRector;
 
 use Iterator;
 use Nette\Utils\Json;
-use Rector\Core\HttpKernel\RectorKernel;
+use Rector\Testing\PHPUnit\AbstractTestCase;
 use Ssch\TYPO3Rector\Composer\ComposerModifier;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\EasyTesting\StaticFixtureSplitter;
-use Symplify\PackageBuilder\Testing\AbstractKernelTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ExtensionComposerRectorTest extends AbstractKernelTestCase
+final class ExtensionComposerRectorTest extends AbstractTestCase
 {
     /**
      * @var ComposerJsonFactory
@@ -28,7 +27,7 @@ final class ExtensionComposerRectorTest extends AbstractKernelTestCase
 
     protected function setUp(): void
     {
-        $this->bootKernelWithConfigs(RectorKernel::class, [$this->provideConfigFile()]);
+        $this->bootFromConfigFileInfos([new SmartFileInfo($this->provideConfigFilePath())]);
 
         $this->composerModifier = $this->getService(ComposerModifier::class);
         $this->composerJsonFactory = $this->getService(ComposerJsonFactory::class);
@@ -47,7 +46,7 @@ final class ExtensionComposerRectorTest extends AbstractKernelTestCase
         return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.json');
     }
 
-    public function provideConfigFile(): string
+    private function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }
