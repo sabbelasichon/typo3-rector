@@ -112,7 +112,11 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
         $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile($smartFileInfo);
 
         $json = $this->composerJsonPrinter->printToString($composerJson);
-        $indent = str_pad($editorConfiguration->getIndentStyleCharacter(), $editorConfiguration->getIndentSize());
+
+        $indent = str_pad('', $editorConfiguration->getIndentSize());
+        if ($editorConfiguration->getIsTab()) {
+            $indent = "\t";
+        }
 
         $newContent = $this->printer->print($json, $indent);
 
