@@ -7,7 +7,7 @@ if(class_exists(ResponseAdapter::class)) {
     return;
 }
 
-final class ResponseAdapter
+class ResponseAdapter
 {
 
 }

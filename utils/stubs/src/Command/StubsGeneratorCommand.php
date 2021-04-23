@@ -43,9 +43,15 @@ final class StubsGeneratorCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $this->createStubsFromClassAliasMaps($output);
+
+        return ShellCode::SUCCESS;
+    }
+
+    private function createStubsFromClassAliasMaps(OutputInterface $output): void
+    {
         $finder = new Finder();
         $migrationsDirectory = __DIR__ . '/../../../../Migrations';
-        $stubsDirectory = __DIR__ . '/../../../../stubs/Migrations';
         $classTemplate = __DIR__ . '/../../templates/StubClassTemplate.php';
         $interfaceTemplate = __DIR__ . '/../../templates/StubInterfaceTemplate.php';
 
@@ -67,16 +73,16 @@ final class StubsGeneratorCommand extends Command
             foreach ($stubs as $stub) {
                 $className = $stub;
                 $namespace = '';
+                $namespaceForFileName = '';
                 if (Strings::contains($stub, '\\')) {
                     $namespaceParts = explode('\\', $stub);
 
                     $className = array_pop($namespaceParts);
+                    $namespaceForFileName = implode('\\', $namespaceParts);
                     $namespace = sprintf('namespace %s;', implode('\\', $namespaceParts));
                 }
 
-                $stubFile = sprintf('%s/%s.php', $stubsDirectory, $className);
-
-                $this->smartFileSystem->touch($stubFile);
+                $stubFile = sprintf('%s.php', $className);
 
                 $templateFileName = $classTemplate;
                 if (Strings::endsWith($stub, 'Interface')) {
@@ -90,14 +96,24 @@ final class StubsGeneratorCommand extends Command
                     '__NAMESPACE__' => $namespace,
                 ];
 
-                $content = $this->templateFactory->create($templateFile->getContents(), $templateVariables);
+                $deepDirectory = __DIR__ . '/../../../../stubs/' . str_replace('\\', '/', $namespaceForFileName);
+                $output->writeln(sprintf('Create deep directory %s', $deepDirectory));
 
-                $this->smartFileSystem->dumpFile($stubFile, $content);
+                $newStubFileName = $deepDirectory . '/' . $stubFile;
+
+                if ($this->smartFileSystem->exists($newStubFileName)) {
+                    continue;
+                }
+                $output->writeln(sprintf('Create stub for %s', $newStubFileName));
+
+                $this->smartFileSystem->mkdir($deepDirectory);
+                $this->smartFileSystem->touch($newStubFileName);
+
+                $content = $this->templateFactory->create($templateFile->getContents(), $templateVariables);
+                $this->smartFileSystem->dumpFile($newStubFileName, $content);
 
                 $output->writeln(sprintf('Create stub for %s', $stub));
             }
         }
-
-        return ShellCode::SUCCESS;
     }
 }
