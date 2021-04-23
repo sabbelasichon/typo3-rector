@@ -71,8 +71,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'txt',
                 'pagets',
                 'constantsts',
-                'seuptts',
+                'setupts',
                 'tsconfig',
+                't3s',
+                't3c',
                 'typoscriptconstants',
             ],
         ]]);
