@@ -14,7 +14,8 @@ final class TypoScriptProcessorTest extends AbstractApplicationFileProcessorTest
         $this->applicationFileProcessor->run($files);
 
         $processResult = $this->processResultFactory->create($files);
-        $this->assertCount(2, $processResult->getFileDiffs());
+
+        $this->assertCount(4, $processResult->getFileDiffs());
     }
 
     protected function provideConfigFilePath(): string
