@@ -134,6 +134,8 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
 
             if ($this->typoscriptPrinter instanceof PrettyPrinter) {
                 $prettyPrinterConfiguration = PrettyPrinterConfiguration::create();
+                $prettyPrinterConfiguration->withEmptyLineBreaks();
+                $prettyPrinterConfiguration->withClosingGlobalStatement();
                 $prettyPrinterConfiguration->withSpaceIndentation($editorConfiguration->getIndentSize());
 
                 if ($editorConfiguration->getIsTab()) {
