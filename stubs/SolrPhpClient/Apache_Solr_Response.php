@@ -5,7 +5,7 @@ if(class_exists(Apache_Solr_Response::class)) {
     return;
 }
 
-final class Apache_Solr_Response
+class Apache_Solr_Response
 {
 
 }

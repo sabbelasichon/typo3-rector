@@ -5,7 +5,7 @@ if(class_exists(Apache_Solr_Document::class)) {
     return;
 }
 
-final class Apache_Solr_Document implements IteratorAggregate
+class Apache_Solr_Document implements IteratorAggregate
 {
     /**
      * Document boost value

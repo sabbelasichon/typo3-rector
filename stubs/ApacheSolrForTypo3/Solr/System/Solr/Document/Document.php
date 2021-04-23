@@ -7,7 +7,7 @@ if(class_exists(Document::class)) {
     return;
 }
 
-final class Document
+class Document
 {
     public function __set($name, $value)
     {
