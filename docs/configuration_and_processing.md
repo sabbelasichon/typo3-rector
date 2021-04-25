@@ -4,7 +4,7 @@ This library ships already with a bunch of configuration files organized by TYPO
 To get you started quickly run the following command inside the root directory of your project:
 
 ```bash
-./vendor/bin/rector typo3-init
+./vendor/bin/rector init --template-type=typo3
 ```
 
 The command generates a basic configuration skeleton which you can adapt to your needs.
