@@ -1,6 +1,0 @@
-.typo3-rector:
-  image: ghcr.io/sabbelasichon/typo3-rector:$TYPO3_RECTOR_VERSION
-  variables:
-    TYPO3_RECTOR_VERSION: latest
-  script:
-    - rector process . --dry-run
