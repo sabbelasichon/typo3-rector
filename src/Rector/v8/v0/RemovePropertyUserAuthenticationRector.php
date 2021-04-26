@@ -10,10 +10,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-71521-PropertyUserAuthenticationRemovedFromCommandController.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\RemovePropertyUserAuthenticationRector\RemovePropertyUserAuthenticationRectorTest
  */
 final class RemovePropertyUserAuthenticationRector extends AbstractRector
 {
@@ -33,7 +33,7 @@ final class RemovePropertyUserAuthenticationRector extends AbstractRector
         if (! $this->isName($node, 'userAuthentication')) {
             return null;
         }
-        if (! $this->isObjectType($node->var, new ObjectType(CommandController::class))) {
+        if (! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\CommandController'))) {
             return null;
         }
         return $this->nodeFactory->createMethodCall($node->var, 'getBackendUserAuthentication');

@@ -21,8 +21,9 @@ final class RenderTypeTransformer implements FlexFormTransformer
         $elements = $xpath->query('//TCEforms/config');
 
         foreach ($elements as $element) {
-            $type = $element->getElementsByTagName('type')
-                ->item(0);
+            $types = $element->getElementsByTagName('type');
+
+            $type = $types->item(0);
 
             if (null === $type) {
                 continue;
@@ -32,18 +33,20 @@ final class RenderTypeTransformer implements FlexFormTransformer
                 continue;
             }
 
-            $renderType = $element->getElementsByTagName('renderType')
-                ->item(0);
+            $renderTypes = $element->getElementsByTagName('renderType');
+
+            $renderType = $renderTypes->item(0);
 
             if (null !== $renderType) {
                 continue;
             }
 
-            $renderMode = $element->getElementsByTagName('renderMode')
-                ->item(0);
+            $renderModes = $element->getElementsByTagName('renderMode');
+            $renderMode = $renderModes->item(0);
 
-            $size = $element->getElementsByTagName('size')
-                ->item(0);
+            $sizes = $element->getElementsByTagName('size');
+
+            $size = $sizes->item(0);
 
             $renderTypeName = 'selectSingle';
             $insertBefore = $type;

@@ -11,10 +11,10 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\AbstractController;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89554-DeprecateTYPO3CMSExtbaseMvcControllerAbstractController.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v2\UseActionControllerRector\UseActionControllerRectorTest
  */
 final class UseActionControllerRector extends AbstractRector
 {
@@ -39,7 +39,7 @@ final class UseActionControllerRector extends AbstractRector
             return null;
         }
 
-        $node->extends = new FullyQualified(ActionController::class);
+        $node->extends = new FullyQualified('TYPO3\CMS\Extbase\Mvc\Controller\ActionController');
         return $node;
     }
 

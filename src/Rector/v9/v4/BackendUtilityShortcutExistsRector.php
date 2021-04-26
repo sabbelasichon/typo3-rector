@@ -16,6 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-84414-BackendUtilityshortcutExists.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\BackendUtilityShortcutExistsRector\BackendUtilityShortcutExistsRectorTest
  */
 final class BackendUtilityShortcutExistsRector extends AbstractRector
 {
@@ -47,7 +48,7 @@ CODE_SAMPLE
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(BackendUtility::class)
+            new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
         )) {
             return null;
         }

@@ -15,6 +15,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-72361-RemovedDeprecatedContentObjectWrappers.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\RefactorRemovedMethodsFromContentObjectRendererRector\RefactorRemovedMethodsFromContentObjectRendererRectorTest
  */
 final class RefactorRemovedMethodsFromContentObjectRendererRector extends AbstractRector
 {

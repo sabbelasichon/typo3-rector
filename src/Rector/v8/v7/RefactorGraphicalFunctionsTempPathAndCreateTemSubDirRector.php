@@ -31,6 +31,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80514-GraphicalFunctions-tempPathAndCreateTempSubDir.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v7\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRectorTest
  */
 final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends AbstractRector
 {
@@ -93,7 +94,7 @@ CODE_SAMPLE
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(GraphicalFunctions::class)
+            new ObjectType('TYPO3\CMS\Core\Imaging\GraphicalFunctions')
         )) {
             return null;
         }
@@ -171,7 +172,7 @@ CODE_SAMPLE
 
     private function refactorPropertyFetch(PropertyFetch $node): ?Node
     {
-        if (! $this->isObjectType($node->var, new ObjectType(GraphicalFunctions::class))) {
+        if (! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Core\Imaging\GraphicalFunctions'))) {
             return null;
         }
 

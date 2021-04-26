@@ -19,10 +19,10 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85971-DeprecatePageRepository-getFirstWebPage.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseGetMenuInsteadOfGetFirstWebPageRector\UseGetMenuInsteadOfGetFirstWebPageRectorTest
  */
 final class UseGetMenuInsteadOfGetFirstWebPageRector extends AbstractRector
 {
@@ -107,7 +107,7 @@ CODE_SAMPLE
     {
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(PageRepository::class)
+            new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository')
         )) {
             return false;
         }

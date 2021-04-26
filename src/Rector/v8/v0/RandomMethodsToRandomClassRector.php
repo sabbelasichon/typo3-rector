@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-73050-DeprecatedRandomGeneratorMethodsInGeneralUtility.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\RandomMethodsToRandomClassRector\RandomMethodsToRandomClassRectorTest
  */
 final class RandomMethodsToRandomClassRector extends AbstractRector
 {
@@ -38,7 +39,7 @@ final class RandomMethodsToRandomClassRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(GeneralUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return null;
         }

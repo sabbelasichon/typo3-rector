@@ -14,10 +14,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85389-VariousPublicPropertiesInFavorOfContextAPI.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseContextApiRector\UseContextApiRectorTest
  */
 final class UseContextApiRector extends AbstractRector
 {
@@ -55,7 +55,10 @@ final class UseContextApiRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node->var, new ObjectType(TypoScriptFrontendController::class))
+        if (! $this->isObjectType(
+            $node->var,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        )
              && ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
                 $node,
                 Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER

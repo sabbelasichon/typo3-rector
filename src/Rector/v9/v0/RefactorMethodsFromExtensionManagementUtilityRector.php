@@ -17,6 +17,7 @@ use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82899-ExtensionManagementUtilityMethods.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector\RefactorMethodsFromExtensionManagementUtilityRectorTest
  */
 final class RefactorMethodsFromExtensionManagementUtilityRector extends AbstractRector
 {

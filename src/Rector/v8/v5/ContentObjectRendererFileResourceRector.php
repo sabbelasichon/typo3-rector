@@ -21,10 +21,10 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.5/Deprecation-77524-DeprecatedMethodFileResourceOfContentObjectRenderer.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v5\ContentObjectRendererFileResourceRector\ContentObjectRendererFileResourceRectorTest
  */
 final class ContentObjectRendererFileResourceRector extends AbstractRector
 {
@@ -101,7 +101,7 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $node): bool
     {
-        if ($this->isObjectType($node->var, new ObjectType(ContentObjectRenderer::class))) {
+        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'))) {
             return false;
         }
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(

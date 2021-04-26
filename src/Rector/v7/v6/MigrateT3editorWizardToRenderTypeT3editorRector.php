@@ -16,6 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.3/Deprecation-67229-TcaChanges.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v6\MigrateT3editorWizardToRenderTypeT3editorRector\MigrateT3editorWizardToRenderTypeT3editorRectorTest
  */
 final class MigrateT3editorWizardToRenderTypeT3editorRector extends AbstractRector
 {

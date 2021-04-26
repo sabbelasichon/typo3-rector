@@ -22,13 +22,11 @@ use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 use Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Mvc\Web\Response;
-use TYPO3\CMS\Extbase\Service\EnvironmentService;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89468-DeprecateInjectionOfEnvironmentServiceInWebRequest.html
  *
- * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponse\InjectEnvironmentServiceIfNeededInResponseRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponseRector\InjectEnvironmentServiceIfNeededInResponseRectorTest
  */
 final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRector
 {
@@ -60,7 +58,7 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node, new ObjectType(Response::class))) {
+        if (! $this->isObjectType($node, new ObjectType('TYPO3\CMS\Extbase\Mvc\Web\Response'))) {
             return null;
         }
         if (! $this->isPropertyEnvironmentServiceInUse($node)) {
@@ -137,7 +135,7 @@ CODE_SAMPLE
         $propertyBuilder = new PropertyBuilder(self::ENVIRONMENT_SERVICE);
         $propertyBuilder->makeProtected();
 
-        $type = new FullyQualifiedObjectType(EnvironmentService::class);
+        $type = new FullyQualifiedObjectType('TYPO3\CMS\Extbase\Service\EnvironmentService');
         $propertyBuilder->setDocComment(
             new Doc(sprintf('/**%s * @var \%s%s */', PHP_EOL, $type->describe(VerbosityLevel::typeOnly()), PHP_EOL))
         );
@@ -165,7 +163,7 @@ CODE_SAMPLE
     private function addInjectEnvironmentServiceMethod(Class_ $node): void
     {
         $paramBuilder = new ParamBuilder(self::ENVIRONMENT_SERVICE);
-        $paramBuilder->setType(new FullyQualified(EnvironmentService::class));
+        $paramBuilder->setType(new FullyQualified('TYPO3\CMS\Extbase\Service\EnvironmentService'));
 
         $param = $paramBuilder->getNode();
         $propertyAssignNode = $this->nodeFactory->createPropertyAssignmentWithExpr(

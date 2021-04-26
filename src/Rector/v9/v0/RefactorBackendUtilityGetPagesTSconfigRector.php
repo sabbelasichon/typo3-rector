@@ -12,10 +12,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-54152-DeprecateArgumentsOfBackendUtilityGetPagesTSconfig.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\RefactorBackendUtilityGetPagesTSconfigRector\RefactorBackendUtilityGetPagesTSconfigRectorTest
  */
 final class RefactorBackendUtilityGetPagesTSconfigRector extends AbstractRector
 {
@@ -34,7 +34,7 @@ final class RefactorBackendUtilityGetPagesTSconfigRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(BackendUtility::class)
+            new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
         )) {
             return null;
         }

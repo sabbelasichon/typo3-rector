@@ -12,12 +12,12 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-81464-AddAPIForMetaTagManagement.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\MetaTagManagementRector\MetaTagManagementRectorTest
  */
 final class MetaTagManagementRector extends AbstractRector
 {
@@ -109,7 +109,7 @@ CODE_SAMPLE
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(PageRenderer::class)
+            new ObjectType('TYPO3\CMS\Core\Page\PageRenderer')
         )) {
             return false;
         }
@@ -120,7 +120,7 @@ CODE_SAMPLE
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(DocumentTemplate::class)
+            new ObjectType('TYPO3\CMS\Backend\Template\DocumentTemplate')
         )) {
             return false;
         }

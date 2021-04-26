@@ -17,6 +17,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82426-Typo3-pagetreeNavigationComponentName.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\UseNewComponentIdForPageTreeRector\UseNewComponentIdForPageTreeRectorTest
  */
 final class UseNewComponentIdForPageTreeRector extends AbstractRector
 {
@@ -35,7 +36,7 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ExtensionUtility::class)
+            new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
         )) {
             return null;
         }

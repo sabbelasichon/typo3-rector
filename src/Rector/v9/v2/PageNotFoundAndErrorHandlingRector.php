@@ -29,10 +29,10 @@ use TYPO3\CMS\Core\Controller\ErrorPageController;
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\ErrorController;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.2/Deprecation-83883-PageNotFoundAndErrorHandlingInFrontend.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v2\PageNotFoundAndErrorHandlingRector\PageNotFoundAndErrorHandlingRectorTest
  */
 final class PageNotFoundAndErrorHandlingRector extends AbstractRector
 {
@@ -162,7 +162,10 @@ CODE_SAMPLE
             return false;
         }
 
-        return ! $this->isObjectType($node->var, new ObjectType(TypoScriptFrontendController::class));
+        return ! $this->isObjectType(
+            $node->var,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        );
     }
 
     private function createResponse(MethodCall $node): ?Node

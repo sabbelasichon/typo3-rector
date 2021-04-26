@@ -16,6 +16,7 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-86486-TypoScriptFrontendController-processOutput.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v5\RefactorProcessOutputRector\RefactorProcessOutputRectorTest
  */
 final class RefactorProcessOutputRector extends AbstractRector
 {
@@ -54,7 +55,7 @@ final class RefactorProcessOutputRector extends AbstractRector
 
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(TypoScriptFrontendController::class)
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         )) {
             return null;
         }

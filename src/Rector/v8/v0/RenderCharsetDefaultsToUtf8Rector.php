@@ -12,10 +12,10 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-73794-RenderCharsetOptionRemoved.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\RenderCharsetDefaultsToUtf8Rector\RenderCharsetDefaultsToUtf8RectorTest
  */
 final class RenderCharsetDefaultsToUtf8Rector extends AbstractRector
 {
@@ -71,7 +71,10 @@ CODE_SAMPLE
 
     private function shouldSkip(PropertyFetch $node): bool
     {
-        if ($this->isObjectType($node->var, new ObjectType(TypoScriptFrontendController::class))) {
+        if ($this->isObjectType(
+            $node->var,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        )) {
             return false;
         }
         return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(

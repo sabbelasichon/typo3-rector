@@ -18,6 +18,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-86406-TCATypeGroupInternal_typeFileAndFile_reference.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v5\RefactorTypeInternalTypeFileAndFileReferenceToFalRector\RefactorTypeInternalTypeFileAndFileReferenceToFalRectorTest
  */
 final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends AbstractRector
 {

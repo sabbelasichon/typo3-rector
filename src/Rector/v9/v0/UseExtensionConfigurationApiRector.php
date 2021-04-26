@@ -22,6 +22,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82254-DeprecateGLOBALSTYPO3_CONF_VARSEXTextConf.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\UseExtensionConfigurationApi\UseExtensionConfigurationApiRectorTest;
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\UseExtensionConfigurationApiRector\UseExtensionConfigurationApiRectorTest
  */
 final class UseExtensionConfigurationApiRector extends AbstractRector
 {

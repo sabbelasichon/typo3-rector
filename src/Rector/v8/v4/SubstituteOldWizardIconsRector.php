@@ -12,11 +12,12 @@ use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Breaking-77630-RemoveWizardIcons.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v4\SubstituteOldWizardIconsRector\SubstituteOldWizardIconsRectorTest
  */
 final class SubstituteOldWizardIconsRector extends AbstractRector implements ConfigurableRectorInterface
 {
@@ -39,7 +40,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
     {
         return new RuleDefinition(
             'The TCA migration migrates the icon calls to the new output if used as wizard icon',
-            [new CodeSample(<<<'CODE_SAMPLE'
+            [new ConfiguredCodeSample(<<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -75,7 +76,11 @@ return [
     ],
 ];
 CODE_SAMPLE
-                )]);
+                , [
+                    self::OLD_TO_NEW_FILE_LOCATIONS => [
+                        'add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
+                    ],
+                ])]);
     }
 
     /**

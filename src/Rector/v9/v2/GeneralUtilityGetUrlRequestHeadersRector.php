@@ -10,10 +10,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.2/Deprecation-84171-AddingGeneralUtilitygetUrlRequestHeadersAsNon-associativeArrayAreDeprecated.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v2\GeneralUtilityGetUrlRequestHeadersRector\GeneralUtilityGetUrlRequestHeadersRectorTest
  */
 final class GeneralUtilityGetUrlRequestHeadersRector extends AbstractRector
 {
@@ -48,7 +48,7 @@ CODE_SAMPLE
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(GeneralUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return null;
         }

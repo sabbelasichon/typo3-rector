@@ -20,6 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Feature-84112-SymfonyDependencyInjectionForCoreAndExtbase.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\Experimental\OptionalConstructorToHardRequirementRector\OptionalConstructorToHardRequirementRectorTest
  */
 final class OptionalConstructorToHardRequirementRector extends AbstractRector
 {
@@ -62,7 +63,7 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
                 continue;
             }
 
-            $paramName = $this->getName($param->var);
+            $paramName = $this->nodeNameResolver->getName($param->var);
             if (null === $paramName) {
                 continue;
             }
@@ -85,7 +86,9 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
                 continue;
             }
 
-            if ($stmt->expr->var instanceof Variable && $variableName = $this->getName($stmt->expr->var)) {
+            if ($stmt->expr->var instanceof Variable && $variableName = $this->nodeNameResolver->getName(
+                $stmt->expr->var
+            )) {
                 $potentialStmtsToRemove[$variableName] = $stmt;
             }
 
@@ -103,11 +106,13 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
 
             if ($stmt->expr->expr->right instanceof Coalesce) {
                 // Reset param default value
-                if (null === $this->getName($stmt->expr->expr->left)) {
+                if (null === $this->nodeNameResolver->getName($stmt->expr->expr->left)) {
                     continue;
                 }
 
-                $paramsToCheck[$this->getName($stmt->expr->expr->left)]->default = $this->nodeFactory->createNull();
+                $paramsToCheck[$this->nodeNameResolver->getName(
+                    $stmt->expr->expr->left
+                )]->default = $this->nodeFactory->createNull();
                 continue;
             }
 
@@ -131,7 +136,7 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
                 continue;
             }
 
-            $variableName = $this->getName($stmt->expr->expr->var);
+            $variableName = $this->nodeNameResolver->getName($stmt->expr->expr->var);
 
             if (null === $variableName) {
                 continue;

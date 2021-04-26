@@ -16,6 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.4/Deprecation-90956-AlternativeFetchMethodsAndReportsForGeneralUtilitygetUrl.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v4\UseFileGetContentsForGetUrlRector\UseFileGetContentsForGetUrlRectorTest
  */
 final class UseFileGetContentsForGetUrlRector extends AbstractRector
 {
@@ -34,7 +35,7 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(GeneralUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return null;
         }

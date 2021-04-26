@@ -27,6 +27,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Feature-82869-ReplaceInjectWithTYPO3CMSExtbaseAnnotationInject.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotationRector\InjectAnnotationRectorTest
  */
 final class InjectAnnotationRector extends AbstractRector
 {

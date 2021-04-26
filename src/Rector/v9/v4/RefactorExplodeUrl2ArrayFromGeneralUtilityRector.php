@@ -13,10 +13,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85801-GeneralUtilityexplodeUrl2Array-2ndMethodArgument.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRector\RefactorExplodeUrl2ArrayFromGeneralUtilityRectorTest
  */
 final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRector
 {
@@ -40,7 +40,7 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
         $call = $node->expr;
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $call,
-            new ObjectType(GeneralUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return null;
         }

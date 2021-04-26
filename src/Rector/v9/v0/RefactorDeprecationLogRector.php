@@ -16,6 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82438-DeprecationMethods.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\RefactorDeprecationLogRector\RefactorDeprecationLogRectorTest
  */
 final class RefactorDeprecationLogRector extends AbstractRector
 {

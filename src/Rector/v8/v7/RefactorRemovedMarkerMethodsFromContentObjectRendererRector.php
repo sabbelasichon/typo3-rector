@@ -16,10 +16,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80527-Marker-relatedMethodsInContentObjectRenderer.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v7\RefactorRemovedMarkerMethodsFromContentObjectRendererRector\RefactorRemovedMarkerMethodsFromContentObjectRendererRectorTest
  */
 final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends AbstractRector
 {
@@ -43,7 +43,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ContentObjectRenderer::class)
+            new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')
         )) {
             return null;
         }

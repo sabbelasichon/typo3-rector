@@ -16,10 +16,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.1/Deprecation-75327-TSFE-csConvObjAndTSFE-csConv.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v1\TypoScriptFrontendControllerCharsetConverterRector\TypoScriptFrontendControllerCharsetConverterRectorTest
  */
 final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractRector
 {
@@ -102,7 +102,7 @@ CODE_SAMPLE
 
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(TypoScriptFrontendController::class)
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         )) {
             return false;
         }

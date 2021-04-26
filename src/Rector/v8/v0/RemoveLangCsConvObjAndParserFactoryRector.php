@@ -14,12 +14,12 @@ use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
-use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Localization\LocalizationFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-73482-LANG-csConvObjAndLANG-parserFactory.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\RemoveLangCsConvObjAndParserFactoryRector\RemoveLangCsConvObjAndParserFactoryRectorTest
  */
 final class RemoveLangCsConvObjAndParserFactoryRector extends AbstractRector
 {
@@ -101,7 +101,7 @@ CODE_SAMPLE
             return false;
         }
 
-        if ($this->isObjectType($node->var, new ObjectType(LanguageService::class))) {
+        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Core\Localization\LanguageService'))) {
             return true;
         }
 

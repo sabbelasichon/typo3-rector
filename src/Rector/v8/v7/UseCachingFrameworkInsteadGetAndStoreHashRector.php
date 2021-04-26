@@ -17,10 +17,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80524-PageRepositorygetHashAndPageRepositorystoreHash.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v7\UseCachingFrameworkInsteadGetAndStoreHashRector\UseCachingFrameworkInsteadGetAndStoreHashRectorTest
  */
 final class UseCachingFrameworkInsteadGetAndStoreHashRector extends AbstractRector
 {
@@ -110,7 +110,7 @@ CODE_SAMPLE
         }
         return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(PageRepository::class)
+            new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository')
         );
     }
 

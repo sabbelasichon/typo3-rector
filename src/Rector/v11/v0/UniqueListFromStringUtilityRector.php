@@ -10,11 +10,11 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92607-DeprecatedGeneralUtilityuniqueList.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\UniqueListFromStringUtilityRector\UniqueListFromStringUtilityRectorTest
  */
 final class UniqueListFromStringUtilityRector extends AbstractRector
 {
@@ -33,7 +33,7 @@ final class UniqueListFromStringUtilityRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(GeneralUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return null;
         }

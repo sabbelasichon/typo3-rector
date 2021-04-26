@@ -13,10 +13,10 @@ use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
 use Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-89938-DeprecatedLanguageModeInTypo3QuerySettings.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\RemoveLanguageModeMethodsFromTypo3QuerySettingsRector\RemoveLanguageModeMethodsFromTypo3QuerySettingsRectorTest
  */
 final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends AbstractRector
 {
@@ -53,7 +53,7 @@ final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends Abstra
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(Typo3QuerySettings::class)
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings')
         )) {
             return null;
         }

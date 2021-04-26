@@ -27,10 +27,10 @@ use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Reflection\ReflectionService;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85004-DeprecateMethodsInReflectionService.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseClassSchemaInsteadReflectionServiceMethodsRector\UseClassSchemaInsteadReflectionServiceMethodsRectorTest
  */
 final class UseClassSchemaInsteadReflectionServiceMethodsRector extends AbstractRector
 {
@@ -101,7 +101,7 @@ CODE_SAMPLE
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ReflectionService::class)
+            new ObjectType('TYPO3\CMS\Extbase\Reflection\ReflectionService')
         )) {
             return null;
         }

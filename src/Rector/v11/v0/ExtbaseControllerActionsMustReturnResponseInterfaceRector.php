@@ -18,12 +18,11 @@ use Psr\Http\Message\ResponseInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92784-ExtbaseControllerActionsMustReturnResponseInterface.html
  *
- * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterface\ExtbaseControllerActionsMustReturnResponseInterfaceRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\ExtbaseControllerActionsMustReturnResponseInterfaceRectorTest
  */
 final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends AbstractRector
 {
@@ -85,7 +84,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
             }
         }
 
-        $node->returnType = new FullyQualified(ResponseInterface::class);
+        $node->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
 
         $statements = $node->stmts;
         $lastStatement = null;
@@ -139,7 +138,7 @@ CODE_SAMPLE
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ActionController::class)
+            new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
         )) {
             return true;
         }
@@ -191,7 +190,7 @@ CODE_SAMPLE
 
             if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
                 $node,
-                new ObjectType(ActionController::class)
+                new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
             )) {
                 return false;
             }

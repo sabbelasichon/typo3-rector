@@ -23,10 +23,10 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.3/Deprecation-84993-DeprecateSomeTSconfigRelatedMethods.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v3\RefactorTsConfigRelatedMethodsRector\RefactorTsConfigRelatedMethodsRectorTest
  */
 final class RefactorTsConfigRelatedMethodsRector extends AbstractRector
 {
@@ -121,7 +121,10 @@ CODE_SAMPLE
         if ($this->typo3NodeResolver->isMethodCallOnBackendUser($node)) {
             return false;
         }
-        return ! $this->isObjectType($node->var, new ObjectType(BackendUserAuthentication::class));
+        return ! $this->isObjectType(
+            $node->var,
+            new ObjectType('TYPO3\CMS\Core\Authentication\BackendUserAuthentication')
+        );
     }
 
     private function createConfiguration(string $objectString): array

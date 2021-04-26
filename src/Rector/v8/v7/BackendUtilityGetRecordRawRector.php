@@ -16,13 +16,13 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80317-DeprecateBackendUtilityGetRecordRaw.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v7\BackendUtilityGetRecordRawRector\BackendUtilityGetRecordRawRectorTest
  */
 final class BackendUtilityGetRecordRawRector extends AbstractRector
 {
@@ -46,7 +46,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(BackendUtility::class)
+            new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
         )) {
             return null;
         }

@@ -11,15 +11,12 @@ use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use Rector\Core\Rector\AbstractRector;
-use Swift_Attachment;
-use Swift_Image;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Mail\MailMessage;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/10.2/en-us/Changelog/10.0/Feature-88643-NewMailAPIBasedOnSymfonymailerAndSymfonymime.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\SwiftMailerBasedMailMessageToMailerBasedMessage\SwiftMailerBasedMailMessageToMailerBasedMessageRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\SwiftMailerBasedMailMessageToMailerBasedMessageRector\SwiftMailerBasedMailMessageToMailerBasedMessageRectorTest
  */
 final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends AbstractRector
 {
@@ -38,7 +35,7 @@ final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends Abstra
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(MailMessage::class)
+            new ObjectType('TYPO3\CMS\Core\Mail\MailMessage')
         )) {
             return null;
         }
@@ -156,7 +153,7 @@ CODE_SAMPLE
 
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $firstArgument,
-            new ObjectType(Swift_Attachment::class)
+            new ObjectType('Swift_Attachment')
         )) {
             return null;
         }
@@ -181,7 +178,7 @@ CODE_SAMPLE
 
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $firstArgument,
-            new ObjectType(Swift_Image::class)
+            new ObjectType('Swift_Image')
         )) {
             return null;
         }

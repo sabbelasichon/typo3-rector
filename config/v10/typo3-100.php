@@ -22,21 +22,19 @@ use Ssch\TYPO3Rector\Rector\v10\v0\ChangeDefaultCachingFrameworkNamesRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\ConfigurationManagerAddControllerConfigurationMethodRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\ForceTemplateParsingInTsfeAndTemplateServiceRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\RefactorIdnaEncodeMethodToNativeFunctionRector;
-use Ssch\TYPO3Rector\Rector\v10\v0\RemoveFormatConstantsEmailFinisherRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\RemovePropertyExtensionNameRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\SetSystemLocaleFromSiteLanguageRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\SwiftMailerBasedMailMessageToMailerBasedMessageRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseControllerClassesInExtbasePluginsAndModulesRector;
-
 use Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector;
+
 use Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseTwoLetterIsoCodeFromSiteLanguageRector;
+use Ssch\TYPO3Rector\Rector\v10\v4\RemoveFormatConstantsEmailFinisherRector;
 use Ssch\TYPO3Rector\Yaml\Form\Transformer\EmailFinisherTransformer;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\Resource\FileInterface;
-use TYPO3\CMS\Core\Resource\ProcessedFile;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject;
 use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
@@ -44,7 +42,6 @@ use TYPO3\CMS\Extbase\Error\Message;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Property\TypeConverterInterface;
 use TYPO3\CMS\Extbase\Service\ImageService;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -133,10 +130,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     )),
                     new AddReturnTypeDeclaration(AbstractDomainObject::class, '_isNew', new BooleanType()),
                     new AddReturnTypeDeclaration(ImageService::class, 'applyProcessingInstructions', new ObjectType(
-                        ProcessedFile::class
+                        'TYPO3\CMS\Core\Resource\ProcessedFile'
                     )),
                     new AddReturnTypeDeclaration(ImageService::class, 'getImageUri', new StringType()),
-                    new AddReturnTypeDeclaration(ImageService::class, 'getImage', new ObjectType(FileInterface::class)),
+                    new AddReturnTypeDeclaration(ImageService::class, 'getImage', new ObjectType(
+                        'TYPO3\CMS\Core\Resource\FileInterface'
+                    )),
                     new AddReturnTypeDeclaration(
                         TypeConverterInterface::class,
                         'getSupportedSourceTypes',
@@ -176,51 +175,67 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     new AddReturnTypeDeclaration(
                         ConfigurationManager::class,
                         'getContentObject',
-                        TypeCombinator::addNull(new ObjectType(ContentObjectRenderer::class))
+                        TypeCombinator::addNull(
+                            new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')
+                        )
                     ),
                     new AddReturnTypeDeclaration(ConfigurationManager::class, 'getConfiguration', new ArrayType(
                         new MixedType(),
                         new MixedType()
                     )),
                     new AddReturnTypeDeclaration(ConfigurationManager::class, 'isFeatureEnabled', new BooleanType()),
-                    new AddReturnTypeDeclaration(UriBuilder::class, 'reset', new ObjectType(UriBuilder::class)),
-                    new AddReturnTypeDeclaration(UriBuilder::class, 'build', new ObjectType(UriBuilder::class)),
-                    new AddReturnTypeDeclaration(UriBuilder::class, 'uriFor', new ObjectType(UriBuilder::class)),
+                    new AddReturnTypeDeclaration(UriBuilder::class, 'reset', new ObjectType(
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
+                    )),
+                    new AddReturnTypeDeclaration(UriBuilder::class, 'build', new ObjectType(
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
+                    )),
+                    new AddReturnTypeDeclaration(UriBuilder::class, 'uriFor', new ObjectType(
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
+                    )),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'setAbsoluteUriScheme', new ObjectType(
-                        UriBuilder::class
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
                     )),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'setAddQueryString', new ObjectType(
-                        UriBuilder::class
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
                     )),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'setAddQueryStringMethod', new ObjectType(
-                        UriBuilder::class
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
                     )),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'setArgumentPrefix', new ObjectType(
-                        UriBuilder::class
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
                     )),
-                    new AddReturnTypeDeclaration(UriBuilder::class, 'setArguments', new ObjectType(UriBuilder::class)),
+                    new AddReturnTypeDeclaration(UriBuilder::class, 'setArguments', new ObjectType(
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
+                    )),
                     new AddReturnTypeDeclaration(
                         UriBuilder::class,
                         'setArgumentsToBeExcludedFromQueryString',
-                        new ObjectType(UriBuilder::class)
+                        new ObjectType('TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder')
                     ),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'setCreateAbsoluteUri', new ObjectType(
-                        UriBuilder::class
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
                     )),
-                    new AddReturnTypeDeclaration(UriBuilder::class, 'setFormat', new ObjectType(UriBuilder::class)),
+                    new AddReturnTypeDeclaration(UriBuilder::class, 'setFormat', new ObjectType(
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
+                    )),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'setLinkAccessRestrictedPages', new ObjectType(
-                        UriBuilder::class
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
                     )),
-                    new AddReturnTypeDeclaration(UriBuilder::class, 'setNoCache', new ObjectType(UriBuilder::class)),
-                    new AddReturnTypeDeclaration(UriBuilder::class, 'setSection', new ObjectType(UriBuilder::class)),
+                    new AddReturnTypeDeclaration(UriBuilder::class, 'setNoCache', new ObjectType(
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
+                    )),
+                    new AddReturnTypeDeclaration(UriBuilder::class, 'setSection', new ObjectType(
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
+                    )),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'setTargetPageType', new ObjectType(
-                        UriBuilder::class
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
                     )),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'setTargetPageUid', new ObjectType(
-                        UriBuilder::class
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
                     )),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'setUseCacheHash', new ObjectType(
-                        UriBuilder::class
+                        'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder'
                     )),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'getAddQueryString', new BooleanType()),
                     new AddReturnTypeDeclaration(UriBuilder::class, 'getAddQueryStringMethod', new StringType()),

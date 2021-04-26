@@ -14,6 +14,7 @@ use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-87613-DeprecateTYPO3CMSExtbaseUtilityTypeHandlingUtilityhex2bin.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\UseNativePhpHex2binMethodRector\UseNativePhpHex2binMethodRectorTest
  */
 final class UseNativePhpHex2binMethodRector extends AbstractRector
 {
@@ -32,7 +33,7 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(TypeHandlingUtility::class)
+            new ObjectType('TYPO3\CMS\Extbase\Utility\TypeHandlingUtility')
         )) {
             return null;
         }

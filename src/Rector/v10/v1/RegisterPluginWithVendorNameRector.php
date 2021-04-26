@@ -17,6 +17,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-88995-CallingRegisterPluginWithVendorName.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v1\RegisterPluginWithVendorNameRector\RegisterPluginWithVendorNameRectorTest
  */
 final class RegisterPluginWithVendorNameRector extends AbstractRector
 {
@@ -35,7 +36,7 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ExtensionUtility::class)
+            new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
         )) {
             return null;
         }

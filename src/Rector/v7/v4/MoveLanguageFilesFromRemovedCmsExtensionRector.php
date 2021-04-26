@@ -13,6 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.4/Deprecation-67991-RemovedExtCms.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v4\MoveLanguageFilesFromRemovedCmsExtensionRector\MoveLanguageFilesFromRemovedCmsExtensionRectorTest
  */
 final class MoveLanguageFilesFromRemovedCmsExtensionRector extends AbstractRector
 {

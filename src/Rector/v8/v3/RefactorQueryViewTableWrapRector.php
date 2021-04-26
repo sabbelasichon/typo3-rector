@@ -13,10 +13,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Database\QueryView;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Deprecation-77557-MethodQueryView-tableWrap.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v3\RefactorQueryViewTableWrapRector\RefactorQueryViewTableWrapRectorTest
  */
 final class RefactorQueryViewTableWrapRector extends AbstractRector
 {
@@ -35,7 +35,7 @@ final class RefactorQueryViewTableWrapRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(QueryView::class)
+            new ObjectType('TYPO3\CMS\Core\Database\QueryView')
         )) {
             return null;
         }

@@ -10,10 +10,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Resource\File;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-85895-DeprecateFile_getMetaData.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\UseMetaDataAspectRector\UseMetaDataAspectRectorTest
  */
 final class UseMetaDataAspectRector extends AbstractRector
 {
@@ -30,7 +30,10 @@ final class UseMetaDataAspectRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new ObjectType(File::class))) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType('TYPO3\CMS\Core\Resource\File')
+        )) {
             return null;
         }
         if (! $this->isName($node->name, '_getMetaData')) {

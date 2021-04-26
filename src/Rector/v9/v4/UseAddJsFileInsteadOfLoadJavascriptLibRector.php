@@ -10,12 +10,12 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85701-MethodsInModuleTemplate.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseAddJsFileInsteadOfLoadJavascriptLibRector\UseAddJsFileInsteadOfLoadJavascriptLibRectorTest
  */
 final class UseAddJsFileInsteadOfLoadJavascriptLibRector extends AbstractRector
 {
@@ -34,7 +34,7 @@ final class UseAddJsFileInsteadOfLoadJavascriptLibRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ModuleTemplate::class)
+            new ObjectType('TYPO3\CMS\Backend\Template\ModuleTemplate')
         )) {
             return null;
         }

@@ -19,9 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\TypoScriptAspect;
-use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-88792-ForceTemplateParsingInTSFEAndTemplateService.html
@@ -161,11 +159,11 @@ CODE_SAMPLE
             return false;
         }
 
-        if ($this->isObjectType($node, new ObjectType(TypoScriptFrontendController::class))) {
+        if ($this->isObjectType($node, new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController'))) {
             return true;
         }
 
-        if ($this->isObjectType($node, new ObjectType(TemplateService::class))) {
+        if ($this->isObjectType($node, new ObjectType('TYPO3\CMS\Core\TypoScript\TemplateService'))) {
             return true;
         }
 
