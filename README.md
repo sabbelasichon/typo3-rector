@@ -14,9 +14,7 @@ Apply automatic fixes on your TYPO3 code.
 1. [Examples in action](docs/examples_in_action.md)
 1. [Overview of all rules](docs/all_rectors_overview.md)
 1. [Installation](docs/installation.md)
-1. [Usage with Docker](docs/docker.md)
 1. [Configuration and Processing](docs/configuration_and_processing.md)
-1. [Continuous integration](docs/ci.md)
 1. [Limitations](docs/limitations.md)
 1. [Contribution](docs/contribution.md)
 
