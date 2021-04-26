@@ -23,11 +23,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
 use TYPO3\CMS\Core\TimeTracker\TimeTracker;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-73185-DeprecateNullTimeTracker.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTrackerRector\TimeTrackerInsteadOfNullTimeTrackerRectorTest
  */
 final class TimeTrackerInsteadOfNullTimeTrackerRector extends AbstractRector
 {
@@ -135,7 +134,7 @@ CODE_SAMPLE
 
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(GeneralUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return false;
         }
@@ -151,7 +150,7 @@ CODE_SAMPLE
 
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ObjectManager::class)
+            new ObjectType('TYPO3\CMS\Extbase\Object\ObjectManager')
         )) {
             return false;
         }

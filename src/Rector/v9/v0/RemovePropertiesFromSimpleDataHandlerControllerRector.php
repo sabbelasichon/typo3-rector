@@ -13,10 +13,10 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Controller\SimpleDataHandlerController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82629-TceDbOptionsPrErrAndUPTRemoved.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\RemovePropertiesFromSimpleDataHandlerControllerRector\RemovePropertiesFromSimpleDataHandlerControllerRectorTest
  */
 final class RemovePropertiesFromSimpleDataHandlerControllerRector extends AbstractRector
 {
@@ -81,7 +81,10 @@ CODE_SAMPLE
         if (null === $classNode) {
             return;
         }
-        if (! $this->isObjectType($classNode, new ObjectType(SimpleDataHandlerController::class))) {
+        if (! $this->isObjectType(
+            $classNode,
+            new ObjectType('TYPO3\CMS\Backend\Controller\SimpleDataHandlerController')
+        )) {
             return;
         }
         if (! $this->isName($assign->expr, 'uPT') && ! $this->isName($assign->expr, 'prErr')) {
@@ -96,7 +99,10 @@ CODE_SAMPLE
         if (null === $classNode) {
             return;
         }
-        if (! $this->isObjectType($classNode, new ObjectType(SimpleDataHandlerController::class))) {
+        if (! $this->isObjectType(
+            $classNode,
+            new ObjectType('TYPO3\CMS\Backend\Controller\SimpleDataHandlerController')
+        )) {
             return;
         }
         if (! $this->isName($assign->var, 'uPT') && ! $this->isName($assign->var, 'prErr')) {

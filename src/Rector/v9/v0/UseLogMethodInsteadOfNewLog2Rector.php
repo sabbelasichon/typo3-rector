@@ -19,10 +19,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-83121-LoggingMethodDataHandler-newlog2.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector\UseLogMethodInsteadOfNewLog2RectorTest
  */
 final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
 {
@@ -46,7 +46,7 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(DataHandler::class)
+            new ObjectType('TYPO3\CMS\Core\DataHandling\DataHandler')
         )) {
             return null;
         }

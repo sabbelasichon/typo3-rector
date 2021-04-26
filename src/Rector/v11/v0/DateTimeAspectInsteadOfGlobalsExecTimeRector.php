@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Important-92736-ReturnTimestampAsIntegerInDateTimeAspect.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\DateTimeAspectInsteadOfGlobalsExecTimeRector\DateTimeAspectInsteadOfGlobalsExecTimeRectorTest
  */
 final class DateTimeAspectInsteadOfGlobalsExecTimeRector extends AbstractRector
 {

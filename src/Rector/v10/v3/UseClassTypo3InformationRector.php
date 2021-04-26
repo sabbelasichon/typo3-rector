@@ -13,6 +13,7 @@ use TYPO3\CMS\Core\Information\Typo3Information;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.3/Deprecation-89866-Global-TYPO3-information-related-constants.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v3\UseClassTypo3InformationRector\UseClassTypo3InformationRectorTest
  */
 final class UseClassTypo3InformationRector extends AbstractRector
 {

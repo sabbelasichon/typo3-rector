@@ -2,7 +2,6 @@ includes:
     # see https://github.com/symplify/phpstan-extensions
     - utils/phpstan/config/typo3-rector.neon
     - phpstan-baseline.neon
-
 parameters:
     level: 8
 
@@ -33,7 +32,11 @@ parameters:
         - src/Renaming/NodeManipulator/ClassRenamer.php
 
     ignoreErrors:
+        - '#^Cognitive complexity for#'
+        - '#^Class cognitive complexity is#'
+        - '#has invalid namespace category#'
         - '#Cannot access property \$value on bool\|float\|int\|string#'
+        - '#^Do not inherit from abstract class, better use composition$#'
         - '#Parameter \#2 \$stmt of method Rector\\Core\\NodeManipulator\\ClassInsertManipulator\:\:addAsFirstMethod\(\) expects PhpParser\\Node\\Stmt\\ClassConst\|PhpParser\\Node\\Stmt\\ClassMethod\|PhpParser\\Node\\Stmt\\Property, PhpParser\\Node\\Stmt\\Nop given#'
 
         # false positive

@@ -18,6 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82893-RemoveGlobalVariablePARSETIME_START.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\SubstituteConstantParsetimeStartRector\SubstituteConstantParsetimeStartRectorTest
  */
 final class SubstituteConstantParsetimeStartRector extends AbstractRector
 {

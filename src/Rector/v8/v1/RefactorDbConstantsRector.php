@@ -15,6 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.1/Breaking-75454-TYPO3_dbConstantsRemoved.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v1\RefactorDbConstantsRector\RefactorDbConstantsRectorTest
  */
 final class RefactorDbConstantsRector extends AbstractRector
 {

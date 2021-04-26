@@ -6,7 +6,7 @@ use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Ssch\TYPO3Rector\FlexForms\Transformer\RenderTypeTransformer;
-use Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraRector;
+use Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraComposerRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionVersionRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\FindByPidsAndAuthorIdRector;
@@ -77,7 +77,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorBackendUtilityGetPagesTSconfigRector::class);
     $services->set(UseExtensionConfigurationApiRector::class);
     $services->set(ReplaceExtKeyWithExtensionKeyRector::class);
-    $services->set(RemoveCmsPackageDirFromExtraRector::class);
+    $services->set(RemoveCmsPackageDirFromExtraComposerRector::class);
     $services->set(SubstituteGeneralUtilityDevLogRector::class);
     $services->set(ReplacedGeneralUtilitySysLogWithLogginApiRector::class);
     $services->set(RenderTypeTransformer::class);

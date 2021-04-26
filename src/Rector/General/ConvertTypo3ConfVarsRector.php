@@ -16,6 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ConfigurationFiles/Index.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\General\ConvertTypo3ConfVarsRector\ConvertTypo3ConfVarsRectorTest
  */
 final class ConvertTypo3ConfVarsRector extends AbstractRector
 {

@@ -13,11 +13,11 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.3/Deprecation-85113-LegacyBackendModuleRoutingMethods.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v3\BackendUtilityGetModuleUrlRector\BackendUtilityGetModuleUrlRectorTest
  */
 final class BackendUtilityGetModuleUrlRector extends AbstractRector
 {
@@ -28,7 +28,7 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(BackendUtility::class)
+            new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
         )) {
             return null;
         }

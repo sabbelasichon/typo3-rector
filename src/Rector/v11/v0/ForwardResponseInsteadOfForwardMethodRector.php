@@ -11,15 +11,13 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
-use Psr\Http\Message\ResponseInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Http\ForwardResponse;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92815-ActionControllerForward.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector\ForwardResponseInsteadOfForwardMethodRectorTest
  */
 final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
 {
@@ -82,7 +80,7 @@ CODE_SAMPLE
             }
 
             $args = $this->nodeFactory->createArgs([$action]);
-            $forwardResponse = new New_(new FullyQualified(ForwardResponse::class), $args);
+            $forwardResponse = new New_(new FullyQualified('TYPO3\CMS\Extbase\Http\ForwardResponse'), $args);
 
             if (isset($forwardMethodCall->args[1]) && ! $this->valueResolver->isNull(
                 $forwardMethodCall->args[1]->value
@@ -120,7 +118,7 @@ CODE_SAMPLE
 
         // Add returnType only if it is the only statement, otherwise it is not reliable
         if (is_countable($node->stmts) && 1 === count($node->stmts)) {
-            $node->returnType = new FullyQualified(ResponseInterface::class);
+            $node->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
         }
 
         return $node;
@@ -135,7 +133,7 @@ CODE_SAMPLE
 
             if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
                 $node,
-                new ObjectType(ActionController::class)
+                new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
             )) {
                 return false;
             }

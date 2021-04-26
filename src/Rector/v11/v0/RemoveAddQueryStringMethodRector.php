@@ -14,11 +14,10 @@ use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
 use Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Breaking-93041-RemoveTypoScriptOptionAddQueryStringmethod.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\RemoveAddQueryStringMethodRector\RemoveAddQueryStringMethodRectorTest
  */
 final class RemoveAddQueryStringMethodRector extends AbstractRector
 {
@@ -100,7 +99,7 @@ CODE_SAMPLE
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(UriBuilder::class)
+            new ObjectType('TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder')
         )) {
             return false;
         }
@@ -111,7 +110,7 @@ CODE_SAMPLE
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ContentObjectRenderer::class)
+            new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')
         )) {
             return false;
         }

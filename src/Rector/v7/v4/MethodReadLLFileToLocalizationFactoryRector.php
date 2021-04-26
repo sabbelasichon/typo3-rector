@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.4/Deprecation-68122-GeneralUtilityReadLLfile.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v4\MethodReadLLFileToLocalizationFactoryRector\MethodReadLLFileToLocalizationFactoryRectorTest
  */
 final class MethodReadLLFileToLocalizationFactoryRector extends AbstractRector
 {
@@ -33,7 +34,7 @@ final class MethodReadLLFileToLocalizationFactoryRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(GeneralUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return null;
         }

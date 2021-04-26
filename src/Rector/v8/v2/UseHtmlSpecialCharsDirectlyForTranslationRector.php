@@ -11,11 +11,10 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
-use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.2/Deprecation-71917-DeprecateTheArgumentHscForGetLLGetLLLAndSL.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v2\UseHtmlSpecialCharsDirectlyForTranslationRector\UseHtmlSpecialCharsDirectlyForTranslationRectorTest
  */
 final class UseHtmlSpecialCharsDirectlyForTranslationRector extends AbstractRector
 {
@@ -99,7 +98,7 @@ CODE_SAMPLE
 
         return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(AbstractPlugin::class)
+            new ObjectType('TYPO3\CMS\Frontend\Plugin\AbstractPlugin')
         );
     }
 
@@ -107,7 +106,7 @@ CODE_SAMPLE
     {
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(LanguageService::class)
+            new ObjectType('TYPO3\CMS\Lang\LanguageService')
         )) {
             return true;
         }

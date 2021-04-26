@@ -10,11 +10,11 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Service\TypeHandlingService;
 use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.0/Breaking-61786-ExtbaseDeprecatedTypeHandlingServiceRemoved.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector\TypeHandlingServiceToTypeHandlingUtilityRectorTest
  */
 final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRector
 {
@@ -33,7 +33,7 @@ final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRecto
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(TypeHandlingService::class)
+            new ObjectType('TYPO3\CMS\Extbase\Service\TypeHandlingService')
         )) {
             return null;
         }

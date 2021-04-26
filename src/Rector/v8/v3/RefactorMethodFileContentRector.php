@@ -16,6 +16,7 @@ use TYPO3\CMS\Core\TypoScript\TemplateService;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Deprecation-77477-TemplateService-fileContent.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v3\RefactorMethodFileContentRector\RefactorMethodFileContentRectorTest
  */
 final class RefactorMethodFileContentRector extends AbstractRector
 {
@@ -75,7 +76,7 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $node): bool
     {
-        if ($this->isObjectType($node->var, new ObjectType(TemplateService::class))) {
+        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Core\TypoScript\TemplateService'))) {
             return false;
         }
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(

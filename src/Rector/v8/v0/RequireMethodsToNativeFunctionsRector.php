@@ -11,10 +11,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-73067-DeprecateGeneralUtilityrequireOnceAndGeneralUtilityrequireFile.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\RequireMethodsToNativeFunctionsRector\RequireMethodsToNativeFunctionsRectorTest
  */
 final class RequireMethodsToNativeFunctionsRector extends AbstractRector
 {
@@ -33,7 +33,7 @@ final class RequireMethodsToNativeFunctionsRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(GeneralUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return null;
         }

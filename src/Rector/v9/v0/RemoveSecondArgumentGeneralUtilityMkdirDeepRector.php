@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82702-SecondArgumentOfGeneralUtilitymkdir_deep.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\RemoveSecondArgumentGeneralUtilityMkdirDeepRector\RemoveSecondArgumentGeneralUtilityMkdirDeepRectorTest
  */
 final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRector
 {
@@ -33,7 +34,7 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(GeneralUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return null;
         }

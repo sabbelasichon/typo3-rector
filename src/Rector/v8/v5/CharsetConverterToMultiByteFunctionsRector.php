@@ -13,10 +13,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Charset\CharsetConverter;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.5/Deprecation-78670-DeprecatedCharsetConverterMethods.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v5\CharsetConverterToMultiByteFunctionsRector\CharsetConverterToMultiByteFunctionsRectorTest
  */
 final class CharsetConverterToMultiByteFunctionsRector extends AbstractRector
 {
@@ -78,7 +78,7 @@ CODE_SAMPLE
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(CharsetConverter::class)
+            new ObjectType('TYPO3\CMS\Core\Charset\CharsetConverter')
         )) {
             return true;
         }

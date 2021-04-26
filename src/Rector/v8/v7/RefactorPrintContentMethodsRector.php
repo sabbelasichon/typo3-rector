@@ -13,11 +13,10 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Controller\PageLayoutController;
-use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80445-DeprecatePrintContentMethods.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v7\RefactorPrintContentMethodsRector\RefactorPrintContentMethodsRectorTest
  */
 final class RefactorPrintContentMethodsRector extends AbstractRector
 {
@@ -103,7 +102,7 @@ CODE_SAMPLE
         }
         return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(TaskModuleController::class)
+            new ObjectType('TYPO3\CMS\Taskcenter\Controller\TaskModuleController')
         );
     }
 
@@ -111,7 +110,7 @@ CODE_SAMPLE
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(PageLayoutController::class)
+            new ObjectType('TYPO3\CMS\Backend\Controller\PageLayoutController')
         );
     }
 }

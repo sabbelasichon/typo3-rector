@@ -13,10 +13,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\IndexedSearch\Controller\SearchFormController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.6.x/Breaking-72931-SearchFormControllerpi_list_browseresultsHasBeenRenamed.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v6\RenamePiListBrowserResultsRector\RenamePiListBrowserResultsRectorTest
  */
 final class RenamePiListBrowserResultsRector extends AbstractRector
 {
@@ -33,7 +33,10 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node->var, new ObjectType(SearchFormController::class))) {
+        if (! $this->isObjectType(
+            $node->var,
+            new ObjectType('TYPO3\CMS\IndexedSearch\Controller\SearchFormController')
+        )) {
             return null;
         }
 

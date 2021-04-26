@@ -15,11 +15,10 @@ use Ssch\TYPO3Rector\NodeFactory\HelperArgumentAssignFactory;
 use Ssch\TYPO3Rector\NodeFactory\InitializeArgumentsClassMethodFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper as FluidCoreAbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-81213-RenderMethodArgumentOnViewHelpersDeprecated.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector\MoveRenderArgumentsToInitializeArgumentsMethodRectorTest
  */
 final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends AbstractRector
 {
@@ -66,8 +65,8 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
         }
 
         $desiredObjectTypes = [
-            new ObjectType(AbstractViewHelper::class),
-            new ObjectType(FluidCoreAbstractViewHelper::class),
+            new ObjectType('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper'),
+            new ObjectType('TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper'),
         ];
 
         if (! $this->nodeTypeResolver->isObjectTypes($node, $desiredObjectTypes)) {

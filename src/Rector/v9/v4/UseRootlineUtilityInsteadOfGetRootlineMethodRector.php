@@ -18,6 +18,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85557-PageRepository-getRootLine.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseRootlineUtilityInsteadOfGetRootlineMethodRector\UseRootlineUtilityInsteadOfGetRootlineMethodRectorTest
  */
 final class UseRootlineUtilityInsteadOfGetRootlineMethodRector extends AbstractRector
 {
@@ -87,13 +88,13 @@ CODE_SAMPLE
     {
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(PageRepository::class)
+            new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository')
         )) {
             return false;
         }
 
         $node->var->setAttribute(AttributeKey::PHP_DOC_INFO, $node->getAttribute(AttributeKey::PHP_DOC_INFO));
-        if ($this->isObjectType($node->var, new ObjectType(PageRepository::class))) {
+        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository'))) {
             return false;
         }
 

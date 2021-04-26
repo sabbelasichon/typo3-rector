@@ -13,10 +13,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Page\PageRenderer;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-65578-ConfigconcatenateJsAndCssAndConcatenateFiles.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector\RefactorDeprecatedConcatenateMethodsPageRendererRectorTest
  */
 final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends AbstractRector
 {
@@ -35,7 +35,7 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(PageRenderer::class)
+            new ObjectType('TYPO3\CMS\Core\Page\PageRenderer')
         )) {
             return null;
         }

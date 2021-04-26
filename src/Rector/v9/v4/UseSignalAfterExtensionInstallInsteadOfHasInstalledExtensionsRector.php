@@ -11,12 +11,12 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extensionmanager\Service\ExtensionManagementService;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85462-SignalHasInstalledExtensions.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRectorTest
  */
 final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector extends AbstractRector
 {
@@ -45,7 +45,7 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(Dispatcher::class)
+            new ObjectType('TYPO3\CMS\Extbase\SignalSlot\Dispatcher')
         )) {
             return null;
         }

@@ -11,10 +11,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\DataHandling\DataHandler;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-79580-MethodsInDataHandlerRelatedToPageDeleteAccess.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v7\DataHandlerRmCommaRector\DataHandlerRmCommaRectorTest
  */
 final class DataHandlerRmCommaRector extends AbstractRector
 {
@@ -33,7 +33,7 @@ final class DataHandlerRmCommaRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(DataHandler::class)
+            new ObjectType('TYPO3\CMS\Core\DataHandling\DataHandler')
         )) {
             return null;
         }

@@ -12,12 +12,12 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Site\SiteFinder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-88499-BackendUtilitygetViewDomain.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\BackendUtilityGetViewDomainToPageRouterRector\BackendUtilityGetViewDomainToPageRouterRectorTest
  */
 final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
 {
@@ -36,7 +36,7 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(BackendUtility::class)
+            new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
         )) {
             return null;
         }

@@ -11,11 +11,11 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Deprecation-78193-ExtensionManagementUtilityextRelPath.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v4\ExtensionManagementUtilityExtRelPathRector\ExtensionManagementUtilityExtRelPathRectorTest
  */
 final class ExtensionManagementUtilityExtRelPathRector extends AbstractRector
 {
@@ -34,7 +34,7 @@ final class ExtensionManagementUtilityExtRelPathRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ExtensionManagementUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
         )) {
             return null;
         }

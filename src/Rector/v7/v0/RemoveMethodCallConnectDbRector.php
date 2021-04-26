@@ -10,10 +10,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Frontend\Utility\EidUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.0/Breaking-61863-ConnectDbFunctionRemoved.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v0\RemoveMethodCallConnectDbRector\RemoveMethodCallConnectDbRectorTest
  */
 final class RemoveMethodCallConnectDbRector extends AbstractRector
 {
@@ -32,7 +32,7 @@ final class RemoveMethodCallConnectDbRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(EidUtility::class)
+            new ObjectType('TYPO3\CMS\Frontend\Utility\EidUtility')
         )) {
             return null;
         }

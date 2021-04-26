@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Service\AbstractService;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\SystemEnvironmentBuilderConstantsRector\SystemEnvironmentBuilderConstantsRectorTest
  */
 final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
 {

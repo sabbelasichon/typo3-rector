@@ -15,6 +15,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.3/Deprecation-90260-ResourceFactorygetInstancePseudo-factory.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v3\SubstituteResourceFactoryRector\SubstituteResourceFactoryRectorTest
  */
 final class SubstituteResourceFactoryRector extends AbstractRector
 {
@@ -33,7 +34,7 @@ final class SubstituteResourceFactoryRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ResourceFactory::class)
+            new ObjectType('TYPO3\CMS\Core\Resource\ResourceFactory')
         )) {
             return null;
         }

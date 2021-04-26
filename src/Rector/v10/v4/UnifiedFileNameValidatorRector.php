@@ -99,7 +99,7 @@ CODE_SAMPLE
     {
         return $node instanceof StaticCall && $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(GeneralUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         ) && $this->isName($node->name, 'verifyFilenameAgainstDenyPattern');
     }
 

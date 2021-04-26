@@ -16,6 +16,7 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-69863-RemovedDeprecatedCodeFromExtfluid.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\ChangeMethodCallsForStandaloneViewRector\ChangeMethodCallsForStandaloneViewRectorTest
  */
 final class ChangeMethodCallsForStandaloneViewRector extends AbstractRector
 {

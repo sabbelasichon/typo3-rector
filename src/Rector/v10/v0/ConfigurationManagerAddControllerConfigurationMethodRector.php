@@ -16,10 +16,10 @@ use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Configuration\AbstractConfigurationManager;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-88496-MethodGetSwitchableControllerActionsHasBeenRemoved.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\ConfigurationManagerAddControllerConfigurationMethodRector\ConfigurationManagerAddControllerConfigurationMethodRectorTest
  */
 final class ConfigurationManagerAddControllerConfigurationMethodRector extends AbstractRector
 {
@@ -36,7 +36,10 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node, new ObjectType(AbstractConfigurationManager::class))) {
+        if (! $this->isObjectType(
+            $node,
+            new ObjectType('TYPO3\CMS\Extbase\Configuration\AbstractConfigurationManager')
+        )) {
             return null;
         }
         $this->addMethodGetControllerConfiguration($node);

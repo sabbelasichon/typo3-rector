@@ -15,10 +15,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-86047-TSFEPropertiesMethodsAndChangeVisibility.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendControllerRector\RefactorPropertiesOfTypoScriptFrontendControllerRectorTest
  */
 final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends AbstractRector
 {
@@ -45,7 +45,10 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node->var, new ObjectType(TypoScriptFrontendController::class))
+        if (! $this->isObjectType(
+            $node->var,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        )
             && ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
                 $node,
                 Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER

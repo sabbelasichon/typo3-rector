@@ -25,17 +25,15 @@ use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Symfony\Component\Mime\Address;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-88850-ContentObjectRendererSendNotifyEmail.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v1\SendNotifyEmailToMailApi\SendNotifyEmailToMailApiRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v1\SendNotifyEmailToMailApiRector\SendNotifyEmailToMailApiRectorTest
  */
 final class SendNotifyEmailToMailApiRector extends AbstractRector
 {
@@ -99,7 +97,7 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
     {
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ContentObjectRenderer::class)
+            new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')
         )) {
             return null;
         }
@@ -217,7 +215,7 @@ CODE_SAMPLE
     private function mailFromMethodCall(): MethodCall
     {
         return $this->nodeFactory->createMethodCall(self::MAIL, 'from', [
-            new New_(new FullyQualified(Address::class), [
+            new New_(new FullyQualified('Symfony\Component\Mime\Address'), [
                 $this->nodeFactory->createArg(new Variable(self::SENDER_ADDRESS)),
                 $this->nodeFactory->createArg(new Variable('senderName')),
             ]),

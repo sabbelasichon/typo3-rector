@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\Extensions\solr;
 
-use Apache_Solr_Document;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
@@ -15,6 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/p/apache-solr-for-typo3/solr/10.0/en-us/Releases/solr-release-9-0.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\ApacheSolrDocumentToSolariumDocumentRector\ApacheSolrDocumentToSolariumDocumentRectorTest
  */
 final class ApacheSolrDocumentToSolariumDocumentRector extends AbstractRector
 {
@@ -33,7 +33,7 @@ final class ApacheSolrDocumentToSolariumDocumentRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(Apache_Solr_Document::class)
+            new ObjectType('Apache_Solr_Document')
         )) {
             return null;
         }

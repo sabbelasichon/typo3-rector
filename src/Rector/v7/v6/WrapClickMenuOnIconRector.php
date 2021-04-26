@@ -10,11 +10,11 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.6/Deprecation-70494-WrapClickMenuOnIcon.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v6\WrapClickMenuOnIconRector\WrapClickMenuOnIconRectorTest
  */
 final class WrapClickMenuOnIconRector extends AbstractRector
 {
@@ -33,7 +33,7 @@ final class WrapClickMenuOnIconRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(DocumentTemplate::class)
+            new ObjectType('TYPO3\CMS\Backend\Template\DocumentTemplate')
         )) {
             return null;
         }

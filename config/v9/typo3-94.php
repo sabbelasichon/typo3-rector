@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Ssch\TYPO3Rector\Rector\v9\v4\BackendUtilityShortcutExistsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector;
-use Ssch\TYPO3Rector\Rector\v9\v4\ConstantToEnvironmentCallRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\ConstantsToEnvironmentApiCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\DocumentTemplateAddStyleSheetRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRector;
@@ -30,7 +30,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(RefactorDeprecatedConcatenateMethodsPageRendererRector::class);
     $services->set(CallEnableFieldsFromPageRepositoryRector::class);
-    $services->set(ConstantToEnvironmentCallRector::class);
+    $services->set(ConstantsToEnvironmentApiCallRector::class);
     $services->set(RemoveInitTemplateMethodCallRector::class);
     $services->set(UseContextApiRector::class);
     $services->set(RefactorExplodeUrl2ArrayFromGeneralUtilityRector::class);

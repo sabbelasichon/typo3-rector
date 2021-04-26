@@ -12,11 +12,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Package\PackageManager;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82505-MergedEXTinfo_pagetsconfigToEXTinfo.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\CheckForExtensionInfoRector\CheckForExtensionInfoRectorTest
  */
 final class CheckForExtensionInfoRector extends AbstractRector
 {
@@ -82,7 +81,7 @@ CODE_SAMPLE
     {
         return $node instanceof StaticCall && $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ExtensionManagementUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
         ) && $this->isName($node->name, 'isLoaded');
     }
 
@@ -93,7 +92,7 @@ CODE_SAMPLE
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(PackageManager::class)
+            new ObjectType('TYPO3\CMS\Core\Package\PackageManager')
         ) && $this->isName($node->name, 'isPackageActive');
     }
 }

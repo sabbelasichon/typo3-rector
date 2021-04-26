@@ -11,10 +11,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\SysNote\Domain\Repository\SysNoteRepository;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Breaking-82506-RemoveBackendUserRepositoryInjectionInNoteController.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\FindByPidsAndAuthorIdRector\FindByPidsAndAuthorIdRectorTest
  */
 final class FindByPidsAndAuthorIdRector extends AbstractRector
 {
@@ -33,7 +33,7 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(SysNoteRepository::class)
+            new ObjectType('TYPO3\CMS\SysNote\Domain\Repository\SysNoteRepository')
         )) {
             return null;
         }

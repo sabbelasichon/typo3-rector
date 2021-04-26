@@ -14,6 +14,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92583-DeprecateLastArgumentsOfWrapClickMenuOnIcon.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\GetClickMenuOnIconTagParametersRector\GetClickMenuOnIconTagParametersRectorTest
  */
 final class GetClickMenuOnIconTagParametersRector extends AbstractRector
 {
@@ -32,7 +33,7 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(BackendUtility::class)
+            new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
         )) {
             return null;
         }

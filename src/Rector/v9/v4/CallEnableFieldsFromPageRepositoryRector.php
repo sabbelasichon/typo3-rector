@@ -18,6 +18,7 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85558-ContentObjectRenderer-enableFields.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector\CallEnableFieldsFromPageRepositoryRectorTest
  */
 final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
 {
@@ -36,7 +37,7 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(ContentObjectRenderer::class)
+            new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')
         )) {
             return null;
         }

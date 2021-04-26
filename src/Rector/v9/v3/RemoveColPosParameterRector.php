@@ -10,10 +10,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Domain\Repository\Localization\LocalizationRepository;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.3/Breaking-84877-MethodsOfLocalizationRepositoryChanged.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v3\RemoveColPosParameterRector\RemoveColPosParameterRectorTest
  */
 final class RemoveColPosParameterRector extends AbstractRector
 {
@@ -32,7 +32,7 @@ final class RemoveColPosParameterRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(LocalizationRepository::class)
+            new ObjectType('TYPO3\CMS\Backend\Domain\Repository\Localization\LocalizationRepository')
         )) {
             return null;
         }

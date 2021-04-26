@@ -11,14 +11,12 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Controller\BackendController;
-use TYPO3\CMS\Backend\Template\DocumentTemplate;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.4/Deprecation-68074-DeprecateGetPageRenderer.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v4\InstantiatePageRendererExplicitlyRector\InstantiatePageRendererExplicitlyRectorTest
  */
 final class InstantiatePageRendererExplicitlyRector extends AbstractRector
 {
@@ -74,21 +72,21 @@ final class InstantiatePageRendererExplicitlyRector extends AbstractRector
     {
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(BackendController::class)
+            new ObjectType('TYPO3\CMS\Backend\Controller\BackendController')
         )) {
             return false;
         }
 
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(DocumentTemplate::class)
+            new ObjectType('TYPO3\CMS\Backend\Template\DocumentTemplate')
         )) {
             return false;
         }
 
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(TypoScriptFrontendController::class)
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         )) {
             return false;
         }

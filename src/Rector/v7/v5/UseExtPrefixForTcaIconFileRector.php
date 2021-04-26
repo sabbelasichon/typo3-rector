@@ -16,10 +16,10 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.5/Deprecation-69754-TcaCtrlIconfileUsingRelativePathToExtAndFilenameOnly.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v5\UseExtPrefixForTcaIconFileRector\UseExtPrefixForTcaIconFileRectorTest
  */
 final class UseExtPrefixForTcaIconFileRector extends AbstractRector
 {
@@ -114,7 +114,7 @@ CODE_SAMPLE
 
             if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
                 $staticCall,
-                new ObjectType(ExtensionManagementUtility::class)
+                new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
             )) {
                 return;
             }

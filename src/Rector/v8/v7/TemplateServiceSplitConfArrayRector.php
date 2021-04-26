@@ -16,6 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-78650-TemplateService-splitConfArray.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v7\TemplateServiceSplitConfArrayRector\TemplateServiceSplitConfArrayRectorTest
  */
 final class TemplateServiceSplitConfArrayRector extends AbstractRector
 {
@@ -34,7 +35,7 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(TemplateService::class)
+            new ObjectType('TYPO3\CMS\Core\TypoScript\TemplateService')
         )) {
             return null;
         }

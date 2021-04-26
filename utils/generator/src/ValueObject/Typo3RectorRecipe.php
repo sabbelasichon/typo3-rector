@@ -61,7 +61,7 @@ final class Typo3RectorRecipe
 
     public function getTestDirectory(): string
     {
-        return $this->name->getName();
+        return $this->name->getName() . 'Rector';
     }
 
     public function getSet(): string

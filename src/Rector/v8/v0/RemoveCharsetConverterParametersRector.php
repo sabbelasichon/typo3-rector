@@ -10,10 +10,10 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Charset\CharsetConverter;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-74031-CharsetConverterParametersRemoved.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\RemoveCharsetConverterParametersRector\RemoveCharsetConverterParametersRectorTest
  */
 final class RemoveCharsetConverterParametersRector extends AbstractRector
 {
@@ -32,7 +32,7 @@ final class RemoveCharsetConverterParametersRector extends AbstractRector
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType(CharsetConverter::class)
+            new ObjectType('TYPO3\CMS\Core\Charset\CharsetConverter')
         )) {
             return null;
         }
