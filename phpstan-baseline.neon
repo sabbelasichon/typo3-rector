@@ -1,0 +1,3323 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 20
+			path: config/v10/typo3-100.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\ArrayUtility\\:\\:trimExplode\\(\\)\" is 10, keep it under 9$#"
+			count: 1
+			path: src/ArrayUtility.php
+
+		-
+			message: "#^Namespace \"Ssch\\\\TYPO3Rector\" is only reserved for \"Rector\"\\. Move the class somewhere else$#"
+			count: 1
+			path: src/ArrayUtility.php
+
+		-
+			message: "#^Instead of \"instanceof/is_a\\(\\)\" use ReflectionProvider service or \"\\(new ObjectType\\(\\<desired_type\\>\\)\\)\\-\\>isSuperTypeOf\\(\\<element_type\\>\\)\" for static reflection to work$#"
+			count: 2
+			path: src/EditorConfig/EditorConfigIdiosyncraticParser.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\FlexForms\\\\Transformer\\\\RenderTypeTransformer\\:\\:transform\\(\\)\" is 10, keep it under 9$#"
+			count: 1
+			path: src/FlexForms/Transformer/RenderTypeTransformer.php
+
+		-
+			message: "#^Do not use chained method calls\\. Put each on separated lines\\.$#"
+			count: 4
+			path: src/FlexForms/Transformer/RenderTypeTransformer.php
+
+		-
+			message: "#^Instead of \"instanceof/is_a\\(\\)\" use ReflectionProvider service or \"\\(new ObjectType\\(\\<desired_type\\>\\)\\)\\-\\>isSuperTypeOf\\(\\<element_type\\>\\)\" for static reflection to work$#"
+			count: 2
+			path: src/FlexForms/Transformer/RenderTypeTransformer.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\NodeFactory\\\\InitializeArgumentsClassMethodFactory\\:\\:createTypeInString\\(\\)\" is 10, keep it under 9$#"
+			count: 1
+			path: src/NodeFactory/InitializeArgumentsClassMethodFactory.php
+
+		-
+			message: "#^Function \"class_exists\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/NodeFactory/InitializeArgumentsClassMethodFactory.php
+
+		-
+			message: "#^Function \"property_exists\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/NodeFactory/InitializeArgumentsClassMethodFactory.php
+
+		-
+			message: "#^Instead of \"new ClassReflection\\(\\)\" use ReflectionProvider service or \"\\(new PHPStan\\\\Reflection\\\\ClassReflection\\(\\<desired_type\\>\\)\\)\" for static reflection to work$#"
+			count: 1
+			path: src/NodeFactory/InitializeArgumentsClassMethodFactory.php
+
+		-
+			message: "#^Class should have suffix \"ComposerRector\" to respect parent type$#"
+			count: 1
+			path: src/Rector/Composer/RemoveCmsPackageDirFromExtraRector.php
+
+		-
+			message: "#^Class that implements \"Rector\\\\Core\\\\Contract\\\\Rector\\\\ConfigurableRectorInterface\" must use \"Symplify\\\\RuleDocGenerator\\\\ValueObject\\\\CodeSample\\\\ConfiguredCodeSample\" class in their code$#"
+			count: 1
+			path: src/Rector/Composer/RemoveCmsPackageDirFromExtraRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\Experimental\\\\OptionalConstructorToHardRequirementRector\" has invalid namespace category \"Experimental\"\\. Pick one of\\: \"ClassMethod\"$#"
+			count: 1
+			path: src/Rector/Experimental/OptionalConstructorToHardRequirementRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\Experimental\\\\OptionalConstructorToHardRequirementRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/Experimental/OptionalConstructorToHardRequirementRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\Experimental\\\\OptionalConstructorToHardRequirementRector\\:\\:refactor\\(\\)\" is 30, keep it under 9$#"
+			count: 1
+			path: src/Rector/Experimental/OptionalConstructorToHardRequirementRector.php
+
+		-
+			message: "#^Use \"Rector\\\\Core\\\\Rector\\\\AbstractRector\\-\\>isName\\('value'\\)\" method call over \"Rector\\\\Core\\\\Rector\\\\AbstractRector\\-\\>getName\\(\\) \\=\\=\\= 'value'\" comparison$#"
+			count: 1
+			path: src/Rector/Experimental/OptionalConstructorToHardRequirementRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\Extensions\\\\solr\\\\ApacheSolrDocumentToSolariumDocumentRector\" has invalid namespace category \"solr\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/Extensions/solr/ApacheSolrDocumentToSolariumDocumentRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\Extensions\\\\solr\\\\ApacheSolrDocumentToSolariumDocumentRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/Extensions/solr/ApacheSolrDocumentToSolariumDocumentRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/Extensions/solr/ApacheSolrDocumentToSolariumDocumentRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\General\\\\ConvertTypo3ConfVarsRector\" has invalid namespace category \"General\"\\. Pick one of\\: \"ArrayDimFetch\"$#"
+			count: 1
+			path: src/Rector/General/ConvertTypo3ConfVarsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\General\\\\ConvertTypo3ConfVarsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/General/ConvertTypo3ConfVarsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\General\\\\ExtEmConfRector\" has invalid namespace category \"General\"\\. Pick one of\\: \"Assign\"$#"
+			count: 1
+			path: src/Rector/General/ExtEmConfRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\General\\\\ExtEmConfRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/General/ExtEmConfRector.php
+
+		-
+			message: "#^Class cognitive complexity is 36, keep it under 30$#"
+			count: 1
+			path: src/Rector/General/ExtEmConfRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\General\\\\ExtEmConfRector\\:\\:refactor\\(\\)\" is 33, keep it under 9$#"
+			count: 1
+			path: src/Rector/General/ExtEmConfRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\Migrations\\\\RenameClassMapAliasRector\" has invalid namespace category \"Migrations\"\\. Pick one of\\: \"Name\", Property\", FunctionLike\", Expression\", ClassLike\", Namespace_\"$#"
+			count: 1
+			path: src/Rector/Migrations/RenameClassMapAliasRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\BackendUtilityGetViewDomainToPageRouterRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v0/BackendUtilityGetViewDomainToPageRouterRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\BackendUtilityGetViewDomainToPageRouterRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/BackendUtilityGetViewDomainToPageRouterRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v0/BackendUtilityGetViewDomainToPageRouterRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\ChangeDefaultCachingFrameworkNamesRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v10/v0/ChangeDefaultCachingFrameworkNamesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\ChangeDefaultCachingFrameworkNamesRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/ChangeDefaultCachingFrameworkNamesRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v0/ChangeDefaultCachingFrameworkNamesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\ConfigurationManagerAddControllerConfigurationMethodRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Class_\"$#"
+			count: 1
+			path: src/Rector/v10/v0/ConfigurationManagerAddControllerConfigurationMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\ConfigurationManagerAddControllerConfigurationMethodRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/ConfigurationManagerAddControllerConfigurationMethodRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v0/ConfigurationManagerAddControllerConfigurationMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\ForceTemplateParsingInTsfeAndTemplateServiceRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Assign\"$#"
+			count: 1
+			path: src/Rector/v10/v0/ForceTemplateParsingInTsfeAndTemplateServiceRector.php
+
+		-
+			message: "#^Function \"property_exists\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/Rector/v10/v0/ForceTemplateParsingInTsfeAndTemplateServiceRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v10/v0/ForceTemplateParsingInTsfeAndTemplateServiceRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RefactorIdnaEncodeMethodToNativeFunctionRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v0/RefactorIdnaEncodeMethodToNativeFunctionRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RefactorIdnaEncodeMethodToNativeFunctionRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/RefactorIdnaEncodeMethodToNativeFunctionRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v0/RefactorIdnaEncodeMethodToNativeFunctionRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RemoveFormatConstantsEmailFinisherRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"ClassConstFetch\"$#"
+			count: 1
+			path: src/Rector/v10/v0/RemoveFormatConstantsEmailFinisherRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RemoveFormatConstantsEmailFinisherRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/RemoveFormatConstantsEmailFinisherRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v0/RemoveFormatConstantsEmailFinisherRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RemovePropertyExtensionNameRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v10/v0/RemovePropertyExtensionNameRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RemovePropertyExtensionNameRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/RemovePropertyExtensionNameRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v10/v0/RemovePropertyExtensionNameRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RemoveSeliconFieldPathRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v10/v0/RemoveSeliconFieldPathRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RemoveSeliconFieldPathRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/RemoveSeliconFieldPathRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RemoveSeliconFieldPathRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v10/v0/RemoveSeliconFieldPathRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RemoveTcaOptionSetToDefaultOnCopyRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v10/v0/RemoveTcaOptionSetToDefaultOnCopyRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RemoveTcaOptionSetToDefaultOnCopyRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/RemoveTcaOptionSetToDefaultOnCopyRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\RemoveTcaOptionSetToDefaultOnCopyRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v10/v0/RemoveTcaOptionSetToDefaultOnCopyRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\SetSystemLocaleFromSiteLanguageRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v10/v0/SetSystemLocaleFromSiteLanguageRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\SetSystemLocaleFromSiteLanguageRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/SetSystemLocaleFromSiteLanguageRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v0/SetSystemLocaleFromSiteLanguageRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\SwiftMailerBasedMailMessageToMailerBasedMessageRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v10/v0/SwiftMailerBasedMailMessageToMailerBasedMessageRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 3
+			path: src/Rector/v10/v0/SwiftMailerBasedMailMessageToMailerBasedMessageRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\UseControllerClassesInExtbasePluginsAndModulesRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v0/UseControllerClassesInExtbasePluginsAndModulesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\UseControllerClassesInExtbasePluginsAndModulesRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/UseControllerClassesInExtbasePluginsAndModulesRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v0/UseControllerClassesInExtbasePluginsAndModulesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\UseMetaDataAspectRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v10/v0/UseMetaDataAspectRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\UseMetaDataAspectRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/UseMetaDataAspectRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v0/UseMetaDataAspectRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\UseNativePhpHex2binMethodRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v0/UseNativePhpHex2binMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\UseNativePhpHex2binMethodRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/UseNativePhpHex2binMethodRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v0/UseNativePhpHex2binMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\UseTwoLetterIsoCodeFromSiteLanguageRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v10/v0/UseTwoLetterIsoCodeFromSiteLanguageRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v0\\\\UseTwoLetterIsoCodeFromSiteLanguageRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v0/UseTwoLetterIsoCodeFromSiteLanguageRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v0/UseTwoLetterIsoCodeFromSiteLanguageRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v1\\\\BackendUtilityEditOnClickRector\" has invalid namespace category \"v1\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v1/BackendUtilityEditOnClickRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v1\\\\BackendUtilityEditOnClickRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v1/BackendUtilityEditOnClickRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v1/BackendUtilityEditOnClickRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v1\\\\RefactorInternalPropertiesOfTSFERector\" has invalid namespace category \"v1\"\\. Pick one of\\: \"PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v10/v1/RefactorInternalPropertiesOfTSFERector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v1\\\\RefactorInternalPropertiesOfTSFERector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v1/RefactorInternalPropertiesOfTSFERector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v1\\\\RegisterPluginWithVendorNameRector\" has invalid namespace category \"v1\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v1/RegisterPluginWithVendorNameRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v1\\\\RegisterPluginWithVendorNameRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v1/RegisterPluginWithVendorNameRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v1/RegisterPluginWithVendorNameRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v1\\\\SendNotifyEmailToMailApiRector\" has invalid namespace category \"v1\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v10/v1/SendNotifyEmailToMailApiRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v1/SendNotifyEmailToMailApiRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PhpParser\\\\Node\\\\Name\\\\FullyQualified\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v1/SendNotifyEmailToMailApiRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v2\\\\ExcludeServiceKeysToArrayRector\" has invalid namespace category \"v2\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v2/ExcludeServiceKeysToArrayRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v10/v2/ExcludeServiceKeysToArrayRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v2\\\\InjectEnvironmentServiceIfNeededInResponseRector\" has invalid namespace category \"v2\"\\. Pick one of\\: \"Class_\"$#"
+			count: 1
+			path: src/Rector/v10/v2/InjectEnvironmentServiceIfNeededInResponseRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v10/v2/InjectEnvironmentServiceIfNeededInResponseRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PhpParser\\\\Node\\\\Name\\\\FullyQualified\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v2/InjectEnvironmentServiceIfNeededInResponseRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v2\\\\MoveApplicationContextToEnvironmentApiRector\" has invalid namespace category \"v2\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v2/MoveApplicationContextToEnvironmentApiRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v2\\\\MoveApplicationContextToEnvironmentApiRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v2/MoveApplicationContextToEnvironmentApiRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v2/MoveApplicationContextToEnvironmentApiRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v2\\\\UseActionControllerRector\" has invalid namespace category \"v2\"\\. Pick one of\\: \"Class_\"$#"
+			count: 1
+			path: src/Rector/v10/v2/UseActionControllerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v2\\\\UseActionControllerRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v2/UseActionControllerRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PhpParser\\\\Node\\\\Name\\\\FullyQualified\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v2/UseActionControllerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v2\\\\UseTypo3InformationForCopyRightNoticeRector\" has invalid namespace category \"v2\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v2/UseTypo3InformationForCopyRightNoticeRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v2\\\\UseTypo3InformationForCopyRightNoticeRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v2/UseTypo3InformationForCopyRightNoticeRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v2/UseTypo3InformationForCopyRightNoticeRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\RemoveExcludeOnTransOrigPointerFieldRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v10/v3/RemoveExcludeOnTransOrigPointerFieldRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\RemoveExcludeOnTransOrigPointerFieldRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v3/RemoveExcludeOnTransOrigPointerFieldRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\RemoveExcludeOnTransOrigPointerFieldRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v10/v3/RemoveExcludeOnTransOrigPointerFieldRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\RemoveExcludeOnTransOrigPointerFieldRector\\:\\:refactor\\(\\)\" is 24, keep it under 9$#"
+			count: 1
+			path: src/Rector/v10/v3/RemoveExcludeOnTransOrigPointerFieldRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\RemoveShowRecordFieldListInsideInterfaceSectionRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v10/v3/RemoveShowRecordFieldListInsideInterfaceSectionRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\RemoveShowRecordFieldListInsideInterfaceSectionRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v3/RemoveShowRecordFieldListInsideInterfaceSectionRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\RemoveShowRecordFieldListInsideInterfaceSectionRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v10/v3/RemoveShowRecordFieldListInsideInterfaceSectionRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\SubstituteResourceFactoryRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v3/SubstituteResourceFactoryRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\SubstituteResourceFactoryRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v3/SubstituteResourceFactoryRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v3/SubstituteResourceFactoryRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$node\\-\\>name\\) \\{
+					    case 'TYPO3_URL_GENERAL'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createClassConstFetch\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Information\\\\Typo3Information\\:\\:class, 'URL_COMMUNITY'\\);
+					    case 'TYPO3_URL_LICENSE'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createClassConstFetch\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Information\\\\Typo3Information\\:\\:class, 'URL_LICENSE'\\);
+					    case 'TYPO3_URL_EXCEPTION'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createClassConstFetch\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Information\\\\Typo3Information\\:\\:class, 'URL_EXCEPTION'\\);
+					    case 'TYPO3_URL_DONATE'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createClassConstFetch\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Information\\\\Typo3Information\\:\\:class, 'URL_DONATE'\\);
+					    case 'TYPO3_URL_WIKI_OPCODECACHE'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createClassConstFetch\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Information\\\\Typo3Information\\:\\:class, 'URL_OPCACHE'\\);
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v10/v3/UseClassTypo3InformationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\UseClassTypo3InformationRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"ConstFetch\"$#"
+			count: 1
+			path: src/Rector/v10/v3/UseClassTypo3InformationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\UseClassTypo3InformationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v3/UseClassTypo3InformationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\UseClassTypo3VersionRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"ConstFetch\"$#"
+			count: 1
+			path: src/Rector/v10/v3/UseClassTypo3VersionRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v3\\\\UseClassTypo3VersionRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v3/UseClassTypo3VersionRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$node\\-\\>name\\) \\{
+					    case 'IPv6Hex2Bin'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('inet_pton', \\$node\\-\\>args\\);
+					    case 'IPv6Bin2Hex'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('inet_ntop', \\$node\\-\\>args\\);
+					    case 'compressIPv6'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('inet_ntop', \\[\\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('inet_pton', \\$node\\-\\>args\\)\\]\\);
+					    case 'milliseconds'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('round', \\[new \\\\PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\\\Mul\\(\\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('microtime', \\[\\$this\\-\\>nodeFactory\\-\\>createArg\\(\\$this\\-\\>nodeFactory\\-\\>createTrue\\(\\)\\)\\]\\), new \\\\PhpParser\\\\Node\\\\Scalar\\\\LNumber\\(1000\\)\\)\\]\\);
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v10/v4/SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v4\\\\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v4/SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v4/SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v4\\\\UnifiedFileNameValidatorRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"ConstFetch\", StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v4/UnifiedFileNameValidatorRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v4/UnifiedFileNameValidatorRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v4\\\\UseFileGetContentsForGetUrlRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v10/v4/UseFileGetContentsForGetUrlRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v10\\\\v4\\\\UseFileGetContentsForGetUrlRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v10/v4/UseFileGetContentsForGetUrlRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v10/v4/UseFileGetContentsForGetUrlRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\DateTimeAspectInsteadOfGlobalsExecTimeRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"ArrayDimFetch\"$#"
+			count: 1
+			path: src/Rector/v11/v0/DateTimeAspectInsteadOfGlobalsExecTimeRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\DateTimeAspectInsteadOfGlobalsExecTimeRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v11/v0/DateTimeAspectInsteadOfGlobalsExecTimeRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\ExtbaseControllerActionsMustReturnResponseInterfaceRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"ClassMethod\"$#"
+			count: 1
+			path: src/Rector/v11/v0/ExtbaseControllerActionsMustReturnResponseInterfaceRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\ExtbaseControllerActionsMustReturnResponseInterfaceRector\\:\\:refactor\\(\\)\" is 14, keep it under 9$#"
+			count: 1
+			path: src/Rector/v11/v0/ExtbaseControllerActionsMustReturnResponseInterfaceRector.php
+
+		-
+			message: "#^Instead of \"instanceof/is_a\\(\\)\" use ReflectionProvider service or \"\\(new ObjectType\\(\\<desired_type\\>\\)\\)\\-\\>isSuperTypeOf\\(\\<element_type\\>\\)\" for static reflection to work$#"
+			count: 1
+			path: src/Rector/v11/v0/ExtbaseControllerActionsMustReturnResponseInterfaceRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v11/v0/ExtbaseControllerActionsMustReturnResponseInterfaceRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PhpParser\\\\Node\\\\Name\\\\FullyQualified\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v11/v0/ExtbaseControllerActionsMustReturnResponseInterfaceRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\ForwardResponseInsteadOfForwardMethodRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"ClassMethod\"$#"
+			count: 1
+			path: src/Rector/v11/v0/ForwardResponseInsteadOfForwardMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\ForwardResponseInsteadOfForwardMethodRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v11/v0/ForwardResponseInsteadOfForwardMethodRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\ForwardResponseInsteadOfForwardMethodRector\\:\\:refactor\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v11/v0/ForwardResponseInsteadOfForwardMethodRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v11/v0/ForwardResponseInsteadOfForwardMethodRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PhpParser\\\\Node\\\\Name\\\\FullyQualified\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v11/v0/ForwardResponseInsteadOfForwardMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\GetClickMenuOnIconTagParametersRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v11/v0/GetClickMenuOnIconTagParametersRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\GetClickMenuOnIconTagParametersRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v11/v0/GetClickMenuOnIconTagParametersRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v11/v0/GetClickMenuOnIconTagParametersRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\RemoveAddQueryStringMethodRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v11/v0/RemoveAddQueryStringMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\RemoveAddQueryStringMethodRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v11/v0/RemoveAddQueryStringMethodRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v11/v0/RemoveAddQueryStringMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\RemoveLanguageModeMethodsFromTypo3QuerySettingsRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v11/v0/RemoveLanguageModeMethodsFromTypo3QuerySettingsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\RemoveLanguageModeMethodsFromTypo3QuerySettingsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v11/v0/RemoveLanguageModeMethodsFromTypo3QuerySettingsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v11/v0/RemoveLanguageModeMethodsFromTypo3QuerySettingsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\SubstituteConstantsModeAndRequestTypeRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"ConstFetch\", FuncCall\"$#"
+			count: 1
+			path: src/Rector/v11/v0/SubstituteConstantsModeAndRequestTypeRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\SubstituteConstantsModeAndRequestTypeRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v11/v0/SubstituteConstantsModeAndRequestTypeRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\SubstituteConstantsModeAndRequestTypeRector\\:\\:refactor\\(\\)\" is 12, keep it under 9$#"
+			count: 1
+			path: src/Rector/v11/v0/SubstituteConstantsModeAndRequestTypeRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\UniqueListFromStringUtilityRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v11/v0/UniqueListFromStringUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v11\\\\v0\\\\UniqueListFromStringUtilityRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v11/v0/UniqueListFromStringUtilityRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v11/v0/UniqueListFromStringUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v0\\\\RemoveDivider2TabsConfigurationRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v7/v0/RemoveDivider2TabsConfigurationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v0\\\\RemoveDivider2TabsConfigurationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v0/RemoveDivider2TabsConfigurationRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v0\\\\RemoveDivider2TabsConfigurationRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v0/RemoveDivider2TabsConfigurationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v0\\\\RemoveMethodCallConnectDbRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v7/v0/RemoveMethodCallConnectDbRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v0\\\\RemoveMethodCallConnectDbRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v0/RemoveMethodCallConnectDbRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v7/v0/RemoveMethodCallConnectDbRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v0\\\\RemoveMethodCallLoadTcaRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v7/v0/RemoveMethodCallLoadTcaRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v0\\\\RemoveMethodCallLoadTcaRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v0/RemoveMethodCallLoadTcaRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v7/v0/RemoveMethodCallLoadTcaRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v0\\\\TypeHandlingServiceToTypeHandlingUtilityRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v7/v0/TypeHandlingServiceToTypeHandlingUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v0\\\\TypeHandlingServiceToTypeHandlingUtilityRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v0/TypeHandlingServiceToTypeHandlingUtilityRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v7/v0/TypeHandlingServiceToTypeHandlingUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v1\\\\GetTemporaryImageWithTextRector\" has invalid namespace category \"v1\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v7/v1/GetTemporaryImageWithTextRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v1\\\\GetTemporaryImageWithTextRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v1/GetTemporaryImageWithTextRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v7/v1/GetTemporaryImageWithTextRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v4\\\\DropAdditionalPaletteRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v7/v4/DropAdditionalPaletteRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v4\\\\DropAdditionalPaletteRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v4/DropAdditionalPaletteRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v4\\\\DropAdditionalPaletteRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v4/DropAdditionalPaletteRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v4\\\\DropAdditionalPaletteRector\\:\\:refactor\\(\\)\" is 30, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v4/DropAdditionalPaletteRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v4\\\\InstantiatePageRendererExplicitlyRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v7/v4/InstantiatePageRendererExplicitlyRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v4\\\\InstantiatePageRendererExplicitlyRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v4/InstantiatePageRendererExplicitlyRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 3
+			path: src/Rector/v7/v4/InstantiatePageRendererExplicitlyRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v4\\\\MethodReadLLFileToLocalizationFactoryRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v7/v4/MethodReadLLFileToLocalizationFactoryRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v4\\\\MethodReadLLFileToLocalizationFactoryRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v4/MethodReadLLFileToLocalizationFactoryRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v7/v4/MethodReadLLFileToLocalizationFactoryRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v4\\\\MoveLanguageFilesFromRemovedCmsExtensionRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"String_\"$#"
+			count: 1
+			path: src/Rector/v7/v4/MoveLanguageFilesFromRemovedCmsExtensionRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v4\\\\MoveLanguageFilesFromRemovedCmsExtensionRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v4/MoveLanguageFilesFromRemovedCmsExtensionRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v5\\\\RemoveIconsInOptionTagsRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v7/v5/RemoveIconsInOptionTagsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v5\\\\RemoveIconsInOptionTagsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v5/RemoveIconsInOptionTagsRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v5\\\\RemoveIconsInOptionTagsRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v5/RemoveIconsInOptionTagsRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v5\\\\RemoveIconsInOptionTagsRector\\:\\:refactor\\(\\)\" is 21, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v5/RemoveIconsInOptionTagsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v5\\\\UseExtPrefixForTcaIconFileRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v7/v5/UseExtPrefixForTcaIconFileRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v5\\\\UseExtPrefixForTcaIconFileRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v5/UseExtPrefixForTcaIconFileRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v5\\\\UseExtPrefixForTcaIconFileRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v5/UseExtPrefixForTcaIconFileRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v5\\\\UseExtPrefixForTcaIconFileRector\\:\\:refactorIconFile\\(\\)\" is 13, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v5/UseExtPrefixForTcaIconFileRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v7/v5/UseExtPrefixForTcaIconFileRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$renderMode\\) \\{
+					    case 'tree'\\:
+					        \\$renderType \\= 'selectTree';
+					        break;
+					    case 'singlebox'\\:
+					        \\$renderType \\= 'selectSingleBox';
+					        break;
+					    case 'checkbox'\\:
+					        \\$renderType \\= 'selectCheckBox';
+					        break;
+					    default\\:
+					        new \\\\Rector\\\\Core\\\\Exception\\\\ShouldNotHappenException\\(sprintf\\('The render mode %%s is invalid for the select field in %%s', \\$renderMode, \\$fieldName\\)\\);
+					        break;
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v7/v6/AddRenderTypeToSelectFieldRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\AddRenderTypeToSelectFieldRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v7/v6/AddRenderTypeToSelectFieldRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\AddRenderTypeToSelectFieldRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v6/AddRenderTypeToSelectFieldRector.php
+
+		-
+			message: "#^Class cognitive complexity is 35, keep it under 30$#"
+			count: 1
+			path: src/Rector/v7/v6/AddRenderTypeToSelectFieldRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\AddRenderTypeToSelectFieldRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v6/AddRenderTypeToSelectFieldRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\AddRenderTypeToSelectFieldRector\\:\\:refactor\\(\\)\" is 35, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v6/AddRenderTypeToSelectFieldRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\MigrateT3editorWizardToRenderTypeT3editorRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v7/v6/MigrateT3editorWizardToRenderTypeT3editorRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\MigrateT3editorWizardToRenderTypeT3editorRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v6/MigrateT3editorWizardToRenderTypeT3editorRector.php
+
+		-
+			message: "#^Class cognitive complexity is 72, keep it under 30$#"
+			count: 1
+			path: src/Rector/v7/v6/MigrateT3editorWizardToRenderTypeT3editorRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\MigrateT3editorWizardToRenderTypeT3editorRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v6/MigrateT3editorWizardToRenderTypeT3editorRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\MigrateT3editorWizardToRenderTypeT3editorRector\\:\\:refactor\\(\\)\" is 72, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v6/MigrateT3editorWizardToRenderTypeT3editorRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\RemoveIconOptionForRenderTypeSelectRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v7/v6/RemoveIconOptionForRenderTypeSelectRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\RemoveIconOptionForRenderTypeSelectRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v6/RemoveIconOptionForRenderTypeSelectRector.php
+
+		-
+			message: "#^Class cognitive complexity is 33, keep it under 30$#"
+			count: 1
+			path: src/Rector/v7/v6/RemoveIconOptionForRenderTypeSelectRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\RemoveIconOptionForRenderTypeSelectRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v6/RemoveIconOptionForRenderTypeSelectRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\RemoveIconOptionForRenderTypeSelectRector\\:\\:refactor\\(\\)\" is 33, keep it under 9$#"
+			count: 1
+			path: src/Rector/v7/v6/RemoveIconOptionForRenderTypeSelectRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\RenamePiListBrowserResultsRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v7/v6/RenamePiListBrowserResultsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\RenamePiListBrowserResultsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v6/RenamePiListBrowserResultsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v7/v6/RenamePiListBrowserResultsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\WrapClickMenuOnIconRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v7/v6/WrapClickMenuOnIconRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v7\\\\v6\\\\WrapClickMenuOnIconRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v7/v6/WrapClickMenuOnIconRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v7/v6/WrapClickMenuOnIconRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$methodName\\) \\{
+					    // Wrap the first argument into an array
+					    case 'setPartialRootPath'\\:
+					    case 'setLayoutRootPath'\\:
+					        \\$firstArgument \\= \\$node\\-\\>args\\[0\\];
+					        \\$node\\-\\>name \\= new \\\\PhpParser\\\\Node\\\\Identifier\\(\\$newMethod\\);
+					        \\$array \\= \\$this\\-\\>nodeFactory\\-\\>createArray\\(\\[\\$firstArgument\\-\\>value\\]\\);
+					        \\$node\\-\\>args \\= \\[new \\\\PhpParser\\\\Node\\\\Arg\\(\\$array\\)\\];
+					        return \\$node;
+					    case 'getLayoutRootPath'\\:
+					    case 'getPartialRootPath'\\:
+					        \\$node\\-\\>name \\= new \\\\PhpParser\\\\Node\\\\Identifier\\(\\$newMethod\\);
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('array_shift', \\[\\$node\\]\\);
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v8/v0/ChangeMethodCallsForStandaloneViewRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\ChangeMethodCallsForStandaloneViewRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/ChangeMethodCallsForStandaloneViewRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\ChangeMethodCallsForStandaloneViewRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/ChangeMethodCallsForStandaloneViewRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\GetFileAbsFileNameRemoveDeprecatedArgumentsRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/GetFileAbsFileNameRemoveDeprecatedArgumentsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\GetFileAbsFileNameRemoveDeprecatedArgumentsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/GetFileAbsFileNameRemoveDeprecatedArgumentsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/GetFileAbsFileNameRemoveDeprecatedArgumentsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\GetPreferredClientLanguageRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/GetPreferredClientLanguageRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\GetPreferredClientLanguageRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/GetPreferredClientLanguageRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/GetPreferredClientLanguageRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\PrependAbsolutePathToGetFileAbsFileNameRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/PrependAbsolutePathToGetFileAbsFileNameRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\PrependAbsolutePathToGetFileAbsFileNameRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/PrependAbsolutePathToGetFileAbsFileNameRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/PrependAbsolutePathToGetFileAbsFileNameRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RandomMethodsToRandomClassRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RandomMethodsToRandomClassRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RandomMethodsToRandomClassRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RandomMethodsToRandomClassRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/RandomMethodsToRandomClassRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RefactorRemovedMarkerMethodsFromHtmlParserRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\", StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RefactorRemovedMarkerMethodsFromHtmlParserRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RefactorRemovedMarkerMethodsFromHtmlParserRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RefactorRemovedMarkerMethodsFromHtmlParserRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/RefactorRemovedMarkerMethodsFromHtmlParserRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RefactorRemovedMethodsFromContentObjectRendererRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RefactorRemovedMethodsFromContentObjectRendererRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$methodName\\) \\{
+					    case 'gif_compress'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Imaging\\\\GraphicalFunctions\\:\\:class, 'gifCompress', \\$node\\-\\>args\\);
+					    case 'png_to_gif_by_imagemagick'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Imaging\\\\GraphicalFunctions\\:\\:class, 'pngToGifByImagemagick', \\$node\\-\\>args\\);
+					    case 'read_png_gif'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Imaging\\\\GraphicalFunctions\\:\\:class, 'readPngGif', \\$node\\-\\>args\\);
+					    case 'inArray'\\:
+					    case 'removeArrayEntryByValue'\\:
+					    case 'keepItemsInArray'\\:
+					    case 'remapArrayKeys'\\:
+					    case 'arrayDiffAssocRecursive'\\:
+					    case 'naturalKeySortRecursive'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Utility\\\\ArrayUtility\\:\\:class, \\$methodName, \\$node\\-\\>args\\);
+					    case 'array_merge'\\:
+					        \\[\\$arg1, \\$arg2\\] \\= \\$node\\-\\>args;
+					        return new \\\\PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\\\Plus\\(\\$arg1\\-\\>value, \\$arg2\\-\\>value\\);
+					    case 'getThisUrl'\\:
+					        // TODO\\: This is not implemented yet\\. What is the correct equivalent within getIndpEnv
+					        break;
+					    case 'cleanOutputBuffers'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Utility\\\\GeneralUtility\\:\\:class, 'flushOutputBuffers'\\);
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v8/v0/RefactorRemovedMethodsFromGeneralUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RefactorRemovedMethodsFromGeneralUtilityRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RefactorRemovedMethodsFromGeneralUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RefactorRemovedMethodsFromGeneralUtilityRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RefactorRemovedMethodsFromGeneralUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RemoveCharsetConverterParametersRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveCharsetConverterParametersRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RemoveCharsetConverterParametersRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveCharsetConverterParametersRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveCharsetConverterParametersRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RemoveLangCsConvObjAndParserFactoryRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\", PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveLangCsConvObjAndParserFactoryRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RemoveLangCsConvObjAndParserFactoryRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveLangCsConvObjAndParserFactoryRector.php
+
+		-
+			message: "#^Function \"property_exists\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/Rector/v8/v0/RemoveLangCsConvObjAndParserFactoryRector.php
+
+		-
+			message: "#^Use \"Rector\\\\Core\\\\Rector\\\\AbstractRector\\-\\>isName\\('value'\\)\" method call over \"Rector\\\\Core\\\\Rector\\\\AbstractRector\\-\\>getName\\(\\) \\=\\=\\= 'value'\" comparison$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveLangCsConvObjAndParserFactoryRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveLangCsConvObjAndParserFactoryRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RemovePropertyUserAuthenticationRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RemovePropertyUserAuthenticationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RemovePropertyUserAuthenticationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RemovePropertyUserAuthenticationRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/RemovePropertyUserAuthenticationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RemoveRteHtmlParserEvalWriteFileRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\", StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveRteHtmlParserEvalWriteFileRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RemoveRteHtmlParserEvalWriteFileRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveRteHtmlParserEvalWriteFileRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveRteHtmlParserEvalWriteFileRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RemoveWakeupCallFromEntityRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveWakeupCallFromEntityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RemoveWakeupCallFromEntityRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveWakeupCallFromEntityRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/RemoveWakeupCallFromEntityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RenderCharsetDefaultsToUtf8Rector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RenderCharsetDefaultsToUtf8Rector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RenderCharsetDefaultsToUtf8Rector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RenderCharsetDefaultsToUtf8Rector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/RenderCharsetDefaultsToUtf8Rector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RequireMethodsToNativeFunctionsRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RequireMethodsToNativeFunctionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RequireMethodsToNativeFunctionsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RequireMethodsToNativeFunctionsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/RequireMethodsToNativeFunctionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RteHtmlParserRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/RteHtmlParserRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\RteHtmlParserRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/RteHtmlParserRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v0/RteHtmlParserRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\TimeTrackerGlobalsToSingletonRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v0/TimeTrackerGlobalsToSingletonRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\TimeTrackerGlobalsToSingletonRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/TimeTrackerGlobalsToSingletonRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\TimeTrackerInsteadOfNullTimeTrackerRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\", MethodCall\", Name\", Property\", FunctionLike\", Expression\", ClassLike\", Namespace_\", FileWithoutNamespace\"$#"
+			count: 1
+			path: src/Rector/v8/v0/TimeTrackerInsteadOfNullTimeTrackerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v0\\\\TimeTrackerInsteadOfNullTimeTrackerRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v0/TimeTrackerInsteadOfNullTimeTrackerRector.php
+
+		-
+			message: "#^Method 'getNodeTypes\\(\\)' can return only class types of 'PhpParser\\\\Node'$#"
+			count: 1
+			path: src/Rector/v8/v0/TimeTrackerInsteadOfNullTimeTrackerRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v8/v0/TimeTrackerInsteadOfNullTimeTrackerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v1\\\\Array2XmlCsToArray2XmlRector\" has invalid namespace category \"v1\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v1/Array2XmlCsToArray2XmlRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v1\\\\Array2XmlCsToArray2XmlRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v1/Array2XmlCsToArray2XmlRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v1/Array2XmlCsToArray2XmlRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v1\\\\GeneralUtilityToUpperAndLowerRector\" has invalid namespace category \"v1\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v1/GeneralUtilityToUpperAndLowerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v1\\\\GeneralUtilityToUpperAndLowerRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v1/GeneralUtilityToUpperAndLowerRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v1/GeneralUtilityToUpperAndLowerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v1\\\\RefactorDbConstantsRector\" has invalid namespace category \"v1\"\\. Pick one of\\: \"ConstFetch\"$#"
+			count: 1
+			path: src/Rector/v8/v1/RefactorDbConstantsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v1\\\\RefactorDbConstantsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v1/RefactorDbConstantsRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$this\\-\\>getName\\(\\$node\\-\\>name\\)\\) \\{
+					    case self\\:\\:COMPAT_VERSION\\:
+					        return new \\\\PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\\\GreaterOrEqual\\(\\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Utility\\\\VersionNumberUtility\\:\\:class, 'convertVersionNumberToInteger', \\[new \\\\PhpParser\\\\Node\\\\Expr\\\\ConstFetch\\(new \\\\PhpParser\\\\Node\\\\Name\\('TYPO3_branch'\\)\\)\\]\\), \\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Utility\\\\VersionNumberUtility\\:\\:class, 'convertVersionNumberToInteger', \\$node\\-\\>args\\)\\);
+					    case self\\:\\:CONVERT_MICROTIME\\:
+					        \\$funcCall \\= \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('explode', \\[new \\\\PhpParser\\\\Node\\\\Scalar\\\\String_\\(' '\\), \\$node\\-\\>args\\[0\\]\\-\\>value\\]\\);
+					        \\$this\\-\\>addNodeBeforeNode\\(new \\\\PhpParser\\\\Node\\\\Stmt\\\\Expression\\(new \\\\PhpParser\\\\Node\\\\Expr\\\\Assign\\(new \\\\PhpParser\\\\Node\\\\Expr\\\\Variable\\(self\\:\\:PARTS\\), \\$funcCall\\)\\), \\$node\\);
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('round', \\[new \\\\PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\\\Mul\\(new \\\\PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\\\Plus\\(new \\\\PhpParser\\\\Node\\\\Expr\\\\ArrayDimFetch\\(new \\\\PhpParser\\\\Node\\\\Expr\\\\Variable\\(self\\:\\:PARTS\\), new \\\\PhpParser\\\\Node\\\\Scalar\\\\LNumber\\(0\\)\\), new \\\\PhpParser\\\\Node\\\\Expr\\\\ArrayDimFetch\\(new \\\\PhpParser\\\\Node\\\\Expr\\\\Variable\\(self\\:\\:PARTS\\), new \\\\PhpParser\\\\Node\\\\Scalar\\\\LNumber\\(1\\)\\)\\), new \\\\PhpParser\\\\Node\\\\Scalar\\\\LNumber\\(1000\\)\\)\\]\\);
+					    case self\\:\\:RAW_URL_ENCODE_JS\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('str_replace', \\['%%20', ' ', \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('rawurlencode', \\$node\\-\\>args\\)\\]\\);
+					    case self\\:\\:RAW_URL_ENCODE_FP\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('str_replace', \\['%%2F', '/', \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('rawurlencode', \\$node\\-\\>args\\)\\]\\);
+					    case self\\:\\:LCFIRST\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\(self\\:\\:LCFIRST, \\$node\\-\\>args\\);
+					    case self\\:\\:GET_MAXIMUM_PATH_LENGTH\\:
+					        return new \\\\PhpParser\\\\Node\\\\Expr\\\\ConstFetch\\(new \\\\PhpParser\\\\Node\\\\Name\\('PHP_MAXPATHLEN'\\)\\);
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v8/v1/RefactorVariousGeneralUtilityMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v1\\\\RefactorVariousGeneralUtilityMethodsRector\" has invalid namespace category \"v1\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v1/RefactorVariousGeneralUtilityMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v1\\\\RefactorVariousGeneralUtilityMethodsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v1/RefactorVariousGeneralUtilityMethodsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v1/RefactorVariousGeneralUtilityMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v1\\\\TypoScriptFrontendControllerCharsetConverterRector\" has invalid namespace category \"v1\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v1/TypoScriptFrontendControllerCharsetConverterRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v1\\\\TypoScriptFrontendControllerCharsetConverterRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v1/TypoScriptFrontendControllerCharsetConverterRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v1/TypoScriptFrontendControllerCharsetConverterRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v2\\\\UseHtmlSpecialCharsDirectlyForTranslationRector\" has invalid namespace category \"v2\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v2/UseHtmlSpecialCharsDirectlyForTranslationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v2\\\\UseHtmlSpecialCharsDirectlyForTranslationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v2/UseHtmlSpecialCharsDirectlyForTranslationRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v8/v2/UseHtmlSpecialCharsDirectlyForTranslationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\RefactorMethodFileContentRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v3/RefactorMethodFileContentRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\RefactorMethodFileContentRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v3/RefactorMethodFileContentRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v3/RefactorMethodFileContentRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\RefactorQueryViewTableWrapRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v3/RefactorQueryViewTableWrapRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\RefactorQueryViewTableWrapRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v3/RefactorQueryViewTableWrapRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v3/RefactorQueryViewTableWrapRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\RemovedTcaSelectTreeOptionsRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v3/RemovedTcaSelectTreeOptionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\RemovedTcaSelectTreeOptionsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v3/RemovedTcaSelectTreeOptionsRector.php
+
+		-
+			message: "#^Class cognitive complexity is 49, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v3/RemovedTcaSelectTreeOptionsRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\RemovedTcaSelectTreeOptionsRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v3/RemovedTcaSelectTreeOptionsRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\RemovedTcaSelectTreeOptionsRector\\:\\:refactor\\(\\)\" is 49, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v3/RemovedTcaSelectTreeOptionsRector.php
+
+		-
+			message: "#^\"empty\\(\\$softReferences\\)\" is forbidden to use$#"
+			count: 1
+			path: src/Rector/v8/v3/SoftReferencesFunctionalityRemovedRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\SoftReferencesFunctionalityRemovedRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v3/SoftReferencesFunctionalityRemovedRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\SoftReferencesFunctionalityRemovedRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v3/SoftReferencesFunctionalityRemovedRector.php
+
+		-
+			message: "#^Class cognitive complexity is 33, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v3/SoftReferencesFunctionalityRemovedRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\SoftReferencesFunctionalityRemovedRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v3/SoftReferencesFunctionalityRemovedRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v3\\\\SoftReferencesFunctionalityRemovedRector\\:\\:refactor\\(\\)\" is 33, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v3/SoftReferencesFunctionalityRemovedRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v4\\\\ExtensionManagementUtilityExtRelPathRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v4/ExtensionManagementUtilityExtRelPathRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v4\\\\ExtensionManagementUtilityExtRelPathRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v4/ExtensionManagementUtilityExtRelPathRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v4/ExtensionManagementUtilityExtRelPathRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v4\\\\RemoveOptionShowIfRteRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v4/RemoveOptionShowIfRteRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v4\\\\RemoveOptionShowIfRteRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v4/RemoveOptionShowIfRteRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v4\\\\RemoveOptionShowIfRteRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v4/RemoveOptionShowIfRteRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v4\\\\RemoveOptionShowIfRteRector\\:\\:refactor\\(\\)\" is 22, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v4/RemoveOptionShowIfRteRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v4\\\\SubstituteOldWizardIconsRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v4/SubstituteOldWizardIconsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v4\\\\SubstituteOldWizardIconsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v4/SubstituteOldWizardIconsRector.php
+
+		-
+			message: "#^Class cognitive complexity is 41, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v4/SubstituteOldWizardIconsRector.php
+
+		-
+			message: "#^Class that implements \"Rector\\\\Core\\\\Contract\\\\Rector\\\\ConfigurableRectorInterface\" must use \"Symplify\\\\RuleDocGenerator\\\\ValueObject\\\\CodeSample\\\\ConfiguredCodeSample\" class in their code$#"
+			count: 1
+			path: src/Rector/v8/v4/SubstituteOldWizardIconsRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v4\\\\SubstituteOldWizardIconsRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v4/SubstituteOldWizardIconsRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v4\\\\SubstituteOldWizardIconsRector\\:\\:refactor\\(\\)\" is 41, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v4/SubstituteOldWizardIconsRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$this\\-\\>getName\\(\\$node\\-\\>name\\)\\) \\{
+					    case 'strlen'\\:
+					        return \\$this\\-\\>toMultiByteStrlen\\(\\$node\\);
+					    case 'convCapitalize'\\:
+					        return \\$this\\-\\>toMultiByteConvertCase\\(\\$node\\);
+					    case 'substr'\\:
+					        return \\$this\\-\\>toMultiByteSubstr\\(\\$node\\);
+					    case 'conv_case'\\:
+					        return \\$this\\-\\>toMultiByteLowerUpperCase\\(\\$node\\);
+					    case 'utf8_strpos'\\:
+					        return \\$this\\-\\>toMultiByteStrPos\\(\\$node\\);
+					    case 'utf8_strrpos'\\:
+					        return \\$this\\-\\>toMultiByteStrrPos\\(\\$node\\);
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v8/v5/CharsetConverterToMultiByteFunctionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\CharsetConverterToMultiByteFunctionsRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v5/CharsetConverterToMultiByteFunctionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\CharsetConverterToMultiByteFunctionsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v5/CharsetConverterToMultiByteFunctionsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v5/CharsetConverterToMultiByteFunctionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\ContentObjectRendererFileResourceRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v5/ContentObjectRendererFileResourceRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\ContentObjectRendererFileResourceRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v5/ContentObjectRendererFileResourceRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v5/ContentObjectRendererFileResourceRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\MoveLanguageFilesFromLocallangToResourcesRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"String_\"$#"
+			count: 1
+			path: src/Rector/v8/v5/MoveLanguageFilesFromLocallangToResourcesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\MoveLanguageFilesFromLocallangToResourcesRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v5/MoveLanguageFilesFromLocallangToResourcesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\RemoveOptionVersioningFollowPagesRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v5/RemoveOptionVersioningFollowPagesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\RemoveOptionVersioningFollowPagesRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v5/RemoveOptionVersioningFollowPagesRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\RemoveOptionVersioningFollowPagesRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v5/RemoveOptionVersioningFollowPagesRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\RemoveOptionVersioningFollowPagesRector\\:\\:refactor\\(\\)\" is 17, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v5/RemoveOptionVersioningFollowPagesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\RemoveSupportForTransForeignTableRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v5/RemoveSupportForTransForeignTableRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\RemoveSupportForTransForeignTableRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v5/RemoveSupportForTransForeignTableRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v5\\\\RemoveSupportForTransForeignTableRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v5/RemoveSupportForTransForeignTableRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\AddTypeToColumnConfigRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v6/AddTypeToColumnConfigRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\AddTypeToColumnConfigRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v6/AddTypeToColumnConfigRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\AddTypeToColumnConfigRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/AddTypeToColumnConfigRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\AddTypeToColumnConfigRector\\:\\:refactor\\(\\)\" is 25, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/AddTypeToColumnConfigRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\ArrayUtilityInArrayToFuncInArrayRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v6/ArrayUtilityInArrayToFuncInArrayRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\ArrayUtilityInArrayToFuncInArrayRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v6/ArrayUtilityInArrayToFuncInArrayRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v6/ArrayUtilityInArrayToFuncInArrayRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateLastPiecesOfDefaultExtrasRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateLastPiecesOfDefaultExtrasRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateLastPiecesOfDefaultExtrasRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateLastPiecesOfDefaultExtrasRector.php
+
+		-
+			message: "#^Class cognitive complexity is 53, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateLastPiecesOfDefaultExtrasRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateLastPiecesOfDefaultExtrasRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateLastPiecesOfDefaultExtrasRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateLastPiecesOfDefaultExtrasRector\\:\\:refactor\\(\\)\" is 22, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateLastPiecesOfDefaultExtrasRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateLastPiecesOfDefaultExtrasRector\\:\\:refactorDefaultExtras\\(\\)\" is 31, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateLastPiecesOfDefaultExtrasRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateOptionsOfTypeGroupRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateOptionsOfTypeGroupRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateOptionsOfTypeGroupRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateOptionsOfTypeGroupRector.php
+
+		-
+			message: "#^Class cognitive complexity is 49, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateOptionsOfTypeGroupRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateOptionsOfTypeGroupRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateOptionsOfTypeGroupRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateOptionsOfTypeGroupRector\\:\\:refactor\\(\\)\" is 49, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateOptionsOfTypeGroupRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateSelectShowIconTableRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateSelectShowIconTableRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateSelectShowIconTableRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateSelectShowIconTableRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateSelectShowIconTableRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateSelectShowIconTableRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MigrateSelectShowIconTableRector\\:\\:refactor\\(\\)\" is 25, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/MigrateSelectShowIconTableRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MoveRequestUpdateOptionFromControlToColumnsRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v6/MoveRequestUpdateOptionFromControlToColumnsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MoveRequestUpdateOptionFromControlToColumnsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v6/MoveRequestUpdateOptionFromControlToColumnsRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MoveRequestUpdateOptionFromControlToColumnsRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/MoveRequestUpdateOptionFromControlToColumnsRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\MoveRequestUpdateOptionFromControlToColumnsRector\\:\\:refactor\\(\\)\" is 20, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/MoveRequestUpdateOptionFromControlToColumnsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RefactorTCARector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v6/RefactorTCARector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RefactorTCARector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v6/RefactorTCARector.php
+
+		-
+			message: "#^Class cognitive complexity is 125, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v6/RefactorTCARector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RefactorTCARector\\:\\:addFieldControlInsteadOfWizardsAddListEdit\\(\\)\" is 114, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/RefactorTCARector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RefactorTCARector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/RefactorTCARector.php
+
+		-
+			message: "#^\"empty\\(\\$this\\-\\>valueResolver\\-\\>getValue\\(\\$behaviourConfiguration\\-\\>value\\)\\)\" is forbidden to use$#"
+			count: 1
+			path: src/Rector/v8/v6/RemoveL10nModeNoCopyRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RemoveL10nModeNoCopyRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v6/RemoveL10nModeNoCopyRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RemoveL10nModeNoCopyRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v6/RemoveL10nModeNoCopyRector.php
+
+		-
+			message: "#^Class cognitive complexity is 42, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v6/RemoveL10nModeNoCopyRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RemoveL10nModeNoCopyRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/RemoveL10nModeNoCopyRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RemoveL10nModeNoCopyRector\\:\\:refactor\\(\\)\" is 42, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/RemoveL10nModeNoCopyRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RichtextFromDefaultExtrasToEnableRichtextRector\" has invalid namespace category \"v6\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v6/RichtextFromDefaultExtrasToEnableRichtextRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RichtextFromDefaultExtrasToEnableRichtextRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v6/RichtextFromDefaultExtrasToEnableRichtextRector.php
+
+		-
+			message: "#^Class cognitive complexity is 49, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v6/RichtextFromDefaultExtrasToEnableRichtextRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RichtextFromDefaultExtrasToEnableRichtextRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/RichtextFromDefaultExtrasToEnableRichtextRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RichtextFromDefaultExtrasToEnableRichtextRector\\:\\:refactor\\(\\)\" is 22, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/RichtextFromDefaultExtrasToEnableRichtextRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v6\\\\RichtextFromDefaultExtrasToEnableRichtextRector\\:\\:refactorRichtextColumns\\(\\)\" is 24, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v6/RichtextFromDefaultExtrasToEnableRichtextRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\BackendUtilityGetRecordRawRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v7/BackendUtilityGetRecordRawRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\BackendUtilityGetRecordRawRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/BackendUtilityGetRecordRawRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v7/BackendUtilityGetRecordRawRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\BackendUtilityGetRecordsByFieldToQueryBuilderRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v7/BackendUtilityGetRecordsByFieldToQueryBuilderRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\BackendUtilityGetRecordsByFieldToQueryBuilderRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/BackendUtilityGetRecordsByFieldToQueryBuilderRector.php
+
+		-
+			message: "#^Class cognitive complexity is 31, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v7/BackendUtilityGetRecordsByFieldToQueryBuilderRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v7/BackendUtilityGetRecordsByFieldToQueryBuilderRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\ChangeAttemptsParameterConsoleOutputRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v7/ChangeAttemptsParameterConsoleOutputRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\ChangeAttemptsParameterConsoleOutputRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/ChangeAttemptsParameterConsoleOutputRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\ChangeAttemptsParameterConsoleOutputRector\\:\\:refactor\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v7/ChangeAttemptsParameterConsoleOutputRector.php
+
+		-
+			message: "#^Use \"Rector\\\\Core\\\\Rector\\\\AbstractRector\\-\\>isName\\('value'\\)\" method call over \"Rector\\\\Core\\\\Rector\\\\AbstractRector\\-\\>getName\\(\\) \\=\\=\\= 'value'\" comparison$#"
+			count: 2
+			path: src/Rector/v8/v7/ChangeAttemptsParameterConsoleOutputRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v7/ChangeAttemptsParameterConsoleOutputRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\DataHandlerRmCommaRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v7/DataHandlerRmCommaRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\DataHandlerRmCommaRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/DataHandlerRmCommaRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v7/DataHandlerRmCommaRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\DataHandlerVariousMethodsAndMethodArgumentsRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v7/DataHandlerVariousMethodsAndMethodArgumentsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\DataHandlerVariousMethodsAndMethodArgumentsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/DataHandlerVariousMethodsAndMethodArgumentsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v7/DataHandlerVariousMethodsAndMethodArgumentsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\MoveForeignTypesToOverrideChildTcaRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v7/MoveForeignTypesToOverrideChildTcaRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\MoveForeignTypesToOverrideChildTcaRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/MoveForeignTypesToOverrideChildTcaRector.php
+
+		-
+			message: "#^Class cognitive complexity is 53, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v7/MoveForeignTypesToOverrideChildTcaRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\MoveForeignTypesToOverrideChildTcaRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v7/MoveForeignTypesToOverrideChildTcaRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\MoveForeignTypesToOverrideChildTcaRector\\:\\:refactor\\(\\)\" is 37, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v7/MoveForeignTypesToOverrideChildTcaRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v7/MoveForeignTypesToOverrideChildTcaRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RefactorArrayBrowserWrapValueRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v7/RefactorArrayBrowserWrapValueRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RefactorArrayBrowserWrapValueRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/RefactorArrayBrowserWrapValueRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v7/RefactorArrayBrowserWrapValueRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"MethodCall\", PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v8/v7/RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v8/v7/RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RefactorPrintContentMethodsRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v7/RefactorPrintContentMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RefactorPrintContentMethodsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/RefactorPrintContentMethodsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v8/v7/RefactorPrintContentMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RefactorRemovedMarkerMethodsFromContentObjectRendererRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v7/RefactorRemovedMarkerMethodsFromContentObjectRendererRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RefactorRemovedMarkerMethodsFromContentObjectRendererRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/RefactorRemovedMarkerMethodsFromContentObjectRendererRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v7/RefactorRemovedMarkerMethodsFromContentObjectRendererRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RemoveConfigMaxFromInputDateTimeFieldsRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v7/RemoveConfigMaxFromInputDateTimeFieldsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RemoveConfigMaxFromInputDateTimeFieldsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/RemoveConfigMaxFromInputDateTimeFieldsRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RemoveConfigMaxFromInputDateTimeFieldsRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v7/RemoveConfigMaxFromInputDateTimeFieldsRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RemoveConfigMaxFromInputDateTimeFieldsRector\\:\\:refactor\\(\\)\" is 23, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v7/RemoveConfigMaxFromInputDateTimeFieldsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RemoveLocalizationModeKeepIfNeededRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v8/v7/RemoveLocalizationModeKeepIfNeededRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RemoveLocalizationModeKeepIfNeededRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/RemoveLocalizationModeKeepIfNeededRector.php
+
+		-
+			message: "#^Class cognitive complexity is 41, keep it under 30$#"
+			count: 1
+			path: src/Rector/v8/v7/RemoveLocalizationModeKeepIfNeededRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RemoveLocalizationModeKeepIfNeededRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v7/RemoveLocalizationModeKeepIfNeededRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\RemoveLocalizationModeKeepIfNeededRector\\:\\:refactor\\(\\)\" is 33, keep it under 9$#"
+			count: 1
+			path: src/Rector/v8/v7/RemoveLocalizationModeKeepIfNeededRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\TemplateServiceSplitConfArrayRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v8/v7/TemplateServiceSplitConfArrayRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\TemplateServiceSplitConfArrayRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/TemplateServiceSplitConfArrayRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v7/TemplateServiceSplitConfArrayRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\UseCachingFrameworkInsteadGetAndStoreHashRector\" has invalid namespace category \"v7\"\\. Pick one of\\: \"MethodCall\", StaticCall\"$#"
+			count: 1
+			path: src/Rector/v8/v7/UseCachingFrameworkInsteadGetAndStoreHashRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v8\\\\v7\\\\UseCachingFrameworkInsteadGetAndStoreHashRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v8/v7/UseCachingFrameworkInsteadGetAndStoreHashRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v8/v7/UseCachingFrameworkInsteadGetAndStoreHashRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\CheckForExtensionInfoRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\", StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/CheckForExtensionInfoRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\CheckForExtensionInfoRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/CheckForExtensionInfoRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v9/v0/CheckForExtensionInfoRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\CheckForExtensionVersionRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\", StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/CheckForExtensionVersionRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\CheckForExtensionVersionRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/CheckForExtensionVersionRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v9/v0/CheckForExtensionVersionRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\DatabaseConnectionToDbalRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/DatabaseConnectionToDbalRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\FindByPidsAndAuthorIdRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/FindByPidsAndAuthorIdRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\FindByPidsAndAuthorIdRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/FindByPidsAndAuthorIdRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/FindByPidsAndAuthorIdRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\GeneratePageTitleRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/GeneratePageTitleRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\GeneratePageTitleRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/GeneratePageTitleRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/GeneratePageTitleRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\IgnoreValidationAnnotationRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"ClassMethod\"$#"
+			count: 1
+			path: src/Rector/v9/v0/IgnoreValidationAnnotationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\IgnoreValidationAnnotationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/IgnoreValidationAnnotationRector.php
+
+		-
+			message: "#^Function \"property_exists\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/Rector/v9/v0/IgnoreValidationAnnotationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\InjectAnnotationRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Class_\"$#"
+			count: 1
+			path: src/Rector/v9/v0/InjectAnnotationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\InjectAnnotationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/InjectAnnotationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\MetaTagManagementRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/MetaTagManagementRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\MetaTagManagementRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/MetaTagManagementRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v9/v0/MetaTagManagementRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\MoveRenderArgumentsToInitializeArgumentsMethodRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Class_\"$#"
+			count: 1
+			path: src/Rector/v9/v0/MoveRenderArgumentsToInitializeArgumentsMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\MoveRenderArgumentsToInitializeArgumentsMethodRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/MoveRenderArgumentsToInitializeArgumentsMethodRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v9/v0/MoveRenderArgumentsToInitializeArgumentsMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RefactorBackendUtilityGetPagesTSconfigRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/RefactorBackendUtilityGetPagesTSconfigRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RefactorBackendUtilityGetPagesTSconfigRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/RefactorBackendUtilityGetPagesTSconfigRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/RefactorBackendUtilityGetPagesTSconfigRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$methodName\\) \\{
+					    case 'logDeprecatedFunction'\\:
+					    case 'logDeprecatedViewHelperAttribute'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('trigger_error', \\[\\$usefulMessage, \\$constFetch\\]\\);
+					    case 'deprecationLog'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createFuncCall\\('trigger_error', \\[\\$arguments\\[0\\] \\?\\? \\$emptyFallbackString, \\$constFetch\\]\\);
+					    case 'getDeprecationLogFileName'\\:
+					        \\$this\\-\\>removeNode\\(\\$node\\);
+					        return null;
+					    default\\:
+					        return null;
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v9/v0/RefactorDeprecationLogRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RefactorDeprecationLogRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/RefactorDeprecationLogRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RefactorDeprecationLogRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/RefactorDeprecationLogRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$methodName\\) \\{
+					    case 'isLoaded'\\:
+					        return \\$this\\-\\>removeSecondArgumentFromMethodIsLoaded\\(\\$node\\);
+					    case 'siteRelPath'\\:
+					        return \\$this\\-\\>createNewMethodCallForSiteRelPath\\(\\$node\\);
+					    case 'removeCacheFiles'\\:
+					        return \\$this\\-\\>createNewMethodCallForRemoveCacheFiles\\(\\);
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v9/v0/RefactorMethodsFromExtensionManagementUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RefactorMethodsFromExtensionManagementUtilityRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/RefactorMethodsFromExtensionManagementUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RefactorMethodsFromExtensionManagementUtilityRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/RefactorMethodsFromExtensionManagementUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RemoveMethodInitTCARector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveMethodInitTCARector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RemoveMethodInitTCARector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveMethodInitTCARector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveMethodInitTCARector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RemoveOptionLocalizeChildrenAtParentLocalizationRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveOptionLocalizeChildrenAtParentLocalizationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RemoveOptionLocalizeChildrenAtParentLocalizationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveOptionLocalizeChildrenAtParentLocalizationRector.php
+
+		-
+			message: "#^Class cognitive complexity is 32, keep it under 30$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveOptionLocalizeChildrenAtParentLocalizationRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RemoveOptionLocalizeChildrenAtParentLocalizationRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveOptionLocalizeChildrenAtParentLocalizationRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RemoveOptionLocalizeChildrenAtParentLocalizationRector\\:\\:refactor\\(\\)\" is 32, keep it under 9$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveOptionLocalizeChildrenAtParentLocalizationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RemovePropertiesFromSimpleDataHandlerControllerRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Assign\"$#"
+			count: 1
+			path: src/Rector/v9/v0/RemovePropertiesFromSimpleDataHandlerControllerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RemovePropertiesFromSimpleDataHandlerControllerRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/RemovePropertiesFromSimpleDataHandlerControllerRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v9/v0/RemovePropertiesFromSimpleDataHandlerControllerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RemoveSecondArgumentGeneralUtilityMkdirDeepRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveSecondArgumentGeneralUtilityMkdirDeepRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\RemoveSecondArgumentGeneralUtilityMkdirDeepRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveSecondArgumentGeneralUtilityMkdirDeepRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/RemoveSecondArgumentGeneralUtilityMkdirDeepRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\ReplaceAnnotationRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Property\", ClassMethod\"$#"
+			count: 1
+			path: src/Rector/v9/v0/ReplaceAnnotationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\ReplaceAnnotationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/ReplaceAnnotationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\ReplaceExtKeyWithExtensionKeyRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Variable\"$#"
+			count: 1
+			path: src/Rector/v9/v0/ReplaceExtKeyWithExtensionKeyRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\ReplacedGeneralUtilitySysLogWithLogginApiRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/ReplacedGeneralUtilitySysLogWithLogginApiRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\ReplacedGeneralUtilitySysLogWithLogginApiRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/ReplacedGeneralUtilitySysLogWithLogginApiRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/ReplacedGeneralUtilitySysLogWithLogginApiRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\SubstituteCacheWrapperMethodsRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/SubstituteCacheWrapperMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\SubstituteCacheWrapperMethodsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/SubstituteCacheWrapperMethodsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/SubstituteCacheWrapperMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\SubstituteConstantParsetimeStartRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Expr\"$#"
+			count: 1
+			path: src/Rector/v9/v0/SubstituteConstantParsetimeStartRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\SubstituteConstantParsetimeStartRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/SubstituteConstantParsetimeStartRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\SubstituteGeneralUtilityDevLogRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/SubstituteGeneralUtilityDevLogRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\SubstituteGeneralUtilityDevLogRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/SubstituteGeneralUtilityDevLogRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/SubstituteGeneralUtilityDevLogRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseExtensionConfigurationApiRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"FuncCall\", ArrayDimFetch\"$#"
+			count: 1
+			path: src/Rector/v9/v0/UseExtensionConfigurationApiRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseExtensionConfigurationApiRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/UseExtensionConfigurationApiRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseExtensionConfigurationApiRector\\:\\:refactor\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v9/v0/UseExtensionConfigurationApiRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseExtensionConfigurationApiRector\\:\\:shouldSkip\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v9/v0/UseExtensionConfigurationApiRector.php
+
+		-
+			message: "#^Function \"property_exists\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/Rector/v9/v0/UseExtensionConfigurationApiRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseLogMethodInsteadOfNewLog2Rector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/UseLogMethodInsteadOfNewLog2Rector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseLogMethodInsteadOfNewLog2Rector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/UseLogMethodInsteadOfNewLog2Rector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/UseLogMethodInsteadOfNewLog2Rector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseNewComponentIdForPageTreeRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v0/UseNewComponentIdForPageTreeRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseNewComponentIdForPageTreeRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/UseNewComponentIdForPageTreeRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseNewComponentIdForPageTreeRector\\:\\:refactor\\(\\)\" is 12, keep it under 9$#"
+			count: 1
+			path: src/Rector/v9/v0/UseNewComponentIdForPageTreeRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v0/UseNewComponentIdForPageTreeRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseRenderingContextGetControllerContextRector\" has invalid namespace category \"v0\"\\. Pick one of\\: \"Class_\"$#"
+			count: 1
+			path: src/Rector/v9/v0/UseRenderingContextGetControllerContextRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v0\\\\UseRenderingContextGetControllerContextRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v0/UseRenderingContextGetControllerContextRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v9/v0/UseRenderingContextGetControllerContextRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v2\\\\GeneralUtilityGetUrlRequestHeadersRector\" has invalid namespace category \"v2\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v2/GeneralUtilityGetUrlRequestHeadersRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v2\\\\GeneralUtilityGetUrlRequestHeadersRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v2/GeneralUtilityGetUrlRequestHeadersRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v2\\\\GeneralUtilityGetUrlRequestHeadersRector\\:\\:buildHeaders\\(\\)\" is 10, keep it under 9$#"
+			count: 1
+			path: src/Rector/v9/v2/GeneralUtilityGetUrlRequestHeadersRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v2/GeneralUtilityGetUrlRequestHeadersRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v2\\\\PageNotFoundAndErrorHandlingRector\" has invalid namespace category \"v2\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v2/PageNotFoundAndErrorHandlingRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v2\\\\PageNotFoundAndErrorHandlingRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v2/PageNotFoundAndErrorHandlingRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v2/PageNotFoundAndErrorHandlingRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v2\\\\RenameMethodCallToEnvironmentMethodCallRector\" has invalid namespace category \"v2\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v2/RenameMethodCallToEnvironmentMethodCallRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v2\\\\RenameMethodCallToEnvironmentMethodCallRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v2/RenameMethodCallToEnvironmentMethodCallRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\BackendUserAuthenticationSimplelogRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v3/BackendUserAuthenticationSimplelogRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\BackendUserAuthenticationSimplelogRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v3/BackendUserAuthenticationSimplelogRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v3/BackendUserAuthenticationSimplelogRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\BackendUtilityGetModuleUrlRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v3/BackendUtilityGetModuleUrlRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\BackendUtilityGetModuleUrlRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v3/BackendUtilityGetModuleUrlRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v3/BackendUtilityGetModuleUrlRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\CopyMethodGetPidForModTSconfigRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v3/CopyMethodGetPidForModTSconfigRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\CopyMethodGetPidForModTSconfigRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v3/CopyMethodGetPidForModTSconfigRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v3/CopyMethodGetPidForModTSconfigRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\MoveLanguageFilesFromExtensionLangRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"String_\"$#"
+			count: 1
+			path: src/Rector/v9/v3/MoveLanguageFilesFromExtensionLangRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\MoveLanguageFilesFromExtensionLangRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v3/MoveLanguageFilesFromExtensionLangRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\PhpOptionsUtilityRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v3/PhpOptionsUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\PhpOptionsUtilityRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v3/PhpOptionsUtilityRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v3/PhpOptionsUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v9/v3/PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v3/PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v3/PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\RefactorTsConfigRelatedMethodsRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v3/RefactorTsConfigRelatedMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\RefactorTsConfigRelatedMethodsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v3/RefactorTsConfigRelatedMethodsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v3/RefactorTsConfigRelatedMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\RemoveColPosParameterRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v3/RemoveColPosParameterRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\RemoveColPosParameterRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v3/RemoveColPosParameterRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v3/RemoveColPosParameterRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\UseMethodGetPageShortcutDirectlyFromSysPageRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v3/UseMethodGetPageShortcutDirectlyFromSysPageRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\UseMethodGetPageShortcutDirectlyFromSysPageRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v3/UseMethodGetPageShortcutDirectlyFromSysPageRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v3/UseMethodGetPageShortcutDirectlyFromSysPageRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\ValidateAnnotationRector\" has invalid namespace category \"v3\"\\. Pick one of\\: \"Property\", ClassMethod\"$#"
+			count: 1
+			path: src/Rector/v9/v3/ValidateAnnotationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\ValidateAnnotationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v3/ValidateAnnotationRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v3\\\\ValidateAnnotationRector\\:\\:refactor\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v9/v3/ValidateAnnotationRector.php
+
+		-
+			message: "#^Function \"property_exists\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/Rector/v9/v3/ValidateAnnotationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\BackendUtilityShortcutExistsRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"StaticCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/BackendUtilityShortcutExistsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\BackendUtilityShortcutExistsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/BackendUtilityShortcutExistsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/BackendUtilityShortcutExistsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\CallEnableFieldsFromPageRepositoryRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/CallEnableFieldsFromPageRepositoryRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\CallEnableFieldsFromPageRepositoryRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/CallEnableFieldsFromPageRepositoryRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/CallEnableFieldsFromPageRepositoryRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$constantName\\) \\{
+					    case 'PATH_thisScript'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Core\\\\Environment\\:\\:class, 'getCurrentScript'\\);
+					    case 'PATH_site'\\:
+					        return new \\\\PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\\\Concat\\(\\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Core\\\\Environment\\:\\:class, 'getPublicPath'\\), new \\\\PhpParser\\\\Node\\\\Scalar\\\\String_\\('/'\\)\\);
+					    case 'PATH_typo3'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Core\\\\Environment\\:\\:class, 'getBackendPath'\\);
+					    case 'PATH_typo3conf'\\:
+					        return \\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Core\\\\Environment\\:\\:class, 'getLegacyConfigPath'\\);
+					    case 'TYPO3_OS'\\:
+					        return new \\\\PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\\\BooleanOr\\(\\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Core\\\\Environment\\:\\:class, 'isUnix'\\), \\$this\\-\\>nodeFactory\\-\\>createStaticCall\\(\\\\TYPO3\\\\CMS\\\\Core\\\\Core\\\\Environment\\:\\:class, 'isWindows'\\)\\);
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v9/v4/ConstantToEnvironmentCallRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\ConstantToEnvironmentCallRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"ConstFetch\", BitwiseAnd\"$#"
+			count: 1
+			path: src/Rector/v9/v4/ConstantToEnvironmentCallRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\ConstantToEnvironmentCallRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/ConstantToEnvironmentCallRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\DocumentTemplateAddStyleSheetRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/DocumentTemplateAddStyleSheetRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\DocumentTemplateAddStyleSheetRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/DocumentTemplateAddStyleSheetRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/DocumentTemplateAddStyleSheetRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RefactorDeprecatedConcatenateMethodsPageRendererRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/RefactorDeprecatedConcatenateMethodsPageRendererRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RefactorDeprecatedConcatenateMethodsPageRendererRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/RefactorDeprecatedConcatenateMethodsPageRendererRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/RefactorDeprecatedConcatenateMethodsPageRendererRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RefactorExplodeUrl2ArrayFromGeneralUtilityRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"Assign\"$#"
+			count: 1
+			path: src/Rector/v9/v4/RefactorExplodeUrl2ArrayFromGeneralUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RefactorExplodeUrl2ArrayFromGeneralUtilityRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/RefactorExplodeUrl2ArrayFromGeneralUtilityRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/RefactorExplodeUrl2ArrayFromGeneralUtilityRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RemoveInitMethodGraphicalFunctionsRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveInitMethodGraphicalFunctionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RemoveInitMethodGraphicalFunctionsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveInitMethodGraphicalFunctionsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveInitMethodGraphicalFunctionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RemoveInitMethodTemplateServiceRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveInitMethodTemplateServiceRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RemoveInitMethodTemplateServiceRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveInitMethodTemplateServiceRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveInitMethodTemplateServiceRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RemoveInitTemplateMethodCallRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\", Expression\"$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveInitTemplateMethodCallRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RemoveInitTemplateMethodCallRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveInitTemplateMethodCallRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveInitTemplateMethodCallRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RemoveMethodsFromEidUtilityAndTsfeRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"StaticCall\", MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveMethodsFromEidUtilityAndTsfeRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\RemoveMethodsFromEidUtilityAndTsfeRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/RemoveMethodsFromEidUtilityAndTsfeRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v9/v4/RemoveMethodsFromEidUtilityAndTsfeRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\SystemEnvironmentBuilderConstantsRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"ConstFetch\"$#"
+			count: 1
+			path: src/Rector/v9/v4/SystemEnvironmentBuilderConstantsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\SystemEnvironmentBuilderConstantsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/SystemEnvironmentBuilderConstantsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\TemplateGetFileNameToFilePathSanitizerRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/TemplateGetFileNameToFilePathSanitizerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\TemplateGetFileNameToFilePathSanitizerRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/TemplateGetFileNameToFilePathSanitizerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseAddJsFileInsteadOfLoadJavascriptLibRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/UseAddJsFileInsteadOfLoadJavascriptLibRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseAddJsFileInsteadOfLoadJavascriptLibRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/UseAddJsFileInsteadOfLoadJavascriptLibRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/UseAddJsFileInsteadOfLoadJavascriptLibRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$this\\-\\>getName\\(\\$node\\-\\>name\\)\\) \\{
+					    case 'getClassPropertyNames'\\:
+					        return \\$this\\-\\>refactorGetClassPropertyNamesMethod\\(\\$node\\);
+					    case 'getPropertyTagsValues'\\:
+					        return \\$this\\-\\>refactorGetPropertyTagsValuesMethod\\(\\$node\\);
+					    case 'getPropertyTagValues'\\:
+					        return \\$this\\-\\>refactorGetPropertyTagValuesMethod\\(\\$node\\);
+					    case 'getClassTagsValues'\\:
+					        return \\$this\\-\\>refactorGetClassTagsValues\\(\\$node\\);
+					    case 'getClassTagValues'\\:
+					        return \\$this\\-\\>refactorGetClassTagValues\\(\\$node\\);
+					    case 'getMethodTagsValues'\\:
+					        return \\$this\\-\\>refactorGetMethodTagsValues\\(\\$node\\);
+					    case self\\:\\:HAS_METHOD\\:
+					        return \\$this\\-\\>refactorHasMethod\\(\\$node\\);
+					    case 'getMethodParameters'\\:
+					        return \\$this\\-\\>refactorGetMethodParameters\\(\\$node\\);
+					    case 'isClassTaggedWith'\\:
+					        return \\$this\\-\\>refactorIsClassTaggedWith\\(\\$node\\);
+					    case 'isPropertyTaggedWith'\\:
+					        return \\$this\\-\\>refactorIsPropertyTaggedWith\\(\\$node\\);
+					    default\\:
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v9/v4/UseClassSchemaInsteadReflectionServiceMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseClassSchemaInsteadReflectionServiceMethodsRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/UseClassSchemaInsteadReflectionServiceMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseClassSchemaInsteadReflectionServiceMethodsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/UseClassSchemaInsteadReflectionServiceMethodsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/UseClassSchemaInsteadReflectionServiceMethodsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseContextApiForVersioningWorkspaceIdRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v9/v4/UseContextApiForVersioningWorkspaceIdRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseContextApiForVersioningWorkspaceIdRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/UseContextApiForVersioningWorkspaceIdRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/UseContextApiForVersioningWorkspaceIdRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseContextApiRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v9/v4/UseContextApiRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseContextApiRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/UseContextApiRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/UseContextApiRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseGetMenuInsteadOfGetFirstWebPageRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/UseGetMenuInsteadOfGetFirstWebPageRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseGetMenuInsteadOfGetFirstWebPageRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/UseGetMenuInsteadOfGetFirstWebPageRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/UseGetMenuInsteadOfGetFirstWebPageRector.php
+
+		-
+			message:
+				"""
+					#^"switch \\(\\$this\\-\\>getName\\(\\$node\\-\\>name\\)\\) \\{
+					    case 'sys_language_uid'\\:
+					        \\$property \\= 'id';
+					        break;
+					    case 'sys_language_content'\\:
+					        \\$property \\= 'contentId';
+					        break;
+					    case 'sys_language_contentOL'\\:
+					        \\$property \\= 'legacyOverlayType';
+					        break;
+					    case 'sys_language_mode'\\:
+					        \\$property \\= 'legacyLanguageMode';
+					        break;
+					\\}" is forbidden to use$#
+				"""
+			count: 1
+			path: src/Rector/v9/v4/UseLanguageAspectForTsfeLanguagePropertiesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseLanguageAspectForTsfeLanguagePropertiesRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v9/v4/UseLanguageAspectForTsfeLanguagePropertiesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseLanguageAspectForTsfeLanguagePropertiesRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/UseLanguageAspectForTsfeLanguagePropertiesRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/UseLanguageAspectForTsfeLanguagePropertiesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseRootlineUtilityInsteadOfGetRootlineMethodRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/UseRootlineUtilityInsteadOfGetRootlineMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseRootlineUtilityInsteadOfGetRootlineMethodRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/UseRootlineUtilityInsteadOfGetRootlineMethodRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 2
+			path: src/Rector/v9/v4/UseRootlineUtilityInsteadOfGetRootlineMethodRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector\" has invalid namespace category \"v4\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v4/UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v4\\\\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v4/UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v4/UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RefactorProcessOutputRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v5/RefactorProcessOutputRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RefactorProcessOutputRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v5/RefactorProcessOutputRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v5/RefactorProcessOutputRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RefactorPropertiesOfTypoScriptFrontendControllerRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"PropertyFetch\"$#"
+			count: 1
+			path: src/Rector/v9/v5/RefactorPropertiesOfTypoScriptFrontendControllerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RefactorPropertiesOfTypoScriptFrontendControllerRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v5/RefactorPropertiesOfTypoScriptFrontendControllerRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v5/RefactorPropertiesOfTypoScriptFrontendControllerRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RefactorTypeInternalTypeFileAndFileReferenceToFalRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"Return_\"$#"
+			count: 1
+			path: src/Rector/v9/v5/RefactorTypeInternalTypeFileAndFileReferenceToFalRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RefactorTypeInternalTypeFileAndFileReferenceToFalRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v5/RefactorTypeInternalTypeFileAndFileReferenceToFalRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RefactorTypeInternalTypeFileAndFileReferenceToFalRector\\:\\:extractColumnConfig\\(\\)\" is 11, keep it under 9$#"
+			count: 1
+			path: src/Rector/v9/v5/RefactorTypeInternalTypeFileAndFileReferenceToFalRector.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RefactorTypeInternalTypeFileAndFileReferenceToFalRector\\:\\:refactor\\(\\)\" is 29, keep it under 9$#"
+			count: 1
+			path: src/Rector/v9/v5/RefactorTypeInternalTypeFileAndFileReferenceToFalRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RemoveFlushCachesRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"ClassMethod\"$#"
+			count: 1
+			path: src/Rector/v9/v5/RemoveFlushCachesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RemoveFlushCachesRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v5/RemoveFlushCachesRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RemoveInitMethodFromPageRepositoryRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"MethodCall\"$#"
+			count: 1
+			path: src/Rector/v9/v5/RemoveInitMethodFromPageRepositoryRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RemoveInitMethodFromPageRepositoryRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v5/RemoveInitMethodFromPageRepositoryRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v5/RemoveInitMethodFromPageRepositoryRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RemoveInternalAnnotationRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"Class_\"$#"
+			count: 1
+			path: src/Rector/v9/v5/RemoveInternalAnnotationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\RemoveInternalAnnotationRector\" is missing @see annotation with test case class reference$#"
+			count: 1
+			path: src/Rector/v9/v5/RemoveInternalAnnotationRector.php
+
+		-
+			message: "#^Use quoted string in constructor \"new PHPStan\\\\Type\\\\ObjectType\\(\\)\" argument on position 0 instead of \"\\:\\:class\\. It prevent scoping of the class in building prefixed package\\.$#"
+			count: 1
+			path: src/Rector/v9/v5/RemoveInternalAnnotationRector.php
+
+		-
+			message: "#^Class \"Ssch\\\\TYPO3Rector\\\\Rector\\\\v9\\\\v5\\\\UsePackageManagerActivePackagesRector\" has invalid namespace category \"v5\"\\. Pick one of\\: \"ArrayDimFetch\"$#"
+			count: 1
+			path: src/Rector/v9/v5/UsePackageManagerActivePackagesRector.php
+
+		-
+			message: "#^\"@preg_match\\(\\$regularExpression, ''\\)\" is forbidden to use$#"
+			count: 1
+			path: src/TypoScript/Conditions/ApplicationContextConditionMatcher.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\TypoScript\\\\Conditions\\\\GlobalVarConditionMatcher\\:\\:change\\(\\)\" is 25, keep it under 9$#"
+			count: 1
+			path: src/TypoScript/Conditions/GlobalVarConditionMatcher.php
+
+		-
+			message: "#^Do not inherit from abstract class, better use composition$#"
+			count: 1
+			path: src/TypoScript/Conditions/PIDinRootlineConditionMatcher.php
+
+		-
+			message: "#^Do not inherit from abstract class, better use composition$#"
+			count: 1
+			path: src/TypoScript/Conditions/PIDupinRootlineConditionMatcher.php
+
+		-
+			message: "#^Instead of \"instanceof/is_a\\(\\)\" use ReflectionProvider service or \"\\(new ObjectType\\(\\<desired_type\\>\\)\\)\\-\\>isSuperTypeOf\\(\\<element_type\\>\\)\" for static reflection to work$#"
+			count: 1
+			path: src/TypoScript/TypoScriptProcessor.php
+
+		-
+			message: "#^Do not inherit from abstract class, better use composition$#"
+			count: 1
+			path: src/TypoScript/Visitors/FileIncludeToImportStatementVisitor.php
+
+		-
+			message: "#^Instead of \"instanceof/is_a\\(\\)\" use ReflectionProvider service or \"\\(new ObjectType\\(\\<desired_type\\>\\)\\)\\-\\>isSuperTypeOf\\(\\<element_type\\>\\)\" for static reflection to work$#"
+			count: 1
+			path: src/TypoScript/Visitors/FileIncludeToImportStatementVisitor.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\TypoScript\\\\Visitors\\\\OldConditionToExpressionLanguageVisitor\\:\\:enterNode\\(\\)\" is 26, keep it under 9$#"
+			count: 1
+			path: src/TypoScript/Visitors/OldConditionToExpressionLanguageVisitor.php
+
+		-
+			message: "#^Do not inherit from abstract class, better use composition$#"
+			count: 1
+			path: src/TypoScript/Visitors/OldConditionToExpressionLanguageVisitor.php
+
+		-
+			message: "#^Instead of \"instanceof/is_a\\(\\)\" use ReflectionProvider service or \"\\(new ObjectType\\(\\<desired_type\\>\\)\\)\\-\\>isSuperTypeOf\\(\\<element_type\\>\\)\" for static reflection to work$#"
+			count: 1
+			path: src/TypoScript/Visitors/OldConditionToExpressionLanguageVisitor.php
+
+		-
+			message: "#^Cognitive complexity for \"Ssch\\\\TYPO3Rector\\\\Yaml\\\\Form\\\\Transformer\\\\EmailFinisherTransformer\\:\\:transform\\(\\)\" is 21, keep it under 9$#"
+			count: 1
+			path: src/Yaml/Form/Transformer/EmailFinisherTransformer.php
+

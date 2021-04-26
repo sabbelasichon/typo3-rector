@@ -8,7 +8,7 @@ use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class DatabaseRecordListRector extends AbstractRectorTestCase
+final class DatabaseRecordListRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideDataForTest()
