@@ -44,6 +44,11 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const TYPOSCRIPT_CONDITIONS_95 = __DIR__ . '/../../config/v9/typoscript-conditions-95.php';
+
+    /**
+     * @var string
+     */
     public const COMPOSER_PACKAGES_95_CORE = __DIR__ . '/../../config/composer/typo3-95-composer-packages-core.php';
 
     /**
@@ -60,6 +65,11 @@ final class Typo3SetList
      * @var string
      */
     public const TCA_104 = __DIR__ . '/../../config/v10/tca-104.php';
+
+    /**
+     * @var string
+     */
+    public const TYPOSCRIPT_CONDITIONS_104 = __DIR__ . '/../../config/v10/typoscript-conditions-104.php';
 
     /**
      * @var string
