@@ -19,10 +19,6 @@ use Ssch\TYPO3Rector\Rector\v8\v7\TemplateServiceSplitConfArrayRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\UseCachingFrameworkInsteadGetAndStoreHashRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-use TYPO3\CMS\Core\TypoScript\TypoScriptService as CoreTypoScriptService;
-use TYPO3\CMS\Core\Utility\CsvUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\TypoScriptService;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
@@ -38,7 +34,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'configure',
         [[
             RenameClassRector::OLD_TO_NEW_CLASSES => [
-                TypoScriptService::class => CoreTypoScriptService::class,
+                'TYPO3\CMS\Extbase\Service\TypoScriptService' => 'TYPO3\CMS\Core\TypoScript\TypoScriptService',
             ],
         ]]
     );
@@ -57,7 +53,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'configure',
         [[
             RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-                new RenameStaticMethod(GeneralUtility::class, 'csvValues', CsvUtility::class, 'csvValues'),
+                new RenameStaticMethod(
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
+                    'csvValues',
+                    'TYPO3\CMS\Core\Utility\CsvUtility',
+                    'csvValues'
+                ),
             ]),
         ]]
     );
