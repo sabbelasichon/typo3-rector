@@ -364,11 +364,11 @@ Add additional method getControllerConfiguration for AbstractConfigurationManage
 
 <br>
 
-## ConstantToEnvironmentCallRector
+## ConstantsToEnvironmentApiCallRector
 
 Turns defined constant to static method call of new Environment API.
 
-- class: [`Ssch\TYPO3Rector\Rector\v9\v4\ConstantToEnvironmentCallRector`](../src/Rector/v9/v4/ConstantToEnvironmentCallRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\ConstantsToEnvironmentApiCallRector`](../src/Rector/v9/v4/ConstantsToEnvironmentApiCallRector.php)
 
 ```diff
 -PATH_thisScript;
@@ -1886,11 +1886,31 @@ Remove CharsetConvertParameters
 
 <br>
 
-## RemoveCmsPackageDirFromExtraRector
+## RemoveCmsPackageDirFromExtraComposerRector
 
 Change package name in `composer.json`
 
-- class: [`Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraRector`](../src/Rector/Composer/RemoveCmsPackageDirFromExtraRector.php)
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraComposerRector`](../src/Rector/Composer/RemoveCmsPackageDirFromExtraComposerRector.php)
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraComposerRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+
+    $services->set(RemoveCmsPackageDirFromExtraComposerRector::class)
+        ->call('configure', [['not_allowed' => 'not_available']]);
+};
+```
+
+↓
 
 ```diff
  {
@@ -2012,7 +2032,7 @@ Remove `@flushesCaches` annotation
 
 Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
 
-- class: [`Ssch\TYPO3Rector\Rector\v10\v0\RemoveFormatConstantsEmailFinisherRector`](../src/Rector/v10/v0/RemoveFormatConstantsEmailFinisherRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v10\v4\RemoveFormatConstantsEmailFinisherRector`](../src/Rector/v10/v4/RemoveFormatConstantsEmailFinisherRector.php)
 
 ```diff
 -$this->setOption(self::FORMAT, EmailFinisher::FORMAT_HTML);
@@ -3021,7 +3041,27 @@ Substitute deprecated method calls of class GeneralUtility
 
 The TCA migration migrates the icon calls to the new output if used as wizard icon
 
+:wrench: **configure it!**
+
 - class: [`Ssch\TYPO3Rector\Rector\v8\v4\SubstituteOldWizardIconsRector`](../src/Rector/v8/v4/SubstituteOldWizardIconsRector.php)
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Ssch\TYPO3Rector\Rector\v8\v4\SubstituteOldWizardIconsRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+
+    $services->set(SubstituteOldWizardIconsRector::class)
+        ->call('configure', [[SubstituteOldWizardIconsRector::OLD_TO_NEW_FILE_LOCATIONS => ['add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif']]]);
+};
+```
+
+↓
 
 ```diff
  return [
