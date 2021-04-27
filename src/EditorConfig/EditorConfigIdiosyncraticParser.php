@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\EditorConfig;
 
+use Idiosyncratic\EditorConfig\Declaration\EndOfLine;
 use Idiosyncratic\EditorConfig\Declaration\IndentSize;
 use Idiosyncratic\EditorConfig\Declaration\IndentStyle;
 use Idiosyncratic\EditorConfig\EditorConfig;
@@ -23,6 +24,11 @@ final class EditorConfigIdiosyncraticParser implements EditorConfigParser
     private const INDENT_SIZE = 'indent_size';
 
     /**
+     * @var string
+     */
+    private const END_OF_LINE = 'end_of_line';
+
+    /**
      * @var EditorConfig
      */
     private $editorConfig;
@@ -38,6 +44,7 @@ final class EditorConfigIdiosyncraticParser implements EditorConfigParser
 
         $identStyle = 'space';
         $identSize = 2;
+        $endOfLine = 'lf';
 
         if (array_key_exists(
             self::INDENT_STYLE,
@@ -53,6 +60,13 @@ final class EditorConfigIdiosyncraticParser implements EditorConfigParser
             $identSize = $configuration[self::INDENT_SIZE]->getValue();
         }
 
-        return new EditorConfigConfiguration($identStyle, $identSize);
+        if (array_key_exists(
+                self::END_OF_LINE,
+                $configuration
+            ) && $configuration[self::END_OF_LINE] instanceof EndOfLine) {
+            $endOfLine = $configuration[self::END_OF_LINE]->getValue();
+        }
+
+        return new EditorConfigConfiguration($identStyle, $identSize, $endOfLine);
     }
 }

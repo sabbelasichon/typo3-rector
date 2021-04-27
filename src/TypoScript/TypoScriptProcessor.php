@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\TypoScript;
 
 use Helmich\TypoScriptParser\Parser\ParserInterface;
 use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
-use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinterConfiguration;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
@@ -132,24 +131,23 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
 
             $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile($smartFileInfo);
 
-            if ($this->typoscriptPrinter instanceof PrettyPrinter) {
-                $prettyPrinterConfiguration = PrettyPrinterConfiguration::create();
-                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withEmptyLineBreaks();
-                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withClosingGlobalStatement();
-                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation(
-                    $editorConfiguration->getIndentSize()
-                );
+            $prettyPrinterConfiguration = PrettyPrinterConfiguration::create();
+            $prettyPrinterConfiguration = $prettyPrinterConfiguration->withEmptyLineBreaks();
+            $prettyPrinterConfiguration = $prettyPrinterConfiguration->withClosingGlobalStatement();
+            $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation(
+                $editorConfiguration->getIndentSize()
+            );
 
-                if ($editorConfiguration->getIsTab()) {
-                    $prettyPrinterConfiguration = $prettyPrinterConfiguration->withTabs();
-                }
-
-                $this->typoscriptPrinter->setPrettyPrinterConfiguration($prettyPrinterConfiguration);
+            if ($editorConfiguration->getIsTab()) {
+                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withTabs();
             }
+
+            $this->typoscriptPrinter->setPrettyPrinterConfiguration($prettyPrinterConfiguration);
 
             $this->typoscriptPrinter->printStatements($originalStatements, $this->output);
 
-            $typoScriptContent = $this->output->fetch();
+            $typoScriptContent = rtrim($this->output->fetch()) . $editorConfiguration->getEndOfLine();
+
             $file->changeFileContent($typoScriptContent);
         } catch (TokenizerException $tokenizerException) {
             return;
