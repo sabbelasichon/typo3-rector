@@ -9,10 +9,6 @@ use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\Rector\v8\v5\CharsetConverterToMultiByteFunctionsRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-use TYPO3\CMS\Backend\Clipboard\ClipBoard;
-use TYPO3\CMS\Core\Utility\ArrayUtility as CoreArrayUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\ArrayUtility;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
@@ -24,7 +20,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'configure',
         [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename(ClipBoard::class, 'printContentFromTab', 'getContentFromTab'),
+                new MethodCallRename(
+                    'TYPO3\CMS\Backend\Clipboard\ClipBoard',
+                    'printContentFromTab',
+                    'getContentFromTab'
+                ),
             ]),
         ]]
     );
@@ -35,30 +35,40 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'configure',
         [[
             RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-                new RenameStaticMethod(ArrayUtility::class, 'integerExplode', GeneralUtility::class, 'intExplode'),
-                new RenameStaticMethod(ArrayUtility::class, 'trimExplode', GeneralUtility::class, 'trimExplode'),
                 new RenameStaticMethod(
-                    ArrayUtility::class,
+                    'TYPO3\CMS\Extbase\Utility\ArrayUtility',
+                    'integerExplode',
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
+                    'intExplode'
+                ),
+                new RenameStaticMethod(
+                    'TYPO3\CMS\Extbase\Utility\ArrayUtility',
+                    'trimExplode',
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
+                    'trimExplode'
+                ),
+                new RenameStaticMethod(
+                    'TYPO3\CMS\Extbase\Utility\ArrayUtility',
                     'getValueByPath',
-                    CoreArrayUtility::class,
+                    'TYPO3\CMS\Core\Utility\ArrayUtility',
                     'getValueByPath'
                 ),
                 new RenameStaticMethod(
-                    ArrayUtility::class,
+                    'TYPO3\CMS\Extbase\Utility\ArrayUtility',
                     'setValueByPath',
-                    CoreArrayUtility::class,
+                    'TYPO3\CMS\Core\Utility\ArrayUtility',
                     'setValueByPath'
                 ),
                 new RenameStaticMethod(
-                    ArrayUtility::class,
+                    'TYPO3\CMS\Extbase\Utility\ArrayUtility',
                     'unsetValueByPath',
-                    CoreArrayUtility::class,
+                    'TYPO3\CMS\Core\Utility\ArrayUtility',
                     'removeByPath'
                 ),
                 new RenameStaticMethod(
-                    ArrayUtility::class,
+                    'TYPO3\CMS\Extbase\Utility\ArrayUtility',
                     'sortArrayWithIntegerKeys',
-                    CoreArrayUtility::class,
+                    'TYPO3\CMS\Core\Utility\ArrayUtility',
                     'sortArrayWithIntegerKeys'
                 ),
             ]),

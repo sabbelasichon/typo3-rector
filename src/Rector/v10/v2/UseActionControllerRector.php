@@ -10,7 +10,6 @@ use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Mvc\Controller\AbstractController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89554-DeprecateTYPO3CMSExtbaseMvcControllerAbstractController.html
@@ -35,7 +34,7 @@ final class UseActionControllerRector extends AbstractRector
             return null;
         }
 
-        if (! $this->isName($node->extends, AbstractController::class)) {
+        if (! $this->isName($node->extends, 'TYPO3\CMS\Extbase\Mvc\Controller\AbstractController')) {
             return null;
         }
 

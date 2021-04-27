@@ -9,7 +9,6 @@ use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\Rector\v8\v0\ChangeMethodCallsForStandaloneViewRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\GetFileAbsFileNameRemoveDeprecatedArgumentsRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\GetPreferredClientLanguageRector;
-
 use Ssch\TYPO3Rector\Rector\v8\v0\PrependAbsolutePathToGetFileAbsFileNameRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RandomMethodsToRandomClassRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RefactorRemovedMarkerMethodsFromHtmlParserRector;
@@ -27,12 +26,6 @@ use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTrackerRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-use TYPO3\CMS\Core\TypoScript\TemplateService;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Core\Utility\CommandUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -88,23 +81,22 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'configure',
         [[
             RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-
                 new RenameStaticMethod(
-                    ExtensionUtility::class,
+                    'TYPO3\CMS\Extbase\Utility\ExtensionUtility',
                     'configureModule',
-                    ExtensionManagementUtility::class,
+                    'TYPO3\CMS\Core\Utility\ExtensionManagementUtility',
                     'configureModule'
                 ),
                 new RenameStaticMethod(
-                    TemplateService::class,
+                    'TYPO3\CMS\Core\TypoScript\TemplateService',
                     'sortedKeyList',
-                    ArrayUtility::class,
+                    'TYPO3\CMS\Core\Utility\ArrayUtility',
                     'filterAndSortByNumericKeys'
                 ),
                 new RenameStaticMethod(
-                    GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     'imageMagickCommand',
-                    CommandUtility::class,
+                    'TYPO3\CMS\Core\Utility\CommandUtility',
                     'imageMagickCommand'
                 ),
 

@@ -12,15 +12,6 @@ use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallLoadTcaRector;
 use Ssch\TYPO3Rector\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-use TYPO3\CMS\Backend\Template\BigDocumentTemplate;
-use TYPO3\CMS\Backend\Template\DocumentTemplate;
-use TYPO3\CMS\Backend\Template\MediumDocumentTemplate;
-use TYPO3\CMS\Backend\Template\SmallDocumentTemplate;
-use TYPO3\CMS\Backend\Template\StandardDocumentTemplate;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
@@ -31,10 +22,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->class(RenameClassRector::class)
         ->call('configure', [[
             RenameClassRector::OLD_TO_NEW_CLASSES => [
-                MediumDocumentTemplate::class => DocumentTemplate::class,
-                SmallDocumentTemplate::class => DocumentTemplate::class,
-                StandardDocumentTemplate::class => DocumentTemplate::class,
-                BigDocumentTemplate::class => DocumentTemplate::class,
+                'TYPO3\CMS\Backend\Template\MediumDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
+                'TYPO3\CMS\Backend\Template\SmallDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
+                'TYPO3\CMS\Backend\Template\StandardDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
+                'TYPO3\CMS\Backend\Template\BigDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
             ],
         ]]);
     $services->set('rename_static_method_generalUtility_int_from_ver_to_convert_version_number_to_integer')
@@ -44,9 +35,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         [[
             RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
                 new RenameStaticMethod(
-                    GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     'int_from_ver',
-                    VersionNumberUtility::class,
+                    'TYPO3\CMS\Core\Utility\VersionNumberUtility',
                     'convertVersionNumberToInteger'
                 ),
             ]),
@@ -57,9 +48,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->class(RenameMethodRector::class)
         ->call('configure', [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename(Typo3QuerySettings::class, 'setSysLanguageUid', 'setLanguageUid'),
-                new MethodCallRename(Typo3QuerySettings::class, 'getSysLanguageUid', 'getLanguageUid'),
-                new MethodCallRename(ObjectManager::class, 'create', 'get'),
+                new MethodCallRename(
+                    'TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings',
+                    'setSysLanguageUid',
+                    'setLanguageUid'
+                ),
+                new MethodCallRename(
+                    'TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings',
+                    'getSysLanguageUid',
+                    'getLanguageUid'
+                ),
+                new MethodCallRename('TYPO3\CMS\Extbase\Object\ObjectManager', 'create', 'get'),
             ]),
         ]]);
 };

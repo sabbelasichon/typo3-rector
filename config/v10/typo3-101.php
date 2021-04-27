@@ -40,10 +40,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->class(RenameMethodRector::class)
         ->call('configure', [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename(RecordHistory::class, 'createChangeLog', 'getChangeLog'),
-                new MethodCallRename(RecordHistory::class, 'getElementData', 'getElementInformation'),
-                new MethodCallRename(RecordHistory::class, 'createMultipleDiff', 'getDiff'),
-                new MethodCallRename(RecordHistory::class, 'setLastHistoryEntry', 'setLastHistoryEntryNumber'),
+                new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createChangeLog', 'getChangeLog'),
+                new MethodCallRename(
+                    'TYPO3\CMS\Backend\History\RecordHistory',
+                    'getElementData',
+                    'getElementInformation'
+                ),
+                new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createMultipleDiff', 'getDiff'),
+                new MethodCallRename(
+                    'TYPO3\CMS\Backend\History\RecordHistory',
+                    'setLastHistoryEntry',
+                    'setLastHistoryEntryNumber'
+                ),
             ]),
         ]]);
     $services->set(SendNotifyEmailToMailApiRector::class);

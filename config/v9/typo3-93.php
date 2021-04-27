@@ -31,9 +31,6 @@ use Ssch\TYPO3Rector\TypoScript\Conditions\VersionConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Visitors\OldConditionToExpressionLanguageVisitor;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-use TYPO3\CMS\Backend\Controller\Page\LocalizationController;
-use TYPO3\CMS\Extbase\Mvc\Controller\Argument;
-use TYPO3\CMS\Extbase\Mvc\Controller\Arguments;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
@@ -48,7 +45,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
                 new MethodCallRename(
-                    LocalizationController::class,
+                    'TYPO3\CMS\Backend\Controller\Page\LocalizationController',
                     'getUsedLanguagesInPageAndColumn',
                     'getUsedLanguagesInPage'
                 ),
@@ -65,8 +62,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->class(RenameMethodRector::class)
         ->call('configure', [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename(Argument::class, 'getValidationResults', 'validate'),
-                new MethodCallRename(Arguments::class, 'getValidationResults', 'validate'),
+                new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'getValidationResults', 'validate'),
+                new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Arguments', 'getValidationResults', 'validate'),
             ]),
         ]]);
     $services->set(RefactorTsConfigRelatedMethodsRector::class);

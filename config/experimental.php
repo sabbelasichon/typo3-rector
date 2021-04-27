@@ -7,8 +7,6 @@ use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Ssch\TYPO3Rector\Rector\Experimental\OptionalConstructorToHardRequirementRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
@@ -18,9 +16,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             [
                 MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => ValueObjectInliner::inline([
                     new MethodCallToStaticCall(
-                        ObjectManagerInterface::class,
+                        'TYPO3\CMS\Extbase\Object\ObjectManagerInterface',
                         'get',
-                        GeneralUtility::class,
+                        'TYPO3\CMS\Core\Utility\GeneralUtility',
                         'makeInstance'
                     ),
                 ]),
