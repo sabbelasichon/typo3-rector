@@ -77,20 +77,18 @@ CODE_SAMPLE
                 if (! $this->isName($node->name, $oldMethod)) {
                     continue;
                 }
-                $methodName = $this->getName($node->name);
-                switch ($methodName) {
-                    // Wrap the first argument into an array
-                    case 'setPartialRootPath':
-                    case 'setLayoutRootPath':
-                        $firstArgument = $node->args[0];
-                        $node->name = new Identifier($newMethod);
-                        $array = $this->nodeFactory->createArray([$firstArgument->value]);
-                        $node->args = [new Arg($array)];
-                        return $node;
-                    case 'getLayoutRootPath':
-                    case 'getPartialRootPath':
-                        $node->name = new Identifier($newMethod);
-                        return $this->nodeFactory->createFuncCall('array_shift', [$node]);
+
+                if ($this->isNames($node->name, ['setPartialRootPath', 'setLayoutRootPath'])) {
+                    $firstArgument = $node->args[0];
+                    $node->name = new Identifier($newMethod);
+                    $array = $this->nodeFactory->createArray([$firstArgument->value]);
+                    $node->args = [new Arg($array)];
+                    return $node;
+                }
+
+                if ($this->isNames($node->name, ['getLayoutRootPath', 'getPartialRootPath'])) {
+                    $node->name = new Identifier($newMethod);
+                    return $this->nodeFactory->createFuncCall('array_shift', [$node]);
                 }
             }
         }

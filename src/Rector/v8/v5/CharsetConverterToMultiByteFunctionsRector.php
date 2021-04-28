@@ -37,19 +37,34 @@ final class CharsetConverterToMultiByteFunctionsRector extends AbstractRector
             return null;
         }
 
-        switch ($this->getName($node->name)) {
-            case 'strlen':
-                return $this->toMultiByteStrlen($node);
-            case 'convCapitalize':
-                return $this->toMultiByteConvertCase($node);
-            case 'substr':
-                return $this->toMultiByteSubstr($node);
-            case 'conv_case':
-                return $this->toMultiByteLowerUpperCase($node);
-            case 'utf8_strpos':
-                return $this->toMultiByteStrPos($node);
-            case 'utf8_strrpos':
-                return $this->toMultiByteStrrPos($node);
+        $nodeName = $this->getName($node->name);
+
+        if (null === $nodeName) {
+            return null;
+        }
+
+        if ('strlen' === $nodeName) {
+            return $this->toMultiByteStrlen($node);
+        }
+
+        if ('convCapitalize' === $nodeName) {
+            return $this->toMultiByteConvertCase($node);
+        }
+
+        if ('substr' === $nodeName) {
+            return $this->toMultiByteSubstr($node);
+        }
+
+        if ('conv_case' === $nodeName) {
+            return $this->toMultiByteLowerUpperCase($node);
+        }
+
+        if ('utf8_strpos' === $nodeName) {
+            return $this->toMultiByteStrPos($node);
+        }
+
+        if ('utf8_strrpos' === $nodeName) {
+            return $this->toMultiByteStrrPos($node);
         }
 
         return null;
@@ -82,6 +97,7 @@ CODE_SAMPLE
         )) {
             return true;
         }
+
         return ! $this->isNames($node->name, [
             'strlen',
             'convCapitalize',

@@ -23,6 +23,16 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRector
 {
     /**
+     * @var array
+     */
+    private const NODE_NAME_MAPPING = [
+        'sys_language_uid' => 'id',
+        'sys_language_content' => 'contentId',
+        'sys_language_contentOL' => 'legacyOverlayType',
+        'sys_language_mode' => 'legacyLanguageMode',
+    ];
+
+    /**
      * @var Typo3NodeResolver
      */
     private $typo3NodeResolver;
@@ -62,26 +72,13 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
             return null;
         }
 
-        $property = null;
+        $nodeName = $this->getName($node->name);
 
-        switch ($this->getName($node->name)) {
-            case 'sys_language_uid':
-                $property = 'id';
-                break;
-            case 'sys_language_content':
-                $property = 'contentId';
-                break;
-            case 'sys_language_contentOL':
-                $property = 'legacyOverlayType';
-                break;
-            case 'sys_language_mode':
-                $property = 'legacyLanguageMode';
-                break;
-        }
-
-        if (null === $property) {
+        if (null === $nodeName) {
             return null;
         }
+
+        $property = self::NODE_NAME_MAPPING[$nodeName];
 
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [

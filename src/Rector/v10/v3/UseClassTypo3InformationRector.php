@@ -45,17 +45,26 @@ final class UseClassTypo3InformationRector extends AbstractRector
             return null;
         }
 
-        switch ($node->name) {
-            case 'TYPO3_URL_GENERAL':
-                return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_COMMUNITY');
-            case 'TYPO3_URL_LICENSE':
-                return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_LICENSE');
-            case 'TYPO3_URL_EXCEPTION':
-                return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_EXCEPTION');
-            case 'TYPO3_URL_DONATE':
-                return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_DONATE');
-            case 'TYPO3_URL_WIKI_OPCODECACHE':
-                return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_OPCACHE');
+        $nodeName = $this->getName($node->name);
+
+        if ('TYPO3_URL_GENERAL' === $nodeName) {
+            return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_COMMUNITY');
+        }
+
+        if ('TYPO3_URL_LICENSE' === $nodeName) {
+            return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_LICENSE');
+        }
+
+        if ('TYPO3_URL_EXCEPTION' === $nodeName) {
+            return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_EXCEPTION');
+        }
+
+        if ('TYPO3_URL_DONATE' === $nodeName) {
+            return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_DONATE');
+        }
+
+        if ('TYPO3_URL_WIKI_OPCODECACHE' === $nodeName) {
+            return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_OPCACHE');
         }
 
         return null;

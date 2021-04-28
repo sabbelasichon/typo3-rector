@@ -41,7 +41,6 @@ final class RefactorDeprecationLogRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         $className = $this->getName($node->class);
-        $methodName = $this->getName($node->name);
         if (GeneralUtility::class !== $className) {
             return null;
         }
@@ -52,21 +51,22 @@ final class RefactorDeprecationLogRector extends AbstractRector
         $emptyFallbackString = new String_('');
         $arguments = $node->args;
 
-        switch ($methodName) {
-            case 'logDeprecatedFunction':
-            case 'logDeprecatedViewHelperAttribute':
-                return $this->nodeFactory->createFuncCall('trigger_error', [$usefulMessage, $constFetch]);
-            case 'deprecationLog':
-                return $this->nodeFactory->createFuncCall(
-                    'trigger_error',
-                    [$arguments[0] ?? $emptyFallbackString, $constFetch]
-                );
-            case 'getDeprecationLogFileName':
-                $this->removeNode($node);
-                return null;
-            default:
-                return null;
+        if ($this->isNames($node->name, ['logDeprecatedFunction', 'logDeprecatedViewHelperAttribute'])) {
+            return $this->nodeFactory->createFuncCall('trigger_error', [$usefulMessage, $constFetch]);
         }
+
+        if ($this->isName($node->name, 'deprecationLog')) {
+            return $this->nodeFactory->createFuncCall(
+                'trigger_error',
+                [$arguments[0] ?? $emptyFallbackString, $constFetch]
+            );
+        }
+
+        if ($this->isName($node->name, 'getDeprecationLogFileName')) {
+            $this->removeNode($node);
+        }
+
+        return null;
     }
 
     /**

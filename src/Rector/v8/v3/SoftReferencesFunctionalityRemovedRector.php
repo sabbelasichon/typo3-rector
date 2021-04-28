@@ -114,8 +114,9 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                         $changed = true;
                         unset($softReferences['TStemplate']);
                     }
+
                     if ($changed) {
-                        if (! empty($softReferences)) {
+                        if ([] !== $softReferences) {
                             $softReferences = array_flip($softReferences);
                             $configItemValue->value = new String_(implode(',', $softReferences));
                         } else {

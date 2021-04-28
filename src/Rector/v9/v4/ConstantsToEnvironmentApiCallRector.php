@@ -57,7 +57,10 @@ final class ConstantsToEnvironmentApiCallRector extends AbstractRector
         if (! $node->left instanceof ConstFetch || ! $node->right instanceof ConstFetch) {
             return null;
         }
-        if (! $this->isNames($node->left, self::ALLOWED_NAMES) || ! $this->isNames($node->right, self::ALLOWED_NAMES)) {
+        if (! $this->isNames($node->left, self::ALLOWED_NAMES) || ! $this->isNames(
+            $node->right,
+            self::ALLOWED_NAMES
+        )) {
             return null;
         }
 
@@ -85,25 +88,28 @@ final class ConstantsToEnvironmentApiCallRector extends AbstractRector
             return null;
         }
 
-        switch ($constantName) {
-            case 'PATH_thisScript':
-                return $this->nodeFactory->createStaticCall(Environment::class, 'getCurrentScript');
-            case 'PATH_site':
-                return new Concat($this->nodeFactory->createStaticCall(
-                    Environment::class,
-                    'getPublicPath'
-                ), new String_('/'));
-            case 'PATH_typo3':
-                return $this->nodeFactory->createStaticCall(Environment::class, 'getBackendPath');
-            case 'PATH_typo3conf':
-                return $this->nodeFactory->createStaticCall(Environment::class, 'getLegacyConfigPath');
-            case 'TYPO3_OS':
-                return new BooleanOr($this->nodeFactory->createStaticCall(
-                    Environment::class,
-                    'isUnix'
-                ), $this->nodeFactory->createStaticCall(Environment::class, 'isWindows'));
+        if ('PATH_thisScript' === $constantName) {
+            return $this->nodeFactory->createStaticCall(Environment::class, 'getCurrentScript');
         }
 
-        return null;
+        if ('PATH_site' === $constantName) {
+            return new Concat($this->nodeFactory->createStaticCall(
+                Environment::class,
+                'getPublicPath'
+            ), new String_('/'));
+        }
+
+        if ('PATH_typo3' === $constantName) {
+            return $this->nodeFactory->createStaticCall(Environment::class, 'getBackendPath');
+        }
+
+        if ('PATH_typo3conf' === $constantName) {
+            return $this->nodeFactory->createStaticCall(Environment::class, 'getLegacyConfigPath');
+        }
+
+        return new BooleanOr($this->nodeFactory->createStaticCall(
+            Environment::class,
+            'isUnix'
+        ), $this->nodeFactory->createStaticCall(Environment::class, 'isWindows'));
     }
 }

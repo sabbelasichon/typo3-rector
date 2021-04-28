@@ -161,23 +161,19 @@ CODE_SAMPLE
 
                 if (null !== $renderMode) {
                     $renderType = null;
-                    switch ($renderMode) {
-                        case 'tree':
-                            $renderType = 'selectTree';
-                            break;
-                        case 'singlebox':
-                            $renderType = 'selectSingleBox';
-                            break;
-                        case 'checkbox':
-                            $renderType = 'selectCheckBox';
-                            break;
-                        default:
-                            new ShouldNotHappenException(sprintf(
-                                'The render mode %s is invalid for the select field in %s',
-                                $renderMode,
-                                $fieldName
-                            ));
-                            break;
+
+                    if ('tree' === $renderMode) {
+                        $renderType = 'selectTree';
+                    } elseif ('singlebox' === $renderMode) {
+                        $renderType = 'selectSingleBox';
+                    } elseif ('checkbox' === $renderMode) {
+                        $renderType = 'selectCheckBox';
+                    } else {
+                        new ShouldNotHappenException(sprintf(
+                            'The render mode %s is invalid for the select field in %s',
+                            $renderMode,
+                            $fieldName
+                        ));
                     }
 
                     if (null !== $renderType) {

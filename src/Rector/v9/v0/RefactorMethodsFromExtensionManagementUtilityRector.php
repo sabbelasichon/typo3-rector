@@ -39,14 +39,23 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
         if (ExtensionManagementUtility::class !== $className) {
             return null;
         }
-        switch ($methodName) {
-            case 'isLoaded':
-                return $this->removeSecondArgumentFromMethodIsLoaded($node);
-            case 'siteRelPath':
-                return $this->createNewMethodCallForSiteRelPath($node);
-            case 'removeCacheFiles':
-                return $this->createNewMethodCallForRemoveCacheFiles();
+
+        if (null === $methodName) {
+            return null;
         }
+
+        if ('isLoaded' === $methodName) {
+            return $this->removeSecondArgumentFromMethodIsLoaded($node);
+        }
+
+        if ('siteRelPath' === $methodName) {
+            return $this->createNewMethodCallForSiteRelPath($node);
+        }
+
+        if ('removeCacheFiles' === $methodName) {
+            return $this->createNewMethodCallForRemoveCacheFiles();
+        }
+
         return null;
     }
 

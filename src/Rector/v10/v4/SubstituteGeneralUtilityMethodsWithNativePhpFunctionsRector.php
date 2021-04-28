@@ -48,23 +48,30 @@ final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector extends 
             return null;
         }
 
-        switch ($node->name) {
-            case 'IPv6Hex2Bin':
-                return $this->nodeFactory->createFuncCall('inet_pton', $node->args);
-            case 'IPv6Bin2Hex':
-                return $this->nodeFactory->createFuncCall('inet_ntop', $node->args);
-            case 'compressIPv6':
-                return $this->nodeFactory->createFuncCall(
-                    'inet_ntop',
-                    [$this->nodeFactory->createFuncCall('inet_pton', $node->args)]
-                );
-            case 'milliseconds':
-                return $this->nodeFactory->createFuncCall('round', [
-                    new Mul($this->nodeFactory->createFuncCall(
-                        'microtime',
-                        [$this->nodeFactory->createArg($this->nodeFactory->createTrue())]
-                    ), new LNumber(1000)),
-                ]);
+        $nodeName = $this->getName($node->name);
+
+        if ('IPv6Hex2Bin' === $nodeName) {
+            return $this->nodeFactory->createFuncCall('inet_pton', $node->args);
+        }
+
+        if ('IPv6Bin2Hex' === $nodeName) {
+            return $this->nodeFactory->createFuncCall('inet_ntop', $node->args);
+        }
+
+        if ('compressIPv6' === $nodeName) {
+            return $this->nodeFactory->createFuncCall(
+                'inet_ntop',
+                [$this->nodeFactory->createFuncCall('inet_pton', $node->args)]
+            );
+        }
+
+        if ('milliseconds' === $nodeName) {
+            return $this->nodeFactory->createFuncCall('round', [
+                new Mul($this->nodeFactory->createFuncCall(
+                    'microtime',
+                    [$this->nodeFactory->createArg($this->nodeFactory->createTrue())]
+                ), new LNumber(1000)),
+            ]);
         }
 
         return null;
