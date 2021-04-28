@@ -21,8 +21,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\TimeTracker\NullTimeTracker;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-73185-DeprecateNullTimeTracker.html
@@ -54,7 +52,6 @@ final class TimeTrackerInsteadOfNullTimeTrackerRector extends AbstractRector
             Expression::class,
             ClassLike::class,
             Namespace_::class,
-            FileWithoutNamespace::class,
         ];
     }
 
@@ -69,7 +66,7 @@ final class TimeTrackerInsteadOfNullTimeTrackerRector extends AbstractRector
         }
 
         $renamedNode = $this->classRenamer->renameNode($node, [
-            NullTimeTracker::class => TimeTracker::class,
+            'TYPO3\CMS\Core\TimeTracker\NullTimeTracker' => 'TYPO3\CMS\Core\TimeTracker\TimeTracker',
         ]);
 
         if (null === $renamedNode) {
@@ -117,7 +114,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $this->valueResolver->isValue($node->args[0]->value, NullTimeTracker::class)) {
+        if (! $this->valueResolver->isValue($node->args[0]->value, 'TYPO3\CMS\Core\TimeTracker\NullTimeTracker')) {
             return null;
         }
 

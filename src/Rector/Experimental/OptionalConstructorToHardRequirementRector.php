@@ -86,9 +86,8 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
                 continue;
             }
 
-            if ($stmt->expr->var instanceof Variable && $variableName = $this->nodeNameResolver->getName(
-                $stmt->expr->var
-            )) {
+            $variableName = $this->nodeNameResolver->getName($stmt->expr->var);
+            if ($stmt->expr->var instanceof Variable && null !== $variableName) {
                 $potentialStmtsToRemove[$variableName] = $stmt;
             }
 
@@ -106,7 +105,8 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
 
             if ($stmt->expr->expr->right instanceof Coalesce) {
                 // Reset param default value
-                if (null === $this->nodeNameResolver->getName($stmt->expr->expr->left)) {
+                $paramDefault = $this->nodeNameResolver->getName($stmt->expr->expr->left);
+                if (null === $paramDefault) {
                     continue;
                 }
 
