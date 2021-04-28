@@ -26,7 +26,7 @@ $ composer global require --dev ssch/typo3-rector
 ```
 
 Add an extra autoload file. In the example case it is placed in the Document Root of your TYPO3 project.
-The autoload.php should look something like that vor TYPO3 Version 9:
+The autoload.php should look something like that for TYPO3 Version 9:
 
 ```php
 <?php
