@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Rules\Tests\Rector\Misc;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class AddCodeCoverageIgnoreToMethodRectorDefinitionRectorTest extends AbstractRectorTestCase
@@ -24,8 +23,8 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRectorTest extends Abst
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
-    protected function getRectorClass(): string
+    public function provideConfigFilePath(): string
     {
-        return AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class;
+        return __DIR__ . '/config/configured_rule.php';
     }
 }

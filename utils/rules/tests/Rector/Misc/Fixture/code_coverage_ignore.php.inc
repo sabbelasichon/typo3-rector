@@ -3,7 +3,7 @@
 use PhpParser\Node;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class AddToMissingCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
 {
@@ -18,7 +18,7 @@ final class AddToMissingCodeCoverageIgnore extends AbstractRector implements Php
     {
     }
 
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
     }
 }
@@ -38,9 +38,8 @@ final class HasCodeCoverageIgnore extends AbstractRector implements PhpRectorInt
 
     /**
      * @codeCoverageIgnore
-     * @return RectorDefinition
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
     }
 }
@@ -52,12 +51,12 @@ final class HasCodeCoverageIgnore extends AbstractRector implements PhpRectorInt
 use PhpParser\Node;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\RectorDefinition\RectorDefinition;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class AddToMissingCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -70,7 +69,7 @@ final class AddToMissingCodeCoverageIgnore extends AbstractRector implements Php
     /**
      * @codeCoverageIgnore
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
     }
 }
@@ -78,7 +77,7 @@ final class AddToMissingCodeCoverageIgnore extends AbstractRector implements Php
 final class HasCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
 {
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -90,9 +89,8 @@ final class HasCodeCoverageIgnore extends AbstractRector implements PhpRectorInt
 
     /**
      * @codeCoverageIgnore
-     * @return RectorDefinition
      */
-    public function getDefinition(): RectorDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
     }
 }

@@ -9,12 +9,13 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
+/**
+ * @see \Ssch\TYPO3Rector\Rules\Tests\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRectorTest
+ */
 final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends AbstractRector
 {
     /**
@@ -32,17 +33,16 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType('AbstractRector::class')
+            new ObjectType('Rector\Core\Rector\AbstractRector')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'getDefinition')) {
+        if (! $this->isName($node->name, 'getRuleDefinition')) {
             return null;
         }
 
-        /** @var PhpDocInfo $phpDocInfo */
-        $phpDocInfo = $node->getAttribute(AttributeKey::PHP_DOC_INFO);
+        $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
 
         if ($phpDocInfo->hasByName('codeCoverageIgnore')) {
             return null;
@@ -50,7 +50,7 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
 
         $phpDocInfo->addPhpDocTagNode(new PhpDocTagNode('@codeCoverageIgnore', new GenericTagValueNode('')));
 
-        return null;
+        return $node;
     }
 
     /**
