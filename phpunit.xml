@@ -13,6 +13,7 @@
       <directory>tests</directory>
       <directory>utils/composer-packages/tests</directory>
       <directory>utils/phpstan/tests</directory>
+      <directory>utils/rules/tests</directory>
     </testsuite>
   </testsuites>
 </phpunit>
