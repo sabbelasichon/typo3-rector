@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\TypoScript\Conditions;
 use Nette\Utils\Strings;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 
-final class GlobalVarConditionMatcher implements TyposcriptConditionMatcher
+final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
 {
     /**
      * @var string
@@ -32,7 +32,7 @@ final class GlobalVarConditionMatcher implements TyposcriptConditionMatcher
         $conditions = [];
         foreach ($subConditions as $subCondition) {
             preg_match(
-                '#(?<type>TSFE|GP|GPmerged|_POST|_GET|LIT)' . self::ZERO_ONE_OR_MORE_WHITESPACES . ':' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
+                '#(?<type>TSFE|GP|GPmerged|_POST|_GET|LIT|ENV|IENV)' . self::ZERO_ONE_OR_MORE_WHITESPACES . ':' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
                 $subCondition,
                 $matches
             );
@@ -58,7 +58,10 @@ final class GlobalVarConditionMatcher implements TyposcriptConditionMatcher
                 $conditions[$key][] = $this->refactorGetPost($property, $operator, $value);
             } elseif ('LIT' === $type) {
                 $conditions[$key][] = sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property);
-                continue;
+            } elseif ('ENV' === $type) {
+                $conditions[$key][] = $this->createEnvCondition($property, $operator, $value);
+            } elseif ('IENV' === $type) {
+                $conditions[$key][] = $this->createIndependentCondition($property, $operator, $value);
             }
         }
 
@@ -123,15 +126,5 @@ final class GlobalVarConditionMatcher implements TyposcriptConditionMatcher
             self::OPERATOR_MAPPING[$operator],
             $value
         );
-    }
-
-    private function refactorTsfe(string $property, string $operator, string $value): string
-    {
-        if (Strings::startsWith($property, 'page')) {
-            $parameters = ArrayUtility::trimExplode('|', $property, true);
-            return sprintf('page["%s"] %s %s', $parameters[1], self::OPERATOR_MAPPING[$operator], $value);
-        }
-
-        return sprintf('getTSFE().%s %s %s', $property, self::OPERATOR_MAPPING[$operator], $value);
     }
 }

@@ -7,19 +7,12 @@ namespace Ssch\TYPO3Rector\TypoScript\Conditions;
 use Nette\Utils\Strings;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 
-final class GlobalStringConditionMatcher implements TyposcriptConditionMatcher
+final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
 {
     /**
      * @var string
      */
     private const TYPE = 'globalString';
-
-    /**
-     * @var array
-     */
-    private const IENV_MAPPING = [
-        'HTTP_HOST' => 'getHttpHost',
-    ];
 
     public function change(string $condition): ?string
     {
@@ -37,7 +30,7 @@ final class GlobalStringConditionMatcher implements TyposcriptConditionMatcher
         $newConditions = [];
         foreach ($subConditions as $subCondition) {
             preg_match(
-                '#(?<type>ENV|IENV|GP)' . self::ZERO_ONE_OR_MORE_WHITESPACES . ':' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
+                '#(?<type>ENV|IENV|GP|TSFE|LIT)' . self::ZERO_ONE_OR_MORE_WHITESPACES . ':' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
                 $subCondition,
                 $matches
             );
@@ -51,8 +44,12 @@ final class GlobalStringConditionMatcher implements TyposcriptConditionMatcher
                 $newConditions[] = $this->createEnvCondition($property, $operator, $value);
             } elseif ('IENV' === $type) {
                 $newConditions[] = $this->createIndependentCondition($property, $operator, $value);
+            } elseif ('TSFE' === $type) {
+                $newConditions[] = $this->refactorTsfe($property, $operator, $value);
             } elseif ('GP' === $type) {
                 $newConditions[] = $this->refactorGetPost($property, $operator, $value);
+            } elseif ('LIT' === $type) {
+                $newConditions[] = sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property);
             }
         }
 
@@ -66,25 +63,6 @@ final class GlobalStringConditionMatcher implements TyposcriptConditionMatcher
         }
 
         return Strings::startsWith($condition, self::TYPE);
-    }
-
-    private function createEnvCondition(string $property, string $operator, string $value): string
-    {
-        return sprintf('getenv("%s") %s "%s"', $property, self::OPERATOR_MAPPING[$operator], $value);
-    }
-
-    private function createIndependentCondition(string $property, string $operator, string $value): string
-    {
-        if (Strings::contains($value, '*')) {
-            return sprintf('like(request.getNormalizedParams().%s(), "%s")', self::IENV_MAPPING[$property], $value);
-        }
-
-        return sprintf(
-            'request.getNormalizedParams().%s() %s "%s"',
-            self::IENV_MAPPING[$property],
-            self::OPERATOR_MAPPING[$operator],
-            $value
-        );
     }
 
     private function refactorGetPost(string $property, string $operator, string $value): string
