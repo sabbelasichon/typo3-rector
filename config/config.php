@@ -76,6 +76,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 't3s',
                 't3c',
                 'typoscriptconstants',
+                'typoscriptsetupts',
             ],
         ]]);
 
