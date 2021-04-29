@@ -12,7 +12,7 @@
 .gitignore export-ignore
 .phpstorm.meta.php export-ignore
 .dockerignore export-ignore
-build-typo3-rector-scoped.sh
+build-typo3-rector-scoped.sh export-ignore
 LICENSE export-ignore
 ecs.php export-ignore
 phpstan.neon export-ignore
@@ -25,4 +25,11 @@ gitlab-template.yml export-ignore
 tests export-ignore
 scoper.php export-ignore
 /utils/phpstan/tests export-ignore
-
+scoped export-ignore
+utils/compiler export-ignore
+utils/composer-packages export-ignore
+utils/generator export-ignore
+utils/rules export-ignore
+utils/stubs export-ignore
+.github export-ignore
+bin export-ignore
