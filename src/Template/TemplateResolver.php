@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Template;
 
-final class TemplateResolver
+use Rector\Core\Contract\Template\TemplateResolverInterface;
+
+final class TemplateResolver implements TemplateResolverInterface
 {
     /**
      * @var string
