@@ -95,44 +95,55 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
             return null;
         }
 
-        switch ($this->getName($node->name)) {
-            case self::COMPAT_VERSION:
-                return new GreaterOrEqual(
-                    $this->nodeFactory->createStaticCall(VersionNumberUtility::class, 'convertVersionNumberToInteger', [
-                        new ConstFetch(new Name('TYPO3_branch')),
-                    ]),
-                    $this->nodeFactory->createStaticCall(
-                        VersionNumberUtility::class,
-                        'convertVersionNumberToInteger',
-                        $node->args
-                    )
-                );
-            case self::CONVERT_MICROTIME:
-                $funcCall = $this->nodeFactory->createFuncCall('explode', [new String_(' '), $node->args[0]->value]);
-                $this->addNodeBeforeNode(new Expression(new Assign(new Variable(self::PARTS), $funcCall)), $node);
+        $nodeName = $this->getName($node->name);
 
-                return $this->nodeFactory->createFuncCall('round', [
-                    new Mul(new Plus(
-                        new ArrayDimFetch(new Variable(self::PARTS), new LNumber(0)),
-                        new ArrayDimFetch(new Variable(self::PARTS), new LNumber(1))
-                    ), new LNumber(1000)),
-                ]);
-            case self::RAW_URL_ENCODE_JS:
-                return $this->nodeFactory->createFuncCall('str_replace', [
-                    '%20',
-                    ' ',
-                    $this->nodeFactory->createFuncCall('rawurlencode', $node->args),
-                ]);
-            case self::RAW_URL_ENCODE_FP:
-                return $this->nodeFactory->createFuncCall('str_replace', [
-                    '%2F',
-                    '/',
-                    $this->nodeFactory->createFuncCall('rawurlencode', $node->args),
-                ]);
-            case self::LCFIRST:
-                return $this->nodeFactory->createFuncCall(self::LCFIRST, $node->args);
-            case self::GET_MAXIMUM_PATH_LENGTH:
-                return new ConstFetch(new Name('PHP_MAXPATHLEN'));
+        if (self::COMPAT_VERSION === $nodeName) {
+            return new GreaterOrEqual(
+                $this->nodeFactory->createStaticCall(VersionNumberUtility::class, 'convertVersionNumberToInteger', [
+                    new ConstFetch(new Name('TYPO3_branch')),
+                ]),
+                $this->nodeFactory->createStaticCall(
+                    VersionNumberUtility::class,
+                    'convertVersionNumberToInteger',
+                    $node->args
+                )
+            );
+        }
+
+        if (self::CONVERT_MICROTIME === $nodeName) {
+            $funcCall = $this->nodeFactory->createFuncCall('explode', [new String_(' '), $node->args[0]->value]);
+            $this->addNodeBeforeNode(new Expression(new Assign(new Variable(self::PARTS), $funcCall)), $node);
+
+            return $this->nodeFactory->createFuncCall('round', [
+                new Mul(new Plus(
+                    new ArrayDimFetch(new Variable(self::PARTS), new LNumber(0)),
+                    new ArrayDimFetch(new Variable(self::PARTS), new LNumber(1))
+                ), new LNumber(1000)),
+            ]);
+        }
+
+        if (self::RAW_URL_ENCODE_JS === $nodeName) {
+            return $this->nodeFactory->createFuncCall('str_replace', [
+                '%20',
+                ' ',
+                $this->nodeFactory->createFuncCall('rawurlencode', $node->args),
+            ]);
+        }
+
+        if (self::RAW_URL_ENCODE_FP === $nodeName) {
+            return $this->nodeFactory->createFuncCall('str_replace', [
+                '%2F',
+                '/',
+                $this->nodeFactory->createFuncCall('rawurlencode', $node->args),
+            ]);
+        }
+
+        if (self::LCFIRST === $nodeName) {
+            return $this->nodeFactory->createFuncCall(self::LCFIRST, $node->args);
+        }
+
+        if (self::GET_MAXIMUM_PATH_LENGTH === $nodeName) {
+            return new ConstFetch(new Name('PHP_MAXPATHLEN'));
         }
 
         return null;

@@ -14,7 +14,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\TypeWithClassName;
-use Psr\Http\Message\ResponseInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -222,7 +221,7 @@ CODE_SAMPLE
                 continue;
             }
 
-            if (is_a($returnType->getClassName(), ResponseInterface::class, true)) {
+            if ($returnType->isSuperTypeOf(new ObjectType('Psr\Http\Message\ResponseInterface'))->yes()) {
                 return true;
             }
         }

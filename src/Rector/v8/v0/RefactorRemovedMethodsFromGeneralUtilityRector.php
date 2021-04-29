@@ -47,33 +47,44 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
         if (null === $methodName) {
             return null;
         }
-        switch ($methodName) {
-            case 'gif_compress':
-                return $this->nodeFactory->createStaticCall(GraphicalFunctions::class, 'gifCompress', $node->args);
-            case 'png_to_gif_by_imagemagick':
-                return $this->nodeFactory->createStaticCall(
-                    GraphicalFunctions::class,
-                    'pngToGifByImagemagick',
-                    $node->args
-                );
-            case 'read_png_gif':
-                return $this->nodeFactory->createStaticCall(GraphicalFunctions::class, 'readPngGif', $node->args);
-            case 'inArray':
-            case 'removeArrayEntryByValue':
-            case 'keepItemsInArray':
-            case 'remapArrayKeys':
-            case 'arrayDiffAssocRecursive':
-            case 'naturalKeySortRecursive':
-                return $this->nodeFactory->createStaticCall(ArrayUtility::class, $methodName, $node->args);
-            case 'array_merge':
-                [$arg1, $arg2] = $node->args;
-                return new Plus($arg1->value, $arg2->value);
-            case 'getThisUrl':
-                // TODO: This is not implemented yet. What is the correct equivalent within getIndpEnv
-                break;
-            case 'cleanOutputBuffers':
-                return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'flushOutputBuffers');
+
+        if ('gif_compress' === $methodName) {
+            return $this->nodeFactory->createStaticCall(GraphicalFunctions::class, 'gifCompress', $node->args);
         }
+
+        if ('png_to_gif_by_imagemagick' === $methodName) {
+            return $this->nodeFactory->createStaticCall(
+                GraphicalFunctions::class,
+                'pngToGifByImagemagick',
+                $node->args
+            );
+        }
+
+        if ('read_png_gif' === $methodName) {
+            return $this->nodeFactory->createStaticCall(GraphicalFunctions::class, 'readPngGif', $node->args);
+        }
+
+        if ('array_merge' === $methodName) {
+            [$arg1, $arg2] = $node->args;
+
+            return new Plus($arg1->value, $arg2->value);
+        }
+
+        if ('cleanOutputBuffers' === $methodName) {
+            return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'flushOutputBuffers');
+        }
+
+        if (in_array($methodName, [
+            'inArray',
+            'removeArrayEntryByValue',
+            'keepItemsInArray',
+            'remapArrayKeys',
+            'arrayDiffAssocRecursive',
+            'naturalKeySortRecursive',
+        ], true)) {
+            return $this->nodeFactory->createStaticCall(ArrayUtility::class, $methodName, $node->args);
+        }
+
         return null;
     }
 

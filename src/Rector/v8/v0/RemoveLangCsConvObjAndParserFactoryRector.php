@@ -118,7 +118,9 @@ CODE_SAMPLE
             return null;
         }
 
-        if (null === $this->getName($node->name)) {
+        $nodeName = $this->getName($node->name);
+
+        if (null === $nodeName) {
             return null;
         }
 

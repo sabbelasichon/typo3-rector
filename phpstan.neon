@@ -1,7 +1,6 @@
 includes:
     # see https://github.com/symplify/phpstan-extensions
     - utils/phpstan/config/typo3-rector.neon
-    - phpstan-baseline.neon
 parameters:
     level: 8
 
@@ -69,3 +68,10 @@ parameters:
         -
             message: "#^\"@preg_match\\(\\$regularExpression, ''\\)\" is forbidden to use$#"
             path: src/TypoScript/Conditions/ApplicationContextConditionMatcher.php
+        -
+            message: '#Function "class_exists\(\)" cannot be used/left in the code#'
+            paths:
+                - src/NodeFactory/InitializeArgumentsClassMethodFactory.php
+        -
+            message: "#^Instead of \"new ClassReflection\\(\\)\" use ReflectionProvider service or \"\\(new PHPStan\\\\Reflection\\\\ClassReflection\\(\\<desired_type\\>\\)\\)\" for static reflection to work$#"
+            path: src/NodeFactory/InitializeArgumentsClassMethodFactory.php
