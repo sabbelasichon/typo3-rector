@@ -57,8 +57,8 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
         }
         $arguments = $node->args;
         // Change the argument for attempts if it false to null
-        $nodeNameArgument2 = $this->getName($arguments[2]->value);
-        $nodeNameArgument4 = $this->getName($arguments[4]->value);
+        $nodeNameArgument2 = isset($arguments[2]) ? $this->getName($arguments[2]->value) : '';
+        $nodeNameArgument4 = isset($arguments[4]) ? $this->getName($arguments[4]->value) : '';
 
         if ($this->isName($node->name, self::ASK_AND_VALIDATE) && 'false' === $nodeNameArgument2) {
             $arguments[2] = null;
