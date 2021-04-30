@@ -7,5 +7,5 @@ use Rector\Core\Contract\Rector\RectorInterface;
 
 interface FlexFormTransformer extends RectorInterface
 {
-    public function transform(DOMDocument $domDocument): void;
+    public function transform(DOMDocument $domDocument): bool;
 }

@@ -9,6 +9,7 @@ use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
+use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use Ssch\TYPO3Rector\Yaml\Form\Transformer\FormYamlTransformer;
 use Symfony\Component\Yaml\Yaml;
 
@@ -91,7 +92,15 @@ final class FormYamlProcessor implements FileProcessorInterface
             $yaml = $transformer->transform($yaml);
         }
 
-        $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile($smartFileInfo);
+        $defaultEditorConfiguration = new EditorConfigConfiguration(
+            EditorConfigConfiguration::SPACE,
+            2,
+            EditorConfigConfiguration::LINE_FEED
+        );
+        $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(
+            $smartFileInfo,
+            $defaultEditorConfiguration
+        );
 
         $changedContent = Yaml::dump($yaml, 99, $editorConfiguration->getIndentSize());
 

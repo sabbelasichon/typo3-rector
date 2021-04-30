@@ -1,5 +1,6 @@
 <?php
 
+use Rector\Core\Configuration\Option;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
 use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -12,6 +13,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $replacePackages = [new ReplacePackage('typo3-ter/news', 'georgringer/news')];
 
+    $parameters = $containerConfigurator->parameters();
+    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
     $services->set(AddReplacePackageRector::class)
         ->call('setReplacePackages', [ValueObjectInliner::inline($replacePackages)]);
 };

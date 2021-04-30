@@ -9,6 +9,7 @@ use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
+use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
 
@@ -109,7 +110,15 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
             return;
         }
 
-        $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile($smartFileInfo);
+        $defaultEditorConfiguration = new EditorConfigConfiguration(
+            EditorConfigConfiguration::SPACE,
+            2,
+            EditorConfigConfiguration::LINE_FEED
+        );
+        $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(
+            $smartFileInfo,
+            $defaultEditorConfiguration
+        );
 
         $json = $this->composerJsonPrinter->printToString($composerJson);
 

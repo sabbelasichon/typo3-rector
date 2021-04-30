@@ -7,5 +7,8 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 
 interface EditorConfigParser
 {
-    public function extractConfigurationForFile(SmartFileInfo $smartFileInfo): EditorConfigConfiguration;
+    public function extractConfigurationForFile(
+        SmartFileInfo $smartFileInfo,
+        EditorConfigConfiguration $defaultEditorConfiguration
+    ): EditorConfigConfiguration;
 }

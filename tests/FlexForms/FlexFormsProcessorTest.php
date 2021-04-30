@@ -14,7 +14,7 @@ final class FlexFormsProcessorTest extends AbstractApplicationFileProcessorTest
         $this->applicationFileProcessor->run($files);
 
         $processResult = $this->processResultFactory->create($files);
-        $this->assertCount(2, $processResult->getFileDiffs());
+        $this->assertCount(1, $processResult->getFileDiffs());
     }
 
     protected function provideConfigFilePath(): string

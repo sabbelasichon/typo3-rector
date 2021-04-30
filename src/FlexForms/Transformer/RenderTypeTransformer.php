@@ -14,12 +14,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class RenderTypeTransformer implements FlexFormTransformer
 {
-    public function transform(DOMDocument $domDocument): void
+    public function transform(DOMDocument $domDocument): bool
     {
         $xpath = new DOMXPath($domDocument);
         /** @var DOMNodeList|DOMElement[] $elements */
         $elements = $xpath->query('//TCEforms/config');
 
+        $hasChanged = false;
         foreach ($elements as $element) {
             $types = $element->getElementsByTagName('type');
 
@@ -69,9 +70,12 @@ final class RenderTypeTransformer implements FlexFormTransformer
                 continue;
             }
 
+            $hasChanged = true;
             $insertBefore->parentNode->insertBefore($renderType, $insertBefore->nextSibling);
             $insertBefore->parentNode->insertBefore($domDocument->createTextNode("\n"), $insertBefore->nextSibling);
         }
+
+        return $hasChanged;
     }
 
     public function getRuleDefinition(): RuleDefinition

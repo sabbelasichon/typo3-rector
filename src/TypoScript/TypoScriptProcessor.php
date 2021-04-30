@@ -14,6 +14,7 @@ use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
+use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
@@ -129,7 +130,15 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
             }
             $traverser->walk();
 
-            $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile($smartFileInfo);
+            $defaultEditorConfiguration = new EditorConfigConfiguration(
+                EditorConfigConfiguration::SPACE,
+                4,
+                EditorConfigConfiguration::LINE_FEED
+            );
+            $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(
+                $smartFileInfo,
+                $defaultEditorConfiguration
+            );
 
             $prettyPrinterConfiguration = PrettyPrinterConfiguration::create();
             $prettyPrinterConfiguration = $prettyPrinterConfiguration->withEmptyLineBreaks();

@@ -38,13 +38,15 @@ final class EditorConfigIdiosyncraticParser implements EditorConfigParser
         $this->editorConfig = $editorConfig;
     }
 
-    public function extractConfigurationForFile(SmartFileInfo $smartFileInfo): EditorConfigConfiguration
-    {
+    public function extractConfigurationForFile(
+        SmartFileInfo $smartFileInfo,
+        EditorConfigConfiguration $defaultEditorConfiguration
+    ): EditorConfigConfiguration {
         $configuration = $this->editorConfig->getConfigForPath($smartFileInfo->getRealPath());
 
-        $identStyle = 'space';
-        $identSize = 2;
-        $endOfLine = 'lf';
+        $identStyle = $defaultEditorConfiguration->getIndentStyle();
+        $identSize = $defaultEditorConfiguration->getIndentSize();
+        $endOfLine = $defaultEditorConfiguration->getEndOfLine();
 
         if (array_key_exists(
             self::INDENT_STYLE,
