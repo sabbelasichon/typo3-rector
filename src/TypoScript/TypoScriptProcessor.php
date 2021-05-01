@@ -16,7 +16,6 @@ use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\Reporting\Reporter;
-use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -229,11 +228,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
 
                 $file = new File(new SmartFileInfo($filePath), $typoScriptToPhpFile->getContent());
                 $this->currentFileProvider->setFile($file);
-                $report = new Report(
-                    'We have converted from TypoScript extbase persistence to a PHP File',
-                    $convertToPhpFileVisitor
-                );
-                $this->reporter->report($report);
+                $this->reporter->report($convertToPhpFileVisitor->getReport());
             }
         }
     }

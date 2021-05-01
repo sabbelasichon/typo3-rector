@@ -63,6 +63,7 @@ final class HtmlReporter implements Reporter
         $rectorReflection = new ReflectionClass($report->getRector());
 
         $recordData = [
+            'message' => $report->getMessage(),
             'rector' => $rectorReflection->getShortName(),
             'file' => sprintf(
                 '<a href="file:///%s" target="_blank" rel="noopener">%s</a>',

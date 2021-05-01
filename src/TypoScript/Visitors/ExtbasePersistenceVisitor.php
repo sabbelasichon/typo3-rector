@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\TypoScript\Visitors;
 use Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Nette\Utils\Strings;
+use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Ssch\TYPO3Rector\TypoScript\ConvertToPhpFileInterface;
 use Ssch\TYPO3Rector\ValueObject\TypoScriptToPhpFile;
 use Symfony\Component\VarExporter\VarExporter;
@@ -86,6 +87,15 @@ CODE_SAMPLE
         $content = sprintf(self::GENERATED_FILE_TEMPLATE, VarExporter::export(self::$persistenceArray));
 
         return new TypoScriptToPhpFile('Extbase_Persistence_Classes', $content);
+    }
+
+    public function getReport(): Report
+    {
+        return new Report(
+            'We have converted from TypoScript extbase persistence to a PHP File',
+            $this,
+            ['Move and maybe divide file to appropriate location in your extension']
+        );
     }
 
     private function extractSubClasses(array $paths, Assignment $statement): void
