@@ -14,6 +14,9 @@ use Symfony\Component\VarExporter\VarExporter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
+/**
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-87623-ReplaceConfigpersistenceclassesTyposcriptConfiguration.html
+ */
 final class ExtbasePersistenceVisitor extends AbstractVisitor implements ConvertToPhpFileInterface
 {
     /**
