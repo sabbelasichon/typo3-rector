@@ -41,88 +41,90 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
 
     public function enterNode(Statement $statement): void
     {
-        if ($statement instanceof ConditionalStatement) {
-            preg_match_all('#\[(.*)]#imU', $statement->condition, $conditions, PREG_SET_ORDER);
-            preg_match_all('#]\s*(&&|\|\||AND|OR)#imU', $statement->condition, $operators, PREG_SET_ORDER);
+        if (! $statement instanceof ConditionalStatement) {
+            return;
+        }
 
-            $conditions = array_filter($conditions);
-            $operators = array_filter($operators);
+        preg_match_all('#\[(.*)]#imU', $statement->condition, $conditions, PREG_SET_ORDER);
+        preg_match_all('#]\s*(&&|\|\||AND|OR)#imU', $statement->condition, $operators, PREG_SET_ORDER);
 
-            $operators = array_map(function (array $match) {
-                return $match[1];
-            }, $operators);
+        $conditions = array_filter($conditions);
+        $operators = array_filter($operators);
 
-            $conditions = array_map(function (array $match) {
-                return $match[1];
-            }, $conditions);
+        $operators = array_map(function (array $match) {
+            return $match[1];
+        }, $operators);
 
-            $newConditions = [];
-            $applied = false;
-            if (is_array($conditions)) {
-                foreach ($conditions as $condition) {
-                    foreach ($this->conditionMatchers as $conditionMatcher) {
-                        $condition = trim($condition);
-                        if (! $conditionMatcher->shouldApply($condition)) {
-                            continue;
-                        }
-                        $changedCondition = $conditionMatcher->change($condition);
-                        $applied = true;
-                        if (null !== $changedCondition) {
-                            $newConditions[] = $changedCondition;
-                        }
+        $conditions = array_map(function (array $match) {
+            return $match[1];
+        }, $conditions);
+
+        $newConditions = [];
+        $applied = false;
+        if (is_array($conditions)) {
+            foreach ($conditions as $condition) {
+                foreach ($this->conditionMatchers as $conditionMatcher) {
+                    $condition = trim($condition);
+                    if (! $conditionMatcher->shouldApply($condition)) {
+                        continue;
+                    }
+                    $changedCondition = $conditionMatcher->change($condition);
+                    $applied = true;
+                    if (null !== $changedCondition) {
+                        $newConditions[] = $changedCondition;
                     }
                 }
             }
-
-            if (! $applied) {
-                return;
-            }
-
-            $file = $this->currentFileProvider->getFile();
-
-            if ($file instanceof File) {
-                $file->addRectorClassWithLine(new RectorWithLineChange($this, $statement->sourceLine));
-            }
-
-            if ([] === $newConditions) {
-                $statement->condition = '';
-
-                return;
-            }
-
-            if (1 === count($newConditions)) {
-                $statement->condition = sprintf('[%s]', $newConditions[0]);
-
-                return;
-            }
-
-            if (0 === count($operators)) {
-                $statement->condition = sprintf('[%s]', implode(' || ', $newConditions));
-
-                return;
-            }
-
-            if (count($operators) !== (count($newConditions) - 1)) {
-                throw new LogicException(
-                    'The count of operators must be exactly one less than the count of conditions'
-                );
-            }
-
-            array_unshift($operators, '');
-
-            $newCondition = '';
-            foreach ($newConditions as $key => $value) {
-                $operator = $operators[$key];
-                if ('' === $operator) {
-                    $newCondition .= $value;
-                    continue;
-                }
-
-                $newCondition .= sprintf(' %s %s', $operator, $value);
-            }
-
-            $statement->condition = sprintf('[%s]', $newCondition);
         }
+
+        if (! $applied) {
+            return;
+        }
+
+        $file = $this->currentFileProvider->getFile();
+
+        if ($file instanceof File) {
+            $file->addRectorClassWithLine(new RectorWithLineChange($this, $statement->sourceLine));
+        }
+
+        if ([] === $newConditions) {
+            $statement->condition = '';
+
+            return;
+        }
+
+        if (1 === count($newConditions)) {
+            $statement->condition = sprintf('[%s]', $newConditions[0]);
+
+            return;
+        }
+
+        if (0 === count($operators)) {
+            $statement->condition = sprintf('[%s]', implode(' || ', $newConditions));
+
+            return;
+        }
+
+        if (count($operators) !== (count($newConditions) - 1)) {
+            throw new LogicException(
+                'The count of operators must be exactly one less than the count of conditions'
+            );
+        }
+
+        array_unshift($operators, '');
+
+        $newCondition = '';
+        foreach ($newConditions as $key => $value) {
+            $operator = $operators[$key];
+            if ('' === $operator) {
+                $newCondition .= $value;
+                continue;
+            }
+
+            $newCondition .= sprintf(' %s %s', $operator, $value);
+        }
+
+        $statement->condition = sprintf('[%s]', $newCondition);
     }
 
     public function getRuleDefinition(): RuleDefinition

@@ -62,6 +62,9 @@ parameters:
                 - src/TypoScript/Visitors/OldConditionToExpressionLanguageVisitor.php
                 - src/EditorConfig/EditorConfigIdiosyncraticParser.php
                 - src/FlexForms/Transformer/RenderTypeTransformer.php
+                - src/TypoScript/TypoScriptProcessor.php
+                - src/TypoScript/Visitors/ExtbasePersistenceVisitor
+
         -
             message: '#Parameter \#1 \$expr of method Rector\\Core\\PhpParser\\Node\\Value\\ValueResolver\:\:getValue\(\) expects PhpParser\\Node\\Expr, PhpParser\\Node\\Expr\|null given#'
             path: src/Rector/v8/v6/RefactorTCARector.php
