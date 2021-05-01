@@ -24,7 +24,7 @@ final class TypoScriptToPhpFile
 
     public function getFilename(): string
     {
-        return sprintf('%s_%s.php', $this->filename, random_int(0, 10000));
+        return sprintf('%s.php', $this->filename);
     }
 
     public function getContent(): string

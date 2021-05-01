@@ -85,7 +85,7 @@ CODE_SAMPLE
     {
         $content = sprintf(self::GENERATED_FILE_TEMPLATE, VarExporter::export(self::$persistenceArray));
 
-        return new TypoScriptToPhpFile('Classes', $content);
+        return new TypoScriptToPhpFile('Extbase_Persistence_Classes', $content);
     }
 
     private function extractSubClasses(array $paths, Assignment $statement): void

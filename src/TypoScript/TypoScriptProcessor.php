@@ -203,9 +203,11 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     {
         foreach ($this->convertToPhpFileVisitors() as $convertToPhpFileVisitor) {
             $typoScriptToPhpFile = $convertToPhpFileVisitor->convert();
-            $filePath = $this->configuration->getMainConfigFilePath() . $typoScriptToPhpFile->getFilename();
+            $filePath = dirname(
+                (string) $this->configuration->getMainConfigFilePath()
+            ) . '/' . $typoScriptToPhpFile->getFilename();
 
-            if (! $this->configuration->isDryRun()) {
+            if ($this->configuration->isDryRun()) {
                 $message = sprintf(
                     'Would create file "%s" with content "%s"',
                     $filePath,
