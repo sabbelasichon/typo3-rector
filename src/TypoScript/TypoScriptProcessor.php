@@ -15,9 +15,12 @@ use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
+use Ssch\TYPO3Rector\Reporting\Reporter;
+use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
@@ -81,6 +84,11 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     private $symfonyStyle;
 
     /**
+     * @var Reporter
+     */
+    private $reporter;
+
+    /**
      * @param Visitor[] $visitors
      */
     public function __construct(
@@ -92,6 +100,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         SmartFileSystem $smartFileSystem,
         Configuration $configuration,
         SymfonyStyle $symfonyStyle,
+        Reporter $reporter,
         array $visitors = []
     ) {
         $this->typoscriptParser = $typoscriptParser;
@@ -104,6 +113,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         $this->smartFileSystem = $smartFileSystem;
         $this->configuration = $configuration;
         $this->symfonyStyle = $symfonyStyle;
+        $this->reporter = $reporter;
     }
 
     /**
@@ -216,6 +226,14 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
                 $this->symfonyStyle->info($message);
             } else {
                 $this->smartFileSystem->dumpFile($filePath, $typoScriptToPhpFile->getContent());
+
+                $file = new File(new SmartFileInfo($filePath), $typoScriptToPhpFile->getContent());
+                $this->currentFileProvider->setFile($file);
+                $report = new Report(
+                    'We have converted from TypoScript extbase persistence to a PHP File',
+                    $convertToPhpFileVisitor
+                );
+                $this->reporter->report($report);
             }
         }
     }
