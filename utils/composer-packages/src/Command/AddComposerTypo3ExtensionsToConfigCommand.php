@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\Command;
 
-use Composer\Semver\VersionParser;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
@@ -33,11 +32,6 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
      * @var PackageResolver
      */
     private $packageResolver;
-
-    /**
-     * @var VersionParser
-     */
-    private $versionParser;
 
     /**
      * @var Parser
@@ -76,7 +70,6 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 
     public function __construct(
         PackageResolver $packageResolver,
-        VersionParser $versionParser,
         Parser $parser,
         ComposerConfigurationPathResolver $composerConfigurationPathResolver,
         SmartFileSystem $smartFileSystem,
@@ -88,7 +81,6 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         parent::__construct();
 
         $this->packageResolver = $packageResolver;
-        $this->versionParser = $versionParser;
         $this->parser = $parser;
         $this->composerConfigurationPathResolver = $composerConfigurationPathResolver;
         $this->smartFileSystem = $smartFileSystem;
@@ -110,8 +102,6 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $typo3Versions = $this->createTypo3Versions();
         $packages = $this->packageResolver->findAllPackagesByType('typo3-cms-extension');
 
-        #$this->resetComposerExtensions($typo3Versions);
-
         $progressBar = new ProgressBar($output, count($packages));
 
         foreach ($packages as $package) {
@@ -128,26 +118,28 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
             foreach ($typo3Versions as $typo3Version) {
                 $extension = $collection->findHighestVersion($typo3Version);
 
-                if ($extension instanceof ExtensionVersion) {
-                    $smartFileInfo = $this->composerConfigurationPathResolver->resolveByTypo3Version($typo3Version);
-
-                    if (null === $smartFileInfo) {
-                        continue;
-                    }
-
-                    $nodes = $this->parser->parseFileInfo($smartFileInfo);
-                    $this->decorateNamesToFullyQualified($nodes);
-
-                    $nodeTraverser = new NodeTraverser();
-
-                    $this->addPackageVersionRector->setExtension($extension);
-
-                    $nodeTraverser->addVisitor($this->addPackageVersionRector);
-                    $nodes = $nodeTraverser->traverse($nodes);
-
-                    $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
-                    $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
+                if (! $extension instanceof ExtensionVersion) {
+                    continue;
                 }
+
+                $smartFileInfo = $this->composerConfigurationPathResolver->resolveByTypo3Version($typo3Version);
+
+                if (null === $smartFileInfo) {
+                    continue;
+                }
+
+                $nodes = $this->parser->parseFileInfo($smartFileInfo);
+                $this->decorateNamesToFullyQualified($nodes);
+
+                $nodeTraverser = new NodeTraverser();
+
+                $this->addPackageVersionRector->setExtension($extension);
+
+                $nodeTraverser->addVisitor($this->addPackageVersionRector);
+                $nodes = $nodeTraverser->traverse($nodes);
+
+                $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
+                $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
             }
         }
 

@@ -17,6 +17,7 @@ use Ssch\TYPO3Rector\TypoScript\Conditions\TimeConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\TreeLevelConditionMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\UsergroupConditionMatcherMatcher;
 use Ssch\TYPO3Rector\TypoScript\Conditions\VersionConditionMatcher;
+use Ssch\TYPO3Rector\TypoScript\Visitors\ExtbasePersistenceVisitor;
 use Ssch\TYPO3Rector\TypoScript\Visitors\FileIncludeToImportStatementVisitor;
 use Ssch\TYPO3Rector\TypoScript\Visitors\OldConditionToExpressionLanguageVisitor;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -41,4 +42,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(VersionConditionMatcher::class);
     $services->set(OldConditionToExpressionLanguageVisitor::class);
     $services->set(FileIncludeToImportStatementVisitor::class);
+    $services->set(ExtbasePersistenceVisitor::class);
 };
