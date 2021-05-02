@@ -27,6 +27,11 @@ interface TyposcriptConditionMatcher
     public const ZERO_ONE_OR_MORE_WHITESPACES = '\s*';
 
     /**
+     * @var string
+     */
+    public const CONTAINS_CONSTANT = '{$';
+
+    /**
      * If we return null it means conditions can be removed
      */
     public function change(string $condition): ?string;
