@@ -13,6 +13,7 @@ use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use Idiosyncratic\EditorConfig\EditorConfig;
 use PrettyXml\Formatter;
 use Rector\Core\Configuration\Option;
+use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Reporting\Reporter;
 use Ssch\TYPO3Rector\Reporting\ReporterFactory;
 use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
@@ -26,6 +27,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters = $containerConfigurator->parameters();
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
+    $parameters->set(Typo3Option::REPORT_DIRECTORY, '');
     $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, __DIR__ . '/../utils/phpstan/config/extension.neon');
 
     $services = $containerConfigurator->services();
