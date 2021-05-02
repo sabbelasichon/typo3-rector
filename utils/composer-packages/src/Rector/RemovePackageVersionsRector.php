@@ -15,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @see
+ * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Rector\RemovePackageVersionsRector\RemovePackageVersionsRectorTest
  */
 final class RemovePackageVersionsRector extends AbstractRector
 {

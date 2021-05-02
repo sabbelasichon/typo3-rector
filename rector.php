@@ -37,8 +37,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         Option::SKIP,
         [
             __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
-
-            RemovePackageVersionsRector::class,
+            RemovePackageVersionsRector::class => [__DIR__ . '/config', __DIR__ . '/tests'],
             __DIR__ . '/src/Bootstrap',
             __DIR__ . '/src/Set',
             __DIR__ . '/src/Compiler',
