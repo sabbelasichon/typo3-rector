@@ -48,7 +48,7 @@ final class ReporterFactory
 
     public function createReporter(): Reporter
     {
-        $reportDirectory = (string) $this->parameterProvider->provideParameter(Typo3Option::REPORT_DIRECTORY);
+        $reportDirectory = $this->parameterProvider->provideStringParameter(Typo3Option::REPORT_DIRECTORY);
 
         if (! $this->smartFileSystem->exists($reportDirectory)) {
             return new NullReporter();

@@ -224,11 +224,17 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
                 );
                 $this->symfonyStyle->info($message);
             } else {
+                $report = $convertToPhpFileVisitor->getReport();
+                $message = $report->getMessage();
+
                 $this->smartFileSystem->dumpFile($filePath, $typoScriptToPhpFile->getContent());
 
                 $file = new File(new SmartFileInfo($filePath), $typoScriptToPhpFile->getContent());
                 $this->currentFileProvider->setFile($file);
-                $this->reporter->report($convertToPhpFileVisitor->getReport());
+
+                $this->symfonyStyle->warning($message);
+
+                $this->reporter->report($report);
             }
         }
     }
