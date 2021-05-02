@@ -46,7 +46,7 @@ final class EditorConfigIdiosyncraticParser implements EditorConfigParser
 
         $identStyle = $defaultEditorConfiguration->getIndentStyle();
         $identSize = $defaultEditorConfiguration->getIndentSize();
-        $endOfLine = $defaultEditorConfiguration->getEndOfLine();
+        $endOfLine = $defaultEditorConfiguration->getEndOfLineKey();
 
         if (array_key_exists(
             self::INDENT_STYLE,

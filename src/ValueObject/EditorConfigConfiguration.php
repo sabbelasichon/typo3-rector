@@ -103,6 +103,13 @@ final class EditorConfigConfiguration
         return $this->endOfLine;
     }
 
+    public function getEndOfLineKey(): string
+    {
+        $endOfLines = array_flip(self::ALLOWED_END_OF_LINE);
+
+        return $endOfLines[$this->endOfLine];
+    }
+
     public function getIndentStyleCharacter(): string
     {
         if ('space' === $this->indentStyle) {

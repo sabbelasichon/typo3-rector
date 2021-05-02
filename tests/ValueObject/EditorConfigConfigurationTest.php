@@ -37,6 +37,7 @@ final class EditorConfigConfigurationTest extends TestCase
     {
         $editorConfigConfiguration = new EditorConfigConfiguration(EditorConfigConfiguration::SPACE, 2, $endOfLine);
         self::assertSame($editorConfigConfiguration->getEndOfLine(), $expectedEndOfLine);
+        self::assertSame($editorConfigConfiguration->getEndOfLineKey(), $endOfLine);
     }
 
     /**
