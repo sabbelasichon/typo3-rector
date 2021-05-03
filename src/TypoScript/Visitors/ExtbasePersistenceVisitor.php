@@ -89,7 +89,7 @@ CODE_SAMPLE
     {
         $content = sprintf(self::GENERATED_FILE_TEMPLATE, VarExporter::export(self::$persistenceArray));
 
-        return new TypoScriptToPhpFile('Extbase_Persistence_Classes', $content);
+        return new TypoScriptToPhpFile('Configuration_Extbase_Persistence_Classes', $content);
     }
 
     public function getReport(): Report
