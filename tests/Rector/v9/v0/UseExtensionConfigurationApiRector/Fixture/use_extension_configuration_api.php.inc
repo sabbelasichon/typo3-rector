@@ -16,6 +16,8 @@ if (!is_array($backendConfiguration)) {
 
 $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo'] = 1;
 
+$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['mediapool'] ?? '', ['allowed_classes' => false]);
+
 ?>
 -----
 <?php
@@ -37,5 +39,7 @@ if (!is_array($backendConfiguration)) {
 }
 
 $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo'] = 1;
+
+$extConf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['mediapool'] ?? '', ['allowed_classes' => false]);
 
 ?>
