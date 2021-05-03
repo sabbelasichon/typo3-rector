@@ -10,7 +10,7 @@ use Ssch\TYPO3Rector\ValueObject\TypoScriptToPhpFile;
 
 interface ConvertToPhpFileInterface extends RectorInterface
 {
-    public function convert(): TypoScriptToPhpFile;
+    public function convert(): ?TypoScriptToPhpFile;
 
     public function getReport(): Report;
 }
