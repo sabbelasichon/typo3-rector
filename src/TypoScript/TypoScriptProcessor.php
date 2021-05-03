@@ -16,6 +16,7 @@ use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\Reporting\Reporter;
+use Ssch\TYPO3Rector\TypoScript\Visitors\AbstractVisitor;
 use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -164,6 +165,14 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
                 $traverser->addVisitor($visitor);
             }
             $traverser->walk();
+
+            $visitorsChanged = array_filter($this->visitors, function (AbstractVisitor $visitor) {
+                return $visitor->hasChanged();
+            });
+
+            if ([] === $visitorsChanged) {
+                return;
+            }
 
             $defaultEditorConfiguration = new EditorConfigConfiguration(
                 EditorConfigConfiguration::SPACE,

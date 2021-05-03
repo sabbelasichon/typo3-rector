@@ -83,6 +83,8 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
 
         $file = $this->currentFileProvider->getFile();
 
+        $this->hasChanged = true;
+
         if ($file instanceof File) {
             $file->addRectorClassWithLine(new RectorWithLineChange($this, $statement->sourceLine));
         }

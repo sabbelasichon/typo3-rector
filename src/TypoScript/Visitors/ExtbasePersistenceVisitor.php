@@ -50,6 +50,8 @@ CODE_SAMPLE;
             return;
         }
 
+        $this->hasChanged = true;
+
         $paths = explode('.', $statement->object->absoluteName);
         // Strip the first parts like config.tx_extbase.persistence.classes
         $paths = array_slice($paths, 4);

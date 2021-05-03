@@ -47,6 +47,7 @@ final class FileIncludeToImportStatementVisitor extends AbstractVisitor
             $file->addRectorClassWithLine(new RectorWithLineChange($this, $statement->sourceLine));
         }
 
+        $this->hasChanged = true;
         $statement->newSyntax = true;
     }
 
