@@ -120,4 +120,9 @@ final class Typo3SetList
      * @var string
      */
     public const SOLR_SOLR_PHP_CLIENT_TO_SOLARIUM = __DIR__ . '/../../config/solr/solr_php_client_to_solarium.php';
+
+    /**
+     * @var string
+     */
+    public const EXTBASE_COMMAND_CONTROLLERS_TO_SYMFONY_COMMANDS = __DIR__ . '/../../config/extbase-command-controllers-to-symfony-commands/extbase_command_controllers_to_symfony_commands.php';
 }

@@ -14,7 +14,12 @@ final class FilesFinder
      */
     private const MAX_DIRECTORY_LEVELS_UP = 6;
 
-    public function findFileRelativeFromGivenFileInfo(SmartFileInfo $fileInfo, string $filename): ?SmartFileInfo
+    public function findExtEmConfRelativeFromGivenFileInfo(SmartFileInfo $fileInfo): ?SmartFileInfo
+    {
+        return $this->findFileRelativeFromGivenFileInfo($fileInfo, 'ext_emconf.php');
+    }
+
+    private function findFileRelativeFromGivenFileInfo(SmartFileInfo $fileInfo, string $filename): ?SmartFileInfo
     {
         // special case for tests
         if (StaticPHPUnitEnvironment::isPHPUnitRun()) {

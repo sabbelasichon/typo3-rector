@@ -63,10 +63,7 @@ final class IconsProcessor implements FileProcessorInterface, RectorInterface
             return false;
         }
 
-        $extEmConfSmartFileInfo = $this->filesFinder->findFileRelativeFromGivenFileInfo(
-            $smartFileInfo,
-            'ext_emconf.php'
-        );
+        $extEmConfSmartFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($smartFileInfo);
 
         if (null === $extEmConfSmartFileInfo) {
             return false;
