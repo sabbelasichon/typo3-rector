@@ -26,7 +26,7 @@ $filePathsToRemoveNamespace = [
     'vendor/symfony/polyfill-php72/bootstrap.php',
     'vendor/symfony/polyfill-uuid/bootstrap.php',
     'vendor/symfony/deprecation-contracts/function.php',
-    'src/Helper/Strings.php',
+    'src/Helper/StringUtility.php',
 ];
 
 $dateTime = DateTime::from('now');
