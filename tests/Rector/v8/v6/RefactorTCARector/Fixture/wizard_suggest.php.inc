@@ -63,6 +63,33 @@ return [
                 ],
             ],
         ],
+        'name_of_travel_guide_2' => [
+            'exclude' => 1,
+            'label' => 'Name des Reiseleiters',
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'pages',
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+                'show_thumbs' => '1',
+                'appearance' => [
+                    'elementBrowserType' => 'db'
+                ],
+                'wizards' => [
+                    'suggest' => [
+                        'type' => 'suggest',
+                        'default' => [
+                            'searchWholePhrase' => 1
+                        ],
+                        'pages' => [
+                            'searchCondition' => 'doktype = 1'
+                        ]
+                    ]
+                ]
+            ],
+        ],
     ],
 ];
 
@@ -97,9 +124,7 @@ return [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'tx_styleguide_staticdata',
-                'suggestOptions' => ['default' => [
-                    'pidList' => 42,
-                ]],
+                'suggestOptions' => ['default' => ['pidList' => 42]],
             ],
         ],
         'name_of_travel_guide' => [
@@ -116,9 +141,24 @@ return [
                 'appearance' => [
                     'elementBrowserType' => 'db'
                 ],
-                'suggestOptions' => ['pages' => [
-                    'searchCondition' => 'doktype=22',
-                ]],
+                'suggestOptions' => ['pages' => ['searchCondition' => 'doktype=22']],
+            ],
+        ],
+        'name_of_travel_guide_2' => [
+            'exclude' => 1,
+            'label' => 'Name des Reiseleiters',
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'pages',
+                'size' => 1,
+                'minitems' => 0,
+                'maxitems' => 1,
+                'show_thumbs' => '1',
+                'appearance' => [
+                    'elementBrowserType' => 'db'
+                ],
+                'suggestOptions' => ['default' => ['searchWholePhrase' => 1], 'pages' => ['searchCondition' => 'doktype = 1']]
             ],
         ],
     ],

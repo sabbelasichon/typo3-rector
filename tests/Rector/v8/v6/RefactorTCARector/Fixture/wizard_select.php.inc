@@ -35,12 +35,7 @@ return [
             'label' => 'input_33',
             'config' => [
                 'type' => 'input',
-                'valuePicker' => ['items' => [
-                    ['spring', 'Spring'],
-                    ['summer', 'Summer'],
-                    ['autumn', 'Autumn'],
-                    ['winter', 'Winter'],
-                ]],
+                'valuePicker' => ['items' => [['spring', 'Spring'], ['summer', 'Summer'], ['autumn', 'Autumn'], ['winter', 'Winter']]],
             ],
         ],
     ],

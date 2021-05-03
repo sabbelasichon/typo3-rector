@@ -179,7 +179,6 @@ CODE_SAMPLE
                     $this->refactorRenderTypeInputDateTime($configValue);
                 }
 
-                /** @var Array_ $configValueArray */
                 $configValueArray = $configValue->value;
                 foreach ($configValueArray->items as $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
@@ -201,11 +200,6 @@ CODE_SAMPLE
                     $fieldControl = [];
                     $customTypeOptions = [];
 
-//                    $isRte = $this->valueResolver->isValue($configItemValue->key, 'RTE');
-//                    if ($isRte) {
-//                        $fieldControl['fullScreenRichtext']['disabled'] = false;
-//                    }
-//
                     $remainingWizards = count($configItemValue->value->items);
                     foreach ($configItemValue->value->items as $wizardItemValue) {
                         if (! $wizardItemValue instanceof ArrayItem) {
@@ -256,6 +250,9 @@ CODE_SAMPLE
                             ), new String_('renderType'));
                         }
 
+                        $suggestOptions = [];
+                        $selectOptions = [];
+
                         foreach ($wizardItemValue->value->items as $wizardItemSubValue) {
                             if (! $wizardItemSubValue instanceof ArrayItem) {
                                 continue;
@@ -280,16 +277,16 @@ CODE_SAMPLE
                                     $wizardItemSubValue->key,
                                     'items'
                                 )) {
-                                $configValue->value->items[] = new ArrayItem(new Array_([
-                                    new ArrayItem($wizardItemSubValue->value, $wizardItemSubValue->key),
-                                ]), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
+                                $selectOptions[$this->getValue($wizardItemSubValue->key)] = $this->getValue(
+    $wizardItemSubValue->value
+);
                             } elseif ('suggest' === $wizardItemValueKey && ! $this->valueResolver->isValue(
                                     $wizardItemSubValue->key,
                                     'type'
                                 )) {
-                                $configValue->value->items[] = new ArrayItem(new Array_([
-                                    new ArrayItem($wizardItemSubValue->value, $wizardItemSubValue->key),
-                                ]), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
+                                $suggestOptions[$this->getValue($wizardItemSubValue->key)] = $this->getValue(
+                                    $wizardItemSubValue->value
+                                );
                             }
 
                             if ($wizardItemSubValue->value instanceof Array_ && $this->valueResolver->isValue(
@@ -340,6 +337,18 @@ CODE_SAMPLE
                                     $wizardItemSubValue->key
                                 )] = $value;
                             }
+                        }
+
+                        if ([] !== $suggestOptions) {
+                            $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                                $suggestOptions
+                            ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE['suggest']));
+                        }
+
+                        if ([] !== $selectOptions) {
+                            $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                                $selectOptions
+                            ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE['select']));
                         }
 
                         if ([] !== $customTypeOptions && array_key_exists(
