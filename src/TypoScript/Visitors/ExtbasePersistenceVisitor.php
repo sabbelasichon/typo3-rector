@@ -50,8 +50,6 @@ CODE_SAMPLE;
             return;
         }
 
-        $this->hasChanged = true;
-
         $paths = explode('.', $statement->object->absoluteName);
         // Strip the first parts like config.tx_extbase.persistence.classes
         $paths = array_slice($paths, 4);
@@ -87,8 +85,12 @@ CODE_SAMPLE
         ]);
     }
 
-    public function convert(): TypoScriptToPhpFile
+    public function convert(): ?TypoScriptToPhpFile
     {
+        if ([] === self::$persistenceArray) {
+            return null;
+        }
+
         $content = sprintf(self::GENERATED_FILE_TEMPLATE, VarExporter::export(self::$persistenceArray));
 
         return new TypoScriptToPhpFile('Configuration_Extbase_Persistence_Classes', $content);

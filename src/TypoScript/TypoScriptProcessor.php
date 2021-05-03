@@ -221,6 +221,11 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     {
         foreach ($this->convertToPhpFileVisitors() as $convertToPhpFileVisitor) {
             $typoScriptToPhpFile = $convertToPhpFileVisitor->convert();
+
+            if (null === $typoScriptToPhpFile) {
+                continue;
+            }
+
             $filePath = dirname(
                 (string) $this->configuration->getMainConfigFilePath()
             ) . '/' . $typoScriptToPhpFile->getFilename();
