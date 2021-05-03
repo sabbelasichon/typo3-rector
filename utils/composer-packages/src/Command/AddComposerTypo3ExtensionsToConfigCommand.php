@@ -9,6 +9,8 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use Rector\Core\PhpParser\Parser\Parser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
+use Rector\Core\Provider\CurrentFileProvider;
+use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerConfigurationPathResolver;
 use Ssch\TYPO3Rector\ComposerPackages\PackageParser;
@@ -68,6 +70,11 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
      */
     private $replacePackageRector;
 
+    /**
+     * @var CurrentFileProvider
+     */
+    private $currentFileProvider;
+
     public function __construct(
         PackageResolver $packageResolver,
         Parser $parser,
@@ -76,7 +83,8 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         BetterStandardPrinter $betterStandardPrinter,
         AddPackageVersionRector $addPackageVersionRector,
         RemovePackageVersionsRector $removePackageVersionsRector,
-        AddReplacePackageRector $replacePackageRector
+        AddReplacePackageRector $replacePackageRector,
+        CurrentFileProvider $currentFileProvider
     ) {
         parent::__construct();
 
@@ -88,6 +96,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $this->addPackageVersionRector = $addPackageVersionRector;
         $this->removePackageVersionsRector = $removePackageVersionsRector;
         $this->replacePackageRector = $replacePackageRector;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     protected function configure(): void
@@ -127,6 +136,9 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                 if (null === $smartFileInfo) {
                     continue;
                 }
+
+                $file = new File($smartFileInfo, $smartFileInfo->getContents());
+                $this->currentFileProvider->setFile($file);
 
                 $nodes = $this->parser->parseFileInfo($smartFileInfo);
                 $this->decorateNamesToFullyQualified($nodes);
@@ -204,6 +216,9 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         if (null === $smartFileInfo) {
             return;
         }
+
+        $file = new File($smartFileInfo, $smartFileInfo->getContents());
+        $this->currentFileProvider->setFile($file);
 
         $nodes = $this->parser->parseFileInfo($smartFileInfo);
         $this->decorateNamesToFullyQualified($nodes);
