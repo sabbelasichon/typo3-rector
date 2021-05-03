@@ -12,7 +12,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Ssch\TYPO3Rector\Reporting\Reporter;
 use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -33,17 +32,11 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
     /**
      * @var Reporter
      */
-    private $reportLogger;
+    private $reporter;
 
-    /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-
-    public function __construct(Reporter $reporter, SymfonyStyle $symfonyStyle)
+    public function __construct(Reporter $reporter)
     {
-        $this->reportLogger = $reporter;
-        $this->symfonyStyle = $symfonyStyle;
+        $this->reporter = $reporter;
     }
 
     /**
@@ -157,10 +150,8 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
         }
 
         if ($hasAstBeenChanged) {
-            $this->symfonyStyle->warning(self::MESSAGE);
-
             $report = new Report(self::MESSAGE, $this);
-            $this->reportLogger->report($report);
+            $this->reporter->report($report);
         }
 
         return $hasAstBeenChanged ? $node : null;
