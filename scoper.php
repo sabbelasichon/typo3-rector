@@ -14,7 +14,6 @@ require_once __DIR__ . '/vendor/autoload.php';
 // [BEWARE] this path is relative to the root and location of this file
 $filePathsToRemoveNamespace = [
     // @see https://github.com/rectorphp/rector/issues/2852#issuecomment-586315588
-    'vendor/symfony/deprecation-contracts/function.php',
     // it would make polyfill function work only with namespace = brokes
     'vendor/symfony/polyfill-ctype/bootstrap.php',
     'vendor/symfony/polyfill-intl-normalizer/bootstrap.php',
@@ -26,7 +25,6 @@ $filePathsToRemoveNamespace = [
     'vendor/symfony/polyfill-php72/bootstrap.php',
     'vendor/symfony/polyfill-uuid/bootstrap.php',
     'vendor/symfony/deprecation-contracts/function.php',
-    'src/Helper/StringUtility.php',
 ];
 
 $dateTime = DateTime::from('now');
@@ -36,6 +34,7 @@ $timestamp = $dateTime->format('Ymd');
 return [
     ScoperOption::PREFIX => 'Typo3RectorPrefix' . $timestamp,
     ScoperOption::WHITELIST => StaticEasyPrefixer::getExcludedNamespacesAndClasses(),
+    ScoperOption::FILES_WHITELIST => ['src/Helper/StringUtility.php'],
     ScoperOption::PATCHERS => [
         // [BEWARE] $filePath is absolute!
 
