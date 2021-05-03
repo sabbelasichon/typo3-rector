@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Isset_;
 use PhpParser\Node\Expr\Variable;
@@ -14,6 +15,8 @@ use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Ssch\TYPO3Rector\Reporting\Reporter;
+use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
@@ -21,11 +24,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82254-DeprecateGLOBALSTYPO3_CONF_VARSEXTextConf.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\UseExtensionConfigurationApi\UseExtensionConfigurationApiRectorTest;
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\UseExtensionConfigurationApiRector\UseExtensionConfigurationApiRectorTest
  */
 final class UseExtensionConfigurationApiRector extends AbstractRector
 {
+    /**
+     * @var Reporter
+     */
+    private $reporter;
+
+    public function __construct(Reporter $reporter)
+    {
+        $this->reporter = $reporter;
+    }
+
     /**
      * @return array<class-string<Node>>
      */
@@ -65,6 +77,18 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
         }
 
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+
+        if ($parentNode instanceof Coalesce) {
+            $this->reporter->report(
+                new Report(
+                    'It seems that you are using the old unserialize function to access extension configuration',
+                    $this,
+                    [
+                        "Use the new extension configuration API GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('YOUR_EXTENSION_KEY')",
+                    ]
+                ));
+            return null;
+        }
 
         // Assignments are not handled. Makes no sense at the moment
         if ($parentNode instanceof Assign && $parentNode->var === $extensionConfiguration) {
