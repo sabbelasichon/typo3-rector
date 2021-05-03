@@ -12,10 +12,11 @@
     "require": {
         "php": "^7.3|^8.0",
         "helmich/typo3-typoscript-parser": "^2.3.0",
-        "idiosyncratic/editorconfig": "dev-master",
+        "idiosyncratic/editorconfig": "^0.1.1",
         "ergebnis/json-printer": "^3.1",
         "phpstan/phpstan": "^0.12.83",
         "rector/rector": "dev-main",
+        "nikic/php-parser": "4.10.4",
         "shanethehat/pretty-xml": "^1.0",
         "symfony/yaml": "^4.0 || ^5.0",
         "symfony/var-exporter": "^4.0 || ^5.0"
