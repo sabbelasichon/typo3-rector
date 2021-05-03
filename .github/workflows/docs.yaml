@@ -3,7 +3,7 @@ name: Docs
 on:
     push:
         branches:
-            - master
+            - main
 
 jobs:
     docs:
@@ -28,7 +28,7 @@ jobs:
                 with:
                     commit_message: Generate documentation
                     commit_options: '--no-verify --signoff'
-                    branch: "master"
+                    branch: "main"
                     push_options: '--force'
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

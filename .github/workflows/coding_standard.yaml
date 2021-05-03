@@ -4,7 +4,7 @@ on:
     pull_request: null
     push:
         branches:
-            - "master"
+            - "main"
 
 jobs:
     coding_standard:
@@ -27,6 +27,6 @@ jobs:
             -   uses: stefanzweifel/git-auto-commit-action@v2.5.0
                 with:
                     commit_message: Apply coding standard changes
-                    branch: "master"
+                    branch: "main"
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
