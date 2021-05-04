@@ -26,7 +26,8 @@ final class RemoveOptionShowIfRteRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Dropped TCA option showIfRTE in type=check', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Dropped TCA option showIfRTE in type=check', [new CodeSample(
+            <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -42,7 +43,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+            <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -57,7 +59,7 @@ return [
     ],
 ];
 CODE_SAMPLE
-            )]);
+        )]);
     }
 
     /**

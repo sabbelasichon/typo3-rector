@@ -70,14 +70,16 @@ final class RemoveAddQueryStringMethodRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove TypoScript option addQueryString.method', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $this->uriBuilder->setUseCacheHash(true)
                          ->setCreateAbsoluteUri(true)
                          ->setAddQueryString(true)
                          ->setAddQueryStringMethod('GET')
                          ->build();
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $this->uriBuilder->setUseCacheHash(true)
                          ->setCreateAbsoluteUri(true)
                          ->setAddQueryString(true)

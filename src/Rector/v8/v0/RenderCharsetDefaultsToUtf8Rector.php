@@ -59,10 +59,12 @@ final class RenderCharsetDefaultsToUtf8Rector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('The property $TSFE->renderCharset is now always set to utf-8', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 mb_strlen(trim($this->gp[$this->formFieldName]), $GLOBALS['TSFE']->renderCharset) > 0;
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 mb_strlen(trim($this->gp[$this->formFieldName]), 'utf-8') > 0;
 CODE_SAMPLE
             ),

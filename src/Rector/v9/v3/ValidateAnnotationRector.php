@@ -93,21 +93,23 @@ final class ValidateAnnotationRector extends AbstractRector
         return new RuleDefinition(
             'Turns properties with `@validate` to properties with `@TYPO3\CMS\Extbase\Annotation\Validate`',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 /**
  * @validate NotEmpty
  * @validate StringLength(minimum=0, maximum=255)
  */
 private $someProperty;
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 /**
  * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
  * @TYPO3\CMS\Extbase\Annotation\Validate("StringLength", options={"minimum": 3, "maximum": 50})
  */
 private $someProperty;
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

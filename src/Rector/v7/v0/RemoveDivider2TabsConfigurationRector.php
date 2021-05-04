@@ -26,7 +26,8 @@ final class RemoveDivider2TabsConfigurationRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Removed dividers2tabs functionality', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Removed dividers2tabs functionality', [new CodeSample(
+            <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'dividers2tabs' => true,
@@ -38,7 +39,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+            <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'label' => 'complete_identifier',
@@ -49,7 +51,7 @@ return [
     ],
 ];
 CODE_SAMPLE
-            )]);
+        )]);
     }
 
     /**

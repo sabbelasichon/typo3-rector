@@ -80,14 +80,16 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove method call initTemplate from TypoScriptFrontendController', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 $tsfe->initTemplate();
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 }

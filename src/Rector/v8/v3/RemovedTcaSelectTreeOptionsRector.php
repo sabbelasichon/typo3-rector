@@ -28,7 +28,8 @@ final class RemovedTcaSelectTreeOptionsRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Removed TCA tree options: width, allowRecursiveMode, autoSizeMax', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -49,7 +50,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],

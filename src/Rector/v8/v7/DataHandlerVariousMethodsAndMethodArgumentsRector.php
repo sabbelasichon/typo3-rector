@@ -71,12 +71,14 @@ final class DataHandlerVariousMethodsAndMethodArgumentsRector extends AbstractRe
         return new RuleDefinition(
             'Remove CharsetConvertParameters',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
 $dest = $dataHandler->destPathFromUploadFolder('uploadFolder');
 $dataHandler->extFileFunctions('table', 'field', 'theField', 'deleteAll');
 CODE_SAMPLE
-                    , <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 $dataHandler = GeneralUtility::makeInstance(DataHandler::class);
 $dest = PATH_site . 'uploadFolder';
 $dataHandler->extFileFunctions('table', 'field', 'theField');

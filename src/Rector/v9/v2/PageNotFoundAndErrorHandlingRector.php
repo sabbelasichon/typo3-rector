@@ -72,7 +72,8 @@ final class PageNotFoundAndErrorHandlingRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Page Not Found And Error handling in Frontend', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class SomeController extends ActionController
 {
@@ -83,7 +84,8 @@ class SomeController extends ActionController
     }
 }
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Http\ImmediateResponseException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -188,7 +190,8 @@ CODE_SAMPLE
         }
 
         return new Expression(
-            new Assign(new Variable('response'),
+            new Assign(
+                new Variable('response'),
                 $this->nodeFactory->createMethodCall(
                     $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
                         $this->nodeFactory->createClassConstReference(ErrorController::class),
@@ -215,14 +218,16 @@ CODE_SAMPLE
             new ArrayDimFetch(
                 new ArrayDimFetch(new Variable(Typo3NodeResolver::GLOBALS), new String_('TYPO3_CONF_VARS')),
                 new String_('SYS')
-            ), new String_('devIPmask')
+            ),
+            new String_('devIPmask')
         );
 
         $pageUnavailableHandling = new ArrayDimFetch(
             new ArrayDimFetch(
                 new ArrayDimFetch(new Variable(Typo3NodeResolver::GLOBALS), new String_('TYPO3_CONF_VARS')),
                 new String_('FE')
-            ), new String_('pageUnavailable_handling')
+            ),
+            new String_('pageUnavailable_handling')
         );
 
         return new BooleanAnd(

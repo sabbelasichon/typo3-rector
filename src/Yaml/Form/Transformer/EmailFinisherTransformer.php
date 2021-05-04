@@ -67,14 +67,17 @@ final class EmailFinisherTransformer implements FormYamlTransformer
 
             $recipients = [];
             foreach ((array) $finisher[self::OPTIONS] as $optionKey => $optionValue) {
-                if (! in_array($optionKey,
+                if (! in_array(
+                    $optionKey,
                     [
                         'replyToAddress',
                         'carbonCopyAddress',
                         'blindCarbonCopyAddress',
                         self::RECIPIENT_ADDRESS,
                         'recipientName',
-                    ], true)) {
+                    ],
+                    true
+                )) {
                     continue;
                 }
 

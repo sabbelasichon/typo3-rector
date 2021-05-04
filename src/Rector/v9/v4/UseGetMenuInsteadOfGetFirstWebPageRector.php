@@ -90,10 +90,12 @@ final class UseGetMenuInsteadOfGetFirstWebPageRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use method getMenu instead of getFirstWebPage', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $theFirstPage = $GLOBALS['TSFE']->sys_page->getFirstWebPage(0);
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $rootLevelPages = $GLOBALS['TSFE']->sys_page->getMenu(0, 'uid', 'sorting', '', false);
 if (!empty($rootLevelPages)) {
     $theFirstPage = reset($rootLevelPages);

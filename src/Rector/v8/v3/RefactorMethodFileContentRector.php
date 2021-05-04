@@ -64,10 +64,12 @@ final class RefactorMethodFileContentRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor method fileContent of class TemplateService', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $content = $GLOBALS['TSFE']->tmpl->fileContent('foo.txt');
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $content = $GLOBALS['TSFE']->tmpl->getFileName('foo.txt') ? file_get_contents('foo.txt') : null;
 CODE_SAMPLE
             ),

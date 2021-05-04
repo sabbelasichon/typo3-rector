@@ -163,7 +163,8 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Move TCA type group internal_type file and file_reference to FAL configuration', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 return [
             'ctrl' => [],
             'columns' => [
@@ -182,7 +183,8 @@ return [
             ],
         ];
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 return [
             'ctrl' => [],
             'columns' => [

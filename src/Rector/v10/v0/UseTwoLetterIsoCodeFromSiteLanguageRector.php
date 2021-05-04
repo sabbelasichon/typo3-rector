@@ -44,9 +44,9 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         if (! $this->isObjectType(
-                $node,
-                new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
-            ) && ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
+            $node,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        ) && ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
                 $node,
                 Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
             )) {

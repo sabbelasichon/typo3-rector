@@ -19,18 +19,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set('rename_static_method_is_running_on_cgi_server_api_to_is_running_on_cgi_server')
         ->class(RenameStaticMethodRector::class)
         ->call(
-        'configure',
-        [[
-            RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-                new RenameStaticMethod(
-                    'TYPO3\CMS\Core\Utility\GeneralUtility',
-                    'isRunningOnCgiServerApi',
-                    'TYPO3\CMS\Core\Core\Environment',
-                    'isRunningOnCgiServer'
-                ),
-            ]),
-        ]]
-    );
+            'configure',
+            [[
+                RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
+                    new RenameStaticMethod(
+                        'TYPO3\CMS\Core\Utility\GeneralUtility',
+                        'isRunningOnCgiServerApi',
+                        'TYPO3\CMS\Core\Core\Environment',
+                        'isRunningOnCgiServer'
+                    ),
+                ]),
+            ]]
+        );
     $services->set('rename_class_alias_maps_version_104')
         ->class(RenameClassMapAliasRector::class)
         ->call('configure', [[

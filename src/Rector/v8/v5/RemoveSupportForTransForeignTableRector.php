@@ -73,7 +73,8 @@ final class RemoveSupportForTransForeignTableRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove support for transForeignTable in TCA', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove support for transForeignTable in TCA', [new CodeSample(
+            <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'transForeignTable' => 'l10n_parent',
@@ -81,7 +82,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-            , <<<'CODE_SAMPLE'
+            ,
+            <<<'CODE_SAMPLE'
 return [
     'ctrl' => [],
 ];

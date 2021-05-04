@@ -63,7 +63,8 @@ final class InstantiatePageRendererExplicitlyRector extends AbstractRector
     {
         return new RuleDefinition('Instantiate PageRenderer explicitly', [
             new CodeSample(
-                '$pageRenderer = $GLOBALS[\'TSFE\']->getPageRenderer();', '$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);'
+                '$pageRenderer = $GLOBALS[\'TSFE\']->getPageRenderer();',
+                '$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);'
             ),
         ]);
     }

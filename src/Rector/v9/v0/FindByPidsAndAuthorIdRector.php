@@ -55,17 +55,19 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use findByPidsAndAuthorId instead of findByPidsAndAuthor', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $sysNoteRepository = GeneralUtility::makeInstance(SysNoteRepository::class);
 $backendUser = new BackendUser();
 $sysNoteRepository->findByPidsAndAuthor('1,2,3', $backendUser);
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 $sysNoteRepository = GeneralUtility::makeInstance(SysNoteRepository::class);
 $backendUser = new BackendUser();
 $sysNoteRepository->findByPidsAndAuthorId('1,2,3', $backendUser->getUid());
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 }

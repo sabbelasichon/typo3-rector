@@ -28,11 +28,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->call('configure', [[
             MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => ValueObjectInliner::inline([
                 new MethodCallToStaticCall(
-                   DatabaseRecordList::class,
-                   'thumbCode',
-                   BackendUtility::class,
-                   'thumbCode'
-                    ),
+                    DatabaseRecordList::class,
+                    'thumbCode',
+                    BackendUtility::class,
+                    'thumbCode'
+                ),
             ]),
         ]]);
 };

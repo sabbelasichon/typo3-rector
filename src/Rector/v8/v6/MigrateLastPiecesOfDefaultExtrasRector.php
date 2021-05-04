@@ -112,7 +112,8 @@ final class MigrateLastPiecesOfDefaultExtrasRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate last pieces of default extras', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Migrate last pieces of default extras', [new CodeSample(
+            <<<'CODE_SAMPLE'
 return [
             'ctrl' => [],
             'columns' => [
@@ -143,7 +144,8 @@ return [
             ],
         ];
 CODE_SAMPLE
-            , <<<'CODE_SAMPLE'
+            ,
+            <<<'CODE_SAMPLE'
 return [
             'ctrl' => [],
             'columns' => [

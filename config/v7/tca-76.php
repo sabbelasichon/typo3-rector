@@ -25,19 +25,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set('substitute_old_wizard_icons_version_76')
         ->class(SubstituteOldWizardIconsRector::class)
         ->call(
-        'configure',
-        [[
-            SubstituteOldWizardIconsRector::OLD_TO_NEW_FILE_LOCATIONS => [
-                'add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
-                'link_popup.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif',
-                'wizard_rte2.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_rte.gif',
-                'wizard_table.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_table.gif',
-                'edit2.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_edit.gif',
-                'list.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_list.gif',
-                'wizard_forms.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_forms.gif',
-            ],
-        ]]
-    );
+            'configure',
+            [[
+                SubstituteOldWizardIconsRector::OLD_TO_NEW_FILE_LOCATIONS => [
+                    'add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
+                    'link_popup.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif',
+                    'wizard_rte2.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_rte.gif',
+                    'wizard_table.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_table.gif',
+                    'edit2.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_edit.gif',
+                    'list.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_list.gif',
+                    'wizard_forms.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_forms.gif',
+                ],
+            ]]
+        );
     $services->set(AddRenderTypeToSelectFieldRector::class);
     $services->set(RemoveIconOptionForRenderTypeSelectRector::class);
 };

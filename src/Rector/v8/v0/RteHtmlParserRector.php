@@ -59,7 +59,8 @@ final class RteHtmlParserRector extends AbstractRector
         return new RuleDefinition(
             'Remove second argument of HTMLcleaner_db getKeepTags. Substitute calls for siteUrl getUrl',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
             use TYPO3\CMS\Core\Html\RteHtmlParser;
 
             $rteHtmlParser = new RteHtmlParser();
@@ -68,7 +69,8 @@ final class RteHtmlParserRector extends AbstractRector
             $rteHtmlParser->getUrl('http://domain.com');
             $rteHtmlParser->siteUrl();
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
             use TYPO3\CMS\Core\Html\RteHtmlParser;
             $rteHtmlParser = new RteHtmlParser();
             $rteHtmlParser->HTMLcleaner_db('arg1');
@@ -76,7 +78,7 @@ CODE_SAMPLE
             \TYPO3\CMS\Core\Utility\GeneralUtility::getUrl('http://domain.com');
              \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

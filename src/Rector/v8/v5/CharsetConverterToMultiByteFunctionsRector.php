@@ -76,13 +76,15 @@ final class CharsetConverterToMultiByteFunctionsRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Move from CharsetConverter methods to mb_string functions', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
         use TYPO3\CMS\Core\Charset\CharsetConverter;
         use TYPO3\CMS\Core\Utility\GeneralUtility;
         $charsetConverter = GeneralUtility::makeInstance(CharsetConverter::class);
         $charsetConverter->strlen('utf-8', 'string');
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 mb_strlen('string', 'utf-8');
 CODE_SAMPLE
             ),

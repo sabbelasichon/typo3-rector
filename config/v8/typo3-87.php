@@ -31,13 +31,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set('extbase_typoscriptservice_to_core_typoscriptservice')
         ->class(RenameClassRector::class)
         ->call(
-        'configure',
-        [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                'TYPO3\CMS\Extbase\Service\TypoScriptService' => 'TYPO3\CMS\Core\TypoScript\TypoScriptService',
-            ],
-        ]]
-    );
+            'configure',
+            [[
+                RenameClassRector::OLD_TO_NEW_CLASSES => [
+                    'TYPO3\CMS\Extbase\Service\TypoScriptService' => 'TYPO3\CMS\Core\TypoScript\TypoScriptService',
+                ],
+            ]]
+        );
     $services->set('rename_class_alias_maps_version_87')
         ->class(RenameClassMapAliasRector::class)
         ->call('configure', [[
@@ -50,18 +50,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set('general_utility_csv_values_to_csv_utility')
         ->class(RenameStaticMethodRector::class)
         ->call(
-        'configure',
-        [[
-            RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-                new RenameStaticMethod(
-                    'TYPO3\CMS\Core\Utility\GeneralUtility',
-                    'csvValues',
-                    'TYPO3\CMS\Core\Utility\CsvUtility',
-                    'csvValues'
-                ),
-            ]),
-        ]]
-    );
+            'configure',
+            [[
+                RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
+                    new RenameStaticMethod(
+                        'TYPO3\CMS\Core\Utility\GeneralUtility',
+                        'csvValues',
+                        'TYPO3\CMS\Core\Utility\CsvUtility',
+                        'csvValues'
+                    ),
+                ]),
+            ]]
+        );
     $services->set(BackendUtilityGetRecordsByFieldToQueryBuilderRector::class);
     $services->set(RefactorPrintContentMethodsRector::class);
     $services->set(RefactorArrayBrowserWrapValueRector::class);

@@ -54,7 +54,8 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
         return new RuleDefinition(
             'Add additional method getControllerConfiguration for AbstractConfigurationManager',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 final class MyExtbaseConfigurationManager extends AbstractConfigurationManager
 {
     protected function getSwitchableControllerActions($extensionName, $pluginName)
@@ -68,7 +69,8 @@ final class MyExtbaseConfigurationManager extends AbstractConfigurationManager
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 final class MyExtbaseConfigurationManager extends AbstractConfigurationManager
 {
     protected function getSwitchableControllerActions($extensionName, $pluginName)
@@ -87,7 +89,7 @@ final class MyExtbaseConfigurationManager extends AbstractConfigurationManager
     }
 }
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

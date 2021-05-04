@@ -93,7 +93,8 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Move render method arguments to initializeArguments method', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class MyViewHelper implements ViewHelperInterface
 {
     public function render(array $firstParameter, string $secondParameter = null)
@@ -101,7 +102,8 @@ class MyViewHelper implements ViewHelperInterface
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 class MyViewHelper implements ViewHelperInterface
 {
     public function initializeArguments()
@@ -117,7 +119,7 @@ class MyViewHelper implements ViewHelperInterface
     }
 }
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 

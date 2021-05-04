@@ -88,7 +88,8 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use TYPO3/CMS/Backend/PageTree/PageTreeElement instead of typo3-pagetree', [
-            new CodeSample(ExtensionUtility::class . '::registerModule(
+            new CodeSample(
+                ExtensionUtility::class . '::registerModule(
       \'TYPO3.CMS.Workspaces\',
       \'web\',
       \'workspaces\',
@@ -104,7 +105,8 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
           \'labels\' => \'LLL:EXT:workspaces/Resources/Private/Language/locallang_mod.xlf\',
           \'navigationComponentId\' => \'typo3-pagetree\'
       ]
-  );', ExtensionUtility::class . '::registerModule(
+  );',
+                ExtensionUtility::class . '::registerModule(
       \'TYPO3.CMS.Workspaces\',
       \'web\',
       \'workspaces\',

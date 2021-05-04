@@ -57,7 +57,7 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
             $extensionNameArgumentValue
         )) {
             $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue->left) . basename(
-                    $fileInfo->getRelativeDirectoryPath()
+                $fileInfo->getRelativeDirectoryPath()
             );
         }
 
@@ -96,7 +96,8 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use controller classes when registering extbase plugins/modules', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 ExtensionUtility::configurePlugin(
     'TYPO3.CMS.Form',
@@ -106,7 +107,8 @@ ExtensionUtility::configurePlugin(
     ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;ExtensionUtility::configurePlugin(
     'Form',
     'Formframework',

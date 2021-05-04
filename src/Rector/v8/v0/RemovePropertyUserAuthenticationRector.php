@@ -47,7 +47,8 @@ final class RemovePropertyUserAuthenticationRector extends AbstractRector
         return new RuleDefinition(
             'Use method getBackendUserAuthentication instead of removed property $userAuthentication',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class MyCommandController extends CommandController
 {
     public function myMethod()
@@ -58,7 +59,8 @@ class MyCommandController extends CommandController
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 class MyCommandController extends CommandController
 {
     public function myMethod()
@@ -69,7 +71,7 @@ class MyCommandController extends CommandController
     }
 }
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

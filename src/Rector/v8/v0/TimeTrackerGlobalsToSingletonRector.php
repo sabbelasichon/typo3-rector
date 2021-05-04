@@ -59,12 +59,14 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Substitute $GLOBALS[\'TT\'] method calls', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Substitute $GLOBALS[\'TT\'] method calls', [new CodeSample(
+            <<<'CODE_SAMPLE'
 $GLOBALS['TT']->setTSlogMessage('content');
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+            <<<'CODE_SAMPLE'
 GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage('content');
 CODE_SAMPLE
-)]);
+        )]);
     }
 }

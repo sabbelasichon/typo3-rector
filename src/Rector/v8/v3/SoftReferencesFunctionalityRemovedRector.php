@@ -136,7 +136,8 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('TSconfig and TStemplate soft references functionality removed', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -154,7 +155,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-            , <<<'CODE_SAMPLE'
+            ,
+                <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -171,7 +173,7 @@ return [
     ],
 ];
 CODE_SAMPLE
-        ),
+            ),
         ]);
     }
 }

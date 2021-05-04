@@ -74,15 +74,17 @@ final class RefactorDeprecationLogRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Refactor GeneralUtility deprecationLog methods', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Refactor GeneralUtility deprecationLog methods', [new CodeSample(
+            <<<'CODE_SAMPLE'
 GeneralUtility::logDeprecatedFunction();
 GeneralUtility::logDeprecatedViewHelperAttribute();
 GeneralUtility::deprecationLog('Message');
 GeneralUtility::getDeprecationLogFileName();
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+            <<<'CODE_SAMPLE'
 trigger_error('A useful message', E_USER_DEPRECATED);
 CODE_SAMPLE
-)]);
+        )]);
     }
 }

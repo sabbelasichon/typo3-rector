@@ -77,7 +77,8 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use the signal afterExtensionInstall of class InstallUtility', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extensionmanager\Service\ExtensionManagementService;
@@ -89,7 +90,8 @@ $signalSlotDispatcher->connect(
         'foo'
     );
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;

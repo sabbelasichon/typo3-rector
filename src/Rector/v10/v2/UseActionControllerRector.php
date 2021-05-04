@@ -48,12 +48,14 @@ final class UseActionControllerRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use ActionController class instead of AbstractController if used', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class MyController extends AbstractController
 {
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -61,7 +63,7 @@ class MyController extends ActionController
 {
 }
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 }

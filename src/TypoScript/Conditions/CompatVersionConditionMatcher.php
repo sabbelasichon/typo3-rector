@@ -19,7 +19,9 @@ final class CompatVersionConditionMatcher implements TyposcriptConditionMatcher
             '#' . self::TYPE
             . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
             . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#iUm',
-            $condition, $matches);
+            $condition,
+            $matches
+        );
 
         if (! is_string($matches['value'])) {
             return $condition;

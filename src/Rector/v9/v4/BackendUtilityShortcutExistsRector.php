@@ -26,7 +26,9 @@ final class BackendUtilityShortcutExistsRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('shortcutExists Static call replaced by method call of ShortcutRepository', [
-            new CodeSample(BackendUtility::class . '::shortcutExists($url);', <<<'CODE_SAMPLE'
+            new CodeSample(
+                BackendUtility::class . '::shortcutExists($url);',
+                <<<'CODE_SAMPLE'
 GeneralUtility::makeInstance(ShortcutRepository::class)->shortcutExists($url);
 CODE_SAMPLE
             ),

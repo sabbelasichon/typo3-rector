@@ -54,18 +54,20 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove vendor name from registerPlugin call', [
-            new CodeSample(ExtensionUtility::class . '::registerPlugin(
+            new CodeSample(
+                ExtensionUtility::class . '::registerPlugin(
    \'TYPO3.CMS.Form\',
    \'Formframework\',
    \'Form\',
    \'content-form\',
-);', ExtensionUtility::class . '::registerPlugin(
+);',
+                ExtensionUtility::class . '::registerPlugin(
    \'Form\',
    \'Formframework\',
    \'Form\',
    \'content-form\',
 );'
-),
+            ),
         ]);
     }
 
@@ -81,8 +83,8 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
             $extensionNameArgumentValue
         )) {
             $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue->left) . basename(
-                    $fileInfo->getRelativeDirectoryPath()
-                );
+                $fileInfo->getRelativeDirectoryPath()
+            );
         }
 
         if (! is_string($extensionName)) {

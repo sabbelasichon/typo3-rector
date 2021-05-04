@@ -107,7 +107,8 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Extbase controller actions must return ResponseInterface', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class MyController extends ActionController
 {
@@ -117,7 +118,8 @@ class MyController extends ActionController
     }
 }
 CODE_SAMPLE
-            , <<<'CODE_SAMPLE'
+            ,
+                <<<'CODE_SAMPLE'
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class MyController extends ActionController
@@ -129,7 +131,7 @@ class MyController extends ActionController
     }
 }
 CODE_SAMPLE
-        ),
+            ),
         ]);
     }
 

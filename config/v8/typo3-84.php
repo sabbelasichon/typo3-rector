@@ -16,27 +16,27 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set('form_result_compiler_jstop_to_add_css_files')
         ->class(RenameMethodRector::class)
         ->call(
-        'configure',
-        [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('TYPO3\CMS\Backend\Routing\FormResultCompiler', 'JStop', 'addCssFiles'),
-            ]),
-        ]]
-    );
+            'configure',
+            [[
+                RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
+                    new MethodCallRename('TYPO3\CMS\Backend\Routing\FormResultCompiler', 'JStop', 'addCssFiles'),
+                ]),
+            ]]
+        );
     // @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Deprecation-77826-RTEHtmlAreaSpellcheckerEntrypoint.html
     $services->set('spell_checking_controller_main_to_process_request')
         ->class(RenameMethodRector::class)
         ->call(
-        'configure',
-        [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename(
-                    'TYPO3\CMS\Saltedpasswords\Salt\SpellCheckingController',
-                    'main',
-                    'processRequest'
-                ),
-            ]),
-        ]]
-    );
+            'configure',
+            [[
+                RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
+                    new MethodCallRename(
+                        'TYPO3\CMS\Saltedpasswords\Salt\SpellCheckingController',
+                        'main',
+                        'processRequest'
+                    ),
+                ]),
+            ]]
+        );
     $services->set(ExtensionManagementUtilityExtRelPathRector::class);
 };

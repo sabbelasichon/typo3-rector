@@ -65,13 +65,15 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor deprecated methods from ExtensionManagementUtility.', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 ExtensionManagementUtility::removeCacheFiles();
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->flushCachesInGroup('system');
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 

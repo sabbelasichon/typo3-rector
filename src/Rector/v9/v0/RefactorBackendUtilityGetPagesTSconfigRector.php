@@ -75,11 +75,13 @@ final class RefactorBackendUtilityGetPagesTSconfigRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor method getPagesTSconfig of class BackendUtility if possible', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $pagesTsConfig = BackendUtility::getPagesTSconfig(1, $rootLine = null, $returnPartArray = true);
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $pagesTsConfig = BackendUtility::getRawPagesTSconfig(1, $rootLine = null);
 CODE_SAMPLE

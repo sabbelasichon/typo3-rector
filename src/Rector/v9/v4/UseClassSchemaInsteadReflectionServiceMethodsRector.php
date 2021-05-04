@@ -51,7 +51,8 @@ final class UseClassSchemaInsteadReflectionServiceMethodsRector extends Abstract
     {
         return new RuleDefinition(
             'Instead of fetching reflection data via ReflectionService use ClassSchema directly',
-            [new CodeSample(<<<'CODE_SAMPLE'
+            [new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Reflection\ReflectionService;
 class MyService
 {
@@ -67,7 +68,8 @@ class MyService
     }
 }
 CODE_SAMPLE
-                    , <<<'CODE_SAMPLE'
+                    ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Reflection\ReflectionService;
 class MyService
 {
@@ -83,7 +85,8 @@ class MyService
     }
 }
 CODE_SAMPLE
-                )]);
+            )]
+        );
     }
 
     /**
@@ -319,9 +322,12 @@ CODE_SAMPLE
         return new Ternary(
             new Empty_($propertyVariable),
             $this->nodeFactory->createFalse(),
-            new Isset_([
-                new ArrayDimFetch(new ArrayDimFetch($propertyVariable, new String_(self::TAGS)), $node->args[2]->value),
-            ]
+            new Isset_(
+                [
+                    new ArrayDimFetch(new ArrayDimFetch($propertyVariable, new String_(
+                        self::TAGS
+                    )), $node->args[2]->value),
+                ]
             )
         );
     }

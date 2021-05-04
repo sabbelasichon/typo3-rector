@@ -54,10 +54,11 @@ final class PhpOptionsUtilityRector extends AbstractRector
         return $this->nodeFactory->createFuncCall('filter_var', [
             $this->nodeFactory->createFuncCall('ini_get', [$configOption]),
             new ConstFetch(new Name('FILTER_VALIDATE_BOOLEAN')),
-            new Array_([
-                new ArrayItem(new ConstFetch(new Name('FILTER_REQUIRE_SCALAR'))),
-                new ArrayItem(new ConstFetch(new Name('FILTER_NULL_ON_FAILURE'))),
-            ]
+            new Array_(
+                [
+                    new ArrayItem(new ConstFetch(new Name('FILTER_REQUIRE_SCALAR'))),
+                    new ArrayItem(new ConstFetch(new Name('FILTER_NULL_ON_FAILURE'))),
+                ]
             ),
         ]);
     }

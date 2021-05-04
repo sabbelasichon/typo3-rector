@@ -140,10 +140,12 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor ContentObjectRenderer::sendNotifyEmail to MailMessage-API', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $GLOBALS['TSFE']->cObj->sendNotifyEmail("Subject\nMessage", 'max.mustermann@domain.com', 'max.mustermann@domain.com', 'max.mustermann@domain.com');
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -261,8 +263,10 @@ CODE_SAMPLE
     private function parsedRecipients(MethodCall $node): Expression
     {
         return new Expression(
-            new Assign(new Variable(self::PARSED_RECIPIENTS),
-                $this->nodeFactory->createStaticCall(MailUtility::class, 'parseAddresses', [$node->args[1]]))
+            new Assign(
+                new Variable(self::PARSED_RECIPIENTS),
+                $this->nodeFactory->createStaticCall(MailUtility::class, 'parseAddresses', [$node->args[1]])
+            )
         );
     }
 

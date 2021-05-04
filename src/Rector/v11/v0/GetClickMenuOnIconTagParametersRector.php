@@ -71,16 +71,19 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector
     {
         return new RuleDefinition(
             'Use BackendUtility::getClickMenuOnIconTagParameters() instead BackendUtility::wrapClickMenuOnIcon() if needed',
-            [new CodeSample(<<<'CODE_SAMPLE'
+            [new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $returnTagParameters = true;
 BackendUtility::wrapClickMenuOnIcon('pages', 1, 'foo', '', '', '', $returnTagParameters);
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $returnTagParameters = true;
 BackendUtility::getClickMenuOnIconTagParameters('pages', 1, 'foo');
 CODE_SAMPLE
-        )]);
+            )]
+        );
     }
 }

@@ -27,7 +27,8 @@ final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('transOrigPointerField is not longer allowed to be excluded', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'transOrigPointerField' => 'l10n_parent',
@@ -42,7 +43,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
         'transOrigPointerField' => 'l10n_parent',

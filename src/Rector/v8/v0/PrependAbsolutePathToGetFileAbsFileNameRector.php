@@ -87,6 +87,7 @@ class SomeFooBar
 CODE_SAMPLE
                 ),
 
-            ]);
+            ]
+        );
     }
 }

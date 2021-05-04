@@ -68,10 +68,12 @@ final class RefactorInternalPropertiesOfTSFERector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor Internal public TSFE properties', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $domainStartPage = $GLOBALS['TSFE']->domainStartPage;
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $cHash = $GLOBALS['REQUEST']->getAttribute('routing')->getArguments()['cHash'];
 CODE_SAMPLE
             ),

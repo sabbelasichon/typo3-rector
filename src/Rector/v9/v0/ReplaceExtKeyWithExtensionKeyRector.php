@@ -26,7 +26,8 @@ final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Replace $_EXTKEY with extension key', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Replace $_EXTKEY with extension key', [new CodeSample(
+            <<<'CODE_SAMPLE'
 ExtensionUtility::configurePlugin(
     'Foo.'.$_EXTKEY,
     'ArticleTeaser',
@@ -35,7 +36,8 @@ ExtensionUtility::configurePlugin(
     ]
 );
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+            <<<'CODE_SAMPLE'
 ExtensionUtility::configurePlugin(
     'Foo.'.'bar',
     'ArticleTeaser',
@@ -44,7 +46,7 @@ ExtensionUtility::configurePlugin(
     ]
 );
 CODE_SAMPLE
-            )]);
+        )]);
     }
 
     /**

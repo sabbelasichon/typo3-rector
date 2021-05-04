@@ -49,7 +49,8 @@ final class CheckForExtensionVersionRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Change the extensions to check for workspaces instead of version.', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 if (ExtensionManagementUtility::isLoaded('version')) {
 }
 
@@ -57,7 +58,8 @@ $packageManager = GeneralUtility::makeInstance(PackageManager::class);
 if ($packageManager->isActive('version')) {
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 if (ExtensionManagementUtility::isLoaded('workspaces')) {
 }
 
@@ -65,7 +67,7 @@ $packageManager = GeneralUtility::makeInstance(PackageManager::class);
 if ($packageManager->isActive('workspaces')) {
 }
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 

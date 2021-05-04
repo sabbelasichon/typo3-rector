@@ -57,9 +57,10 @@ final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
             return null;
         }
 
-        $makeInstanceCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->nodeFactory->createClassConstReference(LogManager::class),
-        ]
+        $makeInstanceCall = $this->nodeFactory->createStaticCall(
+            GeneralUtility::class,
+            'makeInstance',
+            [$this->nodeFactory->createClassConstReference(LogManager::class)]
         );
 
         $loggerCall = $this->nodeFactory->createMethodCall($makeInstanceCall, 'getLogger', [new Class_()]);
@@ -85,11 +86,13 @@ final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Substitute GeneralUtility::devLog() to Logging API', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 GeneralUtility::devLog('message', 'foo', 0, $data);
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

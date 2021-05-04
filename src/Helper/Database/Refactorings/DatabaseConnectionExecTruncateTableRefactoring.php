@@ -37,7 +37,9 @@ final class DatabaseConnectionExecTruncateTableRefactoring implements DatabaseCo
         $connectionAssignment = $this->connectionCallFactory->createConnectionCall($tableArgument);
 
         $connectionInsertCall = $this->nodeFactory->createMethodCall(
-            new Variable('connection'), 'truncate', [$tableArgument->value]
+            new Variable('connection'),
+            'truncate',
+            [$tableArgument->value]
         );
 
         return [$connectionAssignment, $connectionInsertCall];

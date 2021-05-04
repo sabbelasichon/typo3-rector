@@ -86,10 +86,12 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate fileResource method of class ContentObjectRenderer', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $template = $this->cObj->fileResource('EXT:vendor/Resources/Private/Templates/Template.html');
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $path = $GLOBALS['TSFE']->tmpl->getFileName('EXT:vendor/Resources/Private/Templates/Template.html');
 if ($path !== null && file_exists($path)) {
     $template = file_get_contents($path);

@@ -67,9 +67,9 @@ final class Typo3RectorRecipe
     public function getSet(): string
     {
         return sprintf(
-                __DIR__ . '/../../../../config/%s/typo3-%d.php',
-                $this->getMajorVersion(),
-                $this->typo3Version->getFullVersion()
-            );
+            __DIR__ . '/../../../../config/%s/typo3-%d.php',
+            $this->getMajorVersion(),
+            $this->typo3Version->getFullVersion()
+        );
     }
 }

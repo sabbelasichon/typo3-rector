@@ -90,8 +90,8 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
                     'empty',
                     [$this->nodeFactory->createArg(
                         $this->nodeFactory->createPropertyFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_(
-                'TSFE'
-            )), 'xhtmlDoctype')
+                            'TSFE'
+                        )), 'xhtmlDoctype')
                     )]
                 ))
             );
@@ -114,7 +114,8 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor removed Marker-related methods from ContentObjectRenderer.', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 // build template
 $template = $this->cObj->getSubpart($this->config['templateFile'], '###TEMPLATE###');
 $html = $this->cObj->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
@@ -126,7 +127,8 @@ $content .= $this->cObj->substituteMarkerInObject($tree, $markContentArray);
 $content .= $this->cObj->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
 $content .= $this->cObj->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC);
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 // build template
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -140,7 +142,7 @@ $content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->sub
 $content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
 $content .= GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC, !empty($GLOBALS['TSFE']->xhtmlDoctype));
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 }

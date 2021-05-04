@@ -63,9 +63,9 @@ final class EditorConfigIdiosyncraticParser implements EditorConfigParser
         }
 
         if (array_key_exists(
-                self::END_OF_LINE,
-                $configuration
-            ) && $configuration[self::END_OF_LINE] instanceof EndOfLine) {
+            self::END_OF_LINE,
+            $configuration
+        ) && $configuration[self::END_OF_LINE] instanceof EndOfLine) {
             $endOfLine = $configuration[self::END_OF_LINE]->getValue();
         }
 

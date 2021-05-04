@@ -71,15 +71,17 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Change parameter $excludeServiceKeys explicity to an array', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 GeneralUtility::makeInstanceService('serviceType', 'serviceSubType', 'key1, key2');
 ExtensionManagementUtility::findService('serviceType', 'serviceSubType', 'key1, key2');
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 GeneralUtility::makeInstanceService('serviceType', 'serviceSubType', ['key1', 'key2']);
 ExtensionManagementUtility::findService('serviceType', 'serviceSubType', ['key1', 'key2']);
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 

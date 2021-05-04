@@ -65,9 +65,11 @@ CODE_SAMPLE
     }
 }
 CODE_SAMPLE
-            , [
-                'not_allowed' => 'not_available',
-            ]),
+            ,
+                [
+                    'not_allowed' => 'not_available',
+                ]
+            ),
         ]);
     }
 }

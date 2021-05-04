@@ -51,7 +51,8 @@ final class UseRenderingContextGetControllerContextRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Get controllerContext from renderingContext', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Get controllerContext from renderingContext', [new CodeSample(
+            <<<'CODE_SAMPLE'
 class MyViewHelperAccessingControllerContext extends AbstractViewHelper
 {
     public function render()
@@ -60,7 +61,8 @@ class MyViewHelperAccessingControllerContext extends AbstractViewHelper
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+            <<<'CODE_SAMPLE'
 class MyViewHelperAccessingControllerContext extends AbstractViewHelper
 {
     public function render()
@@ -69,7 +71,7 @@ class MyViewHelperAccessingControllerContext extends AbstractViewHelper
     }
 }
 CODE_SAMPLE
-)]);
+        )]);
     }
 
     private function replaceWithRenderingContextGetControllerContext(Class_ $node): void

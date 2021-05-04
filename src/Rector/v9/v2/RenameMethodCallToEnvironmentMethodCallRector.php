@@ -26,17 +26,19 @@ final class RenameMethodCallToEnvironmentMethodCallRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Turns method call names to new ones from new Environment API.', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 Bootstrap::usesComposerClassLoading();
 GeneralUtility::getApplicationContext();
 EnvironmentService::isEnvironmentInCliMode();
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 Environment::isComposerMode();
 Environment::getContext();
 Environment::isCli();
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 

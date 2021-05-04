@@ -152,9 +152,9 @@ trait TcaHelperTrait
             }
 
             if ($this->isValue($configItemValue->key, $configKey) && $this->isValue(
-                    $configItemValue->value,
-                    $expectedValue
-                )) {
+                $configItemValue->value,
+                $expectedValue
+            )) {
                 return true;
             }
         }

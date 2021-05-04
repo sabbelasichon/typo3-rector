@@ -51,7 +51,8 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
         return new RuleDefinition(
             'Remove assignments or accessing of properties prErr and uPT from class SimpleDataHandlerController',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 final class MySimpleDataHandlerController extends SimpleDataHandlerController
 {
     public function myMethod()
@@ -62,7 +63,8 @@ final class MySimpleDataHandlerController extends SimpleDataHandlerController
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 final class MySimpleDataHandlerController extends SimpleDataHandlerController
 {
     public function myMethod()
@@ -70,7 +72,7 @@ final class MySimpleDataHandlerController extends SimpleDataHandlerController
     }
 }
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

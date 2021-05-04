@@ -70,14 +70,16 @@ final class DocumentTemplateAddStyleSheetRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use PageRenderer::addCssFile instead of DocumentTemplate::addStyleSheet() ', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $documentTemplate = GeneralUtility::makeInstance(DocumentTemplate::class);
 $documentTemplate->addStyleSheet('foo', 'foo.css');
 CODE_SAMPLE
-            , <<<'CODE_SAMPLE'
+            ,
+                <<<'CODE_SAMPLE'
 GeneralUtility::makeInstance(PageRenderer::class)->addCssFile('foo.css', 'stylesheet', 'screen', '');
 CODE_SAMPLE
-        ),
+            ),
         ]);
     }
 }

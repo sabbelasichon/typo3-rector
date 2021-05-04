@@ -67,7 +67,8 @@ final class MetaTagManagementRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use setMetaTag method from PageRenderer class',
+        return new RuleDefinition(
+            'Use setMetaTag method from PageRenderer class',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
@@ -84,7 +85,8 @@ $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 $pageRenderer->setMetaTag('name', 'keywords', 'seo, search engine optimisation, search engine optimization, search engine ranking');
 CODE_SAMPLE
                 ),
-            ]);
+            ]
+        );
     }
 
     private function parseMetaTag(string $metaTag): array
@@ -140,9 +142,9 @@ CODE_SAMPLE
         $arguments = $this->parseMetaTag($metaTag);
 
         if (! array_key_exists('type', $arguments) || ! array_key_exists('name', $arguments) || ! array_key_exists(
-                'content',
-                $arguments
-            )) {
+            'content',
+            $arguments
+        )) {
             return null;
         }
 

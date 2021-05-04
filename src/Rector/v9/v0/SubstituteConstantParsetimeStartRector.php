@@ -51,8 +51,8 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
         return $this->nodeFactory->createFuncCall(
             'round',
             [new Mul(new ArrayDimFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_(
-            'TYPO3_MISC'
-        )), new String_('microtime_start')), new LNumber(1000))]
+                'TYPO3_MISC'
+            )), new String_('microtime_start')), new LNumber(1000))]
         );
     }
 
@@ -64,13 +64,15 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
         return new RuleDefinition(
             'Substitute $GLOBALS[\'PARSETIME_START\'] with round($GLOBALS[\'TYPO3_MISC\'][\'microtime_start\'] * 1000)',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 $parseTime = $GLOBALS['PARSETIME_START'];
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 $parseTime = round($GLOBALS['TYPO3_MISC']['microtime_start'] * 1000);
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

@@ -53,12 +53,14 @@ final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRecto
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use TypeHandlingUtility instead of TypeHandlingService', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypeHandlingService;
 GeneralUtility::makeInstance(TypeHandlingService::class)->isSimpleType('string');
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 TypeHandlingUtility::isSimpleType('string');
 CODE_SAMPLE

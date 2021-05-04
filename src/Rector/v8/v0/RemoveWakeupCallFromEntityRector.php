@@ -52,7 +52,8 @@ final class RemoveWakeupCallFromEntityRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove __wakeup call for AbstractDomainObject',
+        return new RuleDefinition(
+            'Remove __wakeup call for AbstractDomainObject',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
@@ -84,6 +85,7 @@ class MyWakeupCallerClass extends AbstractDomainObject
 }
 CODE_SAMPLE
                 ),
-            ]);
+            ]
+        );
     }
 }

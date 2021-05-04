@@ -101,11 +101,13 @@ final class BackendUtilityGetRecordsByFieldToQueryBuilderRector extends Abstract
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('BackendUtility::getRecordsByField to QueryBuilder', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $rows = BackendUtility::getRecordsByField('table', 'uid', 3);
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;

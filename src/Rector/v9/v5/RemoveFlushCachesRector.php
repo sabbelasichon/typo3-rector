@@ -58,7 +58,8 @@ final class RemoveFlushCachesRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove @flushesCaches annotation', [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition('Remove @flushesCaches annotation', [new CodeSample(
+            <<<'CODE_SAMPLE'
 /**
  * My command
  *
@@ -68,7 +69,8 @@ public function myCommand()
 {
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+            <<<'CODE_SAMPLE'
 /**
  * My Command
  */
@@ -77,6 +79,6 @@ public function myCommand()
 }
 
 CODE_SAMPLE
-)]);
+        )]);
     }
 }

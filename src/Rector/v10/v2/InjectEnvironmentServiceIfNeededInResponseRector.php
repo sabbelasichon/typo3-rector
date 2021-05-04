@@ -78,7 +78,8 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Inject EnvironmentService if needed in subclass of Response', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class MyResponse extends Response
 {
     public function myMethod()
@@ -97,7 +98,8 @@ class MyOtherResponse extends Response
     }
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 class MyResponse extends Response
 {
     /**
@@ -126,7 +128,7 @@ class MyOtherResponse extends Response
     }
 }
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 

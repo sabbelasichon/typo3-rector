@@ -92,19 +92,21 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor removed methods from ContentObjectRenderer.', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 $cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 $cObj->RECORDS(['tables' => 'tt_content', 'source' => '1,2,3']);
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 $cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 $cObj->cObjGetSingle('RECORDS', ['tables' => 'tt_content', 'source' => '1,2,3']);
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 

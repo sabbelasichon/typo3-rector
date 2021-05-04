@@ -80,7 +80,8 @@ CODE_SAMPLE
                     self::OLD_TO_NEW_FILE_LOCATIONS => [
                         'add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
                     ],
-                ])]);
+                ])]
+        );
     }
 
     /**
@@ -188,8 +189,8 @@ CODE_SAMPLE
                             ) && $this->valueResolver->isValues($wizardItemSubValue->value, $oldFileNames)) {
                                 $wizardItemSubValue->value = new String_(
                                     $this->oldToNewFileLocations[$this->valueResolver->getValue(
-                                    $wizardItemSubValue->value
-                                )]
+                                        $wizardItemSubValue->value
+                                    )]
                                 );
                                 $hasAstBeenChanged = true;
                             }

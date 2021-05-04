@@ -62,7 +62,8 @@ final class RemoveInternalAnnotationRector extends AbstractRector
         return new RuleDefinition(
             'Remove @internal annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Controller\CommandController',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 /**
  * @internal
  */
@@ -70,12 +71,13 @@ class MyCommandController extends CommandController
 {
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 class MyCommandController extends CommandController
 {
 }
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

@@ -65,19 +65,21 @@ final class RefactorDbConstantsRector extends AbstractRector
         return new RuleDefinition(
             'Changes TYPO3_db constants to $GLOBALS[\'TYPO3_CONF_VARS\'][\'DB\'][\'Connections\'][\'Default\'].',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 $database = TYPO3_db;
 $username = TYPO3_db_username;
 $password = TYPO3_db_password;
 $host = TYPO3_db_host;
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 $database = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['dbname'];
 $username = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['user'];
 $password = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['password'];
 $host = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['host'];
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

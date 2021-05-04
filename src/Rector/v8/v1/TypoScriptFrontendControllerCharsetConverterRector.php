@@ -77,10 +77,12 @@ final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractR
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor $TSFE->csConvObj and $TSFE->csConv()', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $output = $GLOBALS['TSFE']->csConvObj->conv_case('utf-8', 'foobar', 'lower');
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 $charsetConverter = GeneralUtility::makeInstance(CharsetConverter::class);

@@ -23,10 +23,12 @@ final class GeneralUtilityGetUrlRequestHeadersRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor GeneralUtility::getUrl() request headers in a associative way', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 GeneralUtility::getUrl('https://typo3.org', 1, ['Content-Language: de-DE']);
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 GeneralUtility::getUrl('https://typo3.org', 1, ['Content-Language' => 'de-DE']);
 CODE_SAMPLE
             ),

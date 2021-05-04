@@ -131,14 +131,16 @@ final class InjectAnnotationRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Turns properties with `@inject` to setter injection', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 /**
  * @var SomeService
  * @inject
  */
 private $someService;
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 /**
  * @var SomeService
  */
@@ -150,7 +152,7 @@ public function injectSomeService(SomeService $someService)
 }
 
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 

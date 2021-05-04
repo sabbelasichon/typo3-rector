@@ -15,7 +15,9 @@ abstract class AbstractRootlineConditionMatcher implements TyposcriptConditionMa
             '#' . $this->getType()
             . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
             . self::ZERO_ONE_OR_MORE_WHITESPACES . '(.*)#',
-            $condition, $matches);
+            $condition,
+            $matches
+        );
 
         if (! is_array($matches)) {
             return $condition;

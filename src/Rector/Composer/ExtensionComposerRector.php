@@ -94,7 +94,8 @@ CODE_SAMPLE
    }
 }
 CODE_SAMPLE
-            , [
+            ,
+            [
                 self::TYPO3_VERSION_CONSTRAINT => '^10.4',
             ]
         ),

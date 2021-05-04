@@ -59,7 +59,8 @@ final class RefactorTCARector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('A lot of different TCA changes', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -89,7 +90,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -264,9 +266,9 @@ CODE_SAMPLE
 
                             // Configuration of slider wizard
                             if ('angle' === $wizardItemValueKey && ! $this->valueResolver->isValue(
-                                    $wizardItemSubValue->key,
-                                    'type'
-                                )) {
+                                $wizardItemSubValue->key,
+                                'type'
+                            )) {
                                 $sliderValue = $this->valueResolver->getValue($wizardItemSubValue->value);
                                 if ($sliderValue) {
                                     $customTypeOptions[$this->valueResolver->getValue(
@@ -274,25 +276,25 @@ CODE_SAMPLE
                                     )] = $sliderValue;
                                 }
                             } elseif ('select' === $wizardItemValueKey && $this->valueResolver->isValue(
-                                    $wizardItemSubValue->key,
-                                    'items'
-                                )) {
+                                $wizardItemSubValue->key,
+                                'items'
+                            )) {
                                 $selectOptions[$this->getValue($wizardItemSubValue->key)] = $this->getValue(
-    $wizardItemSubValue->value
-);
+                                    $wizardItemSubValue->value
+                                );
                             } elseif ('suggest' === $wizardItemValueKey && ! $this->valueResolver->isValue(
-                                    $wizardItemSubValue->key,
-                                    'type'
-                                )) {
+                                $wizardItemSubValue->key,
+                                'type'
+                            )) {
                                 $suggestOptions[$this->getValue($wizardItemSubValue->key)] = $this->getValue(
                                     $wizardItemSubValue->value
                                 );
                             }
 
                             if ($wizardItemSubValue->value instanceof Array_ && $this->valueResolver->isValue(
-                                    $wizardItemSubValue->key,
-                                    'params'
-                                )) {
+                                $wizardItemSubValue->key,
+                                'params'
+                            )) {
                                 foreach ($wizardItemSubValue->value->items as $paramsValue) {
                                     if (! $paramsValue instanceof ArrayItem) {
                                         continue;
@@ -326,9 +328,9 @@ CODE_SAMPLE
                                     }
                                 }
                             } elseif (null !== $fieldControlKey && $this->valueResolver->isValue(
-                                    $wizardItemSubValue->key,
-                                    'title'
-                                )) {
+                                $wizardItemSubValue->key,
+                                'title'
+                            )) {
                                 $value = $this->valueResolver->getValue($wizardItemSubValue->value);
                                 if (null === $value) {
                                     continue;
@@ -352,9 +354,9 @@ CODE_SAMPLE
                         }
 
                         if ([] !== $customTypeOptions && array_key_exists(
-                                $wizardItemValueKey,
-                                self::MAP_WIZARD_TO_CUSTOM_TYPE
-                            )) {
+                            $wizardItemValueKey,
+                            self::MAP_WIZARD_TO_CUSTOM_TYPE
+                        )) {
                             $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
                                 $customTypeOptions
                             ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));

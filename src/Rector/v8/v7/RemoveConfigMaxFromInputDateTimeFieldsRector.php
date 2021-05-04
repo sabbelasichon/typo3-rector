@@ -26,7 +26,8 @@ final class RemoveConfigMaxFromInputDateTimeFieldsRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition("Remove TCA config 'max' on inputDateTime fields", [new CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition("Remove TCA config 'max' on inputDateTime fields", [new CodeSample(
+            <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -42,7 +43,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+            <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -57,7 +59,7 @@ return [
     ],
 ];
 CODE_SAMPLE
-            )]);
+        )]);
     }
 
     /**

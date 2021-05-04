@@ -55,13 +55,15 @@ final class GeneralUtilityToUpperAndLowerRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use mb_strtolower and mb_strtoupper', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $toUpper = GeneralUtility::strtoupper('foo');
 $toLower = GeneralUtility::strtolower('FOO');
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $toUpper = mb_strtoupper('foo', 'utf-8');
 $toLower = mb_strtolower('FOO', 'utf-8');
 CODE_SAMPLE

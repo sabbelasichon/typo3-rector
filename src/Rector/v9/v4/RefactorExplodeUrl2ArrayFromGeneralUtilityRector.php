@@ -68,15 +68,17 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
         return new RuleDefinition(
             'Remove second argument of GeneralUtility::explodeUrl2Array if it is false or just use function parse_str if it is true',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 $variable = GeneralUtility::explodeUrl2Array('https://www.domain.com', true);
 $variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com', false);
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 parse_str('https://www.domain.com', $variable);
 $variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com');
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

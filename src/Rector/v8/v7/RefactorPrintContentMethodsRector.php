@@ -72,7 +72,8 @@ final class RefactorPrintContentMethodsRector extends AbstractRector
         return new RuleDefinition(
             'Refactor printContent methods of classes TaskModuleController and PageLayoutController',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Controller\PageLayoutController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
@@ -82,7 +83,8 @@ $pageLayoutController->printContent();
 $taskLayoutController = GeneralUtility::makeInstance(TaskModuleController::class);
 $taskLayoutController->printContent();
 CODE_SAMPLE
-                    , <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Controller\PageLayoutController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
 $pageLayoutController = GeneralUtility::makeInstance(PageLayoutController::class);
@@ -92,7 +94,8 @@ echo $taskLayoutController->content;
 CODE_SAMPLE
                 ),
 
-            ]);
+            ]
+        );
     }
 
     private function shouldSkip(MethodCall $node): bool

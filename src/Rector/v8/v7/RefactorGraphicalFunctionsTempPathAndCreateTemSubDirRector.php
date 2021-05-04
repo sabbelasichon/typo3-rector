@@ -76,12 +76,14 @@ final class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector extends A
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor tempPath() and createTempSubDir on GraphicalFunctions', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
 $graphicalFunctions->createTempSubDir('var/transient/');
 return $graphicalFunctions->tempPath . 'var/transient/';
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
 GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/var/transient/');
 return 'typo3temp/' . 'var/transient/';

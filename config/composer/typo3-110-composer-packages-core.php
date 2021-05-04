@@ -14,16 +14,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set('remove_typo3_cms_composer_package_version_110')
         ->class(RemovePackageComposerRector::class)
         ->call(
-                 'configure',
-                 [[
-                     RemovePackageComposerRector::PACKAGE_NAMES => [
-                         'typo3/cms-context-help',
-                         'typo3/cms-info-pagetsconfig',
-                         'typo3/cms-wizard-crpages',
-                         'typo3/cms-rsaauth',
-                     ],
-                 ]]
-             );
+            'configure',
+            [[
+                RemovePackageComposerRector::PACKAGE_NAMES => [
+                    'typo3/cms-context-help',
+                    'typo3/cms-info-pagetsconfig',
+                    'typo3/cms-wizard-crpages',
+                    'typo3/cms-rsaauth',
+                ],
+            ]]
+        );
     $services->set('change_composer_json_version_110')
         ->class(ChangePackageVersionComposerRector::class)
         ->call('configure', [[

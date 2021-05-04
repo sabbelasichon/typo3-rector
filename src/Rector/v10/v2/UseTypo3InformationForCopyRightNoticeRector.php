@@ -57,13 +57,15 @@ final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
         return new RuleDefinition(
             'Migrate the method BackendUtility::TYPO3_copyRightNotice() to use Typo3Information API',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 $copyright = BackendUtility::TYPO3_copyRightNotice();
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 $copyright = GeneralUtility::makeInstance(Typo3Information::class)->getCopyrightNotice();
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

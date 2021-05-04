@@ -74,7 +74,8 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
         return new RuleDefinition(
             'Turns properties with `@ignorevalidation` to properties with `@TYPO3\CMS\Extbase\Annotation\IgnoreValidation`',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 /**
  * @ignorevalidation $param
  */
@@ -82,7 +83,8 @@ public function method($param)
 {
 }
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                    <<<'CODE_SAMPLE'
 /**
  * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("param")
  */
@@ -90,7 +92,7 @@ public function method($param)
 {
 }
 CODE_SAMPLE
-),
+                ),
             ]
         );
     }

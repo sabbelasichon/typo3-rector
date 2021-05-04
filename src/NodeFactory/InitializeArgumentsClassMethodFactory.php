@@ -228,9 +228,9 @@ final class InitializeArgumentsClassMethodFactory
         }
 
         $phpStanType = $this->staticTypeMapper->mapPHPStanPhpDocTypeNodeToPHPStanType(
-    $paramTagValueNode->type,
-    $param
-);
+            $paramTagValueNode->type,
+            $param
+        );
 
         $docString = $phpStanType->describe(VerbosityLevel::typeOnly());
         if ('[]' === substr($docString, -2)) {

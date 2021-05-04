@@ -54,19 +54,21 @@ final class ExtensionManagementUtilityExtRelPathRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Substitute ExtensionManagementUtility::extRelPath()', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 $relPath = ExtensionManagementUtility::extRelPath('my_extension');
 CODE_SAMPLE
 
-            , <<<'CODE_SAMPLE'
+            ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 $relPath = PathUtility::getAbsoluteWebPath(ExtensionManagementUtility::extPath('my_extension'));
 CODE_SAMPLE
-        ),
+            ),
         ]);
     }
 }

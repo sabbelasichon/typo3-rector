@@ -142,7 +142,8 @@ final class DropAdditionalPaletteRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('TCA: Drop additional palette', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 return [
     'types' => [
         'aType' => [
@@ -151,7 +152,8 @@ return [
      ],
 ];
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 return [
     'types' => [
         'aType' => [

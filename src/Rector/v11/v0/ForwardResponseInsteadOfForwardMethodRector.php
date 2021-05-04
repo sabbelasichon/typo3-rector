@@ -28,7 +28,8 @@ final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
     {
         return new RuleDefinition(
             'Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of TYPO3\CMS\Extbase\Mvc\Controller\ActionController::forward()',
-            [new CodeSample(<<<'CODE_SAMPLE'
+            [new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 class FooController extends ActionController
 {
@@ -38,7 +39,8 @@ class FooController extends ActionController
    }
 }
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
@@ -51,7 +53,8 @@ class FooController extends ActionController
    }
 }
 CODE_SAMPLE
-            )]);
+            )]
+        );
     }
 
     /**

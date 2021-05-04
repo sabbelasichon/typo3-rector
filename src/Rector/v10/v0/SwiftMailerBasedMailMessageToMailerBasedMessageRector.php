@@ -65,7 +65,8 @@ final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends Abstra
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('New Mail API based on symfony/mailer and symfony/mime', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use Swift_Attachment;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -81,7 +82,8 @@ $mail
     ->attach(Swift_Attachment::fromPath('my-document.pdf'))
     ->send();
 CODE_SAMPLE
-            , <<<'CODE_SAMPLE'
+            ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -96,7 +98,7 @@ $mail
     ->attachFromPath('my-document.pdf')
     ->send();
 CODE_SAMPLE
-        ),
+            ),
         ]);
     }
 

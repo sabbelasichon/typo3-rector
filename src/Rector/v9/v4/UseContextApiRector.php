@@ -60,9 +60,9 @@ final class UseContextApiRector extends AbstractRector
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         )
              && ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
-                $node,
-                Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
-            )) {
+                 $node,
+                 Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
+             )) {
             return null;
         }
 

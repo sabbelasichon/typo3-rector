@@ -74,13 +74,15 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate the method BackendUtility::editOnClick() to use UriBuilder API', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $table = 'fe_users';
 $where = 'uid > 5';
 $fields = ['uid', 'pid'];
 $record = BackendUtility::getRecordRaw($table, $where, $fields);
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+,
+                <<<'CODE_SAMPLE'
 $table = 'fe_users';
 $where = 'uid > 5';
 $fields = ['uid', 'pid'];
@@ -94,7 +96,7 @@ $record = $queryBuilder->select(GeneralUtility::trimExplode(',', $fields, true))
     ->execute()
     ->fetch();
 CODE_SAMPLE
-),
+            ),
         ]);
     }
 

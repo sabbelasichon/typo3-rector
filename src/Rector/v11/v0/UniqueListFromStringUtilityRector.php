@@ -51,15 +51,17 @@ final class UniqueListFromStringUtilityRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use StringUtility::uniqueList() instead of GeneralUtility::uniqueList', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 GeneralUtility::uniqueList('1,2,2,3');
 CODE_SAMPLE
-            , <<<'CODE_SAMPLE'
+            ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\StringUtility;
 StringUtility::uniqueList('1,2,2,3');
 CODE_SAMPLE
-        ),
+            ),
         ]);
     }
 }

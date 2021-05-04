@@ -28,7 +28,8 @@ final class MigrateT3editorWizardToRenderTypeT3editorRector extends AbstractRect
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('t3editor is no longer configured and enabled as wizard', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],
@@ -57,7 +58,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 return [
     'ctrl' => [
     ],

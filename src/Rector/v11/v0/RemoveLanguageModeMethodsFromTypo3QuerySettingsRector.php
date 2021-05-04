@@ -71,12 +71,14 @@ final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends Abstra
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove language mode methods from class Typo3QuerySettings', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 $querySettings = new Typo3QuerySettings();
 $querySettings->setLanguageUid(0)->setLanguageMode()->getLanguageMode();
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 $querySettings = new Typo3QuerySettings();
 $querySettings->setLanguageUid(0);

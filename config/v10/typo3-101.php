@@ -22,20 +22,28 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set('record_history_property_fetch_changelog_to_method_call_get_changelog')
         ->class(PropertyFetchToMethodCallRector::class)
         ->call(
-        'configure',
-        [[
-            PropertyFetchToMethodCallRector::PROPERTIES_TO_METHOD_CALLS => ValueObjectInliner::inline([
-                new PropertyFetchToMethodCall(RecordHistory::class, 'changeLog', 'getChangeLog', 'setChangelog', [
-                    'bla',
-                ]), new PropertyFetchToMethodCall(
-                    RecordHistory::class,
-                    'lastHistoryEntry',
-                    'getLastHistoryEntryNumber',
-                    null,
-                    []), ]
-            ),
-        ]]
-    );
+            'configure',
+            [[
+                PropertyFetchToMethodCallRector::PROPERTIES_TO_METHOD_CALLS => ValueObjectInliner::inline(
+                    [
+                        new PropertyFetchToMethodCall(
+                            RecordHistory::class,
+                            'changeLog',
+                            'getChangeLog',
+                            'setChangelog',
+                            [
+                            'bla',
+                        
+                        ]), new PropertyFetchToMethodCall(
+                            RecordHistory::class,
+                            'lastHistoryEntry',
+                            'getLastHistoryEntryNumber',
+                            null,
+                            []
+                        ), ]
+                ),
+            ]]
+        );
     $services->set('record_history_rename_methods')
         ->class(RenameMethodRector::class)
         ->call('configure', [[

@@ -155,12 +155,14 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor various deprecated methods of class GeneralUtility', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $url = 'https://www.domain.com/';
 $url = GeneralUtility::rawUrlEncodeFP($url);
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $url = 'https://www.domain.com/';
 $url = str_replace('%2F', '/', rawurlencode($url));
 CODE_SAMPLE

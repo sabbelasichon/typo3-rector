@@ -58,12 +58,14 @@ final class PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector e
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use method getTSConfig instead of property userTS', [
-            new CodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 if(is_array($GLOBALS['BE_USER']->userTS['tx_news.']) && $GLOBALS['BE_USER']->userTS['tx_news.']['singleCategoryAcl'] === '1') {
     return true;
 }
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 if(is_array($GLOBALS['BE_USER']->getTSConfig()['tx_news.']) && $GLOBALS['BE_USER']->getTSConfig()['tx_news.']['singleCategoryAcl'] === '1') {
     return true;
 }

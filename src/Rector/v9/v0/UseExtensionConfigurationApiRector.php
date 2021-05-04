@@ -86,7 +86,8 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
                     [
                         "Use the new extension configuration API GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('YOUR_EXTENSION_KEY')",
                     ]
-                ));
+                )
+            );
             return null;
         }
 
@@ -97,7 +98,8 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
 
         if ($parentNode instanceof Isset_) {
             return new ArrayDimFetch(new ArrayDimFetch(new ArrayDimFetch(
-                new Variable('GLOBALS'), new String_('TYPO3_CONF_VARS')
+                new Variable('GLOBALS'),
+                new String_('TYPO3_CONF_VARS')
             ), new String_('EXTENSIONS')), $extensionConfiguration->dim);
         }
 
@@ -118,17 +120,20 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
         return new RuleDefinition(
             'Use the new ExtensionConfiguration API instead of $GLOBALS[\'TYPO3_CONF_VARS\'][\'EXT\'][\'extConf\'][\'foo\']',
             [
-                new CodeSample(<<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 $extensionConfiguration2 = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['foo'], ['allowed_classes' => false]);
 CODE_SAMPLE
-                    , <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 $extensionConfiguration2 = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('foo');
 CODE_SAMPLE
                 ),
 
-            ]);
+            ]
+        );
     }
 
     private function shouldSkip(ArrayDimFetch $node): bool

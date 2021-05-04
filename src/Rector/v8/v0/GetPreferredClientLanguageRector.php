@@ -74,7 +74,8 @@ $preferredLanguage = GeneralUtility::makeInstance(Locales::class)->getPreferredC
 CODE_SAMPLE
                 ),
 
-            ]);
+            ]
+        );
     }
 
     private function isCharsetConverterMethodCall(MethodCall $node): bool

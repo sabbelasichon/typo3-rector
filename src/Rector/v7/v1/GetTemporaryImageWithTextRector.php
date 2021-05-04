@@ -66,6 +66,7 @@ final class GetTemporaryImageWithTextRector extends AbstractRector
                     'GeneralUtility::makeInstance(LocalImageProcessor::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")',
                     'GeneralUtility::makeInstance(GraphicalFunctions::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")'
                 ),
-            ]);
+            ]
+        );
     }
 }

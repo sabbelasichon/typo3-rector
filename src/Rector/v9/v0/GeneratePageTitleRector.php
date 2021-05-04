@@ -56,7 +56,8 @@ final class GeneratePageTitleRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use generatePageTitle of TSFE instead of class PageGenerator',
+        return new RuleDefinition(
+            'Use generatePageTitle of TSFE instead of class PageGenerator',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
@@ -71,6 +72,7 @@ use TYPO3\CMS\Frontend\Page\PageGenerator;
 $GLOBALS['TSFE']->generatePageTitle();
 CODE_SAMPLE
                 ),
-            ]);
+            ]
+        );
     }
 }

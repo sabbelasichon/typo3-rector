@@ -31,18 +31,18 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set('rename_static_method_generalUtility_int_from_ver_to_convert_version_number_to_integer')
         ->class(RenameStaticMethodRector::class)
         ->call(
-        'configure',
-        [[
-            RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-                new RenameStaticMethod(
-                    'TYPO3\CMS\Core\Utility\GeneralUtility',
-                    'int_from_ver',
-                    'TYPO3\CMS\Core\Utility\VersionNumberUtility',
-                    'convertVersionNumberToInteger'
-                ),
-            ]),
-        ]]
-    );
+            'configure',
+            [[
+                RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
+                    new RenameStaticMethod(
+                        'TYPO3\CMS\Core\Utility\GeneralUtility',
+                        'int_from_ver',
+                        'TYPO3\CMS\Core\Utility\VersionNumberUtility',
+                        'convertVersionNumberToInteger'
+                    ),
+                ]),
+            ]]
+        );
     $services->set(TypeHandlingServiceToTypeHandlingUtilityRector::class);
     $services->set('rename_method_typo3_query_settings')
         ->class(RenameMethodRector::class)
