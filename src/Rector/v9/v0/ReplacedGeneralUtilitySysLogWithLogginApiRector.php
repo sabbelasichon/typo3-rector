@@ -90,18 +90,18 @@ final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRect
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Replaced GeneralUtility::sysLog with Logging API', [new CodeSample(
-                <<<'CODE_SAMPLE'
+            <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 GeneralUtility::initSysLog();
 GeneralUtility::sysLog('message', 'foo', 0);
 CODE_SAMPLE
             ,
-                <<<'CODE_SAMPLE'
+            <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__)->log(LogLevel::INFO, 'message');
 CODE_SAMPLE
-            )]);
+        )]);
     }
 }

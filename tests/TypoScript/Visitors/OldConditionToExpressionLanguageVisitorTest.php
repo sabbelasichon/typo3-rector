@@ -287,9 +287,14 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
             'newCondition' => '[usergroup("1,2")]',
         ];
 
-        yield '' => [
+        yield 'Global String jh_magnificpopup' => [
             'oldCondition' => '[globalString = GP:jh_magnificpopup|type=reference]',
             'newCondition' => "[traverse(request.getQueryParams(), 'jh_magnificpopup/type') == 'reference' || traverse(request.getParsedBody(), 'jh_magnificpopup/type') == 'reference']",
+        ];
+
+        yield 'IENV:TYPO3_HOST_ONLY' => [
+            'oldCondition' => '[globalString= IENV:TYPO3_HOST_ONLY=*domain.com]',
+            'newCondition' => '[like(request.getNormalizedParams().getRequestHostOnly(), "*domain.com")]',
         ];
     }
 

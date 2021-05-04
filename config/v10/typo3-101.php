@@ -31,10 +31,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                             'changeLog',
                             'getChangeLog',
                             'setChangelog',
-                            [
-                            'bla',
-                        
-                        ]), new PropertyFetchToMethodCall(
+                            ['bla']
+                        ), new PropertyFetchToMethodCall(
                             RecordHistory::class,
                             'lastHistoryEntry',
                             'getLastHistoryEntryNumber',

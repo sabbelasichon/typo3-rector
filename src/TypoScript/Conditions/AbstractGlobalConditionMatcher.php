@@ -14,6 +14,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
      */
     public const IENV_MAPPING = [
         'HTTP_HOST' => 'getHttpHost',
+        'TYPO3_HOST_ONLY' => 'getRequestHostOnly',
         'TYPO3_SSL' => 'isHttps',
     ];
 
