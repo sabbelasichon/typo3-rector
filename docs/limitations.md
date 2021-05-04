@@ -9,6 +9,7 @@ At the moment typo3-rector is not able to refactor the following things:
 2. eID to PSR-15 Middleware
 3. ObjectManager to PSR-11 Dependency Injection
 4. $GLOBALS['TYPO3_DB'] to Doctrine DBAL (only a few simple cases)
+5. Fully migrate TCA changes like internal_type=file to FAL
 
 This list does not claim to be exhaustive. There are certainly many other things that typo3-rector cannot yet take on.
 
