@@ -24,7 +24,7 @@ final class TypoScriptToPhpFile
 
     public function getFilename(): string
     {
-        return sprintf('%s.php', $this->filename);
+        return $this->filename;
     }
 
     public function getContent(): string

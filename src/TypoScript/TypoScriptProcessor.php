@@ -226,9 +226,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
                 continue;
             }
 
-            $filePath = dirname(
-                (string) $this->configuration->getMainConfigFilePath()
-            ) . '/' . $typoScriptToPhpFile->getFilename();
+            $filePath = $typoScriptToPhpFile->getFilename();
 
             if ($this->configuration->isDryRun()) {
                 $message = sprintf(
