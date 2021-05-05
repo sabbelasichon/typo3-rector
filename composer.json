@@ -37,13 +37,13 @@
     "autoload": {
         "psr-4": {
             "Ssch\\TYPO3Rector\\Compiler\\": "utils/compiler/src",
-            "Ssch\\TYPO3Rector\\ComposerPackages\\": "utils/composer-packages/src",
             "Ssch\\TYPO3Rector\\": "src",
             "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src"
         }
     },
     "autoload-dev": {
         "psr-4": {
+            "Ssch\\TYPO3Rector\\ComposerPackages\\": "utils/composer-packages/src",
             "Ssch\\TYPO3Rector\\Generator\\": "utils/generator/src",
             "Ssch\\TYPO3Rector\\ComposerPackages\\Tests\\": "utils/composer-packages/tests",
             "Ssch\\TYPO3Rector\\Tests\\": "tests",
