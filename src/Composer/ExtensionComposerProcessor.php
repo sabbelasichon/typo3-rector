@@ -26,11 +26,6 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
     private $composerJsonPrinter;
 
     /**
-     * @var ComposerModifier
-     */
-    private $composerModifier;
-
-    /**
      * @var CurrentFileProvider
      */
     private $currentFileProvider;
@@ -45,17 +40,27 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
      */
     private $printer;
 
+    /**
+     * @var ExtensionComposerRectorInterface[]
+     */
+    private $composerRectors;
+
+    /**
+     * ExtensionComposerProcessor constructor.
+     *
+     * @param ExtensionComposerRectorInterface[] $composerRectors
+     */
     public function __construct(
         ComposerJsonFactory $composerJsonFactory,
         ComposerJsonPrinter $composerJsonPrinter,
-        ComposerModifier $composerModifier,
         CurrentFileProvider $currentFileProvider,
         EditorConfigParser $editorConfigParser,
-        Printer $printer
+        Printer $printer,
+        array $composerRectors
     ) {
         $this->composerJsonFactory = $composerJsonFactory;
         $this->composerJsonPrinter = $composerJsonPrinter;
-        $this->composerModifier = $composerModifier;
+        $this->composerRectors = $composerRectors;
         $this->currentFileProvider = $currentFileProvider;
         $this->editorConfigParser = $editorConfigParser;
         $this->printer = $printer;
@@ -66,8 +71,7 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
      */
     public function process(array $files): void
     {
-        // to avoid modification of file
-        if (! $this->composerModifier->enabled()) {
+        if ([] === $this->composerRectors) {
             return;
         }
 
@@ -103,7 +107,10 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
         $composerJson = $this->composerJsonFactory->createFromFileInfo($smartFileInfo);
 
         $oldComposerJson = clone $composerJson;
-        $this->composerModifier->modify($composerJson);
+
+        foreach ($this->composerRectors as $composerRector) {
+            $composerRector->refactor($composerJson);
+        }
 
         // nothing has changed
         if ($oldComposerJson->getJsonArray() === $composerJson->getJsonArray()) {
