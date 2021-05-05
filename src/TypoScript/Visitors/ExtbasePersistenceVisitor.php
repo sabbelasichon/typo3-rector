@@ -7,18 +7,25 @@ namespace Ssch\TYPO3Rector\TypoScript\Visitors;
 use Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Nette\Utils\Strings;
+use Rector\Core\Configuration\Configuration;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Ssch\TYPO3Rector\TypoScript\ConvertToPhpFileInterface;
 use Ssch\TYPO3Rector\ValueObject\TypoScriptToPhpFile;
 use Symfony\Component\VarExporter\VarExporter;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-87623-ReplaceConfigpersistenceclassesTyposcriptConfiguration.html
  */
-final class ExtbasePersistenceVisitor extends AbstractVisitor implements ConvertToPhpFileInterface
+final class ExtbasePersistenceVisitor extends AbstractVisitor implements ConvertToPhpFileInterface, ConfigurableRectorInterface
 {
+    /**
+     * @var string
+     */
+    public const FILENAME = 'filename';
+
     /**
      * @var string
      */
@@ -36,9 +43,21 @@ CODE_SAMPLE;
     private const SUBCLASSES = 'subclasses';
 
     /**
+     * @var string
+     */
+    private $filename;
+
+    /**
      * @var array
      */
     private static $persistenceArray = [];
+
+    public function __construct(Configuration $configuration)
+    {
+        $this->filename = dirname(
+            (string) $configuration->getMainConfigFilePath()
+        ) . '/Configuration_Extbase_Persistence_Classes.php';
+    }
 
     public function enterNode(Statement $statement): void
     {
@@ -63,14 +82,14 @@ CODE_SAMPLE;
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Convert extbase TypoScript persistence configuration to classes one', [
-            new CodeSample(
+            new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
 config.tx_extbase.persistence.classes {
-	GeorgRinger\News\Domain\Model\FileReference {
-		mapping {
-			tableName = sys_file_reference
-		}
-	}
+    GeorgRinger\News\Domain\Model\FileReference {
+        mapping {
+            tableName = sys_file_reference
+        }
+    }
 }
 CODE_SAMPLE
                 ,
@@ -81,6 +100,10 @@ return [
     ],
 ];
 CODE_SAMPLE
+,
+                [
+                    self::FILENAME => 'path/to/Configuration/Extbase/Persistence/Classes.php',
+                ]
             ),
         ]);
     }
@@ -93,7 +116,7 @@ CODE_SAMPLE
 
         $content = sprintf(self::GENERATED_FILE_TEMPLATE, VarExporter::export(self::$persistenceArray));
 
-        return new TypoScriptToPhpFile('Configuration_Extbase_Persistence_Classes', $content);
+        return new TypoScriptToPhpFile($this->filename, $content);
     }
 
     public function getReport(): Report
@@ -101,8 +124,17 @@ CODE_SAMPLE
         return new Report(
             'We have converted from TypoScript extbase persistence to a PHP File',
             $this,
-            ['Move and maybe divide file to appropriate location in your extension']
+            ['Move and maybe divide file to appropriate location in your extension(s)']
         );
+    }
+
+    public function configure(array $configuration): void
+    {
+        $filename = $configuration[self::FILENAME] ?? null;
+
+        if (null !== $filename) {
+            $this->filename = $filename;
+        }
     }
 
     private function extractSubClasses(array $paths, Assignment $statement): void
