@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\FlexForms;
 
 use DOMDocument;
+use Exception;
 use PrettyXml\Formatter;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
@@ -65,7 +66,13 @@ final class FlexFormsProcessor implements FileProcessorInterface
             return false;
         }
 
-        $xml = simplexml_load_string($file->getFileContent());
+        $fileContent = $file->getFileContent();
+
+        try {
+            $xml = @simplexml_load_string($fileContent);
+        } catch (Exception $exception) {
+            return false;
+        }
 
         if (false === $xml) {
             return false;

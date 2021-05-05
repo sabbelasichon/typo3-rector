@@ -78,3 +78,6 @@ parameters:
         -
             message: "#^Instead of \"new ClassReflection\\(\\)\" use ReflectionProvider service or \"\\(new PHPStan\\\\Reflection\\\\ClassReflection\\(\\<desired_type\\>\\)\\)\" for static reflection to work$#"
             path: src/NodeFactory/InitializeArgumentsClassMethodFactory.php
+        -
+            message: '#"@simplexml_load_string\(\$fileContent\)" is forbidden to use#'
+            path: src/FlexForms/FlexFormsProcessor.php
