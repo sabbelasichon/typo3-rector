@@ -15,6 +15,7 @@ Apply automatic fixes on your TYPO3 code.
 1. [Overview of all rules](docs/all_rectors_overview.md)
 1. [Installation](docs/installation.md)
 1. [Configuration and Processing](docs/configuration_and_processing.md)
+1. [Best practice guide](docs/best_practice_guide.md)
 1. [Beyond PHP - Entering the realm of FileProcessors](docs/beyond_php_file_processors.md)
 1. [Limitations](docs/limitations.md)
 1. [Contribution](docs/contribution.md)
