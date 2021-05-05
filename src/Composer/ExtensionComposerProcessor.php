@@ -13,6 +13,9 @@ use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
 
+/**
+ * @see \Ssch\TYPO3Rector\Tests\Composer\ExtensionComposerProcessor\ExtensionComposerProcessorTest
+ */
 final class ExtensionComposerProcessor implements FileProcessorInterface
 {
     /**
@@ -43,11 +46,9 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
     /**
      * @var ExtensionComposerRectorInterface[]
      */
-    private $composerRectors;
+    private $composerRectors = [];
 
     /**
-     * ExtensionComposerProcessor constructor.
-     *
      * @param ExtensionComposerRectorInterface[] $composerRectors
      */
     public function __construct(

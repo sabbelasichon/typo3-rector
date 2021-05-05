@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Composer\ExtensionComposerRector;
 use Iterator;
 use Nette\Utils\Json;
 use Rector\Testing\PHPUnit\AbstractTestCase;
-use Ssch\TYPO3Rector\Composer\ComposerModifier;
+use Ssch\TYPO3Rector\Rector\Composer\ExtensionComposerRector;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\EasyTesting\StaticFixtureSplitter;
@@ -21,15 +21,15 @@ final class ExtensionComposerRectorTest extends AbstractTestCase
     private $composerJsonFactory;
 
     /**
-     * @var ComposerModifier
+     * @var ExtensionComposerRector
      */
-    private $composerModifier;
+    private $extensionComposerRector;
 
     protected function setUp(): void
     {
         $this->bootFromConfigFileInfos([new SmartFileInfo($this->provideConfigFilePath())]);
 
-        $this->composerModifier = $this->getService(ComposerModifier::class);
+        $this->extensionComposerRector = $this->getService(ExtensionComposerRector::class);
         $this->composerJsonFactory = $this->getService(ComposerJsonFactory::class);
     }
 
@@ -56,7 +56,7 @@ final class ExtensionComposerRectorTest extends AbstractTestCase
         $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
 
         $composerJson = $this->composerJsonFactory->createFromFileInfo($inputFileInfoAndExpected->getInputFileInfo());
-        $this->composerModifier->modify($composerJson);
+        $this->extensionComposerRector->refactor($composerJson);
 
         $changedComposerJson = Json::encode($composerJson->getJsonArray(), Json::PRETTY);
         $this->assertJsonStringEqualsJsonString($inputFileInfoAndExpected->getExpected(), $changedComposerJson);
