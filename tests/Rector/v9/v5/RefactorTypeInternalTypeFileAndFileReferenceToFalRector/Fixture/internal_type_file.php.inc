@@ -11,24 +11,24 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFal
             'columns' => [
                 'foo' => [
                     'exclude' => 1,
-                    'label' => 'FeedbackImage',
+                    'label' => 'FooLabel',
                     'config' => [
                         'type' => 'group',
                         'internal_type' => 'file',
                         'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                         'max_size' => '20000',
-                        'uploadfolder' => 'fileadmin/feedbacks',
+                        'uploadfolder' => 'fileadmin/foo',
                         'maxitems' => '1',
                     ],
                 ],
                 'bar' => [
                     'exclude' => 1,
-                    'label' => 'FeedbackImage',
+                    'label' => 'BarLabel',
                     'config' => [
                         'type' => 'group',
                         'internal_type' => 'file_reference',
                         'max_size' => '20000',
-                        'uploadfolder' => 'fileadmin/feedbacks',
+                        'uploadfolder' => 'fileadmin/bar',
                         'maxitems' => '10',
                     ],
                 ],
@@ -52,13 +52,13 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFal
             'columns' => [
                 'foo' => [
                     'exclude' => 1,
-                    'label' => 'FeedbackImage',
-                    'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('foo', ['max_size' => '20000', 'uploadfolder' => 'fileadmin/feedbacks', 'maxitems' => '1'], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
+                    'label' => 'FooLabel',
+                    'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('foo', ['max_size' => '20000', 'uploadfolder' => 'fileadmin/foo', 'maxitems' => '1'], $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']),
                 ],
                 'bar' => [
                     'exclude' => 1,
-                    'label' => 'FeedbackImage',
-                    'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('bar', ['max_size' => '20000', 'uploadfolder' => 'fileadmin/feedbacks', 'maxitems' => '10']),
+                    'label' => 'BarLabel',
+                    'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig('bar', ['max_size' => '20000', 'uploadfolder' => 'fileadmin/bar', 'maxitems' => '10']),
                 ],
             ],
         ];
