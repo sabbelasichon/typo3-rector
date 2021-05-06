@@ -133,44 +133,21 @@ CODE_SAMPLE
                 continue;
             }
 
-            $foreignTypesArrayItem = null;
-            $foreignRecordDefaults = null;
-            $foreignSelector = null;
-            $overrideChildTcaNode = null;
-            $foreignSelectorOverrideNode = null;
-            foreach ($columnConfig->items as $configItemValue) {
-                if (! $configItemValue instanceof ArrayItem) {
-                    continue;
-                }
-
-                if (null === $configItemValue->key) {
-                    continue;
-                }
-
-                if ($this->valueResolver->isValue($configItemValue->key, self::FOREIGN_TYPES)) {
-                    $foreignTypesArrayItem = $configItemValue;
-                } elseif ($this->valueResolver->isValue($configItemValue->key, self::FOREIGN_RECORD_DEFAULTS)) {
-                    $foreignRecordDefaults = $configItemValue;
-                } elseif ($this->valueResolver->isValue($configItemValue->key, self::FOREIGN_SELECTOR)) {
-                    $foreignSelector = $configItemValue->value;
-                } elseif ($this->valueResolver->isValue(
-                    $configItemValue->key,
-                    self::FOREIGN_SELECTOR_FIELDTCAOVERRIDE
-                )) {
-                    $foreignSelectorOverrideNode = $configItemValue;
-                } elseif ($this->valueResolver->isValue($configItemValue->key, self::OVERRIDE_CHILD_TCA)) {
-                    $overrideChildTcaNode = $configItemValue->value;
-                }
-            }
+            $foreignTypesArrayItem = $this->extractArrayItemByKey($columnConfig, self::FOREIGN_TYPES);
+            $foreignRecordDefaults = $this->extractArrayItemByKey($columnConfig, self::FOREIGN_RECORD_DEFAULTS);
+            $foreignSelectorNode = $this->extractArrayItemByKey($columnConfig, self::FOREIGN_SELECTOR);
+            $overrideChildTcaNode = $this->extractSubArrayByKey($columnConfig, self::OVERRIDE_CHILD_TCA);
+            $foreignSelectorOverrideNode = $this->extractArrayItemByKey(
+                $columnConfig,
+                self::FOREIGN_SELECTOR_FIELDTCAOVERRIDE
+            );
 
             // don't search further if no foreign_types is configured
             if (null === $foreignSelectorOverrideNode && null === $foreignTypesArrayItem && null === $foreignRecordDefaults) {
                 continue;
             }
 
-            if (null !== $overrideChildTcaNode && ! $overrideChildTcaNode instanceof Array_) {
-                continue;
-            }
+            $foreignSelector = null !== $foreignSelectorNode ? $foreignSelectorNode->value : null;
 
             if (null === $overrideChildTcaNode) {
                 $overrideChildTcaNode = new Array_();
@@ -241,29 +218,12 @@ CODE_SAMPLE
         return $columnConfig;
     }
 
-    private function extractExistingOverrideChildTca(Array_ $overrideChildTcaNode, string $key): ?ArrayItem
-    {
-        $overrideChildTcaTypesArrayItem = null;
-        foreach ($overrideChildTcaNode->items as $overrideChildTcaOption) {
-            if (! $overrideChildTcaOption instanceof ArrayItem) {
-                continue;
-            }
-            if (null === $overrideChildTcaOption->key) {
-                continue;
-            }
-            if ($this->valueResolver->isValue($overrideChildTcaOption->key, $key)) {
-                $overrideChildTcaTypesArrayItem = $overrideChildTcaOption;
-            }
-        }
-        return $overrideChildTcaTypesArrayItem;
-    }
-
     private function injectOverrideChildTca(
         Array_ $overrideChildTcaNode,
         string $overrideKey,
         Array_ $overrideValue
     ): void {
-        $newOverrideChildTcaSetting = $this->extractExistingOverrideChildTca($overrideChildTcaNode, $overrideKey);
+        $newOverrideChildTcaSetting = $this->extractArrayItemByKey($overrideChildTcaNode, $overrideKey);
         if (null === $newOverrideChildTcaSetting) {
             $newOverrideChildTcaSetting = new ArrayItem($overrideValue, new String_($overrideKey));
             $overrideChildTcaNode->items[] = $newOverrideChildTcaSetting;
@@ -272,9 +232,10 @@ CODE_SAMPLE
                 // do not alter overrideChildTca nodes that are not an array (which would be invalid tca, but lets be sure here)
                 return;
             }
-            foreach ($overrideValue->items as $item) {
-                $newOverrideChildTcaSetting->value->items[] = $item;
-            }
+            $newOverrideChildTcaSetting->value->items = array_merge(
+                $newOverrideChildTcaSetting->value->items,
+                $overrideValue->items
+            );
         }
     }
 }
