@@ -112,6 +112,10 @@ CODE_SAMPLE
         $this->hasAstBeenChanged = false;
 
         foreach ($this->extractColumnConfig($columns) as $columnName => $config) {
+            if (! $config instanceof Array_) {
+                continue;
+            }
+
             if (! $this->hasKeyValuePair($config, self::TYPE, 'group')) {
                 continue;
             }
@@ -131,6 +135,10 @@ CODE_SAMPLE
         }
 
         foreach ($this->extractColumnConfig($types, 'columnsOverrides') as $columnOverride) {
+            if (! $columnOverride instanceof Array_) {
+                continue;
+            }
+
             foreach ($columnNamesWithTypeGroupAndInternalTypeDb as $columnName) {
                 $overrideForColumn = $this->extractSubArrayByKey($columnOverride, $columnName);
                 if (null === $overrideForColumn) {
