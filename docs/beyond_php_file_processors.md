@@ -68,3 +68,44 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]]);
 };
 ```
+# Special Cases
+
+Below we list functionalities that are based on special processors that top the typo3-rector rulesets by not only rewriting code but also creating new files etc.
+
+
+## Extbase persistence class configuration rewrite
+
+The original configuration of classes in the context of the Extbase persistence is no longer possible via typoscript.
+To help you out typo3-rector adds a processor that rewrites the typoscript for you.
+
+By adding the following configuration your code is automatically rewritten into the new PHP structure:
+
+```php
+use Ssch\TYPO3Rector\TypoScript\Visitors\ExtbasePersistenceVisitor;
+...
+$services = $containerConfigurator->services();
+$services->set(ExtbasePersistenceVisitor::class);
+```
+
+Currently all of your packages are summarized into a single file.
+This means you have to split the segments manually or you process the configs step by step for each package you got to create the file each time.
+In this step you can also move the file and verify its functionality.
+
+Typo3-rector **does not** create/change `Configuration/Extbase/Classes.php` to protect you from unwillingly changes on an existing file or unnoticed file creation.
+
+---
+Changelog entry: [Breaking: #87623 - Replace config.persistence.classes typoscript configuration](https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-87623-ReplaceConfigpersistenceclassesTyposcriptConfiguration.html)
+
+
+## Composer.json creation when missing
+
+In case you are setting up an old project on a new structure, taking over an external project or are in general need of a composer.json based setup typo3-rector helps you out with creating the file for each of your packages.
+
+With the following config your affected packages will get a composer.json created.
+
+```php
+use Ssch\TYPO3Rector\Composer\InitializeExtensionComposerJsonProcessor;
+...
+$services = $containerConfigurator->services();
+$services->set(InitializeExtensionComposerJsonProcessor::class);
+```
