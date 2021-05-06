@@ -8,8 +8,6 @@ use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
-use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use Ssch\TYPO3Rector\Yaml\Form\Transformer\FormYamlTransformer;
 use Symfony\Component\Yaml\Yaml;
 
@@ -34,21 +32,12 @@ final class FormYamlProcessor implements FileProcessorInterface
     private $currentFileProvider;
 
     /**
-     * @var EditorConfigParser
-     */
-    private $editorConfigParser;
-
-    /**
      * @param FormYamlTransformer[] $transformer
      */
-    public function __construct(
-        CurrentFileProvider $currentFileProvider,
-        EditorConfigParser $editorConfigParser,
-        array $transformer
-    ) {
+    public function __construct(CurrentFileProvider $currentFileProvider, array $transformer)
+    {
         $this->transformer = $transformer;
         $this->currentFileProvider = $currentFileProvider;
-        $this->editorConfigParser = $editorConfigParser;
     }
 
     /**
@@ -92,18 +81,8 @@ final class FormYamlProcessor implements FileProcessorInterface
             $yaml = $transformer->transform($yaml);
         }
 
-        $defaultEditorConfiguration = new EditorConfigConfiguration(
-            EditorConfigConfiguration::SPACE,
-            2,
-            EditorConfigConfiguration::LINE_FEED
-        );
-        $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(
-            $smartFileInfo,
-            $defaultEditorConfiguration
-        );
+        $newFileContent = Yaml::dump($yaml, 99);
 
-        $changedContent = Yaml::dump($yaml, 99, $editorConfiguration->getIndentSize());
-
-        $file->changeFileContent($changedContent);
+        $file->changeFileContent($newFileContent);
     }
 }

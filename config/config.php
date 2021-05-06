@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use Ergebnis\Json\Printer\Printer;
 use Helmich\TypoScriptParser\Parser\Parser;
 use Helmich\TypoScriptParser\Parser\ParserInterface;
 use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
@@ -10,8 +9,6 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
-use Idiosyncratic\EditorConfig\EditorConfig;
-use PrettyXml\Formatter;
 use Rector\Core\Configuration\Option;
 use Ssch\TYPO3Rector\Reporting\Reporter;
 use Ssch\TYPO3Rector\Reporting\ReporterFactory;
@@ -44,6 +41,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/FlexForms/Transformer',
             __DIR__ . '/../src/Reporting',
             __DIR__ . '/../src/Resources/Icons/IconsProcessor.php',
+            __DIR__ . '/../src/Composer/InitializeExtensionComposerJsonProcessor.php',
         ]);
 
     $services->set(ReporterFactory::class);
@@ -79,8 +77,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'typoscriptsetupts',
             ],
         ]]);
-
-    $services->set(EditorConfig::class);
-    $services->set(Formatter::class);
-    $services->set(Printer::class);
 };

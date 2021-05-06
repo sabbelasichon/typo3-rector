@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Composer;
 
-use Ergebnis\Json\Printer\Printer;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
-use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
 
@@ -34,16 +31,6 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
     private $currentFileProvider;
 
     /**
-     * @var EditorConfigParser
-     */
-    private $editorConfigParser;
-
-    /**
-     * @var Printer
-     */
-    private $printer;
-
-    /**
      * @var ExtensionComposerRectorInterface[]
      */
     private $composerRectors = [];
@@ -55,16 +42,12 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
         ComposerJsonFactory $composerJsonFactory,
         ComposerJsonPrinter $composerJsonPrinter,
         CurrentFileProvider $currentFileProvider,
-        EditorConfigParser $editorConfigParser,
-        Printer $printer,
         array $composerRectors
     ) {
         $this->composerJsonFactory = $composerJsonFactory;
         $this->composerJsonPrinter = $composerJsonPrinter;
         $this->composerRectors = $composerRectors;
         $this->currentFileProvider = $currentFileProvider;
-        $this->editorConfigParser = $editorConfigParser;
-        $this->printer = $printer;
     }
 
     /**
@@ -118,25 +101,8 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
             return;
         }
 
-        $defaultEditorConfiguration = new EditorConfigConfiguration(
-            EditorConfigConfiguration::SPACE,
-            2,
-            EditorConfigConfiguration::LINE_FEED
-        );
-        $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(
-            $smartFileInfo,
-            $defaultEditorConfiguration
-        );
+        $newFileContent = $this->composerJsonPrinter->printToString($composerJson);
 
-        $json = $this->composerJsonPrinter->printToString($composerJson);
-
-        $indent = str_pad('', $editorConfiguration->getIndentSize());
-        if ($editorConfiguration->getIsTab()) {
-            $indent = "\t";
-        }
-
-        $newContent = $this->printer->print($json, $indent);
-
-        $file->changeFileContent($newContent);
+        $file->changeFileContent($newFileContent);
     }
 }

@@ -6,12 +6,9 @@ namespace Ssch\TYPO3Rector\FlexForms;
 
 use DOMDocument;
 use Exception;
-use PrettyXml\Formatter;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
 use Ssch\TYPO3Rector\FlexForms\Transformer\FlexFormTransformer;
-use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use UnexpectedValueException;
 
 /**
@@ -25,23 +22,11 @@ final class FlexFormsProcessor implements FileProcessorInterface
     private $transformer = [];
 
     /**
-     * @var EditorConfigParser
-     */
-    private $editorConfigParser;
-
-    /**
-     * @var Formatter
-     */
-    private $xmlFormatter;
-
-    /**
      * @param FlexFormTransformer[] $transformer
      */
-    public function __construct(array $transformer, EditorConfigParser $editorConfigParser, Formatter $xmlFormatter)
+    public function __construct(array $transformer)
     {
         $this->transformer = $transformer;
-        $this->editorConfigParser = $editorConfigParser;
-        $this->xmlFormatter = $xmlFormatter;
     }
 
     /**
@@ -88,8 +73,6 @@ final class FlexFormsProcessor implements FileProcessorInterface
 
     private function processFile(File $file): void
     {
-        $smartFileInfo = $file->getSmartFileInfo();
-
         $domDocument = new DOMDocument();
 
         $domDocument->formatOutput = true;
@@ -115,20 +98,8 @@ final class FlexFormsProcessor implements FileProcessorInterface
             return;
         }
 
-        $defaultEditorConfiguration = new EditorConfigConfiguration(
-            EditorConfigConfiguration::TAB,
-            1,
-            EditorConfigConfiguration::LINE_FEED
-        );
-        $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(
-            $smartFileInfo,
-            $defaultEditorConfiguration
-        );
-        $this->xmlFormatter->setIndentCharacter($editorConfiguration->getIndentStyleCharacter());
-        $this->xmlFormatter->setIndentSize($editorConfiguration->getIndentSize());
+        $newFileContent = html_entity_decode($xml);
 
-        $changedContent = html_entity_decode($this->xmlFormatter->format($xml)) . $editorConfiguration->getEndOfLine();
-
-        $file->changeFileContent($changedContent);
+        $file->changeFileContent($newFileContent);
     }
 }
