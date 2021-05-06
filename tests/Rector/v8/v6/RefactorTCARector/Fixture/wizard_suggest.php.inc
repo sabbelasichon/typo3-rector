@@ -4,9 +4,9 @@ return [
     'ctrl' => [
     ],
     'columns' => [
-        'mail_message' => [
+        'foobar' => [
             'exclude' => 0,
-            'label' => 'Nachricht',
+            'label' => 'FoobarLabel',
             'config' => [
                 'type' => 'text',
                 'cols' => 48,
@@ -14,7 +14,7 @@ return [
                 'wizards' => [
                     '_PADDING' => 1,
                     '_VERTICAL' => 1,
-                    'feedbackLink' => [
+                    'fooWizard' => [
                         'type' => 'userFunc',
                         'userFunc' => 'FooBarBaz->render',
                     ],
@@ -38,9 +38,9 @@ return [
                 ],
             ],
         ],
-        'name_of_travel_guide' => [
+        'random_one' => [
             'exclude' => 1,
-            'label' => 'Name des Reiseleiters',
+            'label' => 'RandomOne',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -63,9 +63,9 @@ return [
                 ],
             ],
         ],
-        'name_of_travel_guide_2' => [
+        'random_two' => [
             'exclude' => 1,
-            'label' => 'Name des Reiseleiters',
+            'label' => 'RandomTwo',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -101,9 +101,9 @@ return [
     'ctrl' => [
     ],
     'columns' => [
-        'mail_message' => [
+        'foobar' => [
             'exclude' => 0,
-            'label' => 'Nachricht',
+            'label' => 'FoobarLabel',
             'config' => [
                 'type' => 'text',
                 'cols' => 48,
@@ -111,7 +111,7 @@ return [
                 'wizards' => [
                     '_PADDING' => 1,
                     '_VERTICAL' => 1,
-                    'feedbackLink' => [
+                    'fooWizard' => [
                         'type' => 'userFunc',
                         'userFunc' => 'FooBarBaz->render',
                     ],
@@ -127,9 +127,9 @@ return [
                 'suggestOptions' => ['default' => ['pidList' => 42]],
             ],
         ],
-        'name_of_travel_guide' => [
+        'random_one' => [
             'exclude' => 1,
-            'label' => 'Name des Reiseleiters',
+            'label' => 'RandomOne',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',
@@ -144,9 +144,9 @@ return [
                 'suggestOptions' => ['pages' => ['searchCondition' => 'doktype=22']],
             ],
         ],
-        'name_of_travel_guide_2' => [
+        'random_two' => [
             'exclude' => 1,
-            'label' => 'Name des Reiseleiters',
+            'label' => 'RandomTwo',
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'db',

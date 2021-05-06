@@ -168,15 +168,15 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
 return [
             'ctrl' => [],
             'columns' => [
-                'feedback_image' => [
+                'foobar_image' => [
                     'exclude' => 1,
-                    'label' => 'FeedbackImage',
+                    'label' => 'FoobarLabel',
                     'config' => [
                         'type' => 'group',
                         'internal_type' => 'file',
                         'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                         'max_size' => '20000',
-                        'uploadfolder' => 'fileadmin/feedbacks',
+                        'uploadfolder' => 'fileadmin/foobar',
                         'maxitems' => '1',
                     ],
                 ],
@@ -188,14 +188,14 @@ CODE_SAMPLE
 return [
             'ctrl' => [],
             'columns' => [
-                'feedback_image' => [
+                'foobar_image' => [
                     'exclude' => 1,
-                    'label' => 'FeedbackImage',
+                    'label' => 'FoobarLabel',
                     'config' => \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getFileFieldTCAConfig(
-                        'feedback_image',
+                        'foobar_image',
                         [
                             'max_size' => '20000',
-                            'uploadfolder' => 'fileadmin/feedbacks',
+                            'uploadfolder' => 'fileadmin/foobar',
                             'maxitems' => 1,
                             'appearance' => [
                                 'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference',
