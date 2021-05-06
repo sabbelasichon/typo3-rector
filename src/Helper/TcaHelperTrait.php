@@ -34,85 +34,46 @@ trait TcaHelperTrait
 
     private function isConfigType(Array_ $columnItemConfiguration, string $type): bool
     {
-        foreach ($columnItemConfiguration->items as $configValue) {
-            if (null === $configValue) {
-                continue;
-            }
-
-            if (! $configValue instanceof ArrayItem) {
-                continue;
-            }
-
-            if (null === $configValue->key) {
-                continue;
-            }
-
-            if (! $this->isValue($configValue->key, 'type')) {
-                continue;
-            }
-
-            if ($this->isValue($configValue->value, $type)) {
-                return true;
-            }
-        }
-
-        return false;
+        return $this->hasKeyValuePair($columnItemConfiguration, 'type', $type);
     }
 
     private function hasRenderType(Array_ $columnItemConfiguration): bool
     {
-        foreach ($columnItemConfiguration->items as $configValue) {
-            if (null === $configValue) {
-                continue;
-            }
-
-            if (! $configValue instanceof ArrayItem) {
-                continue;
-            }
-
-            if (null === $configValue->key) {
-                continue;
-            }
-
-            if (! $this->isValue($configValue->key, 'renderType')) {
-                continue;
-            }
-
-            return true;
-        }
-
-        return false;
+        $renderTypeItem = $this->extractArrayItemByKey($columnItemConfiguration, 'renderType');
+        return null !== $renderTypeItem;
     }
 
     private function extractColumns(Return_ $node): ?ArrayItem
     {
-        return $this->extractByTypeOnFirstLevel($node, 'columns');
+        return $this->extractArrayItemByKey($node->expr, 'columns');
     }
 
     private function extractTypes(Return_ $node): ?ArrayItem
     {
-        return $this->extractByTypeOnFirstLevel($node, 'types');
+        return $this->extractArrayItemByKey($node->expr, 'types');
     }
 
     private function extractCtrl(Return_ $node): ?ArrayItem
     {
-        return $this->extractByTypeOnFirstLevel($node, 'ctrl');
+        return $this->extractArrayItemByKey($node->expr, 'ctrl');
     }
 
     private function extractInterface(Return_ $node): ?ArrayItem
     {
-        return $this->extractByTypeOnFirstLevel($node, 'interface');
+        return $this->extractArrayItemByKey($node->expr, 'interface');
     }
 
-    private function extractByTypeOnFirstLevel(Return_ $node, string $type): ?ArrayItem
+    private function extractArrayItemByKey(?Node $node, string $key): ?ArrayItem
     {
-        if (! $node->expr instanceof Array_) {
+        if (null === $node) {
             return null;
         }
 
-        $items = $node->expr->items;
+        if (! $node instanceof Array_) {
+            return null;
+        }
 
-        foreach ($items as $item) {
+        foreach ($node->items as $item) {
             if (! $item instanceof ArrayItem) {
                 continue;
             }
@@ -122,7 +83,7 @@ trait TcaHelperTrait
             }
 
             $itemKey = (string) $this->getValue($item->key);
-            if ($type === $itemKey) {
+            if ($key === $itemKey) {
                 return $item;
             }
         }
@@ -130,17 +91,57 @@ trait TcaHelperTrait
         return null;
     }
 
+    private function extractSubArrayByKey(?Node $node, string $key): ?Array_
+    {
+        if (null === $node) {
+            return null;
+        }
+
+        $arrayItem = $this->extractArrayItemByKey($node, $key);
+        if (! $arrayItem instanceof ArrayItem) {
+            return null;
+        }
+
+        $columnItems = $arrayItem->value;
+
+        if (! $columnItems instanceof Array_) {
+            return null;
+        }
+
+        return $columnItems;
+    }
+
+    /**
+     * @return Generator<ArrayItem>
+     */
+    private function extractSubArraysWithArrayItemMatching(Array_ $array, string $key, string $value): Generator
+    {
+        foreach ($array->items as $arrayItem) {
+            if (! $arrayItem instanceof ArrayItem) {
+                continue;
+            }
+            if (! $arrayItem->value instanceof Array_) {
+                continue;
+            }
+            if (! $this->hasKeyValuePair($arrayItem->value, $key, $value)) {
+                continue;
+            }
+            yield $arrayItem;
+        }
+        return null;
+    }
+
     private function configIsOfInternalType(Array_ $configValue, string $expectedType): bool
     {
-        return $this->configKeyIsOfValue($configValue, 'internal_type', $expectedType);
+        return $this->hasKeyValuePair($configValue, 'internal_type', $expectedType);
     }
 
     private function configIsOfRenderType(Array_ $configValue, string $expectedRenderType): bool
     {
-        return $this->configKeyIsOfValue($configValue, 'renderType', $expectedRenderType);
+        return $this->hasKeyValuePair($configValue, 'renderType', $expectedRenderType);
     }
 
-    private function configKeyIsOfValue(Array_ $configValue, string $configKey, string $expectedValue): bool
+    private function hasKeyValuePair(Array_ $configValue, string $configKey, string $expectedValue): bool
     {
         foreach ($configValue->items as $configItemValue) {
             if (! $configItemValue instanceof ArrayItem) {
