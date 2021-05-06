@@ -13,11 +13,12 @@ use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\EditorConfig\EditorConfigParser;
+use Rector\FileFormatter\Contract\EditorConfig\EditorConfigParserInterface;
+use Rector\FileFormatter\ValueObject\Indent;
+use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\Reporting\Reporter;
 use Ssch\TYPO3Rector\TypoScript\Visitors\AbstractVisitor;
-use Ssch\TYPO3Rector\ValueObject\EditorConfigConfiguration;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -64,7 +65,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     private $currentFileProvider;
 
     /**
-     * @var EditorConfigParser
+     * @var EditorConfigParserInterface
      */
     private $editorConfigParser;
 
@@ -96,7 +97,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         BufferedOutput $output,
         ASTPrinterInterface $typoscriptPrinter,
         CurrentFileProvider $currentFileProvider,
-        EditorConfigParser $editorConfigParser,
+        EditorConfigParserInterface $editorConfigParser,
         SmartFileSystem $smartFileSystem,
         Configuration $configuration,
         SymfonyStyle $symfonyStyle,
@@ -174,32 +175,31 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
                 return;
             }
 
-            $defaultEditorConfiguration = new EditorConfigConfiguration(
-                EditorConfigConfiguration::SPACE,
-                4,
-                EditorConfigConfiguration::LINE_FEED
-            );
+            $editorConfigConfigurationBuilder = EditorConfigConfigurationBuilder::anEditorConfigConfiguration();
+            $editorConfigConfigurationBuilder->withIndent(Indent::createSpaceWithSize(4));
+
             $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(
-                $smartFileInfo,
-                $defaultEditorConfiguration
+                $file,
+                $editorConfigConfigurationBuilder
             );
 
             $prettyPrinterConfiguration = PrettyPrinterConfiguration::create();
             $prettyPrinterConfiguration = $prettyPrinterConfiguration->withEmptyLineBreaks();
             $prettyPrinterConfiguration = $prettyPrinterConfiguration->withClosingGlobalStatement();
-            $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation(
-                $editorConfiguration->getIndentSize()
-            );
 
-            if ($editorConfiguration->getIsTab()) {
+            if ('tab' === $editorConfiguration->getIndentStyle()) {
                 $prettyPrinterConfiguration = $prettyPrinterConfiguration->withTabs();
+            } else {
+                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation(
+                    $editorConfiguration->getIndentSize()
+                );
             }
 
             $this->typoscriptPrinter->setPrettyPrinterConfiguration($prettyPrinterConfiguration);
 
             $this->typoscriptPrinter->printStatements($originalStatements, $this->output);
 
-            $typoScriptContent = rtrim($this->output->fetch()) . $editorConfiguration->getEndOfLine();
+            $typoScriptContent = rtrim($this->output->fetch()) . $editorConfiguration->getNewLine();
 
             $file->changeFileContent($typoScriptContent);
         } catch (TokenizerException $tokenizerException) {

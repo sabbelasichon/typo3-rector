@@ -30,6 +30,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // Define your target version which you want to support
     $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_72);
 
+    // If you have an editorconfig and changed files should keep their format enable it here
+    // $parameters->set(Option::ENABLE_EDITORCONFIG, true);
+
     // Some rules need manually review afterwards, in order to get a better overview we have created a small report output for those rules, enable it.
     // These rules are only applied if you have enabled this option
     // $parameters->set(Typo3Option::REPORT_DIRECTORY, __DIR__ . '/typo3-rector-reports');

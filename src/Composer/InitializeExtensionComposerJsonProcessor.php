@@ -15,6 +15,7 @@ use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\PhpParser\Parser\Parser;
 use Rector\Core\ValueObject\Application\File;
+use Rector\FileFormatter\FileFormatter;
 use Ssch\TYPO3Rector\Reporting\Reporter;
 use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
@@ -85,13 +86,19 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
      */
     private $reporter;
 
+    /**
+     * @var FileFormatter
+     */
+    private $fileFormatter;
+
     public function __construct(
         SmartFileSystem $smartFileSystem,
         ComposerJsonFactory $composerJsonFactory,
         ComposerJsonPrinter $composerJsonPrinter,
         Parser $parser,
         Configuration $configuration,
-        Reporter $reporter
+        Reporter $reporter,
+        FileFormatter $fileFormatter
     ) {
         $this->smartFileSystem = $smartFileSystem;
         $this->composerJsonFactory = $composerJsonFactory;
@@ -99,6 +106,7 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
         $this->parser = $parser;
         $this->configuration = $configuration;
         $this->reporter = $reporter;
+        $this->fileFormatter = $fileFormatter;
     }
 
     public function supports(File $file): bool
@@ -130,17 +138,15 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
 
             $composerJsonFilePath = $this->createComposerJsonFilePath($smartFileInfo);
 
-            $json = $this->composerJsonPrinter->printToString($composerJson);
+            $newFileContent = $this->composerJsonPrinter->printToString($composerJson);
             $report = new Report(sprintf(
                 'Create new composer.json "%s" with content "%s"',
                 $composerJsonFilePath,
-                $json
+                $newFileContent
             ), $this);
             $this->reporter->report($report);
 
-            if (! $this->configuration->isDryRun()) {
-                $this->composerJsonPrinter->print($composerJson, $composerJsonFilePath);
-            }
+            $this->printFile($composerJsonFilePath, $newFileContent);
         }
     }
 
@@ -288,5 +294,20 @@ CODE_SAMPLE
         }
 
         return $information;
+    }
+
+    private function printFile(string $composerJsonFilePath, string $newFileContent): void
+    {
+        if ($this->configuration->isDryRun()) {
+            return;
+        }
+
+        $this->smartFileSystem->touch($composerJsonFilePath);
+        $composerJsonSmartFileInfo = new SmartFileInfo($composerJsonFilePath);
+        $composerJsonFile = new File($composerJsonSmartFileInfo, '');
+        $composerJsonFile->changeFileContent($newFileContent);
+
+        $this->fileFormatter->format([$composerJsonFile]);
+        $this->smartFileSystem->dumpFile($composerJsonFilePath, $composerJsonFile->getFileContent());
     }
 }
