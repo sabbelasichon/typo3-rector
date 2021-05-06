@@ -164,9 +164,9 @@ trait TcaHelperTrait
     }
 
     /**
-     * @return Generator<string, Node>
+     * @return Generator<string, Array_>
      */
-    private function extractColumnConfig(Array_ $items): Generator
+    private function extractColumnConfig(Array_ $items, string $keyName = 'config'): Generator
     {
         foreach ($items->items as $columnConfig) {
             if (! $columnConfig instanceof ArrayItem) {
@@ -193,7 +193,11 @@ trait TcaHelperTrait
                     continue;
                 }
 
-                if (! $this->isValue($configValue->key, 'config')) {
+                if (! $this->isValue($configValue->key, $keyName)) {
+                    continue;
+                }
+
+                if (! $configValue->value instanceof Array_) {
                     continue;
                 }
 

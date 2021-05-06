@@ -28,6 +28,11 @@ final class MoveTypeGroupSuggestWizzardToSuggestOptionsRector extends AbstractRe
     private const TYPE = 'type';
 
     /**
+     * @var bool
+     */
+    private $hasAstBeenChanged = false;
+
+    /**
      * @codeCoverageIgnore
      */
     public function getRuleDefinition(): RuleDefinition
@@ -103,13 +108,10 @@ CODE_SAMPLE
             return null;
         }
 
-        $hasAstBeenChanged = false;
+        $columnNamesWithTypeGroupAndInternalTypeDb = [];
+        $this->hasAstBeenChanged = false;
 
-        foreach ($this->extractColumnConfig($columns) as $config) {
-            if (! $config instanceof Array_) {
-                continue;
-            }
-
+        foreach ($this->extractColumnConfig($columns) as $columnName => $config) {
             if (! $this->hasKeyValuePair($config, self::TYPE, 'group')) {
                 continue;
             }
@@ -117,24 +119,52 @@ CODE_SAMPLE
                 continue;
             }
 
-            $wizards = $this->extractSubArrayByKey($config, 'wizards');
+            $columnNamesWithTypeGroupAndInternalTypeDb[] = $columnName;
 
-            if (null === $wizards) {
-                continue;
-            }
+            $this->refactorWizards($config);
+        }
 
-            foreach ($this->extractSubArraysWithArrayItemMatching($wizards, self::TYPE, 'suggest') as $wizard) {
-                $wizardConfig = $wizard->value;
-                $typeItem = $this->extractArrayItemByKey($wizardConfig, self::TYPE);
-                if (null !== $typeItem) {
-                    $this->removeNode($typeItem);
+        // now check columnsOverrides of all type=group, internal_type=db fields:
+        $types = $this->extractSubArrayByKey($node->expr, 'types');
+        if (null === $types) {
+            return null;
+        }
+
+        foreach ($this->extractColumnConfig($types, 'columnsOverrides') as $columnOverride) {
+            foreach ($columnNamesWithTypeGroupAndInternalTypeDb as $columnName) {
+                $overrideForColumn = $this->extractSubArrayByKey($columnOverride, $columnName);
+                if (null === $overrideForColumn) {
+                    continue;
                 }
-                $config->items[] = new ArrayItem($wizardConfig, new String_('suggestOptions'));
-                $this->removeNode($wizard);
-                $hasAstBeenChanged = true;
+
+                $configOverride = $this->extractSubArrayByKey($overrideForColumn, 'config');
+                if (null === $configOverride) {
+                    continue;
+                }
+                $this->refactorWizards($configOverride);
             }
         }
 
-        return $hasAstBeenChanged ? $node : null;
+        return $this->hasAstBeenChanged ? $node : null;
+    }
+
+    private function refactorWizards(Array_ $config): void
+    {
+        $wizards = $this->extractSubArrayByKey($config, 'wizards');
+
+        if (null === $wizards) {
+            return;
+        }
+
+        foreach ($this->extractSubArraysWithArrayItemMatching($wizards, self::TYPE, 'suggest') as $wizard) {
+            $wizardConfig = $wizard->value;
+            $typeItem = $this->extractArrayItemByKey($wizardConfig, self::TYPE);
+            if (null !== $typeItem) {
+                $this->removeNode($typeItem);
+            }
+            $config->items[] = new ArrayItem($wizardConfig, new String_('suggestOptions'));
+            $this->removeNode($wizard);
+            $this->hasAstBeenChanged = true;
+        }
     }
 }
