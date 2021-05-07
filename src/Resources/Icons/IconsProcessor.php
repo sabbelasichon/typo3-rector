@@ -70,7 +70,7 @@ final class IconsProcessor implements FileProcessorInterface, RectorInterface
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Move ext_icon.* to Resources/Icons/Extension.*', [
+        return new RuleDefinition('Copy ext_icon.* to Resources/Icons/Extension.*', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 ext_icon.gif
@@ -95,14 +95,14 @@ CODE_SAMPLE
         $newFullPath = $realPath . $relativeTargetFilePath;
         if ($this->configuration->isDryRun()) {
             $message = sprintf(
-                'File "%s" will be moved to %s',
+                'File "%s" will be copied to "%s"',
                 $relativeFilePath,
                 $relativeFileDirectoryPath . $relativeTargetFilePath
             );
             $this->symfonyStyle->info($message);
         } elseif (! $this->smartFileSystem->exists($newFullPath)) {
             $message = sprintf(
-                'File "%s" moved to %s',
+                'File "%s" copied to "%s". Drop the original file in case there are no references in module/plugin registration or similar.',
                 $relativeFilePath,
                 $relativeFileDirectoryPath . $relativeTargetFilePath
             );
@@ -112,7 +112,7 @@ CODE_SAMPLE
                 $this->smartFileSystem->mkdir(dirname($newFullPath));
             }
 
-            $this->smartFileSystem->rename($smartFileInfo->getRealPath(), $newFullPath, true);
+            $this->smartFileSystem->copy($smartFileInfo->getRealPath(), $newFullPath, true);
         } else {
             $message = sprintf('File "%s" already exists.', $newFullPath);
             $this->symfonyStyle->warning($message);
