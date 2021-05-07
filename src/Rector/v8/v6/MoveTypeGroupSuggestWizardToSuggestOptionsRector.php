@@ -7,6 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v8\v6;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
@@ -123,7 +125,7 @@ CODE_SAMPLE
                 continue;
             }
 
-            $columnNamesWithTypeGroupAndInternalTypeDb[] = $columnName;
+            $columnNamesWithTypeGroupAndInternalTypeDb[$columnName] = $config;
 
             $this->refactorWizards($config);
         }
@@ -139,7 +141,7 @@ CODE_SAMPLE
                 continue;
             }
 
-            foreach ($columnNamesWithTypeGroupAndInternalTypeDb as $columnName) {
+            foreach ($columnNamesWithTypeGroupAndInternalTypeDb as $columnName => $columnConfig) {
                 $overrideForColumn = $this->extractSubArrayByKey($columnOverride, $columnName);
                 if (null === $overrideForColumn) {
                     continue;
@@ -149,30 +151,67 @@ CODE_SAMPLE
                 if (null === $configOverride) {
                     continue;
                 }
-                $this->refactorWizards($configOverride);
+                if ($this->refactorWizards($configOverride)) {
+                    $configOverride->items[] = new ArrayItem(new ConstFetch(new Name('false')), new String_(
+                        'hideSuggest'
+                    ));
+                    $columnConfig->items[] = new ArrayItem(new ConstFetch(new Name('true')), new String_(
+                        'hideSuggest'
+                    ));
+                    $this->hasAstBeenChanged = true;
+                }
             }
         }
 
         return $this->hasAstBeenChanged ? $node : null;
     }
 
-    private function refactorWizards(Array_ $config): void
+    private function refactorWizards(Array_ $config): bool
     {
-        $wizards = $this->extractSubArrayByKey($config, 'wizards');
+        $wizardsArrayItem = $this->extractArrayItemByKey($config, 'wizards');
+        if (null === $wizardsArrayItem) {
+            return false;
+        }
+        $wizards = $wizardsArrayItem->value;
 
-        if (null === $wizards) {
-            return;
+        if (! $wizards instanceof Array_) {
+            return false;
         }
 
         foreach ($this->extractSubArraysWithArrayItemMatching($wizards, self::TYPE, 'suggest') as $wizard) {
             $wizardConfig = $wizard->value;
+            if (! $wizardConfig instanceof Array_) {
+                continue;
+            }
+
             $typeItem = $this->extractArrayItemByKey($wizardConfig, self::TYPE);
             if (null !== $typeItem) {
                 $this->removeNode($typeItem);
             }
-            $config->items[] = new ArrayItem($wizardConfig, new String_('suggestOptions'));
+
+            if (! $this->isEmpty($wizardConfig)) {
+                $config->items[] = new ArrayItem($wizardConfig, new String_('suggestOptions'));
+            }
+
             $this->removeNode($wizard);
             $this->hasAstBeenChanged = true;
         }
+
+        if ($this->isEmpty($wizards)) {
+            $this->removeNode($wizardsArrayItem);
+        }
+        return true;
+    }
+
+    private function isEmpty(Array_ $array): bool
+    {
+        $nodeEmpty = true;
+        foreach ($array->items as $item) {
+            if (null !== $item && ! $this->nodesToRemoveCollector->isNodeRemoved($item)) {
+                $nodeEmpty = false;
+                break;
+            }
+        }
+        return $nodeEmpty;
     }
 }

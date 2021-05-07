@@ -75,7 +75,7 @@ return [
                             'default' => [
                                 'pidList' => 42,
                             ],
-                        ],
+                        ], 'hideSuggest' => false,
                     ],
                 ],
                 'other' => [
@@ -101,6 +101,7 @@ return [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'tx_styleguide_staticdata',
+                'hideSuggest' => true,
             ],
         ],
         'other' => [
