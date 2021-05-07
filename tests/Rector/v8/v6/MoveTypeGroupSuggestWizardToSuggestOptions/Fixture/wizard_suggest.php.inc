@@ -124,7 +124,11 @@ return [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'tx_styleguide_staticdata',
-                'suggestOptions' => ['default' => ['pidList' => 42]],
+                'suggestOptions' => [
+                    'default' => [
+                        'pidList' => 42,
+                    ],
+                ],
             ],
         ],
         'random_one' => [
@@ -141,7 +145,11 @@ return [
                 'appearance' => [
                     'elementBrowserType' => 'db'
                 ],
-                'suggestOptions' => ['pages' => ['searchCondition' => 'doktype=22']],
+                'suggestOptions' => [
+                    'pages' => [
+                        'searchCondition' => 'doktype=22',
+                    ],
+                ],
             ],
         ],
         'random_two' => [
@@ -158,7 +166,14 @@ return [
                 'appearance' => [
                     'elementBrowserType' => 'db'
                 ],
-                'suggestOptions' => ['default' => ['searchWholePhrase' => 1], 'pages' => ['searchCondition' => 'doktype = 1']]
+                'suggestOptions' => [
+                    'default' => [
+                        'searchWholePhrase' => 1
+                    ],
+                    'pages' => [
+                        'searchCondition' => 'doktype = 1'
+                    ]
+                ]
             ],
         ],
     ],

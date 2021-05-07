@@ -68,15 +68,11 @@ return [
             'showitem' => 'hidden, myText',
             'columnsOverrides' => [
                 'group_db_8' => [
-                    'config' => [
-                        'wizards' => [ //Todo: remove empty sub-array after refactoring
-                            '_POSITION' => 'top',
-                        ], 'suggestOptions' => [
-                            'default' => [
-                                'pidList' => 42,
-                            ],
-                        ], 'hideSuggest' => false,
-                    ],
+                    'config' => ['suggestOptions' => [
+                        'default' => [
+                            'pidList' => 42,
+                        ],
+                    ], 'hideSuggest' => false],
                 ],
                 'other' => [
                     'config' => [

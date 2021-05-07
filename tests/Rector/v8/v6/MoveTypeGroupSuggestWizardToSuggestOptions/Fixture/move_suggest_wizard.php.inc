@@ -10,7 +10,7 @@ return [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'tx_styleguide_staticdata',
-                'wizards' => [ //Todo: remove empty sub-array after refactoring
+                'wizards' => [
                     '_POSITION' => 'top',
                     'suggest' => [
                         'type' => 'suggest',
@@ -38,9 +38,6 @@ return [
                 'type' => 'group',
                 'internal_type' => 'db',
                 'allowed' => 'tx_styleguide_staticdata',
-                'wizards' => [ //Todo: remove empty sub-array after refactoring
-                    '_POSITION' => 'top',
-                ],
                 'suggestOptions' => [
                     'default' => [
                         'pidList' => 42,

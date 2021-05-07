@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -208,8 +209,13 @@ CODE_SAMPLE
         $nodeEmpty = true;
         foreach ($array->items as $item) {
             if (null !== $item && ! $this->nodesToRemoveCollector->isNodeRemoved($item)) {
-                $nodeEmpty = false;
-                break;
+                if (null === $item->key) {
+                    continue;
+                }
+                if (! Strings::startsWith($this->valueResolver->getValue($item->key), '_')) {
+                    $nodeEmpty = false;
+                    break;
+                }
             }
         }
         return $nodeEmpty;
