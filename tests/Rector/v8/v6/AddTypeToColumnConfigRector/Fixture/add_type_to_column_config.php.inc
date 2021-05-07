@@ -29,7 +29,7 @@ return [
     'ctrl' => [],
     'columns' => [
         'foo' => [
-            'config' => [['type' => 'none']],
+            'config' => ['type' => 'none'],
         ],
         'bar' => ['config' => ['type' => 'none']],
         'baz' => [

@@ -44,87 +44,43 @@ final class AddTypeToColumnConfigRector extends AbstractRector
             return null;
         }
 
-        $columns = $this->extractColumns($node);
-
-        if (! $columns instanceof ArrayItem) {
-            return null;
-        }
-
-        $columnItems = $columns->value;
-
-        if (! $columnItems instanceof Array_) {
+        $columns = $this->extractSubArrayByKey($node->expr, 'columns');
+        if (null === $columns) {
             return null;
         }
 
         $hasAstBeenChanged = false;
-        foreach ($columnItems->items as $fieldValue) {
-            if (! $fieldValue instanceof ArrayItem) {
+
+        foreach ($columns->items as $columnArrayItem) {
+            if (! $columnArrayItem instanceof ArrayItem) {
                 continue;
             }
 
-            if (null === $fieldValue->key) {
+            $columnName = $columnArrayItem->key;
+            if (null === $columnName) {
                 continue;
             }
 
-            if (! $fieldValue->value instanceof Array_) {
+            if (! $columnArrayItem->value instanceof Array_) {
                 continue;
             }
 
-            $configArray = $fieldValue->value;
-            $addConfig = true;
-            $newConfiguration = new ArrayItem($this->nodeFactory->createArray([
-                self::TYPE => 'none',
-            ]), new String_('config'));
+            $config = $this->extractSubArrayByKey($columnArrayItem->value, 'config');
 
-            foreach ($fieldValue->value->items as $configValue) {
-                if (null === $configValue) {
-                    continue;
-                }
-
-                if (null === $configValue->key) {
-                    continue;
-                }
-
-                if (! $this->valueResolver->isValue($configValue->key, 'config')) {
-                    continue;
-                }
-
-                $newConfiguration = new ArrayItem($this->nodeFactory->createArray([
-                    self::TYPE => 'none',
-                ]));
-
-                $configArray = $configValue->value;
-
-                if (! $configValue->value instanceof Array_) {
-                    continue;
-                }
-
-                foreach ($configValue->value->items as $configItemValue) {
-                    if (! $configItemValue instanceof ArrayItem) {
-                        continue;
-                    }
-
-                    if (null === $configItemValue->key) {
-                        continue;
-                    }
-
-                    if (! $this->valueResolver->isValue($configItemValue->key, self::TYPE)) {
-                        continue;
-                    }
-
-                    $addConfig = false;
-                }
+            if (null === $config) {
+                // found a column without a 'config' part. Create an empty 'config' array
+                $config = new Array_();
+                $columnArrayItem->value->items[] = new ArrayItem($config, new String_('config'));
+                $hasAstBeenChanged = true;
             }
 
-            if (! $addConfig) {
-                continue;
-            }
-
-            if ($configArray instanceof Array_) {
-                $configArray->items[] = $newConfiguration;
+            if (null === $this->extractArrayItemByKey($config, self::TYPE)) {
+                // found a column without a 'type' field in the config. add type => none
+                $config->items[] = new ArrayItem(new String_('none'), new String_(self::TYPE));
                 $hasAstBeenChanged = true;
             }
         }
+
         return $hasAstBeenChanged ? $node : null;
     }
 
