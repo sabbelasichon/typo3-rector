@@ -16,9 +16,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.6/Deprecation-79440-TcaChanges.html#suggest-wizard
- * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v6\MoveTypeGroupSuggestWizzardToSuggestOptions\MoveTypeGroupSuggestWizzardToSuggestOptionsTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v6\MoveTypeGroupSuggestWizardToSuggestOptions\MoveTypeGroupSuggestWizardToSuggestOptionsTest
  */
-final class MoveTypeGroupSuggestWizzardToSuggestOptionsRector extends AbstractRector
+final class MoveTypeGroupSuggestWizardToSuggestOptionsRector extends AbstractRector
 {
     use TcaHelperTrait;
 

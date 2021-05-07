@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\MoveTypeGroupSuggestWizzardToSuggestOptions;
+namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\MoveTypeGroupSuggestWizardToSuggestOptions;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class MoveTypeGroupSuggestWizzardToSuggestOptionsTest extends AbstractRectorTestCase
+final class MoveTypeGroupSuggestWizardToSuggestOptionsTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
