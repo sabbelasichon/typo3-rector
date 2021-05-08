@@ -1,4 +1,4 @@
-# 190 Rules Overview
+# 191 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -1258,6 +1258,42 @@ TCA ctrl field requestUpdate dropped
 +            'onChange' => 'reload'
 +        ]
      ]
+ ];
+```
+
+<br>
+
+## MoveTypeGroupSuggestWizardToSuggestOptionsRector
+
+Migrate the "suggest" wizard in type=group to "hideSuggest" and "suggestOptions"
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v6\MoveTypeGroupSuggestWizardToSuggestOptionsRector`](../src/Rector/v8/v6/MoveTypeGroupSuggestWizardToSuggestOptionsRector.php)
+
+```diff
+ [
+     'columns' => [
+         'group_db_8' => [
+             'label' => 'group_db_8',
+             'config' => [
+                 'type' => 'group',
+                 'internal_type' => 'db',
+                 'allowed' => 'tx_styleguide_staticdata',
+-                'wizards' => [
+-                    '_POSITION' => 'top',
+-                    'suggest' => [
+-                        'type' => 'suggest',
+-                        'default' => [
+-                            'pidList' => 42,
+-                        ],
+-                    ],
++                'suggestOptions' => [
++                    'default' => [
++                        'pidList' => 42,
++                    ]
+                 ],
+             ],
+         ],
+     ],
  ];
 ```
 
