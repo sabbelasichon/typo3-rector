@@ -172,14 +172,129 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
             'newCondition' => '[getenv("HTTP_HOST") == "www.domain.de" || getenv("HTTP_HOST") == "www.domain.com"]',
         ];
 
-        yield 'IENV:HTTP_HOST with wildcard' => [
-            'oldCondition' => '[globalString = IENV:HTTP_HOST = *.devbox.local]',
-            'newCondition' => '[like(request.getNormalizedParams().getHttpHost(), "*.devbox.local")]',
+        yield 'IENV:SCRIPT_NAME' => [
+            'oldCondition' => '[globalString = IENV:SCRIPT_NAME = typo3/index.php]',
+            'newCondition' => '[request.getNormalizedParams().getScriptName() == "typo3/index.php"]',
+        ];
+
+        yield 'IENV:SCRIPT_FILENAME' => [
+            'oldCondition' => '[globalString = IENV:SCRIPT_FILENAME = /var/www/typo3/index.php]',
+            'newCondition' => '[request.getNormalizedParams().getScriptFilename() == "/var/www/typo3/index.php"]',
+        ];
+
+        yield 'IENV:REQUEST_URI' => [
+            'oldCondition' => '[globalString = IENV:REQUEST_URI = index.php?id=42]',
+            'newCondition' => '[request.getNormalizedParams().getRequestUri() == "index.php?id=42"]',
+        ];
+
+        yield 'IENV:TYPO3_REV_PROXY' => [
+            'oldCondition' => '[globalVar = IENV:TYPO3_REV_PROXY = 1]',
+            'newCondition' => '[request.getNormalizedParams().isBehindReverseProxy()]',
+        ];
+
+        yield 'IENV:REMOTE_ADDR' => [
+            'oldCondition' => '[globalVar = IENV:REMOTE_ADDR = 127.0.0.1]',
+            'newCondition' => '[request.getNormalizedParams().getRemoteAddress() == "127.0.0.1"]',
         ];
 
         yield 'IENV:HTTP_HOST' => [
             'oldCondition' => '[globalString = IENV:HTTP_HOST = www.example.org]',
             'newCondition' => '[request.getNormalizedParams().getHttpHost() == "www.example.org"]',
+        ];
+
+        yield 'IENV:HTTP_HOST with wildcard' => [
+            'oldCondition' => '[globalString = IENV:HTTP_HOST = *.devbox.local]',
+            'newCondition' => '[like(request.getNormalizedParams().getHttpHost(), "*.devbox.local")]',
+        ];
+
+        yield 'IENV:TYPO3_DOCUMENT_ROOT' => [
+            'oldCondition' => '[globalString = IENV:TYPO3_DOCUMENT_ROOT = /var/www/]',
+            'newCondition' => '[request.getNormalizedParams().getDocumentRoot() == "/var/www/"]',
+        ];
+
+        yield 'IENV:TYPO3_HOST_ONLY with wildcard' => [
+            'oldCondition' => '[globalString= IENV:TYPO3_HOST_ONLY=*domain.com]',
+            'newCondition' => '[like(request.getNormalizedParams().getRequestHostOnly(), "*domain.com")]',
+        ];
+
+        yield 'IENV:TYPO3_PORT' => [
+            'oldCondition' => '[globalString = IENV:TYPO3_PORT = 443]',
+            'newCondition' => '[request.getNormalizedParams().getRequestPort() == "443"]',
+        ];
+
+        yield 'IENV:TYPO3_REQUEST_HOST' => [
+            'oldCondition' => '[globalString = IENV:TYPO3_REQUEST_HOST = https://www.domain.com:443]',
+            'newCondition' => '[request.getNormalizedParams().getRequestHost() == "https://www.domain.com:443"]',
+        ];
+
+        yield 'IENV:TYPO3_REQUEST_URL' => [
+            'oldCondition' => '[globalString = IENV:TYPO3_REQUEST_URL = https://www.domain.com:443/index.php?id=42]',
+            'newCondition' => '[request.getNormalizedParams().getRequestUrl() == "https://www.domain.com:443/index.php?id=42"]',
+        ];
+
+        yield 'IENV:TYPO3_REQUEST_SCRIPT' => [
+            'oldCondition' => '[globalString = IENV:TYPO3_REQUEST_SCRIPT = https://www.domain.com:443/index.php]',
+            'newCondition' => '[request.getNormalizedParams().getRequestScript() == "https://www.domain.com:443/index.php"]',
+        ];
+
+        yield 'IENV:TYPO3_REQUEST_DIR' => [
+            'oldCondition' => '[globalString = IENV:TYPO3_REQUEST_DIR = https://www.domain.com:443/typo3/]',
+            'newCondition' => '[request.getNormalizedParams().getRequestDir() == "https://www.domain.com:443/typo3/"]',
+        ];
+
+        yield 'IENV:TYPO3_SITE_URL' => [
+            'oldCondition' => '[globalString = IENV:TYPO3_SITE_URL = https://www.domain.com:443/company/news/]',
+            'newCondition' => '[request.getNormalizedParams().getSiteUrl() == "https://www.domain.com:443/company/news/"]',
+        ];
+
+        yield 'IENV:TYPO3_SITE_PATH' => [
+            'oldCondition' => '[globalString = IENV:TYPO3_SITE_PATH = /company/news/]',
+            'newCondition' => '[request.getNormalizedParams().getSitePath() == "/company/news/"]',
+        ];
+
+        yield 'IENV:TYPO3_SITE_SCRIPT' => [
+            'oldCondition' => '[globalString = IENV:TYPO3_SITE_SCRIPT = index.php]',
+            'newCondition' => '[request.getNormalizedParams().getSiteScript() == "index.php"]',
+        ];
+
+        yield 'IENV:TYPO3_SSL' => [
+            'oldCondition' => '[globalVar = IENV:TYPO3_SSL = 1]',
+            'newCondition' => '[request.getNormalizedParams().isHttps()]',
+        ];
+
+        yield 'IENV:PATH_INFO' => [
+            'oldCondition' => '[globalString = IENV:PATH_INFO = typo3/index.php]',
+            'newCondition' => '[request.getNormalizedParams().getScriptName() == "typo3/index.php"]',
+        ];
+
+        yield 'IENV:HTTP_REFERER' => [
+            'oldCondition' => '[globalString = IENV:HTTP_REFERER = https://www.domain.com]',
+            'newCondition' => '[request.getServerParams()[\'HTTP_REFERER\'] == "https://www.domain.com"]',
+        ];
+
+        yield 'IENV:HTTP_USER_AGENT' => [
+            'oldCondition' => '[globalString = IENV:HTTP_USER_AGENT = myBrowser]',
+            'newCondition' => '[request.getServerParams()[\'HTTP_USER_AGENT\'] == "myBrowser"]',
+        ];
+
+        yield 'IENV:HTTP_ACCEPT_ENCODING' => [
+            'oldCondition' => '[globalString = IENV:HTTP_ACCEPT_ENCODING = gzip]',
+            'newCondition' => '[request.getServerParams()[\'HTTP_ACCEPT_ENCODING\'] == "gzip"]',
+        ];
+
+        yield 'IENV:HTTP_ACCEPT_LANGUAGE with wildcard' => [
+            'oldCondition' => '[globalString = IENV:HTTP_ACCEPT_LANGUAGE = *de-DE*]',
+            'newCondition' => '[like(request.getServerParams()[\'HTTP_ACCEPT_LANGUAGE\'], "*de-DE*")]',
+        ];
+
+        yield 'IENV:REMOTE_HOST' => [
+            'oldCondition' => '[globalString = IENV:REMOTE_HOST = 127.0.0.1]',
+            'newCondition' => '[request.getServerParams()[\'REMOTE_HOST\'] == "127.0.0.1"]',
+        ];
+
+        yield 'IENV:QUERY_STRING' => [
+            'oldCondition' => '[globalString = IENV:QUERY_STRING = foo=bar]',
+            'newCondition' => '[request.getServerParams()[\'QUERY_STRING\'] == "foo=bar"]',
         ];
 
         yield 'hostname condition is removed' => [
@@ -290,11 +405,6 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
         yield 'Global String jh_magnificpopup' => [
             'oldCondition' => '[globalString = GP:jh_magnificpopup|type=reference]',
             'newCondition' => "[traverse(request.getQueryParams(), 'jh_magnificpopup/type') == 'reference' || traverse(request.getParsedBody(), 'jh_magnificpopup/type') == 'reference']",
-        ];
-
-        yield 'IENV:TYPO3_HOST_ONLY' => [
-            'oldCondition' => '[globalString= IENV:TYPO3_HOST_ONLY=*domain.com]',
-            'newCondition' => '[like(request.getNormalizedParams().getRequestHostOnly(), "*domain.com")]',
         ];
     }
 
