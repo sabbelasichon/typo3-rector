@@ -14,9 +14,23 @@ $EM_CONF[$_EXTKEY] = [
     'version' => '11.0.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '11.0.0-11.99.99',
+            'typo3' => '1.0.0',
+            'gridelements' => '11.0.0-11.99.99',
         ],
-        'conflicts' => [],
+        'conflicts' => [
+            'extbase' => '1.0.0',
+        ],
         'suggests' => [],
+    ],
+    'autoload' => [
+        'classmap' => ['Classes', 'a-class.php'],
+        'psr-4' => [
+            'Vendor\\ExtName\\' => 'Classes',
+        ],
+    ],
+    'autoload-dev' => [
+        'psr-4' => [
+            'Vendor\\ExtName\\Tests' => 'Tests',
+        ],
     ],
 ];

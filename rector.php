@@ -26,12 +26,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::PATHS, [__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
 
-    $parameters->set(Option::SETS, [
-        SetList::PRIVATIZATION,
-        SetList::DEAD_CODE,
-        SetList::CODING_STYLE,
-        SetList::CODE_QUALITY,
-    ]);
+    $containerConfigurator->import(SetList::PRIVATIZATION);
+    $containerConfigurator->import(SetList::DEAD_CODE);
+    $containerConfigurator->import(SetList::CODING_STYLE);
+    $containerConfigurator->import(SetList::CODE_QUALITY);
 
     $parameters->set(
         Option::SKIP,

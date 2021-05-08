@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Composer;
 
+use Composer\Semver\VersionParser;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\ArrayItem;
@@ -13,6 +15,7 @@ use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
+use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\PhpParser\Parser\Parser;
 use Rector\Core\ValueObject\Application\File;
 use Rector\FileFormatter\FileFormatter;
@@ -25,6 +28,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
+use UnexpectedValueException;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\Composer\InitializeExtensionComposerJsonProcessor\InitializeExtensionComposerJsonProcessorTest
@@ -55,6 +59,21 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
      * @var string
      */
     private const AUTHOR_EMAIL = 'author_email';
+
+    /**
+     * @var string
+     */
+    private const AUTOLOAD = 'autoload';
+
+    /**
+     * @var string
+     */
+    private const AUTOLOAD_DEV = 'autoload-dev';
+
+    /**
+     * @var string
+     */
+    private const CONSTRAINTS = 'constraints';
 
     /**
      * @var SmartFileSystem
@@ -91,6 +110,16 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
      */
     private $fileFormatter;
 
+    /**
+     * @var ValueResolver
+     */
+    private $valueResolver;
+
+    /**
+     * @var VersionParser
+     */
+    private static $versionParser;
+
     public function __construct(
         SmartFileSystem $smartFileSystem,
         ComposerJsonFactory $composerJsonFactory,
@@ -98,7 +127,8 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
         Parser $parser,
         Configuration $configuration,
         Reporter $reporter,
-        FileFormatter $fileFormatter
+        FileFormatter $fileFormatter,
+        ValueResolver $valueResolver
     ) {
         $this->smartFileSystem = $smartFileSystem;
         $this->composerJsonFactory = $composerJsonFactory;
@@ -107,6 +137,7 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
         $this->configuration = $configuration;
         $this->reporter = $reporter;
         $this->fileFormatter = $fileFormatter;
+        $this->valueResolver = $valueResolver;
     }
 
     public function supports(File $file): bool
@@ -128,17 +159,18 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
 
             $information = $this->readExtEmConf($smartFileInfo);
 
-            // Can be read from ext_emconf.php
-            $composerJson->setRequire([
-                'typo3/cms-core' => '*',
-            ]);
             $composerJson->setAuthors([$information[self::AUTHORS]]);
             $composerJson->setDescription((string) $information[self::DESCRIPTION]);
             $composerJson->setVersion((string) $information[self::VERSION]);
+            $composerJson->setAutoload($information[self::AUTOLOAD]);
+            $composerJson->setAutoloadDev($information[self::AUTOLOAD_DEV]);
+            $composerJson->setRequire($information['require']);
+            $composerJson->setConflicts($information['conflict']);
 
             $composerJsonFilePath = $this->createComposerJsonFilePath($smartFileInfo);
 
             $newFileContent = $this->composerJsonPrinter->printToString($composerJson);
+
             $report = new Report(sprintf(
                 'Create new composer.json "%s" with content "%s"',
                 $composerJsonFilePath,
@@ -219,9 +251,6 @@ CODE_SAMPLE
                 'extension-key' => $extensionKey,
             ],
         ]);
-        $composerJson->setAutoload([
-            'classmap' => ['*'],
-        ]);
 
         return $composerJson;
     }
@@ -237,6 +266,10 @@ CODE_SAMPLE
             self::DESCRIPTION => 'Add Description here',
             self::AUTHORS => [],
             self::VERSION => null,
+            self::AUTOLOAD_DEV => [],
+            self::AUTOLOAD => [],
+            'require' => [],
+            'conflict' => [],
         ];
 
         foreach ($nodes as $node) {
@@ -266,23 +299,25 @@ CODE_SAMPLE
                     continue;
                 }
 
-                if (! in_array(
-                    $item->key->value,
-                    [self::DESCRIPTION, self::VERSION, self::AUTHOR, self::AUTHOR_EMAIL],
-                    true
-                )) {
+                if (! $this->valueResolver->isValues($item->key, [
+                    self::DESCRIPTION,
+                    self::VERSION,
+                    self::AUTHOR,
+                    self::AUTHOR_EMAIL,
+                    self::AUTOLOAD_DEV,
+                    self::AUTOLOAD,
+                    self::CONSTRAINTS,
+                ])) {
                     continue;
                 }
 
-                if (! $item->value instanceof String_) {
+                $itemValue = $this->transformNodeValueToPlainValue($item->value);
+
+                if (null === $itemValue) {
                     continue;
                 }
 
-                if (null === $item->value->value) {
-                    continue;
-                }
-
-                $information[$item->key->value] = $item->value->value;
+                $information[$item->key->value] = $itemValue;
             }
         }
 
@@ -291,6 +326,20 @@ CODE_SAMPLE
                 'name' => $information[self::AUTHOR],
                 'email' => $information[self::AUTHOR_EMAIL],
             ];
+        }
+
+        foreach ([
+            'depends' => 'require',
+            'conflicts' => 'conflict',
+        ] as $dependency => $composerSection) {
+            if (array_key_exists(self::CONSTRAINTS, $information) && array_key_exists(
+                'depends',
+                $information[self::CONSTRAINTS]
+            )) {
+                $information[$composerSection] = $this->resolveDependencies(
+                    (array) $information[self::CONSTRAINTS][$dependency]
+                );
+            }
         }
 
         return $information;
@@ -309,5 +358,55 @@ CODE_SAMPLE
 
         $this->fileFormatter->format([$composerJsonFile]);
         $this->smartFileSystem->dumpFile($composerJsonFilePath, $composerJsonFile->getFileContent());
+    }
+
+    /**
+     * @return mixed
+     */
+    private function transformNodeValueToPlainValue(Expr $item)
+    {
+        return $this->valueResolver->getValue($item);
+    }
+
+    private function resolveDependencies(array $dependencies): array
+    {
+        $composerDependencies = [];
+        foreach ($dependencies as $dependency => $dependencyVersion) {
+            $composerName = $this->resolveComposerName($dependency);
+            $composerDependencies[$composerName] = '*';
+        }
+
+        return $composerDependencies;
+    }
+
+    private function resolveComposerName(string $dependency): string
+    {
+        $url = sprintf('https://extensions.typo3.org/composerize/%s', $dependency);
+        $json = json_encode([]);
+
+        if (false === $json) {
+            throw new UnexpectedValueException('Json could not be created');
+        }
+
+        $result = file_get_contents($url, false, stream_context_create(
+            [
+                'http' => [
+                    'method' => 'POST',
+                    'header' => "Content-type: application/json\r\n" .
+                                "Accept: application/json\r\n" .
+                                "Connection: close\r\n" .
+                                'Content-length: ' . strlen($json) . "\r\n",
+                    'content' => $json,
+                ],
+            ]
+        ));
+
+        if (false === $result) {
+            throw new UnexpectedValueException(sprintf('Could not fetch data for url "%s"', $url));
+        }
+
+        $jsonData = json_decode($result, true);
+
+        return $jsonData['name'];
     }
 }
