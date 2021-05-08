@@ -29,6 +29,16 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
     private const DISABLED = 'disabled';
 
     /**
+     * @var array
+     */
+    private $addFieldWizards = [];
+
+    /**
+     * @var array
+     */
+    private $addFieldControls = [];
+
+    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -45,117 +55,41 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
             return null;
         }
 
-        $columns = $this->extractColumns($node);
-
-        if (! $columns instanceof ArrayItem) {
-            return null;
-        }
-
-        $columnItems = $columns->value;
-
-        if (! $columnItems instanceof Array_) {
+        $columns = $this->extractSubArrayByKey($node->expr, 'columns');
+        if (null === $columns) {
             return null;
         }
 
         $hasAstBeenChanged = false;
-        foreach ($columnItems->items as $columnItem) {
-            if (! $columnItem instanceof ArrayItem) {
+        foreach ($this->extractColumnConfig($columns) as $config) {
+            if (! $config instanceof Array_) {
                 continue;
             }
 
-            if (null === $columnItem->key) {
+            if (! $this->hasKeyValuePair($config, 'type', 'group')) {
                 continue;
             }
 
-            if (! $columnItem->value instanceof Array_) {
-                continue;
+            $this->addFieldWizards = [];
+            $this->addFieldControls = [];
+
+            $hasAstBeenChanged = $this->dropSelectedListType($config);
+            $hasAstBeenChanged = $this->refactorShowThumbs($config) ? true : $hasAstBeenChanged;
+            $hasAstBeenChanged = $this->refactorDisableControls($config) ? true : $hasAstBeenChanged;
+
+            if ([] !== $this->addFieldControls) {
+                $config->items[] = new ArrayItem($this->nodeFactory->createArray(
+                    $this->addFieldControls
+                ), new String_('fieldControl'));
             }
 
-            foreach ($columnItem->value->items as $configValue) {
-                if (null === $configValue) {
-                    continue;
-                }
-
-                if (null === $configValue->key) {
-                    continue;
-                }
-
-                if (! $configValue->value instanceof Array_) {
-                    continue;
-                }
-
-                if (! $this->isConfigType($configValue->value, 'group')) {
-                    continue;
-                }
-
-                $addFieldControls = [];
-                $addFieldWizards = [];
-
-                foreach ($configValue->value->items as $configItemValue) {
-                    if (! $configItemValue instanceof ArrayItem) {
-                        continue;
-                    }
-
-                    $arrayItemKey = $configItemValue->key;
-                    if (null === $arrayItemKey) {
-                        continue;
-                    }
-
-                    if (! $this->valueResolver->isValues(
-                        $arrayItemKey,
-                        ['selectedListStyle', 'show_thumbs', 'disable_controls']
-                    )) {
-                        continue;
-                    }
-
-                    $this->removeNode($configItemValue);
-                    $hasAstBeenChanged = true;
-
-                    $configItemValueValue = $this->valueResolver->getValue($configItemValue->value);
-
-                    if ($this->valueResolver->isValue($arrayItemKey, 'disable_controls') && is_string(
-                        $configItemValueValue
-                    )) {
-                        $controls = ArrayUtility::trimExplode(',', $configItemValueValue, true);
-                        foreach ($controls as $control) {
-                            if ('browser' === $control) {
-                                $addFieldControls['elementBrowser'][self::DISABLED] = true;
-                            } elseif ('delete' === $control) {
-                                $configValue->value->items[] = new ArrayItem(
-                                    $this->nodeFactory->createTrue(),
-                                    new String_('hideDeleteIcon')
-                                );
-                            } elseif ('allowedTables' === $control) {
-                                $addFieldWizards['tableList'][self::DISABLED] = true;
-                            } elseif ('upload' === $control) {
-                                $addFieldWizards['fileUpload'][self::DISABLED] = true;
-                            }
-                        }
-                    } elseif ($this->valueResolver->isValue(
-                        $arrayItemKey,
-                        'show_thumbs'
-                    ) && ! (bool) $configItemValueValue) {
-                        if ($this->configIsOfInternalType($configValue->value, 'db')) {
-                            $addFieldWizards['recordsOverview'][self::DISABLED] = true;
-                        } elseif ($this->configIsOfInternalType($configValue->value, 'file')) {
-                            $addFieldWizards['fileThumbnails'][self::DISABLED] = true;
-                        }
-                    }
-                }
-
-                if ([] !== $addFieldControls) {
-                    $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
-                        $addFieldControls
-                    ), new String_('fieldControl'));
-                }
-
-                if ([] !== $addFieldWizards) {
-                    $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
-                        $addFieldWizards
-                    ), new String_('fieldWizard'));
-                }
+            if ([] !== $this->addFieldWizards) {
+                $config->items[] = new ArrayItem($this->nodeFactory->createArray(
+                    $this->addFieldWizards
+                ), new String_('fieldWizard'));
             }
         }
+
         return $hasAstBeenChanged ? $node : null;
     }
 
@@ -202,5 +136,63 @@ return [
 ];
 CODE_SAMPLE
         )]);
+    }
+
+    private function dropSelectedListType(Array_ $config): bool
+    {
+        $listStyle = $this->extractArrayItemByKey($config, 'selectedListStyle');
+        if (null !== $listStyle) {
+            $this->removeNode($listStyle);
+            return true;
+        }
+        return false;
+    }
+
+    private function refactorShowThumbs(Array_ $config): bool
+    {
+        $hasAstBeenChanged = false;
+        $showThumbs = $this->extractArrayItemByKey($config, 'show_thumbs');
+        if (null !== $showThumbs) {
+            $this->removeNode($showThumbs);
+            $hasAstBeenChanged = true;
+
+            if (! (bool) $this->getValue($showThumbs->value)) {
+                if ($this->hasKeyValuePair($config, 'internal_type', 'db')) {
+                    $this->addFieldWizards['recordsOverview'][self::DISABLED] = true;
+                } elseif ($this->hasKeyValuePair($config, 'internal_type', 'file')) {
+                    $this->addFieldWizards['fileThumbnails'][self::DISABLED] = true;
+                }
+            }
+        }
+        return $hasAstBeenChanged;
+    }
+
+    private function refactorDisableControls(Array_ $config): bool
+    {
+        $hasAstBeenChanged = false;
+        $disableControls = $this->extractArrayItemByKey($config, 'disable_controls');
+        if (null !== $disableControls) {
+            $this->removeNode($disableControls);
+            $hasAstBeenChanged = true;
+
+            if (is_string($this->getValue($disableControls->value))) {
+                $controls = ArrayUtility::trimExplode(',', $this->getValue($disableControls->value), true);
+                foreach ($controls as $control) {
+                    if ('browser' === $control) {
+                        $this->addFieldControls['elementBrowser'][self::DISABLED] = true;
+                    } elseif ('delete' === $control) {
+                        $config->items[] = new ArrayItem(
+                            $this->nodeFactory->createTrue(),
+                            new String_('hideDeleteIcon')
+                        );
+                    } elseif ('allowedTables' === $control) {
+                        $this->addFieldWizards['tableList'][self::DISABLED] = true;
+                    } elseif ('upload' === $control) {
+                        $this->addFieldWizards['fileUpload'][self::DISABLED] = true;
+                    }
+                }
+            }
+        }
+        return $hasAstBeenChanged;
     }
 }

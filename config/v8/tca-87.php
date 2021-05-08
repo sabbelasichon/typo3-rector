@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\Rector\v8\v6\MigrateLastPiecesOfDefaultExtrasRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MigrateOptionsOfTypeGroupRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MigrateSelectShowIconTableRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MoveRequestUpdateOptionFromControlToColumnsRector;
+use Ssch\TYPO3Rector\Rector\v8\v6\MoveTypeGroupSuggestWizardToSuggestOptionsRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\RefactorTCARector;
 use Ssch\TYPO3Rector\Rector\v8\v6\RemoveL10nModeNoCopyRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\RichtextFromDefaultExtrasToEnableRichtextRector;
@@ -65,4 +66,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveLocalizationModeKeepIfNeededRector::class);
     $services->set(MoveForeignTypesToOverrideChildTcaRector::class);
     $services->set(MigrateLastPiecesOfDefaultExtrasRector::class);
+    $services->set(MoveTypeGroupSuggestWizardToSuggestOptionsRector::class);
 };

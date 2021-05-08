@@ -252,7 +252,6 @@ CODE_SAMPLE
                             ), new String_('renderType'));
                         }
 
-                        $suggestOptions = [];
                         $selectOptions = [];
 
                         foreach ($wizardItemValue->value->items as $wizardItemSubValue) {
@@ -280,13 +279,6 @@ CODE_SAMPLE
                                 'items'
                             )) {
                                 $selectOptions[$this->getValue($wizardItemSubValue->key)] = $this->getValue(
-                                    $wizardItemSubValue->value
-                                );
-                            } elseif ('suggest' === $wizardItemValueKey && ! $this->valueResolver->isValue(
-                                $wizardItemSubValue->key,
-                                'type'
-                            )) {
-                                $suggestOptions[$this->getValue($wizardItemSubValue->key)] = $this->getValue(
                                     $wizardItemSubValue->value
                                 );
                             }
@@ -339,12 +331,6 @@ CODE_SAMPLE
                                     $wizardItemSubValue->key
                                 )] = $value;
                             }
-                        }
-
-                        if ([] !== $suggestOptions) {
-                            $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
-                                $suggestOptions
-                            ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE['suggest']));
                         }
 
                         if ([] !== $selectOptions) {
