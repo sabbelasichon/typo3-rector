@@ -72,7 +72,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // $services->set(InjectAnnotationRector::class);
 
     /**
-    * Useful rule from RectorPHP to itself to transform i.e. GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager') to GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class) calls.
+    * Useful rule from RectorPHP itself to transform i.e. GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager') to GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class) calls.
     * But be warned, sometimes it produces false positives (edge cases), so watch out
     */
     // $services->set(StringClassNameToClassConstantRector::class);
