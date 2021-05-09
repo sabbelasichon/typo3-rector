@@ -187,7 +187,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     new AddReturnTypeDeclaration(
                         'TYPO3\CMS\Extbase\Property\TypeConverterInterface',
                         'convertFrom',
-                        new BooleanType()
+                        new MixedType()
                     ),
                     new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Error\Message', 'getMessage', new StringType()),
                     new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Error\Message', 'getCode', new IntegerType()),
