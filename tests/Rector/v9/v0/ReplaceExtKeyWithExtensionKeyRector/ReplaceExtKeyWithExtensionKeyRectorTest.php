@@ -20,7 +20,7 @@ final class ReplaceExtKeyWithExtensionKeyRectorTest extends AbstractRectorTestCa
 
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension');
     }
 
     public function provideConfigFilePath(): string
