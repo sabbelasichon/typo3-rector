@@ -23,6 +23,11 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
     use TcaHelperTrait;
 
     /**
+     * @var string
+     */
+    private const DISABLED = 'disabled';
+
+    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -95,15 +100,25 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                         continue;
                     }
 
-                    if ($this->valueResolver->isValue(
-                        $configItemValue->key,
-                        'showIconTable'
-                    ) && $this->valueResolver->isTrue($configItemValue->value)) {
-                        $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray([
-                            'selectIcons' => [
-                                'disabled' => false,
-                            ],
-                        ]), new String_('fieldWizard'));
+                    if ($this->shouldAddFieldWizard($configItemValue)) {
+                        $fieldWizard = $this->extractArrayItemByKey($configValue->value, 'fieldWizard');
+
+                        if (null === $fieldWizard) {
+                            $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray([
+                                'selectIcons' => [
+                                    self::DISABLED => false,
+                                ],
+                            ]), new String_('fieldWizard'));
+                        } elseif (($selectIcons = $this->extractSubArrayByKey(
+                            $fieldWizard->value,
+                            'selectIcons'
+                        )) !== null) {
+                            if (null === $this->extractArrayItemByKey($selectIcons, self::DISABLED)) {
+                                $selectIcons->items[] = new ArrayItem($this->nodeFactory->createFalse(), new String_(
+                                    self::DISABLED
+                                ));
+                            }
+                        }
                     }
 
                     $this->removeNode($configItemValue);
@@ -167,5 +182,17 @@ return [
 CODE_SAMPLE
             ),
         ]);
+    }
+
+    private function shouldAddFieldWizard(ArrayItem $configItemValue): bool
+    {
+        if (null === $configItemValue->key) {
+            return false;
+        }
+
+        if (! $this->valueResolver->isValue($configItemValue->key, 'showIconTable')) {
+            return false;
+        }
+        return $this->valueResolver->isTrue($configItemValue->value);
     }
 }
