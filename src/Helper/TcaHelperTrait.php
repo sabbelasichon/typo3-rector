@@ -9,7 +9,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Return_;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 
 trait TcaHelperTrait
@@ -91,7 +93,7 @@ trait TcaHelperTrait
         return null;
     }
 
-    private function extractSubArrayByKey(?Node $node, string $key): ?Array_
+    private function extractSubArrayByKey(?Node $node, string $key, bool $throwException = false): ?Array_
     {
         if (null === $node) {
             return null;
@@ -103,6 +105,10 @@ trait TcaHelperTrait
         }
 
         $columnItems = $arrayItem->value;
+
+        if ($columnItems instanceof StaticCall && $throwException) {
+            throw new ShouldNotHappenException('ColumnItems is of type StaticCall');
+        }
 
         if (! $columnItems instanceof Array_) {
             return null;

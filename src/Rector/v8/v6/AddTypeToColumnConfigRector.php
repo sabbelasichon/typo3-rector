@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -65,7 +66,11 @@ final class AddTypeToColumnConfigRector extends AbstractRector
                 continue;
             }
 
-            $config = $this->extractSubArrayByKey($columnArrayItem->value, 'config');
+            try {
+                $config = $this->extractSubArrayByKey($columnArrayItem->value, 'config', true);
+            } catch (ShouldNotHappenException $shouldNotHappenException) {
+                continue;
+            }
 
             if (null === $config) {
                 // found a column without a 'config' part. Create an empty 'config' array
