@@ -2,6 +2,8 @@
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\AddTypeToColumnConfigRector\Fixture;
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 return [
     'ctrl' => [],
     'columns' => [
@@ -15,7 +17,19 @@ return [
             'config' => [
                 'type' => 'select'
             ]
-        ]
+        ],
+        'thumbnail' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:example/Resources/Private/Language/locallang_db.xlf:tx_example_domain_model_episode.thumbnail',
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig('thumbnail', [
+                'appearance' => [
+                    'elementBrowserAllowed' => 'pdf',
+                    'createNewRelationLinkTitle' => 'LLL:EXT:example/Resources/Private/Language/locallang_db.xlf:tx_example_domain_model_episode.thumbnail.addFileReference'
+                ],
+                'minitems' => '1',
+                'maxitems' => '1'
+            ])
+        ],
     ]
 ];
 
@@ -24,6 +38,8 @@ return [
 <?php
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\AddTypeToColumnConfigRector\Fixture;
+
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 return [
     'ctrl' => [],
@@ -36,7 +52,19 @@ return [
             'config' => [
                 'type' => 'select'
             ]
-        ]
+        ],
+        'thumbnail' => [
+            'exclude' => 0,
+            'label' => 'LLL:EXT:example/Resources/Private/Language/locallang_db.xlf:tx_example_domain_model_episode.thumbnail',
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig('thumbnail', [
+                'appearance' => [
+                    'elementBrowserAllowed' => 'pdf',
+                    'createNewRelationLinkTitle' => 'LLL:EXT:example/Resources/Private/Language/locallang_db.xlf:tx_example_domain_model_episode.thumbnail.addFileReference'
+                ],
+                'minitems' => '1',
+                'maxitems' => '1'
+            ])
+        ],
     ]
 ];
 
