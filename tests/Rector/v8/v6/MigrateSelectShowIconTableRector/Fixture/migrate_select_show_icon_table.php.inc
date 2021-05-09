@@ -52,6 +52,37 @@ return [
                 'default' => 0
             ]
         ],
+        'foo2' => [
+            'config' => [
+                'type' => 'select',
+                'items' => [
+                    ['foo 1', 'foo1', 'EXT:styleguide/Resources/Public/Icons/tx_styleguide.svg'],
+                    ['foo 2', 'foo2', 'EXT:styleguide/Resources/Public/Icons/tx_styleguide.svg'],
+                ],
+                'renderType' => 'selectSingle',
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false,
+                    ],
+                ],
+                'showIconTable' => true
+            ],
+        ],
+        'foo3' => [
+            'config' => [
+                'type' => 'select',
+                'items' => [
+                    ['foo 1', 'foo1', 'EXT:styleguide/Resources/Public/Icons/tx_styleguide.svg'],
+                    ['foo 2', 'foo2', 'EXT:styleguide/Resources/Public/Icons/tx_styleguide.svg'],
+                ],
+                'renderType' => 'selectSingle',
+                'fieldWizard' => [
+                    'selectIcons' => [
+                    ],
+                ],
+                'showIconTable' => true
+            ],
+        ],
     ],
 ];
 
@@ -107,6 +138,34 @@ return [
                 ],
                 'default' => 0
             ]
+        ],
+        'foo2' => [
+            'config' => [
+                'type' => 'select',
+                'items' => [
+                    ['foo 1', 'foo1', 'EXT:styleguide/Resources/Public/Icons/tx_styleguide.svg'],
+                    ['foo 2', 'foo2', 'EXT:styleguide/Resources/Public/Icons/tx_styleguide.svg'],
+                ],
+                'renderType' => 'selectSingle',
+                'fieldWizard' => [
+                    'selectIcons' => [
+                        'disabled' => false,
+                    ],
+                ]
+            ],
+        ],
+        'foo3' => [
+            'config' => [
+                'type' => 'select',
+                'items' => [
+                    ['foo 1', 'foo1', 'EXT:styleguide/Resources/Public/Icons/tx_styleguide.svg'],
+                    ['foo 2', 'foo2', 'EXT:styleguide/Resources/Public/Icons/tx_styleguide.svg'],
+                ],
+                'renderType' => 'selectSingle',
+                'fieldWizard' => [
+                    'selectIcons' => ['disabled' => false],
+                ]
+            ],
         ],
     ],
 ];
