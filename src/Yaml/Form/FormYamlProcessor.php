@@ -77,11 +77,18 @@ final class FormYamlProcessor implements FileProcessorInterface
             return;
         }
 
+        $newYaml = $yaml;
+
         foreach ($this->transformer as $transformer) {
-            $yaml = $transformer->transform($yaml);
+            $newYaml = $transformer->transform($newYaml);
         }
 
-        $newFileContent = Yaml::dump($yaml, 99);
+        // Nothing has changed. Early return here.
+        if ($newYaml === $yaml) {
+            return;
+        }
+
+        $newFileContent = Yaml::dump($newYaml, 99);
 
         $file->changeFileContent($newFileContent);
     }

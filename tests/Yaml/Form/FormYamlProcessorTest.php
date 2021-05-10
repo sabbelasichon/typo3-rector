@@ -9,7 +9,7 @@ final class FormYamlProcessorTest extends AbstractApplicationFileProcessorTest
     public function test(): void
     {
         $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture']);
-        $this->assertCount(1, $files);
+        $this->assertCount(2, $files);
 
         $this->applicationFileProcessor->run($files);
 
