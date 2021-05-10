@@ -3,6 +3,7 @@
 namespace Ssch\TYPO3Rector\Tests\TypoScript;
 
 use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class TypoScriptProcessorTest extends AbstractApplicationFileProcessorTest
 {
@@ -14,6 +15,10 @@ final class TypoScriptProcessorTest extends AbstractApplicationFileProcessorTest
         $this->applicationFileProcessor->run($files);
 
         $processResult = $this->processResultFactory->create($files);
+
+        $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
+        $extbasePersistenceSmartFileInfo = new SmartFileInfo(__DIR__ . '/Expected/Extbase.php.inc');
+        $this->assertSame($extbasePersistenceSmartFileInfo->getContents(), $addedFilesWithContent[0]->getFileContent());
 
         $this->assertCount(4, $processResult->getFileDiffs());
     }

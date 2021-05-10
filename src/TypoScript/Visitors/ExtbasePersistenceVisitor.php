@@ -35,6 +35,7 @@ final class ExtbasePersistenceVisitor extends AbstractVisitor implements Convert
 declare(strict_types = 1);
 
 return %s;
+
 CODE_SAMPLE;
 
     /**

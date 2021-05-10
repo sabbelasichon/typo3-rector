@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Composer\InitializeExtensionComposerJsonProcessor;
 
 use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class InitializeExtensionComposerJsonProcessorTest extends AbstractApplicationFileProcessorTest
 {
@@ -15,9 +16,9 @@ final class InitializeExtensionComposerJsonProcessorTest extends AbstractApplica
 
         $this->applicationFileProcessor->run($files);
 
-        $processResult = $this->processResultFactory->create($files);
-
-        $this->assertCount(0, $processResult->getFileDiffs());
+        $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
+        $composerJsonSmartFileInfo = new SmartFileInfo(__DIR__ . '/Expected/composer.json');
+        $this->assertSame($composerJsonSmartFileInfo->getContents(), $addedFilesWithContent[0]->getFileContent());
     }
 
     protected function provideConfigFilePath(): string

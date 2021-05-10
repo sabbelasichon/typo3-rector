@@ -10,19 +10,17 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinterConfiguration;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
-use Rector\Core\Configuration\Configuration;
+use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Rector\FileFormatter\Contract\EditorConfig\EditorConfigParserInterface;
 use Rector\FileFormatter\ValueObject\Indent;
 use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
+use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\Reporting\Reporter;
 use Ssch\TYPO3Rector\TypoScript\Visitors\AbstractVisitor;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\TypoScript\TypoScriptProcessorTest
@@ -70,24 +68,14 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     private $editorConfigParser;
 
     /**
-     * @var SmartFileSystem
-     */
-    private $smartFileSystem;
-
-    /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-
-    /**
      * @var Reporter
      */
     private $reporter;
+
+    /**
+     * @var RemovedAndAddedFilesCollector
+     */
+    private $removedAndAddedFilesCollector;
 
     /**
      * @param Visitor[] $visitors
@@ -98,10 +86,8 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         ASTPrinterInterface $typoscriptPrinter,
         CurrentFileProvider $currentFileProvider,
         EditorConfigParserInterface $editorConfigParser,
-        SmartFileSystem $smartFileSystem,
-        Configuration $configuration,
-        SymfonyStyle $symfonyStyle,
         Reporter $reporter,
+        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         array $visitors = []
     ) {
         $this->typoscriptParser = $typoscriptParser;
@@ -111,10 +97,8 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         $this->visitors = $visitors;
         $this->currentFileProvider = $currentFileProvider;
         $this->editorConfigParser = $editorConfigParser;
-        $this->smartFileSystem = $smartFileSystem;
-        $this->configuration = $configuration;
-        $this->symfonyStyle = $symfonyStyle;
         $this->reporter = $reporter;
+        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
     }
 
     /**
@@ -228,23 +212,12 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
 
             $filePath = $typoScriptToPhpFile->getFilename();
 
-            if ($this->configuration->isDryRun()) {
-                $message = sprintf(
-                    'Would create file "%s" with content "%s"',
-                    $filePath,
-                    $typoScriptToPhpFile->getContent()
-                );
-                $this->symfonyStyle->info($message);
-            } else {
-                $report = $convertToPhpFileVisitor->getReport();
+            $this->removedAndAddedFilesCollector->addAddedFile(
+                new AddedFileWithContent($filePath, $typoScriptToPhpFile->getContent())
+            );
 
-                $this->smartFileSystem->dumpFile($filePath, $typoScriptToPhpFile->getContent());
-
-                $file = new File(new SmartFileInfo($filePath), $typoScriptToPhpFile->getContent());
-                $this->currentFileProvider->setFile($file);
-
-                $this->reporter->report($report);
-            }
+            $report = $convertToPhpFileVisitor->getReport();
+            $this->reporter->report($report);
         }
     }
 }
