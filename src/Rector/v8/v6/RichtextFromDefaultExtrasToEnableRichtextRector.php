@@ -223,12 +223,19 @@ CODE_SAMPLE
                 }
 
                 if ($configurationArray instanceof ArrayItem && $configurationArray->value instanceof Array_) {
-                    $configurationArray->value->items[] = new ArrayItem($this->nodeFactory->createTrue(), new String_(
-                        'enableRichtext'
-                    ));
-                    $configurationArray->value->items[] = new ArrayItem(new String_('default'), new String_(
-                        'richtextConfiguration'
-                    ));
+                    if (null === $this->extractArrayItemByKey($configurationArray->value, 'enableRichtext')) {
+                        $configurationArray->value->items[] = new ArrayItem(
+                            $this->nodeFactory->createTrue(),
+                            new String_('enableRichtext')
+                        );
+                    }
+
+                    if (null === $this->extractArrayItemByKey($configurationArray->value, 'richtextConfiguration')) {
+                        $configurationArray->value->items[] = new ArrayItem(new String_('default'), new String_(
+                            'richtextConfiguration'
+                        ));
+                    }
+
                     $this->hasAstBeenChanged = true;
                 }
             }
