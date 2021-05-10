@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Composer;
 
-use Composer\Semver\VersionParser;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -12,22 +11,19 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
-use Rector\Core\Configuration\Configuration;
+use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Core\PhpParser\Parser\Parser;
 use Rector\Core\ValueObject\Application\File;
-use Rector\FileFormatter\FileFormatter;
-use Ssch\TYPO3Rector\Reporting\Reporter;
-use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
+use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
 use UnexpectedValueException;
 
 /**
@@ -76,11 +72,6 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
     private const CONSTRAINTS = 'constraints';
 
     /**
-     * @var SmartFileSystem
-     */
-    private $smartFileSystem;
-
-    /**
      * @var ComposerJsonFactory
      */
     private $composerJsonFactory;
@@ -96,48 +87,27 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
     private $parser;
 
     /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    /**
-     * @var Reporter
-     */
-    private $reporter;
-
-    /**
-     * @var FileFormatter
-     */
-    private $fileFormatter;
-
-    /**
      * @var ValueResolver
      */
     private $valueResolver;
 
     /**
-     * @var VersionParser
+     * @var RemovedAndAddedFilesCollector
      */
-    private static $versionParser;
+    private $removedAndAddedFilesCollector;
 
     public function __construct(
-        SmartFileSystem $smartFileSystem,
         ComposerJsonFactory $composerJsonFactory,
         ComposerJsonPrinter $composerJsonPrinter,
         Parser $parser,
-        Configuration $configuration,
-        Reporter $reporter,
-        FileFormatter $fileFormatter,
-        ValueResolver $valueResolver
+        ValueResolver $valueResolver,
+        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
     ) {
-        $this->smartFileSystem = $smartFileSystem;
         $this->composerJsonFactory = $composerJsonFactory;
         $this->composerJsonPrinter = $composerJsonPrinter;
         $this->parser = $parser;
-        $this->configuration = $configuration;
-        $this->reporter = $reporter;
-        $this->fileFormatter = $fileFormatter;
         $this->valueResolver = $valueResolver;
+        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
     }
 
     public function supports(File $file): bool
@@ -171,14 +141,9 @@ final class InitializeExtensionComposerJsonProcessor implements FileProcessorInt
 
             $newFileContent = $this->composerJsonPrinter->printToString($composerJson);
 
-            $report = new Report(sprintf(
-                'Create new composer.json "%s" with content "%s"',
-                $composerJsonFilePath,
-                $newFileContent
-            ), $this);
-            $this->reporter->report($report);
-
-            $this->printFile($composerJsonFilePath, $newFileContent);
+            $this->removedAndAddedFilesCollector->addAddedFile(
+                new AddedFileWithContent($composerJsonFilePath, $newFileContent)
+            );
         }
     }
 
@@ -228,7 +193,7 @@ CODE_SAMPLE
 
     private function extensionComposerJsonExists(SmartFileInfo $smartFileInfo): bool
     {
-        return $this->smartFileSystem->exists($this->createComposerJsonFilePath($smartFileInfo));
+        return file_exists($this->createComposerJsonFilePath($smartFileInfo));
     }
 
     private function createComposerJsonFilePath(SmartFileInfo $smartFileInfo): string
@@ -343,21 +308,6 @@ CODE_SAMPLE
         }
 
         return $information;
-    }
-
-    private function printFile(string $composerJsonFilePath, string $newFileContent): void
-    {
-        if ($this->configuration->isDryRun()) {
-            return;
-        }
-
-        $this->smartFileSystem->touch($composerJsonFilePath);
-        $composerJsonSmartFileInfo = new SmartFileInfo($composerJsonFilePath);
-        $composerJsonFile = new File($composerJsonSmartFileInfo, '');
-        $composerJsonFile->changeFileContent($newFileContent);
-
-        $this->fileFormatter->format([$composerJsonFile]);
-        $this->smartFileSystem->dumpFile($composerJsonFilePath, $composerJsonFile->getFileContent());
     }
 
     /**

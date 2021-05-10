@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor;
 
 use Rector\Core\Application\ApplicationFileProcessor;
+use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\ValueObjectFactory\Application\FileFactory;
 use Rector\Core\ValueObjectFactory\ProcessResultFactory;
@@ -28,6 +29,11 @@ abstract class AbstractApplicationFileProcessorTest extends AbstractTestCase
      */
     protected $processResultFactory;
 
+    /**
+     * @var RemovedAndAddedFilesCollector
+     */
+    protected $removedAndAddedFilesCollector;
+
     protected function setUp(): void
     {
         $this->bootFromConfigFileInfos([new SmartFileInfo($this->provideConfigFilePath())]);
@@ -39,6 +45,9 @@ abstract class AbstractApplicationFileProcessorTest extends AbstractTestCase
         $this->applicationFileProcessor = $this->getService(ApplicationFileProcessor::class);
         $this->fileFactory = $this->getService(FileFactory::class);
         $this->processResultFactory = $this->getService(ProcessResultFactory::class);
+
+        $this->removedAndAddedFilesCollector = $this->getService(RemovedAndAddedFilesCollector::class);
+        $this->removedAndAddedFilesCollector->reset();
     }
 
     abstract protected function provideConfigFilePath(): string;
