@@ -24,6 +24,14 @@ return [
                 ],
             ],
         ],
+        'mySecondType' => [
+            'columnsOverrides' => [
+                'aField2' => [
+                    'config' => ['enableRichtext' => true],
+                    'defaultExtras' => 'richtext:rte_transform',
+                ],
+            ],
+        ],
     ],
 ];
 
@@ -52,6 +60,13 @@ return [
         'myType' => [
             'columnsOverrides' => [
                 'aField' => [
+                    'config' => ['enableRichtext' => true, 'richtextConfiguration' => 'default'],
+                ],
+            ],
+        ],
+        'mySecondType' => [
+            'columnsOverrides' => [
+                'aField2' => [
                     'config' => ['enableRichtext' => true, 'richtextConfiguration' => 'default'],
                 ],
             ],
