@@ -45,6 +45,11 @@ final class FormYamlProcessor implements FileProcessorInterface
      */
     public function process(array $files): void
     {
+        // Prevent unnecessary processing
+        if ([] === $this->transformer) {
+            return;
+        }
+
         foreach ($files as $file) {
             $this->processFile($file);
         }
@@ -52,9 +57,6 @@ final class FormYamlProcessor implements FileProcessorInterface
 
     public function supports(File $file): bool
     {
-        if ([] === $this->transformer) {
-            return false;
-        }
         $smartFileInfo = $file->getSmartFileInfo();
 
         return Strings::endsWith($smartFileInfo->getFilename(), 'form.yaml');

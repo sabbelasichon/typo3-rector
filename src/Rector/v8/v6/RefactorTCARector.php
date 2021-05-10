@@ -246,7 +246,10 @@ CODE_SAMPLE
                             }
                         }
 
-                        if (array_key_exists($wizardItemValueKey, self::MAP_WIZARD_TO_RENDER_TYPE)) {
+                        if (array_key_exists(
+                            $wizardItemValueKey,
+                            self::MAP_WIZARD_TO_RENDER_TYPE
+                        ) && null === $this->extractArrayItemByKey($configValue->value, 'renderType')) {
                             $configValue->value->items[] = new ArrayItem(new String_(
                                 self::MAP_WIZARD_TO_RENDER_TYPE[$wizardItemValueKey]
                             ), new String_('renderType'));
@@ -333,7 +336,10 @@ CODE_SAMPLE
                             }
                         }
 
-                        if ([] !== $selectOptions) {
+                        if ([] !== $selectOptions && null === $this->extractArrayItemByKey(
+                            $configValue->value,
+                            self::MAP_WIZARD_TO_CUSTOM_TYPE['select']
+                        )) {
                             $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
                                 $selectOptions
                             ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE['select']));
@@ -342,6 +348,9 @@ CODE_SAMPLE
                         if ([] !== $customTypeOptions && array_key_exists(
                             $wizardItemValueKey,
                             self::MAP_WIZARD_TO_CUSTOM_TYPE
+                        ) && null === $this->extractArrayItemByKey(
+                            $configValue->value,
+                            self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]
                         )) {
                             $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
                                 $customTypeOptions
@@ -349,10 +358,26 @@ CODE_SAMPLE
                         }
                     }
 
-                    if ([] !== $fieldControl) {
+                    $existingFieldControl = $this->extractArrayItemByKey($configValue->value, 'fieldControl');
+
+                    if (null === $existingFieldControl && [] !== $fieldControl) {
                         $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
                             $fieldControl
                         ), new String_('fieldControl'));
+                    } elseif ([] !== $fieldControl && $existingFieldControl instanceof ArrayItem) {
+                        foreach ($fieldControl as $fieldControlKey => $fieldControlValue) {
+                            if (null !== $this->extractArrayItemByKey($existingFieldControl->value, $fieldControlKey)) {
+                                continue;
+                            }
+
+                            if (! $existingFieldControl->value instanceof Array_) {
+                                continue;
+                            }
+
+                            $existingFieldControl->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                                $fieldControlValue
+                            ), new String_($fieldControlKey));
+                        }
                     }
 
                     if (0 === $remainingWizards) {
