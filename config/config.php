@@ -16,7 +16,9 @@ use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
+use function RectorPrefix20210511\Symfony\Component\DependencyInjection\Loader\Configurator\service;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, true);

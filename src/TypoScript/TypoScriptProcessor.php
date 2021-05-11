@@ -86,7 +86,6 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         ASTPrinterInterface $typoscriptPrinter,
         CurrentFileProvider $currentFileProvider,
         EditorConfigParserInterface $editorConfigParser,
-        Reporter $reporter,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         array $visitors = []
     ) {
@@ -97,7 +96,6 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         $this->visitors = $visitors;
         $this->currentFileProvider = $currentFileProvider;
         $this->editorConfigParser = $editorConfigParser;
-        $this->reporter = $reporter;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
     }
 
@@ -215,9 +213,6 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
             $this->removedAndAddedFilesCollector->addAddedFile(
                 new AddedFileWithContent($filePath, $typoScriptToPhpFile->getContent())
             );
-
-            $report = $convertToPhpFileVisitor->getReport();
-            $this->reporter->report($report);
         }
     }
 }

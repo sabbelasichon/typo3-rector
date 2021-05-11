@@ -6,11 +6,11 @@ namespace Ssch\TYPO3Rector\Reporting;
 
 use DateTimeImmutable;
 use Rector\ChangesReporting\Annotation\AnnotationExtractor;
+use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Provider\CurrentFileProvider;
+use RectorPrefix20210511\Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
@@ -37,7 +37,7 @@ final class ReporterFactory
     private $currentFileProvider;
 
     /**
-     * @var SymfonyStyle
+     * @var RectorOutputStyle
      */
     private $symfonyStyle;
 
@@ -46,7 +46,7 @@ final class ReporterFactory
         SmartFileSystem $smartFileSystem,
         AnnotationExtractor $annotationExtractor,
         CurrentFileProvider $currentFileProvider,
-        SymfonyStyle $symfonyStyle
+        RectorOutputStyle $symfonyStyle
     ) {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;

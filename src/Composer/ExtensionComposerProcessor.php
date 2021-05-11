@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Composer;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
-use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
-use Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
+use RectorPrefix20210511\Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use RectorPrefix20210511\Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\Composer\ExtensionComposerProcessor\ExtensionComposerProcessorTest

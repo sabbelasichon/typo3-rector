@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Generator\Command;
 
 use Nette\Utils\Strings;
+use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\RectorGenerator\FileSystem\ConfigFilesystem;
 use RuntimeException;
@@ -42,7 +43,7 @@ final class Typo3GenerateCommand extends Command
     private $fileGenerator;
 
     /**
-     * @var SymfonyStyle
+     * @var RectorOutputStyle
      */
     private $symfonyStyle;
 
@@ -54,7 +55,7 @@ final class Typo3GenerateCommand extends Command
     public function __construct(
         TemplateFinder $templateFinder,
         FileGenerator $fileGenerator,
-        SymfonyStyle $symfonyStyle,
+        RectorOutputStyle $symfonyStyle,
         ConfigFilesystem $configFilesystem
     ) {
         parent::__construct();
