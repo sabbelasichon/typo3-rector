@@ -12,13 +12,12 @@
     "require": {
         "php": "^7.3|^8.0",
         "helmich/typo3-typoscript-parser": "^2.3.0",
-        "rector/rector": "^0.10.20",
         "nikic/php-parser": "4.10.4",
-        "symfony/var-exporter": "^4.0 || ^5.0"
+        "rector/rector": "^0.10.20",
+        "symfony/var-exporter": "^3.0 || ^4.0 || ^5.0",
+        "symfony/yaml": "^3.0 || ^4.0 || ^5.2"
     },
     "require-dev": {
-        "captainhook/captainhook": "^5.4",
-        "captainhook/plugin-composer": "^5.2",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.5",
         "rector/rector-generator": "^0.1.7",
@@ -46,8 +45,7 @@
             "Ssch\\TYPO3Rector\\Tests\\": "tests",
             "Ssch\\TYPO3Rector\\PHPStan\\Tests\\": "utils/phpstan/tests",
             "Ssch\\TYPO3Rector\\Rules\\Tests\\": "utils/rules/tests",
-            "Ssch\\TYPO3Rector\\Rules\\": "utils/rules/src",
-            "Ssch\\TYPO3Rector\\Stubs\\": "utils/stubs/src"
+            "Ssch\\TYPO3Rector\\Rules\\": "utils/rules/src"
         },
         "exclude-from-classmap": [
             "**.php.inc"
