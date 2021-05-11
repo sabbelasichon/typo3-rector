@@ -64,8 +64,10 @@ Typo3-rector can only detect TCA if there's a return statement along with a 'ctr
         'columns' => [],
     ];
 ```
+
 Depending on your TCA, which can include overrides with array_replace_recursive() you have to manually adapt the TCA for the time of the typo3-rector process.
 So all other migrations are done for you via ruleset.
+
 ---
 
 
