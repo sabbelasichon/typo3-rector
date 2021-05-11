@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Resources\Icons;
 
+use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\ValueObject\Application\File;
-use Symfony\Component\Console\Style\SymfonyStyle;
+use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
+/**
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Feature-77349-AdditionalLocationsForExtensionIcons.html
+ * @see \Ssch\TYPO3Rector\Tests\Resources\Icons\IconsProcessor\IconsProcessorTest
+ */
 final class IconsProcessor implements FileProcessorInterface, RectorInterface
 {
     /**
@@ -21,23 +27,30 @@ final class IconsProcessor implements FileProcessorInterface, RectorInterface
     private $smartFileSystem;
 
     /**
-     * @var SymfonyStyle
-     */
-    private $symfonyStyle;
-
-    /**
      * @var Configuration
      */
     private $configuration;
 
+    /**
+     * @var RemovedAndAddedFilesCollector
+     */
+    private $removedAndAddedFilesCollector;
+
+    /**
+     * @var FilesFinder
+     */
+    private $filesFinder;
+
     public function __construct(
         SmartFileSystem $smartFileSystem,
-        SymfonyStyle $symfonyStyle,
-        Configuration $configuration
+        Configuration $configuration,
+        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        FilesFinder $filesFinder
     ) {
         $this->smartFileSystem = $smartFileSystem;
-        $this->symfonyStyle = $symfonyStyle;
         $this->configuration = $configuration;
+        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+        $this->filesFinder = $filesFinder;
     }
 
     /**
@@ -58,9 +71,12 @@ final class IconsProcessor implements FileProcessorInterface, RectorInterface
             return false;
         }
 
-        $extEmConf = sprintf('%s/ext_emconf.php', rtrim(dirname($smartFileInfo->getRealPath()), '/'));
+        $extEmConfSmartFileInfo = $this->filesFinder->findFileRelativeFromGivenFileInfo(
+            $smartFileInfo,
+            'ext_emconf.php'
+        );
 
-        return $this->smartFileSystem->exists($extEmConf);
+        return null !== $extEmConfSmartFileInfo;
     }
 
     public function getSupportedFileExtensions(): array
@@ -87,35 +103,28 @@ CODE_SAMPLE
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
-        $relativeFileDirectoryPath = $smartFileInfo->getRelativeDirectoryPath();
-        $relativeFilePath = $smartFileInfo->getRelativeFilePath();
         $realPath = $smartFileInfo->getRealPathDirectory();
         $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());
 
         $newFullPath = $realPath . $relativeTargetFilePath;
+
+        $this->removedAndAddedFilesCollector->addAddedFile(
+            new AddedFileWithContent($newFullPath, $smartFileInfo->getContents())
+        );
+
+        $this->createDeepDirectory($newFullPath);
+    }
+
+    private function createDeepDirectory(string $newFullPath): void
+    {
         if ($this->configuration->isDryRun()) {
-            $message = sprintf(
-                'File "%s" will be copied to "%s"',
-                $relativeFilePath,
-                $relativeFileDirectoryPath . $relativeTargetFilePath
-            );
-            $this->symfonyStyle->info($message);
-        } elseif (! $this->smartFileSystem->exists($newFullPath)) {
-            $message = sprintf(
-                'File "%s" copied to "%s". Drop the original file in case there are no references in module/plugin registration or similar.',
-                $relativeFilePath,
-                $relativeFileDirectoryPath . $relativeTargetFilePath
-            );
+            return;
+        }
 
-            $this->symfonyStyle->info($message);
-            if (! $this->smartFileSystem->exists(dirname($newFullPath))) {
-                $this->smartFileSystem->mkdir(dirname($newFullPath));
-            }
+        $iconsDirectory = dirname($newFullPath);
 
-            $this->smartFileSystem->copy($smartFileInfo->getRealPath(), $newFullPath, true);
-        } else {
-            $message = sprintf('File "%s" already exists.', $newFullPath);
-            $this->symfonyStyle->warning($message);
+        if (! $this->smartFileSystem->exists($iconsDirectory)) {
+            $this->smartFileSystem->mkdir($iconsDirectory);
         }
     }
 }
