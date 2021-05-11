@@ -17,8 +17,6 @@
         "symfony/var-exporter": "^4.0 || ^5.0"
     },
     "require-dev": {
-        "captainhook/captainhook": "^5.4",
-        "captainhook/plugin-composer": "^5.2",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.5",
         "rector/rector-generator": "^0.1.7",
