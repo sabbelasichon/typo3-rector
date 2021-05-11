@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Generator\Finder;
 
-use Symplify\SmartFileSystem\FileSystemGuard;
-use Symplify\SmartFileSystem\Finder\FinderSanitizer;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class TemplateFinder
@@ -16,31 +14,18 @@ final class TemplateFinder
     public const TEMPLATES_DIRECTORY = __DIR__ . '/../../templates';
 
     /**
-     * @var FinderSanitizer
-     */
-    private $finderSanitizer;
-
-    /**
-     * @var FileSystemGuard
-     */
-    private $fileSystemGuard;
-
-    public function __construct(FinderSanitizer $finderSanitizer, FileSystemGuard $fileSystemGuard)
-    {
-        $this->finderSanitizer = $finderSanitizer;
-        $this->fileSystemGuard = $fileSystemGuard;
-    }
-
-    /**
      * @return SmartFileInfo[]
      */
     public function find(): array
     {
         $filePaths = $this->addRuleAndTestCase();
 
-        $this->ensureFilePathsExists($filePaths);
+        $smartFileInfos = [];
+        foreach ($filePaths as $filePath) {
+            $smartFileInfos[] = new SmartFileInfo($filePath);
+        }
 
-        return $this->finderSanitizer->sanitize($filePaths);
+        return $smartFileInfos;
     }
 
     private function addRuleAndTestCase(): array
@@ -53,15 +38,5 @@ final class TemplateFinder
         $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/__Test_Directory__/config/configured_rule.php';
 
         return $filePaths;
-    }
-
-    /**
-     * @param string[] $filePaths
-     */
-    private function ensureFilePathsExists(array $filePaths): void
-    {
-        foreach ($filePaths as $filePath) {
-            $this->fileSystemGuard->ensureFileExists($filePath, __METHOD__);
-        }
     }
 }
