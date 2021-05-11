@@ -140,37 +140,33 @@ CODE_SAMPLE
     }
 
     // todo: this should go into a base class
-    private function resolveColumnsDefinition(Node\Expr $columnsDefinition): ?Node
+    private function resolveVariableDefinition(Node\Expr\Variable $columnsDefinition): ?Node
     {
-        if ($columnsDefinition instanceof Node\Expr\Variable) {
-            // the call to addTcaColumns uses a variable to define the columns to add.
-            // to effectively refactor this argument, we need to find the definition of this variable and refactor that.
-            // as a first-order approximation, we look at the previous statement and hope that the argument is defined there
-            $previousStatement = $columnsDefinition->getAttribute(AttributeKey::PREVIOUS_STATEMENT);
-            if (! $previousStatement->expr instanceof Node\Expr\Assign) {
-                // the previous statement is not an assignment
-                return null;
-            }
-            $assignment = $previousStatement->expr;
-
-            if (! $assignment->var instanceof Node\Expr\Variable) {
-                // it is not assigning to a variable
-                return null;
-            }
-
-            if ($assignment->var->name !== $columnsDefinition->name) {
-                // it is assigning to a different variable
-                return null;
-            }
-            if (! $assignment->expr instanceof Array_) {
-                // the assigned value is not an array
-                return null;
-            }
-
-            // we found the array definition that is used as the calling argument to addTcaColumns.
-            $columnsDefinition = $assignment->expr;
+        // we need to find the definition of this variable and refactor that.
+        // as a first-order approximation, we look at the previous statement and hope that the argument is defined there
+        $previousStatement = $columnsDefinition->getAttribute(AttributeKey::PREVIOUS_STATEMENT);
+        if (! $previousStatement->expr instanceof Node\Expr\Assign) {
+            // the previous statement is not an assignment
+            return null;
         }
-        return $columnsDefinition;
+        $assignment = $previousStatement->expr;
+
+        if (! $assignment->var instanceof Node\Expr\Variable) {
+            // it is not assigning to a variable
+            return null;
+        }
+
+        if ($assignment->var->name !== $columnsDefinition->name) {
+            // it is assigning to a different variable
+            return null;
+        }
+        if (! $assignment->expr instanceof Array_) {
+            // the assigned value is not an array
+            return null;
+        }
+
+        // we found the array definition that is used as the calling argument to addTcaColumns.
+        return $assignment->expr;
     }
 
     // todo: this should go into a base class
@@ -203,7 +199,11 @@ CODE_SAMPLE
         }
 
         $columnsDefinition = $columnsDefinitionArgument->value;
-        $columnsDefinition = $this->resolveColumnsDefinition($columnsDefinition);
+        if ($columnsDefinition instanceof Node\Expr\Variable) {
+            // the call uses a variable to define the columns.
+            // For refactoring we need the node where this variable is defined
+            $columnsDefinition = $this->resolveVariableDefinition($columnsDefinition);
+        }
 
         if (! $columnsDefinition instanceof Array_) {
             return false;
