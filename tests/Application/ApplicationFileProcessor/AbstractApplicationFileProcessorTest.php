@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor;
 use Rector\Core\Application\ApplicationFileProcessor;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Configuration\Configuration;
+use Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter;
 use Rector\Core\ValueObjectFactory\Application\FileFactory;
 use Rector\Core\ValueObjectFactory\ProcessResultFactory;
 use Rector\Testing\PHPUnit\AbstractTestCase;
@@ -34,6 +35,11 @@ abstract class AbstractApplicationFileProcessorTest extends AbstractTestCase
      */
     protected $removedAndAddedFilesCollector;
 
+    /**
+     * @var NodesWithFileDestinationPrinter
+     */
+    protected $nodesWithFileDestinationPrinter;
+
     protected function setUp(): void
     {
         $this->bootFromConfigFileInfos([new SmartFileInfo($this->provideConfigFilePath())]);
@@ -48,6 +54,8 @@ abstract class AbstractApplicationFileProcessorTest extends AbstractTestCase
 
         $this->removedAndAddedFilesCollector = $this->getService(RemovedAndAddedFilesCollector::class);
         $this->removedAndAddedFilesCollector->reset();
+
+        $this->nodesWithFileDestinationPrinter = $this->getService(NodesWithFileDestinationPrinter::class);
     }
 
     abstract protected function provideConfigFilePath(): string;

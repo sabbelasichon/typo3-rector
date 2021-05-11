@@ -17,7 +17,6 @@ use Rector\Core\ValueObject\Application\File;
 use Rector\FileFormatter\Contract\EditorConfig\EditorConfigParserInterface;
 use Rector\FileFormatter\ValueObject\Indent;
 use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
-use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\TypoScript\Visitors\AbstractVisitor;
 use Symfony\Component\Console\Output\BufferedOutput;
@@ -204,17 +203,13 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     private function convertTypoScriptToPhpFiles(): void
     {
         foreach ($this->convertToPhpFileVisitors() as $convertToPhpFileVisitor) {
-            $typoScriptToPhpFile = $convertToPhpFileVisitor->convert();
+            $addedFileWithContent = $convertToPhpFileVisitor->convert();
 
-            if (null === $typoScriptToPhpFile) {
+            if (null === $addedFileWithContent) {
                 continue;
             }
 
-            $filePath = $typoScriptToPhpFile->getFilename();
-
-            $this->removedAndAddedFilesCollector->addAddedFile(
-                new AddedFileWithContent($filePath, $typoScriptToPhpFile->getContent())
-            );
+            $this->removedAndAddedFilesCollector->addAddedFile($addedFileWithContent);
 
             $this->rectorOutputStyle->warning($convertToPhpFileVisitor->getMessage());
         }
