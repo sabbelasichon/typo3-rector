@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
@@ -34,7 +38,7 @@ final class AddTypeToColumnConfigRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Return_::class, Node\Expr\StaticCall::class];
+        return [Return_::class, StaticCall::class];
     }
 
     /**
@@ -78,7 +82,7 @@ CODE_SAMPLE
         )]);
     }
 
-    private function refactorColumn(Node\Expr $columnName, Node\Expr $columnTca): bool
+    private function refactorColumn(Expr $columnName, Expr $columnTca): bool
     {
         if (! $columnTca instanceof Array_) {
             return false;
@@ -140,18 +144,18 @@ CODE_SAMPLE
     }
 
     // todo: this should go into a base class
-    private function resolveVariableDefinition(Node\Expr\Variable $columnsDefinition): ?Node
+    private function resolveVariableDefinition(Variable $columnsDefinition): ?Node
     {
         // we need to find the definition of this variable and refactor that.
         // as a first-order approximation, we look at the previous statement and hope that the argument is defined there
         $previousStatement = $columnsDefinition->getAttribute(AttributeKey::PREVIOUS_STATEMENT);
-        if (! $previousStatement->expr instanceof Node\Expr\Assign) {
+        if (! $previousStatement->expr instanceof Assign) {
             // the previous statement is not an assignment
             return null;
         }
         $assignment = $previousStatement->expr;
 
-        if (! $assignment->var instanceof Node\Expr\Variable) {
+        if (! $assignment->var instanceof Variable) {
             // it is not assigning to a variable
             return null;
         }
@@ -172,7 +176,7 @@ CODE_SAMPLE
     // todo: this should go into a base class
     private function refactorAddTcaColumns(Node $node): bool
     {
-        if (! $node instanceof Node\Expr\StaticCall) {
+        if (! $node instanceof StaticCall) {
             return false;
         }
 
@@ -199,7 +203,7 @@ CODE_SAMPLE
         }
 
         $columnsDefinition = $columnsDefinitionArgument->value;
-        if ($columnsDefinition instanceof Node\Expr\Variable) {
+        if ($columnsDefinition instanceof Variable) {
             // the call uses a variable to define the columns.
             // For refactoring we need the node where this variable is defined
             $columnsDefinition = $this->resolveVariableDefinition($columnsDefinition);
