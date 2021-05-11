@@ -57,11 +57,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // ]);
 
     // When you use rector there are rules that require some more actions like creating UpgradeWizards for outdated TCA types.
-    // To fully support you, there is an additional reporting functionality.
-    // It creates a HTML file in your defined route which displays the changelog
-    // $parameters->set(Typo3Option::REPORT_DIRECTORY,
-    //    __DIR__ . '/typo3-rector-logs'
-    // );
+    // To fully support you we added some warnings. So watch out for them.
 
     // If you set option Option::AUTO_IMPORT_NAMES to true, you should consider excluding some TYPO3 files.
     $parameters->set(Option::SKIP, [

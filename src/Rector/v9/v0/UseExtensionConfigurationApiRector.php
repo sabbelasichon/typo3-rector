@@ -12,11 +12,10 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Isset_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
+use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
-use Ssch\TYPO3Rector\Reporting\Reporter;
-use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
@@ -29,13 +28,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class UseExtensionConfigurationApiRector extends AbstractRector
 {
     /**
-     * @var Reporter
+     * @var RectorOutputStyle
      */
-    private $reporter;
+    private $rectorOutputStyle;
 
-    public function __construct(Reporter $reporter)
+    public function __construct(RectorOutputStyle $rectorOutputStyle)
     {
-        $this->reporter = $reporter;
+        $this->rectorOutputStyle = $rectorOutputStyle;
     }
 
     /**
@@ -79,14 +78,11 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
         if ($parentNode instanceof Coalesce) {
-            $this->reporter->report(
-                new Report(
-                    'It seems that you are using the old unserialize function to access extension configuration',
-                    $this,
-                    [
-                        "Use the new extension configuration API GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('YOUR_EXTENSION_KEY')",
-                    ]
-                )
+            $this->rectorOutputStyle->warning(
+                'It seems that you are using the old unserialize function to access extension configuration'
+            );
+            $this->rectorOutputStyle->note(
+                "Use the new extension configuration API GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('YOUR_EXTENSION_KEY')",
             );
             return null;
         }

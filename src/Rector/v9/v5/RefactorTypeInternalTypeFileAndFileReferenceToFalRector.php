@@ -8,10 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
+use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
-use Ssch\TYPO3Rector\Reporting\Reporter;
-use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -30,13 +29,13 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
     private const MESSAGE = 'You have to migrate the legacy file field to FAL';
 
     /**
-     * @var Reporter
+     * @var RectorOutputStyle
      */
-    private $reporter;
+    private $rectorOutputStyle;
 
-    public function __construct(Reporter $reporter)
+    public function __construct(RectorOutputStyle $rectorOutputStyle)
     {
-        $this->reporter = $reporter;
+        $this->rectorOutputStyle = $rectorOutputStyle;
     }
 
     /**
@@ -150,8 +149,7 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
         }
 
         if ($hasAstBeenChanged) {
-            $report = new Report(self::MESSAGE, $this);
-            $this->reporter->report($report);
+            $this->rectorOutputStyle->warning(self::MESSAGE);
         }
 
         return $hasAstBeenChanged ? $node : null;
