@@ -8,9 +8,9 @@ use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicat
 
 final class IconsProcessorTest extends AbstractApplicationFileProcessorTest
 {
-    public function test(): void
+    public function testExtensionWithoutIconInIconsFolder(): void
     {
-        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture']);
+        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture/my_extension']);
         $this->applicationFileProcessor->run($files);
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
@@ -22,6 +22,17 @@ final class IconsProcessorTest extends AbstractApplicationFileProcessorTest
         $this->assertSame(1, $this->removedAndAddedFilesCollector->getAddedFileCount());
 
         $this->assertCount(1, $files);
+    }
+
+    public function testExtensionWithIconInIconsFolder(): void
+    {
+        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture/my_extension_with_icon']);
+        $this->applicationFileProcessor->run($files);
+
+        $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
+
+        $this->assertCount(2, $files);
+        $this->assertEmpty($addedFilesWithContent);
     }
 
     protected function provideConfigFilePath(): string

@@ -13,7 +13,6 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Feature-77349-AdditionalLocationsForExtensionIcons.html
@@ -21,11 +20,6 @@ use Symplify\SmartFileSystem\SmartFileSystem;
  */
 final class IconsProcessor implements FileProcessorInterface, RectorInterface
 {
-    /**
-     * @var SmartFileSystem
-     */
-    private $smartFileSystem;
-
     /**
      * @var Configuration
      */
@@ -42,12 +36,10 @@ final class IconsProcessor implements FileProcessorInterface, RectorInterface
     private $filesFinder;
 
     public function __construct(
-        SmartFileSystem $smartFileSystem,
         Configuration $configuration,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         FilesFinder $filesFinder
     ) {
-        $this->smartFileSystem = $smartFileSystem;
         $this->configuration = $configuration;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->filesFinder = $filesFinder;
@@ -76,7 +68,11 @@ final class IconsProcessor implements FileProcessorInterface, RectorInterface
             'ext_emconf.php'
         );
 
-        return null !== $extEmConfSmartFileInfo;
+        if (null === $extEmConfSmartFileInfo) {
+            return false;
+        }
+
+        return ! file_exists($this->createIconPath($file));
     }
 
     public function getSupportedFileExtensions(): array
@@ -103,10 +99,7 @@ CODE_SAMPLE
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
-        $realPath = $smartFileInfo->getRealPathDirectory();
-        $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());
-
-        $newFullPath = $realPath . $relativeTargetFilePath;
+        $newFullPath = $this->createIconPath($file);
 
         $this->removedAndAddedFilesCollector->addAddedFile(
             new AddedFileWithContent($newFullPath, $smartFileInfo->getContents())
@@ -123,8 +116,18 @@ CODE_SAMPLE
 
         $iconsDirectory = dirname($newFullPath);
 
-        if (! $this->smartFileSystem->exists($iconsDirectory)) {
-            $this->smartFileSystem->mkdir($iconsDirectory);
+        if (! is_dir($iconsDirectory)) {
+            mkdir($iconsDirectory, 0777, true);
         }
+    }
+
+    private function createIconPath(File $file): string
+    {
+        $smartFileInfo = $file->getSmartFileInfo();
+
+        $realPath = $smartFileInfo->getRealPathDirectory();
+        $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());
+
+        return $realPath . $relativeTargetFilePath;
     }
 }
