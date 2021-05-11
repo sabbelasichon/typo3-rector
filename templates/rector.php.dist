@@ -33,10 +33,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // If you have an editorconfig and changed files should keep their format enable it here
     // $parameters->set(Option::ENABLE_EDITORCONFIG, true);
 
-    // Some rules need manually review afterwards, in order to get a better overview we have created a small report output for those rules, enable it.
-    // These rules are only applied if you have enabled this option
-    // $parameters->set(Typo3Option::REPORT_DIRECTORY, __DIR__ . '/typo3-rector-reports');
-
     // If you only want to process one/some TYPO3 extension(s), you can specify its path(s) here.
     // If you use the option --config change __DIR__ to getcwd()
     // $parameters->set(Option::PATHS, [

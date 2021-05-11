@@ -11,6 +11,7 @@ use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
+use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Rector\FileFormatter\Contract\EditorConfig\EditorConfigParserInterface;
@@ -18,7 +19,6 @@ use Rector\FileFormatter\ValueObject\Indent;
 use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
-use Ssch\TYPO3Rector\Reporting\Reporter;
 use Ssch\TYPO3Rector\TypoScript\Visitors\AbstractVisitor;
 use Symfony\Component\Console\Output\BufferedOutput;
 
@@ -68,14 +68,14 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     private $editorConfigParser;
 
     /**
-     * @var Reporter
-     */
-    private $reporter;
-
-    /**
      * @var RemovedAndAddedFilesCollector
      */
     private $removedAndAddedFilesCollector;
+
+    /**
+     * @var RectorOutputStyle
+     */
+    private $rectorOutputStyle;
 
     /**
      * @param Visitor[] $visitors
@@ -86,8 +86,8 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         ASTPrinterInterface $typoscriptPrinter,
         CurrentFileProvider $currentFileProvider,
         EditorConfigParserInterface $editorConfigParser,
-        Reporter $reporter,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        RectorOutputStyle $rectorOutputStyle,
         array $visitors = []
     ) {
         $this->typoscriptParser = $typoscriptParser;
@@ -97,8 +97,8 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         $this->visitors = $visitors;
         $this->currentFileProvider = $currentFileProvider;
         $this->editorConfigParser = $editorConfigParser;
-        $this->reporter = $reporter;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+        $this->rectorOutputStyle = $rectorOutputStyle;
     }
 
     /**
@@ -216,8 +216,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
                 new AddedFileWithContent($filePath, $typoScriptToPhpFile->getContent())
             );
 
-            $report = $convertToPhpFileVisitor->getReport();
-            $this->reporter->report($report);
+            $this->rectorOutputStyle->warning($convertToPhpFileVisitor->getMessage());
         }
     }
 }

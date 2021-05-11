@@ -9,7 +9,6 @@ use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Nette\Utils\Strings;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Ssch\TYPO3Rector\Reporting\ValueObject\Report;
 use Ssch\TYPO3Rector\TypoScript\ConvertToPhpFileInterface;
 use Ssch\TYPO3Rector\ValueObject\TypoScriptToPhpFile;
 use Symfony\Component\VarExporter\VarExporter;
@@ -120,13 +119,9 @@ CODE_SAMPLE
         return new TypoScriptToPhpFile($this->filename, $content);
     }
 
-    public function getReport(): Report
+    public function getMessage(): string
     {
-        return new Report(
-            'We have converted from TypoScript extbase persistence to a PHP File',
-            $this,
-            ['Move and maybe divide file to appropriate location in your extension(s)']
-        );
+        return 'We have converted from TypoScript extbase persistence to a PHP File';
     }
 
     public function configure(array $configuration): void
