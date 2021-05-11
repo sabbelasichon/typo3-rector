@@ -18,7 +18,10 @@ final class TypoScriptProcessorTest extends AbstractApplicationFileProcessorTest
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
         $extbasePersistenceSmartFileInfo = new SmartFileInfo(__DIR__ . '/Expected/Extbase.php.inc');
-        $this->assertSame($extbasePersistenceSmartFileInfo->getContents(), $addedFilesWithContent[0]->getFileContent());
+        $this->assertSame(
+            $extbasePersistenceSmartFileInfo->getContents(),
+            $addedFilesWithContent[0]->getFileContent()
+        );
 
         $this->assertCount(4, $processResult->getFileDiffs());
     }
