@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Generator\Command;
 
 use Nette\Utils\Strings;
+use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\RectorGenerator\FileSystem\ConfigFilesystem;
 use RuntimeException;
@@ -19,7 +20,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -42,9 +42,9 @@ final class Typo3GenerateCommand extends Command
     private $fileGenerator;
 
     /**
-     * @var SymfonyStyle
+     * @var RectorOutputStyle
      */
-    private $symfonyStyle;
+    private $rectorOutputStyle;
 
     /**
      * @var ConfigFilesystem
@@ -54,14 +54,14 @@ final class Typo3GenerateCommand extends Command
     public function __construct(
         TemplateFinder $templateFinder,
         FileGenerator $fileGenerator,
-        SymfonyStyle $symfonyStyle,
+        RectorOutputStyle $rectorOutputStyle,
         ConfigFilesystem $configFilesystem
     ) {
         parent::__construct();
 
         $this->templateFinder = $templateFinder;
         $this->fileGenerator = $fileGenerator;
-        $this->symfonyStyle = $symfonyStyle;
+        $this->rectorOutputStyle = $rectorOutputStyle;
         $this->configFilesystem = $configFilesystem;
     }
 
@@ -169,19 +169,19 @@ final class Typo3GenerateCommand extends Command
     private function printSuccess(string $name, array $generatedFilePaths, string $testCaseFilePath): void
     {
         $message = sprintf('New files generated for "%s":', $name);
-        $this->symfonyStyle->title($message);
+        $this->rectorOutputStyle->title($message);
 
         sort($generatedFilePaths);
 
         foreach ($generatedFilePaths as $generatedFilePath) {
             $fileInfo = new SmartFileInfo($generatedFilePath);
             $relativeFilePath = $fileInfo->getRelativeFilePathFromCwd();
-            $this->symfonyStyle->writeln(' * ' . $relativeFilePath);
+            $this->rectorOutputStyle->writeln(' * ' . $relativeFilePath);
         }
 
         $message = sprintf('Make tests green again:%svendor/bin/phpunit %s', PHP_EOL . PHP_EOL, $testCaseFilePath);
 
-        $this->symfonyStyle->success($message);
+        $this->rectorOutputStyle->success($message);
     }
 
     /**

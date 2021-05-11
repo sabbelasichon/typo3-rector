@@ -6,9 +6,9 @@ namespace Ssch\TYPO3Rector\Reporting;
 
 use DateTimeImmutable;
 use Rector\ChangesReporting\Annotation\AnnotationExtractor;
+use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Provider\CurrentFileProvider;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -37,29 +37,29 @@ final class ReporterFactory
     private $currentFileProvider;
 
     /**
-     * @var SymfonyStyle
+     * @var RectorOutputStyle
      */
-    private $symfonyStyle;
+    private $rectorOutputStyle;
 
     public function __construct(
         ParameterProvider $parameterProvider,
         SmartFileSystem $smartFileSystem,
         AnnotationExtractor $annotationExtractor,
         CurrentFileProvider $currentFileProvider,
-        SymfonyStyle $symfonyStyle
+        RectorOutputStyle $rectorOutputStyle
     ) {
         $this->parameterProvider = $parameterProvider;
         $this->smartFileSystem = $smartFileSystem;
         $this->annotationExtractor = $annotationExtractor;
         $this->currentFileProvider = $currentFileProvider;
-        $this->symfonyStyle = $symfonyStyle;
+        $this->rectorOutputStyle = $rectorOutputStyle;
     }
 
     public function createReporter(): Reporter
     {
         $compositeReporter = new CompositeReporter();
 
-        $consoleReporter = new ConsoleReporter($this->symfonyStyle);
+        $consoleReporter = new ConsoleReporter($this->rectorOutputStyle);
 
         $compositeReporter->addReporter($consoleReporter);
         try {
