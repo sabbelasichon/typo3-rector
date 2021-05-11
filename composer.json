@@ -13,6 +13,7 @@
         "php": "^7.3|^8.0",
         "helmich/typo3-typoscript-parser": "^2.3.0",
         "rector/rector": "^0.10.20",
+        "nikic/php-parser": "4.10.4",
         "symfony/var-exporter": "^4.0 || ^5.0"
     },
     "require-dev": {
