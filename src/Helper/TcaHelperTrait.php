@@ -19,7 +19,7 @@ trait TcaHelperTrait
      */
     protected $valueResolver;
 
-    private function isTca(Return_ $node): bool
+    private function isFullTca(Return_ $node): bool
     {
         $ctrl = $this->extractCtrl($node);
         $columns = $this->extractColumns($node);
