@@ -78,7 +78,7 @@ CODE_SAMPLE
     public function refactor(Node $node): ?Node
     {
         $this->hasAstBeenChanged = false;
-        if (! $this->isTca($node)) {
+        if (! $this->isFullTca($node)) {
             return null;
         }
 
