@@ -116,7 +116,6 @@ CODE_SAMPLE
     // ToDo: this should go into a base class
     private function refactorFullTca(Node $node): bool
     {
-        $hasAstBeenChanged = false;
         if (! $node instanceof Return_ || ! $this->isFullTca($node)) {
             return false;
         }
@@ -126,21 +125,7 @@ CODE_SAMPLE
             return false;
         }
 
-        foreach ($columns->items as $columnArrayItem) {
-            if (! $columnArrayItem instanceof ArrayItem) {
-                continue;
-            }
-
-            $columnName = $columnArrayItem->key;
-            if (null === $columnName) {
-                continue;
-            }
-
-            $columnTca = $columnArrayItem->value;
-
-            $hasAstBeenChanged = $this->refactorColumn($columnName, $columnTca) ? true : $hasAstBeenChanged;
-        }
-        return $hasAstBeenChanged;
+        return $this->refactorTcaColumns($columns);
     }
 
     // todo: this should go into a base class
@@ -213,23 +198,26 @@ CODE_SAMPLE
             return false;
         }
 
+        return $this->refactorTcaColumns($columnsDefinition);
+    }
+
+    // todo: this should go into a baseclass
+    private function refactorTcaColumns(Array_ $columns): bool
+    {
         $hasAstBeenChanged = false;
-        foreach ($columnsDefinition->items as $columnArrayItem) {
+        foreach ($columns->items as $columnArrayItem) {
             if (! $columnArrayItem instanceof ArrayItem) {
                 continue;
             }
 
-            $columnNameNode = $columnArrayItem->key;
-            $columnConfiguration = $columnArrayItem->value;
-
-            if (null === $columnNameNode) {
+            $columnName = $columnArrayItem->key;
+            if (null === $columnName) {
                 continue;
             }
 
-            $hasAstBeenChanged = $this->refactorColumn(
-                $columnNameNode,
-                $columnConfiguration
-            ) ? true : $hasAstBeenChanged;
+            $columnTca = $columnArrayItem->value;
+
+            $hasAstBeenChanged = $this->refactorColumn($columnName, $columnTca) ? true : $hasAstBeenChanged;
         }
         return $hasAstBeenChanged;
     }
