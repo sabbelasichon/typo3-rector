@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 

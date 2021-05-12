@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\ComposerPackages\Tests\Rector\AddPackageVersionRector;
 
 use Iterator;

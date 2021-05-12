@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Ssch\TYPO3Rector\Rector\Composer\ReplacePackageComposerRector;
 use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Rector\Composer\ValueObject\PackageAndVersion;
 use Rector\Core\Configuration\Option;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
