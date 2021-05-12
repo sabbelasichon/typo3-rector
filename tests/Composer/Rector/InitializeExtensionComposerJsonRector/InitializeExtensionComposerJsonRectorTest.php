@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Composer\InitializeExtensionComposerJsonProcessor;
+namespace Ssch\TYPO3Rector\Tests\Composer\Rector\InitializeExtensionComposerJsonRector;
 
 use Iterator;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class InitializeExtensionComposerJsonProcessorTest extends AbstractRectorTestCase
+final class InitializeExtensionComposerJsonRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
