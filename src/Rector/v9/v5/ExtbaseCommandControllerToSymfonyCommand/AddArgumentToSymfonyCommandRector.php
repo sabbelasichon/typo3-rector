@@ -13,7 +13,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Symfony\Component\Console\Input\InputArgument;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -161,6 +160,9 @@ CODE_SAMPLE
 
     private function createMode(int $mode): ClassConstFetch
     {
-        return $this->nodeFactory->createClassConstFetch('Symfony\Component\Console\Input\InputArgument', self::MODE_MAPPING[$mode]);
+        return $this->nodeFactory->createClassConstFetch(
+            'Symfony\Component\Console\Input\InputArgument',
+            self::MODE_MAPPING[$mode]
+        );
     }
 }
