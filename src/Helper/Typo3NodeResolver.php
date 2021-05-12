@@ -169,6 +169,9 @@ final class Typo3NodeResolver
         return $this->valueResolver->isValue($node->dim, $global);
     }
 
+    /**
+     * @param string[] $globals
+     */
     public function isTypo3Globals(Node $node, array $globals): bool
     {
         foreach ($globals as $global) {

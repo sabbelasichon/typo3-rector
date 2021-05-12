@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/10.2/en-us/Changelog/10.0/Feature-80420-AllowMultipleRecipientsInEmailFinisher.html
  */
-final class EmailFinisherRectorInterface implements FormYamlRectorInterface
+final class EmailFinisherRector implements FormYamlRectorInterface
 {
     /**
      * @var string
@@ -46,6 +46,9 @@ final class EmailFinisherRectorInterface implements FormYamlRectorInterface
         $this->currentFileProvider = $currentFileProvider;
     }
 
+    /**
+     * @param mixed[] $yaml
+     */
     public function refactor(array $yaml): array
     {
         if (! array_key_exists(self::FINISHERS, $yaml)) {

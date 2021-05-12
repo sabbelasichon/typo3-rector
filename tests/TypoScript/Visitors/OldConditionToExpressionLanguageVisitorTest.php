@@ -57,6 +57,9 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
         $this->subject = new OldConditionToExpressionLanguageVisitor(new CurrentFileProvider(), $conditionMatchers);
     }
 
+    /**
+     * @return Iterator<string, mixed>
+     */
     public function statements(): Iterator
     {
         yield 'TSFE multiple ids' => [

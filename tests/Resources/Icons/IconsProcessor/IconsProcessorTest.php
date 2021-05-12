@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Resources\Icons\IconsProcessor;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class IconsProcessorTest extends AbstractRectorTestCase
@@ -20,9 +19,12 @@ final class IconsProcessorTest extends AbstractRectorTestCase
         $this->assertSame(1, $this->removedAndAddedFilesCollector->getAddedFileCount());
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture/my_extension/', '*.gif');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension/', '*.gif');
     }
 
     public function provideConfigFilePath(): string

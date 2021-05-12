@@ -11,14 +11,17 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRectorTest extends AbstractRectorTestCase
 {
     /**
-     * @dataProvider provideDataForTest()
+     * @dataProvider provideData()
      */
     public function test(SmartFileInfo $fileInfo): void
     {
         $this->doTestFileInfo($fileInfo);
     }
 
-    public function provideDataForTest(): Iterator
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
+    public function provideData(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }

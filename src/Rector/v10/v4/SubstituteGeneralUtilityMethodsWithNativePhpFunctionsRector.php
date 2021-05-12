@@ -20,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector extends AbstractRector
 {
     /**
-     * @var array
+     * @var string[]
      */
     private const METHOD_CALL_TO_REFACTOR = ['IPv6Hex2Bin', 'IPv6Bin2Hex', 'compressIPv6', 'milliseconds'];
 

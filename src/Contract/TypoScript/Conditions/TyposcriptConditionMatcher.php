@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Contract\TypoScript\Conditions;
 interface TyposcriptConditionMatcher
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
     public const OPERATOR_MAPPING = [
         '=' => '==',

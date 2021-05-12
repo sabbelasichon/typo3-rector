@@ -11,7 +11,7 @@ use Ssch\TYPO3Rector\Helper\ArrayUtility;
 abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatcher
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
     public const IENV_MAPPING_NORMALIZED = [
         'SCRIPT_NAME' => 'getScriptName',
@@ -35,7 +35,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
     ];
 
     /**
-     * @var array
+     * @var string[]
      */
     public const IENV_KEEP_SERVER_PARAMS = [
         'HTTP_REFERER',

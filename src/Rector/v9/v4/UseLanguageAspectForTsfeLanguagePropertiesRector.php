@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRector
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
     private const NODE_NAME_MAPPING = [
         'sys_language_uid' => 'id',

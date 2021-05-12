@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class UseClassTypo3VersionRector extends AbstractRector
 {
     /**
-     * @var array
+     * @var array<string>
      */
     private const CONSTANTS_TO_REFACTOR = ['TYPO3_version', 'TYPO3_branch'];
 

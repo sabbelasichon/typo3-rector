@@ -9,7 +9,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
@@ -56,11 +55,8 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
      */
     public function refactor(Node $node): ?Node
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        if (null === $phpDocInfo) {
-            return null;
-        }
+
         foreach ($this->oldToNewAnnotations as $oldAnnotation => $newAnnotation) {
             if (! $phpDocInfo->hasByName($oldAnnotation)) {
                 continue;

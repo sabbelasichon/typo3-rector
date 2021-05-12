@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Yaml\Form;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FormYamlProcessorTest extends AbstractRectorTestCase
@@ -19,9 +18,12 @@ final class FormYamlProcessorTest extends AbstractRectorTestCase
         $this->doTestFileInfo($fileInfo);
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.form.yaml');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.form.yaml');
     }
 
     public function provideConfigFilePath(): string

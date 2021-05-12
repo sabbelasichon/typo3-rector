@@ -8,6 +8,9 @@ use UnexpectedValueException;
 
 final class ArrayUtility
 {
+    /**
+     * @return string[]
+     */
     public static function trimExplode(
         string $delimiter,
         string $string,

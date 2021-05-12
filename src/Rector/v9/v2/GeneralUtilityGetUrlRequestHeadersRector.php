@@ -83,6 +83,10 @@ CODE_SAMPLE
         return $node;
     }
 
+    /**
+     * @param mixed[] $requestHeaders
+     * @return mixed[]
+     */
     private function buildHeaders(array $requestHeaders): array
     {
         $newHeaders = [];

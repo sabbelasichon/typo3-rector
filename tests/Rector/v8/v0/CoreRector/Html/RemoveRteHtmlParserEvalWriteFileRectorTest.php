@@ -11,14 +11,17 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class RemoveRteHtmlParserEvalWriteFileRectorTest extends AbstractRectorTestCase
 {
     /**
-     * @dataProvider provideDataForTest()
+     * @dataProvider provideData()
      */
     public function test(SmartFileInfo $fileInfo): void
     {
         $this->doTestFileInfo($fileInfo);
     }
 
-    public function provideDataForTest(): Iterator
+    /**
+     * @return Iterator<SmartFileInfo[]>
+     */
+    public function provideData(): Iterator
     {
         yield [new SmartFileInfo(__DIR__ . '/Fixture/remove_rte_html_parser_eval_write_file.php.inc')];
     }

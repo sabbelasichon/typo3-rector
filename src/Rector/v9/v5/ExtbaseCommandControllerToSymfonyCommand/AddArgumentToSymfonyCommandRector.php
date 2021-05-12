@@ -28,7 +28,7 @@ final class AddArgumentToSymfonyCommandRector extends AbstractRector implements 
     public const INPUT_ARGUMENTS = 'input-arguments';
 
     /**
-     * @var array
+     * @var array<int, string>
      */
     private const MODE_MAPPING = [
         2 => 'OPTIONAL',

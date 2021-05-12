@@ -89,6 +89,9 @@ CODE_SAMPLE
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function parseMetaTag(string $metaTag): array
     {
         if (preg_match_all(self::PATTERN, $metaTag, $out)) {

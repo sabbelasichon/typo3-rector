@@ -48,7 +48,7 @@ CODE_SAMPLE;
     private $filename;
 
     /**
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     private static $persistenceArray = [];
 
@@ -133,6 +133,9 @@ CODE_SAMPLE
         }
     }
 
+    /**
+     * @param string[] $paths
+     */
     private function extractSubClasses(array $paths, Assignment $statement): void
     {
         if (! in_array(self::SUBCLASSES, $paths, true)) {
@@ -149,6 +152,9 @@ CODE_SAMPLE
         self::$persistenceArray[$className][self::SUBCLASSES][] = $statement->value->value;
     }
 
+    /**
+     * @param string[] $paths
+     */
     private function extractMapping(string $name, array $paths, Assignment $statement): void
     {
         if (! in_array($name, $paths, true)) {
@@ -163,6 +169,9 @@ CODE_SAMPLE
         self::$persistenceArray[$className][$name] = $statement->value->value;
     }
 
+    /**
+     * @param string[] $paths
+     */
     private function extractColumns(array $paths, Assignment $statement): void
     {
         if (! in_array('columns', $paths, true)) {

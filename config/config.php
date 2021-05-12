@@ -34,8 +34,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/ValueObject',
             __DIR__ . '/../src/TypoScript/Conditions',
             __DIR__ . '/../src/TypoScript/Visitors',
-            __DIR__ . '/../src/Yaml/Form/Transformer',
             __DIR__ . '/../src/FlexForms/Rector',
+            __DIR__ . '/../src/Yaml/Form/Rector',
             __DIR__ . '/../src/Resources/Icons/IconsProcessor.php',
         ]);
 

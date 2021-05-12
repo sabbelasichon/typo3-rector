@@ -37,7 +37,7 @@ final class EditorConfigConfiguration
     public const SPACE = 'space';
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private const ALLOWED_END_OF_LINE = [
         self::LINE_FEED => "\n",
@@ -46,7 +46,7 @@ final class EditorConfigConfiguration
     ];
 
     /**
-     * @var array
+     * @var string[]
      */
     private const ALLOWED_INDENT_STYLE = [self::TAB, self::SPACE];
 

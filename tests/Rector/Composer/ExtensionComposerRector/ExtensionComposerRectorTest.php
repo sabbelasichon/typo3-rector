@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Composer\ExtensionComposerRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ExtensionComposerRectorTest extends AbstractRectorTestCase
@@ -19,9 +18,12 @@ final class ExtensionComposerRectorTest extends AbstractRectorTestCase
         $this->doTestFileInfo($fileInfo);
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.json');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.json');
     }
 
     public function provideConfigFilePath(): string

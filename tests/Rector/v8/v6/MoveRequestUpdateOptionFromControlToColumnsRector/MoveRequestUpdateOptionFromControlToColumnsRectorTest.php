@@ -18,6 +18,9 @@ final class MoveRequestUpdateOptionFromControlToColumnsRectorTest extends Abstra
         $this->doTestFileInfo($fileInfo);
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');

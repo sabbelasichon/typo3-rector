@@ -51,6 +51,9 @@ final class EditorConfigConfigurationTest extends TestCase
         new EditorConfigConfiguration(EditorConfigConfiguration::SPACE, 2, $endOfLine);
     }
 
+    /**
+     * @return array<string, string[]>
+     */
     public function invalidIndentStyle(): array
     {
         return [
@@ -60,6 +63,9 @@ final class EditorConfigConfigurationTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, string[]>
+     */
     public function validIndentStyle(): array
     {
         return [
@@ -68,6 +74,9 @@ final class EditorConfigConfigurationTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, string[]>
+     */
     public function validEndOfLine(): array
     {
         return [
@@ -77,6 +86,9 @@ final class EditorConfigConfigurationTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, string[]>
+     */
     public function inValidEndOfLine(): array
     {
         return [
