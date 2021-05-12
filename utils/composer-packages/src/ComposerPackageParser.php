@@ -77,9 +77,6 @@ final class ComposerPackageParser implements PackageParser
         return $extensionCollection;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function parsePackages(string $content): array
     {
         $json = Json::decode($content, Json::FORCE_ARRAY);
