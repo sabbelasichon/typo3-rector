@@ -140,6 +140,9 @@ CODE_SAMPLE
         );
     }
 
+    /**
+     * @param Expr[] $arguments
+     */
     private function createIsFrontendCall(array $arguments): MethodCall
     {
         return $this->nodeFactory->createMethodCall(

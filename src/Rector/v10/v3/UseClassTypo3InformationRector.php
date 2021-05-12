@@ -18,7 +18,7 @@ use TYPO3\CMS\Core\Information\Typo3Information;
 final class UseClassTypo3InformationRector extends AbstractRector
 {
     /**
-     * @var array
+     * @var string[]
      */
     private const CONSTANTS_TO_REFACTOR = [
         'TYPO3_URL_GENERAL',

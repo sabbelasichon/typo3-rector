@@ -167,8 +167,9 @@ CODE_SAMPLE
                 continue;
             }
 
-            foreach ($fieldValue->value->items as $configValue) {
-                if (null === $configValue) {
+            $fieldValueArray = $fieldValue->value;
+            foreach ($fieldValueArray->items as $configValue) {
+                if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
 
@@ -176,12 +177,15 @@ CODE_SAMPLE
                     continue;
                 }
 
+                /** @var Array_ $configValueArray */
+                $configValueArray = $configValue->value;
+
                 // Refactor input type
-                if ($this->isConfigType($configValue->value, 'input') && ! $this->hasRenderType($configValue->value)) {
+                if ($this->isConfigType($configValueArray, 'input') && ! $this->hasRenderType($configValueArray)) {
                     $this->refactorRenderTypeInputDateTime($configValue);
                 }
 
-                $configValueArray = $configValue->value;
+                $configValueArray = $configValueArray;
                 foreach ($configValueArray->items as $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;
@@ -249,8 +253,8 @@ CODE_SAMPLE
                         if (array_key_exists(
                             $wizardItemValueKey,
                             self::MAP_WIZARD_TO_RENDER_TYPE
-                        ) && null === $this->extractArrayItemByKey($configValue->value, 'renderType')) {
-                            $configValue->value->items[] = new ArrayItem(new String_(
+                        ) && null === $this->extractArrayItemByKey($configValueArray, 'renderType')) {
+                            $configValueArray->items[] = new ArrayItem(new String_(
                                 self::MAP_WIZARD_TO_RENDER_TYPE[$wizardItemValueKey]
                             ), new String_('renderType'));
                         }
@@ -337,10 +341,10 @@ CODE_SAMPLE
                         }
 
                         if ([] !== $selectOptions && null === $this->extractArrayItemByKey(
-                            $configValue->value,
+                            $configValueArray,
                             self::MAP_WIZARD_TO_CUSTOM_TYPE['select']
                         )) {
-                            $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                            $configValueArray->items[] = new ArrayItem($this->nodeFactory->createArray(
                                 $selectOptions
                             ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE['select']));
                         }
@@ -349,19 +353,19 @@ CODE_SAMPLE
                             $wizardItemValueKey,
                             self::MAP_WIZARD_TO_CUSTOM_TYPE
                         ) && null === $this->extractArrayItemByKey(
-                            $configValue->value,
+                            $configValueArray,
                             self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]
                         )) {
-                            $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                            $configValueArray->items[] = new ArrayItem($this->nodeFactory->createArray(
                                 $customTypeOptions
                             ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
                         }
                     }
 
-                    $existingFieldControl = $this->extractArrayItemByKey($configValue->value, 'fieldControl');
+                    $existingFieldControl = $this->extractArrayItemByKey($configValueArray, 'fieldControl');
 
                     if (null === $existingFieldControl && [] !== $fieldControl) {
-                        $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray(
+                        $configValueArray->items[] = new ArrayItem($this->nodeFactory->createArray(
                             $fieldControl
                         ), new String_('fieldControl'));
                     } elseif ([] !== $fieldControl && $existingFieldControl instanceof ArrayItem) {

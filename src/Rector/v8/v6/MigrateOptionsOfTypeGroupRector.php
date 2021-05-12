@@ -34,7 +34,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
     private $addFieldWizards = [];
 
     /**
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     private $addFieldControls = [];
 

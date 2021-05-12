@@ -127,6 +127,9 @@ CODE_SAMPLE
         return $node;
     }
 
+    /**
+     * @return MethodCall[]
+     */
     private function extractForwardMethodCalls(ClassMethod $node): array
     {
         return $this->betterNodeFinder->find((array) $node->stmts, function (Node $node): bool {

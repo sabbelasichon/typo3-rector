@@ -18,8 +18,9 @@ final class RenderTypeFlexFormRector implements FlexFormRectorInterface
     public function transform(DOMDocument $domDocument): bool
     {
         $xpath = new DOMXPath($domDocument);
-        /** @var DOMNodeList|DOMElement[] $elements */
-        $elements = $xpath->query('//TCEforms/config');
+
+        /** @var DOMNodeList<DOMElement> $elements */
+        $elements = (array) $xpath->query('//TCEforms/config');
 
         $hasChanged = false;
         foreach ($elements as $element) {
