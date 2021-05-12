@@ -101,6 +101,6 @@ CODE_SAMPLE
 
     private function createExtensionKeyFromFolder(SmartFileInfo $fileInfo): ?SmartFileInfo
     {
-        return $this->filesFinder->findFileRelativeFromGivenFileInfo($fileInfo, 'ext_emconf.php');
+        return $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($fileInfo);
     }
 }
