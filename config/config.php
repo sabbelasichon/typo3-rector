@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symplify\SmartFileSystem\SmartFileSystem;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, true);
@@ -69,4 +70,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'typoscriptsetupts',
             ],
         ]]);
+
+    $services->set(SmartFileSystem::class);
 };
