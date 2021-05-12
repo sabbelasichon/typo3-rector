@@ -4,22 +4,27 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\FlexForms;
 
-use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
+use Iterator;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FlexFormsProcessorTest extends AbstractApplicationFileProcessorTest
+final class FlexFormsProcessorTest extends AbstractRectorTestCase
 {
-    public function test(): void
+    /**
+     * @dataProvider provideData
+     */
+    public function test(SmartFileInfo $fileInfo): void
     {
-        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture']);
-        $this->assertCount(3, $files);
-
-        $this->applicationFileProcessor->run($files);
-
-        $processResult = $this->processResultFactory->create($files);
-        $this->assertCount(1, $processResult->getFileDiffs());
+        $this->doTestFileInfo($fileInfo);
     }
 
-    protected function provideConfigFilePath(): string
+    public function provideData(): Iterator
+    {
+        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.xml');
+    }
+
+    public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

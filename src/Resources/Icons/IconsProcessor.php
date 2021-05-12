@@ -4,45 +4,34 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Resources\Icons;
 
-use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
-use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\Core\ValueObject\Application\File;
-use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use Ssch\TYPO3Rector\Contract\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Feature-77349-AdditionalLocationsForExtensionIcons.html
  * @see \Ssch\TYPO3Rector\Tests\Resources\Icons\IconsProcessor\IconsProcessorTest
  */
-final class IconsProcessor implements FileProcessorInterface, RectorInterface
+final class IconsProcessor implements FileProcessorInterface
 {
-    /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    /**
-     * @var RemovedAndAddedFilesCollector
-     */
-    private $removedAndAddedFilesCollector;
-
     /**
      * @var FilesFinder
      */
     private $filesFinder;
 
-    public function __construct(
-        Configuration $configuration,
-        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        FilesFinder $filesFinder
-    ) {
-        $this->configuration = $configuration;
-        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+    /**
+     * @var IconRectorInterface[]
+     */
+    private $iconsRector = [];
+
+    /**
+     * @param IconRectorInterface[] $iconsRector
+     */
+    public function __construct(FilesFinder $filesFinder, array $iconsRector)
+    {
         $this->filesFinder = $filesFinder;
+        $this->iconsRector = $iconsRector;
     }
 
     /**
@@ -51,7 +40,9 @@ final class IconsProcessor implements FileProcessorInterface, RectorInterface
     public function process(array $files): void
     {
         foreach ($files as $file) {
-            $this->processFile($file);
+            foreach ($this->iconsRector as $iconRector) {
+                $iconRector->refactorFile($file);
+            }
         }
     }
 
@@ -75,47 +66,6 @@ final class IconsProcessor implements FileProcessorInterface, RectorInterface
     public function getSupportedFileExtensions(): array
     {
         return ['png', 'gif', 'svg'];
-    }
-
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('Copy ext_icon.* to Resources/Icons/Extension.*', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
-ext_icon.gif
-CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-Resources/Icons/Extension.gif
-CODE_SAMPLE
-            ),
-        ]);
-    }
-
-    private function processFile(File $file): void
-    {
-        $smartFileInfo = $file->getSmartFileInfo();
-
-        $newFullPath = $this->createIconPath($file);
-
-        $this->removedAndAddedFilesCollector->addAddedFile(
-            new AddedFileWithContent($newFullPath, $smartFileInfo->getContents())
-        );
-
-        $this->createDeepDirectory($newFullPath);
-    }
-
-    private function createDeepDirectory(string $newFullPath): void
-    {
-        if ($this->configuration->isDryRun()) {
-            return;
-        }
-
-        $iconsDirectory = dirname($newFullPath);
-
-        if (! is_dir($iconsDirectory)) {
-            mkdir($iconsDirectory, 0777, true);
-        }
     }
 
     private function createIconPath(File $file): string

@@ -2,18 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Yaml\Form\Transformer;
+namespace Ssch\TYPO3Rector\Yaml\Form\Rector;
 
 use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
+use Ssch\TYPO3Rector\Contract\Yaml\Form\FormYamlRectorInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/10.2/en-us/Changelog/10.0/Feature-80420-AllowMultipleRecipientsInEmailFinisher.html
  */
-final class EmailFinisherTransformer implements FormYamlTransformer
+final class EmailFinisherRectorInterface implements FormYamlRectorInterface
 {
     /**
      * @var string
@@ -45,7 +46,7 @@ final class EmailFinisherTransformer implements FormYamlTransformer
         $this->currentFileProvider = $currentFileProvider;
     }
 
-    public function transform(array $yaml): array
+    public function refactor(array $yaml): array
     {
         if (! array_key_exists(self::FINISHERS, $yaml)) {
             return $yaml;

@@ -4,23 +4,27 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Composer\ExtensionComposerProcessor;
 
-use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
+use Iterator;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ExtensionComposerProcessorTest extends AbstractApplicationFileProcessorTest
+final class ExtensionComposerProcessorTest extends AbstractRectorTestCase
 {
-    public function test(): void
+    /**
+     * @dataProvider provideData
+     */
+    public function test(SmartFileInfo $fileInfo): void
     {
-        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture']);
-        $this->assertCount(0, $files);
-
-        $this->applicationFileProcessor->run($files);
-
-        $processResult = $this->processResultFactory->create($files);
-
-        $this->assertCount(0, $processResult->getFileDiffs());
+        $this->doTestFileInfo($fileInfo);
     }
 
-    protected function provideConfigFilePath(): string
+    public function provideData(): Iterator
+    {
+        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.json');
+    }
+
+    public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

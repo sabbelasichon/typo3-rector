@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\TypoScript\Conditions;
+namespace Ssch\TYPO3Rector\Contract\TypoScript\Conditions;
 
 interface TyposcriptConditionMatcher
 {

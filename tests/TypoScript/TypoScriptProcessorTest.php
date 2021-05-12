@@ -4,32 +4,28 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\TypoScript;
 
-use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
+use Iterator;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class TypoScriptProcessorTest extends AbstractApplicationFileProcessorTest
+final class TypoScriptProcessorTest extends AbstractRectorTestCase
 {
-    public function test(): void
+    /**
+     * @dataProvider provideData
+     */
+    public function test(SmartFileInfo $fileInfo): void
     {
-        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture']);
-        $this->assertCount(6, $files);
-
-        $this->applicationFileProcessor->run($files);
-
-        $processResult = $this->processResultFactory->create($files);
-
-        $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
-        $extbasePersistenceSmartFileInfo = new SmartFileInfo(__DIR__ . '/Expected/Extbase.php.inc');
-        $this->assertSame(
-            $extbasePersistenceSmartFileInfo->getContents(),
-            $addedFilesWithContent[0]->getFileContent()
-        );
-
-        $this->assertCount(4, $processResult->getFileDiffs());
+        $this->doTestFileInfo($fileInfo);
     }
 
-    protected function provideConfigFilePath(): string
+    public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
+    }
+
+    public function provideData(): Iterator
+    {
+        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.typoscript');
     }
 }

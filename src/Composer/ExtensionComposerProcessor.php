@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Composer;
 
+use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
+use Ssch\TYPO3Rector\Contract\Composer\ExtensionComposerRectorInterface;
 use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
 use Symplify\ComposerJsonManipulator\Printer\ComposerJsonPrinter;
 
@@ -67,7 +69,9 @@ final class ExtensionComposerProcessor implements FileProcessorInterface
     public function supports(File $file): bool
     {
         $smartFileInfo = $file->getSmartFileInfo();
-        if ('composer.json' !== $smartFileInfo->getBasename()) {
+
+        // Comparison is due to testing purposes
+        if (! Strings::endsWith($smartFileInfo->getBasename(), 'composer.json')) {
             return false;
         }
 

@@ -61,7 +61,7 @@ parameters:
                 - src/TypoScript/Visitors/FileIncludeToImportStatementVisitor.php
                 - src/TypoScript/Visitors/OldConditionToExpressionLanguageVisitor.php
                 - src/EditorConfig/EditorConfigIdiosyncraticParser.php
-                - src/FlexForms/Transformer/RenderTypeTransformer.php
+                - src/FlexForms/Rector/RenderTypeFlexFormRector.php
                 - src/TypoScript/TypoScriptProcessor.php
                 - src/TypoScript/Visitors/ExtbasePersistenceVisitor
 
@@ -81,3 +81,6 @@ parameters:
         -
             message: '#"@simplexml_load_string\(\$fileContent\)" is forbidden to use#'
             path: src/FlexForms/FlexFormsProcessor.php
+        -
+            message: '#Namespace "Ssch\\TYPO3Rector\\Yaml\\Form\\Rector" is only reserved for "Rector"\. Move the class somewhere else#'
+            path:  src/Yaml/Form/Rector/EmailFinisherRectorInterface

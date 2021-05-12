@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FlexForms\Transformer;
+namespace Ssch\TYPO3Rector\FlexForms\Rector;
 
 use DOMDocument;
 use DOMElement;
 use DOMNode;
 use DOMNodeList;
 use DOMXPath;
+use Ssch\TYPO3Rector\Contract\FlexForms\Rector\FlexFormRectorInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-final class RenderTypeTransformer implements FlexFormTransformer
+final class RenderTypeFlexFormRector implements FlexFormRectorInterface
 {
     public function transform(DOMDocument $domDocument): bool
     {
