@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
-use Ssch\TYPO3Rector\Helper\Database\Refactorings\DatabaseConnectionToDbalRefactoring;
+use Ssch\TYPO3Rector\Contract\Helper\Database\Refactorings\DatabaseConnectionToDbalRefactoring;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
