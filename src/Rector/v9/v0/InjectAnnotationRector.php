@@ -14,7 +14,6 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Nop;
 use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer;
@@ -73,11 +72,7 @@ final class InjectAnnotationRector extends AbstractRector
         $injectMethods = [];
         $properties = $node->getProperties();
         foreach ($properties as $property) {
-            /** @var PhpDocInfo|null $propertyPhpDocInfo */
             $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if (null === $propertyPhpDocInfo) {
-                continue;
-            }
             if (! $propertyPhpDocInfo->hasByName(self::OLD_ANNOTATION)) {
                 continue;
             }

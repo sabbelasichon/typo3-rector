@@ -133,6 +133,9 @@ final class InitializeArgumentsClassMethodFactory
         return $methodBuilder->getNode();
     }
 
+    /**
+     * @return Expression[]
+     */
     private function createStmts(ClassMethod $renderMethod): array
     {
         $paramTagsByName = $this->getParamTagsByName($renderMethod);
@@ -253,7 +256,6 @@ final class InitializeArgumentsClassMethodFactory
         }
 
         $reflectionClass = new ReflectionClass($fullyQualifiedName);
-
         return $reflectionClass->isTrait();
     }
 

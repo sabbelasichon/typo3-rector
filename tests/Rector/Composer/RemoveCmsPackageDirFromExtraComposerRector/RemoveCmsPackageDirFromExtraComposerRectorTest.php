@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Composer\RemoveCmsPackageDirFromExtraCom
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RemoveCmsPackageDirFromExtraComposerRectorTest extends AbstractRectorTestCase
@@ -24,7 +23,7 @@ final class RemoveCmsPackageDirFromExtraComposerRectorTest extends AbstractRecto
      */
     public function provideData(): Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.json');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.json');
     }
 
     public function provideConfigFilePath(): string

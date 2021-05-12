@@ -11,14 +11,17 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class BackendUtilityGetModuleUrlRectorTest extends AbstractRectorTestCase
 {
     /**
-     * @dataProvider provideDataForTest()
+     * @dataProvider provideData()
      */
     public function test(SmartFileInfo $file): void
     {
         $this->doTestFileInfo($file);
     }
 
-    public function provideDataForTest(): Iterator
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
+    public function provideData(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }

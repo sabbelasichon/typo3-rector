@@ -129,6 +129,9 @@ CODE_SAMPLE
         );
     }
 
+    /**
+     * @return string[]
+     */
     private function createConfiguration(string $objectString): array
     {
         return explode('.', $objectString);

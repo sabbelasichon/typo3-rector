@@ -16,7 +16,7 @@ final class TimeConditionMatcher implements TyposcriptConditionMatcher
     private const ALLOWED_TIME_CONSTANTS = 'hour|minute|month|year|dayofweek|dayofmonth|dayofyear';
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private const TIME_MAPPING = [
         'hour' => 'G',

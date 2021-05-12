@@ -37,7 +37,7 @@ use TYPO3\CMS\Frontend\Controller\ErrorController;
 final class PageNotFoundAndErrorHandlingRector extends AbstractRector
 {
     /**
-     * @var array
+     * @var array<string, string>
      */
     private const MAP_METHODS = [
         'pageNotFoundAndExit' => 'pageNotFoundAction',

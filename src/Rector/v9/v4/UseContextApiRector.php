@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 final class UseContextApiRector extends AbstractRector
 {
     /**
-     * @var array
+     * @var string[]
      */
     private const REFACTOR_PROPERTIES = [
         'loginUser',

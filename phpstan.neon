@@ -21,14 +21,7 @@ parameters:
          - tests/bootstrap.php
 
     inferPrivatePropertyTypeFromConstructor: true
-#    checkMissingIterableValueType: false
-#    checkGenericClassInNonGenericObjectType: false
-
-#    reportUnmatchedIgnoredErrors: false
-
-    excludePaths:
-        # should be included in Rector core
-        - src/Renaming/NodeManipulator/ClassRenamer.php
+    reportUnmatchedIgnoredErrors: false
 
     ignoreErrors:
         - '#^Cognitive complexity for#'
@@ -60,7 +53,6 @@ parameters:
             paths:
                 - src/TypoScript/Visitors/FileIncludeToImportStatementVisitor.php
                 - src/TypoScript/Visitors/OldConditionToExpressionLanguageVisitor.php
-                - src/EditorConfig/EditorConfigIdiosyncraticParser.php
                 - src/FlexForms/Rector/RenderTypeFlexFormRector.php
                 - src/TypoScript/TypoScriptProcessor.php
                 - src/TypoScript/Visitors/ExtbasePersistenceVisitor
@@ -84,3 +76,17 @@ parameters:
         -
             message: '#Namespace "Ssch\\TYPO3Rector\\Yaml\\Form\\Rector" is only reserved for "Rector"\. Move the class somewhere else#'
             path:  src/Yaml/Form/Rector/EmailFinisherRectorInterface
+<<<<<<< HEAD
+=======
+
+        # probably bug in Rector generics annotation
+        - '#Method Ssch\\TYPO3Rector\\Rector\\v9\\v0\\IgnoreValidationAnnotationRector\:\:refactorValidation\(\) has parameter \$phpDocInfo with generic class Rector\\BetterPhpDocParser\\PhpDocInfo\\PhpDocInfo but does not specify its types\: TNode#'
+
+        # node finder
+        - '#Method Ssch\\TYPO3Rector\\Rector\\v11\\v0\\ForwardResponseInsteadOfForwardMethodRector\:\:extractForwardMethodCalls\(\) should return array<PhpParser\\Node\\Expr\\MethodCall\> but returns array<PhpParser\\Node\>#'
+
+
+        # fix static reflection next
+        - '#Instead of "new ClassReflection\(\)" use ReflectionProvider service or "\(new PHPStan\\Reflection\\ClassReflection\(<desired_type\>\)\)" for static reflection to work#'
+        - '#Function "class_exists\(\)" cannot be used/left in the code#'
+>>>>>>> 7107672c (fixup! static fixes)

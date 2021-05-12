@@ -11,14 +11,17 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class RefactorRemovedMarkerMethodsFromHtmlParserRectorTest extends AbstractRectorTestCase
 {
     /**
-     * @dataProvider provideDataForTest()
+     * @dataProvider provideData()
      */
     public function test(SmartFileInfo $fileInfo): void
     {
         $this->doTestFileInfo($fileInfo);
     }
 
-    public function provideDataForTest(): Iterator
+    /**
+     * @return Iterator<SmartFileInfo[]>
+     */
+    public function provideData(): Iterator
     {
         yield [new SmartFileInfo(__DIR__ . '/Fixture/refactor_removed_marker_methods_from_html_parser.php.inc')];
     }

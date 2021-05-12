@@ -7,7 +7,6 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -45,13 +44,15 @@ final class RemoveInternalAnnotationRector extends AbstractRector
         if (! $this->isObjectType($node, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\CommandController'))) {
             return null;
         }
-        /** @var PhpDocInfo|null $phpDocInfo */
+
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
-        if (null === $phpDocInfo) {
-            return null;
-        }
         $this->phpDocTagRemover->removeByName($phpDocInfo, 'internal');
-        return $node;
+
+        if ($phpDocInfo->hasChanged()) {
+            return $node;
+        }
+
+        return null;
     }
 
     /**

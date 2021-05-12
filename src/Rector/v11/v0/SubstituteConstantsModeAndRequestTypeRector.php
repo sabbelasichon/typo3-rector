@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\Equal;
 use PhpParser\Node\Expr\BinaryOp\Identical;
@@ -128,6 +129,9 @@ CODE_SAMPLE
         return $node;
     }
 
+    /**
+     * @param Expr[] $arguments
+     */
     private function createIsBackendCall(array $arguments): MethodCall
     {
         return $this->nodeFactory->createMethodCall(

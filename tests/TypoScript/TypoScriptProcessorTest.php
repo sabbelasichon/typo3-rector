@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\TypoScript;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class TypoScriptProcessorTest extends AbstractRectorTestCase
@@ -29,6 +28,6 @@ final class TypoScriptProcessorTest extends AbstractRectorTestCase
      */
     public function provideData(): Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.typoscript');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.typoscript');
     }
 }

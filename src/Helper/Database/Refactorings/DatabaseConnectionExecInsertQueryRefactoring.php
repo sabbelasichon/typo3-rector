@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper\Database\Refactorings;
 
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use Rector\Core\PhpParser\Node\NodeFactory;
@@ -27,6 +28,9 @@ final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConn
         $this->nodeFactory = $nodeFactory;
     }
 
+    /**
+     * @return Expr[]
+     */
     public function refactor(MethodCall $oldNode): array
     {
         $tableArgument = array_shift($oldNode->args);

@@ -8,7 +8,6 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\HelperArgumentAssignFactory;
@@ -125,12 +124,7 @@ CODE_SAMPLE
 
     private function removeParamTags(ClassMethod $classMethod): void
     {
-        /** @var PhpDocInfo|null $phpDocInfo */
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($classMethod);
-        if (null === $phpDocInfo) {
-            return;
-        }
-
         $this->phpDocTagRemover->removeByName($phpDocInfo, 'param');
     }
 }

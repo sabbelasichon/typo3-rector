@@ -46,6 +46,9 @@ final class EmailFinisherRectorInterface implements FormYamlRectorInterface
         $this->currentFileProvider = $currentFileProvider;
     }
 
+    /**
+     * @param mixed[] $yaml
+     */
     public function refactor(array $yaml): array
     {
         if (! array_key_exists(self::FINISHERS, $yaml)) {

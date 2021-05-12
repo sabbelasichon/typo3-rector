@@ -29,7 +29,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
     private const DISABLED = 'disabled';
 
     /**
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     private $addFieldWizards = [];
 
