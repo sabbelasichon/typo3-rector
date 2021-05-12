@@ -1,19 +1,25 @@
 <?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" bootstrap="tests/bootstrap.php" colors="true" verbose="true">
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory suffix=".php">./src</directory>
-    </include>
-  </coverage>
-  <php>
-    <ini name="memory_limit" value="-1"/>
-  </php>
-  <testsuites>
-    <testsuite name="small">
-      <directory>tests</directory>
-      <directory>utils/composer-packages/tests</directory>
-      <directory>utils/phpstan/tests</directory>
-      <directory>utils/rules/tests</directory>
-    </testsuite>
-  </testsuites>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+    bootstrap="tests/bootstrap.php"
+    colors="true"
+    verbose="true"
+>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </coverage>
+    <php>
+        <ini name="memory_limit" value="-1"/>
+    </php>
+    <testsuites>
+        <testsuite name="small">
+            <directory>tests</directory>
+            <directory>utils/composer-packages/tests</directory>
+            <directory>utils/phpstan/tests</directory>
+            <directory>utils/rules/tests</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
