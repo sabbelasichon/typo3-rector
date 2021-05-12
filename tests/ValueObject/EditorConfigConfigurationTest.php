@@ -68,6 +68,9 @@ final class EditorConfigConfigurationTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function validEndOfLine(): array
     {
         return [

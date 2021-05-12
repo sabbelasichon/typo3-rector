@@ -20,6 +20,9 @@ final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractService
         $this->analyse([$filePath], $expectedErrorsWithLines);
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
         $message = sprintf(AddCodeCoverageIgnoreForRectorDefinition::ERROR_MESSAGE, MissingCodeCoverageIgnore::class);

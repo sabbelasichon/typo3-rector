@@ -33,6 +33,9 @@ final class ExtbaseCommandControllerToSymfonyCommandRectorTest extends AbstractR
         $this->assertSame($commandsFixture->getContents(), $addedCommandsFile->getFileContent());
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension/Classes/Controller/Command');

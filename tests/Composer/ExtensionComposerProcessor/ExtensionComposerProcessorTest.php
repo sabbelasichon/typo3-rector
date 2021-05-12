@@ -19,6 +19,9 @@ final class ExtensionComposerProcessorTest extends AbstractRectorTestCase
         $this->doTestFileInfo($fileInfo);
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
         return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.json');

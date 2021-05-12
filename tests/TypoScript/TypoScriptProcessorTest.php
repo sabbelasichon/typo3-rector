@@ -24,6 +24,9 @@ final class TypoScriptProcessorTest extends AbstractRectorTestCase
         return __DIR__ . '/config/configured_rule.php';
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
         return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.typoscript');

@@ -19,6 +19,9 @@ final class RemoveCmsPackageDirFromExtraComposerRectorTest extends AbstractRecto
         $this->doTestFileInfo($fileInfo);
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
         return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.json');

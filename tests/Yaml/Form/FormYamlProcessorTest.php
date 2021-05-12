@@ -19,6 +19,9 @@ final class FormYamlProcessorTest extends AbstractRectorTestCase
         $this->doTestFileInfo($fileInfo);
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
         return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.form.yaml');

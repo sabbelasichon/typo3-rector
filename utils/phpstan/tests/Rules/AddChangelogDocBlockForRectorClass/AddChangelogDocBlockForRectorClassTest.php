@@ -19,6 +19,9 @@ final class AddChangelogDocBlockForRectorClassTest extends AbstractServiceAwareR
         $this->analyse([$filePath], $expectedErrorsWithLines);
     }
 
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
     public function provideData(): Iterator
     {
         $message = sprintf(AddChangelogDocBlockForRectorClass::ERROR_MESSAGE, 'MissingChangelog');
