@@ -188,7 +188,7 @@ CODE_SAMPLE;
             }
 
             $commandVariables = [
-                '__TEMPLATE_NAMESPACE__' => $commandNamespace,
+                '__TEMPLATE_NAMESPACE__' => ltrim($commandNamespace, '\\'),
                 '__TEMPLATE_COMMAND_NAME__' => $commandName,
                 '__TEMPLATE_DESCRIPTION__' => $commandDescription,
                 '__TEMPLATE_COMMAND_BODY__' => $this->betterStandardPrinter->prettyPrint($commandMethod->stmts),
@@ -246,6 +246,13 @@ CODE_SAMPLE;
         }
 
         $this->addNewCommandsToCommandsFile($commandsFilePath, $newCommandsWithFullQualifiedNamespace);
+
+        $this->addArgumentToSymfonyCommandRector->configure([
+            AddArgumentToSymfonyCommandRector::INPUT_ARGUMENTS => [],
+        ]);
+        $this->addCommandsToReturnRector->configure([
+            AddCommandsToReturnRector::COMMANDS => [],
+        ]);
 
         return $node;
     }
