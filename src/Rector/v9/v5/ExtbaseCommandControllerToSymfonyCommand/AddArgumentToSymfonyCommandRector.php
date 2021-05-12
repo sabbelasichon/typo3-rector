@@ -161,6 +161,6 @@ CODE_SAMPLE
 
     private function createMode(int $mode): ClassConstFetch
     {
-        return $this->nodeFactory->createClassConstFetch(InputArgument::class, self::MODE_MAPPING[$mode]);
+        return $this->nodeFactory->createClassConstFetch('Symfony\Component\Console\Input\InputArgument', self::MODE_MAPPING[$mode]);
     }
 }
