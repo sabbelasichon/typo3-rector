@@ -6,8 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Yaml\Form;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-//use Rector\Testing\PHPUnit\AbstractTestCase;
-//use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FormYamlProcessorTest extends AbstractRectorTestCase
