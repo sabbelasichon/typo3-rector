@@ -61,7 +61,7 @@ parameters:
                 - src/TypoScript/Visitors/FileIncludeToImportStatementVisitor.php
                 - src/TypoScript/Visitors/OldConditionToExpressionLanguageVisitor.php
                 - src/EditorConfig/EditorConfigIdiosyncraticParser.php
-                - src/FlexForms/Transformer/RenderTypeTransformer.php
+                - src/FlexForms/Rector/RenderTypeFlexFormRector.php
                 - src/TypoScript/TypoScriptProcessor.php
                 - src/TypoScript/Visitors/ExtbasePersistenceVisitor
 

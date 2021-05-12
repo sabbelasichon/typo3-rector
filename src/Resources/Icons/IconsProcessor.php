@@ -8,7 +8,6 @@ use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\Contract\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
-use Ssch\TYPO3Rector\Rector\Resources\IconsRector;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Feature-77349-AdditionalLocationsForExtensionIcons.html

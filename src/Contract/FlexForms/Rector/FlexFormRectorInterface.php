@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FlexForms\Transformer;
+namespace Ssch\TYPO3Rector\Contract\FlexForms\Rector;
 
 use DOMDocument;
 use Rector\Core\Contract\Rector\RectorInterface;
 
-interface FlexFormTransformer extends RectorInterface
+interface FlexFormRectorInterface extends RectorInterface
 {
     public function transform(DOMDocument $domDocument): bool;
 }
