@@ -29,3 +29,40 @@ finishers:
       format: html
       attachUploads: true
     identifier: EmailToSender
+-----
+finishers:
+  -
+    options:
+      recipients:
+        foo@domain.com: 'Stadtwerke Bonn'
+        bar@domain.com: Bar
+      subject: 'Kontaktanfrage von Website'
+      senderAddress: '{email}'
+      senderName: '{lastName}'
+      format: html
+      attachUploads: true
+      replyToRecipients:
+        - foo@domain.com
+      carbonCopyRecipients:
+        - foo@domain.com
+      blindCarbonCopyRecipients:
+        - foo@domain.com
+    identifier: EmailToReceiver
+  -
+    options:
+      recipients:
+        foo@domain.com: 'Stadtwerke Bonn'
+        bar@domain.com: Bar
+      subject: 'Kontaktanfrage von Website'
+      senderAddress: '{email}'
+      senderName: '{lastName}'
+      format: html
+      attachUploads: true
+      replyToRecipients:
+        - foo@domain.com
+      carbonCopyRecipients:
+        - foo@domain.com
+      blindCarbonCopyRecipients:
+        - foo@domain.com
+    identifier: EmailToSender
+
