@@ -7,7 +7,6 @@ use Rector\Core\ValueObject\PhpVersion;
 use Rector\PostRector\Rector\NameImportingPostRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
-use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 
