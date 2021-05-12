@@ -1,4 +1,76 @@
-# 191 Rules Overview
+# 194 Rules Overview
+
+## AddArgumentToSymfonyCommandRector
+
+Add arguments to configure and executed method in Symfony Command
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddArgumentToSymfonyCommandRector`](../src/Rector/v9/v5/ExtbaseCommandControllerToSymfonyCommand/AddArgumentToSymfonyCommandRector.php)
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddArgumentToSymfonyCommandRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+
+    $services->set(AddArgumentToSymfonyCommandRector::class)
+        ->call('configure', [[AddArgumentToSymfonyCommandRector::INPUT_ARGUMENTS => ['foo' => ['name' => 'foo', 'description' => 'The parameter foo', 'mode' => 1, 'default' => null]]]]);
+};
+```
+
+↓
+
+```diff
+ protected function configure(): void
+ {
+         $this->setDescription('This is the description of the command');
++        $this->addArgument('foo', \Symfony\Component\Console\Input\InputArgument::REQUIRED, 'The parameter foo', null);
+ }
+```
+
+<br>
+
+## AddCommandsToReturnRector
+
+Add arguments to configure method in Symfony Command
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddCommandsToReturnRector`](../src/Rector/v9/v5/ExtbaseCommandControllerToSymfonyCommand/AddCommandsToReturnRector.php)
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddCommandsToReturnRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+
+    $services->set(AddCommandsToReturnRector::class)
+        ->call('configure', [[AddCommandsToReturnRector::COMMANDS => ['Command' => 'Command']]]);
+};
+```
+
+↓
+
+```diff
+ protected function configure(): void
+ {
+         $this->setDescription('This is the description of the command');
++        $this->addArgument('foo', \Symfony\Component\Console\Input\InputArgument::REQUIRED, 'The foo argument', null);
+ }
+```
+
+<br>
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -605,6 +677,42 @@ return static function (ContainerConfigurator $containerConfigurator): void {
          ],
      '_md5_values_when_last_written' => 'a:0:{}',
  ];
+```
+
+<br>
+
+## ExtbaseCommandControllerToSymfonyCommandRector
+
+Migrate from extbase CommandController to Symfony Command
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommandRector`](../src/Rector/v9/v5/ExtbaseCommandControllerToSymfonyCommandRector.php)
+
+```diff
+-use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
++use Symfony\Component\Console\Command\Command;
++use Symfony\Component\Console\Input\InputInterface;
++use Symfony\Component\Console\Output\OutputInterface;
+
+-final class TestCommand extends CommandController
++final class FooCommand extends Command
+ {
+-    /**
+-     * This is the description of the command
+-     *
+-     * @param string Foo The foo parameter
+-     */
+-    public function fooCommand(string $foo)
++    protected function configure(): void
+     {
++        $this->setDescription('This is the description of the command');
++        $this->addArgument('foo', \Symfony\Component\Console\Input\InputArgument::REQUIRED, 'The foo parameter', null);
++    }
+
++    protected function execute(InputInterface $input, OutputInterface $output): int
++    {
++        return 0;
+     }
+ }
 ```
 
 <br>
