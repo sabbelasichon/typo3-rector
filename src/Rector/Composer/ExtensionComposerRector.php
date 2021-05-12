@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Composer;
 
 use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
+use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\Contract\Composer\ExtensionComposerRectorInterface;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -17,7 +17,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ComposerJson/Index.html#extra
  * @see \Ssch\TYPO3Rector\Tests\Rector\Composer\ExtensionComposerRector\ExtensionComposerRectorTest
  */
-final class ExtensionComposerRector implements ExtensionComposerRectorInterface
+final class ExtensionComposerRector implements ComposerRectorInterface
 {
     /**
      * @var string

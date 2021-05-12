@@ -5,34 +5,12 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\Composer\ExtensionComposerRector;
 
 use Iterator;
-use Nette\Utils\Json;
-use Rector\Testing\PHPUnit\AbstractTestCase;
-use Ssch\TYPO3Rector\Rector\Composer\ExtensionComposerRector;
-use Symplify\ComposerJsonManipulator\ComposerJsonFactory;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use Symplify\EasyTesting\StaticFixtureSplitter;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ExtensionComposerRectorTest extends AbstractTestCase
+final class ExtensionComposerRectorTest extends AbstractRectorTestCase
 {
-    /**
-     * @var ComposerJsonFactory
-     */
-    private $composerJsonFactory;
-
-    /**
-     * @var ExtensionComposerRector
-     */
-    private $extensionComposerRector;
-
-    protected function setUp(): void
-    {
-        $this->bootFromConfigFileInfos([new SmartFileInfo($this->provideConfigFilePath())]);
-
-        $this->extensionComposerRector = $this->getService(ExtensionComposerRector::class);
-        $this->composerJsonFactory = $this->getService(ComposerJsonFactory::class);
-    }
-
     /**
      * @dataProvider provideData()
      */
@@ -46,19 +24,8 @@ final class ExtensionComposerRectorTest extends AbstractTestCase
         return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.json');
     }
 
-    private function provideConfigFilePath(): string
+    public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
-    }
-
-    private function doTestFileInfo(SmartFileInfo $smartFileInfo): void
-    {
-        $inputFileInfoAndExpected = StaticFixtureSplitter::splitFileInfoToLocalInputAndExpected($smartFileInfo);
-
-        $composerJson = $this->composerJsonFactory->createFromFileInfo($inputFileInfoAndExpected->getInputFileInfo());
-        $this->extensionComposerRector->refactor($composerJson);
-
-        $changedComposerJson = Json::encode($composerJson->getJsonArray(), Json::PRETTY);
-        $this->assertJsonStringEqualsJsonString($inputFileInfoAndExpected->getExpected(), $changedComposerJson);
     }
 }
