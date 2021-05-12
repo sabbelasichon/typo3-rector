@@ -94,7 +94,6 @@ CODE_SAMPLE
         foreach ($commands as $commandName => $command) {
             $node->expr->items[] = new ArrayItem($this->nodeFactory->createArray([
                 'class' => $this->nodeFactory->createClassConstReference($command),
-                'schedulable' => true,
             ]), new String_($commandName));
         }
 
