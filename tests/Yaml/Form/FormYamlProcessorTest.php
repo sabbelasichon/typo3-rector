@@ -21,7 +21,7 @@ final class FormYamlProcessorTest extends AbstractRectorTestCase
 
     public function provideData(): Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.yaml');
+        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture', '*.form.yaml');
     }
 
     public function provideConfigFilePath(): string

@@ -17,7 +17,8 @@ use Rector\Core\ValueObject\Application\File;
 use Rector\FileFormatter\Contract\EditorConfig\EditorConfigParserInterface;
 use Rector\FileFormatter\ValueObject\Indent;
 use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
-use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
+use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
+use Ssch\TYPO3Rector\Contract\TypoScript\ConvertToPhpFileInterface;
 use Ssch\TYPO3Rector\TypoScript\Visitors\AbstractVisitor;
 use Symfony\Component\Console\Output\BufferedOutput;
 

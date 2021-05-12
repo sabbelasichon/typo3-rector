@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\TypoScript;
+namespace Ssch\TYPO3Rector\Contract\TypoScript;
 
 use Rector\Core\Contract\Rector\RectorInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;

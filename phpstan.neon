@@ -81,3 +81,6 @@ parameters:
         -
             message: '#"@simplexml_load_string\(\$fileContent\)" is forbidden to use#'
             path: src/FlexForms/FlexFormsProcessor.php
+        -
+            message: '#Namespace "Ssch\\TYPO3Rector\\Yaml\\Form\\Rector" is only reserved for "Rector"\. Move the class somewhere else#'
+            path:  src/Yaml/Form/Rector/EmailFinisherRectorInterface

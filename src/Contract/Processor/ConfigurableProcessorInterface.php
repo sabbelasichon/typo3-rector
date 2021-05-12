@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Processor;
+namespace Ssch\TYPO3Rector\Contract\Processor;
 
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 

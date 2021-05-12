@@ -23,7 +23,7 @@ final class IconsProcessor implements FileProcessorInterface
     /**
      * @var IconRectorInterface[]
      */
-    private $iconsRector;
+    private $iconsRector = [];
 
     /**
      * @param IconRectorInterface[] $iconsRector
