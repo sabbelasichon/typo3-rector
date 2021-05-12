@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
+use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\Set\ValueObject\SetList;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
@@ -36,9 +37,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         [
             __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
             RemovePackageVersionsRector::class => [__DIR__ . '/config', __DIR__ . '/tests'],
-            __DIR__ . '/src/Bootstrap',
             __DIR__ . '/src/Set',
-            __DIR__ . '/src/Compiler',
+            '*/Fixture/*',
+            StringClassNameToClassConstantRector::class => [
+                // accidental local class autoload in require-dev
+                __DIR__ . '/src/Rector/v9/v5/ExtbaseCommandControllerToSymfonyCommand/AddArgumentToSymfonyCommandRector.php',
+            ],
         ]
     );
 
