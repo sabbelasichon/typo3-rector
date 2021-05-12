@@ -8,7 +8,7 @@ use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\Yaml\Form\Transformer\FormYamlTransformer;
+use Ssch\TYPO3Rector\Yaml\Form\Transformer\FormYamlRector;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -22,7 +22,7 @@ final class FormYamlProcessor implements FileProcessorInterface
     private const ALLOWED_FILE_EXTENSIONS = ['yaml'];
 
     /**
-     * @var FormYamlTransformer[]
+     * @var FormYamlRector[]
      */
     private $transformer = [];
 
@@ -32,7 +32,7 @@ final class FormYamlProcessor implements FileProcessorInterface
     private $currentFileProvider;
 
     /**
-     * @param FormYamlTransformer[] $transformer
+     * @param FormYamlRector[] $transformer
      */
     public function __construct(CurrentFileProvider $currentFileProvider, array $transformer)
     {

@@ -4,22 +4,31 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Yaml\Form;
 
-use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
+use Iterator;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+//use Rector\Testing\PHPUnit\AbstractTestCase;
+//use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FormYamlProcessorTest extends AbstractApplicationFileProcessorTest
+final class FormYamlProcessorTest extends AbstractRectorTestCase
 {
-    public function test(): void
+    /**
+     * @dataProvider provideData()
+     */
+    public function test(SmartFileInfo $fixtureFileInfo): void
     {
-        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture']);
-        $this->assertCount(2, $files);
-
-        $this->applicationFileProcessor->run($files);
-
-        $processResult = $this->processResultFactory->create($files);
-        $this->assertCount(1, $processResult->getFileDiffs());
+        $this->doTestFileInfo($fixtureFileInfo);
     }
 
-    protected function provideConfigFilePath(): string
+    /**
+     * @return Iterator<SmartFileInfo>
+     */
+    public function provideData(): Iterator
+    {
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.yaml');
+    }
+
+    public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

@@ -14,7 +14,7 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
-use Rector\FileFormatter\Contract\EditorConfig\EditorConfigParserInterface;
+use Rector\FileFormatter\EditorConfig\EditorConfigParser;
 use Rector\FileFormatter\ValueObject\Indent;
 use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
 use Ssch\TYPO3Rector\Processor\ConfigurableProcessorInterface;
@@ -62,7 +62,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     private $currentFileProvider;
 
     /**
-     * @var EditorConfigParserInterface
+     * @var EditorConfigParser
      */
     private $editorConfigParser;
 
@@ -84,7 +84,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         BufferedOutput $output,
         ASTPrinterInterface $typoscriptPrinter,
         CurrentFileProvider $currentFileProvider,
-        EditorConfigParserInterface $editorConfigParser,
+        EditorConfigParser $editorConfigParser,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         RectorOutputStyle $rectorOutputStyle,
         array $visitors = []

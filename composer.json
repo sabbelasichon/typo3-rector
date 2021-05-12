@@ -13,7 +13,7 @@
         "php": "^7.3|^8.0",
         "helmich/typo3-typoscript-parser": "^2.3.0",
         "nikic/php-parser": "4.10.5",
-        "rector/rector": "dev-main#9250c84",
+        "rector/rector": "dev-main",
         "symfony/var-exporter": "^3.0 || ^4.0 || ^5.0",
         "symfony/yaml": "^3.0 || ^4.0 || ^5.0",
         "symplify/smart-file-system": "^9.3"

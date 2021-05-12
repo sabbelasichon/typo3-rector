@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/10.2/en-us/Changelog/10.0/Feature-80420-AllowMultipleRecipientsInEmailFinisher.html
  */
-final class EmailFinisherTransformer implements FormYamlTransformer
+final class EmailFinisherRector implements FormYamlRector
 {
     /**
      * @var string

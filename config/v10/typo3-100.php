@@ -30,7 +30,7 @@ use Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseTwoLetterIsoCodeFromSiteLanguageRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\RemoveFormatConstantsEmailFinisherRector;
-use Ssch\TYPO3Rector\Yaml\Form\Transformer\EmailFinisherTransformer;
+use Ssch\TYPO3Rector\Yaml\Form\Transformer\EmailFinisherRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
@@ -95,7 +95,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]);
 
-    $services->set(EmailFinisherTransformer::class);
+    $services->set(EmailFinisherRector::class);
 
     $services->set(AddReturnTypeDeclarationRector::class)
         ->call('configure', [
