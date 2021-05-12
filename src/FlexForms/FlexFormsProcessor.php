@@ -8,7 +8,7 @@ use DOMDocument;
 use Exception;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\FlexForms\Transformer\FlexFormTransformer;
+use Ssch\TYPO3Rector\FlexForms\Rector\FlexFormRector;
 use UnexpectedValueException;
 
 /**
@@ -17,16 +17,16 @@ use UnexpectedValueException;
 final class FlexFormsProcessor implements FileProcessorInterface
 {
     /**
-     * @var FlexFormTransformer[]
+     * @var FlexFormRector[]
      */
-    private $transformer = [];
+    private $flexFormRectors = [];
 
     /**
-     * @param FlexFormTransformer[] $transformer
+     * @param FlexFormRector[] $flexFormRectors
      */
-    public function __construct(array $transformer)
+    public function __construct(array $flexFormRectors)
     {
-        $this->transformer = $transformer;
+        $this->flexFormRectors = $flexFormRectors;
     }
 
     /**
@@ -34,7 +34,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
      */
     public function process(array $files): void
     {
-        if ([] === $this->transformer) {
+        if ([] === $this->flexFormRectors) {
             return;
         }
 
@@ -80,7 +80,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
         $domDocument->loadXML($file->getFileContent());
 
         $hasChanged = false;
-        foreach ($this->transformer as $transformer) {
+        foreach ($this->flexFormRectors as $transformer) {
             $hasChanged = $transformer->transform($domDocument);
         }
 

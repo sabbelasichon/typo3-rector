@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v2\PageNotFoundAndErrorHandlingRector\Fixture;
 
 abstract class AbstractPage
@@ -44,6 +46,8 @@ abstract class AbstractPage
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v2\PageNotFoundAndErrorHandlingRector\Fixture;
 

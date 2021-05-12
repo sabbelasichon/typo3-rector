@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\GetPreferredClientLanguageRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -16,6 +18,8 @@ class FooBarBazTsfe
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\GetPreferredClientLanguageRector\Fixture;
 

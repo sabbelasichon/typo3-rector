@@ -17,8 +17,6 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symplify\SmartFileSystem\SmartFileSystem;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-//    $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, true);
-
     $parameters = $containerConfigurator->parameters();
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
     $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, __DIR__ . '/../utils/phpstan/config/extension.neon');
@@ -36,7 +34,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/TypoScript/Conditions',
             __DIR__ . '/../src/TypoScript/Visitors',
             __DIR__ . '/../src/Yaml/Form/Transformer',
-            __DIR__ . '/../src/FlexForms/Transformer',
+            __DIR__ . '/../src/FlexForms/Rector',
             __DIR__ . '/../src/Resources/Icons/IconsProcessor.php',
         ]);
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Fluid\ViewHelpers\Fixture;
 
 
@@ -54,6 +56,8 @@ class MyPrivacyViewHelper extends AbstractViewHelper
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Fluid\ViewHelpers\Fixture;
 

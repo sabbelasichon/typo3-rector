@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v0\SwiftMailerBasedMailMessageToMailerBasedMessageRector\Fixture;
 
 use Swift_Attachment;
@@ -20,6 +22,8 @@ $mail
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v0\SwiftMailerBasedMailMessageToMailerBasedMessageRector\Fixture;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v3\RefactorMethodFileContentRector\Fixture;
 
 use TYPO3\CMS\Core\TypoScript\TemplateService;
@@ -28,6 +30,8 @@ class MyClass
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v3\RefactorMethodFileContentRector\Fixture;
 

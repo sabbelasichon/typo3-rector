@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Fluid\ViewHelpers\Fixture;
 
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -26,6 +28,8 @@ final class InArrayViewHelper extends AbstractViewHelper
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Fluid\ViewHelpers\Fixture;
 

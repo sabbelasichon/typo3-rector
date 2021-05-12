@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector\Fixture;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -24,6 +26,8 @@ class CanonicalParametersGetDataHook
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector\Fixture;
 

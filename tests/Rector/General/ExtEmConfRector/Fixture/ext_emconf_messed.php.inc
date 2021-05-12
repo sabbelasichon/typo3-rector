@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\General\ExtEmConfRector\Fixture;
 
 $EM_CONF = [];
@@ -48,6 +50,8 @@ $EM_CONF[$_EXTKEY] = [
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\General\ExtEmConfRector\Fixture;
 

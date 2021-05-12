@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v1\SendNotifyEmailToMailApiRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -38,6 +40,8 @@ class TxSomePluginBase extends AbstractPlugin
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v1\SendNotifyEmailToMailApiRector\Fixture;
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\RemoveAddQueryStringMethodRector\Fixture;
 
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -34,6 +36,8 @@ class SomeViewHelper extends AbstractViewHelper
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\RemoveAddQueryStringMethodRector\Fixture;
 

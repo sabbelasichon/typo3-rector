@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplacedGeneralUtilitySysLogWithLogginApiRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -15,6 +17,8 @@ GeneralUtility::sysLog('message', 'foo', 4);
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplacedGeneralUtilitySysLogWithLogginApiRector\Fixture;
 

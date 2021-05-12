@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendControllerRector\Fixture;
 
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -26,6 +28,8 @@ final class FooBarBazTypoScriptFrontendController
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendControllerRector\Fixture;
 

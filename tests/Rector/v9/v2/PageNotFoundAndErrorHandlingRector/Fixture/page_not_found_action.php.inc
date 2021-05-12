@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v2\PageNotFoundAndErrorHandlingRector\Fixture;
 
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -40,6 +42,8 @@ class SomeController extends ActionController
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v2\PageNotFoundAndErrorHandlingRector\Fixture;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FlexForms\Transformer;
+namespace Ssch\TYPO3Rector\FlexForms\Rector;
 
 use DOMDocument;
 use DOMElement;
@@ -12,7 +12,7 @@ use DOMXPath;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-final class RenderTypeTransformer implements FlexFormTransformer
+final class RenderTypeFlexFormRector implements FlexFormRector
 {
     public function transform(DOMDocument $domDocument): bool
     {

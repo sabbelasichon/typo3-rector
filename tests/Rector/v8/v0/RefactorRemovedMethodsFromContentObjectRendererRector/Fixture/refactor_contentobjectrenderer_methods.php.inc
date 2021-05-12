@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Frontend\ContentObject\Fixture;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -20,6 +22,8 @@ final class ContentObjectRendererMethods
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Frontend\ContentObject\Fixture;
 

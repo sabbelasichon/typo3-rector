@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Composer\ExtensionComposerProcessor;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
 
 final class ExtensionComposerProcessorTest extends AbstractRectorTestCase
 {

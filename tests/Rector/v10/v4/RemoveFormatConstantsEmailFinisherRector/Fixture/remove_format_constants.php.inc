@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\RemoveFormatConstantsEmailFinisherRector\Fixture;
 
 use TYPO3\CMS\Form\Domain\Finishers\EmailFinisher;
@@ -36,6 +38,8 @@ final class DownloadFormEmailFinisher extends EmailFinisher
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\RemoveFormatConstantsEmailFinisherRector\Fixture;
 

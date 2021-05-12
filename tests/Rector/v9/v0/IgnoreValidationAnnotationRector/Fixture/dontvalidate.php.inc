@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
 
 final class SomeDontValidationClass
@@ -20,6 +22,8 @@ final class SomeDontValidationClass
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
 

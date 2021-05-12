@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v2\PageNotFoundAndErrorHandlingRector\Fixture;
 
 if($GLOBALS['TSFE']->checkPageUnavailableHandler()) {
@@ -9,6 +11,8 @@ if($GLOBALS['TSFE']->checkPageUnavailableHandler()) {
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v2\PageNotFoundAndErrorHandlingRector\Fixture;
 

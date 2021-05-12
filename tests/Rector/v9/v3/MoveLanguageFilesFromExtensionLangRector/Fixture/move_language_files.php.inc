@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v3\MoveLanguageFilesFromExtensionLangRector\Fixture;
 use TYPO3\CMS\Core\Localization\LanguageService;
 
@@ -103,6 +105,8 @@ $languageService->sL($coreLabels.'labels.reload');
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v3\MoveLanguageFilesFromExtensionLangRector\Fixture;
 use TYPO3\CMS\Core\Localization\LanguageService;

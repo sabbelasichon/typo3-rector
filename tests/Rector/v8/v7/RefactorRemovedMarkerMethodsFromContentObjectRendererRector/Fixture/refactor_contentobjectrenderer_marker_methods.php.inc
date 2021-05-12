@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Frontend\ContentObject\Fixture;
 
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
@@ -37,6 +39,8 @@ final class ContentObjectMarkerRendererMethods
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Frontend\ContentObject\Fixture;
 

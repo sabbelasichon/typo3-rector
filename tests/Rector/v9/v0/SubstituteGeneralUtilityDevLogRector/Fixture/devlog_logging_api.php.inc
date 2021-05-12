@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\SubstituteGeneralUtilityDevLogRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -14,6 +16,8 @@ GeneralUtility::devLog('message', 'foo', 4, $data);
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\SubstituteGeneralUtilityDevLogRector\Fixture;
 

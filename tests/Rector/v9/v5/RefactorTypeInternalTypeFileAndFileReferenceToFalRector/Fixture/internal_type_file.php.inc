@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\RefactorTypeInternalTypeFileAndFileReferenceToFalRector\Fixture;
 
 final class RefactorTypeInternalTypeFileAndFileReferenceToFal
@@ -40,6 +42,8 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFal
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\RefactorTypeInternalTypeFileAndFileReferenceToFalRector\Fixture;
 

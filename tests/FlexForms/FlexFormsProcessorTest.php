@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\FlexForms;
 
+use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FlexFormsProcessorTest extends AbstractRectorTestCase
 {
-    public function test(): void
+    /**
+     * @dataProvider provideData()
+     */
+    public function test(SmartFileInfo $fixtureFileInfo): void
     {
-        $files = $this->fileFactory->createFromPaths([__DIR__ . '/Fixture']);
-        $this->assertCount(3, $files);
+        $this->doTestFileInfo($fixtureFileInfo);
+    }
 
-        $this->applicationFileProcessor->run($files);
-
-        $processResult = $this->processResultFactory->create($files);
-        $this->assertCount(1, $processResult->getFileDiffs());
+    public function provideData(): Iterator
+    {
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.xml');
     }
 
     public function provideConfigFilePath(): string

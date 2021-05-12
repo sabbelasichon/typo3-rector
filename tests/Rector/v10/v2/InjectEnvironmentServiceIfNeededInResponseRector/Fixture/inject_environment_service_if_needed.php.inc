@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests;
 
 use TYPO3\CMS\Extbase\Mvc\Web\Response;
@@ -25,6 +27,8 @@ class MyOtherResponse extends Response
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests;
 

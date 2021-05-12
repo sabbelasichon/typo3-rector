@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
 
 final class SomeOtherClass
@@ -13,6 +15,8 @@ final class SomeOtherClass
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
 

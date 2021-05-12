@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\RemoveL10nModeNoCopyRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -56,6 +58,8 @@ return [
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\RemoveL10nModeNoCopyRector\Fixture;
 

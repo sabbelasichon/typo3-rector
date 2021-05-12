@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\TypoScript;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class TypoScriptProcessorTest extends AbstractRectorTestCase

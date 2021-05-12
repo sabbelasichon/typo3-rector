@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v3\RefactorTsConfigRelatedMethodsRector\Fixture;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
@@ -29,6 +31,8 @@ class SC_alt_db_navframe
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v3\RefactorTsConfigRelatedMethodsRector\Fixture;
 

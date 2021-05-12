@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v2\UseHtmlSpecialCharsDirectlyForTranslationRector\Fixture;
 
 use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
@@ -21,6 +23,8 @@ class MyPlugin extends AbstractPlugin
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v2\UseHtmlSpecialCharsDirectlyForTranslationRector\Fixture;
 

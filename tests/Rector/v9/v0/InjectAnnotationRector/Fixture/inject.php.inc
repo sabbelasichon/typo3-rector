@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotationRector\Fixture;
 
 use Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotationRector\Source\ShortInjectionClass;
@@ -60,6 +62,8 @@ final class SomeInjectClass
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotationRector\Fixture;
 

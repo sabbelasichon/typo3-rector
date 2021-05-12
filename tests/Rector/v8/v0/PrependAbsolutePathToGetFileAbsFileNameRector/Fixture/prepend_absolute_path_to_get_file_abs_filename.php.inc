@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\PrependAbsolutePathToGetFileAbsFileNameRector\Fixture;
 
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
@@ -26,6 +28,8 @@ class SomeFooBar
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\PrependAbsolutePathToGetFileAbsFileNameRector\Fixture;
 

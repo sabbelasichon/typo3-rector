@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v4\MoveLanguageFilesFromRemovedCmsExtensionRector\Fixture;
 
 $GLOBALS['LANG']->sL('LLL:EXT:cms/web_info/locallang.xlf:pages_1');
@@ -17,6 +19,8 @@ $types = [
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v7\v4\MoveLanguageFilesFromRemovedCmsExtensionRector\Fixture;
 

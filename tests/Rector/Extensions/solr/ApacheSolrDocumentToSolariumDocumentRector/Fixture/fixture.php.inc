@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v1\ApacheSolrDocumentToSolariumDocument\Fixture;
 
 use Apache_Solr_Document;
@@ -30,6 +32,8 @@ class MySolrIndexer
 ?>
 -----
 <?php
+
+declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v8\v1\ApacheSolrDocumentToSolariumDocument\Fixture;
 
