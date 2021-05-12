@@ -15,8 +15,8 @@
 -----
 {
     "name": "foo/bar-baz",
-    "license": "GPL-2.0-or-later",
     "description": "Add description...",
+    "license": "GPL-2.0-or-later",
     "extra": {
         "typo3/cms": {
             "cms-package-dir": "{$vendor-dir}/typo3/cms",

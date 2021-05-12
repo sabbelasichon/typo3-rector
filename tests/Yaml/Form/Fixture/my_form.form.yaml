@@ -65,4 +65,3 @@ finishers:
       blindCarbonCopyRecipients:
         - foo@domain.com
     identifier: EmailToSender
-
