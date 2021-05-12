@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Composer\ExtensionComposerProcessor;
 
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
 
-final class ExtensionComposerProcessorTest extends AbstractApplicationFileProcessorTest
+final class ExtensionComposerProcessorTest extends AbstractRectorTestCase
 {
     public function test(): void
     {
@@ -20,7 +21,7 @@ final class ExtensionComposerProcessorTest extends AbstractApplicationFileProces
         $this->assertCount(0, $processResult->getFileDiffs());
     }
 
-    protected function provideConfigFilePath(): string
+    public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

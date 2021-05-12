@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\TypoScript;
 
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class TypoScriptProcessorTest extends AbstractApplicationFileProcessorTest
+final class TypoScriptProcessorTest extends AbstractRectorTestCase
 {
     public function test(): void
     {
@@ -28,7 +29,7 @@ final class TypoScriptProcessorTest extends AbstractApplicationFileProcessorTest
         $this->assertCount(4, $processResult->getFileDiffs());
     }
 
-    protected function provideConfigFilePath(): string
+    public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

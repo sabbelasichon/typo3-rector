@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Resources\Icons\IconsProcessor;
 
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
 
-final class IconsProcessorTest extends AbstractApplicationFileProcessorTest
+final class IconsProcessorTest extends AbstractRectorTestCase
 {
     public function testExtensionWithoutIconInIconsFolder(): void
     {
@@ -35,7 +36,7 @@ final class IconsProcessorTest extends AbstractApplicationFileProcessorTest
         $this->assertEmpty($addedFilesWithContent);
     }
 
-    protected function provideConfigFilePath(): string
+    public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }

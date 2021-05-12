@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\FlexForms;
 
-use Ssch\TYPO3Rector\Tests\Application\ApplicationFileProcessor\AbstractApplicationFileProcessorTest;
+use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-final class FlexFormsProcessorTest extends AbstractApplicationFileProcessorTest
+final class FlexFormsProcessorTest extends AbstractRectorTestCase
 {
     public function test(): void
     {
@@ -19,7 +19,7 @@ final class FlexFormsProcessorTest extends AbstractApplicationFileProcessorTest
         $this->assertCount(1, $processResult->getFileDiffs());
     }
 
-    protected function provideConfigFilePath(): string
+    public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
     }
