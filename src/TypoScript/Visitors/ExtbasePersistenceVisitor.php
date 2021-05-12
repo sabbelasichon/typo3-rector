@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TypoScript\Visitors;
 
 use Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
+use Helmich\TypoScriptParser\Parser\AST\Scalar as ScalarValue;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Nette\Utils\Strings;
 use Rector\Core\Configuration\Configuration;
@@ -149,7 +150,9 @@ CODE_SAMPLE
             ];
         }
 
-        self::$persistenceArray[$className][self::SUBCLASSES][] = $statement->value->value;
+        /** @var ScalarValue $scalarValue */
+        $scalarValue = $statement->value;
+        self::$persistenceArray[$className][self::SUBCLASSES][] = $scalarValue->value;
     }
 
     /**
@@ -166,7 +169,9 @@ CODE_SAMPLE
             self::$persistenceArray[$className] = [];
         }
 
-        self::$persistenceArray[$className][$name] = $statement->value->value;
+        /** @var ScalarValue $scalar */
+        $scalar = $statement->value;
+        self::$persistenceArray[$className][$name] = $scalar->value;
     }
 
     /**
@@ -184,6 +189,10 @@ CODE_SAMPLE
         }
 
         $fieldName = $paths[3];
-        self::$persistenceArray[$className]['properties'][$statement->value->value]['fieldname'] = $fieldName;
+
+        /** @var ScalarValue $scalar */
+        $scalar = $statement->value;
+
+        self::$persistenceArray[$className]['properties'][$scalar->value]['fieldname'] = $fieldName;
     }
 }

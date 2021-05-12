@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
@@ -212,13 +213,16 @@ CODE_SAMPLE
                             continue;
                         }
 
-                        if (null === $wizardItemValue->key) {
+                        if (! $wizardItemValue->key instanceof Expr) {
                             continue;
                         }
 
+                        /** @var Expr $wizardItemValueKey */
+                        $wizardItemValueKey = $wizardItemValue->key;
+
                         $validWizard = $this->isValidWizard($wizardItemValue);
                         if ($validWizard ||
-                            Strings::startsWith($this->valueResolver->getValue($wizardItemValue->key), '_')
+                            Strings::startsWith($this->valueResolver->getValue($wizardItemValueKey), '_')
                         ) {
                             --$remainingWizards;
                         }
@@ -233,7 +237,7 @@ CODE_SAMPLE
                             continue;
                         }
 
-                        $wizardItemValueKey = $this->valueResolver->getValue($wizardItemValue->key);
+                        $wizardItemValueKey = $this->valueResolver->getValue($wizardItemValueKey);
 
                         if (null === $wizardItemValueKey) {
                             continue;
