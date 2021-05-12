@@ -21,6 +21,7 @@ use PhpParser\Node\UnionType;
 use PHPStan\Analyser\Scope;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
@@ -34,7 +35,6 @@ use Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
-use ReflectionClass;
 use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 
 final class InitializeArgumentsClassMethodFactory
@@ -74,18 +74,25 @@ final class InitializeArgumentsClassMethodFactory
      */
     private $nodeNameResolver;
 
+    /**
+     * @var ReflectionProvider
+     */
+    private $reflectionProvider;
+
     public function __construct(
         NodeFactory $nodeFactory,
         NodeNameResolver $nodeNameResolver,
         StaticTypeMapper $staticTypeMapper,
         ParamTypeInferer $paramTypeInferer,
-        PhpDocInfoFactory $phpDocInfoFactory
+        PhpDocInfoFactory $phpDocInfoFactory,
+        ReflectionProvider $reflectionProvider
     ) {
         $this->nodeFactory = $nodeFactory;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->staticTypeMapper = $staticTypeMapper;
         $this->paramTypeInferer = $paramTypeInferer;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->reflectionProvider = $reflectionProvider;
     }
 
     public function decorateClass(Class_ $class): void
@@ -250,12 +257,11 @@ final class InitializeArgumentsClassMethodFactory
         }
 
         $fullyQualifiedName = $this->getFullyQualifiedName($type);
-
-        if (! class_exists($fullyQualifiedName)) {
+        if (! $this->reflectionProvider->hasClass($fullyQualifiedName)) {
             return false;
         }
 
-        $reflectionClass = new ReflectionClass($fullyQualifiedName);
+        $reflectionClass = $this->reflectionProvider->getClass($fullyQualifiedName);
         return $reflectionClass->isTrait();
     }
 

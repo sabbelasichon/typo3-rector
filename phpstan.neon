@@ -73,7 +73,3 @@ parameters:
 
         # node finder
         - '#Method Ssch\\TYPO3Rector\\Rector\\v11\\v0\\ForwardResponseInsteadOfForwardMethodRector\:\:extractForwardMethodCalls\(\) should return array<PhpParser\\Node\\Expr\\MethodCall\> but returns array<PhpParser\\Node\>#'
-
-        # fix static reflection next
-        - '#Instead of "new ClassReflection\(\)" use ReflectionProvider service or "\(new PHPStan\\Reflection\\ClassReflection\(<desired_type\>\)\)" for static reflection to work#'
-        - '#Function "class_exists\(\)" cannot be used/left in the code#'
