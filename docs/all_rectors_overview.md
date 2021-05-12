@@ -1,4 +1,4 @@
-# 194 Rules Overview
+# 195 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -956,6 +956,19 @@ Use GraphicalFunctions->getTemporaryImageWithText instead of LocalImageProcessor
 ```diff
 -GeneralUtility::makeInstance(LocalImageProcessor::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")
 +GeneralUtility::makeInstance(GraphicalFunctions::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")
+```
+
+<br>
+
+## IconsRector
+
+Copy ext_icon.* to Resources/Icons/Extension.*
+
+- class: [`Ssch\TYPO3Rector\Rector\Resources\IconsRector`](../src/Rector/Resources/IconsRector.php)
+
+```diff
+-ext_icon.gif
++Resources/Icons/Extension.gif
 ```
 
 <br>
