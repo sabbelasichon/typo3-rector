@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Resources\Icons;
 
+use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\Contract\Resources\IconRectorInterface;
@@ -50,7 +51,7 @@ final class IconsProcessor implements FileProcessorInterface
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
-        if (! in_array($smartFileInfo->getFilename(), ['ext_icon.png', 'ext_icon.svg', 'ext_icon.gif'], true)) {
+        if (! Strings::contains($smartFileInfo->getFilename(), 'ext_icon')) {
             return false;
         }
 
