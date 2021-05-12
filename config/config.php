@@ -37,7 +37,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/Yaml/Form/Transformer',
             __DIR__ . '/../src/FlexForms/Transformer',
             __DIR__ . '/../src/Resources/Icons/IconsProcessor.php',
-            __DIR__ . '/../src/Composer/InitializeExtensionComposerJsonProcessor.php',
         ]);
 
     $services->set(Traverser::class);

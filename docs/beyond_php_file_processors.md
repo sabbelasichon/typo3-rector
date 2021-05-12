@@ -95,17 +95,3 @@ Typo3-rector **does not** create/change `Configuration/Extbase/Classes.php` to p
 
 ---
 Changelog entry: [Breaking: #87623 - Replace config.persistence.classes typoscript configuration](https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-87623-ReplaceConfigpersistenceclassesTyposcriptConfiguration.html)
-
-
-## Composer.json creation when missing
-
-In case you are setting up an old project on a new structure, taking over an external project or are in general need of a composer.json based setup typo3-rector helps you out with creating the file for each of your packages.
-
-With the following config your affected packages will get a composer.json created.
-
-```php
-use Ssch\TYPO3Rector\Composer\InitializeExtensionComposerJsonProcessor;
-...
-$services = $containerConfigurator->services();
-$services->set(InitializeExtensionComposerJsonProcessor::class);
-```
