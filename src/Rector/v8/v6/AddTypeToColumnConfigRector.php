@@ -34,27 +34,6 @@ final class AddTypeToColumnConfigRector extends AbstractRector
     private const TYPE = 'type';
 
     /**
-     * @return array<class-string<Node>>
-     */
-    public function getNodeTypes(): array
-    {
-        return [Return_::class, StaticCall::class];
-    }
-
-    /**
-     * toDo: this should go into a base class
-     *
-     * @param Node|Node\Expr\StaticCall $node
-     */
-    public function refactor(Node $node): ?Node
-    {
-        $hasAstBeenChanged = $this->refactorFullTca($node);
-        $hasAstBeenChanged = $this->refactorAddTcaColumns($node) ? true : $hasAstBeenChanged;
-
-        return $hasAstBeenChanged ? $node : null;
-    }
-
-    /**
      * @codeCoverageIgnore
      */
     public function getRuleDefinition(): RuleDefinition
@@ -82,6 +61,111 @@ CODE_SAMPLE
         )]);
     }
 
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes(): array
+    {
+        return [Array_::class];
+    }
+
+    /**
+     * toDo: this should go into a base class
+     *
+     * @param Array_ $node
+     */
+    public function refactor(Node $node): ?Node
+    {
+        if (!$node instanceof  Array_) {
+            return null;
+        }
+
+        // check for a tca definition of a full table (with columns and ctrl section)
+        $columns = $this->extractSubArrayByKey($node, 'columns');
+        $ctrl = $this->extractArrayItemByKey($node, 'ctrl');
+
+        if (null !== $columns && null !== $ctrl) {
+            // we found a tca definition of a full table. Process it as a whole:
+            return $this->refactorColumnList($columns) ? $node : null;
+        }
+
+        // this is not a full tca definition. Lets check some fuzzier stuff.
+        // it could be a list of columns, as in ExtensionManagementUtility::addTcaColums('table', $node)
+        $hasAstBeenChanged = false;
+        foreach ($node->items as $arrayItem) {
+            if (! $arrayItem instanceof ArrayItem) {
+                // lets play it safe here. a non-associative array is probably not tca.
+                continue;
+            }
+
+            if (! $arrayItem->key instanceof String_) {
+                // the key of a column list in tca is the column name, which needs to be a string.
+                continue;
+            }
+
+            if ($arrayItem->value instanceof Array_) {
+                // we found a single column configuration which is an array
+                // (not a call to stuff like ExtensionManagementUtility::getFileFieldTCAConfig)
+                $labelNode = $this->extractArrayItemByKey($arrayItem->value, 'label');
+                // toDo: not everything that has a label is tca. check for more stuff like config or exclude here!
+                //  but in this special case we can't test for 'type' as this rector should add that.
+                if (null !== $labelNode) {
+                    $hasAstBeenChanged = $this->refactorColumn($arrayItem->key, $arrayItem->value) ? true : $hasAstBeenChanged;
+                }
+            }
+        }
+
+        return $hasAstBeenChanged ? $node : null;
+    }
+
+    /**
+     * refactors an TCA array such as
+     * [
+     *      'column_1' => [
+     *          'label' => 'column 1', ...
+     *          'config' => ...
+     *      ],
+     *      'column_2' => [
+     *          'label' => 'column 2', ...
+     *          'config' => ...
+     *      ]
+     * ]
+     *
+     * @param Array_ $columns a list of TCA definitions for columns
+     * @return bool whether the AST has been changed by the operation
+     */
+    private function refactorColumnList(Array_ $columns): bool
+    {
+        $hasAstBeenChanged = false;
+        foreach ($columns->items as $columnArrayItem) {
+            if (! $columnArrayItem instanceof ArrayItem) {
+                continue;
+            }
+
+            $columnName = $columnArrayItem->key;
+            if (null === $columnName) {
+                continue;
+            }
+
+            $columnTca = $columnArrayItem->value;
+
+            $hasAstBeenChanged = $this->refactorColumn($columnName, $columnTca) ? true : $hasAstBeenChanged;
+        }
+        return $hasAstBeenChanged;
+    }
+
+    /**
+     * Refactors a single TCA column definition like
+     *
+     * 'column_name' => [
+     *      'label' => 'column label',
+     *      'config' => [],
+     * ]
+     *
+     * @param Expr $columnName the key in above example (typically String_('column_name'))
+     * @param Expr $columnTca the value in above example (typically an associative Array with stuff like 'label', 'config', 'exclude', ...)
+     * @return bool
+     */
     private function refactorColumn(Expr $columnName, Expr $columnTca): bool
     {
         if (! $columnTca instanceof Array_) {
@@ -109,115 +193,6 @@ CODE_SAMPLE
             // found a column without a 'type' field in the config. add type => none
             $config->items[] = new ArrayItem(new String_('none'), new String_(self::TYPE));
             $hasAstBeenChanged = true;
-        }
-        return $hasAstBeenChanged;
-    }
-
-    // ToDo: this should go into a base class
-    private function refactorFullTca(Node $node): bool
-    {
-        if (! $node instanceof Return_ || ! $this->isFullTca($node)) {
-            return false;
-        }
-
-        $columns = $this->extractSubArrayByKey($node->expr, 'columns');
-        if (null === $columns) {
-            return false;
-        }
-
-        return $this->refactorTcaColumns($columns);
-    }
-
-    // todo: this should go into a base class
-    private function resolveVariableDefinition(Variable $columnsDefinition): ?Node
-    {
-        // we need to find the definition of this variable and refactor that.
-        // as a first-order approximation, we look at the previous statement and hope that the argument is defined there
-        $previousStatement = $columnsDefinition->getAttribute(AttributeKey::PREVIOUS_STATEMENT);
-        if (! $previousStatement->expr instanceof Assign) {
-            // the previous statement is not an assignment
-            return null;
-        }
-        $assignment = $previousStatement->expr;
-
-        if (! $assignment->var instanceof Variable) {
-            // it is not assigning to a variable
-            return null;
-        }
-
-        if ($assignment->var->name !== $columnsDefinition->name) {
-            // it is assigning to a different variable
-            return null;
-        }
-        if (! $assignment->expr instanceof Array_) {
-            // the assigned value is not an array
-            return null;
-        }
-
-        // we found the array definition that is used as the calling argument to addTcaColumns.
-        return $assignment->expr;
-    }
-
-    // todo: this should go into a base class
-    private function refactorAddTcaColumns(Node $node): bool
-    {
-        if (! $node instanceof StaticCall) {
-            return false;
-        }
-
-        if (! $this->nodeTypeResolver->isObjectType(
-            $node->class,
-            new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
-        )) {
-            return false;
-        }
-
-        if (! $this->isName($node->name, 'addTCAcolumns')) {
-            return false;
-        }
-
-        if (2 !== count($node->args)) {
-            return false;
-        }
-
-        [$tableNameArgument, $columnsDefinitionArgument] = $node->args;
-
-        if (! $tableNameArgument->value instanceof String_) {
-            // lets play it safe here - dont refactor calls with the table name not being a string
-            return false;
-        }
-
-        $columnsDefinition = $columnsDefinitionArgument->value;
-        if ($columnsDefinition instanceof Variable) {
-            // the call uses a variable to define the columns.
-            // For refactoring we need the node where this variable is defined
-            $columnsDefinition = $this->resolveVariableDefinition($columnsDefinition);
-        }
-
-        if (! $columnsDefinition instanceof Array_) {
-            return false;
-        }
-
-        return $this->refactorTcaColumns($columnsDefinition);
-    }
-
-    // todo: this should go into a baseclass
-    private function refactorTcaColumns(Array_ $columns): bool
-    {
-        $hasAstBeenChanged = false;
-        foreach ($columns->items as $columnArrayItem) {
-            if (! $columnArrayItem instanceof ArrayItem) {
-                continue;
-            }
-
-            $columnName = $columnArrayItem->key;
-            if (null === $columnName) {
-                continue;
-            }
-
-            $columnTca = $columnArrayItem->value;
-
-            $hasAstBeenChanged = $this->refactorColumn($columnName, $columnTca) ? true : $hasAstBeenChanged;
         }
         return $hasAstBeenChanged;
     }
