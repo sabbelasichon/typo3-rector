@@ -110,6 +110,16 @@ trait TcaHelperTrait
         return $columnItems;
     }
 
+    private function extractArrayValueByKey(?Node $node, string $key): ?Expr
+    {
+        $item = $this->extractArrayItemByKey($node, $key);
+        if (null === $item || null === $item->value) {
+            return null;
+        }
+
+        return $item->value;
+    }
+
     /**
      * @return Generator<ArrayItem>
      */

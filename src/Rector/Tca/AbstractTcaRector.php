@@ -21,10 +21,12 @@ abstract class AbstractTcaRector extends AbstractRector
      * @var string
      */
     protected const TYPE = 'type';
+
     /**
      * @var string
      */
     protected const CONFIG = 'config';
+
     /**
      * @var string
      */
@@ -144,4 +146,24 @@ abstract class AbstractTcaRector extends AbstractRector
      * @param Expr $columnTca the value in above example (typically an associative Array with stuff like 'label', 'config', 'exclude', ...)
      */
     abstract protected function refactorColumn(Expr $columnName, Expr $columnTca): void;
+
+    /**
+     * @param Array_ $array An array into which a new ArrayItem should be inserted
+     * @param ArrayItem $newItem The item to be inserted
+     * @param string $key The key after which the ArrayItem should be inserted
+     */
+    protected function insertItemAfterKey(Array_ $array, ArrayItem $newItem, string $key): void
+    {
+        $positionOfTypeInConfig = 0;
+        foreach ($array->items as $configNode) {
+            if (null === $configNode) {
+                break;
+            }
+            if (null === $configNode->key || $this->valueResolver->getValue($configNode->key) === $key) {
+                break;
+            }
+            $positionOfTypeInConfig++;
+        }
+        array_splice($array->items, $positionOfTypeInConfig + 1, 0, [$newItem]);
+    }
 }

@@ -42,15 +42,15 @@ return [
         'sys_language_uid' => [
             'config' => [
                 'type' => 'select',
-                'maxitems' => 1,
                 'renderType' => 'selectSingle',
+                'maxitems' => 1,
             ],
         ],
         'positive' => [
             'config' => [
                 'type' => 'select',
-                'maxitems' => 5,
                 'renderType' => 'selectMultipleSideBySide',
+                'maxitems' => 5,
             ],
         ],
         'foo' => [
@@ -62,8 +62,8 @@ return [
         'bar' => [
             'config' => [
                 'type' => 'select',
-                'renderMode' => 'tree',
                 'renderType' => 'selectTree',
+                'renderMode' => 'tree',
             ],
         ],
     ],
