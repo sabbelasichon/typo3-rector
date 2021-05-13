@@ -34,7 +34,7 @@ final class RemoveSupportForTransForeignTableRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isTca($node)) {
+        if (! $this->isFullTca($node)) {
             return null;
         }
 

@@ -63,4 +63,8 @@ class ExtensionManagementUtility
     {
         return [];
     }
+
+    public static function addTCAcolumns(string $string, array $columns) {
+
+    }
 }
