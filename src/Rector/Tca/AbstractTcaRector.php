@@ -12,7 +12,7 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 
 /**
- * @changelog
+ * Base rector that detects Arrays containing TCA definitions and allows to refactor them
  */
 abstract class AbstractTcaRector extends AbstractRector
 {
