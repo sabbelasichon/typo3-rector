@@ -19,7 +19,7 @@ trait TcaHelperTrait
      */
     protected $valueResolver;
 
-    private function isFullTca(Return_ $node): bool
+    protected function isFullTca(Return_ $node): bool
     {
         $ctrl = $this->extractCtrl($node);
         $columns = $this->extractColumns($node);
@@ -63,7 +63,7 @@ trait TcaHelperTrait
         return $this->extractArrayItemByKey($node->expr, 'interface');
     }
 
-    private function extractArrayItemByKey(?Node $node, string $key): ?ArrayItem
+    protected function extractArrayItemByKey(?Node $node, string $key): ?ArrayItem
     {
         if (null === $node) {
             return null;
@@ -91,7 +91,7 @@ trait TcaHelperTrait
         return null;
     }
 
-    private function extractSubArrayByKey(?Node $node, string $key): ?Array_
+    protected function extractSubArrayByKey(?Node $node, string $key): ?Array_
     {
         if (null === $node) {
             return null;
@@ -110,7 +110,7 @@ trait TcaHelperTrait
         return $columnItems;
     }
 
-    private function extractArrayValueByKey(?Node $node, string $key): ?Expr
+    protected function extractArrayValueByKey(?Node $node, string $key): ?Expr
     {
         $item = $this->extractArrayItemByKey($node, $key);
         if (null === $item || null === $item->value) {
@@ -150,7 +150,7 @@ trait TcaHelperTrait
         return $this->hasKeyValuePair($configValue, 'renderType', $expectedRenderType);
     }
 
-    private function hasKeyValuePair(Array_ $configValue, string $configKey, string $expectedValue): bool
+    protected function hasKeyValuePair(Array_ $configValue, string $configKey, string $expectedValue): bool
     {
         foreach ($configValue->items as $configItemValue) {
             if (! $configItemValue instanceof ArrayItem) {
