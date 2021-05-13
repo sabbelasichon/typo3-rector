@@ -63,12 +63,21 @@ abstract class AbstractTcaRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
+        $this->resetInnerState();
         $this->hasAstBeenChanged = false;
         if ($this->isFullTcaDefinition($node)) {
+            // we found a tca definition of a full table. Process it as a whole:
             $columns = $this->extractSubArrayByKey($node, 'columns');
             if (null !== $columns) {
-                // we found a tca definition of a full table. Process it as a whole:
                 $this->refactorColumnList($columns);
+            }
+
+            $types = $this->extractSubArrayByKey($node, 'types');
+            if (null !== $types) {
+                $this->refactorTypes($types);
+            }
+
+            if (null !== $columns || null !== $types) {
                 return $this->hasAstBeenChanged ? $node : null;
             }
         }
@@ -158,7 +167,19 @@ abstract class AbstractTcaRector extends AbstractRector
      * @param Expr $columnName the key in above example (typically String_('column_name'))
      * @param Expr $columnTca the value in above example (typically an associative Array with stuff like 'label', 'config', 'exclude', ...)
      */
-    abstract protected function refactorColumn(Expr $columnName, Expr $columnTca): void;
+    protected function refactorColumn(Expr $columnName, Expr $columnTca): void
+    {
+        // override this as needed in child-classes
+    }
+
+    /**
+     * refactors an TCA types array such as [ '0' => [ 'showitem' => 'field_a,field_b' ], '1' => [ 'showitem' =>
+     * 'field_a'] ]
+     */
+    protected function refactorTypes(Array_ $types): void
+    {
+        // override this as needed in child-classes
+    }
 
     /**
      * @param Array_ $array An array into which a new ArrayItem should be inserted
@@ -178,5 +199,12 @@ abstract class AbstractTcaRector extends AbstractRector
             $positionOfTypeInConfig++;
         }
         array_splice($array->items, $positionOfTypeInConfig + 1, 0, [$newItem]);
+    }
+
+    /**
+     * may be overridden by child classes to be notified of the start of a node
+     */
+    protected function resetInnerState(): void
+    {
     }
 }

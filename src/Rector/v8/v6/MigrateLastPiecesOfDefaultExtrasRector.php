@@ -242,26 +242,18 @@ CODE_SAMPLE
             if ([] !== $additionalConfigItems) {
                 $this->hasAstBeenChanged = true;
 
-                foreach ($columnItem->value->items as $configValue) {
-                    if (null === $configValue) {
-                        continue;
-                    }
+                $config = $this->extractArrayItemByKey($columnItem->value, 'config');
+                if (null === $config) {
+                    $config = new ArrayItem(new Array_(), new String_('config'));
+                    $columnItem->value->items[] = $config;
+                }
 
-                    if (null === $configValue->key) {
-                        continue;
-                    }
+                if (! $config->value instanceof Array_) {
+                    continue;
+                }
 
-                    if (! $this->valueResolver->isValue($configValue->key, 'config')) {
-                        continue;
-                    }
-
-                    if (! $configValue->value instanceof Array_) {
-                        continue;
-                    }
-
-                    foreach ($additionalConfigItems as $additionalConfigItem) {
-                        $configValue->value->items[] = $additionalConfigItem;
-                    }
+                foreach ($additionalConfigItems as $additionalConfigItem) {
+                    $config->value->items[] = $additionalConfigItem;
                 }
             }
         }
