@@ -15,9 +15,30 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.6/Deprecation-79440-TcaChanges.html
+ * @see Ssch\TYPO3Rector\Tests\Rector\v8\v6\MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRectorTest\MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRectorTest
  */
 final class MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector extends AbstractTcaRector
 {
+    /**
+     * @var string
+     */
+    private const FIELD_NAME = 'fieldName';
+
+    /**
+     * @var string
+     */
+    private const FIELD_LABEL = 'fieldLabel';
+
+    /**
+     * @var string
+     */
+    private const PALETTE_NAME = 'paletteName';
+
+    /**
+     * @var string
+     */
+    private const FIELD_EXTRA = 'fieldExtra';
+
     /**
      * @var array<string, string>
      */
@@ -46,9 +67,7 @@ return [
             'showitem' => 'aField,anotherField;with,thirdField',
             'columnsOverrides' => [
                 'anotherField' => [
-                    'config' => [
-                        'wrap' => 'off',
-                    ]
+                    'defaultExtras' => 'nowrap',
                 ],
             ],
         ],
@@ -114,13 +133,13 @@ CODE_SAMPLE
                 // Keep empty parameters in trimExplode here (third parameter FALSE), so position is not changed
                 $fieldArray = ArrayUtility::trimExplode(';', $fieldString);
                 $fieldArray = [
-                    'fieldName' => isset($fieldArray[0]) ? $fieldArray[0] : '',
-                    'fieldLabel' => isset($fieldArray[1]) ? $fieldArray[1] : null,
-                    'paletteName' => isset($fieldArray[2]) ? $fieldArray[2] : null,
-                    'fieldExtra' => isset($fieldArray[3]) ? $fieldArray[3] : null,
+                    self::FIELD_NAME => isset($fieldArray[0]) ? $fieldArray[0] : '',
+                    self::FIELD_LABEL => isset($fieldArray[1]) ? $fieldArray[1] : null,
+                    self::PALETTE_NAME => isset($fieldArray[2]) ? $fieldArray[2] : null,
+                    self::FIELD_EXTRA => isset($fieldArray[3]) ? $fieldArray[3] : null,
                 ];
-                $fieldName = $fieldArray['fieldName'];
-                if (null !== $fieldArray['fieldExtra']) {
+                $fieldName = $fieldArray[self::FIELD_NAME];
+                if (null !== $fieldArray[self::FIELD_EXTRA]) {
                     // Move fieldExtra "specConf" to columnsOverrides "defaultExtras"
                     // Merge with given defaultExtras from columns.
                     // They will be the first part of the string, so if "specConf" from types changes the same settings,
@@ -130,7 +149,7 @@ CODE_SAMPLE
                         $newDefaultExtras[] = $this->defaultExtrasFromColumns[$fieldName];
                     }
 
-                    $newDefaultExtras[] = $fieldArray['fieldExtra'];
+                    $newDefaultExtras[] = $fieldArray[self::FIELD_EXTRA];
                     $newDefaultExtras = implode(':', $newDefaultExtras);
                     if ('' !== $newDefaultExtras) {
                         $columnsOverrides = $this->extractSubArrayByKey($typeConfiguration, 'columnsOverrides');
@@ -153,19 +172,19 @@ CODE_SAMPLE
                     }
                 }
 
-                unset($fieldArray['fieldExtra']);
-                if (3 === count($fieldArray) && empty($fieldArray['paletteName'])) {
-                    unset($fieldArray['paletteName']);
+                unset($fieldArray[self::FIELD_EXTRA]);
+                if (3 === count($fieldArray) && '' === ($fieldArray[self::PALETTE_NAME] ?? '')) {
+                    unset($fieldArray[self::PALETTE_NAME]);
                 }
-                if (2 === count($fieldArray) && empty($fieldArray['fieldLabel'])) {
-                    unset($fieldArray['fieldLabel']);
+                if (2 === count($fieldArray) && '' === ($fieldArray[self::FIELD_LABEL] ?? '')) {
+                    unset($fieldArray[self::FIELD_LABEL]);
                 }
-                if (1 === count($fieldArray) && empty($fieldArray['fieldName'])) {
+                if (1 === count($fieldArray) && '' === $fieldArray[self::FIELD_NAME]) {
                     // The field may vanish if nothing is left
-                    unset($fieldArray['fieldName']);
+                    unset($fieldArray[self::FIELD_NAME]);
                 }
                 $newFieldString = implode(';', $fieldArray);
-                if (! empty($newFieldString)) {
+                if ('' !== $newFieldString) {
                     $newFieldStrings[] = $newFieldString;
                 }
             }
