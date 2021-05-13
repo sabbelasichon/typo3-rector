@@ -7,7 +7,6 @@ namespace Ssch\TYPO3Rector\Rector\v7\v6;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -94,12 +93,14 @@ CODE_SAMPLE
             } elseif ($this->valueResolver->isValue($renderModeExpr, 'checkbox')) {
                 $renderType = 'selectCheckBox';
             } else {
-                // ToDo: report this case instead of failing
-                new ShouldNotHappenException(sprintf(
-                    'The render mode %s is invalid for the select field in %s',
-                    $this->valueResolver->getValue($renderModeExpr),
-                    $this->valueResolver->getValue($columnName)
-                ));
+                $this->rectorOutputStyle->warning(
+                    sprintf(
+                        'The render mode %s is invalid for the select field in %s',
+                        $this->valueResolver->getValue($renderModeExpr),
+                        $this->valueResolver->getValue($columnName)
+                    )
+                );
+                return;
             }
         } else {
             $maxItemsExpr = $this->extractArrayValueByKey($config, 'maxitems');
