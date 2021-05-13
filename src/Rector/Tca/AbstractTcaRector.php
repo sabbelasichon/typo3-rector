@@ -13,7 +13,7 @@ use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 /**
  * @changelog
  */
-abstract class AbstractColumnwiseTcaRector extends AbstractRector
+abstract class AbstractTcaRector extends AbstractRector
 {
     use TcaHelperTrait;
 
@@ -21,6 +21,14 @@ abstract class AbstractColumnwiseTcaRector extends AbstractRector
      * @var string
      */
     protected const TYPE = 'type';
+    /**
+     * @var string
+     */
+    protected const CONFIG = 'config';
+    /**
+     * @var string
+     */
+    protected const LABEL = 'label';
 
     /**
      * @var bool
@@ -113,9 +121,18 @@ abstract class AbstractColumnwiseTcaRector extends AbstractRector
      */
     protected function isSingleTcaColumn(ArrayItem $arrayItem): bool
     {
-        $labelNode = $this->extractArrayItemByKey($arrayItem->value, 'label');
-        $typeNode = $this->extractArrayItemByKey($arrayItem->value, 'type');
-        return null !== $labelNode && null !== $typeNode;
+        $labelNode = $this->extractArrayItemByKey($arrayItem->value, self::LABEL);
+        if (null === $labelNode) {
+            return false;
+        }
+
+        $configNode = $this->extractArrayItemByKey($arrayItem->value, self::CONFIG);
+        if (null === $configNode) {
+            return false;
+        }
+
+        $typeNode = $this->extractArrayItemByKey($configNode->value, self::TYPE);
+        return null !== $typeNode;
     }
 
     /**
