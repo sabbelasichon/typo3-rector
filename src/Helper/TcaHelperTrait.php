@@ -27,42 +27,6 @@ trait TcaHelperTrait
         return null !== $ctrl && null !== $columns;
     }
 
-    private function isInlineType(Array_ $columnItemConfiguration): bool
-    {
-        return $this->isConfigType($columnItemConfiguration, 'inline');
-    }
-
-    private function isConfigType(Array_ $columnItemConfiguration, string $type): bool
-    {
-        return $this->hasKeyValuePair($columnItemConfiguration, 'type', $type);
-    }
-
-    private function hasRenderType(Array_ $columnItemConfiguration): bool
-    {
-        $renderTypeItem = $this->extractArrayItemByKey($columnItemConfiguration, 'renderType');
-        return null !== $renderTypeItem;
-    }
-
-    private function extractColumns(Return_ $node): ?ArrayItem
-    {
-        return $this->extractArrayItemByKey($node->expr, 'columns');
-    }
-
-    private function extractTypes(Return_ $node): ?ArrayItem
-    {
-        return $this->extractArrayItemByKey($node->expr, 'types');
-    }
-
-    private function extractCtrl(Return_ $node): ?ArrayItem
-    {
-        return $this->extractArrayItemByKey($node->expr, 'ctrl');
-    }
-
-    private function extractInterface(Return_ $node): ?ArrayItem
-    {
-        return $this->extractArrayItemByKey($node->expr, 'interface');
-    }
-
     protected function extractArrayItemByKey(?Node $node, string $key): ?ArrayItem
     {
         if (null === $node) {
@@ -120,6 +84,64 @@ trait TcaHelperTrait
         return $item->value;
     }
 
+    protected function hasKeyValuePair(Array_ $configValue, string $configKey, string $expectedValue): bool
+    {
+        foreach ($configValue->items as $configItemValue) {
+            if (! $configItemValue instanceof ArrayItem) {
+                continue;
+            }
+
+            if (null === $configItemValue->key) {
+                continue;
+            }
+
+            if ($this->isValue($configItemValue->key, $configKey) && $this->isValue(
+                $configItemValue->value,
+                $expectedValue
+            )) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function isInlineType(Array_ $columnItemConfiguration): bool
+    {
+        return $this->isConfigType($columnItemConfiguration, 'inline');
+    }
+
+    private function isConfigType(Array_ $columnItemConfiguration, string $type): bool
+    {
+        return $this->hasKeyValuePair($columnItemConfiguration, 'type', $type);
+    }
+
+    private function hasRenderType(Array_ $columnItemConfiguration): bool
+    {
+        $renderTypeItem = $this->extractArrayItemByKey($columnItemConfiguration, 'renderType');
+        return null !== $renderTypeItem;
+    }
+
+    private function extractColumns(Return_ $node): ?ArrayItem
+    {
+        return $this->extractArrayItemByKey($node->expr, 'columns');
+    }
+
+    private function extractTypes(Return_ $node): ?ArrayItem
+    {
+        return $this->extractArrayItemByKey($node->expr, 'types');
+    }
+
+    private function extractCtrl(Return_ $node): ?ArrayItem
+    {
+        return $this->extractArrayItemByKey($node->expr, 'ctrl');
+    }
+
+    private function extractInterface(Return_ $node): ?ArrayItem
+    {
+        return $this->extractArrayItemByKey($node->expr, 'interface');
+    }
+
     /**
      * @return Generator<ArrayItem>
      */
@@ -148,28 +170,6 @@ trait TcaHelperTrait
     private function configIsOfRenderType(Array_ $configValue, string $expectedRenderType): bool
     {
         return $this->hasKeyValuePair($configValue, 'renderType', $expectedRenderType);
-    }
-
-    protected function hasKeyValuePair(Array_ $configValue, string $configKey, string $expectedValue): bool
-    {
-        foreach ($configValue->items as $configItemValue) {
-            if (! $configItemValue instanceof ArrayItem) {
-                continue;
-            }
-
-            if (null === $configItemValue->key) {
-                continue;
-            }
-
-            if ($this->isValue($configItemValue->key, $configKey) && $this->isValue(
-                $configItemValue->value,
-                $expectedValue
-            )) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**

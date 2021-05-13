@@ -8,7 +8,6 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
-use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
