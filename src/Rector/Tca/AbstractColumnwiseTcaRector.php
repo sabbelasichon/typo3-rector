@@ -40,10 +40,6 @@ abstract class AbstractColumnwiseTcaRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $node instanceof Array_) {
-            return null;
-        }
-
         $this->hasAstBeenChanged = false;
         if ($this->isFullTcaDefinition($node)) {
             $columns = $this->extractSubArrayByKey($node, 'columns');
@@ -67,12 +63,10 @@ abstract class AbstractColumnwiseTcaRector extends AbstractRector
                 continue;
             }
 
-            if ($arrayItem->value instanceof Array_) {
-                // we found a single column configuration which is an array
-                // (not a call to stuff like ExtensionManagementUtility::getFileFieldTCAConfig)
-                if ($this->isSingleTcaColumn($arrayItem)) {
-                    $this->refactorColumn($arrayItem->key, $arrayItem->value);
-                }
+            // we found a single column configuration which is an array
+            // (not a call to stuff like ExtensionManagementUtility::getFileFieldTCAConfig)
+            if ($arrayItem->value instanceof Array_ && $this->isSingleTcaColumn($arrayItem)) {
+                $this->refactorColumn($arrayItem->key, $arrayItem->value);
             }
         }
 
