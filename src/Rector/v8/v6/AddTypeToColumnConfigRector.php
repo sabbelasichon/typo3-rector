@@ -19,8 +19,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class AddTypeToColumnConfigRector extends AbstractTcaRector
 {
-    use TcaHelperTrait;
-
     /**
      * @codeCoverageIgnore
      */

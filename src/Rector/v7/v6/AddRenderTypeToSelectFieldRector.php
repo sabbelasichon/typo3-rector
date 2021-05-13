@@ -18,8 +18,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class AddRenderTypeToSelectFieldRector extends AbstractTcaRector
 {
-    use TcaHelperTrait;
-
     /**
      * @var string
      */
@@ -84,9 +82,7 @@ CODE_SAMPLE
 
         $renderModeExpr = $this->extractArrayValueByKey($config, 'renderMode');
         if (null !== $renderModeExpr) {
-            $renderType = null;
-
-            if ($this->isValue($renderModeExpr, 'tree')) {
+            if ($this->valueResolver->isValue($renderModeExpr, 'tree')) {
                 $renderType = 'selectTree';
             } elseif ($this->valueResolver->isValue($renderModeExpr, 'singlebox')) {
                 $renderType = 'selectSingleBox';
@@ -108,10 +104,8 @@ CODE_SAMPLE
             $renderType = $maxItems <= 1 ? 'selectSingle' : 'selectMultipleSideBySide';
         }
 
-        if (null !== $renderType) {
-            $renderTypeItem = new ArrayItem(new String_($renderType), new String_(self::RENDER_TYPE));
-            $this->insertItemAfterKey($config, $renderTypeItem, self::TYPE);
-            $this->hasAstBeenChanged = true;
-        }
+        $renderTypeItem = new ArrayItem(new String_($renderType), new String_(self::RENDER_TYPE));
+        $this->insertItemAfterKey($config, $renderTypeItem, self::TYPE);
+        $this->hasAstBeenChanged = true;
     }
 }
