@@ -1,4 +1,4 @@
-# 195 Rules Overview
+# 196 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -1201,6 +1201,30 @@ Migrate select showIconTable
 +                    ],
 +                ],
              ],
+         ],
+     ],
+ ];
+```
+
+<br>
+
+## MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector
+
+Move special configuration to columns overrides
+
+- class: [`Ssch\TYPO3Rector\Rector\v8\v6\MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector`](../src/Rector/v8/v6/MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector.php)
+
+```diff
+ return [
+     'types' => [
+         0 => [
+-            'showitem' => 'aField,anotherField;with;;nowrap,thirdField',
++            'showitem' => 'aField,anotherField;with,thirdField',
++            'columnsOverrides' => [
++                'anotherField' => [
++                    'defaultExtras' => 'nowrap',
++                ],
++            ],
          ],
      ],
  ];
