@@ -1,4 +1,4 @@
-# 197 Rules Overview
+# 198 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -3130,13 +3130,26 @@ TSconfig and TStemplate soft references functionality removed
 
 ## SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector
 
-Apache_Solr_Document to solarium based document
+Use method addDocuments from WriteService of SolrConnection class
 
 - class: [`Ssch\TYPO3Rector\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector`](../src/Rector/Extensions/solr/v8/SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector.php)
 
 ```diff
 -$this->solrConnection->addDocuments([]);
 +$this->solrConnection->getWriteService()->addDocuments([]);
+```
+
+<br>
+
+## SolrSiteToSolrRepositoryRector
+
+Use SiteRepository instead of instantiating class Site directly with page id
+
+- class: [`Ssch\TYPO3Rector\Rector\Extensions\solr\v8\SolrSiteToSolrRepositoryRector`](../src/Rector/Extensions/solr/v8/SolrSiteToSolrRepositoryRector.php)
+
+```diff
+-$site1 = GeneralUtility::makeInstance(Site::class, 1);
++$site1 = GeneralUtility::makeInstance(SiteRepository::class)->getSiteByPageId(1);
 ```
 
 <br>
