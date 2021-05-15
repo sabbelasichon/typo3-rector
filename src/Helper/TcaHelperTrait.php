@@ -10,15 +10,9 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
-use Rector\Core\PhpParser\Node\Value\ValueResolver;
 
 trait TcaHelperTrait
 {
-    /**
-     * @var ValueResolver
-     */
-    protected $valueResolver;
-
     protected function isFullTca(Return_ $node): bool
     {
         $ctrl = $this->extractCtrl($node);

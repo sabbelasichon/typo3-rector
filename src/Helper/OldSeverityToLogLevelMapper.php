@@ -10,14 +10,9 @@ use TYPO3\CMS\Core\Log\LogLevel;
 
 final class OldSeverityToLogLevelMapper
 {
-    /**
-     * @var NodeFactory
-     */
-    private $nodeFactory;
-
-    public function __construct(NodeFactory $nodeFactory)
-    {
-        $this->nodeFactory = $nodeFactory;
+    public function __construct(
+        private NodeFactory $nodeFactory
+    ) {
     }
 
     public function mapSeverityToLogLevel(int $severityValue): ClassConstFetch

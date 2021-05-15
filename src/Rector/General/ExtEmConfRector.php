@@ -36,15 +36,12 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
      */
     private const PROPERTIES_TO_BOOLEAN = ['clearCacheOnLoad', 'uploadfolder'];
 
-    /**
-     * @var string
-     */
-    private $targetTypo3VersionConstraint = '';
+    private string $targetTypo3VersionConstraint = '';
 
     /**
      * @var string[]
      */
-    private $valuesToBeRemoved = [
+    private array $valuesToBeRemoved = [
         'dependencies',
         'conflicts',
         'suggests',

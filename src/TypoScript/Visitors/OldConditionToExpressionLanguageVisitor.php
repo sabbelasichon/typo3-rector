@@ -21,22 +21,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
 {
     /**
-     * @var TyposcriptConditionMatcher[]
-     */
-    private $conditionMatchers = [];
-
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    /**
      * @param TyposcriptConditionMatcher[] $conditionMatchers
      */
-    public function __construct(CurrentFileProvider $currentFileProvider, array $conditionMatchers = [])
+    public function __construct(
+        private CurrentFileProvider $currentFileProvider,
+        private array $conditionMatchers = []
+    )
     {
-        $this->conditionMatchers = $conditionMatchers;
-        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function enterNode(Statement $statement): void

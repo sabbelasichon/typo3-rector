@@ -35,19 +35,11 @@ abstract class AbstractTcaRector extends AbstractRector
      */
     protected const LABEL = 'label';
 
-    /**
-     * @var RectorOutputStyle
-     */
-    protected $rectorOutputStyle;
+    protected bool $hasAstBeenChanged = false;
 
-    /**
-     * @var bool
-     */
-    protected $hasAstBeenChanged = false;
-
-    public function __construct(RectorOutputStyle $rectorOutputStyle)
-    {
-        $this->rectorOutputStyle = $rectorOutputStyle;
+    public function __construct(
+        protected RectorOutputStyle $rectorOutputStyle
+    ) {
     }
 
     /**

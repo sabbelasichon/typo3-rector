@@ -14,7 +14,7 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
-use Rector\FileFormatter\Contract\EditorConfig\EditorConfigParserInterface;
+use Rector\FileFormatter\EditorConfig\EditorConfigParser;
 use Rector\FileFormatter\ValueObject\Indent;
 use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
 use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
@@ -33,72 +33,24 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     public const ALLOWED_FILE_EXTENSIONS = 'allowed_file_extensions';
 
     /**
-     * @var ParserInterface
-     */
-    private $typoscriptParser;
-
-    /**
-     * @var ASTPrinterInterface
-     */
-    private $typoscriptPrinter;
-
-    /**
-     * @var BufferedOutput
-     */
-    private $output;
-
-    /**
-     * @var Visitor[]
-     */
-    private $visitors = [];
-
-    /**
      * @var string[]
      */
-    private $allowedFileExtensions = ['typoscript', 'ts', 'txt'];
-
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    /**
-     * @var EditorConfigParserInterface
-     */
-    private $editorConfigParser;
-
-    /**
-     * @var RemovedAndAddedFilesCollector
-     */
-    private $removedAndAddedFilesCollector;
-
-    /**
-     * @var RectorOutputStyle
-     */
-    private $rectorOutputStyle;
+    private array $allowedFileExtensions = ['typoscript', 'ts', 'txt'];
 
     /**
      * @param Visitor[] $visitors
      */
     public function __construct(
-        ParserInterface $typoscriptParser,
-        BufferedOutput $output,
-        ASTPrinterInterface $typoscriptPrinter,
-        CurrentFileProvider $currentFileProvider,
-        EditorConfigParserInterface $editorConfigParser,
-        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        RectorOutputStyle $rectorOutputStyle,
-        array $visitors = []
-    ) {
-        $this->typoscriptParser = $typoscriptParser;
-
-        $this->typoscriptPrinter = $typoscriptPrinter;
-        $this->output = $output;
-        $this->visitors = $visitors;
-        $this->currentFileProvider = $currentFileProvider;
-        $this->editorConfigParser = $editorConfigParser;
-        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
-        $this->rectorOutputStyle = $rectorOutputStyle;
+        private ParserInterface $typoscriptParser,
+        private BufferedOutput $output,
+        private ASTPrinterInterface $typoscriptPrinter,
+        private CurrentFileProvider $currentFileProvider,
+        private EditorConfigParser $editorConfigParser,
+        private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        private RectorOutputStyle $rectorOutputStyle,
+        private array $visitors = []
+    )
+    {
     }
 
     /**
@@ -159,7 +111,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
                 return;
             }
 
-            $editorConfigConfigurationBuilder = EditorConfigConfigurationBuilder::anEditorConfigConfiguration();
+            $editorConfigConfigurationBuilder = EditorConfigConfigurationBuilder::create();
             $editorConfigConfigurationBuilder->withIndent(Indent::createSpaceWithSize(4));
 
             $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(

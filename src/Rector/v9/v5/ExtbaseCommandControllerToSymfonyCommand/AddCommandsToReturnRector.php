@@ -28,7 +28,7 @@ final class AddCommandsToReturnRector extends AbstractRector implements Configur
     /**
      * @var string[]
      */
-    private $commands = [];
+    private array $commands = [];
 
     /**
      * @codeCoverageIgnore

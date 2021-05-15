@@ -30,14 +30,9 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
      */
     private const VERY_OLD_ANNOTATION = 'dontvalidate';
 
-    /**
-     * @var PhpDocTagRemover
-     */
-    private $phpDocTagRemover;
-
-    public function __construct(PhpDocTagRemover $phpDocTagRemover)
-    {
-        $this->phpDocTagRemover = $phpDocTagRemover;
+    public function __construct(
+        private PhpDocTagRemover $phpDocTagRemover
+    ) {
     }
 
     /**

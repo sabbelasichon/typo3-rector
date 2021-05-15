@@ -21,22 +21,10 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveAddQueryStringMethodRector extends AbstractRector
 {
-    /**
-     * @var FluentChainMethodCallNodeAnalyzer
-     */
-    private $fluentChainMethodCallNodeAnalyzer;
-
-    /**
-     * @var SameClassMethodCallAnalyzer
-     */
-    private $sameClassMethodCallAnalyzer;
-
     public function __construct(
-        FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
-        SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer
+        private FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
+        private SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer
     ) {
-        $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
-        $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
     }
 
     /**

@@ -17,22 +17,12 @@ use Ssch\TYPO3Rector\Helper\FilesFinder;
 final class IconsProcessor implements FileProcessorInterface
 {
     /**
-     * @var FilesFinder
-     */
-    private $filesFinder;
-
-    /**
-     * @var IconRectorInterface[]
-     */
-    private $iconsRector = [];
-
-    /**
      * @param IconRectorInterface[] $iconsRector
      */
-    public function __construct(FilesFinder $filesFinder, array $iconsRector)
-    {
-        $this->filesFinder = $filesFinder;
-        $this->iconsRector = $iconsRector;
+    public function __construct(
+        private FilesFinder $filesFinder,
+        private array $iconsRector
+    ) {
     }
 
     /**

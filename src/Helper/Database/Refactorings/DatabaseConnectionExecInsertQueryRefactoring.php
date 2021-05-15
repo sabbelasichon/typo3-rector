@@ -12,20 +12,10 @@ use Ssch\TYPO3Rector\Contract\Helper\Database\Refactorings\DatabaseConnectionToD
 
 final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConnectionToDbalRefactoring
 {
-    /**
-     * @var ConnectionCallFactory
-     */
-    private $connectionCallFactory;
-
-    /**
-     * @var NodeFactory
-     */
-    private $nodeFactory;
-
-    public function __construct(ConnectionCallFactory $connectionCallFactory, NodeFactory $nodeFactory)
-    {
-        $this->connectionCallFactory = $connectionCallFactory;
-        $this->nodeFactory = $nodeFactory;
+    public function __construct(
+        private ConnectionCallFactory $connectionCallFactory,
+        private NodeFactory $nodeFactory
+    ) {
     }
 
     /**

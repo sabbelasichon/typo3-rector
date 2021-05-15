@@ -28,14 +28,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class TimeTrackerInsteadOfNullTimeTrackerRector extends AbstractRector
 {
-    /**
-     * @var ClassRenamer
-     */
-    private $classRenamer;
-
-    public function __construct(ClassRenamer $classRenamer)
-    {
-        $this->classRenamer = $classRenamer;
+    public function __construct(
+        private ClassRenamer $classRenamer
+    ) {
     }
 
     /**

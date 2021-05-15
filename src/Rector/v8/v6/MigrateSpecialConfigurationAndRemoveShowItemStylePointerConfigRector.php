@@ -42,7 +42,7 @@ final class MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector
     /**
      * @var array<string, string>
      */
-    private $defaultExtrasFromColumns = [];
+    private array $defaultExtrasFromColumns = [];
 
     /**
      * @codeCoverageIgnore

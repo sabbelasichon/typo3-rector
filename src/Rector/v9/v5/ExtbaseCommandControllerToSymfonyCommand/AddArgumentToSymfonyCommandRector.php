@@ -43,7 +43,7 @@ final class AddArgumentToSymfonyCommandRector extends AbstractRector implements 
     /**
      * @var array<string, array<string, mixed>>
      */
-    private $commandInputArguments = [];
+    private array $commandInputArguments = [];
 
     /**
      * @codeCoverageIgnore

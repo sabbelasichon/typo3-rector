@@ -23,10 +23,7 @@ final class MigrateLastPiecesOfDefaultExtrasRector extends AbstractRector
 {
     use TcaHelperTrait;
 
-    /**
-     * @var bool
-     */
-    private $hasAstBeenChanged = false;
+    private bool $hasAstBeenChanged = false;
 
     /**
      * @return array<class-string<Node>>

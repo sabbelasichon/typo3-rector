@@ -33,22 +33,12 @@ final class RenameClassMapAliasRector extends AbstractRector implements Configur
     /**
      * @var array<string, string>
      */
-    private $oldToNewClasses = [];
+    private array $oldToNewClasses = [];
 
-    /**
-     * @var ClassRenamer
-     */
-    private $classRenamer;
-
-    /**
-     * @var RenamedClassesDataCollector
-     */
-    private $renamedClassesDataCollector;
-
-    public function __construct(RenamedClassesDataCollector $renamedClassesDataCollector, ClassRenamer $classRenamer)
-    {
-        $this->classRenamer = $classRenamer;
-        $this->renamedClassesDataCollector = $renamedClassesDataCollector;
+    public function __construct(
+        private RenamedClassesDataCollector $renamedClassesDataCollector,
+        private ClassRenamer $classRenamer
+    ) {
     }
 
     /**

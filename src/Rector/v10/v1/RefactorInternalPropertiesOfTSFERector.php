@@ -52,14 +52,9 @@ final class RefactorInternalPropertiesOfTSFERector extends AbstractRector
      */
     private const QUERY_PARAMS = 'queryParams';
 
-    /**
-     * @var Typo3NodeResolver
-     */
-    private $typo3NodeResolver;
-
-    public function __construct(Typo3NodeResolver $typo3NodeResolver)
-    {
-        $this->typo3NodeResolver = $typo3NodeResolver;
+    public function __construct(
+        private Typo3NodeResolver $typo3NodeResolver
+    ) {
     }
 
     /**
