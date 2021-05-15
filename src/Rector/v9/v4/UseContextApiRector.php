@@ -12,8 +12,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85389-VariousPublicPropertiesInFavorOfContextAPI.html
@@ -67,8 +65,8 @@ final class UseContextApiRector extends AbstractRector
 
         $propertyName = $this->getName($node->name);
 
-        $staticCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->nodeFactory->createClassConstReference(Context::class),
+        $staticCall = $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+            $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
         ]);
 
         $contextCall = $this->nodeFactory->createMethodCall($staticCall, 'getPropertyFromAspect');

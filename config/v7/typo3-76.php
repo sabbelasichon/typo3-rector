@@ -12,7 +12,6 @@ use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-use TYPO3\CMS\IndexedSearch\Utility\LikeWildcard;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
@@ -42,22 +41,22 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     new RenameClassConstFetch(
                         'TYPO3\CMS\IndexedSearch\Controller\SearchFormController',
                         'WILDCARD_LEFT',
-                        LikeWildcard::class . '::WILDCARD_LEFT'
+                        'TYPO3\CMS\IndexedSearch\Utility\LikeWildcard' . '::WILDCARD_LEFT'
                     ),
                     new RenameClassConstFetch(
                         'TYPO3\CMS\IndexedSearch\Controller\SearchFormController',
                         'WILDCARD_RIGHT',
-                        LikeWildcard::class . '::WILDCARD_RIGHT'
+                        'TYPO3\CMS\IndexedSearch\Utility\LikeWildcard' . '::WILDCARD_RIGHT'
                     ),
                     new RenameClassConstFetch(
                         'TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository',
                         'WILDCARD_LEFT',
-                        LikeWildcard::class . '::WILDCARD_LEFT'
+                        'TYPO3\CMS\IndexedSearch\Utility\LikeWildcard' . '::WILDCARD_LEFT'
                     ),
                     new RenameClassConstFetch(
                         'TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository',
                         'WILDCARD_RIGHT',
-                        LikeWildcard::class . '::WILDCARD_RIGHT'
+                        'TYPO3\CMS\IndexedSearch\Utility\LikeWildcard' . '::WILDCARD_RIGHT'
                     ),
                 ]),
             ]]

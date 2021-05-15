@@ -14,8 +14,6 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-72384-RemovedDeprecatedCodeFromHtmlParser.html
@@ -185,9 +183,11 @@ CODE_SAMPLE
         if ($this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
             $methodName = $this->getName($node->name);
             if (null !== $methodName) {
-                $classConstant = $this->nodeFactory->createClassConstReference(MarkerBasedTemplateService::class);
+                $classConstant = $this->nodeFactory->createClassConstReference(
+                    'TYPO3\CMS\Core\Service\MarkerBasedTemplateService'
+                );
                 $staticCall = $this->nodeFactory->createStaticCall(
-                    GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     'makeInstance',
                     [$classConstant]
                 );

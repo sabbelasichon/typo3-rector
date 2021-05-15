@@ -46,61 +46,19 @@ return [
 ];
 CODE_SAMPLE;
 
-    /**
-     * @var SmartFileSystem
-     */
-    private $smartFileSystem;
-
-    /**
-     * @var Parser
-     */
-    private $parser;
-
-    /**
-     * @var AddArgumentToSymfonyCommandRector
-     */
-    private $addArgumentToSymfonyCommandRector;
-
-    /**
-     * @var FilesFinder
-     */
-    private $filesFinder;
-
-    /**
-     * @var AddCommandsToReturnRector
-     */
-    private $addCommandsToReturnRector;
-
-    /**
-     * @var NikicParser
-     */
-    private $nikicParser;
-
-    /**
-     * @var Configuration
-     */
-    private $configuration;
-
     public function __construct(
-        SmartFileSystem $smartFileSystem,
-        Parser $parser,
+        private SmartFileSystem $smartFileSystem,
+        private Parser $parser,
         BetterStandardPrinter $betterStandardPrinter,
-        AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector,
-        FilesFinder $filesFinder,
-        AddCommandsToReturnRector $addCommandsToReturnRector,
+        private AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector,
+        private FilesFinder $filesFinder,
+        private AddCommandsToReturnRector $addCommandsToReturnRector,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        NikicParser $nikicParser,
-        Configuration $configuration
+        private NikicParser $nikicParser,
+        private Configuration $configuration
     ) {
-        $this->smartFileSystem = $smartFileSystem;
-        $this->parser = $parser;
         $this->betterStandardPrinter = $betterStandardPrinter;
-        $this->addArgumentToSymfonyCommandRector = $addArgumentToSymfonyCommandRector;
-        $this->filesFinder = $filesFinder;
-        $this->addCommandsToReturnRector = $addCommandsToReturnRector;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
-        $this->nikicParser = $nikicParser;
-        $this->configuration = $configuration;
     }
 
     /**

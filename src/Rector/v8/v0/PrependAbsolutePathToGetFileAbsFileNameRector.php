@@ -11,7 +11,6 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-74022-GraphicalFunctions-prependAbsolutePath.html
@@ -43,7 +42,11 @@ final class PrependAbsolutePathToGetFileAbsFileNameRector extends AbstractRector
             return null;
         }
 
-        return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'getFileAbsFileName', $node->args);
+        return $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
+            'getFileAbsFileName',
+            $node->args
+        );
     }
 
     /**

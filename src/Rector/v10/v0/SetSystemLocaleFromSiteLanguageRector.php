@@ -11,7 +11,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
@@ -53,9 +52,11 @@ final class SetSystemLocaleFromSiteLanguageRector extends AbstractRector
             return null;
         }
 
-        return $this->nodeFactory->createStaticCall(Locales::class, 'setSystemLocaleFromSiteLanguage', [
-            $this->nodeFactory->createMethodCall($node->var, 'getLanguage'),
-        ]);
+        return $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Localization\Locales',
+            'setSystemLocaleFromSiteLanguage',
+            [$this->nodeFactory->createMethodCall($node->var, 'getLanguage')]
+        );
     }
 
     /**

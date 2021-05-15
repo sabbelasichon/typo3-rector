@@ -10,7 +10,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.0/Breaking-61786-ExtbaseDeprecatedTypeHandlingServiceRemoved.html
@@ -44,7 +43,11 @@ final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRecto
             return null;
         }
 
-        return $this->nodeFactory->createStaticCall(TypeHandlingUtility::class, $methodCall, $node->args);
+        return $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Extbase\Utility\TypeHandlingUtility',
+            $methodCall,
+            $node->args
+        );
     }
 
     /**

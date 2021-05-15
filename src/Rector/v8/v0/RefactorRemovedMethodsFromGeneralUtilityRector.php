@@ -11,8 +11,6 @@ use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
-use TYPO3\CMS\Core\Utility\ArrayUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-72342-RemovedDeprecatedCodeFromGeneralUtility.html
@@ -40,7 +38,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isName($node->class, GeneralUtility::class)) {
+        if (! $this->isName($node->class, 'TYPO3\CMS\Core\Utility\GeneralUtility')) {
             return null;
         }
         $methodName = $this->getName($node->name);
@@ -49,19 +47,27 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
         }
 
         if ('gif_compress' === $methodName) {
-            return $this->nodeFactory->createStaticCall(GraphicalFunctions::class, 'gifCompress', $node->args);
+            return $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Imaging\GraphicalFunctions',
+                'gifCompress',
+                $node->args
+            );
         }
 
         if ('png_to_gif_by_imagemagick' === $methodName) {
             return $this->nodeFactory->createStaticCall(
-                GraphicalFunctions::class,
+                'TYPO3\CMS\Core\Imaging\GraphicalFunctions',
                 'pngToGifByImagemagick',
                 $node->args
             );
         }
 
         if ('read_png_gif' === $methodName) {
-            return $this->nodeFactory->createStaticCall(GraphicalFunctions::class, 'readPngGif', $node->args);
+            return $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Imaging\GraphicalFunctions',
+                'readPngGif',
+                $node->args
+            );
         }
 
         if ('array_merge' === $methodName) {
@@ -71,7 +77,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
         }
 
         if ('cleanOutputBuffers' === $methodName) {
-            return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'flushOutputBuffers');
+            return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'flushOutputBuffers');
         }
 
         if (in_array($methodName, [
@@ -82,7 +88,11 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
             'arrayDiffAssocRecursive',
             'naturalKeySortRecursive',
         ], true)) {
-            return $this->nodeFactory->createStaticCall(ArrayUtility::class, $methodName, $node->args);
+            return $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Utility\ArrayUtility',
+                $methodName,
+                $node->args
+            );
         }
 
         return null;

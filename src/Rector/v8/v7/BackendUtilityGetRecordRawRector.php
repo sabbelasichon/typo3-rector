@@ -16,9 +16,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\QueryHelper;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80317-DeprecateBackendUtilityGetRecordRaw.html
@@ -104,9 +101,9 @@ CODE_SAMPLE
     {
         $queryBuilder = $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
-                GeneralUtility::class,
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'makeInstance',
-                [$this->nodeFactory->createClassConstReference(ConnectionPool::class)]
+                [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Database\ConnectionPool')]
             ),
             'getQueryBuilderForTable',
             [$this->nodeFactory->createArg($firstArgument->value)]
@@ -125,7 +122,7 @@ CODE_SAMPLE
                             $queryBuilder,
                             'select',
                             [$this->nodeFactory->createStaticCall(
-                                GeneralUtility::class,
+                                'TYPO3\CMS\Core\Utility\GeneralUtility',
                                 'trimExplode',
                                 [new String_(','), $this->nodeFactory->createArg(
                                     $fields->value
@@ -137,7 +134,7 @@ CODE_SAMPLE
                     ),
                     'where',
                     [$this->nodeFactory->createStaticCall(
-                        QueryHelper::class,
+                        'TYPO3\CMS\Core\Database\Query\QueryHelper',
                         'stripLogicalOperatorPrefix',
                         [$this->nodeFactory->createArg($where->value)]
                     )]

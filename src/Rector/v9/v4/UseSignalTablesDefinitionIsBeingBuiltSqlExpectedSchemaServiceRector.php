@@ -11,8 +11,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
-use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85462-SignalTablesDefinitionIsBeingBuilt.html
@@ -49,7 +47,10 @@ final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector 
             return null;
         }
 
-        if (! $this->classConstAnalyzer->isClassConstReference($node->args[0]->value, InstallUtility::class)) {
+        if (! $this->classConstAnalyzer->isClassConstReference(
+            $node->args[0]->value,
+            'TYPO3\CMS\Extensionmanager\Utility\InstallUtility'
+        )) {
             return null;
         }
 
@@ -57,7 +58,9 @@ final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector 
             return null;
         }
 
-        $node->args[0]->value = $this->nodeFactory->createClassConstReference(SqlExpectedSchemaService::class);
+        $node->args[0]->value = $this->nodeFactory->createClassConstReference(
+            'TYPO3\CMS\Install\Service\SqlExpectedSchemaService'
+        );
 
         return $node;
     }

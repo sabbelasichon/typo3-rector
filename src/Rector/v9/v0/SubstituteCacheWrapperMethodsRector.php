@@ -20,8 +20,6 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-83116-CachingFrameworkWrapperMethodsInBackendUtility.html
@@ -117,8 +115,8 @@ CODE_SAMPLE
 
     private function createCacheManager(): StaticCall
     {
-        return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->nodeFactory->createClassConstReference(CacheManager::class),
+        return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+            $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Cache\CacheManager'),
         ]);
     }
 

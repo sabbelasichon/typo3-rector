@@ -14,8 +14,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Charset\CharsetConverter;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.1/Deprecation-75327-TSFE-csConvObjAndTSFE-csConv.html
@@ -134,9 +132,9 @@ CODE_SAMPLE
             new Assign(
                 new Variable(self::CHARSET_CONVERTER),
                 $this->nodeFactory->createStaticCall(
-                    GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     'makeInstance',
-                    [$this->nodeFactory->createClassConstReference(CharsetConverter::class)]
+                    [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Charset\CharsetConverter')]
                 )
             )
         );

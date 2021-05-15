@@ -20,7 +20,6 @@ use Ssch\TYPO3Rector\Helper\FileHelperTrait;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Http\ApplicationType;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92947-DeprecateTYPO3_MODEAndTYPO3_REQUESTTYPEConstants.html
@@ -135,7 +134,7 @@ CODE_SAMPLE
     private function createIsBackendCall(array $arguments): MethodCall
     {
         return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall(ApplicationType::class, 'fromRequest', $arguments),
+            $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Http\ApplicationType', 'fromRequest', $arguments),
             'isBackend'
         );
     }
@@ -146,7 +145,7 @@ CODE_SAMPLE
     private function createIsFrontendCall(array $arguments): MethodCall
     {
         return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall(ApplicationType::class, 'fromRequest', $arguments),
+            $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Http\ApplicationType', 'fromRequest', $arguments),
             'isFrontend'
         );
     }

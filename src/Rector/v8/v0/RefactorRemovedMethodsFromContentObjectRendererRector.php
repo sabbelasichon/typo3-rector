@@ -11,7 +11,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-72361-RemovedDeprecatedContentObjectWrappers.html
@@ -108,7 +107,7 @@ CODE_SAMPLE
     private function shouldSkip(MethodCall $node): bool
     {
         $staticType = $this->getStaticType($node->var);
-        if ($staticType instanceof TypeWithClassName && ContentObjectRenderer::class === $staticType->getClassName()) {
+        if ($staticType instanceof TypeWithClassName && 'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer' === $staticType->getClassName()) {
             return false;
         }
 

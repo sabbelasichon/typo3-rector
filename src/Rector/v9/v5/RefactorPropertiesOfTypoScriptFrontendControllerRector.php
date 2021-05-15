@@ -13,8 +13,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-86047-TSFEPropertiesMethodsAndChangeVisibility.html
@@ -67,9 +65,9 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
         }
 
         $contextInstanceNode = $this->nodeFactory->createStaticCall(
-            GeneralUtility::class,
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
             'makeInstance',
-            [$this->nodeFactory->createClassConstReference(Context::class)]
+            [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context')]
         );
 
         if ($this->isName($node->name, 'ADMCMD_preview_BEUSER_uid')) {

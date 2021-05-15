@@ -12,8 +12,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\RootlineUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
@@ -51,10 +49,10 @@ final class UseRootlineUtilityInsteadOfGetRootlineMethodRector extends AbstractR
         $mountPointParameter = $node->args[1] ?? $this->nodeFactory->createArg('');
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
-                GeneralUtility::class,
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'makeInstance',
                 [$this->nodeFactory->createClassConstReference(
-                    RootlineUtility::class
+                    'TYPO3\CMS\Core\Utility\RootlineUtility'
                 ), $node->args[0], $mountPointParameter]
             ),
             'get'

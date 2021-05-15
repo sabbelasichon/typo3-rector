@@ -21,7 +21,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.1/Deprecation-75621-GeneralUtilityMethods.html
@@ -99,11 +98,13 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
 
         if (self::COMPAT_VERSION === $nodeName) {
             return new GreaterOrEqual(
-                $this->nodeFactory->createStaticCall(VersionNumberUtility::class, 'convertVersionNumberToInteger', [
-                    new ConstFetch(new Name('TYPO3_branch')),
-                ]),
                 $this->nodeFactory->createStaticCall(
-                    VersionNumberUtility::class,
+                    'TYPO3\CMS\Core\Utility\VersionNumberUtility',
+                    'convertVersionNumberToInteger',
+                    [new ConstFetch(new Name('TYPO3_branch'))]
+                ),
+                $this->nodeFactory->createStaticCall(
+                    'TYPO3\CMS\Core\Utility\VersionNumberUtility',
                     'convertVersionNumberToInteger',
                     $node->args
                 )

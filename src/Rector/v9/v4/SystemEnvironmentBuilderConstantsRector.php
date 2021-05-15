@@ -11,7 +11,6 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Service\AbstractService;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85793-SeveralConstantsFromSystemEnvironmentBuilder.html
@@ -71,7 +70,7 @@ final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
         $value = self::MAP_CONSTANTS_TO_STRING[$constantsName];
 
         if (false !== strpos($constantsName, 'T3_ERR')) {
-            return $this->nodeFactory->createClassConstFetch(AbstractService::class, $value);
+            return $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Service\AbstractService', $value);
         }
 
         if ('SUB' === $constantsName) {

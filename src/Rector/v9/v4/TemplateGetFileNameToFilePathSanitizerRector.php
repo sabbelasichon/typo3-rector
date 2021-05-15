@@ -22,13 +22,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException;
-use TYPO3\CMS\Core\Resource\Exception\InvalidFileException;
-use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
-use TYPO3\CMS\Core\Resource\Exception\InvalidPathException;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Resource\FilePathSanitizer;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85445-TemplateService-getFileName.html
@@ -134,9 +127,9 @@ CODE_SAMPLE
     {
         return new Expression(new Assign($parentNode->var, $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
-                GeneralUtility::class,
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'makeInstance',
-                [$this->nodeFactory->createClassConstReference(FilePathSanitizer::class)]
+                [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Frontend\Resource\FilePathSanitizer')]
             ),
             'sanitize',
             [$filePath]
@@ -151,9 +144,9 @@ CODE_SAMPLE
     private function createTimeTrackerLogMessage(): Expression
     {
         $makeInstanceOfTimeTracker = $this->nodeFactory->createStaticCall(
-            GeneralUtility::class,
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
             'makeInstance',
-            [$this->nodeFactory->createClassConstReference(TimeTracker::class)]
+            [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\TimeTracker\TimeTracker')]
         );
 
         return new Expression($this->nodeFactory->createMethodCall($makeInstanceOfTimeTracker, 'setTSlogMessage', [
@@ -168,15 +161,17 @@ CODE_SAMPLE
     private function createCatchBlockToLog(array $stmts): Catch_
     {
         return new Catch_([
-            new Name(InvalidPathException::class),
-            new Name(FileDoesNotExistException::class),
-            new Name(InvalidFileException::class),
+            new Name('TYPO3\CMS\Core\Resource\Exception\InvalidPathException'),
+            new Name('TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException'),
+            new Name('TYPO3\CMS\Core\Resource\Exception\InvalidFileException'),
         ], new Variable('e'), $stmts);
     }
 
     private function createCatchBlockToIgnore(Expression $assignmentNodeNull): Catch_
     {
-        return new Catch_([new Name(InvalidFileNameException::class)], new Variable('e'), [$assignmentNodeNull]);
+        return new Catch_([new Name('TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException')], new Variable('e'), [
+            $assignmentNodeNull,
+        ]);
     }
 
     private function createIfLog(): If_

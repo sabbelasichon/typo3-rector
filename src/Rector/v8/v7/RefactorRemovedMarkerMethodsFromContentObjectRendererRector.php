@@ -14,8 +14,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80527-Marker-relatedMethodsInContentObjectRenderer.html
@@ -80,8 +78,14 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             if (null === $methodName) {
                 return null;
             }
-            $classConstant = $this->nodeFactory->createClassConstReference(MarkerBasedTemplateService::class);
-            $staticCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
+            $classConstant = $this->nodeFactory->createClassConstReference(
+                'TYPO3\CMS\Core\Service\MarkerBasedTemplateService'
+            );
+            $staticCall = $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
+                'makeInstance',
+                [$classConstant]
+            );
             return $this->nodeFactory->createMethodCall($staticCall, $methodName, $node->args);
         }
         if ($this->isName($node->name, self::FILL_IN_MARKER_ARRAY)) {
@@ -97,9 +101,9 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             );
             return $this->nodeFactory->createMethodCall(
                 $this->nodeFactory->createStaticCall(
-                    GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     'makeInstance',
-                    [$this->nodeFactory->createClassConstReference(MarkerBasedTemplateService::class)]
+                    [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Service\MarkerBasedTemplateService')]
                 ),
                 self::FILL_IN_MARKER_ARRAY,
                 $node->args

@@ -9,10 +9,6 @@ use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Core\Bootstrap;
-use TYPO3\CMS\Core\Core\Environment;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\EnvironmentService;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.2/Feature-84153-IntroduceAGenericEnvironmentClass.html
@@ -57,14 +53,14 @@ CODE_SAMPLE
     {
         $className = $this->getName($node->class);
         $methodName = $this->getName($node->name);
-        if (Bootstrap::class === $className && 'usesComposerClassLoading' === $methodName) {
-            return $this->nodeFactory->createStaticCall(Environment::class, 'isComposerMode');
+        if ('TYPO3\CMS\Core\Core\Bootstrap' === $className && 'usesComposerClassLoading' === $methodName) {
+            return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isComposerMode');
         }
-        if (GeneralUtility::class === $className && 'getApplicationContext' === $methodName) {
-            return $this->nodeFactory->createStaticCall(Environment::class, 'getContext');
+        if ('TYPO3\CMS\Core\Utility\GeneralUtility' === $className && 'getApplicationContext' === $methodName) {
+            return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getContext');
         }
-        if (EnvironmentService::class === $className && 'isEnvironmentInCliMode' === $methodName) {
-            return $this->nodeFactory->createStaticCall(Environment::class, 'isCli');
+        if ('TYPO3\CMS\Extbase\Service\EnvironmentService' === $className && 'isEnvironmentInCliMode' === $methodName) {
+            return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isCli');
         }
         return null;
     }

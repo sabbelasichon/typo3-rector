@@ -13,7 +13,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82426-Typo3-pagetreeNavigationComponentName.html
@@ -89,7 +88,7 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
     {
         return new RuleDefinition('Use TYPO3/CMS/Backend/PageTree/PageTreeElement instead of typo3-pagetree', [
             new CodeSample(
-                ExtensionUtility::class . '::registerModule(
+                'TYPO3\CMS\Extbase\Utility\ExtensionUtility' . '::registerModule(
       \'TYPO3.CMS.Workspaces\',
       \'web\',
       \'workspaces\',
@@ -106,7 +105,7 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
           \'navigationComponentId\' => \'typo3-pagetree\'
       ]
   );',
-                ExtensionUtility::class . '::registerModule(
+                'TYPO3\CMS\Extbase\Utility\ExtensionUtility' . '::registerModule(
       \'TYPO3.CMS.Workspaces\',
       \'web\',
       \'workspaces\',

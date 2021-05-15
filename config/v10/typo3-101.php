@@ -12,7 +12,6 @@ use Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector;
 use Ssch\TYPO3Rector\Rector\v10\v1\SendNotifyEmailToMailApiRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-use TYPO3\CMS\Backend\History\RecordHistory;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
@@ -27,13 +26,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 PropertyFetchToMethodCallRector::PROPERTIES_TO_METHOD_CALLS => ValueObjectInliner::inline(
                     [
                         new PropertyFetchToMethodCall(
-                            RecordHistory::class,
+                            'TYPO3\CMS\Backend\History\RecordHistory',
                             'changeLog',
                             'getChangeLog',
                             'setChangelog',
                             ['bla']
                         ), new PropertyFetchToMethodCall(
-                            RecordHistory::class,
+                            'TYPO3\CMS\Backend\History\RecordHistory',
                             'lastHistoryEntry',
                             'getLastHistoryEntryNumber',
                             null,

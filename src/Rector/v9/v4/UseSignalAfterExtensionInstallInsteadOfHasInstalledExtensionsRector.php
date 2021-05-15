@@ -11,8 +11,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extensionmanager\Service\ExtensionManagementService;
-use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85462-SignalHasInstalledExtensions.html
@@ -51,7 +49,7 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
 
         if (! $this->classConstAnalyzer->isClassConstReference(
             $node->args[0]->value,
-            ExtensionManagementService::class
+            'TYPO3\CMS\Extensionmanager\Service\ExtensionManagementService'
         )) {
             return null;
         }
@@ -60,7 +58,9 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
             return null;
         }
 
-        $node->args[0]->value = $this->nodeFactory->createClassConstReference(InstallUtility::class);
+        $node->args[0]->value = $this->nodeFactory->createClassConstReference(
+            'TYPO3\CMS\Extensionmanager\Utility\InstallUtility'
+        );
         $node->args[1] = $this->nodeFactory->createArg('afterExtensionInstall');
 
         return $node;

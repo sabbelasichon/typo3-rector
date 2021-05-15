@@ -10,8 +10,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\TimeTracker\TimeTracker;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-73504-MakeTimeTrackerASingleton.html
@@ -40,8 +38,12 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
         if (! $this->typo3NodeResolver->isAnyMethodCallOnGlobals($node, Typo3NodeResolver::TIME_TRACKER)) {
             return null;
         }
-        $classConstant = $this->nodeFactory->createClassConstReference(TimeTracker::class);
-        $staticCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [$classConstant]);
+        $classConstant = $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\TimeTracker\TimeTracker');
+        $staticCall = $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
+            'makeInstance',
+            [$classConstant]
+        );
         $methodCallName = $this->getName($node->name);
         if (null === $methodCallName) {
             return null;

@@ -10,8 +10,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Package\PackageManager;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-86404-GLOBALSTYPO3_LOADED_EXT.html
@@ -40,9 +38,9 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
         if ($this->typo3NodeResolver->isTypo3Global($node, Typo3NodeResolver::TYPO3_LOADED_EXT)) {
             return $this->nodeFactory->createMethodCall(
                 $this->nodeFactory->createStaticCall(
-                    GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     'makeInstance',
-                    [$this->nodeFactory->createClassConstReference(PackageManager::class)]
+                    [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Package\PackageManager')]
                 ),
                 'getActivePackages'
             );

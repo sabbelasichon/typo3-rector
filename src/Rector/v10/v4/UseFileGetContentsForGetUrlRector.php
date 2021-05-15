@@ -11,8 +11,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Http\RequestFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.4/Deprecation-90956-AlternativeFetchMethodsAndReportsForGeneralUtilitygetUrl.html
@@ -60,8 +58,8 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
             return $this->nodeFactory->createMethodCall(
                 $this->nodeFactory->createMethodCall(
                     $this->nodeFactory->createMethodCall(
-                        $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                            $this->nodeFactory->createClassConstReference(RequestFactory::class),
+                        $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                            $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Http\RequestFactory'),
                         ]),
                         'request',
                         $node->args

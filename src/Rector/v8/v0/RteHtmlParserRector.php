@@ -11,7 +11,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-72686-RemovedRteHtmlParserMethods.html
@@ -40,13 +39,17 @@ final class RteHtmlParserRector extends AbstractRector
         }
         if ($this->isName($node->name, 'siteUrl')) {
             return $this->nodeFactory->createStaticCall(
-                GeneralUtility::class,
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'getIndpEnv',
                 [$this->nodeFactory->createArg(new String_('TYPO3_SITE_URL'))]
             );
         }
         if ($this->isName($node->name, 'getUrl')) {
-            return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'getUrl', [$node->args[0]]);
+            return $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
+                'getUrl',
+                [$node->args[0]]
+            );
         }
         return null;
     }

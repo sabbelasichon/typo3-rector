@@ -10,7 +10,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\StringUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92607-DeprecatedGeneralUtilityuniqueList.html
@@ -42,7 +41,11 @@ final class UniqueListFromStringUtilityRector extends AbstractRector
             return null;
         }
 
-        return $this->nodeFactory->createStaticCall(StringUtility::class, 'uniqueList', [$node->args[0]]);
+        return $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Utility\StringUtility',
+            'uniqueList',
+            [$node->args[0]]
+        );
     }
 
     /**

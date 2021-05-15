@@ -27,7 +27,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80514-GraphicalFunctions-tempPathAndCreateTempSubDir.html
@@ -121,10 +120,11 @@ CODE_SAMPLE
             new Param(new Variable('dirName')),
         ];
 
-        $ifIsPartOfStrMethodCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'isFirstPartOfStr', [
-            new Variable(self::TEMP_PATH),
-            new ConstFetch(new Name('PATH_site')),
-        ]);
+        $ifIsPartOfStrMethodCall = $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
+            'isFirstPartOfStr',
+            [new Variable(self::TEMP_PATH), new ConstFetch(new Name('PATH_site'))]
+        );
         $ifIsPartOfStr = new If_($ifIsPartOfStrMethodCall);
         $ifIsPartOfStr->stmts[] = new Expression(new Assign(new Variable(self::TMP_PATH), new Variable(
             self::TEMP_PATH
@@ -150,7 +150,7 @@ CODE_SAMPLE
         $isDirFunc = new ErrorSuppress($this->nodeFactory->createFuncCall('is_dir', [$concatTempPathAndDirName]));
         $ifIsNotDir = new If_(new BooleanNot($isDirFunc));
         $ifIsNotDir->stmts[] = new Expression($this->nodeFactory->createStaticCall(
-            GeneralUtility::class,
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
             'mkdir_deep',
             [$concatTempPathAndDirName]
         ));
