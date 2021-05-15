@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\Tests;
 
+use Rector\Composer\ValueObject\RenamePackage;
 use PHPUnit\Framework\TestCase;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerPackageParser;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ComposerPackage;
@@ -26,7 +27,7 @@ final class ComposerPackageParserTest extends TestCase
         $replacePackages = [];
         foreach ($extensions as $extension) {
             $replacePackage = $extension->getReplacePackage();
-            if ($replacePackage instanceof ReplacePackage) {
+            if ($replacePackage instanceof RenamePackage) {
                 $replacePackages[$replacePackage->getOldPackageName()] = $replacePackage;
             }
         }

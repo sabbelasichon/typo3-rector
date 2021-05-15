@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\ValueObject;
 
+use Rector\Composer\ValueObject\RenamePackage;
 use Composer\Semver\Semver;
 use Rector\Composer\ValueObject\PackageAndVersion;
 use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
@@ -23,7 +24,7 @@ final class ExtensionVersion implements Stringable
     public function __construct(
         private PackageAndVersion $packageAndVersion,
         array $typo3Versions,
-        private ?ReplacePackage $replacePackage = null
+        private ?RenamePackage $replacePackage = null
     ) {
         Assert::allIsInstanceOf($typo3Versions, Typo3Version::class);
         $this->typo3Versions = $typo3Versions;
@@ -54,7 +55,7 @@ final class ExtensionVersion implements Stringable
         return $this->packageAndVersion->getPackageName();
     }
 
-    public function getReplacePackage(): ?ReplacePackage
+    public function getReplacePackage(): ?RenamePackage
     {
         return $this->replacePackage;
     }

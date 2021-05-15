@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\Collection;
 
+use Rector\Composer\ValueObject\RenamePackage;
 use ArrayIterator;
 use Composer\Semver\Comparator;
 use Composer\Semver\Semver;
@@ -87,7 +88,7 @@ final class ExtensionCollection implements Countable, IteratorAggregate
         $replacePackages = [];
         foreach ($this->extensions as $extension) {
             $replacePackage = $extension->getReplacePackage();
-            if ($replacePackage instanceof ReplacePackage) {
+            if ($replacePackage instanceof RenamePackage) {
                 $replacePackages[$replacePackage->getOldPackageName()] = $replacePackage;
             }
         }

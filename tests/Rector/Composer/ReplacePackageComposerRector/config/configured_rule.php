@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+use Rector\Composer\ValueObject\RenamePackage;
 
 use Ssch\TYPO3Rector\Rector\Composer\ReplacePackageComposerRector;
 use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
@@ -12,8 +13,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $composerExtensions = [
-        new ReplacePackage('typo3-ter/news', 'georgringer/news'),
-        new ReplacePackage('typo3-ter/filefill', 'ichhabrecht/filefill'),
+        new RenamePackage('typo3-ter/news', 'georgringer/news'),
+        new RenamePackage('typo3-ter/filefill', 'ichhabrecht/filefill'),
     ];
 
     $services->set(ReplacePackageComposerRector::class)

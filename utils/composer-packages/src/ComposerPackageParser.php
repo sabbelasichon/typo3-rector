@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages;
 
+use Rector\Composer\ValueObject\RenamePackage;
 use Composer\Semver\Semver;
 use Nette\Utils\Json;
 use Nette\Utils\Strings;
@@ -61,7 +62,7 @@ final class ComposerPackageParser implements PackageParser
             if (array_key_exists('replace', $package) && is_array($package['replace'])) {
                 foreach ($package['replace'] as $replace => $version) {
                     if (Strings::startsWith($replace, 'typo3-ter')) {
-                        $replacePackage = new ReplacePackage($replace, (string) $composerPackage);
+                        $replacePackage = new RenamePackage($replace, (string) $composerPackage);
                         break;
                     }
                 }

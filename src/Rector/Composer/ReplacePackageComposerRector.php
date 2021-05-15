@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\Composer;
 
+use Rector\Composer\ValueObject\RenamePackage;
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
@@ -21,7 +22,7 @@ final class ReplacePackageComposerRector implements ComposerRectorInterface
     public const REPLACE_PACKAGES = 'replace_packages';
 
     /**
-     * @var ReplacePackage[]
+     * @var RenamePackage[]
      */
     private array $replacePackages = [];
 
@@ -67,14 +68,14 @@ CODE_SAMPLE
 CODE_SAMPLE
             ,
             [
-                self::REPLACE_PACKAGES => [new ReplacePackage('typo3-ter/news', 'georgringer/news',)],
+                self::REPLACE_PACKAGES => [new RenamePackage('typo3-ter/news', 'georgringer/news',)],
             ]
         ),
         ]);
     }
 
     /**
-     * @param array<string, ReplacePackage[]> $configuration
+     * @param array<string, RenamePackage[]> $configuration
      */
     public function configure(array $configuration): void
     {

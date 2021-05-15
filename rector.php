@@ -3,12 +3,14 @@
 declare(strict_types=1);
 
 use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
+use Rector\Composer\ValueObject\RenamePackage;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
+use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Set\ValueObject\SetList;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
 use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
@@ -27,7 +29,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 //    $services->set(AddSeeTestAnnotationRector::class);
 //    $services->set(VarConstantCommentRector::class);
 
-    $parameters->set(Option::PATHS, [__DIR__ . '/utils']);
+    $parameters->set(Option::PATHS, [__DIR__ .'/utils', __DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
 
 //    $containerConfigurator->import(SetList::PRIVATIZATION);
 //    $containerConfigurator->import(SetList::DEAD_CODE);
@@ -51,6 +53,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_80);
     $parameters->set(Option::ENABLE_CACHE, true);
-    $services->set(TypedPropertyRector::class);
-    $services->set(ClassPropertyAssignToConstructorPromotionRector::class);
+    #$services->set(TypedPropertyRector::class);
+    #$services->set(ClassPropertyAssignToConstructorPromotionRector::class);
+
+    $services->set(RenameClassRector::class)
+             ->call('configure', [[
+                 RenameClassRector::OLD_TO_NEW_CLASSES => [
+                     'Ssch\TYPO3Rector\ValueObject\ReplacePackage' => RenamePackage::class,
+
+                 ], ]]);
 };

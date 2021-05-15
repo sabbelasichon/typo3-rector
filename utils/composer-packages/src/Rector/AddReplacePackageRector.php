@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\Rector;
 
+use Rector\Composer\ValueObject\RenamePackage;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -21,7 +22,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class AddReplacePackageRector extends AbstractRector
 {
     /**
-     * @var ReplacePackage[]
+     * @var RenamePackage[]
      */
     private ?array $replacePackges = null;
 
@@ -80,7 +81,7 @@ final class AddReplacePackageRector extends AbstractRector
             foreach ($this->replacePackges as $replacePackage) {
                 $stmt->expr->expr->items[] = new ArrayItem(
                     new New_(
-                        new FullyQualified(ReplacePackage::class),
+                        new FullyQualified(RenamePackage::class),
                         $this->nodeFactory->createArgs([
                             $replacePackage->getOldPackageName(),
                             $replacePackage->getNewPackageName(),
