@@ -10,7 +10,6 @@ use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use Rector\Core\Configuration\Option;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,10 +20,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters = $containerConfigurator->parameters();
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
-
-    if(class_exists(StaticPHPUnitEnvironment::class) && StaticPHPUnitEnvironment::isPHPUnitRun()) {
-        $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, __DIR__ . '/../utils/phpstan/config/extension.neon');
-    }
 
     $services = $containerConfigurator->services();
     $services->defaults()

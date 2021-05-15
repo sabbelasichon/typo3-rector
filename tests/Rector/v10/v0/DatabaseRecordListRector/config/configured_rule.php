@@ -12,7 +12,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../../../config/config.php');
+    $containerConfigurator->import(__DIR__ . '/../../../../../../config/config_test.php');
     $services = $containerConfigurator->services();
 
     $services->set('rename_database_record_list_request_uri_to_list_url')
