@@ -43,15 +43,12 @@ CODE_SAMPLE;
      */
     private const SUBCLASSES = 'subclasses';
 
-    /**
-     * @var string
-     */
-    private $filename;
+    private string $filename;
 
     /**
      * @var array<string, array<string, mixed>>
      */
-    private static $persistenceArray = [];
+    private static array $persistenceArray = [];
 
     public function __construct(Configuration $configuration)
     {

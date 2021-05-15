@@ -22,14 +22,8 @@ final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
 {
     use FileHelperTrait;
 
-    /**
-     * @var FilesFinder
-     */
-    private $filesFinder;
-
-    public function __construct(FilesFinder $filesFinder)
+    public function __construct(private FilesFinder $filesFinder)
     {
-        $this->filesFinder = $filesFinder;
     }
 
     /**

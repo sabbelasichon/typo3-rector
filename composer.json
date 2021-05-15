@@ -78,5 +78,8 @@
                 "config/config.php"
             ]
         }
+    },
+    "conflict": {
+        "rector/rector": "<0.11"
     }
 }

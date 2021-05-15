@@ -31,7 +31,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
     /**
      * @var string[]
      */
-    private $oldToNewFileLocations = [];
+    private array $oldToNewFileLocations = [];
 
     /**
      * @codeCoverageIgnore

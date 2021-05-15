@@ -33,14 +33,8 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
      */
     private const PATH = 'path';
 
-    /**
-     * @var Typo3NodeResolver
-     */
-    private $typo3NodeResolver;
-
-    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    public function __construct(private Typo3NodeResolver $typo3NodeResolver)
     {
-        $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
     /**

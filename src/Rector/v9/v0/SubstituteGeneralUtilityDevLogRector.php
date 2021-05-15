@@ -23,14 +23,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
 {
-    /**
-     * @var OldSeverityToLogLevelMapper
-     */
-    private $oldSeverityToLogLevelMapper;
-
-    public function __construct(OldSeverityToLogLevelMapper $oldSeverityToLogLevelMapper)
+    public function __construct(private OldSeverityToLogLevelMapper $oldSeverityToLogLevelMapper)
     {
-        $this->oldSeverityToLogLevelMapper = $oldSeverityToLogLevelMapper;
     }
 
     /**

@@ -23,7 +23,7 @@ final class ReplacePackageComposerRector implements ComposerRectorInterface
     /**
      * @var ReplacePackage[]
      */
-    private $replacePackages = [];
+    private array $replacePackages = [];
 
     public function refactor(ComposerJson $composerJson): void
     {

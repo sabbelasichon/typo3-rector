@@ -33,71 +33,15 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     public const ALLOWED_FILE_EXTENSIONS = 'allowed_file_extensions';
 
     /**
-     * @var ParserInterface
-     */
-    private $typoscriptParser;
-
-    /**
-     * @var ASTPrinterInterface
-     */
-    private $typoscriptPrinter;
-
-    /**
-     * @var BufferedOutput
-     */
-    private $output;
-
-    /**
-     * @var Visitor[]
-     */
-    private $visitors = [];
-
-    /**
      * @var string[]
      */
-    private $allowedFileExtensions = ['typoscript', 'ts', 'txt'];
-
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    /**
-     * @var EditorConfigParser
-     */
-    private $editorConfigParser;
-
-    /**
-     * @var RemovedAndAddedFilesCollector
-     */
-    private $removedAndAddedFilesCollector;
-
-    /**
-     * @var RectorOutputStyle
-     */
-    private $rectorOutputStyle;
+    private array $allowedFileExtensions = ['typoscript', 'ts', 'txt'];
 
     /**
      * @param Visitor[] $visitors
      */
-    public function __construct(
-        ParserInterface $typoscriptParser,
-        BufferedOutput $output,
-        ASTPrinterInterface $typoscriptPrinter,
-        CurrentFileProvider $currentFileProvider,
-        EditorConfigParser $editorConfigParser,
-        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        RectorOutputStyle $rectorOutputStyle,
-        array $visitors = []
-    ) {
-        $this->typoscriptParser = $typoscriptParser;
-        $this->typoscriptPrinter = $typoscriptPrinter;
-        $this->output = $output;
-        $this->visitors = $visitors;
-        $this->currentFileProvider = $currentFileProvider;
-        $this->editorConfigParser = $editorConfigParser;
-        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
-        $this->rectorOutputStyle = $rectorOutputStyle;
+    public function __construct(private ParserInterface $typoscriptParser, private BufferedOutput $output, private ASTPrinterInterface $typoscriptPrinter, private CurrentFileProvider $currentFileProvider, private EditorConfigParser $editorConfigParser, private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, private RectorOutputStyle $rectorOutputStyle, private array $visitors = [])
+    {
     }
 
     /**

@@ -14,22 +14,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class IconsRector implements IconRectorInterface
 {
-    /**
-     * @var Configuration
-     */
-    private $configuration;
-
-    /**
-     * @var RemovedAndAddedFilesCollector
-     */
-    private $removedAndAddedFilesCollector;
-
-    public function __construct(
-        Configuration $configuration,
-        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
-    ) {
-        $this->configuration = $configuration;
-        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+    public function __construct(private Configuration $configuration, private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector)
+    {
     }
 
     public function refactorFile(File $file): void

@@ -6,6 +6,8 @@ use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
+use Rector\Php74\Rector\Property\TypedPropertyRector;
+use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\Set\ValueObject\SetList;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
@@ -46,6 +48,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]
     );
 
-    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_73);
+    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_80);
     $parameters->set(Option::ENABLE_CACHE, true);
+    $services->set(TypedPropertyRector::class);
+    $services->set(ClassPropertyAssignToConstructorPromotionRector::class);
 };

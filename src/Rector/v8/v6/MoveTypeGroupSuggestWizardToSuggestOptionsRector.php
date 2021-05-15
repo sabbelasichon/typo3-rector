@@ -30,10 +30,7 @@ final class MoveTypeGroupSuggestWizardToSuggestOptionsRector extends AbstractRec
      */
     private const TYPE = 'type';
 
-    /**
-     * @var bool
-     */
-    private $hasAstBeenChanged = false;
+    private bool $hasAstBeenChanged = false;
 
     /**
      * @codeCoverageIgnore

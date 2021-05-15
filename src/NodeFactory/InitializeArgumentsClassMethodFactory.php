@@ -49,50 +49,8 @@ final class InitializeArgumentsClassMethodFactory
      */
     private const MIXED = 'mixed';
 
-    /**
-     * @var NodeFactory
-     */
-    private $nodeFactory;
-
-    /**
-     * @var StaticTypeMapper
-     */
-    private $staticTypeMapper;
-
-    /**
-     * @var ParamTypeInferer
-     */
-    private $paramTypeInferer;
-
-    /**
-     * @var PhpDocInfoFactory
-     */
-    private $phpDocInfoFactory;
-
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-
-    /**
-     * @var ReflectionProvider
-     */
-    private $reflectionProvider;
-
-    public function __construct(
-        NodeFactory $nodeFactory,
-        NodeNameResolver $nodeNameResolver,
-        StaticTypeMapper $staticTypeMapper,
-        ParamTypeInferer $paramTypeInferer,
-        PhpDocInfoFactory $phpDocInfoFactory,
-        ReflectionProvider $reflectionProvider
-    ) {
-        $this->nodeFactory = $nodeFactory;
-        $this->nodeNameResolver = $nodeNameResolver;
-        $this->staticTypeMapper = $staticTypeMapper;
-        $this->paramTypeInferer = $paramTypeInferer;
-        $this->phpDocInfoFactory = $phpDocInfoFactory;
-        $this->reflectionProvider = $reflectionProvider;
+    public function __construct(private NodeFactory $nodeFactory, private NodeNameResolver $nodeNameResolver, private StaticTypeMapper $staticTypeMapper, private ParamTypeInferer $paramTypeInferer, private PhpDocInfoFactory $phpDocInfoFactory, private ReflectionProvider $reflectionProvider)
+    {
     }
 
     public function decorateClass(Class_ $class): void

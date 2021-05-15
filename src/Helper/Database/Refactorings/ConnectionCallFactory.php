@@ -13,14 +13,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class ConnectionCallFactory
 {
-    /**
-     * @var NodeFactory
-     */
-    private $nodeFactory;
-
-    public function __construct(NodeFactory $nodeFactory)
+    public function __construct(private NodeFactory $nodeFactory)
     {
-        $this->nodeFactory = $nodeFactory;
     }
 
     public function createConnectionCall(Arg $firstArgument): Assign

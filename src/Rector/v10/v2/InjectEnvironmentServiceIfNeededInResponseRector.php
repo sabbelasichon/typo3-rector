@@ -35,14 +35,8 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
      */
     private const ENVIRONMENT_SERVICE = 'environmentService';
 
-    /**
-     * @var ClassInsertManipulator
-     */
-    private $classInsertManipulator;
-
-    public function __construct(ClassInsertManipulator $classInsertManipulator)
+    public function __construct(private ClassInsertManipulator $classInsertManipulator)
     {
-        $this->classInsertManipulator = $classInsertManipulator;
     }
 
     /**

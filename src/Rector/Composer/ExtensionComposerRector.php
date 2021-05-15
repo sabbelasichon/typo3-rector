@@ -24,19 +24,10 @@ final class ExtensionComposerRector implements ComposerRectorInterface
      */
     public const TYPO3_VERSION_CONSTRAINT = 'typo3_version_constraint';
 
-    /**
-     * @var mixed|string|string[]
-     */
-    private $defaultTypo3VersionConstraint = '';
+    private string|array $defaultTypo3VersionConstraint = '';
 
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    public function __construct(CurrentFileProvider $currentFileProvider)
+    public function __construct(private CurrentFileProvider $currentFileProvider)
     {
-        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function refactor(ComposerJson $composerJson): void

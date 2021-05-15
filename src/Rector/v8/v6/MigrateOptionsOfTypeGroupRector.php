@@ -31,12 +31,12 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
     /**
      * @var array<string, array<string, mixed>>
      */
-    private $addFieldWizards = [];
+    private array $addFieldWizards = [];
 
     /**
      * @var array<string, array<string, mixed>>
      */
-    private $addFieldControls = [];
+    private array $addFieldControls = [];
 
     /**
      * @return array<class-string<Node>>

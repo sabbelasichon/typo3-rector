@@ -10,10 +10,7 @@ use Rector\Core\Contract\Rector\RectorInterface;
 
 abstract class AbstractVisitor implements Visitor, RectorInterface
 {
-    /**
-     * @var bool
-     */
-    protected $hasChanged = false;
+    protected bool $hasChanged = false;
 
     public function enterTree(array $statements): void
     {

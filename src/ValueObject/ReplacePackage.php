@@ -6,20 +6,8 @@ namespace Ssch\TYPO3Rector\ValueObject;
 
 final class ReplacePackage
 {
-    /**
-     * @var string
-     */
-    private $oldPackageName;
-
-    /**
-     * @var string
-     */
-    private $newPackageName;
-
-    public function __construct(string $oldPackageName, string $newPackageName)
+    public function __construct(private string $oldPackageName, private string $newPackageName)
     {
-        $this->oldPackageName = $oldPackageName;
-        $this->newPackageName = $newPackageName;
     }
 
     public function getOldPackageName(): string

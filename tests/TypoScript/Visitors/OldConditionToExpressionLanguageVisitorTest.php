@@ -28,10 +28,7 @@ use Ssch\TYPO3Rector\TypoScript\Visitors\OldConditionToExpressionLanguageVisitor
 
 final class OldConditionToExpressionLanguageVisitorTest extends TestCase
 {
-    /**
-     * @var OldConditionToExpressionLanguageVisitor
-     */
-    private $subject;
+    private OldConditionToExpressionLanguageVisitor $subject;
 
     protected function setUp(): void
     {

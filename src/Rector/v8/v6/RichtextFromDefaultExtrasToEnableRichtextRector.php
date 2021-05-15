@@ -23,10 +23,7 @@ final class RichtextFromDefaultExtrasToEnableRichtextRector extends AbstractRect
 {
     use TcaHelperTrait;
 
-    /**
-     * @var bool
-     */
-    private $hasAstBeenChanged = false;
+    private bool $hasAstBeenChanged = false;
 
     /**
      * @codeCoverageIgnore

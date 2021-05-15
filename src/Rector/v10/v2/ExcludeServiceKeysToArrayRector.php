@@ -21,14 +21,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class ExcludeServiceKeysToArrayRector extends AbstractRector
 {
-    /**
-     * @var ArrayTypeAnalyzer
-     */
-    private $arrayTypeAnalyzer;
-
-    public function __construct(ArrayTypeAnalyzer $arrayTypeAnalyzer)
+    public function __construct(private ArrayTypeAnalyzer $arrayTypeAnalyzer)
     {
-        $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
     }
 
     /**

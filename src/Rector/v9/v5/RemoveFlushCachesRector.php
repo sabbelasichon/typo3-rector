@@ -18,14 +18,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveFlushCachesRector extends AbstractRector
 {
-    /**
-     * @var PhpDocTagRemover
-     */
-    private $phpDocTagRemover;
-
-    public function __construct(PhpDocTagRemover $phpDocTagRemover)
+    public function __construct(private PhpDocTagRemover $phpDocTagRemover)
     {
-        $this->phpDocTagRemover = $phpDocTagRemover;
     }
 
     /**

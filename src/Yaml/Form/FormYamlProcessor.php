@@ -22,22 +22,10 @@ final class FormYamlProcessor implements FileProcessorInterface
     private const ALLOWED_FILE_EXTENSIONS = ['yaml'];
 
     /**
-     * @var FormYamlRectorInterface[]
-     */
-    private $transformer = [];
-
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
-    /**
      * @param FormYamlRectorInterface[] $transformer
      */
-    public function __construct(CurrentFileProvider $currentFileProvider, array $transformer)
+    public function __construct(private CurrentFileProvider $currentFileProvider, private array $transformer)
     {
-        $this->transformer = $transformer;
-        $this->currentFileProvider = $currentFileProvider;
     }
 
     /**

@@ -17,16 +17,10 @@ use UnexpectedValueException;
 final class FlexFormsProcessor implements FileProcessorInterface
 {
     /**
-     * @var FlexFormRectorInterface[]
-     */
-    private $flexFormRectors = [];
-
-    /**
      * @param FlexFormRectorInterface[] $flexFormRectors
      */
-    public function __construct(array $flexFormRectors)
+    public function __construct(private array $flexFormRectors)
     {
-        $this->flexFormRectors = $flexFormRectors;
     }
 
     /**
