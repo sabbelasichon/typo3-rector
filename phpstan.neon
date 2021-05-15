@@ -70,3 +70,7 @@ parameters:
                 - src/TypoScript/TypoScriptProcessor.php
                 # xml check
                 - src/FlexForms/Rector/RenderTypeFlexFormRector.php
+        -
+            message: '#Function "class_exists\(\)" cannot be used/left in the code#'
+            paths:
+                - config/config.php

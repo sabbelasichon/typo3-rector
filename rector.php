@@ -38,14 +38,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         Option::SKIP,
         [
             __DIR__ . '/utils/generator/templates',
+            StringClassNameToClassConstantRector::class,
             __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
             RemovePackageVersionsRector::class => [__DIR__ . '/config', __DIR__ . '/tests'],
             __DIR__ . '/src/Set',
             '*/Fixture/*',
-            StringClassNameToClassConstantRector::class => [
-                // accidental local class autoload in require-dev
-                __DIR__ . '/src/Rector/v9/v5/ExtbaseCommandControllerToSymfonyCommand/AddArgumentToSymfonyCommandRector.php',
-            ],
         ]
     );
 
