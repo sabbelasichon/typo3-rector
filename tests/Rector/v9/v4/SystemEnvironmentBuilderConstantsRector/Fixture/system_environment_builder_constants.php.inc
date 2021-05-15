@@ -37,7 +37,7 @@ $var6 = 'https://typo3.org/contribute/';
 $var7 = 'https://typo3.org/teams/security/';
 $var8 = 'https://typo3.org/download/';
 $var9 = 'https://typo3.org/typo3-cms/overview/requirements/';
-$nul = "\0";
+$nul = "\x00";
 $tab = "\t";
 $sub = chr(26);
 
