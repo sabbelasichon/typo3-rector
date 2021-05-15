@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocuments\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector\Fixture;
 
 use ApacheSolrForTypo3\Solr\System\Solr\SolrConnection;
 
@@ -31,7 +31,7 @@ class MyService
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocuments\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector\Fixture;
 
 use ApacheSolrForTypo3\Solr\System\Solr\SolrConnection;
 

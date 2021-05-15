@@ -8,7 +8,7 @@ if (class_exists(ImageService::class)) {
     return;
 }
 
-final class ImageService
+class ImageService
 {
 
 }
