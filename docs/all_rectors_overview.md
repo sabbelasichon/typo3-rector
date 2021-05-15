@@ -836,7 +836,7 @@ Force template parsing in tsfe is replaced with context api and aspects
 
 ## ForwardResponseInsteadOfForwardMethodRector
 
-Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of `TYPO3\CMS\Extbase\Mvc\Controller\ActionController::forward()`
+Return `TYPO3\CMS\Extbase\Http\ForwardResponse` instead of `TYPO3\CMS\Extbase\Mvc\Controller\ActionController::forward()`
 
 - class: [`Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector`](../src/Rector/v11/v0/ForwardResponseInsteadOfForwardMethodRector.php)
 
@@ -2211,7 +2211,7 @@ Remove `@flushesCaches` annotation
 
 ## RemoveFormatConstantsEmailFinisherRector
 
-Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class TYPO3\CMS\Form\Domain\Finishers\EmailFinisher
+Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class `TYPO3\CMS\Form\Domain\Finishers\EmailFinisher`
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v4\RemoveFormatConstantsEmailFinisherRector`](../src/Rector/v10/v4/RemoveFormatConstantsEmailFinisherRector.php)
 
@@ -2331,7 +2331,7 @@ Remove method call initTemplate from TypoScriptFrontendController
 
 ## RemoveInternalAnnotationRector
 
-Remove `@internal` annotation from classes extending \TYPO3\CMS\Extbase\Mvc\Controller\CommandController
+Remove `@internal` annotation from classes extending `\TYPO3\CMS\Extbase\Mvc\Controller\CommandController`
 
 - class: [`Ssch\TYPO3Rector\Rector\v9\v5\RemoveInternalAnnotationRector`](../src/Rector/v9/v5/RemoveInternalAnnotationRector.php)
 
