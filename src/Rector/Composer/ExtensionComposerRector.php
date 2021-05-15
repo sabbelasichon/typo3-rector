@@ -24,7 +24,7 @@ final class ExtensionComposerRector implements ComposerRectorInterface
      */
     public const TYPO3_VERSION_CONSTRAINT = 'typo3_version_constraint';
 
-    private string | array $defaultTypo3VersionConstraint = '';
+    private string $defaultTypo3VersionConstraint = '';
 
     public function __construct(
         private CurrentFileProvider $currentFileProvider
@@ -56,7 +56,7 @@ final class ExtensionComposerRector implements ComposerRectorInterface
     }
 
     /**
-     * @param array<string, string[]> $configuration
+     * @param array<string, string> $configuration
      */
     public function configure(array $configuration): void
     {
