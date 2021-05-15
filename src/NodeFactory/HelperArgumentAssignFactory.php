@@ -15,7 +15,9 @@ use Rector\NodeNameResolver\NodeNameResolver;
 
 final class HelperArgumentAssignFactory
 {
-    public function __construct(private NodeNameResolver $nodeNameResolver)
+    public function __construct(
+        private NodeNameResolver $nodeNameResolver
+    )
     {
     }
 

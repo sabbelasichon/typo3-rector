@@ -27,7 +27,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class UseExtensionConfigurationApiRector extends AbstractRector
 {
-    public function __construct(private RectorOutputStyle $rectorOutputStyle)
+    public function __construct(
+        private RectorOutputStyle $rectorOutputStyle
+    )
     {
     }
 

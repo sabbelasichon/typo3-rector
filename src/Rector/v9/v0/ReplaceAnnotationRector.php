@@ -32,7 +32,9 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
      */
     private array $oldToNewAnnotations = [];
 
-    public function __construct(private PhpDocTagRemover $phpDocTagRemover)
+    public function __construct(
+        private PhpDocTagRemover $phpDocTagRemover
+    )
     {
     }
 

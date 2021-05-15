@@ -10,7 +10,9 @@ use Rector\NodeNameResolver\NodeNameResolver;
 
 final class ClassConstAnalyzer
 {
-    public function __construct(private NodeNameResolver $nodeNameResolver)
+    public function __construct(
+        private NodeNameResolver $nodeNameResolver
+    )
     {
     }
 

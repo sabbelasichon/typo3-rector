@@ -25,7 +25,9 @@ final class ValidateAnnotationRector extends AbstractRector
      */
     private const OLD_ANNOTATION = 'validate';
 
-    public function __construct(private PhpDocTagRemover $phpDocTagRemover)
+    public function __construct(
+        private PhpDocTagRemover $phpDocTagRemover
+    )
     {
     }
 

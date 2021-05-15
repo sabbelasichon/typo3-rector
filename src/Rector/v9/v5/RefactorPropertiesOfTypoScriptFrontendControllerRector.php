@@ -22,7 +22,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends AbstractRector
 {
-    public function __construct(private Typo3NodeResolver $typo3NodeResolver)
+    public function __construct(
+        private Typo3NodeResolver $typo3NodeResolver
+    )
     {
     }
 

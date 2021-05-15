@@ -13,7 +13,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class ConnectionCallFactory
 {
-    public function __construct(private NodeFactory $nodeFactory)
+    public function __construct(
+        private NodeFactory $nodeFactory
+    )
     {
     }
 

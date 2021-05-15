@@ -20,7 +20,9 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 final class SetSystemLocaleFromSiteLanguageRector extends AbstractRector
 {
-    public function __construct(private Typo3NodeResolver $typo3NodeResolver)
+    public function __construct(
+        private Typo3NodeResolver $typo3NodeResolver
+    )
     {
     }
 

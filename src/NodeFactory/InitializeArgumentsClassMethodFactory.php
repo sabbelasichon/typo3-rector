@@ -49,7 +49,14 @@ final class InitializeArgumentsClassMethodFactory
      */
     private const MIXED = 'mixed';
 
-    public function __construct(private NodeFactory $nodeFactory, private NodeNameResolver $nodeNameResolver, private StaticTypeMapper $staticTypeMapper, private ParamTypeInferer $paramTypeInferer, private PhpDocInfoFactory $phpDocInfoFactory, private ReflectionProvider $reflectionProvider)
+    public function __construct(
+        private NodeFactory $nodeFactory,
+        private NodeNameResolver $nodeNameResolver,
+        private StaticTypeMapper $staticTypeMapper,
+        private ParamTypeInferer $paramTypeInferer,
+        private PhpDocInfoFactory $phpDocInfoFactory,
+        private ReflectionProvider $reflectionProvider
+    )
     {
     }
 

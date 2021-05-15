@@ -32,7 +32,9 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
         'sys_language_mode' => 'legacyLanguageMode',
     ];
 
-    public function __construct(private Typo3NodeResolver $typo3NodeResolver)
+    public function __construct(
+        private Typo3NodeResolver $typo3NodeResolver
+    )
     {
     }
 

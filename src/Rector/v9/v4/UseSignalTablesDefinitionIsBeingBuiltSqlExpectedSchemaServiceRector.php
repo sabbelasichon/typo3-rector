@@ -20,7 +20,9 @@ use TYPO3\CMS\Install\Service\SqlExpectedSchemaService;
  */
 final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector extends AbstractRector
 {
-    public function __construct(private ClassConstAnalyzer $classConstAnalyzer)
+    public function __construct(
+        private ClassConstAnalyzer $classConstAnalyzer
+    )
     {
     }
 

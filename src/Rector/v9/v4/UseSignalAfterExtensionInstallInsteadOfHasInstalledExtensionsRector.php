@@ -20,7 +20,9 @@ use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
  */
 final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector extends AbstractRector
 {
-    public function __construct(private ClassConstAnalyzer $classConstAnalyzer)
+    public function __construct(
+        private ClassConstAnalyzer $classConstAnalyzer
+    )
     {
     }
 

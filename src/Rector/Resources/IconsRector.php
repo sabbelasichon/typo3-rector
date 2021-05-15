@@ -14,7 +14,10 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class IconsRector implements IconRectorInterface
 {
-    public function __construct(private Configuration $configuration, private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector)
+    public function __construct(
+        private Configuration $configuration,
+        private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
+    )
     {
     }
 

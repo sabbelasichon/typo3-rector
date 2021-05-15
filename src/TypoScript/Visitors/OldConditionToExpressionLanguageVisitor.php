@@ -23,7 +23,10 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
     /**
      * @param TyposcriptConditionMatcher[] $conditionMatchers
      */
-    public function __construct(private CurrentFileProvider $currentFileProvider, private array $conditionMatchers = [])
+    public function __construct(
+        private CurrentFileProvider $currentFileProvider,
+        private array $conditionMatchers = [
+    ])
     {
     }
 

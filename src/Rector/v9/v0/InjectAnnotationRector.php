@@ -40,7 +40,10 @@ final class InjectAnnotationRector extends AbstractRector
      */
     private const NEW_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\Inject';
 
-    public function __construct(private PhpDocTagRemover $phpDocTagRemover, private DocBlockTagReplacer $docBlockTagReplacer)
+    public function __construct(
+        private PhpDocTagRemover $phpDocTagRemover,
+        private DocBlockTagReplacer $docBlockTagReplacer
+    )
     {
     }
 

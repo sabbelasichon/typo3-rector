@@ -52,7 +52,9 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         'QTOBJECT',
     ];
 
-    public function __construct(private Typo3NodeResolver $typo3NodeResolver)
+    public function __construct(
+        private Typo3NodeResolver $typo3NodeResolver
+    )
     {
     }
 

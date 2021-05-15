@@ -36,7 +36,9 @@ final class EmailFinisherRector implements FormYamlRectorInterface
      */
     private const RECIPIENTS = 'recipients';
 
-    public function __construct(private CurrentFileProvider $currentFileProvider)
+    public function __construct(
+        private CurrentFileProvider $currentFileProvider
+    )
     {
     }
 

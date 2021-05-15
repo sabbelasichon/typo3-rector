@@ -28,7 +28,9 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
      */
     private const MESSAGE = 'You have to migrate the legacy file field to FAL';
 
-    public function __construct(private RectorOutputStyle $rectorOutputStyle)
+    public function __construct(
+        private RectorOutputStyle $rectorOutputStyle
+    )
     {
     }
 

@@ -56,7 +56,9 @@ final class PageNotFoundAndErrorHandlingRector extends AbstractRector
         'pageErrorHandler',
     ];
 
-    public function __construct(private Typo3NodeResolver $typo3NodeResolver)
+    public function __construct(
+        private Typo3NodeResolver $typo3NodeResolver
+    )
     {
     }
 

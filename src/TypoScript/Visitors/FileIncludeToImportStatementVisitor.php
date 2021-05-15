@@ -17,7 +17,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class FileIncludeToImportStatementVisitor extends AbstractVisitor
 {
-    public function __construct(private CurrentFileProvider $currentFileProvider)
+    public function __construct(
+        private CurrentFileProvider $currentFileProvider
+    )
     {
     }
 

@@ -6,7 +6,10 @@ namespace Ssch\TYPO3Rector\ValueObject;
 
 final class ReplacePackage
 {
-    public function __construct(private string $oldPackageName, private string $newPackageName)
+    public function __construct(
+        private string $oldPackageName,
+        private string $newPackageName
+    )
     {
     }
 

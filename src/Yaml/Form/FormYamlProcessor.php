@@ -24,7 +24,10 @@ final class FormYamlProcessor implements FileProcessorInterface
     /**
      * @param FormYamlRectorInterface[] $transformer
      */
-    public function __construct(private CurrentFileProvider $currentFileProvider, private array $transformer)
+    public function __construct(
+        private CurrentFileProvider $currentFileProvider,
+        private array $transformer
+    )
     {
     }
 

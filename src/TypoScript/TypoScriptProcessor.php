@@ -40,7 +40,16 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     /**
      * @param Visitor[] $visitors
      */
-    public function __construct(private ParserInterface $typoscriptParser, private BufferedOutput $output, private ASTPrinterInterface $typoscriptPrinter, private CurrentFileProvider $currentFileProvider, private EditorConfigParser $editorConfigParser, private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, private RectorOutputStyle $rectorOutputStyle, private array $visitors = [])
+    public function __construct(
+        private ParserInterface $typoscriptParser,
+        private BufferedOutput $output,
+        private ASTPrinterInterface $typoscriptPrinter,
+        private CurrentFileProvider $currentFileProvider,
+        private EditorConfigParser $editorConfigParser,
+        private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        private RectorOutputStyle $rectorOutputStyle,
+        private array $visitors = [
+    ])
     {
     }
 

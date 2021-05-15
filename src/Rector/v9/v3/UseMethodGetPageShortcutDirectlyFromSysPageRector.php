@@ -20,7 +20,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class UseMethodGetPageShortcutDirectlyFromSysPageRector extends AbstractRector
 {
-    public function __construct(private Typo3NodeResolver $typo3NodeResolver)
+    public function __construct(
+        private Typo3NodeResolver $typo3NodeResolver
+    )
     {
     }
 

@@ -22,7 +22,9 @@ final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
 {
     use FileHelperTrait;
 
-    public function __construct(private FilesFinder $filesFinder)
+    public function __construct(
+        private FilesFinder $filesFinder
+    )
     {
     }
 
