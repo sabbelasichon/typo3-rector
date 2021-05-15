@@ -25,7 +25,7 @@ final class Typo3SetListComposerConfigurationPathResolver implements ComposerCon
 
         try {
             return new SmartFileInfo(constant($constant));
-        } catch (FileNotFoundException $e) {
+        } catch (FileNotFoundException $fileNotFoundException) {
             return null;
         }
     }

@@ -12,27 +12,22 @@ use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
+use Rector\Composer\ValueObject\RenamePackage;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class AddReplacePackageRector extends AbstractRector
 {
     /**
-     * @var \Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer
+     * @var RenamePackage[]
      */
-    private $symfonyPhpConfigClosureAnalyzer;
+    private ?array $replacePackges = null;
 
-    /**
-     * @var ReplacePackage[]
-     */
-    private $replacePackges;
-
-    public function __construct(SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer)
-    {
-        $this->symfonyPhpConfigClosureAnalyzer = $symfonyPhpConfigClosureAnalyzer;
+    public function __construct(
+        private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer
+    ) {
     }
 
     public function setReplacePackages(array $replacePackages): void
@@ -41,7 +36,7 @@ final class AddReplacePackageRector extends AbstractRector
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
@@ -86,7 +81,7 @@ final class AddReplacePackageRector extends AbstractRector
             foreach ($this->replacePackges as $replacePackage) {
                 $stmt->expr->expr->items[] = new ArrayItem(
                     new New_(
-                        new FullyQualified(ReplacePackage::class),
+                        new FullyQualified(RenamePackage::class),
                         $this->nodeFactory->createArgs([
                             $replacePackage->getOldPackageName(),
                             $replacePackage->getNewPackageName(),

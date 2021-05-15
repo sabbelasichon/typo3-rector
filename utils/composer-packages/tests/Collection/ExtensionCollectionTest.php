@@ -12,10 +12,7 @@ use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
 
 final class ExtensionCollectionTest extends TestCase
 {
-    /**
-     * @var ExtensionCollection
-     */
-    private $subject;
+    private ExtensionCollection $subject;
 
     protected function setUp(): void
     {

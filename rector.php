@@ -27,7 +27,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(AddSeeTestAnnotationRector::class);
     $services->set(VarConstantCommentRector::class);
 
-    $parameters->set(Option::PATHS, [__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
+    $parameters->set(Option::PATHS, [__DIR__ . '/utils', __DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
 
     $containerConfigurator->import(SetList::PRIVATIZATION);
     $containerConfigurator->import(SetList::DEAD_CODE);
@@ -37,6 +37,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(
         Option::SKIP,
         [
+            __DIR__ . '/utils/generator/templates',
             __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
             RemovePackageVersionsRector::class => [__DIR__ . '/config', __DIR__ . '/tests'],
             __DIR__ . '/src/Set',

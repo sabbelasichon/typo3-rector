@@ -8,20 +8,10 @@ use Webmozart\Assert\Assert;
 
 final class Typo3Version
 {
-    /**
-     * @var int
-     */
-    private $major;
-
-    /**
-     * @var int
-     */
-    private $minor;
-
-    private function __construct(int $major, int $minor)
-    {
-        $this->major = $major;
-        $this->minor = $minor;
+    private function __construct(
+        private int $major,
+        private int $minor
+    ) {
     }
 
     public function getMajor(): int

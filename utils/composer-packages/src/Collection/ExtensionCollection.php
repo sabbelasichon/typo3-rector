@@ -10,21 +10,21 @@ use Composer\Semver\Semver;
 use Composer\Semver\VersionParser;
 use Countable;
 use IteratorAggregate;
+use Rector\Composer\ValueObject\RenamePackage;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 
+/**
+ * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Collection\ExtensionCollectionTest
+ */
 final class ExtensionCollection implements Countable, IteratorAggregate
 {
-    /**
-     * @var VersionParser
-     */
-    private static $versionParser;
+    private static ?VersionParser $versionParser = null;
 
     /**
      * @var ExtensionVersion[]
      */
-    private $extensions = [];
+    private array $extensions = [];
 
     public function addExtension(ExtensionVersion $extension): void
     {
@@ -90,7 +90,7 @@ final class ExtensionCollection implements Countable, IteratorAggregate
         $replacePackages = [];
         foreach ($this->extensions as $extension) {
             $replacePackage = $extension->getReplacePackage();
-            if ($replacePackage instanceof ReplacePackage) {
+            if ($replacePackage instanceof RenamePackage) {
                 $replacePackages[$replacePackage->getOldPackageName()] = $replacePackage;
             }
         }

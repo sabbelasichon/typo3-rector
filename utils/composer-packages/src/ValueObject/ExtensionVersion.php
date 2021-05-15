@@ -6,39 +6,27 @@ namespace Ssch\TYPO3Rector\ComposerPackages\ValueObject;
 
 use Composer\Semver\Semver;
 use Rector\Composer\ValueObject\PackageAndVersion;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
+use Rector\Composer\ValueObject\RenamePackage;
 use Stringable;
 use Webmozart\Assert\Assert;
 
 final class ExtensionVersion implements Stringable
 {
     /**
-     * @var PackageAndVersion
-     */
-    private $packageAndVersion;
-
-    /**
      * @var Typo3Version[]
      */
-    private $typo3Versions;
-
-    /**
-     * @var ReplacePackage|null
-     */
-    private $replacePackage;
+    private array $typo3Versions = [];
 
     /**
      * @param Typo3Version[] $typo3Versions
      */
     public function __construct(
-        PackageAndVersion $packageAndVersion,
+        private PackageAndVersion $packageAndVersion,
         array $typo3Versions,
-        ?ReplacePackage $replacePackage = null
+        private ?RenamePackage $replacePackage = null
     ) {
         Assert::allIsInstanceOf($typo3Versions, Typo3Version::class);
-        $this->packageAndVersion = $packageAndVersion;
         $this->typo3Versions = $typo3Versions;
-        $this->replacePackage = $replacePackage;
     }
 
     public function __toString(): string
@@ -66,7 +54,7 @@ final class ExtensionVersion implements Stringable
         return $this->packageAndVersion->getPackageName();
     }
 
-    public function getReplacePackage(): ?ReplacePackage
+    public function getReplacePackage(): ?RenamePackage
     {
         return $this->replacePackage;
     }

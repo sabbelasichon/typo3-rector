@@ -6,17 +6,13 @@ namespace Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer;
 
 use PhpParser\Node\Expr\Closure;
 use Rector\NodeNameResolver\NodeNameResolver;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 final class SymfonyPhpConfigClosureAnalyzer
 {
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-
-    public function __construct(NodeNameResolver $nodeNameResolver)
-    {
-        $this->nodeNameResolver = $nodeNameResolver;
+    public function __construct(
+        private NodeNameResolver $nodeNameResolver
+    ) {
     }
 
     public function isPhpConfigClosure(Closure $closure): bool
@@ -30,9 +26,6 @@ final class SymfonyPhpConfigClosureAnalyzer
             return false;
         }
 
-        return $this->nodeNameResolver->isName(
-            $onlyParam->type,
-            'Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator'
-        );
+        return $this->nodeNameResolver->isName($onlyParam->type, ContainerConfigurator::class);
     }
 }

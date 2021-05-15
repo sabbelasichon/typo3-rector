@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\ComposerPackages\Tests;
 
 use PHPUnit\Framework\TestCase;
+use Rector\Composer\ValueObject\RenamePackage;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerPackageParser;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ComposerPackage;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use UnexpectedValueException;
 
 final class ComposerPackageParserTest extends TestCase
 {
-    /**
-     * @var ComposerPackageParser
-     */
-    private $subject;
+    private ComposerPackageParser $subject;
 
     protected function setUp(): void
     {
@@ -29,7 +26,7 @@ final class ComposerPackageParserTest extends TestCase
         $replacePackages = [];
         foreach ($extensions as $extension) {
             $replacePackage = $extension->getReplacePackage();
-            if ($replacePackage instanceof ReplacePackage) {
+            if ($replacePackage instanceof RenamePackage) {
                 $replacePackages[$replacePackage->getOldPackageName()] = $replacePackage;
             }
         }

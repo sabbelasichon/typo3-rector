@@ -17,6 +17,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters = $containerConfigurator->parameters();
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
+
     $extension = new ExtensionVersion(new PackageAndVersion('foo/bar', '1.0'), [new Typo3Version('9.5.99')]);
     $services->set(AddPackageVersionRector::class)
         ->call('setExtension', [ValueObjectInliner::inline($extension)]);

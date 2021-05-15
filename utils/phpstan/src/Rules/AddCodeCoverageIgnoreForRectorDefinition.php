@@ -24,20 +24,10 @@ final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
      */
     public const ERROR_MESSAGE = 'Provide @codeCoverageIgnore doc block for "%s" RectorDefinition method';
 
-    /**
-     * @var Broker
-     */
-    private $broker;
-
-    /**
-     * @var FileTypeMapper
-     */
-    private $fileTypeMapper;
-
-    public function __construct(Broker $broker, FileTypeMapper $fileTypeMapper)
-    {
-        $this->broker = $broker;
-        $this->fileTypeMapper = $fileTypeMapper;
+    public function __construct(
+        private Broker $broker,
+        private FileTypeMapper $fileTypeMapper
+    ) {
     }
 
     public function getNodeType(): string

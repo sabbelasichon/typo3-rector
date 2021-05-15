@@ -12,6 +12,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
+use Rector\Core\Contract\Rector\RectorInterface;
 use Ssch\TYPO3Rector\Rector\General\ConvertTypo3ConfVarsRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
@@ -28,7 +29,7 @@ final class AddChangelogDocBlockForRectorClass implements Rule
     public const ERROR_MESSAGE = 'Provide @changelog doc block for "%s" Rector class';
 
     /**
-     * @var string[]
+     * @var array<class-string<RectorInterface>>
      */
     private const ALLOWED_CLASSES_WITH_NON_CHANGELOG_DOC_BLOCK = [
         RenameClassMapAliasRector::class,
@@ -37,20 +38,10 @@ final class AddChangelogDocBlockForRectorClass implements Rule
         AbstractTcaRector::class,
     ];
 
-    /**
-     * @var Broker
-     */
-    private $broker;
-
-    /**
-     * @var FileTypeMapper
-     */
-    private $fileTypeMapper;
-
-    public function __construct(Broker $broker, FileTypeMapper $fileTypeMapper)
-    {
-        $this->broker = $broker;
-        $this->fileTypeMapper = $fileTypeMapper;
+    public function __construct(
+        private Broker $broker,
+        private FileTypeMapper $fileTypeMapper
+    ) {
     }
 
     public function getNodeType(): string

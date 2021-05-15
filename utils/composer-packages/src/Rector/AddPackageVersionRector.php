@@ -25,19 +25,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class AddPackageVersionRector extends AbstractRector
 {
-    /**
-     * @var ExtensionVersion
-     */
-    private $extensionVersion;
+    private ?ExtensionVersion $extensionVersion = null;
 
-    /**
-     * @var SymfonyPhpConfigClosureAnalyzer
-     */
-    private $symfonyPhpConfigClosureAnalyzer;
-
-    public function __construct(SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer)
-    {
-        $this->symfonyPhpConfigClosureAnalyzer = $symfonyPhpConfigClosureAnalyzer;
+    public function __construct(
+        private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer
+    ) {
     }
 
     public function setExtension(ExtensionVersion $extensionVersion): void
