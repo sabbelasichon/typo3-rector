@@ -1,4 +1,4 @@
-# 196 Rules Overview
+# 197 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -121,7 +121,7 @@ Add type to column config if not exists
 
 Apache_Solr_Document to solarium based document
 
-- class: [`Ssch\TYPO3Rector\Rector\Extensions\solr\ApacheSolrDocumentToSolariumDocumentRector`](../src/Rector/Extensions/solr/ApacheSolrDocumentToSolariumDocumentRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\Extensions\solr\v9\ApacheSolrDocumentToSolariumDocumentRector`](../src/Rector/Extensions/solr/v9/ApacheSolrDocumentToSolariumDocumentRector.php)
 
 ```diff
  $document = new Apache_Solr_Document();
@@ -3124,6 +3124,19 @@ TSconfig and TStemplate soft references functionality removed
          ],
      ],
  ];
+```
+
+<br>
+
+## SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector
+
+Apache_Solr_Document to solarium based document
+
+- class: [`Ssch\TYPO3Rector\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector`](../src/Rector/Extensions/solr/v8/SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector.php)
+
+```diff
+-$this->solrConnection->addDocuments([]);
++$this->solrConnection->getWriteService()->addDocuments([]);
 ```
 
 <br>
