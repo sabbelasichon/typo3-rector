@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\ApacheSolrDocumentToSolariumDocumentRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocuments;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ApacheSolrDocumentToSolariumDocumentRectorTest extends AbstractRectorTestCase
+final class SolrConnectionAddDocumentsToWriteServiceAddDocumentsTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\Extensions\solr;
+namespace Ssch\TYPO3Rector\Rector\Extensions\solr\v9;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/p/apache-solr-for-typo3/solr/10.0/en-us/Releases/solr-release-9-0.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\ApacheSolrDocumentToSolariumDocumentRector\ApacheSolrDocumentToSolariumDocumentRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\v9\ApacheSolrDocumentToSolariumDocumentRector\ApacheSolrDocumentToSolariumDocumentRectorTest
  */
 final class ApacheSolrDocumentToSolariumDocumentRector extends AbstractRector
 {
