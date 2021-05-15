@@ -12,10 +12,7 @@ use UnexpectedValueException;
 
 final class ComposerPackageParserTest extends TestCase
 {
-    /**
-     * @var ComposerPackageParser
-     */
-    private $subject;
+    private ComposerPackageParser $subject;
 
     protected function setUp(): void
     {

@@ -8,10 +8,7 @@ use RuntimeException;
 
 final class Url
 {
-    /**
-     * @var string
-     */
-    private $url;
+    private string $url;
 
     private function __construct(string $url)
     {

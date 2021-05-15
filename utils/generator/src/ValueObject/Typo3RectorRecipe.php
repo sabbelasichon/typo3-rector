@@ -6,32 +6,8 @@ namespace Ssch\TYPO3Rector\Generator\ValueObject;
 
 final class Typo3RectorRecipe
 {
-    /**
-     * @var Typo3Version
-     */
-    private $typo3Version;
-
-    /**
-     * @var Url
-     */
-    private $url;
-
-    /**
-     * @var Name
-     */
-    private $name;
-
-    /**
-     * @var Description
-     */
-    private $description;
-
-    public function __construct(Typo3Version $typo3Version, Url $url, Name $name, Description $description)
+    public function __construct(private Typo3Version $typo3Version, private Url $url, private Name $name, private Description $description)
     {
-        $this->typo3Version = $typo3Version;
-        $this->url = $url;
-        $this->name = $name;
-        $this->description = $description;
     }
 
     public function getUrlToRstFile(): string

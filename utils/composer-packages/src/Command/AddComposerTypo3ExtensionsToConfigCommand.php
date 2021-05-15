@@ -30,73 +30,18 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 {
-    /**
-     * @var PackageResolver
-     */
-    private $packageResolver;
-
-    /**
-     * @var Parser
-     */
-    private $parser;
-
-    /**
-     * @var ComposerConfigurationPathResolver
-     */
-    private $composerConfigurationPathResolver;
-
-    /**
-     * @var SmartFileSystem
-     */
-    private $smartFileSystem;
-
-    /**
-     * @var BetterStandardPrinter
-     */
-    private $betterStandardPrinter;
-
-    /**
-     * @var AddPackageVersionRector
-     */
-    private $addPackageVersionRector;
-
-    /**
-     * @var RemovePackageVersionsRector
-     */
-    private $removePackageVersionsRector;
-
-    /**
-     * @var AddReplacePackageRector
-     */
-    private $replacePackageRector;
-
-    /**
-     * @var CurrentFileProvider
-     */
-    private $currentFileProvider;
-
     public function __construct(
-        PackageResolver $packageResolver,
-        Parser $parser,
-        ComposerConfigurationPathResolver $composerConfigurationPathResolver,
-        SmartFileSystem $smartFileSystem,
-        BetterStandardPrinter $betterStandardPrinter,
-        AddPackageVersionRector $addPackageVersionRector,
-        RemovePackageVersionsRector $removePackageVersionsRector,
-        AddReplacePackageRector $replacePackageRector,
-        CurrentFileProvider $currentFileProvider
+        private PackageResolver $packageResolver,
+        private Parser $parser,
+        private ComposerConfigurationPathResolver $composerConfigurationPathResolver,
+        private SmartFileSystem $smartFileSystem,
+        private BetterStandardPrinter $betterStandardPrinter,
+        private AddPackageVersionRector $addPackageVersionRector,
+        private RemovePackageVersionsRector $removePackageVersionsRector,
+        private AddReplacePackageRector $replacePackageRector,
+        private CurrentFileProvider $currentFileProvider
     ) {
         parent::__construct();
-
-        $this->packageResolver = $packageResolver;
-        $this->parser = $parser;
-        $this->composerConfigurationPathResolver = $composerConfigurationPathResolver;
-        $this->smartFileSystem = $smartFileSystem;
-        $this->betterStandardPrinter = $betterStandardPrinter;
-        $this->addPackageVersionRector = $addPackageVersionRector;
-        $this->removePackageVersionsRector = $removePackageVersionsRector;
-        $this->replacePackageRector = $replacePackageRector;
-        $this->currentFileProvider = $currentFileProvider;
     }
 
     protected function configure(): void

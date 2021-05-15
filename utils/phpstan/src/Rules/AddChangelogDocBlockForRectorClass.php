@@ -37,20 +37,8 @@ final class AddChangelogDocBlockForRectorClass implements Rule
         AbstractTcaRector::class,
     ];
 
-    /**
-     * @var Broker
-     */
-    private $broker;
-
-    /**
-     * @var FileTypeMapper
-     */
-    private $fileTypeMapper;
-
-    public function __construct(Broker $broker, FileTypeMapper $fileTypeMapper)
+    public function __construct(private Broker $broker, private FileTypeMapper $fileTypeMapper)
     {
-        $this->broker = $broker;
-        $this->fileTypeMapper = $fileTypeMapper;
     }
 
     public function getNodeType(): string

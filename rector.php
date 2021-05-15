@@ -23,20 +23,21 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
 
-    $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
-    $services->set(AddSeeTestAnnotationRector::class);
-    $services->set(VarConstantCommentRector::class);
+//    $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
+//    $services->set(AddSeeTestAnnotationRector::class);
+//    $services->set(VarConstantCommentRector::class);
 
-    $parameters->set(Option::PATHS, [__DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
+    $parameters->set(Option::PATHS, [__DIR__ . '/utils']);
 
-    $containerConfigurator->import(SetList::PRIVATIZATION);
-    $containerConfigurator->import(SetList::DEAD_CODE);
-    $containerConfigurator->import(SetList::CODING_STYLE);
-    $containerConfigurator->import(SetList::CODE_QUALITY);
+//    $containerConfigurator->import(SetList::PRIVATIZATION);
+//    $containerConfigurator->import(SetList::DEAD_CODE);
+//    $containerConfigurator->import(SetList::CODING_STYLE);
+//    $containerConfigurator->import(SetList::CODE_QUALITY);
 
     $parameters->set(
         Option::SKIP,
         [
+            __DIR__ .'/utils/generator/templates',
             __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
             RemovePackageVersionsRector::class => [__DIR__ . '/config', __DIR__ . '/tests'],
             __DIR__ . '/src/Set',

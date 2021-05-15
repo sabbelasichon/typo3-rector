@@ -16,15 +16,12 @@ use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 
 final class ExtensionCollection implements Countable, IteratorAggregate
 {
-    /**
-     * @var VersionParser
-     */
-    private static $versionParser;
+    private static ?VersionParser $versionParser = null;
 
     /**
      * @var ExtensionVersion[]
      */
-    private $extensions = [];
+    private array $extensions = [];
 
     public function addExtension(ExtensionVersion $extension): void
     {

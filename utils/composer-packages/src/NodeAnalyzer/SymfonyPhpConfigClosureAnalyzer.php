@@ -9,14 +9,8 @@ use Rector\NodeNameResolver\NodeNameResolver;
 
 final class SymfonyPhpConfigClosureAnalyzer
 {
-    /**
-     * @var NodeNameResolver
-     */
-    private $nodeNameResolver;
-
-    public function __construct(NodeNameResolver $nodeNameResolver)
+    public function __construct(private NodeNameResolver $nodeNameResolver)
     {
-        $this->nodeNameResolver = $nodeNameResolver;
     }
 
     public function isPhpConfigClosure(Closure $closure): bool

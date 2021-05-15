@@ -21,18 +21,12 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class AddReplacePackageRector extends AbstractRector
 {
     /**
-     * @var \Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer
-     */
-    private $symfonyPhpConfigClosureAnalyzer;
-
-    /**
      * @var ReplacePackage[]
      */
-    private $replacePackges;
+    private ?array $replacePackges = null;
 
-    public function __construct(SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer)
+    public function __construct(private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer)
     {
-        $this->symfonyPhpConfigClosureAnalyzer = $symfonyPhpConfigClosureAnalyzer;
     }
 
     public function setReplacePackages(array $replacePackages): void
@@ -41,7 +35,7 @@ final class AddReplacePackageRector extends AbstractRector
     }
 
     /**
-     * @return array<class-string<\PhpParser\Node>>
+     * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
