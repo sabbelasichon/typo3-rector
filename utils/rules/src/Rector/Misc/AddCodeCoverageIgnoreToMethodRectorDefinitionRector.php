@@ -33,7 +33,7 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType('Rector\Core\Rector\AbstractRector')
+            new ObjectType(AbstractRector::class)
         )) {
             return null;
         }

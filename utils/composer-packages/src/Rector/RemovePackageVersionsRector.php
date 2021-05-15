@@ -19,8 +19,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemovePackageVersionsRector extends AbstractRector
 {
-    public function __construct(private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer)
-    {
+    public function __construct(
+        private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer
+    ) {
     }
 
     /**

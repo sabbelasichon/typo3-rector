@@ -1,10 +1,10 @@
 <?php
 
 declare(strict_types=1);
+
+use Rector\Composer\Rector\RenamePackageComposerRector;
 use Rector\Composer\ValueObject\RenamePackage;
 
-use Ssch\TYPO3Rector\Rector\Composer\ReplacePackageComposerRector;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
@@ -2668,8 +2668,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         new RenamePackage('typo3-ter/yoast-seo', 'yoast-seo-for-typo3/yoast_seo'),
     ];
     $services->set('move')
-        ->class(ReplacePackageComposerRector::class)
+        ->class(RenamePackageComposerRector::class)
         ->call('configure', [[
-            ReplacePackageComposerRector::REPLACE_PACKAGES => ValueObjectInliner::inline($composerExtensions),
+            RenamePackageComposerRector::RENAME_PACKAGES => ValueObjectInliner::inline($composerExtensions),
         ]]);
 };

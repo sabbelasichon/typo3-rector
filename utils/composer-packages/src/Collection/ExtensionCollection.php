@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\Collection;
 
-use Rector\Composer\ValueObject\RenamePackage;
 use ArrayIterator;
 use Composer\Semver\Comparator;
 use Composer\Semver\Semver;
 use Composer\Semver\VersionParser;
 use Countable;
 use IteratorAggregate;
+use Rector\Composer\ValueObject\RenamePackage;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 
+/**
+ * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Collection\ExtensionCollectionTest
+ */
 final class ExtensionCollection implements Countable, IteratorAggregate
 {
     private static ?VersionParser $versionParser = null;

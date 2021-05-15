@@ -129,31 +129,6 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         return $typo3Versions;
     }
 
-    /**
-     * @param Typo3Version[] $typo3Versions
-     */
-    private function resetComposerExtensions(array $typo3Versions): void
-    {
-        foreach ($typo3Versions as $typo3Version) {
-            $smartFileInfo = $this->composerConfigurationPathResolver->resolveByTypo3Version($typo3Version);
-
-            if (null === $smartFileInfo) {
-                continue;
-            }
-
-            $nodes = $this->parser->parseFileInfo($smartFileInfo);
-            $this->decorateNamesToFullyQualified($nodes);
-
-            $nodeTraverser = new NodeTraverser();
-
-            $nodeTraverser->addVisitor($this->removePackageVersionsRector);
-            $nodes = $nodeTraverser->traverse($nodes);
-
-            $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
-            $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
-        }
-    }
-
     private function addReplacePackages(ExtensionCollection $collection): void
     {
         $smartFileInfo = $this->composerConfigurationPathResolver->replacePackages();

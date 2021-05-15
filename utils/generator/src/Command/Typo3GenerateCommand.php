@@ -94,7 +94,7 @@ final class Typo3GenerateCommand extends Command
         return ShellCode::SUCCESS;
     }
 
-    protected function askForRstFile(): Question
+    private function askForRstFile(): Question
     {
         $whatIsTheUrlToRstFile = new Question('Url to rst file: ');
         $whatIsTheUrlToRstFile->setNormalizer(function ($url) {

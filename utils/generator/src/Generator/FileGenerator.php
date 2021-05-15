@@ -11,8 +11,11 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class FileGenerator
 {
-    public function __construct(private SmartFileSystem $smartFileSystem, private TemplateFactory $templateFactory, private TemplateFileSystem $templateFileSystem)
-    {
+    public function __construct(
+        private SmartFileSystem $smartFileSystem,
+        private TemplateFactory $templateFactory,
+        private TemplateFileSystem $templateFileSystem
+    ) {
     }
 
     /**

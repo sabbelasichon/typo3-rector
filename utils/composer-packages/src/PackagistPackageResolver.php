@@ -10,8 +10,9 @@ use UnexpectedValueException;
 
 final class PackagistPackageResolver implements PackageResolver
 {
-    public function __construct(private PackageParser $packageParser)
-    {
+    public function __construct(
+        private PackageParser $packageParser
+    ) {
     }
 
     public function findPackage(ComposerPackage $package): ExtensionCollection

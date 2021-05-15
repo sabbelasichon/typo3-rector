@@ -8,8 +8,9 @@ use Stringable;
 
 final class Typo3Version implements Stringable
 {
-    public function __construct(private string $version)
-    {
+    public function __construct(
+        private string $version
+    ) {
     }
 
     public function __toString(): string

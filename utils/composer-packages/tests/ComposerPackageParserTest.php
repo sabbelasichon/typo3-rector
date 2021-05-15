@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\Tests;
 
-use Rector\Composer\ValueObject\RenamePackage;
 use PHPUnit\Framework\TestCase;
+use Rector\Composer\ValueObject\RenamePackage;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerPackageParser;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ComposerPackage;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use UnexpectedValueException;
 
 final class ComposerPackageParserTest extends TestCase

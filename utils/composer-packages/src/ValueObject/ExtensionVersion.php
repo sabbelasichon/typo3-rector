@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\ValueObject;
 
-use Rector\Composer\ValueObject\RenamePackage;
 use Composer\Semver\Semver;
 use Rector\Composer\ValueObject\PackageAndVersion;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
+use Rector\Composer\ValueObject\RenamePackage;
 use Stringable;
 use Webmozart\Assert\Assert;
 
@@ -16,7 +15,7 @@ final class ExtensionVersion implements Stringable
     /**
      * @var Typo3Version[]
      */
-    private array $typo3Versions;
+    private array $typo3Versions = [];
 
     /**
      * @param Typo3Version[] $typo3Versions

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\Rector;
 
-use Rector\Composer\ValueObject\RenamePackage;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -13,9 +12,9 @@ use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
+use Rector\Composer\ValueObject\RenamePackage;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -26,8 +25,9 @@ final class AddReplacePackageRector extends AbstractRector
      */
     private ?array $replacePackges = null;
 
-    public function __construct(private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer)
-    {
+    public function __construct(
+        private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer
+    ) {
     }
 
     public function setReplacePackages(array $replacePackages): void

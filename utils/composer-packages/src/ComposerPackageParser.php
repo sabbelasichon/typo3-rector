@@ -4,34 +4,46 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages;
 
-use Rector\Composer\ValueObject\RenamePackage;
 use Composer\Semver\Semver;
 use Nette\Utils\Json;
 use Nette\Utils\Strings;
 use Rector\Composer\ValueObject\PackageAndVersion;
+use Rector\Composer\ValueObject\RenamePackage;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ComposerPackage;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
 
+/**
+ * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\ComposerPackageParserTest
+ */
 final class ComposerPackageParser implements PackageParser
 {
+    /**
+     * @var string
+     */
+    private const PACKAGES = 'packages';
+
+    /**
+     * @var string
+     */
+    private const REPLACE = 'replace';
+
     public function parsePackage(string $content, ComposerPackage $composerPackage): ExtensionCollection
     {
         $json = Json::decode($content, Json::FORCE_ARRAY);
 
         $extensionCollection = new ExtensionCollection();
 
-        if (! array_key_exists('packages', $json)) {
+        if (! array_key_exists(self::PACKAGES, $json)) {
             return $extensionCollection;
         }
 
-        if (! array_key_exists((string) $composerPackage, $json['packages'])) {
+        if (! array_key_exists((string) $composerPackage, $json[self::PACKAGES])) {
             return $extensionCollection;
         }
 
-        $packages = $json['packages'][(string) $composerPackage];
+        $packages = $json[self::PACKAGES][(string) $composerPackage];
 
         foreach ($packages as $package) {
             if (! array_key_exists('require', $package)) {
@@ -59,8 +71,8 @@ final class ComposerPackageParser implements PackageParser
             }
 
             $replacePackage = null;
-            if (array_key_exists('replace', $package) && is_array($package['replace'])) {
-                foreach ($package['replace'] as $replace => $version) {
+            if (array_key_exists(self::REPLACE, $package) && is_array($package[self::REPLACE])) {
+                foreach (array_keys($package[self::REPLACE]) as $replace) {
                     if (Strings::startsWith($replace, 'typo3-ter')) {
                         $replacePackage = new RenamePackage($replace, (string) $composerPackage);
                         break;
