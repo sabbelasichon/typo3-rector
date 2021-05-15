@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
 use Ssch\TYPO3Rector\Set\Extension\SolrSetList;
-use Ssch\TYPO3Rector\Set\Typo3SetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
