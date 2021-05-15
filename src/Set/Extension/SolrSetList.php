@@ -14,10 +14,10 @@ final class SolrSetList
     /**
      * @var string
      */
-    public const SOLR_9x = __DIR__ . '/../../../config/solr/solr-9.0.php';
+    public const SOLR_9x = __DIR__ . '/../../../config/solr/solr-9.x.php';
 
     /**
      * @var string
      */
-    public const SOLR_8x = __DIR__ . '/../../../config/solr/solr-8.0.php';
+    public const SOLR_8x = __DIR__ . '/../../../config/solr/solr-8.x.php';
 }
