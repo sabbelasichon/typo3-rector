@@ -20,8 +20,7 @@ final class RemoveFlushCachesRector extends AbstractRector
 {
     public function __construct(
         private PhpDocTagRemover $phpDocTagRemover
-    )
-    {
+    ) {
     }
 
     /**

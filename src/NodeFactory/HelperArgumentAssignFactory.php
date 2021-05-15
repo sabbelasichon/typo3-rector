@@ -17,8 +17,7 @@ final class HelperArgumentAssignFactory
 {
     public function __construct(
         private NodeNameResolver $nodeNameResolver
-    )
-    {
+    ) {
     }
 
     /**

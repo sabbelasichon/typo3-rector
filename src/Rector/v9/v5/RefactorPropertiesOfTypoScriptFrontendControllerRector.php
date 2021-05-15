@@ -24,8 +24,7 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
 {
     public function __construct(
         private Typo3NodeResolver $typo3NodeResolver
-    )
-    {
+    ) {
     }
 
     /**

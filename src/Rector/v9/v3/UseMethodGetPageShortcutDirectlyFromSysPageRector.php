@@ -22,8 +22,7 @@ final class UseMethodGetPageShortcutDirectlyFromSysPageRector extends AbstractRe
 {
     public function __construct(
         private Typo3NodeResolver $typo3NodeResolver
-    )
-    {
+    ) {
     }
 
     /**

@@ -17,8 +17,7 @@ final class IconsRector implements IconRectorInterface
     public function __construct(
         private Configuration $configuration,
         private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
-    )
-    {
+    ) {
     }
 
     public function refactorFile(File $file): void

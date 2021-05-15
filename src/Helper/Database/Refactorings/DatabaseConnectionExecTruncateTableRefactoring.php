@@ -14,8 +14,7 @@ final class DatabaseConnectionExecTruncateTableRefactoring implements DatabaseCo
     public function __construct(
         private ConnectionCallFactory $connectionCallFactory,
         private NodeFactory $nodeFactory
-    )
-    {
+    ) {
     }
 
     public function refactor(MethodCall $oldNode): array

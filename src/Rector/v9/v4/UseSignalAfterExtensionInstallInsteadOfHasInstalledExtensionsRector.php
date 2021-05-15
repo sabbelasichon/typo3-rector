@@ -22,8 +22,7 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
 {
     public function __construct(
         private ClassConstAnalyzer $classConstAnalyzer
-    )
-    {
+    ) {
     }
 
     /**

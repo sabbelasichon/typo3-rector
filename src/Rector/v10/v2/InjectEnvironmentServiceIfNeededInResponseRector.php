@@ -37,8 +37,7 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
 
     public function __construct(
         private ClassInsertManipulator $classInsertManipulator
-    )
-    {
+    ) {
     }
 
     /**

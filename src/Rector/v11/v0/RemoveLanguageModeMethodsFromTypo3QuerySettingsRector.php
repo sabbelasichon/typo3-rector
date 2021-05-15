@@ -23,8 +23,7 @@ final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends Abstra
     public function __construct(
         private FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
         private SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer
-    )
-    {
+    ) {
     }
 
     /**

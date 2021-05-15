@@ -25,8 +25,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
         private HelperArgumentAssignFactory $helperArgumentAssignFactory,
         private InitializeArgumentsClassMethodFactory $initializeArgumentsClassMethodFactory,
         private PhpDocTagRemover $phpDocTagRemover
-    )
-    {
+    ) {
     }
 
     /**

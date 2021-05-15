@@ -24,8 +24,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
 {
     public function __construct(
         private Typo3NodeResolver $typo3NodeResolver
-    )
-    {
+    ) {
     }
 
     /**

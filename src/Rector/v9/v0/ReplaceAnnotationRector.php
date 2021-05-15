@@ -34,8 +34,7 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
 
     public function __construct(
         private PhpDocTagRemover $phpDocTagRemover
-    )
-    {
+    ) {
     }
 
     /**

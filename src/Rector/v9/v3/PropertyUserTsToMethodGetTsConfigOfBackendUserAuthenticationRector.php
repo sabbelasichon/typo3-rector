@@ -20,8 +20,7 @@ final class PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector e
 {
     public function __construct(
         private Typo3NodeResolver $typo3NodeResolver
-    )
-    {
+    ) {
     }
 
     /**

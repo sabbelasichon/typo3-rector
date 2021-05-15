@@ -27,8 +27,7 @@ final class ValidateAnnotationRector extends AbstractRector
 
     public function __construct(
         private PhpDocTagRemover $phpDocTagRemover
-    )
-    {
+    ) {
     }
 
     /**

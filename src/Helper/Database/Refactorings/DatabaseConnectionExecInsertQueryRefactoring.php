@@ -15,8 +15,7 @@ final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConn
     public function __construct(
         private ConnectionCallFactory $connectionCallFactory,
         private NodeFactory $nodeFactory
-    )
-    {
+    ) {
     }
 
     /**

@@ -81,8 +81,7 @@ final class Typo3NodeResolver
         private ValueResolver $valueResolver,
         private NodeNameResolver $nodeNameResolver,
         private NodeTypeResolver $nodeTypeResolver
-    )
-    {
+    ) {
     }
 
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool

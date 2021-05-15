@@ -30,8 +30,7 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
 
     public function __construct(
         private RectorOutputStyle $rectorOutputStyle
-    )
-    {
+    ) {
     }
 
     /**

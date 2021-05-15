@@ -48,8 +48,8 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         private EditorConfigParser $editorConfigParser,
         private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         private RectorOutputStyle $rectorOutputStyle,
-        private array $visitors = [
-    ])
+        private array $visitors = []
+    )
     {
     }
 

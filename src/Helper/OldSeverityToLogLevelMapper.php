@@ -12,8 +12,7 @@ final class OldSeverityToLogLevelMapper
 {
     public function __construct(
         private NodeFactory $nodeFactory
-    )
-    {
+    ) {
     }
 
     public function mapSeverityToLogLevel(int $severityValue): ClassConstFetch

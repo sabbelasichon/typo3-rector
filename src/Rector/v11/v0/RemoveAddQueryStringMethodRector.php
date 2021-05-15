@@ -24,8 +24,7 @@ final class RemoveAddQueryStringMethodRector extends AbstractRector
     public function __construct(
         private FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
         private SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer
-    )
-    {
+    ) {
     }
 
     /**

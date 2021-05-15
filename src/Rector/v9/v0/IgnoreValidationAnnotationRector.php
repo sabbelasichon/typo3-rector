@@ -32,8 +32,7 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
 
     public function __construct(
         private PhpDocTagRemover $phpDocTagRemover
-    )
-    {
+    ) {
     }
 
     /**

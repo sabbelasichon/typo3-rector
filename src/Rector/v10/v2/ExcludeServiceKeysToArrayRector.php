@@ -23,8 +23,7 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
 {
     public function __construct(
         private ArrayTypeAnalyzer $arrayTypeAnalyzer
-    )
-    {
+    ) {
     }
 
     /**

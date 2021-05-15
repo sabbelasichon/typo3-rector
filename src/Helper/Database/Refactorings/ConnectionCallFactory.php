@@ -15,8 +15,7 @@ final class ConnectionCallFactory
 {
     public function __construct(
         private NodeFactory $nodeFactory
-    )
-    {
+    ) {
     }
 
     public function createConnectionCall(Arg $firstArgument): Assign

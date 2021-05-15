@@ -12,8 +12,7 @@ final class ClassConstAnalyzer
 {
     public function __construct(
         private NodeNameResolver $nodeNameResolver
-    )
-    {
+    ) {
     }
 
     /**

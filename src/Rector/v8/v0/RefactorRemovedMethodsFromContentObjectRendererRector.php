@@ -54,8 +54,7 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
 
     public function __construct(
         private Typo3NodeResolver $typo3NodeResolver
-    )
-    {
+    ) {
     }
 
     /**

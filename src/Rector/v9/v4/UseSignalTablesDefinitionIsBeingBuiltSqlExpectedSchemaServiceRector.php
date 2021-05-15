@@ -22,8 +22,7 @@ final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector 
 {
     public function __construct(
         private ClassConstAnalyzer $classConstAnalyzer
-    )
-    {
+    ) {
     }
 
     /**

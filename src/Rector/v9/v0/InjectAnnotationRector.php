@@ -43,8 +43,7 @@ final class InjectAnnotationRector extends AbstractRector
     public function __construct(
         private PhpDocTagRemover $phpDocTagRemover,
         private DocBlockTagReplacer $docBlockTagReplacer
-    )
-    {
+    ) {
     }
 
     /**

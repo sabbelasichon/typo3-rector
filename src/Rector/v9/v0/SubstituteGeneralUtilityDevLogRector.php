@@ -25,8 +25,7 @@ final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
 {
     public function __construct(
         private OldSeverityToLogLevelMapper $oldSeverityToLogLevelMapper
-    )
-    {
+    ) {
     }
 
     /**

@@ -9,8 +9,7 @@ final class ReplacePackage
     public function __construct(
         private string $oldPackageName,
         private string $newPackageName
-    )
-    {
+    ) {
     }
 
     public function getOldPackageName(): string

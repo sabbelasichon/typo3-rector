@@ -26,8 +26,7 @@ final class UseCachingFrameworkInsteadGetAndStoreHashRector extends AbstractRect
 {
     public function __construct(
         private Typo3NodeResolver $typo3NodeResolver
-    )
-    {
+    ) {
     }
 
     /**

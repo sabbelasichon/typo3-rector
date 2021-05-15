@@ -39,8 +39,7 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
 
     public function __construct(
         private Typo3NodeResolver $typo3NodeResolver
-    )
-    {
+    ) {
     }
 
     /**

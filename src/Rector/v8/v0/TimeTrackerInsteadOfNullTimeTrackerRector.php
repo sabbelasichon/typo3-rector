@@ -30,8 +30,7 @@ final class TimeTrackerInsteadOfNullTimeTrackerRector extends AbstractRector
 {
     public function __construct(
         private ClassRenamer $classRenamer
-    )
-    {
+    ) {
     }
 
     /**

@@ -21,8 +21,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
      */
     public function __construct(
         private array $flexFormRectors
-    )
-    {
+    ) {
     }
 
     /**

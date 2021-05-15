@@ -28,8 +28,7 @@ final class ExtensionComposerRector implements ComposerRectorInterface
 
     public function __construct(
         private CurrentFileProvider $currentFileProvider
-    )
-    {
+    ) {
     }
 
     public function refactor(ComposerJson $composerJson): void

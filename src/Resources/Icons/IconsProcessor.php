@@ -22,8 +22,7 @@ final class IconsProcessor implements FileProcessorInterface
     public function __construct(
         private FilesFinder $filesFinder,
         private array $iconsRector
-    )
-    {
+    ) {
     }
 
     /**

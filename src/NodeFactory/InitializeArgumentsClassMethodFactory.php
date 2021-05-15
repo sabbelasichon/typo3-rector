@@ -56,8 +56,7 @@ final class InitializeArgumentsClassMethodFactory
         private ParamTypeInferer $paramTypeInferer,
         private PhpDocInfoFactory $phpDocInfoFactory,
         private ReflectionProvider $reflectionProvider
-    )
-    {
+    ) {
     }
 
     public function decorateClass(Class_ $class): void

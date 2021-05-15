@@ -25,8 +25,7 @@ final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRect
 {
     public function __construct(
         private OldSeverityToLogLevelMapper $oldSeverityToLogLevelMapper
-    )
-    {
+    ) {
     }
 
     /**

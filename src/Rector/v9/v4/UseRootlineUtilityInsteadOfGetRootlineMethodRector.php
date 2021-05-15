@@ -24,8 +24,7 @@ final class UseRootlineUtilityInsteadOfGetRootlineMethodRector extends AbstractR
 {
     public function __construct(
         private Typo3NodeResolver $typo3NodeResolver
-    )
-    {
+    ) {
     }
 
     /**
