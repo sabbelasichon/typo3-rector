@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://github.com/TYPO3-Solr/ext-solr/commit/523aff17187ecc25e4cad83e7d20af31329ecd6c#diff-563034ee193649001177d14f15ce4dcb24cbe39ecd0de99588fe2ec841b283fe
- * @see \Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocuments\SolrConnectionAddDocumentsToWriteServiceAddDocumentsTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector\SolrConnectionAddDocumentsToWriteServiceAddDocumentsTest
  */
 final class SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector extends AbstractRector
 {
@@ -22,7 +22,7 @@ final class SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector extends A
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Apache_Solr_Document to solarium based document', [new CodeSample(
+        return new RuleDefinition('Use method addDocuments from WriteService of SolrConnection class', [new CodeSample(
             <<<'CODE_SAMPLE'
 $this->solrConnection->addDocuments([]);
 CODE_SAMPLE

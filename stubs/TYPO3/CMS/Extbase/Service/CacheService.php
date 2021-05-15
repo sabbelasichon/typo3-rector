@@ -8,7 +8,7 @@ if (class_exists(CacheService::class)) {
     return;
 }
 
-final class CacheService
+class CacheService
 {
 
 }
