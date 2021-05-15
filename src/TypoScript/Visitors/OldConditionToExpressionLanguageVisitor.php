@@ -26,8 +26,7 @@ final class OldConditionToExpressionLanguageVisitor extends AbstractVisitor
     public function __construct(
         private CurrentFileProvider $currentFileProvider,
         private array $conditionMatchers = []
-    )
-    {
+    ) {
     }
 
     public function enterNode(Statement $statement): void

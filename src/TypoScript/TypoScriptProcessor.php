@@ -49,8 +49,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         private RectorOutputStyle $rectorOutputStyle,
         private array $visitors = []
-    )
-    {
+    ) {
     }
 
     /**
