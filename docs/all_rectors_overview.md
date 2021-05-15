@@ -1,4 +1,4 @@
-# 198 Rules Overview
+# 197 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -2925,45 +2925,6 @@ Replace $_EXTKEY with extension key
          'FooBar' => 'baz',
      ]
  );
-```
-
-<br>
-
-## ReplacePackageComposerRector
-
-Change package name in `composer.json`
-
-:wrench: **configure it!**
-
-- class: [`Ssch\TYPO3Rector\Rector\Composer\ReplacePackageComposerRector`](../src/Rector/Composer/ReplacePackageComposerRector.php)
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use Ssch\TYPO3Rector\Rector\Composer\ReplacePackageComposerRector;
-use Ssch\TYPO3Rector\ValueObject\ReplacePackage;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
-
-    $services->set(ReplacePackageComposerRector::class)
-        ->call('configure', [[ReplacePackageComposerRector::REPLACE_PACKAGES => ValueObjectInliner::inline([new ReplacePackage('typo3-ter/news', 'georgringer/news')])]]);
-};
-```
-
-↓
-
-```diff
- {
-     "require": {
--        "typo3-ter/news": "^8.0"
-+        "georgringer/news": "^8.0"
-     }
- }
 ```
 
 <br>
