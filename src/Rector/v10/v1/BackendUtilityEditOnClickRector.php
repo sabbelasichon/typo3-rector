@@ -15,8 +15,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-88787-BackendUtilityEditOnClick.html
@@ -76,9 +74,9 @@ CODE_SAMPLE
     {
         return new Concat(new Concat($this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
-                GeneralUtility::class,
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'makeInstance',
-                [$this->nodeFactory->createClassConstReference(UriBuilder::class)]
+                [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Backend\Routing\UriBuilder')]
             ),
             'buildUriFromRoute',
             [$this->nodeFactory->createArg('record_edit')]
@@ -89,7 +87,7 @@ CODE_SAMPLE
     {
         return new FuncCall(new Name('rawurlencode'), [
             $this->nodeFactory->createArg(
-                $this->nodeFactory->createStaticCall(GeneralUtility::class, 'getIndpEnv', [
+                $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'getIndpEnv', [
                     $this->nodeFactory->createArg('REQUEST_URI'),
                 ])
             ),

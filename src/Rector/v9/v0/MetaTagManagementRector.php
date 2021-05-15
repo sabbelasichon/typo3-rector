@@ -12,8 +12,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-81464-AddAPIForMetaTagManagement.html
@@ -165,8 +163,8 @@ CODE_SAMPLE
         }
 
         return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->nodeFactory->createClassConstReference(PageRenderer::class),
+            $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Page\PageRenderer'),
             ]),
             'setMetaTag',
             ['http-equiv', 'X-UA-Compatible', $value]

@@ -12,7 +12,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-69863-RemovedDeprecatedCodeFromExtfluid.html
@@ -26,7 +25,7 @@ final class ChangeMethodCallsForStandaloneViewRector extends AbstractRector
      * @var array<string, array<string, string>>
      */
     private const OLD_TO_NEW_METHODS_BY_CLASS = [
-        StandaloneView::class => [
+        'TYPO3\CMS\Fluid\View\StandaloneView' => [
             'setLayoutRootPath' => 'setLayoutRootPaths',
             'getLayoutRootPath' => 'getLayoutRootPaths',
             'setPartialRootPath' => 'setPartialRootPaths',

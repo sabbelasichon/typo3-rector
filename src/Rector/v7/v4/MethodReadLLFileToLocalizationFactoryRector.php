@@ -10,8 +10,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Localization\LocalizationFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.4/Deprecation-68122-GeneralUtilityReadLLfile.html
@@ -45,9 +43,9 @@ final class MethodReadLLFileToLocalizationFactoryRector extends AbstractRector
 
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
-                GeneralUtility::class,
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'makeInstance',
-                [$this->nodeFactory->createClassConstReference(LocalizationFactory::class)]
+                [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Localization\LocalizationFactory')]
             ),
             'getParsedData',
             $node->args

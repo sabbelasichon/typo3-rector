@@ -11,8 +11,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.4/Deprecation-90147-UnifiedFileNameValidator.html
@@ -39,8 +37,8 @@ final class UnifiedFileNameValidatorRector extends AbstractRector
 
         if ($node instanceof StaticCall && $this->isMethodVerifyFilenameAgainstDenyPattern($node)) {
             return $this->nodeFactory->createMethodCall(
-                $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                    $this->nodeFactory->createClassConstReference(FileNameValidator::class),
+                $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                    $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Resource\Security\FileNameValidator'),
                 ]),
                 'isValid',
                 $node->args
@@ -48,7 +46,10 @@ final class UnifiedFileNameValidatorRector extends AbstractRector
         }
 
         if ($this->isConstFileDenyPatternDefault($node)) {
-            return $this->nodeFactory->createClassConstFetch(FileNameValidator::class, 'DEFAULT_FILE_DENY_PATTERN');
+            return $this->nodeFactory->createClassConstFetch(
+                'TYPO3\CMS\Core\Resource\Security\FileNameValidator',
+                'DEFAULT_FILE_DENY_PATTERN'
+            );
         }
 
         return null;

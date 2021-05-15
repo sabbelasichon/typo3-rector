@@ -11,7 +11,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82702-SecondArgumentOfGeneralUtilitymkdir_deep.html
@@ -46,7 +45,7 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
             return null;
         }
         $concat = new Concat($node->args[0]->value, $node->args[1]->value);
-        return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'mkdir_deep', [$concat]);
+        return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'mkdir_deep', [$concat]);
     }
 
     /**

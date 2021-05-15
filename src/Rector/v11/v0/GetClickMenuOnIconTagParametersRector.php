@@ -10,7 +10,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92583-DeprecateLastArgumentsOfWrapClickMenuOnIcon.html
@@ -57,11 +56,11 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector
             return $node;
         }
 
-        return $this->nodeFactory->createStaticCall(BackendUtility::class, 'getClickMenuOnIconTagParameters', [
-            $node->args[0],
-            $node->args[1],
-            $node->args[2],
-        ]);
+        return $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Backend\Utility\BackendUtility',
+            'getClickMenuOnIconTagParameters',
+            [$node->args[0], $node->args[1], $node->args[2]]
+        );
     }
 
     /**
@@ -77,7 +76,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 $returnTagParameters = true;
 BackendUtility::wrapClickMenuOnIcon('pages', 1, 'foo', '', '', '', $returnTagParameters);
 CODE_SAMPLE
-                ,
+                    ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $returnTagParameters = true;

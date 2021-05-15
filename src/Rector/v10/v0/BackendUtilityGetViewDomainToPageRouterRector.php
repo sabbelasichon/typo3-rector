@@ -12,8 +12,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Site\SiteFinder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-88499-BackendUtilitygetViewDomain.html
@@ -46,8 +44,8 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
         }
 
         $siteNode = new Assign(new Variable('site'), $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->nodeFactory->createClassConstReference(SiteFinder::class),
+            $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Site\SiteFinder'),
             ]),
             'getSiteByPageId',
             $node->args

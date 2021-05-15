@@ -24,11 +24,6 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\QueryHelper;
-use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
-use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-79122-DeprecateBackendUtilitygetRecordsByField.html
@@ -139,9 +134,9 @@ CODE_SAMPLE
 
             $queryBuilder = $this->nodeFactory->createMethodCall(
                 $this->nodeFactory->createStaticCall(
-                    GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     self::MAKE_INSTANCE,
-                    [$this->nodeFactory->createClassConstReference(ConnectionPool::class)]
+                    [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Database\ConnectionPool')]
                 ),
                 'getQueryBuilderForTable',
                 [$table]
@@ -182,9 +177,13 @@ CODE_SAMPLE
             'add',
             [
                 $this->nodeFactory->createStaticCall(
-                    GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     self::MAKE_INSTANCE,
-                    [$this->nodeFactory->createClassConstReference(BackendWorkspaceRestriction::class)]
+                    [
+                        $this->nodeFactory->createClassConstReference(
+                            'TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction'
+                        ),
+                    ]
                 ),
             ]
         );
@@ -210,9 +209,13 @@ CODE_SAMPLE
             'add',
             [
                 $this->nodeFactory->createStaticCall(
-                    GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     self::MAKE_INSTANCE,
-                    [$this->nodeFactory->createClassConstReference(DeletedRestriction::class)]
+                    [
+                        $this->nodeFactory->createClassConstReference(
+                            'TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction'
+                        ),
+                    ]
                 ),
             ]
         );
@@ -272,7 +275,11 @@ CODE_SAMPLE
         }
 
         $whereClauseNode = $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'andWhere', [
-            $this->nodeFactory->createStaticCall(QueryHelper::class, 'stripLogicalOperatorPrefix', [$node->args[3]]),
+            $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Database\Query\QueryHelper',
+                'stripLogicalOperatorPrefix',
+                [$node->args[3]]
+            ),
         ]);
 
         if ($whereClause) {
@@ -301,7 +308,11 @@ CODE_SAMPLE
         }
 
         $groupByNode = $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'groupBy', [
-            $this->nodeFactory->createStaticCall(QueryHelper::class, 'parseGroupBy', [$node->args[4]]),
+            $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Database\Query\QueryHelper',
+                'parseGroupBy',
+                [$node->args[4]]
+            ),
         ]);
 
         if ($groupBy) {
@@ -334,7 +345,11 @@ CODE_SAMPLE
         }
 
         $orderByNode = new Foreach_(
-            $this->nodeFactory->createStaticCall(QueryHelper::class, 'parseOrderBy', [$orderByArgument->value]),
+            $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Database\Query\QueryHelper',
+                'parseOrderBy',
+                [$orderByArgument->value]
+            ),
             new Variable('orderPair')
         );
         $orderByNode->stmts[] = new Expression(
@@ -379,7 +394,7 @@ CODE_SAMPLE
             new Assign(
                 new Variable(self::LIMIT_OFFSET_AND_MAX),
                 $this->nodeFactory->createStaticCall(
-                    GeneralUtility::class,
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
                     'intExplode',
                     [new String_(','), new Variable('limit')]
                 )

@@ -8,8 +8,6 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use Rector\Core\PhpParser\Node\NodeFactory;
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class ConnectionCallFactory
 {
@@ -21,8 +19,8 @@ final class ConnectionCallFactory
     public function createConnectionCall(Arg $firstArgument): Assign
     {
         $connection = $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->nodeFactory->createClassConstReference(ConnectionPool::class),
+            $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Database\ConnectionPool'),
             ]),
             'getConnectionForTable',
             [$this->nodeFactory->createArg($firstArgument->value)]

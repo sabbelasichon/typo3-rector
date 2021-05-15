@@ -10,8 +10,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Information\Typo3Information;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89756-BackendUtilityTYPO3_copyRightNotice.html
@@ -42,9 +40,9 @@ final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
             return null;
         }
         $staticCall = $this->nodeFactory->createStaticCall(
-            GeneralUtility::class,
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
             'makeInstance',
-            [$this->nodeFactory->createClassConstReference(Typo3Information::class)]
+            [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Information\Typo3Information')]
         );
         return $this->nodeFactory->createMethodCall($staticCall, 'getCopyrightNotice');
     }

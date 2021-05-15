@@ -11,8 +11,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.4/Deprecation-68074-DeprecateGetPageRenderer.html
@@ -46,8 +44,8 @@ final class InstantiatePageRendererExplicitlyRector extends AbstractRector
             return null;
         }
 
-        return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-            $this->nodeFactory->createClassConstReference(PageRenderer::class),
+        return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+            $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Page\PageRenderer'),
         ]);
     }
 

@@ -12,8 +12,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.3/Deprecation-85113-LegacyBackendModuleRoutingMethods.html
@@ -83,9 +81,9 @@ CODE_SAMPLE
         }
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
-                GeneralUtility::class,
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'makeInstance',
-                [$this->nodeFactory->createClassConstReference(UriBuilder::class)]
+                [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Backend\Routing\UriBuilder')]
             ),
             'buildUriFromRoute',
             $buildUriArguments

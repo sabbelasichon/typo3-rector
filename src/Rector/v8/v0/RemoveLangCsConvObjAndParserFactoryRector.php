@@ -13,9 +13,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Charset\CharsetConverter;
-use TYPO3\CMS\Core\Localization\LocalizationFactory;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-73482-LANG-csConvObjAndLANG-parserFactory.html
@@ -122,14 +119,14 @@ CODE_SAMPLE
         }
 
         if ($this->isName($node->name, 'csConvObj')) {
-            return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->nodeFactory->createClassConstReference(CharsetConverter::class),
+            return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Charset\CharsetConverter'),
             ]);
         }
 
         if ($this->isName($node->name, 'parserFactory')) {
-            return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->nodeFactory->createClassConstReference(LocalizationFactory::class),
+            return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Localization\LocalizationFactory'),
             ]);
         }
 

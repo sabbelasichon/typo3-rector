@@ -16,7 +16,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\MathUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.3/Deprecation-84994-BackendUtilitygetPidForModTSconfigDeprecated.html
@@ -56,7 +55,11 @@ final class CopyMethodGetPidForModTSconfigRector extends AbstractRector
 
         return new Ternary(new BooleanAnd(
             new Identical($tableVariableNode, new String_('pages')),
-            $this->nodeFactory->createStaticCall(MathUtility::class, 'canBeInterpretedAsInteger', [$node->args[1]])
+            $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Utility\MathUtility',
+                'canBeInterpretedAsInteger',
+                [$node->args[1]]
+            )
         ), $node->args[1]->value, $node->args[2]->value);
     }
 

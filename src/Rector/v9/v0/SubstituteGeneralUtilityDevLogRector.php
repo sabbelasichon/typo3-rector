@@ -13,9 +13,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\OldSeverityToLogLevelMapper;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Log\LogLevel;
-use TYPO3\CMS\Core\Log\LogManager;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-52694-DeprecatedGeneralUtilitydevLog.html
@@ -53,16 +50,16 @@ final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
         }
 
         $makeInstanceCall = $this->nodeFactory->createStaticCall(
-            GeneralUtility::class,
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
             'makeInstance',
-            [$this->nodeFactory->createClassConstReference(LogManager::class)]
+            [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Log\LogManager')]
         );
 
         $loggerCall = $this->nodeFactory->createMethodCall($makeInstanceCall, 'getLogger', [new Class_()]);
 
         $args = [];
 
-        $severity = $this->nodeFactory->createClassConstFetch(LogLevel::class, 'INFO');
+        $severity = $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Log\LogLevel', 'INFO');
 
         if (isset($node->args[2]) && $severityValue = $this->valueResolver->getValue($node->args[2]->value)) {
             $severity = $this->oldSeverityToLogLevelMapper->mapSeverityToLogLevel($severityValue);

@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\ConstFetch;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Information\Typo3Information;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.3/Deprecation-89866-Global-TYPO3-information-related-constants.html
@@ -48,23 +47,38 @@ final class UseClassTypo3InformationRector extends AbstractRector
         $nodeName = $this->getName($node->name);
 
         if ('TYPO3_URL_GENERAL' === $nodeName) {
-            return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_COMMUNITY');
+            return $this->nodeFactory->createClassConstFetch(
+                'TYPO3\CMS\Core\Information\Typo3Information',
+                'URL_COMMUNITY'
+            );
         }
 
         if ('TYPO3_URL_LICENSE' === $nodeName) {
-            return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_LICENSE');
+            return $this->nodeFactory->createClassConstFetch(
+                'TYPO3\CMS\Core\Information\Typo3Information',
+                'URL_LICENSE'
+            );
         }
 
         if ('TYPO3_URL_EXCEPTION' === $nodeName) {
-            return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_EXCEPTION');
+            return $this->nodeFactory->createClassConstFetch(
+                'TYPO3\CMS\Core\Information\Typo3Information',
+                'URL_EXCEPTION'
+            );
         }
 
         if ('TYPO3_URL_DONATE' === $nodeName) {
-            return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_DONATE');
+            return $this->nodeFactory->createClassConstFetch(
+                'TYPO3\CMS\Core\Information\Typo3Information',
+                'URL_DONATE'
+            );
         }
 
         if ('TYPO3_URL_WIKI_OPCODECACHE' === $nodeName) {
-            return $this->nodeFactory->createClassConstFetch(Typo3Information::class, 'URL_OPCACHE');
+            return $this->nodeFactory->createClassConstFetch(
+                'TYPO3\CMS\Core\Information\Typo3Information',
+                'URL_OPCACHE'
+            );
         }
 
         return null;

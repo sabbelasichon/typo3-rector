@@ -11,8 +11,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Localization\Locales;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-73511-BrowserLanguageDetectionMovedToLocales.html
@@ -44,9 +42,9 @@ final class GetPreferredClientLanguageRector extends AbstractRector
 
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
-                GeneralUtility::class,
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'makeInstance',
-                [$this->nodeFactory->createClassConstReference(Locales::class)]
+                [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Localization\Locales')]
             ),
             self::GET_PREFERRED_CLIENT_LANGUAGE,
             $node->args

@@ -17,9 +17,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Context\TypoScriptAspect;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-88792-ForceTemplateParsingInTSFEAndTemplateService.html
@@ -124,10 +121,14 @@ CODE_SAMPLE
     {
         $staticCallContext = $this->createContext();
 
-        $staticCallAspect = $this->nodeFactory->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
-            $this->nodeFactory->createClassConstReference(TypoScriptAspect::class),
-            new ConstFetch(new Name('true')),
-        ]);
+        $staticCallAspect = $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
+            self::MAKE_INSTANCE,
+            [
+                $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\TypoScriptAspect'),
+                new ConstFetch(new Name('true')),
+            ]
+        );
 
         $contextCall = $this->nodeFactory->createMethodCall($staticCallContext, 'setAspect');
         $contextCall->args = $this->nodeFactory->createArgs([self::TYPOSCRIPT, $staticCallAspect]);
@@ -137,8 +138,8 @@ CODE_SAMPLE
 
     private function createContext(): StaticCall
     {
-        return $this->nodeFactory->createStaticCall(GeneralUtility::class, self::MAKE_INSTANCE, [
-            $this->nodeFactory->createClassConstReference(Context::class),
+        return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', self::MAKE_INSTANCE, [
+            $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
         ]);
     }
 

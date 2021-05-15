@@ -13,7 +13,6 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89579-ServiceChainsRequireAnArrayForExcludedServiceKeys.html
@@ -55,7 +54,11 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
         }
 
         $args = [new String_(','), $excludeServiceKeys, $this->nodeFactory->createTrue()];
-        $staticCall = $this->nodeFactory->createStaticCall(GeneralUtility::class, 'trimExplode', $args);
+        $staticCall = $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
+            'trimExplode',
+            $args
+        );
         $node->args[2] = new Arg($staticCall);
         return $node;
     }

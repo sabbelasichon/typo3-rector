@@ -10,7 +10,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Core\Environment;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89631-UseEnvironmentAPIToFetchApplicationContext.html
@@ -40,7 +39,7 @@ final class MoveApplicationContextToEnvironmentApiRector extends AbstractRector
         if (! $this->isName($node->name, 'getApplicationContext')) {
             return null;
         }
-        return $this->nodeFactory->createStaticCall(Environment::class, 'getContext', []);
+        return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getContext', []);
     }
 
     /**

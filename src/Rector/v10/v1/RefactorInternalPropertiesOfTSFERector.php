@@ -169,13 +169,13 @@ CODE_SAMPLE
             new Assign(
                 new Variable(self::RELEVANT_PARAMETERS_FOR_CACHING_FROM_PAGE_ARGUMENTS),
                 $this->nodeFactory->createMethodCall(
-                    $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                        $this->nodeFactory->createClassConstReference(CacheHashCalculator::class),
+                    $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                        $this->nodeFactory->createClassConstReference('TYPO3\CMS\Frontend\Page\CacheHashCalculator'),
                     ]),
                     'getRelevantParameters',
                     [
                         $this->nodeFactory->createStaticCall(
-                            HttpUtility::class,
+                            'TYPO3\CMS\Core\Utility\HttpUtility',
                             'buildQueryString',
                             [new Variable(self::QUERY_PARAMS)]
                         ),

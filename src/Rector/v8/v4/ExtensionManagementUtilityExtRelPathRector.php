@@ -11,7 +11,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Deprecation-78193-ExtensionManagementUtilityextRelPath.html
@@ -45,7 +44,11 @@ final class ExtensionManagementUtilityExtRelPathRector extends AbstractRector
 
         $node->name = new Identifier('extPath');
 
-        return $this->nodeFactory->createStaticCall(PathUtility::class, 'getAbsoluteWebPath', [$node]);
+        return $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Utility\PathUtility',
+            'getAbsoluteWebPath',
+            [$node]
+        );
     }
 
     /**

@@ -10,8 +10,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Crypto\Random;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-73050-DeprecatedRandomGeneratorMethodsInGeneralUtility.html
@@ -49,9 +47,9 @@ final class RandomMethodsToRandomClassRector extends AbstractRector
         }
 
         $randomClass = $this->nodeFactory->createStaticCall(
-            GeneralUtility::class,
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
             'makeInstance',
-            [$this->nodeFactory->createClassConstReference(Random::class)]
+            [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Crypto\Random')]
         );
 
         if ($this->isName($node->name, self::GENERATE_RANDOM_BYTES)) {

@@ -13,7 +13,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\StringUtility;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-88995-CallingRegisterPluginWithVendorName.html
@@ -55,13 +54,13 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
     {
         return new RuleDefinition('Remove vendor name from registerPlugin call', [
             new CodeSample(
-                ExtensionUtility::class . '::registerPlugin(
+                'TYPO3\CMS\Extbase\Utility\ExtensionUtility' . '::registerPlugin(
    \'TYPO3.CMS.Form\',
    \'Formframework\',
    \'Form\',
    \'content-form\',
 );',
-                ExtensionUtility::class . '::registerPlugin(
+                'TYPO3\CMS\Extbase\Utility\ExtensionUtility' . '::registerPlugin(
    \'Form\',
    \'Formframework\',
    \'Form\',

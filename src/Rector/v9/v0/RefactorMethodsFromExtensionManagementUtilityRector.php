@@ -10,10 +10,6 @@ use PhpParser\Node\Expr\StaticCall;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Cache\CacheManager;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82899-ExtensionManagementUtilityMethods.html
@@ -36,7 +32,7 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
     {
         $className = $this->getName($node->class);
         $methodName = $this->getName($node->name);
-        if (ExtensionManagementUtility::class !== $className) {
+        if ('TYPO3\CMS\Core\Utility\ExtensionManagementUtility' !== $className) {
             return null;
         }
 
@@ -81,9 +77,13 @@ CODE_SAMPLE
     {
         $firstArgument = $node->args[0];
         return $this->nodeFactory->createStaticCall(
-            PathUtility::class,
+            'TYPO3\CMS\Core\Utility\PathUtility',
             'stripPathSitePrefix',
-            [$this->nodeFactory->createStaticCall(ExtensionManagementUtility::class, 'extPath', [$firstArgument])]
+            [
+                $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\ExtensionManagementUtility', 'extPath', [
+                    $firstArgument,
+                ]),
+            ]
         );
     }
 
@@ -91,9 +91,9 @@ CODE_SAMPLE
     {
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
-                GeneralUtility::class,
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'makeInstance',
-                [$this->nodeFactory->createClassConstReference(CacheManager::class)]
+                [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Cache\CacheManager')]
             ),
             'flushCachesInGroup',
             [$this->nodeFactory->createArg('system')]

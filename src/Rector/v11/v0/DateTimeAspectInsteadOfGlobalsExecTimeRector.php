@@ -10,8 +10,6 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Important-92736-ReturnTimestampAsIntegerInDateTimeAspect.html
@@ -48,9 +46,9 @@ final class DateTimeAspectInsteadOfGlobalsExecTimeRector extends AbstractRector
 
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
-                GeneralUtility::class,
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'makeInstance',
-                [$this->nodeFactory->createClassConstReference(Context::class)]
+                [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context')]
             ),
             'getPropertyFromAspect',
             ['date', 'timestamp']

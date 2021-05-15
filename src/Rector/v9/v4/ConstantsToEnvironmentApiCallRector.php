@@ -14,7 +14,6 @@ use PhpParser\Node\Stmt\Property;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Core\Environment;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85285-DeprecatedSystemConstants.html
@@ -64,7 +63,7 @@ final class ConstantsToEnvironmentApiCallRector extends AbstractRector
             return null;
         }
 
-        return $this->nodeFactory->createStaticCall(Environment::class, 'isCli');
+        return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isCli');
     }
 
     private function refactorConstants(ConstFetch $node): ?Node
@@ -89,27 +88,27 @@ final class ConstantsToEnvironmentApiCallRector extends AbstractRector
         }
 
         if ('PATH_thisScript' === $constantName) {
-            return $this->nodeFactory->createStaticCall(Environment::class, 'getCurrentScript');
+            return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getCurrentScript');
         }
 
         if ('PATH_site' === $constantName) {
             return new Concat($this->nodeFactory->createStaticCall(
-                Environment::class,
+                'TYPO3\CMS\Core\Core\Environment',
                 'getPublicPath'
             ), new String_('/'));
         }
 
         if ('PATH_typo3' === $constantName) {
-            return $this->nodeFactory->createStaticCall(Environment::class, 'getBackendPath');
+            return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getBackendPath');
         }
 
         if ('PATH_typo3conf' === $constantName) {
-            return $this->nodeFactory->createStaticCall(Environment::class, 'getLegacyConfigPath');
+            return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getLegacyConfigPath');
         }
 
         return new BooleanOr($this->nodeFactory->createStaticCall(
-            Environment::class,
+            'TYPO3\CMS\Core\Core\Environment',
             'isUnix'
-        ), $this->nodeFactory->createStaticCall(Environment::class, 'isWindows'));
+        ), $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isWindows'));
     }
 }

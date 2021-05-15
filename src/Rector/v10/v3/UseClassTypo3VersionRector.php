@@ -9,8 +9,6 @@ use PhpParser\Node\Expr\ConstFetch;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Information\Typo3Version;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.3/Deprecation-90007-GlobalConstantsTYPO3_versionAndTYPO3_branch.html
@@ -43,8 +41,8 @@ final class UseClassTypo3VersionRector extends AbstractRector
         $methodCall = $this->isName($node->name, 'TYPO3_version') ? 'getVersion' : 'getBranch';
 
         return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->nodeFactory->createClassConstReference(Typo3Version::class),
+            $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Information\Typo3Version'),
             ]),
             $methodCall
         );

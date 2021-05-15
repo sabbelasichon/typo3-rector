@@ -13,8 +13,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
 /**
@@ -57,8 +55,8 @@ final class UseContextApiForVersioningWorkspaceIdRector extends AbstractRector
         }
 
         return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                $this->nodeFactory->createClassConstReference(Context::class),
+            $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
             ]),
             'getPropertyFromAspect',
             ['workspace', 'id', 0]

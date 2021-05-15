@@ -27,9 +27,6 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Mail\MailMessage;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\MailUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-88850-ContentObjectRendererSendNotifyEmail.html
@@ -184,9 +181,9 @@ CODE_SAMPLE
     private function initializeMailClass(): Node
     {
         return new Expression(new Assign(new Variable(self::MAIL), $this->nodeFactory->createStaticCall(
-            GeneralUtility::class,
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
             'makeInstance',
-            [$this->nodeFactory->createClassConstReference(MailMessage::class)]
+            [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Mail\MailMessage')]
         )));
     }
 
@@ -265,7 +262,11 @@ CODE_SAMPLE
         return new Expression(
             new Assign(
                 new Variable(self::PARSED_RECIPIENTS),
-                $this->nodeFactory->createStaticCall(MailUtility::class, 'parseAddresses', [$node->args[1]])
+                $this->nodeFactory->createStaticCall(
+                    'TYPO3\CMS\Core\Utility\MailUtility',
+                    'parseAddresses',
+                    [$node->args[1]]
+                )
             )
         );
     }
@@ -299,7 +300,7 @@ CODE_SAMPLE
     private function parsedReplyTo(Expr $replyTo): Node
     {
         return new Expression(new Assign(new Variable(self::PARSED_REPLY_TO), $this->nodeFactory->createStaticCall(
-            MailUtility::class,
+            'TYPO3\CMS\Core\Utility\MailUtility',
             'parseAddresses',
             [$replyTo]
         )));

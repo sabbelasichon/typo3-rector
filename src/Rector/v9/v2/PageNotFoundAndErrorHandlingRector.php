@@ -25,10 +25,6 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Controller\ErrorPageController;
-use TYPO3\CMS\Core\Http\ImmediateResponseException;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Frontend\Controller\ErrorController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.2/Deprecation-83883-PageNotFoundAndErrorHandlingInFrontend.html
@@ -188,8 +184,8 @@ CODE_SAMPLE
             new Assign(
                 new Variable('response'),
                 $this->nodeFactory->createMethodCall(
-                    $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [
-                        $this->nodeFactory->createClassConstReference(ErrorController::class),
+                    $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                        $this->nodeFactory->createClassConstReference('TYPO3\CMS\Frontend\Controller\ErrorController'),
                     ]),
                     self::MAP_METHODS[$methodCall],
                     $arguments
@@ -201,7 +197,7 @@ CODE_SAMPLE
     private function throwException(): Node
     {
         return new Throw_(
-            new New_(new Name(ImmediateResponseException::class), $this->nodeFactory->createArgs(
+            new New_(new Name('TYPO3\CMS\Core\Http\ImmediateResponseException'), $this->nodeFactory->createArgs(
                 [new Variable('response')]
             ))
         );
@@ -228,9 +224,9 @@ CODE_SAMPLE
         return new BooleanAnd(
             $pageUnavailableHandling,
             new BooleanNot(
-                $this->nodeFactory->createStaticCall(GeneralUtility::class, 'cmpIP', [
+                $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'cmpIP', [
                     $this->nodeFactory->createStaticCall(
-                        GeneralUtility::class,
+                        'TYPO3\CMS\Core\Utility\GeneralUtility',
                         'getIndpEnv',
                         [new String_('REMOTE_ADDR')]
                     ),
@@ -280,9 +276,9 @@ CODE_SAMPLE
             return new Echo_([
                 $this->nodeFactory->createMethodCall(
                     $this->nodeFactory->createStaticCall(
-                        GeneralUtility::class,
+                        'TYPO3\CMS\Core\Utility\GeneralUtility',
                         'makeInstance',
-                        [$this->nodeFactory->createClassConstReference(ErrorPageController::class)]
+                        [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Controller\ErrorPageController')]
                     ),
                     'errorAction',
                     ['Page Not Found', $message]
