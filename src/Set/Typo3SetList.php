@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Set;
 
+use Ssch\TYPO3Rector\Set\Extension\NimutTestingFrameworkSetList;
+use Ssch\TYPO3Rector\Set\Extension\SolrSetList;
+
 final class Typo3SetList
 {
     /**
@@ -113,13 +116,15 @@ final class Typo3SetList
 
     /**
      * @var string
+     * @deprecated Use \Ssch\TYPO3Rector\Set\Extension\NimutTestingFrameworkSetList::NIMUT_TESTING_FRAMEWORK_TO_TYPO3_TESTING_FRAMEWORK
      */
-    public const NIMUT_TESTING_FRAMEWORK_TO_TYPO3_TESTING_FRAMEWORK = __DIR__ . '/../../config/nimut-testingframework/nimut-testing-framework-to-typo3-testing-framework.php';
+    public const NIMUT_TESTING_FRAMEWORK_TO_TYPO3_TESTING_FRAMEWORK = NimutTestingFrameworkSetList::NIMUT_TESTING_FRAMEWORK_TO_TYPO3_TESTING_FRAMEWORK;
 
     /**
      * @var string
+     * @deprecated Use \Ssch\TYPO3Rector\Set\Extension\SolrSetList::SOLR_SOLR_PHP_CLIENT_TO_SOLARIUM
      */
-    public const SOLR_SOLR_PHP_CLIENT_TO_SOLARIUM = __DIR__ . '/../../config/solr/solr_php_client_to_solarium.php';
+    public const SOLR_SOLR_PHP_CLIENT_TO_SOLARIUM = SolrSetList::SOLR_SOLR_PHP_CLIENT_TO_SOLARIUM;
 
     /**
      * @var string
