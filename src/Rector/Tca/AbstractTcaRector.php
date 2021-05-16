@@ -179,7 +179,8 @@ abstract class AbstractTcaRector extends AbstractRector
     /**
      * refactors an TCA ctrl section such as ['label' => 'foo', 'tstamp' => 'tstamp', 'crdate' => 'crdate']
      */
-    protected function refactorCtrl(Array_ $ctrl): void {
+    protected function refactorCtrl(Array_ $ctrl): void
+    {
         // override this as needed in child-classes
     }
 
