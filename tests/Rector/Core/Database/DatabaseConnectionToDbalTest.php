@@ -28,6 +28,6 @@ final class DatabaseConnectionToDbalTest extends AbstractRectorTestCase
 
     public function provideConfigFilePath(): string
     {
-        return __DIR__ . '/../../../../config/database-connection-to-dbal.php';
+        return __DIR__ . '/config/configured_rule.php';
     }
 }
