@@ -9,7 +9,6 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
-use Rector\Core\Configuration\Option;
 use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,9 +16,6 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, true);
-
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
 
     $services = $containerConfigurator->services();
     $services->defaults()
@@ -35,7 +31,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/TypoScript/Visitors',
             __DIR__ . '/../src/FlexForms/Rector',
             __DIR__ . '/../src/Yaml/Form/Rector',
-            __DIR__ . '/../src/Resources/Icons/IconsProcessor.php',
+            __DIR__ . '/../src/Resources/Icons/Rector',
         ]);
 
     $services->set(Traverser::class);
