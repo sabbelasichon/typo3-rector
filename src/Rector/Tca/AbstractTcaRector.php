@@ -173,6 +173,27 @@ abstract class AbstractTcaRector extends AbstractRector
      */
     protected function refactorTypes(Array_ $types): void
     {
+        foreach ($types->items as $typeItem) {
+            if (! $typeItem instanceof ArrayItem) {
+                continue;
+            }
+
+            $typeKey = $typeItem->key;
+            if (null === $typeKey) {
+                continue;
+            }
+
+            $typeConfig = $typeItem->value;
+            $this->refactorType($typeKey, $typeConfig);
+        }
+    }
+
+    /**
+     * refactors a single TCA type item with key `typeKey` such as [ 'showitem' => 'field_a,field_b' ], '1' => [
+     * 'showitem' => 'field_a']
+     */
+    protected function refactorType(Expr $typeKey, Expr $typeConfig): void
+    {
         // override this as needed in child-classes
     }
 

@@ -51,8 +51,7 @@ CODE_SAMPLE
         )]);
     }
 
-
-    public function refactorCtrl(Array_ $ctrl): void
+    protected function refactorCtrl(Array_ $ctrl): void
     {
         $nodeToRemove = $this->extractArrayItemByKey($ctrl, 'dividers2tabs');
         if (null !== $nodeToRemove) {
