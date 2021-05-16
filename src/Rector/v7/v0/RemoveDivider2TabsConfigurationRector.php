@@ -59,6 +59,7 @@ CODE_SAMPLE
         $nodeToRemove = $this->extractArrayItemByKey($ctrl, 'dividers2tabs');
         if (null !== $nodeToRemove) {
             $this->removeNode($nodeToRemove);
+            $this->hasAstBeenChanged = true;
         }
     }
 }
