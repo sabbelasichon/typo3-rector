@@ -69,9 +69,12 @@ abstract class AbstractTcaRector extends AbstractRector
                 $this->refactorTypes($types);
             }
 
-            if (null !== $columns || null !== $types) {
-                return $this->hasAstBeenChanged ? $node : null;
+            $ctrl = $this->extractSubArrayByKey($node, 'ctrl');
+            if (null !== $ctrl) {
+                $this->refactorCtrl($ctrl);
             }
+
+            return $this->hasAstBeenChanged ? $node : null;
         }
 
         // this is not a full tca definition. Lets check some fuzzier stuff.
@@ -170,6 +173,13 @@ abstract class AbstractTcaRector extends AbstractRector
      */
     protected function refactorTypes(Array_ $types): void
     {
+        // override this as needed in child-classes
+    }
+
+    /**
+     * refactors an TCA ctrl section such as ['label' => 'foo', 'tstamp' => 'tstamp', 'crdate' => 'crdate']
+     */
+    protected function refactorCtrl(Array_ $ctrl): void {
         // override this as needed in child-classes
     }
 
