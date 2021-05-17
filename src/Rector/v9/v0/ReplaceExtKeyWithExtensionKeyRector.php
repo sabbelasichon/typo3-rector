@@ -8,7 +8,6 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Ssch\TYPO3Rector\Helper\FileHelperTrait;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -20,8 +19,6 @@ use Symplify\SmartFileSystem\SmartFileInfo;
  */
 final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
 {
-    use FileHelperTrait;
-
     public function __construct(
         private FilesFinder $filesFinder
     ) {
@@ -70,7 +67,7 @@ CODE_SAMPLE
     {
         $fileInfo = $this->file->getSmartFileInfo();
 
-        if ($this->isExtEmconf($fileInfo)) {
+        if ($this->filesFinder->isExtEmconf($fileInfo)) {
             return null;
         }
 
