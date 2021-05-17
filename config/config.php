@@ -9,6 +9,9 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
+use Ssch\TYPO3Rector\Rector\Composer\ExtensionComposerRector;
+use Ssch\TYPO3Rector\Rector\General\ConvertTypo3ConfVarsRector;
+use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -33,6 +36,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/Yaml/Form/Rector',
             __DIR__ . '/../src/Resources/Icons/Rector',
         ]);
+
+    // Add some general TYPO3 rules
+    $services->set(ConvertTypo3ConfVarsRector::class);
+    $services->set(ExtEmConfRector::class);
+    $services->set(ExtensionComposerRector::class);
 
     $services->set(Traverser::class);
 
