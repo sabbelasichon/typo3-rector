@@ -16,7 +16,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Ssch\TYPO3Rector\Helper\FileHelperTrait;
+use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -27,7 +27,10 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
 {
-    use FileHelperTrait;
+    public function __construct(
+        private FilesFinder $filesFinder
+    ) {
+    }
 
     /**
      * @return array<class-string<Node>>
@@ -48,7 +51,7 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
             return $this->refactorProbablySecurityGate($node);
         }
 
-        if ($this->isExtLocalConf($fileInfo) || $this->isExtTables($fileInfo)) {
+        if ($this->filesFinder->isExtLocalConf($fileInfo) || $this->filesFinder->isExtTables($fileInfo)) {
             return null;
         }
 

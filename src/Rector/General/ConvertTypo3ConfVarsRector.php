@@ -10,7 +10,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Ssch\TYPO3Rector\Helper\FileHelperTrait;
+use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -20,7 +20,10 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class ConvertTypo3ConfVarsRector extends AbstractRector
 {
-    use FileHelperTrait;
+    public function __construct(
+        private FilesFinder $filesFinder
+    ) {
+    }
 
     /**
      * @codeCoverageIgnore
@@ -61,7 +64,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $this->isExtLocalConf($this->file->getSmartFileInfo()) && ! $this->isExtTables(
+        if (! $this->filesFinder->isExtLocalConf($this->file->getSmartFileInfo()) && ! $this->filesFinder->isExtTables(
             $this->file->getSmartFileInfo()
         )) {
             return null;

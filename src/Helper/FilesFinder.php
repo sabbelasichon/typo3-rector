@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper;
 
+use Nette\Utils\Strings;
 use Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
@@ -14,9 +15,29 @@ final class FilesFinder
      */
     private const MAX_DIRECTORY_LEVELS_UP = 6;
 
+    /**
+     * @var string
+     */
+    private const EXT_EMCONF_FILENAME = 'ext_emconf.php';
+
     public function findExtEmConfRelativeFromGivenFileInfo(SmartFileInfo $fileInfo): ?SmartFileInfo
     {
-        return $this->findFileRelativeFromGivenFileInfo($fileInfo, 'ext_emconf.php');
+        return $this->findFileRelativeFromGivenFileInfo($fileInfo, self::EXT_EMCONF_FILENAME);
+    }
+
+    public function isExtLocalConf(SmartFileInfo $fileInfo): bool
+    {
+        return $this->endsWith($fileInfo, 'ext_localconf.php');
+    }
+
+    public function isExtTables(SmartFileInfo $fileInfo): bool
+    {
+        return $this->endsWith($fileInfo, 'ext_tables.php');
+    }
+
+    public function isExtEmconf(SmartFileInfo $fileInfo): bool
+    {
+        return $this->endsWith($fileInfo, self::EXT_EMCONF_FILENAME);
     }
 
     private function findFileRelativeFromGivenFileInfo(SmartFileInfo $fileInfo, string $filename): ?SmartFileInfo
@@ -65,5 +86,10 @@ final class FilesFinder
         }
 
         return null;
+    }
+
+    private function endsWith(SmartFileInfo $fileInfo, string $needle): bool
+    {
+        return Strings::endsWith($fileInfo->getFilename(), $needle);
     }
 }
