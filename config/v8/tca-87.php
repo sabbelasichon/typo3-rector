@@ -9,7 +9,6 @@ use Ssch\TYPO3Rector\Rector\v8\v4\SubstituteOldWizardIconsRector;
 use Ssch\TYPO3Rector\Rector\v8\v5\MoveLanguageFilesFromLocallangToResourcesRector;
 use Ssch\TYPO3Rector\Rector\v8\v5\RemoveOptionVersioningFollowPagesRector;
 use Ssch\TYPO3Rector\Rector\v8\v5\RemoveSupportForTransForeignTableRector;
-use Ssch\TYPO3Rector\Rector\v8\v6\AddTypeToColumnConfigRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MigrateLastPiecesOfDefaultExtrasRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MigrateOptionsOfTypeGroupRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MigrateSelectShowIconTableRector;
@@ -61,7 +60,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorTCARector::class);
     $services->set(MigrateSelectShowIconTableRector::class);
     $services->set(RemoveL10nModeNoCopyRector::class);
-    $services->set(AddTypeToColumnConfigRector::class);
     $services->set(MigrateOptionsOfTypeGroupRector::class);
     $services->set(RemoveConfigMaxFromInputDateTimeFieldsRector::class);
     $services->set(RemoveLocalizationModeKeepIfNeededRector::class);
