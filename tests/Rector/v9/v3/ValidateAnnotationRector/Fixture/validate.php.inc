@@ -47,45 +47,46 @@ final class SomeValidateClass
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
 
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 final class SomeValidateClass
 {
     /**
-     * @TYPO3\CMS\Extbase\Annotation\Validate(validator="NotEmpty")
-     * @TYPO3\CMS\Extbase\Annotation\Validate(validator="EmailAddress")
+     * @Extbase\Validate("NotEmpty")
+     * @Extbase\Validate("EmailAddress")
      */
     private $somePropertyWithMultipleValidators;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\Validate(validator="NotEmpty")
-     * @TYPO3\CMS\Extbase\Annotation\Validate(validator="EmailAddress")
+     * @Extbase\Validate("NotEmpty")
+     * @Extbase\Validate("EmailAddress")
      */
     private $somePropertyWithMultipleValidatorsAndNoSpace;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Custom\Extension\Domain\Validator\PaymentTypeValidator", options={"paymentTypes": "INVOICE,CC,PPE,SB"})
+     * @Extbase\Validate("\Custom\Extension\Domain\Validator\PaymentTypeValidator", options={"paymentTypes": "INVOICE,CC,PPE,SB"})
      */
     private $someOtherProperty;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Custom\Extension\Domain\Validator\PaymentTypeValidator", options={"paymentTypes": "INVOICE,CC,PPE,SB"})
-     * @TYPO3\CMS\Extbase\Annotation\Validate(validator="NotEmpty")
+     * @Extbase\Validate("\Custom\Extension\Domain\Validator\PaymentTypeValidator", options={"paymentTypes": "INVOICE,CC,PPE,SB"})
+     * @Extbase\Validate("NotEmpty")
      */
     private $someOtherPropertyMultiple;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\Validate(validator="NotEmpty")
-     * @TYPO3\CMS\Extbase\Annotation\Validate("\Custom\Extension\Domain\Validator\PaymentTypeValidator", options={"paymentTypes": "INVOICE,CC,PPE,SB"})
+     * @Extbase\Validate("NotEmpty")
+     * @Extbase\Validate("\Custom\Extension\Domain\Validator\PaymentTypeValidator", options={"paymentTypes": "INVOICE,CC,PPE,SB"})
      */
     private $someOtherProperty2Multiple;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\Validate(validator="")
+     * @Extbase\Validate("")
      */
     private $someOtherInvalidProperty;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\Validate(validator="NotEmpty")
-     * @TYPO3\CMS\Extbase\Annotation\Validate("StringLength", options={"minimum": 0, "maximum": 255})
+     * @Extbase\Validate("NotEmpty")
+     * @Extbase\Validate("StringLength", options={"minimum": 0, "maximum": 255})
      */
     private $validate;
 }
