@@ -130,7 +130,7 @@ CODE_SAMPLE
             $annotation = sprintf(
                 '@TYPO3\CMS\Extbase\Annotation\Validate("%s", options={%s})',
                 trim($validator),
-                implode(',', $optionsArray)
+                implode(', ', $optionsArray)
             );
         } else {
             $annotation = sprintf('@TYPO3\CMS\Extbase\Annotation\Validate(validator="%s")', $validatorAnnotation);
