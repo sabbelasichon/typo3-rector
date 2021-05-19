@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
+use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
@@ -30,13 +31,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::PATHS, [__DIR__ . '/utils', __DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
 
     $containerConfigurator->import(SetList::PRIVATIZATION);
-    $containerConfigurator->import(SetList::DEAD_CODE);
     $containerConfigurator->import(SetList::CODING_STYLE);
     $containerConfigurator->import(SetList::CODE_QUALITY);
 
     $parameters->set(
         Option::SKIP,
         [
+            RemoveUnusedVariableAssignRector::class,
             __DIR__ . '/utils/generator/templates',
             StringClassNameToClassConstantRector::class,
             __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',

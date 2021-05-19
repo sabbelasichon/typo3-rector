@@ -220,7 +220,7 @@ abstract class AbstractTcaRector extends AbstractRector
             if (null === $configNode->key || $this->valueResolver->getValue($configNode->key) === $key) {
                 break;
             }
-            $positionOfTypeInConfig++;
+            ++$positionOfTypeInConfig;
         }
         array_splice($array->items, $positionOfTypeInConfig + 1, 0, [$newItem]);
     }

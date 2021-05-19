@@ -120,7 +120,6 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
 
             $prettyPrinterConfiguration = PrettyPrinterConfiguration::create();
             $prettyPrinterConfiguration = $prettyPrinterConfiguration->withEmptyLineBreaks();
-            $prettyPrinterConfiguration = $prettyPrinterConfiguration->withClosingGlobalStatement();
 
             if ('tab' === $editorConfiguration->getIndentStyle()) {
                 $prettyPrinterConfiguration = $prettyPrinterConfiguration->withTabs();
@@ -129,6 +128,8 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
                     $editorConfiguration->getIndentSize()
                 );
             }
+
+            $prettyPrinterConfiguration = $prettyPrinterConfiguration->withClosingGlobalStatement();
 
             $this->typoscriptPrinter->setPrettyPrinterConfiguration($prettyPrinterConfiguration);
 

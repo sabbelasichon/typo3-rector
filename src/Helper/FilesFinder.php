@@ -69,7 +69,7 @@ final class FilesFinder
                 break;
             }
 
-            $currentDirectoryLevel++;
+            ++$currentDirectoryLevel;
         }
 
         return null;

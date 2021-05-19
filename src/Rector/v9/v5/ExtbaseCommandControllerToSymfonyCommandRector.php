@@ -132,7 +132,7 @@ CODE_SAMPLE;
             $descriptionPhpDocNode = $commandPhpDocInfo->getByType(PhpDocTextNode::class);
 
             $methodParameters = $commandMethod->params;
-            $commandDescription = $descriptionPhpDocNode ? (string) $descriptionPhpDocNode : '';
+            $commandDescription = null !== $descriptionPhpDocNode ? (string) $descriptionPhpDocNode : '';
 
             $commandTemplate = new SmartFileInfo(__DIR__ . '/../../../../templates/maker/Command.tpl.php');
             $commandName = Strings::firstUpper($commandMethodName);
@@ -179,8 +179,8 @@ CODE_SAMPLE;
 
                 $inputArguments[$methodParamName] = [
                     'name' => $methodParamName,
-                    'description' => $paramTag ? $paramTag->description : '',
-                    'mode' => $methodParameter->default ? 2 : 1,
+                    'description' => null !== $paramTag ? $paramTag->description : '',
+                    'mode' => null !== $methodParameter->default ? 2 : 1,
                     'default' => $methodParameter->default,
                 ];
             }
@@ -265,7 +265,7 @@ CODE_SAMPLE
     /**
      * @return Node[]|ClassMethod[]
      */
-    protected function findCommandMethods(Class_ $node): array
+    private function findCommandMethods(Class_ $node): array
     {
         return $this->betterNodeFinder->find($node->stmts, function (Node $node) {
             if (! $node instanceof ClassMethod) {
@@ -289,7 +289,7 @@ CODE_SAMPLE
     /**
      * @param array<string, string> $newCommandsWithFullQualifiedNamespace
      */
-    protected function addNewCommandsToCommandsFile(
+    private function addNewCommandsToCommandsFile(
         string $commandsFilePath,
         array $newCommandsWithFullQualifiedNamespace
     ): void {
