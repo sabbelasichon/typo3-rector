@@ -21,7 +21,6 @@ final class ExtbaseCommandControllerToSymfonyCommandRectorTest extends AbstractR
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
 
         $commandsFixture = new SmartFileInfo(__DIR__ . '/Fixture/Expected/Configuration/Commands.php.inc');
-        $commandFixture = new SmartFileInfo(__DIR__ . '/Fixture/Expected/Classes/Command/ImportTeamCommand.php.inc');
 
         // Assert that command is added
         #$importTeamCommand = $addedFilesWithContent[0];

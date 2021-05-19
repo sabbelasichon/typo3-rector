@@ -50,35 +50,4 @@ return [
             ],
         ],
     ],
-    'ElementareTeilchen\\Adebisevents\\Domain\\Model\\FileReference' => [
-        'tableName' => 'sys_file_reference',
-    ],
-    'ElementareTeilchen\\Adebisevents\\Domain\\Model\\Themenbereich' => [
-        'properties' => [
-            'key' => [
-                'fieldname' => 'tx_adebisevents_key',
-            ],
-        ],
-    ],
-    'ElementareTeilchen\\Adebisevents\\Domain\\Model\\Kategorie' => [
-        'properties' => [
-            'key' => [
-                'fieldname' => 'tx_adebisevents_key',
-            ],
-        ],
-    ],
-    'ElementareTeilchen\\Adebisevents\\Domain\\Model\\Pfarrei' => [
-        'properties' => [
-            'key' => [
-                'fieldname' => 'tx_adebisevents_key',
-            ],
-        ],
-    ],
-    'ElementareTeilchen\\Adebisevents\\Domain\\Model\\Einrichtung' => [
-        'properties' => [
-            'key' => [
-                'fieldname' => 'tx_adebisevents_key',
-            ],
-        ],
-    ],
 ];

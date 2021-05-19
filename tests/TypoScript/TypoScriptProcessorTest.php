@@ -16,6 +16,22 @@ final class TypoScriptProcessorTest extends AbstractRectorTestCase
     public function test(SmartFileInfo $fileInfo): void
     {
         $this->doTestFileInfo($fileInfo);
+        $this->removedAndAddedFilesCollector->reset();
+    }
+
+    public function testExtbasePersistence(): void
+    {
+        $news = new SmartFileInfo(__DIR__ . '/Fixture/Extbase/002_extbase_persistence.txt');
+
+        $this->doTestFileInfo($news);
+
+        $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
+        $extbasePersistenceSmartFileInfo = new SmartFileInfo(__DIR__ . '/Expected/Extbase.php.inc');
+        $this->assertSame(
+            $extbasePersistenceSmartFileInfo->getContents(),
+            $addedFilesWithContent[0]->getFileContent()
+        );
+        $this->removedAndAddedFilesCollector->reset();
     }
 
     public function provideConfigFilePath(): string
@@ -28,6 +44,6 @@ final class TypoScriptProcessorTest extends AbstractRectorTestCase
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.typoscript');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/TypoScript', '*.typoscript');
     }
 }
