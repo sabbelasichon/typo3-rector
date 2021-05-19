@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper;
 
-use UnexpectedValueException;
+use Stringy\Stringy;
 
 final class StringUtility
 {
@@ -12,12 +12,13 @@ final class StringUtility
     {
         $extensionName = substr($extensionName, $delimiterPosition + 1);
 
-        $underScoredExtensionName = preg_replace('#[A-Z]#', '_\\0', lcfirst($extensionName));
+        $stringy = new Stringy($extensionName);
+        $underScoredExtensionName = (string) $stringy->underscored()
+            ->toLowerCase()
+            ->humanize();
 
-        if (! is_string($underScoredExtensionName)) {
-            throw new UnexpectedValueException('The extension name could not be parsed');
-        }
+        $underScoredExtensionName = ucwords($underScoredExtensionName);
 
-        return str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($underScoredExtensionName))));
+        return str_replace(' ', '', $underScoredExtensionName);
     }
 }
