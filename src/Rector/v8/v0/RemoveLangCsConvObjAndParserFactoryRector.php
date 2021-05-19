@@ -36,7 +36,7 @@ final class RemoveLangCsConvObjAndParserFactoryRector extends AbstractRector
     /**
      * @param MethodCall|PropertyFetch $node
      */
-    public function refactor($node): ?Node
+    public function refactor(Node $node): ?Node
     {
         if ($this->shouldSkip($node)) {
             return null;
