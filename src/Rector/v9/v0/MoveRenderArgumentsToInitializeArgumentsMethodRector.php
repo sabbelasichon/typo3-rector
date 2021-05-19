@@ -47,7 +47,11 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
 
         $desiredObjectTypes = [
             new ObjectType('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper'),
+            new ObjectType('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper'),
+            new ObjectType('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper'),
             new ObjectType('TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper'),
+            new ObjectType('TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper'),
+            new ObjectType('TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper'),
         ];
 
         if (! $this->nodeTypeResolver->isObjectTypes($node, $desiredObjectTypes)) {
