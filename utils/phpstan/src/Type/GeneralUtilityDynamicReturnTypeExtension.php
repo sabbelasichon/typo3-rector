@@ -12,13 +12,12 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 final class GeneralUtilityDynamicReturnTypeExtension implements DynamicStaticMethodReturnTypeExtension
 {
     public function getClass(): string
     {
-        return GeneralUtility::class;
+        return 'TYPO3\CMS\Core\Utility\GeneralUtility';
     }
 
     public function isStaticMethodSupported(MethodReflection $methodReflection): bool

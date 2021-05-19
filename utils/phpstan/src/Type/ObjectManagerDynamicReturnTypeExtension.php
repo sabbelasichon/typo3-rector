@@ -12,13 +12,12 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 final class ObjectManagerDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
     public function getClass(): string
     {
-        return ObjectManagerInterface::class;
+        return 'TYPO3\CMS\Extbase\Object\ObjectManagerInterface';
     }
 
     public function isMethodSupported(MethodReflection $methodReflection): bool

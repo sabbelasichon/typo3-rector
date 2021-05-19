@@ -12,14 +12,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use TYPO3\CMS\Core\Context\AspectInterface;
 use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Context\DateTimeAspect;
-use TYPO3\CMS\Core\Context\LanguageAspect;
-use TYPO3\CMS\Core\Context\TypoScriptAspect;
-use TYPO3\CMS\Core\Context\UserAspect;
-use TYPO3\CMS\Core\Context\VisibilityAspect;
-use TYPO3\CMS\Core\Context\WorkspaceAspect;
 
 final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
@@ -38,7 +31,7 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
         MethodCall $methodCall,
         Scope $scope
     ): Type {
-        $defaultObjectType = new ObjectType(AspectInterface::class);
+        $defaultObjectType = new ObjectType('TYPO3\CMS\Core\Context\AspectInterface');
 
         if (! ($argument = $methodCall->args[0] ?? null) instanceof Arg) {
             return $defaultObjectType;
@@ -52,23 +45,23 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
 
         switch ($string->value) {
             case 'date':
-                $type = new ObjectType(DateTimeAspect::class);
+                $type = new ObjectType('TYPO3\CMS\Core\Context\DateTimeAspect');
                 break;
             case 'visibility':
-                $type = new ObjectType(VisibilityAspect::class);
+                $type = new ObjectType('TYPO3\CMS\Core\Context\VisibilityAspect');
                 break;
             case 'frontend.user':
             case 'backend.user':
-                $type = new ObjectType(UserAspect::class);
+                $type = new ObjectType('TYPO3\CMS\Core\Context\UserAspect');
                 break;
             case 'workspace':
-                $type = new ObjectType(WorkspaceAspect::class);
+                $type = new ObjectType('TYPO3\CMS\Core\Context\WorkspaceAspect');
                 break;
             case 'language':
-                $type = new ObjectType(LanguageAspect::class);
+                $type = new ObjectType('TYPO3\CMS\Core\Context\LanguageAspect');
                 break;
             case 'typoscript':
-                $type = new ObjectType(TypoScriptAspect::class);
+                $type = new ObjectType('TYPO3\CMS\Core\Context\TypoScriptAspect');
                 break;
             default:
                 $type = $defaultObjectType;
