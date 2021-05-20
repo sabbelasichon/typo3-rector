@@ -33,19 +33,6 @@ use Symplify\SmartFileSystem\SmartFileSystem;
  */
 final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRector
 {
-    /**
-     * @var string
-     */
-    private const GENERATED_FILE_COMMANDS_TEMPLATE = <<<'CODE_SAMPLE'
-<?php
-
-declare(strict_types = 1);
-
-return [
-
-];
-CODE_SAMPLE;
-
     public function __construct(
         private SmartFileSystem $smartFileSystem,
         private Parser $parser,
@@ -134,7 +121,7 @@ CODE_SAMPLE;
             $methodParameters = $commandMethod->params;
             $commandDescription = null !== $descriptionPhpDocNode ? (string) $descriptionPhpDocNode : '';
 
-            $commandTemplate = new SmartFileInfo(__DIR__ . '/../../../../templates/maker/Command.tpl.php');
+            $commandTemplate = new SmartFileInfo(__DIR__ . '/../../../../templates/maker/Commands/Command.tpl.php');
             $commandName = Strings::firstUpper($commandMethodName);
             $commandContent = $commandTemplate->getContents();
 
@@ -298,10 +285,10 @@ CODE_SAMPLE
             $nodes = $this->parser->parseFileInfo($commandsSmartFileInfo);
         } else {
             $this->createDeepDirectoryFromFilePath($commandsFilePath);
-            $nodes = $this->nikicParser->parse(self::GENERATED_FILE_COMMANDS_TEMPLATE);
-            if (null === $nodes) {
-                $nodes = [];
-            }
+            $defaultsCommandsTemplate = new SmartFileInfo(
+                __DIR__ . '/../../../../templates/maker/Commands/Commands.tpl.php'
+            );
+            $nodes = $this->parser->parseFileInfo($defaultsCommandsTemplate);
         }
 
         $this->decorateNamesToFullyQualified($nodes);

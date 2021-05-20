@@ -19,4 +19,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\RemoveMethodsFromEidUtilityAndTsfe
 
 use TYPO3\CMS\Frontend\Utility\EidUtility;
 
+$assignment = EidUtility::initFeUser();
+
 ?>
