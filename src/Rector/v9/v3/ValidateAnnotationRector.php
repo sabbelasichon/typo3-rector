@@ -166,7 +166,7 @@ CODE_SAMPLE
     private function createMethodAnnotation(string $validatorAnnotation): PhpDocTagNode
     {
         [$param, $validator] = explode(' ', $validatorAnnotation);
-        $annotation = sprintf('@Extbase\Validate(validator="%s", param="%s")', $validator, ltrim($param, '$'));
+        $annotation = sprintf('@Extbase\Validate("%s", param="%s")', $validator, ltrim($param, '$'));
 
         return new PhpDocTagNode($annotation, $this->createEmptyTagValueNode());
     }

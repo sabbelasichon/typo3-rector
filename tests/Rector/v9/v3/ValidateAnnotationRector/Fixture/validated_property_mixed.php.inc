@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v9\v3\ValidateAnnotationRector\Fixture;
 
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 
@@ -22,7 +22,7 @@ final class SomeValidateClass
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v9\v3\ValidateAnnotationRector\Fixture;
 
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 
