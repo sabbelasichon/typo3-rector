@@ -3,7 +3,7 @@ parameters:
 
     scanDirectories:
             # static reflection
-            - ../../../stubs
+            - ../../../vendor/ssch/typo3-rector-stubs/stubs
 
 services:
     -
