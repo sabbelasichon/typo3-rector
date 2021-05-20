@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplaceAnnotationRector\Fixture;
 
 final class SomeOtherClass
 {
@@ -14,12 +14,13 @@ final class SomeOtherClass
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplaceAnnotationRector\Fixture;
 
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 final class SomeOtherClass
 {
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @Extbase\ORM\Cascade("remove")
      */
     private $someProperty;
 }

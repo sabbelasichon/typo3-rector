@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
@@ -12,6 +13,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\NodeFactory\ImportExtbaseAnnotationIfMissingFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -33,7 +35,8 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
     private array $oldToNewAnnotations = [];
 
     public function __construct(
-        private PhpDocTagRemover $phpDocTagRemover
+        private PhpDocTagRemover $phpDocTagRemover,
+        private ImportExtbaseAnnotationIfMissingFactory $importExtbaseAnnotationIfMissingFactory
     ) {
     }
 
@@ -52,17 +55,27 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
 
+        $annotationChanged = false;
+
         foreach ($this->oldToNewAnnotations as $oldAnnotation => $newAnnotation) {
             if (! $phpDocInfo->hasByName($oldAnnotation)) {
                 continue;
             }
             $this->phpDocTagRemover->removeByName($phpDocInfo, $oldAnnotation);
 
-            $tag = '@' . ltrim($newAnnotation, '@');
+            $tag = $this->prepareNewAnnotation($newAnnotation);
 
             $phpDocTagNode = new PhpDocTagNode($tag, new GenericTagValueNode(''));
             $phpDocInfo->addPhpDocTagNode($phpDocTagNode);
+            $annotationChanged = true;
         }
+
+        if (! $annotationChanged) {
+            return null;
+        }
+
+        $this->importExtbaseAnnotationIfMissingFactory->addExtbaseAliasAnnotationIfMissing($node);
+
         return $node;
     }
 
@@ -78,8 +91,9 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
 private $someProperty;
 CODE_SAMPLE
 , <<<'CODE_SAMPLE'
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 /**
- * @TYPO3\CMS\Extbase\Annotation\ORM\Transient
+ * @Extbase\ORM\Transient
  */
 private $someProperty;
 
@@ -97,5 +111,15 @@ CODE_SAMPLE
     public function configure(array $configuration): void
     {
         $this->oldToNewAnnotations = $configuration[self::OLD_TO_NEW_ANNOTATIONS] ?? [];
+    }
+
+    private function prepareNewAnnotation(string $newAnnotation): string
+    {
+        $newAnnotation = '@' . ltrim($newAnnotation, '@');
+        if (Strings::startsWith($newAnnotation, '@TYPO3\CMS\Extbase\Annotation')) {
+            $newAnnotation = str_replace('TYPO3\CMS\Extbase\Annotation', 'Extbase', $newAnnotation);
+        }
+
+        return '@' . ltrim($newAnnotation, '@');
     }
 }
