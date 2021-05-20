@@ -9,6 +9,8 @@ EidUtility::initFeUser();
 EidUtility::initLanguage();
 EidUtility::initTCA();
 
+$assignment = EidUtility::initFeUser();
+
 ?>
 -----
 <?php
