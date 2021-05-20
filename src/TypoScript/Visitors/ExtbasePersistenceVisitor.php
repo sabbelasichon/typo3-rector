@@ -15,9 +15,11 @@ use Ssch\TYPO3Rector\Contract\TypoScript\ConvertToPhpFileInterface;
 use Symfony\Component\VarExporter\VarExporter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-87623-ReplaceConfigpersistenceclassesTyposcriptConfiguration.html
+ * @see \Ssch\TYPO3Rector\Tests\TypoScript\TypoScriptProcessorTest
  */
 final class ExtbasePersistenceVisitor extends AbstractVisitor implements ConvertToPhpFileInterface, ConfigurableRectorInterface
 {
@@ -25,18 +27,6 @@ final class ExtbasePersistenceVisitor extends AbstractVisitor implements Convert
      * @var string
      */
     public const FILENAME = 'filename';
-
-    /**
-     * @var string
-     */
-    private const GENERATED_FILE_TEMPLATE = <<<'CODE_SAMPLE'
-<?php
-
-declare(strict_types = 1);
-
-return %s;
-
-CODE_SAMPLE;
 
     /**
      * @var string
@@ -50,11 +40,15 @@ CODE_SAMPLE;
      */
     private static array $persistenceArray = [];
 
+    private SmartFileInfo $fileTemplate;
+
     public function __construct(Configuration $configuration)
     {
         $this->filename = dirname(
             (string) $configuration->getMainConfigFilePath()
         ) . '/Configuration_Extbase_Persistence_Classes.php';
+
+        $this->fileTemplate = new SmartFileInfo(__DIR__ . '/../../../templates/maker/Extbase/Persistence.tpl.php');
     }
 
     public function enterNode(Statement $statement): void
@@ -112,7 +106,11 @@ CODE_SAMPLE
             return null;
         }
 
-        $content = sprintf(self::GENERATED_FILE_TEMPLATE, VarExporter::export(self::$persistenceArray));
+        $content = str_replace(
+            '__PERSISTENCE_ARRAY__',
+            VarExporter::export(self::$persistenceArray),
+            $this->fileTemplate->getContents()
+        );
 
         return new AddedFileWithContent($this->filename, $content);
     }
