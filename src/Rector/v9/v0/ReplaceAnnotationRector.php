@@ -55,6 +55,8 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
     {
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
 
+        $annotationChanged = false;
+
         foreach ($this->oldToNewAnnotations as $oldAnnotation => $newAnnotation) {
             if (! $phpDocInfo->hasByName($oldAnnotation)) {
                 continue;
@@ -65,6 +67,11 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
 
             $phpDocTagNode = new PhpDocTagNode($tag, new GenericTagValueNode(''));
             $phpDocInfo->addPhpDocTagNode($phpDocTagNode);
+            $annotationChanged = true;
+        }
+
+        if (false === $annotationChanged) {
+            return null;
         }
 
         $this->importExtbaseAnnotationIfMissingFactory->addExtbaseAliasAnnotationIfMissing($node);
