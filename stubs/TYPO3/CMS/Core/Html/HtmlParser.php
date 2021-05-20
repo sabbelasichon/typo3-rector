@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Html;
 
-if (class_exists(HtmlParser::class)) {
+if (class_exists('TYPO3\CMS\Core\Html\HtmlParser')) {
     return;
 }
 

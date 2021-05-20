@@ -2,7 +2,7 @@
 
 namespace TYPO3\CMS\Frontend\View;;
 
-if (interface_exists(AdminPanelViewHookInterface::class)) {
+if (interface_exists('TYPO3\CMS\Frontend\View\AdminPanelViewHookInterface')) {
     return;
 }
 

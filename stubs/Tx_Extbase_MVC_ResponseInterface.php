@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_MVC_ResponseInterface::class)) {
+if (interface_exists('Tx_Extbase_MVC_ResponseInterface')) {
     return;
 }
 

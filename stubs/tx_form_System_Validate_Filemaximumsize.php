@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_form_System_Validate_Filemaximumsize::class)) {
+if (class_exists('tx_form_System_Validate_Filemaximumsize')) {
     return;
 }
 

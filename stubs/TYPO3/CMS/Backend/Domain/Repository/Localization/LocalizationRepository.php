@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Backend\Domain\Repository\Localization;
 
-if (class_exists(LocalizationRepository::class)) {
+if (class_exists('TYPO3\CMS\Backend\Domain\Repository\Localization\LocalizationRepository')) {
     return;
 }
 

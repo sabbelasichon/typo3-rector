@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(tx_form_System_Postprocessor_Interface::class)) {
+if (interface_exists('tx_form_System_Postprocessor_Interface')) {
     return;
 }
 

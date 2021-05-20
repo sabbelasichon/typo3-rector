@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(t3lib_error_ErrorHandlerInterface::class)) {
+if (interface_exists('t3lib_error_ErrorHandlerInterface')) {
     return;
 }
 

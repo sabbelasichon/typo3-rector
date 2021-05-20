@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(SC_mod_web_func_index::class)) {
+if (class_exists('SC_mod_web_func_index')) {
     return;
 }
 

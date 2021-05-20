@@ -5,7 +5,7 @@ namespace TYPO3\CMS\Backend\Template;
 
 use TYPO3\CMS\Core\Page\PageRenderer;
 
-if (class_exists(DocumentTemplate::class)) {
+if (class_exists('TYPO3\CMS\Backend\Template\DocumentTemplate')) {
     return;
 }
 

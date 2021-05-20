@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(Tx_Extbase_Persistence_Backend::class)) {
+if (class_exists('Tx_Extbase_Persistence_Backend')) {
     return;
 }
 

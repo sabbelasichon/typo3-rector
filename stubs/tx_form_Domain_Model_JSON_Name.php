@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_form_Domain_Model_JSON_Name::class)) {
+if (class_exists('tx_form_Domain_Model_JSON_Name')) {
     return;
 }
 

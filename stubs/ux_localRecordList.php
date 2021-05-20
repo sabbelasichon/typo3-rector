@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(ux_localRecordList::class)) {
+if (class_exists('ux_localRecordList')) {
     return;
 }
 

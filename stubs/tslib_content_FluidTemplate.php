@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tslib_content_FluidTemplate::class)) {
+if (class_exists('tslib_content_FluidTemplate')) {
     return;
 }
 

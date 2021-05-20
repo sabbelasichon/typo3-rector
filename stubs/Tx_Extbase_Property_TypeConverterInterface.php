@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Property_TypeConverterInterface::class)) {
+if (interface_exists('Tx_Extbase_Property_TypeConverterInterface')) {
     return;
 }
 

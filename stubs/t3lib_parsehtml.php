@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(t3lib_parsehtml::class)) {
+if (class_exists('t3lib_parsehtml')) {
     return;
 }
 

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Resource\Security;
 
-if (class_exists(FileNameValidator::class)) {
+if (class_exists('TYPO3\CMS\Core\Resource\Security\FileNameValidator')) {
     return;
 }
 

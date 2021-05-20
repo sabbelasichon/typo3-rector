@@ -7,7 +7,7 @@ namespace TYPO3\CMS\Frontend\Page;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-if (class_exists(PageRepository::class)) {
+if (class_exists('TYPO3\CMS\Frontend\Page\PageRepository')) {
     return;
 }
 
@@ -53,6 +53,6 @@ class PageRepository
 
     public static function getHash($hash): void
     {
-        GeneralUtility::makeInstance(CacheManager::class)->getCache('cache_hash')->get($hash) ?? null;
+        GeneralUtility::makeInstance('TYPO3\CMS\Core\Cache\CacheManager')->getCache('cache_hash')->get($hash) ?? null;
     }
 }

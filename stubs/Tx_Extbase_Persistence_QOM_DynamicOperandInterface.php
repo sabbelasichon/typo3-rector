@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Persistence_QOM_DynamicOperandInterface::class)) {
+if (interface_exists('Tx_Extbase_Persistence_QOM_DynamicOperandInterface')) {
     return;
 }
 

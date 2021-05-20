@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Fluid_Core_Parser_InterceptorInterface::class)) {
+if (interface_exists('Tx_Fluid_Core_Parser_InterceptorInterface')) {
     return;
 }
 

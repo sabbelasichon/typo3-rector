@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_rsaauth_storagefactory::class)) {
+if (class_exists('tx_rsaauth_storagefactory')) {
     return;
 }
 

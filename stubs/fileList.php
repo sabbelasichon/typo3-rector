@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(fileList::class)) {
+if (class_exists('fileList')) {
     return;
 }
 

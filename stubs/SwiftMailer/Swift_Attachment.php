@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-if (class_exists(Swift_Attachment::class)) {
+if (class_exists('Swift_Attachment')) {
     return;
 }
 

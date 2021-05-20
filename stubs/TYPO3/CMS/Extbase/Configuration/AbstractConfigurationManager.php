@@ -2,7 +2,7 @@
 
 namespace TYPO3\CMS\Extbase\Configuration;
 
-if (class_exists(AbstractConfigurationManager::class)) {
+if (class_exists('TYPO3\CMS\Extbase\Configuration\AbstractConfigurationManager')) {
     return;
 }
 

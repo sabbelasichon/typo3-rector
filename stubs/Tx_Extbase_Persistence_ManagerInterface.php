@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Persistence_ManagerInterface::class)) {
+if (interface_exists('Tx_Extbase_Persistence_ManagerInterface')) {
     return;
 }
 

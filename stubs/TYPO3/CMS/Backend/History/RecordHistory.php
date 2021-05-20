@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Backend\History;
 
-if (class_exists(RecordHistory::class)) {
+if (class_exists('TYPO3\CMS\Backend\History\RecordHistory')) {
     return;
 }
 

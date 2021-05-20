@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Frontend\Utility;
 
-if (class_exists(EidUtility::class)) {
+if (class_exists('TYPO3\CMS\Frontend\Utility\EidUtility')) {
     return;
 }
 

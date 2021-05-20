@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\DataHandling;
 
-if (class_exists(DataHandler::class)) {
+if (class_exists('TYPO3\CMS\Core\DataHandling\DataHandler')) {
     return;
 }
 

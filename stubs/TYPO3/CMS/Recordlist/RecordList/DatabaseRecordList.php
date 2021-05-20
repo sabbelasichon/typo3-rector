@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Recordlist\RecordList;
 
-if(class_exists(DatabaseRecordList::class)) {
+if(class_exists('TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList')) {
     return;
 }
 

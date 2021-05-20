@@ -6,7 +6,7 @@ namespace TYPO3\CMS\Backend\Controller;
 
 use TYPO3\CMS\Core\Page\PageRenderer;
 
-if (class_exists(BackendController::class)) {
+if (class_exists('TYPO3\CMS\Backend\Controller\BackendController')) {
     return;
 }
 

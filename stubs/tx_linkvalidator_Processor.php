@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_linkvalidator_Processor::class)) {
+if (class_exists('tx_linkvalidator_Processor')) {
     return;
 }
 

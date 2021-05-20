@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-if(class_exists(Apache_Solr_Document::class)) {
+if(class_exists('Apache_Solr_Document')) {
     return;
 }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Recordlist\Tree\View;
 
-if (class_exists(ElementBrowserFolderTreeView::class)) {
+if (class_exists('TYPO3\CMS\Recordlist\Tree\View\ElementBrowserFolderTreeView')) {
     return;
 }
 

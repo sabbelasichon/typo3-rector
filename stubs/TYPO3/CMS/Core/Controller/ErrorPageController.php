@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Controller;
 
-if(class_exists(ErrorPageController::class)) {
+if(class_exists('TYPO3\CMS\Core\Controller\ErrorPageController')) {
     return;
 }
 

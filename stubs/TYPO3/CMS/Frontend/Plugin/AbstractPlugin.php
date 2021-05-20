@@ -5,7 +5,7 @@ namespace TYPO3\CMS\Frontend\Plugin;
 
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
-if(class_exists(AbstractPlugin::class)) {
+if(class_exists('TYPO3\CMS\Frontend\Plugin\AbstractPlugin')) {
     return;
 }
 

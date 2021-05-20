@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Psr\Http\Message;
 
-if(interface_exists(ResponseInterface::class)) {
+if(interface_exists('Psr\Http\Message\ResponseInterface')) {
     return;
 }
 

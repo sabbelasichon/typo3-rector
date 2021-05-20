@@ -5,7 +5,7 @@ namespace TYPO3\CMS\Core\Localization;
 
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 
-if (class_exists(Locales::class)) {
+if (class_exists('TYPO3\CMS\Core\Localization\Locales')) {
     return;
 }
 

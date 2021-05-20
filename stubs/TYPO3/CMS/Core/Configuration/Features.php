@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Configuration;
 
-if (class_exists(Features::class)) {
+if (class_exists('TYPO3\CMS\Core\Configuration\Features')) {
     return;
 }
 

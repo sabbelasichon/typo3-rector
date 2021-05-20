@@ -5,7 +5,7 @@ namespace TYPO3\CMS\Core\Cache;
 
 use TYPO3\CMS\Core\Cache\Frontend\FrontendInterface;
 
-if (class_exists(CacheManager::class)) {
+if (class_exists('TYPO3\CMS\Core\Cache\CacheManager')) {
     return;
 }
 

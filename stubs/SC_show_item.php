@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(SC_show_item::class)) {
+if (class_exists('SC_show_item')) {
     return;
 }
 

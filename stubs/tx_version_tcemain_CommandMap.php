@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_version_tcemain_CommandMap::class)) {
+if (class_exists('tx_version_tcemain_CommandMap')) {
     return;
 }
 

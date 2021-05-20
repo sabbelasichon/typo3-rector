@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tslib_content_SearchResult::class)) {
+if (class_exists('tslib_content_SearchResult')) {
     return;
 }
 

@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Persistence_QOM_ComparisonInterface::class)) {
+if (interface_exists('Tx_Extbase_Persistence_QOM_ComparisonInterface')) {
     return;
 }
 

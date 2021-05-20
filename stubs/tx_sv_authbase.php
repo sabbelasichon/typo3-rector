@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_sv_authbase::class)) {
+if (class_exists('tx_sv_authbase')) {
     return;
 }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_recycler_module1::class)) {
+if (class_exists('tx_recycler_module1')) {
     return;
 }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_scheduler_TableGarbageCollection::class)) {
+if (class_exists('tx_scheduler_TableGarbageCollection')) {
     return;
 }
 

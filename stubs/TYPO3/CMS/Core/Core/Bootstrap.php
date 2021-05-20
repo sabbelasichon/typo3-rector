@@ -6,7 +6,7 @@ namespace TYPO3\CMS\Core\Core;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-if (class_exists(Bootstrap::class)) {
+if (class_exists('TYPO3\CMS\Core\Core\Bootstrap')) {
     return;
 }
 

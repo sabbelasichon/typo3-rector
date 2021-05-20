@@ -5,7 +5,7 @@ namespace TYPO3\CMS\Core\Site;
 
 use TYPO3\CMS\Core\Site\Entity\Site;
 
-if (class_exists(SiteFinder::class)) {
+if (class_exists('TYPO3\CMS\Core\Site\SiteFinder')) {
     return;
 }
 

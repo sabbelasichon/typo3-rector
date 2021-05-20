@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(Tx_Fluid_ViewHelpers_Form_RadioViewHelper::class)) {
+if (class_exists('Tx_Fluid_ViewHelpers_Form_RadioViewHelper')) {
     return;
 }
 

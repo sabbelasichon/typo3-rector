@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Validation_Validator_ObjectValidatorInterface::class)) {
+if (interface_exists('Tx_Extbase_Validation_Validator_ObjectValidatorInterface')) {
     return;
 }
 

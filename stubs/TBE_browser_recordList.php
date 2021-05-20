@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(TBE_browser_recordList::class)) {
+if (class_exists('TBE_browser_recordList')) {
     return;
 }
 

@@ -5,7 +5,7 @@ namespace TYPO3\CMS\Core\Site\Entity;
 
 use TYPO3\CMS\Core\Routing\PageRouter;
 
-if (class_exists(Site::class)) {
+if (class_exists('TYPO3\CMS\Core\Site\Entity\Site')) {
     return;
 }
 

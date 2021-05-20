@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Database\Query;
 
-if (class_exists(QueryHelper::class)) {
+if (class_exists('TYPO3\CMS\Core\Database\Query\QueryHelper')) {
     return;
 }
 

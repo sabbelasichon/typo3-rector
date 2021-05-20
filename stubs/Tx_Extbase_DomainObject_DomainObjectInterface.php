@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_DomainObject_DomainObjectInterface::class)) {
+if (interface_exists('Tx_Extbase_DomainObject_DomainObjectInterface')) {
     return;
 }
 

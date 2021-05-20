@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(TYPO3backend::class)) {
+if (class_exists('TYPO3backend')) {
     return;
 }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_impexp_clickmenu::class)) {
+if (class_exists('tx_impexp_clickmenu')) {
     return;
 }
 

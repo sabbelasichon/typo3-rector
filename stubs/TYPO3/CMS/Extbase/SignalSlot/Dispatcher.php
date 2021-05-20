@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Extbase\SignalSlot;
 
-if(class_exists(Dispatcher::class)) {
+if(class_exists('TYPO3\CMS\Extbase\SignalSlot\Dispatcher')) {
     return;
 }
 
