@@ -70,7 +70,7 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
             $annotationChanged = true;
         }
 
-        if (false === $annotationChanged) {
+        if (! $annotationChanged) {
             return null;
         }
 
