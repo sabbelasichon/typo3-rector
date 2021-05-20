@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(SC_db_layout::class)) {
+if (class_exists('SC_db_layout')) {
     return;
 }
 

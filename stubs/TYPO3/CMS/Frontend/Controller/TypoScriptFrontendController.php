@@ -13,7 +13,7 @@ use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
-if (class_exists(TypoScriptFrontendController::class)) {
+if (class_exists('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')) {
     return;
 }
 

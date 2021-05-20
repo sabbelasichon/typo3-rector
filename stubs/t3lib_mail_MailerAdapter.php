@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(t3lib_mail_MailerAdapter::class)) {
+if (class_exists('t3lib_mail_MailerAdapter')) {
     return;
 }
 

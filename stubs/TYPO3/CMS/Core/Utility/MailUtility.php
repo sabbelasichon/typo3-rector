@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Utility;
 
-if (class_exists(MailUtility::class)) {
+if (class_exists('TYPO3\CMS\Core\Utility\MailUtility')) {
     return;
 }
 

@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Core_BootstrapInterface::class)) {
+if (interface_exists('Tx_Extbase_Core_BootstrapInterface')) {
     return;
 }
 

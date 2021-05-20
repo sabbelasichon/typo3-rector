@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Core;
 
-if (class_exists(ClassLoadingInformation::class)) {
+if (class_exists('TYPO3\CMS\Core\Core\ClassLoadingInformation')) {
     return;
 }
 

@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Fluid_Core_ViewHelper_Facets_ChildNodeAccessInterface::class)) {
+if (interface_exists('Tx_Fluid_Core_ViewHelper_Facets_ChildNodeAccessInterface')) {
     return;
 }
 

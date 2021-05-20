@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Fluid_Core_Rendering_RenderingContextInterface::class)) {
+if (interface_exists('Tx_Fluid_Core_Rendering_RenderingContextInterface')) {
     return;
 }
 

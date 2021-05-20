@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Fluid_Core_ViewHelper_ViewHelperInterface::class)) {
+if (interface_exists('Tx_Fluid_Core_ViewHelper_ViewHelperInterface')) {
     return;
 }
 

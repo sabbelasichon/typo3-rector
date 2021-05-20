@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(Tx_Version_Preview::class)) {
+if (class_exists('Tx_Version_Preview')) {
     return;
 }
 

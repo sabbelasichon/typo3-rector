@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace TYPO3\CMS\Core\Charset;
 
 
-if (class_exists(CharsetConverter::class)) {
+if (class_exists('TYPO3\CMS\Core\Charset\CharsetConverter')) {
     return;
 }
 

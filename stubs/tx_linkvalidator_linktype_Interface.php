@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(tx_linkvalidator_linktype_Interface::class)) {
+if (interface_exists('tx_linkvalidator_linktype_Interface')) {
     return;
 }
 

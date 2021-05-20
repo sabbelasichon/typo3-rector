@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Page;
 
-if (class_exists(PageRenderer::class)) {
+if (class_exists('TYPO3\CMS\Core\Page\PageRenderer')) {
     return;
 }
 

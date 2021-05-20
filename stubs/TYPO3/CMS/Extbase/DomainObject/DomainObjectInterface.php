@@ -3,7 +3,7 @@
 
 namespace TYPO3\CMS\Extbase\DomainObject;
 
-if (interface_exists(DomainObjectInterface::class)) {
+if (interface_exists('TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface')) {
     return;
 }
 

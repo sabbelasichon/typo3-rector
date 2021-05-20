@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ApacheSolrForTypo3\Solr\System\Solr\Document;
 
-if(class_exists(Document::class)) {
+if(class_exists('ApacheSolrForTypo3\Solr\System\Solr\Document\Document')) {
     return;
 }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(SC_wizard_edit::class)) {
+if (class_exists('SC_wizard_edit')) {
     return;
 }
 

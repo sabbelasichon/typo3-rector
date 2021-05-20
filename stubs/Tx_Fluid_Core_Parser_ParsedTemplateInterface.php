@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Fluid_Core_Parser_ParsedTemplateInterface::class)) {
+if (interface_exists('Tx_Fluid_Core_Parser_ParsedTemplateInterface')) {
     return;
 }
 

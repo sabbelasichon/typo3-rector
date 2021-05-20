@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Persistence_LoadingStrategyInterface::class)) {
+if (interface_exists('Tx_Extbase_Persistence_LoadingStrategyInterface')) {
     return;
 }
 

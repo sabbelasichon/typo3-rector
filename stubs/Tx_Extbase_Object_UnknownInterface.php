@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Object_UnknownInterface::class)) {
+if (interface_exists('Tx_Extbase_Object_UnknownInterface')) {
     return;
 }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_form_Controller_Form::class)) {
+if (class_exists('tx_form_Controller_Form')) {
     return;
 }
 

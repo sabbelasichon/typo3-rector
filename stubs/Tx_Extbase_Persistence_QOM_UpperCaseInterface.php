@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Persistence_QOM_UpperCaseInterface::class)) {
+if (interface_exists('Tx_Extbase_Persistence_QOM_UpperCaseInterface')) {
     return;
 }
 

@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Property_PropertyMappingConfigurationInterface::class)) {
+if (interface_exists('Tx_Extbase_Property_PropertyMappingConfigurationInterface')) {
     return;
 }
 

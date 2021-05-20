@@ -6,7 +6,7 @@ namespace TYPO3\CMS\Extbase\Http;
 
 use Psr\Http\Message\ResponseInterface;
 
-if (class_exists(ForwardResponse::class)) {
+if (class_exists('TYPO3\CMS\Extbase\Http\ForwardResponse')) {
     return;
 }
 

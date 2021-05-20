@@ -2,7 +2,7 @@
 
 namespace TYPO3\CMS\Fluid\Core\ViewHelper;;
 
-if (interface_exists(ViewHelperInterface::class)) {
+if (interface_exists('TYPO3\CMS\Fluid\Core\ViewHelper\ViewHelperInterface')) {
     return;
 }
 

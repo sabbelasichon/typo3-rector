@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\ResponseFactoryInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
-if (class_exists(ActionController::class)) {
+if (class_exists('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')) {
     return;
 }
 

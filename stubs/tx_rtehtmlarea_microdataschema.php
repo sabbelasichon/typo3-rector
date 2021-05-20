@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_rtehtmlarea_microdataschema::class)) {
+if (class_exists('tx_rtehtmlarea_microdataschema')) {
     return;
 }
 

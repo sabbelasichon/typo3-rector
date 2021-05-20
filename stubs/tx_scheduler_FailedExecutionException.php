@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_scheduler_FailedExecutionException::class)) {
+if (class_exists('tx_scheduler_FailedExecutionException')) {
     return;
 }
 

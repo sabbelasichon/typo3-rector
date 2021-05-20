@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Resource\Exception\InvalidFileException;
 use TYPO3\CMS\Core\Resource\Exception\InvalidFileNameException;
 use TYPO3\CMS\Core\Resource\Exception\InvalidPathException;
 
-if (class_exists(FilePathSanitizer::class)) {
+if (class_exists('TYPO3\CMS\Frontend\Resource\FilePathSanitizer')) {
     return;
 }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_rtehtmlarea_SC_browse_links::class)) {
+if (class_exists('tx_rtehtmlarea_SC_browse_links')) {
     return;
 }
 

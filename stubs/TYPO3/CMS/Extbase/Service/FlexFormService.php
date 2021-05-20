@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Extbase\Service;
 
-if (class_exists(FlexFormService::class)) {
+if (class_exists('TYPO3\CMS\Extbase\Service\FlexFormService')) {
     return;
 }
 

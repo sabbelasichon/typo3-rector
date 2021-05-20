@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Saltedpasswords\Exception;
 
-if (class_exists(InvalidSaltException::class)) {
+if (class_exists('TYPO3\CMS\Saltedpasswords\Exception\InvalidSaltException')) {
     return;
 }
 

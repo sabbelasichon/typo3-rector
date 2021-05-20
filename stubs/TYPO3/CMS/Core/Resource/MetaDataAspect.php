@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Resource;
 
-if (class_exists(MetaDataAspect::class)) {
+if (class_exists('TYPO3\CMS\Core\Resource\MetaDataAspect')) {
     return;
 }
 

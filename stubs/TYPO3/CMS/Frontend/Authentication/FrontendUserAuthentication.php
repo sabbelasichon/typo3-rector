@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Frontend\Authentication;
 
-if(class_exists(FrontendUserAuthentication::class)) {
+if(class_exists('TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication')) {
     return;
 }
 

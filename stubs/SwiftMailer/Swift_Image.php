@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-if (class_exists(Swift_Image::class)) {
+if (class_exists('Swift_Image')) {
     return;
 }
 

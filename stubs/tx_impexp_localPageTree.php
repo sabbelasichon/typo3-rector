@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_impexp_localPageTree::class)) {
+if (class_exists('tx_impexp_localPageTree')) {
     return;
 }
 

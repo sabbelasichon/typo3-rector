@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Resource\Processing;
 
-if (class_exists(LocalImageProcessor::class)) {
+if (class_exists('TYPO3\CMS\Core\Resource\Processing\LocalImageProcessor')) {
     return;
 }
 

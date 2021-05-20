@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(Tx_Fluid_Core_ViewHelper_ArgumentDefinition::class)) {
+if (class_exists('Tx_Fluid_Core_ViewHelper_ArgumentDefinition')) {
     return;
 }
 

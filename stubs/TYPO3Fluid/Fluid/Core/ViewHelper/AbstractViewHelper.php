@@ -5,7 +5,7 @@ namespace TYPO3Fluid\Fluid\Core\ViewHelper;
 
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
-if (class_exists(AbstractViewHelper::class)) {
+if (class_exists('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper')) {
     return;
 }
 

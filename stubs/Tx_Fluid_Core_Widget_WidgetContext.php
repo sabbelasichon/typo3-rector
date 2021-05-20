@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(Tx_Fluid_Core_Widget_WidgetContext::class)) {
+if (class_exists('Tx_Fluid_Core_Widget_WidgetContext')) {
     return;
 }
 

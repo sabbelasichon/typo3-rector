@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(SC_tce_db::class)) {
+if (class_exists('SC_tce_db')) {
     return;
 }
 

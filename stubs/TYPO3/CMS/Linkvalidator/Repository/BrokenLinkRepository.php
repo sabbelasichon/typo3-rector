@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Linkvalidator\Repository;
 
-if (class_exists(BrokenLinkRepository::class)) {
+if (class_exists('TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository')) {
     return;
 }
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Backend\Template;
 
-if (class_exists(ModuleTemplate::class)) {
+if (class_exists('TYPO3\CMS\Backend\Template\ModuleTemplate')) {
     return;
 }
 

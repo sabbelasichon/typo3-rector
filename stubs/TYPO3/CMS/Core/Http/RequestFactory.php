@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Core\Http;
 
-if (class_exists(RequestFactory::class)) {
+if (class_exists('TYPO3\CMS\Core\Http\RequestFactory')) {
     return;
 }
 

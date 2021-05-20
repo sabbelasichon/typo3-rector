@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_form_Domain_Model_JSON_Textblock::class)) {
+if (class_exists('tx_form_Domain_Model_JSON_Textblock')) {
     return;
 }
 

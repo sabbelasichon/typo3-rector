@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(tx_form_Common::class)) {
+if (class_exists('tx_form_Common')) {
     return;
 }
 

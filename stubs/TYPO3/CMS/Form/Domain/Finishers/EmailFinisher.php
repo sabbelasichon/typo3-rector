@@ -7,7 +7,7 @@ namespace TYPO3\CMS\Form\Domain\Finishers;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 
-if (class_exists(EmailFinisher::class)) {
+if (class_exists('TYPO3\CMS\Form\Domain\Finishers\EmailFinisher')) {
     return;
 }
 

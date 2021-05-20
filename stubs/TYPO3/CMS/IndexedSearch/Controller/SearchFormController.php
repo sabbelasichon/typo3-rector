@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\IndexedSearch\Controller;
 
-if (class_exists(SearchFormController::class)) {
+if (class_exists('TYPO3\CMS\IndexedSearch\Controller\SearchFormController')) {
     return;
 }
 

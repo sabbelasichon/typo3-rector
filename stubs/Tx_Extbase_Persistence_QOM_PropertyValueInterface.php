@@ -2,7 +2,7 @@
 
 ;
 
-if (interface_exists(Tx_Extbase_Persistence_QOM_PropertyValueInterface::class)) {
+if (interface_exists('Tx_Extbase_Persistence_QOM_PropertyValueInterface')) {
     return;
 }
 

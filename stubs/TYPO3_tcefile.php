@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 
 
-if (class_exists(TYPO3_tcefile::class)) {
+if (class_exists('TYPO3_tcefile')) {
     return;
 }
 
