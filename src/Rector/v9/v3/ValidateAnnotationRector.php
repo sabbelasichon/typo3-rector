@@ -6,16 +6,12 @@ namespace Ssch\TYPO3Rector\Rector\v9\v3;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\Use_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\UseNodesToAddCollector;
-use Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation;
-use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
+use Ssch\TYPO3Rector\NodeFactory\ImportExtbaseAnnotationIfMissingFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -32,7 +28,7 @@ final class ValidateAnnotationRector extends AbstractRector
 
     public function __construct(
         private PhpDocTagRemover $phpDocTagRemover,
-        private UseNodesToAddCollector $useNodesToAddCollector
+        private ImportExtbaseAnnotationIfMissingFactory $importExtbaseAnnotationIfMissingFactory
     ) {
     }
 
@@ -78,23 +74,7 @@ final class ValidateAnnotationRector extends AbstractRector
             }
         }
 
-        $namespace = $this->betterNodeFinder->findFirstPrevious($node, function (Node $node): bool {
-            return $node instanceof Namespace_;
-        });
-
-        $completeImportForPartialAnnotation = new CompleteImportForPartialAnnotation(
-            'TYPO3\CMS\Extbase\Annotation',
-            'Extbase'
-        );
-        if ($namespace instanceof Namespace_ && $this->isImportMissing(
-            $namespace,
-            $completeImportForPartialAnnotation
-        )) {
-            $this->useNodesToAddCollector->addUseImport(
-                $node,
-                new AliasedObjectType('Extbase', 'TYPO3\CMS\Extbase\Annotation')
-            );
-        }
+        $this->importExtbaseAnnotationIfMissingFactory->addExtbaseAliasAnnotationIfMissing($node);
 
         $this->phpDocTagRemover->removeByName($phpDocInfo, self::OLD_ANNOTATION);
 
@@ -174,29 +154,5 @@ CODE_SAMPLE
     private function createEmptyTagValueNode(): GenericTagValueNode
     {
         return new GenericTagValueNode('');
-    }
-
-    private function isImportMissing(
-        Namespace_ $namespace,
-        CompleteImportForPartialAnnotation $completeImportForPartialAnnotation
-    ): bool {
-        foreach ($namespace->stmts as $stmt) {
-            if (! $stmt instanceof Use_) {
-                continue;
-            }
-
-            $useUse = $stmt->uses[0];
-            // already there
-            if (! $this->isName($useUse->name, $completeImportForPartialAnnotation->getUse())) {
-                continue;
-            }
-            if ((string) $useUse->alias !== $completeImportForPartialAnnotation->getAlias()) {
-                continue;
-            }
-
-            return false;
-        }
-
-        return true;
     }
 }
