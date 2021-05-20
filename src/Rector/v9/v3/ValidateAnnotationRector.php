@@ -99,9 +99,10 @@ private $someProperty;
 CODE_SAMPLE
 ,
                     <<<'CODE_SAMPLE'
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 /**
- * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
- * @TYPO3\CMS\Extbase\Annotation\Validate("StringLength", options={"minimum": 3, "maximum": 50})
+ * @Extbase\Validate("NotEmpty")
+ * @Extbase\Validate("StringLength", options={"minimum": 3, "maximum": 50})
  */
 private $someProperty;
 CODE_SAMPLE

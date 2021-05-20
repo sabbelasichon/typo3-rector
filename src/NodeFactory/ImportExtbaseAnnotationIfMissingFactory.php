@@ -19,8 +19,7 @@ final class ImportExtbaseAnnotationIfMissingFactory
         private BetterNodeFinder $betterNodeFinder,
         private  UseNodesToAddCollector $useNodesToAddCollector,
         private NodeNameResolver $nodeNameResolver
-    )
-    {
+    ) {
     }
 
     public function addExtbaseAliasAnnotationIfMissing(Node $node): void

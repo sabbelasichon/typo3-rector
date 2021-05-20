@@ -11,6 +11,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\NodeFactory\ImportExtbaseAnnotationIfMissingFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -31,7 +32,8 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
     private const VERY_OLD_ANNOTATION = 'dontvalidate';
 
     public function __construct(
-        private PhpDocTagRemover $phpDocTagRemover
+        private PhpDocTagRemover $phpDocTagRemover,
+        private ImportExtbaseAnnotationIfMissingFactory $importExtbaseAnnotationIfMissingFactory
     ) {
     }
 
@@ -53,6 +55,8 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
         if (! $phpDocInfo->hasByNames([self::OLD_ANNOTATION, self::VERY_OLD_ANNOTATION])) {
             return null;
         }
+
+        $this->importExtbaseAnnotationIfMissingFactory->addExtbaseAliasAnnotationIfMissing($node);
 
         if ($phpDocInfo->hasByName(self::OLD_ANNOTATION)) {
             return $this->refactorValidation(self::OLD_ANNOTATION, $phpDocInfo, $node);
@@ -80,8 +84,9 @@ public function method($param)
 CODE_SAMPLE
 ,
                     <<<'CODE_SAMPLE'
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 /**
- * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("param")
+ * @Extbase\IgnoreValidation("param")
  */
 public function method($param)
 {
@@ -103,7 +108,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $tagName = '@TYPO3\CMS\Extbase\Annotation\IgnoreValidation("' . ltrim((string) $tagNode->value, '$') . '")';
+        $tagName = '@Extbase\IgnoreValidation("' . ltrim((string) $tagNode->value, '$') . '")';
 
         $tag = '@' . ltrim($tagName, '@');
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\IgnoreValidationAnnotationRector\Fixture;
 
 final class SomeIgnoreValidationClass
 {
@@ -21,8 +21,9 @@ final class SomeIgnoreValidationClass
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Annotation\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\IgnoreValidationAnnotationRector\Fixture;
 
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 final class SomeIgnoreValidationClass
 {
     /**
@@ -31,7 +32,7 @@ final class SomeIgnoreValidationClass
     private $someProperty;
 
     /**
-     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("param")
+     * @Extbase\IgnoreValidation("param")
      */
     public function someMethod($param): void
     {
