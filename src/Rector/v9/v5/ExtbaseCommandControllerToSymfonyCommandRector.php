@@ -22,6 +22,7 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddArgumentToSymfonyCommandRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddCommandsToReturnRector;
+use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -42,7 +43,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         private AddCommandsToReturnRector $addCommandsToReturnRector,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         private NikicParser $nikicParser,
-        private Configuration $configuration
+        private Configuration $configuration,
+        private TemplateFinder $templateFinder
     ) {
         $this->betterStandardPrinter = $betterStandardPrinter;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
@@ -121,7 +123,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             $methodParameters = $commandMethod->params;
             $commandDescription = null !== $descriptionPhpDocNode ? (string) $descriptionPhpDocNode : '';
 
-            $commandTemplate = new SmartFileInfo(__DIR__ . '/../../../../templates/maker/Commands/Command.tpl.php');
+            $commandTemplate = $this->templateFinder->getCommand();
             $commandName = Strings::firstUpper($commandMethodName);
             $commandContent = $commandTemplate->getContents();
 
@@ -285,9 +287,7 @@ CODE_SAMPLE
             $nodes = $this->parser->parseFileInfo($commandsSmartFileInfo);
         } else {
             $this->createDeepDirectoryFromFilePath($commandsFilePath);
-            $defaultsCommandsTemplate = new SmartFileInfo(
-                __DIR__ . '/../../../../templates/maker/Commands/Commands.tpl.php'
-            );
+            $defaultsCommandsTemplate = $this->templateFinder->getCommandsConfiguration();
             $nodes = $this->parser->parseFileInfo($defaultsCommandsTemplate);
         }
 
