@@ -12,13 +12,12 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use TYPO3\CMS\Core\Context\Context;
 
 final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
     public function getClass(): string
     {
-        return Context::class;
+        return 'TYPO3\CMS\Core\Context\Context';
     }
 
     public function isMethodSupported(MethodReflection $methodReflection): bool
