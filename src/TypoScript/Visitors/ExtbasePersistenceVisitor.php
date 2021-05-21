@@ -12,6 +12,7 @@ use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Contract\TypoScript\ConvertToPhpFileInterface;
+use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symfony\Component\VarExporter\VarExporter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -42,13 +43,13 @@ final class ExtbasePersistenceVisitor extends AbstractVisitor implements Convert
 
     private SmartFileInfo $fileTemplate;
 
-    public function __construct(Configuration $configuration)
+    public function __construct(Configuration $configuration, TemplateFinder $templateFinder)
     {
         $this->filename = dirname(
             (string) $configuration->getMainConfigFilePath()
         ) . '/Configuration_Extbase_Persistence_Classes.php';
 
-        $this->fileTemplate = new SmartFileInfo(__DIR__ . '/../../../templates/maker/Extbase/Persistence.tpl.php');
+        $this->fileTemplate = $templateFinder->getExtbasePersistenceConfiguration();
     }
 
     public function enterNode(Statement $statement): void
