@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions;
 
-use Ssch\TYPO3Rector\Contract\TypoScript\Conditions\TyposcriptConditionMatcher;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\Conditions\TyposcriptConditionMatcher;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 
 final class LoginUserConditionMatcher implements TyposcriptConditionMatcher

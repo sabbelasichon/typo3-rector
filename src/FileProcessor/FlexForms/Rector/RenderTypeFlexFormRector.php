@@ -9,7 +9,7 @@ use DOMElement;
 use DOMNode;
 use DOMNodeList;
 use DOMXPath;
-use Ssch\TYPO3Rector\Contract\FlexForms\Rector\FlexFormRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 

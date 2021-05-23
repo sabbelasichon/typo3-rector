@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons;
 use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\Contract\Resources\IconRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 
 /**

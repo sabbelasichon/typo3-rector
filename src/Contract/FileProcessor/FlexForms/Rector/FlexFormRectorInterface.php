@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Contract\FlexForms\Rector;
+namespace Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector;
 
 use DOMDocument;
 use Rector\Core\Contract\Rector\RectorInterface;

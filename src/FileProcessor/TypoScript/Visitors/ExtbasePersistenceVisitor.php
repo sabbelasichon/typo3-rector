@@ -11,7 +11,7 @@ use Nette\Utils\Strings;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
-use Ssch\TYPO3Rector\Contract\TypoScript\ConvertToPhpFileInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
 use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symfony\Component\VarExporter\VarExporter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;

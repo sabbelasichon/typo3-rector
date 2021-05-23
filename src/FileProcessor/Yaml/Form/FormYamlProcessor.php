@@ -8,7 +8,7 @@ use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\Contract\Yaml\Form\FormYamlRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\Form\FormYamlRectorInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**

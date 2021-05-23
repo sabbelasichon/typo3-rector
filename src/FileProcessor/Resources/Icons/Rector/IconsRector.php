@@ -8,7 +8,7 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Configuration\Configuration;
 use Rector\Core\ValueObject\Application\File;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
-use Ssch\TYPO3Rector\Contract\Resources\IconRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 

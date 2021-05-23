@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector;
 use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\Contract\Yaml\Form\FormYamlRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\Form\FormYamlRectorInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 

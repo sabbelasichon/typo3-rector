@@ -10,9 +10,9 @@ use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptProcessor;
 use Ssch\TYPO3Rector\Rector\General\ConvertTypo3ConfVarsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -30,12 +30,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/Rector',
             __DIR__ . '/../src/Set',
             __DIR__ . '/../src/ValueObject',
-            __DIR__ . '/../src/TypoScript/Conditions',
-            __DIR__ . '/../src/TypoScript/Visitors',
+            __DIR__ . '/../src/FileProcessor/TypoScript/Conditions',
+            __DIR__ . '/../src/FileProcessor/TypoScript/Visitors',
             __DIR__ . '/../src/FileProcessor/Yaml/Form/Rector',
             __DIR__ . '/../src/FileProcessor/Composer/Rector',
             __DIR__ . '/../src/FileProcessor/FlexForms/Rector',
             __DIR__ . '/../src/FileProcessor/Resources/Icons/Rector',
+            __DIR__ . '/../src/FileProcessor/Fluid/Rector',
         ]);
 
     // Add some general TYPO3 rules

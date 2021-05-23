@@ -8,7 +8,7 @@ use DOMDocument;
 use Exception;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
-use Ssch\TYPO3Rector\Contract\FlexForms\Rector\FlexFormRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
 use UnexpectedValueException;
 
 /**
