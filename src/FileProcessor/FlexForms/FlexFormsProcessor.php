@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FlexForms;
+namespace Ssch\TYPO3Rector\FileProcessor\FlexForms;
 
 use DOMDocument;
 use Exception;
@@ -12,7 +12,7 @@ use Ssch\TYPO3Rector\Contract\FlexForms\Rector\FlexFormRectorInterface;
 use UnexpectedValueException;
 
 /**
- * @see \Ssch\TYPO3Rector\Tests\FlexForms\FlexFormsProcessorTest
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\FlexForms\FlexFormsProcessorTest
  */
 final class FlexFormsProcessor implements FileProcessorInterface
 {

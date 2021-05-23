@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\FlexForms;
+namespace Ssch\TYPO3Rector\Tests\FileProcessor\FlexForms;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FlexForms\Rector;
+namespace Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector;
 
 use DOMDocument;
 use DOMElement;
