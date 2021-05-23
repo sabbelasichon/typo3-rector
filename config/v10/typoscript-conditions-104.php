@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\TypoScript\Conditions\PIDupinRootlineConditionMatcher;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\PIDupinRootlineConditionMatcher;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
