@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
+use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\DefaultSwitchFluidRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordsByFieldToQueryBuilderRector;
@@ -68,4 +69,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(DataHandlerVariousMethodsAndMethodArgumentsRector::class);
     $services->set(RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector::class);
     $services->set(UseCachingFrameworkInsteadGetAndStoreHashRector::class);
+    $services->set(DefaultSwitchFluidRector::class);
 };
