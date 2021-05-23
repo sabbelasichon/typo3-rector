@@ -9,7 +9,7 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
-use Ssch\TYPO3Rector\Rector\Composer\ExtensionComposerRector;
+use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
 use Ssch\TYPO3Rector\Rector\General\ConvertTypo3ConfVarsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\TypoScript\TypoScriptProcessor;
@@ -35,6 +35,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/FlexForms/Rector',
             __DIR__ . '/../src/Yaml/Form/Rector',
             __DIR__ . '/../src/Resources/Icons/Rector',
+            __DIR__ . '/../src/FileProcessor/**/Rector',
         ]);
 
     // Add some general TYPO3 rules

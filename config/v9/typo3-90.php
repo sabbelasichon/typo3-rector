@@ -6,7 +6,7 @@ use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Ssch\TYPO3Rector\FlexForms\Rector\RenderTypeFlexFormRector;
-use Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraComposerRector;
+use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionVersionRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\FindByPidsAndAuthorIdRector;

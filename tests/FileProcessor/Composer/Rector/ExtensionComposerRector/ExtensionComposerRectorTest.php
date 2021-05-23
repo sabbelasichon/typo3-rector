@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Composer\ExtensionComposerRector;
+namespace Ssch\TYPO3Rector\Tests\FileProcessor\Composer\Rector\ExtensionComposerRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

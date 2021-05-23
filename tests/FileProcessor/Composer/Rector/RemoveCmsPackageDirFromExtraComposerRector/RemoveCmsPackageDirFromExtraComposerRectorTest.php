@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\Composer\RemoveCmsPackageDirFromExtraComposerRector;
+namespace Ssch\TYPO3Rector\Tests\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

@@ -745,14 +745,14 @@ Add extra extension_key in `composer.json` and add option default constraint
 
 :wrench: **configure it!**
 
-- class: [`Ssch\TYPO3Rector\Rector\Composer\ExtensionComposerRector`](../src/Rector/Composer/ExtensionComposerRector.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector`](../src/Rector/Composer/ExtensionComposerRector.php)
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Rector\Composer\ExtensionComposerRector;
+use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
@@ -2061,14 +2061,14 @@ Change package name in `composer.json`
 
 :wrench: **configure it!**
 
-- class: [`Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraComposerRector`](../src/Rector/Composer/RemoveCmsPackageDirFromExtraComposerRector.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector`](../src/Rector/Composer/RemoveCmsPackageDirFromExtraComposerRector.php)
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Rector\Composer\RemoveCmsPackageDirFromExtraComposerRector;
+use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {

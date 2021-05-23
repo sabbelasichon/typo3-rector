@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\Composer;
+namespace Ssch\TYPO3Rector\FileProcessor\Composer\Rector;
 
 use BadMethodCallException;
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/m/typo3/guide-installation/master/en-us/MigrateToComposer/MigrationSteps.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\Composer\RemoveCmsPackageDirFromExtraComposerRector\RemoveCmsPackageDirFromExtraComposerRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector\RemoveCmsPackageDirFromExtraComposerRectorTest
  */
 final class RemoveCmsPackageDirFromExtraComposerRector implements ComposerRectorInterface
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\Composer;
+namespace Ssch\TYPO3Rector\FileProcessor\Composer\Rector;
 
 use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
@@ -15,7 +15,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ComposerJson/Index.html#extra
- * @see \Ssch\TYPO3Rector\Tests\Rector\Composer\ExtensionComposerRector\ExtensionComposerRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Composer\Rector\ExtensionComposerRector\ExtensionComposerRectorTest
  */
 final class ExtensionComposerRector implements ComposerRectorInterface
 {
