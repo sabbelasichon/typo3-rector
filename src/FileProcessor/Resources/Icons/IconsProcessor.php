@@ -12,7 +12,7 @@ use Ssch\TYPO3Rector\Helper\FilesFinder;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Feature-77349-AdditionalLocationsForExtensionIcons.html
- * @see \Ssch\TYPO3Rector\Tests\Resources\Icons\IconsProcessor\IconsProcessorTest
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Icons\IconsProcessor\IconsProcessorTest
  */
 final class IconsProcessor implements FileProcessorInterface
 {

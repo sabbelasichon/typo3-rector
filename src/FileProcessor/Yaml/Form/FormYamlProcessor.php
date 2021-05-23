@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Yaml\Form;
+namespace Ssch\TYPO3Rector\FileProcessor\Yaml\Form;
 
 use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
@@ -12,7 +12,7 @@ use Ssch\TYPO3Rector\Contract\Yaml\Form\FormYamlRectorInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @see \Ssch\TYPO3Rector\Tests\Yaml\Form\FormYamlProcessorTest
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Yaml\Form\FormYamlProcessorTest
  */
 final class FormYamlProcessor implements FileProcessorInterface
 {

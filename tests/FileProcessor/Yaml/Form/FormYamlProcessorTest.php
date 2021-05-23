@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Yaml\Form;
+namespace Ssch\TYPO3Rector\Tests\FileProcessor\Yaml\Form;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

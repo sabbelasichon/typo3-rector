@@ -30,7 +30,7 @@ use Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseTwoLetterIsoCodeFromSiteLanguageRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\RemoveFormatConstantsEmailFinisherRector;
-use Ssch\TYPO3Rector\Yaml\Form\Rector\EmailFinisherRector;
+use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\EmailFinisherRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
