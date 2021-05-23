@@ -34,7 +34,7 @@ final class DefaultSwitchFluidRector implements FluidRectorInterface
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Copy ext_icon.* to Resources/Icons/Extension.*', [
+        return new RuleDefinition('Use <f:defaultCase> instead of <f:case default="1">', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 <f:switch expression="{someVariable}">

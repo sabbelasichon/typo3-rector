@@ -61,15 +61,15 @@
             "@fix-rector",
             "@fix-style"
         ],
-        "check-style": "vendor/bin/ecs check --ansi",
-        "fix-style": "vendor/bin/ecs check --fix --ansi",
-        "analyze": "vendor/bin/phpstan analyse --memory-limit=-1 --ansi --error-format symplify",
-        "test": "vendor/bin/phpunit",
-        "docs": "vendor/bin/rule-doc-generator generate src/Rector --output-file docs/all_rectors_overview.md --ansi",
-        "rector": "vendor/bin/rector process --dry-run --ansi",
-        "fix-rector": "vendor/bin/rector process --ansi",
-        "check-typo3-rector": "vendor/bin/rector process src/Helper --config templates/rector.php --dry-run --ansi",
-        "update-composer-packages": "vendor/bin/rector add-composer-typo3-extensions-to-config"
+        "check-style": "ecs check --ansi",
+        "fix-style": "ecs check --fix --ansi",
+        "analyze": "phpstan analyse --memory-limit=-1 --ansi --error-format symplify",
+        "test": "phpunit",
+        "docs": "rule-doc-generator generate src --output-file docs/all_rectors_overview.md --ansi",
+        "rector": "rector process --dry-run --ansi",
+        "fix-rector": "rector process --ansi",
+        "check-typo3-rector": "rector process src/Helper --config templates/rector.php --dry-run --ansi",
+        "update-composer-packages": "rector add-composer-typo3-extensions-to-config"
     },
     "extra": {
         "rector": {
