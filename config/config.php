@@ -33,8 +33,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/TypoScript/Conditions',
             __DIR__ . '/../src/TypoScript/Visitors',
             __DIR__ . '/../src/Yaml/Form/Rector',
-            __DIR__ . '/../src/Resources/Icons/Rector',
-            __DIR__ . '/../src/FileProcessor/**/Rector',
+            __DIR__ . '/../src/FileProcessor/Composer/Rector',
+            __DIR__ . '/../src/FileProcessor/FlexForms/Rector',
+            __DIR__ . '/../src/FileProcessor/Resources/Icons/Rector',
         ]);
 
     // Add some general TYPO3 rules

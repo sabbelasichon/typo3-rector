@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Resources\Icons;
+namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons;
 
 use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Resources\Icons\Rector;
+namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons\Rector;
 
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Configuration\Configuration;
