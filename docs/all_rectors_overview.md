@@ -565,7 +565,7 @@ Use DateTimeAspect instead of superglobals like `$GLOBALS['EXEC_TIME']`
 
 ## DefaultSwitchFluidRector
 
-Copy ext_icon.* to Resources/Icons/Extension.*
+Use <f:defaultCase> instead of <f:case default="1">
 
 - class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\DefaultSwitchFluidRector`](../src/FileProcessor/Fluid/Rector/DefaultSwitchFluidRector.php)
 
