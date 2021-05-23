@@ -1,4 +1,4 @@
-# 196 Rules Overview
+# 194 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -734,50 +734,6 @@ Extbase controller actions must return ResponseInterface
          $this->view->assign('foo', 'bar');
 +        return $this->htmlResponse();
      }
- }
-```
-
-<br>
-
-## ExtensionComposerRector
-
-Add extra extension_key in `composer.json` and add option default constraint
-
-:wrench: **configure it!**
-
-- class: [`Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector`](../src/Rector/Composer/ExtensionComposerRector.php)
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
-
-    $services->set(ExtensionComposerRector::class)
-        ->call('configure', [[ExtensionComposerRector::TYPO3_VERSION_CONSTRAINT => '^10.4']]);
-};
-```
-
-↓
-
-```diff
- {
--    "require": {
--      "typo3/cms-core": "^9.5"
-+   "require": {
-+      "typo3/cms-core": "^10.4"
-    },
--    "extra": {}
-+   "extra": {
-+      "typo3/cms": {
-+         "extension-key": "my_extension"
-+      }
-+   }
  }
 ```
 
@@ -2051,44 +2007,6 @@ Remove CharsetConvertParameters
 -$charsetConvert->utf8_to_numberarray('string', false, false);
 +$charsetConvert->entities_to_utf8('string');
 +$charsetConvert->utf8_to_numberarray('string');
-```
-
-<br>
-
-## RemoveCmsPackageDirFromExtraComposerRector
-
-Change package name in `composer.json`
-
-:wrench: **configure it!**
-
-- class: [`Ssch\TYPO3Rector\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector`](../src/Rector/Composer/RemoveCmsPackageDirFromExtraComposerRector.php)
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
-
-    $services->set(RemoveCmsPackageDirFromExtraComposerRector::class)
-        ->call('configure', [['not_allowed' => 'not_available']]);
-};
-```
-
-↓
-
-```diff
- {
-     "extra": {
-         "typo3/cms": {
--            "cms-package-dir": "{$vendor-dir}/typo3/cms"
-         }
-     }
- }
 ```
 
 <br>
