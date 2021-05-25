@@ -8,6 +8,7 @@ use Helmich\TypoScriptParser\Parser\AST\ConditionalStatement;
 use Iterator;
 use PHPUnit\Framework\TestCase;
 use Rector\Core\Provider\CurrentFileProvider;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\AdminUserConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\ApplicationContextConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\BrowserConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\CompatVersionConditionMatcher;
@@ -38,6 +39,7 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
             new CompatVersionConditionMatcher(),
             new GlobalStringConditionMatcher(),
             new GlobalVarConditionMatcher(),
+            new AdminUserConditionMatcher(),
             new HostnameConditionMatcher(),
             new IPConditionMatcher(),
             new LanguageConditionMatcher(),
@@ -407,6 +409,16 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
         yield 'Global String jh_magnificpopup' => [
             'oldCondition' => '[globalString = GP:jh_magnificpopup|type=reference]',
             'newCondition' => "[traverse(request.getQueryParams(), 'jh_magnificpopup/type') == 'reference' || traverse(request.getParsedBody(), 'jh_magnificpopup/type') == 'reference']",
+        ];
+
+        yield 'Admin user' => [
+            'oldCondition' => '[adminUser = 1]',
+            'newCondition' => '[backend.user.isAdmin]',
+        ];
+
+        yield 'Not Admin user' => [
+            'oldCondition' => '[adminUser = 0]',
+            'newCondition' => '[backend.user.isAdmin == 0]',
         ];
     }
 
