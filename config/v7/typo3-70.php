@@ -49,12 +49,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->call('configure', [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
                 new MethodCallRename(
-                    'TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings',
+                    'TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettingsInterface',
                     'setSysLanguageUid',
                     'setLanguageUid'
                 ),
                 new MethodCallRename(
-                    'TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings',
+                    'TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettingsInterface',
                     'getSysLanguageUid',
                     'getLanguageUid'
                 ),

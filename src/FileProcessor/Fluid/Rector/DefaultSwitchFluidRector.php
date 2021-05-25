@@ -19,10 +19,12 @@ final class DefaultSwitchFluidRector implements FluidRectorInterface
      * @var string
      */
     private const PATTERN = '#<f:case default="(1|true)">(.*)</f:case>#';
+
     /**
      * @var string
      */
     private const REPLACEMENT = '<f:defaultCase>$2</f:defaultCase>';
+
     public function transform(File $file): void
     {
         $content = $file->getFileContent();
