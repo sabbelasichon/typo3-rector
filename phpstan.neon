@@ -11,7 +11,7 @@ parameters:
 
     scanDirectories:
         # static reflection
-        - vendor/ssch/typo3-rector-stubs/stubs
+        - stubs
 
     # see https://github.com/rectorphp/rector/issues/3490#issue-634342324
     featureToggles:
