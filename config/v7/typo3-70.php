@@ -58,7 +58,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                     'getSysLanguageUid',
                     'getLanguageUid'
                 ),
-                new MethodCallRename('TYPO3\CMS\Extbase\Object\ObjectManager', 'create', 'get'),
+                new MethodCallRename('TYPO3\CMS\Extbase\Object\ObjectManagerInterface', 'create', 'get'),
             ]),
         ]]);
 };
