@@ -4463,10 +4463,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         new RenamePackage('typo3-ter/yoast-seo', 'yoast-seo-for-typo3/yoast_seo'),
     ];
 
-
-    $additionalComposerExtensions = [
-        new RenamePackage('typo3-ter/social_auth', 'kalypso63/social_auth'),
-    ];
+    $additionalComposerExtensions = [new RenamePackage('typo3-ter/social_auth', 'kalypso63/social_auth')];
 
     $allComposerExtensions = array_merge($composerExtensions, $additionalComposerExtensions);
 
