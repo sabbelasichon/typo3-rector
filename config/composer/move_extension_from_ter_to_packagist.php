@@ -4462,9 +4462,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         new RenamePackage('typo3-ter/soundcloud', 'yahatix/soundcloud'),
         new RenamePackage('typo3-ter/yoast-seo', 'yoast-seo-for-typo3/yoast_seo'),
     ];
-    $services->set('move')
+
+
+    $additionalComposerExtensions = [
+        new RenamePackage('typo3-ter/social_auth', 'kalypso63/social_auth'),
+    ];
+
+    $allComposerExtensions = array_merge($composerExtensions, $additionalComposerExtensions);
+
+    $services->set('move_from_ter_to_packagist')
         ->class(RenamePackageComposerRector::class)
         ->call('configure', [[
-            RenamePackageComposerRector::RENAME_PACKAGES => ValueObjectInliner::inline($composerExtensions),
+            RenamePackageComposerRector::RENAME_PACKAGES => ValueObjectInliner::inline($allComposerExtensions),
         ]]);
 };
