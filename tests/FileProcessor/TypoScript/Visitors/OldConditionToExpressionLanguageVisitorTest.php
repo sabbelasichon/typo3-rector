@@ -420,6 +420,16 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
             'oldCondition' => '[adminUser = 0]',
             'newCondition' => '[backend.user.isAdmin == 0]',
         ];
+
+        yield 'Backend user with uid 23 is logged in' => [
+            'oldCondition' => '[globalVar = BE_USER|user|uid = 23]',
+            'newCondition' => '[backend.user.userId == 23]',
+        ];
+
+        yield 'Backend user with uid 23 is logged in with :' => [
+            'oldCondition' => '[globalVar = BE_USER:user:uid = 23]',
+            'newCondition' => '[backend.user.userId == 23]',
+        ];
     }
 
     /**
