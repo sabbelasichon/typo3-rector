@@ -46,6 +46,13 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
         'QUERY_STRING',
     ];
 
+    /**
+     * @var array<string, string>
+     */
+    public const USER_PROPERTY_MAPPING = [
+        'uid' => 'userId',
+    ];
+
     protected function refactorTsfe(string $property, string $operator, string $value): string
     {
         if (Strings::startsWith($property, 'page')) {

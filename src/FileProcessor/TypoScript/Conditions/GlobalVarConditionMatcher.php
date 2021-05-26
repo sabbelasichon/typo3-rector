@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions;
 
 use Nette\Utils\Strings;
+use Rector\Core\Exception\ShouldNotHappenException;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 
 final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
@@ -32,7 +33,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
         $conditions = [];
         foreach ($subConditions as $subCondition) {
             preg_match(
-                '#(?<type>TSFE|GP|GPmerged|_POST|_GET|LIT|ENV|IENV)' . self::ZERO_ONE_OR_MORE_WHITESPACES . ':' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
+                '#(?<type>TSFE|GP|GPmerged|_POST|_GET|LIT|ENV|IENV|BE_USER)' . self::ZERO_ONE_OR_MORE_WHITESPACES . '[:|]' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
                 $subCondition,
                 $matches
             );
@@ -62,6 +63,8 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
                 $conditions[$key][] = $this->createEnvCondition($property, $operator, $value);
             } elseif ('IENV' === $type) {
                 $conditions[$key][] = $this->createIndependentCondition($property, $operator, $value);
+            } elseif ('BE_USER' === $type) {
+                $conditions[$key][] = $this->createBackendUserCondition($property, $operator, $value);
             }
         }
 
@@ -123,6 +126,24 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
         return sprintf(
             'traverse(request.getQueryParams(), \'%1$s\') %2$s %3$s || traverse(request.getParsedBody(), \'%1$s\') %2$s %3$s',
             implode('/', $parameters),
+            self::OPERATOR_MAPPING[$operator],
+            $value
+        );
+    }
+
+    private function createBackendUserCondition(string $property, string $operator, string $value): string
+    {
+        $delimiter = Strings::contains($property, ':') ? ':' : '|';
+
+        [, $property] = ArrayUtility::trimExplode($delimiter, $property, true, 2);
+
+        if (! array_key_exists($property, self::USER_PROPERTY_MAPPING)) {
+            $message = sprintf('The property "%s" can not be mapped for condition BE_USER', $property);
+            throw new ShouldNotHappenException($message);
+        }
+        return sprintf(
+            'backend.user.%s %s %s',
+            self::USER_PROPERTY_MAPPING[$property],
             self::OPERATOR_MAPPING[$operator],
             $value
         );
