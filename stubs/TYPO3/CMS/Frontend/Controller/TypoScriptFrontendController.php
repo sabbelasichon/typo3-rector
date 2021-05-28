@@ -2,6 +2,7 @@
 
 namespace TYPO3\CMS\Frontend\Controller;
 
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
@@ -172,7 +173,7 @@ class TypoScriptFrontendController
     /**
      * @return void
      */
-    public function applyHttpHeadersToResponse()
+    public function applyHttpHeadersToResponse(ResponseInterface $response)
     {
 
     }
