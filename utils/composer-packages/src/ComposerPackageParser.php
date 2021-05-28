@@ -54,14 +54,16 @@ final class ComposerPackageParser implements PackageParser
                 continue;
             }
 
-            if (! array_key_exists('typo3/cms-core', $package['require'])) {
+            $typo3RequiredPackage = $this->extractTypo3RequiredPackage($package['require']);
+
+            if($typo3RequiredPackage === null) {
                 continue;
             }
 
             $typo3Versions = [];
 
             foreach (self::TYPO3_UPPER_BOUNDS as $typo3Version) {
-                if (Semver::satisfies($typo3Version, $package['require']['typo3/cms-core'])) {
+                if (Semver::satisfies($typo3Version, $package['require'][$typo3RequiredPackage])) {
                     $typo3Versions[] = new Typo3Version($typo3Version);
                 }
             }
@@ -100,5 +102,20 @@ final class ComposerPackageParser implements PackageParser
         return array_map(function (string $package) {
             return new ComposerPackage($package);
         }, $json['packageNames']);
+    }
+
+    /**
+     * @param array<string, string> $require
+     */
+    private function extractTypo3RequiredPackage(array $require): ?string
+    {
+        foreach ($require as $packageRequire => $packageRequireVersion) {
+            if(false === strpos($packageRequire, 'typo3/cms-')) {
+                continue;
+            }
+            return $packageRequire;
+        }
+
+        return null;
     }
 }
