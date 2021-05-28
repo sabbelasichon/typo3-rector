@@ -7,7 +7,8 @@ $foo = 'bar';
 -----
 <?php
 
-$GLOBALS['TSFE']->applyHttpHeadersToResponse();
+use TYPO3\CMS\Core\Http\Response;
+$GLOBALS['TSFE']->applyHttpHeadersToResponse(new Response());
 $GLOBALS['TSFE']->processContentForOutput();
 $foo = 'bar';
 
