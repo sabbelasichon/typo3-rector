@@ -9,6 +9,11 @@ $timeTracker1 = new NullTimeTracker();
 $timeTracker2 = GeneralUtility::makeInstance(NullTimeTracker::class);
 $timeTracker3 = $objectManager->get(NullTimeTracker::class);
 
+if (!is_object($GLOBALS['TT'])) {
+    $GLOBALS['TT'] = new NullTimeTracker;
+    $GLOBALS['TT']->start();
+}
+
 ?>
 -----
 <?php
@@ -22,5 +27,10 @@ $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 $timeTracker1 = new TimeTracker(false);
 $timeTracker2 = GeneralUtility::makeInstance(TimeTracker::class, false);
 $timeTracker3 = $objectManager->get(TimeTracker::class, false);
+
+if (!is_object($GLOBALS['TT'])) {
+    $GLOBALS['TT'] = new TimeTracker(false);
+    $GLOBALS['TT']->start();
+}
 
 ?>
