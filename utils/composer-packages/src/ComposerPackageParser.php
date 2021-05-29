@@ -109,7 +109,7 @@ final class ComposerPackageParser implements PackageParser
      */
     private function extractTypo3RequiredPackage(array $require): ?string
     {
-        foreach ($require as $packageRequire => $packageRequireVersion) {
+        foreach (array_keys($require) as $packageRequire) {
             if (false === strpos($packageRequire, 'typo3/cms-')) {
                 continue;
             }
