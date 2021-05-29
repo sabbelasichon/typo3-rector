@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
 use PhpParser\Node;
-use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Identifier;
-use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
