@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
@@ -100,7 +102,11 @@ CODE_SAMPLE
     private function refactorToNewMethodCalls(MethodCall $node): void
     {
         $node->name = new Identifier('applyHttpHeadersToResponse');
-        $node->args[0]->value = new New_(new FullyQualified('TYPO3\CMS\Core\Http\Response'));
+
+        $response = new New_(new FullyQualified('TYPO3\CMS\Core\Http\Response'));
+
+        $node->args[0] = $this->nodeFactory->createArg($response);
+
         $newNode = $this->nodeFactory->createMethodCall($node->var, 'processContentForOutput');
         $this->addNodeAfterNode($newNode, $node);
     }
