@@ -73,27 +73,27 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
 
         yield 'multiple conditions with default OR operator' => [
             'oldCondition' => '[applicationContext=Development/Debugging][applicationContext=Development/ClientA]',
-            'newCondition' => '[applicationContext == Development/Debugging || applicationContext == Development/ClientA]',
+            'newCondition' => '[applicationContext == "Development/Debugging" || applicationContext == "Development/ClientA"]',
         ];
 
         yield 'multiple conditions with AND operator' => [
             'oldCondition' => '[applicationContext=Development/Debugging] && [applicationContext=Development/ClientA]',
-            'newCondition' => '[applicationContext == Development/Debugging && applicationContext == Development/ClientA]',
+            'newCondition' => '[applicationContext == "Development/Debugging" && applicationContext == "Development/ClientA"]',
         ];
 
         yield 'applicationContext equals' => [
             'oldCondition' => '[applicationContext=Development/Debugging, Development/ClientA]',
-            'newCondition' => '[applicationContext == Development/Debugging || applicationContext == Development/ClientA]',
+            'newCondition' => '[applicationContext == "Development/Debugging" || applicationContext == "Development/ClientA"]',
         ];
 
         yield 'applicationContext matches' => [
             'oldCondition' => '[applicationContext = /^Development\/Preview\/d+$/]',
-            'newCondition' => '[applicationContext matches /^Development\/Preview\/d+$/]',
+            'newCondition' => '[applicationContext matches "/^Development\/Preview\/d+$/"]',
         ];
 
         yield 'Keep new applicationContext condition' => [
-            'oldCondition' => '[applicationContext == Development/Debugging || applicationContext == Development/ClientA]',
-            'newCondition' => '[applicationContext == Development/Debugging || applicationContext == Development/ClientA]',
+            'oldCondition' => '[applicationContext == "Development/Debugging" || applicationContext == "Development/ClientA"]',
+            'newCondition' => '[applicationContext == "Development/Debugging" || applicationContext == "Development/ClientA"]',
         ];
 
         yield 'PIDinRootline' => [
@@ -103,7 +103,7 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
 
         yield 'PIDinRootline and applicationContext' => [
             'oldCondition' => '[PIDinRootline = 34,36] && [applicationContext=Development/ClientA]',
-            'newCondition' => '[34 in tree.rootLineIds || 36 in tree.rootLineIds && applicationContext == Development/ClientA]',
+            'newCondition' => '[34 in tree.rootLineIds || 36 in tree.rootLineIds && applicationContext == "Development/ClientA"]',
         ];
 
         yield 'PIDupinRootline' => [
