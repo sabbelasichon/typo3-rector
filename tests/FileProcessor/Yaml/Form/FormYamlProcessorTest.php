@@ -23,7 +23,7 @@ final class FormYamlProcessorTest extends AbstractRectorTestCase
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.form.yaml');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.yaml');
     }
 
     public function provideConfigFilePath(): string

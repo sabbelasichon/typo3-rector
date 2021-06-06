@@ -17,6 +17,7 @@ use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\EmailFinisherRector;
+use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\TranslationFileRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\BackendUtilityGetViewDomainToPageRouterRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\ChangeDefaultCachingFrameworkNamesRector;
@@ -96,6 +97,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]);
 
     $services->set(EmailFinisherRector::class);
+    $services->set(TranslationFileRector::class);
 
     $services->set(AddReturnTypeDeclarationRector::class)
         ->call('configure', [

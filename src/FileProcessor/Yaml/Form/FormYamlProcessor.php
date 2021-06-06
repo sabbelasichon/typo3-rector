@@ -49,7 +49,7 @@ final class FormYamlProcessor implements FileProcessorInterface
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
-        return Strings::endsWith($smartFileInfo->getFilename(), 'form.yaml');
+        return Strings::endsWith($smartFileInfo->getFilename(), 'yaml');
     }
 
     public function getSupportedFileExtensions(): array
