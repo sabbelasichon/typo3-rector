@@ -1,4 +1,4 @@
-# 203 Rules Overview
+# 204 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -3545,6 +3545,30 @@ Use class TimeTracker instead of NullTimeTracker
 -$timeTracker2 = GeneralUtility::makeInstance(NullTimeTracker::class);
 +$timeTracker1 = new TimeTracker(false);
 +$timeTracker2 = GeneralUtility::makeInstance(TimeTracker::class, false);
+```
+
+<br>
+
+## TranslationFileRector
+
+Use key translationFiles instead of translationFile
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\TranslationFileRector`](../src/FileProcessor/Yaml/Form/Rector/TranslationFileRector.php)
+
+```diff
+ TYPO3:
+   CMS:
+     Form:
+       prototypes:
+         standard:
+           formElementsDefinition:
+             Form:
+               renderingOptions:
+                 translation:
+-                  translationFile:
+-                    10: 'EXT:form/Resources/Private/Language/locallang.xlf'
++                  translationFiles:
+                     20: 'EXT:myextension/Resources/Private/Language/locallang.xlf'
 ```
 
 <br>
