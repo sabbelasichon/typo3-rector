@@ -53,9 +53,42 @@ final class AdditionalFieldProviderRector extends AbstractRector
         return new RuleDefinition('Refactor AdditionalFieldProvider classes', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
+use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
+use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
+class FileCleanupTaskAdditionalFields implements AdditionalFieldProviderInterface
+{
+    public function getAdditionalFields (array &$taskInfo, $task, SchedulerModuleController $parentObject)
+    {
+
+        if (!isset($taskInfo[$this->fieldAgeInDays])) {
+            if ($parentObject->CMD == 'edit') {
+                $taskInfo[$this->fieldAgeInDays] = (int)$task->ageInDays;
+            } else {
+                $taskInfo[$this->fieldAgeInDays] = '';
+            }
+        }
+   }
+}
+
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
+use TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider;
+use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
+
+class FileCleanupTaskAdditionalFields extends AbstractAdditionalFieldProvider
+{
+    public function getAdditionalFields (array &$taskInfo, $task, SchedulerModuleController $parentObject)
+    {
+        if (!isset($taskInfo[$this->fieldAgeInDays])) {
+            if ((string) $parentObject->getCurrentAction() == 'edit') {
+                $taskInfo[$this->fieldAgeInDays] = (int)$task->ageInDays;
+            } else {
+                $taskInfo[$this->fieldAgeInDays] = '';
+            }
+        }
+   }
+}
 CODE_SAMPLE
             ),
         ]);
