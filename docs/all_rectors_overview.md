@@ -1,4 +1,4 @@
-# 204 Rules Overview
+# 205 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -113,6 +113,37 @@ Add type to column config if not exists
 +        ]
      ]
  ];
+```
+
+<br>
+
+## AdditionalFieldProviderRector
+
+Refactor AdditionalFieldProvider classes
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v4\AdditionalFieldProviderRector`](../src/Rector/v9/v4/AdditionalFieldProviderRector.php)
+
+```diff
+-use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
++use TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider;
+ use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
+-class FileCleanupTaskAdditionalFields implements AdditionalFieldProviderInterface
++
++class FileCleanupTaskAdditionalFields extends AbstractAdditionalFieldProvider
+ {
+     public function getAdditionalFields (array &$taskInfo, $task, SchedulerModuleController $parentObject)
+     {
+-
+         if (!isset($taskInfo[$this->fieldAgeInDays])) {
+-            if ($parentObject->CMD == 'edit') {
++            if ((string) $parentObject->getCurrentAction() == 'edit') {
+                 $taskInfo[$this->fieldAgeInDays] = (int)$task->ageInDays;
+             } else {
+                 $taskInfo[$this->fieldAgeInDays] = '';
+             }
+         }
+    }
+ }
 ```
 
 <br>
