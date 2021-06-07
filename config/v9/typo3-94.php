@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Ssch\TYPO3Rector\Rector\v9\v4\AdditionalFieldProviderRector;
+
 use Ssch\TYPO3Rector\Rector\v9\v4\BackendUtilityShortcutExistsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\ConstantsToEnvironmentApiCallRector;
@@ -49,4 +51,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector::class);
     $services->set(UseClassSchemaInsteadReflectionServiceMethodsRector::class);
     $services->set(RemoveMethodsFromEidUtilityAndTsfeRector::class);
+    $services->set(AdditionalFieldProviderRector::class);
 };
