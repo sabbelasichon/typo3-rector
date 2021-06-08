@@ -189,6 +189,6 @@ CODE_SAMPLE
         /** @var ScalarValue $scalar */
         $scalar = $statement->value;
 
-        self::$persistenceArray[$className]['properties'][$scalar->value]['fieldname'] = $fieldName;
+        self::$persistenceArray[$className]['properties'][$scalar->value]['fieldName'] = $fieldName;
     }
 }
