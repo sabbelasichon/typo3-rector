@@ -43,9 +43,9 @@ class MySpecialViewHelperWithFullQualifiedNamespaceLinkViewHelper extends Abstra
 
     public function initializeArguments()
     {
-        $this->registerArgument('settings', 'array', 'In case you want to override the general TS settings especially for current link', false);
-        $this->registerArgument('uriOnly', 'bool', 'return only the url without the a-tag', false);
-        $this->registerArgument('configuration', 'array', 'optional typolink configuration', false);
+        $this->registerArgument('settings', 'array', 'In case you want to override the general TS settings especially for current link', false, []);
+        $this->registerArgument('uriOnly', 'bool', 'return only the url without the a-tag', false, false);
+        $this->registerArgument('configuration', 'array', 'optional typolink configuration', false, []);
     }
 
     /**

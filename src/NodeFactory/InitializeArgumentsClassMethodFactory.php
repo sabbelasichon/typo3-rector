@@ -29,6 +29,7 @@ use PHPStan\Type\VerbosityLevel;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\PhpParser\Node\NodeFactory;
+use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind;
@@ -55,7 +56,8 @@ final class InitializeArgumentsClassMethodFactory
         private StaticTypeMapper $staticTypeMapper,
         private ParamTypeInferer $paramTypeInferer,
         private PhpDocInfoFactory $phpDocInfoFactory,
-        private ReflectionProvider $reflectionProvider
+        private ReflectionProvider $reflectionProvider,
+        private ValueResolver $valueResolver
     ) {
     }
 
@@ -123,8 +125,9 @@ final class InitializeArgumentsClassMethodFactory
 
             if ($param->default instanceof Expr) {
                 $args[] = new ConstFetch(new Name('false'));
-                if (property_exists($param->default, 'value')) {
-                    $args[] = $param->default->value;
+                $defaultValue = $this->valueResolver->getValue($param->default);
+                if (null !== $defaultValue) {
+                    $args[] = $defaultValue;
                 }
             } else {
                 $args[] = new ConstFetch(new Name('true'));
