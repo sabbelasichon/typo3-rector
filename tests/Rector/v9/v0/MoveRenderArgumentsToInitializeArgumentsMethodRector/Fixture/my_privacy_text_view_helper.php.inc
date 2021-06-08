@@ -12,11 +12,11 @@ class MyPrivacyViewHelper extends AbstractViewHelper
      *
      * @param int $termsLink
      * @param int $privacyPolicyLink
-     * @param string $class
+     * @param bool $class
      *
      * @return string the terms link.
      */
-    public function render($termsLink = 0, $privacyPolicyLink = 0, $class = 'fancyboxPage')
+    public function render($termsLink = 0, $privacyPolicyLink = 0, $class = true)
     {
         $termsHref = ($termsLink > 0) ? $GLOBALS['TSFE']->cObj->typoLink_URL(array('parameter' => $termsLink)) : '';
         $privacyPolicyHref = ($termsLink > 0) ? $GLOBALS['TSFE']->cObj->typoLink_URL(array('parameter' => $privacyPolicyLink)) : '';
@@ -109,7 +109,7 @@ class MyPrivacyViewHelper extends AbstractViewHelper
     {
         $this->registerArgument('termsLink', 'int', '', false, 0);
         $this->registerArgument('privacyPolicyLink', 'int', '', false, 0);
-        $this->registerArgument('class', 'string', '', false, 'fancyboxPage');
+        $this->registerArgument('class', 'bool', '', false, true);
     }
 }
 
