@@ -29,16 +29,16 @@ return [
         'tableName' => 'tt_content',
         'properties' => [
             'altText' => [
-                'fieldname' => 'altText',
+                'fieldName' => 'altText',
             ],
             'titleText' => [
-                'fieldname' => 'titleText',
+                'fieldName' => 'titleText',
             ],
             'colPos' => [
-                'fieldname' => 'colPos',
+                'fieldName' => 'colPos',
             ],
             'CType' => [
-                'fieldname' => 'CType',
+                'fieldName' => 'CType',
             ],
         ],
     ],
@@ -46,7 +46,7 @@ return [
         'tableName' => 'sys_category',
         'properties' => [
             'parentcategory' => [
-                'fieldname' => 'parent',
+                'fieldName' => 'parent',
             ],
         ],
     ],
