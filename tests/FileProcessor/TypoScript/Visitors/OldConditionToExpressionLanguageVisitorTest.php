@@ -158,12 +158,12 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
 
         yield 'Version condition is removed' => [
             'oldCondition' => '[version => 8]',
-            'newCondition' => '',
+            'newCondition' => '[version => 8]',
         ];
 
         yield 'Browser condition is removed' => [
             'oldCondition' => '[browser => 8]',
-            'newCondition' => '',
+            'newCondition' => '[browser => 8]',
         ];
 
         yield 'GP parameter' => [
