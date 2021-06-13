@@ -11090,6 +11090,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set('change_composer_json_for_extensions')
         ->class(ChangePackageVersionComposerRector::class)
         ->call('configure', [[
-            ChangePackageVersionComposerRector::PACKAGES_AND_VERSIONS => ValueObjectInliner::inline($composerExtensions),
+            ChangePackageVersionComposerRector::PACKAGES_AND_VERSIONS => ValueObjectInliner::inline(
+                $composerExtensions
+            ),
         ]]);
 };
