@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript;
 
+use Helmich\TypoScriptParser\Parser\ParseError;
 use Helmich\TypoScriptParser\Parser\ParserInterface;
 use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
 use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinterConfiguration;
@@ -139,6 +140,13 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
 
             $file->changeFileContent($typoScriptContent);
         } catch (TokenizerException $tokenizerException) {
+            return;
+        } catch (ParseError $parseError) {
+            $this->rectorOutputStyle->error(
+                'TypoScriptParser Error. This is often caused by TypeScript files,
+                 that are processed as they result in false positive processing due to the file prefix.
+                 Check for e.g. your Resources/ directory to be excluded to prevent unwanted processing'
+            );
             return;
         }
     }
