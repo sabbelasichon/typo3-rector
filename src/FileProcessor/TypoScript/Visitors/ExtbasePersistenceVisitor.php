@@ -113,6 +113,12 @@ CODE_SAMPLE
             $this->fileTemplate->getContents()
         );
 
+        $content = Strings::replace($content, "#'(.*\\\\.*)'#mU", function (array $match): string {
+            $string = str_replace('\\\\', '\\', $match[1]);
+
+            return sprintf('\%s::class', $string);
+        });
+
         return new AddedFileWithContent($this->filename, $content);
     }
 
