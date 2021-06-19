@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v4;
 
 use PhpParser\Node;
+use PhpParser\Node\Const_;
 use PhpParser\Node\Expr\BinaryOp\BitwiseAnd;
 use PhpParser\Node\Expr\BinaryOp\BooleanOr;
 use PhpParser\Node\Expr\BinaryOp\Concat;
@@ -84,6 +85,12 @@ final class ConstantsToEnvironmentApiCallRector extends AbstractRector
         $property = $this->betterNodeFinder->findParentType($node, Property::class);
 
         if (null !== $property) {
+            return null;
+        }
+
+        $constant = $this->betterNodeFinder->findParentType($node, Const_::class);
+
+        if (null !== $constant) {
             return null;
         }
 

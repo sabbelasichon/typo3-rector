@@ -4,6 +4,8 @@ final class ClassWithALotOfEnvironmentVariables
 {
     private $foo = PATH_site . '/bar/';
 
+    protected const LOGFILE = PATH_site . 'secured/logs/confirmation.csv';
+
     public function method(): void
     {
         PATH_thisScript . 'something';
@@ -24,6 +26,8 @@ use TYPO3\CMS\Core\Core\Environment;
 final class ClassWithALotOfEnvironmentVariables
 {
     private $foo = PATH_site . '/bar/';
+
+    protected const LOGFILE = PATH_site . 'secured/logs/confirmation.csv';
 
     public function method(): void
     {
