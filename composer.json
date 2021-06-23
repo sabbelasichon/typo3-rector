@@ -35,7 +35,6 @@
         }
     },
     "autoload-dev": {
-        "classmap": ["stubs"],
         "psr-4": {
             "Ssch\\TYPO3Rector\\ComposerPackages\\": "utils/composer-packages/src",
             "Ssch\\TYPO3Rector\\Generator\\": "utils/generator/src",
