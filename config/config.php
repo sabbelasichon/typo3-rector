@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Helmich\TypoScriptParser\Parser\AST\Builder;
 use Helmich\TypoScriptParser\Parser\Parser;
 use Helmich\TypoScriptParser\Parser\ParserInterface;
 use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
@@ -49,6 +50,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(BufferedOutput::class);
     $services->alias(OutputInterface::class, BufferedOutput::class);
+
+    $services->set(Builder::class);
 
     $services->set(TypoScriptProcessor::class)
         ->call('configure', [[
