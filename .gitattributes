@@ -23,4 +23,3 @@ utils/composer-packages export-ignore
 utils/generator export-ignore
 utils/rules export-ignore
 typo3.constants.php export-ignore
-stubs
