@@ -33,8 +33,8 @@ final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractService
             AddCodeCoverageIgnoreForRectorDefinition::ERROR_MESSAGE,
             MissingCodeCoverageIgnoreRector::class
         );
-        yield [__DIR__ . '/Fixture/MissingCodeCoverageIgnore.php', [[$message, 25]]];
-        yield [__DIR__ . '/Fixture/SkipWithCodeCoverageIgnore.php', []];
+        yield [__DIR__ . '/Fixture/MissingCodeCoverageIgnoreRector.php', [[$message, 25]]];
+        yield [__DIR__ . '/Fixture/SkipWithCodeCoverageIgnoreRector.php', []];
     }
 
     protected function getRule(): Rule
