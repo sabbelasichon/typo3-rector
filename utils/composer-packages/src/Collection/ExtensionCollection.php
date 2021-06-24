@@ -16,7 +16,7 @@ use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
 
 /**
  * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Collection\ExtensionCollectionTest
- * @implements \IteratorAggregate<int, ExtensionVersion>
+ * @implements IteratorAggregate<int, ExtensionVersion>
  */
 final class ExtensionCollection implements Countable, IteratorAggregate
 {

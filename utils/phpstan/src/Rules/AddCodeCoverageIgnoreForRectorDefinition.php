@@ -15,7 +15,7 @@ use Rector\Core\Contract\Rector\PhpRectorInterface;
 
 /**
  * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\AddCodeCoverageIgnoreForRectorDefinitionTest
- * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\ClassMethod>
+ * @implements Rule<ClassMethod>
  */
 final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
 {
