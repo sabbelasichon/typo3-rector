@@ -79,4 +79,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SubstituteGeneralUtilityDevLogRector::class);
     $services->set(ReplacedGeneralUtilitySysLogWithLogginApiRector::class);
     $services->set(RenderTypeFlexFormRector::class);
+    $services->set(\Ssch\TYPO3Rector\Rector\v9\v0\QueryLogicalOrAndLogicalAndToArrayParameterRector::class);
 };
