@@ -28,7 +28,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(AddSeeTestAnnotationRector::class);
     $services->set(VarConstantCommentRector::class);
 
-    $parameters->set(Option::PATHS, [__DIR__ . '/utils', __DIR__ . '/config', __DIR__ . '/src', __DIR__ . '/tests']);
+    $parameters->set(Option::PATHS, [__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests']);
 
     $containerConfigurator->import(SetList::PRIVATIZATION);
     $containerConfigurator->import(SetList::CODING_STYLE);
@@ -48,7 +48,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     );
 
     $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_80);
-    $parameters->set(Option::ENABLE_CACHE, true);
     $services->set(TypedPropertyRector::class);
     $services->set(ClassPropertyAssignToConstructorPromotionRector::class);
 };

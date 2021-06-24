@@ -5,18 +5,22 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons\Rector;
 
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use Rector\Core\Configuration\Configuration;
+use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\Application\File;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
+use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class IconsRector implements IconRectorInterface
 {
     public function __construct(
-        private Configuration $configuration,
-        private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
+        private ParameterProvider $parameterProvider,
+        private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        private SmartFileSystem $smartFileSystem
     ) {
     }
 
@@ -26,11 +30,11 @@ final class IconsRector implements IconRectorInterface
 
         $newFullPath = $this->createIconPath($file);
 
+        $this->createDeepDirectory($newFullPath);
+
         $this->removedAndAddedFilesCollector->addAddedFile(
             new AddedFileWithContent($newFullPath, $smartFileInfo->getContents())
         );
-
-        $this->createDeepDirectory($newFullPath);
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -50,15 +54,11 @@ CODE_SAMPLE
 
     private function createDeepDirectory(string $newFullPath): void
     {
-        if ($this->configuration->isDryRun()) {
+        if ($this->shouldSkip()) {
             return;
         }
 
-        $iconsDirectory = dirname($newFullPath);
-
-        if (! is_dir($iconsDirectory)) {
-            mkdir($iconsDirectory, 0777, true);
-        }
+        $this->smartFileSystem->mkdir(dirname($newFullPath));
     }
 
     private function createIconPath(File $file): string
@@ -69,5 +69,12 @@ CODE_SAMPLE
         $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());
 
         return $realPath . $relativeTargetFilePath;
+    }
+
+    private function shouldSkip(): bool
+    {
+        return $this->parameterProvider->provideBoolParameter(
+            Option::DRY_RUN
+        ) && ! StaticPHPUnitEnvironment::isPHPUnitRun();
     }
 }
