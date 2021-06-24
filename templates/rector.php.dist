@@ -109,9 +109,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ConvertTypo3ConfVarsRector::class);
     $services->set(ExtEmConfRector::class);
     $services->set(ExtensionComposerRector::class);
-    
+
     // Do you want to modernize your TypoScript include statements for files and move from <INCLUDE /> to @import use the FileIncludeToImportStatementVisitor
     // $services->set(FileIncludeToImportStatementVisitor::class);
-    // Run Rector only on changed files
-    // $parameters->set(Option::ENABLE_CACHE, true);
 };
