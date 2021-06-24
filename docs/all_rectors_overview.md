@@ -1,4 +1,4 @@
-# 205 Rules Overview
+# 206 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -144,6 +144,19 @@ Refactor AdditionalFieldProvider classes
          }
     }
  }
+```
+
+<br>
+
+## AdditionalHeadersToArrayVisitor
+
+Use array syntax for additionalHeaders
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\AdditionalHeadersToArrayVisitor`](../src/FileProcessor/TypoScript/Visitors/AdditionalHeadersToArrayVisitor.php)
+
+```diff
+-config.additionalHeaders = Content-type:application/json
++config.additionalHeaders.10.header = Content-type:application/json
 ```
 
 <br>
