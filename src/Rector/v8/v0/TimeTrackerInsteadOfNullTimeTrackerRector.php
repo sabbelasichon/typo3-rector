@@ -8,16 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Name;
-use PhpParser\Node\Stmt\ClassLike;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\Namespace_;
-use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
-use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -38,43 +31,19 @@ final class TimeTrackerInsteadOfNullTimeTrackerRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [
-            StaticCall::class,
-            MethodCall::class,
-            Name::class,
-            Property::class,
-            FunctionLike::class,
-            Expression::class,
-            ClassLike::class,
-            Namespace_::class,
-        ];
+        return [StaticCall::class, MethodCall::class, New_::class];
     }
 
     /**
-     * @param MethodCall|StaticCall|FunctionLike|Name|ClassLike|Expression|Namespace_|Property|FileWithoutNamespace $node
+     * @param MethodCall|StaticCall|New_ $node
      */
     public function refactor(Node $node): ?Node
     {
-        $changedNode = $this->addAdditionalArgumentIfNeeded($node);
-        if (null !== $changedNode) {
-            return $changedNode;
+        if ($node instanceof New_) {
+            return $this->renameClassIfNeeded($node);
         }
 
-        $renamedNode = $this->classRenamer->renameNode($node, [
-            'TYPO3\CMS\Core\TimeTracker\NullTimeTracker' => 'TYPO3\CMS\Core\TimeTracker\TimeTracker',
-        ]);
-
-        if (null === $renamedNode) {
-            return null;
-        }
-
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
-        if ($parentNode instanceof New_) {
-            $parentNode->args = $this->nodeFactory->createArgs([false]);
-        }
-
-        return $renamedNode;
+        return $this->addAdditionalArgumentIfNeeded($node);
     }
 
     /**
@@ -111,10 +80,19 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $this->valueResolver->isValue($node->args[0]->value, 'TYPO3\CMS\Core\TimeTracker\NullTimeTracker')) {
+        if (! isset($node->args[0])) {
             return null;
         }
 
+        $value = $this->valueResolver->getValue($node->args[0]->value);
+
+        if ('TYPO3\CMS\Core\TimeTracker\NullTimeTracker' !== $value) {
+            return null;
+        }
+
+        $timeTracker = $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\TimeTracker\TimeTracker');
+
+        $node->args[0] = $this->nodeFactory->createArg($timeTracker);
         $node->args[1] = $this->nodeFactory->createArg(false);
 
         return $node;
@@ -150,5 +128,16 @@ CODE_SAMPLE
         }
 
         return $this->isName($node->name, 'get');
+    }
+
+    private function renameClassIfNeeded(New_ $node): ?Node
+    {
+        if (! $this->isObjectType($node, new ObjectType('TYPO3\CMS\Core\TimeTracker\NullTimeTracker'))) {
+            return null;
+        }
+
+        $arguments = $this->nodeFactory->createArgs([$this->nodeFactory->createFalse()]);
+
+        return new New_(new Name('TYPO3\CMS\Core\TimeTracker\TimeTracker'), $arguments);
     }
 }
