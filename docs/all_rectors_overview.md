@@ -1,4 +1,4 @@
-# 206 Rules Overview
+# 207 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -1696,6 +1696,32 @@ Use method getTSConfig instead of property userTS
 -if(is_array($GLOBALS['BE_USER']->userTS['tx_news.']) && $GLOBALS['BE_USER']->userTS['tx_news.']['singleCategoryAcl'] === '1') {
 +if(is_array($GLOBALS['BE_USER']->getTSConfig()['tx_news.']) && $GLOBALS['BE_USER']->getTSConfig()['tx_news.']['singleCategoryAcl'] === '1') {
      return true;
+ }
+```
+
+<br>
+
+## QueryLogicalOrAndLogicalAndToArrayParameterRector
+
+Use array instead of multiple parameters for logicalOr and logicalAnd of Extbase Query class
+
+- class: [`Ssch\TYPO3Rector\Rector\v9\v0\QueryLogicalOrAndLogicalAndToArrayParameterRector`](../src/Rector/v9/v0/QueryLogicalOrAndLogicalAndToArrayParameterRector.php)
+
+```diff
+ use TYPO3\CMS\Extbase\Persistence\Repository;
+
+ class ProductRepositoryLogicalAnd extends Repository
+ {
+     public function findAllForList()
+     {
+         $query = $this->createQuery();
+-        $query->matching($query->logicalAnd(
++        $query->matching($query->logicalAnd([
+             $query->lessThan('foo', 1),
+             $query->lessThan('bar', 1)
+-        ));
++        ]));
+     }
  }
 ```
 
