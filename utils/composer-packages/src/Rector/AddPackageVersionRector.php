@@ -21,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @see AddPackageVersionRectorTest
+ * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Rector\AddPackageVersionRector\AddPackageVersionRectorTest
  */
 final class AddPackageVersionRector extends AbstractRector
 {
@@ -82,7 +82,7 @@ final class AddPackageVersionRector extends AbstractRector
 
             $stmt->expr->expr->items[] = new ArrayItem(
                 new New_(
-                    new FullyQualified(PackageAndVersion::class),
+                    new FullyQualified('Rector\Composer\ValueObject\PackageAndVersion'),
                     $this->nodeFactory->createArgs([
                         $this->extensionVersion->packageName(),
                         sprintf('^%s', ltrim($this->extensionVersion->version(), 'v')),

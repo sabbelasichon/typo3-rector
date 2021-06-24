@@ -10,7 +10,7 @@ use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ComposerPackage;
 interface PackageParser
 {
     /**
-     * @var array
+     * @var array<int, string>
      */
     public const TYPO3_UPPER_BOUNDS = ['8.7.99', '9.5.99', '10.4.99', '11.0.99'];
 

@@ -1,6 +1,7 @@
 includes:
     # see https://github.com/symplify/phpstan-extensions
     - utils/phpstan/config/typo3-rector.neon
+    - phpstan-baseline.neon
 parameters:
     level: max
 
@@ -8,6 +9,13 @@ parameters:
         - rector.php
         - src
         - tests
+        - utils
+
+    excludes_analyse:
+        - "*/Expected/*"
+        - '*tests/*/Fixture/*'
+        - '*tests/*/Source/*'
+        - '*tests/Source/*'
 
     scanDirectories:
         # static reflection
