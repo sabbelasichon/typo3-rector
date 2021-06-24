@@ -147,6 +147,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
                  that are processed as they result in false positive processing due to the file prefix.
                  Check for e.g. your Resources/ directory to be excluded to prevent unwanted processing'
             );
+
             return;
         }
     }

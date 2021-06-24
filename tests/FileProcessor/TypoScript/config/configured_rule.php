@@ -17,6 +17,7 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TimeConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TreeLevelConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\UsergroupConditionMatcherMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\VersionConditionMatcher;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\AdditionalHeadersToArrayVisitor;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\ExtbasePersistenceVisitor;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\FileIncludeToImportStatementVisitor;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\OldConditionToExpressionLanguageVisitor;
@@ -43,4 +44,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(OldConditionToExpressionLanguageVisitor::class);
     $services->set(FileIncludeToImportStatementVisitor::class);
     $services->set(ExtbasePersistenceVisitor::class);
+    $services->set(AdditionalHeadersToArrayVisitor::class);
 };
