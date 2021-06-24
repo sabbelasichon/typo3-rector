@@ -38,7 +38,7 @@ final class AddChangelogDocBlockForRectorClass implements Rule
         AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class,
         ConvertTypo3ConfVarsRector::class,
         AbstractTcaRector::class,
-        AddPackageVersionRector::class
+        AddPackageVersionRector::class,
     ];
 
     public function __construct(

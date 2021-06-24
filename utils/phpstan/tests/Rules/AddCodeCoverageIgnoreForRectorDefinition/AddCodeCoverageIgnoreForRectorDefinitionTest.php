@@ -9,7 +9,6 @@ use PHPStan\Rules\Rule;
 use Ssch\TYPO3Rector\PHPStan\Rules\AddCodeCoverageIgnoreForRectorDefinition;
 use Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\Fixture\MissingCodeCoverageIgnoreRector;
 use Symplify\PHPStanExtensions\Testing\AbstractServiceAwareRuleTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @extends AbstractServiceAwareRuleTestCase<AddCodeCoverageIgnoreForRectorDefinition>
@@ -30,7 +29,10 @@ final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractService
      */
     public function provideData(): Iterator
     {
-        $message = sprintf(AddCodeCoverageIgnoreForRectorDefinition::ERROR_MESSAGE, MissingCodeCoverageIgnoreRector::class);
+        $message = sprintf(
+            AddCodeCoverageIgnoreForRectorDefinition::ERROR_MESSAGE,
+            MissingCodeCoverageIgnoreRector::class
+        );
         yield [__DIR__ . '/Fixture/MissingCodeCoverageIgnore.php', [[$message, 25]]];
         yield [__DIR__ . '/Fixture/SkipWithCodeCoverageIgnore.php', []];
     }

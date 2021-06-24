@@ -42,7 +42,7 @@ final class ExtensionCollection implements Countable, IteratorAggregate
         if (null === self::$versionParser) {
             self::$versionParser = new VersionParser();
         }
-        
+
         /** @var ExtensionVersion[] $extensions */
         $extensions = Semver::rsort($this->extensions);
 
