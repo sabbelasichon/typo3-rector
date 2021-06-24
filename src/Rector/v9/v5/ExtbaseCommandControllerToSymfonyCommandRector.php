@@ -13,12 +13,10 @@ use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser as NikicParser;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use Rector\Core\Configuration\Configuration;
 use Rector\Core\PhpParser\Parser\Parser;
-use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddArgumentToSymfonyCommandRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddCommandsToReturnRector;
@@ -37,17 +35,12 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
     public function __construct(
         private SmartFileSystem $smartFileSystem,
         private Parser $parser,
-        BetterStandardPrinter $betterStandardPrinter,
         private AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector,
         private FilesFinder $filesFinder,
         private AddCommandsToReturnRector $addCommandsToReturnRector,
-        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         private NikicParser $nikicParser,
-        private Configuration $configuration,
         private TemplateFinder $templateFinder
     ) {
-        $this->betterStandardPrinter = $betterStandardPrinter;
-        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
     }
 
     /**
@@ -130,7 +123,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             $filePath = sprintf('%s/Classes/Command/%s.php', $extensionDirectory, $commandName);
 
             // Do not overwrite existing file
-            if ($this->smartFileSystem->exists($filePath)) {
+            if ($this->smartFileSystem->exists($filePath) && ! StaticPHPUnitEnvironment::isPHPUnitRun()) {
                 continue;
             }
 
@@ -181,8 +174,6 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             $nodes = $nodeTraverser->traverse($nodes);
 
             $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
-
-            $this->createDeepDirectoryFromFilePath($filePath);
 
             $this->removedAndAddedFilesCollector->addAddedFile(
                 new AddedFileWithContent($filePath, $changedSetConfigContent)
@@ -286,7 +277,6 @@ CODE_SAMPLE
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
             $nodes = $this->parser->parseFileInfo($commandsSmartFileInfo);
         } else {
-            $this->createDeepDirectoryFromFilePath($commandsFilePath);
             $defaultsCommandsTemplate = $this->templateFinder->getCommandsConfiguration();
             $nodes = $this->parser->parseFileInfo($defaultsCommandsTemplate);
         }
@@ -315,14 +305,5 @@ CODE_SAMPLE
         $nameResolverNodeTraverser = new NodeTraverser();
         $nameResolverNodeTraverser->addVisitor(new NameResolver());
         $nameResolverNodeTraverser->traverse($nodes);
-    }
-
-    private function createDeepDirectoryFromFilePath(string $filePath): void
-    {
-        if ($this->configuration->isDryRun()) {
-            return;
-        }
-
-        $this->smartFileSystem->mkdir(dirname($filePath));
     }
 }

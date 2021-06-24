@@ -37,7 +37,6 @@ final class ImportExtbaseAnnotationIfMissingFactory
             $completeImportForPartialAnnotation
         )) {
             $this->useNodesToAddCollector->addUseImport(
-                $node,
                 new AliasedObjectType('Extbase', 'TYPO3\CMS\Extbase\Annotation')
             );
         }

@@ -7,8 +7,10 @@ namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons;
 use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Feature-77349-AdditionalLocationsForExtensionIcons.html
@@ -21,6 +23,7 @@ final class IconsProcessor implements FileProcessorInterface
      */
     public function __construct(
         private FilesFinder $filesFinder,
+        private SmartFileSystem $smartFileSystem,
         private array $iconsRector
     ) {
     }
@@ -51,7 +54,11 @@ final class IconsProcessor implements FileProcessorInterface
             return false;
         }
 
-        return ! file_exists($this->createIconPath($file));
+        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            return true;
+        }
+
+        return ! $this->smartFileSystem->exists($this->createIconPath($file));
     }
 
     public function getSupportedFileExtensions(): array

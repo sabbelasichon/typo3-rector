@@ -8,7 +8,6 @@ use Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
 use Helmich\TypoScriptParser\Parser\AST\Scalar as ScalarValue;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Nette\Utils\Strings;
-use Rector\Core\Configuration\Configuration;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
@@ -43,11 +42,9 @@ final class ExtbasePersistenceVisitor extends AbstractVisitor implements Convert
 
     private SmartFileInfo $fileTemplate;
 
-    public function __construct(Configuration $configuration, TemplateFinder $templateFinder)
+    public function __construct(TemplateFinder $templateFinder)
     {
-        $this->filename = dirname(
-            (string) $configuration->getMainConfigFilePath()
-        ) . '/Configuration_Extbase_Persistence_Classes.php';
+        $this->filename = getcwd() . '/Configuration_Extbase_Persistence_Classes.php';
 
         $this->fileTemplate = $templateFinder->getExtbasePersistenceConfiguration();
     }

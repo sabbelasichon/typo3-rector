@@ -2,11 +2,11 @@ includes:
     # see https://github.com/symplify/phpstan-extensions
     - utils/phpstan/config/typo3-rector.neon
 parameters:
-    level: 8
+    level: max
 
     paths:
+        - rector.php
         - src
-        - config
         - tests
 
     scanDirectories:
