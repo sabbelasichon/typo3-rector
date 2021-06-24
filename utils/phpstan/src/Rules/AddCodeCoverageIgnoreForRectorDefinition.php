@@ -8,7 +8,6 @@ use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
 use PHPStan\Rules\Rule;
 use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\FileTypeMapper;
@@ -16,6 +15,7 @@ use Rector\Core\Contract\Rector\PhpRectorInterface;
 
 /**
  * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\AddCodeCoverageIgnoreForRectorDefinitionTest
+ * @implements Rule<ClassMethod>
  */
 final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
 {
@@ -25,7 +25,6 @@ final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
     public const ERROR_MESSAGE = 'Provide @codeCoverageIgnore doc block for "%s" RectorDefinition method';
 
     public function __construct(
-        private Broker $broker,
         private FileTypeMapper $fileTypeMapper
     ) {
     }

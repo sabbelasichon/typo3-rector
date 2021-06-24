@@ -16,6 +16,7 @@ use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
 
 /**
  * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Collection\ExtensionCollectionTest
+ * @implements IteratorAggregate<int, ExtensionVersion>
  */
 final class ExtensionCollection implements Countable, IteratorAggregate
 {
@@ -80,11 +81,17 @@ final class ExtensionCollection implements Countable, IteratorAggregate
         return $supportedVersion;
     }
 
+    /**
+     * @return ArrayIterator<int, ExtensionVersion>
+     */
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->extensions);
     }
 
+    /**
+     * @return array<string, RenamePackage>
+     */
     public function getReplacePackages(): array
     {
         $replacePackages = [];

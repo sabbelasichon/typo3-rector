@@ -28,6 +28,9 @@ final class TemplateFinder
         return $smartFileInfos;
     }
 
+    /**
+     * @return array<int, string>
+     */
     private function addRuleAndTestCase(): array
     {
         $filePaths = [];

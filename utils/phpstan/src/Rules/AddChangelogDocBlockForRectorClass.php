@@ -13,6 +13,7 @@ use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
+use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 use Ssch\TYPO3Rector\Rector\General\ConvertTypo3ConfVarsRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
@@ -20,6 +21,7 @@ use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefini
 
 /**
  * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddChangelogDocBlockForRectorClass\AddChangelogDocBlockForRectorClassTest
+ * @implements Rule<Class_>
  */
 final class AddChangelogDocBlockForRectorClass implements Rule
 {
@@ -36,6 +38,7 @@ final class AddChangelogDocBlockForRectorClass implements Rule
         AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class,
         ConvertTypo3ConfVarsRector::class,
         AbstractTcaRector::class,
+        AddPackageVersionRector::class,
     ];
 
     public function __construct(

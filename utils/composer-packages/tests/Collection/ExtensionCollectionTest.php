@@ -42,6 +42,9 @@ final class ExtensionCollectionTest extends TestCase
         }
     }
 
+    /**
+     * @return array[]
+     */
     public function extensionsProvider(): array
     {
         return [

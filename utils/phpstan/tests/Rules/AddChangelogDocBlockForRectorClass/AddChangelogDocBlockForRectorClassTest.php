@@ -9,10 +9,14 @@ use PHPStan\Rules\Rule;
 use Ssch\TYPO3Rector\PHPStan\Rules\AddChangelogDocBlockForRectorClass;
 use Symplify\PHPStanExtensions\Testing\AbstractServiceAwareRuleTestCase;
 
+/**
+ * @extends AbstractServiceAwareRuleTestCase<AddChangelogDocBlockForRectorClass>
+ */
 final class AddChangelogDocBlockForRectorClassTest extends AbstractServiceAwareRuleTestCase
 {
     /**
      * @dataProvider provideData()
+     * @param array<string|int> $expectedErrorsWithLines
      */
     public function testRule(string $filePath, array $expectedErrorsWithLines): void
     {
@@ -20,7 +24,7 @@ final class AddChangelogDocBlockForRectorClassTest extends AbstractServiceAwareR
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<mixed>
      */
     public function provideData(): Iterator
     {

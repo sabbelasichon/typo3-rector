@@ -16,10 +16,12 @@ final class SkipWithCodeCoverageIgnore extends AbstractRector implements PhpRect
      */
     public function getNodeTypes(): array
     {
+        return [];
     }
 
     public function refactor(Node $node): ?Node
     {
+        return null;
     }
 
     /**
@@ -27,5 +29,6 @@ final class SkipWithCodeCoverageIgnore extends AbstractRector implements PhpRect
      */
     public function getRuleDefinition(): RuleDefinition
     {
+        return new RuleDefinition('', []);
     }
 }

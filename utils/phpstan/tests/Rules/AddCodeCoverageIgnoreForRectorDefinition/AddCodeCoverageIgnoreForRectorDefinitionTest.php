@@ -10,10 +10,14 @@ use Ssch\TYPO3Rector\PHPStan\Rules\AddCodeCoverageIgnoreForRectorDefinition;
 use Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\Fixture\MissingCodeCoverageIgnore;
 use Symplify\PHPStanExtensions\Testing\AbstractServiceAwareRuleTestCase;
 
+/**
+ * @extends AbstractServiceAwareRuleTestCase<AddCodeCoverageIgnoreForRectorDefinition>
+ */
 final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractServiceAwareRuleTestCase
 {
     /**
      * @dataProvider provideData()
+     * @param array<string|int> $expectedErrorsWithLines
      */
     public function testRule(string $filePath, array $expectedErrorsWithLines): void
     {
@@ -21,12 +25,15 @@ final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractService
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<mixed>
      */
     public function provideData(): Iterator
     {
-        $message = sprintf(AddCodeCoverageIgnoreForRectorDefinition::ERROR_MESSAGE, MissingCodeCoverageIgnore::class);
-        yield [__DIR__ . '/Fixture/MissingCodeCoverageIgnore.php', [[$message, 25]]];
+        $message = sprintf(
+            AddCodeCoverageIgnoreForRectorDefinition::ERROR_MESSAGE,
+            MissingCodeCoverageIgnore::class
+        );
+        yield [__DIR__ . '/Fixture/MissingCodeCoverageIgnore.php', [[$message, 27]]];
         yield [__DIR__ . '/Fixture/SkipWithCodeCoverageIgnore.php', []];
     }
 
