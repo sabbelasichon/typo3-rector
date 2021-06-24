@@ -9,11 +9,7 @@ use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-/**
- * @changelog FooBarBaz
- * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\AddCodeCoverageIgnoreForRectorDefinitionTest
- */
-final class SkipWithCodeCoverageIgnoreRector extends AbstractRector implements PhpRectorInterface
+final class MissingCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
 {
     /**
      * @return array<class-string<\PhpParser\Node>>
@@ -28,9 +24,6 @@ final class SkipWithCodeCoverageIgnoreRector extends AbstractRector implements P
         return null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('', []);
