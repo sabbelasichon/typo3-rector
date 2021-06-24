@@ -16,8 +16,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class AdditionalHeadersToArrayVisitor extends AbstractVisitor
 {
-    public function __construct(private Builder $builder)
-    {
+    public function __construct(
+        private Builder $builder
+    ) {
     }
 
     public function enterNode(Statement $statement): void
