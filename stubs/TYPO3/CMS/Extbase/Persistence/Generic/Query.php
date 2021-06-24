@@ -2,9 +2,11 @@
 declare(strict_types=1);
 
 
-namespace TYPO3\CMS\Extbase\Persistence;
+namespace TYPO3\CMS\Extbase\Persistence\Generic;
 
-if (class_exists('TYPO3\CMS\Extbase\Persistence\Query')) {
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+
+if (class_exists('TYPO3\CMS\Extbase\Persistence\Generic\Query')) {
     return;
 }
 

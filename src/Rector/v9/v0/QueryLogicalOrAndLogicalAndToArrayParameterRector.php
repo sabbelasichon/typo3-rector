@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
@@ -42,6 +43,10 @@ final class QueryLogicalOrAndLogicalAndToArrayParameterRector extends AbstractRe
         }
 
         if (count($node->args) <= 1) {
+            return null;
+        }
+
+        if ($node->args[0]->value instanceof Array_) {
             return null;
         }
 
