@@ -5,7 +5,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Fluid\ViewHelpers\Fixture;
 use Ssch\TYPO3Rector\Tests\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector\Source\MySpecialAbstractViewHelper;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-final class MyOldViewHelper extends MySpecialAbstractViewHelper
+final class MyOldViewHelperWithAlreadyDefinedArguments extends MySpecialAbstractViewHelper
 {
     /**
      * @param array $strings An array of strings
@@ -30,7 +30,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Fluid\ViewHelpers\Fixture;
 use Ssch\TYPO3Rector\Tests\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector\Source\MySpecialAbstractViewHelper;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-final class MyOldViewHelper extends MySpecialAbstractViewHelper
+final class MyOldViewHelperWithAlreadyDefinedArguments extends MySpecialAbstractViewHelper
 {
     /**
      * @return string
@@ -48,8 +48,9 @@ final class MyOldViewHelper extends MySpecialAbstractViewHelper
     public function initializeArguments(): void
     {
         parent::initializeArguments();
-        $this->registerArgument('as', 'string', 'The name to access the variable in the template', false, 'items');
-        $this->registerArgument('delimiter', 'string', 'The delimiter to explode the strings', false, '#');
+        $this->registerArgument('strings', 'array', 'An array of strings', true);
+        $this->registerArgument('something', 'iterable', 'Something', true);
+        $this->registerArgument('object', '\TYPO3\CMS\Extbase\Persistence\QueryResultInterface', 'Object', true);
     }
 }
 

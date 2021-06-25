@@ -19,6 +19,5 @@ class AbstractViewHelper
      */
     public function initializeArguments()
     {
-
     }
 }
