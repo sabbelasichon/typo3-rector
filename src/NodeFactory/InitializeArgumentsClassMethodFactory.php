@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\NodeFactory;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ConstFetch;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
@@ -21,6 +22,7 @@ use PhpParser\Node\UnionType;
 use PHPStan\Analyser\Scope;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -28,6 +30,7 @@ use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\VerbosityLevel;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\Core\PhpParser\AstResolver;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\NodeNameResolver\NodeNameResolver;
@@ -57,7 +60,8 @@ final class InitializeArgumentsClassMethodFactory
         private ParamTypeInferer $paramTypeInferer,
         private PhpDocInfoFactory $phpDocInfoFactory,
         private ReflectionProvider $reflectionProvider,
-        private ValueResolver $valueResolver
+        private ValueResolver $valueResolver,
+        private AstResolver $astResolver
     ) {
     }
 
@@ -68,7 +72,7 @@ final class InitializeArgumentsClassMethodFactory
             return;
         }
 
-        $newStmts = $this->createStmts($renderClassMethod);
+        $newStmts = $this->createStmts($renderClassMethod, $class);
 
         $classMethod = $this->findOrCreateInitializeArgumentsClassMethod($class);
         $classMethod->stmts = array_merge((array) $classMethod->stmts, $newStmts);
@@ -109,14 +113,21 @@ final class InitializeArgumentsClassMethodFactory
     /**
      * @return Expression[]
      */
-    private function createStmts(ClassMethod $renderMethod): array
+    private function createStmts(ClassMethod $renderMethod, Class_ $class): array
     {
+        $argumentsAlreadyDefinedInParentCall = $this->extractArgumentsFromParentClasses($class);
+
         $paramTagsByName = $this->getParamTagsByName($renderMethod);
 
         $stmts = [];
 
         foreach ($renderMethod->params as $param) {
             $paramName = $this->nodeNameResolver->getName($param->var);
+
+            if (in_array($paramName, $argumentsAlreadyDefinedInParentCall, true)) {
+                continue;
+            }
+
             $paramTagValueNode = $paramTagsByName[$paramName] ?? null;
 
             $docString = $this->createTypeInString($paramTagValueNode, $param);
@@ -178,16 +189,17 @@ final class InitializeArgumentsClassMethodFactory
             return $paramTagValueNode->type->name;
         }
 
-        $inferedType = $this->paramTypeInferer->inferParam($param);
-        if ($inferedType instanceof MixedType) {
+        $inferredType = $this->paramTypeInferer->inferParam($param);
+
+        if ($inferredType instanceof MixedType) {
             return self::MIXED;
         }
 
-        if ($this->isTraitType($inferedType)) {
+        if ($this->isTraitType($inferredType)) {
             return self::MIXED;
         }
 
-        $paramTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferedType, TypeKind::KIND_PARAM);
+        $paramTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferredType, TypeKind::KIND_PARAM);
         if ($paramTypeNode instanceof UnionType) {
             return self::MIXED;
         }
@@ -229,6 +241,7 @@ final class InitializeArgumentsClassMethodFactory
         }
 
         $reflectionClass = $this->reflectionProvider->getClass($fullyQualifiedName);
+
         return $reflectionClass->isTrait();
     }
 
@@ -250,24 +263,78 @@ final class InitializeArgumentsClassMethodFactory
         return $this->nodeNameResolver->getName($paramType) ?? self::MIXED;
     }
 
-    private function doesParentClassMethodExist(Class_ $class, string $methodName): bool
+    /**
+     * @return MethodReflection[]
+     */
+    private function getParentClassesMethodReflection(Class_ $class, string $methodName): array
     {
         $scope = $class->getAttribute(AttributeKey::SCOPE);
         if (! $scope instanceof Scope) {
-            return false;
+            return [];
         }
 
         $classReflection = $scope->getClassReflection();
         if (null === $classReflection) {
-            return false;
+            return [];
         }
+
+        $parentMethods = [];
 
         foreach ($classReflection->getParents() as $parentClassReflection) {
             if ($parentClassReflection->hasMethod($methodName)) {
-                return true;
+                $parentMethods[] = $parentClassReflection->getMethod($methodName, $scope);
             }
         }
 
-        return false;
+        return $parentMethods;
+    }
+
+    private function doesParentClassMethodExist(Class_ $class, string $methodName): bool
+    {
+        return [] !== $this->getParentClassesMethodReflection($class, $methodName);
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    private function extractArgumentsFromParentClasses(Class_ $class): array
+    {
+        $definedArguments = [];
+        $methodReflections = $this->getParentClassesMethodReflection($class, self::METHOD_NAME);
+
+        foreach ($methodReflections as $methodReflection) {
+            $classMethod = $this->astResolver->resolveClassMethodFromMethodReflection($methodReflection);
+            if (! $classMethod instanceof ClassMethod) {
+                continue;
+            }
+
+            if (null === $classMethod->stmts) {
+                continue;
+            }
+
+            foreach ($classMethod->stmts as $stmt) {
+                if (! $stmt instanceof Expression) {
+                    continue;
+                }
+
+                if (! $stmt->expr instanceof MethodCall) {
+                    continue;
+                }
+
+                if (! $this->nodeNameResolver->isName($stmt->expr->name, 'registerArgument')) {
+                    continue;
+                }
+
+                $value = $this->valueResolver->getValue($stmt->expr->args[0]->value);
+
+                if (null === $value) {
+                    continue;
+                }
+
+                $definedArguments[] = $value;
+            }
+        }
+
+        return $definedArguments;
     }
 }
