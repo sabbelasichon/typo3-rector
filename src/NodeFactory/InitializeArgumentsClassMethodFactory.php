@@ -30,9 +30,9 @@ use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\VerbosityLevel;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfo;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\Core\PhpParser\AstResolver;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
-use Rector\Core\Reflection\FunctionLikeReflectionParser;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStanStaticTypeMapper\ValueObject\TypeKind;
@@ -61,7 +61,7 @@ final class InitializeArgumentsClassMethodFactory
         private PhpDocInfoFactory $phpDocInfoFactory,
         private ReflectionProvider $reflectionProvider,
         private ValueResolver $valueResolver,
-        private FunctionLikeReflectionParser $functionLikeReflectionParser
+        private AstResolver $astResolver
     ) {
     }
 
@@ -303,7 +303,7 @@ final class InitializeArgumentsClassMethodFactory
         $methodReflections = $this->getParentClassesMethodReflection($class, self::METHOD_NAME);
 
         foreach ($methodReflections as $methodReflection) {
-            $classMethod = $this->functionLikeReflectionParser->parseMethodReflection($methodReflection);
+            $classMethod = $this->astResolver->resolveClassMethodFromMethodReflection($methodReflection);
             if (! $classMethod instanceof ClassMethod) {
                 continue;
             }
