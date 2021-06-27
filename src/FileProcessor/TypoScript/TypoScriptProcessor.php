@@ -142,10 +142,9 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         } catch (TokenizerException $tokenizerException) {
             return;
         } catch (ParseError $parseError) {
-            $this->rectorOutputStyle->error(
-                'TypoScriptParser Error. This is often caused by TypeScript files,
-                 that are processed as they result in false positive processing due to the file prefix.
-                 Check for e.g. your Resources/ directory to be excluded to prevent unwanted processing'
+            $errorFile = $file->getSmartFileInfo()->getRelativeFilePath();
+            $this->rectorOutputStyle->warning(
+                sprintf('TypoScriptParser Error in: %s. File skipped.', $errorFile)
             );
 
             return;
