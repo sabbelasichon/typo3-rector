@@ -6,7 +6,7 @@ use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\AdditionalHeadersToArrayVisitor;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AdditionalHeadersToArrayTypoScriptRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\ChangeMethodCallsForStandaloneViewRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\GetFileAbsFileNameRemoveDeprecatedArgumentsRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\GetPreferredClientLanguageRector;
@@ -130,5 +130,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(GetFileAbsFileNameRemoveDeprecatedArgumentsRector::class);
     $services->set(RemoveLangCsConvObjAndParserFactoryRector::class);
     $services->set(RenderCharsetDefaultsToUtf8Rector::class);
-    $services->set(AdditionalHeadersToArrayVisitor::class);
+    $services->set(AdditionalHeadersToArrayTypoScriptRector::class);
 };

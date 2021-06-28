@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors;
+namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector;
 
 use Helmich\TypoScriptParser\Parser\AST\Statement;
-use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
-use Rector\Core\Contract\Rector\RectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
 
-abstract class AbstractVisitor implements Visitor, RectorInterface
+abstract class AbstractTypoScriptRector implements TypoScriptRectorInterface
 {
     protected bool $hasChanged = false;
 

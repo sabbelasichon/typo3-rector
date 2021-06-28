@@ -19,8 +19,9 @@ use Rector\FileFormatter\EditorConfig\EditorConfigParser;
 use Rector\FileFormatter\ValueObject\Indent;
 use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
 use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\AbstractVisitor;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AbstractTypoScriptRector;
 use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
@@ -39,7 +40,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     private array $allowedFileExtensions = ['typoscript', 'ts', 'txt'];
 
     /**
-     * @param Visitor[] $visitors
+     * @param TypoScriptRectorInterface[] $typoScriptRectors
      */
     public function __construct(
         private ParserInterface $typoscriptParser,
@@ -49,7 +50,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         private EditorConfigParser $editorConfigParser,
         private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         private RectorOutputStyle $rectorOutputStyle,
-        private array $visitors = []
+        private array $typoScriptRectors = []
     ) {
     }
 
@@ -67,7 +68,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
 
     public function supports(File $file): bool
     {
-        if ([] === $this->visitors) {
+        if ([] === $this->typoScriptRectors) {
             return false;
         }
 
@@ -98,16 +99,19 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
             $originalStatements = $this->typoscriptParser->parseString($smartFileInfo->getContents());
 
             $traverser = new Traverser($originalStatements);
-            foreach ($this->visitors as $visitor) {
+            foreach ($this->typoScriptRectors as $visitor) {
                 $traverser->addVisitor($visitor);
             }
             $traverser->walk();
 
-            $visitorsChanged = array_filter($this->visitors, function (AbstractVisitor $visitor) {
-                return $visitor->hasChanged();
-            });
+            $typoscriptRectorsWithChange = array_filter(
+                $this->typoScriptRectors,
+                function (AbstractTypoScriptRector $typoScriptRector) {
+                    return $typoScriptRector->hasChanged();
+                }
+            );
 
-            if ([] === $visitorsChanged) {
+            if ([] === $typoscriptRectorsWithChange) {
                 return;
             }
 
@@ -153,16 +157,16 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     /**
      * @return ConvertToPhpFileInterface[]
      */
-    private function convertToPhpFileVisitors(): array
+    private function convertToPhpFileRectors(): array
     {
-        return array_filter($this->visitors, function (Visitor $visitor): bool {
+        return array_filter($this->typoScriptRectors, function (Visitor $visitor): bool {
             return is_a($visitor, ConvertToPhpFileInterface::class, true);
         });
     }
 
     private function convertTypoScriptToPhpFiles(): void
     {
-        foreach ($this->convertToPhpFileVisitors() as $convertToPhpFileVisitor) {
+        foreach ($this->convertToPhpFileRectors() as $convertToPhpFileVisitor) {
             $addedFileWithContent = $convertToPhpFileVisitor->convert();
 
             if (null === $addedFileWithContent) {

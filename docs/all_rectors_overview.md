@@ -832,14 +832,14 @@ Convert extbase TypoScript persistence configuration to classes one
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\ExtbasePersistenceVisitor;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\ExtbasePersistenceTypoScriptRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
-    $services->set(ExtbasePersistenceVisitor::class)
-        ->call('configure', [[ExtbasePersistenceVisitor::FILENAME => 'path/to/Configuration/Extbase/Persistence/Classes.php']]);
+    $services->set(ExtbasePersistenceTypoScriptRector::class)
+        ->call('configure', [[ExtbasePersistenceTypoScriptRector::FILENAME => 'path/to/Configuration/Extbase/Persistence/Classes.php']]);
 };
 ```
 
