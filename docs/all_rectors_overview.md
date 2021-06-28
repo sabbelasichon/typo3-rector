@@ -148,11 +148,11 @@ Refactor AdditionalFieldProvider classes
 
 <br>
 
-## AdditionalHeadersToArrayVisitor
+## AdditionalHeadersToArrayTypoScriptRector
 
 Use array syntax for additionalHeaders
 
-- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\AdditionalHeadersToArrayVisitor`](../src/FileProcessor/TypoScript/Visitors/AdditionalHeadersToArrayVisitor.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AdditionalHeadersToArrayTypoScriptRector`](../src/FileProcessor/TypoScript/Rector/AdditionalHeadersToArrayTypoScriptRector.php)
 
 ```diff
 -config.additionalHeaders = Content-type:application/json
@@ -819,13 +819,13 @@ Extbase controller actions must return ResponseInterface
 
 <br>
 
-## ExtbasePersistenceVisitor
+## ExtbasePersistenceTypoScriptRector
 
 Convert extbase TypoScript persistence configuration to classes one
 
 :wrench: **configure it!**
 
-- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\ExtbasePersistenceVisitor`](../src/FileProcessor/TypoScript/Visitors/ExtbasePersistenceVisitor.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\ExtbasePersistenceTypoScriptRector`](../src/FileProcessor/TypoScript/Rector/ExtbasePersistenceTypoScriptRector.php)
 
 ```php
 <?php
@@ -922,11 +922,11 @@ Substitute `ExtensionManagementUtility::extRelPath()`
 
 <br>
 
-## FileIncludeToImportStatementVisitor
+## FileIncludeToImportStatementTypoScriptRector
 
 Convert old include statement to new import syntax
 
-- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\FileIncludeToImportStatementVisitor`](../src/FileProcessor/TypoScript/Visitors/FileIncludeToImportStatementVisitor.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\FileIncludeToImportStatementTypoScriptRector`](../src/FileProcessor/TypoScript/Rector/FileIncludeToImportStatementTypoScriptRector.php)
 
 ```diff
 -<INCLUDE_TYPOSCRIPT: source="FILE:conditions.typoscript">
@@ -1581,11 +1581,11 @@ Migrate the "suggest" wizard in type=group to "hideSuggest" and "suggestOptions"
 
 <br>
 
-## OldConditionToExpressionLanguageVisitor
+## OldConditionToExpressionLanguageTypoScriptRector
 
 Convert old conditions to Symfony Expression Language
 
-- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\OldConditionToExpressionLanguageVisitor`](../src/FileProcessor/TypoScript/Visitors/OldConditionToExpressionLanguageVisitor.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\OldConditionToExpressionLanguageTypoScriptRector`](../src/FileProcessor/TypoScript/Rector/OldConditionToExpressionLanguageTypoScriptRector.php)
 
 ```diff
 -[globalVar = TSFE:id=17, TSFE:id=24]
