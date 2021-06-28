@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\Visitors;
+namespace Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\Rector;
 
 use Helmich\TypoScriptParser\Parser\AST\ConditionalStatement;
 use Iterator;
@@ -25,11 +25,11 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TimeConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TreeLevelConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\UsergroupConditionMatcherMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\VersionConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors\OldConditionToExpressionLanguageVisitor;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\OldConditionToExpressionLanguageTypoScriptRector;
 
-final class OldConditionToExpressionLanguageVisitorTest extends TestCase
+final class OldConditionToExpressionLanguageRectorTest extends TestCase
 {
-    private OldConditionToExpressionLanguageVisitor $subject;
+    private OldConditionToExpressionLanguageTypoScriptRector $subject;
 
     protected function setUp(): void
     {
@@ -53,7 +53,10 @@ final class OldConditionToExpressionLanguageVisitorTest extends TestCase
             new VersionConditionMatcher(),
         ];
 
-        $this->subject = new OldConditionToExpressionLanguageVisitor(new CurrentFileProvider(), $conditionMatchers);
+        $this->subject = new OldConditionToExpressionLanguageTypoScriptRector(
+            new CurrentFileProvider(),
+            $conditionMatchers
+        );
     }
 
     /**

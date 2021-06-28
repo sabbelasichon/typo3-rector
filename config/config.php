@@ -29,7 +29,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/Set',
             __DIR__ . '/../src/ValueObject',
             __DIR__ . '/../src/FileProcessor/TypoScript/Conditions',
-            __DIR__ . '/../src/FileProcessor/TypoScript/Visitors',
+            __DIR__ . '/../src/FileProcessor/TypoScript/Rector',
             __DIR__ . '/../src/FileProcessor/Yaml/Form/Rector',
             __DIR__ . '/../src/FileProcessor/Composer/Rector',
             __DIR__ . '/../src/FileProcessor/FlexForms/Rector',

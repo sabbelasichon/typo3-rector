@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Visitors;
+namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector;
 
-use Helmich\TypoScriptParser\Parser\AST\Builder;
 use Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Nette\Utils\Strings;
@@ -14,13 +13,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @changelog https://docs.typo3.org/m/typo3/reference-typoscript/master/en-us/Setup/Config/Index.html#additionalheaders
  */
-final class AdditionalHeadersToArrayVisitor extends AbstractVisitor
+final class AdditionalHeadersToArrayTypoScriptRector extends AbstractTypoScriptRector
 {
-    public function __construct(
-        private Builder $builder
-    ) {
-    }
-
     public function enterNode(Statement $statement): void
     {
         if (! $statement instanceof Assignment) {
