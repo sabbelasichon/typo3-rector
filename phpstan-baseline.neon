@@ -1,6 +1,126 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/Conditions/AbstractRootlineConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/Conditions/AdminUserConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 3
+			path: src/FileProcessor/TypoScript/Conditions/ApplicationContextConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/Conditions/CompatVersionConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/FileProcessor/TypoScript/Conditions/GlobalStringConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 3
+			path: src/FileProcessor/TypoScript/Conditions/GlobalVarConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/FileProcessor/TypoScript/Conditions/HostnameConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/Conditions/IPConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/Conditions/LanguageConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/FileProcessor/TypoScript/Conditions/LoginUserConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/FileProcessor/TypoScript/Conditions/PageConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/FileProcessor/TypoScript/Conditions/TimeConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/Conditions/TreeLevelConditionMatcher.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/FileProcessor/TypoScript/Conditions/UsergroupConditionMatcherMatcher.php
+
+		-
+			message: "#^File processor must require Rector rules in constructor via TypeRectorInterface\\[\\] \\$typeRectors array autowire$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/TypoScriptProcessor.php
+
+		-
+			message: "#^Class should have suffix \"Rector\" to respect parent type$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/Visitors/AdditionalHeadersToArrayVisitor.php
+
+		-
+			message: "#^Class should have suffix \"Rector\" to respect parent type$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/Visitors/ExtbasePersistenceVisitor.php
+
+		-
+			message: "#^Class should have suffix \"Rector\" to respect parent type$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/Visitors/FileIncludeToImportStatementVisitor.php
+
+		-
+			message: "#^Class should have suffix \"Rector\" to respect parent type$#"
+			count: 1
+			path: src/FileProcessor/TypoScript/Visitors/OldConditionToExpressionLanguageVisitor.php
+
+		-
+			message: "#^Function \"preg_match_all\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/FileProcessor/TypoScript/Visitors/OldConditionToExpressionLanguageVisitor.php
+
+		-
+			message: "#^Function \"preg_match\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/Rector/v10/v4/UseFileGetContentsForGetUrlRector.php
+
+		-
+			message: "#^Function \"preg_match_all\\(\\)\" cannot be used/left in the code$#"
+			count: 1
+			path: src/Rector/v9/v0/MetaTagManagementRector.php
+
+		-
+			message: "#^Function \"preg_match_all\\(\\)\" cannot be used/left in the code$#"
+			count: 2
+			path: src/Rector/v9/v3/ValidateAnnotationRector.php
+
+		-
+			message: "#^\\$service\\-\\>call\\(\"configure\", \\[\\[ \\.\\.\\. \\]\\]\\) must be followed by exact array$#"
+			count: 1
+			path: tests/Rector/General/ExtEmConfRector/config/configured_rule.php
+
+		-
 			message: "#^Parameter \\#1 \\$versions of static method Composer\\\\Semver\\\\Semver\\:\\:rsort\\(\\) expects array\\<string\\>, array\\<Ssch\\\\TYPO3Rector\\\\ComposerPackages\\\\ValueObject\\\\ExtensionVersion\\> given\\.$#"
 			count: 1
 			path: utils/composer-packages/src/Collection/ExtensionCollection.php
@@ -66,12 +186,22 @@ parameters:
 			path: utils/phpstan/src/Rules/AddChangelogDocBlockForRectorClass.php
 
 		-
+			message: "#^Class should have suffix \"Rule\" to respect parent type$#"
+			count: 1
+			path: utils/phpstan/src/Rules/AddChangelogDocBlockForRectorClass.php
+
+		-
 			message: "#^\"getDocComment\\(\\)\" call on \"PhpParser\\\\Node\" type is not allowed$#"
 			count: 1
 			path: utils/phpstan/src/Rules/AddCodeCoverageIgnoreForRectorDefinition.php
 
 		-
 			message: "#^Access to an undefined property PhpParser\\\\Node\\:\\:\\$name\\.$#"
+			count: 1
+			path: utils/phpstan/src/Rules/AddCodeCoverageIgnoreForRectorDefinition.php
+
+		-
+			message: "#^Class should have suffix \"Rule\" to respect parent type$#"
 			count: 1
 			path: utils/phpstan/src/Rules/AddCodeCoverageIgnoreForRectorDefinition.php
 

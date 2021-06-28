@@ -142,10 +142,9 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         } catch (TokenizerException $tokenizerException) {
             return;
         } catch (ParseError $parseError) {
-            $errorFile = $file->getSmartFileInfo()->getRelativeFilePath();
-            $this->rectorOutputStyle->warning(
-                sprintf('TypoScriptParser Error in: %s. File skipped.', $errorFile)
-            );
+            $smartFileInfo = $file->getSmartFileInfo();
+            $errorFile = $smartFileInfo->getRelativeFilePath();
+            $this->rectorOutputStyle->warning(sprintf('TypoScriptParser Error in: %s. File skipped.', $errorFile));
 
             return;
         }
