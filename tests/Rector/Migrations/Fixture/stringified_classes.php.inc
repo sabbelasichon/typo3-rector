@@ -13,6 +13,7 @@ if(class_exists('tslib_cObj')) {
 
 GeneralUtility::makeInstance('tslib_cObj');
 GeneralUtility::makeInstance('foo');
+$languageId = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id');
 
 ?>
 -----
@@ -32,5 +33,6 @@ if(class_exists(ContentObjectRenderer::class)) {
 
 GeneralUtility::makeInstance(ContentObjectRenderer::class);
 GeneralUtility::makeInstance('foo');
+$languageId = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id');
 
 ?>
