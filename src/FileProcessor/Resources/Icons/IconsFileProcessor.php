@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons;
 use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
+use Rector\Core\ValueObject\Configuration;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
@@ -28,14 +29,14 @@ final class IconsFileProcessor implements FileProcessorInterface
     ) {
     }
 
-    public function process(File $file): void
+    public function process(File $file, Configuration $configuration): void
     {
         foreach ($this->iconsRector as $iconRector) {
             $iconRector->refactorFile($file);
         }
     }
 
-    public function supports(File $file): bool
+    public function supports(File $file, Configuration $configuration): bool
     {
         $smartFileInfo = $file->getSmartFileInfo();
 

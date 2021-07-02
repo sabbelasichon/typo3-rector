@@ -62,7 +62,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
         $file->changeFileContent($newFileContent);
     }
 
-    public function supports(File $file): bool
+    public function supports(File $file, Configuration $configuration): bool
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
