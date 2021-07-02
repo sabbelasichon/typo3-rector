@@ -75,7 +75,7 @@ parameters:
             paths:
                 # typostricpt check
                 - src/FileProcessor/TypoScript/Visitors/*Visitor.php
-                - src/FileProcessor/TypoScript/TypoScriptProcessor.php
+                - src/FileProcessor/TypoScript/TypoScriptFileProcessor.php
                 # xml check
                 - src/FileProcessor/FlexForms/Rector/RenderTypeFlexFormRector.php
         -

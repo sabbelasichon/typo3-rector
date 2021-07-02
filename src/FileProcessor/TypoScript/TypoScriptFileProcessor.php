@@ -15,6 +15,7 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
+use Rector\Core\ValueObject\Configuration;
 use Rector\FileFormatter\EditorConfig\EditorConfigParser;
 use Rector\FileFormatter\ValueObject\Indent;
 use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
@@ -27,7 +28,7 @@ use Symfony\Component\Console\Output\BufferedOutput;
 /**
  * @see \Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\TypoScriptProcessorTest
  */
-final class TypoScriptProcessor implements ConfigurableProcessorInterface
+final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
 {
     /**
      * @var string
@@ -54,19 +55,7 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
     ) {
     }
 
-    /**
-     * @param File[] $files
-     */
-    public function process(array $files): void
-    {
-        foreach ($files as $file) {
-            $this->processFile($file);
-        }
-
-        $this->convertTypoScriptToPhpFiles();
-    }
-
-    public function supports(File $file): bool
+    public function supports(File $file, Configuration $configuration): bool
     {
         if ([] === $this->typoScriptRectors) {
             return false;
@@ -75,6 +64,12 @@ final class TypoScriptProcessor implements ConfigurableProcessorInterface
         $smartFileInfo = $file->getSmartFileInfo();
 
         return in_array($smartFileInfo->getExtension(), $this->allowedFileExtensions, true);
+    }
+
+    public function process(File $file, Configuration $configuration): void
+    {
+        $this->processFile($file);
+        $this->convertTypoScriptToPhpFiles();
     }
 
     /**

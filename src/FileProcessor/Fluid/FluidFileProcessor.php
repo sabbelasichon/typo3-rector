@@ -6,12 +6,13 @@ namespace Ssch\TYPO3Rector\FileProcessor\Fluid;
 
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
+use Rector\Core\ValueObject\Configuration;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Fluid\FluidProcessorTest
  */
-final class FluidProcessor implements FileProcessorInterface
+final class FluidFileProcessor implements FileProcessorInterface
 {
     /**
      * @param FluidRectorInterface[] $fluidRectors
@@ -21,36 +22,26 @@ final class FluidProcessor implements FileProcessorInterface
     ) {
     }
 
-    public function supports(File $file): bool
+    public function supports(File $file, Configuration $configuration): bool
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
         return in_array($smartFileInfo->getExtension(), $this->getSupportedFileExtensions(), true);
     }
 
-    /**
-     * @param File[] $files
-     */
-    public function process(array $files): void
+    public function process(File $file, Configuration $configuration): void
     {
         if ([] === $this->fluidRectors) {
             return;
         }
 
-        foreach ($files as $file) {
-            $this->processFile($file);
+        foreach ($this->fluidRectors as $fluidRector) {
+            $fluidRector->transform($file);
         }
     }
 
     public function getSupportedFileExtensions(): array
     {
         return ['html', 'xml', 'txt'];
-    }
-
-    private function processFile(File $file): void
-    {
-        foreach ($this->fluidRectors as $fluidRector) {
-            $fluidRector->transform($file);
-        }
     }
 }

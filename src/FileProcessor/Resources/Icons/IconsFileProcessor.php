@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons;
 use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
+use Rector\Core\ValueObject\Configuration;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
@@ -16,7 +17,7 @@ use Symplify\SmartFileSystem\SmartFileSystem;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Feature-77349-AdditionalLocationsForExtensionIcons.html
  * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Icons\IconsProcessor\IconsProcessorTest
  */
-final class IconsProcessor implements FileProcessorInterface
+final class IconsFileProcessor implements FileProcessorInterface
 {
     /**
      * @param IconRectorInterface[] $iconsRector
@@ -28,19 +29,14 @@ final class IconsProcessor implements FileProcessorInterface
     ) {
     }
 
-    /**
-     * @param File[] $files
-     */
-    public function process(array $files): void
+    public function process(File $file, Configuration $configuration): void
     {
-        foreach ($files as $file) {
-            foreach ($this->iconsRector as $iconRector) {
-                $iconRector->refactorFile($file);
-            }
+        foreach ($this->iconsRector as $iconRector) {
+            $iconRector->refactorFile($file);
         }
     }
 
-    public function supports(File $file): bool
+    public function supports(File $file, Configuration $configuration): bool
     {
         $smartFileInfo = $file->getSmartFileInfo();
 

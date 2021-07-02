@@ -111,10 +111,10 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 
             $paramTags = $commandPhpDocInfo->getParamTagValueNodes();
 
-            $descriptionPhpDocNode = $commandPhpDocInfo->getByType(PhpDocTextNode::class);
+            $descriptionPhpDocNodes = $commandPhpDocInfo->getByType(PhpDocTextNode::class);
 
             $methodParameters = $commandMethod->params;
-            $commandDescription = null !== $descriptionPhpDocNode ? (string) $descriptionPhpDocNode : '';
+            $commandDescription = (string) $descriptionPhpDocNodes[0] ?? '';
 
             $commandTemplate = $this->templateFinder->getCommand();
             $commandName = Strings::firstUpper($commandMethodName);

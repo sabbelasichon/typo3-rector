@@ -10,7 +10,7 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptProcessor;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -53,9 +53,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(Builder::class);
 
-    $services->set(TypoScriptProcessor::class)
+    $services->set(TypoScriptFileProcessor::class)
         ->call('configure', [[
-            TypoScriptProcessor::ALLOWED_FILE_EXTENSIONS => [
+            TypoScriptFileProcessor::ALLOWED_FILE_EXTENSIONS => [
                 'typoscript',
                 'ts',
                 'txt',

@@ -8,6 +8,7 @@ use DOMDocument;
 use Exception;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
+use Rector\Core\ValueObject\Configuration;
 use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
 use UnexpectedValueException;
 
@@ -24,21 +25,41 @@ final class FlexFormsProcessor implements FileProcessorInterface
     ) {
     }
 
-    /**
-     * @param File[] $files
-     */
-    public function process(array $files): void
+    public function process(File $file, Configuration $configuration): void
     {
         if ([] === $this->flexFormRectors) {
             return;
         }
 
-        foreach ($files as $file) {
-            $this->processFile($file);
+        $domDocument = new DOMDocument();
+        $domDocument->formatOutput = true;
+        $domDocument->loadXML($file->getFileContent());
+
+        $hasChanged = false;
+        foreach ($this->flexFormRectors as $flexFormRector) {
+            $hasChanged = $flexFormRector->transform($domDocument);
         }
+
+        if (! $hasChanged) {
+            return;
+        }
+
+        $xml = $domDocument->saveXML($domDocument->documentElement, LIBXML_NOEMPTYTAG);
+
+        if (false === $xml) {
+            throw new UnexpectedValueException('Could not convert to xml');
+        }
+
+        if ($xml === $file->getFileContent()) {
+            return;
+        }
+
+        $newFileContent = html_entity_decode($xml);
+
+        $file->changeFileContent($newFileContent);
     }
 
-    public function supports(File $file): bool
+    public function supports(File $file, Configuration $configuration): bool
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
@@ -64,37 +85,5 @@ final class FlexFormsProcessor implements FileProcessorInterface
     public function getSupportedFileExtensions(): array
     {
         return ['xml'];
-    }
-
-    private function processFile(File $file): void
-    {
-        $domDocument = new DOMDocument();
-
-        $domDocument->formatOutput = true;
-
-        $domDocument->loadXML($file->getFileContent());
-
-        $hasChanged = false;
-        foreach ($this->flexFormRectors as $flexFormRector) {
-            $hasChanged = $flexFormRector->transform($domDocument);
-        }
-
-        if (! $hasChanged) {
-            return;
-        }
-
-        $xml = $domDocument->saveXML($domDocument->documentElement, LIBXML_NOEMPTYTAG);
-
-        if (false === $xml) {
-            throw new UnexpectedValueException('Could not convert to xml');
-        }
-
-        if ($xml === $file->getFileContent()) {
-            return;
-        }
-
-        $newFileContent = html_entity_decode($xml);
-
-        $file->changeFileContent($newFileContent);
     }
 }
