@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\IconsProcessor;
+use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\IconsFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\Rector\IconsRector;
 use Ssch\TYPO3Rector\Rector\v8\v3\RefactorMethodFileContentRector;
 use Ssch\TYPO3Rector\Rector\v8\v3\RefactorQueryViewTableWrapRector;
@@ -14,5 +14,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorMethodFileContentRector::class);
     $services->set(RefactorQueryViewTableWrapRector::class);
     $services->set(IconsRector::class);
-    $services->set(IconsProcessor::class)->autowire();
+    $services->set(IconsFileProcessor::class)->autowire();
 };

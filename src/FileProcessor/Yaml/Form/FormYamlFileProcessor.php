@@ -8,13 +8,14 @@ use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
+use Rector\Core\ValueObject\Configuration;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\Form\FormYamlRectorInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Yaml\Form\FormYamlProcessorTest
  */
-final class FormYamlProcessor implements FileProcessorInterface
+final class FormYamlFileProcessor implements FileProcessorInterface
 {
     /**
      * @var string[]
@@ -30,39 +31,16 @@ final class FormYamlProcessor implements FileProcessorInterface
     ) {
     }
 
-    /**
-     * @param File[] $files
-     */
-    public function process(array $files): void
+    public function process(File $file, Configuration $configuration): void
     {
         // Prevent unnecessary processing
         if ([] === $this->transformer) {
             return;
         }
 
-        foreach ($files as $file) {
-            $this->processFile($file);
-        }
-    }
-
-    public function supports(File $file): bool
-    {
-        $smartFileInfo = $file->getSmartFileInfo();
-
-        return Strings::endsWith($smartFileInfo->getFilename(), 'yaml');
-    }
-
-    public function getSupportedFileExtensions(): array
-    {
-        return self::ALLOWED_FILE_EXTENSIONS;
-    }
-
-    private function processFile(File $file): void
-    {
         $this->currentFileProvider->setFile($file);
 
         $smartFileInfo = $file->getSmartFileInfo();
-
         $yaml = Yaml::parseFile($smartFileInfo->getRealPath());
 
         if (! is_array($yaml)) {
@@ -81,7 +59,21 @@ final class FormYamlProcessor implements FileProcessorInterface
         }
 
         $newFileContent = Yaml::dump($newYaml, 99);
-
         $file->changeFileContent($newFileContent);
+    }
+
+    public function supports(File $file): bool
+    {
+        $smartFileInfo = $file->getSmartFileInfo();
+
+        return Strings::endsWith($smartFileInfo->getFilename(), 'yaml');
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSupportedFileExtensions(): array
+    {
+        return self::ALLOWED_FILE_EXTENSIONS;
     }
 }
