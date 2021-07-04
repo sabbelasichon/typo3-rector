@@ -199,7 +199,7 @@ final class InitializeArgumentsClassMethodFactory
             return self::MIXED;
         }
 
-        $paramTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferredType, TypeKind::KIND_PARAM);
+        $paramTypeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode($inferredType, TypeKind::PARAM());
         if ($paramTypeNode instanceof UnionType) {
             return self::MIXED;
         }
