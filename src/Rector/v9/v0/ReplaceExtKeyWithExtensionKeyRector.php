@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
@@ -84,7 +83,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if($this->isAssignment($node)) {
+        if ($this->isAssignment($node)) {
             return null;
         }
 
@@ -106,12 +105,7 @@ CODE_SAMPLE
     private function isAssignment(Variable $node): bool
     {
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
         // Check if we have an assigment to the property, if so do not change it
-        if ($parentNode instanceof Assign && $parentNode->var === $node) {
-            return true;
-        }
-
-        return false;
+        return $parentNode instanceof Assign && $parentNode->var === $node;
     }
 }
