@@ -18,7 +18,7 @@ ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript', 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 // must be defined
-'_temp_fixture_easy_testing' = 'xyz';
+$_EXTKEY = 'xyz';
 
 if ( ! defined('TYPO3_MODE')) {
     die('Access denied.');
