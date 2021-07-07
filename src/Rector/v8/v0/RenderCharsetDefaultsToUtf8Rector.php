@@ -47,8 +47,6 @@ final class RenderCharsetDefaultsToUtf8Rector extends AbstractRector
             return null;
         }
 
-
-
         return new String_('utf-8');
     }
 
