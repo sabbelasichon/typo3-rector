@@ -20,7 +20,7 @@ final class AdditionalHeadersToArrayTypoScriptRector extends AbstractTypoScriptR
             return;
         }
 
-        if (! \str_starts_with($statement->object->relativeName, 'additionalHeaders')) {
+        if (! str_ends_with($statement->object->relativeName, 'additionalHeaders')) {
             return;
         }
 
