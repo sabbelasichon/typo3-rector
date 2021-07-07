@@ -137,7 +137,7 @@ final class InitializeArgumentsClassMethodFactory
             if ($param->default instanceof Expr) {
                 $args[] = new ConstFetch(new Name('false'));
                 $defaultValue = $this->valueResolver->getValue($param->default);
-                if (null !== $defaultValue) {
+                if (null !== $defaultValue && 'null' !== $defaultValue) {
                     $args[] = $defaultValue;
                 }
             } else {
