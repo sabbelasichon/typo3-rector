@@ -51,7 +51,7 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 if (TYPO3_MODE === 'BE') {
     // must be defined
-    '_temp_fixture_easy_testing' = '___';
+    $_EXTKEY = '___';
 
     /**
      * Registers a Backend Module
