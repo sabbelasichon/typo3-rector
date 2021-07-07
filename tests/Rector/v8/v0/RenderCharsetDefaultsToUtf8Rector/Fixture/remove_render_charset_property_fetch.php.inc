@@ -18,6 +18,7 @@ class MaxWordCount
 
     public function check()
     {
+        $GLOBALS['TSFE']->renderCharset = 'utf-8';
         mb_strlen(trim($this->gp[$this->formFieldName]), $GLOBALS['TSFE']->renderCharset) > 0;
         mb_strlen(trim($this->gp[$this->formFieldName]), $this->getTsfe()->renderCharset) > 0;
     }
@@ -50,6 +51,7 @@ class MaxWordCount
 
     public function check()
     {
+        $GLOBALS['TSFE']->renderCharset = 'utf-8';
         mb_strlen(trim($this->gp[$this->formFieldName]), 'utf-8') > 0;
         mb_strlen(trim($this->gp[$this->formFieldName]), 'utf-8') > 0;
     }
