@@ -45,7 +45,8 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
                 'IENV' => $this->createIndependentCondition($property, $operator, $value),
                 'TSFE' => $this->refactorTsfe($property, $operator, $value),
                 'GP' => $this->refactorGetPost($property, $operator, $value),
-                'LIT' => sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property)
+                'LIT' => sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property),
+                default => '',
             };
         }
 

@@ -60,6 +60,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
                 'ENV' => $this->createEnvCondition($property, $operator, $value),
                 'IENV' => $this->createIndependentCondition($property, $operator, $value),
                 'BE_USER' => $this->createBackendUserCondition($property, $operator, $value),
+                default => '',
             };
         }
 
