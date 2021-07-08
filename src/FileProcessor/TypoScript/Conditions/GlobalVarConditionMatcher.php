@@ -53,19 +53,14 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
                 $conditions[$key] = [];
             }
 
-            if ('TSFE' === $type) {
-                $conditions[$key][] = $this->refactorTsfe($property, $operator, $value);
-            } elseif ('GP' === $type) {
-                $conditions[$key][] = $this->refactorGetPost($property, $operator, $value);
-            } elseif ('LIT' === $type) {
-                $conditions[$key][] = sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property);
-            } elseif ('ENV' === $type) {
-                $conditions[$key][] = $this->createEnvCondition($property, $operator, $value);
-            } elseif ('IENV' === $type) {
-                $conditions[$key][] = $this->createIndependentCondition($property, $operator, $value);
-            } elseif ('BE_USER' === $type) {
-                $conditions[$key][] = $this->createBackendUserCondition($property, $operator, $value);
-            }
+            $conditions[$key][] = match ($type) {
+                'TSFE' => $this->refactorTsfe($property, $operator, $value),
+                'GP' => $this->refactorGetPost($property, $operator, $value),
+                'LIT' => sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property),
+                'ENV' => $this->createEnvCondition($property, $operator, $value),
+                'IENV' => $this->createIndependentCondition($property, $operator, $value),
+                'BE_USER' => $this->createBackendUserCondition($property, $operator, $value),
+            };
         }
 
         $keys = array_keys($conditions);

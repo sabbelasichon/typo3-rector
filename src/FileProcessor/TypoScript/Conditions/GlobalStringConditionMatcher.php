@@ -40,17 +40,13 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
             $operator = trim($matches['operator']);
             $value = trim($matches['value']);
 
-            if ('ENV' === $type) {
-                $newConditions[] = $this->createEnvCondition($property, $operator, $value);
-            } elseif ('IENV' === $type) {
-                $newConditions[] = $this->createIndependentCondition($property, $operator, $value);
-            } elseif ('TSFE' === $type) {
-                $newConditions[] = $this->refactorTsfe($property, $operator, $value);
-            } elseif ('GP' === $type) {
-                $newConditions[] = $this->refactorGetPost($property, $operator, $value);
-            } elseif ('LIT' === $type) {
-                $newConditions[] = sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property);
-            }
+            $newConditions[] = match ($type) {
+                'ENV' => $this->createEnvCondition($property, $operator, $value),
+                'IENV' => $this->createIndependentCondition($property, $operator, $value),
+                'TSFE' => $this->refactorTsfe($property, $operator, $value),
+                'GP' => $this->refactorGetPost($property, $operator, $value),
+                'LIT' => sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property)
+            };
         }
 
         return implode(' || ', $newConditions);

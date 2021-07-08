@@ -42,31 +42,14 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
         }
         /** @var String_ $string */
 
-        switch ($string->value) {
-            case 'date':
-                $type = new ObjectType('TYPO3\CMS\Core\Context\DateTimeAspect');
-                break;
-            case 'visibility':
-                $type = new ObjectType('TYPO3\CMS\Core\Context\VisibilityAspect');
-                break;
-            case 'frontend.user':
-            case 'backend.user':
-                $type = new ObjectType('TYPO3\CMS\Core\Context\UserAspect');
-                break;
-            case 'workspace':
-                $type = new ObjectType('TYPO3\CMS\Core\Context\WorkspaceAspect');
-                break;
-            case 'language':
-                $type = new ObjectType('TYPO3\CMS\Core\Context\LanguageAspect');
-                break;
-            case 'typoscript':
-                $type = new ObjectType('TYPO3\CMS\Core\Context\TypoScriptAspect');
-                break;
-            default:
-                $type = $defaultObjectType;
-                break;
-        }
-
-        return $type;
+        return match($string->value) {
+            'date' => new ObjectType('TYPO3\CMS\Core\Context\DateTimeAspect'),
+            'visibility' => new ObjectType('TYPO3\CMS\Core\Context\VisibilityAspect'),
+            'frontend.user','backend.user' => new ObjectType('TYPO3\CMS\Core\Context\UserAspect'),
+            'workspace' => new ObjectType('TYPO3\CMS\Core\Context\WorkspaceAspect'),
+            'language' => new ObjectType('TYPO3\CMS\Core\Context\LanguageAspect'),
+            'typoscript' => new ObjectType('TYPO3\CMS\Core\Context\TypoScriptAspect'),
+            default => $defaultObjectType,
+        };
     }
 }

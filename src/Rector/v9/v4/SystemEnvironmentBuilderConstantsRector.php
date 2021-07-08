@@ -69,7 +69,7 @@ final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
 
         $value = self::MAP_CONSTANTS_TO_STRING[$constantsName];
 
-        if (false !== strpos($constantsName, 'T3_ERR')) {
+        if (str_contains($constantsName, 'T3_ERR')) {
             return $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Service\AbstractService', $value);
         }
 

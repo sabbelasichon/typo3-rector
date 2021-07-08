@@ -160,7 +160,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (false !== strpos($pathToFile, '/')) {
+        if (str_contains($pathToFile, '/')) {
             return;
         }
 
