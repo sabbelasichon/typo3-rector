@@ -82,7 +82,11 @@ CODE_SAMPLE
         $existingCommands = $this->valueResolver->getValue($node->expr) ?? [];
 
         $commands = array_filter($this->commands, fn (string $command) =>
-            array_reduce($existingCommands, fn($carry, $existingCommand) => $existingCommand['class'] !== $command && $carry, true));
+            array_reduce(
+                $existingCommands,
+                fn ($carry, $existingCommand) => $existingCommand['class'] !== $command && $carry,
+                true
+            ));
 
         foreach ($commands as $commandName => $command) {
             $node->expr->items[] = new ArrayItem($this->nodeFactory->createArray([

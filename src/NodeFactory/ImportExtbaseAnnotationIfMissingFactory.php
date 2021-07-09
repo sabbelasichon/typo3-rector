@@ -24,7 +24,10 @@ final class ImportExtbaseAnnotationIfMissingFactory
 
     public function addExtbaseAliasAnnotationIfMissing(Node $node): void
     {
-        $namespace = $this->betterNodeFinder->findFirstPrevious($node, fn (Node $node): bool => $node instanceof Namespace_);
+        $namespace = $this->betterNodeFinder->findFirstPrevious(
+            $node,
+            fn (Node $node): bool => $node instanceof Namespace_
+        );
 
         $completeImportForPartialAnnotation = new CompleteImportForPartialAnnotation(
             'TYPO3\CMS\Extbase\Annotation',

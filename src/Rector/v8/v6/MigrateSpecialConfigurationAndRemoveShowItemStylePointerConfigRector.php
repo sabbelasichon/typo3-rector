@@ -115,7 +115,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (!str_contains($showitem, ';')) {
+        if (! str_contains($showitem, ';')) {
             // Continue directly if no semicolon is found
             return;
         }

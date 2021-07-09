@@ -177,7 +177,7 @@ CODE_SAMPLE
      */
     private function extractReturnCalls(ClassMethod $node): array
     {
-        return $this->betterNodeFinder->find((array) $node->stmts, fn(Node $node): bool => $node instanceof Return_);
+        return $this->betterNodeFinder->find((array) $node->stmts, fn (Node $node): bool => $node instanceof Return_);
     }
 
     private function hasRedirectCall(ClassMethod $node): bool
@@ -200,7 +200,10 @@ CODE_SAMPLE
 
     private function hasExitCall(ClassMethod $node): bool
     {
-        return (bool) $this->betterNodeFinder->find((array) $node->stmts, fn (Node $node): bool => $node instanceof Exit_);
+        return (bool) $this->betterNodeFinder->find(
+            (array) $node->stmts,
+            fn (Node $node): bool => $node instanceof Exit_
+        );
     }
 
     private function alreadyResponseReturnType(ClassMethod $node): bool

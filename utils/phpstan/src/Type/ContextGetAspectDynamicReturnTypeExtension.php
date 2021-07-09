@@ -42,7 +42,7 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
         }
         /** @var String_ $string */
 
-        return match($string->value) {
+        return match ($string->value) {
             'date' => new ObjectType('TYPO3\CMS\Core\Context\DateTimeAspect'),
             'visibility' => new ObjectType('TYPO3\CMS\Core\Context\VisibilityAspect'),
             'frontend.user','backend.user' => new ObjectType('TYPO3\CMS\Core\Context\UserAspect'),

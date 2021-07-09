@@ -82,7 +82,7 @@ CODE_SAMPLE
         if (
             null === $showItemValue
             || ! is_string($showItemValue)
-            || !str_contains($showItemValue, ';')
+            || ! str_contains($showItemValue, ';')
         ) {
             return;
         }

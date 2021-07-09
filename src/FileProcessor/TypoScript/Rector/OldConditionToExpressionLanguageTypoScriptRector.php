@@ -46,7 +46,7 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
 
         $newConditions = [];
         $applied = false;
-        if (!is_array($conditions)) {
+        if (! is_array($conditions)) {
             return;
         }
         foreach ($conditions as $condition) {
