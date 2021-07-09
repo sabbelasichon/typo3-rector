@@ -52,7 +52,7 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
         if (! is_string($firstArgumentValue)) {
             return null;
         }
-        if (false === strpos($firstArgumentValue, '@')) {
+        if (!str_contains($firstArgumentValue, '@')) {
             return $this->refactorToNativeFunction($firstArgumentValue);
         }
         return $this->refactorToEmailConcatWithNativeFunction($firstArgumentValue);

@@ -113,7 +113,7 @@ CODE_SAMPLE
 
     private function createPropertyAnnotation(string $validatorAnnotation): PhpDocTagNode
     {
-        if (false !== strpos($validatorAnnotation, '(')) {
+        if (str_contains($validatorAnnotation, '(')) {
             preg_match_all('#(?P<validatorName>.*)\((?P<validatorOptions>.*)\)#', $validatorAnnotation, $matches);
 
             $validator = $matches['validatorName'][0];

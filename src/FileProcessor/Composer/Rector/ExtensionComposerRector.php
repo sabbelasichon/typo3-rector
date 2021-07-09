@@ -147,7 +147,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (false === strpos($name, '_')) {
+        if (!str_contains($name, '_')) {
             return;
         }
 

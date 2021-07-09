@@ -41,28 +41,24 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
         $conditions = array_filter($conditions);
         $operators = array_filter($operators);
 
-        $operators = array_map(function (array $match) {
-            return $match[1];
-        }, $operators);
-
-        $conditions = array_map(function (array $match) {
-            return $match[1];
-        }, $conditions);
+        $operators = array_map(fn (array $match) => $match[1], $operators);
+        $conditions = array_map(fn (array $match) => $match[1], $conditions);
 
         $newConditions = [];
         $applied = false;
-        if (is_array($conditions)) {
-            foreach ($conditions as $condition) {
-                foreach ($this->conditionMatchers as $conditionMatcher) {
-                    $condition = trim($condition);
-                    if (! $conditionMatcher->shouldApply($condition)) {
-                        continue;
-                    }
-                    $changedCondition = $conditionMatcher->change($condition);
-                    $applied = true;
-                    if (null !== $changedCondition) {
-                        $newConditions[] = $changedCondition;
-                    }
+        if (!is_array($conditions)) {
+            return;
+        }
+        foreach ($conditions as $condition) {
+            foreach ($this->conditionMatchers as $conditionMatcher) {
+                $condition = trim($condition);
+                if (! $conditionMatcher->shouldApply($condition)) {
+                    continue;
+                }
+                $changedCondition = $conditionMatcher->change($condition);
+                $applied = true;
+                if (null !== $changedCondition) {
+                    $newConditions[] = $changedCondition;
                 }
             }
         }

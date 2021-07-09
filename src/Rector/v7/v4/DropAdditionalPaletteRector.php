@@ -73,7 +73,7 @@ CODE_SAMPLE
         }
 
         $showItemNode = $this->extractArrayItemByKey($typeConfig, 'showitem');
-        if (null === $showItemNode || null === $showItemNode->value) {
+        if (null === $showItemNode?->value) {
             return;
         }
 
@@ -82,7 +82,7 @@ CODE_SAMPLE
         if (
             null === $showItemValue
             || ! is_string($showItemValue)
-            || false === strpos($showItemValue, ';')
+            || !str_contains($showItemValue, ';')
         ) {
             return;
         }

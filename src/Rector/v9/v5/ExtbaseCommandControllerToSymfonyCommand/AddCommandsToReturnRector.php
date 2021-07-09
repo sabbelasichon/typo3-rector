@@ -81,15 +81,8 @@ CODE_SAMPLE
 
         $existingCommands = $this->valueResolver->getValue($node->expr) ?? [];
 
-        $commands = array_filter($this->commands, function (string $command) use ($existingCommands) {
-            foreach ($existingCommands as $existingCommand) {
-                if ($existingCommand['class'] === $command) {
-                    return false;
-                }
-            }
-
-            return true;
-        });
+        $commands = array_filter($this->commands, fn (string $command) =>
+            array_reduce($existingCommands, fn($carry, $existingCommand) => $existingCommand['class'] !== $command && $carry, true));
 
         foreach ($commands as $commandName => $command) {
             $node->expr->items[] = new ArrayItem($this->nodeFactory->createArray([
