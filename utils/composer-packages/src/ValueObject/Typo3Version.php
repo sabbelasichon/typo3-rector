@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\ValueObject;
 
+use Nette\Utils\Strings;
 use Stringable;
 
 final class Typo3Version implements Stringable
@@ -21,7 +22,7 @@ final class Typo3Version implements Stringable
     public function getFullVersion(): string
     {
         $typo3Version = \Ssch\TYPO3Rector\Generator\ValueObject\Typo3Version::createFromString(
-            substr($this->version, 0, -3)
+            Strings::substring($this->version, 0, -3)
         );
         return $typo3Version->getFullVersion();
     }

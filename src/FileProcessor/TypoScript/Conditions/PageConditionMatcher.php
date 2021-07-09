@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions;
 
+use Nette\Utils\Strings;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\Conditions\TyposcriptConditionMatcher;
 
 final class PageConditionMatcher implements TyposcriptConditionMatcher
@@ -15,7 +16,7 @@ final class PageConditionMatcher implements TyposcriptConditionMatcher
 
     public function change(string $condition): ?string
     {
-        preg_match('#' . self::TYPE . '\s*\|(.*)\s*=\s*(.*)#', $condition, $matches);
+        $matches = Strings::match($condition, '#' . self::TYPE . '\s*\|(.*)\s*=\s*(.*)#');
 
         if (! is_array($matches)) {
             return $condition;
@@ -34,6 +35,6 @@ final class PageConditionMatcher implements TyposcriptConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        return 1 === preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '\|#', $condition);
+        return (bool) Strings::match($condition, '#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '\|#');
     }
 }

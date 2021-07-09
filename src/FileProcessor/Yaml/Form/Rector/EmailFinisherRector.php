@@ -43,6 +43,7 @@ final class EmailFinisherRector implements FormYamlRectorInterface
 
     /**
      * @param mixed[] $yaml
+     * @return mixed[]
      */
     public function refactor(array $yaml): array
     {
@@ -110,11 +111,14 @@ final class EmailFinisherRector implements FormYamlRectorInterface
         }
 
         $file = $this->currentFileProvider->getFile();
-        if ($applied && $file instanceof File) {
-            // TODO: How to get the line number of the file?
-            $file->addRectorClassWithLine(new RectorWithLineChange($this, 0));
+        if (!$applied) {
+            return $yaml;
         }
-
+        if (!$file instanceof File) {
+            return $yaml;
+        }
+        // TODO: How to get the line number of the file?
+        $file->addRectorClassWithLine(new RectorWithLineChange($this, 0));
         return $yaml;
     }
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v8\v1;
 
+use PhpParser\Node\Expr;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
@@ -109,11 +110,16 @@ CODE_SAMPLE
         );
     }
 
-    private function refactorMethodCsConv(MethodCall $node): Node
+    private function refactorMethodCsConv(MethodCall $node): Expr|MethodCall
     {
         $from = isset($node->args[1]) ? $this->valueResolver->getValue($node->args[1]->value) : null;
-
-        if ('' === $from || 'null' === $from || null === $from) {
+        if ('' === $from) {
+            return $node->args[0]->value;
+        }
+        if ('null' === $from) {
+            return $node->args[0]->value;
+        }
+        if (null === $from) {
             return $node->args[0]->value;
         }
 

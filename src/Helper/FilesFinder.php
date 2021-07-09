@@ -90,6 +90,6 @@ final class FilesFinder
 
     private function endsWith(SmartFileInfo $fileInfo, string $needle): bool
     {
-        return Strings::endsWith($fileInfo->getFilename(), $needle);
+        return \str_ends_with($fileInfo->getFilename(), $needle);
     }
 }

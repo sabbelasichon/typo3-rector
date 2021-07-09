@@ -154,11 +154,11 @@ CODE_SAMPLE
             return true;
         }
 
-        if (! Strings::endsWith($methodName, 'Action')) {
+        if (! \str_ends_with($methodName, 'Action')) {
             return true;
         }
 
-        if (Strings::startsWith($methodName, 'initialize')) {
+        if (\str_starts_with($methodName, 'initialize')) {
             return true;
         }
 

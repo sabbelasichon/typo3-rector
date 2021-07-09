@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -77,7 +78,7 @@ CODE_SAMPLE
     private function replaceWithRenderingContextGetControllerContext(Class_ $node): void
     {
         foreach ($node->getMethods() as $classMethod) {
-            $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (Node $node) {
+            $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (Node $node): ?MethodCall {
                 if (! $node instanceof PropertyFetch) {
                     return null;
                 }
@@ -86,15 +87,19 @@ CODE_SAMPLE
                 }
 
                 $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
-                if ($parentNode instanceof Assign && $parentNode->var === $node) {
-                    return null;
+                if (!$parentNode instanceof Assign) {
+                    return $this->nodeFactory->createMethodCall(
+                        $this->nodeFactory->createPropertyFetch('this', 'renderingContext'),
+                        'getControllerContext'
+                    );
                 }
-
-                return $this->nodeFactory->createMethodCall(
-                    $this->nodeFactory->createPropertyFetch('this', 'renderingContext'),
-                    'getControllerContext'
-                );
+                if ($parentNode->var !== $node) {
+                    return $this->nodeFactory->createMethodCall(
+                        $this->nodeFactory->createPropertyFetch('this', 'renderingContext'),
+                        'getControllerContext'
+                    );
+                }
+                return null;
             });
         }
     }

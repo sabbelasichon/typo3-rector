@@ -173,12 +173,12 @@ CODE_SAMPLE
         ]);
     }
 
-    private function initializeSuccessVariable(): Node
+    private function initializeSuccessVariable(): Expression
     {
         return new Expression(new Assign(new Variable(self::SUCCESS), $this->nodeFactory->createFalse()));
     }
 
-    private function initializeMailClass(): Node
+    private function initializeMailClass(): Expression
     {
         return new Expression(new Assign(new Variable(self::MAIL), $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Core\Utility\GeneralUtility',
@@ -187,7 +187,7 @@ CODE_SAMPLE
         )));
     }
 
-    private function trimMessage(MethodCall $node): Node
+    private function trimMessage(MethodCall $node): Assign
     {
         return new Assign(new Variable(self::MESSAGE), $this->nodeFactory->createFuncCall(
             self::TRIM,
@@ -195,7 +195,7 @@ CODE_SAMPLE
         ));
     }
 
-    private function trimSenderName(MethodCall $methodCall): Node
+    private function trimSenderName(MethodCall $methodCall): Expression
     {
         return new Expression(new Assign(new Variable('senderName'), $this->nodeFactory->createFuncCall(
             self::TRIM,
@@ -203,7 +203,7 @@ CODE_SAMPLE
         )));
     }
 
-    private function trimSenderAddress(MethodCall $node): Node
+    private function trimSenderAddress(MethodCall $node): Expression
     {
         return new Expression(new Assign(new Variable(self::SENDER_ADDRESS), $this->nodeFactory->createFuncCall(
             self::TRIM,
@@ -221,7 +221,7 @@ CODE_SAMPLE
         ]);
     }
 
-    private function ifSenderAddress(): Node
+    private function ifSenderAddress(): If_
     {
         $mailFromMethodCall = $this->mailFromMethodCall();
         $ifSenderName = new If_(new NotIdentical(new Variable(self::SENDER_ADDRESS), new String_('')));
@@ -297,7 +297,7 @@ CODE_SAMPLE
         return new Expression(new Assign(new Variable(self::SUCCESS), $this->nodeFactory->createTrue()));
     }
 
-    private function parsedReplyTo(Expr $replyTo): Node
+    private function parsedReplyTo(Expr $replyTo): Expression
     {
         return new Expression(new Assign(new Variable(self::PARSED_REPLY_TO), $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Core\Utility\MailUtility',
@@ -306,7 +306,7 @@ CODE_SAMPLE
         )));
     }
 
-    private function methodReplyTo(): Node
+    private function methodReplyTo(): If_
     {
         $ifNode = new If_(new BooleanNot(new Empty_(new Variable(self::PARSED_REPLY_TO))));
         $ifNode->stmts[] = new Expression($this->nodeFactory->createMethodCall(

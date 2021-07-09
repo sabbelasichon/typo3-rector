@@ -194,7 +194,7 @@ CODE_SAMPLE
         );
     }
 
-    private function throwException(): Node
+    private function throwException(): Throw_
     {
         return new Throw_(
             new New_(new Name('TYPO3\CMS\Core\Http\ImmediateResponseException'), $this->nodeFactory->createArgs(
@@ -203,7 +203,7 @@ CODE_SAMPLE
         );
     }
 
-    private function refactorCheckPageUnavailableHandlerMethod(): Node
+    private function refactorCheckPageUnavailableHandlerMethod(): BooleanAnd
     {
         $devIpMask = new ArrayDimFetch(
             new ArrayDimFetch(
@@ -293,7 +293,7 @@ CODE_SAMPLE
     {
         try {
             $this->removeNode($node);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
+        } catch (ShouldNotHappenException) {
             $this->removeNode($node->getAttribute(AttributeKey::PARENT_NODE));
         }
     }

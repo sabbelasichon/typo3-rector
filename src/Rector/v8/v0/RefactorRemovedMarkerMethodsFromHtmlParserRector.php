@@ -144,17 +144,14 @@ CODE_SAMPLE
         ]);
     }
 
-    /**
-     * @param StaticCall|MethodCall $node
-     */
-    public function removeMethods(Node $node): void
+    public function removeMethods(StaticCall|MethodCall $node): void
     {
         if ($this->isNames($node->name, self::REMOVED_METHODS)) {
             $methodName = $this->getName($node->name);
             if (null !== $methodName) {
                 try {
                     $this->removeNode($node);
-                } catch (ShouldNotHappenException $shouldNotHappenException) {
+                } catch (ShouldNotHappenException) {
                     $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
                     $this->removeNode($parentNode);
                 }
@@ -162,10 +159,7 @@ CODE_SAMPLE
         }
     }
 
-    /**
-     * @param StaticCall|MethodCall $node
-     */
-    public function renameMethod(Node $node): void
+    public function renameMethod(StaticCall|MethodCall $node): void
     {
         if ($this->isName($node->name, self::RENAMED_METHOD)) {
             $methodName = $this->getName($node->name);
@@ -175,10 +169,7 @@ CODE_SAMPLE
         }
     }
 
-    /**
-     * @param StaticCall|MethodCall $node
-     */
-    private function migrateMethodsToMarkerBasedTemplateService(Node $node): ?Node
+    private function migrateMethodsToMarkerBasedTemplateService(StaticCall|MethodCall $node): ?Node
     {
         if ($this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
             $methodName = $this->getName($node->name);
@@ -198,17 +189,13 @@ CODE_SAMPLE
         return null;
     }
 
-    /**
-     * @param StaticCall|MethodCall $node
-     */
-    private function shouldSkip(Node $node): bool
+    private function shouldSkip(StaticCall|MethodCall $node): bool
     {
-        $skip = false;
         if (! $this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)
             && ! $this->isNames($node->name, self::REMOVED_METHODS)
             && ! $this->isName($node->name, self::RENAMED_METHOD)) {
-            $skip = true;
+            return true;
         }
-        return $skip;
+        return false;
     }
 }

@@ -53,11 +53,16 @@ final class ConstantsToEnvironmentApiCallRector extends AbstractRector
         if ($node instanceof ConstFetch) {
             return $this->refactorConstants($node);
         }
-
-        if (! $node->left instanceof ConstFetch || ! $node->right instanceof ConstFetch) {
+        if (! $node->left instanceof ConstFetch) {
             return null;
         }
-        if (! $this->isNames($node->left, self::ALLOWED_NAMES) || ! $this->isNames(
+        if (! $node->right instanceof ConstFetch) {
+            return null;
+        }
+        if (! $this->isNames($node->left, self::ALLOWED_NAMES)) {
+            return null;
+        }
+        if (! $this->isNames(
             $node->right,
             self::ALLOWED_NAMES
         )) {

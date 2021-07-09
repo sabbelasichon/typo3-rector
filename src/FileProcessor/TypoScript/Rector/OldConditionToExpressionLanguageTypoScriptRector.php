@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector;
 
+use Nette\Utils\Strings;
 use Helmich\TypoScriptParser\Parser\AST\ConditionalStatement;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use LogicException;
@@ -35,13 +36,14 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
             return;
         }
 
-        preg_match_all('#\[(.*)]#imU', $statement->condition, $conditions, PREG_SET_ORDER);
-        preg_match_all('#]\s*(&&|\|\||AND|OR)#imU', $statement->condition, $operators, PREG_SET_ORDER);
+        $conditions = Strings::matchAll($statement->condition, '#\[(.*)]#imU');
+        $operators = Strings::matchAll($statement->condition, '#]\s*(&&|\|\||AND|OR)#imU');
 
         $conditions = array_filter($conditions);
         $operators = array_filter($operators);
 
         $operators = array_map(fn (array $match) => $match[1], $operators);
+
         $conditions = array_map(fn (array $match) => $match[1], $conditions);
 
         $newConditions = [];

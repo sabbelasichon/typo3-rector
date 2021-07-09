@@ -17,13 +17,9 @@ final class HostnameConditionMatcher implements TyposcriptConditionMatcher
 
     public function change(string $condition): ?string
     {
-        preg_match(
-            '#' . self::TYPE
-            . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
-            . self::ZERO_ONE_OR_MORE_WHITESPACES . '(.*)#',
-            $condition,
-            $matches
-        );
+        $matches = Strings::match($condition, '#' . self::TYPE
+        . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
+        . self::ZERO_ONE_OR_MORE_WHITESPACES . '(.*)#');
 
         if (! is_array($matches)) {
             return $condition;
@@ -33,7 +29,7 @@ final class HostnameConditionMatcher implements TyposcriptConditionMatcher
 
         $newConditions = [];
         foreach ($values as $value) {
-            if (Strings::contains($value, '*')) {
+            if (\str_contains($value, '*')) {
                 $newConditions[] = sprintf('like(request.getNormalizedParams().getHttpHost(), "%s")', $value);
             } else {
                 $newConditions[] = sprintf('request.getNormalizedParams().getHttpHost() == "%s"', $value);
@@ -45,10 +41,10 @@ final class HostnameConditionMatcher implements TyposcriptConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        if (Strings::contains($condition, self::CONTAINS_CONSTANT)) {
+        if (\str_contains($condition, self::CONTAINS_CONSTANT)) {
             return false;
         }
 
-        return 1 === preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#', $condition);
+        return (bool) Strings::match($condition, '#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#');
     }
 }

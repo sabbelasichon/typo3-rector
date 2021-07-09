@@ -335,8 +335,10 @@ CODE_SAMPLE
     {
         $orderByArgument = $node->args[5] ?? null;
         $orderBy = null !== $orderByArgument ? $this->valueResolver->getValue($orderByArgument->value) : '';
-
-        if ('' === $orderBy || 'null' === $orderBy) {
+        if ('' === $orderBy) {
+            return;
+        }
+        if ('null' === $orderBy) {
             return;
         }
 

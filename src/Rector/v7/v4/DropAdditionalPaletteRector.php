@@ -78,12 +78,13 @@ CODE_SAMPLE
         }
 
         $showItemValue = $this->valueResolver->getValue($showItemNode->value);
-
-        if (
-            null === $showItemValue
-            || ! is_string($showItemValue)
-            || !str_contains($showItemValue, ';')
-        ) {
+        if (null === $showItemValue) {
+            return;
+        }
+        if (! is_string($showItemValue)) {
+            return;
+        }
+        if (!str_contains($showItemValue, ';')) {
             return;
         }
         $itemList = ArrayUtility::trimExplode(',', $showItemValue, true);

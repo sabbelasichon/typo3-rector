@@ -97,9 +97,7 @@ final class Typo3GenerateCommand extends Command
     private function askForRstFile(): Question
     {
         $whatIsTheUrlToRstFile = new Question('Url to rst file: ');
-        $whatIsTheUrlToRstFile->setNormalizer(function ($url) {
-            return Url::createFromString(trim($url));
-        });
+        $whatIsTheUrlToRstFile->setNormalizer(fn($url): Url => Url::createFromString(trim($url)));
 
         return $whatIsTheUrlToRstFile;
     }
@@ -107,9 +105,7 @@ final class Typo3GenerateCommand extends Command
     private function askForTypo3Version(): Question
     {
         $whatTypo3Version = new Question('TYPO3-Version (i.e. 8.1): ');
-        $whatTypo3Version->setNormalizer(function ($version) {
-            return Typo3Version::createFromString(trim($version));
-        });
+        $whatTypo3Version->setNormalizer(fn($version): Typo3Version => Typo3Version::createFromString(trim($version)));
 
         return $whatTypo3Version;
     }
@@ -117,9 +113,7 @@ final class Typo3GenerateCommand extends Command
     private function askForName(): Question
     {
         $giveMeYourName = new Question('Name: ');
-        $giveMeYourName->setNormalizer(function ($name) {
-            return Name::createFromString(trim($name));
-        });
+        $giveMeYourName->setNormalizer(fn($name): Name => Name::createFromString(trim($name)));
 
         return $giveMeYourName;
     }
@@ -127,7 +121,7 @@ final class Typo3GenerateCommand extends Command
     private function askForDescription(): Question
     {
         $description = new Question('Description: ');
-        $description->setValidator(function ($description) {
+        $description->setValidator(function ($description): string {
             if (! is_string($description)) {
                 throw new RuntimeException('The description must not be empty');
             }
@@ -165,7 +159,7 @@ final class Typo3GenerateCommand extends Command
     private function resolveTestCaseDirectoryPath(array $generatedFilePaths): string
     {
         foreach ($generatedFilePaths as $generatedFilePath) {
-            if (! Strings::endsWith($generatedFilePath, 'Test.php')) {
+            if (! \str_ends_with($generatedFilePath, 'Test.php')) {
                 continue;
             }
 

@@ -16,10 +16,10 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
 
     public function change(string $condition): ?string
     {
-        preg_match('#' . self::TYPE
+        $subConditions = Strings::match($condition, '#' . self::TYPE
                    . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
                    . self::ZERO_ONE_OR_MORE_WHITESPACES .
-                   '(?<subCondition>.*)#', $condition, $subConditions);
+                   '(?<subCondition>.*)#');
 
         if (! is_string($subConditions['subCondition'])) {
             return $condition;
@@ -29,11 +29,7 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
 
         $newConditions = [];
         foreach ($subConditions as $subCondition) {
-            preg_match(
-                '#(?<type>ENV|IENV|GP|TSFE|LIT)' . self::ZERO_ONE_OR_MORE_WHITESPACES . ':' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
-                $subCondition,
-                $matches
-            );
+            $matches = Strings::match($subCondition, '#(?<type>ENV|IENV|GP|TSFE|LIT)' . self::ZERO_ONE_OR_MORE_WHITESPACES . ':' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui');
 
             $type = trim($matches['type']);
             $property = trim($matches['property']);
@@ -55,11 +51,11 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        if (Strings::contains($condition, self::CONTAINS_CONSTANT)) {
+        if (\str_contains($condition, self::CONTAINS_CONSTANT)) {
             return false;
         }
 
-        return Strings::startsWith($condition, self::TYPE);
+        return \str_starts_with($condition, self::TYPE);
     }
 
     private function refactorGetPost(string $property, string $operator, string $value): string

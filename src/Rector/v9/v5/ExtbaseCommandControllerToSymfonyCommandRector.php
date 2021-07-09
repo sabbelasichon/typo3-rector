@@ -247,7 +247,7 @@ CODE_SAMPLE
      */
     private function findCommandMethods(Class_ $node): array
     {
-        return $this->betterNodeFinder->find($node->stmts, function (Node $node) {
+        return $this->betterNodeFinder->find($node->stmts, function (Node $node): ?bool {
             if (! $node instanceof ClassMethod) {
                 return false;
             }
@@ -262,7 +262,7 @@ CODE_SAMPLE
                 return null;
             }
 
-            return Strings::endsWith($methodName, 'Command');
+            return \str_ends_with($methodName, 'Command');
         });
     }
 

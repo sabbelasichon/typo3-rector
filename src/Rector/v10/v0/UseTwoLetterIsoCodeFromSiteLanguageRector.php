@@ -53,16 +53,20 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
         }
 
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
         // Check if we have an assigment to the property, if so do not change it
-        if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
-            return null;
+        if (!$parentNode instanceof Assign) {
+            return $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createMethodCall($node->var, 'getLanguage'),
+                'getTwoLetterIsoCode'
+            );
         }
-
-        return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createMethodCall($node->var, 'getLanguage'),
-            'getTwoLetterIsoCode'
-        );
+        if (!$parentNode->var instanceof PropertyFetch) {
+            return $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createMethodCall($node->var, 'getLanguage'),
+                'getTwoLetterIsoCode'
+            );
+        }
+        return null;
     }
 
     /**

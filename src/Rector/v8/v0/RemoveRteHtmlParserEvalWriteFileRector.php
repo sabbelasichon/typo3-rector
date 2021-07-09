@@ -49,7 +49,7 @@ final class RemoveRteHtmlParserEvalWriteFileRector extends AbstractRector
             try {
                 $this->removeNode($node);
                 return $node;
-            } catch (ShouldNotHappenException $shouldNotHappenException) {
+            } catch (ShouldNotHappenException) {
                 $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
                 $this->removeNode($parentNode);
                 return $node;

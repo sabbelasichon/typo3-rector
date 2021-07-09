@@ -50,8 +50,10 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
         if ($node instanceof FuncCall && $this->isName($node, 'defined')) {
             return $this->refactorProbablySecurityGate($node);
         }
-
-        if ($this->filesFinder->isExtLocalConf($fileInfo) || $this->filesFinder->isExtTables($fileInfo)) {
+        if ($this->filesFinder->isExtLocalConf($fileInfo)) {
+            return null;
+        }
+        if ($this->filesFinder->isExtTables($fileInfo)) {
             return null;
         }
 
@@ -78,8 +80,10 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
         $type = $parentNode->left === $node ? $this->valueResolver->getValue(
             $parentNode->right
         ) : $this->valueResolver->getValue($parentNode->left);
-
-        if (null === $type || ! in_array($type, ['FE', 'BE'], true)) {
+        if (null === $type) {
+            return null;
+        }
+        if (! in_array($type, ['FE', 'BE'], true)) {
             return null;
         }
 

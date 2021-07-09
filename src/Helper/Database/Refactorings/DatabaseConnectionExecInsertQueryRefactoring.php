@@ -25,8 +25,10 @@ final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConn
     {
         $tableArgument = array_shift($oldNode->args);
         $dataArgument = array_shift($oldNode->args);
-
-        if (null === $tableArgument || null === $dataArgument) {
+        if (null === $tableArgument) {
+            return [];
+        }
+        if (null === $dataArgument) {
             return [];
         }
 

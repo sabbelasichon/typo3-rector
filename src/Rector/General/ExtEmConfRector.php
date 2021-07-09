@@ -92,8 +92,10 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
         if (! $node->expr instanceof Array_) {
             return null;
         }
-
-        if ([] === $node->expr->items || null === $node->expr->items) {
+        if ([] === $node->expr->items) {
+            return null;
+        }
+        if (null === $node->expr->items) {
             return null;
         }
 

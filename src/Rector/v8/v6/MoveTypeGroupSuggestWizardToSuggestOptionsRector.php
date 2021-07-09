@@ -203,18 +203,16 @@ CODE_SAMPLE
 
     private function isEmpty(Array_ $array): bool
     {
-        $nodeEmpty = true;
         foreach ($array->items as $item) {
             if (null !== $item && ! $this->nodesToRemoveCollector->isNodeRemoved($item)) {
                 if (null === $item->key) {
                     continue;
                 }
-                if (! Strings::startsWith($this->valueResolver->getValue($item->key), '_')) {
-                    $nodeEmpty = false;
-                    break;
+                if (! \str_starts_with($this->valueResolver->getValue($item->key), '_')) {
+                    return false;
                 }
             }
         }
-        return $nodeEmpty;
+        return true;
     }
 }

@@ -117,7 +117,10 @@ CODE_SAMPLE
 
     private function refactorArrayItemOption(ArrayItem $parent, ClassConstFetch $node): void
     {
-        if (null === $parent->key || ! $this->valueResolver->isValue($parent->key, self::FORMAT)) {
+        if (null === $parent->key) {
+            return;
+        }
+        if (! $this->valueResolver->isValue($parent->key, self::FORMAT)) {
             return;
         }
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
@@ -133,7 +136,10 @@ CODE_SAMPLE
         if (! $this->isName($parent->var->var, 'options')) {
             return;
         }
-        if (null === $parent->var->dim || ! $this->valueResolver->isValue($parent->var->dim, self::FORMAT)) {
+        if (null === $parent->var->dim) {
+            return;
+        }
+        if (! $this->valueResolver->isValue($parent->var->dim, self::FORMAT)) {
             return;
         }
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
@@ -149,7 +155,10 @@ CODE_SAMPLE
         if (! $this->isName($parent->left->var, 'options')) {
             return;
         }
-        if (null === $parent->left->dim || ! $this->valueResolver->isValue($parent->left->dim, self::FORMAT)) {
+        if (null === $parent->left->dim) {
+            return;
+        }
+        if (! $this->valueResolver->isValue($parent->left->dim, self::FORMAT)) {
             return;
         }
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);

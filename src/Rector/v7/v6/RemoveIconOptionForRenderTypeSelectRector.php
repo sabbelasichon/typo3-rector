@@ -162,8 +162,10 @@ CODE_SAMPLE
                 if (! $doSomething) {
                     continue;
                 }
-
-                if (null === $renderType || 'selectSingle' !== $renderType) {
+                if (null === $renderType) {
+                    continue;
+                }
+                if ('selectSingle' !== $renderType) {
                     continue;
                 }
 

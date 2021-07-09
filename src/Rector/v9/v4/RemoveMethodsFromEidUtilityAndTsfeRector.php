@@ -68,7 +68,7 @@ final class RemoveMethodsFromEidUtilityAndTsfeRector extends AbstractRector
 
         try {
             $this->removeNode($node);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
+        } catch (ShouldNotHappenException) {
             return null;
         }
 
@@ -97,10 +97,7 @@ CODE_SAMPLE
         ]);
     }
 
-    /**
-     * @param StaticCall|MethodCall $node
-     */
-    private function shouldSkip(Node $node): bool
+    private function shouldSkip(StaticCall|MethodCall $node): bool
     {
         if ($this->isEidUtilityMethodCall($node)) {
             return false;
@@ -109,10 +106,7 @@ CODE_SAMPLE
         return ! $this->isMethodCallOnTsfe($node);
     }
 
-    /**
-     * @param StaticCall|MethodCall $node
-     */
-    private function isEidUtilityMethodCall(Node $node): bool
+    private function isEidUtilityMethodCall(StaticCall|MethodCall $node): bool
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,

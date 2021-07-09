@@ -39,7 +39,7 @@ final class ExtensionVersion implements Stringable
         return in_array($typo3Version, $this->typo3Versions, false);
     }
 
-    public function highestSupportedTypo3Version(): Typo3Version
+    public function highestSupportedTypo3Version(): string
     {
         return Semver::rsort($this->typo3Versions)[0];
     }
@@ -61,6 +61,9 @@ final class ExtensionVersion implements Stringable
 
     public function equals(self $extensionVersion): bool
     {
-        return $extensionVersion->version() === $this->version() && $this->packageName() === $extensionVersion->packageName();
+        if ($extensionVersion->version() !== $this->version()) {
+            return false;
+        }
+        return $this->packageName() === $extensionVersion->packageName();
     }
 }

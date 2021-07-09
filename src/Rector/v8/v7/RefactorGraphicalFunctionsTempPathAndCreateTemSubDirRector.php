@@ -183,12 +183,13 @@ CODE_SAMPLE
         }
 
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
         // Check if we have an assigment to the property, if so do not change it
-        if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
-            return null;
+        if (!$parentNode instanceof Assign) {
+            return new String_('typo3temp/');
         }
-
-        return new String_('typo3temp/');
+        if (!$parentNode->var instanceof PropertyFetch) {
+            return new String_('typo3temp/');
+        }
+        return null;
     }
 }

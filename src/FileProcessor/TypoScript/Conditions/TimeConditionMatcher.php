@@ -30,14 +30,10 @@ final class TimeConditionMatcher implements TyposcriptConditionMatcher
 
     public function change(string $condition): ?string
     {
-        preg_match(
-            '#^(?<time>' . self::ALLOWED_TIME_CONSTANTS . ')'
-            . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
-            . self::ZERO_ONE_OR_MORE_WHITESPACES .
-            '(?<operatorsAndValues>.*)$#Ui',
-            $condition,
-            $matches
-        );
+        $matches = Strings::match($condition, '#^(?<time>' . self::ALLOWED_TIME_CONSTANTS . ')'
+        . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
+        . self::ZERO_ONE_OR_MORE_WHITESPACES .
+        '(?<operatorsAndValues>.*)$#Ui');
 
         if (! is_array($matches)) {
             return $condition;
@@ -49,11 +45,7 @@ final class TimeConditionMatcher implements TyposcriptConditionMatcher
         $newConditions = [];
         $operatorsAndValues = ArrayUtility::trimExplode(',', $value, true);
         foreach ($operatorsAndValues as $operatorAndValue) {
-            preg_match(
-                '#(?<operator>' . self::ALLOWED_OPERATORS_REGEX . '|\b)' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
-                $operatorAndValue,
-                $operatorAndValueMatches
-            );
+            $operatorAndValueMatches = Strings::match($operatorAndValue, '#(?<operator>' . self::ALLOWED_OPERATORS_REGEX . '|\b)' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui');
 
             if (! is_array($operatorAndValueMatches)) {
                 continue;

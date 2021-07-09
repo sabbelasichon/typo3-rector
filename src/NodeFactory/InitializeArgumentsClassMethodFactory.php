@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\NodeFactory;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ConstFetch;
@@ -222,7 +223,7 @@ final class InitializeArgumentsClassMethodFactory
         );
 
         $docString = $phpStanType->describe(VerbosityLevel::typeOnly());
-        if ('[]' === substr($docString, -2)) {
+        if ('[]' === Strings::substring($docString, -2)) {
             return 'array';
         }
 

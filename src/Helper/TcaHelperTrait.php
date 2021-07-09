@@ -83,13 +83,16 @@ trait TcaHelperTrait
             if (null === $configItemValue->key) {
                 continue;
             }
-
-            if ($this->isValue($configItemValue->key, $configKey) && $this->isValue(
+            if (!$this->isValue($configItemValue->key, $configKey)) {
+                continue;
+            }
+            if (!$this->isValue(
                 $configItemValue->value,
                 $expectedValue
             )) {
-                return true;
+                continue;
             }
+            return true;
         }
 
         return false;

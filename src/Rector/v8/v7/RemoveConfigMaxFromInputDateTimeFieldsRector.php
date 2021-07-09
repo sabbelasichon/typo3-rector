@@ -153,13 +153,16 @@ CODE_SAMPLE
             if (null === $configItemValue->key) {
                 continue;
             }
-
-            if ($this->valueResolver->isValue($configItemValue->key, 'renderType') && $this->valueResolver->isValue(
+            if (!$this->valueResolver->isValue($configItemValue->key, 'renderType')) {
+                continue;
+            }
+            if (!$this->valueResolver->isValue(
                 $configItemValue->value,
                 'inputDateTime'
             )) {
-                return true;
+                continue;
             }
+            return true;
         }
 
         return false;

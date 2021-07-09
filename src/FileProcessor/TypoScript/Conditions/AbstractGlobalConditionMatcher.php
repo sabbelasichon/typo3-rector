@@ -55,7 +55,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
 
     protected function refactorTsfe(string $property, string $operator, string $value): string
     {
-        if (Strings::startsWith($property, 'page')) {
+        if (\str_starts_with($property, 'page')) {
             $parameters = ArrayUtility::trimExplode('|', $property, true);
             return sprintf('page["%s"] %s %s', $parameters[1], self::OPERATOR_MAPPING[$operator], $value);
         }
@@ -72,7 +72,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
     {
         $condition = 'ERROR not implemented';
         if (array_key_exists($property, self::IENV_MAPPING_NORMALIZED)) {
-            if (Strings::contains($value, '*')) {
+            if (\str_contains($value, '*')) {
                 return sprintf(
                     'like(request.getNormalizedParams().%s(), "%s")',
                     self::IENV_MAPPING_NORMALIZED[$property],
@@ -80,7 +80,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
                 );
             }
 
-            if (Strings::startsWith(self::IENV_MAPPING_NORMALIZED[$property], 'get')) {
+            if (\str_starts_with(self::IENV_MAPPING_NORMALIZED[$property], 'get')) {
                 $condition = sprintf(
                     'request.getNormalizedParams().%s() %s "%s"',
                     self::IENV_MAPPING_NORMALIZED[$property],
@@ -95,7 +95,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
             }
         }
         if (in_array($property, self::IENV_KEEP_SERVER_PARAMS, true)) {
-            if (Strings::contains($value, '*')) {
+            if (\str_contains($value, '*')) {
                 return sprintf('like(request.getServerParams()[\'%s\'], "%s")', $property, $value);
             }
             $condition = sprintf(

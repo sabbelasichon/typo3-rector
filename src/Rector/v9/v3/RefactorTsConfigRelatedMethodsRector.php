@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v9\v3;
 
+use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
@@ -87,8 +88,10 @@ CODE_SAMPLE
         if (null === $value) {
             return null;
         }
-
-        if (! is_string($value) || '' === $value) {
+        if (! is_string($value)) {
+            return null;
+        }
+        if ('' === $value) {
             return null;
         }
 
@@ -132,7 +135,7 @@ CODE_SAMPLE
         return explode('.', $objectString);
     }
 
-    private function transformToSpecificCast(Cast $node): Expr
+    private function transformToSpecificCast(Cast $node): \PhpParser\Node\Expr\Array_|\PhpParser\Node\Scalar\String_|ConstFetch|LNumber
     {
         if ($node instanceof Array_) {
             return $this->nodeFactory->createArray([]);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v10\v0;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -174,17 +175,24 @@ CODE_SAMPLE
         if (isset($node->args[2]) && $node->args[2]->value instanceof Array_) {
             $this->createNewControllerActionsArray($node->args[2]->value, $vendorName, $extensionName);
         }
-
-        if (isset($node->args[3]) && $node->args[3]->value instanceof Array_) {
-            $this->createNewControllerActionsArray($node->args[3]->value, $vendorName, $extensionName);
+        if (!isset($node->args[3])) {
+            return;
         }
+        if (!$node->args[3]->value instanceof Array_) {
+            return;
+        }
+        $this->createNewControllerActionsArray($node->args[3]->value, $vendorName, $extensionName);
     }
 
     private function refactorRegisterPluginMethod(StaticCall $node, string $vendorName, string $extensionName): void
     {
-        if (isset($node->args[4]) && $node->args[4]->value instanceof Array_) {
-            $this->createNewControllerActionsArray($node->args[4]->value, $vendorName, $extensionName);
+        if (!isset($node->args[4])) {
+            return;
         }
+        if (!$node->args[4]->value instanceof Array_) {
+            return;
+        }
+        $this->createNewControllerActionsArray($node->args[4]->value, $vendorName, $extensionName);
     }
 
     private function isPotentiallyUndefinedExtensionKeyVariable(Concat $extensionNameArgumentValue): bool
@@ -202,6 +210,6 @@ CODE_SAMPLE
 
     private function prepareVendorName(string $extensionName, int $delimiterPosition): string
     {
-        return str_replace('.', '\\', substr($extensionName, 0, $delimiterPosition));
+        return str_replace('.', '\\', Strings::substring($extensionName, 0, $delimiterPosition));
     }
 }

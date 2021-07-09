@@ -48,19 +48,26 @@ final class UseContextApiForVersioningWorkspaceIdRector extends AbstractRector
         }
 
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
         // Check if we have an assigment to the property, if so do not change it
-        if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
-            return null;
+        if (!$parentNode instanceof Assign) {
+            return $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                    $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
+                ]),
+                'getPropertyFromAspect',
+                ['workspace', 'id', 0]
+            );
         }
-
-        return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
-                $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
-            ]),
-            'getPropertyFromAspect',
-            ['workspace', 'id', 0]
-        );
+        if (!$parentNode->var instanceof PropertyFetch) {
+            return $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
+                    $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
+                ]),
+                'getPropertyFromAspect',
+                ['workspace', 'id', 0]
+            );
+        }
+        return null;
     }
 
     /**

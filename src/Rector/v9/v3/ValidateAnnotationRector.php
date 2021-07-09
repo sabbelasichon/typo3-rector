@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v9\v3;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
@@ -57,7 +58,7 @@ final class ValidateAnnotationRector extends AbstractRector
                 continue;
             }
 
-            $validators = preg_split('#[,](?![^(]*\))#', (string) $tagNode->value);
+            $validators = Strings::split((string) $tagNode->value, '#[,](?![^(]*\))#', 0 & ~PREG_SPLIT_DELIM_CAPTURE);
 
             if (! is_array($validators)) {
                 continue;
@@ -114,16 +115,12 @@ CODE_SAMPLE
     private function createPropertyAnnotation(string $validatorAnnotation): PhpDocTagNode
     {
         if (str_contains($validatorAnnotation, '(')) {
-            preg_match_all('#(?P<validatorName>.*)\((?P<validatorOptions>.*)\)#', $validatorAnnotation, $matches);
+            $matches = Strings::matchAll($validatorAnnotation, '#(?P<validatorName>.*)\((?P<validatorOptions>.*)\)#', PREG_SET_ORDER - 1);
 
             $validator = $matches['validatorName'][0];
             $options = $matches['validatorOptions'][0];
 
-            preg_match_all(
-                '#\s*(?P<optionName>[a-z0-9]+)\s*=\s*(?P<optionValue>"(?:"|[^"])*"|\'(?:\\\\\'|[^\'])*\'|(?:\s|[^,"\']*))#ixS',
-                $options,
-                $optionNamesValues
-            );
+            $optionNamesValues = Strings::matchAll($options, '#\s*(?P<optionName>[a-z0-9]+)\s*=\s*(?P<optionValue>"(?:"|[^"])*"|\'(?:\\\\\'|[^\'])*\'|(?:\s|[^,"\']*))#ixS', PREG_SET_ORDER - 1);
 
             $optionNames = $optionNamesValues['optionName'];
             $optionValues = $optionNamesValues['optionValue'];

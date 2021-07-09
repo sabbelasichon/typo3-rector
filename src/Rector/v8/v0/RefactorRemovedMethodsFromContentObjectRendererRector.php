@@ -107,14 +107,20 @@ CODE_SAMPLE
     private function shouldSkip(MethodCall $node): bool
     {
         $staticType = $this->getStaticType($node->var);
-        if ($staticType instanceof TypeWithClassName && 'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer' === $staticType->getClassName()) {
-            return false;
+        if (!$staticType instanceof TypeWithClassName) {
+            return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
+                $node,
+                Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
+                'cObj'
+            );
         }
-
-        return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
-            $node,
-            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
-            'cObj'
-        );
+        if ('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer' !== $staticType->getClassName()) {
+            return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
+                $node,
+                Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
+                'cObj'
+            );
+        }
+        return false;
     }
 }
