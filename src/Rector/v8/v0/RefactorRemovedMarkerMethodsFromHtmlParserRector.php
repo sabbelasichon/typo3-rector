@@ -144,7 +144,7 @@ CODE_SAMPLE
         ]);
     }
 
-    public function removeMethods(StaticCall|MethodCall $node): void
+    public function removeMethods(StaticCall | MethodCall $node): void
     {
         if ($this->isNames($node->name, self::REMOVED_METHODS)) {
             $methodName = $this->getName($node->name);
@@ -159,7 +159,7 @@ CODE_SAMPLE
         }
     }
 
-    public function renameMethod(StaticCall|MethodCall $node): void
+    public function renameMethod(StaticCall | MethodCall $node): void
     {
         if ($this->isName($node->name, self::RENAMED_METHOD)) {
             $methodName = $this->getName($node->name);
@@ -169,7 +169,7 @@ CODE_SAMPLE
         }
     }
 
-    private function migrateMethodsToMarkerBasedTemplateService(StaticCall|MethodCall $node): ?Node
+    private function migrateMethodsToMarkerBasedTemplateService(StaticCall | MethodCall $node): ?Node
     {
         if ($this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
             $methodName = $this->getName($node->name);
@@ -189,13 +189,17 @@ CODE_SAMPLE
         return null;
     }
 
-    private function shouldSkip(StaticCall|MethodCall $node): bool
+    private function shouldSkip(StaticCall | MethodCall $node): bool
     {
-        if (! $this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)
-            && ! $this->isNames($node->name, self::REMOVED_METHODS)
-            && ! $this->isName($node->name, self::RENAMED_METHOD)) {
-            return true;
+        if ($this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
+            return false;
         }
-        return false;
+        if ($this->isNames($node->name, self::REMOVED_METHODS)) {
+            return false;
+        }
+        return ! $this->isName($node->name, self::RENAMED_METHOD);
+        return ! $this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)
+            && ! $this->isNames($node->name, self::REMOVED_METHODS)
+            && ! $this->isName($node->name, self::RENAMED_METHOD);
     }
 }
