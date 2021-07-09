@@ -198,8 +198,12 @@ CODE_SAMPLE
             return false;
         }
         return ! $this->isName($node->name, self::RENAMED_METHOD);
-        return ! $this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)
-            && ! $this->isNames($node->name, self::REMOVED_METHODS)
-            && ! $this->isName($node->name, self::RENAMED_METHOD);
+        if ($this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
+            return false;
+        }
+        if ($this->isNames($node->name, self::REMOVED_METHODS)) {
+            return false;
+        }
+        return ! $this->isName($node->name, self::RENAMED_METHOD);
     }
 }
