@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v9\v4;
 
+use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
@@ -196,7 +197,7 @@ CODE_SAMPLE
         return $propertyTagsValuesVariable;
     }
 
-    private function refactorGetClassPropertyNamesMethod(MethodCall $node): Node
+    private function refactorGetClassPropertyNamesMethod(MethodCall $node): FuncCall
     {
         return $this->nodeFactory->createFuncCall(
             'array_keys',

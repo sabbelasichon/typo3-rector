@@ -16,7 +16,7 @@ final class LanguageConditionMatcher implements TyposcriptConditionMatcher
 
     public function change(string $condition): ?string
     {
-        preg_match('#^' . self::TYPE . '\s*=\s*(?<value>.*)$#iUm', $condition, $matches);
+        $matches = Strings::match($condition, '#^' . self::TYPE . '\s*=\s*(?<value>.*)$#iUm');
 
         if (! is_string($matches['value'])) {
             return $condition;
@@ -27,6 +27,6 @@ final class LanguageConditionMatcher implements TyposcriptConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        return Strings::startsWith($condition, self::TYPE);
+        return \str_starts_with($condition, self::TYPE);
     }
 }

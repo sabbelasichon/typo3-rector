@@ -114,7 +114,7 @@ CODE_SAMPLE
             $this->removeNode($node);
 
             return $node;
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
+        } catch (ShouldNotHappenException) {
             $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($node);
 
             if (! $this->sameClassMethodCallAnalyzer->haveSingleClass($chainMethodCalls)) {

@@ -116,7 +116,7 @@ CODE_SAMPLE
     private function prepareNewAnnotation(string $newAnnotation): string
     {
         $newAnnotation = '@' . ltrim($newAnnotation, '@');
-        if (Strings::startsWith($newAnnotation, '@TYPO3\CMS\Extbase\Annotation')) {
+        if (\str_starts_with($newAnnotation, '@TYPO3\CMS\Extbase\Annotation')) {
             $newAnnotation = str_replace('TYPO3\CMS\Extbase\Annotation', 'Extbase', $newAnnotation);
         }
 

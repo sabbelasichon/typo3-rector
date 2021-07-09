@@ -55,6 +55,9 @@ CODE_SAMPLE
         ]);
     }
 
+    /**
+     * @return mixed[]
+     */
     public function refactor(array $yaml): array
     {
         return $this->refactorTranslationFile($yaml);
@@ -93,7 +96,7 @@ CODE_SAMPLE
     {
         $newTranslations = [];
         foreach ($oldTranslations as $oldTranslationFileKey => $oldTranslationFile) {
-            if (! Strings::startsWith($oldTranslationFile, 'EXT:form')) {
+            if (! \str_starts_with($oldTranslationFile, 'EXT:form')) {
                 $newTranslations[$oldTranslationFileKey] = $oldTranslationFile;
             }
         }

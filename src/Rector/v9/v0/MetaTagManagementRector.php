@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
@@ -92,7 +93,7 @@ CODE_SAMPLE
      */
     private function parseMetaTag(string $metaTag): array
     {
-        if (preg_match_all(self::PATTERN, $metaTag, $out)) {
+        if ($out = Strings::matchAll($metaTag, self::PATTERN, PREG_SET_ORDER - 1)) {
             return [
                 'type' => $out[1][0],
                 'name' => $out[2][0],
@@ -105,7 +106,10 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $node): bool
     {
-        return ! $this->isMethodAddMetaTag($node) && ! $this->isMethodXUaCompatible($node);
+        if ($this->isMethodAddMetaTag($node)) {
+            return false;
+        }
+        return ! $this->isMethodXUaCompatible($node);
     }
 
     private function isMethodAddMetaTag(MethodCall $node): bool
@@ -141,8 +145,13 @@ CODE_SAMPLE
         $metaTag = $this->valueResolver->getValue($arg->value);
 
         $arguments = $this->parseMetaTag($metaTag);
-
-        if (! array_key_exists('type', $arguments) || ! array_key_exists('name', $arguments) || ! array_key_exists(
+        if (! array_key_exists('type', $arguments)) {
+            return null;
+        }
+        if (! array_key_exists('name', $arguments)) {
+            return null;
+        }
+        if (! array_key_exists(
             'content',
             $arguments
         )) {

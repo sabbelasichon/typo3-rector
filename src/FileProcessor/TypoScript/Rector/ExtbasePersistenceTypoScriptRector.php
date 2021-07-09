@@ -55,7 +55,7 @@ final class ExtbasePersistenceTypoScriptRector extends AbstractTypoScriptRector 
             return;
         }
 
-        if (! Strings::contains($statement->object->absoluteName, 'persistence.classes')) {
+        if (! \str_contains($statement->object->absoluteName, 'persistence.classes')) {
             return;
         }
 

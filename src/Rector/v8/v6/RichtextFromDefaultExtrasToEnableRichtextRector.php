@@ -157,7 +157,7 @@ CODE_SAMPLE
             return false;
         }
 
-        return Strings::startsWith($defaultExtras, 'richtext');
+        return \str_starts_with($defaultExtras, 'richtext');
     }
 
     private function refactorRichtextColumns(Array_ $columnItems): void

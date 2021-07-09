@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\Tests;
 
+use Nette\Utils\FileSystem;
 use PHPUnit\Framework\TestCase;
 use Rector\Composer\ValueObject\RenamePackage;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerPackageParser;
@@ -56,7 +57,7 @@ final class ComposerPackageParserTest extends TestCase
 
     private function packagesJson(): string
     {
-        $content = file_get_contents(__DIR__ . '/fixtures/packages.json');
+        $content = FileSystem::read(__DIR__ . '/fixtures/packages.json');
 
         if (false === $content) {
             throw new UnexpectedValueException('Could not open file');
@@ -67,7 +68,7 @@ final class ComposerPackageParserTest extends TestCase
 
     private function packageJson(): string
     {
-        $content = file_get_contents(__DIR__ . '/fixtures/news.json');
+        $content = FileSystem::read(__DIR__ . '/fixtures/news.json');
 
         if (false === $content) {
             throw new UnexpectedValueException('Could not open file');

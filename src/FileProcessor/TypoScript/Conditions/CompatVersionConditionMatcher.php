@@ -16,13 +16,9 @@ final class CompatVersionConditionMatcher implements TyposcriptConditionMatcher
 
     public function change(string $condition): ?string
     {
-        preg_match(
-            '#' . self::TYPE
-            . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
-            . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#iUm',
-            $condition,
-            $matches
-        );
+        $matches = Strings::match($condition, '#' . self::TYPE
+        . self::ZERO_ONE_OR_MORE_WHITESPACES . '='
+        . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#iUm');
 
         if (! is_string($matches['value'])) {
             return $condition;
@@ -33,6 +29,6 @@ final class CompatVersionConditionMatcher implements TyposcriptConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        return Strings::startsWith($condition, self::TYPE);
+        return \str_starts_with($condition, self::TYPE);
     }
 }

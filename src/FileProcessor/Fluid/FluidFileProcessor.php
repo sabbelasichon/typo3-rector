@@ -40,6 +40,9 @@ final class FluidFileProcessor implements FileProcessorInterface
         }
     }
 
+    /**
+     * @return string[]
+     */
     public function getSupportedFileExtensions(): array
     {
         return ['html', 'xml', 'txt'];

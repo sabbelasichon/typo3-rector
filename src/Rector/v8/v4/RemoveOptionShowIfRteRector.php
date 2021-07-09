@@ -151,13 +151,16 @@ CODE_SAMPLE
             if (null === $configItemValue->key) {
                 continue;
             }
-
-            if ($this->valueResolver->isValue($configItemValue->key, 'type') && $this->valueResolver->isValue(
+            if (!$this->valueResolver->isValue($configItemValue->key, 'type')) {
+                continue;
+            }
+            if (!$this->valueResolver->isValue(
                 $configItemValue->value,
                 'check'
             )) {
-                return true;
+                continue;
             }
+            return true;
         }
 
         return false;

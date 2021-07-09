@@ -100,7 +100,7 @@ CODE_SAMPLE
         );
     }
 
-    private function removeSecondArgumentFromMethodIsLoaded(StaticCall $node): Node
+    private function removeSecondArgumentFromMethodIsLoaded(StaticCall $node): StaticCall
     {
         $numberOfArguments = count($node->args);
         if ($numberOfArguments > 1) {

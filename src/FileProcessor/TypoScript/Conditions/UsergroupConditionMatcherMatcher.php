@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions;
 
+use Nette\Utils\Strings;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\Conditions\TyposcriptConditionMatcher;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 
@@ -16,13 +17,15 @@ final class UsergroupConditionMatcherMatcher implements TyposcriptConditionMatch
 
     public function change(string $condition): ?string
     {
-        preg_match('#' . self::TYPE . '\s*=\s*(.*)#', $condition, $matches);
+        $matches = Strings::match($condition, '#' . self::TYPE . '\s*=\s*(.*)#');
 
         if (! is_array($matches)) {
             return $condition;
         }
-
-        if (! isset($matches[1]) || '' === $matches[1]) {
+        if (! isset($matches[1])) {
+            return "usergroup('*') == false";
+        }
+        if ('' === $matches[1]) {
             return "usergroup('*') == false";
         }
 
@@ -33,6 +36,6 @@ final class UsergroupConditionMatcherMatcher implements TyposcriptConditionMatch
 
     public function shouldApply(string $condition): bool
     {
-        return 1 === preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#', $condition);
+        return (bool) Strings::match($condition, '#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#');
     }
 }

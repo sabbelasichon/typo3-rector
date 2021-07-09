@@ -117,7 +117,7 @@ CODE_SAMPLE
         );
     }
 
-    private function initializeEmptyArray(): Node
+    private function initializeEmptyArray(): Expression
     {
         return new Expression(
             new Assign(new Variable(
@@ -126,12 +126,12 @@ CODE_SAMPLE
         );
     }
 
-    private function initializePageArguments(): Node
+    private function initializePageArguments(): Expression
     {
         return new Expression(new Assign(new Variable(self::PAGE_ARGUMENTS), $this->createPageArguments()));
     }
 
-    private function initializeQueryParams(): Node
+    private function initializeQueryParams(): Expression
     {
         return new Expression(
             new Assign(
@@ -141,7 +141,7 @@ CODE_SAMPLE
         );
     }
 
-    private function getRelevantParametersFromCacheHashCalculator(): Node
+    private function getRelevantParametersFromCacheHashCalculator(): If_
     {
         $ifNode = new If_(
             new BooleanAnd(
@@ -183,7 +183,7 @@ CODE_SAMPLE
         return $ifNode;
     }
 
-    private function refactorCacheHashArray(PropertyFetch $node): Node
+    private function refactorCacheHashArray(PropertyFetch $node): Variable
     {
         $currentStmts = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
         $positionNode = $currentStmts ?? $node;
@@ -195,7 +195,7 @@ CODE_SAMPLE
         return new Variable(self::RELEVANT_PARAMETERS_FOR_CACHING_FROM_PAGE_ARGUMENTS);
     }
 
-    private function refactorCacheHash(): Node
+    private function refactorCacheHash(): ArrayDimFetch
     {
         return new ArrayDimFetch($this->nodeFactory->createMethodCall(
             $this->createPageArguments(),
@@ -212,7 +212,7 @@ CODE_SAMPLE
         );
     }
 
-    private function refactorDomainStartPage(): Node
+    private function refactorDomainStartPage(): MethodCall
     {
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall(

@@ -22,7 +22,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
 
     public function change(string $condition): ?string
     {
-        preg_match('#' . self::TYPE . '\s*=\s*(?<subCondition>.*)#', $condition, $subConditions);
+        $subConditions = Strings::match($condition, '#' . self::TYPE . '\s*=\s*(?<subCondition>.*)#');
 
         if (! is_string($subConditions['subCondition'])) {
             return $condition;
@@ -32,11 +32,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
 
         $conditions = [];
         foreach ($subConditions as $subCondition) {
-            preg_match(
-                '#(?<type>TSFE|GP|GPmerged|_POST|_GET|LIT|ENV|IENV|BE_USER)' . self::ZERO_ONE_OR_MORE_WHITESPACES . '[:|]' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
-                $subCondition,
-                $matches
-            );
+            $matches = Strings::match($subCondition, '#(?<type>TSFE|GP|GPmerged|_POST|_GET|LIT|ENV|IENV|BE_USER)' . self::ZERO_ONE_OR_MORE_WHITESPACES . '[:|]' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui');
 
             if (! is_array($matches)) {
                 continue;
@@ -74,7 +70,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
                 $values = [];
                 $condition = '';
                 foreach ($conditions[$key] as $value) {
-                    preg_match('#(?<condition>.*)\s*==\s*(?<value>.*)#', $value, $valueMatches);
+                    $valueMatches = Strings::match($value, '#(?<condition>.*)\s*==\s*(?<value>.*)#');
 
                     if (! is_array($valueMatches)) {
                         continue;
@@ -95,7 +91,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        return Strings::startsWith($condition, self::TYPE);
+        return \str_starts_with($condition, self::TYPE);
     }
 
     private function refactorGetPost(string $property, string $operator, string $value): string
@@ -129,7 +125,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
 
     private function createBackendUserCondition(string $property, string $operator, string $value): string
     {
-        $delimiter = Strings::contains($property, ':') ? ':' : '|';
+        $delimiter = \str_contains($property, ':') ? ':' : '|';
 
         [, $property] = ArrayUtility::trimExplode($delimiter, $property, true, 2);
 

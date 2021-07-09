@@ -86,7 +86,7 @@ CODE_SAMPLE
         );
     }
 
-    private function removeSecondArgumentFromMethod(MethodCall $node): Node
+    private function removeSecondArgumentFromMethod(MethodCall $node): MethodCall
     {
         $numberOfArguments = count($node->args);
         if ($numberOfArguments > 1) {

@@ -89,7 +89,7 @@ final class AddChangelogDocBlockForRectorClass implements Rule
         );
 
         $phpDocString = $resolvedPhpDoc->getPhpDocString();
-        if (Strings::contains($phpDocString, '@changelog')) {
+        if (\str_contains($phpDocString, '@changelog')) {
             return [];
         }
 

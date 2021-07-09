@@ -40,7 +40,7 @@ final class IconsFileProcessor implements FileProcessorInterface
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
-        if (! Strings::contains($smartFileInfo->getFilename(), 'ext_icon')) {
+        if (! \str_contains($smartFileInfo->getFilename(), 'ext_icon')) {
             return false;
         }
 
@@ -57,6 +57,9 @@ final class IconsFileProcessor implements FileProcessorInterface
         return ! $this->smartFileSystem->exists($this->createIconPath($file));
     }
 
+    /**
+     * @return string[]
+     */
     public function getSupportedFileExtensions(): array
     {
         return ['png', 'gif', 'svg'];

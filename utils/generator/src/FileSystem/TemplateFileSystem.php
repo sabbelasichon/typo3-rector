@@ -35,7 +35,7 @@ final class TemplateFileSystem
 
         // special hack for tests, to PHPUnit doesn't load the generated file as test case
         /** @var string $destination */
-        if (Strings::endsWith($destination, 'Test.php') && StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (\str_ends_with($destination, 'Test.php') && StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $destination .= '.inc';
         }
 
@@ -56,6 +56,6 @@ final class TemplateFileSystem
             return false;
         }
 
-        return Strings::endsWith($filePath, '.inc');
+        return \str_ends_with($filePath, '.inc');
     }
 }

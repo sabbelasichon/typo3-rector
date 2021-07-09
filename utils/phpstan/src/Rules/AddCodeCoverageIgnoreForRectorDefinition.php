@@ -77,7 +77,7 @@ final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
         );
 
         $phpDocString = $resolvedPhpDoc->getPhpDocString();
-        if (Strings::contains($phpDocString, '@codeCoverageIgnore')) {
+        if (\str_contains($phpDocString, '@codeCoverageIgnore')) {
             return [];
         }
 

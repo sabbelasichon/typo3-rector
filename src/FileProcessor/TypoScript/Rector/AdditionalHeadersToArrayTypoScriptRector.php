@@ -21,7 +21,7 @@ final class AdditionalHeadersToArrayTypoScriptRector extends AbstractTypoScriptR
             return;
         }
 
-        if (! Strings::startsWith($statement->object->relativeName, 'additionalHeaders')) {
+        if (! \str_starts_with($statement->object->relativeName, 'additionalHeaders')) {
             return;
         }
 

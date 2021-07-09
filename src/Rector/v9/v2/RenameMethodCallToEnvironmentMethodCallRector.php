@@ -59,9 +59,12 @@ CODE_SAMPLE
         if ('TYPO3\CMS\Core\Utility\GeneralUtility' === $className && 'getApplicationContext' === $methodName) {
             return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getContext');
         }
-        if ('TYPO3\CMS\Extbase\Service\EnvironmentService' === $className && 'isEnvironmentInCliMode' === $methodName) {
-            return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isCli');
+        if ('TYPO3\CMS\Extbase\Service\EnvironmentService' !== $className) {
+            return null;
         }
-        return null;
+        if ('isEnvironmentInCliMode' !== $methodName) {
+            return null;
+        }
+        return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isCli');
     }
 }

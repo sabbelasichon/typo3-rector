@@ -30,14 +30,18 @@ final class ImportExtbaseAnnotationIfMissingFactory
             'TYPO3\CMS\Extbase\Annotation',
             'Extbase'
         );
-        if ($namespace instanceof Namespace_ && $this->isImportMissing(
+        if (!$namespace instanceof Namespace_) {
+            return;
+        }
+        if (!$this->isImportMissing(
             $namespace,
             $completeImportForPartialAnnotation
         )) {
-            $this->useNodesToAddCollector->addUseImport(
-                new AliasedObjectType('Extbase', 'TYPO3\CMS\Extbase\Annotation')
-            );
+            return;
         }
+        $this->useNodesToAddCollector->addUseImport(
+            new AliasedObjectType('Extbase', 'TYPO3\CMS\Extbase\Annotation')
+        );
     }
 
     private function isImportMissing(

@@ -89,12 +89,16 @@ abstract class AbstractTcaRector extends AbstractRector
                 // the key of a column list in tca is the column name, which needs to be a string.
                 continue;
             }
-
             // we found a single column configuration which is an array
             // (not a call to stuff like ExtensionManagementUtility::getFileFieldTCAConfig)
-            if ($arrayItem->value instanceof Array_ && $this->isSingleTcaColumn($arrayItem)) {
-                $this->refactorColumn($arrayItem->key, $arrayItem->value);
+            if (!$arrayItem->value instanceof Array_) {
+                continue;
             }
+            if (!$this->isSingleTcaColumn($arrayItem)) {
+                continue;
+            }
+            $this->refactorColumn($arrayItem->key, $arrayItem->value);
+            return $this->hasAstBeenChanged ? $node : null;
         }
 
         return $this->hasAstBeenChanged ? $node : null;

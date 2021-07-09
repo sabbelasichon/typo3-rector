@@ -73,8 +73,11 @@ CODE_SAMPLE
 
     private function shouldSkip(): bool
     {
-        return $this->parameterProvider->provideBoolParameter(
+        if (!$this->parameterProvider->provideBoolParameter(
             Option::DRY_RUN
-        ) && ! StaticPHPUnitEnvironment::isPHPUnitRun();
+        )) {
+            return false;
+        }
+        return ! StaticPHPUnitEnvironment::isPHPUnitRun();
     }
 }

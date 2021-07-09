@@ -65,14 +65,16 @@ CODE_SAMPLE
     public function refactor(Node $node): ?Node
     {
         $value = $this->valueResolver->getValue($node);
-
-        if (null === $value || ! is_string($value)) {
+        if (null === $value) {
+            return null;
+        }
+        if (! is_string($value)) {
             return null;
         }
 
         foreach (self::MAPPING_OLD_TO_NEW_PATHS as $oldPath => $newPath) {
             $oldPathPrefixed = sprintf('LLL:EXT:%s', $oldPath);
-            if (Strings::contains($value, $oldPathPrefixed)) {
+            if (\str_contains($value, $oldPathPrefixed)) {
                 $newPathPrefixed = sprintf('LLL:EXT:%s', $newPath);
                 return new String_(str_replace($oldPathPrefixed, $newPathPrefixed, $value));
             }

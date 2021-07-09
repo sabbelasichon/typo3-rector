@@ -17,7 +17,7 @@ final class TreeLevelConditionMatcher implements TyposcriptConditionMatcher
 
     public function change(string $condition): ?string
     {
-        preg_match('#' . self::TYPE . '\s*=\s*(.*)#', $condition, $matches);
+        $matches = Strings::match($condition, '#' . self::TYPE . '\s*=\s*(.*)#');
 
         if (! is_array($matches)) {
             return $condition;
@@ -30,10 +30,10 @@ final class TreeLevelConditionMatcher implements TyposcriptConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        if (Strings::contains($condition, self::CONTAINS_CONSTANT)) {
+        if (\str_contains($condition, self::CONTAINS_CONSTANT)) {
             return false;
         }
 
-        return Strings::startsWith($condition, self::TYPE);
+        return \str_starts_with($condition, self::TYPE);
     }
 }

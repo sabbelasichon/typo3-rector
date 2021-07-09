@@ -75,7 +75,7 @@ final class ComposerPackageParser implements PackageParser
             $replacePackage = null;
             if (array_key_exists(self::REPLACE, $package) && is_array($package[self::REPLACE])) {
                 foreach (array_keys($package[self::REPLACE]) as $replace) {
-                    if (Strings::startsWith($replace, 'typo3-ter')) {
+                    if (\str_starts_with($replace, 'typo3-ter')) {
                         $replacePackage = new RenamePackage($replace, (string) $composerPackage);
                         break;
                     }
@@ -92,6 +92,9 @@ final class ComposerPackageParser implements PackageParser
         return $extensionCollection;
     }
 
+    /**
+     * @return ComposerPackage[]
+     */
     public function parsePackages(string $content): array
     {
         $json = Json::decode($content, Json::FORCE_ARRAY);
@@ -99,9 +102,7 @@ final class ComposerPackageParser implements PackageParser
             return [];
         }
 
-        return array_map(function (string $package) {
-            return new ComposerPackage($package);
-        }, $json['packageNames']);
+        return array_map(fn(string $package): ComposerPackage => new ComposerPackage($package), $json['packageNames']);
     }
 
     /**
@@ -110,7 +111,7 @@ final class ComposerPackageParser implements PackageParser
     private function extractTypo3RequiredPackage(array $require): ?string
     {
         foreach (array_keys($require) as $packageRequire) {
-            if (false === strpos($packageRequire, 'typo3/cms-')) {
+            if (!\str_contains($packageRequire, 'typo3/cms-')) {
                 continue;
             }
             return $packageRequire;

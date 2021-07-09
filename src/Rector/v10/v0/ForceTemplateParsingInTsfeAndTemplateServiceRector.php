@@ -64,7 +64,7 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
 
             try {
                 $this->removeNode($node);
-            } catch (ShouldNotHappenException $shouldNotHappenException) {
+            } catch (ShouldNotHappenException) {
                 $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
                 $this->removeNode($parentNode);
             }

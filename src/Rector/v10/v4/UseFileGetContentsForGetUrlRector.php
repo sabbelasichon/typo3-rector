@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v10\v4;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ErrorSuppress;
 use PhpParser\Node\Expr\StaticCall;
@@ -54,7 +55,7 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
         }
 
         // Cannot rewrite for external urls
-        if (preg_match('#^(?:http|ftp)s?|s(?:ftp|cp):#', $urlValue)) {
+        if (Strings::match($urlValue, '#^(?:http|ftp)s?|s(?:ftp|cp):#')) {
             return $this->nodeFactory->createMethodCall(
                 $this->nodeFactory->createMethodCall(
                     $this->nodeFactory->createMethodCall(

@@ -96,10 +96,7 @@ CODE_SAMPLE
         ]);
     }
 
-    /**
-     * @param MethodCall|StaticCall $node
-     */
-    private function shouldSkip(Node $node): bool
+    private function shouldSkip(MethodCall|StaticCall $node): bool
     {
         if ($this->typo3NodeResolver->isMethodCallOnSysPageOfTSFE($node)) {
             return false;

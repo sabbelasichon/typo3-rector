@@ -36,19 +36,29 @@ final class GetPreferredClientLanguageRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isCharsetConverterMethodCall($node) && ! $this->isCallFromTypoScriptFrontendController($node)) {
-            return null;
+        if ($this->isCharsetConverterMethodCall($node)) {
+            return $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createStaticCall(
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
+                    'makeInstance',
+                    [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Localization\Locales')]
+                ),
+                self::GET_PREFERRED_CLIENT_LANGUAGE,
+                $node->args
+            );
         }
-
-        return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall(
-                'TYPO3\CMS\Core\Utility\GeneralUtility',
-                'makeInstance',
-                [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Localization\Locales')]
-            ),
-            self::GET_PREFERRED_CLIENT_LANGUAGE,
-            $node->args
-        );
+        if ($this->isCallFromTypoScriptFrontendController($node)) {
+            return $this->nodeFactory->createMethodCall(
+                $this->nodeFactory->createStaticCall(
+                    'TYPO3\CMS\Core\Utility\GeneralUtility',
+                    'makeInstance',
+                    [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Localization\Locales')]
+                ),
+                self::GET_PREFERRED_CLIENT_LANGUAGE,
+                $node->args
+            );
+        }
+        return null;
     }
 
     /**
