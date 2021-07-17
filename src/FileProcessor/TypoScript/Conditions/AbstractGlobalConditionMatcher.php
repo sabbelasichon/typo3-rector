@@ -31,6 +31,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
         'TYPO3_SITE_PATH' => 'getSitePath',
         'TYPO3_SITE_SCRIPT' => 'getSiteScript',
         'TYPO3_SSL' => 'isHttps',
+        'HTTPS' => 'isHttps',
         'PATH_INFO' => 'getScriptName',
     ];
 

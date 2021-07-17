@@ -269,6 +269,11 @@ final class OldConditionToExpressionLanguageRectorTest extends TestCase
             'newCondition' => '[request.getNormalizedParams().isHttps()]',
         ];
 
+        yield 'IENV:HTTPS' => [
+            'oldCondition' => '[globalVar = IENV:HTTPS = on]',
+            'newCondition' => '[request.getNormalizedParams().isHttps()]',
+        ];
+
         yield 'IENV:PATH_INFO' => [
             'oldCondition' => '[globalString = IENV:PATH_INFO = typo3/index.php]',
             'newCondition' => '[request.getNormalizedParams().getScriptName() == "typo3/index.php"]',
