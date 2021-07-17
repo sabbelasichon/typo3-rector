@@ -60,6 +60,11 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
             return null;
         }
 
+        // already added
+        if ($node->getMethod('injectEnvironmentService')) {
+            return null;
+        }
+
         $this->addInjectEnvironmentServiceMethod($node);
         $property = $this->createEnvironmentServiceProperty();
         $this->addNodeAfterNode(new Nop(), $property);

@@ -93,7 +93,6 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
 
         if (! $lastStatement instanceof Return_) {
             $returnResponse = $this->nodeFactory->createMethodCall(self::THIS, self::HTML_RESPONSE);
-
             $node->stmts[] = new Return_($returnResponse);
         }
 
