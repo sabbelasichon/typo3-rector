@@ -12,7 +12,6 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\TypeWithClassName;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -51,34 +50,31 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
             return null;
         }
 
-        foreach ($this->extractReturnCalls($node) as $returnCall) {
-            if (! $returnCall instanceof Return_) {
-                continue;
-            }
-
-            $returnCallExpression = $returnCall->expr;
+        $returns = $this->findReturns($node);
+        foreach ($returns as $return) {
+            $returnCallExpression = $return->expr;
 
             if ($returnCallExpression instanceof FuncCall && $this->isName(
                 $returnCallExpression->name,
                 'json_encode'
             )) {
-                $returnCall->expr = $this->nodeFactory->createMethodCall(
+                $return->expr = $this->nodeFactory->createMethodCall(
                     $this->nodeFactory->createPropertyFetch(self::THIS, 'responseFactory'),
                     'createJsonResponse',
-                    [$returnCall->expr]
+                    [$return->expr]
                 );
             } else {
                 // avoid duplication
-                if ($returnCall->expr instanceof MethodCall && $this->isName(
-                    $returnCall->expr->name,
+                if ($return->expr instanceof MethodCall && $this->isName(
+                    $return->expr->name,
                     self::HTML_RESPONSE
                 )) {
                     $args = [];
                 } else {
-                    $args = [$returnCall->expr];
+                    $args = [$return->expr];
                 }
 
-                $returnCall->expr = $this->nodeFactory->createMethodCall(self::THIS, self::HTML_RESPONSE, $args);
+                $return->expr = $this->nodeFactory->createMethodCall(self::THIS, self::HTML_RESPONSE, $args);
             }
         }
 
@@ -171,11 +167,11 @@ CODE_SAMPLE
     }
 
     /**
-     * @return Return_[]|Node[]
+     * @return Return_[]
      */
-    private function extractReturnCalls(ClassMethod $node): array
+    private function findReturns(ClassMethod $classMethod): array
     {
-        return $this->betterNodeFinder->find((array) $node->stmts, fn (Node $node): bool => $node instanceof Return_);
+        return $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, Return_::class);
     }
 
     private function hasRedirectCall(ClassMethod $node): bool
@@ -206,21 +202,16 @@ CODE_SAMPLE
 
     private function alreadyResponseReturnType(ClassMethod $node): bool
     {
-        foreach ($this->extractReturnCalls($node) as $returnCall) {
-            if (! $returnCall instanceof Return_) {
+        $returns = $this->findReturns($node);
+
+        $responseObjectType = new ObjectType('Psr\Http\Message\ResponseInterface');
+        foreach ($returns as $return) {
+            if (null === $return->expr) {
                 continue;
             }
 
-            if (null === $returnCall->expr) {
-                continue;
-            }
-
-            $returnType = $this->nodeTypeResolver->getStaticType($returnCall->expr);
-            if (! $returnType instanceof TypeWithClassName) {
-                continue;
-            }
-
-            if ($returnType->isSuperTypeOf(new ObjectType('Psr\Http\Message\ResponseInterface'))->yes()) {
+            $returnType = $this->nodeTypeResolver->getStaticType($return->expr);
+            if ($returnType->isSuperTypeOf($responseObjectType)->yes()) {
                 return true;
             }
         }

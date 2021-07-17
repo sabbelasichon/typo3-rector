@@ -9,10 +9,10 @@ final class ClassWithOldColPosParameterCall
     {
         $localizationRepository = GeneralUtility::makeInstance(LocalizationRepository::class);
         $localizationRepository->fetchOriginLanguage(1);
-        $localizationRepository->fetchOriginLanguage(1, 2, 3);
-        $localizationRepository->getLocalizedRecordCount(1, 2, 3);
-        $localizationRepository->fetchOriginLanguage(1, 2, 3);
-        $localizationRepository->getRecordsToCopyDatabaseResult(1, 2, 3);
+        $localizationRepository->fetchOriginLanguage(1, 2, 'cs');
+        $localizationRepository->getLocalizedRecordCount(1, 2, 'cs');
+        $localizationRepository->fetchOriginLanguage(1, 2, 'cs');
+        $localizationRepository->getRecordsToCopyDatabaseResult(1, 2, 'cs');
     }
 }
 
@@ -29,10 +29,10 @@ final class ClassWithOldColPosParameterCall
     {
         $localizationRepository = GeneralUtility::makeInstance(LocalizationRepository::class);
         $localizationRepository->fetchOriginLanguage(1);
-        $localizationRepository->fetchOriginLanguage(1, 3);
-        $localizationRepository->getLocalizedRecordCount(1, 3);
-        $localizationRepository->fetchOriginLanguage(1, 3);
-        $localizationRepository->getRecordsToCopyDatabaseResult(1, 3);
+        $localizationRepository->fetchOriginLanguage(1, 'cs');
+        $localizationRepository->getLocalizedRecordCount(1, 'cs');
+        $localizationRepository->fetchOriginLanguage(1, 'cs');
+        $localizationRepository->getRecordsToCopyDatabaseResult(1, 'cs');
     }
 }
 
