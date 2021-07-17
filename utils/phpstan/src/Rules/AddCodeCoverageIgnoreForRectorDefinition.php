@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PHPStan\Rules;
 
-use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
@@ -77,7 +76,7 @@ final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
         );
 
         $phpDocString = $resolvedPhpDoc->getPhpDocString();
-        if (Strings::contains($phpDocString, '@codeCoverageIgnore')) {
+        if (\str_contains($phpDocString, '@codeCoverageIgnore')) {
             return [];
         }
 

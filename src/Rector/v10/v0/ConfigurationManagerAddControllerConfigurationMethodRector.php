@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
@@ -42,6 +43,13 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
         )) {
             return null;
         }
+
+        // already checked
+        $classMethod = $node->getMethod('getControllerConfiguration');
+        if ($classMethod instanceof ClassMethod) {
+            return null;
+        }
+
         $this->addMethodGetControllerConfiguration($node);
         return $node;
     }

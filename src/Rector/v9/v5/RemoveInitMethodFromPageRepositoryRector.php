@@ -43,7 +43,7 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
         }
         try {
             $this->removeNode($node);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
+        } catch (ShouldNotHappenException) {
             $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
             $this->removeNode($parentNode);
         }

@@ -10,6 +10,7 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
+use Rector\RectorGenerator\FileSystem\ConfigFilesystem;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -69,4 +70,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'typoscriptsetupts',
             ],
         ]]);
+
+    // custom generator
+    $services->set(ConfigFilesystem::class);
+    $services->set(\Rector\RectorGenerator\TemplateFactory::class);
+    $services->set(\PhpParser\PrettyPrinter\Standard::class);
 };

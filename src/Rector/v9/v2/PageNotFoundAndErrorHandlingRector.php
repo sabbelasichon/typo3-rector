@@ -293,7 +293,7 @@ CODE_SAMPLE
     {
         try {
             $this->removeNode($node);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
+        } catch (ShouldNotHappenException) {
             $this->removeNode($node->getAttribute(AttributeKey::PARENT_NODE));
         }
     }

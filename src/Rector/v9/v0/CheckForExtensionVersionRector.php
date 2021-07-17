@@ -71,10 +71,7 @@ CODE_SAMPLE
         ]);
     }
 
-    /**
-     * @param MethodCall|StaticCall $node
-     */
-    private function isExtensionManagementUtilityIsLoaded(Node $node): bool
+    private function isExtensionManagementUtilityIsLoaded(MethodCall | StaticCall $node): bool
     {
         return $node instanceof StaticCall && $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
@@ -82,10 +79,7 @@ CODE_SAMPLE
         ) && $this->isName($node->name, 'isLoaded');
     }
 
-    /**
-     * @param MethodCall|StaticCall $node
-     */
-    private function isPackageManagerIsActivePackage(Node $node): bool
+    private function isPackageManagerIsActivePackage(MethodCall | StaticCall $node): bool
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,

@@ -71,7 +71,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
 
         try {
             $xml = @simplexml_load_string($fileContent);
-        } catch (Exception $exception) {
+        } catch (Exception) {
             return false;
         }
 

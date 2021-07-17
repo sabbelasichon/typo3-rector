@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
@@ -57,6 +58,12 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
             return null;
         }
         if (! $this->isPropertyEnvironmentServiceInUse($node)) {
+            return null;
+        }
+
+        // already added
+        $classMethod = $node->getMethod('injectEnvironmentService');
+        if ($classMethod instanceof ClassMethod) {
             return null;
         }
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions;
 
-use Nette\Utils\Strings;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\Conditions\TyposcriptConditionMatcher;
 
 final class BrowserConditionMatcher implements TyposcriptConditionMatcher
@@ -21,6 +20,6 @@ final class BrowserConditionMatcher implements TyposcriptConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        return Strings::startsWith($condition, self::TYPE);
+        return \str_starts_with($condition, self::TYPE);
     }
 }

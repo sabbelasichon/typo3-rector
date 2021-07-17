@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions;
 
-use Nette\Utils\Strings;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\Conditions\TyposcriptConditionMatcher;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 
@@ -45,7 +44,7 @@ final class ApplicationContextConditionMatcher implements TyposcriptConditionMat
 
     public function shouldApply(string $condition): bool
     {
-        if (Strings::contains($condition, self::CONTAINS_CONSTANT)) {
+        if (\str_contains($condition, self::CONTAINS_CONSTANT)) {
             return false;
         }
 

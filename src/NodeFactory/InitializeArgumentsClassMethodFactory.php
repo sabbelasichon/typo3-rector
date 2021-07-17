@@ -222,7 +222,7 @@ final class InitializeArgumentsClassMethodFactory
         );
 
         $docString = $phpStanType->describe(VerbosityLevel::typeOnly());
-        if ('[]' === substr($docString, -2)) {
+        if (str_ends_with($docString, '[]')) {
             return 'array';
         }
 

@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v3;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -36,6 +37,7 @@ final class RemoveColPosParameterRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isNames(
             $node->name,
             [
@@ -47,11 +49,20 @@ final class RemoveColPosParameterRector extends AbstractRector
         )) {
             return null;
         }
+
         if (count($node->args) <= 1) {
             return null;
         }
+
+        // must be number type
+        $secondArgType = $this->getStaticType($node->args[1]->value);
+        if (! $secondArgType instanceof IntegerType) {
+            return null;
+        }
+
         $this->removeNode($node->args[1]);
-        return $node;
+
+        return null;
     }
 
     /**
@@ -59,7 +70,7 @@ final class RemoveColPosParameterRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove parameter colPos from methods.', [new CodeSample(
+        return new RuleDefinition('Remove parameter $colPos from methods.', [new CodeSample(
             <<<'CODE_SAMPLE'
 $someObject = GeneralUtility::makeInstance(LocalizationRepository::class);
 $someObject->fetchOriginLanguage($pageId, $colPos, $localizedLanguage);

@@ -48,6 +48,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::SKIP, [
         __DIR__ . '/utils/stubs/templates',
+        __DIR__ . '/config/composer',
         DeclareStrictTypesFixer::class => ['*/Fixture/*'],
     ]);
 

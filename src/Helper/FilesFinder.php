@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper;
 
-use Nette\Utils\Strings;
 use Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
@@ -90,6 +89,6 @@ final class FilesFinder
 
     private function endsWith(SmartFileInfo $fileInfo, string $needle): bool
     {
-        return Strings::endsWith($fileInfo->getFilename(), $needle);
+        return \str_ends_with($fileInfo->getFilename(), $needle);
     }
 }
