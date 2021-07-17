@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions;
 
-use Nette\Utils\Strings;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 
 final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
@@ -55,11 +54,11 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        if (Strings::contains($condition, self::CONTAINS_CONSTANT)) {
+        if (\str_contains($condition, self::CONTAINS_CONSTANT)) {
             return false;
         }
 
-        return Strings::startsWith($condition, self::TYPE);
+        return \str_starts_with($condition, self::TYPE);
     }
 
     private function refactorGetPost(string $property, string $operator, string $value): string

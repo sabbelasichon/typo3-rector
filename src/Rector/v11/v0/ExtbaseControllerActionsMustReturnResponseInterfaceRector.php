@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
-use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
@@ -154,11 +153,11 @@ CODE_SAMPLE
             return true;
         }
 
-        if (! Strings::endsWith($methodName, 'Action')) {
+        if (! \str_ends_with($methodName, 'Action')) {
             return true;
         }
 
-        if (Strings::startsWith($methodName, 'initialize')) {
+        if (\str_starts_with($methodName, 'initialize')) {
             return true;
         }
 

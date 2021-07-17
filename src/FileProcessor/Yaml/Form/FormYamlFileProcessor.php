@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\Yaml\Form;
 
-use Nette\Utils\Strings;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
@@ -66,7 +65,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
-        return Strings::endsWith($smartFileInfo->getFilename(), 'yaml');
+        return \str_ends_with($smartFileInfo->getFilename(), 'yaml');
     }
 
     /**

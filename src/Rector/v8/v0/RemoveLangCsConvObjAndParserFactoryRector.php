@@ -78,10 +78,7 @@ CODE_SAMPLE
         );
     }
 
-    /**
-     * @param MethodCall|PropertyFetch $node
-     */
-    private function shouldSkip($node): bool
+    private function shouldSkip(MethodCall | PropertyFetch $node): bool
     {
         if ($this->isLanguageServiceCall($node)) {
             return false;

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
-use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -209,7 +208,7 @@ CODE_SAMPLE
                 if (null === $item->key) {
                     continue;
                 }
-                if (! Strings::startsWith($this->valueResolver->getValue($item->key), '_')) {
+                if (! \str_starts_with($this->valueResolver->getValue($item->key), '_')) {
                     $nodeEmpty = false;
                     break;
                 }

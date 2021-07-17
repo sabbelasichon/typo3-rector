@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector;
 
 use Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
-use Nette\Utils\Strings;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -21,7 +20,7 @@ final class AdditionalHeadersToArrayTypoScriptRector extends AbstractTypoScriptR
             return;
         }
 
-        if (! Strings::startsWith($statement->object->relativeName, 'additionalHeaders')) {
+        if (! \str_starts_with($statement->object->relativeName, 'additionalHeaders')) {
             return;
         }
 

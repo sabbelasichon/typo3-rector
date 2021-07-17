@@ -262,7 +262,7 @@ CODE_SAMPLE
                 return null;
             }
 
-            return Strings::endsWith($methodName, 'Command');
+            return \str_ends_with($methodName, 'Command');
         });
     }
 

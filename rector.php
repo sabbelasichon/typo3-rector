@@ -30,6 +30,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::PATHS, [__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests']);
 
+    $containerConfigurator->import(SetList::PHP_80);
+    $containerConfigurator->import(SetList::PHP_74);
     $containerConfigurator->import(SetList::PRIVATIZATION);
     $containerConfigurator->import(SetList::CODING_STYLE);
     $containerConfigurator->import(SetList::CODE_QUALITY);

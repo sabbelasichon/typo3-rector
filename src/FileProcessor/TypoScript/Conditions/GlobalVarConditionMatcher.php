@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions;
 
-use Nette\Utils\Strings;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 
@@ -95,7 +94,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        return Strings::startsWith($condition, self::TYPE);
+        return \str_starts_with($condition, self::TYPE);
     }
 
     private function refactorGetPost(string $property, string $operator, string $value): string
@@ -129,7 +128,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
 
     private function createBackendUserCondition(string $property, string $operator, string $value): string
     {
-        $delimiter = Strings::contains($property, ':') ? ':' : '|';
+        $delimiter = \str_contains($property, ':') ? ':' : '|';
 
         [, $property] = ArrayUtility::trimExplode($delimiter, $property, true, 2);
 
