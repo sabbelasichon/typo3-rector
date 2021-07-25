@@ -17,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class MoveLanguageFilesFromLocallangToResourcesRector extends AbstractRector
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private const MAPPING_OLD_TO_NEW_PATHS = [
         'LLL:EXT:lang/locallang_alt_doc.xlf' => 'LLL:EXT:lang/Resources/Private/Language/locallang_alt_doc.xlf',
