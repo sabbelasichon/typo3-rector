@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
 {
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private const MAP_CONSTANTS_TO_STRING = [
         'TYPO3_URL_MAILINGLISTS' => 'http://lists.typo3.org/cgi-bin/mailman/listinfo',
