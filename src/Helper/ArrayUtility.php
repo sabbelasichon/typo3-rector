@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper;
 
-use UnexpectedValueException;
+use InvalidArgumentException;
 
 final class ArrayUtility
 {
@@ -17,9 +17,8 @@ final class ArrayUtility
         bool $removeEmptyValues = false,
         int $limit = 0
     ): array {
-
-        if($delimiter === '') {
-            throw new \InvalidArgumentException('Please define a correct delimiter');
+        if ('' === $delimiter) {
+            throw new InvalidArgumentException('Please define a correct delimiter');
         }
 
         $result = explode($delimiter, $string);
