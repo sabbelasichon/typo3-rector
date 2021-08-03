@@ -39,6 +39,16 @@ final class SomeValidateClass
      * @validate StringLength(minimum=0, maximum=255)
      */
     private $validate;
+
+    /**
+     * @validate RegularExpression(regularExpression="/(mr|mrs)/")
+     */
+    protected $prop;
+
+    /**
+     * @validate RegularExpression(regularExpression="#(mr|mrs)#")
+     */
+    protected $prop2;
 }
 
 ?>
@@ -89,6 +99,16 @@ final class SomeValidateClass
      * @Extbase\Validate("StringLength", options={"minimum": 0, "maximum": 255})
      */
     private $validate;
+
+    /**
+     * @Extbase\Validate("RegularExpression", options={"regularExpression": "/(mr|mrs)/"})
+     */
+    protected $prop;
+
+    /**
+     * @Extbase\Validate("RegularExpression", options={"regularExpression": "#(mr|mrs)#"})
+     */
+    protected $prop2;
 }
 
 ?>
