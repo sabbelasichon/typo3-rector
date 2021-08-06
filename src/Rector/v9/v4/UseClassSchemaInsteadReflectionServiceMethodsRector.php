@@ -25,6 +25,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -32,7 +33,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85004-DeprecateMethodsInReflectionService.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseClassSchemaInsteadReflectionServiceMethodsRector\UseClassSchemaInsteadReflectionServiceMethodsRectorTest
  */
-final class UseClassSchemaInsteadReflectionServiceMethodsRector extends AbstractRector
+final class UseClassSchemaInsteadReflectionServiceMethodsRector extends AbstractRector implements MinPhpVersionInterface
 {
     /**
      * @var string
@@ -173,12 +174,13 @@ CODE_SAMPLE
         return $this->refactorIsPropertyTaggedWith($node);
     }
 
+    public function provideMinPhpVersion(): int
+    {
+        return PhpVersionFeature::NULL_COALESCE;
+    }
+
     private function refactorGetPropertyTagsValuesMethod(MethodCall $node): ?Node
     {
-        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::NULL_COALESCE)) {
-            return null;
-        }
-
         if (! isset($node->args[1])) {
             return null;
         }
@@ -206,10 +208,6 @@ CODE_SAMPLE
 
     private function refactorGetPropertyTagValuesMethod(MethodCall $node): ?Node
     {
-        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::NULL_COALESCE)) {
-            return null;
-        }
-
         if (! isset($node->args[1])) {
             return null;
         }
@@ -243,10 +241,6 @@ CODE_SAMPLE
 
     private function refactorGetClassTagValues(MethodCall $node): ?Node
     {
-        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::NULL_COALESCE)) {
-            return null;
-        }
-
         if (! isset($node->args[1])) {
             return null;
         }
@@ -259,10 +253,6 @@ CODE_SAMPLE
 
     private function refactorGetMethodTagsValues(MethodCall $node): ?Node
     {
-        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::NULL_COALESCE)) {
-            return null;
-        }
-
         if (! isset($node->args[1])) {
             return null;
         }
@@ -288,10 +278,6 @@ CODE_SAMPLE
 
     private function refactorGetMethodParameters(MethodCall $node): ?Node
     {
-        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::NULL_COALESCE)) {
-            return null;
-        }
-
         if (! isset($node->args[1])) {
             return null;
         }
