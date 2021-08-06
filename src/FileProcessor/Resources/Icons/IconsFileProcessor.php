@@ -10,6 +10,7 @@ use Rector\Core\ValueObject\Configuration;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
@@ -45,7 +46,7 @@ final class IconsFileProcessor implements FileProcessorInterface
 
         $extEmConfSmartFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($smartFileInfo);
 
-        if (null === $extEmConfSmartFileInfo) {
+        if (! $extEmConfSmartFileInfo instanceof SmartFileInfo) {
             return false;
         }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
@@ -51,7 +52,7 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
         if ($node instanceof FuncCall) {
             $firstArgument = $node->args[0] ?? null;
 
-            if (null === $firstArgument) {
+            if (! $firstArgument instanceof Arg) {
                 return null;
             }
 

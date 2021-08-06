@@ -41,7 +41,7 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector
             return null;
         }
 
-        if (! count($node->args) > 3) {
+        if (([] === $node->args) > 3) {
             return null;
         }
 

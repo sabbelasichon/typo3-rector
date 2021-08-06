@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper\Database\Refactorings;
 
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use Rector\Core\PhpParser\Node\NodeFactory;
@@ -21,7 +22,7 @@ final class DatabaseConnectionExecTruncateTableRefactoring implements DatabaseCo
     {
         $tableArgument = array_shift($oldNode->args);
 
-        if (null === $tableArgument) {
+        if (! $tableArgument instanceof Arg) {
             return [];
         }
 

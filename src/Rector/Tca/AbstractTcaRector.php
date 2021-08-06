@@ -114,7 +114,7 @@ abstract class AbstractTcaRector extends AbstractRector
             }
 
             $columnName = $columnArrayItem->key;
-            if (null === $columnName) {
+            if (! $columnName instanceof Expr) {
                 continue;
             }
 
@@ -141,12 +141,12 @@ abstract class AbstractTcaRector extends AbstractRector
     protected function isSingleTcaColumn(ArrayItem $arrayItem): bool
     {
         $labelNode = $this->extractArrayItemByKey($arrayItem->value, self::LABEL);
-        if (null === $labelNode) {
+        if (! $labelNode instanceof ArrayItem) {
             return false;
         }
 
         $configNode = $this->extractArrayItemByKey($arrayItem->value, self::CONFIG);
-        if (null === $configNode) {
+        if (! $configNode instanceof ArrayItem) {
             return false;
         }
 
@@ -179,7 +179,7 @@ abstract class AbstractTcaRector extends AbstractRector
             }
 
             $typeKey = $typeItem->key;
-            if (null === $typeKey) {
+            if (! $typeKey instanceof Expr) {
                 continue;
             }
 
@@ -214,7 +214,7 @@ abstract class AbstractTcaRector extends AbstractRector
     {
         $positionOfTypeInConfig = 0;
         foreach ($array->items as $configNode) {
-            if (null === $configNode) {
+            if (! $configNode instanceof ArrayItem) {
                 break;
             }
             if (null === $configNode->key || $this->valueResolver->getValue($configNode->key) === $key) {

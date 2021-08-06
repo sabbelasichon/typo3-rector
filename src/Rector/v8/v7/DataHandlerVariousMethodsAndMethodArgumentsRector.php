@@ -48,7 +48,7 @@ final class DataHandlerVariousMethodsAndMethodArgumentsRector extends AbstractRe
             $args = $node->args;
             $firstArgument = array_shift($args);
 
-            if (null === $firstArgument) {
+            if (! $firstArgument instanceof Arg) {
                 return null;
             }
 

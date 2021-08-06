@@ -143,7 +143,7 @@ CODE_SAMPLE
             );
 
             // don't search further if no foreign_types is configured
-            if (null === $foreignSelectorOverrideNode && null === $foreignTypesArrayItem && null === $foreignRecordDefaults) {
+            if (! $foreignSelectorOverrideNode instanceof ArrayItem && ! $foreignTypesArrayItem instanceof ArrayItem && ! $foreignRecordDefaults instanceof ArrayItem) {
                 continue;
             }
 

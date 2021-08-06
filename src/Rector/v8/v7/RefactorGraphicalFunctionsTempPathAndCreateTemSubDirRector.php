@@ -104,7 +104,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (0 === count($node->args)) {
+        if ([] === $node->args) {
             return null;
         }
 
@@ -143,7 +143,7 @@ CODE_SAMPLE
             [new Variable(self::TMP_PATH), new Variable('dirName')]
         );
 
-        if (null === $concatTempPathAndDirName) {
+        if (! $concatTempPathAndDirName instanceof Concat) {
             return null;
         }
 

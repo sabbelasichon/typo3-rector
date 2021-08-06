@@ -79,7 +79,7 @@ CODE_SAMPLE
 
         $extEmConf = $this->createExtensionKeyFromFolder($fileInfo);
 
-        if (null === $extEmConf) {
+        if (! $extEmConf instanceof SmartFileInfo) {
             return null;
         }
 

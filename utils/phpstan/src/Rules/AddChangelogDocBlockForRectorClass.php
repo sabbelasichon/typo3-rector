@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PHPStan\Rules;
 
+use PhpParser\Comment\Doc;
 use PhpParser\Node;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
@@ -58,7 +60,7 @@ final class AddChangelogDocBlockForRectorClass implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         $className = $node->name;
-        if (null === $className) {
+        if (! $className instanceof Identifier) {
             return [];
         }
 
@@ -75,7 +77,7 @@ final class AddChangelogDocBlockForRectorClass implements Rule
         }
 
         $docComment = $node->getDocComment();
-        if (null === $docComment) {
+        if (! $docComment instanceof Doc) {
             return [sprintf(self::ERROR_MESSAGE, $className)];
         }
 

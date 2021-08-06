@@ -56,7 +56,7 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
         }
 
         $columns = $this->extractSubArrayByKey($node->expr, 'columns');
-        if (null === $columns) {
+        if (! $columns instanceof Array_) {
             return null;
         }
 

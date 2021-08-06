@@ -47,7 +47,7 @@ final class RefactorQueryViewTableWrapRector extends AbstractRector
         $args = $node->args;
         $firstArgument = array_shift($args);
 
-        if (null === $firstArgument) {
+        if (! $firstArgument instanceof Arg) {
             return null;
         }
 

@@ -23,6 +23,7 @@ use PhpParser\Node\UnionType;
 use PHPStan\Analyser\Scope;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\MixedType;
@@ -71,7 +72,7 @@ final class InitializeArgumentsClassMethodFactory
     public function decorateClass(Class_ $class): void
     {
         $renderClassMethod = $class->getMethod('render');
-        if (null === $renderClassMethod) {
+        if (! $renderClassMethod instanceof ClassMethod) {
             return;
         }
 
@@ -279,7 +280,7 @@ final class InitializeArgumentsClassMethodFactory
         }
 
         $classReflection = $scope->getClassReflection();
-        if (null === $classReflection) {
+        if (! $classReflection instanceof ClassReflection) {
             return [];
         }
 

@@ -75,7 +75,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 
         $extEmConfFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($currentSmartFileInfo);
 
-        if (null === $extEmConfFileInfo) {
+        if (! $extEmConfFileInfo instanceof SmartFileInfo) {
             return null;
         }
 

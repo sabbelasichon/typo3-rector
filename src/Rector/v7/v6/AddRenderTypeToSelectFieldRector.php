@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v7\v6;
 
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
@@ -66,7 +67,7 @@ CODE_SAMPLE
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
         $config = $this->extractSubArrayByKey($columnTca, 'config');
-        if (null === $config) {
+        if (! $config instanceof Array_) {
             return;
         }
 

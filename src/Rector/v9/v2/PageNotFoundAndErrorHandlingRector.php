@@ -135,7 +135,7 @@ CODE_SAMPLE
 
         $responseNode = $this->createResponse($node);
 
-        if (null === $responseNode) {
+        if (! $responseNode instanceof Node) {
             return null;
         }
 
