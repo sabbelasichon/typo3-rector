@@ -18,8 +18,7 @@ final class DefaultSwitchFluidRector implements FluidRectorInterface
     /**
      * @var string
      */
-    private const PATTERN = '#<f:case default="(1|true)">(.*)</f:case>#';
-
+    private const PATTERN = '#<f:case default="(1|true)">(.*)<\/f:case>#imsU';
     /**
      * @var string
      */
