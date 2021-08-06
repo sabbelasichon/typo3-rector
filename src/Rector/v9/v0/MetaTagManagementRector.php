@@ -158,7 +158,7 @@ CODE_SAMPLE
     private function createXUCompatibleMetaTag(MethodCall $methodCall): MethodCall
     {
         $value = 'IE=8';
-        if (count($methodCall->args) > 0) {
+        if ([] !== $methodCall->args) {
             $value = $methodCall->args[0]->value;
         }
 

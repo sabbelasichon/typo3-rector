@@ -50,7 +50,7 @@ final class MyOldViewHelperWithAlreadyDefinedArguments extends MySpecialAbstract
         parent::initializeArguments();
         $this->registerArgument('strings', 'array', 'An array of strings', true);
         $this->registerArgument('something', 'iterable', 'Something', true);
-        $this->registerArgument('object', '\TYPO3\CMS\Extbase\Persistence\QueryResultInterface', 'Object', true);
+        $this->registerArgument('object', QueryResultInterface::class, 'Object', true);
     }
 }
 

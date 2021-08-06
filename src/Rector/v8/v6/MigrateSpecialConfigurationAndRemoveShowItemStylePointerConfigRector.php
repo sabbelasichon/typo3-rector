@@ -89,7 +89,7 @@ CODE_SAMPLE
         }
 
         $defaultExtras = $this->extractArrayValueByKey($columnTca, 'defaultExtras');
-        if (null === $defaultExtras) {
+        if (! $defaultExtras instanceof Expr) {
             return;
         }
 

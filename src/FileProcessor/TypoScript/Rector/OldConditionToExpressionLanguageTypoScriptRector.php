@@ -88,7 +88,7 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
             return;
         }
 
-        if (0 === count($operators)) {
+        if ([] === $operators) {
             $statement->condition = sprintf('[%s]', implode(' || ', $newConditions));
 
             return;

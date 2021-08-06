@@ -36,7 +36,7 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
         /** @var Arg[] $args */
         $args = $node->args;
         $firstArgument = array_shift($args);
-        if (null === $firstArgument) {
+        if (! $firstArgument instanceof Arg) {
             return null;
         }
         $secondArgument = array_shift($args);

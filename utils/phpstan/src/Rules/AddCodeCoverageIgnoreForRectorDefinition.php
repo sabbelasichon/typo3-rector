@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PHPStan\Rules;
 
+use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\FileTypeMapper;
@@ -46,7 +48,7 @@ final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
 
         $classReflection = $scope->getClassReflection();
 
-        if (null === $classReflection) {
+        if (! $classReflection instanceof ClassReflection) {
             return [];
         }
 
@@ -63,7 +65,7 @@ final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
         $className = $classReflection->getName();
 
         $docComment = $node->getDocComment();
-        if (null === $docComment) {
+        if (! $docComment instanceof Doc) {
             return [sprintf(self::ERROR_MESSAGE, $className)];
         }
 

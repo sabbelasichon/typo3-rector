@@ -26,6 +26,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\PackageBuilder\Console\ShellCode;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class AddComposerTypo3ExtensionsToConfigCommand extends Command
@@ -78,7 +79,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 
                 $smartFileInfo = $this->composerConfigurationPathResolver->resolveByTypo3Version($typo3Version);
 
-                if (null === $smartFileInfo) {
+                if (! $smartFileInfo instanceof SmartFileInfo) {
                     continue;
                 }
 
@@ -133,7 +134,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
     {
         $smartFileInfo = $this->composerConfigurationPathResolver->replacePackages();
 
-        if (null === $smartFileInfo) {
+        if (! $smartFileInfo instanceof SmartFileInfo) {
             return;
         }
 

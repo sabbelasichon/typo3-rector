@@ -103,7 +103,7 @@ CODE_SAMPLE
         }
 
         $columns = $this->extractSubArrayByKey($node->expr, 'columns');
-        if (null === $columns) {
+        if (! $columns instanceof Array_) {
             return null;
         }
 
@@ -129,7 +129,7 @@ CODE_SAMPLE
 
         // now check columnsOverrides of all type=group, internal_type=db fields:
         $types = $this->extractSubArrayByKey($node->expr, 'types');
-        if (null === $types) {
+        if (! $types instanceof Array_) {
             return null;
         }
 
@@ -140,12 +140,12 @@ CODE_SAMPLE
 
             foreach ($columnNamesWithTypeGroupAndInternalTypeDb as $columnName => $columnConfig) {
                 $overrideForColumn = $this->extractSubArrayByKey($columnOverride, $columnName);
-                if (null === $overrideForColumn) {
+                if (! $overrideForColumn instanceof Array_) {
                     continue;
                 }
 
                 $configOverride = $this->extractSubArrayByKey($overrideForColumn, 'config');
-                if (null === $configOverride) {
+                if (! $configOverride instanceof Array_) {
                     continue;
                 }
                 if ($this->refactorWizards($configOverride)) {
@@ -166,7 +166,7 @@ CODE_SAMPLE
     private function refactorWizards(Array_ $config): bool
     {
         $wizardsArrayItem = $this->extractArrayItemByKey($config, 'wizards');
-        if (null === $wizardsArrayItem) {
+        if (! $wizardsArrayItem instanceof ArrayItem) {
             return false;
         }
         $wizards = $wizardsArrayItem->value;

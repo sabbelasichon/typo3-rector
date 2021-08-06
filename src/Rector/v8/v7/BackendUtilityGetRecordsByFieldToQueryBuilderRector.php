@@ -126,7 +126,9 @@ CODE_SAMPLE
 
         $tableArgument = $node->args[0];
 
-        if (null === $queryBuilderArgument || 'null' === $this->valueResolver->getValue($queryBuilderArgument->value)) {
+        if (! $queryBuilderArgument instanceof Arg || 'null' === $this->valueResolver->getValue(
+            $queryBuilderArgument->value
+        )) {
             $table = $this->valueResolver->getValue($tableArgument->value);
             if (null === $table) {
                 $table = $tableArgument;
@@ -226,7 +228,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (null === $useDeleteClauseArgument) {
+        if (! $useDeleteClauseArgument instanceof Arg) {
             return;
         }
 
@@ -288,7 +290,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (null === $whereClauseArgument) {
+        if (! $whereClauseArgument instanceof Arg) {
             return;
         }
 
@@ -321,7 +323,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (null === $groupByArgument) {
+        if (! $groupByArgument instanceof Arg) {
             return;
         }
 
@@ -340,7 +342,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (null === $orderByArgument) {
+        if (! $orderByArgument instanceof Arg) {
             return;
         }
 
@@ -385,7 +387,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (null === $limitArgument) {
+        if (! $limitArgument instanceof Arg) {
             return;
         }
 

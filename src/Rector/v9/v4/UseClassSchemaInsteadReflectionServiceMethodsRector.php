@@ -124,7 +124,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (0 === count($node->args)) {
+        if ([] === $node->args) {
             return null;
         }
 

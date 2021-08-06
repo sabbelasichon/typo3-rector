@@ -103,7 +103,7 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                     if ($this->shouldAddFieldWizard($configItemValue)) {
                         $fieldWizard = $this->extractArrayItemByKey($configValue->value, 'fieldWizard');
 
-                        if (null === $fieldWizard) {
+                        if (! $fieldWizard instanceof ArrayItem) {
                             $configValue->value->items[] = new ArrayItem($this->nodeFactory->createArray([
                                 'selectIcons' => [
                                     self::DISABLED => false,

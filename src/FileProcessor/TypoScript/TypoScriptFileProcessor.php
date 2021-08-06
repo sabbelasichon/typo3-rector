@@ -19,6 +19,7 @@ use Rector\Core\ValueObject\Configuration;
 use Rector\FileFormatter\EditorConfig\EditorConfigParser;
 use Rector\FileFormatter\ValueObject\Indent;
 use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
+use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
 use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
@@ -163,7 +164,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         foreach ($this->convertToPhpFileRectors() as $convertToPhpFileVisitor) {
             $addedFileWithContent = $convertToPhpFileVisitor->convert();
 
-            if (null === $addedFileWithContent) {
+            if (! $addedFileWithContent instanceof AddedFileWithContent) {
                 continue;
             }
 

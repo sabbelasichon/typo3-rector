@@ -102,7 +102,7 @@ final class InjectAnnotationRector extends AbstractRector
 
             $methodAlreadyExists = $node->getMethod($this->createInjectMethodName($variableName));
 
-            if (null === $methodAlreadyExists) {
+            if (! $methodAlreadyExists instanceof ClassMethod) {
                 $injectMethods[] = $this->createInjectClassMethod($variableName, $param, $assign);
             }
         }

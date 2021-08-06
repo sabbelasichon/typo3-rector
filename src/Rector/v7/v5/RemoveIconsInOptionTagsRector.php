@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v7\v5;
 
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Array_;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -58,7 +59,7 @@ CODE_SAMPLE
     {
         $config = $this->extractSubArrayByKey($columnTca, self::CONFIG);
 
-        if (null === $config) {
+        if (! $config instanceof Array_) {
             return;
         }
 
