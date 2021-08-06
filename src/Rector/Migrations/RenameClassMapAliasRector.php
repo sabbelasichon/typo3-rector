@@ -18,6 +18,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
+use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -25,7 +26,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\Migrations\RenameClassMapAliasRectorTest
  */
-final class RenameClassMapAliasRector extends AbstractRector implements ConfigurableRectorInterface
+final class RenameClassMapAliasRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface
 {
     /**
      * @api
@@ -145,12 +146,13 @@ CODE_SAMPLE
         }
     }
 
+    public function provideMinPhpVersion(): int
+    {
+        return PhpVersionFeature::CLASSNAME_CONSTANT;
+    }
+
     private function stringClassNameToClassConstantRectorIfPossible(String_ $node): ?Node
     {
-        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::CLASSNAME_CONSTANT)) {
-            return null;
-        }
-
         $classLikeName = $node->value;
 
         // remove leading slash

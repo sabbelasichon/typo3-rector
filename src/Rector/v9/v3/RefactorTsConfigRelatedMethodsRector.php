@@ -20,6 +20,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -28,7 +29,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.3/Deprecation-84993-DeprecateSomeTSconfigRelatedMethods.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v3\RefactorTsConfigRelatedMethodsRector\RefactorTsConfigRelatedMethodsRectorTest
  */
-final class RefactorTsConfigRelatedMethodsRector extends AbstractRector
+final class RefactorTsConfigRelatedMethodsRector extends AbstractRector implements MinPhpVersionInterface
 {
     public function __construct(
         private Typo3NodeResolver $typo3NodeResolver
@@ -66,10 +67,6 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isAtLeastPhpVersion(PhpVersionFeature::NULL_COALESCE)) {
-            return null;
-        }
-
         if ($this->shouldSkip($node)) {
             return null;
         }
@@ -108,6 +105,11 @@ CODE_SAMPLE
         }
 
         return new Coalesce($newNode, $defaultValueNode);
+    }
+
+    public function provideMinPhpVersion(): int
+    {
+        return PhpVersionFeature::NULL_COALESCE;
     }
 
     /**
