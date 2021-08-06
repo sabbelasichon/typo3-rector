@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\NodeFactory;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
@@ -40,6 +41,7 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 
 final class InitializeArgumentsClassMethodFactory
 {
@@ -61,7 +63,8 @@ final class InitializeArgumentsClassMethodFactory
         private PhpDocInfoFactory $phpDocInfoFactory,
         private ReflectionProvider $reflectionProvider,
         private ValueResolver $valueResolver,
-        private AstResolver $astResolver
+        private AstResolver $astResolver,
+        private ClassLikeExistenceChecker $classLikeExistenceChecker
     ) {
     }
 
@@ -131,6 +134,8 @@ final class InitializeArgumentsClassMethodFactory
             $paramTagValueNode = $paramTagsByName[$paramName] ?? null;
 
             $docString = $this->createTypeInString($paramTagValueNode, $param);
+
+            $docString = $this->transformDocStringToClassConstantIfPossible($docString);
 
             $args = [$paramName, $docString, $this->getDescription($paramTagValueNode)];
 
@@ -336,5 +341,21 @@ final class InitializeArgumentsClassMethodFactory
         }
 
         return $definedArguments;
+    }
+
+    private function transformDocStringToClassConstantIfPossible(string $docString): ClassConstFetch | string
+    {
+        // remove leading slash
+        $classLikeName = ltrim($docString, '\\');
+        if ('' === $classLikeName) {
+            return $docString;
+        }
+
+        if (! $this->classLikeExistenceChecker->doesClassLikeExist($classLikeName)) {
+            return $classLikeName;
+        }
+
+        $fullyQualified = new FullyQualified($classLikeName);
+        return new ClassConstFetch($fullyQualified, 'class');
     }
 }
