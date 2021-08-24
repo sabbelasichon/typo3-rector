@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\CodeQuality\Rector\Name\FixClassCaseSensitivityNameRector;
 use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
@@ -42,6 +43,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             RemoveUnusedVariableAssignRector::class,
             __DIR__ . '/utils/generator/templates',
             StringClassNameToClassConstantRector::class,
+            __DIR__ . '/src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php',
             __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
             RemovePackageVersionsRector::class => [__DIR__ . '/config', __DIR__ . '/tests'],
             __DIR__ . '/src/Set',
