@@ -52,7 +52,14 @@ final class RemoveMethodCallLoadTcaRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove GeneralUtility::loadTCA() call', [
-            new CodeSample('GeneralUtility::loadTCA()', ''),
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+'GeneralUtility::loadTCA()'
+CODE_SAMPLE,
+<<<'CODE_SAMPLE'
+-
+CODE_SAMPLE
+            ),
         ]);
     }
 }
