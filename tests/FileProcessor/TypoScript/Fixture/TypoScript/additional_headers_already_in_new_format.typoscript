@@ -25,9 +25,6 @@ special_page2 {
             10 {
                 header = Content-type: text/html
             }
-            /*
-                This is a multiline comment
-            */
         }
         no_cache = 1
         debug = 0
