@@ -14,6 +14,7 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Property;
 use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\Util\StaticRectorStrings;
 use Rector\Core\ValueObject\PhpVersionFeature;
@@ -101,6 +102,7 @@ CODE_SAMPLE
     public function getNodeTypes(): array
     {
         return [
+            FileWithoutNamespace::class,
             Name::class,
             Property::class,
             FunctionLike::class,
@@ -112,7 +114,7 @@ CODE_SAMPLE
     }
 
     /**
-     * @param Name|FunctionLike|Property|Name|Expression|String_ $node
+     * @param FunctionLike|Name|ClassLike|Expression|Namespace_|Property|FileWithoutNamespace|String_ $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -124,7 +126,7 @@ CODE_SAMPLE
     }
 
     /**
-     * @param mixed[] $configuration
+     * @param array<string, array<string, string>> $configuration
      */
     public function configure(array $configuration): void
     {
