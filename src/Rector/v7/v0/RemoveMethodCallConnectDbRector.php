@@ -55,7 +55,8 @@ final class RemoveMethodCallConnectDbRector extends AbstractRector
             new CodeSample(
                 <<<'CODE_SAMPLE'
 'GeneralUtility::loadTCA()'
-CODE_SAMPLE,
+CODE_SAMPLE
+,
                 <<<'CODE_SAMPLE'
 -
 CODE_SAMPLE
