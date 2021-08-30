@@ -70,6 +70,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
             $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
             $this->removeNode($parentNode);
         }
+
         return $node;
     }
 

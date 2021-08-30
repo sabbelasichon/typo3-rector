@@ -130,7 +130,7 @@ class MyController extends ActionController
             HttpUtility::setResponseCode(HttpUtility::HTTP_STATUS_400);
         }
 
-        return $this->responseFactory->createJsonResponse(json_encode($response));
+        return $this->jsonResponse(json_encode($response));
     }
 
     public function exportAction()
