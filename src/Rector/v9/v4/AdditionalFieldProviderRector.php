@@ -119,6 +119,7 @@ CODE_SAMPLE
                 $implements[] = $implement;
             }
         }
+
         $node->implements = $implements;
 
         return $node;

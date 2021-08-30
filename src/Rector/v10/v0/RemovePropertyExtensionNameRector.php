@@ -34,9 +34,11 @@ final class RemovePropertyExtensionNameRector extends AbstractRector
             || ! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController'))) {
             return null;
         }
+
         if (! $this->isName($node, 'extensionName')) {
             return null;
         }
+
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createPropertyFetch($node->var, 'request'),
             'getControllerExtensionName'

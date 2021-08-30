@@ -79,6 +79,7 @@ CODE_SAMPLE
         )) {
             return false;
         }
+
         return ! $this->typo3NodeResolver->isAnyMethodCallOnGlobals(
             $node,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER

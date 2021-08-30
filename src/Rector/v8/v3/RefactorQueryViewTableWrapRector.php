@@ -39,6 +39,7 @@ final class RefactorQueryViewTableWrapRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'tableWrap')) {
             return null;
         }

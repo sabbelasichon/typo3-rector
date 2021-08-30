@@ -140,14 +140,18 @@ trait TcaHelperTrait
             if (! $arrayItem instanceof ArrayItem) {
                 continue;
             }
+
             if (! $arrayItem->value instanceof Array_) {
                 continue;
             }
+
             if (! $this->hasKeyValuePair($arrayItem->value, $key, $value)) {
                 continue;
             }
+
             yield $arrayItem;
         }
+
         return null;
     }
 

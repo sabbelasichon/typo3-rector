@@ -46,9 +46,11 @@ final class RefactorDbConstantsRector extends AbstractRector
         if (null === $constantsName) {
             return null;
         }
+
         if (! array_key_exists($constantsName, self::MAP_CONSTANTS_TO_GLOBALS)) {
             return null;
         }
+
         $globalKey = self::MAP_CONSTANTS_TO_GLOBALS[$constantsName];
         return new ArrayDimFetch(new ArrayDimFetch(new ArrayDimFetch(new ArrayDimFetch(new ArrayDimFetch(new Variable(
             'GLOBALS'

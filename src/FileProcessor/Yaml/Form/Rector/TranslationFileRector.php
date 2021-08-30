@@ -78,6 +78,7 @@ CODE_SAMPLE
                 $this->refactorTranslationFile($section);
             }
         }
+
         unset($section);
 
         return $yaml;
@@ -96,6 +97,7 @@ CODE_SAMPLE
                 $newTranslations[$oldTranslationFileKey] = $oldTranslationFile;
             }
         }
+
         return $newTranslations;
     }
 }

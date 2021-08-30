@@ -37,6 +37,7 @@ final class DataHandlerRmCommaRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'rmComma')) {
             return null;
         }

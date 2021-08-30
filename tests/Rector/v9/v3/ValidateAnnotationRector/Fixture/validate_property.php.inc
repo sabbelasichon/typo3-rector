@@ -46,6 +46,11 @@ final class SomeValidateClass
     protected $prop;
 
     /**
+     * @validate RegularExpression(regularExpression='/[0-9]{4}$/')
+     */
+    protected $propFoo;
+
+    /**
      * @validate RegularExpression(regularExpression="#(mr|mrs)#")
      */
     protected $prop2;
@@ -104,6 +109,11 @@ final class SomeValidateClass
      * @Extbase\Validate("RegularExpression", options={"regularExpression": "/(mr|mrs)/"})
      */
     protected $prop;
+
+    /**
+     * @Extbase\Validate("RegularExpression", options={"regularExpression": "/[0-9]{4}$/"})
+     */
+    protected $propFoo;
 
     /**
      * @Extbase\Validate("RegularExpression", options={"regularExpression": "#(mr|mrs)#"})

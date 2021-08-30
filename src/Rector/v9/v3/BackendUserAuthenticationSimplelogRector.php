@@ -30,6 +30,7 @@ final class BackendUserAuthenticationSimplelogRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'simplelog')) {
             return null;
         }

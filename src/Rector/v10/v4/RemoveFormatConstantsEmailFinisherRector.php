@@ -65,15 +65,19 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
         if ($parent instanceof Arg) {
             $this->refactorSetOptionMethodCall($parent, $node);
         }
+
         if ($parent instanceof ArrayItem) {
             $this->refactorArrayItemOption($parent, $node);
         }
+
         if ($parent instanceof Assign) {
             $this->refactorOptionAssignment($parent, $node);
         }
+
         if ($parent instanceof Identical) {
             $this->refactorCondition($parent, $node);
         }
+
         return null;
     }
 
@@ -104,12 +108,15 @@ CODE_SAMPLE
         if (! $parent instanceof MethodCall) {
             return;
         }
+
         if (! $this->isName($parent->name, 'setOption')) {
             return;
         }
+
         if (! $this->valueResolver->isValue($parent->args[0]->value, self::FORMAT)) {
             return;
         }
+
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
         $parent->args[0]->value = new String_(self::ADD_HTML_PART);
         $parent->args[1]->value = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
@@ -120,6 +127,7 @@ CODE_SAMPLE
         if (null === $parent->key || ! $this->valueResolver->isValue($parent->key, self::FORMAT)) {
             return;
         }
+
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
         $parent->key = new String_(self::ADD_HTML_PART);
         $parent->value = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
@@ -130,12 +138,15 @@ CODE_SAMPLE
         if (! $parent->var instanceof ArrayDimFetch) {
             return;
         }
+
         if (! $this->isName($parent->var->var, 'options')) {
             return;
         }
+
         if (null === $parent->var->dim || ! $this->valueResolver->isValue($parent->var->dim, self::FORMAT)) {
             return;
         }
+
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
         $parent->var->dim = new String_(self::ADD_HTML_PART);
         $parent->expr = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
@@ -146,12 +157,15 @@ CODE_SAMPLE
         if (! $parent->left instanceof ArrayDimFetch) {
             return;
         }
+
         if (! $this->isName($parent->left->var, 'options')) {
             return;
         }
+
         if (null === $parent->left->dim || ! $this->valueResolver->isValue($parent->left->dim, self::FORMAT)) {
             return;
         }
+
         $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
         $parent->left->dim = new String_(self::ADD_HTML_PART);
         $parent->right = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();

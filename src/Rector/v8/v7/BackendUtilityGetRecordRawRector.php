@@ -47,6 +47,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'getRecordRaw')) {
             return null;
         }

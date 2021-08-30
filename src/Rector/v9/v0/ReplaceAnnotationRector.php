@@ -60,6 +60,7 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
             if (! $phpDocInfo->hasByName($oldAnnotation)) {
                 continue;
             }
+
             $this->phpDocTagRemover->removeByName($phpDocInfo, $oldAnnotation);
 
             $tag = $this->prepareNewAnnotation($newAnnotation);

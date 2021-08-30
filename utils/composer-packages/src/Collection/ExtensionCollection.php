@@ -101,6 +101,7 @@ final class ExtensionCollection implements Countable, IteratorAggregate
                 $replacePackages[$replacePackage->getOldPackageName()] = $replacePackage;
             }
         }
+
         return $replacePackages;
     }
 }

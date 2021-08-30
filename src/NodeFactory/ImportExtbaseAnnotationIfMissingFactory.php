@@ -57,6 +57,7 @@ final class ImportExtbaseAnnotationIfMissingFactory
             if (! $this->nodeNameResolver->isName($useUse->name, $completeImportForPartialAnnotation->getUse())) {
                 continue;
             }
+
             if ((string) $useUse->alias !== $completeImportForPartialAnnotation->getAlias()) {
                 continue;
             }

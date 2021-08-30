@@ -110,6 +110,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                         $changed = true;
                         unset($softReferences['TSconfig']);
                     }
+
                     if (isset($softReferences['TStemplate'])) {
                         $changed = true;
                         unset($softReferences['TStemplate']);
@@ -122,11 +123,13 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                         } else {
                             $this->removeNode($configItemValue);
                         }
+
                         $hasAstBeenChanged = true;
                     }
                 }
             }
         }
+
         return $hasAstBeenChanged ? $node : null;
     }
 

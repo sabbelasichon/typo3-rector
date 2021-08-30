@@ -36,6 +36,7 @@ final class ArrayUtilityInArrayToFuncInArrayRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'inArray')) {
             return null;
         }

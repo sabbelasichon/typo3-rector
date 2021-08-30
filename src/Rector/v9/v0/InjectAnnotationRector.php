@@ -106,6 +106,7 @@ final class InjectAnnotationRector extends AbstractRector
                 $injectMethods[] = $this->createInjectClassMethod($variableName, $param, $assign);
             }
         }
+
         $node->stmts = array_merge($node->stmts, $injectMethods);
         return $node;
     }

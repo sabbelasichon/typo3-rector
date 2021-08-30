@@ -227,6 +227,7 @@ CODE_SAMPLE
                             if (null !== $format) {
                                 $configValue->value->items[] = new ArrayItem($format, new String_('format'));
                             }
+
                             --$remainingWizards;
                         }
                     }
@@ -238,6 +239,7 @@ CODE_SAMPLE
                 }
             }
         }
+
         return $hasAstBeenChanged ? $node : null;
     }
 }

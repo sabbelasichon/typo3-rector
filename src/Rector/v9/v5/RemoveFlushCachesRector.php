@@ -40,6 +40,7 @@ final class RemoveFlushCachesRector extends AbstractRector
         if (! \str_ends_with($name, 'Command')) {
             return null;
         }
+
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($node);
 
         $this->phpDocTagRemover->removeByName($phpDocInfo, 'flushCaches');

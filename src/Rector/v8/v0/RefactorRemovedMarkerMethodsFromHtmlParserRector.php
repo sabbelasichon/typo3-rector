@@ -186,6 +186,7 @@ CODE_SAMPLE
                 return $this->nodeFactory->createMethodCall($staticCall, $methodName, $node->args);
             }
         }
+
         return null;
     }
 
@@ -197,6 +198,7 @@ CODE_SAMPLE
             && ! $this->isName($node->name, self::RENAMED_METHOD)) {
             $skip = true;
         }
+
         return $skip;
     }
 }

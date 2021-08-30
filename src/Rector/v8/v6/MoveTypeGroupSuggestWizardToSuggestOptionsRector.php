@@ -118,6 +118,7 @@ CODE_SAMPLE
             if (! $this->hasKeyValuePair($config, self::TYPE, 'group')) {
                 continue;
             }
+
             if (! $this->hasKeyValuePair($config, 'internal_type', 'db')) {
                 continue;
             }
@@ -148,6 +149,7 @@ CODE_SAMPLE
                 if (! $configOverride instanceof Array_) {
                     continue;
                 }
+
                 if ($this->refactorWizards($configOverride)) {
                     $configOverride->items[] = new ArrayItem(new ConstFetch(new Name('false')), new String_(
                         'hideSuggest'
@@ -169,6 +171,7 @@ CODE_SAMPLE
         if (! $wizardsArrayItem instanceof ArrayItem) {
             return false;
         }
+
         $wizards = $wizardsArrayItem->value;
 
         if (! $wizards instanceof Array_) {
@@ -197,6 +200,7 @@ CODE_SAMPLE
         if ($this->isEmpty($wizards)) {
             $this->removeNode($wizardsArrayItem);
         }
+
         return true;
     }
 
@@ -208,12 +212,14 @@ CODE_SAMPLE
                 if (null === $item->key) {
                     continue;
                 }
+
                 if (! \str_starts_with($this->valueResolver->getValue($item->key), '_')) {
                     $nodeEmpty = false;
                     break;
                 }
             }
         }
+
         return $nodeEmpty;
     }
 }

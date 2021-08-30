@@ -39,15 +39,18 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'enableFields')) {
             return null;
         }
+
         $numberOfMethodArguments = count($node->args);
         if ($numberOfMethodArguments > 1) {
             $node->args[1] = new Arg(BuilderHelpers::normalizeValue(
                 $this->valueResolver->isTrue($node->args[1]->value) ? true : -1
             ));
         }
+
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Utility\GeneralUtility',

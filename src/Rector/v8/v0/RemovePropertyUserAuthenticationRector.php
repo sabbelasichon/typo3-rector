@@ -33,9 +33,11 @@ final class RemovePropertyUserAuthenticationRector extends AbstractRector
         if (! $this->isName($node, 'userAuthentication')) {
             return null;
         }
+
         if (! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\CommandController'))) {
             return null;
         }
+
         return $this->nodeFactory->createMethodCall($node->var, 'getBackendUserAuthentication');
     }
 

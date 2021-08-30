@@ -43,6 +43,7 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
         if (! $this->typo3NodeResolver->isTypo3Global($node, Typo3NodeResolver::PARSETIME_START)) {
             return null;
         }
+
         return $this->nodeFactory->createFuncCall(
             'round',
             [new Mul(new ArrayDimFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_(

@@ -30,14 +30,17 @@ final class ArrayUtility
                     $temp[] = $value;
                 }
             }
+
             $result = $temp;
         }
+
         if ($limit > 0 && count($result) > $limit) {
             $lastElements = array_splice($result, $limit - 1);
             $result[] = implode($delimiter, $lastElements);
         } elseif ($limit < 0) {
             $result = array_slice($result, 0, $limit);
         }
+
         return array_map('trim', $result);
     }
 }

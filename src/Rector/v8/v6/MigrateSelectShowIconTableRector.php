@@ -126,6 +126,7 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                 }
             }
         }
+
         return $hasAstBeenChanged ? $node : null;
     }
 
@@ -193,6 +194,7 @@ CODE_SAMPLE
         if (! $this->valueResolver->isValue($configItemValue->key, 'showIconTable')) {
             return false;
         }
+
         return $this->valueResolver->isTrue($configItemValue->value);
     }
 }

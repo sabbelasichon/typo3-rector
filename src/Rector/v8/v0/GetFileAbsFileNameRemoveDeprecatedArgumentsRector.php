@@ -36,6 +36,7 @@ final class GetFileAbsFileNameRemoveDeprecatedArgumentsRector extends AbstractRe
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'getFileAbsFileName')) {
             return null;
         }

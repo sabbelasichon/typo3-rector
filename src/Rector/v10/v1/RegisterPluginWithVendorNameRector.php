@@ -109,6 +109,7 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
         if (null !== $this->valueResolver->getValue($extensionNameArgumentValue->right)) {
             return false;
         }
+
         return $this->isNames($extensionNameArgumentValue->right, ['_EXTKEY', 'extensionKey']);
     }
 }

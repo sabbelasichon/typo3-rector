@@ -34,9 +34,11 @@ final class RteHtmlParserRector extends AbstractRector
         if ($this->shouldSkip($node)) {
             return null;
         }
+
         if ($this->isNames($node->name, ['HTMLcleaner_db', 'getKeepTags'])) {
             return $this->removeSecondArgumentFromMethod($node);
         }
+
         if ($this->isName($node->name, 'siteUrl')) {
             return $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Utility\GeneralUtility',
@@ -44,6 +46,7 @@ final class RteHtmlParserRector extends AbstractRector
                 [$this->nodeFactory->createArg(new String_('TYPO3_SITE_URL'))]
             );
         }
+
         if ($this->isName($node->name, 'getUrl')) {
             return $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Utility\GeneralUtility',
@@ -51,6 +54,7 @@ final class RteHtmlParserRector extends AbstractRector
                 [$node->args[0]]
             );
         }
+
         return null;
     }
 
@@ -92,6 +96,7 @@ CODE_SAMPLE
         if ($numberOfArguments > 1) {
             unset($node->args[1]);
         }
+
         return $node;
     }
 

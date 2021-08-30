@@ -37,9 +37,11 @@ final class RemovePropertiesFromSimpleDataHandlerControllerRector extends Abstra
             $this->removeVariableNode($node);
             return null;
         }
+
         if ($node->var instanceof PropertyFetch) {
             $this->removePropertyFetchNode($node);
         }
+
         return null;
     }
 
@@ -83,15 +85,18 @@ CODE_SAMPLE
         if (null === $classNode) {
             return;
         }
+
         if (! $this->isObjectType(
             $classNode,
             new ObjectType('TYPO3\CMS\Backend\Controller\SimpleDataHandlerController')
         )) {
             return;
         }
+
         if (! $this->isName($assign->expr, 'uPT') && ! $this->isName($assign->expr, 'prErr')) {
             return;
         }
+
         $this->removeNode($assign);
     }
 
@@ -101,15 +106,18 @@ CODE_SAMPLE
         if (null === $classNode) {
             return;
         }
+
         if (! $this->isObjectType(
             $classNode,
             new ObjectType('TYPO3\CMS\Backend\Controller\SimpleDataHandlerController')
         )) {
             return;
         }
+
         if (! $this->isName($assign->var, 'uPT') && ! $this->isName($assign->var, 'prErr')) {
             return;
         }
+
         $this->removeNode($assign);
     }
 }

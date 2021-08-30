@@ -41,6 +41,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
         if (! $this->isName($node->class, 'TYPO3\CMS\Core\Utility\GeneralUtility')) {
             return null;
         }
+
         $methodName = $this->getName($node->name);
         if (null === $methodName) {
             return null;

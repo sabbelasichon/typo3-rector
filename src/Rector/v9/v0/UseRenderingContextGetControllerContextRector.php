@@ -81,6 +81,7 @@ CODE_SAMPLE
                 if (! $node instanceof PropertyFetch) {
                     return null;
                 }
+
                 if (! $this->isName($node, 'controllerContext')) {
                     return null;
                 }

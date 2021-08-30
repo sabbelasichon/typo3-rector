@@ -38,9 +38,11 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'init')) {
             return null;
         }
+
         try {
             $this->removeNode($node);
         } catch (ShouldNotHappenException) {

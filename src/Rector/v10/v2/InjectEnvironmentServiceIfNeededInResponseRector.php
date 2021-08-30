@@ -57,6 +57,7 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
         if (! $this->isObjectType($node, new ObjectType('TYPO3\CMS\Extbase\Mvc\Web\Response'))) {
             return null;
         }
+
         if (! $this->isPropertyEnvironmentServiceInUse($node)) {
             return null;
         }
@@ -157,9 +158,11 @@ CODE_SAMPLE
             if (! $node instanceof PropertyFetch) {
                 return null;
             }
+
             if ($this->isName($node->name, 'environmentService')) {
                 $isEnvironmentServicePropertyUsed = true;
             }
+
             return $node;
         });
         return $isEnvironmentServicePropertyUsed;

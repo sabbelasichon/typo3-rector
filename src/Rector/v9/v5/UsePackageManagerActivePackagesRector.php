@@ -45,6 +45,7 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
                 'getActivePackages'
             );
         }
+
         return null;
     }
 

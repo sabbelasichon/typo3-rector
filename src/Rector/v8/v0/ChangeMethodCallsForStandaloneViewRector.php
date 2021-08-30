@@ -74,6 +74,7 @@ CODE_SAMPLE
             if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new ObjectType($type))) {
                 continue;
             }
+
             foreach ($oldToNewMethods as $oldMethod => $newMethod) {
                 if (! $this->isName($node->name, $oldMethod)) {
                     continue;
@@ -93,6 +94,7 @@ CODE_SAMPLE
                 }
             }
         }
+
         return null;
     }
 }

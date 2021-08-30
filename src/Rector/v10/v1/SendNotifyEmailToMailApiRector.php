@@ -118,6 +118,7 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
             $this->addNodeBeforeNode($this->parsedReplyTo($replyTo), $positionNode);
             $this->addNodeBeforeNode($this->methodReplyTo(), $positionNode);
         }
+
         $ifMessageNotEmpty = $this->messageNotEmpty();
         $ifMessageNotEmpty->stmts[] = $this->messageParts();
         $ifMessageNotEmpty->stmts[] = $this->subjectFromMessageParts();

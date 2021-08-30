@@ -56,9 +56,11 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
                 foreach ($nodes as $newNode) {
                     $this->addNodeBeforeNode($newNode, $node);
                 }
+
                 $this->removeNode($node);
             }
         }
+
         return null;
     }
 

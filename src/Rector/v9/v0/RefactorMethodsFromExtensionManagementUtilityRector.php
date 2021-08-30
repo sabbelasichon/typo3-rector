@@ -106,6 +106,7 @@ CODE_SAMPLE
         if ($numberOfArguments > 1) {
             unset($node->args[1]);
         }
+
         return $node;
     }
 }

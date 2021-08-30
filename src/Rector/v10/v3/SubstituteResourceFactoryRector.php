@@ -36,9 +36,11 @@ final class SubstituteResourceFactoryRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'getInstance')) {
             return null;
         }
+
         return $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Core\Utility\GeneralUtility',
             'makeInstance',

@@ -39,15 +39,19 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
         )) {
             return null;
         }
+
         if ($this->isName($node->name, 'getConcatenateFiles')) {
             return $this->createArrayMergeCall($node);
         }
+
         if ($this->isName($node->name, 'enableConcatenateFiles')) {
             return $this->splitMethodCall($node, 'enableConcatenateJavascript', 'enableConcatenateCss');
         }
+
         if ($this->isName($node->name, 'disableConcatenateFiles')) {
             return $this->splitMethodCall($node, 'disableConcatenateJavascript', 'disableConcatenateCss');
         }
+
         return null;
     }
 

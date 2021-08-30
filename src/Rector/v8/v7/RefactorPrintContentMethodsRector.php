@@ -103,6 +103,7 @@ CODE_SAMPLE
         if ($this->isPageLayoutControllerClass($node)) {
             return false;
         }
+
         return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Taskcenter\Controller\TaskModuleController')

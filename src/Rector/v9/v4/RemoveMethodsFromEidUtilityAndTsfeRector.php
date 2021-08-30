@@ -122,6 +122,7 @@ CODE_SAMPLE
         )) {
             return true;
         }
+
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')

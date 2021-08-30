@@ -100,6 +100,7 @@ CODE_SAMPLE
                 }
             }
         }
+
         return $hasAstBeenChanged ? $node : null;
     }
 }

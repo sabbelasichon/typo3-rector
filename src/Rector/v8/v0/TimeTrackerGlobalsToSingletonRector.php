@@ -38,6 +38,7 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
         if (! $this->typo3NodeResolver->isAnyMethodCallOnGlobals($node, Typo3NodeResolver::TIME_TRACKER)) {
             return null;
         }
+
         $classConstant = $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\TimeTracker\TimeTracker');
         $staticCall = $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Core\Utility\GeneralUtility',
@@ -48,6 +49,7 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
         if (null === $methodCallName) {
             return null;
         }
+
         return $this->nodeFactory->createMethodCall($staticCall, $methodCallName, $node->args);
     }
 

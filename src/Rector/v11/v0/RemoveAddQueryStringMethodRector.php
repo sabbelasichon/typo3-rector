@@ -82,6 +82,7 @@ CODE_SAMPLE
         if ($this->isMethodCallOnUriBuilder($node)) {
             return false;
         }
+
         return ! $this->isMethodCallOnContentObjectRenderer($node);
     }
 
@@ -93,6 +94,7 @@ CODE_SAMPLE
         )) {
             return false;
         }
+
         return $this->isName($node->name, 'setAddQueryStringMethod');
     }
 
@@ -104,6 +106,7 @@ CODE_SAMPLE
         )) {
             return false;
         }
+
         return $this->isName($node->name, 'getQueryArguments');
     }
 

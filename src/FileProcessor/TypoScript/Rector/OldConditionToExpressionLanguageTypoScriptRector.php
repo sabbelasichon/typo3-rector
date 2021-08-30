@@ -50,12 +50,14 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
         if (! is_array($conditions)) {
             return;
         }
+
         foreach ($conditions as $condition) {
             foreach ($this->conditionMatchers as $conditionMatcher) {
                 $condition = trim($condition);
                 if (! $conditionMatcher->shouldApply($condition)) {
                     continue;
                 }
+
                 $changedCondition = $conditionMatcher->change($condition);
                 $applied = true;
                 if (null !== $changedCondition) {

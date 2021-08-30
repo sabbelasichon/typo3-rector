@@ -136,6 +136,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
             $message = sprintf('The property "%s" can not be mapped for condition BE_USER', $property);
             throw new ShouldNotHappenException($message);
         }
+
         return sprintf(
             'backend.user.%s %s %s',
             self::USER_PROPERTY_MAPPING[$property],

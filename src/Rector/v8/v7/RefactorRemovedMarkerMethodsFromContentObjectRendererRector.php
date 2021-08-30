@@ -45,6 +45,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
         )) {
             return null;
         }
+
         if (! $this->isNames(
             $node->name,
             [
@@ -61,6 +62,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
         )) {
             return null;
         }
+
         if ($this->isNames(
             $node->name,
             [
@@ -78,6 +80,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             if (null === $methodName) {
                 return null;
             }
+
             $classConstant = $this->nodeFactory->createClassConstReference(
                 'TYPO3\CMS\Core\Service\MarkerBasedTemplateService'
             );
@@ -88,6 +91,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             );
             return $this->nodeFactory->createMethodCall($staticCall, $methodName, $node->args);
         }
+
         if ($this->isName($node->name, self::FILL_IN_MARKER_ARRAY)) {
             $node->args[] = $this->nodeFactory->createArg(
                 new BooleanNot($this->nodeFactory->createFuncCall(
@@ -109,6 +113,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
                 $node->args
             );
         }
+
         return null;
     }
 
