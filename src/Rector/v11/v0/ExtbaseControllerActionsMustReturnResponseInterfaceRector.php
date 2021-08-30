@@ -59,8 +59,8 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
                 'json_encode'
             )) {
                 $return->expr = $this->nodeFactory->createMethodCall(
-                    $this->nodeFactory->createPropertyFetch(self::THIS, 'responseFactory'),
-                    'createJsonResponse',
+                    self::THIS,
+                    'jsonResponse',
                     [$return->expr]
                 );
             } else {
