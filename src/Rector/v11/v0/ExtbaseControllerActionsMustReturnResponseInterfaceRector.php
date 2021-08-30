@@ -58,11 +58,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
                 $returnCallExpression->name,
                 'json_encode'
             )) {
-                $return->expr = $this->nodeFactory->createMethodCall(
-                    self::THIS,
-                    'jsonResponse',
-                    [$return->expr]
-                );
+                $return->expr = $this->nodeFactory->createMethodCall(self::THIS, 'jsonResponse', [$return->expr]);
             } else {
                 // avoid duplication
                 if ($return->expr instanceof MethodCall && $this->isName(
