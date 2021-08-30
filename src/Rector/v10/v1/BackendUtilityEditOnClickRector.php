@@ -41,9 +41,11 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'editOnClick')) {
             return null;
         }
+
         $firstArgument = $node->args[0];
         return new Concat($this->createUriBuilderCall($firstArgument), $this->createRequestUriCall());
     }

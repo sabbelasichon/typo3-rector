@@ -120,6 +120,7 @@ CODE_SAMPLE
         if ($this->typo3NodeResolver->isMethodCallOnBackendUser($node)) {
             return false;
         }
+
         return ! $this->isObjectType(
             $node->var,
             new ObjectType('TYPO3\CMS\Core\Authentication\BackendUserAuthentication')

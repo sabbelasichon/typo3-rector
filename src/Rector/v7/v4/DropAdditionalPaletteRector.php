@@ -86,6 +86,7 @@ CODE_SAMPLE
         ) {
             return;
         }
+
         $itemList = ArrayUtility::trimExplode(',', $showItemValue, true);
         $newFieldStrings = [];
         foreach ($itemList as $fieldString) {
@@ -101,6 +102,7 @@ CODE_SAMPLE
                 } else {
                     $fieldString = $fieldArray[self::FIELD_NAME];
                 }
+
                 $paletteString = '--palette--;;' . $fieldArray[self::PALETTE_NAME];
                 $newFieldStrings[] = $fieldString;
                 $newFieldStrings[] = $paletteString;
@@ -108,10 +110,12 @@ CODE_SAMPLE
                 $newFieldStrings[] = $fieldString;
             }
         }
+
         if ($newFieldStrings === $itemList) {
             // do not alter the syntax tree, if there are no changes. This will keep formatting of the code intact
             return;
         }
+
         $showItemNode->value = new String_(implode(',', $newFieldStrings));
         $this->hasAstBeenChanged = true;
     }

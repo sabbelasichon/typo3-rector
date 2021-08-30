@@ -74,6 +74,7 @@ CODE_SAMPLE
         if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node, Typo3NodeResolver::BACKEND_USER)) {
             return false;
         }
+
         return ! $this->isObjectType(
             $node->var,
             new ObjectType('TYPO3\CMS\Core\Authentication\BackendUserAuthentication')

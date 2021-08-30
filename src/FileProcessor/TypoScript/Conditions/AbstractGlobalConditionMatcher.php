@@ -94,10 +94,12 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
                 );
             }
         }
+
         if (in_array($property, self::IENV_KEEP_SERVER_PARAMS, true)) {
             if (\str_contains($value, '*')) {
                 return sprintf('like(request.getServerParams()[\'%s\'], "%s")', $property, $value);
             }
+
             $condition = sprintf(
                 'request.getServerParams()[\'%s\'] %s "%s"',
                 $property,
@@ -105,6 +107,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
                 $value
             );
         }
+
         return $condition;
     }
 }

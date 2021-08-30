@@ -110,6 +110,7 @@ final class ComposerPackageParser implements PackageParser
             if (! str_contains($packageRequire, 'typo3/cms-')) {
                 continue;
             }
+
             return $packageRequire;
         }
 

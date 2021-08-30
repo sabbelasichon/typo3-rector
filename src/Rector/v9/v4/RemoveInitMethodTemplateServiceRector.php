@@ -36,6 +36,7 @@ final class RemoveInitMethodTemplateServiceRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'init')) {
             return null;
         }

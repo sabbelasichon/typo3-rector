@@ -177,6 +177,7 @@ CODE_SAMPLE
                     if (! $item instanceof ArrayItem) {
                         continue;
                     }
+
                     $value = new Array_([
                         new ArrayItem(
                             new Array_([new ArrayItem($item->value, new String_('default'))]),
@@ -204,17 +205,22 @@ CODE_SAMPLE
             )) {
                 return $columnConfig;
             }
+
             if (! $this->isName($columnConfig->name, 'getFileFieldTCAConfig')) {
                 return $columnConfig;
             }
+
             if (count($columnConfig->args) < 2) {
                 return $columnConfig;
             }
+
             if (! $columnConfig->args[1]->value instanceof Array_) {
                 return $columnConfig;
             }
+
             return $columnConfig->args[1]->value;
         }
+
         return $columnConfig;
     }
 
@@ -232,6 +238,7 @@ CODE_SAMPLE
                 // do not alter overrideChildTca nodes that are not an array (which would be invalid tca, but lets be sure here)
                 return;
             }
+
             $newOverrideChildTcaSetting->value->items = array_merge(
                 $newOverrideChildTcaSetting->value->items,
                 $overrideValue->items

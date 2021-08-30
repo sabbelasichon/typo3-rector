@@ -69,6 +69,7 @@ final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRect
         if (isset($node->args[2]) && $severityValue = $this->valueResolver->getValue($node->args[2]->value)) {
             $severity = $this->oldSeverityToLogLevelMapper->mapSeverityToLogLevel($severityValue);
         }
+
         $args[] = $severity;
 
         $args[] = $node->args[0] ?? $this->nodeFactory->createArg(new String_(''));

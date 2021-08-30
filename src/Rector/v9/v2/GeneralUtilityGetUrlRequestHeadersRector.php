@@ -54,6 +54,7 @@ CODE_SAMPLE
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'getUrl')) {
             return null;
         }
@@ -99,6 +100,7 @@ CODE_SAMPLE
             if (2 !== count($parts)) {
                 continue;
             }
+
             $key = &$parts[0];
             $value = &$parts[1];
 

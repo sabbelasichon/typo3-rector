@@ -37,12 +37,15 @@ final class FindByPidsAndAuthorIdRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'findByPidsAndAuthor')) {
             return null;
         }
+
         if (count($node->args) < 2) {
             return null;
         }
+
         $node->name = new Identifier('findByPidsAndAuthorId');
         $secondArgument = $node->args[1];
         $secondArgument->value = $this->nodeFactory->createMethodCall($secondArgument->value, 'getUid');

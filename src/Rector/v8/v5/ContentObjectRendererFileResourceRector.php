@@ -101,6 +101,7 @@ CODE_SAMPLE
         if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'))) {
             return false;
         }
+
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
             $node,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,

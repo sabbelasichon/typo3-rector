@@ -37,6 +37,7 @@ final class RefactorArrayBrowserWrapValueRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'wrapValue')) {
             return null;
         }

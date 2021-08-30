@@ -41,20 +41,25 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'idnaEncode')) {
             return null;
         }
+
         $arguments = $node->args;
         if ([] === $arguments) {
             return null;
         }
+
         $firstArgumentValue = $this->valueResolver->getValue($arguments[0]->value);
         if (! is_string($firstArgumentValue)) {
             return null;
         }
+
         if (! str_contains($firstArgumentValue, '@')) {
             return $this->refactorToNativeFunction($firstArgumentValue);
         }
+
         return $this->refactorToEmailConcatWithNativeFunction($firstArgumentValue);
     }
 

@@ -36,9 +36,11 @@ final class MoveApplicationContextToEnvironmentApiRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'getApplicationContext')) {
             return null;
         }
+
         return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getContext', []);
     }
 

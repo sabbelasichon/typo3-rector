@@ -41,13 +41,16 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
         if (! $this->isExpectedObjectType($node)) {
             return null;
         }
+
         if (! $this->isNames($node->name, ['findService', 'makeInstanceService'])) {
             return null;
         }
+
         $arguments = $node->args;
         if (count($arguments) < 3) {
             return null;
         }
+
         $excludeServiceKeys = $arguments[2];
         if ($this->arrayTypeAnalyzer->isArrayType($excludeServiceKeys->value)) {
             return null;
@@ -91,6 +94,7 @@ CODE_SAMPLE
         )) {
             return true;
         }
+
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')

@@ -116,6 +116,7 @@ CODE_SAMPLE
         )) {
             return false;
         }
+
         return $this->isName($node->name, 'addMetaTag');
     }
 
@@ -127,6 +128,7 @@ CODE_SAMPLE
         )) {
             return false;
         }
+
         return $this->isName($node->name, 'xUaCompatible');
     }
 

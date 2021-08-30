@@ -37,9 +37,11 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'splitConfArray')) {
             return null;
         }
+
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Utility\GeneralUtility',

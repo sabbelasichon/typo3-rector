@@ -59,6 +59,7 @@ CODE_SAMPLE
         if (! $columnTca instanceof Array_) {
             return;
         }
+
         $config = null;
         $configItem = $this->extractArrayItemByKey($columnTca, 'config');
 

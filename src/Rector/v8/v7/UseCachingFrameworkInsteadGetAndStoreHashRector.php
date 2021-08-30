@@ -101,6 +101,7 @@ CODE_SAMPLE
         if ($this->typo3NodeResolver->isMethodCallOnSysPageOfTSFE($node)) {
             return false;
         }
+
         return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository')

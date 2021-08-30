@@ -54,6 +54,7 @@ CODE_SAMPLE
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'makeInstance')) {
             return null;
         }

@@ -98,6 +98,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
             foreach ($this->typoScriptRectors as $visitor) {
                 $traverser->addVisitor($visitor);
             }
+
             $traverser->walk();
 
             $typoscriptRectorsWithChange = array_filter(

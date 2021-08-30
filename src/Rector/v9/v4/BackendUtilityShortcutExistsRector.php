@@ -52,6 +52,7 @@ CODE_SAMPLE
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'shortcutExists')) {
             return null;
         }

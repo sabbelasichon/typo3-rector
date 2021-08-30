@@ -83,6 +83,7 @@ CODE_SAMPLE
         if ($this->isLanguageServiceCall($node)) {
             return false;
         }
+
         return $node instanceof PropertyFetch;
     }
 

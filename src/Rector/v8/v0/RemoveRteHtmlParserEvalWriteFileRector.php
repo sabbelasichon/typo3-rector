@@ -55,6 +55,7 @@ final class RemoveRteHtmlParserEvalWriteFileRector extends AbstractRector
                 return $node;
             }
         }
+
         return null;
     }
 

@@ -175,6 +175,7 @@ CODE_SAMPLE
         if (! $this->isName($globals, Typo3NodeResolver::GLOBALS)) {
             return true;
         }
+
         return null === $node->dim;
     }
 }

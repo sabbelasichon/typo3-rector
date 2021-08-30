@@ -65,6 +65,7 @@ final class RemoveSupportForTransForeignTableRector extends AbstractRector
                 $hasAstBeenChanged = true;
             }
         }
+
         return $hasAstBeenChanged ? $node : null;
     }
 

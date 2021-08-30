@@ -84,6 +84,7 @@ CODE_SAMPLE
         )) {
             return false;
         }
+
         return $this->isName($node->name, self::GET_PREFERRED_CLIENT_LANGUAGE);
     }
 
@@ -92,6 +93,7 @@ CODE_SAMPLE
         if (! $node->var instanceof PropertyFetch) {
             return false;
         }
+
         return $this->isName($node->name, self::GET_PREFERRED_CLIENT_LANGUAGE);
     }
 }

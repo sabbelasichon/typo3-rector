@@ -143,6 +143,7 @@ CODE_SAMPLE
                     if (null === $configItemValue->key) {
                         continue;
                     }
+
                     if (! $this->valueResolver->isValue($configItemValue->key, 'behaviour')) {
                         continue;
                     }

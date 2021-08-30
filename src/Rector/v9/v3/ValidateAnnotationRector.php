@@ -146,6 +146,7 @@ CODE_SAMPLE
         } else {
             $annotation = sprintf('@Extbase\Validate("%s")', $validatorAnnotation);
         }
+
         return new PhpDocTagNode($annotation, $this->createEmptyTagValueNode());
     }
 

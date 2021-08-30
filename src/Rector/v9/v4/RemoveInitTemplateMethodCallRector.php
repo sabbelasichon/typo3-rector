@@ -48,18 +48,22 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
             $this->removeNode($node);
             return null;
         }
+
         if (! $node instanceof MethodCall) {
             return null;
         }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'initTemplate')) {
             return null;
         }
+
         try {
             $this->removeNode($node);
         } catch (ShouldNotHappenException) {

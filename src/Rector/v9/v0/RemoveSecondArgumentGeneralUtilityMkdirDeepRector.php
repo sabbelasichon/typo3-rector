@@ -37,13 +37,16 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'mkdir_deep')) {
             return null;
         }
+
         $arguments = $node->args;
         if (count($arguments) <= 1) {
             return null;
         }
+
         $concat = new Concat($node->args[0]->value, $node->args[1]->value);
         return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'mkdir_deep', [$concat]);
     }

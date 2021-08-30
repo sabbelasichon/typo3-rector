@@ -30,6 +30,7 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'getModuleUrl')) {
             return null;
         }
@@ -39,6 +40,7 @@ final class BackendUtilityGetModuleUrlRector extends AbstractRector
         if (! $firstArgument instanceof Arg) {
             return null;
         }
+
         $secondArgument = array_shift($args);
         return $this->createUriBuilderCall($firstArgument, $secondArgument);
     }
@@ -79,6 +81,7 @@ CODE_SAMPLE
         if (null !== $secondArgument) {
             $buildUriArguments[] = $secondArgument->value;
         }
+
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Utility\GeneralUtility',

@@ -119,6 +119,7 @@ CODE_SAMPLE
             // Continue directly if no semicolon is found
             return;
         }
+
         $itemList = explode(',', $showitem);
         $newFieldStrings = [];
         foreach ($itemList as $fieldString) {
@@ -159,6 +160,7 @@ CODE_SAMPLE
                         $columnOverride = new Array_([]);
                         $columnsOverrides->items[] = new ArrayItem($columnOverride, new String_($fieldName));
                     }
+
                     $columnOverride->items[] = new ArrayItem(new String_($newDefaultExtras), new String_(
                         'defaultExtras'
                     ));
@@ -170,18 +172,22 @@ CODE_SAMPLE
             if (3 === count($fieldArray) && '' === ($fieldArray[self::PALETTE_NAME] ?? '')) {
                 unset($fieldArray[self::PALETTE_NAME]);
             }
+
             if (2 === count($fieldArray) && '' === ($fieldArray[self::FIELD_LABEL] ?? '')) {
                 unset($fieldArray[self::FIELD_LABEL]);
             }
+
             if (1 === count($fieldArray) && '' === $fieldArray[self::FIELD_NAME]) {
                 // The field may vanish if nothing is left
                 unset($fieldArray[self::FIELD_NAME]);
             }
+
             $newFieldString = implode(';', $fieldArray);
             if ('' !== $newFieldString) {
                 $newFieldStrings[] = $newFieldString;
             }
         }
+
         $showitemNode->value = implode(',', $newFieldStrings);
     }
 }

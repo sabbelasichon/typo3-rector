@@ -145,6 +145,7 @@ CODE_SAMPLE
             $this->removeNode($listStyle);
             return true;
         }
+
         return false;
     }
 
@@ -164,6 +165,7 @@ CODE_SAMPLE
                 }
             }
         }
+
         return $hasAstBeenChanged;
     }
 
@@ -193,6 +195,7 @@ CODE_SAMPLE
                 }
             }
         }
+
         return $hasAstBeenChanged;
     }
 }

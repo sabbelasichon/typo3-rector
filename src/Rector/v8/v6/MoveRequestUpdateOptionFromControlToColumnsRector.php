@@ -99,6 +99,7 @@ CODE_SAMPLE
                 if (null === $fields) {
                     return null;
                 }
+
                 $requestUpdateFields = ArrayUtility::trimExplode(',', $fields);
                 $this->removeNode($fieldValue);
             }

@@ -44,9 +44,11 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
         )) {
             return null;
         }
+
         if (! $this->isName($call->name, 'explodeUrl2Array')) {
             return null;
         }
+
         $arguments = $call->args;
         if (count($arguments) <= 1) {
             return null;
@@ -57,6 +59,7 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
             $call->args = $arguments;
             return null;
         }
+
         return $this->nodeFactory->createFuncCall('parse_str', [$arguments[0], $node->var]);
     }
 

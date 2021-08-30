@@ -163,6 +163,7 @@ CODE_SAMPLE
         if ($this->hasRedirectCall($node)) {
             return true;
         }
+
         return $this->alreadyResponseReturnType($node);
     }
 

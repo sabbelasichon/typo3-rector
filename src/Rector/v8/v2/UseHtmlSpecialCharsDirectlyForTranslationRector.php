@@ -107,6 +107,7 @@ CODE_SAMPLE
         )) {
             return true;
         }
+
         return $this->typo3NodeResolver->isAnyMethodCallOnGlobals($node, Typo3NodeResolver::LANG);
     }
 

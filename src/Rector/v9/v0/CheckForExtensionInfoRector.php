@@ -35,10 +35,12 @@ final class CheckForExtensionInfoRector extends AbstractRector
         if (! $this->isExtensionManagementUtilityIsLoaded($node) && ! $this->isPackageManagerIsActivePackage($node)) {
             return null;
         }
+
         $firstArgument = $node->args[0];
         if (! $this->valueResolver->isValue($firstArgument->value, 'info_pagetsconfig')) {
             return null;
         }
+
         $firstArgument->value = new String_('info');
         return $node;
     }

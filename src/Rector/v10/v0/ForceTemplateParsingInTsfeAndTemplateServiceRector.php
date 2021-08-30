@@ -185,6 +185,7 @@ CODE_SAMPLE
         if ($this->isPropertyForceTemplateParsing($node->var)) {
             return false;
         }
+
         return ! $this->isPropertyForceTemplateParsing($node->expr);
     }
 }
