@@ -36,6 +36,7 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
         if (! $node->expr instanceof StaticCall && ! $node->expr instanceof MethodCall) {
             return null;
         }
+
         /** @var StaticCall|MethodCall $call */
         $call = $node->expr;
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
@@ -53,6 +54,7 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
         if (count($arguments) <= 1) {
             return null;
         }
+
         /** @var Arg $lastArgument */
         $lastArgument = array_pop($arguments);
         if ($this->valueResolver->isFalse($lastArgument->value)) {

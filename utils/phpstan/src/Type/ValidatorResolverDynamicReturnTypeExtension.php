@@ -36,6 +36,7 @@ final class ValidatorResolverDynamicReturnTypeExtension implements DynamicMethod
         if (! ($arg instanceof ClassConstFetch)) {
             return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
         }
+
         /** @var Name $class */
         $class = $arg->class;
 

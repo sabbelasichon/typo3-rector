@@ -41,6 +41,7 @@ final class DataHandlerRmCommaRector extends AbstractRector
         if (! $this->isName($node->name, 'rmComma')) {
             return null;
         }
+
         /** @var Arg[] $args */
         $args = $node->args;
         $firstArgument = array_shift($args);

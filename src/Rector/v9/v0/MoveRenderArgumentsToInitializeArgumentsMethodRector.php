@@ -57,6 +57,7 @@ final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends Abstrac
         if (! $this->nodeTypeResolver->isObjectTypes($node, $desiredObjectTypes)) {
             return null;
         }
+
         // Check if the ViewHelper has a render method with params, if not return immediately
         $renderMethod = $node->getMethod('render');
         if (! $renderMethod instanceof ClassMethod) {
