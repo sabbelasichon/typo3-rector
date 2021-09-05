@@ -51,6 +51,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
         if (! $this->isName($node->name, 'getRecordRaw')) {
             return null;
         }
+
         /** @var Arg[] $args */
         $args = $node->args;
         [$firstArgument, $secondArgument, $thirdArgument] = $args;

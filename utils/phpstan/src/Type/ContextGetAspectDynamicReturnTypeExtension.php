@@ -35,11 +35,13 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
         if (! ($argument = $methodCall->args[0] ?? null) instanceof Arg) {
             return $defaultObjectType;
         }
+
         /** @var Arg $argument */
 
         if (! ($string = $argument->value ?? null) instanceof String_) {
             return $defaultObjectType;
         }
+
         /** @var String_ $string */
 
         return match ($string->value) {

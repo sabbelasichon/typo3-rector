@@ -66,6 +66,7 @@ final class InjectAnnotationRector extends AbstractRector
             if (! $propertyPhpDocInfo->hasByName(self::OLD_ANNOTATION)) {
                 continue;
             }
+
             // If the property is public, then change the annotation name
             if ($property->isPublic()) {
                 $this->docBlockTagReplacer->replaceTagByAnother(
