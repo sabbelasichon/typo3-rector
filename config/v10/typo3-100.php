@@ -16,6 +16,7 @@ use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\ExtbasePersistenceTypoScriptRector;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\EmailFinisherRector;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\TranslationFileRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
@@ -70,6 +71,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]);
     $services->set(SwiftMailerBasedMailMessageToMailerBasedMessageRector::class);
+    $services->set(ExtbasePersistenceTypoScriptRector::class);
 
     $services->set('rename_database_record_list_thumb_code_backend_utility_thumb_code')
         ->class(MethodCallToStaticCallRector::class)
