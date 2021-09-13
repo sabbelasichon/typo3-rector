@@ -78,11 +78,9 @@ final class IconsFileProcessor implements FileProcessorInterface
         if (self::EXT_ICON_NAME === $filenameWithoutExtension) {
             return false;
         }
-
-        if (StaticPHPUnitEnvironment::isPHPUnitRun() && str_contains($filenameWithoutExtension, self::EXT_ICON_NAME)) {
-            return false;
-        }
-
-        return true;
+        return ! (StaticPHPUnitEnvironment::isPHPUnitRun() && str_contains(
+            $filenameWithoutExtension,
+            self::EXT_ICON_NAME
+        ));
     }
 }
