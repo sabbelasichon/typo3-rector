@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Rector\General;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
@@ -16,9 +15,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ConfigurationFiles/Index.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\General\ConvertTypo3ConfVarsRector\ConvertTypo3ConfVarsRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector\ConvertImplicitVariablesToExplicitGlobalsRectorTest
  */
-final class ConvertTypo3ConfVarsRector extends AbstractRector
+final class ConvertImplicitVariablesToExplicitGlobalsRector extends AbstractRector
 {
     public function __construct(
         private FilesFinder $filesFinder
@@ -48,19 +47,21 @@ CODE_SAMPLE
      */
     public function getNodeTypes(): array
     {
-        return [ArrayDimFetch::class];
+        return [Variable::class];
     }
 
     /**
-     * @param ArrayDimFetch $node
+     * @param Variable $node
      */
     public function refactor(Node $node): ?Node
     {
-        if ($node->var instanceof MethodCall) {
+        if (! $this->isNames($node, ['TYPO3_CONF_VARS', 'TBE_MODULES'])) {
             return null;
         }
 
-        if (! $this->isName($node->var, 'TYPO3_CONF_VARS')) {
+        $variableName = $this->getName($node);
+
+        if (null === $variableName) {
             return null;
         }
 
@@ -70,8 +71,6 @@ CODE_SAMPLE
             return null;
         }
 
-        $node->var = new ArrayDimFetch(new Variable('GLOBALS'), new String_('TYPO3_CONF_VARS'));
-
-        return $node;
+        return new ArrayDimFetch(new Variable('GLOBALS'), new String_($variableName));
     }
 }

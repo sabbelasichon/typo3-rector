@@ -15,7 +15,7 @@ use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
-use Ssch\TYPO3Rector\Rector\General\ConvertTypo3ConfVarsRector;
+use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
@@ -37,7 +37,7 @@ final class AddChangelogDocBlockForRectorClass implements Rule
     private const ALLOWED_CLASSES_WITH_NON_CHANGELOG_DOC_BLOCK = [
         RenameClassMapAliasRector::class,
         AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class,
-        ConvertTypo3ConfVarsRector::class,
+        ConvertImplicitVariablesToExplicitGlobalsRector::class,
         AbstractTcaRector::class,
         AddPackageVersionRector::class,
     ];
