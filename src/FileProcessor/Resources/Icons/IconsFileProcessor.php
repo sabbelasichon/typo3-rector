@@ -20,6 +20,11 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 final class IconsFileProcessor implements FileProcessorInterface
 {
     /**
+     * @var string
+     */
+    private const EXT_ICON_NAME = 'ext_icon';
+
+    /**
      * @param IconRectorInterface[] $iconsRector
      */
     public function __construct(
@@ -40,7 +45,7 @@ final class IconsFileProcessor implements FileProcessorInterface
     {
         $smartFileInfo = $file->getSmartFileInfo();
 
-        if (! \str_contains($smartFileInfo->getFilename(), 'ext_icon')) {
+        if ($this->shouldSkip($smartFileInfo->getFilenameWithoutExtension())) {
             return false;
         }
 
@@ -48,10 +53,6 @@ final class IconsFileProcessor implements FileProcessorInterface
 
         if (! $extEmConfSmartFileInfo instanceof SmartFileInfo) {
             return false;
-        }
-
-        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            return true;
         }
 
         return ! $this->smartFileSystem->exists($this->createIconPath($file));
@@ -70,5 +71,17 @@ final class IconsFileProcessor implements FileProcessorInterface
         $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());
 
         return $realPath . $relativeTargetFilePath;
+    }
+
+    private function shouldSkip(string $filenameWithoutExtension): bool
+    {
+        if (self::EXT_ICON_NAME === $filenameWithoutExtension) {
+            return false;
+        }
+
+        return ! (StaticPHPUnitEnvironment::isPHPUnitRun() && str_contains(
+            $filenameWithoutExtension,
+            self::EXT_ICON_NAME
+        ));
     }
 }
