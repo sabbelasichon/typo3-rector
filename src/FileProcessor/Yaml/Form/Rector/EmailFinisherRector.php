@@ -36,6 +36,11 @@ final class EmailFinisherRector implements FormYamlRectorInterface
      */
     private const RECIPIENTS = 'recipients';
 
+    /**
+     * @var string
+     */
+    private const VARIANTS = 'variants';
+
     public function __construct(
         private CurrentFileProvider $currentFileProvider
     ) {
@@ -53,14 +58,15 @@ final class EmailFinisherRector implements FormYamlRectorInterface
             $appliedForFinishers = $this->refactorFinishers($yaml[self::FINISHERS], $yaml);
         }
 
-        if (array_key_exists('variants', $yaml)) {
-            foreach ($yaml['variants'] as $variantKey => $variant) {
+        if (array_key_exists(self::VARIANTS, $yaml)) {
+            foreach ($yaml[self::VARIANTS] as $variantKey => $variant) {
                 if (! array_key_exists(self::FINISHERS, $variant)) {
                     continue;
                 }
+
                 $appliedForVariants = $this->refactorFinishers(
                     $variant[self::FINISHERS],
-                    $yaml['variants'][$variantKey]
+                    $yaml[self::VARIANTS][$variantKey]
                 );
             }
         }
