@@ -29,6 +29,20 @@ finishers:
       format: html
       attachUploads: true
     identifier: EmailToSender
+variants:
+  -
+    identifier: variant-1
+    condition: 'formValues["foo"] == "bar"'
+    finishers:
+      -
+        identifier: EmailToReceiver
+        options:
+          subject: 'Example Subject'
+          recipientAddress: user@example.org
+          recipientName: 'Example Recipient'
+          senderAddress: no-reply@example.org
+          senderName: '{text-2} {text-1}'
+          replyToAddress: '{email}'
 -----
 finishers:
   -
@@ -65,3 +79,18 @@ finishers:
       blindCarbonCopyRecipients:
         - foo@domain.com
     identifier: EmailToSender
+variants:
+  -
+    identifier: variant-1
+    condition: 'formValues["foo"] == "bar"'
+    finishers:
+      -
+        identifier: EmailToReceiver
+        options:
+          subject: 'Example Subject'
+          senderAddress: no-reply@example.org
+          senderName: '{text-2} {text-1}'
+          replyToRecipients:
+            - '{email}'
+          recipients:
+            user@example.org: 'Example Recipient'
