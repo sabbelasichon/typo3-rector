@@ -36,6 +36,11 @@ final class EmailFinisherRector implements FormYamlRectorInterface
      */
     private const RECIPIENTS = 'recipients';
 
+    /**
+     * @var string
+     */
+    private const VARIANTS = 'variants';
+
     public function __construct(
         private CurrentFileProvider $currentFileProvider
     ) {
@@ -46,12 +51,67 @@ final class EmailFinisherRector implements FormYamlRectorInterface
      */
     public function refactor(array $yaml): array
     {
-        if (! array_key_exists(self::FINISHERS, $yaml)) {
-            return $yaml;
+        $appliedForFinishers = false;
+        $appliedForVariants = false;
+
+        if (array_key_exists(self::FINISHERS, $yaml)) {
+            $appliedForFinishers = $this->refactorFinishers($yaml[self::FINISHERS], $yaml);
         }
 
+        if (array_key_exists(self::VARIANTS, $yaml)) {
+            foreach ($yaml[self::VARIANTS] as $variantKey => $variant) {
+                if (! array_key_exists(self::FINISHERS, $variant)) {
+                    continue;
+                }
+
+                $appliedForVariants = $this->refactorFinishers(
+                    $variant[self::FINISHERS],
+                    $yaml[self::VARIANTS][$variantKey]
+                );
+            }
+        }
+
+        $file = $this->currentFileProvider->getFile();
+        if (($appliedForFinishers || $appliedForVariants) && $file instanceof File) {
+            // TODO: How to get the line number of the file?
+            $file->addRectorClassWithLine(new RectorWithLineChange($this, 0));
+        }
+
+        return $yaml;
+    }
+
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Convert single recipient values to array for EmailFinisher', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+finishers:
+  -
+    options:
+      recipientAddress: bar@domain.com
+      recipientName: 'Bar'
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+finishers:
+  -
+    options:
+      recipients:
+        bar@domain.com: 'Bar'
+CODE_SAMPLE
+            ),
+        ]);
+    }
+
+    /**
+     * @param mixed[] $finishers
+     * @param mixed[] $yamlToModify
+     */
+    private function refactorFinishers(array $finishers, &$yamlToModify): bool
+    {
         $applied = false;
-        foreach ($yaml[self::FINISHERS] as $finisherKey => $finisher) {
+
+        foreach ($finishers as $finisherKey => $finisher) {
             if (! array_key_exists('identifier', $finisher)) {
                 continue;
             }
@@ -81,15 +141,15 @@ final class EmailFinisherRector implements FormYamlRectorInterface
                 }
 
                 if ('replyToAddress' === $optionKey) {
-                    $yaml[self::FINISHERS][$finisherKey][self::OPTIONS]['replyToRecipients'][] = $optionValue;
+                    $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS]['replyToRecipients'][] = $optionValue;
                 } elseif ('carbonCopyAddress' === $optionKey) {
-                    $yaml[self::FINISHERS][$finisherKey][self::OPTIONS]['carbonCopyRecipients'][] = $optionValue;
+                    $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS]['carbonCopyRecipients'][] = $optionValue;
                 } elseif ('blindCarbonCopyAddress' === $optionKey) {
-                    $yaml[self::FINISHERS][$finisherKey][self::OPTIONS]['blindCarbonCopyRecipients'][] = $optionValue;
+                    $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS]['blindCarbonCopyRecipients'][] = $optionValue;
                 }
 
                 unset(
-                    $yaml[self::FINISHERS][$finisherKey][self::OPTIONS][$optionKey]
+                    $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS][$optionKey]
                 );
             }
 
@@ -98,46 +158,17 @@ final class EmailFinisherRector implements FormYamlRectorInterface
             }
 
             if (isset($finisher[self::OPTIONS][self::RECIPIENTS])) {
-                $yaml[self::FINISHERS][$finisherKey][self::OPTIONS][self::RECIPIENTS] = array_merge(
+                $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS][self::RECIPIENTS] = array_merge(
                     $recipients,
-                    $yaml[self::FINISHERS][$finisherKey][self::OPTIONS][self::RECIPIENTS]
+                    $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS][self::RECIPIENTS]
                 );
             } else {
-                $yaml[self::FINISHERS][$finisherKey][self::OPTIONS][self::RECIPIENTS] = $recipients;
+                $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS][self::RECIPIENTS] = $recipients;
             }
 
             $applied = true;
         }
 
-        $file = $this->currentFileProvider->getFile();
-        if ($applied && $file instanceof File) {
-            // TODO: How to get the line number of the file?
-            $file->addRectorClassWithLine(new RectorWithLineChange($this, 0));
-        }
-
-        return $yaml;
-    }
-
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('Convert single recipient values to array for EmailFinisher', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
-finishers:
-  -
-    options:
-      recipientAddress: bar@domain.com
-      recipientName: 'Bar'
-CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-finishers:
-  -
-    options:
-      recipients:
-        bar@domain.com: 'Bar'
-CODE_SAMPLE
-            ),
-        ]);
+        return $applied;
     }
 }
