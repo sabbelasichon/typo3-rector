@@ -174,6 +174,11 @@ final class OldConditionToExpressionLanguageRectorTest extends TestCase
             'newCondition' => "[traverse(request.getQueryParams(), 'tx_myext_myplugin/bla') > 0 || traverse(request.getParsedBody(), 'tx_myext_myplugin/bla') > 0]",
         ];
 
+        yield 'GPmerged parameter' => [
+            'oldCondition' => '[globalVar = GPmerged:tx_myext_myplugin|bla > 0]',
+            'newCondition' => "[traverse(request.getQueryParams(), 'tx_myext_myplugin/bla') > 0 || traverse(request.getParsedBody(), 'tx_myext_myplugin/bla') > 0]",
+        ];
+
         yield 'ENV:HTTP_HOST' => [
             'oldCondition' => '[globalString = ENV:HTTP_HOST = www.domain.de, ENV:HTTP_HOST = www.domain.com]',
             'newCondition' => '[getenv("HTTP_HOST") == "www.domain.de" || getenv("HTTP_HOST") == "www.domain.com"]',
@@ -437,6 +442,16 @@ final class OldConditionToExpressionLanguageRectorTest extends TestCase
         yield 'Backend user with uid 23 is logged in with :' => [
             'oldCondition' => '[globalVar = BE_USER:user:uid = 23]',
             'newCondition' => '[backend.user.userId == 23]',
+        ];
+
+        yield '_GET parameter' => [
+            'oldCondition' => '[globalVar = _GET:tx_powermail_pi1|action = create]',
+            'newCondition' => "[traverse(request.getQueryParams(), 'tx_powermail_pi1/action') == 'create')]",
+        ];
+
+        yield '_POST parameter' => [
+            'oldCondition' => '[globalVar = _POST:tx_powermail_pi1|action = create]',
+            'newCondition' => "[traverse(request.getParsedBody(), 'tx_powermail_pi1/action') == 'create')]",
         ];
     }
 

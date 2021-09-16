@@ -59,7 +59,10 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
                 'ENV' => $this->createEnvCondition($property, $operator, $value),
                 'IENV' => $this->createIndependentCondition($property, $operator, $value),
                 'BE_USER' => $this->createBackendUserCondition($property, $operator, $value),
-                default => '',
+                '_GET' => $this->refactorGet($property, $operator, $value),
+                'GPmerged' => $this->refactorGetPost($property, $operator, $value),
+                '_POST' => $this->refactorPost($property, $operator, $value),
+                default => $condition,
             };
         }
 
@@ -103,18 +106,25 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
             return sprintf('siteLanguage("languageId") %s "%s"', self::OPERATOR_MAPPING[$operator], $value);
         }
 
-        if (! is_numeric($value)) {
-            $value = sprintf("'%s'", $value);
-        }
+        $normalizedValue = $this->normalizeValue($value);
 
-        $parameters = ArrayUtility::trimExplode('|', $property);
+        $parameters = $this->explodeParameters($property);
 
         if (1 === count($parameters)) {
             return sprintf(
                 'request.getQueryParams()[\'%1$s\'] %2$s %3$s',
                 $parameters[0],
                 self::OPERATOR_MAPPING[$operator],
-                $value
+                $normalizedValue
+            );
+        }
+
+        if ('_POST' === $property) {
+            return sprintf(
+                'traverse(request.getParsedBody(), \'%1$s\') %2$s %3$s) %2$s %3$s',
+                implode('/', $parameters),
+                self::OPERATOR_MAPPING[$operator],
+                $normalizedValue
             );
         }
 
@@ -122,7 +132,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
             'traverse(request.getQueryParams(), \'%1$s\') %2$s %3$s || traverse(request.getParsedBody(), \'%1$s\') %2$s %3$s',
             implode('/', $parameters),
             self::OPERATOR_MAPPING[$operator],
-            $value
+            $normalizedValue
         );
     }
 
@@ -143,5 +153,50 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
             self::OPERATOR_MAPPING[$operator],
             $value
         );
+    }
+
+    private function refactorGet(string $property, string $operator, string $value): string
+    {
+        $normalizedValue = $this->normalizeValue($value);
+
+        $parameters = $this->explodeParameters($property);
+
+        return sprintf(
+            'traverse(request.getQueryParams(), \'%1$s\') %2$s %3$s)',
+            implode('/', $parameters),
+            self::OPERATOR_MAPPING[$operator],
+            $normalizedValue
+        );
+    }
+
+    private function refactorPost(string $property, string $operator, string $value): string
+    {
+        $normalizedValue = $this->normalizeValue($value);
+
+        $parameters = $this->explodeParameters($property);
+
+        return sprintf(
+            'traverse(request.getParsedBody(), \'%1$s\') %2$s %3$s)',
+            implode('/', $parameters),
+            self::OPERATOR_MAPPING[$operator],
+            $normalizedValue
+        );
+    }
+
+    private function normalizeValue(int|string $value): int|string
+    {
+        if (! is_numeric($value)) {
+            return sprintf("'%s'", $value);
+        }
+
+        return $value;
+    }
+
+    /**
+     * @return string[]
+     */
+    private function explodeParameters(string $property): array
+    {
+        return ArrayUtility::trimExplode('|', $property);
     }
 }
