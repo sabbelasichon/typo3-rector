@@ -406,4 +406,8 @@ class GeneralUtility
     {
 
     }
+
+    public static function shortMD5($input, $len = 10)
+    {
+    }
 }
