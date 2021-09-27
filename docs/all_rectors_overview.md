@@ -1,4 +1,4 @@
-# 207 Rules Overview
+# 208 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -4054,6 +4054,24 @@ Use method getPageShortcut directly from PageRepository
 ```diff
 -$GLOBALS['TSFE']->getPageShortcut('shortcut', 1, 1);
 +$GLOBALS['TSFE']->sys_page->getPageShortcut('shortcut', 1, 1);
+```
+
+<br>
+
+## UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector
+
+Use php native function instead of GeneralUtility::shortMd5
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v4\UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector`](../src/Rector/v11/v4/UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector.php)
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+-
+ $length = 10;
+ $input = 'value';
+
+-$shortMd5 = GeneralUtility::shortMD5($input, $length);
++$shortMd5 = substr(md5($input), 0, $length);
 ```
 
 <br>
