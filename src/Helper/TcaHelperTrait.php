@@ -73,6 +73,25 @@ trait TcaHelperTrait
         return $this->extractArrayItemByKey($node, $key)?->value;
     }
 
+    protected function hasKey(Array_ $configValue, string $configKey): bool
+    {
+        foreach ($configValue->items as $configItemValue) {
+            if (! $configItemValue instanceof ArrayItem) {
+                continue;
+            }
+
+            if (null === $configItemValue->key) {
+                continue;
+            }
+
+            if ($this->isValue($configItemValue->key, $configKey)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     protected function hasKeyValuePair(Array_ $configValue, string $configKey, string $expectedValue): bool
     {
         foreach ($configValue->items as $configItemValue) {
@@ -84,10 +103,9 @@ trait TcaHelperTrait
                 continue;
             }
 
-            if ($this->isValue($configItemValue->key, $configKey) && $this->isValue(
-                $configItemValue->value,
-                $expectedValue
-            )) {
+            if ($this->isValue($configItemValue->key, $configKey)
+                && $this->isValue($configItemValue->value, $expectedValue)
+            ) {
                 return true;
             }
         }
