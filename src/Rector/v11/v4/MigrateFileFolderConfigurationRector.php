@@ -14,9 +14,44 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.4/Feature-94406-OverrideFileFolderTCAConfigurationWithTSconfig.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v4\MigrateFileFolderConfigurationRector\MigrateFileFolderConfigurationRectorTest
  */
 final class MigrateFileFolderConfigurationRector extends AbstractTcaRector
 {
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Migrate file folder config', [new CodeSample(
+            <<<'CODE_SAMPLE'
+'aField' => [
+   'config' => [
+      'type' => 'select',
+      'renderType' => 'selectSingle',
+      'fileFolder' => 'EXT:my_ext/Resources/Public/Icons',
+      'fileFolder_extList' => 'svg',
+      'fileFolder_recursions' => 1,
+   ]
+]
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+'aField' => [
+   'config' => [
+      'type' => 'select',
+      'renderType' => 'selectSingle',
+      'fileFolderConfig' => [
+         'folder' => 'EXT:styleguide/Resources/Public/Icons',
+         'allowedExtensions' => 'svg',
+         'depth' => 1,
+      ]
+   ]
+]
+CODE_SAMPLE
+        )]);
+    }
+
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
         $config = $this->extractSubArrayByKey($columnTca, self::CONFIG);
@@ -61,39 +96,5 @@ final class MigrateFileFolderConfigurationRector extends AbstractTcaRector
         }
 
         $config->items[] = new ArrayItem($fileFolderConfig, new String_('fileFolderConfig'));
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('Migrate file folder config', [new CodeSample(
-            <<<'CODE_SAMPLE'
-'aField' => [
-   'config' => [
-      'type' => 'select',
-      'renderType' => 'selectSingle',
-      'fileFolder' => 'EXT:my_ext/Resources/Public/Icons',
-      'fileFolder_extList' => 'svg',
-      'fileFolder_recursions' => 1,
-   ]
-]
-CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
-'aField' => [
-   'config' => [
-      'type' => 'select',
-      'renderType' => 'selectSingle',
-      'fileFolderConfig' => [
-         'folder' => 'EXT:styleguide/Resources/Public/Icons',
-         'allowedExtensions' => 'svg',
-         'depth' => 1,
-      ]
-   ]
-]
-CODE_SAMPLE
-        )]);
     }
 }

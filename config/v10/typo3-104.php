@@ -40,4 +40,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]]);
     $services->set(UseFileGetContentsForGetUrlRector::class);
+    $services->set(\Ssch\TYPO3Rector\Rector\v10\v4\UseIconsFromSubFolderInIconRegistryRector::class);
 };

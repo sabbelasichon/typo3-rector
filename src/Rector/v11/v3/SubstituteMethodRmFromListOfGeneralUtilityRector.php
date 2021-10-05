@@ -61,10 +61,7 @@ final class SubstituteMethodRmFromListOfGeneralUtilityRector extends AbstractRec
 
         $arrayFilterFuncCall = $this->nodeFactory->createFuncCall('array_filter', [$explodeFuncCall, $closureFunction]);
 
-        return $this->nodeFactory->createFuncCall(
-            'implode',
-            [',', $arrayFilterFuncCall]
-        );
+        return $this->nodeFactory->createFuncCall('implode', [',', $arrayFilterFuncCall]);
     }
 
     /**
