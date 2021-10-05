@@ -1,4 +1,4 @@
-# 208 Rules Overview
+# 209 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -3401,6 +3401,26 @@ Substitute deprecated method calls of class GeneralUtility
 -GeneralUtility::milliseconds();
 +inet_ntop(inet_pton($address));
 +round(microtime(true) * 1000);
+```
+
+<br>
+
+## SubstituteMethodRmFromListOfGeneralUtilityRector
+
+Use native php functions instead of GeneralUtility::rmFromList
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\SubstituteMethodRmFromListOfGeneralUtilityRector`](../src/Rector/v11/v3/SubstituteMethodRmFromListOfGeneralUtilityRector.php)
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+-
+ $element = '1';
+ $list = '1,2,3';
+-
+-$newList = GeneralUtility::rmFromList($element, $list);
++$newList = implode(',', array_filter(explode(',', $list), function($item) use($element) {
++    return $element == $item;
++}));
 ```
 
 <br>
