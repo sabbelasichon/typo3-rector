@@ -66,7 +66,7 @@ CODE_SAMPLE
 
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
-        $config = $this->extractSubArrayByKey($columnTca, 'config');
+        $config = $this->extractSubArrayByKey($columnTca, self::CONFIG);
         if (! $config instanceof Array_) {
             return;
         }
