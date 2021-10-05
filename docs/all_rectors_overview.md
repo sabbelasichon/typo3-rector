@@ -1,4 +1,4 @@
-# 209 Rules Overview
+# 210 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -1228,6 +1228,31 @@ Use LocalizationFactory->getParsedData instead of GeneralUtility::readLLfile
  use TYPO3\CMS\Core\Utility\GeneralUtility;
 -$locallangs = GeneralUtility::readLLfile('EXT:foo/locallang.xml', 'de');
 +$locallangs = GeneralUtility::makeInstance(LocalizationFactory::class)->getParsedData('EXT:foo/locallang.xml', 'de');
+```
+
+<br>
+
+## MigrateFileFolderConfigurationRector
+
+Migrate file folder config
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v4\MigrateFileFolderConfigurationRector`](../src/Rector/v11/v4/MigrateFileFolderConfigurationRector.php)
+
+```diff
+ 'aField' => [
+    'config' => [
+       'type' => 'select',
+       'renderType' => 'selectSingle',
+-      'fileFolder' => 'EXT:my_ext/Resources/Public/Icons',
+-      'fileFolder_extList' => 'svg',
+-      'fileFolder_recursions' => 1,
++      'fileFolderConfig' => [
++         'folder' => 'EXT:styleguide/Resources/Public/Icons',
++         'allowedExtensions' => 'svg',
++         'depth' => 1,
++      ]
+    ]
+ ]
 ```
 
 <br>
