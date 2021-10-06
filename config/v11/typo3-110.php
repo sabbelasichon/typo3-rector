@@ -26,7 +26,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class);
     $services->set(SubstituteConstantsModeAndRequestTypeRector::class);
     $services->set(RemoveLanguageModeMethodsFromTypo3QuerySettingsRector::class);
-    $services = $containerConfigurator->services();
     $services->set(StaticCallToFuncCallRector::class)
         ->call('configure', [
             [
