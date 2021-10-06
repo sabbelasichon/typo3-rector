@@ -37,7 +37,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                         'isFirstPartOfStr',
                         'str_starts_with'
                     ),
-                    new StaticCallToFuncCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'isAbsPath', 'isAbsolutePath'),
                 ]),
             ],
         ]);
