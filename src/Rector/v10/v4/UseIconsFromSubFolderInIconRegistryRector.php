@@ -19,6 +19,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UseIconsFromSubFolderInIconRegistryRector extends AbstractRector
 {
     /**
+     * @var string
+     */
+    private const SOURCE = 'source';
+
+    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -52,16 +57,16 @@ final class UseIconsFromSubFolderInIconRegistryRector extends AbstractRector
             return null;
         }
 
-        if (! array_key_exists('source', $options)) {
+        if (! array_key_exists(self::SOURCE, $options)) {
             return null;
         }
 
-        if (! str_starts_with($options['source'], 'typo3/sysext/core/Resources/Public/Icons/T3Icons/content/')) {
+        if (! str_starts_with($options[self::SOURCE], 'typo3/sysext/core/Resources/Public/Icons/T3Icons/content/')) {
             return null;
         }
 
-        $options['source'] = Strings::replace(
-            $options['source'],
+        $options[self::SOURCE] = Strings::replace(
+            $options[self::SOURCE],
             '#typo3/sysext/core/Resources/Public/Icons/T3Icons/content/#i',
             'typo3/sysext/core/Resources/Public/Icons/T3Icons/svgs/content/'
         );
