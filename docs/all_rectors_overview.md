@@ -1,4 +1,4 @@
-# 210 Rules Overview
+# 211 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -4030,6 +4030,26 @@ htmlspecialchars directly to properly escape the content.
 +        $translation10 = $GLOBALS['LANG']->sL('foobar');
      }
  }
+```
+
+<br>
+
+## UseIconsFromSubFolderInIconRegistryRector
+
+Use icons from subfolder in IconRegistry
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v4\UseIconsFromSubFolderInIconRegistryRector`](../src/Rector/v10/v4/UseIconsFromSubFolderInIconRegistryRector.php)
+
+```diff
+ \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class)
+         ->registerIcon(
+             'apps-pagetree-reference',
+             TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+             [
+-                'source' => 'typo3/sysext/core/Resources/Public/Icons/T3Icons/content/content-text.svg',
++                'source' => 'typo3/sysext/core/Resources/Public/Icons/T3Icons/svgs/content/content-text.svg',
+             ]
+         );
 ```
 
 <br>
