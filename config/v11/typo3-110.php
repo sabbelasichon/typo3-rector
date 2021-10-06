@@ -32,7 +32,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 StaticCallToFuncCallRector::STATIC_CALLS_TO_FUNCTIONS => ValueObjectInliner::inline([
                     new StaticCallToFuncCall('TYPO3\CMS\Core\Utility\StringUtility', 'beginsWith', 'str_starts_with'),
                     new StaticCallToFuncCall('TYPO3\CMS\Core\Utility\StringUtility', 'endsWith', 'str_ends_with'),
-                    new StaticCallToFuncCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'isFirstPartOfStr', 'str_starts_with'),
+                    new StaticCallToFuncCall(
+                        'TYPO3\CMS\Core\Utility\GeneralUtility',
+                        'isFirstPartOfStr',
+                        'str_starts_with'
+                    ),
                     new StaticCallToFuncCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'isAbsPath', 'isAbsolutePath'),
                 ]),
             ],
