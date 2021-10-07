@@ -55,7 +55,7 @@ final class RemoveColPosParameterRector extends AbstractRector
         }
 
         // must be number type
-        $secondArgType = $this->getStaticType($node->args[1]->value);
+        $secondArgType = $this->getType($node->args[1]->value);
         if (! $secondArgType instanceof IntegerType) {
             return null;
         }
