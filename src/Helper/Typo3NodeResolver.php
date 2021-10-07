@@ -247,8 +247,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        $objectType = $this->nodeTypeResolver->resolve($parentNode->expr->var);
-
+        $objectType = $this->nodeTypeResolver->getType($parentNode->expr->var);
         if (! $objectType instanceof ObjectType) {
             return false;
         }

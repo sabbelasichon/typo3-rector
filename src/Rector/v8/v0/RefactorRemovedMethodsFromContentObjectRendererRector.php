@@ -106,7 +106,7 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $node): bool
     {
-        $staticType = $this->getStaticType($node->var);
+        $staticType = $this->getType($node->var);
         if ($staticType instanceof TypeWithClassName && 'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer' === $staticType->getClassName()) {
             return false;
         }
