@@ -1,7 +1,5 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v11\v5\FlexFormToolsGetArrayValueByPathRector\Fixture;
-
 use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
 
 $flexFormTools = new FlexFormTools();
@@ -12,8 +10,6 @@ $flexFormTools->setArrayValueByPath('set/path', $dataArray, $value);
 ?>
 -----
 <?php
-
-namespace Ssch\TYPO3Rector\Tests\Rector\v11\v5\FlexFormToolsGetArrayValueByPathRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 
