@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v11\v5\FlexFormToolsGetArrayValueByPathRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\v11\v5\FlexFormToolsArrayValueByPathRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FlexFormToolsGetArrayValueByPathRectorTest extends AbstractRectorTestCase
+final class FlexFormToolsArrayValueByPathRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

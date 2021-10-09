@@ -11,8 +11,10 @@ $flexFormTools->setArrayValueByPath('set/path', $dataArray, $value);
 -----
 <?php
 
+use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 
+$flexFormTools = new FlexFormTools();
 $searchArray = [];
 $value = ArrayUtility::getValueByPath($searchArray, 'search/path');
 
