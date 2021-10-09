@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v5;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
@@ -20,14 +21,13 @@ final class FlexFormToolsArrayValueByPathRector extends \Rector\Core\Rector\Abst
      */
     public function getNodeTypes() : array
     {
-        return [\PhpParser\Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
 
     /**
-     * @param \PhpParser\Node $node
-     * @return \PhpParser\Node|null
+     * @param MethodCall $node
      */
-    public function refactor(\PhpParser\Node $node) : ?\PhpParser\Node
+    public function refactor(Node $node) : ?Node
     {
         if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Configuration\\FlexForm\\FlexFormTools'))) {
             return null;
@@ -40,7 +40,7 @@ final class FlexFormToolsArrayValueByPathRector extends \Rector\Core\Rector\Abst
         if ($this->getName($node->name) === 'getArrayValueByPath') {
             return $this->nodeFactory->createStaticCall(
                 'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
-                $this->getName($node->name),
+                'getValueByPath',
                 $args
             );
         }
@@ -51,7 +51,7 @@ final class FlexFormToolsArrayValueByPathRector extends \Rector\Core\Rector\Abst
             $variableNode = new \PhpParser\Node\Expr\Variable($variableName);
             $staticCall = $this->nodeFactory->createStaticCall(
                 'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
-                $this->getName($node->name),
+                'setValueByPath',
                 $args
             );
             $this->addNodeBeforeNode(new \PhpParser\Node\Expr\Assign($variableNode, $staticCall), $node);
