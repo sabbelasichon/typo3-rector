@@ -45,7 +45,7 @@ final class FlexFormToolsArrayValueByPathRector extends \Rector\Core\Rector\Abst
             );
         }
 
-        if ($this->getName($node->name) === 'setArrayValueByPath') {
+        if ($this->isName($node->name, 'setArrayValueByPath')) {
             $args[] = $node->args[2];
             $variableName = $this->getName($node->args[1]->value) ?? 'dataArray';
             $variableNode = new \PhpParser\Node\Expr\Variable($variableName);
