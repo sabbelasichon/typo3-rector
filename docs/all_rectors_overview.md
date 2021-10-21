@@ -1,4 +1,4 @@
-# 211 Rules Overview
+# 212 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -946,6 +946,26 @@ Use findByPidsAndAuthorId instead of findByPidsAndAuthor
  $backendUser = new BackendUser();
 -$sysNoteRepository->findByPidsAndAuthor('1,2,3', $backendUser);
 +$sysNoteRepository->findByPidsAndAuthorId('1,2,3', $backendUser->getUid());
+```
+
+<br>
+
+## FlexFormToolsArrayValueByPathRector
+
+Replace deprecated FlexFormTools methods with ArrayUtility methods
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v5\FlexFormToolsArrayValueByPathRector`](../src/Rector/v11/v5/FlexFormToolsArrayValueByPathRector.php)
+
+```diff
+-use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
+-$flexFormTools = new FlexFormTools();
++use TYPO3\CMS\Core\Utility\ArrayUtility;
+ $searchArray = [];
+-$value = $flexFormTools->getArrayValueByPath('search/path', $searchArray);
++$value = ArrayUtility::getValueByPath($searchArray, 'search/path');
+
+-$flexFormTools->setArrayValueByPath('set/path', $dataArray, $value);
++$dataArray = ArrayUtility::setValueByPath($dataArray, 'set/path', $value);
 ```
 
 <br>
