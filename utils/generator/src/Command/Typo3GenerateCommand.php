@@ -20,7 +20,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
-use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class Typo3GenerateCommand extends Command
@@ -90,7 +89,7 @@ final class Typo3GenerateCommand extends Command
 
         $this->printSuccess($recipe->getRectorName(), $generatedFilePaths, $testCaseDirectoryPath);
 
-        return ShellCode::SUCCESS;
+        return Command::SUCCESS;
     }
 
     private function askForRstFile(): Question
