@@ -1,25 +1,28 @@
 <?php
 
-declare (strict_types=1);
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Rector\v11\v5;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\StaticCall;
-use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
+use PHPStan\Type\ObjectType;
+
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.5/Deprecation-95254-TwoFlexFormToolsMethods.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v5\FlexFormToolsArrayValueByPathRector\FlexFormToolsArrayValueByPathRectorTest
  */
-final class FlexFormToolsArrayValueByPathRector extends \Rector\Core\Rector\AbstractRector
+final class FlexFormToolsArrayValueByPathRector extends AbstractRector
 {
     /**
      * @return array<class-string<Node>>
      */
-    public function getNodeTypes() : array
+    public function getNodeTypes(): array
     {
         return [MethodCall::class];
     }
@@ -27,17 +30,21 @@ final class FlexFormToolsArrayValueByPathRector extends \Rector\Core\Rector\Abst
     /**
      * @param MethodCall $node
      */
-    public function refactor(Node $node) : ?Node
+    public function refactor(Node $node): ?Node
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new \PHPStan\Type\ObjectType('TYPO3\\CMS\\Core\\Configuration\\FlexForm\\FlexFormTools'))) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType('TYPO3\\CMS\\Core\\Configuration\\FlexForm\\FlexFormTools')
+        )) {
             return null;
         }
-        if (!$this->isNames($node->name, ['getArrayValueByPath', 'setArrayValueByPath'])) {
+
+        if (! $this->isNames($node->name, ['getArrayValueByPath', 'setArrayValueByPath'])) {
             return null;
         }
 
         $args = [$node->args[1], $node->args[0]];
-        if ($this->getName($node->name) === 'getArrayValueByPath') {
+        if ($this->isName($node->name, 'getArrayValueByPath')) {
             return $this->nodeFactory->createStaticCall(
                 'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
                 'getValueByPath',
@@ -45,28 +52,30 @@ final class FlexFormToolsArrayValueByPathRector extends \Rector\Core\Rector\Abst
             );
         }
 
-        if ($this->isName($node->name, 'setArrayValueByPath')) {
-            $args[] = $node->args[2];
-            $variableName = $this->getName($node->args[1]->value) ?? 'dataArray';
-            $variableNode = new \PhpParser\Node\Expr\Variable($variableName);
-            $staticCall = $this->nodeFactory->createStaticCall(
-                'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
-                'setValueByPath',
-                $args
-            );
-            $this->addNodeBeforeNode(new \PhpParser\Node\Expr\Assign($variableNode, $staticCall), $node);
-            $this->removeNode($node);
-            return $node;
-        }
+        $args[] = $node->args[2];
+        $variableName = $this->getName($node->args[1]->value) ?? 'dataArray';
+        $variableNode = new Variable($variableName);
+        $staticCall = $this->nodeFactory->createStaticCall(
+            'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
+            'setValueByPath',
+            $args
+        );
+        $this->addNodeBeforeNode(new Assign($variableNode, $staticCall), $node);
+        $this->removeNode($node);
 
-        return null;
+        return $node;
     }
+
     /**
      * @codeCoverageIgnore
      */
-    public function getRuleDefinition() : \Symplify\RuleDocGenerator\ValueObject\RuleDefinition
+    public function getRuleDefinition(): RuleDefinition
     {
-        return new \Symplify\RuleDocGenerator\ValueObject\RuleDefinition('Replace deprecated FlexFormTools methods with ArrayUtility methods', [new \Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample(<<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Replace deprecated FlexFormTools methods with ArrayUtility methods',
+            [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
 $flexFormTools = new FlexFormTools();
 $searchArray = [];
@@ -74,13 +83,16 @@ $value = $flexFormTools->getArrayValueByPath('search/path', $searchArray);
 
 $flexFormTools->setArrayValueByPath('set/path', $dataArray, $value);
 CODE_SAMPLE
-            , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 $searchArray = [];
 $value = ArrayUtility::getValueByPath($searchArray, 'search/path');
 
 $dataArray = ArrayUtility::setValueByPath($dataArray, 'set/path', $value);
 CODE_SAMPLE
-        )]);
+            ),
+
+        ]);
     }
 }
