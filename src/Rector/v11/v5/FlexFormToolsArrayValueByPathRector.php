@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v5;
 
-use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.5/Deprecation-95254-TwoFlexFormToolsMethods.html
@@ -74,8 +74,8 @@ final class FlexFormToolsArrayValueByPathRector extends AbstractRector
         return new RuleDefinition(
             'Replace deprecated FlexFormTools methods with ArrayUtility methods',
             [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
 $flexFormTools = new FlexFormTools();
 $searchArray = [];
@@ -83,16 +83,17 @@ $value = $flexFormTools->getArrayValueByPath('search/path', $searchArray);
 
 $flexFormTools->setArrayValueByPath('set/path', $dataArray, $value);
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 $searchArray = [];
 $value = ArrayUtility::getValueByPath($searchArray, 'search/path');
 
 $dataArray = ArrayUtility::setValueByPath($dataArray, 'set/path', $value);
 CODE_SAMPLE
-            ),
+                ),
 
-        ]);
+            ]
+        );
     }
 }
