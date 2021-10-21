@@ -17,7 +17,6 @@ use Ssch\TYPO3Rector\ComposerPackages\PackageParser;
 use Ssch\TYPO3Rector\ComposerPackages\PackageResolver;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
-use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
 use Symfony\Component\Console\Command\Command;
@@ -25,7 +24,6 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
-use Symplify\PackageBuilder\Console\ShellCode;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Symplify\SmartFileSystem\SmartFileSystem;
 
@@ -38,7 +36,6 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         private SmartFileSystem $smartFileSystem,
         private BetterStandardPrinter $betterStandardPrinter,
         private AddPackageVersionRector $addPackageVersionRector,
-        private RemovePackageVersionsRector $removePackageVersionsRector,
         private AddReplacePackageRector $replacePackageRector,
         private CurrentFileProvider $currentFileProvider
     ) {
@@ -103,7 +100,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 
         $progressBar->finish();
 
-        return ShellCode::SUCCESS;
+        return Command::SUCCESS;
     }
 
     /**
