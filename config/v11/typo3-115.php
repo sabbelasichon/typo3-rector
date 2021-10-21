@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
+use Ssch\TYPO3Rector\Rector\v11\v5\FlexFormToolsArrayValueByPathRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
+    $services->set(FlexFormToolsArrayValueByPathRector::class);
     $services->set('rename_static_method_general_utility_is_abs_path_to_path_utility_is_absolute_path')
         ->class(RenameStaticMethodRector::class)
         ->call('configure', [[
