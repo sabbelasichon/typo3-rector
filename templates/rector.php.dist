@@ -52,6 +52,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
             'ext_emconf.php',
+            # If you are targeting TYPO3 Version 11 use can now use Short namespace
+            # @see namespace https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ConfigurationFiles/Index.html
             'ext_localconf.php',
             'ext_tables.php',
             __DIR__ . '/**/Configuration/*.php',
