@@ -1,4 +1,4 @@
-# 214 Rules Overview
+# 215 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -3231,6 +3231,19 @@ Replace $_EXTKEY with extension key
          'FooBar' => 'baz',
      ]
  );
+```
+
+<br>
+
+## ReplaceStdAuthCodeWithHmacRector
+
+Replace GeneralUtility::stdAuthCode with GeneralUtility::hmac
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\ReplaceStdAuthCodeWithHmacRector`](../src/Rector/v11/v3/ReplaceStdAuthCodeWithHmacRector.php)
+
+```diff
+-// Just a warning
++// Only outputting a warning message
 ```
 
 <br>
