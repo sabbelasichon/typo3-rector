@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
+use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 

@@ -12,6 +12,7 @@ use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use Rector\RectorGenerator\FileSystem\ConfigFilesystem;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
+use Ssch\TYPO3Rector\Rector\PostRector\FullQualifiedNamePostRector;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -75,4 +76,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ConfigFilesystem::class);
     $services->set(\Rector\RectorGenerator\TemplateFactory::class);
     $services->set(\PhpParser\PrettyPrinter\Standard::class);
+    $services->set(FullQualifiedNamePostRector::class);
 };

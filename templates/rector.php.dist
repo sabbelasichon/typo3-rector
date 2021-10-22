@@ -46,20 +46,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     //    __DIR__ . '/packages/acme_demo/',
     // ]);
 
-    // If you set option Option::AUTO_IMPORT_NAMES to true, you should consider excluding some TYPO3 files.
     // If you use the option --config change __DIR__ to getcwd()
     $parameters->set(Option::SKIP, [
-        NameImportingPostRector::class => [
-            'ClassAliasMap.php',
-            'ext_emconf.php',
-            # If you are targeting TYPO3 Version 11 use can now use Short namespace
-            # @see namespace https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ConfigurationFiles/Index.html
-            'ext_localconf.php',
-            'ext_tables.php',
-            __DIR__ . '/**/Configuration/*.php',
-            __DIR__ . '/**/Configuration/**/*.php',
-            __DIR__ . '/**/Configuration/TCA/*',
-        ],
         // @see https://github.com/sabbelasichon/typo3-rector/issues/2536
         __DIR__ . '/**/Configuration/ExtensionBuilder/*',
         // We skip those directories on purpose as there might be node_modules or similar
@@ -69,6 +57,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/**/Resources/**/BowerComponents/*',
         __DIR__ . '/**/Resources/**/bower_components/*',
         __DIR__ . '/**/Resources/**/build/*',
+    ]);
+
+    // This is used by the class \Ssch\TYPO3Rector\Rector\PostRector\FullQualifiedNamePostRector to force FQN in this paths and files
+    $parameters->set(Typo3Option::PATHS_FULL_QUALIFIED_NAMESPACES, [
+        # If you are targeting TYPO3 Version 11 use can now use Short namespace
+        # @see namespace https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ConfigurationFiles/Index.html
+        'ext_localconf.php',
+        'ext_tables.php',
+        'ClassAliasMap.php',
+        __DIR__ . '/**/Configuration/*.php',
+        __DIR__ . '/**/Configuration/**/*.php',
     ]);
 
     // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file
