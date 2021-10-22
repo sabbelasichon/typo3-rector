@@ -25,6 +25,13 @@ final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector imp
     public const CLASSES_GET_INSTANCE_TO_MAKE_INSTANCE = 'classes-get-instance-to-make-instance';
 
     /**
+     * @var array<string, string[]>
+     */
+    private const EXAMPLE_CONFIGURATION = [
+        self::CLASSES_GET_INSTANCE_TO_MAKE_INSTANCE => ['SomeClass'],
+    ];
+
+    /**
      * @var string[]
      */
     private array $classes = [];
@@ -62,10 +69,6 @@ final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector imp
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        $exampleConfiguration = [
-            self::CLASSES_GET_INSTANCE_TO_MAKE_INSTANCE => ['SomeClass'],
-        ];
-
         return new RuleDefinition('Use GeneralUtility::makeInstance instead of getInstance call', [
             new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
@@ -78,7 +81,7 @@ use TYPO3\CMS\Core\Resource\Index\ExtractorRegistry;
 $instance = GeneralUtility::makeInstance(ExtractorRegistry::class);
 CODE_SAMPLE
 ,
-                $exampleConfiguration
+                self::EXAMPLE_CONFIGURATION
             ),
         ]);
     }
