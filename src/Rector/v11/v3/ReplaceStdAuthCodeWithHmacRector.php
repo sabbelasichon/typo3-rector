@@ -63,9 +63,11 @@ final class ReplaceStdAuthCodeWithHmacRector extends AbstractRector
     {
         return new RuleDefinition('Replace GeneralUtility::stdAuthCode with GeneralUtility::hmac', [new CodeSample(
             <<<'CODE_SAMPLE'
+// Just a warning
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
+// Only outputting a warning message
 CODE_SAMPLE
         )]);
     }
