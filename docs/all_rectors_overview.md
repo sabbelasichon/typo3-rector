@@ -1,4 +1,4 @@
-# 212 Rules Overview
+# 213 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -1010,6 +1010,32 @@ Return `TYPO3\CMS\Extbase\Http\ForwardResponse` instead of `TYPO3\CMS\Extbase\Mv
 +        return new ForwardResponse('show');
     }
  }
+```
+
+<br>
+
+## FullQualifiedNamePostRector
+
+Use fully qualified names
+
+- class: [`Ssch\TYPO3Rector\Rector\PostRector\FullQualifiedNamePostRector`](../src/Rector/PostRector/FullQualifiedNamePostRector.php)
+
+```diff
+-use \TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+-
+-ExtensionUtility::configurePlugin(
++\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+         'News',
+         'Pi1',
+         [
+             \GeorgRinger\News\Controller\NewsController::class => 'list,detail,selectedList,dateMenu,searchForm,searchResult',
+             \GeorgRinger\News\Controller\CategoryController::class => 'list',
+             \GeorgRinger\News\Controller\TagController::class => 'list',
+         ],
+         [
+             'News' => 'searchForm,searchResult',
+         ]
+     );
 ```
 
 <br>
