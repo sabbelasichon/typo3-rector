@@ -1,4 +1,4 @@
-# 213 Rules Overview
+# 214 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -1259,6 +1259,41 @@ Use setMetaTag method from PageRenderer class
  $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 -$pageRenderer->addMetaTag('<meta name="keywords" content="seo, search engine optimisation, search engine optimization, search engine ranking">');
 +$pageRenderer->setMetaTag('name', 'keywords', 'seo, search engine optimisation, search engine optimization, search engine ranking');
+```
+
+<br>
+
+## MethodGetInstanceToMakeInstanceCallRector
+
+Use GeneralUtility::makeInstance instead of getInstance call
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\Rector\General\MethodGetInstanceToMakeInstanceCallRector`](../src/Rector/General/MethodGetInstanceToMakeInstanceCallRector.php)
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Ssch\TYPO3Rector\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $services = $containerConfigurator->services();
+
+    $services->set(MethodGetInstanceToMakeInstanceCallRector::class)
+        ->call('configure', [[MethodGetInstanceToMakeInstanceCallRector::CLASSES_GET_INSTANCE_TO_MAKE_INSTANCE => ['SomeClass']]]);
+};
+```
+
+↓
+
+```diff
+-$instance = TYPO3\CMS\Core\Resource\Index\ExtractorRegistry::getInstance();
++use TYPO3\CMS\Core\Resource\Index\ExtractorRegistry;
++
++$instance = GeneralUtility::makeInstance(ExtractorRegistry::class);
 ```
 
 <br>
