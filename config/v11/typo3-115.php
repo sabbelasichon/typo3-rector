@@ -41,4 +41,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'TYPO3\CMS\T3editor\Registry\ModeRegistry',
             ],
         ]]);
+    $services->set(\Ssch\TYPO3Rector\Rector\v11\v5\RemoveDefaultInternalTypeDBRector::class);
 };
