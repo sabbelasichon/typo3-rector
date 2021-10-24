@@ -1,4 +1,4 @@
-# 215 Rules Overview
+# 216 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -2419,6 +2419,29 @@ Remove TCA config 'max' on inputDateTime fields
              'config' => [
                  'renderType' => 'inputDateTime',
 -                'max' => 1,
+             ],
+         ],
+     ],
+ ];
+```
+
+<br>
+
+## RemoveDefaultInternalTypeDBRector
+
+Remove the default type for internal_type
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v5\RemoveDefaultInternalTypeDBRector`](../src/Rector/v11/v5/RemoveDefaultInternalTypeDBRector.php)
+
+```diff
+ return [
+     'ctrl' => [
+     ],
+     'columns' => [
+         'foobar' => [
+             'config' => [
+                 'type' => 'group',
+-                'internal_type' => 'db',
              ],
          ],
      ],
