@@ -28,7 +28,7 @@ jobs:
 
             -   run: vendor/bin/ecs check --fix
 
-            -   uses: stefanzweifel/git-auto-commit-action@v2.5.0
+            -   uses: stefanzweifel/git-auto-commit-action@v4.12.0
                 with:
                     commit_message: Apply coding standard changes
                     branch: "main"
