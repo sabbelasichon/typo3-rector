@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\ComposerPackages\Command;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
-use Rector\Core\PhpParser\Parser\Parser;
+use Rector\Core\PhpParser\Parser\RectorParser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
@@ -33,7 +33,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 {
     public function __construct(
         private PackageResolver $packageResolver,
-        private Parser $parser,
+        private RectorParser $rectorParser,
         private ComposerConfigurationPathResolver $composerConfigurationPathResolver,
         private SmartFileSystem $smartFileSystem,
         private BetterStandardPrinter $betterStandardPrinter,
@@ -86,7 +86,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                 $file = new File($smartFileInfo, $smartFileInfo->getContents());
                 $this->currentFileProvider->setFile($file);
 
-                $nodes = $this->parser->parseFileInfo($smartFileInfo);
+                $nodes = $this->rectorParser->parseFile($smartFileInfo);
                 $this->decorateNamesToFullyQualified($nodes);
 
                 $nodeTraverser = new NodeTraverser();
@@ -141,7 +141,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $file = new File($smartFileInfo, $smartFileInfo->getContents());
         $this->currentFileProvider->setFile($file);
 
-        $nodes = $this->parser->parseFileInfo($smartFileInfo);
+        $nodes = $this->rectorParser->parseFile($smartFileInfo);
         $this->decorateNamesToFullyQualified($nodes);
 
         $nodeTraverser = new NodeTraverser();

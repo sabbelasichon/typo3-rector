@@ -10,10 +10,10 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
-use PhpParser\Parser as NikicParser;
+use PhpParser\Parser;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
-use Rector\Core\PhpParser\Parser\Parser;
+use Rector\Core\PhpParser\Parser\RectorParser;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
@@ -34,11 +34,11 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 {
     public function __construct(
         private SmartFileSystem $smartFileSystem,
-        private Parser $parser,
+        private RectorParser $rectorParser,
         private AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector,
         private FilesFinder $filesFinder,
         private AddCommandsToReturnRector $addCommandsToReturnRector,
-        private NikicParser $nikicParser,
+        private Parser $parser,
         private TemplateFinder $templateFinder
     ) {
     }
@@ -139,7 +139,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 
             $commandContent = str_replace(array_keys($commandVariables), $commandVariables, $commandContent);
 
-            $nodes = $this->nikicParser->parse($commandContent);
+            $nodes = $this->parser->parse($commandContent);
 
             if (null === $nodes) {
                 $nodes = [];
@@ -275,10 +275,10 @@ CODE_SAMPLE
     ): void {
         if ($this->smartFileSystem->exists($commandsFilePath)) {
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
-            $nodes = $this->parser->parseFileInfo($commandsSmartFileInfo);
+            $nodes = $this->rectorParser->parseFile($commandsSmartFileInfo);
         } else {
             $defaultsCommandsTemplate = $this->templateFinder->getCommandsConfiguration();
-            $nodes = $this->parser->parseFileInfo($defaultsCommandsTemplate);
+            $nodes = $this->rectorParser->parseFile($defaultsCommandsTemplate);
         }
 
         $this->decorateNamesToFullyQualified($nodes);
