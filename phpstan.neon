@@ -2,11 +2,12 @@ includes:
     # see https://github.com/symplify/phpstan-extensions
     - utils/phpstan/config/typo3-rector.neon
     - phpstan-baseline.neon
+
 parameters:
     # see https://phpstan.org/user-guide/output-format#opening-file-in-an-editor
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
 
-    level: max
+    level: 8
 
     paths:
         - rector.php
