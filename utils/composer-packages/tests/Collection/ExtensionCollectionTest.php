@@ -43,7 +43,7 @@ final class ExtensionCollectionTest extends TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<string, mixed[]>
      */
     public function extensionsProvider(): array
     {

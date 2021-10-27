@@ -32,19 +32,21 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
     ): Type {
         $defaultObjectType = new ObjectType('TYPO3\CMS\Core\Context\AspectInterface');
 
-        if (! ($argument = $methodCall->args[0] ?? null) instanceof Arg) {
+        if (null === $methodCall->args) {
             return $defaultObjectType;
         }
 
-        /** @var Arg $argument */
-
-        if (! ($string = $argument->value ?? null) instanceof String_) {
+        $firstArg = $methodCall->args[0];
+        if (! $firstArg instanceof Arg) {
             return $defaultObjectType;
         }
 
-        /** @var String_ $string */
+        $argValue = $firstArg->value;
+        if (! $argValue instanceof String_) {
+            return $defaultObjectType;
+        }
 
-        return match ($string->value) {
+        return match ($argValue->value) {
             'date' => new ObjectType('TYPO3\CMS\Core\Context\DateTimeAspect'),
             'visibility' => new ObjectType('TYPO3\CMS\Core\Context\VisibilityAspect'),
             'frontend.user','backend.user' => new ObjectType('TYPO3\CMS\Core\Context\UserAspect'),
