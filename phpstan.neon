@@ -15,7 +15,7 @@ parameters:
         - tests
         - utils
 
-    excludes_analyse:
+    excludePaths:
         - "*/Expected/*"
         - '*tests/*/Fixture/*'
         - '*tests/*/Source/*'
