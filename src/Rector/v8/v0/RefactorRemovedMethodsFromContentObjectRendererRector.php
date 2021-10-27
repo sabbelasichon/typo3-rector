@@ -7,7 +7,6 @@ namespace Ssch\TYPO3Rector\Rector\v8\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\TypeWithClassName;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -109,11 +108,7 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $node): bool
     {
-        $staticType = $this->getType($node->var);
-
-        dump($staticType);
-
-        if ($staticType instanceof TypeWithClassName && 'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer' === $staticType->getClassName()) {
+        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'))) {
             return false;
         }
 
