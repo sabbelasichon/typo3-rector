@@ -133,7 +133,9 @@ CODE_SAMPLE
                 self::PALETTE_NAME => isset($fieldArray[2]) ? $fieldArray[2] : null,
                 self::FIELD_EXTRA => isset($fieldArray[3]) ? $fieldArray[3] : null,
             ];
-            $fieldName = $fieldArray[self::FIELD_NAME] ?? '';
+
+            $fieldName = (string) $fieldArray[self::FIELD_NAME];
+
             if (null !== $fieldArray[self::FIELD_EXTRA]) {
                 // Move fieldExtra "specConf" to columnsOverrides "defaultExtras"
                 // Merge with given defaultExtras from columns.

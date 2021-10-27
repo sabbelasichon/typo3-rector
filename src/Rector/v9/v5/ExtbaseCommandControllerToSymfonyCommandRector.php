@@ -6,14 +6,15 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
-use PhpParser\Parser;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Parser\RectorParser;
+use Rector\Core\PhpParser\Parser\SimplePhpParser;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
@@ -38,7 +39,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         private AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector,
         private FilesFinder $filesFinder,
         private AddCommandsToReturnRector $addCommandsToReturnRector,
-        private Parser $parser,
+        private SimplePhpParser $simplePhpParser,
         private TemplateFinder $templateFinder
     ) {
     }
@@ -111,10 +112,16 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 
             $paramTags = $commandPhpDocInfo->getParamTagValueNodes();
 
+            /** @var PhpDocTextNode[] $descriptionPhpDocNodes */
             $descriptionPhpDocNodes = $commandPhpDocInfo->getByType(PhpDocTextNode::class);
 
             $methodParameters = $commandMethod->params;
-            $commandDescription = (string) $descriptionPhpDocNodes[0] ?? '';
+
+            if (! isset($descriptionPhpDocNodes[0])) {
+                continue;
+            }
+
+            $commandDescription = $descriptionPhpDocNodes[0]->text;
 
             $commandTemplate = $this->templateFinder->getCommand();
             $commandName = Strings::firstUpper($commandMethodName);
@@ -139,13 +146,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 
             $commandContent = str_replace(array_keys($commandVariables), $commandVariables, $commandContent);
 
-            $nodes = $this->parser->parse($commandContent);
-
-            if (null === $nodes) {
-                $nodes = [];
-            }
-
-            $this->decorateNamesToFullyQualified($nodes);
+            $stmts = $this->simplePhpParser->parseString($commandContent);
+            $this->decorateNamesToFullyQualified($stmts);
 
             $nodeTraverser = new NodeTraverser();
 
@@ -171,9 +173,9 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
                 AddArgumentToSymfonyCommandRector::INPUT_ARGUMENTS => $inputArguments,
             ]);
             $nodeTraverser->addVisitor($this->addArgumentToSymfonyCommandRector);
-            $nodes = $nodeTraverser->traverse($nodes);
+            $stmts = $nodeTraverser->traverse($stmts);
 
-            $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
+            $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($stmts);
 
             $this->removedAndAddedFilesCollector->addAddedFile(
                 new AddedFileWithContent($filePath, $changedSetConfigContent)
@@ -297,13 +299,13 @@ CODE_SAMPLE
     }
 
     /**
-     * @param Node[] $nodes
+     * @param Stmt[] $stmts
      */
-    private function decorateNamesToFullyQualified(array $nodes): void
+    private function decorateNamesToFullyQualified(array $stmts): void
     {
         // decorate nodes with names first
         $nameResolverNodeTraverser = new NodeTraverser();
         $nameResolverNodeTraverser->addVisitor(new NameResolver());
-        $nameResolverNodeTraverser->traverse($nodes);
+        $nameResolverNodeTraverser->traverse($stmts);
     }
 }

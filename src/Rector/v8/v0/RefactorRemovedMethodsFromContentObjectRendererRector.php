@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
-use PHPStan\Type\TypeWithClassName;
+use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -72,10 +72,12 @@ final class RefactorRemovedMethodsFromContentObjectRendererRector extends Abstra
         if ($this->shouldSkip($node)) {
             return null;
         }
+
         $methodName = $this->getName($node->name);
         if (! in_array($methodName, self::METHODS_TO_REFACTOR, true)) {
             return null;
         }
+
         $args = [$this->nodeFactory->createArg($methodName), array_shift($node->args)];
         return $this->nodeFactory->createMethodCall($node->var, 'cObjGetSingle', $args);
     }
@@ -106,8 +108,7 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $node): bool
     {
-        $staticType = $this->getType($node->var);
-        if ($staticType instanceof TypeWithClassName && 'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer' === $staticType->getClassName()) {
+        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'))) {
             return false;
         }
 
