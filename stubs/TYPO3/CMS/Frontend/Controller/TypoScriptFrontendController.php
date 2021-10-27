@@ -41,7 +41,7 @@ class TypoScriptFrontendController
     /**
      * @var ContentObjectRenderer
      */
-    public $cObj = '';
+    public $cObj;
 
     /**
      * @var string
