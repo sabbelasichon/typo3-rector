@@ -36,8 +36,6 @@ final class AddCodeCoverageIgnoreForRectorDefinition implements Rule
     }
 
     /**
-     * @param Node|ClassMethod $node
-     *
      * @return string[]
      */
     public function processNode(Node $node, Scope $scope): array
