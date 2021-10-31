@@ -61,4 +61,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ]]);
     $services->set(SendNotifyEmailToMailApiRector::class);
     $services->set(RefactorInternalPropertiesOfTSFERector::class);
+    $services->set(\Ssch\TYPO3Rector\Rector\v10\v1\RemoveEnableMultiSelectFilterTextfieldRector::class);
 };
