@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v2;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
@@ -32,28 +33,12 @@ final class MigrateFrameModuleToSvgTreeRector extends AbstractRector
         return [StaticCall::class];
     }
 
+    /**
+     * @param StaticCall $node
+     */
     public function refactor(Node $node): ?Node
     {
-        $fileInfo = $this->file->getSmartFileInfo();
-
-        if (! $this->filesFinder->isExtTables($fileInfo)) {
-            return null;
-        }
-
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-                $node,
-                new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
-            )
-            &&
-            ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-                $node,
-                new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
-            )
-        ) {
-            return null;
-        }
-
-        if (! isset($node->name, $node->args)) {
+        if ($this->shouldSkip($node)) {
             return null;
         }
 
@@ -63,12 +48,8 @@ final class MigrateFrameModuleToSvgTreeRector extends AbstractRector
 
         $hasAstBeenChanged = false;
         if ($this->isName($node->name, 'addModule')) {
-            if (! isset($node->args[4]->value)) {
-                return null;
-            }
-
             $moduleConfig = $node->args[4]->value;
-            if (! $moduleConfig instanceof Node\Expr\Array_) {
+            if (! $moduleConfig instanceof Array_) {
                 return null;
             }
 
@@ -76,11 +57,8 @@ final class MigrateFrameModuleToSvgTreeRector extends AbstractRector
         }
 
         if ($this->isName($node->name, 'registerModule')) {
-            if (! isset($node->args[5]->value)) {
-                return null;
-            }
             $moduleConfig = $node->args[5]->value;
-            if (! $moduleConfig instanceof Node\Expr\Array_) {
+            if (! $moduleConfig instanceof Array_) {
                 return null;
             }
 
@@ -108,7 +86,30 @@ CODE_SAMPLE
         ]);
     }
 
-    private function migrateNavigationFrameModule(Node\Expr\Array_ $moduleConfig): bool
+    private function shouldSkip(Node $node): bool
+    {
+        $fileInfo = $this->file->getSmartFileInfo();
+
+        if (! $this->filesFinder->isExtTables($fileInfo)) {
+            return true;
+        }
+
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
+        )
+            &&
+            ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+                $node,
+                new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
+            )
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    private function migrateNavigationFrameModule(Array_ $moduleConfig): bool
     {
         foreach ($moduleConfig->items as $item) {
             if (null === $item) {
