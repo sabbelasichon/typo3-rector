@@ -1,4 +1,4 @@
-# 216 Rules Overview
+# 217 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -2467,6 +2467,25 @@ Removed dividers2tabs functionality
      'columns' => [
      ],
  ];
+```
+
+<br>
+
+## RemoveEnableMultiSelectFilterTextfieldRector
+
+Remove "enableMultiSelectFilterTextfield" => true as its default
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v1\RemoveEnableMultiSelectFilterTextfieldRector`](../src/Rector/v10/v1/RemoveEnableMultiSelectFilterTextfieldRector.php)
+
+```diff
+ 'foo' => [
+    'label' => 'foo',
+    'config' => [
+       'type' => 'select',
+       'renderType' => 'selectMultipleSideBySide',
+-      'enableMultiSelectFilterTextfield' => true,
+    ]
+ ],
 ```
 
 <br>
