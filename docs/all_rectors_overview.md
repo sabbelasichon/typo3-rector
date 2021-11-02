@@ -1,4 +1,4 @@
-# 217 Rules Overview
+# 218 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -1802,6 +1802,27 @@ Use method getTSConfig instead of property userTS
 -if(is_array($GLOBALS['BE_USER']->userTS['tx_news.']) && $GLOBALS['BE_USER']->userTS['tx_news.']['singleCategoryAcl'] === '1') {
 +if(is_array($GLOBALS['BE_USER']->getTSConfig()['tx_news.']) && $GLOBALS['BE_USER']->getTSConfig()['tx_news.']['singleCategoryAcl'] === '1') {
      return true;
+ }
+```
+
+<br>
+
+## ProvideCObjViaMethodRector
+
+Replaces public `$cObj` with protected and set via method
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v4\ProvideCObjViaMethodRector`](../src/Rector/v11/v4/ProvideCObjViaMethodRector.php)
+
+```diff
+ class Foo
+ {
+-    public $cObj;
++    protected $cObj;
++
++    public function setContentObjectRenderer(ContentObjectRenderer $cObj): void
++    {
++        $this->cObj = $cObj;
++    }
  }
 ```
 
