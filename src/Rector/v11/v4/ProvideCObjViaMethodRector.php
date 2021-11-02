@@ -123,10 +123,6 @@ CODE_SAMPLE
         }
 
         $classMethod = $node->getMethod('setContentObjectRenderer');
-        if ($classMethod instanceof ClassMethod) {
-            return true;
-        }
-
-        return false;
+        return $classMethod instanceof ClassMethod;
     }
 }
