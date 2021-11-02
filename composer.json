@@ -11,8 +11,8 @@
     ],
     "require": {
         "php": ">=8.0",
-        "helmich/typo3-typoscript-parser": "^2.3.0",
-        "symfony/var-exporter": "^5.2"
+        "helmich/typo3-typoscript-parser": "^2.3.1",
+        "symfony/var-exporter": "^5.3"
     },
     "require-dev": {
         "phpspec/prophecy-phpunit": "^2.0",
