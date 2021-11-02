@@ -42,25 +42,21 @@ final class ProvideCObjViaMethodRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if ($this->isObjectType($node, new ObjectType('TYPO3\CMS\Frontend\Plugin\AbstractPlugin'))
-            || $this->isObjectType($node, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController'))
-        ) {
+        if ($this->shouldSkip($node)) {
             return null;
         }
 
         $cObjProperty = $node->getProperty(self::COBJ);
+
         if (! $cObjProperty instanceof Property) {
             return null;
         }
 
-        if ($cObjProperty->isPublic()) {
-            // TODO: add handling to make it protected
-        }
-
-        $classMethod = $node->getMethod('setContentObjectRenderer');
-        if ($classMethod instanceof ClassMethod) {
+        if (! $cObjProperty->isPublic()) {
             return null;
         }
+
+        $this->visibilityManipulator->makeProtected($cObjProperty);
 
         $this->addSetContentObjectRendererMethod($node);
 
@@ -72,15 +68,16 @@ final class ProvideCObjViaMethodRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Replaces public $cObj with protected and set via method', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition('Replaces public $cObj with protected and set via method', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 class Foo
 {
     public $cObj;
 }
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 class Foo
 {
     protected $cObj;
@@ -91,7 +88,8 @@ class Foo
     }
 }
 CODE_SAMPLE
-        )]);
+            ),
+        ]);
     }
 
     private function addSetContentObjectRendererMethod(Class_ $node): void
@@ -112,5 +110,23 @@ CODE_SAMPLE
         $classMethodBuilder->setReturnType('void');
         $node->stmts[] = new Nop();
         $node->stmts[] = $classMethodBuilder->getNode();
+    }
+
+    private function shouldSkip(Class_ $node): bool
+    {
+        if ($this->isObjectType($node, new ObjectType('TYPO3\CMS\Frontend\Plugin\AbstractPlugin'))) {
+            return true;
+        }
+
+        if ($this->isObjectType($node, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController'))) {
+            return true;
+        }
+
+        $classMethod = $node->getMethod('setContentObjectRenderer');
+        if ($classMethod instanceof ClassMethod) {
+            return true;
+        }
+
+        return false;
     }
 }
