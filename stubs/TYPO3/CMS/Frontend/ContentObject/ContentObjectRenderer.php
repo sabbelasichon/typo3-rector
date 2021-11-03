@@ -107,4 +107,8 @@ class ContentObjectRenderer
     {
 
     }
+
+    public function getATagParams($conf, $addGlobal = 1)
+    {
+    }
 }
