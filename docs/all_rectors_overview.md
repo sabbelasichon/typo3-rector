@@ -1,4 +1,4 @@
-# 218 Rules Overview
+# 219 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -1334,6 +1334,19 @@ Migrate file folder config
 +      ]
     ]
  ]
+```
+
+<br>
+
+## MigrateFrameModuleToSvgTreeRector
+
+Migrate the iframe based file tree to SVG
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v2\MigrateFrameModuleToSvgTreeRector`](../src/Rector/v11/v2/MigrateFrameModuleToSvgTreeRector.php)
+
+```diff
+-'navigationFrameModule' => 'file_navframe'
++'navigationComponentId' => 'TYPO3/CMS/Backend/Tree/FileStorageTreeContainer'
 ```
 
 <br>
