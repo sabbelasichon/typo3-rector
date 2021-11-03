@@ -40,6 +40,13 @@ class ExtensionManagementUtility
     }
 
     /**
+     * @return void
+     */
+    public static function addModule($main, $sub = '', $position = '', $path = null, $moduleConfiguration = [])
+    {
+    }
+
+    /**
      * @return mixed[]
      */
     public static function configureModule($moduleSignature, $modulePath)
