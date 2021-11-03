@@ -1,0 +1,8 @@
+{
+    "name": "foo/foo-bar-baz",
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "foo_bar_baz"
+        }
+    }
+}

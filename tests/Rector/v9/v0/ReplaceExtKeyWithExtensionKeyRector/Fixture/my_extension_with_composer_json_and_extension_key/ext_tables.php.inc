@@ -57,7 +57,7 @@ if (TYPO3_MODE === 'BE') {
      * Registers a Backend Module
      */
     ExtensionUtility::registerModule(
-        'Stepin.' . '_temp_fixture_easy_testing',
+        'Stepin.' . 'foo_bar_baz',
         'web',   // Make module a submodule of 'tools'
         'brochure',  // Submodule key
         '',            // Position
@@ -66,8 +66,8 @@ if (TYPO3_MODE === 'BE') {
         ),
         array(
             'access' => 'user,group',
-            'icon' => 'EXT:' . '_temp_fixture_easy_testing' . '/ext_icon.gif',
-            'labels' => 'LLL:EXT:' . '_temp_fixture_easy_testing' . '/Resources/Private/Language/locallang_export.xlf',
+            'icon' => 'EXT:' . 'foo_bar_baz' . '/ext_icon.gif',
+            'labels' => 'LLL:EXT:' . 'foo_bar_baz' . '/Resources/Private/Language/locallang_export.xlf',
         )
     );
 
@@ -75,7 +75,7 @@ if (TYPO3_MODE === 'BE') {
      * Registers a Backend Module
      */
     ExtensionUtility::registerModule(
-        'Stepin.' . '_temp_fixture_easy_testing',
+        'Stepin.' . 'foo_bar_baz',
         'web',   // Make module a submodule of 'tools'
         'coupon',  // Submodule key
         'bottom',            // Position
@@ -84,8 +84,8 @@ if (TYPO3_MODE === 'BE') {
         ),
         array(
             'access' => 'user,group',
-            'icon' => 'EXT:' . '_temp_fixture_easy_testing' . '/ext_icon.gif',
-            'labels' => 'LLL:EXT:' . '_temp_fixture_easy_testing' . '/Resources/Private/Language/locallang_coupon.xlf',
+            'icon' => 'EXT:' . 'foo_bar_baz' . '/ext_icon.gif',
+            'labels' => 'LLL:EXT:' . 'foo_bar_baz' . '/Resources/Private/Language/locallang_coupon.xlf',
         )
     );
 }
