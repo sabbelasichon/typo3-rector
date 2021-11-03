@@ -24,6 +24,6 @@ if ( ! defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-ExtensionManagementUtility::addStaticFile('_temp_fixture_easy_testing', 'Configuration/TypoScript', 'Example');
+ExtensionManagementUtility::addStaticFile('foo_bar_baz', 'Configuration/TypoScript', 'Example');
 
 ?>

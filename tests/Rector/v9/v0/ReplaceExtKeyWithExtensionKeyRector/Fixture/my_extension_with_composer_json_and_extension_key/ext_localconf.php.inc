@@ -51,7 +51,7 @@ if ( ! defined('TYPO3_MODE')) {
 }
 
 ExtensionUtility::configurePlugin(
-    'Stepin.'.'_temp_fixture_easy_testing',
+    'Stepin.'.'foo_bar_baz',
     'ArticleTeaser',
     array(
         'ArticleTeaser' => 'list, listProgramCategoryAndCountryArticles, listProgramCategoryArticles, listCountryArticles',
@@ -63,7 +63,7 @@ ExtensionUtility::configurePlugin(
 );
 
 ExtensionUtility::configurePlugin(
-    '_temp_fixture_easy_testing',
+    'foo_bar_baz',
     'Pi1',
     array(
         'News' => 'index,list,latest,detail,search,searchResult,archiveMenu',
@@ -76,6 +76,6 @@ ExtensionUtility::configurePlugin(
 
 
 // Page module hook
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['_temp_fixture_easy_testing' . '_pi1']['_temp_fixture_easy_testing'] = 'EXT:' . '_temp_fixture_easy_testing' . '/Resources/Private/Backend/class.tx_' . '_temp_fixture_easy_testing' . '_cms_layout.php:tx_' . '_temp_fixture_easy_testing' . '_cms_layout->getExtensionSummary';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['foo_bar_baz' . '_pi1']['foo_bar_baz'] = 'EXT:' . 'foo_bar_baz' . '/Resources/Private/Backend/class.tx_' . 'foo_bar_baz' . '_cms_layout.php:tx_' . 'foo_bar_baz' . '_cms_layout->getExtensionSummary';
 
 ?>
