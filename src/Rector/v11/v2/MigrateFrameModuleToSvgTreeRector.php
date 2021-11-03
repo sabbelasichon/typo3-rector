@@ -93,6 +93,7 @@ CODE_SAMPLE
         if (! $this->filesFinder->isExtTables($fileInfo)) {
             return true;
         }
+
         return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
