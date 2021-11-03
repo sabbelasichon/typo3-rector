@@ -93,8 +93,7 @@ CODE_SAMPLE
         if (! $this->filesFinder->isExtTables($fileInfo)) {
             return true;
         }
-
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
         )
@@ -102,11 +101,7 @@ CODE_SAMPLE
             ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
                 $node,
                 new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
-            )
-        ) {
-            return true;
-        }
-        return false;
+            );
     }
 
     private function migrateNavigationFrameModule(Array_ $moduleConfig): bool
