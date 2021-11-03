@@ -24,8 +24,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'annotations' => ['throws', 'author', 'package', 'group'],
         ]]);
 
-    $services->set(LineLengthFixer::class);
-
     $services->set(NoSuperfluousPhpdocTagsFixer::class)
         ->call('configure', [[
             'allow_mixed' => true,
