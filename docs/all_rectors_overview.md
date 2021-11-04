@@ -1,4 +1,4 @@
-# 219 Rules Overview
+# 220 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -3320,6 +3320,19 @@ Replace GeneralUtility::stdAuthCode with GeneralUtility::hmac
 ```diff
 -// Just a warning
 +// Only outputting a warning message
+```
+
+<br>
+
+## ReplaceTSFEATagParamsCallOnGlobalsRector
+
+Replaces all direct calls to `$GLOBALS['TSFE']->ATagParams.`
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v5\ReplaceTSFEATagParamsCallOnGlobalsRector`](../src/Rector/v11/v5/ReplaceTSFEATagParamsCallOnGlobalsRector.php)
+
+```diff
+-$foo = $GLOBALS['TSFE']->ATagParams;
++$foo = $GLOBALS['TSFE']->config['config']['ATagParams'] ?? '';
 ```
 
 <br>
