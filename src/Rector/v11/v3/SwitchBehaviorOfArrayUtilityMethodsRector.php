@@ -81,6 +81,7 @@ CODE_SAMPLE
         )) {
             return false;
         }
+
         return $this->isName($node, 'arrayDiffAssocRecursive');
     }
 }
