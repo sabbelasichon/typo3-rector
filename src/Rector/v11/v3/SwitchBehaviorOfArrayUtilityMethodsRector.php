@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v3;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -21,7 +22,7 @@ final class SwitchBehaviorOfArrayUtilityMethodsRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\StaticCall::class];
+        return [StaticCall::class];
     }
 
     /**
@@ -72,7 +73,7 @@ CODE_SAMPLE
         );
     }
 
-    private function shouldSkip(Node\Expr\StaticCall $node): bool
+    private function shouldSkip(StaticCall $node): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
@@ -80,11 +81,6 @@ CODE_SAMPLE
         )) {
             return false;
         }
-
-        if (! $this->isName($node, 'arrayDiffAssocRecursive')) {
-            return false;
-        }
-
-        return true;
+        return $this->isName($node, 'arrayDiffAssocRecursive');
     }
 }
