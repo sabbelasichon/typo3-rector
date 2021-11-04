@@ -76,11 +76,6 @@ CODE_SAMPLE
         )) {
             return true;
         }
-
-        if (! $this->isName($node->name, 'getATagParams')) {
-            return true;
-        }
-
-        return false;
+        return ! $this->isName($node->name, 'getATagParams');
     }
 }
