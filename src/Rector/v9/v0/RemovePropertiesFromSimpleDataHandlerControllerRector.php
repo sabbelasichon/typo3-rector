@@ -8,9 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\ClassLike;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -81,8 +81,8 @@ CODE_SAMPLE
 
     private function removeVariableNode(Assign $assign): void
     {
-        $classNode = $assign->expr->getAttribute(AttributeKey::CLASS_NODE);
-        if (null === $classNode) {
+        $classNode = $this->betterNodeFinder->findParentType($assign, ClassLike::class);
+        if (! $classNode instanceof ClassLike) {
             return;
         }
 
@@ -102,8 +102,8 @@ CODE_SAMPLE
 
     private function removePropertyFetchNode(Assign $assign): void
     {
-        $classNode = $assign->getAttribute(AttributeKey::CLASS_NODE);
-        if (null === $classNode) {
+        $classNode = $this->betterNodeFinder->findParentType($assign, ClassLike::class);
+        if (! $classNode instanceof ClassLike) {
             return;
         }
 
