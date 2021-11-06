@@ -78,6 +78,7 @@ CODE_SAMPLE
             )) {
             return true;
         }
+
         return ! $this->isName($node->name, 'getPublicUrl');
     }
 }
