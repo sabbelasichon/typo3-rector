@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Ssch\TYPO3Rector\Rector\v11\v3\HandlePublicFALUrlsWithRelativePathRector;
 use Ssch\TYPO3Rector\Rector\v11\v3\RemoveBackendUtilityViewOnClickUsageRector;
 use Ssch\TYPO3Rector\Rector\v11\v3\ReplaceStdAuthCodeWithHmacRector;
 use Ssch\TYPO3Rector\Rector\v11\v3\SubstituteExtbaseRequestGetBaseUriRector;
@@ -18,4 +19,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(SwitchBehaviorOfArrayUtilityMethodsRector::class);
     $rectorConfig->rule(SubstituteExtbaseRequestGetBaseUriRector::class);
     $rectorConfig->rule(UseNormalizedParamsToGetRequestUrlRector::class);
+    $rectorConfig->rule(HandlePublicFALUrlsWithRelativePathRector::class);
 };
