@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v3;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -21,7 +22,7 @@ final class HandlePublicFALUrlsWithRelativePathRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
 
     /**
@@ -64,7 +65,7 @@ CODE_SAMPLE
         )]);
     }
 
-    private function shouldSkip(Node\Expr\MethodCall $node): bool
+    private function shouldSkip(MethodCall $node): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
@@ -77,11 +78,6 @@ CODE_SAMPLE
             )) {
             return true;
         }
-
-        if (! $this->isName($node->name, 'getPublicUrl')) {
-            return true;
-        }
-
-        return false;
+        return ! $this->isName($node->name, 'getPublicUrl');
     }
 }
