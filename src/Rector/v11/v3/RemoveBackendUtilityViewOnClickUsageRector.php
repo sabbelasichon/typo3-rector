@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v3;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Variable;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Rector\AbstractRector;
@@ -32,7 +36,7 @@ final class RemoveBackendUtilityViewOnClickUsageRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\StaticCall::class];
+        return [StaticCall::class];
     }
 
     /**
@@ -47,9 +51,9 @@ final class RemoveBackendUtilityViewOnClickUsageRector extends AbstractRector
         if (isset($node->args[6])) {
             $varName = $this->nodeNameResolver->getName($node->args[6]->value) ?? '';
 
-            $dispatchArgs = new Node\Expr\Array_([
-                new Node\Expr\ArrayItem(
-                    new Node\Expr\Variable($varName),
+            $dispatchArgs = new Array_([
+                new ArrayItem(
+                    new Variable($varName),
                     $this->nodeFactory->createClassConstFetch(
                         'TYPO3\CMS\Backend\Routing\PreviewUriBuilder',
                         'OPTION_SWITCH_FOCUS'
@@ -61,6 +65,7 @@ final class RemoveBackendUtilityViewOnClickUsageRector extends AbstractRector
         $createCallArgs = [$node->args[0], $node->args[4] ?? null];
 
         $createCallArgs = array_filter($createCallArgs);
+
         $createCall = $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Backend\Routing\PreviewUriBuilder',
             'create',
@@ -120,7 +125,7 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(Node\Expr\StaticCall $node): bool
+    private function shouldSkip(StaticCall $node): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
@@ -128,11 +133,6 @@ CODE_SAMPLE
         )) {
             return true;
         }
-
-        if (! $this->isName($node->name, 'viewOnClick')) {
-            return true;
-        }
-
-        return false;
+        return ! $this->isName($node->name, 'viewOnClick');
     }
 }
