@@ -26,7 +26,7 @@ final class SwitchBehaviorOfArrayUtilityMethodsRector extends AbstractRector
     }
 
     /**
-     * @param Node\Expr\StaticCall $node
+     * @param StaticCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -34,17 +34,17 @@ final class SwitchBehaviorOfArrayUtilityMethodsRector extends AbstractRector
             return null;
         }
 
-        $useAssocBehavior = isset($node->args[2]) ? $this->valueResolver->getValue($node->args[2]->value) : null;
+        $useAssocBehavior = isset($node->args[2]) && $this->valueResolver->getValue($node->args[2]->value);
 
-        if (null === $useAssocBehavior || false === $useAssocBehavior) {
-            return $this->nodeFactory->createStaticCall(
-                'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
-                'arrayDiffKeyRecursive',
-                [$node->args[0], $node->args[1]]
-            );
+        if ($useAssocBehavior) {
+            return null;
         }
 
-        return null;
+        return $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Utility\ArrayUtility',
+            'arrayDiffKeyRecursive',
+            [$node->args[0], $node->args[1]]
+        );
     }
 
     /**
@@ -61,7 +61,7 @@ $foo = ArrayUtility::arrayDiffAssocRecursive([], [], true);
 $bar = ArrayUtility::arrayDiffAssocRecursive([], [], false);
 $test = ArrayUtility::arrayDiffAssocRecursive([], []);
 CODE_SAMPLE
-                ,
+                    ,
                     <<<'CODE_SAMPLE'
 $foo = ArrayUtility::arrayDiffAssocRecursive([], [], true);
 $bar = ArrayUtility::arrayDiffKeyRecursive([], []);
@@ -79,9 +79,9 @@ CODE_SAMPLE
             $node,
             new ObjectType('TYPO3\CMS\Core\Utility\ArrayUtility')
         )) {
-            return false;
+            return true;
         }
 
-        return $this->isName($node, 'arrayDiffAssocRecursive');
+        return ! $this->isName($node->name, 'arrayDiffAssocRecursive');
     }
 }
