@@ -1,4 +1,4 @@
-# 220 Rules Overview
+# 221 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -1138,6 +1138,20 @@ Use GraphicalFunctions->getTemporaryImageWithText instead of LocalImageProcessor
 ```diff
 -GeneralUtility::makeInstance(LocalImageProcessor::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")
 +GeneralUtility::makeInstance(GraphicalFunctions::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")
+```
+
+<br>
+
+## HandleCObjRendererATagParamsMethodRector
+
+Removes deprecated params of the `ContentObjectRenderer->getATagParams()` method
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v5\HandleCObjRendererATagParamsMethodRector`](../src/Rector/v11/v5/HandleCObjRendererATagParamsMethodRector.php)
+
+```diff
+ $cObjRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
+-$bar = $cObjRenderer->getATagParams([], false);
++$bar = $cObjRenderer->getATagParams([]);
 ```
 
 <br>
