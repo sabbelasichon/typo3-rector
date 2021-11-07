@@ -1,4 +1,4 @@
-# 221 Rules Overview
+# 222 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -3732,6 +3732,22 @@ New Mail API based on symfony/mailer and symfony/mime
 +    ->html('<p>Here is the message itself</p>')
 +    ->attachFromPath('my-document.pdf')
      ->send();
+```
+
+<br>
+
+## SwitchBehaviorOfArrayUtilityMethodsRector
+
+Handles the methods `arrayDiffAssocRecursive()` and `arrayDiffKeyRecursive()` of ArrayUtility
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\SwitchBehaviorOfArrayUtilityMethodsRector`](../src/Rector/v11/v3/SwitchBehaviorOfArrayUtilityMethodsRector.php)
+
+```diff
+ $foo = ArrayUtility::arrayDiffAssocRecursive([], [], true);
+-$bar = ArrayUtility::arrayDiffAssocRecursive([], [], false);
+-$test = ArrayUtility::arrayDiffAssocRecursive([], []);
++$bar = ArrayUtility::arrayDiffKeyRecursive([], []);
++$test = ArrayUtility::arrayDiffKeyRecursive([], []);
 ```
 
 <br>
