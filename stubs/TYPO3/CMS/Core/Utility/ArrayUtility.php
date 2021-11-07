@@ -54,4 +54,21 @@ class ArrayUtility
     {
         return true;
     }
+
+    /**
+     * @return array
+     */
+    public static function arrayDiffAssocRecursive(array $array1, array $array2, bool $useArrayDiffAssocBehavior = false)
+    {
+        return [];
+    }
+
+    /**
+     * @return array
+     */
+    public static function arrayDiffKeyRecursive(array $array1, array $array2)
+    {
+        return [];
+    }
+
 }
