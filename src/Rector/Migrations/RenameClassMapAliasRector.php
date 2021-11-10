@@ -52,6 +52,7 @@ final class RenameClassMapAliasRector extends AbstractRector implements Configur
     private array $classesToSkip = [
         // can be string
         'language',
+        'template',
     ];
 
     public function __construct(
