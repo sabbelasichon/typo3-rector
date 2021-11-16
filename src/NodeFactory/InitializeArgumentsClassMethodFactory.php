@@ -215,7 +215,7 @@ final class InitializeArgumentsClassMethodFactory
         }
 
         if (null !== $paramTypeNode) {
-            return $paramTypeNode->toString();
+            return $paramTypeNode->__toString();
         }
 
         if (null === $paramTagValueNode) {
