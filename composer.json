@@ -17,10 +17,10 @@
     "require-dev": {
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/extension-installer": "^1.1",
-        "phpstan/phpstan": "^1.0",
+        "phpstan/phpstan": "^1.2",
         "phpunit/phpunit": "^9.5",
-        "rector/rector-generator": "^0.4.2",
-        "rector/phpstan-rules": "^0.4.7",
+        "rector/rector-generator": "^0.4.4",
+        "rector/phpstan-rules": "^0.4.15",
         "rector/rector-src": "dev-main",
         "symfony/console": "^5.3",
         "symplify/coding-standard": "^10.0",
