@@ -14,6 +14,7 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Webmozart\Assert\Assert;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Breaking-77630-RemoveWizardIcons.html
@@ -29,7 +30,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
     public const OLD_TO_NEW_FILE_LOCATIONS = 'old_to_new_file_locations';
 
     /**
-     * @var string[]
+     * @var array<string, string>
      */
     private array $oldToNewFileLocations = [];
 
@@ -203,8 +204,16 @@ CODE_SAMPLE
         return $hasAstBeenChanged ? $node : null;
     }
 
+    /**
+     * @param mixed[] $configuration
+     */
     public function configure(array $configuration): void
     {
-        $this->oldToNewFileLocations = $configuration[self::OLD_TO_NEW_FILE_LOCATIONS] ?? [];
+        $oldToNewFileLocations = $configuration[self::OLD_TO_NEW_FILE_LOCATIONS] ?? $configuration;
+        Assert::isArray($oldToNewFileLocations);
+        Assert::allString(array_keys($oldToNewFileLocations));
+        Assert::allString($oldToNewFileLocations);
+
+        $this->oldToNewFileLocations = $oldToNewFileLocations;
     }
 }

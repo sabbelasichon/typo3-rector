@@ -110,7 +110,7 @@ CODE_SAMPLE
      */
     public function configure(array $configuration): void
     {
-        $this->oldToNewAnnotations = $configuration[self::OLD_TO_NEW_ANNOTATIONS] ?? [];
+        $this->oldToNewAnnotations = $configuration[self::OLD_TO_NEW_ANNOTATIONS] ?? $configuration;
     }
 
     private function prepareNewAnnotation(string $newAnnotation): string
