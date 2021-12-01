@@ -14,7 +14,7 @@ jobs:
     coding_standard:
         runs-on: ubuntu-latest
         steps:
-            -   uses: actions/checkout@v2.3.5
+            -   uses: actions/checkout@v2.4.0
 
             -   uses: shivammathur/setup-php@v2
                 with:
