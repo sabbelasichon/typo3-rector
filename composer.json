@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "helmich/typo3-typoscript-parser": "^2.3.1",
         "symfony/var-exporter": "^5.3"
     },
