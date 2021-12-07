@@ -75,7 +75,7 @@
         "update-composer-packages": "@php vendor/bin/rector add-composer-typo3-extensions-to-config"
     },
     "extra": {
-        "patches-file": "https://raw.githubusercontent.com/rectorphp/vendor-patches/main/composer.patches.json",
+        "enable-patching": true,
         "rector": {
             "includes": [
                 "config/config.php"
