@@ -105,3 +105,7 @@ parameters:
 
         # handled in another PR
         - '#Function "property_exists\(\)" cannot be used/left in the code\: use ReflectionProvider\-\>has\*\(\) instead#'
+
+        # personal preference
+        - '#Function "preg_match_all\(\)" cannot be used/left in the code\: use "Nette\\Utils\\Strings\:\:matchAll\(\)" instead#'
+        - '#Function "preg_match\(\)" cannot be used/left in the code\: use "Nette\\Utils\\Strings\:\:match\(\)" instead#'

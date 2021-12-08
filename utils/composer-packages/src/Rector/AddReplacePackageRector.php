@@ -32,29 +32,12 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
     ) {
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     /**
      * @param RenamePackage[] $renamePackages
-     */
-    public function setReplacePackages(array $renamePackages): void
-=======
-
-<<<<<<< HEAD
-    public function configure(array $replacePackages): void
->>>>>>> update RenamePackage references
-    {
-=======
-=======
->>>>>>> add configured code sample, as AddReplacePackageRector is configurable rule
-    /**
-     * @param mixed[] $renamePackages
      */
     public function configure(array $renamePackages): void
     {
         Assert::allIsAOf($renamePackages, RenamePackage::class);
-
->>>>>>> validate input
         $this->renamePackages = $renamePackages;
     }
 
@@ -98,19 +81,10 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
                 continue;
             }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
             $array = $assign->expr;
 
             foreach ($this->renamePackages as $renamePackage) {
                 $array->items[] = new ArrayItem(
-=======
-            foreach ($this->renamePackages as $replacePackage) {
-=======
-            foreach ($this->renamePackages as $renamePackage) {
->>>>>>> add configured code sample, as AddReplacePackageRector is configurable rule
-                $stmt->expr->expr->items[] = new ArrayItem(
->>>>>>> validate input
                     new New_(
                         new FullyQualified(RenamePackage::class),
                         $this->nodeFactory->createArgs([
