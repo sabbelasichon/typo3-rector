@@ -12,7 +12,7 @@
     "require": {
         "php": ">=8.1",
         "helmich/typo3-typoscript-parser": "dev-master#0ccb3a6",
-        "symfony/var-exporter": "^5.4",
+        "symfony/var-exporter": "^6.0",
         "symfony/string": "^6.0"
     },
     "require-dev": {
@@ -23,14 +23,15 @@
         "rector/rector-generator": "^0.4.7",
         "rector/phpstan-rules": "^0.4.17",
         "rector/rector-src": "dev-main",
-        "symfony/console": "^5.4",
+        "symfony/console": "^6.0",
         "symplify/coding-standard": "^10.0",
         "symplify/easy-coding-standard": "^10.0",
         "symplify/phpstan-extensions": "^10.0",
         "symplify/phpstan-rules": "^10.0",
         "symplify/rule-doc-generator": "^10.0",
         "tracy/tracy": "^2.8",
-        "symplify/vendor-patches": "^10.0"
+        "symplify/vendor-patches": "^10.0",
+        "friendsofphp/php-cs-fixer": "dev-master as 3.3"
     },
     "autoload": {
         "psr-4": {
