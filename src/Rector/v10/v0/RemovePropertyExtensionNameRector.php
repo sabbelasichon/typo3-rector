@@ -90,11 +90,6 @@ CODE_SAMPLE
         if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\AbstractController'))) {
             return false;
         }
-
-        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController'))) {
-            return false;
-        }
-
-        return true;
+        return ! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController'));
     }
 }
