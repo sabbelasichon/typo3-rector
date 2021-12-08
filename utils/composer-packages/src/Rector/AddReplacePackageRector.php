@@ -35,13 +35,10 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
     ) {
     }
 
-    /**
-     * @param RenamePackage[] $renamePackages
-     */
-    public function configure(array $renamePackages): void
+    public function configure(array $configuration): void
     {
-        Assert::allIsAOf($renamePackages, RenamePackage::class);
-        $this->renamePackages = $renamePackages;
+        Assert::allIsAOf($configuration, RenamePackage::class);
+        $this->renamePackages = $configuration;
     }
 
     /**
@@ -68,8 +65,8 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
         /** @var Closure $closure */
         $closure = $node;
 
-        /** @var Expression $stmt */
         foreach ($closure->stmts as $stmt) {
+            /** @var Expression $stmt */
             if (! $stmt->expr instanceof Assign) {
                 continue;
             }
@@ -99,7 +96,7 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
             }
         }
 
-        return $node;
+        return $closure;
     }
 
     /**
@@ -122,7 +119,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
      $composerExtensions = [
-        new ReplacePackage('typo3-ter/news', 'georgringer/news')
+        new RenamePackage('typo3-ter/news', 'georgringer/news')
      ];
 };
 CODE_SAMPLE

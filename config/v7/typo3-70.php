@@ -11,54 +11,41 @@ use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallConnectDbRector;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallLoadTcaRector;
 use Ssch\TYPO3Rector\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(RemoveMethodCallConnectDbRector::class);
     $services->set(RemoveMethodCallLoadTcaRector::class);
-    $services->set('rename_class_templates_to_document_template')
-        ->class(RenameClassRector::class)
-        ->call('configure', [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                'TYPO3\CMS\Backend\Template\MediumDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
-                'TYPO3\CMS\Backend\Template\SmallDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
-                'TYPO3\CMS\Backend\Template\StandardDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
-                'TYPO3\CMS\Backend\Template\BigDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
-            ],
-        ]]);
-    $services->set('rename_static_method_generalUtility_int_from_ver_to_convert_version_number_to_integer')
-        ->class(RenameStaticMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Core\Utility\GeneralUtility',
-                        'int_from_ver',
-                        'TYPO3\CMS\Core\Utility\VersionNumberUtility',
-                        'convertVersionNumberToInteger'
-                    ),
-                ]),
-            ]]
-        );
+    $services->set(RenameClassRector::class)
+        ->configure([
+            'TYPO3\CMS\Backend\Template\MediumDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
+            'TYPO3\CMS\Backend\Template\SmallDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
+            'TYPO3\CMS\Backend\Template\StandardDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
+            'TYPO3\CMS\Backend\Template\BigDocumentTemplate' => 'TYPO3\CMS\Backend\Template\DocumentTemplate',
+        ]);
+    $services->set(RenameStaticMethodRector::class)
+        ->configure([
+            new RenameStaticMethod(
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
+                'int_from_ver',
+                'TYPO3\CMS\Core\Utility\VersionNumberUtility',
+                'convertVersionNumberToInteger'
+            ),
+        ]);
     $services->set(TypeHandlingServiceToTypeHandlingUtilityRector::class);
-    $services->set('rename_method_typo3_query_settings')
-        ->class(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename(
-                    'TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettingsInterface',
-                    'setSysLanguageUid',
-                    'setLanguageUid'
-                ),
-                new MethodCallRename(
-                    'TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettingsInterface',
-                    'getSysLanguageUid',
-                    'getLanguageUid'
-                ),
-                new MethodCallRename('TYPO3\CMS\Extbase\Object\ObjectManagerInterface', 'create', 'get'),
-            ]),
-        ]]);
+    $services->set(RenameMethodRector::class)
+        ->configure([
+            new MethodCallRename(
+                'TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettingsInterface',
+                'setSysLanguageUid',
+                'setLanguageUid'
+            ),
+            new MethodCallRename(
+                'TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettingsInterface',
+                'getSysLanguageUid',
+                'getLanguageUid'
+            ),
+            new MethodCallRename('TYPO3\CMS\Extbase\Object\ObjectManagerInterface', 'create', 'get'),
+        ]);
 };

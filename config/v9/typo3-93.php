@@ -14,41 +14,30 @@ use Ssch\TYPO3Rector\Rector\v9\v3\RemoveColPosParameterRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\UseMethodGetPageShortcutDirectlyFromSysPageRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\ValidateAnnotationRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(RemoveColPosParameterRector::class);
     $services->set(ValidateAnnotationRector::class);
-    $services->set(
-        'localization_controller_get_used_languages_in_page_and_column_to_get_used_languages_in_page'
-    )->class(RenameMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                    new MethodCallRename(
-                        'TYPO3\CMS\Backend\Controller\Page\LocalizationController',
-                        'getUsedLanguagesInPageAndColumn',
-                        'getUsedLanguagesInPage'
-                    ),
-                ]),
-            ]]
-        );
+    $services->set(RenameMethodRector::class)
+        ->configure([
+            new MethodCallRename(
+                'TYPO3\CMS\Backend\Controller\Page\LocalizationController',
+                'getUsedLanguagesInPageAndColumn',
+                'getUsedLanguagesInPage'
+            ),
+        ]);
     $services->set(BackendUtilityGetModuleUrlRector::class);
     $services->set(PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector::class);
     $services->set(UseMethodGetPageShortcutDirectlyFromSysPageRector::class);
     $services->set(CopyMethodGetPidForModTSconfigRector::class);
     $services->set(BackendUserAuthenticationSimplelogRector::class);
     $services->set(MoveLanguageFilesFromExtensionLangRector::class);
-    $services->set('get_validation_results_to_validate')
-        ->class(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'getValidationResults', 'validate'),
-                new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Arguments', 'getValidationResults', 'validate'),
-            ]),
-        ]]);
+    $services->set(RenameMethodRector::class)
+        ->configure([
+            new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'getValidationResults', 'validate'),
+            new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Arguments', 'getValidationResults', 'validate'),
+        ]);
     $services->set(RefactorTsConfigRelatedMethodsRector::class);
 };

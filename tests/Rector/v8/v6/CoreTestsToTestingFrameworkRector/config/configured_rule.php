@@ -13,17 +13,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../../../../../../config/config_test.php');
 
     $services = $containerConfigurator->services();
-    $services->set('namespace_typo3_cms_core_tests_to__typo3_testing_framework_core')
-        ->class(RenameClassRector::class)
-        ->call(
-            'configure',
-            [
-                [
-                    RenameClassRector::OLD_TO_NEW_CLASSES => [
-                        CoreUnitTestCase::class => UnitTestCase::class,
-                        CoreFunctionalTestCase::class => FunctionalTestCase::class,
-                    ],
-                ],
-            ]
-        );
+    $services->set(RenameClassRector::class)
+        ->configure([
+            CoreUnitTestCase::class => UnitTestCase::class,
+            CoreFunctionalTestCase::class => FunctionalTestCase::class,
+        ]);
 };
