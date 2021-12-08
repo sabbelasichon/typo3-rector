@@ -20,6 +20,9 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 
+/**
+ * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Rector\AddReplacePackageRector\AddReplacePackageRectorTest
+ */
 final class AddReplacePackageRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
@@ -86,7 +89,7 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
             foreach ($this->renamePackages as $renamePackage) {
                 $array->items[] = new ArrayItem(
                     new New_(
-                        new FullyQualified(RenamePackage::class),
+                        new FullyQualified('Rector\Composer\ValueObject\RenamePackage'),
                         $this->nodeFactory->createArgs([
                             $renamePackage->getOldPackageName(),
                             $renamePackage->getNewPackageName(),

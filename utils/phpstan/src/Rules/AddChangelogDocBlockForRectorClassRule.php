@@ -25,7 +25,7 @@ use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefini
  * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddChangelogDocBlockForRectorClass\AddChangelogDocBlockForRectorClassTest
  * @implements Rule<Class_>
  */
-final class AddChangelogDocBlockForRectorClass implements Rule
+final class AddChangelogDocBlockForRectorClassRule implements Rule
 {
     /**
      * @var string

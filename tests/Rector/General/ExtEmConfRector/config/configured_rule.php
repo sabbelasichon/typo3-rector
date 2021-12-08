@@ -10,10 +10,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
     $services->set(ExtEmConfRector::class)
-        ->call('configure', [
-            [
-                ExtEmConfRector::TYPO3_VERSION_CONSTRAINT => '9.5.0-10.4.99',
-                ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
-            ],
+        ->configure([
+            ExtEmConfRector::TYPO3_VERSION_CONSTRAINT => '9.5.0-10.4.99',
+            ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
         ]);
 };

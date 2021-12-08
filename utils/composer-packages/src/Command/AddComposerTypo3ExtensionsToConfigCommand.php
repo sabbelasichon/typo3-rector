@@ -69,13 +69,11 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 
             foreach ($typo3Versions as $typo3Version) {
                 $extension = $collection->findHighestVersion($typo3Version);
-
                 if (! $extension instanceof ExtensionVersion) {
                     continue;
                 }
 
                 $smartFileInfo = $this->composerConfigurationPathResolver->resolveByTypo3Version($typo3Version);
-
                 if (! $smartFileInfo instanceof SmartFileInfo) {
                     continue;
                 }
