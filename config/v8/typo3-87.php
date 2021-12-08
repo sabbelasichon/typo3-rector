@@ -30,14 +30,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorRemovedMarkerMethodsFromContentObjectRendererRector::class);
     $services->set(ChangeAttemptsParameterConsoleOutputRector::class);
     $services->set(RenameClassRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameClassRector::OLD_TO_NEW_CLASSES => [
-                    'TYPO3\CMS\Extbase\Service\TypoScriptService' => 'TYPO3\CMS\Core\TypoScript\TypoScriptService',
-                ],
-            ]]
-        );
+        ->configure([
+            'TYPO3\CMS\Extbase\Service\TypoScriptService' => 'TYPO3\CMS\Core\TypoScript\TypoScriptService',
+        ]);
     $services->set(RenameClassMapAliasRector::class)
         ->configure([
             __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
@@ -45,19 +40,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
         ]);
     $services->set(RenameStaticMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Core\Utility\GeneralUtility',
-                        'csvValues',
-                        'TYPO3\CMS\Core\Utility\CsvUtility',
-                        'csvValues'
-                    ),
-                ]),
-            ]]
-        );
+        ->configure([
+            new RenameStaticMethod(
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
+                'csvValues',
+                'TYPO3\CMS\Core\Utility\CsvUtility',
+                'csvValues'
+            ),
+        ]);
     $services->set(BackendUtilityGetRecordsByFieldToQueryBuilderRector::class);
     $services->set(RefactorPrintContentMethodsRector::class);
     $services->set(RefactorArrayBrowserWrapValueRector::class);

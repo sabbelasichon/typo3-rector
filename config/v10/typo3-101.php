@@ -19,27 +19,22 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RegisterPluginWithVendorNameRector::class);
     $services->set(BackendUtilityEditOnClickRector::class);
     $services->set(PropertyFetchToMethodCallRector::class)
-        ->call(
-            'configure',
-            [[
-                PropertyFetchToMethodCallRector::PROPERTIES_TO_METHOD_CALLS => ValueObjectInliner::inline(
-                    [
-                        new PropertyFetchToMethodCall(
-                            'TYPO3\CMS\Backend\History\RecordHistory',
-                            'changeLog',
-                            'getChangeLog',
-                            'setChangelog',
-                            ['bla']
-                        ), new PropertyFetchToMethodCall(
-                            'TYPO3\CMS\Backend\History\RecordHistory',
-                            'lastHistoryEntry',
-                            'getLastHistoryEntryNumber',
-                            null,
-                            []
-                        ), ]
-                ),
-            ]]
-        );
+        ->configure([
+            new PropertyFetchToMethodCall(
+                'TYPO3\CMS\Backend\History\RecordHistory',
+                'changeLog',
+                'getChangeLog',
+                'setChangelog',
+                ['bla']
+            ),
+            new PropertyFetchToMethodCall(
+                'TYPO3\CMS\Backend\History\RecordHistory',
+                'lastHistoryEntry',
+                'getLastHistoryEntryNumber',
+                null,
+                []
+            )
+        ]);
     $services->set(RenameMethodRector::class)
         ->configure([
             new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createChangeLog', 'getChangeLog'),

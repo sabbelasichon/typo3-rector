@@ -39,68 +39,55 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveWakeupCallFromEntityRector::class);
     $services->set(RteHtmlParserRector::class);
     $services->set(RenameMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-
-                    new MethodCallRename('TYPO3\CMS\Recordlist\RecordList', 'printContent', 'mainAction'),
-                    new MethodCallRename(
-                        'TYPO3\CMS\Recordlist\Controller\ElementBrowserFramesetController',
-                        'printContent',
-                        'mainAction'
-                    ),
-                    new MethodCallRename(
-                        'TYPO3\CMS\Rtehtmlarea\Controller\UserElementsController',
-                        'main',
-                        'main_user'
-                    ),
-                    new MethodCallRename(
-                        'TYPO3\CMS\Rtehtmlarea\Controller\UserElementsController',
-                        'printContent',
-                        'mainAction'
-                    ),
-                    new MethodCallRename(
-                        'TYPO3\CMS\Rtehtmlarea\Controller\ParseHtmlController',
-                        'main',
-                        'main_parse_html'
-                    ),
-                    new MethodCallRename(
-                        'TYPO3\CMS\Rtehtmlarea\Controller\ParseHtmlController',
-                        'printContent',
-                        'mainAction'
-                    ),
-
-                ]),
-            ]]
-        );
+        ->configure([
+            new MethodCallRename('TYPO3\CMS\Recordlist\RecordList', 'printContent', 'mainAction'),
+            new MethodCallRename(
+                'TYPO3\CMS\Recordlist\Controller\ElementBrowserFramesetController',
+                'printContent',
+                'mainAction'
+            ),
+            new MethodCallRename(
+                'TYPO3\CMS\Rtehtmlarea\Controller\UserElementsController',
+                'main',
+                'main_user'
+            ),
+            new MethodCallRename(
+                'TYPO3\CMS\Rtehtmlarea\Controller\UserElementsController',
+                'printContent',
+                'mainAction'
+            ),
+            new MethodCallRename(
+                'TYPO3\CMS\Rtehtmlarea\Controller\ParseHtmlController',
+                'main',
+                'main_parse_html'
+            ),
+            new MethodCallRename(
+                'TYPO3\CMS\Rtehtmlarea\Controller\ParseHtmlController',
+                'printContent',
+                'mainAction'
+            ),
+        ]);
     $services->set(RenameStaticMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Extbase\Utility\ExtensionUtility',
-                        'configureModule',
-                        'TYPO3\CMS\Core\Utility\ExtensionManagementUtility',
-                        'configureModule'
-                    ),
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Core\TypoScript\TemplateService',
-                        'sortedKeyList',
-                        'TYPO3\CMS\Core\Utility\ArrayUtility',
-                        'filterAndSortByNumericKeys'
-                    ),
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Core\Utility\GeneralUtility',
-                        'imageMagickCommand',
-                        'TYPO3\CMS\Core\Utility\CommandUtility',
-                        'imageMagickCommand'
-                    ),
-
-                ]),
-            ]]
-        );
+        ->configure([
+            new RenameStaticMethod(
+                'TYPO3\CMS\Extbase\Utility\ExtensionUtility',
+                'configureModule',
+                'TYPO3\CMS\Core\Utility\ExtensionManagementUtility',
+                'configureModule'
+            ),
+            new RenameStaticMethod(
+                'TYPO3\CMS\Core\TypoScript\TemplateService',
+                'sortedKeyList',
+                'TYPO3\CMS\Core\Utility\ArrayUtility',
+                'filterAndSortByNumericKeys'
+            ),
+            new RenameStaticMethod(
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
+                'imageMagickCommand',
+                'TYPO3\CMS\Core\Utility\CommandUtility',
+                'imageMagickCommand'
+            ),
+        ]);
     $services->set(PrependAbsolutePathToGetFileAbsFileNameRector::class);
     $services->set(RefactorRemovedMarkerMethodsFromHtmlParserRector::class);
     $services->set(RemoveRteHtmlParserEvalWriteFileRector::class);
@@ -108,20 +95,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RequireMethodsToNativeFunctionsRector::class);
     $services->set(GetPreferredClientLanguageRector::class);
     $services->set(RenameMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-
-                    new MethodCallRename(
-                        'TYPO3\CMS\Fluid\Core\Rendering\RenderingContext',
-                        'getTemplateVariableContainer',
-                        'getVariableProvider'
-                    ),
-
-                ]),
-            ]]
-        );
+        ->configure([
+            new MethodCallRename(
+                'TYPO3\CMS\Fluid\Core\Rendering\RenderingContext',
+                'getTemplateVariableContainer',
+                'getVariableProvider'
+            ),
+        ]);
     $services->set(TimeTrackerInsteadOfNullTimeTrackerRector::class);
     $services->set(RemoveCharsetConverterParametersRector::class);
     $services->set(GetFileAbsFileNameRemoveDeprecatedArgumentsRector::class);

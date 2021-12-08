@@ -15,61 +15,51 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
     $services->set(RenameMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                    new MethodCallRename(
-                        'TYPO3\CMS\Backend\Clipboard\ClipBoard',
-                        'printContentFromTab',
-                        'getContentFromTab'
-                    ),
-                ]),
-            ]]
-        );
+        ->configure([
+            new MethodCallRename(
+                'TYPO3\CMS\Backend\Clipboard\ClipBoard',
+                'printContentFromTab',
+                'getContentFromTab'
+            ),
+        ]);
     $services->set(CharsetConverterToMultiByteFunctionsRector::class);
     $services->set(RenameStaticMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Extbase\Utility\ArrayUtility',
-                        'integerExplode',
-                        'TYPO3\CMS\Core\Utility\GeneralUtility',
-                        'intExplode'
-                    ),
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Extbase\Utility\ArrayUtility',
-                        'trimExplode',
-                        'TYPO3\CMS\Core\Utility\GeneralUtility',
-                        'trimExplode'
-                    ),
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Extbase\Utility\ArrayUtility',
-                        'getValueByPath',
-                        'TYPO3\CMS\Core\Utility\ArrayUtility',
-                        'getValueByPath'
-                    ),
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Extbase\Utility\ArrayUtility',
-                        'setValueByPath',
-                        'TYPO3\CMS\Core\Utility\ArrayUtility',
-                        'setValueByPath'
-                    ),
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Extbase\Utility\ArrayUtility',
-                        'unsetValueByPath',
-                        'TYPO3\CMS\Core\Utility\ArrayUtility',
-                        'removeByPath'
-                    ),
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Extbase\Utility\ArrayUtility',
-                        'sortArrayWithIntegerKeys',
-                        'TYPO3\CMS\Core\Utility\ArrayUtility',
-                        'sortArrayWithIntegerKeys'
-                    ),
-                ]),
-            ]]
-        );
+        ->configure([
+            new RenameStaticMethod(
+                'TYPO3\CMS\Extbase\Utility\ArrayUtility',
+                'integerExplode',
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
+                'intExplode'
+            ),
+            new RenameStaticMethod(
+                'TYPO3\CMS\Extbase\Utility\ArrayUtility',
+                'trimExplode',
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
+                'trimExplode'
+            ),
+            new RenameStaticMethod(
+                'TYPO3\CMS\Extbase\Utility\ArrayUtility',
+                'getValueByPath',
+                'TYPO3\CMS\Core\Utility\ArrayUtility',
+                'getValueByPath'
+            ),
+            new RenameStaticMethod(
+                'TYPO3\CMS\Extbase\Utility\ArrayUtility',
+                'setValueByPath',
+                'TYPO3\CMS\Core\Utility\ArrayUtility',
+                'setValueByPath'
+            ),
+            new RenameStaticMethod(
+                'TYPO3\CMS\Extbase\Utility\ArrayUtility',
+                'unsetValueByPath',
+                'TYPO3\CMS\Core\Utility\ArrayUtility',
+                'removeByPath'
+            ),
+            new RenameStaticMethod(
+                'TYPO3\CMS\Extbase\Utility\ArrayUtility',
+                'sortArrayWithIntegerKeys',
+                'TYPO3\CMS\Core\Utility\ArrayUtility',
+                'sortArrayWithIntegerKeys'
+            ),
+        ]);
 };

@@ -14,15 +14,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
     $services->set(RenameClassRector::class)
-        ->call(
-            'configure',
-            [
-                [
-                    RenameClassRector::OLD_TO_NEW_CLASSES => [
-                        CoreUnitTestCase::class => UnitTestCase::class,
-                        CoreFunctionalTestCase::class => FunctionalTestCase::class,
-                    ],
-                ],
-            ]
-        );
+        ->configure([
+            CoreUnitTestCase::class => UnitTestCase::class,
+            CoreFunctionalTestCase::class => FunctionalTestCase::class,
+        ]);
 };

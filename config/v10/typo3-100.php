@@ -43,17 +43,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseNativePhpHex2binMethodRector::class);
     $services->set(RefactorIdnaEncodeMethodToNativeFunctionRector::class);
     $services->set(RenameNamespaceRector::class)
-        ->call(
-            'configure',
-            [
-                [
-                    RenameNamespaceRector::OLD_TO_NEW_NAMESPACES => [
-                        'TYPO3\CMS\Backend\Controller\File' => 'TYPO3\CMS\Filelist\Controller\File',
-
-                    ],
-                ],
-            ]
-        );
+        ->configure([
+            'TYPO3\CMS\Backend\Controller\File' => 'TYPO3\CMS\Filelist\Controller\File',
+        ]);
     $services->set(UseMetaDataAspectRector::class);
     $services->set(ForceTemplateParsingInTsfeAndTemplateServiceRector::class);
     $services->set(BackendUtilityGetViewDomainToPageRouterRector::class);

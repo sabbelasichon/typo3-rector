@@ -9,13 +9,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(RenameClassRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameClassRector::OLD_TO_NEW_CLASSES => [
-                    'TYPO3\CMS\Core\Tests\UnitTestCase' => 'TYPO3\TestingFramework\Core\Unit\UnitTestCase',
-                    'TYPO3\CMS\Core\Tests\FunctionalTestCase' => 'TYPO3\TestingFramework\Core\Functional\FunctionalTestCase',
-                ],
-            ]]
-        );
+        ->configure([
+            'TYPO3\CMS\Core\Tests\UnitTestCase' => 'TYPO3\TestingFramework\Core\Unit\UnitTestCase',
+            'TYPO3\CMS\Core\Tests\FunctionalTestCase' => 'TYPO3\TestingFramework\Core\Functional\FunctionalTestCase',
+        ]);
 };

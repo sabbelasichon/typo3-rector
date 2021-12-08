@@ -14,27 +14,17 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     // @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Deprecation-75363-DeprecateFormResultCompilerJStop.html
     $services->set(RenameMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                    new MethodCallRename('TYPO3\CMS\Backend\Routing\FormResultCompiler', 'JStop', 'addCssFiles'),
-                ]),
-            ]]
-        );
+        ->configure([
+            new MethodCallRename('TYPO3\CMS\Backend\Routing\FormResultCompiler', 'JStop', 'addCssFiles'),
+        ]);
     // @see https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.4/Deprecation-77826-RTEHtmlAreaSpellcheckerEntrypoint.html
     $services->set(RenameMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                    new MethodCallRename(
-                        'TYPO3\CMS\Saltedpasswords\Salt\SpellCheckingController',
-                        'main',
-                        'processRequest'
-                    ),
-                ]),
-            ]]
-        );
+        ->configure([
+            new MethodCallRename(
+                'TYPO3\CMS\Saltedpasswords\Salt\SpellCheckingController',
+                'main',
+                'processRequest'
+            ),
+        ]);
     $services->set(ExtensionManagementUtilityExtRelPathRector::class);
 };

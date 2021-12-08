@@ -20,46 +20,36 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(RenamePiListBrowserResultsRector::class);
     $services->set(MethodCallToStaticCallRector::class)
-        ->call(
-            'configure',
-            [[
-                MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => ValueObjectInliner::inline([
-                    new MethodCallToStaticCall(
-                        'TYPO3\CMS\Backend\Template\DocumentTemplate',
-                        'issueCommand',
-                        'TYPO3\CMS\Backend\Utility\BackendUtility',
-                        'getLinkToDataHandlerAction'
-                    ),
-                ]),
-            ]]
-        );
+        ->configure([
+            new MethodCallToStaticCall(
+                'TYPO3\CMS\Backend\Template\DocumentTemplate',
+                'issueCommand',
+                'TYPO3\CMS\Backend\Utility\BackendUtility',
+                'getLinkToDataHandlerAction'
+            ),
+        ]);
     $services->set(RenameClassConstFetchRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameClassConstFetchRector::CLASS_CONSTANT_RENAME => ValueObjectInliner::inline([
-                    new RenameClassConstFetch(
-                        'TYPO3\CMS\IndexedSearch\Controller\SearchFormController',
-                        'WILDCARD_LEFT',
-                        LikeWildcard::class . '::WILDCARD_LEFT'
-                    ),
-                    new RenameClassConstFetch(
-                        'TYPO3\CMS\IndexedSearch\Controller\SearchFormController',
-                        'WILDCARD_RIGHT',
-                        LikeWildcard::class . '::WILDCARD_RIGHT'
-                    ),
-                    new RenameClassConstFetch(
-                        'TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository',
-                        'WILDCARD_LEFT',
-                        LikeWildcard::class . '::WILDCARD_LEFT'
-                    ),
-                    new RenameClassConstFetch(
-                        'TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository',
-                        'WILDCARD_RIGHT',
-                        LikeWildcard::class . '::WILDCARD_RIGHT'
-                    ),
-                ]),
-            ]]
-        );
+        ->configure([
+            new RenameClassConstFetch(
+                'TYPO3\CMS\IndexedSearch\Controller\SearchFormController',
+                'WILDCARD_LEFT',
+                LikeWildcard::class . '::WILDCARD_LEFT'
+            ),
+            new RenameClassConstFetch(
+                'TYPO3\CMS\IndexedSearch\Controller\SearchFormController',
+                'WILDCARD_RIGHT',
+                LikeWildcard::class . '::WILDCARD_RIGHT'
+            ),
+            new RenameClassConstFetch(
+                'TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository',
+                'WILDCARD_LEFT',
+                LikeWildcard::class . '::WILDCARD_LEFT'
+            ),
+            new RenameClassConstFetch(
+                'TYPO3\CMS\IndexedSearch\Domain\Repository\IndexSearchRepository',
+                'WILDCARD_RIGHT',
+                LikeWildcard::class . '::WILDCARD_RIGHT'
+            ),
+        ]);
     $services->set(WrapClickMenuOnIconRector::class);
 };

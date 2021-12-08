@@ -24,18 +24,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(
         'localization_controller_get_used_languages_in_page_and_column_to_get_used_languages_in_page'
     )->class(RenameMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                    new MethodCallRename(
-                        'TYPO3\CMS\Backend\Controller\Page\LocalizationController',
-                        'getUsedLanguagesInPageAndColumn',
-                        'getUsedLanguagesInPage'
-                    ),
-                ]),
-            ]]
-        );
+        ->configure([
+            new MethodCallRename(
+                'TYPO3\CMS\Backend\Controller\Page\LocalizationController',
+                'getUsedLanguagesInPageAndColumn',
+                'getUsedLanguagesInPage'
+            ),
+        ]);
     $services->set(BackendUtilityGetModuleUrlRector::class);
     $services->set(PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector::class);
     $services->set(UseMethodGetPageShortcutDirectlyFromSysPageRector::class);

@@ -12,10 +12,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(RemovePackageComposerRector::class)
-        ->call(
-            'configure',
-            [[
-                RemovePackageComposerRector::PACKAGE_NAMES => [
+        ->configure([
                     'typo3/cms-context-help',
                     'typo3/cms-info-pagetsconfig',
                     'typo3/cms-wizard-crpages',

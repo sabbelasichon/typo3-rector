@@ -17,19 +17,14 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UnifiedFileNameValidatorRector::class);
     $services->set(SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector::class);
     $services->set(RenameStaticMethodRector::class)
-        ->call(
-            'configure',
-            [[
-                RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
-                    new RenameStaticMethod(
-                        'TYPO3\CMS\Core\Utility\GeneralUtility',
-                        'isRunningOnCgiServerApi',
-                        'TYPO3\CMS\Core\Core\Environment',
-                        'isRunningOnCgiServer'
-                    ),
-                ]),
-            ]]
-        );
+        ->configure([
+            new RenameStaticMethod(
+                'TYPO3\CMS\Core\Utility\GeneralUtility',
+                'isRunningOnCgiServerApi',
+                'TYPO3\CMS\Core\Core\Environment',
+                'isRunningOnCgiServer'
+            ),
+        ]);
     $services->set(RenameClassMapAliasRector::class)
         ->configure([
             __DIR__ . '/../../Migrations/TYPO3/10.4/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
