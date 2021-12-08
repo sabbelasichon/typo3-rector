@@ -23,16 +23,19 @@ final class AddReplacePackageRector extends AbstractRector
     /**
      * @var RenamePackage[]
      */
-    private ?array $replacePackges = null;
+    private ?array $renamePackages = null;
 
     public function __construct(
         private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer
     ) {
     }
 
-    public function setReplacePackages(array $replacePackages): void
+    /**
+     * @param RenamePackage[] $renamePackages
+     */
+    public function setReplacePackages(array $renamePackages): void
     {
-        $this->replacePackges = $replacePackages;
+        $this->renamePackages = $renamePackages;
     }
 
     /**
@@ -48,7 +51,7 @@ final class AddReplacePackageRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (null === $this->replacePackges) {
+        if (null === $this->renamePackages) {
             return null;
         }
 
@@ -56,35 +59,34 @@ final class AddReplacePackageRector extends AbstractRector
             return null;
         }
 
-        if (! property_exists($node, 'stmts')) {
-            return null;
-        }
+        /** @var Closure $closure */
+        $closure = $node;
 
         /** @var Expression $stmt */
-        foreach ($node->stmts as $stmt) {
+        foreach ($closure->stmts as $stmt) {
             if (! $stmt->expr instanceof Assign) {
                 continue;
             }
 
-            if (! $this->isName($stmt->expr->var, 'composerExtensions')) {
+            $assign = $stmt->expr;
+
+            if (! $this->isName($assign->var, 'composerExtensions')) {
                 continue;
             }
 
-            if (! $stmt->expr->expr instanceof Array_) {
+            if (! $assign->expr instanceof Array_) {
                 continue;
             }
 
-            if (! property_exists($stmt->expr->expr, 'items')) {
-                continue;
-            }
+            $array = $assign->expr;
 
-            foreach ($this->replacePackges as $replacePackage) {
-                $stmt->expr->expr->items[] = new ArrayItem(
+            foreach ($this->renamePackages as $renamePackage) {
+                $array->items[] = new ArrayItem(
                     new New_(
                         new FullyQualified(RenamePackage::class),
                         $this->nodeFactory->createArgs([
-                            $replacePackage->getOldPackageName(),
-                            $replacePackage->getNewPackageName(),
+                            $renamePackage->getOldPackageName(),
+                            $renamePackage->getNewPackageName(),
                         ])
                     )
                 );
