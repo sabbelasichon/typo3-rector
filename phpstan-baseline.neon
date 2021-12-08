@@ -141,11 +141,6 @@ parameters:
 			path: utils/composer-packages/src/Rector/AddReplacePackageRector.php
 
 		-
-			message: "#^Method Ssch\\\\TYPO3Rector\\\\ComposerPackages\\\\Rector\\\\AddReplacePackageRector\\:\\:setReplacePackages\\(\\) has parameter \\$replacePackages with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: utils/composer-packages/src/Rector/AddReplacePackageRector.php
-
-		-
 			message: "#^Provide @changelog doc block for \"AddReplacePackageRector\" Rector class$#"
 			count: 1
 			path: utils/composer-packages/src/Rector/AddReplacePackageRector.php

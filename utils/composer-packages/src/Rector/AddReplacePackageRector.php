@@ -13,12 +13,14 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Composer\ValueObject\RenamePackage;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Webmozart\Assert\Assert;
 
-final class AddReplacePackageRector extends AbstractRector
+final class AddReplacePackageRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var RenamePackage[]
@@ -33,8 +35,9 @@ final class AddReplacePackageRector extends AbstractRector
     /**
      * @param RenamePackage[] $renamePackages
      */
-    public function setReplacePackages(array $renamePackages): void
+    public function configure(array $renamePackages): void
     {
+        Assert::allIsAOf($renamePackages, RenamePackage::class);
         $this->renamePackages = $renamePackages;
     }
 
@@ -102,7 +105,7 @@ final class AddReplacePackageRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Add PackageAndVersion entry for an extension', [
-            new CodeSample(
+            new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -120,6 +123,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
      ];
 };
 CODE_SAMPLE
+                ,
+                [new RenamePackage('typo3-ter/news', 'georgringer/news')]
             ),
         ]);
     }

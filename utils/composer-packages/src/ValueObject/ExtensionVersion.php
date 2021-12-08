@@ -54,7 +54,7 @@ final class ExtensionVersion implements Stringable
         return $this->packageAndVersion->getPackageName();
     }
 
-    public function getReplacePackage(): ?RenamePackage
+    public function getRenamePackage(): ?RenamePackage
     {
         return $this->replacePackage;
     }

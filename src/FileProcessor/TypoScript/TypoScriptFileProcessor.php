@@ -25,6 +25,7 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface
 use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AbstractTypoScriptRector;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Webmozart\Assert\Assert;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\TypoScriptProcessorTest
@@ -81,9 +82,16 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         return $this->allowedFileExtensions;
     }
 
+    /**
+     * @param mixed[] $configuration
+     */
     public function configure(array $configuration): void
     {
-        $this->allowedFileExtensions = $configuration[self::ALLOWED_FILE_EXTENSIONS] ?? [];
+        $allowedFileExtensions = $configuration[self::ALLOWED_FILE_EXTENSIONS] ?? $configuration;
+        Assert::isArray($allowedFileExtensions);
+        Assert::allString($allowedFileExtensions);
+
+        $this->allowedFileExtensions = $allowedFileExtensions;
     }
 
     private function processFile(File $file): void
