@@ -14,7 +14,6 @@ use Ssch\TYPO3Rector\Rector\v9\v3\RemoveColPosParameterRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\UseMethodGetPageShortcutDirectlyFromSysPageRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\ValidateAnnotationRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');

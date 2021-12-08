@@ -32,7 +32,6 @@ use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
@@ -61,9 +60,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CheckForExtensionVersionRector::class);
     $services->set(RefactorDeprecationLogRector::class);
     $services->set(RenameMethodRector::class)
-        ->configure([
-            new MethodCallRename('TYPO3\CMS\Core\Utility\GeneralUtility', 'getUserObj', 'makeInstance'),
-        ]);
+        ->configure([new MethodCallRename('TYPO3\CMS\Core\Utility\GeneralUtility', 'getUserObj', 'makeInstance')]);
     $services->set(UseNewComponentIdForPageTreeRector::class);
     $services->set(RefactorBackendUtilityGetPagesTSconfigRector::class);
     $services->set(UseExtensionConfigurationApiRector::class);

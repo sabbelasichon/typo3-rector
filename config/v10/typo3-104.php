@@ -9,7 +9,6 @@ use Ssch\TYPO3Rector\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpF
 use Ssch\TYPO3Rector\Rector\v10\v4\UnifiedFileNameValidatorRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\UseFileGetContentsForGetUrlRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');

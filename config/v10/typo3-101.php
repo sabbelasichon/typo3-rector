@@ -11,7 +11,6 @@ use Ssch\TYPO3Rector\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector;
 use Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector;
 use Ssch\TYPO3Rector\Rector\v10\v1\SendNotifyEmailToMailApiRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
@@ -33,7 +32,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'getLastHistoryEntryNumber',
                 null,
                 []
-            )
+            ),
         ]);
     $services->set(RenameMethodRector::class)
         ->configure([

@@ -12,7 +12,6 @@ use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 use TYPO3\CMS\IndexedSearch\Utility\LikeWildcard;
 
 return static function (ContainerConfigurator $containerConfigurator): void {

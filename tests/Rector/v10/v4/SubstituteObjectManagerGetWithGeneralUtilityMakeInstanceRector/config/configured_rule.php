@@ -15,29 +15,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    $services->set('typo3_objectmanagerget_to_generalutilitymakeinstance')
-        ->class(MethodCallToStaticCallRector::class)
-=======
-    $services->set(MethodCallToStaticCallRector::class)
->>>>>>> c7f0e20d... remove string-class names, not needed
-        ->call('configure', [[
-            MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => ValueObjectInliner::inline([
-                new MethodCallToStaticCall(
-                    ObjectManagerInterface::class,
-                    'get',
-                    GeneralUtility::class,
-                    'makeInstance'
-                ),
-                new MethodCallToStaticCall(ObjectManager::class, 'get', GeneralUtility::class, 'makeInstance'),
-            ]),
-        ]]);
-=======
     $services->set(MethodCallToStaticCallRector::class)
         ->configure([
             new MethodCallToStaticCall(ObjectManagerInterface::class, 'get', GeneralUtility::class, 'makeInstance'),
             new MethodCallToStaticCall(ObjectManager::class, 'get', GeneralUtility::class, 'makeInstance'),
         ]);
->>>>>>> 9786beb5... fixup! make use of configure() method
 };

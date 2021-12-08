@@ -26,7 +26,6 @@ use Ssch\TYPO3Rector\Rector\v8\v0\RteHtmlParserRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTrackerRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
@@ -46,21 +45,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'printContent',
                 'mainAction'
             ),
-            new MethodCallRename(
-                'TYPO3\CMS\Rtehtmlarea\Controller\UserElementsController',
-                'main',
-                'main_user'
-            ),
+            new MethodCallRename('TYPO3\CMS\Rtehtmlarea\Controller\UserElementsController', 'main', 'main_user'),
             new MethodCallRename(
                 'TYPO3\CMS\Rtehtmlarea\Controller\UserElementsController',
                 'printContent',
                 'mainAction'
             ),
-            new MethodCallRename(
-                'TYPO3\CMS\Rtehtmlarea\Controller\ParseHtmlController',
-                'main',
-                'main_parse_html'
-            ),
+            new MethodCallRename('TYPO3\CMS\Rtehtmlarea\Controller\ParseHtmlController', 'main', 'main_parse_html'),
             new MethodCallRename(
                 'TYPO3\CMS\Rtehtmlarea\Controller\ParseHtmlController',
                 'printContent',

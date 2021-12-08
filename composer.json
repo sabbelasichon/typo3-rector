@@ -11,8 +11,13 @@
     ],
     "require": {
         "php": ">=8.1",
+<<<<<<< HEAD
         "helmich/typo3-typoscript-parser": "dev-master#0ccb3a6",
         "symfony/var-exporter": "^5.3",
+=======
+        "helmich/typo3-typoscript-parser": "^2.3.1",
+        "symfony/var-exporter": "^5.4",
+>>>>>>> bump Symfony 5.4 deps
         "symfony/string": "^6.0"
     },
     "require-dev": {
@@ -20,10 +25,10 @@
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^1.2",
         "phpunit/phpunit": "^9.5",
-        "rector/rector-generator": "^0.4.4",
+        "rector/rector-generator": "^0.4.7",
         "rector/phpstan-rules": "^0.4.15",
         "rector/rector-src": "dev-main",
-        "symfony/console": "^5.3",
+        "symfony/console": "^5.4",
         "symplify/coding-standard": "^10.0",
         "symplify/easy-coding-standard": "^10.0",
         "symplify/phpstan-extensions": "^10.0",

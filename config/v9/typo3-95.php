@@ -13,7 +13,6 @@ use Ssch\TYPO3Rector\Rector\v9\v5\RemoveInitMethodFromPageRepositoryRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RemoveInternalAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\UsePackageManagerActivePackagesRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
