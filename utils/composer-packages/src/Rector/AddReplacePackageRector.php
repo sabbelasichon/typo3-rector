@@ -13,12 +13,14 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Composer\ValueObject\RenamePackage;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Webmozart\Assert\Assert;
 
-final class AddReplacePackageRector extends AbstractRector
+final class AddReplacePackageRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var RenamePackage[]
@@ -37,9 +39,19 @@ final class AddReplacePackageRector extends AbstractRector
     public function setReplacePackages(array $renamePackages): void
 =======
 
+<<<<<<< HEAD
     public function configure(array $replacePackages): void
 >>>>>>> update RenamePackage references
     {
+=======
+    /**
+     * @param mixed[] $renamePackages
+     */
+    public function configure(array $renamePackages): void
+    {
+        Assert::allIsAOf($renamePackages, RenamePackage::class);
+
+>>>>>>> validate input
         $this->renamePackages = $renamePackages;
     }
 
@@ -83,10 +95,15 @@ final class AddReplacePackageRector extends AbstractRector
                 continue;
             }
 
+<<<<<<< HEAD
             $array = $assign->expr;
 
             foreach ($this->renamePackages as $renamePackage) {
                 $array->items[] = new ArrayItem(
+=======
+            foreach ($this->renamePackages as $replacePackage) {
+                $stmt->expr->expr->items[] = new ArrayItem(
+>>>>>>> validate input
                     new New_(
                         new FullyQualified(RenamePackage::class),
                         $this->nodeFactory->createArgs([
