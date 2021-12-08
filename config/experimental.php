@@ -10,8 +10,7 @@ use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
-    $services->set('typo3_objectmanager_get_to_generalutility_makeinstance')
-        ->class(MethodCallToStaticCallRector::class)
+    $services->set(MethodCallToStaticCallRector::class)
         ->call('configure', [
             [
                 MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => ValueObjectInliner::inline([

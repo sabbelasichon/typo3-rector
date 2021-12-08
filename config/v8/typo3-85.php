@@ -14,8 +14,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
 
     $services = $containerConfigurator->services();
-    $services->set('clip_board_print_content_from_tab_to_get_content_from_tab')
-        ->class(RenameMethodRector::class)
+    $services->set(RenameMethodRector::class)
         ->call(
             'configure',
             [[
@@ -29,8 +28,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ]]
         );
     $services->set(CharsetConverterToMultiByteFunctionsRector::class);
-    $services->set('extbase_array_utility_methods_to_core_array_utility_methods')
-        ->class(RenameStaticMethodRector::class)
+    $services->set(RenameStaticMethodRector::class)
         ->call(
             'configure',
             [[

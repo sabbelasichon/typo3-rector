@@ -11,8 +11,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
     $services->set(ApacheSolrDocumentToSolariumDocumentRector::class);
-    $services->set('apache_solr_to_solarium_classes')
-        ->class(RenameClassRector::class)
+    $services->set(RenameClassRector::class)
         ->configure([
             'Apache_Solr_Document' => 'ApacheSolrForTypo3\Solr\System\Solr\Document\Document',
             'Apache_Solr_Response' => 'ApacheSolrForTypo3\Solr\System\Solr\ResponseAdapter',

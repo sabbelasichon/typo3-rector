@@ -13,8 +13,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(FlexFormToolsArrayValueByPathRector::class);
-    $services->set('rename_static_method_general_utility_is_abs_path_to_path_utility_is_absolute_path')
-        ->class(RenameStaticMethodRector::class)
+    $services->set(RenameStaticMethodRector::class)
         ->configure([
             new RenameStaticMethod(
                 'TYPO3\CMS\Core\Utility\GeneralUtility',
@@ -23,8 +22,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'isAbsolutePath'
             ),
         ]);
-    $services->set('get_instance_call_to_make_instance_typo3_11_5')
-        ->class(MethodGetInstanceToMakeInstanceCallRector::class)
+    $services->set(MethodGetInstanceToMakeInstanceCallRector::class)
         ->configure([
             'TYPO3\CMS\Core\Resource\Index\ExtractorRegistry',
             'TYPO3\CMS\Core\Resource\Index\FileIndexRepository',

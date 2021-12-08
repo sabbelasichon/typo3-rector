@@ -10,8 +10,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../../../../../../config/config_test.php');
     $services = $containerConfigurator->services();
 <<<<<<< HEAD
+<<<<<<< HEAD
     $services->set('rename_static_method_general_utility_is_abs_path_to_path_utility_is_absolute_path')
         ->class(RenameStaticMethodRector::class)
+=======
+    $services->set(RenameStaticMethodRector::class)
+>>>>>>> c7f0e20d... remove string-class names, not needed
         ->call('configure', [[
             RenameStaticMethodRector::OLD_TO_NEW_METHODS_BY_CLASSES => ValueObjectInliner::inline([
                 new RenameStaticMethod(

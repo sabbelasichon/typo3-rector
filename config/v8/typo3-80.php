@@ -38,8 +38,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(TimeTrackerGlobalsToSingletonRector::class);
     $services->set(RemoveWakeupCallFromEntityRector::class);
     $services->set(RteHtmlParserRector::class);
-    $services->set('rename_method_print_action_to_main_action')
-        ->class(RenameMethodRector::class)
+    $services->set(RenameMethodRector::class)
         ->call(
             'configure',
             [[
@@ -75,8 +74,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 ]),
             ]]
         );
-    $services->set('rename_static_methods_version_80')
-        ->class(RenameStaticMethodRector::class)
+    $services->set(RenameStaticMethodRector::class)
         ->call(
             'configure',
             [[
@@ -109,8 +107,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RandomMethodsToRandomClassRector::class);
     $services->set(RequireMethodsToNativeFunctionsRector::class);
     $services->set(GetPreferredClientLanguageRector::class);
-    $services->set('rename_method_get_template_variable_container_to_get_variable_provider')
-        ->class(RenameMethodRector::class)
+    $services->set(RenameMethodRector::class)
         ->call(
             'configure',
             [[

@@ -15,8 +15,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     $services->set('rename_database_record_list_request_uri_to_list_url')
         ->class(RenameMethodRector::class)
+=======
+    $services->set(RenameMethodRector::class)
+>>>>>>> c7f0e20d... remove string-class names, not needed
         ->call('configure', [[
             RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
                 new MethodCallRename(DatabaseRecordList::class, 'requestUri', 'listURL'),
@@ -33,8 +37,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ->configure([new MethodCallRename(DatabaseRecordList::class, 'requestUri', 'listURL')]);
 >>>>>>> a6246211... fixup! fixup! make use of configure() method
 
-    $services->set('rename_database_record_list_thumb_code_backend_utility_thumb_code')
-        ->class(MethodCallToStaticCallRector::class)
+    $services->set(MethodCallToStaticCallRector::class)
         ->configure([
             new MethodCallToStaticCall(
                 DatabaseRecordList::class,

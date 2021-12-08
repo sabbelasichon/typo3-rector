@@ -11,8 +11,7 @@ use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
-    $services->set('remove_typo3_cms_composer_package_version_110')
-        ->class(RemovePackageComposerRector::class)
+    $services->set(RemovePackageComposerRector::class)
         ->call(
             'configure',
             [[
@@ -24,8 +23,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 ],
             ]]
         );
-    $services->set('change_composer_json_version_110')
-        ->class(ChangePackageVersionComposerRector::class)
+    $services->set(ChangePackageVersionComposerRector::class)
         ->configure([
             new PackageAndVersion('typo3/cms-about', '^11.0'),
             new PackageAndVersion('typo3/cms-adminpanel', '^11.0'),

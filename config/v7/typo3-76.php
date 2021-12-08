@@ -19,8 +19,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(RenamePiListBrowserResultsRector::class);
-    $services->set('document_template_issue_command_to_backend_utility_get_link_to_data_handler_action')
-        ->class(MethodCallToStaticCallRector::class)
+    $services->set(MethodCallToStaticCallRector::class)
         ->call(
             'configure',
             [[
@@ -34,8 +33,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 ]),
             ]]
         );
-    $services->set('search_form_controller_constants_to_like_wildcard_constants')
-        ->class(RenameClassConstFetchRector::class)
+    $services->set(RenameClassConstFetchRector::class)
         ->call(
             'configure',
             [[

@@ -14,8 +14,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(UseClassTypo3VersionRector::class);
-    $services->set('rename_broken_link_repository_number_of_broken_links_to_is_link_target_broken_link')
-        ->class(RenameMethodRector::class)
+    $services->set(RenameMethodRector::class)
         ->call(
             'configure',
             [[
@@ -29,8 +28,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ]]
         );
     $services->set(SubstituteResourceFactoryRector::class);
-    $services->set('web_request_to_request_web_response_to_response')
-        ->class(RenameClassRector::class)
+    $services->set(RenameClassRector::class)
         ->call(
             'configure',
             [[

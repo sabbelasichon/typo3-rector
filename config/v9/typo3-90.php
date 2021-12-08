@@ -40,8 +40,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(MoveRenderArgumentsToInitializeArgumentsMethodRector::class);
     $services->set(InjectAnnotationRector::class);
     $services->set(IgnoreValidationAnnotationRector::class);
-    $services->set('replace_extbase_annotations_to_doctrine_annotations')
-        ->class(ReplaceAnnotationRector::class)
+    $services->set(ReplaceAnnotationRector::class)
         ->configure([
             'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
             'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
@@ -61,8 +60,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveSecondArgumentGeneralUtilityMkdirDeepRector::class);
     $services->set(CheckForExtensionVersionRector::class);
     $services->set(RefactorDeprecationLogRector::class);
-    $services->set('general_utility_get_user_obj_to_make_instance')
-        ->class(RenameMethodRector::class)
+    $services->set(RenameMethodRector::class)
         ->configure([
             new MethodCallRename('TYPO3\CMS\Core\Utility\GeneralUtility', 'getUserObj', 'makeInstance'),
         ]);

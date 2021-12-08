@@ -42,8 +42,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemovePropertyExtensionNameRector::class);
     $services->set(UseNativePhpHex2binMethodRector::class);
     $services->set(RefactorIdnaEncodeMethodToNativeFunctionRector::class);
-    $services->set('rename_namespace_backend_controller_file_to_filelist_controller_file')
-        ->class(RenameNamespaceRector::class)
+    $services->set(RenameNamespaceRector::class)
         ->call(
             'configure',
             [
@@ -71,8 +70,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(SwiftMailerBasedMailMessageToMailerBasedMessageRector::class);
     $services->set(ExtbasePersistenceTypoScriptRector::class);
 
-    $services->set('rename_database_record_list_thumb_code_backend_utility_thumb_code')
-        ->class(MethodCallToStaticCallRector::class)
+    $services->set(MethodCallToStaticCallRector::class)
         ->call('configure', [
             [
                 MethodCallToStaticCallRector::METHOD_CALLS_TO_STATIC_CALLS => ValueObjectInliner::inline([
@@ -86,8 +84,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ],
         ]);
 
-    $services->set('rename_database_record_list_request_uri_to_list_url')
-        ->class(RenameMethodRector::class)
+    $services->set(RenameMethodRector::class)
         ->call('configure', [
             [
                 RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([

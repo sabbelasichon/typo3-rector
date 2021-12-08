@@ -9,8 +9,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
 
     $services = $containerConfigurator->services();
-    $services->set('nimut_testing_framework_to_typo3_testing_framework')
-        ->class(RenameClassRector::class)
+    $services->set(RenameClassRector::class)
         ->configure([
             'Nimut\TestingFramework\TestCase\UnitTestCase' => 'TYPO3\TestingFramework\Core\Unit\UnitTestCase',
             'Nimut\TestingFramework\TestCase\FunctionalTestCase' => 'TYPO3\TestingFramework\Core\Functional\FunctionalTestCase',

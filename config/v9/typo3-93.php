@@ -42,8 +42,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(CopyMethodGetPidForModTSconfigRector::class);
     $services->set(BackendUserAuthenticationSimplelogRector::class);
     $services->set(MoveLanguageFilesFromExtensionLangRector::class);
-    $services->set('get_validation_results_to_validate')
-        ->class(RenameMethodRector::class)
+    $services->set(RenameMethodRector::class)
         ->configure([
             new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'getValidationResults', 'validate'),
             new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Arguments', 'getValidationResults', 'validate'),
