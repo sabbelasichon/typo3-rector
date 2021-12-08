@@ -44,11 +44,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(MoveLanguageFilesFromExtensionLangRector::class);
     $services->set('get_validation_results_to_validate')
         ->class(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'getValidationResults', 'validate'),
-                new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Arguments', 'getValidationResults', 'validate'),
-            ]),
-        ]]);
+        ->configure([
+            new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'getValidationResults', 'validate'),
+            new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Arguments', 'getValidationResults', 'validate'),
+        ]);
     $services->set(RefactorTsConfigRelatedMethodsRector::class);
 };

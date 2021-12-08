@@ -13,10 +13,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ApacheSolrDocumentToSolariumDocumentRector::class);
     $services->set('apache_solr_to_solarium_classes')
         ->class(RenameClassRector::class)
-        ->call('configure', [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                'Apache_Solr_Document' => 'ApacheSolrForTypo3\Solr\System\Solr\Document\Document',
-                'Apache_Solr_Response' => 'ApacheSolrForTypo3\Solr\System\Solr\ResponseAdapter',
-            ],
-        ]]);
+        ->configure([
+            'Apache_Solr_Document' => 'ApacheSolrForTypo3\Solr\System\Solr\Document\Document',
+            'Apache_Solr_Response' => 'ApacheSolrForTypo3\Solr\System\Solr\ResponseAdapter',
+        ]);
 };

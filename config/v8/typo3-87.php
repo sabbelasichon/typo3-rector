@@ -41,13 +41,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         );
     $services->set('rename_class_alias_maps_version_87')
         ->class(RenameClassMapAliasRector::class)
-        ->call('configure', [[
-            RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
-                __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
-                __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
-                __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
-            ],
-        ]]);
+        ->configure([
+            __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
+            __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
+            __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
+        ]);
     $services->set('general_utility_csv_values_to_csv_utility')
         ->class(RenameStaticMethodRector::class)
         ->call(

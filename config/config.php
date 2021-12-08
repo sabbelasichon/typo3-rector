@@ -56,21 +56,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(Builder::class);
 
     $services->set(TypoScriptFileProcessor::class)
-        ->call('configure', [[
-            TypoScriptFileProcessor::ALLOWED_FILE_EXTENSIONS => [
-                'typoscript',
-                'ts',
-                'txt',
-                'pagets',
-                'constantsts',
-                'setupts',
-                'tsconfig',
-                't3s',
-                't3c',
-                'typoscriptconstants',
-                'typoscriptsetupts',
-            ],
-        ]]);
+        ->configure([
+            'typoscript',
+            'ts',
+            'txt',
+            'pagets',
+            'constantsts',
+            'setupts',
+            'tsconfig',
+            't3s',
+            't3c',
+            'typoscriptconstants',
+            'typoscriptsetupts',
+        ]);
 
     // custom generator
     $services->set(ConfigFilesystem::class);

@@ -43,22 +43,20 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         );
     $services->set('record_history_rename_methods')
         ->class(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createChangeLog', 'getChangeLog'),
-                new MethodCallRename(
-                    'TYPO3\CMS\Backend\History\RecordHistory',
-                    'getElementData',
-                    'getElementInformation'
-                ),
-                new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createMultipleDiff', 'getDiff'),
-                new MethodCallRename(
-                    'TYPO3\CMS\Backend\History\RecordHistory',
-                    'setLastHistoryEntry',
-                    'setLastHistoryEntryNumber'
-                ),
-            ]),
-        ]]);
+        ->configure([
+            new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createChangeLog', 'getChangeLog'),
+            new MethodCallRename(
+                'TYPO3\CMS\Backend\History\RecordHistory',
+                'getElementData',
+                'getElementInformation'
+            ),
+            new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createMultipleDiff', 'getDiff'),
+            new MethodCallRename(
+                'TYPO3\CMS\Backend\History\RecordHistory',
+                'setLastHistoryEntry',
+                'setLastHistoryEntryNumber'
+            ),
+        ]);
     $services->set(SendNotifyEmailToMailApiRector::class);
     $services->set(RefactorInternalPropertiesOfTSFERector::class);
     $services->set(\Ssch\TYPO3Rector\Rector\v10\v1\RemoveEnableMultiSelectFilterTextfieldRector::class);

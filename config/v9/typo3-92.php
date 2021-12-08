@@ -14,11 +14,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RenameMethodCallToEnvironmentMethodCallRector::class);
     $services->set('string_frontend_to_variable_frontend')
         ->class(RenameClassRector::class)
-        ->call('configure', [[
-            RenameClassRector::OLD_TO_NEW_CLASSES => [
-                'TYPO3\CMS\Core\Cache\Frontend\StringFrontend' => 'TYPO3\CMS\Core\Cache\Frontend\VariableFrontend',
-            ],
-        ]]);
+        ->configure([
+            'TYPO3\CMS\Core\Cache\Frontend\StringFrontend' => 'TYPO3\CMS\Core\Cache\Frontend\VariableFrontend',
+        ]);
     $services->set(GeneralUtilityGetUrlRequestHeadersRector::class);
     $services->set(PageNotFoundAndErrorHandlingRector::class);
 };

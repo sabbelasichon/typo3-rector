@@ -65,10 +65,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseControllerClassesInExtbasePluginsAndModulesRector::class);
     $services->set(ChangeDefaultCachingFrameworkNamesRector::class);
     $services->set(ExtEmConfRector::class)
-        ->call('configure', [
-            [
-                ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
-            ],
+        ->configure([
+            ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
         ]);
     $services->set(SwiftMailerBasedMailMessageToMailerBasedMessageRector::class);
     $services->set(ExtbasePersistenceTypoScriptRector::class);

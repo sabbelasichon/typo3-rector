@@ -33,12 +33,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         );
     $services->set('rename_class_alias_maps_version_104')
         ->class(RenameClassMapAliasRector::class)
-        ->call('configure', [[
-            RenameClassMapAliasRector::CLASS_ALIAS_MAPS => [
-                __DIR__ . '/../../Migrations/TYPO3/10.4/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
-                __DIR__ . '/../../Migrations/TYPO3/10.4/typo3/sysext/core/Migrations/Code/ClassAliasMap.php',
-            ],
-        ]]);
+        ->configure([
+            __DIR__ . '/../../Migrations/TYPO3/10.4/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
+            __DIR__ . '/../../Migrations/TYPO3/10.4/typo3/sysext/core/Migrations/Code/ClassAliasMap.php',
+        ]);
     $services->set(UseFileGetContentsForGetUrlRector::class);
     $services->set(\Ssch\TYPO3Rector\Rector\v10\v4\UseIconsFromSubFolderInIconRegistryRector::class);
 };

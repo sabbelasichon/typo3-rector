@@ -42,14 +42,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(IgnoreValidationAnnotationRector::class);
     $services->set('replace_extbase_annotations_to_doctrine_annotations')
         ->class(ReplaceAnnotationRector::class)
-        ->call('configure', [[
-            ReplaceAnnotationRector::OLD_TO_NEW_ANNOTATIONS => [
-                'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
-                'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
-                'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
-
-            ],
-        ]]);
+        ->configure([
+            'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
+            'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
+            'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
+        ]);
     $services->set(CheckForExtensionInfoRector::class);
     $services->set(RefactorMethodsFromExtensionManagementUtilityRector::class);
     $services->set(MetaTagManagementRector::class);
@@ -66,11 +63,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorDeprecationLogRector::class);
     $services->set('general_utility_get_user_obj_to_make_instance')
         ->class(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('TYPO3\CMS\Core\Utility\GeneralUtility', 'getUserObj', 'makeInstance'),
-            ]),
-        ]]);
+        ->configure([
+            new MethodCallRename('TYPO3\CMS\Core\Utility\GeneralUtility', 'getUserObj', 'makeInstance'),
+        ]);
     $services->set(UseNewComponentIdForPageTreeRector::class);
     $services->set(RefactorBackendUtilityGetPagesTSconfigRector::class);
     $services->set(UseExtensionConfigurationApiRector::class);
