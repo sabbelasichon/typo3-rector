@@ -23,15 +23,15 @@ final class ComposerPackageParserTest extends TestCase
     {
         $extensions = $this->subject->parsePackage($this->packageJson(), new ComposerPackage('georgringer/news'));
 
-        $replacePackages = [];
+        $renamePackages = [];
         foreach ($extensions as $extension) {
-            $replacePackage = $extension->getReplacePackage();
-            if ($replacePackage instanceof RenamePackage) {
-                $replacePackages[$replacePackage->getOldPackageName()] = $replacePackage;
+            $renamePackage = $extension->getRenamePackage();
+            if ($renamePackage instanceof RenamePackage) {
+                $renamePackages[$renamePackage->getOldPackageName()] = $renamePackage;
             }
         }
 
-        self::assertArrayHasKey('typo3-ter/news', $replacePackages);
+        self::assertArrayHasKey('typo3-ter/news', $renamePackages);
         self::assertCount(8, $extensions);
     }
 

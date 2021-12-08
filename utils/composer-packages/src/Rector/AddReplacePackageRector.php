@@ -16,7 +16,7 @@ use Rector\Composer\ValueObject\RenamePackage;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 
@@ -33,6 +33,7 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     /**
      * @param RenamePackage[] $renamePackages
      */
@@ -44,6 +45,8 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
 >>>>>>> update RenamePackage references
     {
 =======
+=======
+>>>>>>> add configured code sample, as AddReplacePackageRector is configurable rule
     /**
      * @param mixed[] $renamePackages
      */
@@ -96,12 +99,16 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
             }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
             $array = $assign->expr;
 
             foreach ($this->renamePackages as $renamePackage) {
                 $array->items[] = new ArrayItem(
 =======
             foreach ($this->renamePackages as $replacePackage) {
+=======
+            foreach ($this->renamePackages as $renamePackage) {
+>>>>>>> add configured code sample, as AddReplacePackageRector is configurable rule
                 $stmt->expr->expr->items[] = new ArrayItem(
 >>>>>>> validate input
                     new New_(
@@ -124,7 +131,7 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Add PackageAndVersion entry for an extension', [
-            new CodeSample(
+            new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -142,6 +149,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
      ];
 };
 CODE_SAMPLE
+                ,
+                [new RenamePackage('typo3-ter/news', 'georgringer/news')]
             ),
         ]);
     }
