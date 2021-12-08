@@ -30,6 +30,9 @@ final class AddReplacePackageRector extends AbstractRector
     ) {
     }
 
+    /**
+     * @param RenamePackage[] $renamePackages
+     */
     public function setReplacePackages(array $renamePackages): void
     {
         $this->renamePackages = $renamePackages;
@@ -56,12 +59,11 @@ final class AddReplacePackageRector extends AbstractRector
             return null;
         }
 
-        if (! property_exists($node, 'stmts')) {
-            return null;
-        }
+        /** @var Closure $closure */
+        $closure = $node;
 
         /** @var Expression $stmt */
-        foreach ($node->stmts as $stmt) {
+        foreach ($closure->stmts as $stmt) {
             if (! $stmt->expr instanceof Assign) {
                 continue;
             }
