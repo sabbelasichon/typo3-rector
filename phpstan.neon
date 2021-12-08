@@ -107,10 +107,10 @@ parameters:
         - '#Function "preg_match\(\)" cannot be used/left in the code\: use "Nette\\Utils\\Strings\:\:match\(\)" instead#'
 
         # stringable
-        - '#Parameter \#1 \$versions of static method Composer\\Semver\\Semver\:\:rsort\(\) expects array<string\>, array<Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\Typo3Version\> given#'
         - '#Method Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\ExtensionVersion\:\:highestSupportedTypo3Version\(\) should return Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\Typo3Version but returns string#'
-        - '#Parameter \#1 \$version of method Composer\\Semver\\VersionParser\:\:normalize\(\) expects string, Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\Typo3Version given#'
-        - '#Parameter \#1 \$versions of static method Composer\\Semver\\Semver\:\:rsort\(\) expects array<string\>, array<Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\ExtensionVersion\> given#'
+
+        - '#Parameter \#1 \$version of method Composer\\Semver\\VersionParser\:\:(.*?)\(\) expects (.*?), Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\Typo3Version given#'
+        - '#Parameter \#1 \$versions of static method Composer\\Semver\\Semver\:\:rsort\(\) expects array<string\>, array<Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\(.*?)\> given#'
 
         # custom preference
         - '#Function "preg_match_all\(\)" cannot be used/left in the code\: use "Nette\\Utils\\Strings\:\:matchAll\(\)" instead#'
