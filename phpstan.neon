@@ -61,6 +61,9 @@ parameters:
             message: "#^\"@preg_match\\(\\$regularExpression, ''\\)\" is forbidden to use$#"
             path: src/FileProcessor/TypoScript/Conditions/ApplicationContextConditionMatcher.php
 
+        - '#Function "preg_match\(\)" cannot be used/left in the code\: use "Nette\\Utils\\Strings\:\:match\(\)" instead#'
+        - '#Function "preg_match_all\(\)" cannot be used/left in the code\: use "Nette\\Utils\\Strings\:\:matchAll\(\)" instead#'
+
         -
             message: '#"@simplexml_load_string\(\$fileContent\)" is forbidden to use#'
             path: src/FileProcessor/FlexForms/FlexFormsProcessor.php

@@ -66,20 +66,25 @@ final class AddReplacePackageRector extends AbstractRector
                 continue;
             }
 
-            if (! $this->isName($stmt->expr->var, 'composerExtensions')) {
+            $assign = $stmt->expr;
+
+            if (! $this->isName($assign->var, 'composerExtensions')) {
                 continue;
             }
 
-            if (! $stmt->expr->expr instanceof Array_) {
+            if (! $assign->expr instanceof Array_) {
                 continue;
             }
 
-            if (! property_exists($stmt->expr->expr, 'items')) {
-                continue;
-            }
-
+<<<<<<< HEAD
             foreach ($this->replacePackges as $replacePackage) {
                 $stmt->expr->expr->items[] = new ArrayItem(
+=======
+            $array = $assign->expr;
+
+            foreach ($this->renamePackages as $replacePackage) {
+                $array->items[] = new ArrayItem(
+>>>>>>> ea19d260... improve type resolving on array expr
                     new New_(
                         new FullyQualified(RenamePackage::class),
                         $this->nodeFactory->createArgs([
