@@ -87,21 +87,11 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
      */
     public function configure(array $configuration): void
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> assert configure() input
         $allowedFileExtensions = $configuration[self::ALLOWED_FILE_EXTENSIONS] ?? $configuration;
         Assert::isArray($allowedFileExtensions);
         Assert::allString($allowedFileExtensions);
 
         $this->allowedFileExtensions = $allowedFileExtensions;
-<<<<<<< HEAD
-=======
-        $this->allowedFileExtensions = $configuration[self::ALLOWED_FILE_EXTENSIONS] ?? $configuration;
->>>>>>> make use of configure() method
-=======
->>>>>>> assert configure() input
     }
 
     private function processFile(File $file): void

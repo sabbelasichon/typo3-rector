@@ -53,7 +53,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/src/FileProcessor/Yaml/Form/Rector/EmailFinisherRector.php',
             __DIR__ . '/src/FileProcessor/Yaml/Form/Rector/TranslationFileRector.php',
         ],
-        __DIR__ . '/utils/stubs/templates',
         __DIR__ . '/config/composer',
         AssignmentInConditionSniff::class,
         DeclareStrictTypesFixer::class => ['*/Fixture/*'],

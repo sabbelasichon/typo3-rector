@@ -19,9 +19,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
 
     $services->set(AddReplacePackageRector::class)
-<<<<<<< HEAD
-        ->call('configure', [[ValueObjectInliner::inline($replacePackages)]]);
-=======
         ->configure([$replacePackages]);
->>>>>>> cleanup
 };
