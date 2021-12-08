@@ -23,16 +23,16 @@ final class AddReplacePackageRector extends AbstractRector
     /**
      * @var RenamePackage[]
      */
-    private ?array $replacePackges = null;
+    private ?array $renamePackages = null;
 
     public function __construct(
         private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer
     ) {
     }
 
-    public function setReplacePackages(array $replacePackages): void
+    public function setReplacePackages(array $renamePackages): void
     {
-        $this->replacePackges = $replacePackages;
+        $this->renamePackages = $renamePackages;
     }
 
     /**
@@ -48,7 +48,7 @@ final class AddReplacePackageRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (null === $this->replacePackges) {
+        if (null === $this->renamePackages) {
             return null;
         }
 
@@ -76,20 +76,15 @@ final class AddReplacePackageRector extends AbstractRector
                 continue;
             }
 
-<<<<<<< HEAD
-            foreach ($this->replacePackges as $replacePackage) {
-                $stmt->expr->expr->items[] = new ArrayItem(
-=======
             $array = $assign->expr;
 
-            foreach ($this->renamePackages as $replacePackage) {
+            foreach ($this->renamePackages as $renamePackage) {
                 $array->items[] = new ArrayItem(
->>>>>>> ea19d260... improve type resolving on array expr
                     new New_(
                         new FullyQualified(RenamePackage::class),
                         $this->nodeFactory->createArgs([
-                            $replacePackage->getOldPackageName(),
-                            $replacePackage->getNewPackageName(),
+                            $renamePackage->getOldPackageName(),
+                            $renamePackage->getNewPackageName(),
                         ])
                     )
                 );
