@@ -10,7 +10,7 @@ use Ssch\TYPO3Rector\PHPStan\Rules\AddChangelogDocBlockForRectorClassRule;
 use Symplify\PHPStanExtensions\Testing\AbstractServiceAwareRuleTestCase;
 
 /**
- * @extends AbstractServiceAwareRuleTestCase<AddChangelogDocBlockForRectorClassRule>
+ * @template-extends AbstractServiceAwareRuleTestCase<AddChangelogDocBlockForRectorClassRule>
  */
 final class AddChangelogDocBlockForRectorClassTest extends AbstractServiceAwareRuleTestCase
 {

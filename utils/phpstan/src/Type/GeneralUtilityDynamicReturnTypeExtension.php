@@ -42,6 +42,6 @@ final class GeneralUtilityDynamicReturnTypeExtension implements DynamicStaticMet
             return new MixedType();
         }
 
-        return new ObjectType($class->getType());
+        return new ObjectType($class->toString());
     }
 }
