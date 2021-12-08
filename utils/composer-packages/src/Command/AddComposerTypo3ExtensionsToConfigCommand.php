@@ -140,7 +140,11 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $this->decorateNamesToFullyQualified($nodes);
 
         $nodeTraverser = new NodeTraverser();
+<<<<<<< HEAD
         $this->replacePackageRector->configure($collection->getRenamePackages());
+=======
+        $this->replacePackageRector->configure($collection->getReplacePackages());
+>>>>>>> cleanup
 
         $nodeTraverser->addVisitor($this->replacePackageRector);
         $nodes = $nodeTraverser->traverse($nodes);

@@ -36,12 +36,23 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
     }
 
     /**
+<<<<<<< HEAD
      * @param RenamePackage[] $renamePackages
      */
     public function configure(array $renamePackages): void
     {
         Assert::allIsAOf($renamePackages, RenamePackage::class);
         $this->renamePackages = $renamePackages;
+=======
+     * @param mixed[] $configuration
+     */
+    public function configure(array $configuration): void
+    {
+        Assert::isArray($configuration);
+        Assert::allIsAOf($configuration, RenamePackage::class);
+
+        $this->renamePackages = $configuration;
+>>>>>>> cleanup
     }
 
     /**
@@ -68,8 +79,13 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
         /** @var Closure $closure */
         $closure = $node;
 
+<<<<<<< HEAD
         /** @var Expression $stmt */
         foreach ($closure->stmts as $stmt) {
+=======
+        foreach ($closure->stmts as $stmt) {
+            /** @var Expression $stmt */
+>>>>>>> cleanup
             if (! $stmt->expr instanceof Assign) {
                 continue;
             }
@@ -84,10 +100,15 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
                 continue;
             }
 
+<<<<<<< HEAD
             $array = $assign->expr;
 
             foreach ($this->renamePackages as $renamePackage) {
                 $array->items[] = new ArrayItem(
+=======
+            foreach ($this->renamePackages as $replacePackage) {
+                $stmt->expr->expr->items[] = new ArrayItem(
+>>>>>>> cleanup
                     new New_(
                         new FullyQualified('Rector\Composer\ValueObject\RenamePackage'),
                         $this->nodeFactory->createArgs([
@@ -99,7 +120,7 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
             }
         }
 
-        return $node;
+        return $closure;
     }
 
     /**
@@ -122,12 +143,18 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
      $composerExtensions = [
-        new ReplacePackage('typo3-ter/news', 'georgringer/news')
+        new RenamePackage('typo3-ter/news', 'georgringer/news')
      ];
 };
 CODE_SAMPLE
+<<<<<<< HEAD
                 ,
                 [new RenamePackage('typo3-ter/news', 'georgringer/news')]
+=======
+                , [
+                    new RenamePackage('typo3-ter/news', 'georgringer/news')
+                ]
+>>>>>>> cleanup
             ),
         ]);
     }

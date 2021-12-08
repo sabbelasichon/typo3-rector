@@ -7,7 +7,6 @@ use Rector\Composer\ValueObject\RenamePackage;
 use Rector\Core\Configuration\Option;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../../../../config/config.php');
@@ -18,6 +17,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters = $containerConfigurator->parameters();
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
+
     $services->set(AddReplacePackageRector::class)
+<<<<<<< HEAD
         ->call('configure', [[ValueObjectInliner::inline($replacePackages)]]);
+=======
+        ->configure([$replacePackages]);
+>>>>>>> cleanup
 };

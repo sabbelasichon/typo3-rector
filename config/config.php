@@ -56,7 +56,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(Builder::class);
 
     $services->set(TypoScriptFileProcessor::class)
-        ->configure([
+        ->call('configure', [[
             'typoscript',
             'ts',
             'txt',
@@ -68,7 +68,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             't3c',
             'typoscriptconstants',
             'typoscriptsetupts',
-        ]);
+        ]]);
 
     // custom generator
     $services->set(ConfigFilesystem::class);

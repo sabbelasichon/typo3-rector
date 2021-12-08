@@ -20,9 +20,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(RemoveColPosParameterRector::class);
     $services->set(ValidateAnnotationRector::class);
-    $services->set(
-        'localization_controller_get_used_languages_in_page_and_column_to_get_used_languages_in_page'
-    )->class(RenameMethodRector::class)
+    $services->set(RenameMethodRector::class)
         ->configure([
             new MethodCallRename(
                 'TYPO3\CMS\Backend\Controller\Page\LocalizationController',
