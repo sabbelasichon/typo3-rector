@@ -30,10 +30,15 @@ final class AddReplacePackageRector extends AbstractRector
     ) {
     }
 
+<<<<<<< HEAD
     /**
      * @param RenamePackage[] $renamePackages
      */
     public function setReplacePackages(array $renamePackages): void
+=======
+
+    public function configure(array $replacePackages): void
+>>>>>>> update RenamePackage references
     {
         $this->renamePackages = $renamePackages;
     }
