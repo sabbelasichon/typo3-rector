@@ -6,12 +6,12 @@ namespace Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDef
 
 use Iterator;
 use PHPStan\Rules\Rule;
-use Ssch\TYPO3Rector\PHPStan\Rules\AddCodeCoverageIgnoreForRectorDefinition;
+use Ssch\TYPO3Rector\PHPStan\Rules\AddCodeCoverageIgnoreForRectorDefinitionRule;
 use Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\Fixture\MissingCodeCoverageIgnore;
 use Symplify\PHPStanExtensions\Testing\AbstractServiceAwareRuleTestCase;
 
 /**
- * @extends AbstractServiceAwareRuleTestCase<AddCodeCoverageIgnoreForRectorDefinition>
+ * @template-extends AbstractServiceAwareRuleTestCase<AddCodeCoverageIgnoreForRectorDefinitionRule>
  */
 final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractServiceAwareRuleTestCase
 {
@@ -30,7 +30,7 @@ final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractService
     public function provideData(): Iterator
     {
         $message = sprintf(
-            AddCodeCoverageIgnoreForRectorDefinition::ERROR_MESSAGE,
+            AddCodeCoverageIgnoreForRectorDefinitionRule::ERROR_MESSAGE,
             MissingCodeCoverageIgnore::class
         );
         yield [__DIR__ . '/Fixture/MissingCodeCoverageIgnore.php', [[$message, 27]]];
@@ -40,7 +40,7 @@ final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractService
     protected function getRule(): Rule
     {
         return $this->getRuleFromConfig(
-            AddCodeCoverageIgnoreForRectorDefinition::class,
+            AddCodeCoverageIgnoreForRectorDefinitionRule::class,
             __DIR__ . '/../../../config/typo3-rector.neon'
         );
     }

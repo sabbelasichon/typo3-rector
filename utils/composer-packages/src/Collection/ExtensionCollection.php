@@ -68,10 +68,10 @@ final class ExtensionCollection implements Countable, IteratorAggregate
 
         // If the currentVersion supports a lower version of TYPO3 something has been configured wrongly in previous composer.json
         $highestTypo3VersionOfSupportedExtension = self::$versionParser->normalize(
-            (string) $supportedVersion->highestSupportedTypo3Version()
+            $supportedVersion->highestSupportedTypo3Version()
         );
         $highestTypo3VersionOfCurrentExtension = self::$versionParser->normalize(
-            (string) $currentVersion->highestSupportedTypo3Version()
+            $currentVersion->highestSupportedTypo3Version()
         );
 
         if (Comparator::lessThan($highestTypo3VersionOfCurrentExtension, $highestTypo3VersionOfSupportedExtension)) {

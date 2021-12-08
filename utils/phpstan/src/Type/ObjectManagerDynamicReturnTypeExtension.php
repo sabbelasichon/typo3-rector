@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PHPStan\Type;
 
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 
@@ -36,7 +38,10 @@ final class ObjectManagerDynamicReturnTypeExtension implements DynamicMethodRetu
         }
 
         $class = $arg->class;
+        if ($class instanceof Expr) {
+            return new MixedType();
+        }
 
-        return new ObjectType((string) $class);
+        return new ObjectType($class->toString());
     }
 }
