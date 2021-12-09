@@ -12,13 +12,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(RemovePackageComposerRector::class)
         ->configure([
-                    'typo3/cms-context-help',
-                    'typo3/cms-info-pagetsconfig',
-                    'typo3/cms-wizard-crpages',
-                    'typo3/cms-rsaauth',
-                ],
-            ]]
-        );
+            'typo3/cms-context-help',
+            'typo3/cms-info-pagetsconfig',
+            'typo3/cms-wizard-crpages',
+            'typo3/cms-rsaauth',
+        ]);
     $services->set(ChangePackageVersionComposerRector::class)
         ->configure([
             new PackageAndVersion('typo3/cms-about', '^11.0'),
