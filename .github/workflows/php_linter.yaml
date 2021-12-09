@@ -21,6 +21,7 @@ jobs:
                     php-version: 8.1
                     coverage: none
 
-            -   run: composer create-project php-parallel-lint/php-parallel-lint php-parallel-lint
+            # see https://github.com/ramsey/composer-install
+            -   uses: "ramsey/composer-install@v1"
 
-            -   run: php-parallel-lint/parallel-lint src config tests
+            -   run: vendor/bin/parallel-lint src config tests
