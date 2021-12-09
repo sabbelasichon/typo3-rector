@@ -23,7 +23,7 @@
         "rector/rector-generator": "^0.4.7",
         "rector/phpstan-rules": "^0.4.17",
         "rector/rector-src": "dev-main",
-        "symfony/console": "^5.4",
+        "symfony/console": "^6.0",
         "symplify/coding-standard": "^10.0",
         "symplify/easy-coding-standard": "^10.0",
         "symplify/phpstan-extensions": "^10.0",
