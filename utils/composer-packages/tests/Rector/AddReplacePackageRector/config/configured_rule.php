@@ -13,11 +13,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
 
-    $replacePackages = [new RenamePackage('typo3-ter/news', 'georgringer/news')];
-
     $parameters = $containerConfigurator->parameters();
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
 
     $services->set(AddReplacePackageRector::class)
-        ->configure([$replacePackages]);
+        ->configure([new RenamePackage('typo3-ter/news', 'georgringer/news')]);
 };
