@@ -30,7 +30,8 @@
         "symplify/phpstan-rules": "^10.0",
         "symplify/rule-doc-generator": "^10.0",
         "tracy/tracy": "^2.8",
-        "symplify/vendor-patches": "^10.0"
+        "symplify/vendor-patches": "^10.0",
+        "friendsofphp/php-cs-fixer": "dev-master as 3.3"
     },
     "autoload": {
         "psr-4": {
