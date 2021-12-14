@@ -1,0 +1,158 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Ssch\TYPO3Rector\Rector\v11\v0;
+
+use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Param;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Nop;
+use PHPStan\Type\ObjectType;
+use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
+use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
+use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
+/**
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Breaking-90799-DependencyInjectionWithNonPublicPropertiesHasBeenRemoved.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ReplaceInjectAnnotationWithMethodRector\ReplaceInjectAnnotationWithMethodRectorTest
+ */
+final class ReplaceInjectAnnotationWithMethodRector extends AbstractRector
+{
+    /**
+     * @var string
+     */
+    private const NEW_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\Inject';
+
+    public function __construct(
+        private PhpDocTagRemover $phpDocTagRemover,
+        private DocBlockTagReplacer $docBlockTagReplacer
+    ) {
+    }
+
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes(): array
+    {
+        return [Class_::class];
+    }
+
+    /**
+     * @param Class_ $node
+     */
+    public function refactor(Node $node): ?Node
+    {
+        $injectMethods = [];
+        $properties = $node->getProperties();
+        foreach ($properties as $property) {
+            $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+            if (! $propertyPhpDocInfo->hasByName(self::NEW_ANNOTATION)) {
+                continue;
+            }
+
+            // If the property is public, then change the annotation name
+            // if ($property->isPublic()) {
+            //     $this->docBlockTagReplacer->replaceTagByAnother(
+            //         $propertyPhpDocInfo,
+            //         self::OLD_ANNOTATION,
+            //         self::NEW_ANNOTATION
+            //     );
+            //     continue;
+            // }
+
+            /** @var string $variableName */
+            $variableName = $this->getName($property);
+
+            $paramBuilder = new ParamBuilder($variableName);
+            $varType = $propertyPhpDocInfo->getVarType();
+            if (! $varType instanceof ObjectType) {
+                continue;
+            }
+
+            // Remove the old annotation and use setterInjection instead
+            $this->phpDocTagRemover->removeByName($propertyPhpDocInfo, self::NEW_ANNOTATION);
+
+            if ($varType instanceof FullyQualifiedObjectType) {
+                $paramBuilder->setType(new FullyQualified($varType->getClassName()));
+            } elseif ($varType instanceof ShortenedObjectType) {
+                $paramBuilder->setType($varType->getShortName());
+            }
+
+            $param = $paramBuilder->getNode();
+            $propertyFetch = new PropertyFetch(new Variable('this'), $variableName);
+            $assign = new Assign($propertyFetch, new Variable($variableName));
+            // Add new line and then the method
+            $injectMethods[] = new Nop();
+
+            $methodAlreadyExists = $node->getMethod($this->createInjectMethodName($variableName));
+
+            if (! $methodAlreadyExists instanceof ClassMethod) {
+                $injectMethods[] = $this->createInjectClassMethod($variableName, $param, $assign);
+            }
+        }
+
+        $node->stmts = array_merge($node->stmts, $injectMethods);
+        return $node;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Turns properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+/**
+ * @var SomeService
+ * @TYPO3\CMS\Extbase\Annotation\Inject
+ */
+private $someService;
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+/**
+ * @var SomeService
+ */
+private $someService;
+
+public function injectSomeService(SomeService $someService)
+{
+    $this->someService = $someService;
+}
+
+CODE_SAMPLE
+            ),
+        ]);
+    }
+
+    private function createInjectClassMethod(string $variableName, Param $param, Assign $assign): ClassMethod
+    {
+        $injectMethodName = $this->createInjectMethodName($variableName);
+
+        $injectMethodBuilder = new MethodBuilder($injectMethodName);
+        $injectMethodBuilder->makePublic();
+        $injectMethodBuilder->addParam($param);
+        $injectMethodBuilder->setReturnType('void');
+        $injectMethodBuilder->addStmt($assign);
+
+        return $injectMethodBuilder->getNode();
+    }
+
+    private function createInjectMethodName(string $variableName): string
+    {
+        return 'inject' . ucfirst($variableName);
+    }
+}
