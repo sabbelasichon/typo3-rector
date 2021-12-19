@@ -1,4 +1,4 @@
-# 223 Rules Overview
+# 224 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -3343,6 +3343,28 @@ Replace $_EXTKEY with extension key
          'FooBar' => 'baz',
      ]
  );
+```
+
+<br>
+
+## ReplaceInjectAnnotationWithMethodRector
+
+Turns properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v0\ReplaceInjectAnnotationWithMethodRector`](../src/Rector/v11/v0/ReplaceInjectAnnotationWithMethodRector.php)
+
+```diff
+ /**
+  * @var SomeService
+- * @TYPO3\CMS\Extbase\Annotation\Inject
+  */
+-private $someService;
++private $someService;
++
++public function injectSomeService(SomeService $someService)
++{
++    $this->someService = $someService;
++}
 ```
 
 <br>
