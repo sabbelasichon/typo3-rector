@@ -1,4 +1,4 @@
-# 222 Rules Overview
+# 223 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -2378,6 +2378,28 @@ Remove TypoScript option addQueryString.method
                           ->setAddQueryString(true)
 -                         ->setAddQueryStringMethod('GET')
                           ->build();
+```
+
+<br>
+
+## RemoveBackendUtilityViewOnClickUsageRector
+
+Resolve usages of BackendUtility::viewOnClick to new method
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\RemoveBackendUtilityViewOnClickUsageRector`](../src/Rector/v11/v3/RemoveBackendUtilityViewOnClickUsageRector.php)
+
+```diff
+-$onclick = BackendUtility::viewOnClick(
+-    $pageId, $backPath, $rootLine, $section,
+-    $viewUri, $getVars, $switchFocus
+-);
++$onclick = PreviewUriBuilder::create($pageId, $viewUri)
++    ->withRootLine($rootLine)
++    ->withSection($section)
++    ->withAdditionalQueryParameters($getVars)
++    ->buildDispatcherDataAttributes([
++        PreviewUriBuilder::OPTION_SWITCH_FOCUS => $switchFocus,
++    ]);
 ```
 
 <br>
