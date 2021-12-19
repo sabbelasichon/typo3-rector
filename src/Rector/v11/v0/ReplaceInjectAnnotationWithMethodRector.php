@@ -2,36 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\v9\v0;
+namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer;
 use Ssch\TYPO3Rector\NodeFactory\InjectMethodFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Feature-82869-ReplaceInjectWithTYPO3CMSExtbaseAnnotationInject.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\InjectAnnotationRector\InjectAnnotationRectorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Breaking-90799-DependencyInjectionWithNonPublicPropertiesHasBeenRemoved.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ReplaceInjectAnnotationWithMethodRector\ReplaceInjectAnnotationWithMethodRectorTest
  */
-final class InjectAnnotationRector extends AbstractRector
+final class ReplaceInjectAnnotationWithMethodRector extends AbstractRector
 {
     /**
-     * @var string
+     * @var class-string
      */
-    private const OLD_ANNOTATION = 'inject';
-
-    /**
-     * @var string
-     */
-    private const NEW_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\Inject';
+    private const OLD_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\Inject';
 
     public function __construct(
-        private InjectMethodFactory $injectMethodFactory,
-        private DocBlockTagReplacer $docBlockTagReplacer
+        private InjectMethodFactory $injectMethodFactory
     ) {
     }
 
@@ -52,17 +45,7 @@ final class InjectAnnotationRector extends AbstractRector
         $properties = $node->getProperties();
         foreach ($properties as $property) {
             $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if (! $propertyPhpDocInfo->hasByName(self::OLD_ANNOTATION)) {
-                continue;
-            }
-
-            // If the property is public, then change the annotation name
-            if ($property->isPublic()) {
-                $this->docBlockTagReplacer->replaceTagByAnother(
-                    $propertyPhpDocInfo,
-                    self::OLD_ANNOTATION,
-                    self::NEW_ANNOTATION
-                );
+            if (! $propertyPhpDocInfo->hasByAnnotationClass(self::OLD_ANNOTATION)) {
                 continue;
             }
 
@@ -81,16 +64,16 @@ final class InjectAnnotationRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Turns properties with `@inject` to setter injection', [
+        return new RuleDefinition('Turns properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 /**
  * @var SomeService
- * @inject
+ * @TYPO3\CMS\Extbase\Annotation\Inject
  */
 private $someService;
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 /**
  * @var SomeService

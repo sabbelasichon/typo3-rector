@@ -35,4 +35,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'str_starts_with'
             ),
         ]);
+    $services->set(\Ssch\TYPO3Rector\Rector\v11\v0\ReplaceInjectAnnotationWithMethodRector::class);
 };
