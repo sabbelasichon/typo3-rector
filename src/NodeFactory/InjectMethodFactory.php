@@ -35,7 +35,8 @@ final class InjectMethodFactory
     /**
      * @return Node\Stmt[]
      */
-    public function createInjectMethodStatements(Class_ $class, Property $property, string $oldAnnotation): array {
+    public function createInjectMethodStatements(Class_ $class, Property $property, string $oldAnnotation): array
+    {
         $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
 
         $statements = [];
