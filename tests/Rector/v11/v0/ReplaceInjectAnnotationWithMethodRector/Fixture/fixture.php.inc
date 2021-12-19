@@ -10,7 +10,7 @@ final class SomeInjectClass
      * @var \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ReplaceInjectAnnotationWithMethodRector\Source\InjectionClass
      * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    private $inject;
+    private $inject1;
 
     /**
      * @var ShortInjectionClass
@@ -55,31 +55,26 @@ final class SomeInjectClass
 {
     /**
      * @var InjectionClass
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
-    private $inject;
+    private $inject1;
 
     /**
      * @var ShortInjectionClass
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     private $inject2;
 
     /**
      * @var ShortInjectionClass
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     private $inject3;
 
     /**
      * @var ShortInjectionClass
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $inject4;
 
     /**
      * @var ShortInjectionClass
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     public $inject5;
 
@@ -88,9 +83,9 @@ final class SomeInjectClass
         $this->inject3 = $inject3;
     }
 
-    public function injectInject(InjectionClass $inject): void
+    public function injectInject1(InjectionClass $inject1): void
     {
-        $this->inject = $inject;
+        $this->inject1 = $inject1;
     }
 
     public function injectInject2(ShortInjectionClass $inject2): void
@@ -98,12 +93,13 @@ final class SomeInjectClass
         $this->inject2 = $inject2;
     }
 
-    public function injectInject4(InjectionClass $inject4): void
+
+    public function injectInject4(ShortInjectionClass $inject4): void
     {
         $this->inject4 = $inject4;
     }
 
-    public function injectInject5(InjectionClass $inject5): void
+    public function injectInject5(ShortInjectionClass $inject5): void
     {
         $this->inject5 = $inject5;
     }

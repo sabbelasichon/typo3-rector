@@ -5,22 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Nop;
-use PHPStan\Type\ObjectType;
-use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\PhpDoc\NodeAnalyzer\DocBlockTagReplacer;
-use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
-use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
+use Ssch\TYPO3Rector\NodeFactory\InjectMethodFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -31,13 +19,12 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ReplaceInjectAnnotationWithMethodRector extends AbstractRector
 {
     /**
-     * @var string
+     * @var class-string
      */
-    private const NEW_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\Inject';
+    private const OLD_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\Inject';
 
     public function __construct(
-        private PhpDocTagRemover $phpDocTagRemover,
-        private DocBlockTagReplacer $docBlockTagReplacer
+        private InjectMethodFactory $injectMethodFactory
     ) {
     }
 
@@ -58,49 +45,14 @@ final class ReplaceInjectAnnotationWithMethodRector extends AbstractRector
         $properties = $node->getProperties();
         foreach ($properties as $property) {
             $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if (! $propertyPhpDocInfo->hasByName(self::NEW_ANNOTATION)) {
+            if (! $propertyPhpDocInfo->hasByAnnotationClass(self::OLD_ANNOTATION)) {
                 continue;
             }
 
-            // If the property is public, then change the annotation name
-            // if ($property->isPublic()) {
-            //     $this->docBlockTagReplacer->replaceTagByAnother(
-            //         $propertyPhpDocInfo,
-            //         self::OLD_ANNOTATION,
-            //         self::NEW_ANNOTATION
-            //     );
-            //     continue;
-            // }
-
-            /** @var string $variableName */
-            $variableName = $this->getName($property);
-
-            $paramBuilder = new ParamBuilder($variableName);
-            $varType = $propertyPhpDocInfo->getVarType();
-            if (! $varType instanceof ObjectType) {
-                continue;
-            }
-
-            // Remove the old annotation and use setterInjection instead
-            $this->phpDocTagRemover->removeByName($propertyPhpDocInfo, self::NEW_ANNOTATION);
-
-            if ($varType instanceof FullyQualifiedObjectType) {
-                $paramBuilder->setType(new FullyQualified($varType->getClassName()));
-            } elseif ($varType instanceof ShortenedObjectType) {
-                $paramBuilder->setType($varType->getShortName());
-            }
-
-            $param = $paramBuilder->getNode();
-            $propertyFetch = new PropertyFetch(new Variable('this'), $variableName);
-            $assign = new Assign($propertyFetch, new Variable($variableName));
-            // Add new line and then the method
-            $injectMethods[] = new Nop();
-
-            $methodAlreadyExists = $node->getMethod($this->createInjectMethodName($variableName));
-
-            if (! $methodAlreadyExists instanceof ClassMethod) {
-                $injectMethods[] = $this->createInjectClassMethod($variableName, $param, $assign);
-            }
+            $injectMethods = array_merge(
+                $injectMethods,
+                $this->injectMethodFactory->createInjectMethodStatements($node, $property, self::OLD_ANNOTATION)
+            );
         }
 
         $node->stmts = array_merge($node->stmts, $injectMethods);
@@ -136,23 +88,5 @@ public function injectSomeService(SomeService $someService)
 CODE_SAMPLE
             ),
         ]);
-    }
-
-    private function createInjectClassMethod(string $variableName, Param $param, Assign $assign): ClassMethod
-    {
-        $injectMethodName = $this->createInjectMethodName($variableName);
-
-        $injectMethodBuilder = new MethodBuilder($injectMethodName);
-        $injectMethodBuilder->makePublic();
-        $injectMethodBuilder->addParam($param);
-        $injectMethodBuilder->setReturnType('void');
-        $injectMethodBuilder->addStmt($assign);
-
-        return $injectMethodBuilder->getNode();
-    }
-
-    private function createInjectMethodName(string $variableName): string
-    {
-        return 'inject' . ucfirst($variableName);
     }
 }
