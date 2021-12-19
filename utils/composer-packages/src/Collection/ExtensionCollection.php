@@ -92,16 +92,16 @@ final class ExtensionCollection implements Countable, IteratorAggregate
     /**
      * @return array<string, RenamePackage>
      */
-    public function getReplacePackages(): array
+    public function getRenamePackages(): array
     {
-        $replacePackages = [];
+        $renamePackages = [];
         foreach ($this->extensions as $extension) {
-            $replacePackage = $extension->getReplacePackage();
-            if ($replacePackage instanceof RenamePackage) {
-                $replacePackages[$replacePackage->getOldPackageName()] = $replacePackage;
+            $renamePackage = $extension->getRenamePackage();
+            if ($renamePackage instanceof RenamePackage) {
+                $renamePackages[$renamePackage->getOldPackageName()] = $renamePackage;
             }
         }
 
-        return $replacePackages;
+        return $renamePackages;
     }
 }

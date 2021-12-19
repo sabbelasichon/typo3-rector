@@ -10,18 +10,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services = $containerConfigurator->services();
     $services->set(MethodGetInstanceToMakeInstanceCallRector::class)
-        ->call('configure', [[
-            MethodGetInstanceToMakeInstanceCallRector::CLASSES_GET_INSTANCE_TO_MAKE_INSTANCE => [
-                'TYPO3\CMS\Core\Resource\Index\ExtractorRegistry',
-                'TYPO3\CMS\Core\Resource\Index\FileIndexRepository',
-                'TYPO3\CMS\Core\Resource\Index\MetaDataRepository',
-                'TYPO3\CMS\Core\Resource\OnlineMedia\Helpers\OnlineMediaHelperRegistry',
-                'TYPO3\CMS\Core\Resource\Rendering\RendererRegistry',
-                'TYPO3\CMS\Core\Resource\TextExtraction\TextExtractorRegistry',
-                'TYPO3\CMS\Core\Utility\GeneralUtility',
-                'TYPO3\CMS\Form\Service\TranslationService',
-                'TYPO3\CMS\T3editor\Registry\AddonRegistry',
-                'TYPO3\CMS\T3editor\Registry\ModeRegistry',
-            ],
-        ]]);
+        ->configure([
+            'TYPO3\CMS\Core\Resource\Index\ExtractorRegistry',
+            'TYPO3\CMS\Core\Resource\Index\FileIndexRepository',
+            'TYPO3\CMS\Core\Resource\Index\MetaDataRepository',
+            'TYPO3\CMS\Core\Resource\OnlineMedia\Helpers\OnlineMediaHelperRegistry',
+            'TYPO3\CMS\Core\Resource\Rendering\RendererRegistry',
+            'TYPO3\CMS\Core\Resource\TextExtraction\TextExtractorRegistry',
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
+            'TYPO3\CMS\Form\Service\TranslationService',
+            'TYPO3\CMS\T3editor\Registry\AddonRegistry',
+            'TYPO3\CMS\T3editor\Registry\ModeRegistry',
+        ]);
 };

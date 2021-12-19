@@ -13,26 +13,32 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Composer\ValueObject\RenamePackage;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer\SymfonyPhpConfigClosureAnalyzer;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Webmozart\Assert\Assert;
 
-final class AddReplacePackageRector extends AbstractRector
+/**
+ * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Rector\AddReplacePackageRector\AddReplacePackageRectorTest
+ */
+final class AddReplacePackageRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
      * @var RenamePackage[]
      */
-    private ?array $replacePackges = null;
+    private ?array $renamePackages = null;
 
     public function __construct(
         private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer
     ) {
     }
 
-    public function setReplacePackages(array $replacePackages): void
+    public function configure(array $configuration): void
     {
-        $this->replacePackges = $replacePackages;
+        Assert::allIsAOf($configuration, RenamePackage::class);
+        $this->renamePackages = $configuration;
     }
 
     /**
@@ -48,7 +54,7 @@ final class AddReplacePackageRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (null === $this->replacePackges) {
+        if (null === $this->renamePackages) {
             return null;
         }
 
@@ -56,42 +62,41 @@ final class AddReplacePackageRector extends AbstractRector
             return null;
         }
 
-        if (! property_exists($node, 'stmts')) {
-            return null;
-        }
+        /** @var Closure $closure */
+        $closure = $node;
 
-        /** @var Expression $stmt */
-        foreach ($node->stmts as $stmt) {
+        foreach ($closure->stmts as $stmt) {
+            /** @var Expression $stmt */
             if (! $stmt->expr instanceof Assign) {
                 continue;
             }
 
-            if (! $this->isName($stmt->expr->var, 'composerExtensions')) {
+            $assign = $stmt->expr;
+
+            if (! $this->isName($assign->var, 'composerExtensions')) {
                 continue;
             }
 
-            if (! $stmt->expr->expr instanceof Array_) {
+            if (! $assign->expr instanceof Array_) {
                 continue;
             }
 
-            if (! property_exists($stmt->expr->expr, 'items')) {
-                continue;
-            }
+            $array = $assign->expr;
 
-            foreach ($this->replacePackges as $replacePackage) {
-                $stmt->expr->expr->items[] = new ArrayItem(
+            foreach ($this->renamePackages as $renamePackage) {
+                $array->items[] = new ArrayItem(
                     new New_(
-                        new FullyQualified(RenamePackage::class),
+                        new FullyQualified('Rector\Composer\ValueObject\RenamePackage'),
                         $this->nodeFactory->createArgs([
-                            $replacePackage->getOldPackageName(),
-                            $replacePackage->getNewPackageName(),
+                            $renamePackage->getOldPackageName(),
+                            $renamePackage->getNewPackageName(),
                         ])
                     )
                 );
             }
         }
 
-        return $node;
+        return $closure;
     }
 
     /**
@@ -100,7 +105,7 @@ final class AddReplacePackageRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Add PackageAndVersion entry for an extension', [
-            new CodeSample(
+            new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -114,10 +119,12 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
      $composerExtensions = [
-        new ReplacePackage('typo3-ter/news', 'georgringer/news')
+        new RenamePackage('typo3-ter/news', 'georgringer/news')
      ];
 };
 CODE_SAMPLE
+                ,
+                [new RenamePackage('typo3-ter/news', 'georgringer/news')]
             ),
         ]);
     }

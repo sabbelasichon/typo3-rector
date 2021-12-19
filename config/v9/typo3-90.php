@@ -32,7 +32,6 @@ use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
@@ -40,16 +39,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(MoveRenderArgumentsToInitializeArgumentsMethodRector::class);
     $services->set(InjectAnnotationRector::class);
     $services->set(IgnoreValidationAnnotationRector::class);
-    $services->set('replace_extbase_annotations_to_doctrine_annotations')
-        ->class(ReplaceAnnotationRector::class)
-        ->call('configure', [[
-            ReplaceAnnotationRector::OLD_TO_NEW_ANNOTATIONS => [
-                'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
-                'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
-                'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
-
-            ],
-        ]]);
+    $services->set(ReplaceAnnotationRector::class)
+        ->configure([
+            'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
+            'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
+            'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
+        ]);
     $services->set(CheckForExtensionInfoRector::class);
     $services->set(RefactorMethodsFromExtensionManagementUtilityRector::class);
     $services->set(MetaTagManagementRector::class);
@@ -64,13 +59,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RemoveSecondArgumentGeneralUtilityMkdirDeepRector::class);
     $services->set(CheckForExtensionVersionRector::class);
     $services->set(RefactorDeprecationLogRector::class);
-    $services->set('general_utility_get_user_obj_to_make_instance')
-        ->class(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('TYPO3\CMS\Core\Utility\GeneralUtility', 'getUserObj', 'makeInstance'),
-            ]),
-        ]]);
+    $services->set(RenameMethodRector::class)
+        ->configure([new MethodCallRename('TYPO3\CMS\Core\Utility\GeneralUtility', 'getUserObj', 'makeInstance')]);
     $services->set(UseNewComponentIdForPageTreeRector::class);
     $services->set(RefactorBackendUtilityGetPagesTSconfigRector::class);
     $services->set(UseExtensionConfigurationApiRector::class);

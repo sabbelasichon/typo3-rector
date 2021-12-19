@@ -86,10 +86,15 @@ CODE_SAMPLE
         ]);
     }
 
+    /**
+     * @param mixed[] $configuration
+     */
     public function configure(array $configuration): void
     {
-        $classes = $configuration[self::CLASSES_GET_INSTANCE_TO_MAKE_INSTANCE] ?? [];
+        $classes = $configuration[self::CLASSES_GET_INSTANCE_TO_MAKE_INSTANCE] ?? $configuration;
+        Assert::isArray($classes);
         Assert::allString($classes);
+
         $this->classes = $classes;
     }
 
