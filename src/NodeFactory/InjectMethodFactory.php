@@ -13,6 +13,7 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Nop;
+use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
@@ -34,11 +35,7 @@ final class InjectMethodFactory
     /**
      * @return Node\Stmt[]
      */
-    public function createInjectMethodStatements(
-        Class_ $class,
-        Node\Stmt\Property $property,
-        string $oldAnnotation
-    ): array {
+    public function createInjectMethodStatements(Class_ $class, Property $property, string $oldAnnotation): array {
         $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
 
         $statements = [];
