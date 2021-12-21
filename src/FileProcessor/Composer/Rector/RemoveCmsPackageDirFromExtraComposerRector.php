@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\Composer\Rector;
 
-use BadMethodCallException;
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
