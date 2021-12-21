@@ -40,7 +40,6 @@ final class RemoveCmsPackageDirFromExtraComposerRector implements ComposerRector
 
     public function configure(array $configuration): void
     {
-        throw new BadMethodCallException('Not allowed. No configuration option available');
     }
 
     public function getRuleDefinition(): RuleDefinition
