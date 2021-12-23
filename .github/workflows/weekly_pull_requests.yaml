@@ -19,6 +19,13 @@ jobs:
                         name: "Update composer packages"
                         run: "composer update-composer"
                         branch: 'automated-regenerated-composer-packages'
+                        
+                    -
+                        name: "Update config file to support php 7.1"
+                        run: |
+                            composer install
+                            vendor/bin/rector process config -c vendor/rector/rector-src/build/config/config-downgrade.php 
+                        branch: 'automated-make-config-php71-compatible'
 
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
