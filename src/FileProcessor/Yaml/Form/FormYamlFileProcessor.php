@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\Yaml\Form;
 
+use Nette\Utils\Strings;
 use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
@@ -24,6 +25,12 @@ final class FormYamlFileProcessor implements FileProcessorInterface
      * @var string[]
      */
     private const ALLOWED_FILE_EXTENSIONS = ['yaml'];
+
+    /**
+     * @var string
+     * @see https://regex101.com/r/rUHuF8/1
+     */
+    private const FIRST_INDENT_REGEX = '#^(?<first_indent>\s+)[\w\-]#m';
 
     /**
      * @param FormYamlRectorInterface[] $transformer
@@ -66,7 +73,9 @@ final class FormYamlFileProcessor implements FileProcessorInterface
             return $systemErrorsAndFileDiffs;
         }
 
-        $newFileContent = Yaml::dump($newYaml, 99);
+        $spaceCount = $this->resolveYamlIndentSpaceCount($oldYamlContent);
+
+        $newFileContent = Yaml::dump($newYaml, 99, $spaceCount);
         $file->changeFileContent($newFileContent);
 
         $fileDiff = $this->fileDiffFactory->createFileDiff($file, $oldYamlContent, $newFileContent);
@@ -93,5 +102,17 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     public function getSupportedFileExtensions(): array
     {
         return self::ALLOWED_FILE_EXTENSIONS;
+    }
+
+    private function resolveYamlIndentSpaceCount(string $oldYamlContent): int
+    {
+        $firstSpaceMatch = Strings::match($oldYamlContent, self::FIRST_INDENT_REGEX);
+        if (! isset($firstSpaceMatch['first_indent'])) {
+            // default to 4
+            return 4;
+        }
+
+        $firstIndent = $firstSpaceMatch['first_indent'];
+        return substr_count($firstIndent, ' ');
     }
 }
