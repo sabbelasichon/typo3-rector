@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\Yaml\Form;
 
-use Nette\Utils\Strings;
 use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
@@ -14,6 +13,7 @@ use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\Form\FormYamlRectorInterface;
+use Ssch\TYPO3Rector\FileProcessor\Yaml\YamlIndentResolver;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -27,17 +27,12 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     private const ALLOWED_FILE_EXTENSIONS = ['yaml'];
 
     /**
-     * @var string
-     * @see https://regex101.com/r/rUHuF8/1
-     */
-    private const FIRST_INDENT_REGEX = '#^(?<first_indent>\s+)[\w\-]#m';
-
-    /**
      * @param FormYamlRectorInterface[] $transformer
      */
     public function __construct(
         private CurrentFileProvider $currentFileProvider,
         private FileDiffFactory $fileDiffFactory,
+        private YamlIndentResolver $yamlIndentResolver,
         private array $transformer
     ) {
     }
@@ -73,7 +68,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
             return $systemErrorsAndFileDiffs;
         }
 
-        $spaceCount = $this->resolveYamlIndentSpaceCount($oldYamlContent);
+        $spaceCount = $this->yamlIndentResolver->resolveIndentSpaceCount($oldYamlContent);
 
         $newFileContent = Yaml::dump($newYaml, 99, $spaceCount);
         $file->changeFileContent($newFileContent);
@@ -102,17 +97,5 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     public function getSupportedFileExtensions(): array
     {
         return self::ALLOWED_FILE_EXTENSIONS;
-    }
-
-    private function resolveYamlIndentSpaceCount(string $oldYamlContent): int
-    {
-        $firstSpaceMatch = Strings::match($oldYamlContent, self::FIRST_INDENT_REGEX);
-        if (! isset($firstSpaceMatch['first_indent'])) {
-            // default to 4
-            return 4;
-        }
-
-        $firstIndent = $firstSpaceMatch['first_indent'];
-        return substr_count($firstIndent, ' ');
     }
 }
