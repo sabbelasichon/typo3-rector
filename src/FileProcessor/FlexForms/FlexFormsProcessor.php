@@ -40,13 +40,11 @@ final class FlexFormsProcessor implements FileProcessorInterface
             Bridge::FILE_DIFFS => [],
         ];
 
-        if ([] === $this->flexFormRectors) {
-            return $systemErrorsAndFileDiffs;
-        }
+        $oldFileContents = $file->getFileContent();
 
         $domDocument = new DOMDocument();
         $domDocument->formatOutput = true;
-        $domDocument->loadXML($file->getFileContent());
+        $domDocument->loadXML($oldFileContents);
 
         $hasChanged = false;
         foreach ($this->flexFormRectors as $flexFormRector) {
@@ -62,14 +60,18 @@ final class FlexFormsProcessor implements FileProcessorInterface
             throw new UnexpectedValueException('Could not convert to xml');
         }
 
-        if ($xml === $file->getFileContent()) {
+        // add end of line
+        $xml .= PHP_EOL;
+
+        // nothing has changed
+        if ($oldFileContents === $xml) {
             return $systemErrorsAndFileDiffs;
         }
 
         $newFileContent = html_entity_decode($xml);
         $file->changeFileContent($newFileContent);
 
-        $fileDiff = $this->fileDiffFactory->createFileDiff($file, $xml, $newFileContent);
+        $fileDiff = $this->fileDiffFactory->createFileDiff($file, $oldFileContents, $newFileContent);
         $systemErrorsAndFileDiffs[Bridge::FILE_DIFFS][] = $fileDiff;
 
         return $systemErrorsAndFileDiffs;
@@ -77,6 +79,11 @@ final class FlexFormsProcessor implements FileProcessorInterface
 
     public function supports(File $file, Configuration $configuration): bool
     {
+        // avoid empty run
+        if ([] === $this->flexFormRectors) {
+            return false;
+        }
+
         $smartFileInfo = $file->getSmartFileInfo();
 
         if (! in_array($smartFileInfo->getExtension(), $this->getSupportedFileExtensions(), true)) {
@@ -98,6 +105,9 @@ final class FlexFormsProcessor implements FileProcessorInterface
         return 'T3DataStructure' === $xml->getName();
     }
 
+    /**
+     * @return string[]
+     */
     public function getSupportedFileExtensions(): array
     {
         return ['xml'];
