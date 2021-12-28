@@ -16,10 +16,13 @@ use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\Configuration;
+use Rector\Core\ValueObject\Error\SystemError;
+use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\FileFormatter\EditorConfig\EditorConfigParser;
 use Rector\FileFormatter\ValueObject\Indent;
 use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
 use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
@@ -68,10 +71,19 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         return in_array($smartFileInfo->getExtension(), $this->allowedFileExtensions, true);
     }
 
-    public function process(File $file, Configuration $configuration): void
+    /**
+     * @return array{system_errors: SystemError[], file_diffs: FileDiff[]}
+     */
+    public function process(File $file, Configuration $configuration): array
     {
         $this->processFile($file);
         $this->convertTypoScriptToPhpFiles();
+
+        // to keep parent contract with return values
+        return [
+            Bridge::SYSTEM_ERRORS => [],
+            Bridge::FILE_DIFFS => [],
+        ];
     }
 
     /**
@@ -172,7 +184,6 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
     {
         foreach ($this->convertToPhpFileRectors() as $convertToPhpFileVisitor) {
             $addedFileWithContent = $convertToPhpFileVisitor->convert();
-
             if (! $addedFileWithContent instanceof AddedFileWithContent) {
                 continue;
             }

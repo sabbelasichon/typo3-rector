@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\Yaml\Form;
 
+use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\Configuration;
+use Rector\Core\ValueObject\Error\SystemError;
+use Rector\Core\ValueObject\Reporting\FileDiff;
+use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\Form\FormYamlRectorInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -26,24 +30,29 @@ final class FormYamlFileProcessor implements FileProcessorInterface
      */
     public function __construct(
         private CurrentFileProvider $currentFileProvider,
+        private FileDiffFactory $fileDiffFactory,
         private array $transformer
     ) {
     }
 
-    public function process(File $file, Configuration $configuration): void
+    /**
+     * @return array{system_errors: SystemError[], file_diffs: FileDiff[]}
+     */
+    public function process(File $file, Configuration $configuration): array
     {
-        // Prevent unnecessary processing
-        if ([] === $this->transformer) {
-            return;
-        }
+        $systemErrorsAndFileDiffs = [
+            Bridge::SYSTEM_ERRORS => [],
+            Bridge::FILE_DIFFS => [],
+        ];
 
         $this->currentFileProvider->setFile($file);
 
         $smartFileInfo = $file->getSmartFileInfo();
-        $yaml = Yaml::parseFile($smartFileInfo->getRealPath());
+        $oldYamlContent = $smartFileInfo->getContents();
+        $yaml = Yaml::parse($oldYamlContent);
 
         if (! is_array($yaml)) {
-            return;
+            return $systemErrorsAndFileDiffs;
         }
 
         $newYaml = $yaml;
@@ -54,15 +63,25 @@ final class FormYamlFileProcessor implements FileProcessorInterface
 
         // Nothing has changed. Early return here.
         if ($newYaml === $yaml) {
-            return;
+            return $systemErrorsAndFileDiffs;
         }
 
         $newFileContent = Yaml::dump($newYaml, 99);
         $file->changeFileContent($newFileContent);
+
+        $fileDiff = $this->fileDiffFactory->createFileDiff($file, $oldYamlContent, $newFileContent);
+        $systemErrorsAndFileDiffs[Bridge::FILE_DIFFS][] = $fileDiff;
+
+        return $systemErrorsAndFileDiffs;
     }
 
     public function supports(File $file, Configuration $configuration): bool
     {
+        // Prevent unnecessary processing
+        if ([] === $this->transformer) {
+            return false;
+        }
+
         $smartFileInfo = $file->getSmartFileInfo();
 
         return \str_ends_with($smartFileInfo->getFilename(), 'yaml');

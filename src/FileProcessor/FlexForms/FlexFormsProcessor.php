@@ -6,11 +6,12 @@ namespace Ssch\TYPO3Rector\FileProcessor\FlexForms;
 
 use DOMDocument;
 use Exception;
-use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory as FileDiffFactoryAlias;
+use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\Configuration;
 use Rector\Core\ValueObject\Error\SystemError;
+use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
 use UnexpectedValueException;
@@ -25,7 +26,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
      */
     public function __construct(
         private array $flexFormRectors,
-        private FileDiffFactoryAlias $fileDiffFactory,
+        private FileDiffFactory $fileDiffFactory,
     ) {
     }
 
