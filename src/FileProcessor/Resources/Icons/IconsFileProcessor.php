@@ -7,6 +7,9 @@ namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
 use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\Configuration;
+use Rector\Core\ValueObject\Error\SystemError;
+use Rector\Core\ValueObject\Reporting\FileDiff;
+use Rector\Parallel\ValueObject\Bridge;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
@@ -34,11 +37,20 @@ final class IconsFileProcessor implements FileProcessorInterface
     ) {
     }
 
-    public function process(File $file, Configuration $configuration): void
+    /**
+     * @return array{system_errors: SystemError[], file_diffs: FileDiff[]}
+     */
+    public function process(File $file, Configuration $configuration): array
     {
         foreach ($this->iconsRector as $iconRector) {
             $iconRector->refactorFile($file);
         }
+
+        // to keep parent contract with return values
+        return [
+            Bridge::SYSTEM_ERRORS => [],
+            Bridge::FILE_DIFFS => [],
+        ];
     }
 
     public function supports(File $file, Configuration $configuration): bool

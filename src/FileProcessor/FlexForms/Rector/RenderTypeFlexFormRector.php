@@ -13,6 +13,9 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInter
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
+/**
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\FlexForms\FlexFormsProcessorTest
+ */
 final class RenderTypeFlexFormRector implements FlexFormRectorInterface
 {
     public function transform(DOMDocument $domDocument): bool
