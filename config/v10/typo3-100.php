@@ -6,9 +6,11 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
@@ -176,7 +178,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\Configuration\ConfigurationManager',
                 'getContentObject',
-                TypeCombinator::addNull(new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'))
+                new UnionType([
+                    new NullType(),
+                    new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'),
+                ])
             ),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\Configuration\ConfigurationManager',
