@@ -105,3 +105,7 @@ parameters:
                 # typo3 instanceof traverser
                 - src/FileProcessor/TypoScript/Rector/*Rector.php
                 - utils/composer-packages/src/Command/AddComposerTypo3ExtensionsToConfigCommand.php
+
+        -
+            message: '#Class "Ssch\\TYPO3Rector\\Rector\\__Major__\\__Minor__\\__Name__" is missing @see annotation with test case class reference#'
+            path: utils/generator/templates/src/Rector/__Major__/__Minor__/__Name__.php
