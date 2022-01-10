@@ -9,14 +9,9 @@ if(class_exists('TYPO3\CMS\Core\Http\ResponseFactoryInterface')) {
 
 interface ResponseFactoryInterface
 {
-    /**
-     * @param string $html
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function createHtmlResponse($html);
-    /**
-     * @param string $json
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function createJsonResponse($json);
+    public function createHtmlResponse(string $html): ResponseInterface;
+
+    public function createJsonResponse(string $json): ResponseInterface;
+
+    public function createResponse(int $statusCode): ResponseInterface;
 }

@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
+use PhpParser\Node\Stmt\Throw_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -160,6 +161,10 @@ CODE_SAMPLE
             return true;
         }
 
+        if ($this->hasExceptionCall($node)) {
+            return true;
+        }
+
         return $this->alreadyResponseReturnType($node);
     }
 
@@ -202,17 +207,45 @@ CODE_SAMPLE
         $returns = $this->findReturns($node);
 
         $responseObjectType = new ObjectType('Psr\Http\Message\ResponseInterface');
+
         foreach ($returns as $return) {
             if (null === $return->expr) {
                 continue;
             }
 
             $returnType = $this->getType($return->expr);
+
             if ($returnType->isSuperTypeOf($responseObjectType)->yes()) {
+                return true;
+            }
+
+            if ($returnType instanceof ObjectType && $returnType->isInstanceOf(
+                'Psr\Http\Message\ResponseInterface'
+            )->yes()) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    private function hasExceptionCall(ClassMethod $node): bool
+    {
+        if (null === $node->stmts) {
+            return false;
+        }
+
+        $statements = $node->stmts;
+        $lastStatement = array_pop($statements);
+
+        if (! ($lastStatement instanceof Throw_)) {
+            return false;
+        }
+
+        $propagateResponseException = new ObjectType('TYPO3\CMS\Core\Http\PropagateResponseException');
+
+        return $this->getType($lastStatement->expr)
+            ->isSuperTypeOf($propagateResponseException)
+            ->yes();
     }
 }
