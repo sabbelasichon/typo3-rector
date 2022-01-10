@@ -207,12 +207,7 @@ CODE_SAMPLE
 
         $statements = $node->stmts;
         $lastStatement = array_pop($statements);
-
-        if ($lastStatement instanceof Expression && $lastStatement->expr instanceof Exit_) {
-            return true;
-        }
-
-        return false;
+        return $lastStatement instanceof Expression && $lastStatement->expr instanceof Exit_;
     }
 
     private function isAlreadyResponseReturnType(ClassMethod $node): bool
