@@ -39,6 +39,7 @@ final class RemoveCmsPackageDirFromExtraComposerRector implements ComposerRector
 
     public function configure(array $configuration): void
     {
+        // The class is not configurable, but as rector expects every class implementing ComposerRectorInterface to be configurable we have to add this method
     }
 
     public function getRuleDefinition(): RuleDefinition
