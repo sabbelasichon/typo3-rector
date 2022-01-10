@@ -39,7 +39,7 @@ final class BackendUserAuthenticationSimplelogRector extends AbstractRector
         $currentArgs = $node->args;
 
         $message = $this->valueResolver->getValue($currentArgs[0]->value);
-        $extKey = $this->valueResolver->getValue($currentArgs[1]->value);
+        $extKey = isset($currentArgs[1]) ? $this->valueResolver->getValue($currentArgs[1]->value) : '';
         $details = ($extKey ? '[' . $extKey . '] ' : '') . $message;
 
         $args = [
