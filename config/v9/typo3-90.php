@@ -65,7 +65,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorBackendUtilityGetPagesTSconfigRector::class);
     $services->set(UseExtensionConfigurationApiRector::class);
     $services->set(ReplaceExtKeyWithExtensionKeyRector::class);
-    $services->set(RemoveCmsPackageDirFromExtraComposerRector::class)->configure(['foo' => 'bar']);
+    $services->set(RemoveCmsPackageDirFromExtraComposerRector::class)->configure([
+        'foo' => 'bar',
+    ]);
     $services->set(SubstituteGeneralUtilityDevLogRector::class);
     $services->set(ReplacedGeneralUtilitySysLogWithLogginApiRector::class);
     $services->set(RenderTypeFlexFormRector::class);
