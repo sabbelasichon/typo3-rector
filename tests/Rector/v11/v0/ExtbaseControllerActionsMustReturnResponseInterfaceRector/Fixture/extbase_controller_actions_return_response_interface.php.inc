@@ -55,6 +55,11 @@ class MyController extends ActionController
         return json_encode($response);
     }
 
+    public function deleteDiagramAction()
+    {
+        $this->forward('diagramlist');
+    }
+
     public function exportAction()
     {
         echo 'Export someting here';
@@ -78,6 +83,7 @@ class MyController extends ActionController
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\Fixture;
 
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\HttpUtility;
@@ -125,12 +131,17 @@ class MyController extends ActionController
     {
         $response = null;
         try {
-            $this->forward('foo');
+            return new ForwardResponse('foo');
         } catch (Exception $e) {
             HttpUtility::setResponseCode(HttpUtility::HTTP_STATUS_400);
         }
 
         return $this->jsonResponse(json_encode($response));
+    }
+
+    public function deleteDiagramAction(): ResponseInterface
+    {
+        return new ForwardResponse('diagramlist');
     }
 
     public function exportAction()
