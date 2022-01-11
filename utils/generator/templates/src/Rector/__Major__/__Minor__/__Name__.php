@@ -11,7 +11,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog __Rst_File__
- * @see Ssch\TYPO3Rector\Tests\Rector\__Major__\__Minor__\__Test_Directory__\__Name__Test__
+ * @see \Ssch\TYPO3Rector\Tests\Rector\__Major__\__Minor__\__Test_Directory__\__Name__Test
  */
 final class __Name__ extends AbstractRector
 {
