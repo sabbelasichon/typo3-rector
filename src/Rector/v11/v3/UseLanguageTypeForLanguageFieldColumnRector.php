@@ -6,6 +6,9 @@ namespace Ssch\TYPO3Rector\Rector\v11\v3;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -83,13 +86,13 @@ CODE_SAMPLE
         }
 
         $ctrl = $this->extractSubArrayByKey($node, 'ctrl');
-        if (null === $ctrl) {
+        if (! $ctrl instanceof Array_) {
             return null;
         }
 
         $value = $this->extractArrayValueByKey($ctrl, 'languageField');
 
-        if (! $value instanceof Node\Scalar\String_) {
+        if (! $value instanceof String_) {
             return null;
         }
 
@@ -118,13 +121,13 @@ CODE_SAMPLE
 
         $configuration = $this->extractArrayItemByKey($columnTca, 'config');
 
-        if (null === $configuration) {
+        if (! $configuration instanceof ArrayItem) {
             return;
         }
 
         $foreignTable = $this->extractArrayItemByKey($configuration->value, 'foreign_table');
 
-        if (null === $foreignTable) {
+        if (! $foreignTable instanceof ArrayItem) {
             return;
         }
 
