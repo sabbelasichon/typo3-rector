@@ -85,10 +85,6 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
             return null;
         }
 
-        if (! $this->isName($node->var->dim, '_EXTKEY')) {
-            return null;
-        }
-
         if (! $node->expr instanceof Array_) {
             return null;
         }
