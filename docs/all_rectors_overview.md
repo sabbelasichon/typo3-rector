@@ -1,4 +1,4 @@
-# 225 Rules Overview
+# 227 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -1257,6 +1257,42 @@ Instantiate PageRenderer explicitly
 ```diff
 -$pageRenderer = $GLOBALS['TSFE']->getPageRenderer();
 +$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+```
+
+<br>
+
+## LibFluidContentToContentElementTypoScriptPostRector
+
+Convert lib.fluidContent to lib.contentElement
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\PostRector\LibFluidContentToContentElementTypoScriptPostRector`](../src/FileProcessor/TypoScript/PostRector/LibFluidContentToContentElementTypoScriptPostRector.php)
+
+```diff
+-lib.fluidContent.templateRootPaths.200 = EXT:your_extension_key/Resources/Private/Templates/
++lib.contentElement.templateRootPaths.200 = EXT:your_extension_key/Resources/Private/Templates/
+```
+
+<br>
+
+## LibFluidContentToLibContentElementRector
+
+Convert lib.fluidContent to lib.contentElement
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\LibFluidContentToLibContentElementRector`](../src/FileProcessor/TypoScript/Rector/LibFluidContentToLibContentElementRector.php)
+
+```diff
+-lib.fluidContent {
++lib.contentElement {
+    templateRootPaths {
+       200 = EXT:your_extension_key/Resources/Private/Templates/
+    }
+    partialRootPaths {
+       200 = EXT:your_extension_key/Resources/Private/Partials/
+    }
+    layoutRootPaths {
+       200 = EXT:your_extension_key/Resources/Private/Layouts/
+    }
+ }
 ```
 
 <br>
