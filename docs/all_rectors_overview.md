@@ -1,4 +1,4 @@
-# 224 Rules Overview
+# 225 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -4322,6 +4322,41 @@ Use LanguageAspect instead of language properties of TSFE
 +use TYPO3\CMS\Core\Context\Context;
 +use TYPO3\CMS\Core\Utility\GeneralUtility;
 +$languageUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id');
+```
+
+<br>
+
+## UseLanguageTypeForLanguageFieldColumnRector
+
+use the new TCA type language instead of foreign_table => sys_language for selecting a records
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\UseLanguageTypeForLanguageFieldColumnRector`](../src/Rector/v11/v3/UseLanguageTypeForLanguageFieldColumnRector.php)
+
+```diff
+ return [
+     'ctrl' => [
+         'languageField' => 'sys_language_uid',
+     ],
+     'columns' => [
+         'sys_language_uid' => [
+             'exclude' => 1,
+             'label' => 'Language',
+             'config' => [
+-                'type' => 'select',
+-                'renderType' => 'selectSingle',
+-                'foreign_table' => 'sys_language',
+-                'foreign_table_where' => 'ORDER BY sys_language.title',
+-                'eval' => 'int',
+-                'items' => [
+-                    [$_LLL_general . ':LGL.allLanguages', -1],
+-                    [$_LLL_general . ':LGL.default_value', 0]
+-
+-                ],
++                'type' => 'language'
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br>
