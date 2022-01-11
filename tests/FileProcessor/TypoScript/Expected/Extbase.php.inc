@@ -50,4 +50,10 @@ return [
             ],
         ],
     ],
+    \TYPO3\TtAddress\Domain\Model\Address::class => [
+        'tableName' => 'tt_address',
+        'subclasses' => [
+            \Extension14v\Abook\Domain\Model\Address::class => \Extension14v\Abook\Domain\Model\Address::class,
+        ],
+    ],
 ];
