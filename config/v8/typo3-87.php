@@ -6,6 +6,8 @@ use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\DefaultSwitchFluidRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\PostRector\LibFluidContentToContentElementTypoScriptPostRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\LibFluidContentToLibContentElementRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordsByFieldToQueryBuilderRector;
@@ -54,4 +56,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector::class);
     $services->set(UseCachingFrameworkInsteadGetAndStoreHashRector::class);
     $services->set(DefaultSwitchFluidRector::class);
+    $services->set(LibFluidContentToLibContentElementRector::class);
+    $services->set(LibFluidContentToContentElementTypoScriptPostRector::class);
 };

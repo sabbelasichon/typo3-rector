@@ -17,9 +17,11 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TimeConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TreeLevelConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\UsergroupConditionMatcherMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\VersionConditionMatcher;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\PostRector\LibFluidContentToContentElementTypoScriptPostRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AdditionalHeadersToArrayTypoScriptRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\ExtbasePersistenceTypoScriptRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\FileIncludeToImportStatementTypoScriptRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\LibFluidContentToLibContentElementRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\OldConditionToExpressionLanguageTypoScriptRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -45,4 +47,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(FileIncludeToImportStatementTypoScriptRector::class);
     $services->set(ExtbasePersistenceTypoScriptRector::class);
     $services->set(AdditionalHeadersToArrayTypoScriptRector::class);
+    $services->set(LibFluidContentToLibContentElementRector::class);
+    $services->set(LibFluidContentToContentElementTypoScriptPostRector::class);
 };
