@@ -24,6 +24,7 @@ use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptPostRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
 use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AbstractTypoScriptRector;
@@ -47,6 +48,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
 
     /**
      * @param TypoScriptRectorInterface[] $typoScriptRectors
+     * @param TypoScriptPostRectorInterface[] $typoScriptPostRectors
      */
     public function __construct(
         private ParserInterface $typoscriptParser,
@@ -56,7 +58,8 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         private EditorConfigParser $editorConfigParser,
         private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         private RectorOutputStyle $rectorOutputStyle,
-        private array $typoScriptRectors = []
+        private array $typoScriptRectors = [],
+        private array $typoScriptPostRectors = []
     ) {
     }
 
@@ -155,7 +158,9 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
 
             $this->typoscriptPrinter->printStatements($originalStatements, $this->output);
 
-            $typoScriptContent = rtrim($this->output->fetch()) . $editorConfiguration->getNewLine();
+            $newTypoScriptContent = $this->applyTypoScriptPostRectors($this->output->fetch());
+
+            $typoScriptContent = rtrim($newTypoScriptContent) . $editorConfiguration->getNewLine();
 
             $file->changeFileContent($typoScriptContent);
         } catch (TokenizerException) {
@@ -192,5 +197,14 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
 
             $this->rectorOutputStyle->warning($convertToPhpFileVisitor->getMessage());
         }
+    }
+
+    private function applyTypoScriptPostRectors(string $content): string
+    {
+        foreach ($this->typoScriptPostRectors as $typoScriptPostRector) {
+            $content = $typoScriptPostRector->apply($content);
+        }
+
+        return $content;
     }
 }
