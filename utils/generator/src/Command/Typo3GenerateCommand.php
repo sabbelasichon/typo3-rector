@@ -68,7 +68,7 @@ final class Typo3GenerateCommand extends Command
             '__Name__' => $recipe->getRectorName(),
             '__Test_Directory__' => $recipe->getTestDirectory(),
             '__Rst_File__' => $recipe->getUrlToRstFile(),
-            '__Description__' => $recipe->getDescription(),
+            '__Description__' => addslashes($recipe->getDescription()),
         ];
 
         $targetDirectory = getcwd();
