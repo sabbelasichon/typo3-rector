@@ -1,4 +1,4 @@
-# 220 Rules Overview
+# 224 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -1138,6 +1138,20 @@ Use GraphicalFunctions->getTemporaryImageWithText instead of LocalImageProcessor
 ```diff
 -GeneralUtility::makeInstance(LocalImageProcessor::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")
 +GeneralUtility::makeInstance(GraphicalFunctions::class)->getTemporaryImageWithText("foo", "bar", "baz", "foo")
+```
+
+<br>
+
+## HandleCObjRendererATagParamsMethodRector
+
+Removes deprecated params of the `ContentObjectRenderer->getATagParams()` method
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v5\HandleCObjRendererATagParamsMethodRector`](../src/Rector/v11/v5/HandleCObjRendererATagParamsMethodRector.php)
+
+```diff
+ $cObjRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
+-$bar = $cObjRenderer->getATagParams([], false);
++$bar = $cObjRenderer->getATagParams([]);
 ```
 
 <br>
@@ -2368,6 +2382,28 @@ Remove TypoScript option addQueryString.method
 
 <br>
 
+## RemoveBackendUtilityViewOnClickUsageRector
+
+Resolve usages of BackendUtility::viewOnClick to new method
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\RemoveBackendUtilityViewOnClickUsageRector`](../src/Rector/v11/v3/RemoveBackendUtilityViewOnClickUsageRector.php)
+
+```diff
+-$onclick = BackendUtility::viewOnClick(
+-    $pageId, $backPath, $rootLine, $section,
+-    $viewUri, $getVars, $switchFocus
+-);
++$onclick = PreviewUriBuilder::create($pageId, $viewUri)
++    ->withRootLine($rootLine)
++    ->withSection($section)
++    ->withAdditionalQueryParameters($getVars)
++    ->buildDispatcherDataAttributes([
++        PreviewUriBuilder::OPTION_SWITCH_FOCUS => $switchFocus,
++    ]);
+```
+
+<br>
+
 ## RemoveCharsetConverterParametersRector
 
 Remove CharsetConvertParameters
@@ -3311,6 +3347,28 @@ Replace $_EXTKEY with extension key
 
 <br>
 
+## ReplaceInjectAnnotationWithMethodRector
+
+Turns properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v0\ReplaceInjectAnnotationWithMethodRector`](../src/Rector/v11/v0/ReplaceInjectAnnotationWithMethodRector.php)
+
+```diff
+ /**
+  * @var SomeService
+- * @TYPO3\CMS\Extbase\Annotation\Inject
+  */
+-private $someService;
++private $someService;
++
++public function injectSomeService(SomeService $someService)
++{
++    $this->someService = $someService;
++}
+```
+
+<br>
+
 ## ReplaceStdAuthCodeWithHmacRector
 
 Replace GeneralUtility::stdAuthCode with GeneralUtility::hmac
@@ -3718,6 +3776,22 @@ New Mail API based on symfony/mailer and symfony/mime
 +    ->html('<p>Here is the message itself</p>')
 +    ->attachFromPath('my-document.pdf')
      ->send();
+```
+
+<br>
+
+## SwitchBehaviorOfArrayUtilityMethodsRector
+
+Handles the methods `arrayDiffAssocRecursive()` and `arrayDiffKeyRecursive()` of ArrayUtility
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\SwitchBehaviorOfArrayUtilityMethodsRector`](../src/Rector/v11/v3/SwitchBehaviorOfArrayUtilityMethodsRector.php)
+
+```diff
+ $foo = ArrayUtility::arrayDiffAssocRecursive([], [], true);
+-$bar = ArrayUtility::arrayDiffAssocRecursive([], [], false);
+-$test = ArrayUtility::arrayDiffAssocRecursive([], []);
++$bar = ArrayUtility::arrayDiffKeyRecursive([], []);
++$test = ArrayUtility::arrayDiffKeyRecursive([], []);
 ```
 
 <br>

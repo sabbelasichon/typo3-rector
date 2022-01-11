@@ -10,9 +10,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
 
     $services->set(ExtensionComposerRector::class)
-        ->call('configure', [
-            [
-                ExtensionComposerRector::TYPO3_VERSION_CONSTRAINT => '^9.5',
-            ],
+        ->configure([
+            ExtensionComposerRector::TYPO3_VERSION_CONSTRAINT => '^9.5',
         ]);
 };

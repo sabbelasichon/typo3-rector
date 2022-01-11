@@ -52,6 +52,7 @@ final class RenameClassMapAliasRector extends AbstractRector implements Configur
     private array $classesToSkip = [
         // can be string
         'language',
+        'template',
     ];
 
     public function __construct(
@@ -126,11 +127,12 @@ CODE_SAMPLE
     }
 
     /**
-     * @param array<string, array<string, string>> $configuration
+     * @param mixed[] $configuration
      */
     public function configure(array $configuration): void
     {
-        $classAliasMaps = $configuration[self::CLASS_ALIAS_MAPS] ?? [];
+        $classAliasMaps = $configuration[self::CLASS_ALIAS_MAPS] ?? $configuration;
+
         foreach ($classAliasMaps as $file) {
             $filePath = new SmartFileInfo($file);
             $classAliasMap = require $filePath->getRealPath();

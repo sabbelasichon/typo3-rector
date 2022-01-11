@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PHPStan\Type;
 
-use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
-use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeCombinator;
+use Ssch\TYPO3Rector\PHPStan\TypeResolver\ArgumentTypeResolver;
 
 final class ValidatorResolverDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
+    public function __construct(
+        private ArgumentTypeResolver $argumentTypeResolver
+    ) {
+    }
+
     public function getClass(): string
     {
         return 'TYPO3\CMS\Extbase\Validation\ValidatorResolver\ValidatorResolver';
@@ -32,14 +33,6 @@ final class ValidatorResolverDynamicReturnTypeExtension implements DynamicMethod
         MethodCall $methodCall,
         Scope $scope
     ): Type {
-        $arg = $methodCall->args[0]->value;
-        if (! ($arg instanceof ClassConstFetch)) {
-            return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
-        }
-
-        /** @var Name $class */
-        $class = $arg->class;
-
-        return TypeCombinator::addNull(new ObjectType((string) $class));
+        return $this->argumentTypeResolver->resolveFromMethodCall($methodCall, $methodReflection);
     }
 }

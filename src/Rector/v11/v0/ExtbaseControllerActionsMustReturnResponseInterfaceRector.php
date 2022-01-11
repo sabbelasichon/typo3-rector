@@ -10,7 +10,9 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
+use PhpParser\Node\Stmt\Throw_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -152,7 +154,7 @@ CODE_SAMPLE
             return true;
         }
 
-        if ($this->hasExitCall($node)) {
+        if ($this->lastStatementIsExitCall($node)) {
             return true;
         }
 
@@ -160,7 +162,15 @@ CODE_SAMPLE
             return true;
         }
 
-        return $this->alreadyResponseReturnType($node);
+        if ($this->lastStatementIsForwardCall($node)) {
+            return true;
+        }
+
+        if ($this->hasExceptionCall($node)) {
+            return true;
+        }
+
+        return $this->isAlreadyResponseReturnType($node);
     }
 
     /**
@@ -189,30 +199,81 @@ CODE_SAMPLE
         });
     }
 
-    private function hasExitCall(ClassMethod $node): bool
+    private function lastStatementIsExitCall(ClassMethod $node): bool
     {
-        return (bool) $this->betterNodeFinder->find(
-            (array) $node->stmts,
-            fn (Node $node): bool => $node instanceof Exit_
-        );
+        if (null === $node->stmts) {
+            return false;
+        }
+
+        $statements = $node->stmts;
+        $lastStatement = array_pop($statements);
+        return $lastStatement instanceof Expression && $lastStatement->expr instanceof Exit_;
     }
 
-    private function alreadyResponseReturnType(ClassMethod $node): bool
+    private function isAlreadyResponseReturnType(ClassMethod $node): bool
     {
         $returns = $this->findReturns($node);
 
         $responseObjectType = new ObjectType('Psr\Http\Message\ResponseInterface');
+
         foreach ($returns as $return) {
             if (null === $return->expr) {
                 continue;
             }
 
             $returnType = $this->getType($return->expr);
+
             if ($returnType->isSuperTypeOf($responseObjectType)->yes()) {
+                return true;
+            }
+
+            if ($returnType instanceof ObjectType && $returnType->isInstanceOf(
+                'Psr\Http\Message\ResponseInterface'
+            )->yes()) {
                 return true;
             }
         }
 
         return false;
+    }
+
+    private function hasExceptionCall(ClassMethod $node): bool
+    {
+        if (null === $node->stmts) {
+            return false;
+        }
+
+        $statements = $node->stmts;
+        $lastStatement = array_pop($statements);
+
+        if (! ($lastStatement instanceof Throw_)) {
+            return false;
+        }
+
+        $propagateResponseException = new ObjectType('TYPO3\CMS\Core\Http\PropagateResponseException');
+
+        return $this->getType($lastStatement->expr)
+            ->isSuperTypeOf($propagateResponseException)
+            ->yes();
+    }
+
+    private function lastStatementIsForwardCall(ClassMethod $node): bool
+    {
+        if (null === $node->stmts) {
+            return false;
+        }
+
+        $statements = $node->stmts;
+        $lastStatement = array_pop($statements);
+
+        if (! $lastStatement instanceof Expression) {
+            return false;
+        }
+
+        if (! ($lastStatement->expr instanceof MethodCall)) {
+            return false;
+        }
+
+        return $this->isName($lastStatement->expr->name, 'forward');
     }
 }

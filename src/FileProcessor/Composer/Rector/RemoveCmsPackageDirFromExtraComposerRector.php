@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\Composer\Rector;
 
-use BadMethodCallException;
 use Rector\Composer\Contract\Rector\ComposerRectorInterface;
 use Symplify\ComposerJsonManipulator\ValueObject\ComposerJson;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -40,7 +39,7 @@ final class RemoveCmsPackageDirFromExtraComposerRector implements ComposerRector
 
     public function configure(array $configuration): void
     {
-        throw new BadMethodCallException('Not allowed. No configuration option available');
+        // The class is not configurable, but as rector expects every class implementing ComposerRectorInterface to be configurable we have to add this method
     }
 
     public function getRuleDefinition(): RuleDefinition

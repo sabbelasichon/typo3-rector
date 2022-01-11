@@ -56,29 +56,27 @@ final class AddPackageVersionRector extends AbstractRector
             return null;
         }
 
-        if (! property_exists($node, 'stmts')) {
-            return null;
-        }
+        /** @var Closure $closure */
+        $closure = $node;
 
         /** @var Expression $stmt */
-        foreach ($node->stmts as $stmt) {
+        foreach ($closure->stmts as $stmt) {
             if (! $stmt->expr instanceof Assign) {
                 continue;
             }
 
-            if (! $this->isName($stmt->expr->var, 'composerExtensions')) {
+            $assign = $stmt->expr;
+
+            if (! $this->isName($assign->var, 'composerExtensions')) {
                 continue;
             }
 
-            if (! $stmt->expr->expr instanceof Array_) {
+            if (! $assign->expr instanceof Array_) {
                 continue;
             }
 
-            if (! property_exists($stmt->expr->expr, 'items')) {
-                continue;
-            }
-
-            $stmt->expr->expr->items[] = new ArrayItem(
+            $array = $assign->expr;
+            $array->items[] = new ArrayItem(
                 new New_(
                     new FullyQualified('Rector\Composer\ValueObject\PackageAndVersion'),
                     $this->nodeFactory->createArgs([

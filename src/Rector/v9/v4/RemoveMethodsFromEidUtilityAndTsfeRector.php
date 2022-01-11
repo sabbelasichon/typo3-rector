@@ -43,12 +43,7 @@ final class RemoveMethodsFromEidUtilityAndTsfeRector extends AbstractRector
         }
 
         if ($this->isEidUtilityMethodCall($node)) {
-            try {
-                $this->removeNode($node);
-            } catch (ShouldNotHappenException) {
-                return null;
-            }
-
+            $this->removeMethodCall($node);
             return null;
         }
 
@@ -66,11 +61,11 @@ final class RemoveMethodsFromEidUtilityAndTsfeRector extends AbstractRector
             return null;
         }
 
-        try {
-            $this->removeNode($node);
-        } catch (ShouldNotHappenException) {
-            return null;
+        if ($this->isName($node->name, 'storeSessionData') && $node instanceof MethodCall) {
+            return $this->delegateToFrontendUserProperty($node);
         }
+
+        $this->removeMethodCall($node);
 
         return null;
     }
@@ -97,7 +92,7 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(StaticCall | MethodCall $node): bool
+    private function shouldSkip(StaticCall|MethodCall $node): bool
     {
         if ($this->isEidUtilityMethodCall($node)) {
             return false;
@@ -106,7 +101,7 @@ CODE_SAMPLE
         return ! $this->isMethodCallOnTsfe($node);
     }
 
-    private function isEidUtilityMethodCall(StaticCall | MethodCall $node): bool
+    private function isEidUtilityMethodCall(StaticCall|MethodCall $node): bool
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
@@ -126,6 +121,22 @@ CODE_SAMPLE
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        );
+    }
+
+    private function removeMethodCall(StaticCall|MethodCall|Node $node): void
+    {
+        try {
+            parent::removeNode($node);
+        } catch (ShouldNotHappenException) {
+        }
+    }
+
+    private function delegateToFrontendUserProperty(MethodCall $node): MethodCall
+    {
+        return $this->nodeFactory->createMethodCall(
+            $this->nodeFactory->createPropertyFetch($node->var, 'fe_user'),
+            (string) $this->getName($node->name)
         );
     }
 }

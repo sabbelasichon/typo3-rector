@@ -11,54 +11,44 @@ use Ssch\TYPO3Rector\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector;
 use Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector;
 use Ssch\TYPO3Rector\Rector\v10\v1\SendNotifyEmailToMailApiRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-use Symplify\SymfonyPhpConfig\ValueObjectInliner;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(__DIR__ . '/../config.php');
     $services = $containerConfigurator->services();
     $services->set(RegisterPluginWithVendorNameRector::class);
     $services->set(BackendUtilityEditOnClickRector::class);
-    $services->set('record_history_property_fetch_changelog_to_method_call_get_changelog')
-        ->class(PropertyFetchToMethodCallRector::class)
-        ->call(
-            'configure',
-            [[
-                PropertyFetchToMethodCallRector::PROPERTIES_TO_METHOD_CALLS => ValueObjectInliner::inline(
-                    [
-                        new PropertyFetchToMethodCall(
-                            'TYPO3\CMS\Backend\History\RecordHistory',
-                            'changeLog',
-                            'getChangeLog',
-                            'setChangelog',
-                            ['bla']
-                        ), new PropertyFetchToMethodCall(
-                            'TYPO3\CMS\Backend\History\RecordHistory',
-                            'lastHistoryEntry',
-                            'getLastHistoryEntryNumber',
-                            null,
-                            []
-                        ), ]
-                ),
-            ]]
-        );
-    $services->set('record_history_rename_methods')
-        ->class(RenameMethodRector::class)
-        ->call('configure', [[
-            RenameMethodRector::METHOD_CALL_RENAMES => ValueObjectInliner::inline([
-                new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createChangeLog', 'getChangeLog'),
-                new MethodCallRename(
-                    'TYPO3\CMS\Backend\History\RecordHistory',
-                    'getElementData',
-                    'getElementInformation'
-                ),
-                new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createMultipleDiff', 'getDiff'),
-                new MethodCallRename(
-                    'TYPO3\CMS\Backend\History\RecordHistory',
-                    'setLastHistoryEntry',
-                    'setLastHistoryEntryNumber'
-                ),
-            ]),
-        ]]);
+    $services->set(PropertyFetchToMethodCallRector::class)
+        ->configure([
+            new PropertyFetchToMethodCall(
+                'TYPO3\CMS\Backend\History\RecordHistory',
+                'changeLog',
+                'getChangeLog',
+                'setChangelog',
+                ['bla']
+            ),
+            new PropertyFetchToMethodCall(
+                'TYPO3\CMS\Backend\History\RecordHistory',
+                'lastHistoryEntry',
+                'getLastHistoryEntryNumber',
+                null,
+                []
+            ),
+        ]);
+    $services->set(RenameMethodRector::class)
+        ->configure([
+            new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createChangeLog', 'getChangeLog'),
+            new MethodCallRename(
+                'TYPO3\CMS\Backend\History\RecordHistory',
+                'getElementData',
+                'getElementInformation'
+            ),
+            new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createMultipleDiff', 'getDiff'),
+            new MethodCallRename(
+                'TYPO3\CMS\Backend\History\RecordHistory',
+                'setLastHistoryEntry',
+                'setLastHistoryEntryNumber'
+            ),
+        ]);
     $services->set(SendNotifyEmailToMailApiRector::class);
     $services->set(RefactorInternalPropertiesOfTSFERector::class);
     $services->set(\Ssch\TYPO3Rector\Rector\v10\v1\RemoveEnableMultiSelectFilterTextfieldRector::class);

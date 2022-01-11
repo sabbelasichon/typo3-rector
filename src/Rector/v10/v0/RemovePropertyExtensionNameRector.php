@@ -30,8 +30,7 @@ final class RemovePropertyExtensionNameRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\AbstractController'))
-            || ! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController'))) {
+        if ($this->shouldSkip($node)) {
             return null;
         }
 
@@ -84,5 +83,14 @@ CODE_SAMPLE
                 ),
             ]
         );
+    }
+
+    private function shouldSkip(PropertyFetch $node): bool
+    {
+        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\AbstractController'))) {
+            return false;
+        }
+
+        return ! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController'));
     }
 }

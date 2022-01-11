@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
+use PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer;
 use PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
@@ -47,7 +48,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]);
 
     $parameters->set(Option::SKIP, [
-        __DIR__ . '/utils/stubs/templates',
+        // on php 8.1, it adds space on &$variable
+        FunctionTypehintSpaceFixer::class => [
+            __DIR__ . '/src/FileProcessor/Yaml/Form/Rector/EmailFinisherRector.php',
+            __DIR__ . '/src/FileProcessor/Yaml/Form/Rector/TranslationFileRector.php',
+        ],
         __DIR__ . '/config/composer',
         AssignmentInConditionSniff::class,
         DeclareStrictTypesFixer::class => ['*/Fixture/*'],

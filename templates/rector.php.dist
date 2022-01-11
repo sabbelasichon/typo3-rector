@@ -35,7 +35,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::IMPORT_DOC_BLOCKS, false);
 
     // Define your target version which you want to support
-    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_72);
+    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_74);
 
     // If you have an editorconfig and changed files should keep their format enable it here
     // $parameters->set(Option::ENABLE_EDITORCONFIG, true);
@@ -57,6 +57,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/**/Resources/**/BowerComponents/*',
         __DIR__ . '/**/Resources/**/bower_components/*',
         __DIR__ . '/**/Resources/**/build/*',
+        __DIR__ . '/vendor/*',
+        __DIR__ . '/Build/*',
+        __DIR__ . '/public/*',
+        __DIR__ . '/.github/*',
+        __DIR__ . '/.Build/*',
     ]);
 
     // This is used by the class \Ssch\TYPO3Rector\Rector\PostRector\FullQualifiedNamePostRector to force FQN in this paths and files
@@ -103,8 +108,12 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // $services->set(ExtbasePersistenceTypoScriptRector::class);
     // Add some general TYPO3 rules
     $services->set(ConvertImplicitVariablesToExplicitGlobalsRector::class);
-    $services->set(ExtEmConfRector::class);
-    $services->set(ExtensionComposerRector::class);
+    $services->set(ExtEmConfRector::class)->configure([
+        ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => []
+    ]);
+    $services->set(ExtensionComposerRector::class)->configure([
+        ExtensionComposerRector::TYPO3_VERSION_CONSTRAINT => ''
+    ]);
 
     // Do you want to modernize your TypoScript include statements for files and move from <INCLUDE /> to @import use the FileIncludeToImportStatementVisitor
     // $services->set(FileIncludeToImportStatementTypoScriptRector::class);

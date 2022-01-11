@@ -151,7 +151,7 @@ CODE_SAMPLE
 
         /** @var ScalarValue $scalarValue */
         $scalarValue = $statement->value;
-        self::$persistenceArray[$className][self::SUBCLASSES][] = $scalarValue->value;
+        self::$persistenceArray[$className][self::SUBCLASSES][$statement->object->relativeName] = $scalarValue->value;
     }
 
     /**

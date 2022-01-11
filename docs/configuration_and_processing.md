@@ -1,3 +1,14 @@
+## Table of Contents
+1. [Examples in action](./examples_in_action.md)
+1. [Overview of all rules](./all_rectors_overview.md)
+1. [Installation](./installation.md)
+1. [Configuration and Processing](./configuration_and_processing.md)
+1. [Best practice guide](./best_practice_guide.md)
+1. [Special rules](./special_rules.md)
+1. [Beyond PHP - Entering the realm of FileProcessors](./beyond_php_file_processors.md)
+1. [Limitations](./limitations.md)
+1. [Contribution](./contribution.md)
+
 # Configuration and Processing
 
 This library ships already with a bunch of configuration files organized by TYPO3 version.
@@ -28,17 +39,13 @@ use Rector\PostRector\Rector\NameImportingPostRector;
 use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
-use Ssch\TYPO3Rector\Set\Typo3SetList;
+use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
-    $containerConfigurator->import(Typo3SetList::TYPO3_76);
-    $containerConfigurator->import(Typo3SetList::TYPO3_87);
-    $containerConfigurator->import(Typo3SetList::TYPO3_95);
-    $containerConfigurator->import(Typo3SetList::TYPO3_104);
-    $containerConfigurator->import(Typo3SetList::TYPO3_11);
+    $containerConfigurator->import(Typo3LevelSetList::UP_TO_TYPO3_11);
 
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
@@ -50,7 +57,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::IMPORT_DOC_BLOCKS, false);
 
     // Define your target version which you want to support
-    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_72);
+    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_74);
 
     // If you only want to process one/some TYPO3 extension(s), you can specify its path(s) here.
     // If you use the option --config change __DIR__ to getcwd()
@@ -82,6 +89,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/**/Resources/**/BowerComponents/*',
         __DIR__ . '/**/Resources/**/bower_components/*',
         __DIR__ . '/**/Resources/**/build/*',
+        __DIR__ . '/vendor/*',
+        __DIR__ . '/Build/*',
+        __DIR__ . '/public/*',
+        __DIR__ . '/.github/*',
+        __DIR__ . '/.Build/*',
     ]);
 
     // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file

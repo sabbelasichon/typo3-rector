@@ -51,4 +51,13 @@ config.tx_extbase.persistence.classes {
             }
         }
     }
+    TYPO3\TtAddress\Domain\Model\Address {
+        mapping {
+            tableName = tt_address
+            #recordType = 0
+        }
+        subclasses {
+            Extension14v\Abook\Domain\Model\Address = Extension14v\Abook\Domain\Model\Address
+        }
+    }
 }

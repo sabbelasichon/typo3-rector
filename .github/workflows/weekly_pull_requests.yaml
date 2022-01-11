@@ -19,13 +19,20 @@ jobs:
                         name: "Update composer packages"
                         run: "composer update-composer"
                         branch: 'automated-regenerated-composer-packages'
+                        
+                    -
+                        name: "Update config file to support php 7.1"
+                        run: |
+                            composer install
+                            vendor/bin/rector process config -c vendor/rector/rector-src/build/config/config-downgrade.php 
+                        branch: 'automated-make-config-php71-compatible'
 
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
 
         steps:
             -
-                uses: actions/checkout@v2.3.5
+                uses: actions/checkout@v2.4.0
                 with:
                     token: ${{ secrets.ACCESS_TOKEN }}
 
@@ -33,7 +40,7 @@ jobs:
             -
                 uses: shivammathur/setup-php@v2
                 with:
-                    php-version: 8.0
+                    php-version: 8.1
                     coverage: none
 
             -   uses: "ramsey/composer-install@v1"

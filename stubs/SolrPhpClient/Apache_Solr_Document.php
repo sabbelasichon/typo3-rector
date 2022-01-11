@@ -116,7 +116,7 @@ class Apache_Solr_Document implements IteratorAggregate
         return [];
     }
 
-
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         $arrayObject = new ArrayObject([]);

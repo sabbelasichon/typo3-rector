@@ -17,6 +17,21 @@ class BackendUtility
     }
 
     /**
+     * @return string
+     */
+    public static function viewOnClick(
+        $pageUid,
+        $backPath = '',
+        $rootLine = null,
+        $anchorSection = '',
+        $alternativeUrl = '',
+        $additionalGetVars = '',
+        $switchFocus = true)
+    {
+        return 'foo';
+    }
+
+    /**
      * @return mixed[]
      */
     public static function getRecordRaw($table, $where = '', $fields = '*')
