@@ -204,6 +204,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         foreach ($this->typoScriptPostRectors as $typoScriptPostRector) {
             $content = $typoScriptPostRector->apply($content);
         }
+
         return $content;
     }
 }
