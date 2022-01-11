@@ -1,4 +1,4 @@
-# 227 Rules Overview
+# 228 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -3663,6 +3663,22 @@ Substitute TYPO3_MODE and TYPO3_REQUESTTYPE constants
 ```diff
 -defined('TYPO3_MODE') or die();
 +defined('TYPO3') or die();
+```
+
+<br>
+
+## SubstituteExtbaseRequestGetBaseUriRector
+
+Use PSR-7 compatible request for uri instead of the method getBaseUri
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\SubstituteExtbaseRequestGetBaseUriRector`](../src/Rector/v11/v3/SubstituteExtbaseRequestGetBaseUriRector.php)
+
+```diff
+-$baseUri = $this->request->getBaseUri();
++$request = $GLOBALS['TYPO3_REQUEST'];
++/** @var NormalizedParams $normalizedParams */
++$normalizedParams = $request->getAttribute('normalizedParams');
++$baseUri = $normalizedParams->getSiteUrl();
 ```
 
 <br>
