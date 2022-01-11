@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v11\v3;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
@@ -24,11 +25,16 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector
 {
     /**
+     * @var string
+     */
+    private const NORMALIZED_PARAMS = 'normalizedParams';
+
+    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
 
     /**
@@ -53,7 +59,7 @@ final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector
 
         $this->nodesToAddCollector->addNodesBeforeNode([$globalRequestNode, $normalizedParamsNode], $node);
 
-        return $this->nodeFactory->createMethodCall('normalizedParams', 'getSiteUrl');
+        return $this->nodeFactory->createMethodCall(self::NORMALIZED_PARAMS, 'getSiteUrl');
     }
 
     /**
@@ -88,8 +94,8 @@ CODE_SAMPLE
     private function createNormalizedParamsAssignment(): Assign
     {
         return new Assign(
-            new Variable('normalizedParams'),
-            $this->nodeFactory->createMethodCall('request', 'getAttribute', ['normalizedParams'])
+            new Variable(self::NORMALIZED_PARAMS),
+            $this->nodeFactory->createMethodCall('request', 'getAttribute', [self::NORMALIZED_PARAMS])
         );
     }
 
@@ -99,7 +105,7 @@ CODE_SAMPLE
         $phpDocInfo->addTagValueNode(
             new VarTagValueNode(new FullyQualifiedIdentifierTypeNode(
                 'TYPO3\CMS\Core\Http\NormalizedParams'
-            ), 'normalizedParams', '')
+            ), self::NORMALIZED_PARAMS, '')
         );
         $phpDocInfo->getPhpDocNode()
             ->children = [];
