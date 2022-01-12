@@ -32,7 +32,7 @@ parameters:
          - tests/bootstrap.php
 
     inferPrivatePropertyTypeFromConstructor: true
-    reportUnmatchedIgnoredErrors: false
+    reportUnmatchedIgnoredErrors: true
 
     ignoreErrors:
         - '#^Cognitive complexity for#'
@@ -91,7 +91,6 @@ parameters:
         # stringable
         - '#Method Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\ExtensionVersion\:\:highestSupportedTypo3Version\(\) should return Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\Typo3Version but returns string#'
 
-        - '#Parameter \#1 \$version of method Composer\\Semver\\VersionParser\:\:(.*?)\(\) expects (.*?), Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\Typo3Version given#'
         - '#Parameter \#1 \$versions of static method Composer\\Semver\\Semver\:\:rsort\(\) expects array<string\>, array<Ssch\\TYPO3Rector\\ComposerPackages\\ValueObject\\(.*?)\> given#'
 
         -
