@@ -10,4 +10,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services = $containerConfigurator->services();
     $services->set(UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector::class);
     $services->set(\Ssch\TYPO3Rector\Rector\v11\v4\ProvideCObjViaMethodRector::class);
+    $services->set(\Ssch\TYPO3Rector\Rector\v11\v4\AddSetConfigurationMethodToExceptionHandlerRector::class);
 };
