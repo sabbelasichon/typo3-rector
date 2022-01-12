@@ -1,4 +1,4 @@
-# 228 Rules Overview
+# 229 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -3613,6 +3613,39 @@ Use SiteRepository instead of instantiating class Site directly with page id
 ```diff
 -$site1 = GeneralUtility::makeInstance(Site::class, 1);
 +$site1 = GeneralUtility::makeInstance(SiteRepository::class)->getSiteByPageId(1);
+```
+
+<br>
+
+## SubstituteBackendTemplateViewWithModuleTemplateRector
+
+Use an instance of ModuleTemplate instead of BackendTemplateView
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v5\SubstituteBackendTemplateViewWithModuleTemplateRector`](../src/Rector/v11/v5/SubstituteBackendTemplateViewWithModuleTemplateRector.php)
+
+```diff
+ class MyController extends ActionController
+ {
+-    protected $defaultViewObjectName = BackendTemplateView::class;
++    protected ModuleTemplateFactory $moduleTemplateFactory;
+
++    public function __construct(
++        ModuleTemplateFactory $moduleTemplateFactory,
++    ) {
++        $this->moduleTemplateFactory = $moduleTemplateFactory;
++    }
++
+     public function myAction(): ResponseInterface
+     {
+         $this->view->assign('someVar', 'someContent');
+-        $moduleTemplate = $this->view->getModuleTemplate();
++        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+         // Adding title, menus, buttons, etc. using $moduleTemplate ...
+-        return $this->htmlResponse();
++        $moduleTemplate->setContent($this->view->render());
++        return $this->htmlResponse($moduleTemplate->renderContent());
+     }
+ }
 ```
 
 <br>
