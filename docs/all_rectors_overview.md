@@ -1,4 +1,4 @@
-# 229 Rules Overview
+# 230 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -92,6 +92,36 @@ Add renderType for select fields
          ],
      ],
  ];
+```
+
+<br>
+
+## AddSetConfigurationMethodToExceptionHandlerRector
+
+Add method setConfiguration to class which implements ExceptionHandlerInterface
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v4\AddSetConfigurationMethodToExceptionHandlerRector`](../src/Rector/v11/v4/AddSetConfigurationMethodToExceptionHandlerRector.php)
+
+```diff
+ use TYPO3\CMS\Frontend\ContentObject\Exception\ExceptionHandlerInterface;
+ use TYPO3\CMS\Frontend\ContentObject\AbstractContentObject;
+
+ class CustomExceptionHandler implements ExceptionHandlerInterface
+ {
+     private array $configuration;
+
+-    public function __construct(array $configuration) {
+-        $this->configuration = $configuration;
++    public function handle(\Exception $exception, AbstractContentObject $contentObject = null, $contentObjectConfiguration = [])
++    {
+     }
+
+-    public function handle(\Exception $exception, AbstractContentObject $contentObject = null, $contentObjectConfiguration = [])
++    public function setConfiguration(array $configuration): void
+     {
++        $this->configuration = $configuration;
+     }
+ }
 ```
 
 <br>
