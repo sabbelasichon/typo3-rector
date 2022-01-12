@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v5;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -13,6 +14,7 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
@@ -28,6 +30,21 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class SubstituteBackendTemplateViewWithModuleTemplateRector extends AbstractRector
 {
+    /**
+     * @var string
+     */
+    private const MODULE_TEMPLATE_FACTORY = 'moduleTemplateFactory';
+
+    /**
+     * @var string
+     */
+    private const THIS = 'this';
+
+    /**
+     * @var string
+     */
+    private const MODULE_TEMPLATE = 'moduleTemplate';
+
     public function __construct(
         private ClassDependencyManipulator $classDependencyManipulator,
         private NodesToReplaceCollector $nodesToReplaceCollector
@@ -115,13 +132,13 @@ CODE_SAMPLE
     private function shouldSkip(Class_ $node): bool
     {
         $defaultViewObjectNameProperty = $node->getProperty('defaultViewObjectName');
-        if (null === $defaultViewObjectNameProperty) {
+        if (! $defaultViewObjectNameProperty instanceof Property) {
             return true;
         }
 
         $defaultViewObjectName = $defaultViewObjectNameProperty->props[0]->default;
 
-        if (null === $defaultViewObjectName) {
+        if (! $defaultViewObjectName instanceof Expr) {
             return true;
         }
 
@@ -133,7 +150,7 @@ CODE_SAMPLE
         $this->classDependencyManipulator->addConstructorDependency(
             $node,
             new PropertyMetadata(
-                'moduleTemplateFactory',
+                self::MODULE_TEMPLATE_FACTORY,
                 new ObjectType('TYPO3\CMS\Backend\Template\ModuleTemplateFactory'),
                 Class_::MODIFIER_PRIVATE
             )
@@ -143,7 +160,7 @@ CODE_SAMPLE
     private function removePropertyDefaultViewObjectName(Class_ $node): void
     {
         $defaultViewObjectNameProperty = $node->getProperty('defaultViewObjectName');
-        if (null === $defaultViewObjectNameProperty) {
+        if (! $defaultViewObjectNameProperty instanceof Property) {
             return;
         }
 
@@ -153,7 +170,7 @@ CODE_SAMPLE
     private function removePropertyViewIfNeeded(Class_ $node): void
     {
         $viewProperty = $node->getProperty('view');
-        if (null === $viewProperty) {
+        if (! $viewProperty instanceof Property) {
             return;
         }
 
@@ -163,12 +180,12 @@ CODE_SAMPLE
     private function createModuleTemplateAssignment(): Expression
     {
         $moduleTemplateFactoryCall = $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createPropertyFetch('this', 'moduleTemplateFactory'),
+            $this->nodeFactory->createPropertyFetch(self::THIS, self::MODULE_TEMPLATE_FACTORY),
             'create',
-            [$this->nodeFactory->createPropertyFetch('this', 'request')]
+            [$this->nodeFactory->createPropertyFetch(self::THIS, 'request')]
         );
 
-        return new Expression(new Assign(new Variable('moduleTemplate'), $moduleTemplateFactoryCall));
+        return new Expression(new Assign(new Variable(self::MODULE_TEMPLATE), $moduleTemplateFactoryCall));
     }
 
     private function substituteModuleTemplateMethodCalls(ClassMethod $classMethod): void
@@ -195,7 +212,7 @@ CODE_SAMPLE
         foreach ($moduleTemplateMethodCalls as $moduleTemplateMethodCall) {
             $this->nodesToReplaceCollector->addReplaceNodeWithAnotherNode(
                 $moduleTemplateMethodCall,
-                new Variable('moduleTemplate')
+                new Variable(self::MODULE_TEMPLATE)
             );
         }
     }
@@ -210,20 +227,20 @@ CODE_SAMPLE
 
         $classMethod->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
 
-        $viewPropertyFetch = $this->nodeFactory->createPropertyFetch('this', 'view');
+        $viewPropertyFetch = $this->nodeFactory->createPropertyFetch(self::THIS, 'view');
         $viewRenderMethodCall = $this->nodeFactory->createMethodCall($viewPropertyFetch, 'render');
         $callSetContentOnModuleTemplateVariable = new Expression($this->nodeFactory->createMethodCall(
-            'moduleTemplate',
+            self::MODULE_TEMPLATE,
             'setContent',
             [$viewRenderMethodCall]
         ));
 
         $moduleTemplateRenderContentMethodCall = $this->nodeFactory->createMethodCall(
-            'moduleTemplate',
+            self::MODULE_TEMPLATE,
             'renderContent'
         );
 
-        $htmlResponseMethodCall = $this->nodeFactory->createMethodCall('this', 'htmlResponse', [
+        $htmlResponseMethodCall = $this->nodeFactory->createMethodCall(self::THIS, 'htmlResponse', [
             $moduleTemplateRenderContentMethodCall,
         ]);
 
@@ -250,7 +267,7 @@ CODE_SAMPLE
                     return false;
                 }
 
-                return 0 === count($node->args);
+                return [] === $node->args;
             }
         );
 
@@ -289,7 +306,7 @@ CODE_SAMPLE
                     return false;
                 }
 
-                if (! $this->isName($node->var->name, 'moduleTemplateFactory')) {
+                if (! $this->isName($node->var->name, self::MODULE_TEMPLATE_FACTORY)) {
                     return false;
                 }
 
