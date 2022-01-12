@@ -1,4 +1,4 @@
-# 230 Rules Overview
+# 231 Rules Overview
 
 ## AddArgumentToSymfonyCommandRector
 
@@ -3782,6 +3782,45 @@ Substitute deprecated method calls of class GeneralUtility
 -GeneralUtility::milliseconds();
 +inet_ntop(inet_pton($address));
 +round(microtime(true) * 1000);
+```
+
+<br>
+
+## SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector
+
+Use PageRenderer and IconFactory directly instead of getting them from the ModuleTemplate
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v5\SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector`](../src/Rector/v11/v5/SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector.php)
+
+```diff
+ class MyController extends ActionController
+ {
+     protected ModuleTemplateFactory $moduleTemplateFactory;
++    protected IconFactory $iconFactory;
++    protected PageRenderer $pageRenderer;
+
+-    public function __construct(ModuleTemplateFactory $moduleTemplateFactory)
+-    {
++    public function __construct(
++        ModuleTemplateFactory $moduleTemplateFactory,
++        IconFactory $iconFactory,
++        PageRenderer $pageRenderer
++    ) {
+         $this->moduleTemplateFactory = $moduleTemplateFactory;
++        $this->iconFactory = $iconFactory;
++        $this->pageRenderer = $pageRenderer;
+     }
+
+     public function myAction(): ResponseInterface
+     {
+         $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+-        $moduleTemplate->getPageRenderer()->loadRequireJsModule('Vendor/Extension/MyJsModule');
+-        $moduleTemplate->setContent($moduleTemplate->getIconFactory()->getIcon('some-icon', Icon::SIZE_SMALL)->render());
++        $this->pageRenderer->loadRequireJsModule('Vendor/Extension/MyJsModule');
++        $moduleTemplate->setContent($this->iconFactory->getIcon('some-icon', Icon::SIZE_SMALL)->render());
+         return $this->htmlResponse($moduleTemplate->renderContent());
+     }
+ }
 ```
 
 <br>
