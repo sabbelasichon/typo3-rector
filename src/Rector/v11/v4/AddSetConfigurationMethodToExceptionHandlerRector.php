@@ -24,6 +24,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class AddSetConfigurationMethodToExceptionHandlerRector extends AbstractRector
 {
+    /**
+     * @var string
+     */
+    private const SET_CONFIGURATION = 'setConfiguration';
+
     public function __construct(
         private ReflectionProvider $reflectionProvider
     ) {
@@ -143,16 +148,16 @@ CODE_SAMPLE
 
         $classReflection = $this->reflectionProvider->getClass($className);
 
-        if ($classReflection->hasMethod('setConfiguration')) {
+        if ($classReflection->hasMethod(self::SET_CONFIGURATION)) {
             return true;
         }
 
-        return null !== $class->getMethod('setConfiguration');
+        return null !== $class->getMethod(self::SET_CONFIGURATION);
     }
 
     private function createSetConfigurationMethod(): ClassMethod
     {
-        $configurationMethod = $this->nodeFactory->createPublicMethod('setConfiguration');
+        $configurationMethod = $this->nodeFactory->createPublicMethod(self::SET_CONFIGURATION);
         $configurationVariable = new Variable('configuration');
         $configurationParam = new Param($configurationVariable);
         $configurationParam->type = new Identifier('array');
