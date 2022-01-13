@@ -104,6 +104,14 @@ CODE_SAMPLE
 
     private function refactorMethodSetBody(MethodCall $node): ?MethodCall
     {
+        if (! isset($node->args[0])) {
+            return null;
+        }
+
+        if (! $node->args[0]->value instanceof Node) {
+            return null;
+        }
+
         $bodyType = $this->nodeTypeResolver->getType($node->args[0]->value);
         $contentType = isset($node->args[1]) ? $this->valueResolver->getValue($node->args[1]->value) : null;
 
