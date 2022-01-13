@@ -104,11 +104,11 @@ CODE_SAMPLE
 
     private function refactorMethodSetBody(MethodCall $node): ?MethodCall
     {
-        if(!isset($node->args[0])) {
-           return null;
+        if (! isset($node->args[0])) {
+            return null;
         }
 
-        if(!$node->args[0]->value instanceof Node) {
+        if (! $node->args[0]->value instanceof Node) {
             return null;
         }
 
