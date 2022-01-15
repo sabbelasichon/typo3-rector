@@ -18,15 +18,16 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\General\InjectMethodToConstructorInjectionRector\InjectMethodToConstructorInjectionRectorTest
  */
-class InjectMethodToConstructorInjectionRector extends AbstractRector
+final class InjectMethodToConstructorInjectionRector extends AbstractRector
 {
-    private $classDependencyManipulator;
-
-    public function __construct(ClassDependencyManipulator $classDependencyManipulator)
-    {
-        $this->classDependencyManipulator = $classDependencyManipulator;
+    public function __construct(
+        private ClassDependencyManipulator $classDependencyManipulator
+    ) {
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
@@ -84,9 +85,10 @@ CODE_SAMPLE
             return null;
         }
 
-        $injectMethods = array_filter($node->getMethods(), function ($classMethod) {
-            return 0 === strncmp((string) $classMethod->name, 'inject', 6);
-        });
+        $injectMethods = array_filter(
+            $node->getMethods(),
+            fn ($classMethod) => str_starts_with((string) $classMethod->name, 'inject')
+        );
 
         if ([] === $injectMethods) {
             return null;
