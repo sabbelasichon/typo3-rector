@@ -50,6 +50,9 @@ return [
             ],
         ],
     ],
+    \JWeiland\Maps2\Domain\Model\PoiCollection::class => [
+        'tableName' => 'tx_maps2_domain_model_poicollection',
+    ],
     \TYPO3\TtAddress\Domain\Model\Address::class => [
         'tableName' => 'tt_address',
         'subclasses' => [

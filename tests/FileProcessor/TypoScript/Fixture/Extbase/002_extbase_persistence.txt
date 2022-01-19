@@ -51,6 +51,18 @@ config.tx_extbase.persistence.classes {
             }
         }
     }
+    JWeiland\Maps2\Domain\Model\PoiCollection {
+        mapping {
+            tableName = tx_maps2_domain_model_poicollection
+            columns {
+                distance {
+                    config {
+                        type = passthrough
+                    }
+                }
+            }
+        }
+    }
     TYPO3\TtAddress\Domain\Model\Address {
         mapping {
             tableName = tt_address
