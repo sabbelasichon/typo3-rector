@@ -16,6 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
+ * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/DependencyInjection/Index.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\General\InjectMethodToConstructorInjectionRector\InjectMethodToConstructorInjectionRectorTest
  */
 final class InjectMethodToConstructorInjectionRector extends AbstractRector
@@ -96,7 +97,7 @@ CODE_SAMPLE
 
         foreach ($injectMethods as $injectMethod) {
             $params = $injectMethod->getParams();
-            if (empty($params)) {
+            if ([] === $params) {
                 continue;
             }
 
@@ -109,13 +110,15 @@ CODE_SAMPLE
                 continue;
             }
 
+            $paramName = $this->getName($param->var);
+
+            if (null === $paramName) {
+                continue;
+            }
+
             $this->classDependencyManipulator->addConstructorDependency(
                 $node,
-                new PropertyMetadata(
-                    (string) $param->var->name,
-                    new ObjectType((string) $param->type),
-                    Class_::MODIFIER_PROTECTED
-                )
+                new PropertyMetadata($paramName, new ObjectType((string) $param->type), Class_::MODIFIER_PROTECTED)
             );
 
             $this->removeNodeFromStatements($node, $injectMethod);
