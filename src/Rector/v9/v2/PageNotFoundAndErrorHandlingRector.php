@@ -176,11 +176,7 @@ CODE_SAMPLE
         $arguments = [new ArrayDimFetch(new Variable(Typo3NodeResolver::GLOBALS), new String_('TYPO3_REQUEST'))];
 
         // Message
-        if (isset($node->args[0])) {
-            $arguments[] = $node->args[0]->value;
-        } else {
-            $arguments[] = new String_('');
-        }
+        $arguments[] = isset($node->args[0]) ? $node->args[0]->value : new String_('');
 
         return new Expression(
             new Assign(
