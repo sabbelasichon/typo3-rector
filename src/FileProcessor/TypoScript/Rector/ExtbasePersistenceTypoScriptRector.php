@@ -42,9 +42,15 @@ final class ExtbasePersistenceTypoScriptRector extends AbstractTypoScriptRector 
 
     private SmartFileInfo $fileTemplate;
 
+    /**
+     * @var array{target: string}
+     */
+    private array $configuration;
+
     public function __construct(TemplateFinder $templateFinder)
     {
-        $this->filename = getcwd() . '/Configuration_Extbase_Persistence_Classes.php';
+        $this->configuration['target'] = getcwd();
+        $this->filename = '/Configuration_Extbase_Persistence_Classes.php';
 
         $this->fileTemplate = $templateFinder->getExtbasePersistenceConfiguration();
     }
@@ -116,7 +122,8 @@ CODE_SAMPLE
             return sprintf('\%s::class', $string);
         });
 
-        return new AddedFileWithContent($this->filename, $content);
+        $fullPath = rtrim($this->configuration['target'], '/') . '/' . ltrim($this->filename, '/');
+        return new AddedFileWithContent($fullPath, $content);
     }
 
     public function getMessage(): string
@@ -126,6 +133,7 @@ CODE_SAMPLE
 
     public function configure(array $configuration): void
     {
+        $this->configuration = $configuration;
         $filename = $configuration[self::FILENAME] ?? null;
 
         if (null !== $filename) {
