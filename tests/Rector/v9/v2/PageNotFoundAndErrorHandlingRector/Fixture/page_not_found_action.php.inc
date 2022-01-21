@@ -64,7 +64,7 @@ class SomeController extends ActionController
     public function errorAction(): void
     {
         $message = 'No entry found.';
-        $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction($GLOBALS['TYPO3_REQUEST']);
+        $response = GeneralUtility::makeInstance(ErrorController::class)->pageNotFoundAction($GLOBALS['TYPO3_REQUEST'], '');
         throw new ImmediateResponseException($response);
     }
 

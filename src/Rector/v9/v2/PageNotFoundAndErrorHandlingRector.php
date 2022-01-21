@@ -178,6 +178,8 @@ CODE_SAMPLE
         // Message
         if (isset($node->args[0])) {
             $arguments[] = $node->args[0]->value;
+        } else {
+            $arguments[] = new String_('');
         }
 
         return new Expression(
