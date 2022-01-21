@@ -44,7 +44,7 @@ final class ExtbasePersistenceTypoScriptRector extends AbstractTypoScriptRector 
 
     public function __construct(TemplateFinder $templateFinder)
     {
-        $this->filename = getcwd() . '/Configuration_Extbase_Persistence_Classes.php';
+        $this->filename = \getcwd() . '/Configuration/Extbase/Persistence/Classes.php';
 
         $this->fileTemplate = $templateFinder->getExtbasePersistenceConfiguration();
     }
