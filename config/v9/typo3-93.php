@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Ssch\TYPO3Rector\Rector\v9\v3\BackendUserAuthenticationSimplelogRector;
+use Ssch\TYPO3Rector\Rector\v9\v3\BackendUtilityGetModTsConfigRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\BackendUtilityGetModuleUrlRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\CopyMethodGetPidForModTSconfigRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\MoveLanguageFilesFromExtensionLangRector;
@@ -29,6 +30,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ),
         ]);
     $services->set(BackendUtilityGetModuleUrlRector::class);
+    $services->set(BackendUtilityGetModTsConfigRector::class);
     $services->set(PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector::class);
     $services->set(UseMethodGetPageShortcutDirectlyFromSysPageRector::class);
     $services->set(CopyMethodGetPidForModTSconfigRector::class);
