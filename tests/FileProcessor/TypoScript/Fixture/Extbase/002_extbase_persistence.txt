@@ -51,7 +51,7 @@ config.tx_extbase.persistence.classes {
             }
         }
     }
-    TYPO3\TtAddress\Domain\Model\Address {
+    Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\Source\Address {
         mapping {
             tableName = tt_address
             #recordType = 0

@@ -8,6 +8,7 @@ use Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
 use Helmich\TypoScriptParser\Parser\AST\Scalar as ScalarValue;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Nette\Utils\Strings;
+use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
@@ -42,8 +43,10 @@ final class ExtbasePersistenceTypoScriptRector extends AbstractTypoScriptRector 
 
     private SmartFileInfo $fileTemplate;
 
-    public function __construct(TemplateFinder $templateFinder)
-    {
+    public function __construct(
+        TemplateFinder $templateFinder,
+        private ReflectionProvider $reflectionProvider
+    ) {
         $this->filename = getcwd() . '/Configuration_Extbase_Persistence_Classes.php';
 
         $this->fileTemplate = $templateFinder->getExtbasePersistenceConfiguration();
@@ -113,7 +116,11 @@ CODE_SAMPLE
         $content = Strings::replace($content, "#'(.*\\\\.*)'#mU", function (array $match): string {
             $string = str_replace('\\\\', '\\', $match[1]);
 
-            return sprintf('\%s::class', $string);
+            if ($this->reflectionProvider->hasClass($string)) {
+                return sprintf('\%s::class', $string);
+            }
+
+            return sprintf("'%s'", $string);
         });
 
         return new AddedFileWithContent($this->filename, $content);
