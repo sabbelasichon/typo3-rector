@@ -8,15 +8,19 @@ use Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
 use Helmich\TypoScriptParser\Parser\AST\Scalar as ScalarValue;
 use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Nette\Utils\Strings;
+use PhpParser\Comment;
+use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Return_;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
+use Rector\Core\PhpParser\Node\NodeFactory;
+use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
-use Ssch\TYPO3Rector\Template\TemplateFinder;
-use Symfony\Component\VarExporter\VarExporter;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Breaking-87623-ReplaceConfigpersistenceclassesTyposcriptConfiguration.html
@@ -34,6 +38,11 @@ final class ExtbasePersistenceTypoScriptRector extends AbstractTypoScriptRector 
      */
     private const SUBCLASSES = 'subclasses';
 
+    /**
+     * @var string
+     */
+    private const REMOVE_EMPTY_LINES = '/^[ \t]*[\r\n]+/m';
+
     private string $filename;
 
     /**
@@ -41,15 +50,12 @@ final class ExtbasePersistenceTypoScriptRector extends AbstractTypoScriptRector 
      */
     private static array $persistenceArray = [];
 
-    private SmartFileInfo $fileTemplate;
-
     public function __construct(
-        TemplateFinder $templateFinder,
-        private ReflectionProvider $reflectionProvider
+        private ReflectionProvider $reflectionProvider,
+        private BetterStandardPrinter $betterStandardPrinter,
+        private NodeFactory $nodeFactory
     ) {
         $this->filename = getcwd() . '/Configuration_Extbase_Persistence_Classes.php';
-
-        $this->fileTemplate = $templateFinder->getExtbasePersistenceConfiguration();
     }
 
     public function enterNode(Statement $statement): void
@@ -93,7 +99,7 @@ return [
     ],
 ];
 CODE_SAMPLE
-,
+                ,
                 [
                     self::FILENAME => 'path/to/Configuration/Extbase/Persistence/Classes.php',
                 ]
@@ -107,21 +113,44 @@ CODE_SAMPLE
             return null;
         }
 
-        $content = str_replace(
-            '__PERSISTENCE_ARRAY__',
-            VarExporter::export(self::$persistenceArray),
-            $this->fileTemplate->getContents()
-        );
-
-        $content = Strings::replace($content, "#'(.*\\\\.*)'#mU", function (array $match): string {
-            $string = str_replace('\\\\', '\\', $match[1]);
-
-            if ($this->reflectionProvider->hasClass($string)) {
-                return sprintf('\%s::class', $string);
+        $persistenceArray = $this->nodeFactory->createArray([]);
+        foreach (self::$persistenceArray as $class => $configuration) {
+            $key = new String_($class);
+            if ($this->reflectionProvider->hasClass($class)) {
+                $key = $this->nodeFactory->createClassConstReference($class);
             }
 
-            return sprintf("'%s'", $string);
-        });
+            $subArray = $this->nodeFactory->createArray([]);
+
+            foreach (['recordType', 'tableName'] as $subKey) {
+                if (array_key_exists($subKey, $configuration)) {
+                    $subArray->items[] = new ArrayItem(new String_($configuration[$subKey]), new String_(
+                        $subKey
+                    ), false, [
+                        AttributeKey::COMMENTS => [new Comment(PHP_EOL)],
+                    ]);
+                }
+            }
+
+            foreach (['properties', 'subclasses'] as $subKey) {
+                if (array_key_exists($subKey, $configuration)) {
+                    $subArray->items[] = new ArrayItem($this->nodeFactory->createArray(
+                        $configuration[$subKey]
+                    ), new String_($subKey), false, [
+                        AttributeKey::COMMENTS => [new Comment(PHP_EOL)],
+                    ]);
+                }
+            }
+
+            $persistenceArray->items[] = new ArrayItem($subArray, $key, false, [
+                AttributeKey::COMMENTS => [new Comment(PHP_EOL)],
+            ]);
+        }
+
+        $return = new Return_($persistenceArray);
+        $content = $this->betterStandardPrinter->prettyPrintFile([$return]);
+
+        $content = Strings::replace($content, self::REMOVE_EMPTY_LINES, '');
 
         return new AddedFileWithContent($this->filename, $content);
     }
@@ -186,6 +215,14 @@ CODE_SAMPLE
     private function extractColumns(array $paths, Assignment $statement): void
     {
         if (! in_array('columns', $paths, true)) {
+            return;
+        }
+
+        if (isset($paths[4]) && 'config' === $paths[4]) {
+            return;
+        }
+
+        if (isset($paths[5]) && 'type' === $paths[5]) {
             return;
         }
 

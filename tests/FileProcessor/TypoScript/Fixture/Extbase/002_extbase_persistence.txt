@@ -61,3 +61,24 @@ config.tx_extbase.persistence.classes {
         }
     }
 }
+
+plugin.tx_maps2 {
+    persistence {
+        classes {
+            JWeiland\Maps2\Domain\Model\PoiCollection {
+                mapping {
+                    columns {
+                        distance {
+                            config {
+                                type = passthrough
+                            }
+                        }
+                        foo.config {
+                            type = passthrough
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

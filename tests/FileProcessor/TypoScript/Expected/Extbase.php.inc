@@ -1,14 +1,7 @@
 <?php
-
-declare(strict_types = 1);
-
 return [
     'GeorgRinger\News\Domain\Model\News' => [
-        'subclasses' => [
-            'GeorgRinger\News\Domain\Model\NewsDefault',
-            'GeorgRinger\News\Domain\Model\NewsInternal',
-            'GeorgRinger\News\Domain\Model\NewsExternal',
-        ],
+        'subclasses' => ['GeorgRinger\News\Domain\Model\NewsDefault', 'GeorgRinger\News\Domain\Model\NewsInternal', 'GeorgRinger\News\Domain\Model\NewsExternal'],
     ],
     'GeorgRinger\News\Domain\Model\NewsDefault' => [
         'recordType' => '0',
@@ -27,33 +20,14 @@ return [
     ],
     'GeorgRinger\News\Domain\Model\TtContent' => [
         'tableName' => 'tt_content',
-        'properties' => [
-            'altText' => [
-                'fieldName' => 'altText',
-            ],
-            'titleText' => [
-                'fieldName' => 'titleText',
-            ],
-            'colPos' => [
-                'fieldName' => 'colPos',
-            ],
-            'CType' => [
-                'fieldName' => 'CType',
-            ],
-        ],
+        'properties' => ['altText' => ['fieldName' => 'altText'], 'titleText' => ['fieldName' => 'titleText'], 'colPos' => ['fieldName' => 'colPos'], 'CType' => ['fieldName' => 'CType']],
     ],
     'GeorgRinger\News\Domain\Model\Category' => [
         'tableName' => 'sys_category',
-        'properties' => [
-            'parentcategory' => [
-                'fieldName' => 'parent',
-            ],
-        ],
+        'properties' => ['parentcategory' => ['fieldName' => 'parent']],
     ],
     \Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\Source\Address::class => [
         'tableName' => 'tt_address',
-        'subclasses' => [
-            'Extension14v\Abook\Domain\Model\Address' => 'Extension14v\Abook\Domain\Model\Address',
-        ],
+        'subclasses' => ['Extension14v\Abook\Domain\Model\Address' => 'Extension14v\Abook\Domain\Model\Address'],
     ],
 ];
