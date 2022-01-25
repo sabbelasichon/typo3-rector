@@ -43,6 +43,11 @@ final class ExtbasePersistenceTypoScriptRector extends AbstractTypoScriptRector 
      */
     private const REMOVE_EMPTY_LINES = '/^[ \t]*[\r\n]+/m';
 
+    /**
+     * @var string
+     */
+    private const PROPERTIES = 'properties';
+
     private string $filename;
 
     /**
@@ -132,7 +137,7 @@ CODE_SAMPLE
                 }
             }
 
-            foreach (['properties', 'subclasses'] as $subKey) {
+            foreach ([self::PROPERTIES, 'subclasses'] as $subKey) {
                 if (array_key_exists($subKey, $configuration)) {
                     $subArray->items[] = new ArrayItem($this->nodeFactory->createArray(
                         $configuration[$subKey]
@@ -228,7 +233,7 @@ CODE_SAMPLE
 
         $className = $paths[0];
         if (! array_key_exists($className, self::$persistenceArray)) {
-            self::$persistenceArray[$className]['properties'] = [];
+            self::$persistenceArray[$className][self::PROPERTIES] = [];
         }
 
         $fieldName = $paths[3];
@@ -236,6 +241,6 @@ CODE_SAMPLE
         /** @var ScalarValue $scalar */
         $scalar = $statement->value;
 
-        self::$persistenceArray[$className]['properties'][$scalar->value]['fieldName'] = $fieldName;
+        self::$persistenceArray[$className][self::PROPERTIES][$scalar->value]['fieldName'] = $fieldName;
     }
 }
