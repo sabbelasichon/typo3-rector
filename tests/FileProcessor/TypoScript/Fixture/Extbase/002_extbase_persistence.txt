@@ -51,13 +51,34 @@ config.tx_extbase.persistence.classes {
             }
         }
     }
-    TYPO3\TtAddress\Domain\Model\Address {
+    Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\Source\Address {
         mapping {
             tableName = tt_address
             #recordType = 0
         }
         subclasses {
             Extension14v\Abook\Domain\Model\Address = Extension14v\Abook\Domain\Model\Address
+        }
+    }
+}
+
+plugin.tx_maps2 {
+    persistence {
+        classes {
+            JWeiland\Maps2\Domain\Model\PoiCollection {
+                mapping {
+                    columns {
+                        distance {
+                            config {
+                                type = passthrough
+                            }
+                        }
+                        foo.config {
+                            type = passthrough
+                        }
+                    }
+                }
+            }
         }
     }
 }
