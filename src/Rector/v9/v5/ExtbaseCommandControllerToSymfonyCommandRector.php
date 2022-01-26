@@ -9,6 +9,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
@@ -284,7 +285,7 @@ CODE_SAMPLE
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
             $nodes = $this->rectorParser->parseFile($commandsSmartFileInfo);
         } else {
-            $nodes = [new Stmt\Return_($this->nodeFactory->createArray([]))];
+            $nodes = [new Return_($this->nodeFactory->createArray([]))];
         }
 
         $this->decorateNamesToFullyQualified($nodes);
