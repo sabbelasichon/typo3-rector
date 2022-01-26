@@ -33,6 +33,11 @@ use Symplify\SmartFileSystem\SmartFileSystem;
  */
 final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRector
 {
+    /**
+     * @var string
+     */
+    private const REMOVE_EMPTY_LINES = '/^[ \t]*[\r\n]+/m';
+
     public function __construct(
         private SmartFileSystem $smartFileSystem,
         private RectorParser $rectorParser,
@@ -279,8 +284,7 @@ CODE_SAMPLE
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
             $nodes = $this->rectorParser->parseFile($commandsSmartFileInfo);
         } else {
-            $defaultsCommandsTemplate = $this->templateFinder->getCommandsConfiguration();
-            $nodes = $this->rectorParser->parseFile($defaultsCommandsTemplate);
+            $nodes = [new Stmt\Return_($this->nodeFactory->createArray([]))];
         }
 
         $this->decorateNamesToFullyQualified($nodes);
@@ -293,6 +297,9 @@ CODE_SAMPLE
         $nodes = $nodeTraverser->traverse($nodes);
 
         $changedCommandsContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
+
+        $changedCommandsContent = Strings::replace($changedCommandsContent, self::REMOVE_EMPTY_LINES, '');
+
         $this->removedAndAddedFilesCollector->addAddedFile(
             new AddedFileWithContent($commandsFilePath, $changedCommandsContent)
         );

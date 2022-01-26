@@ -20,11 +20,6 @@ final class TemplateFinder
         return $this->createSmartFileInfo('Commands/Command.tpl');
     }
 
-    public function getCommandsConfiguration(): SmartFileInfo
-    {
-        return $this->createSmartFileInfo('Commands/Commands.tpl');
-    }
-
     private function createSmartFileInfo(string $template): SmartFileInfo
     {
         return new SmartFileInfo($this->templateDirectory . $template);
