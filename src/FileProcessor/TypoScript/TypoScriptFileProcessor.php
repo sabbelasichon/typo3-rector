@@ -11,6 +11,7 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinterConfiguration;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
+use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Provider\CurrentFileProvider;
@@ -47,6 +48,11 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
     private array $allowedFileExtensions = ['typoscript', 'ts', 'txt'];
 
     /**
+     * @var FileDiff[]
+     */
+    private array $fileDiffs = [];
+
+    /**
      * @param TypoScriptRectorInterface[] $typoScriptRectors
      * @param TypoScriptPostRectorInterface[] $typoScriptPostRectors
      */
@@ -58,6 +64,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         private EditorConfigParser $editorConfigParser,
         private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         private RectorOutputStyle $rectorOutputStyle,
+        private FileDiffFactory $fileDiffFactory,
         private array $typoScriptRectors = [],
         private array $typoScriptPostRectors = []
     ) {
@@ -82,10 +89,9 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         $this->processFile($file);
         $this->convertTypoScriptToPhpFiles();
 
-        // to keep parent contract with return values
         return [
             Bridge::SYSTEM_ERRORS => [],
-            Bridge::FILE_DIFFS => [],
+            Bridge::FILE_DIFFS => $this->fileDiffs,
         ];
     }
 
@@ -162,7 +168,15 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
 
             $typoScriptContent = rtrim($newTypoScriptContent) . $editorConfiguration->getNewLine();
 
+            $oldFileContents = $file->getFileContent();
+
             $file->changeFileContent($typoScriptContent);
+
+            $this->fileDiffs[] = $this->fileDiffFactory->createFileDiff(
+                $file,
+                $oldFileContents,
+                $file->getFileContent()
+            );
         } catch (TokenizerException) {
             return;
         } catch (ParseError) {
