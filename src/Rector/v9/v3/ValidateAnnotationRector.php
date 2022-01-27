@@ -115,7 +115,7 @@ CODE_SAMPLE
     {
         if (str_contains($validatorAnnotation, '(')) {
             preg_match_all(
-                '#(?P<validatorName>.*)(?<=[\w])\((?P<validatorOptions>.*)\)#',
+                '#(?P<validatorName>.*)(?<=[\w])\s*\((?P<validatorOptions>.*)\)#',
                 $validatorAnnotation,
                 $matches
             );
