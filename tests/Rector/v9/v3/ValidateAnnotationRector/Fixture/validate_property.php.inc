@@ -54,6 +54,12 @@ final class SomeValidateClass
      * @validate RegularExpression(regularExpression="#(mr|mrs)#")
      */
     protected $prop2;
+
+    /**
+     * @var string
+     * @validate RegularExpression (regularExpression = '/^[A-z0-9]{32}$/')
+     */
+    protected $configId;
 }
 
 ?>
@@ -119,6 +125,12 @@ final class SomeValidateClass
      * @Extbase\Validate("RegularExpression", options={"regularExpression": "#(mr|mrs)#"})
      */
     protected $prop2;
+
+    /**
+     * @var string
+     * @Extbase\Validate("RegularExpression", options={"regularExpression": "/^[A-z0-9]{32}$/"})
+     */
+    protected $configId;
 }
 
 ?>
