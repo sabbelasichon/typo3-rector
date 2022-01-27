@@ -29,7 +29,7 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
         $newConditions = [];
         foreach ($subConditions as $subCondition) {
             preg_match(
-                '#(?<type>ENV|IENV|GP|TSFE|LIT)' . self::ZERO_ONE_OR_MORE_WHITESPACES . ':' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
+                '#(?<type>ENV|IENV|GP|TSFE|LIT|_COOKIE)' . self::ZERO_ONE_OR_MORE_WHITESPACES . '[:|]' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<property>.*)\s*(?<operator>' . self::ALLOWED_OPERATORS_REGEX . ')' . self::ZERO_ONE_OR_MORE_WHITESPACES . '(?<value>.*)$#Ui',
                 $subCondition,
                 $matches
             );
@@ -44,6 +44,7 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
                 'IENV' => $this->createIndependentCondition($property, $operator, $value),
                 'TSFE' => $this->refactorTsfe($property, $operator, $value),
                 'GP' => $this->refactorGetPost($property, $operator, $value),
+                '_COOKIE' => $this->refactorCookie($property, $operator, $value),
                 'LIT' => sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property),
                 default => '',
             };
@@ -83,6 +84,16 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
             implode('/', $parameters),
             self::OPERATOR_MAPPING[$operator],
             $value
+        );
+    }
+
+    private function refactorCookie(string $property, string $operator, string $value): string
+    {
+        return sprintf(
+            'request.getCookieParams()[\'%1$s\'] %3$s \'%2$s\'',
+            $property,
+            $value,
+            self::OPERATOR_MAPPING[$operator]
         );
     }
 }

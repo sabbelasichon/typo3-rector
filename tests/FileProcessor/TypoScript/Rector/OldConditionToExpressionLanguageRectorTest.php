@@ -453,6 +453,11 @@ final class OldConditionToExpressionLanguageRectorTest extends TestCase
             'oldCondition' => '[globalVar = _POST:tx_powermail_pi1|action = create]',
             'newCondition' => "[traverse(request.getParsedBody(), 'tx_powermail_pi1/action') == 'create')]",
         ];
+
+        yield '_COOKIE' => [
+            'oldCondition' => '[globalString = _COOKIE|cookiePolicy=isSet]',
+            'newCondition' => "[request.getCookieParams()['cookiePolicy'] == 'isSet']",
+        ];
     }
 
     /**
