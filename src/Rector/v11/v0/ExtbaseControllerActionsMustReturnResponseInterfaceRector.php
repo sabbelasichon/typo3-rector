@@ -140,6 +140,10 @@ CODE_SAMPLE
             return true;
         }
 
+        if ($node->isAbstract()) {
+            return true;
+        }
+
         $methodName = $this->getName($node->name);
 
         if (null === $methodName) {
