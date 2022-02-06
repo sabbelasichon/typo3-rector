@@ -19,6 +19,8 @@ class MyRefactoredController extends ActionController
     {
         return new ForwardResponse('another');
     }
+
+    abstract public function listAction($filter = null, string $letter = ''): ResponseInterface;
 }
 
 ?>
