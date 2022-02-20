@@ -11,7 +11,7 @@ env:
     COMPOSER_ROOT_VERSION: "dev-main"
 
 jobs:
-    rector:
+    phpstan:
         runs-on: ubuntu-latest
         steps:
             -   uses: actions/checkout@v2.4.0
