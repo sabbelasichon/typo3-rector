@@ -91,13 +91,9 @@ CODE_SAMPLE
      */
     private function buildNewTranslations(array $oldTranslations): array
     {
-        $newTranslations = [];
-        foreach ($oldTranslations as $oldTranslationFileKey => $oldTranslationFile) {
-            if (! \str_starts_with($oldTranslationFile, 'EXT:form')) {
-                $newTranslations[$oldTranslationFileKey] = $oldTranslationFile;
-            }
-        }
-
-        return $newTranslations;
+        return array_filter(
+            $oldTranslations,
+            fn ($oldTranslationFile) => ! \str_starts_with($oldTranslationFile, 'EXT:form')
+        );
     }
 }

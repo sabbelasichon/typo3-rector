@@ -16,7 +16,6 @@
 [global]
 -----
 # Comment
-
 [siteLanguage("languageId") == "2"]
 lib.breadcrumb = TEXT
 lib.breadcrumb.value = Foo
