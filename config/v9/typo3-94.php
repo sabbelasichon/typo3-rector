@@ -52,4 +52,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(UseClassSchemaInsteadReflectionServiceMethodsRector::class);
     $services->set(RemoveMethodsFromEidUtilityAndTsfeRector::class);
     $services->set(AdditionalFieldProviderRector::class);
+    $services->set(\Ssch\TYPO3Rector\Rector\v9\v4\GeneralUtilityGetHostNameToGetIndpEnvRector::class);
 };
