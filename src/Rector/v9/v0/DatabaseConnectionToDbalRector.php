@@ -54,7 +54,7 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
             if ($databaseConnectionRefactoring->canHandle($methodName)) {
                 $nodes = $databaseConnectionRefactoring->refactor($node);
                 foreach ($nodes as $newNode) {
-                    $this->addNodeBeforeNode($newNode, $node);
+                    $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
                 }
 
                 $this->removeNode($node);

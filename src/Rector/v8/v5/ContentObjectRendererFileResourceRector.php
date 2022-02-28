@@ -114,7 +114,7 @@ CODE_SAMPLE
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
         if (! $parentNode->var instanceof PropertyFetch) {
             $initializeVariable = new Expression(new Assign($parentNode->var, new String_('')));
-            $this->addNodeBeforeNode($initializeVariable, $node);
+            $this->nodesToAddCollector->addNodeBeforeNode($initializeVariable, $node);
         }
     }
 
@@ -125,7 +125,7 @@ CODE_SAMPLE
             $typoscriptFrontendControllerVariable,
             new ArrayDimFetch(new Variable('GLOBALS'), new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER))
         );
-        $this->addNodeBeforeNode($typoscriptFrontendControllerNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($typoscriptFrontendControllerNode, $node);
     }
 
     private function addFileNameNode(MethodCall $node): void
@@ -138,7 +138,7 @@ CODE_SAMPLE
                 $node->args
             )
         );
-        $this->addNodeBeforeNode($fileNameNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($fileNameNode, $node);
     }
 
     private function addIfNode(MethodCall $node): void
@@ -156,6 +156,6 @@ CODE_SAMPLE
         ));
         $ifNode->stmts[] = new Expression($templateAssignment);
 
-        $this->addNodeBeforeNode($ifNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $node);
     }
 }

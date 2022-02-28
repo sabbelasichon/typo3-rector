@@ -106,17 +106,17 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
         $currentStmts = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
         $positionNode = $currentStmts ?? $node;
 
-        $this->addNodeBeforeNode($this->initializeSuccessVariable(), $positionNode);
-        $this->addNodeBeforeNode($this->initializeMailClass(), $positionNode);
-        $this->addNodeBeforeNode($this->trimMessage($node), $positionNode);
-        $this->addNodeBeforeNode($this->trimSenderName($node), $positionNode);
-        $this->addNodeBeforeNode($this->trimSenderAddress($node), $positionNode);
-        $this->addNodeBeforeNode($this->ifSenderAddress(), $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($this->initializeSuccessVariable(), $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($this->initializeMailClass(), $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($this->trimMessage($node), $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($this->trimSenderName($node), $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($this->trimSenderAddress($node), $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($this->ifSenderAddress(), $positionNode);
 
         $replyTo = isset($node->args[5]) ? $node->args[5]->value : null;
         if (null !== $replyTo) {
-            $this->addNodeBeforeNode($this->parsedReplyTo($replyTo), $positionNode);
-            $this->addNodeBeforeNode($this->methodReplyTo(), $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($this->parsedReplyTo($replyTo), $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($this->methodReplyTo(), $positionNode);
         }
 
         $ifMessageNotEmpty = $this->messageNotEmpty();
@@ -127,7 +127,7 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
         $ifMessageNotEmpty->stmts[] = $this->ifParsedRecipients();
         $ifMessageNotEmpty->stmts[] = $this->createSuccessTrue();
 
-        $this->addNodeBeforeNode($ifMessageNotEmpty, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($ifMessageNotEmpty, $positionNode);
 
         return new Variable(self::SUCCESS);
     }

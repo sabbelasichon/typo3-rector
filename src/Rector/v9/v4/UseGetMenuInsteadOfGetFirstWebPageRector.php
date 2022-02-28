@@ -67,7 +67,7 @@ final class UseGetMenuInsteadOfGetFirstWebPageRector extends AbstractRector
         $parentNode->expr = $resetRootLevelPagesNode;
         $ifNode->stmts[] = new Expression($parentNode);
 
-        $this->addNodeBeforeNode($ifNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $node);
 
         try {
             $this->removeNode($node);
@@ -123,6 +123,6 @@ CODE_SAMPLE
             'getMenu',
             [$node->args[0], 'uid', 'sorting', '', false]
         ));
-        $this->addNodeBeforeNode($rootLevelPagesNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($rootLevelPagesNode, $node);
     }
 }

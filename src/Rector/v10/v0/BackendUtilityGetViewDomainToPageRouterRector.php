@@ -51,7 +51,7 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
             $node->args
         ));
 
-        $this->addNodeBeforeNode($siteNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($siteNode, $node);
 
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall(new Variable('site'), 'getRouter'),

@@ -106,6 +106,6 @@ CODE_SAMPLE
         $node->args[0] = $this->nodeFactory->createArg($response);
 
         $newNode = $this->nodeFactory->createMethodCall($node->var, 'processContentForOutput');
-        $this->addNodeAfterNode($newNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($newNode, $node);
     }
 }

@@ -138,7 +138,7 @@ CODE_SAMPLE
                 )
             )
         );
-        $this->addNodeBeforeNode($charsetConverterNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($charsetConverterNode, $node);
     }
 
     private function refactorCsConvObj(MethodCall $node): ?Node

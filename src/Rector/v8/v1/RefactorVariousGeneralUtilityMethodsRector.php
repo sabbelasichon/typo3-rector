@@ -113,7 +113,7 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
 
         if (self::CONVERT_MICROTIME === $nodeName) {
             $funcCall = $this->nodeFactory->createFuncCall('explode', [new String_(' '), $node->args[0]->value]);
-            $this->addNodeBeforeNode(new Expression(new Assign(new Variable(self::PARTS), $funcCall)), $node);
+            $this->nodesToAddCollector->addNodeBeforeNode(new Expression(new Assign(new Variable(self::PARTS), $funcCall)), $node);
 
             return $this->nodeFactory->createFuncCall('round', [
                 new Mul(new Plus(

@@ -126,7 +126,7 @@ CODE_SAMPLE
         if ($this->isNames($node->name, ['pageUnavailableHandler', 'pageNotFoundHandler', 'pageErrorHandler'])) {
             $newNode = $this->refactorPageErrorHandlerIfPossible($node);
             if (null !== $newNode) {
-                $this->addNodeBeforeNode($newNode, $positionNode);
+                $this->nodesToAddCollector->addNodeBeforeNode($newNode, $positionNode);
                 $this->removeNodeOrParentNode($node);
             }
 
@@ -139,8 +139,8 @@ CODE_SAMPLE
             return null;
         }
 
-        $this->addNodeBeforeNode($responseNode, $positionNode);
-        $this->addNodeBeforeNode($this->throwException(), $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($responseNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($this->throwException(), $positionNode);
         $this->removeNodeOrParentNode($node);
 
         return $node;

@@ -129,24 +129,24 @@ CODE_SAMPLE
             'get',
             [$node->args[0]]
         ));
-        $this->addNodeAfterNode($cacheEntryNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($cacheEntryNode, $node);
 
         $hashContentNode = new Assign(new Variable(self::HASH_CONTENT), $this->nodeFactory->createNull());
-        $this->addNodeAfterNode($hashContentNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($hashContentNode, $node);
 
         $ifNode = new If_(new Variable(self::CACHE_ENTRY));
         $ifNode->stmts[] = new Expression(new Assign(new Variable(self::HASH_CONTENT), new Variable(
             self::CACHE_ENTRY
         )));
-        $this->addNodeAfterNode($ifNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($ifNode, $node);
 
-        $this->addNodeAfterNode(new Assign(new Variable('content'), new Variable(self::HASH_CONTENT)), $node);
+        $this->nodesToAddCollector->addNodeAfterNode(new Assign(new Variable('content'), new Variable(self::HASH_CONTENT)), $node);
     }
 
     private function addCacheManagerNode(StaticCall $node): void
     {
         $cacheManagerNode = new Assign(new Variable(self::CACHE_MANAGER), $this->createCacheManager());
-        $this->addNodeAfterNode($cacheManagerNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($cacheManagerNode, $node);
     }
 
     private function setCacheMethod(StaticCall $node): void
@@ -165,6 +165,6 @@ CODE_SAMPLE
             'set',
             $arguments
         );
-        $this->addNodeAfterNode($cacheEntryNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($cacheEntryNode, $node);
     }
 }

@@ -60,7 +60,7 @@ final class FlexFormToolsArrayValueByPathRector extends AbstractRector
             'setValueByPath',
             $args
         );
-        $this->addNodeBeforeNode(new Assign($variableNode, $staticCall), $node);
+        $this->nodesToAddCollector->addNodeBeforeNode(new Assign($variableNode, $staticCall), $node);
         $this->removeNode($node);
 
         return $node;
