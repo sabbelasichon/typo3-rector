@@ -115,7 +115,7 @@ CODE_SAMPLE
 
             $returnForwardResponse = new Return_($forwardResponse);
 
-            $this->addNodeBeforeNode($returnForwardResponse, $forwardMethodCall);
+            $this->nodesToAddCollector->addNodeBeforeNode($returnForwardResponse, $forwardMethodCall);
             $this->removeNode($forwardMethodCall);
         }
 

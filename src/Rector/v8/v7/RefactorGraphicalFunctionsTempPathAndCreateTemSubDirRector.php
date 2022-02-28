@@ -160,7 +160,7 @@ CODE_SAMPLE
 
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
-        $this->addNodeBeforeNode(
+        $this->nodesToAddCollector->addNodeBeforeNode(
             new Expression(new Assign(new Variable(self::CREATE_TEMP_SUB_DIR), $anonymousFunction)),
             $parentNode
         );

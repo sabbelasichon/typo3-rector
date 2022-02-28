@@ -193,7 +193,7 @@ CODE_SAMPLE
 
         $currentStmt = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
         $positionNode = $currentStmt ?? $node;
-        $this->addNodeBeforeNode($propertyTagsValuesNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($propertyTagsValuesNode, $positionNode);
 
         return $propertyTagsValuesVariable;
     }
@@ -303,7 +303,7 @@ CODE_SAMPLE
 
         $currentStmt = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
         $positionNode = $currentStmt ?? $node;
-        $this->addNodeBeforeNode($propertyNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($propertyNode, $positionNode);
 
         return new Ternary(
             new Empty_($propertyVariable),
@@ -328,7 +328,7 @@ CODE_SAMPLE
         $closureUse = $tagValue instanceof Variable ? $tagValue : new Variable('tag');
         if (! $tagValue instanceof Variable) {
             $tempVarNode = new Expression(new Assign($closureUse, $tagValue));
-            $this->addNodeBeforeNode($tempVarNode, $node->getAttribute(AttributeKey::PARENT_NODE));
+            $this->nodesToAddCollector->addNodeBeforeNode($tempVarNode, $node->getAttribute(AttributeKey::PARENT_NODE));
         }
 
         $anonymousFunction = new Closure();

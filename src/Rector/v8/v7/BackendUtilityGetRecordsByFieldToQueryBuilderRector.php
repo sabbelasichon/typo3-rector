@@ -148,7 +148,7 @@ CODE_SAMPLE
         }
 
         $queryBuilderNode = new Assign(new Variable('queryBuilder'), $queryBuilder);
-        $this->addNodeBeforeNode($queryBuilderNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderNode, $positionNode);
     }
 
     private function isVariable(?Arg $queryBuilderArgument): bool
@@ -189,7 +189,7 @@ CODE_SAMPLE
                 ),
             ]
         );
-        $this->addNodeBeforeNode($newNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($newNode, $positionNode);
     }
 
     private function addQueryBuilderDeletedRestrictionNode(
@@ -223,7 +223,7 @@ CODE_SAMPLE
         );
 
         if ($useDeleteClause) {
-            $this->addNodeBeforeNode($deletedRestrictionNode, $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($deletedRestrictionNode, $positionNode);
 
             return;
         }
@@ -235,7 +235,7 @@ CODE_SAMPLE
         $ifNode = new If_($useDeleteClauseArgument->value);
         $ifNode->stmts[] = new Expression($deletedRestrictionNode);
 
-        $this->addNodeBeforeNode($ifNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $positionNode);
     }
 
     private function addQueryBuilderSelectNode(
@@ -264,7 +264,7 @@ CODE_SAMPLE
             'where',
             [$queryBuilderWhereExpressionNode]
         );
-        $this->addNodeBeforeNode($queryBuilderWhereNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderWhereNode, $positionNode);
     }
 
     private function addQueryWhereNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
@@ -285,7 +285,7 @@ CODE_SAMPLE
         ]);
 
         if ($whereClause) {
-            $this->addNodeBeforeNode($whereClauseNode, $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($whereClauseNode, $positionNode);
 
             return;
         }
@@ -297,7 +297,7 @@ CODE_SAMPLE
         $ifNode = new If_($whereClauseArgument->value);
         $ifNode->stmts[] = new Expression($whereClauseNode);
 
-        $this->addNodeBeforeNode($ifNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $positionNode);
     }
 
     private function addQueryGroupByNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
@@ -318,7 +318,7 @@ CODE_SAMPLE
         ]);
 
         if ($groupBy) {
-            $this->addNodeBeforeNode($groupByNode, $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($groupByNode, $positionNode);
 
             return;
         }
@@ -330,7 +330,7 @@ CODE_SAMPLE
         $ifNode = new If_(new NotIdentical($groupByArgument->value, new String_('')));
         $ifNode->stmts[] = new Expression($groupByNode);
 
-        $this->addNodeBeforeNode($ifNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $positionNode);
     }
 
     private function addOrderByNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
@@ -367,7 +367,7 @@ CODE_SAMPLE
         ));
 
         if ($orderBy) {
-            $this->addNodeBeforeNode($orderByNode, $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($orderByNode, $positionNode);
 
             return;
         }
@@ -375,7 +375,7 @@ CODE_SAMPLE
         $ifNode = new If_(new NotIdentical($orderByArgument->value, new String_('')));
         $ifNode->stmts[] = $orderByNode;
 
-        $this->addNodeBeforeNode($ifNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $positionNode);
     }
 
     private function addLimitNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
@@ -421,7 +421,7 @@ CODE_SAMPLE
         ));
 
         if ($limit) {
-            $this->addNodeBeforeNode($limitNode, $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($limitNode, $positionNode);
 
             return;
         }
@@ -429,6 +429,6 @@ CODE_SAMPLE
         $ifNode = new If_(new NotIdentical($limitArgument->value, new String_('')));
         $ifNode->stmts[] = $limitNode;
 
-        $this->addNodeBeforeNode($ifNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $positionNode);
     }
 }

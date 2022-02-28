@@ -87,7 +87,7 @@ CODE_SAMPLE
         $node->name = new Identifier($firstMethod);
         $node1 = clone $node;
         $node1->name = new Identifier($secondMethod);
-        $this->addNodeAfterNode($node1, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($node1, $node);
         return $node;
     }
 }

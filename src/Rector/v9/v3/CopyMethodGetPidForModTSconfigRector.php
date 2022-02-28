@@ -50,7 +50,7 @@ final class CopyMethodGetPidForModTSconfigRector extends AbstractRector
         $tableVariableNode = $node->args[0]->value;
         if ($tableVariableNode instanceof String_) {
             $tableVariableNode = new Variable('table');
-            $this->addNodeBeforeNode(new Assign($tableVariableNode, $node->args[0]->value), $node);
+            $this->nodesToAddCollector->addNodeBeforeNode(new Assign($tableVariableNode, $node->args[0]->value), $node);
         }
 
         return new Ternary(new BooleanAnd(
