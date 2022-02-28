@@ -140,7 +140,10 @@ CODE_SAMPLE
         )));
         $this->nodesToAddCollector->addNodeAfterNode($ifNode, $node);
 
-        $this->nodesToAddCollector->addNodeAfterNode(new Assign(new Variable('content'), new Variable(self::HASH_CONTENT)), $node);
+        $this->nodesToAddCollector->addNodeAfterNode(
+            new Assign(new Variable('content'), new Variable(self::HASH_CONTENT)),
+            $node
+        );
     }
 
     private function addCacheManagerNode(StaticCall $node): void
