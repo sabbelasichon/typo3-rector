@@ -34,7 +34,7 @@ final class ObjectManagerGetToConstructorInjectionRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Turns fetching of dependencies via `$container->get()` in ContainerAware to constructor injection in Command and Controller in Symfony',
+            'Turns fetching of dependencies via `$objectManager->get()` to constructor injection',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
