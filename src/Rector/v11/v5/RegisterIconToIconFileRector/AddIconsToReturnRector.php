@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v5\RegisterIconToIconFileRector;
 
+use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -11,6 +12,7 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
@@ -83,9 +85,14 @@ CODE_SAMPLE
             return null;
         }
 
-        $iconArrayItem = new ArrayItem($this->nodeFactory->createArray($this->iconConfiguration), new String_(
-            $this->iconIdentifier
-        ));
+        $iconArrayItem = new ArrayItem(
+            $this->nodeFactory->createArray($this->iconConfiguration),
+            new String_($this->iconIdentifier),
+            false,
+            [
+                AttributeKey::COMMENTS => [new Comment(PHP_EOL)],
+            ]
+        );
         $node->expr->items[] = $iconArrayItem;
 
         return $node;
