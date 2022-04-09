@@ -38,7 +38,7 @@ final class AddIconsToReturnRector extends AbstractRector implements Configurabl
     /**
      * @var array<string, mixed>
      */
-    private array $iconConfiguration;
+    private array $iconConfiguration = [];
 
     /**
      * @codeCoverageIgnore

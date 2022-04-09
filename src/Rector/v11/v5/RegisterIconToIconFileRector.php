@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v11\v5;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
@@ -45,11 +46,11 @@ final class RegisterIconToIconFileRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
 
     /**
-     * @param Node\Expr\MethodCall $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -175,9 +176,10 @@ CODE_SAMPLE
             AddIconsToReturnRector::ICON_CONFIGURATION => $iconConfiguration,
         ]);
         $nodeTraverser->addVisitor($this->addIconsToReturnRector);
-        $stmts = $nodeTraverser->traverse($stmts);
 
         /** @var Stmt[] $stmts */
+        $stmts = $nodeTraverser->traverse($stmts);
+
         $changedIconsContent = $this->nodePrinter->prettyPrintFile($stmts);
 
         $changedIconsContent = Strings::replace($changedIconsContent, self::REMOVE_EMPTY_LINES);
