@@ -14,6 +14,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Contract\PhpParser\NodePrinterInterface;
 use Rector\Core\PhpParser\Parser\RectorParser;
 use Rector\Core\PhpParser\Parser\SimplePhpParser;
@@ -48,7 +49,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         private AddCommandsToReturnRector $addCommandsToReturnRector,
         private SimplePhpParser $simplePhpParser,
         private TemplateFinder $templateFinder,
-        private NodePrinterInterface $nodePrinter
+        private NodePrinterInterface $nodePrinter,
+        private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
     ) {
     }
 
