@@ -12,6 +12,7 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Contract\PhpParser\NodePrinterInterface;
 use Rector\Core\PhpParser\Parser\SimplePhpParser;
 use Rector\Core\Rector\AbstractRector;
@@ -37,7 +38,8 @@ final class RegisterIconToIconFileRector extends AbstractRector
         private FilesFinder $filesFinder,
         private AddIconsToReturnRector $addIconsToReturnRector,
         private SimplePhpParser $simplePhpParser,
-        private NodePrinterInterface $nodePrinter
+        private NodePrinterInterface $nodePrinter,
+        private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
     ) {
     }
 
