@@ -1,3 +1,6 @@
+[![Latest Stable Version](https://poser.pugx.org/ssch/typo3-rector/v/stable.svg)](https://packagist.org/packages/ssch/typo3-rector)
+[![Total Downloads](https://poser.pugx.org/ssch/typo3-rector/d/total.svg)](https://packagist.org/packages/ssch/typo3-rector)
+[![Monthly Downloads](https://poser.pugx.org/ssch/typo3-rector/d/monthly)](https://packagist.org/packages/ssch/typo3-rector)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/schreiberten)
 
 ## Caution
@@ -10,8 +13,6 @@ This repository (`ssch/typo3-rector`) is for development TYPO3 Rector only.
 Head to [`rectorphp/rector`](http://github.com/rectorphp/rector) for installation.
 
 Apply automatic fixes on your TYPO3 code.
-
-[![Downloads](https://img.shields.io/packagist/dt/ssch/typo3-rector.svg?style=flat-square)](https://packagist.org/packages/ssch/typo3-rector)
 
 [Rector](https://github.com/rectorphp/rector) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases or keep your code deprecation free.
 
