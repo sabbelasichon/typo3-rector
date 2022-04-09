@@ -16,17 +16,11 @@ Apply automatic fixes on your TYPO3 code.
 
 [Rector](https://github.com/rectorphp/rector) aims to provide instant upgrades and instant refactoring of any PHP 5.3+ code. This project adds rectors specific to TYPO3 to help you migrate between TYPO3 releases or keep your code deprecation free.
 
-## Table of Contents
-1. [Examples in action](docs/examples_in_action.md)
-1. [Overview of all rules](docs/all_rectors_overview.md)
-1. [Installation](docs/installation.md)
-1. [Configuration and Processing](docs/configuration_and_processing.md)
-1. [Best practice guide](docs/best_practice_guide.md)
-1. [Beyond PHP - Entering the realm of FileProcessors](docs/beyond_php_file_processors.md)
-1. [Limitations](docs/limitations.md)
-1. [Contribution](docs/contribution.md)
-
-Please also have a look at the documentation for [Rector](https://github.com/rectorphp/rector) itself.
+|                    | URL                                                          |
+|--------------------|--------------------------------------------------------------|
+| **Repository:**    | https://github.com/sabbelasichon/typo3-rector                |
+| **Documentation:** | https://github.com/sabbelasichon/typo3-rector/tree/main/docs |
+| **Packagist:**     | https://packagist.org/packages/ssch/typo3-rector             |
 
 ## Support
 Please post questions to TYPO3 Slack (https://typo3.slack.com) in the channel #ext-typo3-rector.
