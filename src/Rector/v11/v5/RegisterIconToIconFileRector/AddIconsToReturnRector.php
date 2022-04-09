@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use stdClass;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
@@ -38,7 +39,7 @@ final class AddIconsToReturnRector extends AbstractRector implements Configurabl
     /**
      * @var array<string, mixed>
      */
-    private array $iconConfiguration;
+    private array $iconConfiguration = [];
 
     /**
      * @codeCoverageIgnore
@@ -63,7 +64,7 @@ CODE_SAMPLE
                 [
                     self::ICON_IDENTIFIER => 'my-icon',
                     self::ICON_CONFIGURATION => [
-                        'provider' => \stdClass::class,
+                        'provider' => stdClass::class,
                         'source' => 'mysvg.svg',
                     ],
                 ]

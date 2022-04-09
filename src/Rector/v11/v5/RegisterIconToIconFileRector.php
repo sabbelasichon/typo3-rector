@@ -6,11 +6,13 @@ namespace Ssch\TYPO3Rector\Rector\v11\v5;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Contract\PhpParser\NodePrinterInterface;
 use Rector\Core\PhpParser\Parser\SimplePhpParser;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
@@ -34,7 +36,8 @@ final class RegisterIconToIconFileRector extends AbstractRector
     public function __construct(
         private FilesFinder $filesFinder,
         private AddIconsToReturnRector $addIconsToReturnRector,
-        private SimplePhpParser $simplePhpParser
+        private SimplePhpParser $simplePhpParser,
+        private NodePrinterInterface $nodePrinter
     ) {
     }
 
@@ -43,11 +46,11 @@ final class RegisterIconToIconFileRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
 
     /**
-     * @param Node\Expr\MethodCall $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -160,12 +163,12 @@ CODE_SAMPLE
         }
 
         if (is_string($existingIcons)) {
-            $nodes = $this->simplePhpParser->parseString($existingIcons);
+            $stmts = $this->simplePhpParser->parseString($existingIcons);
         } else {
-            $nodes = [new Return_($this->nodeFactory->createArray([]))];
+            $stmts = [new Return_($this->nodeFactory->createArray([]))];
         }
 
-        $this->decorateNamesToFullyQualified($nodes);
+        $this->decorateNamesToFullyQualified($stmts);
 
         $nodeTraverser = new NodeTraverser();
         $this->addIconsToReturnRector->configure([
@@ -173,9 +176,11 @@ CODE_SAMPLE
             AddIconsToReturnRector::ICON_CONFIGURATION => $iconConfiguration,
         ]);
         $nodeTraverser->addVisitor($this->addIconsToReturnRector);
-        $nodes = $nodeTraverser->traverse($nodes);
 
-        $changedIconsContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
+        /** @var Stmt[] $stmts */
+        $stmts = $nodeTraverser->traverse($stmts);
+
+        $changedIconsContent = $this->nodePrinter->prettyPrintFile($stmts);
 
         $changedIconsContent = Strings::replace($changedIconsContent, self::REMOVE_EMPTY_LINES);
 

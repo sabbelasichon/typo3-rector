@@ -14,6 +14,7 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Contract\PhpParser\NodePrinterInterface;
 use Rector\Core\PhpParser\Parser\RectorParser;
 use Rector\Core\PhpParser\Parser\SimplePhpParser;
 use Rector\Core\Rector\AbstractRector;
@@ -46,7 +47,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         private FilesFinder $filesFinder,
         private AddCommandsToReturnRector $addCommandsToReturnRector,
         private SimplePhpParser $simplePhpParser,
-        private TemplateFinder $templateFinder
+        private TemplateFinder $templateFinder,
+        private NodePrinterInterface $nodePrinter
     ) {
     }
 
@@ -144,7 +146,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
                 '__TEMPLATE_NAMESPACE__' => ltrim($commandNamespace, '\\'),
                 '__TEMPLATE_COMMAND_NAME__' => $commandName,
                 '__TEMPLATE_DESCRIPTION__' => $commandDescription,
-                '__TEMPLATE_COMMAND_BODY__' => $this->betterStandardPrinter->prettyPrint($commandMethod->stmts),
+                '__TEMPLATE_COMMAND_BODY__' => $this->nodePrinter->prettyPrint($commandMethod->stmts),
             ];
 
             // Add traits, other methods etc. to class
@@ -179,9 +181,11 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
                 AddArgumentToSymfonyCommandRector::INPUT_ARGUMENTS => $inputArguments,
             ]);
             $nodeTraverser->addVisitor($this->addArgumentToSymfonyCommandRector);
+
+            /** @var Stmt[] $stmts */
             $stmts = $nodeTraverser->traverse($stmts);
 
-            $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($stmts);
+            $changedSetConfigContent = $this->nodePrinter->prettyPrintFile($stmts);
 
             $this->removedAndAddedFilesCollector->addAddedFile(
                 new AddedFileWithContent($filePath, $changedSetConfigContent)
@@ -283,21 +287,23 @@ CODE_SAMPLE
     ): void {
         if ($this->smartFileSystem->exists($commandsFilePath)) {
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
-            $nodes = $this->rectorParser->parseFile($commandsSmartFileInfo);
+            $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo);
         } else {
-            $nodes = [new Return_($this->nodeFactory->createArray([]))];
+            $stmts = [new Return_($this->nodeFactory->createArray([]))];
         }
 
-        $this->decorateNamesToFullyQualified($nodes);
+        $this->decorateNamesToFullyQualified($stmts);
 
         $nodeTraverser = new NodeTraverser();
         $this->addCommandsToReturnRector->configure([
             AddCommandsToReturnRector::COMMANDS => $newCommandsWithFullQualifiedNamespace,
         ]);
         $nodeTraverser->addVisitor($this->addCommandsToReturnRector);
-        $nodes = $nodeTraverser->traverse($nodes);
 
-        $changedCommandsContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
+        /** @var Stmt[] $stmts */
+        $stmts = $nodeTraverser->traverse($stmts);
+
+        $changedCommandsContent = $this->nodePrinter->prettyPrintFile($stmts);
 
         $changedCommandsContent = Strings::replace($changedCommandsContent, self::REMOVE_EMPTY_LINES, '');
 

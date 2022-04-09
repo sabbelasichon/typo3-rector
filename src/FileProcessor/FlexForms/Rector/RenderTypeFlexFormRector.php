@@ -31,7 +31,7 @@ final class RenderTypeFlexFormRector implements FlexFormRectorInterface
 
             $type = $types->item(0);
 
-            if (null === $type) {
+            if (! $type instanceof DOMElement) {
                 continue;
             }
 
