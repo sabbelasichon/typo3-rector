@@ -121,7 +121,7 @@ CODE_SAMPLE
                 new PropertyMetadata($paramName, new ObjectType((string) $param->type), Class_::MODIFIER_PROTECTED)
             );
 
-            $this->removeNodeFromStatements($node, $injectMethod);
+            $this->nodeRemover->removeNodeFromStatements($node, $injectMethod);
         }
 
         return $node;
