@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
-use Rector\Core\Configuration\Option;
+use Rector\Config\RectorConfig;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
@@ -13,44 +13,40 @@ use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\Set\ValueObject\SetList;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
 use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/config/config.php');
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/config/config.php');
 
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
-    $parameters->set(Option::PHPSTAN_FOR_RECTOR_PATH, __DIR__ . '/phpstan.neon');
+    $rectorConfig->importNames();
+    $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
 
-    $services = $containerConfigurator->services();
+    $rectorConfig->rule(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
+    $rectorConfig->rule(AddSeeTestAnnotationRector::class);
+    $rectorConfig->rule(VarConstantCommentRector::class);
 
-    $services->set(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
-    $services->set(AddSeeTestAnnotationRector::class);
-    $services->set(VarConstantCommentRector::class);
+    $rectorConfig->paths([__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests']);
 
-    $parameters->set(Option::PATHS, [__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests']);
+    $rectorConfig->sets([
+        SetList::PHP_80,
+        SetList::PHP_74,
+        SetList::PRIVATIZATION,
+        SetList::CODING_STYLE,
+        SetList::CODE_QUALITY,
+    ]);
 
-    $containerConfigurator->import(SetList::PHP_80);
-    $containerConfigurator->import(SetList::PHP_74);
-    $containerConfigurator->import(SetList::PRIVATIZATION);
-    $containerConfigurator->import(SetList::CODING_STYLE);
-    $containerConfigurator->import(SetList::CODE_QUALITY);
+    $rectorConfig->skip([
+        RemoveUnusedVariableAssignRector::class,
+        __DIR__ . '/utils/generator/templates',
+        StringClassNameToClassConstantRector::class,
+        __DIR__ . '/src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php',
+        __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
+        RemovePackageVersionsRector::class => [__DIR__ . '/config', __DIR__ . '/tests'],
+        __DIR__ . '/src/Set',
+        '*/Fixture/*',
+    ]);
 
-    $parameters->set(
-        Option::SKIP,
-        [
-            RemoveUnusedVariableAssignRector::class,
-            __DIR__ . '/utils/generator/templates',
-            StringClassNameToClassConstantRector::class,
-            __DIR__ . '/src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php',
-            __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
-            RemovePackageVersionsRector::class => [__DIR__ . '/config', __DIR__ . '/tests'],
-            __DIR__ . '/src/Set',
-            '*/Fixture/*',
-        ]
-    );
+    $rectorConfig->phpVersion(PhpVersion::PHP_80);
 
-    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_80);
-    $services->set(TypedPropertyRector::class);
-    $services->set(ClassPropertyAssignToConstructorPromotionRector::class);
+    $rectorConfig->rule(TypedPropertyRector::class);
+    $rectorConfig->rule(ClassPropertyAssignToConstructorPromotionRector::class);
 };
