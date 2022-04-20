@@ -2,23 +2,24 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
+
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector;
 use Rector\Transform\ValueObject\PropertyFetchToMethodCall;
 use Ssch\TYPO3Rector\Rector\v10\v1\BackendUtilityEditOnClickRector;
 use Ssch\TYPO3Rector\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector;
 use Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector;
+use Ssch\TYPO3Rector\Rector\v10\v1\RemoveEnableMultiSelectFilterTextfieldRector;
 use Ssch\TYPO3Rector\Rector\v10\v1\SendNotifyEmailToMailApiRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(RegisterPluginWithVendorNameRector::class);
-    $services->set(BackendUtilityEditOnClickRector::class);
-    $services->set(PropertyFetchToMethodCallRector::class)
-        ->configure([
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(RegisterPluginWithVendorNameRector::class);
+    $rectorConfig->rule(BackendUtilityEditOnClickRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(PropertyFetchToMethodCallRector::class, [
             new PropertyFetchToMethodCall(
                 'TYPO3\CMS\Backend\History\RecordHistory',
                 'changeLog',
@@ -34,8 +35,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 []
             ),
         ]);
-    $services->set(RenameMethodRector::class)
-        ->configure([
+    $rectorConfig
+        ->ruleWithConfiguration(RenameMethodRector::class, [
             new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createChangeLog', 'getChangeLog'),
             new MethodCallRename(
                 'TYPO3\CMS\Backend\History\RecordHistory',
@@ -49,7 +50,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'setLastHistoryEntryNumber'
             ),
         ]);
-    $services->set(SendNotifyEmailToMailApiRector::class);
-    $services->set(RefactorInternalPropertiesOfTSFERector::class);
-    $services->set(\Ssch\TYPO3Rector\Rector\v10\v1\RemoveEnableMultiSelectFilterTextfieldRector::class);
+    $rectorConfig->rule(SendNotifyEmailToMailApiRector::class);
+    $rectorConfig->rule(RefactorInternalPropertiesOfTSFERector::class);
+    $rectorConfig->rule(RemoveEnableMultiSelectFilterTextfieldRector::class);
 };

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Ssch\TYPO3Rector\Rector\v9\v3\BackendUserAuthenticationSimplelogRector;
@@ -13,31 +14,29 @@ use Ssch\TYPO3Rector\Rector\v9\v3\RefactorTsConfigRelatedMethodsRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\RemoveColPosParameterRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\UseMethodGetPageShortcutDirectlyFromSysPageRector;
 use Ssch\TYPO3Rector\Rector\v9\v3\ValidateAnnotationRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(RemoveColPosParameterRector::class);
-    $services->set(ValidateAnnotationRector::class);
-    $services->set(RenameMethodRector::class)
-        ->configure([
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(RemoveColPosParameterRector::class);
+    $rectorConfig->rule(ValidateAnnotationRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(RenameMethodRector::class, [
             new MethodCallRename(
                 'TYPO3\CMS\Backend\Controller\Page\LocalizationController',
                 'getUsedLanguagesInPageAndColumn',
                 'getUsedLanguagesInPage'
             ),
         ]);
-    $services->set(BackendUtilityGetModuleUrlRector::class);
-    $services->set(PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector::class);
-    $services->set(UseMethodGetPageShortcutDirectlyFromSysPageRector::class);
-    $services->set(CopyMethodGetPidForModTSconfigRector::class);
-    $services->set(BackendUserAuthenticationSimplelogRector::class);
-    $services->set(MoveLanguageFilesFromExtensionLangRector::class);
-    $services->set(RenameMethodRector::class)
-        ->configure([
+    $rectorConfig->rule(BackendUtilityGetModuleUrlRector::class);
+    $rectorConfig->rule(PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector::class);
+    $rectorConfig->rule(UseMethodGetPageShortcutDirectlyFromSysPageRector::class);
+    $rectorConfig->rule(CopyMethodGetPidForModTSconfigRector::class);
+    $rectorConfig->rule(BackendUserAuthenticationSimplelogRector::class);
+    $rectorConfig->rule(MoveLanguageFilesFromExtensionLangRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(RenameMethodRector::class, [
             new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'getValidationResults', 'validate'),
             new MethodCallRename('TYPO3\CMS\Extbase\Mvc\Controller\Arguments', 'getValidationResults', 'validate'),
         ]);
-    $services->set(RefactorTsConfigRelatedMethodsRector::class);
+    $rectorConfig->rule(RefactorTsConfigRelatedMethodsRector::class);
 };

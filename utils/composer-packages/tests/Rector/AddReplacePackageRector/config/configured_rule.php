@@ -3,19 +3,15 @@
 declare(strict_types=1);
 
 use Rector\Composer\ValueObject\RenamePackage;
-
-use Rector\Core\Configuration\Option;
+use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../config/config.php');
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../../../../config/config.php');
 
-    $services = $containerConfigurator->services();
+    $rectorConfig->importNames();
 
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
-
-    $services->set(AddReplacePackageRector::class)
-        ->configure([new RenamePackage('typo3-ter/news', 'georgringer/news')]);
+    $rectorConfig->ruleWithConfiguration(AddReplacePackageRector::class, [
+        new RenamePackage('typo3-ter/news', 'georgringer/news'),
+    ]);
 };

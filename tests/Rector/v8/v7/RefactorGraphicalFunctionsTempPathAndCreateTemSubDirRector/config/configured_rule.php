@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../../../config/config_test.php');
-
-    $services = $containerConfigurator->services();
-    $services->set(RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector::class);
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
+    $rectorConfig->rule(RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector::class);
 };

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use PHPStan\Type\ArrayType;
+
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -11,6 +12,7 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
@@ -35,36 +37,34 @@ use Ssch\TYPO3Rector\Rector\v10\v0\UseMetaDataAspectRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\UseTwoLetterIsoCodeFromSiteLanguageRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\RemoveFormatConstantsEmailFinisherRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(RemovePropertyExtensionNameRector::class);
-    $services->set(UseNativePhpHex2binMethodRector::class);
-    $services->set(RefactorIdnaEncodeMethodToNativeFunctionRector::class);
-    $services->set(RenameNamespaceRector::class)
-        ->configure([
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(RemovePropertyExtensionNameRector::class);
+    $rectorConfig->rule(UseNativePhpHex2binMethodRector::class);
+    $rectorConfig->rule(RefactorIdnaEncodeMethodToNativeFunctionRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(RenameNamespaceRector::class, [
             'TYPO3\CMS\Backend\Controller\File' => 'TYPO3\CMS\Filelist\Controller\File',
         ]);
-    $services->set(UseMetaDataAspectRector::class);
-    $services->set(ForceTemplateParsingInTsfeAndTemplateServiceRector::class);
-    $services->set(BackendUtilityGetViewDomainToPageRouterRector::class);
-    $services->set(SetSystemLocaleFromSiteLanguageRector::class);
-    $services->set(ConfigurationManagerAddControllerConfigurationMethodRector::class);
-    $services->set(RemoveFormatConstantsEmailFinisherRector::class);
-    $services->set(UseTwoLetterIsoCodeFromSiteLanguageRector::class);
-    $services->set(UseControllerClassesInExtbasePluginsAndModulesRector::class);
-    $services->set(ChangeDefaultCachingFrameworkNamesRector::class);
-    $services->set(ExtEmConfRector::class)
-        ->configure([
+    $rectorConfig->rule(UseMetaDataAspectRector::class);
+    $rectorConfig->rule(ForceTemplateParsingInTsfeAndTemplateServiceRector::class);
+    $rectorConfig->rule(BackendUtilityGetViewDomainToPageRouterRector::class);
+    $rectorConfig->rule(SetSystemLocaleFromSiteLanguageRector::class);
+    $rectorConfig->rule(ConfigurationManagerAddControllerConfigurationMethodRector::class);
+    $rectorConfig->rule(RemoveFormatConstantsEmailFinisherRector::class);
+    $rectorConfig->rule(UseTwoLetterIsoCodeFromSiteLanguageRector::class);
+    $rectorConfig->rule(UseControllerClassesInExtbasePluginsAndModulesRector::class);
+    $rectorConfig->rule(ChangeDefaultCachingFrameworkNamesRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(ExtEmConfRector::class, [
             ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
         ]);
-    $services->set(SwiftMailerBasedMailMessageToMailerBasedMessageRector::class);
-    $services->set(ExtbasePersistenceTypoScriptRector::class)->configure([]);
+    $rectorConfig->rule(SwiftMailerBasedMailMessageToMailerBasedMessageRector::class);
+    $rectorConfig->ruleWithConfiguration(ExtbasePersistenceTypoScriptRector::class, []);
 
-    $services->set(MethodCallToStaticCallRector::class)
-        ->configure([
+    $rectorConfig
+        ->ruleWithConfiguration(MethodCallToStaticCallRector::class, [
             new MethodCallToStaticCall(
                 'TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList',
                 'thumbCode',
@@ -73,16 +73,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             ),
         ]);
 
-    $services->set(RenameMethodRector::class)
-        ->configure([
+    $rectorConfig
+        ->ruleWithConfiguration(RenameMethodRector::class, [
             new MethodCallRename('TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList', 'requestUri', 'listURL'),
         ]);
 
-    $services->set(EmailFinisherRector::class);
-    $services->set(TranslationFileRector::class);
+    $rectorConfig->rule(EmailFinisherRector::class);
+    $rectorConfig->rule(TranslationFileRector::class);
 
-    $services->set(AddReturnTypeDeclarationRector::class)
-        ->configure([
+    $rectorConfig
+        ->ruleWithConfiguration(AddReturnTypeDeclarationRector::class, [
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface',
                 'getUid',

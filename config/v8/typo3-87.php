@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
@@ -20,28 +21,26 @@ use Ssch\TYPO3Rector\Rector\v8\v7\RefactorPrintContentMethodsRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RefactorRemovedMarkerMethodsFromContentObjectRendererRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\TemplateServiceSplitConfArrayRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\UseCachingFrameworkInsteadGetAndStoreHashRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(BackendUtilityGetRecordRawRector::class);
-    $services->set(DataHandlerRmCommaRector::class);
-    $services->set(TemplateServiceSplitConfArrayRector::class);
-    $services->set(RefactorRemovedMarkerMethodsFromContentObjectRendererRector::class);
-    $services->set(ChangeAttemptsParameterConsoleOutputRector::class);
-    $services->set(RenameClassRector::class)
-        ->configure([
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(BackendUtilityGetRecordRawRector::class);
+    $rectorConfig->rule(DataHandlerRmCommaRector::class);
+    $rectorConfig->rule(TemplateServiceSplitConfArrayRector::class);
+    $rectorConfig->rule(RefactorRemovedMarkerMethodsFromContentObjectRendererRector::class);
+    $rectorConfig->rule(ChangeAttemptsParameterConsoleOutputRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(RenameClassRector::class, [
             'TYPO3\CMS\Extbase\Service\TypoScriptService' => 'TYPO3\CMS\Core\TypoScript\TypoScriptService',
         ]);
-    $services->set(RenameClassMapAliasRector::class)
-        ->configure([
+    $rectorConfig
+        ->ruleWithConfiguration(RenameClassMapAliasRector::class, [
             __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php',
             __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php',
             __DIR__ . '/../../Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php',
         ]);
-    $services->set(RenameStaticMethodRector::class)
-        ->configure([
+    $rectorConfig
+        ->ruleWithConfiguration(RenameStaticMethodRector::class, [
             new RenameStaticMethod(
                 'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'csvValues',
@@ -49,13 +48,13 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'csvValues'
             ),
         ]);
-    $services->set(BackendUtilityGetRecordsByFieldToQueryBuilderRector::class);
-    $services->set(RefactorPrintContentMethodsRector::class);
-    $services->set(RefactorArrayBrowserWrapValueRector::class);
-    $services->set(DataHandlerVariousMethodsAndMethodArgumentsRector::class);
-    $services->set(RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector::class);
-    $services->set(UseCachingFrameworkInsteadGetAndStoreHashRector::class);
-    $services->set(DefaultSwitchFluidRector::class);
-    $services->set(LibFluidContentToLibContentElementRector::class);
-    $services->set(LibFluidContentToContentElementTypoScriptPostRector::class);
+    $rectorConfig->rule(BackendUtilityGetRecordsByFieldToQueryBuilderRector::class);
+    $rectorConfig->rule(RefactorPrintContentMethodsRector::class);
+    $rectorConfig->rule(RefactorArrayBrowserWrapValueRector::class);
+    $rectorConfig->rule(DataHandlerVariousMethodsAndMethodArgumentsRector::class);
+    $rectorConfig->rule(RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector::class);
+    $rectorConfig->rule(UseCachingFrameworkInsteadGetAndStoreHashRector::class);
+    $rectorConfig->rule(DefaultSwitchFluidRector::class);
+    $rectorConfig->rule(LibFluidContentToLibContentElementRector::class);
+    $rectorConfig->rule(LibFluidContentToContentElementTypoScriptPostRector::class);
 };

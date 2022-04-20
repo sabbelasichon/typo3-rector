@@ -2,28 +2,26 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\Rector\v8\v5\CharsetConverterToMultiByteFunctionsRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-
-    $services = $containerConfigurator->services();
-    $services->set(RenameMethodRector::class)
-        ->configure([
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig
+        ->ruleWithConfiguration(RenameMethodRector::class, [
             new MethodCallRename(
                 'TYPO3\CMS\Backend\Clipboard\ClipBoard',
                 'printContentFromTab',
                 'getContentFromTab'
             ),
         ]);
-    $services->set(CharsetConverterToMultiByteFunctionsRector::class);
-    $services->set(RenameStaticMethodRector::class)
-        ->configure([
+    $rectorConfig->rule(CharsetConverterToMultiByteFunctionsRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(RenameStaticMethodRector::class, [
             new RenameStaticMethod(
                 'TYPO3\CMS\Extbase\Utility\ArrayUtility',
                 'integerExplode',

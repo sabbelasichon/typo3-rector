@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Ssch\TYPO3Rector\Rector\Extensions\solr\v9\ApacheSolrDocumentToSolariumDocumentRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../config.php');
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../../config.php');
 
-    $services = $containerConfigurator->services();
-    $services->set(ApacheSolrDocumentToSolariumDocumentRector::class);
-    $services->set(RenameClassRector::class)
-        ->configure([
-            'Apache_Solr_Document' => 'ApacheSolrForTypo3\Solr\System\Solr\Document\Document',
-            'Apache_Solr_Response' => 'ApacheSolrForTypo3\Solr\System\Solr\ResponseAdapter',
-        ]);
+    $rectorConfig->rule(ApacheSolrDocumentToSolariumDocumentRector::class);
+    $rectorConfig->ruleWithConfiguration(RenameClassRector::class, [
+        'Apache_Solr_Document' => 'ApacheSolrForTypo3\Solr\System\Solr\Document\Document',
+        'Apache_Solr_Response' => 'ApacheSolrForTypo3\Solr\System\Solr\ResponseAdapter',
+    ]);
 };

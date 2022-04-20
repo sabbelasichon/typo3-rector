@@ -2,12 +2,15 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v9\v4\AdditionalFieldProviderRector;
 
 use Ssch\TYPO3Rector\Rector\v9\v4\BackendUtilityShortcutExistsRector;
+
 use Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\ConstantsToEnvironmentApiCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\DocumentTemplateAddStyleSheetRector;
+use Ssch\TYPO3Rector\Rector\v9\v4\GeneralUtilityGetHostNameToGetIndpEnvRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RefactorDeprecatedConcatenateMethodsPageRendererRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RefactorExplodeUrl2ArrayFromGeneralUtilityRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\RemoveInitMethodGraphicalFunctionsRector;
@@ -25,32 +28,30 @@ use Ssch\TYPO3Rector\Rector\v9\v4\UseLanguageAspectForTsfeLanguagePropertiesRect
 use Ssch\TYPO3Rector\Rector\v9\v4\UseRootlineUtilityInsteadOfGetRootlineMethodRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(RefactorDeprecatedConcatenateMethodsPageRendererRector::class);
-    $services->set(CallEnableFieldsFromPageRepositoryRector::class);
-    $services->set(ConstantsToEnvironmentApiCallRector::class);
-    $services->set(RemoveInitTemplateMethodCallRector::class);
-    $services->set(UseContextApiRector::class);
-    $services->set(RefactorExplodeUrl2ArrayFromGeneralUtilityRector::class);
-    $services->set(SystemEnvironmentBuilderConstantsRector::class);
-    $services->set(UseContextApiForVersioningWorkspaceIdRector::class);
-    $services->set(DocumentTemplateAddStyleSheetRector::class);
-    $services->set(UseLanguageAspectForTsfeLanguagePropertiesRector::class);
-    $services->set(BackendUtilityShortcutExistsRector::class);
-    $services->set(UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector::class);
-    $services->set(UseGetMenuInsteadOfGetFirstWebPageRector::class);
-    $services->set(RemoveInitMethodGraphicalFunctionsRector::class);
-    $services->set(RemoveInitMethodTemplateServiceRector::class);
-    $services->set(UseAddJsFileInsteadOfLoadJavascriptLibRector::class);
-    $services->set(UseRootlineUtilityInsteadOfGetRootlineMethodRector::class);
-    $services->set(TemplateGetFileNameToFilePathSanitizerRector::class);
-    $services->set(UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector::class);
-    $services->set(UseClassSchemaInsteadReflectionServiceMethodsRector::class);
-    $services->set(RemoveMethodsFromEidUtilityAndTsfeRector::class);
-    $services->set(AdditionalFieldProviderRector::class);
-    $services->set(\Ssch\TYPO3Rector\Rector\v9\v4\GeneralUtilityGetHostNameToGetIndpEnvRector::class);
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(RefactorDeprecatedConcatenateMethodsPageRendererRector::class);
+    $rectorConfig->rule(CallEnableFieldsFromPageRepositoryRector::class);
+    $rectorConfig->rule(ConstantsToEnvironmentApiCallRector::class);
+    $rectorConfig->rule(RemoveInitTemplateMethodCallRector::class);
+    $rectorConfig->rule(UseContextApiRector::class);
+    $rectorConfig->rule(RefactorExplodeUrl2ArrayFromGeneralUtilityRector::class);
+    $rectorConfig->rule(SystemEnvironmentBuilderConstantsRector::class);
+    $rectorConfig->rule(UseContextApiForVersioningWorkspaceIdRector::class);
+    $rectorConfig->rule(DocumentTemplateAddStyleSheetRector::class);
+    $rectorConfig->rule(UseLanguageAspectForTsfeLanguagePropertiesRector::class);
+    $rectorConfig->rule(BackendUtilityShortcutExistsRector::class);
+    $rectorConfig->rule(UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector::class);
+    $rectorConfig->rule(UseGetMenuInsteadOfGetFirstWebPageRector::class);
+    $rectorConfig->rule(RemoveInitMethodGraphicalFunctionsRector::class);
+    $rectorConfig->rule(RemoveInitMethodTemplateServiceRector::class);
+    $rectorConfig->rule(UseAddJsFileInsteadOfLoadJavascriptLibRector::class);
+    $rectorConfig->rule(UseRootlineUtilityInsteadOfGetRootlineMethodRector::class);
+    $rectorConfig->rule(TemplateGetFileNameToFilePathSanitizerRector::class);
+    $rectorConfig->rule(UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector::class);
+    $rectorConfig->rule(UseClassSchemaInsteadReflectionServiceMethodsRector::class);
+    $rectorConfig->rule(RemoveMethodsFromEidUtilityAndTsfeRector::class);
+    $rectorConfig->rule(AdditionalFieldProviderRector::class);
+    $rectorConfig->rule(GeneralUtilityGetHostNameToGetIndpEnvRector::class);
 };

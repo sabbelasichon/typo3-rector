@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\ApplicationContextConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\BrowserConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\CompatVersionConditionMatcher;
@@ -23,11 +24,11 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\ExtbasePersistenceTypoScrip
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\FileIncludeToImportStatementTypoScriptRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\LibFluidContentToLibContentElementRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\OldConditionToExpressionLanguageTypoScriptRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../config/config_test.php');
-    $services = $containerConfigurator->services();
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../../../../config/config_test.php');
+
+    $services = $rectorConfig->services();
     $services->set(ApplicationContextConditionMatcher::class);
     $services->set(BrowserConditionMatcher::class);
     $services->set(CompatVersionConditionMatcher::class);
@@ -43,10 +44,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(TreeLevelConditionMatcher::class);
     $services->set(UsergroupConditionMatcherMatcher::class);
     $services->set(VersionConditionMatcher::class);
-    $services->set(OldConditionToExpressionLanguageTypoScriptRector::class);
-    $services->set(FileIncludeToImportStatementTypoScriptRector::class);
-    $services->set(ExtbasePersistenceTypoScriptRector::class);
-    $services->set(AdditionalHeadersToArrayTypoScriptRector::class);
-    $services->set(LibFluidContentToLibContentElementRector::class);
-    $services->set(LibFluidContentToContentElementTypoScriptPostRector::class);
+
+    $rectorConfig->rule(OldConditionToExpressionLanguageTypoScriptRector::class);
+    $rectorConfig->rule(FileIncludeToImportStatementTypoScriptRector::class);
+    $rectorConfig->rule(ExtbasePersistenceTypoScriptRector::class);
+    $rectorConfig->rule(AdditionalHeadersToArrayTypoScriptRector::class);
+    $rectorConfig->rule(LibFluidContentToLibContentElementRector::class);
+    $rectorConfig->rule(LibFluidContentToContentElementTypoScriptPostRector::class);
 };

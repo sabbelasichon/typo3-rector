@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Transform\Rector\StaticCall\StaticCallToFuncCallRector;
+
 use Rector\Transform\ValueObject\StaticCallToFuncCall;
 use Ssch\TYPO3Rector\Rector\v11\v0\DateTimeAspectInsteadOfGlobalsExecTimeRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector;
@@ -10,23 +12,22 @@ use Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\GetClickMenuOnIconTagParametersRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\RemoveAddQueryStringMethodRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\RemoveLanguageModeMethodsFromTypo3QuerySettingsRector;
+use Ssch\TYPO3Rector\Rector\v11\v0\ReplaceInjectAnnotationWithMethodRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\SubstituteConstantsModeAndRequestTypeRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\UniqueListFromStringUtilityRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(ForwardResponseInsteadOfForwardMethodRector::class);
-    $services->set(DateTimeAspectInsteadOfGlobalsExecTimeRector::class);
-    $services->set(UniqueListFromStringUtilityRector::class);
-    $services->set(GetClickMenuOnIconTagParametersRector::class);
-    $services->set(RemoveAddQueryStringMethodRector::class);
-    $services->set(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class);
-    $services->set(SubstituteConstantsModeAndRequestTypeRector::class);
-    $services->set(RemoveLanguageModeMethodsFromTypo3QuerySettingsRector::class);
-    $services->set(StaticCallToFuncCallRector::class)
-        ->configure([
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(ForwardResponseInsteadOfForwardMethodRector::class);
+    $rectorConfig->rule(DateTimeAspectInsteadOfGlobalsExecTimeRector::class);
+    $rectorConfig->rule(UniqueListFromStringUtilityRector::class);
+    $rectorConfig->rule(GetClickMenuOnIconTagParametersRector::class);
+    $rectorConfig->rule(RemoveAddQueryStringMethodRector::class);
+    $rectorConfig->rule(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class);
+    $rectorConfig->rule(SubstituteConstantsModeAndRequestTypeRector::class);
+    $rectorConfig->rule(RemoveLanguageModeMethodsFromTypo3QuerySettingsRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(StaticCallToFuncCallRector::class, [
             new StaticCallToFuncCall('TYPO3\CMS\Core\Utility\StringUtility', 'beginsWith', 'str_starts_with'),
             new StaticCallToFuncCall('TYPO3\CMS\Core\Utility\StringUtility', 'endsWith', 'str_ends_with'),
             new StaticCallToFuncCall(
@@ -35,5 +36,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'str_starts_with'
             ),
         ]);
-    $services->set(\Ssch\TYPO3Rector\Rector\v11\v0\ReplaceInjectAnnotationWithMethodRector::class);
+    $rectorConfig->rule(ReplaceInjectAnnotationWithMethodRector::class);
 };

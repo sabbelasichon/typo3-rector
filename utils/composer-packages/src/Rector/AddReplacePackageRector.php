@@ -107,17 +107,17 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
         return new RuleDefinition('Add PackageAndVersion entry for an extension', [
             new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (RectorConfig $rectorConfig): void {
      $composerExtensions = [];
 };
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (RectorConfig $rectorConfig): void {
      $composerExtensions = [
         new RenamePackage('typo3-ter/news', 'georgringer/news')
      ];

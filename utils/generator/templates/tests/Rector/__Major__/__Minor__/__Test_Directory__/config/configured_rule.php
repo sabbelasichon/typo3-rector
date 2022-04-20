@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../../../config/config_test.php');
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
 
-    $services = $containerConfigurator->services();
-    $services->set(\Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Name__::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Name__::class);
 };

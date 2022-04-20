@@ -2,13 +2,10 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v11\v3\SubstituteMethodRmFromListOfGeneralUtilityRector;
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
-
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../../../config/config_test.php');
-
-    $services = $containerConfigurator->services();
-    $services->set(SubstituteMethodRmFromListOfGeneralUtilityRector::class);
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
+    $rectorConfig->rule(SubstituteMethodRmFromListOfGeneralUtilityRector::class);
 };

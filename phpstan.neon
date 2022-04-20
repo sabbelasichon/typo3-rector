@@ -20,6 +20,7 @@ parameters:
         - '*tests/*/Source/*'
         - '*tests/Source/*'
 
+
     scanDirectories:
         # static reflection
         - stubs
@@ -32,7 +33,7 @@ parameters:
          - tests/bootstrap.php
 
     inferPrivatePropertyTypeFromConstructor: true
-    reportUnmatchedIgnoredErrors: true
+    reportUnmatchedIgnoredErrors: false
 
     ignoreErrors:
         - '#^Cognitive complexity for#'

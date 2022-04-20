@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-use Rector\Core\Configuration\Option;
+use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../../config/config_test.php');
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../../../../../config/config_test.php');
+    $rectorConfig->importNames();
 
-    $parameters = $containerConfigurator->parameters();
-    $parameters->set(Option::AUTO_IMPORT_NAMES, true);
+    $parameters = $rectorConfig->parameters();
     $parameters->set(Typo3Option::PATHS_FULL_QUALIFIED_NAMESPACES, [
         '*full_qualified_namespace.php',
         '*non_full_qualified_namespace.php',

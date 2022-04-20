@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveOptionLocalizeChildrenAtParentLocalizationRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RefactorTypeInternalTypeFileAndFileReferenceToFalRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(RemoveOptionLocalizeChildrenAtParentLocalizationRector::class);
-    $services->set(RefactorTypeInternalTypeFileAndFileReferenceToFalRector::class);
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(RemoveOptionLocalizeChildrenAtParentLocalizationRector::class);
+    $rectorConfig->rule(RefactorTypeInternalTypeFileAndFileReferenceToFalRector::class);
 };
