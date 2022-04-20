@@ -9,6 +9,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/config.php');
 
     $rectorConfig->ruleWithConfiguration(RenameClassMapAliasRector::class, [
-        __DIR__ . '/../Migrations/Code/ClassAliasMap.php'
+        __DIR__ . '/../Migrations/Code/ClassAliasMap.php',
     ]);
 };

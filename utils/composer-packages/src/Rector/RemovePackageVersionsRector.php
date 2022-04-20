@@ -75,9 +75,9 @@ final class RemovePackageVersionsRector extends AbstractRector
         return new RuleDefinition('Add PackageAndVersion entry for an extension', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (RectorConfig $rectorConfig): void {
      $composerExtensions = [
         new PackageAndVersion('foo/bar', '^1.0')
      ];
@@ -85,9 +85,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (RectorConfig $rectorConfig): void {
      $composerExtensions = [];
 };
 CODE_SAMPLE

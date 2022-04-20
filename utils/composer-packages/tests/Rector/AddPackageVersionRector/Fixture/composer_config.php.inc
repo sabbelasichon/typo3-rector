@@ -1,10 +1,10 @@
 <?php
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../services.php');
-    $services = $containerConfigurator->services();
+
     $composerExtensions = [];
 };
 
@@ -13,11 +13,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 <?php
 
 use Rector\Composer\ValueObject\PackageAndVersion;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../services.php');
-    $services = $containerConfigurator->services();
+
     $composerExtensions = [new PackageAndVersion('foo/bar', '^1.0')];
 };
 

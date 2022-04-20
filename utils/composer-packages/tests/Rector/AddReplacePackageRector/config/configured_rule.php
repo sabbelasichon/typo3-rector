@@ -12,6 +12,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importNames();
 
     $rectorConfig->ruleWithConfiguration(AddReplacePackageRector::class, [
-        new RenamePackage('typo3-ter/news', 'georgringer/news')
+        new RenamePackage('typo3-ter/news', 'georgringer/news'),
     ]);
 };

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\ComposerPackages\NodeAnalyzer;
 
 use PhpParser\Node\Expr\Closure;
+use Rector\Config\RectorConfig;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 final class SymfonyPhpConfigClosureAnalyzer
 {
@@ -26,6 +26,6 @@ final class SymfonyPhpConfigClosureAnalyzer
             return false;
         }
 
-        return $this->nodeNameResolver->isName($onlyParam->type, ContainerConfigurator::class);
+        return $this->nodeNameResolver->isName($onlyParam->type, RectorConfig::class);
     }
 }

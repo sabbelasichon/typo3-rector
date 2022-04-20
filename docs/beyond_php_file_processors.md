@@ -40,14 +40,12 @@ It adds an extension-key if it is missing. You can configure this Processor in y
 ```php
 # rector.php configuration file
 use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/config/config.php');
 
-    $services = $containerConfigurator->services();
-
-    $services->set(ExtensionComposerRector::class)->configure([
+    $rectorConfig->ruleWithConfiguration(ExtensionComposerRector::class, [
         ExtensionComposerRector::TYPO3_VERSION_CONSTRAINT => '^10.4'
     ]);
 };
@@ -71,19 +69,21 @@ This is also configurable in your rector.php configuration file:
 
 ```php
 # rector.php configuration file
+use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
+return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/config/config.php');
 
-    $services = $containerConfigurator->services();
+    $rectorConfig = $containerConfigurator->services();
 
-    $services->set(TypoScriptFileProcessor::class)->configure([
+    $rectorConfig->set(TypoScriptFileProcessor::class)
+        ->configure([
             TypoScriptFileProcessor::ALLOWED_FILE_EXTENSIONS => [
                 'special',
             ],
-    ]);
+        ]);
 };
 ```
 # Special Cases
