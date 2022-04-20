@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
+return static function (RectorConfig $rectorConfig): void {
+    $services = $rectorConfig->services();
     $services->defaults()
         ->public()
         ->autowire()
@@ -17,8 +17,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->load('Ssch\TYPO3Rector\ComposerPackages\\', __DIR__ . '/../src')
         ->exclude([__DIR__ . '/../src/Rector', __DIR__ . '/../src/ValueObject', __DIR__ . '/../src/Collection']);
 
-    $services = $containerConfigurator->services();
-    $services->set(RemovePackageVersionsRector::class);
-    $services->set(AddPackageVersionRector::class);
-    $services->set(AddReplacePackageRector::class);
+    $rectorConfig->rule(RemovePackageVersionsRector::class);
+    $rectorConfig->rule(AddPackageVersionRector::class);
+    $rectorConfig->rule(AddReplacePackageRector::class);
 };
