@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
-    $services->set(SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector::class);
+use Ssch\TYPO3Rector\Rector\Extensions\solr\v8\SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector;
+
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->rule(SolrConnectionAddDocumentsToWriteServiceAddDocumentsRector::class);
 };

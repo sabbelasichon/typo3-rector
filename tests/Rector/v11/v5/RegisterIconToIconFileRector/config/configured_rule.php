@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Set\Typo3SetList;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../../../config/config_test.php');
-    $containerConfigurator->import(Typo3SetList::REGISTER_ICONS_TO_ICON);
+use Ssch\TYPO3Rector\Set\Typo3SetList;
+
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
+    $rectorConfig->sets([Typo3SetList::REGISTER_ICONS_TO_ICON]);
 };

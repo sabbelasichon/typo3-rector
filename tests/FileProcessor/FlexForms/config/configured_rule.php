@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector\RenderTypeFlexFormRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../../../../config/config_test.php');
-    $services = $containerConfigurator->services();
-    $services->set(RenderTypeFlexFormRector::class);
+use Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector\RenderTypeFlexFormRector;
+
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../../../../config/config_test.php');
+    $rectorConfig->rule(RenderTypeFlexFormRector::class);
 };
