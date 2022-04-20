@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
+
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\UnifiedFileNameValidatorRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\UseFileGetContentsForGetUrlRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Ssch\TYPO3Rector\Rector\v10\v4\UseIconsFromSubFolderInIconRegistryRector;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(UnifiedFileNameValidatorRector::class);
-    $services->set(SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector::class);
-    $services->set(RenameStaticMethodRector::class)
-        ->configure([
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(UnifiedFileNameValidatorRector::class);
+    $rectorConfig->rule(SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(RenameStaticMethodRector::class, [
             new RenameStaticMethod(
                 'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'isRunningOnCgiServerApi',
@@ -24,11 +25,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'isRunningOnCgiServer'
             ),
         ]);
-    $services->set(RenameClassMapAliasRector::class)
-        ->configure([
+    $rectorConfig
+        ->ruleWithConfiguration(RenameClassMapAliasRector::class, [
             __DIR__ . '/../../Migrations/TYPO3/10.4/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
             __DIR__ . '/../../Migrations/TYPO3/10.4/typo3/sysext/core/Migrations/Code/ClassAliasMap.php',
         ]);
-    $services->set(UseFileGetContentsForGetUrlRector::class);
-    $services->set(\Ssch\TYPO3Rector\Rector\v10\v4\UseIconsFromSubFolderInIconRegistryRector::class);
+    $rectorConfig->rule(UseFileGetContentsForGetUrlRector::class);
+    $rectorConfig->rule(UseIconsFromSubFolderInIconRegistryRector::class);
 };

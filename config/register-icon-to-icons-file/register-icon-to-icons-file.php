@@ -7,7 +7,7 @@ use Ssch\TYPO3Rector\Rector\v11\v5\RegisterIconToIconFileRector\AddIconsToReturn
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
+    $rectorConfig->import(__DIR__ . '/../config.php');
 
     $services = $containerConfigurator->services();
     $services->set(AddIconsToReturnRector::class);

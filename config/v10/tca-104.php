@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
+
 use Ssch\TYPO3Rector\Rector\v10\v0\RemoveSeliconFieldPathRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\RemoveTcaOptionSetToDefaultOnCopyRector;
 use Ssch\TYPO3Rector\Rector\v10\v3\RemoveExcludeOnTransOrigPointerFieldRector;
 use Ssch\TYPO3Rector\Rector\v10\v3\RemoveShowRecordFieldListInsideInterfaceSectionRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(RemoveSeliconFieldPathRector::class);
-    $services->set(RemoveTcaOptionSetToDefaultOnCopyRector::class);
-    $services->set(RemoveExcludeOnTransOrigPointerFieldRector::class);
-    $services->set(RemoveShowRecordFieldListInsideInterfaceSectionRector::class);
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(RemoveSeliconFieldPathRector::class);
+    $rectorConfig->rule(RemoveTcaOptionSetToDefaultOnCopyRector::class);
+    $rectorConfig->rule(RemoveExcludeOnTransOrigPointerFieldRector::class);
+    $rectorConfig->rule(RemoveShowRecordFieldListInsideInterfaceSectionRector::class);
 };

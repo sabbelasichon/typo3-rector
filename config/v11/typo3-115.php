@@ -2,18 +2,23 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
 use Ssch\TYPO3Rector\Rector\v11\v5\FlexFormToolsArrayValueByPathRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Ssch\TYPO3Rector\Rector\v11\v5\HandleCObjRendererATagParamsMethodRector;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(FlexFormToolsArrayValueByPathRector::class);
-    $services->set(RenameStaticMethodRector::class)
-        ->configure([
+use Ssch\TYPO3Rector\Rector\v11\v5\RemoveDefaultInternalTypeDBRector;
+use Ssch\TYPO3Rector\Rector\v11\v5\ReplaceTSFEATagParamsCallOnGlobalsRector;
+use Ssch\TYPO3Rector\Rector\v11\v5\SubstituteBackendTemplateViewWithModuleTemplateRector;
+use Ssch\TYPO3Rector\Rector\v11\v5\SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector;
+
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(FlexFormToolsArrayValueByPathRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(RenameStaticMethodRector::class, [
             new RenameStaticMethod(
                 'TYPO3\CMS\Core\Utility\GeneralUtility',
                 'isAbsPath',
@@ -21,8 +26,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'isAbsolutePath'
             ),
         ]);
-    $services->set(MethodGetInstanceToMakeInstanceCallRector::class)
-        ->configure([
+    $rectorConfig
+        ->ruleWithConfiguration(MethodGetInstanceToMakeInstanceCallRector::class, [
             'TYPO3\CMS\Core\Resource\Index\ExtractorRegistry',
             'TYPO3\CMS\Core\Resource\Index\FileIndexRepository',
             'TYPO3\CMS\Core\Resource\Index\MetaDataRepository',
@@ -34,11 +39,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'TYPO3\CMS\T3editor\Registry\AddonRegistry',
             'TYPO3\CMS\T3editor\Registry\ModeRegistry',
         ]);
-    $services->set(\Ssch\TYPO3Rector\Rector\v11\v5\RemoveDefaultInternalTypeDBRector::class);
-    $services->set(\Ssch\TYPO3Rector\Rector\v11\v5\ReplaceTSFEATagParamsCallOnGlobalsRector::class);
-    $services->set(\Ssch\TYPO3Rector\Rector\v11\v5\HandleCObjRendererATagParamsMethodRector::class);
-    $services->set(\Ssch\TYPO3Rector\Rector\v11\v5\SubstituteBackendTemplateViewWithModuleTemplateRector::class);
-    $services->set(
-        \Ssch\TYPO3Rector\Rector\v11\v5\SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector::class
-    );
+    $rectorConfig->rule(RemoveDefaultInternalTypeDBRector::class);
+    $rectorConfig->rule(ReplaceTSFEATagParamsCallOnGlobalsRector::class);
+    $rectorConfig->rule(HandleCObjRendererATagParamsMethodRector::class);
+    $rectorConfig->rule(SubstituteBackendTemplateViewWithModuleTemplateRector::class);
+    $rectorConfig->rule(SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector::class);
 };

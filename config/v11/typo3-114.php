@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Rector\v11\v4\UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
+use Ssch\TYPO3Rector\Rector\v11\v4\AddSetConfigurationMethodToExceptionHandlerRector;
+use Ssch\TYPO3Rector\Rector\v11\v4\ProvideCObjViaMethodRector;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector::class);
-    $services->set(\Ssch\TYPO3Rector\Rector\v11\v4\ProvideCObjViaMethodRector::class);
-    $services->set(\Ssch\TYPO3Rector\Rector\v11\v4\AddSetConfigurationMethodToExceptionHandlerRector::class);
+use Ssch\TYPO3Rector\Rector\v11\v4\UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector;
+
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector::class);
+    $rectorConfig->rule(ProvideCObjViaMethodRector::class);
+    $rectorConfig->rule(AddSetConfigurationMethodToExceptionHandlerRector::class);
 };

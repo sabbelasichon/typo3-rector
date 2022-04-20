@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
+
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
@@ -25,20 +27,18 @@ use Ssch\TYPO3Rector\Rector\v8\v0\RequireMethodsToNativeFunctionsRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\RteHtmlParserRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerGlobalsToSingletonRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\TimeTrackerInsteadOfNullTimeTrackerRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(ChangeMethodCallsForStandaloneViewRector::class);
-    $services->set(RefactorRemovedMethodsFromGeneralUtilityRector::class);
-    $services->set(RefactorRemovedMethodsFromContentObjectRendererRector::class);
-    $services->set(RemovePropertyUserAuthenticationRector::class);
-    $services->set(TimeTrackerGlobalsToSingletonRector::class);
-    $services->set(RemoveWakeupCallFromEntityRector::class);
-    $services->set(RteHtmlParserRector::class);
-    $services->set(RenameMethodRector::class)
-        ->configure([
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(ChangeMethodCallsForStandaloneViewRector::class);
+    $rectorConfig->rule(RefactorRemovedMethodsFromGeneralUtilityRector::class);
+    $rectorConfig->rule(RefactorRemovedMethodsFromContentObjectRendererRector::class);
+    $rectorConfig->rule(RemovePropertyUserAuthenticationRector::class);
+    $rectorConfig->rule(TimeTrackerGlobalsToSingletonRector::class);
+    $rectorConfig->rule(RemoveWakeupCallFromEntityRector::class);
+    $rectorConfig->rule(RteHtmlParserRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(RenameMethodRector::class, [
             new MethodCallRename('TYPO3\CMS\Recordlist\RecordList', 'printContent', 'mainAction'),
             new MethodCallRename(
                 'TYPO3\CMS\Recordlist\Controller\ElementBrowserFramesetController',
@@ -58,8 +58,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'mainAction'
             ),
         ]);
-    $services->set(RenameStaticMethodRector::class)
-        ->configure([
+    $rectorConfig
+        ->ruleWithConfiguration(RenameStaticMethodRector::class, [
             new RenameStaticMethod(
                 'TYPO3\CMS\Extbase\Utility\ExtensionUtility',
                 'configureModule',
@@ -79,24 +79,24 @@ return static function (ContainerConfigurator $containerConfigurator): void {
                 'imageMagickCommand'
             ),
         ]);
-    $services->set(PrependAbsolutePathToGetFileAbsFileNameRector::class);
-    $services->set(RefactorRemovedMarkerMethodsFromHtmlParserRector::class);
-    $services->set(RemoveRteHtmlParserEvalWriteFileRector::class);
-    $services->set(RandomMethodsToRandomClassRector::class);
-    $services->set(RequireMethodsToNativeFunctionsRector::class);
-    $services->set(GetPreferredClientLanguageRector::class);
-    $services->set(RenameMethodRector::class)
-        ->configure([
+    $rectorConfig->rule(PrependAbsolutePathToGetFileAbsFileNameRector::class);
+    $rectorConfig->rule(RefactorRemovedMarkerMethodsFromHtmlParserRector::class);
+    $rectorConfig->rule(RemoveRteHtmlParserEvalWriteFileRector::class);
+    $rectorConfig->rule(RandomMethodsToRandomClassRector::class);
+    $rectorConfig->rule(RequireMethodsToNativeFunctionsRector::class);
+    $rectorConfig->rule(GetPreferredClientLanguageRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(RenameMethodRector::class, [
             new MethodCallRename(
                 'TYPO3\CMS\Fluid\Core\Rendering\RenderingContext',
                 'getTemplateVariableContainer',
                 'getVariableProvider'
             ),
         ]);
-    $services->set(TimeTrackerInsteadOfNullTimeTrackerRector::class);
-    $services->set(RemoveCharsetConverterParametersRector::class);
-    $services->set(GetFileAbsFileNameRemoveDeprecatedArgumentsRector::class);
-    $services->set(RemoveLangCsConvObjAndParserFactoryRector::class);
-    $services->set(RenderCharsetDefaultsToUtf8Rector::class);
-    $services->set(AdditionalHeadersToArrayTypoScriptRector::class);
+    $rectorConfig->rule(TimeTrackerInsteadOfNullTimeTrackerRector::class);
+    $rectorConfig->rule(RemoveCharsetConverterParametersRector::class);
+    $rectorConfig->rule(GetFileAbsFileNameRemoveDeprecatedArgumentsRector::class);
+    $rectorConfig->rule(RemoveLangCsConvObjAndParserFactoryRector::class);
+    $rectorConfig->rule(RenderCharsetDefaultsToUtf8Rector::class);
+    $rectorConfig->rule(AdditionalHeadersToArrayTypoScriptRector::class);
 };

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Rector\v11\v4\MigrateFileFolderConfigurationRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(MigrateFileFolderConfigurationRector::class);
+use Ssch\TYPO3Rector\Rector\v11\v4\MigrateFileFolderConfigurationRector;
+
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(MigrateFileFolderConfigurationRector::class);
 };

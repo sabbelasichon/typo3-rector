@@ -12,11 +12,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // get parameters
     $parameters = $containerConfigurator->parameters();
 
-    $containerConfigurator->import(Typo3SetList::TYPO3_76);
-    $containerConfigurator->import(Typo3SetList::TYPO3_87);
-    $containerConfigurator->import(Typo3SetList::TYPO3_95);
-    $containerConfigurator->import(Typo3SetList::TYPO3_104);
-    $containerConfigurator->import(Typo3SetList::TYPO3_11);
+    $rectorConfig->import(Typo3SetList::TYPO3_76);
+    $rectorConfig->import(Typo3SetList::TYPO3_87);
+    $rectorConfig->import(Typo3SetList::TYPO3_95);
+    $rectorConfig->import(Typo3SetList::TYPO3_104);
+    $rectorConfig->import(Typo3SetList::TYPO3_11);
 
     // Define your target version which you want to support
     $rectorConfig->phpVersion(PhpVersion::PHP_74);

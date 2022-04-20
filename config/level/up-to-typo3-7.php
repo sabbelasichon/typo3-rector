@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-use Ssch\TYPO3Rector\Set\Typo3SetList;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Rector\Config\RectorConfig;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(Typo3SetList::TYPO3_76);
+use Ssch\TYPO3Rector\Set\Typo3SetList;
+
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->sets([Typo3SetList::TYPO3_76]);
 };

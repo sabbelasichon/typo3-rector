@@ -2,9 +2,11 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 
 use Rector\Renaming\ValueObject\MethodCallRename;
+
 use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector;
 use Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector\RenderTypeFlexFormRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector;
@@ -15,6 +17,7 @@ use Ssch\TYPO3Rector\Rector\v9\v0\IgnoreValidationAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector;
+use Ssch\TYPO3Rector\Rector\v9\v0\QueryLogicalOrAndLogicalAndToArrayParameterRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorBackendUtilityGetPagesTSconfigRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorDeprecationLogRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector;
@@ -31,45 +34,46 @@ use Ssch\TYPO3Rector\Rector\v9\v0\UseExtensionConfigurationApiRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(MoveRenderArgumentsToInitializeArgumentsMethodRector::class);
-    $services->set(InjectAnnotationRector::class);
-    $services->set(IgnoreValidationAnnotationRector::class);
-    $services->set(ReplaceAnnotationRector::class)
-        ->configure([
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(MoveRenderArgumentsToInitializeArgumentsMethodRector::class);
+    $rectorConfig->rule(InjectAnnotationRector::class);
+    $rectorConfig->rule(IgnoreValidationAnnotationRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(ReplaceAnnotationRector::class, [
             'lazy' => 'TYPO3\CMS\Extbase\Annotation\ORM\Lazy',
             'cascade' => 'TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")',
             'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
         ]);
-    $services->set(CheckForExtensionInfoRector::class);
-    $services->set(RefactorMethodsFromExtensionManagementUtilityRector::class);
-    $services->set(MetaTagManagementRector::class);
-    $services->set(FindByPidsAndAuthorIdRector::class);
-    $services->set(UseRenderingContextGetControllerContextRector::class);
-    $services->set(RemovePropertiesFromSimpleDataHandlerControllerRector::class);
-    $services->set(RemoveMethodInitTCARector::class);
-    $services->set(SubstituteCacheWrapperMethodsRector::class);
-    $services->set(UseLogMethodInsteadOfNewLog2Rector::class);
-    $services->set(GeneratePageTitleRector::class);
-    $services->set(SubstituteConstantParsetimeStartRector::class);
-    $services->set(RemoveSecondArgumentGeneralUtilityMkdirDeepRector::class);
-    $services->set(CheckForExtensionVersionRector::class);
-    $services->set(RefactorDeprecationLogRector::class);
-    $services->set(RenameMethodRector::class)
-        ->configure([new MethodCallRename('TYPO3\CMS\Core\Utility\GeneralUtility', 'getUserObj', 'makeInstance')]);
-    $services->set(UseNewComponentIdForPageTreeRector::class);
-    $services->set(RefactorBackendUtilityGetPagesTSconfigRector::class);
-    $services->set(UseExtensionConfigurationApiRector::class);
-    $services->set(ReplaceExtKeyWithExtensionKeyRector::class);
-    $services->set(RemoveCmsPackageDirFromExtraComposerRector::class)->configure([
+    $rectorConfig->rule(CheckForExtensionInfoRector::class);
+    $rectorConfig->rule(RefactorMethodsFromExtensionManagementUtilityRector::class);
+    $rectorConfig->rule(MetaTagManagementRector::class);
+    $rectorConfig->rule(FindByPidsAndAuthorIdRector::class);
+    $rectorConfig->rule(UseRenderingContextGetControllerContextRector::class);
+    $rectorConfig->rule(RemovePropertiesFromSimpleDataHandlerControllerRector::class);
+    $rectorConfig->rule(RemoveMethodInitTCARector::class);
+    $rectorConfig->rule(SubstituteCacheWrapperMethodsRector::class);
+    $rectorConfig->rule(UseLogMethodInsteadOfNewLog2Rector::class);
+    $rectorConfig->rule(GeneratePageTitleRector::class);
+    $rectorConfig->rule(SubstituteConstantParsetimeStartRector::class);
+    $rectorConfig->rule(RemoveSecondArgumentGeneralUtilityMkdirDeepRector::class);
+    $rectorConfig->rule(CheckForExtensionVersionRector::class);
+    $rectorConfig->rule(RefactorDeprecationLogRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(
+            RenameMethodRector::class,
+            [new MethodCallRename('TYPO3\CMS\Core\Utility\GeneralUtility', 'getUserObj', 'makeInstance')]
+        );
+    $rectorConfig->rule(UseNewComponentIdForPageTreeRector::class);
+    $rectorConfig->rule(RefactorBackendUtilityGetPagesTSconfigRector::class);
+    $rectorConfig->rule(UseExtensionConfigurationApiRector::class);
+    $rectorConfig->rule(ReplaceExtKeyWithExtensionKeyRector::class);
+    $rectorConfig->ruleWithConfiguration(RemoveCmsPackageDirFromExtraComposerRector::class, [
         'foo' => 'bar',
     ]);
-    $services->set(SubstituteGeneralUtilityDevLogRector::class);
-    $services->set(ReplacedGeneralUtilitySysLogWithLogginApiRector::class);
-    $services->set(RenderTypeFlexFormRector::class);
-    $services->set(\Ssch\TYPO3Rector\Rector\v9\v0\QueryLogicalOrAndLogicalAndToArrayParameterRector::class);
+    $rectorConfig->rule(SubstituteGeneralUtilityDevLogRector::class);
+    $rectorConfig->rule(ReplacedGeneralUtilitySysLogWithLogginApiRector::class);
+    $rectorConfig->rule(RenderTypeFlexFormRector::class);
+    $rectorConfig->rule(QueryLogicalOrAndLogicalAndToArrayParameterRector::class);
 };

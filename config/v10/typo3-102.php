@@ -2,25 +2,24 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
+
 use Ssch\TYPO3Rector\Rector\v10\v2\ExcludeServiceKeysToArrayRector;
 use Ssch\TYPO3Rector\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponseRector;
 use Ssch\TYPO3Rector\Rector\v10\v2\MoveApplicationContextToEnvironmentApiRector;
 use Ssch\TYPO3Rector\Rector\v10\v2\UseActionControllerRector;
 use Ssch\TYPO3Rector\Rector\v10\v2\UseTypo3InformationForCopyRightNoticeRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
 
-    $services = $containerConfigurator->services();
+    $rectorConfig->rule(MoveApplicationContextToEnvironmentApiRector::class);
 
-    $services->set(MoveApplicationContextToEnvironmentApiRector::class);
+    $rectorConfig->rule(ExcludeServiceKeysToArrayRector::class);
 
-    $services->set(ExcludeServiceKeysToArrayRector::class);
+    $rectorConfig->rule(UseActionControllerRector::class);
 
-    $services->set(UseActionControllerRector::class);
+    $rectorConfig->rule(UseTypo3InformationForCopyRightNoticeRector::class);
 
-    $services->set(UseTypo3InformationForCopyRightNoticeRector::class);
-
-    $services->set(InjectEnvironmentServiceIfNeededInResponseRector::class);
+    $rectorConfig->rule(InjectEnvironmentServiceIfNeededInResponseRector::class);
 };

@@ -43,7 +43,7 @@ use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/config/config.php');
+    $rectorConfig->import(__DIR__ . '/config/config.php');
 
     $services = $containerConfigurator->services();
 
@@ -57,8 +57,8 @@ Also you can update all your core packages and third party packages (that are on
 ```php
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 ...
-$containerConfigurator->import(Typo3SetList::COMPOSER_PACKAGES_104_CORE);
-$containerConfigurator->import(Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS);
+$rectorConfig->import(Typo3SetList::COMPOSER_PACKAGES_104_CORE);
+$rectorConfig->import(Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS);
 ```
 
 ## FormYamlProcessor
@@ -75,7 +75,7 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/config/config.php');
+    $rectorConfig->import(__DIR__ . '/config/config.php');
 
     $services = $containerConfigurator->services();
 

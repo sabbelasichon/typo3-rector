@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
+
 use Ssch\TYPO3Rector\Rector\v8\v3\RemovedTcaSelectTreeOptionsRector;
 use Ssch\TYPO3Rector\Rector\v8\v3\SoftReferencesFunctionalityRemovedRector;
 use Ssch\TYPO3Rector\Rector\v8\v4\RemoveOptionShowIfRteRector;
@@ -21,15 +23,13 @@ use Ssch\TYPO3Rector\Rector\v8\v6\RichtextFromDefaultExtrasToEnableRichtextRecto
 use Ssch\TYPO3Rector\Rector\v8\v7\MoveForeignTypesToOverrideChildTcaRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RemoveConfigMaxFromInputDateTimeFieldsRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\RemoveLocalizationModeKeepIfNeededRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
-    $services->set(RemovedTcaSelectTreeOptionsRector::class);
-    $services->set(SoftReferencesFunctionalityRemovedRector::class);
-    $services->set(SubstituteOldWizardIconsRector::class)
-        ->configure([
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(RemovedTcaSelectTreeOptionsRector::class);
+    $rectorConfig->rule(SoftReferencesFunctionalityRemovedRector::class);
+    $rectorConfig
+        ->ruleWithConfiguration(SubstituteOldWizardIconsRector::class, [
             'add.gif' => 'actions-add',
             'link_popup.gif' => 'actions-wizard-link',
             'wizard_rte2.gif' => 'actions-wizard-rte',
@@ -45,20 +45,20 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_link.gif' => 'actions-wizard-link',
             'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_rte.gif' => 'actions-wizard-rte',
         ]);
-    $services->set(RemoveOptionShowIfRteRector::class);
-    $services->set(RemoveOptionVersioningFollowPagesRector::class);
-    $services->set(MoveLanguageFilesFromLocallangToResourcesRector::class);
-    $services->set(RemoveSupportForTransForeignTableRector::class);
-    $services->set(MoveRequestUpdateOptionFromControlToColumnsRector::class);
-    $services->set(RichtextFromDefaultExtrasToEnableRichtextRector::class);
-    $services->set(RefactorTCARector::class);
-    $services->set(MigrateSelectShowIconTableRector::class);
-    $services->set(RemoveL10nModeNoCopyRector::class);
-    $services->set(MigrateOptionsOfTypeGroupRector::class);
-    $services->set(RemoveConfigMaxFromInputDateTimeFieldsRector::class);
-    $services->set(RemoveLocalizationModeKeepIfNeededRector::class);
-    $services->set(MoveForeignTypesToOverrideChildTcaRector::class);
-    $services->set(MigrateLastPiecesOfDefaultExtrasRector::class);
-    $services->set(MoveTypeGroupSuggestWizardToSuggestOptionsRector::class);
-    $services->set(MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector::class);
+    $rectorConfig->rule(RemoveOptionShowIfRteRector::class);
+    $rectorConfig->rule(RemoveOptionVersioningFollowPagesRector::class);
+    $rectorConfig->rule(MoveLanguageFilesFromLocallangToResourcesRector::class);
+    $rectorConfig->rule(RemoveSupportForTransForeignTableRector::class);
+    $rectorConfig->rule(MoveRequestUpdateOptionFromControlToColumnsRector::class);
+    $rectorConfig->rule(RichtextFromDefaultExtrasToEnableRichtextRector::class);
+    $rectorConfig->rule(RefactorTCARector::class);
+    $rectorConfig->rule(MigrateSelectShowIconTableRector::class);
+    $rectorConfig->rule(RemoveL10nModeNoCopyRector::class);
+    $rectorConfig->rule(MigrateOptionsOfTypeGroupRector::class);
+    $rectorConfig->rule(RemoveConfigMaxFromInputDateTimeFieldsRector::class);
+    $rectorConfig->rule(RemoveLocalizationModeKeepIfNeededRector::class);
+    $rectorConfig->rule(MoveForeignTypesToOverrideChildTcaRector::class);
+    $rectorConfig->rule(MigrateLastPiecesOfDefaultExtrasRector::class);
+    $rectorConfig->rule(MoveTypeGroupSuggestWizardToSuggestOptionsRector::class);
+    $rectorConfig->rule(MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector::class);
 };

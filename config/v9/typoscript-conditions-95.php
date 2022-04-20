@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Rector\Config\RectorConfig;
+
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\ApplicationContextConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\BrowserConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\CompatVersionConditionMatcher;
@@ -18,11 +20,9 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TreeLevelConditionMatch
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\UsergroupConditionMatcherMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\VersionConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\OldConditionToExpressionLanguageTypoScriptRector;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../config.php');
-    $services = $containerConfigurator->services();
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../config.php');
 
     $services->set(ApplicationContextConditionMatcher::class);
     $services->set(BrowserConditionMatcher::class);
@@ -39,5 +39,6 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(TreeLevelConditionMatcher::class);
     $services->set(UsergroupConditionMatcherMatcher::class);
     $services->set(VersionConditionMatcher::class);
-    $services->set(OldConditionToExpressionLanguageTypoScriptRector::class);
+
+    $rectorConfig->rule(OldConditionToExpressionLanguageTypoScriptRector::class);
 };

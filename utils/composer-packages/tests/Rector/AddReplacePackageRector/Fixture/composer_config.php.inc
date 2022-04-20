@@ -3,7 +3,7 @@
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../services.php');
+    $rectorConfig->import(__DIR__ . '/../services.php');
     $services = $containerConfigurator->services();
     $composerExtensions = [];
 };
@@ -16,7 +16,7 @@ use Rector\Composer\ValueObject\RenamePackage;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../services.php');
+    $rectorConfig->import(__DIR__ . '/../services.php');
     $services = $containerConfigurator->services();
     $composerExtensions = [new RenamePackage('typo3-ter/news', 'georgringer/news')];
 };

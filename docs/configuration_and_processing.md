@@ -45,7 +45,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
-    $containerConfigurator->import(Typo3LevelSetList::UP_TO_TYPO3_11);
+    $rectorConfig->import(Typo3LevelSetList::UP_TO_TYPO3_11);
 
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $parameters->set(Option::AUTO_IMPORT_NAMES, true);
@@ -122,8 +122,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     // @see https://github.com/sabbelasichon/typo3-rector/blob/main/docs/beyond_php_file_processors.md
 
     // Adapt your composer.json dependencies to the latest available version for the defined SetList
-    // $containerConfigurator->import(Typo3SetList::COMPOSER_PACKAGES_104_CORE);
-    // $containerConfigurator->import(Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS);
+    // $rectorConfig->import(Typo3SetList::COMPOSER_PACKAGES_104_CORE);
+    // $rectorConfig->import(Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS);
 
     // Rewrite your extbase persistence class mapping from typoscript into php according to official docs.
     // This processor will create a summarized file with all of the typoscript rewrites combined into a single file.
