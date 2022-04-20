@@ -22,7 +22,7 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     // In order to have a better analysis from phpstan we teach it here some more things
-    $rectorConfig->set(Option::PHPSTAN_FOR_RECTOR_PATH, Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
+    $rectorConfig->phpstanConfig(Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
 
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $rectorConfig->importNames();

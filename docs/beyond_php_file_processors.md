@@ -71,7 +71,6 @@ This is also configurable in your rector.php configuration file:
 # rector.php configuration file
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/config/config.php');
@@ -79,11 +78,11 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig = $containerConfigurator->services();
 
     $rectorConfig->set(TypoScriptFileProcessor::class)
-        ->configure([
+        ->call('configure', [[
             TypoScriptFileProcessor::ALLOWED_FILE_EXTENSIONS => [
                 'special',
             ],
-        ]);
+        ]]);
 };
 ```
 # Special Cases

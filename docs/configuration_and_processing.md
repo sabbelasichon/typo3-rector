@@ -70,8 +70,8 @@ return static function (RectorConfig $rectorConfig): void {
     // When you use rector there are rules that require some more actions like creating UpgradeWizards for outdated TCA types.
     // To fully support you we added some warnings. So watch out for them.
 
-    // If you set option Option::AUTO_IMPORT_NAMES to true, you should consider excluding some TYPO3 files.
-    $parameters->set(Option::SKIP, [
+    // If you use importNames(), you should consider excluding some TYPO3 files.
+    $rectorConfig->skip([
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
             'ext_localconf.php',
@@ -100,28 +100,25 @@ return static function (RectorConfig $rectorConfig): void {
 
     // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file
     // Have a look at https://github.com/sabbelasichon/typo3-rector/blob/master/typo3.constants.php
-    // $parameters->set(Option::AUTOLOAD_PATHS, [
+    // $rectorConfig->autoloadPaths([
     //    __DIR__ . '/typo3.constants.php'
     // ]);
 
-    // get services (needed for register a single rule)
-    $services = $containerConfigurator->services();
-
     // register a single rule
-    // $services->set(InjectAnnotationRector::class);
+    // $rectorConfig->rule(InjectAnnotationRector::class);
 
     /**
      * Useful rule from RectorPHP itself to transform i.e. GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')
      * to GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class) calls.
      * But be warned, sometimes it produces false positives (edge cases), so watch out
      */
-    // $services->set(StringClassNameToClassConstantRector::class);
+    // $rectorConfig->rule(StringClassNameToClassConstantRector::class);
 
     // Optional non-php file functionalities:
     // @see https://github.com/sabbelasichon/typo3-rector/blob/main/docs/beyond_php_file_processors.md
 
     // Adapt your composer.json dependencies to the latest available version for the defined SetList
-    // $rectorConfig->sets([
+    // $recto$servicesrConfig->sets([
     //    Typo3SetList::COMPOSER_PACKAGES_104_CORE,
     //    Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS,
     // ]);
