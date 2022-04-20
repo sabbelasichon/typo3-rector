@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-
 use Ssch\TYPO3Rector\Rector\Experimental\OptionalConstructorToHardRequirementRector;
 
 return static function (RectorConfig $rectorConfig): void {

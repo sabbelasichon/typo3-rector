@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-
 use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\EmailFinisherRector;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\TranslationFileRector;
 

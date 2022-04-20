@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-
 use Ssch\TYPO3Rector\Rector\v9\v0\GeneratePageTitleRector;
 
 return static function (RectorConfig $rectorConfig): void {
