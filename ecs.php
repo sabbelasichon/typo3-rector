@@ -8,37 +8,27 @@ use PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer;
 use PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symplify\CodingStandard\Fixer\ArrayNotation\ArrayOpenerAndCloserNewlineFixer;
 use Symplify\CodingStandard\Fixer\ArrayNotation\StandaloneLineInMultilineArrayFixer;
 use Symplify\CodingStandard\Fixer\LineLength\LineLengthFixer;
-use Symplify\EasyCodingStandard\ValueObject\Option;
+use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $services = $containerConfigurator->services();
-    $services->set(StandaloneLineInMultilineArrayFixer::class);
-    $services->set(ArrayOpenerAndCloserNewlineFixer::class);
+return static function (ECSConfig $ecsConfig): void {
+    $ecsConfig->rule(StandaloneLineInMultilineArrayFixer::class);
+    $ecsConfig->rule(ArrayOpenerAndCloserNewlineFixer::class);
 
-    $services->set(GeneralPhpdocAnnotationRemoveFixer::class)
-        ->call('configure', [[
-            'annotations' => ['throws', 'author', 'package', 'group'],
-        ]]);
+    $ecsConfig->ruleWithConfiguration(GeneralPhpdocAnnotationRemoveFixer::class, [
+        'annotations' => ['throws', 'author', 'package', 'group'],
+    ]);
 
-    $services->set(NoSuperfluousPhpdocTagsFixer::class)
-        ->call('configure', [[
-            'allow_mixed' => true,
-        ]]);
+    $ecsConfig->ruleWithConfiguration(NoSuperfluousPhpdocTagsFixer::class, [
+        'allow_mixed' => true,
+    ]);
 
-    $parameters = $containerConfigurator->parameters();
+    $ecsConfig->sets([SetList::PSR_12, SetList::SYMPLIFY, SetList::COMMON, SetList::CLEAN_CODE]);
 
-    $containerConfigurator->import(SetList::PSR_12);
-    $containerConfigurator->import(SetList::SYMPLIFY);
-    $containerConfigurator->import(SetList::COMMON);
-    $containerConfigurator->import(SetList::CLEAN_CODE);
-
-    $parameters->set(Option::PARALLEL, true);
-    $parameters->set(Option::PATHS, [
+    $ecsConfig->paths([
         __DIR__ . '/src',
         __DIR__ . '/tests',
         __DIR__ . '/ecs.php',
@@ -47,7 +37,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         __DIR__ . '/utils',
     ]);
 
-    $parameters->set(Option::SKIP, [
+    $ecsConfig->skip([
         // on php 8.1, it adds space on &$variable
         FunctionTypehintSpaceFixer::class => [
             __DIR__ . '/src/FileProcessor/Yaml/Form/Rector/EmailFinisherRector.php',
@@ -58,9 +48,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         DeclareStrictTypesFixer::class => ['*/Fixture/*'],
     ]);
 
-    $services = $containerConfigurator->services();
-
-    $services->set(DeclareStrictTypesFixer::class);
-    $services->set(LineLengthFixer::class);
-    $services->set(YodaStyleFixer::class);
+    $ecsConfig->rule(DeclareStrictTypesFixer::class);
+    $ecsConfig->rule(LineLengthFixer::class);
+    $ecsConfig->rule(YodaStyleFixer::class);
 };
