@@ -19,5 +19,5 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $containerConfigurator->import(Typo3SetList::TYPO3_11);
 
     // Define your target version which you want to support
-    $parameters->set(Option::PHP_VERSION_FEATURES, PhpVersion::PHP_74);
+    $rectorConfig->phpVersion(PhpVersion::PHP_74);
 };

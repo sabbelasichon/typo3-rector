@@ -28,6 +28,8 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\OldConditionToExpressionLan
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../config/config_test.php');
+
+    $services = $rectorConfig->services();
     $services->set(ApplicationContextConditionMatcher::class);
     $services->set(BrowserConditionMatcher::class);
     $services->set(CompatVersionConditionMatcher::class);

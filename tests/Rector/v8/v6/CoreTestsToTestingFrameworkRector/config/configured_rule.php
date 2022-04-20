@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use TYPO3\CMS\Core\Tests\FunctionalTestCase as CoreFunctionalTestCase;
 use TYPO3\CMS\Core\Tests\UnitTestCase as CoreUnitTestCase;
