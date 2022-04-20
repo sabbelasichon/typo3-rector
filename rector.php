@@ -17,8 +17,6 @@ use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefini
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/config/config.php');
 
-    $rectorConfig->sets([SetList::RECTOR_CONFIG]);
-
     $rectorConfig->importNames();
     $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
 

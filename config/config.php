@@ -18,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 return static function (ContainerConfigurator $containerConfigurator): void {
-    $rectorConfig->import(__DIR__ . '/../utils/**/config/config.php', null, true);
+    $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, true);
 
     $services = $containerConfigurator->services();
     $services->defaults()
