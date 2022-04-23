@@ -149,7 +149,7 @@ CODE_SAMPLE
 
             $foreignSelector = null !== $foreignSelectorNode ? $foreignSelectorNode->value : null;
 
-            if (null === $overrideChildTcaNode) {
+            if (! $overrideChildTcaNode instanceof Array_) {
                 $overrideChildTcaNode = new Array_();
                 $columnConfig->items[] = new ArrayItem($overrideChildTcaNode, new String_(
                     self::OVERRIDE_CHILD_TCA
@@ -230,7 +230,7 @@ CODE_SAMPLE
         Array_ $overrideValue
     ): void {
         $newOverrideChildTcaSetting = $this->extractArrayItemByKey($overrideChildTcaNode, $overrideKey);
-        if (null === $newOverrideChildTcaSetting) {
+        if (! $newOverrideChildTcaSetting instanceof ArrayItem) {
             $newOverrideChildTcaSetting = new ArrayItem($overrideValue, new String_($overrideKey));
             $overrideChildTcaNode->items[] = $newOverrideChildTcaSetting;
         } else {

@@ -150,7 +150,7 @@ CODE_SAMPLE
                 $newDefaultExtras = implode(':', $newDefaultExtras);
                 if ('' !== $newDefaultExtras) {
                     $columnsOverrides = $this->extractSubArrayByKey($typeConfiguration, 'columnsOverrides');
-                    if (null === $columnsOverrides) {
+                    if (! $columnsOverrides instanceof Array_) {
                         $columnsOverrides = new Array_([]);
                         $typeConfiguration->items[] = new ArrayItem($columnsOverrides, new String_(
                             'columnsOverrides'
@@ -158,7 +158,7 @@ CODE_SAMPLE
                     }
 
                     $columnOverride = $this->extractSubArrayByKey($columnsOverrides, $fieldName);
-                    if (null === $columnOverride) {
+                    if (! $columnOverride instanceof Array_) {
                         $columnOverride = new Array_([]);
                         $columnsOverrides->items[] = new ArrayItem($columnOverride, new String_($fieldName));
                     }

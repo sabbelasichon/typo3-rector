@@ -240,7 +240,7 @@ CODE_SAMPLE
                 $this->hasAstBeenChanged = true;
 
                 $config = $this->extractArrayItemByKey($columnItem->value, 'config');
-                if (null === $config) {
+                if (! $config instanceof ArrayItem) {
                     $config = new ArrayItem(new Array_(), new String_('config'));
                     $columnItem->value->items[] = $config;
                 }
