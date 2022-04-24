@@ -70,9 +70,10 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
         ]);
     }
 
-    private function removeVendorNameIfNeeded(StaticCall $node): ?Node
+    private function removeVendorNameIfNeeded(StaticCall $staticCall): ?Node
     {
-        $extensionNameArgumentValue = $node->args[0]->value;
+        $extensionNameArgumentValue = $staticCall->getArgs()[0]
+            ->value;
 
         $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue);
 
@@ -96,8 +97,8 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
         }
 
         $extensionName = StringUtility::prepareExtensionName($extensionName, $delimiterPosition);
-        $node->args[0] = $this->nodeFactory->createArg($extensionName);
-        return $node;
+        $staticCall->args[0] = $this->nodeFactory->createArg($extensionName);
+        return $staticCall;
     }
 
     private function isPotentiallyUndefinedExtensionKeyVariable(Concat $extensionNameArgumentValue): bool

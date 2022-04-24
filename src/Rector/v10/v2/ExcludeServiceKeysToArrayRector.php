@@ -86,17 +86,17 @@ CODE_SAMPLE
         ]);
     }
 
-    private function isExpectedObjectType(StaticCall $node): bool
+    private function isExpectedObjectType(StaticCall $staticCall): bool
     {
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
         )) {
             return true;
         }
 
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         );
     }

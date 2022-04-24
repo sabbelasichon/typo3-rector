@@ -125,15 +125,15 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(StaticCall $node): bool
+    private function shouldSkip(StaticCall $staticCall): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
         )) {
             return true;
         }
 
-        return ! $this->isName($node->name, 'viewOnClick');
+        return ! $this->isName($staticCall->name, 'viewOnClick');
     }
 }

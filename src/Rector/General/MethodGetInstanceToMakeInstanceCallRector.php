@@ -98,18 +98,21 @@ CODE_SAMPLE
         $this->classes = $classes;
     }
 
-    private function shouldSkip(StaticCall $node): bool
+    private function shouldSkip(StaticCall $staticCall): bool
     {
         if ([] === $this->classes) {
             return true;
         }
 
-        if (! $this->isName($node->name, 'getInstance')) {
+        if (! $this->isName($staticCall->name, 'getInstance')) {
             return true;
         }
 
         foreach ($this->classes as $class) {
-            if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType($node, new ObjectType($class))) {
+            if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+                $staticCall,
+                new ObjectType($class)
+            )) {
                 return false;
             }
         }

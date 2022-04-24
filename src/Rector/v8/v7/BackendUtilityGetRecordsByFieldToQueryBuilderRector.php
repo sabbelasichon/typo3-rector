@@ -117,14 +117,14 @@ CODE_SAMPLE
         ]);
     }
 
-    private function addQueryBuilderNode(StaticCall $node, Node $positionNode): void
+    private function addQueryBuilderNode(StaticCall $staticCall, Node $positionNode): void
     {
-        $queryBuilderArgument = $node->args[8] ?? null;
+        $queryBuilderArgument = $staticCall->args[8] ?? null;
         if ($this->isVariable($queryBuilderArgument)) {
             return;
         }
 
-        $tableArgument = $node->args[0];
+        $tableArgument = $staticCall->args[0];
 
         if (! $queryBuilderArgument instanceof Arg || 'null' === $this->valueResolver->getValue(
             $queryBuilderArgument->value
@@ -156,9 +156,9 @@ CODE_SAMPLE
         return null !== $queryBuilderArgument && $queryBuilderArgument->value instanceof Variable;
     }
 
-    private function extractQueryBuilderVariableName(StaticCall $node): string
+    private function extractQueryBuilderVariableName(StaticCall $staticCall): string
     {
-        $queryBuilderArgument = $node->args[8] ?? null;
+        $queryBuilderArgument = $staticCall->getArgs()[8] ?? null;
         $queryBuilderVariableName = 'queryBuilder';
         if (null !== $queryBuilderArgument && $this->isVariable($queryBuilderArgument)) {
             $queryBuilderVariableName = $this->getName($queryBuilderArgument->value);

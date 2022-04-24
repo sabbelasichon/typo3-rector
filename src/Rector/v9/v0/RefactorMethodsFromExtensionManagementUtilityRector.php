@@ -73,9 +73,9 @@ CODE_SAMPLE
         ]);
     }
 
-    private function createNewMethodCallForSiteRelPath(StaticCall $node): StaticCall
+    private function createNewMethodCallForSiteRelPath(StaticCall $staticCall): StaticCall
     {
-        $firstArgument = $node->args[0];
+        $firstArgument = $staticCall->args[0];
         return $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Core\Utility\PathUtility',
             'stripPathSitePrefix',
@@ -100,13 +100,13 @@ CODE_SAMPLE
         );
     }
 
-    private function removeSecondArgumentFromMethodIsLoaded(StaticCall $node): Node
+    private function removeSecondArgumentFromMethodIsLoaded(StaticCall $staticCall): Node
     {
-        $numberOfArguments = count($node->args);
+        $numberOfArguments = count($staticCall->args);
         if ($numberOfArguments > 1) {
-            unset($node->args[1]);
+            unset($staticCall->args[1]);
         }
 
-        return $node;
+        return $staticCall;
     }
 }
