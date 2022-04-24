@@ -267,9 +267,9 @@ CODE_SAMPLE
         $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderWhereNode, $positionNode);
     }
 
-    private function addQueryWhereNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
+    private function addQueryWhereNode(string $queryBuilderVariableName, StaticCall $staticCall, Node $positionNode): void
     {
-        $whereClauseArgument = $node->args[3] ?? null;
+        $whereClauseArgument = $staticCall->args[3] ?? null;
         $whereClause = null !== $whereClauseArgument ? $this->valueResolver->getValue($whereClauseArgument->value) : '';
 
         if ('' === $whereClause) {
@@ -280,7 +280,7 @@ CODE_SAMPLE
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Database\Query\QueryHelper',
                 'stripLogicalOperatorPrefix',
-                [$node->args[3]]
+                [$staticCall->args[3]]
             ),
         ]);
 
@@ -300,9 +300,9 @@ CODE_SAMPLE
         $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }
 
-    private function addQueryGroupByNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
+    private function addQueryGroupByNode(string $queryBuilderVariableName, StaticCall $staticCall, Node $positionNode): void
     {
-        $groupByArgument = $node->args[4] ?? null;
+        $groupByArgument = $staticCall->args[4] ?? null;
         $groupBy = null !== $groupByArgument ? $this->valueResolver->getValue($groupByArgument->value) : '';
 
         if ('' === $groupBy) {
@@ -313,7 +313,7 @@ CODE_SAMPLE
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Database\Query\QueryHelper',
                 'parseGroupBy',
-                [$node->args[4]]
+                [$staticCall->args[4]]
             ),
         ]);
 
@@ -333,9 +333,9 @@ CODE_SAMPLE
         $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }
 
-    private function addOrderByNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
+    private function addOrderByNode(string $queryBuilderVariableName, StaticCall $staticCall, Node $positionNode): void
     {
-        $orderByArgument = $node->args[5] ?? null;
+        $orderByArgument = $staticCall->args[5] ?? null;
         $orderBy = null !== $orderByArgument ? $this->valueResolver->getValue($orderByArgument->value) : '';
 
         if ('' === $orderBy || 'null' === $orderBy) {
@@ -378,9 +378,9 @@ CODE_SAMPLE
         $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }
 
-    private function addLimitNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
+    private function addLimitNode(string $queryBuilderVariableName, StaticCall $staticCall, Node $positionNode): void
     {
-        $limitArgument = $node->args[6] ?? null;
+        $limitArgument = $staticCall->args[6] ?? null;
         $limit = null !== $limitArgument ? $this->valueResolver->getValue($limitArgument->value) : '';
 
         if ('' === $limit) {
