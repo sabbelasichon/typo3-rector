@@ -85,13 +85,11 @@ CODE_SAMPLE
         }
 
         $ctrlItems = $ctrlArrayItem->value;
-
         if (! $ctrlItems instanceof Array_) {
             return null;
         }
 
         $columnsArrayItem = $this->extractColumns($node);
-
         if (! $columnsArrayItem instanceof ArrayItem) {
             return null;
         }

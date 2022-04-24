@@ -60,15 +60,15 @@ CODE_SAMPLE
             return;
         }
 
-        $nodeToRemove = $this->extractArrayItemByKey($configArray, 'enableMultiSelectFilterTextfield');
-        if (! $nodeToRemove instanceof ArrayItem || null === $nodeToRemove->value) {
+        $toRemoveArrayItem = $this->extractArrayItemByKey($configArray, 'enableMultiSelectFilterTextfield');
+        if (! $toRemoveArrayItem instanceof ArrayItem || null === $toRemoveArrayItem->value) {
             return;
         }
 
-        $nodeValue = $this->valueResolver->getValue($nodeToRemove->value);
+        $nodeValue = $this->valueResolver->getValue($toRemoveArrayItem->value);
 
         if (true === $nodeValue) {
-            $this->removeNode($nodeToRemove);
+            $this->removeNode($toRemoveArrayItem);
             $this->hasAstBeenChanged = true;
         }
     }

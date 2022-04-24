@@ -113,9 +113,9 @@ CODE_SAMPLE
                 );
             }
 
-            $returnForwardResponse = new Return_($forwardResponse);
+            $forwardResponseReturn = new Return_($forwardResponse);
 
-            $this->nodesToAddCollector->addNodeBeforeNode($returnForwardResponse, $forwardMethodCall);
+            $this->nodesToAddCollector->addNodeBeforeNode($forwardResponseReturn, $forwardMethodCall);
             $this->removeNode($forwardMethodCall);
         }
 

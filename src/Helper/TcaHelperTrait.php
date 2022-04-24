@@ -13,10 +13,10 @@ use PhpParser\Node\Stmt\Return_;
 
 trait TcaHelperTrait
 {
-    protected function isFullTca(Return_ $node): bool
+    protected function isFullTca(Return_ $return): bool
     {
-        $ctrlArrayItem = $this->extractCtrl($node);
-        $columnsArrayItem = $this->extractColumns($node);
+        $ctrlArrayItem = $this->extractCtrl($return);
+        $columnsArrayItem = $this->extractColumns($return);
 
         return null !== $ctrlArrayItem && null !== $columnsArrayItem;
     }
@@ -129,24 +129,24 @@ trait TcaHelperTrait
         return null !== $renderTypeItem;
     }
 
-    private function extractColumns(Return_ $node): ?ArrayItem
+    private function extractColumns(Return_ $return): ?ArrayItem
     {
-        return $this->extractArrayItemByKey($node->expr, 'columns');
+        return $this->extractArrayItemByKey($return->expr, 'columns');
     }
 
-    private function extractTypes(Return_ $node): ?ArrayItem
+    private function extractTypes(Return_ $return): ?ArrayItem
     {
-        return $this->extractArrayItemByKey($node->expr, 'types');
+        return $this->extractArrayItemByKey($return->expr, 'types');
     }
 
-    private function extractCtrl(Return_ $node): ?ArrayItem
+    private function extractCtrl(Return_ $return): ?ArrayItem
     {
-        return $this->extractArrayItemByKey($node->expr, 'ctrl');
+        return $this->extractArrayItemByKey($return->expr, 'ctrl');
     }
 
-    private function extractInterface(Return_ $node): ?ArrayItem
+    private function extractInterface(Return_ $return): ?ArrayItem
     {
-        return $this->extractArrayItemByKey($node->expr, 'interface');
+        return $this->extractArrayItemByKey($return->expr, 'interface');
     }
 
     /**

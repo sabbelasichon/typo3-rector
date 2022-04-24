@@ -244,12 +244,12 @@ CODE_SAMPLE
             $moduleTemplateRenderContentMethodCall,
         ]);
 
-        $returnHtmlResponseMethodCall = new Return_($htmlResponseMethodCall);
+        $htmlResponseMethodCallReturn = new Return_($htmlResponseMethodCall);
 
         if (null === $classMethod->stmts) {
             $classMethod->stmts[] = $this->createModuleTemplateAssignment();
             $classMethod->stmts[] = $callSetContentOnModuleTemplateVariable;
-            $classMethod->stmts[] = $returnHtmlResponseMethodCall;
+            $classMethod->stmts[] = $htmlResponseMethodCallReturn;
             return;
         }
 
@@ -273,7 +273,7 @@ CODE_SAMPLE
 
         if ([] === $existingHtmlResponseMethodCallNodes) {
             $classMethod->stmts[] = $callSetContentOnModuleTemplateVariable;
-            $classMethod->stmts[] = $returnHtmlResponseMethodCall;
+            $classMethod->stmts[] = $htmlResponseMethodCallReturn;
             return;
         }
 
