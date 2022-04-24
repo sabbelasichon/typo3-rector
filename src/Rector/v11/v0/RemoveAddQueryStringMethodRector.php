@@ -77,67 +77,71 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
-        if ($this->isMethodCallOnUriBuilder($node)) {
+        if ($this->isMethodCallOnUriBuilder($methodCall)) {
             return false;
         }
 
-        return ! $this->isMethodCallOnContentObjectRenderer($node);
+        return ! $this->isMethodCallOnContentObjectRenderer($methodCall);
     }
 
-    private function isMethodCallOnUriBuilder(MethodCall $node): bool
+    private function isMethodCallOnUriBuilder(MethodCall $methodCall): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder')
         )) {
             return false;
         }
 
-        return $this->isName($node->name, 'setAddQueryStringMethod');
+        return $this->isName($methodCall->name, 'setAddQueryStringMethod');
     }
 
-    private function isMethodCallOnContentObjectRenderer(MethodCall $node): bool
+    private function isMethodCallOnContentObjectRenderer(MethodCall $methodCall): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')
         )) {
             return false;
         }
 
-        return $this->isName($node->name, 'getQueryArguments');
+        return $this->isName($methodCall->name, 'getQueryArguments');
     }
 
-    private function refactorSetAddQueryStringMethodCall(MethodCall $node): ?Node
+    private function refactorSetAddQueryStringMethodCall(MethodCall $methodCall): ?Node
     {
         try {
             // If it is the only method call, we can safely delete the node here.
-            $this->removeNode($node);
+            $this->removeNode($methodCall);
 
-            return $node;
+            return $methodCall;
         } catch (ShouldNotHappenException) {
-            $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($node);
+            $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($methodCall);
 
             if (! $this->sameClassMethodCallAnalyzer->haveSingleClass($chainMethodCalls)) {
                 return null;
             }
 
             foreach ($chainMethodCalls as $chainMethodCall) {
-                if ($this->isName($node->name, 'setAddQueryStringMethod')) {
+                if ($this->isName($methodCall->name, 'setAddQueryStringMethod')) {
                     continue;
                 }
 
-                $node->var = new MethodCall($chainMethodCall->var, $chainMethodCall->name, $chainMethodCall->args);
+                $methodCall->var = new MethodCall(
+                    $chainMethodCall->var,
+                    $chainMethodCall->name,
+                    $chainMethodCall->args
+                );
             }
 
-            return $node->var;
+            return $methodCall->var;
         }
     }
 
-    private function refactorGetQueryArgumentsMethodCall(MethodCall $node): void
+    private function refactorGetQueryArgumentsMethodCall(MethodCall $methodCall): void
     {
-        unset($node->args[1], $node->args[2]);
+        unset($methodCall->args[1], $methodCall->args[2]);
     }
 }

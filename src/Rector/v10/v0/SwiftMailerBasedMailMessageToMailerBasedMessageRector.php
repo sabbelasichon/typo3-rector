@@ -102,18 +102,18 @@ CODE_SAMPLE
         ]);
     }
 
-    private function refactorMethodSetBody(MethodCall $node): ?MethodCall
+    private function refactorMethodSetBody(MethodCall $methodCall): ?MethodCall
     {
-        if (! isset($node->args[0])) {
+        if (! isset($methodCall->args[0])) {
             return null;
         }
 
-        if (! $node->args[0]->value instanceof Node) {
+        if (! $methodCall->args[0]->value instanceof Node) {
             return null;
         }
 
-        $bodyType = $this->nodeTypeResolver->getType($node->args[0]->value);
-        $contentType = isset($node->args[1]) ? $this->valueResolver->getValue($node->args[1]->value) : null;
+        $bodyType = $this->nodeTypeResolver->getType($methodCall->args[0]->value);
+        $contentType = isset($methodCall->args[1]) ? $this->valueResolver->getValue($methodCall->args[1]->value) : null;
 
         if (! $bodyType instanceof StringType) {
             return null;
@@ -125,37 +125,37 @@ CODE_SAMPLE
         }
 
         if (null !== $contentType) {
-            unset($node->args[1]);
+            unset($methodCall->args[1]);
         }
 
-        $node->name = new Identifier($methodIdentifier);
+        $methodCall->name = new Identifier($methodIdentifier);
 
-        return $node;
+        return $methodCall;
     }
 
-    private function refactorMethodAddPart(MethodCall $node): ?Node
+    private function refactorMethodAddPart(MethodCall $methodCall): ?Node
     {
-        $contentType = isset($node->args[1]) ? $this->valueResolver->getValue($node->args[1]->value) : null;
+        $contentType = isset($methodCall->args[1]) ? $this->valueResolver->getValue($methodCall->args[1]->value) : null;
 
-        $node->name = new Identifier('text');
+        $methodCall->name = new Identifier('text');
 
         if (! is_string($contentType)) {
             return null;
         }
 
-        unset($node->args[1]);
+        unset($methodCall->args[1]);
 
         if ('text/html' === $contentType) {
-            $node->name = new Identifier('html');
-            return $node;
+            $methodCall->name = new Identifier('html');
+            return $methodCall;
         }
 
-        return $node;
+        return $methodCall;
     }
 
-    private function refactorAttachMethod(MethodCall $node): ?Node
+    private function refactorAttachMethod(MethodCall $methodCall): ?Node
     {
-        $firstArgument = $node->args[0]->value;
+        $firstArgument = $methodCall->args[0]->value;
 
         if (! $firstArgument instanceof StaticCall) {
             return null;
@@ -172,15 +172,15 @@ CODE_SAMPLE
             return null;
         }
 
-        $node->name = new Identifier('attachFromPath');
-        $node->args = $this->nodeFactory->createArgs($firstArgument->args);
+        $methodCall->name = new Identifier('attachFromPath');
+        $methodCall->args = $this->nodeFactory->createArgs($firstArgument->args);
 
-        return $node;
+        return $methodCall;
     }
 
-    private function refactorEmbedMethod(MethodCall $node): ?Node
+    private function refactorEmbedMethod(MethodCall $methodCall): ?Node
     {
-        $firstArgument = $node->args[0]->value;
+        $firstArgument = $methodCall->args[0]->value;
 
         if (! $firstArgument instanceof StaticCall) {
             return null;
@@ -197,9 +197,9 @@ CODE_SAMPLE
             return null;
         }
 
-        $node->name = new Identifier('embedFromPath');
-        $node->args = $this->nodeFactory->createArgs($firstArgument->args);
+        $methodCall->name = new Identifier('embedFromPath');
+        $methodCall->args = $this->nodeFactory->createArgs($firstArgument->args);
 
-        return $node;
+        return $methodCall;
     }
 }

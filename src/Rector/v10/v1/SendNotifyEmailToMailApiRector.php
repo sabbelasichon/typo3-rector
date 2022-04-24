@@ -186,11 +186,11 @@ CODE_SAMPLE
         )));
     }
 
-    private function trimMessage(MethodCall $node): Node
+    private function trimMessage(MethodCall $methodCall): Node
     {
         return new Assign(new Variable(self::MESSAGE), $this->nodeFactory->createFuncCall(
             self::TRIM,
-            [$node->args[0]]
+            [$methodCall->args[0]]
         ));
     }
 
@@ -202,11 +202,11 @@ CODE_SAMPLE
         )));
     }
 
-    private function trimSenderAddress(MethodCall $node): Node
+    private function trimSenderAddress(MethodCall $methodCall): Node
     {
         return new Expression(new Assign(new Variable(self::SENDER_ADDRESS), $this->nodeFactory->createFuncCall(
             self::TRIM,
-            [$node->args[3]]
+            [$methodCall->args[3]]
         )));
     }
 
@@ -256,7 +256,7 @@ CODE_SAMPLE
         ])));
     }
 
-    private function parsedRecipients(MethodCall $node): Expression
+    private function parsedRecipients(MethodCall $methodCall): Expression
     {
         return new Expression(
             new Assign(
@@ -264,7 +264,7 @@ CODE_SAMPLE
                 $this->nodeFactory->createStaticCall(
                     'TYPO3\CMS\Core\Utility\MailUtility',
                     'parseAddresses',
-                    [$node->args[1]]
+                    [$methodCall->args[1]]
                 )
             )
         );

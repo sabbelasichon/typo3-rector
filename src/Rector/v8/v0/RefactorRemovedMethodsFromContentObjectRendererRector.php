@@ -106,14 +106,17 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
-        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'))) {
+        if ($this->isObjectType(
+            $methodCall->var,
+            new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')
+        )) {
             return false;
         }
 
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
-            $node,
+            $methodCall,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
             'cObj'
         );

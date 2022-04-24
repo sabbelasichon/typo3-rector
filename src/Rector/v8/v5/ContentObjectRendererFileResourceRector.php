@@ -96,54 +96,58 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
-        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'))) {
+        if ($this->isObjectType(
+            $methodCall->var,
+            new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')
+        )) {
             return false;
         }
 
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
-            $node,
+            $methodCall,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
             'cObj'
         );
     }
 
-    private function addInitializeVariableNode(MethodCall $node): void
+    private function addInitializeVariableNode(MethodCall $methodCall): void
     {
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $methodCall->getAttribute(AttributeKey::PARENT_NODE);
+
         if (! $parentNode->var instanceof PropertyFetch) {
             $initializeVariable = new Expression(new Assign($parentNode->var, new String_('')));
-            $this->nodesToAddCollector->addNodeBeforeNode($initializeVariable, $node);
+            $this->nodesToAddCollector->addNodeBeforeNode($initializeVariable, $methodCall);
         }
     }
 
-    private function addTypoScriptFrontendControllerAssignmentNode(MethodCall $node): void
+    private function addTypoScriptFrontendControllerAssignmentNode(MethodCall $methodCall): void
     {
         $typoscriptFrontendControllerVariable = new Variable('typoscriptFrontendController');
         $typoscriptFrontendControllerNode = new Assign(
             $typoscriptFrontendControllerVariable,
             new ArrayDimFetch(new Variable('GLOBALS'), new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER))
         );
-        $this->nodesToAddCollector->addNodeBeforeNode($typoscriptFrontendControllerNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($typoscriptFrontendControllerNode, $methodCall);
     }
 
-    private function addFileNameNode(MethodCall $node): void
+    private function addFileNameNode(MethodCall $methodCall): void
     {
         $fileNameNode = new Assign(
             new Variable(self::PATH),
             $this->nodeFactory->createMethodCall(
                 $this->nodeFactory->createPropertyFetch(new Variable('typoscriptFrontendController'), 'tmpl'),
                 'getFileName',
-                $node->args
+                $methodCall->args
             )
         );
-        $this->nodesToAddCollector->addNodeBeforeNode($fileNameNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($fileNameNode, $methodCall);
     }
 
-    private function addIfNode(MethodCall $node): void
+    private function addIfNode(MethodCall $methodCall): void
     {
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $methodCall->getAttribute(AttributeKey::PARENT_NODE);
 
         $ifNode = new If_(new BooleanAnd(
             new NotIdentical(new Variable(self::PATH), $this->nodeFactory->createNull()),
@@ -156,6 +160,6 @@ CODE_SAMPLE
         ));
         $ifNode->stmts[] = new Expression($templateAssignment);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $methodCall);
     }
 }

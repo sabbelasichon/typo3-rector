@@ -79,22 +79,25 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository')
         )) {
             return false;
         }
 
-        $node->var->setAttribute(AttributeKey::PHP_DOC_INFO, $node->getAttribute(AttributeKey::PHP_DOC_INFO));
-        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository'))) {
+        $methodCall->var->setAttribute(
+            AttributeKey::PHP_DOC_INFO,
+            $methodCall->getAttribute(AttributeKey::PHP_DOC_INFO)
+        );
+        if ($this->isObjectType($methodCall->var, new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository'))) {
             return false;
         }
 
         return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
-            $node,
+            $methodCall,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
             'sys_page'
         );

@@ -75,15 +75,15 @@ CODE_SAMPLE
         ]);
     }
 
-    private function removeMethodCall(MethodCall $node): ?Node
+    private function removeMethodCall(MethodCall $methodCall): ?Node
     {
         try {
             // If it is the only method call, we can safely delete the node here.
-            $this->removeNode($node);
+            $this->removeNode($methodCall);
 
-            return $node;
+            return $methodCall;
         } catch (ShouldNotHappenException) {
-            $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($node);
+            $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($methodCall);
 
             if (! $this->sameClassMethodCallAnalyzer->haveSingleClass($chainMethodCalls)) {
                 return null;
@@ -94,10 +94,14 @@ CODE_SAMPLE
                     continue;
                 }
 
-                $node->var = new MethodCall($chainMethodCall->var, $chainMethodCall->name, $chainMethodCall->args);
+                $methodCall->var = new MethodCall(
+                    $chainMethodCall->var,
+                    $chainMethodCall->name,
+                    $chainMethodCall->args
+                );
             }
 
-            return $node->var;
+            return $methodCall->var;
         }
     }
 }

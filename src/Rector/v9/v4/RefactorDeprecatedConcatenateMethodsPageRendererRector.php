@@ -73,21 +73,23 @@ CODE_SAMPLE
         )]);
     }
 
-    private function createArrayMergeCall(MethodCall $node): FuncCall
+    private function createArrayMergeCall(MethodCall $methodCall): FuncCall
     {
-        $node1 = clone $node;
-        $node2 = clone $node;
+        $node1 = clone $methodCall;
+        $node2 = clone $methodCall;
         $node1->name = new Identifier('getConcatenateCss');
         $node2->name = new Identifier('getConcatenateJavascript');
         return $this->nodeFactory->createFuncCall('array_merge', [new Arg($node1), new Arg($node2)]);
     }
 
-    private function splitMethodCall(MethodCall $node, string $firstMethod, string $secondMethod): MethodCall
+    private function splitMethodCall(MethodCall $methodCall, string $firstMethod, string $secondMethod): MethodCall
     {
-        $node->name = new Identifier($firstMethod);
-        $node1 = clone $node;
+        $methodCall->name = new Identifier($firstMethod);
+
+        $node1 = clone $methodCall;
         $node1->name = new Identifier($secondMethod);
-        $this->nodesToAddCollector->addNodeAfterNode($node1, $node);
-        return $node;
+        $this->nodesToAddCollector->addNodeAfterNode($node1, $methodCall);
+
+        return $methodCall;
     }
 }

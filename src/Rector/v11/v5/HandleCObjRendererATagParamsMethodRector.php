@@ -68,15 +68,15 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\\CMS\\Frontend\\ContentObject\\ContentObjectRenderer')
         )) {
             return true;
         }
 
-        return ! $this->isName($node->name, 'getATagParams');
+        return ! $this->isName($methodCall->name, 'getATagParams');
     }
 }

@@ -143,19 +143,19 @@ CODE_SAMPLE
         return new String_($methodCall);
     }
 
-    private function refactorMethodCall(MethodCall $node): ?Node
+    private function refactorMethodCall(MethodCall $methodCall): ?Node
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Scheduler\Controller\SchedulerModuleController')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'addMessage')) {
+        if (! $this->isName($methodCall->name, 'addMessage')) {
             return null;
         }
 
-        return $this->nodeFactory->createMethodCall('this', 'addMessage', $node->args);
+        return $this->nodeFactory->createMethodCall('this', 'addMessage', $methodCall->args);
     }
 }

@@ -97,15 +97,15 @@ CODE_SAMPLE
         );
     }
 
-    private function refactorToNewMethodCalls(MethodCall $node): void
+    private function refactorToNewMethodCalls(MethodCall $methodCall): void
     {
-        $node->name = new Identifier('applyHttpHeadersToResponse');
+        $methodCall->name = new Identifier('applyHttpHeadersToResponse');
 
         $response = new New_(new FullyQualified('TYPO3\CMS\Core\Http\Response'));
 
-        $node->args[0] = $this->nodeFactory->createArg($response);
+        $methodCall->args[0] = $this->nodeFactory->createArg($response);
 
-        $newNode = $this->nodeFactory->createMethodCall($node->var, 'processContentForOutput');
-        $this->nodesToAddCollector->addNodeAfterNode($newNode, $node);
+        $newNode = $this->nodeFactory->createMethodCall($methodCall->var, 'processContentForOutput');
+        $this->nodesToAddCollector->addNodeAfterNode($newNode, $methodCall);
     }
 }

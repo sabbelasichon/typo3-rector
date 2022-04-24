@@ -108,9 +108,9 @@ CODE_SAMPLE
         ]);
     }
 
-    private function isSvgIconProvider(MethodCall $node): bool
+    private function isSvgIconProvider(MethodCall $methodCall): bool
     {
-        $iconProviderClassName = $this->valueResolver->getValue($node->args[1]->value);
+        $iconProviderClassName = $this->valueResolver->getValue($methodCall->args[1]->value);
 
         if (null === $iconProviderClassName) {
             return false;

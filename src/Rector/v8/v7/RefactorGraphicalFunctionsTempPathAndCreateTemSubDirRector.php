@@ -91,24 +91,24 @@ CODE_SAMPLE
         ]);
     }
 
-    private function refactorMethodCall(MethodCall $node): ?Node
+    private function refactorMethodCall(MethodCall $methodCall): ?Node
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Core\Imaging\GraphicalFunctions')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->name, self::CREATE_TEMP_SUB_DIR)) {
+        if (! $this->isName($methodCall->name, self::CREATE_TEMP_SUB_DIR)) {
             return null;
         }
 
-        if ([] === $node->args) {
+        if ([] === $methodCall->args) {
             return null;
         }
 
-        $argumentValue = $this->valueResolver->getValue($node->args[0]->value);
+        $argumentValue = $this->valueResolver->getValue($methodCall->args[0]->value);
 
         if (null === $argumentValue) {
             return null;
@@ -158,7 +158,7 @@ CODE_SAMPLE
         $anonymousFunction->stmts[] = $ifIsNotDir;
         $anonymousFunction->stmts[] = new Return_($this->nodeFactory->createFalse());
 
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $methodCall->getAttribute(AttributeKey::PARENT_NODE);
 
         $this->nodesToAddCollector->addNodeBeforeNode(
             new Expression(new Assign(new Variable(self::CREATE_TEMP_SUB_DIR), $anonymousFunction)),
@@ -168,7 +168,7 @@ CODE_SAMPLE
         // Could not figure how to call the closure like that $function();
         return $this->nodeFactory->createFuncCall(
             'call_user_func',
-            [new Variable(self::CREATE_TEMP_SUB_DIR), new String_('typo3temp'), $node->args[0]->value]
+            [new Variable(self::CREATE_TEMP_SUB_DIR), new String_('typo3temp'), $methodCall->args[0]->value]
         );
     }
 

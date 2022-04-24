@@ -76,24 +76,24 @@ CODE_SAMPLE
         );
     }
 
-    private function isCharsetConverterMethodCall(MethodCall $node): bool
+    private function isCharsetConverterMethodCall(MethodCall $methodCall): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Core\Charset\CharsetConverter')
         )) {
             return false;
         }
 
-        return $this->isName($node->name, self::GET_PREFERRED_CLIENT_LANGUAGE);
+        return $this->isName($methodCall->name, self::GET_PREFERRED_CLIENT_LANGUAGE);
     }
 
-    private function isCallFromTypoScriptFrontendController(MethodCall $node): bool
+    private function isCallFromTypoScriptFrontendController(MethodCall $methodCall): bool
     {
-        if (! $node->var instanceof PropertyFetch) {
+        if (! $methodCall->var instanceof PropertyFetch) {
             return false;
         }
 
-        return $this->isName($node->name, self::GET_PREFERRED_CLIENT_LANGUAGE);
+        return $this->isName($methodCall->name, self::GET_PREFERRED_CLIENT_LANGUAGE);
     }
 }

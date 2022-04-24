@@ -143,17 +143,17 @@ CODE_SAMPLE
         return $node;
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
         if ($this->typo3NodeResolver->isAnyMethodCallOnGlobals(
-            $node,
+            $methodCall,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
         )) {
             return false;
         }
 
         return ! $this->isObjectType(
-            $node->var,
+            $methodCall->var,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         );
     }
@@ -231,13 +231,13 @@ CODE_SAMPLE
         );
     }
 
-    private function refactorPageErrorHandlerIfPossible(MethodCall $node): ?Node
+    private function refactorPageErrorHandlerIfPossible(MethodCall $methodCall): ?Node
     {
-        if (! isset($node->args[0])) {
+        if (! isset($methodCall->args[0])) {
             return null;
         }
 
-        $code = $this->valueResolver->getValue($node->args[0]->value);
+        $code = $this->valueResolver->getValue($methodCall->args[0]->value);
 
         if (null === $code) {
             return null;
@@ -246,8 +246,8 @@ CODE_SAMPLE
         $message = null;
         if ('1' === (string) $code || is_bool($code) || 'true' === strtolower($code)) {
             $message = new String_('The page did not exist or was inaccessible.');
-            if (isset($node->args[2])) {
-                $reason = $node->args[2]->value;
+            if (isset($methodCall->args[2])) {
+                $reason = $methodCall->args[2]->value;
                 $message = $this->nodeFactory->createConcat([
                     $message,
                     new Ternary($reason, $this->nodeFactory->createConcat(
@@ -259,8 +259,8 @@ CODE_SAMPLE
 
         if ('' === $code) {
             $message = new String_('Page cannot be found.');
-            if (isset($node->args[2])) {
-                $reason = $node->args[2]->value;
+            if (isset($methodCall->args[2])) {
+                $reason = $methodCall->args[2]->value;
                 $message = new Ternary($reason, $this->nodeFactory->createConcat(
                     [new String_('Reason: '), $reason]
                 ), $message);

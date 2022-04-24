@@ -87,71 +87,71 @@ CODE_SAMPLE
         return $this->refactorAbstractPluginCall($node);
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
-        if ($this->isLanguageServiceCall($node)) {
+        if ($this->isLanguageServiceCall($methodCall)) {
             return false;
         }
 
         return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Frontend\Plugin\AbstractPlugin')
         );
     }
 
-    private function isLanguageServiceCall(MethodCall $node): bool
+    private function isLanguageServiceCall(MethodCall $methodCall): bool
     {
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Lang\LanguageService')
         )) {
             return true;
         }
 
-        return $this->typo3NodeResolver->isAnyMethodCallOnGlobals($node, Typo3NodeResolver::LANG);
+        return $this->typo3NodeResolver->isAnyMethodCallOnGlobals($methodCall, Typo3NodeResolver::LANG);
     }
 
-    private function refactorAbstractPluginCall(MethodCall $node): ?Node
+    private function refactorAbstractPluginCall(MethodCall $methodCall): ?Node
     {
-        if (! $this->isName($node->name, 'pi_getLL')) {
+        if (! $this->isName($methodCall->name, 'pi_getLL')) {
             return null;
         }
 
-        return $this->refactorToHtmlSpecialChars($node, 2);
+        return $this->refactorToHtmlSpecialChars($methodCall, 2);
     }
 
-    private function refactorLanguageServiceCall(MethodCall $node): ?Node
+    private function refactorLanguageServiceCall(MethodCall $methodCall): ?Node
     {
-        if (! $this->isNames($node->name, ['sL', 'getLL', 'getLLL'])) {
+        if (! $this->isNames($methodCall->name, ['sL', 'getLL', 'getLLL'])) {
             return null;
         }
 
-        if ($this->isName($node->name, 'getLLL')) {
-            return $this->refactorToHtmlSpecialChars($node, 2);
+        if ($this->isName($methodCall->name, 'getLLL')) {
+            return $this->refactorToHtmlSpecialChars($methodCall, 2);
         }
 
-        return $this->refactorToHtmlSpecialChars($node, 1);
+        return $this->refactorToHtmlSpecialChars($methodCall, 1);
     }
 
-    private function refactorToHtmlSpecialChars(MethodCall $node, int $argumentPosition): ?Node
+    private function refactorToHtmlSpecialChars(MethodCall $methodCall, int $argumentPosition): ?Node
     {
-        if (! isset($node->args[$argumentPosition])) {
+        if (! isset($methodCall->args[$argumentPosition])) {
             return null;
         }
 
-        $hsc = $this->valueResolver->getValue($node->args[$argumentPosition]->value);
+        $hsc = $this->valueResolver->getValue($methodCall->args[$argumentPosition]->value);
 
         if (null === $hsc) {
             return null;
         }
 
         // If you don´t unset it you will end up in an infinite loop here
-        unset($node->args[$argumentPosition]);
+        unset($methodCall->args[$argumentPosition]);
 
         if (false === $hsc) {
             return null;
         }
 
-        return $this->nodeFactory->createFuncCall('htmlspecialchars', [$node]);
+        return $this->nodeFactory->createFuncCall('htmlspecialchars', [$methodCall]);
     }
 }

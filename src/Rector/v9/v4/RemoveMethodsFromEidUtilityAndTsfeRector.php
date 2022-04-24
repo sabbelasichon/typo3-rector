@@ -132,11 +132,11 @@ CODE_SAMPLE
         }
     }
 
-    private function delegateToFrontendUserProperty(MethodCall $node): MethodCall
+    private function delegateToFrontendUserProperty(MethodCall $methodCall): MethodCall
     {
         return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createPropertyFetch($node->var, 'fe_user'),
-            (string) $this->getName($node->name)
+            $this->nodeFactory->createPropertyFetch($methodCall->var, 'fe_user'),
+            (string) $this->getName($methodCall->name)
         );
     }
 }

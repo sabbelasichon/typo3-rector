@@ -98,22 +98,22 @@ CODE_SAMPLE
         );
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
-        if ($this->isPageLayoutControllerClass($node)) {
+        if ($this->isPageLayoutControllerClass($methodCall)) {
             return false;
         }
 
         return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Taskcenter\Controller\TaskModuleController')
         );
     }
 
-    private function isPageLayoutControllerClass(MethodCall $node): bool
+    private function isPageLayoutControllerClass(MethodCall $methodCall): bool
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Backend\Controller\PageLayoutController')
         );
     }

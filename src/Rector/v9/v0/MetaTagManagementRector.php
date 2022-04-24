@@ -103,38 +103,38 @@ CODE_SAMPLE
         return [];
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
-        return ! $this->isMethodAddMetaTag($node) && ! $this->isMethodXUaCompatible($node);
+        return ! $this->isMethodAddMetaTag($methodCall) && ! $this->isMethodXUaCompatible($methodCall);
     }
 
-    private function isMethodAddMetaTag(MethodCall $node): bool
+    private function isMethodAddMetaTag(MethodCall $methodCall): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Core\Page\PageRenderer')
         )) {
             return false;
         }
 
-        return $this->isName($node->name, 'addMetaTag');
+        return $this->isName($methodCall->name, 'addMetaTag');
     }
 
-    private function isMethodXUaCompatible(MethodCall $node): bool
+    private function isMethodXUaCompatible(MethodCall $methodCall): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Backend\Template\DocumentTemplate')
         )) {
             return false;
         }
 
-        return $this->isName($node->name, 'xUaCompatible');
+        return $this->isName($methodCall->name, 'xUaCompatible');
     }
 
-    private function createSetMetaTagMethod(MethodCall $node): ?MethodCall
+    private function createSetMetaTagMethod(MethodCall $methodCall): ?MethodCall
     {
-        $arg = $node->args[0];
+        $arg = $methodCall->args[0];
 
         if (! $arg->value instanceof String_) {
             return null;
@@ -151,10 +151,10 @@ CODE_SAMPLE
             return null;
         }
 
-        $node->name = new Identifier('setMetaTag');
-        $node->args = $this->nodeFactory->createArgs(array_values($arguments));
+        $methodCall->name = new Identifier('setMetaTag');
+        $methodCall->args = $this->nodeFactory->createArgs(array_values($arguments));
 
-        return $node;
+        return $methodCall;
     }
 
     private function createXUCompatibleMetaTag(MethodCall $methodCall): MethodCall
