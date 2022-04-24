@@ -116,13 +116,13 @@ CODE_SAMPLE
         );
     }
 
-    private function addRootLevelPagesAssignment(Variable $rootLevelPagesVariable, MethodCall $node): void
+    private function addRootLevelPagesAssignment(Variable $rootLevelPagesVariable, MethodCall $methodCall): void
     {
         $rootLevelPagesNode = new Assign($rootLevelPagesVariable, $this->nodeFactory->createMethodCall(
-            $node->var,
+            $methodCall->var,
             'getMenu',
-            [$node->args[0], 'uid', 'sorting', '', false]
+            [$methodCall->args[0], 'uid', 'sorting', '', false]
         ));
-        $this->nodesToAddCollector->addNodeBeforeNode($rootLevelPagesNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($rootLevelPagesNode, $methodCall);
     }
 }

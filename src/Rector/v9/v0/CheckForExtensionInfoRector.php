@@ -78,19 +78,19 @@ CODE_SAMPLE
         ]);
     }
 
-    private function isExtensionManagementUtilityIsLoaded(StaticCall | MethodCall $node): bool
+    private function isExtensionManagementUtilityIsLoaded(StaticCall | MethodCall $call): bool
     {
-        return $node instanceof StaticCall && $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+        return $call instanceof StaticCall && $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $call,
             new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
-        ) && $this->isName($node->name, 'isLoaded');
+        ) && $this->isName($call->name, 'isLoaded');
     }
 
-    private function isPackageManagerIsActivePackage(StaticCall | MethodCall $node): bool
+    private function isPackageManagerIsActivePackage(StaticCall | MethodCall $call): bool
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $call,
             new ObjectType('TYPO3\CMS\Core\Package\PackageManager')
-        ) && $this->isName($node->name, 'isPackageActive');
+        ) && $this->isName($call->name, 'isPackageActive');
     }
 }

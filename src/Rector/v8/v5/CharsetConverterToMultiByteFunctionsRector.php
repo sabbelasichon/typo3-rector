@@ -129,22 +129,22 @@ CODE_SAMPLE
         );
     }
 
-    private function toMultiByteLowerUpperCase(MethodCall $node): FuncCall
+    private function toMultiByteLowerUpperCase(MethodCall $methodCall): FuncCall
     {
-        $methodCall = 'toLower' === $this->valueResolver->getValue(
-            $node->args[2]->value
+        $mbMethodCall = 'toLower' === $this->valueResolver->getValue(
+            $methodCall->args[2]->value
         ) ? 'mb_strtolower' : 'mb_strtoupper';
 
-        return $this->nodeFactory->createFuncCall($methodCall, [$node->args[1], $node->args[0]]);
+        return $this->nodeFactory->createFuncCall($mbMethodCall, [$methodCall->args[1], $methodCall->args[0]]);
     }
 
-    private function toMultiByteStrPos(MethodCall $node): FuncCall
+    private function toMultiByteStrPos(MethodCall $methodCall): FuncCall
     {
-        $offset = $node->args[2] ?? $this->nodeFactory->createArg(0);
+        $offset = $methodCall->args[2] ?? $this->nodeFactory->createArg(0);
 
         return $this->nodeFactory->createFuncCall(
             'mb_strpos',
-            [$node->args[0], $node->args[1], $offset, $this->nodeFactory->createArg('utf-8')]
+            [$methodCall->args[0], $methodCall->args[1], $offset, $this->nodeFactory->createArg('utf-8')]
         );
     }
 
