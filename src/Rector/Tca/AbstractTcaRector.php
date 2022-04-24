@@ -59,19 +59,19 @@ abstract class AbstractTcaRector extends AbstractRector
         $this->hasAstBeenChanged = false;
         if ($this->isFullTcaDefinition($node)) {
             // we found a tca definition of a full table. Process it as a whole:
-            $columns = $this->extractSubArrayByKey($node, 'columns');
-            if (null !== $columns) {
-                $this->refactorColumnList($columns);
+            $columnsArray = $this->extractSubArrayByKey($node, 'columns');
+            if ($columnsArray instanceof Array_) {
+                $this->refactorColumnList($columnsArray);
             }
 
-            $types = $this->extractSubArrayByKey($node, 'types');
-            if (null !== $types) {
-                $this->refactorTypes($types);
+            $typesArray = $this->extractSubArrayByKey($node, 'types');
+            if ($typesArray instanceof Array_) {
+                $this->refactorTypes($typesArray);
             }
 
-            $ctrl = $this->extractSubArrayByKey($node, 'ctrl');
-            if (null !== $ctrl) {
-                $this->refactorCtrl($ctrl);
+            $ctrlArray = $this->extractSubArrayByKey($node, 'ctrl');
+            if ($ctrlArray instanceof Array_) {
+                $this->refactorCtrl($ctrlArray);
             }
 
             return $this->hasAstBeenChanged ? $node : null;

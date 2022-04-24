@@ -102,15 +102,15 @@ CODE_SAMPLE
             return null;
         }
 
-        $columns = $this->extractSubArrayByKey($node->expr, 'columns');
-        if (! $columns instanceof Array_) {
+        $columnsArray = $this->extractSubArrayByKey($node->expr, 'columns');
+        if (! $columnsArray instanceof Array_) {
             return null;
         }
 
         $columnNamesWithTypeGroupAndInternalTypeDb = [];
         $this->hasAstBeenChanged = false;
 
-        foreach ($this->extractColumnConfig($columns) as $columnName => $config) {
+        foreach ($this->extractColumnConfig($columnsArray) as $columnName => $config) {
             if (! $config instanceof Array_) {
                 continue;
             }

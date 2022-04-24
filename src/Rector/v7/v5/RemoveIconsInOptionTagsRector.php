@@ -57,13 +57,12 @@ CODE_SAMPLE
 
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
-        $config = $this->extractSubArrayByKey($columnTca, self::CONFIG);
-
-        if (! $config instanceof Array_) {
+        $configArray = $this->extractSubArrayByKey($columnTca, self::CONFIG);
+        if (! $configArray instanceof Array_) {
             return;
         }
 
-        $item = $this->extractArrayItemByKey($config, 'iconsInOptionTags');
+        $item = $this->extractArrayItemByKey($configArray, 'iconsInOptionTags');
         if (null !== $item) {
             $this->removeNode($item);
             $this->hasAstBeenChanged = true;

@@ -32,7 +32,7 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::PRIVATIZATION,
         SetList::CODING_STYLE,
         SetList::CODE_QUALITY,
-        SetList::NAMING,
+        // SetList::NAMING,
     ]);
 
     $rectorConfig->skip([

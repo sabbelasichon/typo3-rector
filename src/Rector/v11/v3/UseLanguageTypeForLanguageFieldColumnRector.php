@@ -106,9 +106,9 @@ CODE_SAMPLE
         }
 
         // we found a tca definition of a full table. Process it as a whole:
-        $columns = $this->extractSubArrayByKey($node, 'columns');
-        if (null !== $columns) {
-            $this->refactorColumnList($columns);
+        $columnsArray = $this->extractSubArrayByKey($node, 'columns');
+        if (null !== $columnsArray) {
+            $this->refactorColumnList($columnsArray);
         }
 
         return $this->hasAstBeenChanged ? $node : null;

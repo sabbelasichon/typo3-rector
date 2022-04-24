@@ -55,13 +55,13 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
             return null;
         }
 
-        $columns = $this->extractSubArrayByKey($node->expr, 'columns');
-        if (! $columns instanceof Array_) {
+        $columnsArray = $this->extractSubArrayByKey($node->expr, 'columns');
+        if (! $columnsArray instanceof Array_) {
             return null;
         }
 
         $hasAstBeenChanged = false;
-        foreach ($this->extractColumnConfig($columns) as $config) {
+        foreach ($this->extractColumnConfig($columnsArray) as $config) {
             if (! $config instanceof Array_) {
                 continue;
             }

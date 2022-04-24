@@ -51,17 +51,16 @@ CODE_SAMPLE
 
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
-        $config = $this->extractSubArrayByKey($columnTca, self::CONFIG);
-
-        if (! $config instanceof Array_) {
+        $configArray = $this->extractSubArrayByKey($columnTca, self::CONFIG);
+        if (! $configArray instanceof Array_) {
             return;
         }
 
-        if (! $this->configIsOfRenderType($config, 'selectMultipleSideBySide')) {
+        if (! $this->configIsOfRenderType($configArray, 'selectMultipleSideBySide')) {
             return;
         }
 
-        $nodeToRemove = $this->extractArrayItemByKey($config, 'enableMultiSelectFilterTextfield');
+        $nodeToRemove = $this->extractArrayItemByKey($configArray, 'enableMultiSelectFilterTextfield');
         if (! $nodeToRemove instanceof ArrayItem || null === $nodeToRemove->value) {
             return;
         }
