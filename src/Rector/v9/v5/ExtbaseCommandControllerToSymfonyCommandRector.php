@@ -259,9 +259,9 @@ CODE_SAMPLE
     /**
      * @return Node[]|ClassMethod[]
      */
-    private function findCommandMethods(Class_ $node): array
+    private function findCommandMethods(Class_ $class): array
     {
-        return $this->betterNodeFinder->find($node->stmts, function (Node $node): bool {
+        return $this->betterNodeFinder->find($class->stmts, function (Node $node): bool {
             if (! $node instanceof ClassMethod) {
                 return false;
             }

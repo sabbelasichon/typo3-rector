@@ -98,7 +98,7 @@ CODE_SAMPLE
         ]);
     }
 
-    private function addSetContentObjectRendererMethod(Class_ $node): void
+    private function addSetContentObjectRendererMethod(Class_ $class): void
     {
         $paramBuilder = new ParamBuilder(self::COBJ);
         $paramBuilder->setType(new FullyQualified('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'));
@@ -114,21 +114,21 @@ CODE_SAMPLE
         $classMethodBuilder->addStmt($propertyAssignNode);
         $classMethodBuilder->makePublic();
         $classMethodBuilder->setReturnType('void');
-        $node->stmts[] = new Nop();
-        $node->stmts[] = $classMethodBuilder->getNode();
+        $class->stmts[] = new Nop();
+        $class->stmts[] = $classMethodBuilder->getNode();
     }
 
-    private function shouldSkip(Class_ $node): bool
+    private function shouldSkip(Class_ $class): bool
     {
-        if ($this->isObjectType($node, new ObjectType('TYPO3\CMS\Frontend\Plugin\AbstractPlugin'))) {
+        if ($this->isObjectType($class, new ObjectType('TYPO3\CMS\Frontend\Plugin\AbstractPlugin'))) {
             return true;
         }
 
-        if ($this->isObjectType($node, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController'))) {
+        if ($this->isObjectType($class, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController'))) {
             return true;
         }
 
-        $classMethod = $node->getMethod('setContentObjectRenderer');
+        $classMethod = $class->getMethod('setContentObjectRenderer');
         return $classMethod instanceof ClassMethod;
     }
 }

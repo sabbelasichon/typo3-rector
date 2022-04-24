@@ -94,9 +94,9 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(Class_ $node): bool
+    private function shouldSkip(Class_ $class): bool
     {
-        foreach ($node->implements as $implement) {
+        foreach ($class->implements as $implement) {
             if ($this->isName($implement, 'TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface')) {
                 return false;
             }
@@ -105,24 +105,24 @@ CODE_SAMPLE
         return true;
     }
 
-    private function refactorClass(Class_ $node): ?Node
+    private function refactorClass(Class_ $class): ?Node
     {
-        if ($this->shouldSkip($node)) {
+        if ($this->shouldSkip($class)) {
             return null;
         }
 
-        $node->extends = new FullyQualified('TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider');
+        $class->extends = new FullyQualified('TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider');
 
         $implements = [];
-        foreach ($node->implements as $implement) {
+        foreach ($class->implements as $implement) {
             if (! $this->isName($implement, 'TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface')) {
                 $implements[] = $implement;
             }
         }
 
-        $node->implements = $implements;
+        $class->implements = $implements;
 
-        return $node;
+        return $class;
     }
 
     private function refactorPropertyFetch(PropertyFetch $node): ?Node
