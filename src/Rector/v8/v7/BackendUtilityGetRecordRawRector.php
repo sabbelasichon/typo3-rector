@@ -60,10 +60,14 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
             $this->nodeFactory->createMethodCall(new Variable(self::QUERY_BUILDER), 'getRestrictions'),
             'removeAll'
         );
-        $this->nodesToAddCollector->addNodeBeforeNode(new Nop(), $node);
-        $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderAssignment, $node);
-        $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderRemoveRestrictions, $node);
-        $this->nodesToAddCollector->addNodeBeforeNode(new Nop(), $node);
+
+        $this->nodesToAddCollector->addNodesBeforeNode([
+            new Nop(),
+            $queryBuilderAssignment,
+            $queryBuilderRemoveRestrictions,
+            new Nop(),
+        ], $node);
+
         return $this->fetchQueryBuilderResults($firstArgument, $secondArgument, $thirdArgument);
     }
 

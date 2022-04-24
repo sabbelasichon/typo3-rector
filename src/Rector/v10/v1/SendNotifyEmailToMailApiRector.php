@@ -24,7 +24,6 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -103,20 +102,19 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
             return null;
         }
 
-        $currentStmts = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
-        $positionNode = $currentStmts ?? $node;
-
-        $this->nodesToAddCollector->addNodeBeforeNode($this->initializeSuccessVariable(), $positionNode);
-        $this->nodesToAddCollector->addNodeBeforeNode($this->initializeMailClass(), $positionNode);
-        $this->nodesToAddCollector->addNodeBeforeNode($this->trimMessage($node), $positionNode);
-        $this->nodesToAddCollector->addNodeBeforeNode($this->trimSenderName($node), $positionNode);
-        $this->nodesToAddCollector->addNodeBeforeNode($this->trimSenderAddress($node), $positionNode);
-        $this->nodesToAddCollector->addNodeBeforeNode($this->ifSenderAddress(), $positionNode);
+        $this->nodesToAddCollector->addNodesBeforeNode([
+            $this->initializeSuccessVariable(),
+            $this->initializeMailClass(),
+            $this->trimMessage($node),
+            $this->trimSenderName($node),
+            $this->trimSenderAddress($node),
+            $this->ifSenderAddress(),
+        ], $node);
 
         $replyTo = isset($node->args[5]) ? $node->args[5]->value : null;
         if (null !== $replyTo) {
-            $this->nodesToAddCollector->addNodeBeforeNode($this->parsedReplyTo($replyTo), $positionNode);
-            $this->nodesToAddCollector->addNodeBeforeNode($this->methodReplyTo(), $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($this->parsedReplyTo($replyTo), $node);
+            $this->nodesToAddCollector->addNodeBeforeNode($this->methodReplyTo(), $node);
         }
 
         $ifMessageNotEmpty = $this->messageNotEmpty();
@@ -127,7 +125,7 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
         $ifMessageNotEmpty->stmts[] = $this->ifParsedRecipients();
         $ifMessageNotEmpty->stmts[] = $this->createSuccessTrue();
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifMessageNotEmpty, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($ifMessageNotEmpty, $node);
 
         return new Variable(self::SUCCESS);
     }

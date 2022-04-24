@@ -183,17 +183,14 @@ CODE_SAMPLE
         return $ifNode;
     }
 
-    private function refactorCacheHashArray(PropertyFetch $node): Node
+    private function refactorCacheHashArray(PropertyFetch $propertyFetch): Node
     {
-        $currentStmts = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
-        $positionNode = $currentStmts ?? $node;
-        $this->nodesToAddCollector->addNodeBeforeNode($this->initializeEmptyArray(), $positionNode);
-        $this->nodesToAddCollector->addNodeBeforeNode($this->initializePageArguments(), $positionNode);
-        $this->nodesToAddCollector->addNodeBeforeNode($this->initializeQueryParams(), $positionNode);
-        $this->nodesToAddCollector->addNodeBeforeNode(
+        $this->nodesToAddCollector->addNodesBeforeNode([
+            $this->initializeEmptyArray(),
+            $this->initializePageArguments(),
+            $this->initializeQueryParams(),
             $this->getRelevantParametersFromCacheHashCalculator(),
-            $positionNode
-        );
+        ], $propertyFetch);
 
         return new Variable(self::RELEVANT_PARAMETERS_FOR_CACHING_FROM_PAGE_ARGUMENTS);
     }
