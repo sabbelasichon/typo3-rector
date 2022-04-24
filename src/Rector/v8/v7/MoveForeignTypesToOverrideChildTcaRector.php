@@ -134,7 +134,10 @@ CODE_SAMPLE
             }
 
             $foreignTypesArrayItem = $this->extractArrayItemByKey($columnConfig, self::FOREIGN_TYPES);
-            $foreignRecordDefaultsArrayItem = $this->extractArrayItemByKey($columnConfig, self::FOREIGN_RECORD_DEFAULTS);
+            $foreignRecordDefaultsArrayItem = $this->extractArrayItemByKey(
+                $columnConfig,
+                self::FOREIGN_RECORD_DEFAULTS
+            );
             $foreignSelectorArrayItem = $this->extractArrayItemByKey($columnConfig, self::FOREIGN_SELECTOR);
             $overrideChildTcaArray = $this->extractSubArrayByKey($columnConfig, self::OVERRIDE_CHILD_TCA);
             $foreignSelectorOverrideArrayItem = $this->extractArrayItemByKey(

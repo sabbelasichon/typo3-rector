@@ -427,7 +427,9 @@ CODE_SAMPLE
                 || in_array('time', $eval, true)
                 || in_array('timesec', $eval, true)
             ) {
-                $configValueArrayItem->value->items[] = new ArrayItem(new String_('inputDateTime'), new String_('renderType'));
+                $configValueArrayItem->value->items[] = new ArrayItem(new String_('inputDateTime'), new String_(
+                    'renderType'
+                ));
             }
         }
     }

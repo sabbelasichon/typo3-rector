@@ -114,9 +114,10 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                             'selectIcons'
                         )) !== null) {
                             if (null === $this->extractArrayItemByKey($selectIconsArray, self::DISABLED)) {
-                                $selectIconsArray->items[] = new ArrayItem($this->nodeFactory->createFalse(), new String_(
-                                    self::DISABLED
-                                ));
+                                $selectIconsArray->items[] = new ArrayItem(
+                                    $this->nodeFactory->createFalse(),
+                                    new String_(self::DISABLED)
+                                );
                             }
                         }
                     }

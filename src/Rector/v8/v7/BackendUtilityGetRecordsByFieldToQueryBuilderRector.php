@@ -267,8 +267,11 @@ CODE_SAMPLE
         $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderWhereNode, $positionNode);
     }
 
-    private function addQueryWhereNode(string $queryBuilderVariableName, StaticCall $staticCall, Node $positionNode): void
-    {
+    private function addQueryWhereNode(
+        string $queryBuilderVariableName,
+        StaticCall $staticCall,
+        Node $positionNode
+    ): void {
         $whereClauseArgument = $staticCall->args[3] ?? null;
         $whereClause = null !== $whereClauseArgument ? $this->valueResolver->getValue($whereClauseArgument->value) : '';
 
@@ -300,8 +303,11 @@ CODE_SAMPLE
         $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }
 
-    private function addQueryGroupByNode(string $queryBuilderVariableName, StaticCall $staticCall, Node $positionNode): void
-    {
+    private function addQueryGroupByNode(
+        string $queryBuilderVariableName,
+        StaticCall $staticCall,
+        Node $positionNode
+    ): void {
         $groupByArgument = $staticCall->args[4] ?? null;
         $groupBy = null !== $groupByArgument ? $this->valueResolver->getValue($groupByArgument->value) : '';
 
