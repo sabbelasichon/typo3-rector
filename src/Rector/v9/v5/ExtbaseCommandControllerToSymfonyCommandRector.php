@@ -42,15 +42,15 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
     private const REMOVE_EMPTY_LINES = '/^[ \t]*[\r\n]+/m';
 
     public function __construct(
-        private SmartFileSystem $smartFileSystem,
-        private RectorParser $rectorParser,
-        private AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector,
-        private FilesFinder $filesFinder,
-        private AddCommandsToReturnRector $addCommandsToReturnRector,
-        private SimplePhpParser $simplePhpParser,
-        private TemplateFinder $templateFinder,
-        private NodePrinterInterface $nodePrinter,
-        private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
+        private readonly SmartFileSystem $smartFileSystem,
+        private readonly RectorParser $rectorParser,
+        private readonly AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector,
+        private readonly FilesFinder $filesFinder,
+        private readonly AddCommandsToReturnRector $addCommandsToReturnRector,
+        private readonly SimplePhpParser $simplePhpParser,
+        private readonly TemplateFinder $templateFinder,
+        private readonly NodePrinterInterface $nodePrinter,
+        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
     ) {
     }
 

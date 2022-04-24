@@ -23,8 +23,8 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
      * @param DatabaseConnectionToDbalRefactoring[] $databaseConnectionRefactorings
      */
     public function __construct(
-        private Typo3NodeResolver $typo3NodeResolver,
-        private array $databaseConnectionRefactorings
+        private readonly Typo3NodeResolver $typo3NodeResolver,
+        private readonly array $databaseConnectionRefactorings
     ) {
     }
 
@@ -96,8 +96,8 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
-        return ! $this->typo3NodeResolver->isAnyMethodCallOnGlobals($node, Typo3NodeResolver::TYPO3_DB);
+        return ! $this->typo3NodeResolver->isAnyMethodCallOnGlobals($methodCall, Typo3NodeResolver::TYPO3_DB);
     }
 }

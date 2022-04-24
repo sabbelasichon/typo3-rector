@@ -22,8 +22,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector extends AbstractRector
 {
     public function __construct(
-        private ClassDependencyManipulator $classDependencyManipulator,
-        private NodesToReplaceCollector $nodesToReplaceCollector
+        private readonly ClassDependencyManipulator $classDependencyManipulator,
+        private readonly NodesToReplaceCollector $nodesToReplaceCollector
     ) {
     }
 

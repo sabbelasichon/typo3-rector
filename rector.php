@@ -17,6 +17,7 @@ use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefini
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/config/config.php');
 
+    $rectorConfig->parallel();
     $rectorConfig->importNames();
     $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
 
@@ -27,11 +28,11 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests']);
 
     $rectorConfig->sets([
-        SetList::PHP_80,
-        SetList::PHP_74,
+        //        \Rector\Set\ValueObject\LevelSetList::UP_TO_PHP_80,
         SetList::PRIVATIZATION,
         SetList::CODING_STYLE,
         SetList::CODE_QUALITY,
+        // SetList::NAMING,
     ]);
 
     $rectorConfig->skip([
@@ -45,8 +46,9 @@ return static function (RectorConfig $rectorConfig): void {
         '*/Fixture/*',
     ]);
 
-    $rectorConfig->phpVersion(PhpVersion::PHP_80);
+    $rectorConfig->phpVersion(PhpVersion::PHP_81);
 
     $rectorConfig->rule(TypedPropertyRector::class);
     $rectorConfig->rule(ClassPropertyAssignToConstructorPromotionRector::class);
+    $rectorConfig->rule(\Rector\Php81\Rector\Property\ReadOnlyPropertyRector::class);
 };

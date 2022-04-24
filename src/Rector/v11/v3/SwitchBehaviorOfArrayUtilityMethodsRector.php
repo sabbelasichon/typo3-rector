@@ -73,15 +73,15 @@ CODE_SAMPLE
         );
     }
 
-    private function shouldSkip(StaticCall $node): bool
+    private function shouldSkip(StaticCall $staticCall): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Core\Utility\ArrayUtility')
         )) {
             return true;
         }
 
-        return ! $this->isName($node->name, 'arrayDiffAssocRecursive');
+        return ! $this->isName($staticCall->name, 'arrayDiffAssocRecursive');
     }
 }

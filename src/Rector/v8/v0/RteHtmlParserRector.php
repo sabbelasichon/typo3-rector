@@ -90,20 +90,20 @@ CODE_SAMPLE
         );
     }
 
-    private function removeSecondArgumentFromMethod(MethodCall $node): Node
+    private function removeSecondArgumentFromMethod(MethodCall $methodCall): Node
     {
-        $numberOfArguments = count($node->args);
+        $numberOfArguments = count($methodCall->args);
         if ($numberOfArguments > 1) {
-            unset($node->args[1]);
+            unset($methodCall->args[1]);
         }
 
-        return $node;
+        return $methodCall;
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
         return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Core\Html\RteHtmlParser')
         );
     }

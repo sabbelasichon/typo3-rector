@@ -27,7 +27,7 @@ final class RemoveBackendUtilityViewOnClickUsageRector extends AbstractRector
     private const MESSAGE = 'Rector changed the BackendUtility::viewOnClick call, but further argument resolving is necessary. See Deprecation-91806-BackendUtilityViewOnClick.html and Important-91123-AvoidUsingBackendUtilityViewOnClick.html';
 
     public function __construct(
-        private RectorOutputStyle $rectorOutputStyle
+        private readonly RectorOutputStyle $rectorOutputStyle
     ) {
     }
 
@@ -125,15 +125,15 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(StaticCall $node): bool
+    private function shouldSkip(StaticCall $staticCall): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
         )) {
             return true;
         }
 
-        return ! $this->isName($node->name, 'viewOnClick');
+        return ! $this->isName($staticCall->name, 'viewOnClick');
     }
 }

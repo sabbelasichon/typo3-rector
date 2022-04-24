@@ -23,8 +23,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ObjectManagerGetToConstructorInjectionRector extends AbstractRector
 {
     public function __construct(
-        private PropertyToAddCollector $propertyToAddCollector,
-        private PropertyNaming $propertyNaming
+        private readonly PropertyToAddCollector $propertyToAddCollector,
+        private readonly PropertyNaming $propertyNaming
     ) {
     }
 

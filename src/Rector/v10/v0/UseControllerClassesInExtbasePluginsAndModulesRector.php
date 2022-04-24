@@ -169,21 +169,27 @@ CODE_SAMPLE
         }
     }
 
-    private function refactorConfigurePluginMethod(StaticCall $node, string $vendorName, string $extensionName): void
-    {
-        if (isset($node->args[2]) && $node->args[2]->value instanceof Array_) {
-            $this->createNewControllerActionsArray($node->args[2]->value, $vendorName, $extensionName);
+    private function refactorConfigurePluginMethod(
+        StaticCall $staticCall,
+        string $vendorName,
+        string $extensionName
+    ): void {
+        if (isset($staticCall->args[2]) && $staticCall->args[2]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($staticCall->args[2]->value, $vendorName, $extensionName);
         }
 
-        if (isset($node->args[3]) && $node->args[3]->value instanceof Array_) {
-            $this->createNewControllerActionsArray($node->args[3]->value, $vendorName, $extensionName);
+        if (isset($staticCall->args[3]) && $staticCall->args[3]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($staticCall->args[3]->value, $vendorName, $extensionName);
         }
     }
 
-    private function refactorRegisterPluginMethod(StaticCall $node, string $vendorName, string $extensionName): void
-    {
-        if (isset($node->args[4]) && $node->args[4]->value instanceof Array_) {
-            $this->createNewControllerActionsArray($node->args[4]->value, $vendorName, $extensionName);
+    private function refactorRegisterPluginMethod(
+        StaticCall $staticCall,
+        string $vendorName,
+        string $extensionName
+    ): void {
+        if (isset($staticCall->args[4]) && $staticCall->args[4]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($staticCall->args[4]->value, $vendorName, $extensionName);
         }
     }
 

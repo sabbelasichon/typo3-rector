@@ -28,12 +28,12 @@ use Symplify\Skipper\Matcher\FileInfoMatcher;
 final class FullQualifiedNamePostRector extends AbstractPostRector
 {
     public function __construct(
-        private ParameterProvider $parameterProvider,
-        private CurrentFileProvider $currentFileProvider,
-        private BetterNodeFinder $betterNodeFinder,
-        private NodeRemover $nodeRemover,
-        private ClassNameImportSkipper $classNameImportSkipper,
-        private FileInfoMatcher $fileInfoMatcher
+        private readonly ParameterProvider $parameterProvider,
+        private readonly CurrentFileProvider $currentFileProvider,
+        private readonly BetterNodeFinder $betterNodeFinder,
+        private readonly NodeRemover $nodeRemover,
+        private readonly ClassNameImportSkipper $classNameImportSkipper,
+        private readonly FileInfoMatcher $fileInfoMatcher
     ) {
         $this->changeNameImportingPostRectorSkipConfiguration($this->parameterProvider);
     }

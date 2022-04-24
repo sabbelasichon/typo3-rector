@@ -42,7 +42,7 @@ final class EmailFinisherRector implements FormYamlRectorInterface
     private const VARIANTS = 'variants';
 
     public function __construct(
-        private CurrentFileProvider $currentFileProvider
+        private readonly CurrentFileProvider $currentFileProvider
     ) {
     }
 

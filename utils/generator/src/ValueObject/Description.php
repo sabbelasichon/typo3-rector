@@ -8,7 +8,7 @@ use Webmozart\Assert\Assert;
 
 final class Description
 {
-    private string $description;
+    private readonly string $description;
 
     private function __construct(string $description)
     {

@@ -25,7 +25,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
 {
     public function __construct(
-        private FilesFinder $filesFinder
+        private readonly FilesFinder $filesFinder
     ) {
     }
 

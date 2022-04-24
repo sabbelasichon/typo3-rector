@@ -120,46 +120,46 @@ CODE_SAMPLE
         ]);
     }
 
-    private function getCacheMethod(StaticCall $node): void
+    private function getCacheMethod(StaticCall $staticCall): void
     {
-        $this->addCacheManagerNode($node);
+        $this->addCacheManagerNode($staticCall);
 
         $cacheEntryNode = new Assign(new Variable(self::CACHE_ENTRY), $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall(self::CACHE_MANAGER, 'getCache', ['cache_hash']),
             'get',
-            [$node->args[0]]
+            [$staticCall->args[0]]
         ));
-        $this->nodesToAddCollector->addNodeAfterNode($cacheEntryNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($cacheEntryNode, $staticCall);
 
         $hashContentNode = new Assign(new Variable(self::HASH_CONTENT), $this->nodeFactory->createNull());
-        $this->nodesToAddCollector->addNodeAfterNode($hashContentNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($hashContentNode, $staticCall);
 
         $ifNode = new If_(new Variable(self::CACHE_ENTRY));
         $ifNode->stmts[] = new Expression(new Assign(new Variable(self::HASH_CONTENT), new Variable(
             self::CACHE_ENTRY
         )));
-        $this->nodesToAddCollector->addNodeAfterNode($ifNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($ifNode, $staticCall);
 
         $this->nodesToAddCollector->addNodeAfterNode(
             new Assign(new Variable('content'), new Variable(self::HASH_CONTENT)),
-            $node
+            $staticCall
         );
     }
 
-    private function addCacheManagerNode(StaticCall $node): void
+    private function addCacheManagerNode(StaticCall $staticCall): void
     {
         $cacheManagerNode = new Assign(new Variable(self::CACHE_MANAGER), $this->createCacheManager());
-        $this->nodesToAddCollector->addNodeAfterNode($cacheManagerNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($cacheManagerNode, $staticCall);
     }
 
-    private function setCacheMethod(StaticCall $node): void
+    private function setCacheMethod(StaticCall $staticCall): void
     {
-        $this->addCacheManagerNode($node);
+        $this->addCacheManagerNode($staticCall);
 
         $arguments = [
-            $node->args[0],
-            $node->args[1],
-            new Array_([new ArrayItem(new Concat(new String_('ident_'), $node->args[2]->value))]),
+            $staticCall->args[0],
+            $staticCall->args[1],
+            new Array_([new ArrayItem(new Concat(new String_('ident_'), $staticCall->args[2]->value))]),
             $this->nodeFactory->createArg(0),
         ];
 
@@ -168,6 +168,6 @@ CODE_SAMPLE
             'set',
             $arguments
         );
-        $this->nodesToAddCollector->addNodeAfterNode($cacheEntryNode, $node);
+        $this->nodesToAddCollector->addNodeAfterNode($cacheEntryNode, $staticCall);
     }
 }

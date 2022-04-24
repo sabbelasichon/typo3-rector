@@ -130,9 +130,9 @@ CODE_SAMPLE
     /**
      * @return MethodCall[]
      */
-    private function extractForwardMethodCalls(ClassMethod $node): array
+    private function extractForwardMethodCalls(ClassMethod $classMethod): array
     {
-        return $this->betterNodeFinder->find((array) $node->stmts, function (Node $node): bool {
+        return $this->betterNodeFinder->find((array) $classMethod->stmts, function (Node $node): bool {
             if (! $node instanceof MethodCall) {
                 return false;
             }

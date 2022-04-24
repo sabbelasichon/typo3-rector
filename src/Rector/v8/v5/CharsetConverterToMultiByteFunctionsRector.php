@@ -91,16 +91,16 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Core\Charset\CharsetConverter')
         )) {
             return true;
         }
 
-        return ! $this->isNames($node->name, [
+        return ! $this->isNames($methodCall->name, [
             'strlen',
             'convCapitalize',
             'substr',
@@ -110,20 +110,23 @@ CODE_SAMPLE
         ]);
     }
 
-    private function toMultiByteConvertCase(MethodCall $node): FuncCall
+    private function toMultiByteConvertCase(MethodCall $methodCall): FuncCall
     {
         return $this->nodeFactory->createFuncCall(
             'mb_convert_case',
-            [$node->args[1], new ConstFetch(new Name('MB_CASE_TITLE')), $node->args[0]]
+            [$methodCall->args[1], new ConstFetch(new Name('MB_CASE_TITLE')), $methodCall->args[0]]
         );
     }
 
-    private function toMultiByteSubstr(MethodCall $node): FuncCall
+    private function toMultiByteSubstr(MethodCall $methodCall): FuncCall
     {
-        $start = $node->args[2] ?? $this->nodeFactory->createArg(0);
-        $length = $node->args[3] ?? $this->nodeFactory->createNull();
+        $start = $methodCall->args[2] ?? $this->nodeFactory->createArg(0);
+        $length = $methodCall->args[3] ?? $this->nodeFactory->createNull();
 
-        return $this->nodeFactory->createFuncCall('mb_substr', [$node->args[1], $start, $length, $node->args[0]]);
+        return $this->nodeFactory->createFuncCall(
+            'mb_substr',
+            [$methodCall->args[1], $start, $length, $methodCall->args[0]]
+        );
     }
 
     private function toMultiByteLowerUpperCase(MethodCall $node): FuncCall
@@ -145,16 +148,16 @@ CODE_SAMPLE
         );
     }
 
-    private function toMultiByteStrrPos(MethodCall $node): FuncCall
+    private function toMultiByteStrrPos(MethodCall $methodCall): FuncCall
     {
         return $this->nodeFactory->createFuncCall(
             'mb_strrpos',
-            [$node->args[0], $node->args[1], $this->nodeFactory->createArg('utf-8')]
+            [$methodCall->args[0], $methodCall->args[1], $this->nodeFactory->createArg('utf-8')]
         );
     }
 
-    private function toMultiByteStrlen(MethodCall $node): FuncCall
+    private function toMultiByteStrlen(MethodCall $methodCall): FuncCall
     {
-        return $this->nodeFactory->createFuncCall('mb_strlen', array_reverse($node->args));
+        return $this->nodeFactory->createFuncCall('mb_strlen', array_reverse($methodCall->args));
     }
 }

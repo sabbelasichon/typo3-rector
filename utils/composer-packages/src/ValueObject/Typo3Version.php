@@ -9,7 +9,7 @@ use Stringable;
 final class Typo3Version implements Stringable
 {
     public function __construct(
-        private string $version
+        private readonly string $version
     ) {
     }
 

@@ -30,10 +30,10 @@ final class FormYamlFileProcessor implements FileProcessorInterface
      * @param FormYamlRectorInterface[] $transformer
      */
     public function __construct(
-        private CurrentFileProvider $currentFileProvider,
-        private FileDiffFactory $fileDiffFactory,
-        private YamlIndentResolver $yamlIndentResolver,
-        private array $transformer
+        private readonly CurrentFileProvider $currentFileProvider,
+        private readonly FileDiffFactory $fileDiffFactory,
+        private readonly YamlIndentResolver $yamlIndentResolver,
+        private readonly array $transformer
     ) {
     }
 

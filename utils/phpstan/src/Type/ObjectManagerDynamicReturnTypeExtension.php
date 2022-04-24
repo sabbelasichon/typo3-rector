@@ -14,7 +14,7 @@ use Ssch\TYPO3Rector\PHPStan\TypeResolver\ArgumentTypeResolver;
 final class ObjectManagerDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
     public function __construct(
-        private ArgumentTypeResolver $argumentTypeResolver
+        private readonly ArgumentTypeResolver $argumentTypeResolver
     ) {
     }
 

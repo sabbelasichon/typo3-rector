@@ -9,7 +9,7 @@ use Webmozart\Assert\Assert;
 
 final class ComposerPackage implements Stringable
 {
-    private string $package;
+    private readonly string $package;
 
     public function __construct(string $package)
     {

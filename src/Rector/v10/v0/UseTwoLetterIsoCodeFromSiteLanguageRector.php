@@ -21,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
 {
     public function __construct(
-        private Typo3NodeResolver $typo3NodeResolver
+        private readonly Typo3NodeResolver $typo3NodeResolver
     ) {
     }
 

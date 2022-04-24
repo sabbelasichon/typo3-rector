@@ -179,127 +179,135 @@ CODE_SAMPLE
         return PhpVersionFeature::NULL_COALESCE;
     }
 
-    private function refactorGetPropertyTagsValuesMethod(MethodCall $node): ?Node
+    private function refactorGetPropertyTagsValuesMethod(MethodCall $methodCall): ?Node
     {
-        if (! isset($node->args[1])) {
+        if (! isset($methodCall->args[1])) {
             return null;
         }
 
         $propertyTagsValuesVariable = new Variable('propertyTagsValues');
         $propertyTagsValuesNode = new Expression(new Assign($propertyTagsValuesVariable, new Coalesce(
-            $this->createArrayDimFetchTags($node),
+            $this->createArrayDimFetchTags($methodCall),
             $this->nodeFactory->createArray([])
         )));
 
-        $this->nodesToAddCollector->addNodeBeforeNode($propertyTagsValuesNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($propertyTagsValuesNode, $methodCall);
 
         return $propertyTagsValuesVariable;
     }
 
-    private function refactorGetClassPropertyNamesMethod(MethodCall $node): Node
+    private function refactorGetClassPropertyNamesMethod(MethodCall $methodCall): Node
     {
         return $this->nodeFactory->createFuncCall(
             'array_keys',
-            [$this->nodeFactory->createMethodCall($this->createClassSchema($node), 'getProperties')]
+            [$this->nodeFactory->createMethodCall($this->createClassSchema($methodCall), 'getProperties')]
         );
     }
 
-    private function refactorGetPropertyTagValuesMethod(MethodCall $node): ?Node
+    private function refactorGetPropertyTagValuesMethod(MethodCall $methodCall): ?Node
     {
-        if (! isset($node->args[1])) {
+        if (! isset($methodCall->args[1])) {
             return null;
         }
 
-        if (! isset($node->args[2])) {
+        if (! isset($methodCall->args[2])) {
             return null;
         }
 
         return new Coalesce(
-            new ArrayDimFetch($this->createArrayDimFetchTags($node), $node->args[2]->value),
+            new ArrayDimFetch($this->createArrayDimFetchTags($methodCall), $methodCall->args[2]->value),
             $this->nodeFactory->createArray([])
         );
     }
 
-    private function createArrayDimFetchTags(MethodCall $node): ArrayDimFetch
+    private function createArrayDimFetchTags(MethodCall $methodCall): ArrayDimFetch
     {
         return new ArrayDimFetch(
             $this->nodeFactory->createMethodCall(
-                $this->createClassSchema($node),
+                $this->createClassSchema($methodCall),
                 'getProperty',
-                [$node->args[1]->value]
+                [$methodCall->args[1]->value]
             ),
             new String_(self::TAGS)
         );
     }
 
-    private function refactorGetClassTagsValues(MethodCall $node): MethodCall
+    private function refactorGetClassTagsValues(MethodCall $methodCall): MethodCall
     {
-        return $this->nodeFactory->createMethodCall($this->createClassSchema($node), 'getTags');
+        return $this->nodeFactory->createMethodCall($this->createClassSchema($methodCall), 'getTags');
     }
 
-    private function refactorGetClassTagValues(MethodCall $node): ?Node
+    private function refactorGetClassTagValues(MethodCall $methodCall): ?Node
     {
-        if (! isset($node->args[1])) {
+        if (! isset($methodCall->args[1])) {
             return null;
         }
 
         return new Coalesce(
-            new ArrayDimFetch($this->refactorGetClassTagsValues($node), $node->args[1]->value),
+            new ArrayDimFetch($this->refactorGetClassTagsValues($methodCall), $methodCall->args[1]->value),
             $this->nodeFactory->createArray([])
         );
     }
 
-    private function refactorGetMethodTagsValues(MethodCall $node): ?Node
+    private function refactorGetMethodTagsValues(MethodCall $methodCall): ?Node
     {
-        if (! isset($node->args[1])) {
+        if (! isset($methodCall->args[1])) {
             return null;
         }
 
         return new Coalesce(new ArrayDimFetch(
-            $this->nodeFactory->createMethodCall($this->createClassSchema($node), 'getMethod', [$node->args[1]->value]),
+            $this->nodeFactory->createMethodCall(
+                $this->createClassSchema($methodCall),
+                'getMethod',
+                [$methodCall->args[1]->value]
+            ),
             new String_(self::TAGS)
         ), $this->nodeFactory->createArray([]));
     }
 
-    private function refactorHasMethod(MethodCall $node): ?Node
+    private function refactorHasMethod(MethodCall $methodCall): ?Node
     {
-        if (! isset($node->args[1])) {
+        if (! isset($methodCall->args[1])) {
             return null;
         }
 
         return $this->nodeFactory->createMethodCall(
-            $this->createClassSchema($node),
+            $this->createClassSchema($methodCall),
             self::HAS_METHOD,
-            [$node->args[1]->value]
+            [$methodCall->args[1]->value]
         );
     }
 
-    private function refactorGetMethodParameters(MethodCall $node): ?Node
+    private function refactorGetMethodParameters(MethodCall $methodCall): ?Node
     {
-        if (! isset($node->args[1])) {
+        if (! isset($methodCall->args[1])) {
             return null;
         }
 
         return new Coalesce(new ArrayDimFetch(
-            $this->nodeFactory->createMethodCall($this->createClassSchema($node), 'getMethod', [$node->args[1]->value]),
+            $this->nodeFactory->createMethodCall(
+                $this->createClassSchema($methodCall),
+                'getMethod',
+                [$methodCall->args[1]->value]
+            ),
             new String_('params')
         ), $this->nodeFactory->createArray([]));
     }
 
-    private function refactorIsPropertyTaggedWith(MethodCall $node): ?Node
+    private function refactorIsPropertyTaggedWith(MethodCall $methodCall): ?Node
     {
-        if (! isset($node->args[1], $node->args[2])) {
+        if (! isset($methodCall->args[1], $methodCall->args[2])) {
             return null;
         }
 
         $propertyVariable = new Variable('propertyReflectionService');
         $propertyNode = new Expression(new Assign($propertyVariable, $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createMethodCall($node->var, 'getClassSchema', [$node->args[0]->value]),
+            $this->nodeFactory->createMethodCall($methodCall->var, 'getClassSchema', [$methodCall->args[0]->value]),
             'getProperty',
-            [$node->args[1]->value]
+            [$methodCall->args[1]->value]
         )));
 
-        $this->nodesToAddCollector->addNodeBeforeNode($propertyNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($propertyNode, $methodCall);
 
         return new Ternary(
             new Empty_($propertyVariable),
@@ -308,23 +316,26 @@ CODE_SAMPLE
                 [
                     new ArrayDimFetch(new ArrayDimFetch($propertyVariable, new String_(
                         self::TAGS
-                    )), $node->args[2]->value),
+                    )), $methodCall->args[2]->value),
                 ]
             )
         );
     }
 
-    private function refactorIsClassTaggedWith(MethodCall $node): ?Node
+    private function refactorIsClassTaggedWith(MethodCall $methodCall): ?Node
     {
-        if (! isset($node->args[1])) {
+        if (! isset($methodCall->args[1])) {
             return null;
         }
 
-        $tagValue = $node->args[1]->value;
+        $tagValue = $methodCall->args[1]->value;
         $closureUse = $tagValue instanceof Variable ? $tagValue : new Variable('tag');
         if (! $tagValue instanceof Variable) {
             $tempVarNode = new Expression(new Assign($closureUse, $tagValue));
-            $this->nodesToAddCollector->addNodeBeforeNode($tempVarNode, $node->getAttribute(AttributeKey::PARENT_NODE));
+            $this->nodesToAddCollector->addNodeBeforeNode(
+                $tempVarNode,
+                $methodCall->getAttribute(AttributeKey::PARENT_NODE)
+            );
         }
 
         $anonymousFunction = new Closure();
@@ -334,14 +345,14 @@ CODE_SAMPLE
 
         return new Bool_($this->nodeFactory->createFuncCall('count', [
             $this->nodeFactory->createFuncCall('array_filter', [
-                $this->nodeFactory->createFuncCall('array_keys', [$this->refactorGetClassTagsValues($node)]),
+                $this->nodeFactory->createFuncCall('array_keys', [$this->refactorGetClassTagsValues($methodCall)]),
                 $anonymousFunction,
             ]),
         ]));
     }
 
-    private function createClassSchema(MethodCall $node): MethodCall
+    private function createClassSchema(MethodCall $methodCall): MethodCall
     {
-        return $this->nodeFactory->createMethodCall($node->var, 'getClassSchema', [$node->args[0]->value]);
+        return $this->nodeFactory->createMethodCall($methodCall->var, 'getClassSchema', [$methodCall->args[0]->value]);
     }
 }

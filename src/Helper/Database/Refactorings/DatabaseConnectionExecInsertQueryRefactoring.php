@@ -14,8 +14,8 @@ use Ssch\TYPO3Rector\Contract\Helper\Database\Refactorings\DatabaseConnectionToD
 final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConnectionToDbalRefactoring
 {
     public function __construct(
-        private ConnectionCallFactory $connectionCallFactory,
-        private NodeFactory $nodeFactory
+        private readonly ConnectionCallFactory $connectionCallFactory,
+        private readonly NodeFactory $nodeFactory
     ) {
     }
 

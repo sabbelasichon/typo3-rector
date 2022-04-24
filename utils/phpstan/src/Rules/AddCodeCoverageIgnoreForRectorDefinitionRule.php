@@ -26,7 +26,7 @@ final class AddCodeCoverageIgnoreForRectorDefinitionRule implements Rule
     public const ERROR_MESSAGE = 'Provide @codeCoverageIgnore doc block for "%s" RectorDefinition method';
 
     public function __construct(
-        private FileTypeMapper $fileTypeMapper
+        private readonly FileTypeMapper $fileTypeMapper
     ) {
     }
 

@@ -9,8 +9,8 @@ use Webmozart\Assert\Assert;
 final class Typo3Version
 {
     private function __construct(
-        private int $major,
-        private int $minor
+        private readonly int $major,
+        private readonly int $minor
     ) {
     }
 

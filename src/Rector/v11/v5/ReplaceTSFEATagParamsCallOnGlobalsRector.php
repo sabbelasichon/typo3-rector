@@ -25,7 +25,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ReplaceTSFEATagParamsCallOnGlobalsRector extends AbstractRector
 {
     public function __construct(
-        private Typo3NodeResolver $typo3NodeResolver
+        private readonly Typo3NodeResolver $typo3NodeResolver
     ) {
     }
 
@@ -82,28 +82,28 @@ CODE_SAMPLE
         );
     }
 
-    private function shouldSkip(PropertyFetch $node): bool
+    private function shouldSkip(PropertyFetch $propertyFetch): bool
     {
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $propertyFetch->getAttribute(AttributeKey::PARENT_NODE);
 
         // Check if we have an assigment to the property, if so do not change it
         if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
             return true;
         }
 
-        if (! $this->isName($node->name, 'ATagParams')) {
+        if (! $this->isName($propertyFetch->name, 'ATagParams')) {
             return true;
         }
 
         if ($this->isObjectType(
-            $node->var,
+            $propertyFetch->var,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         )) {
             return false;
         }
 
         return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
-            $node,
+            $propertyFetch,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
         );
     }

@@ -21,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRector
 {
     public function __construct(
-        private OldSeverityToLogLevelMapper $oldSeverityToLogLevelMapper
+        private readonly OldSeverityToLogLevelMapper $oldSeverityToLogLevelMapper
     ) {
     }
 

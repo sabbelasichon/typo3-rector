@@ -78,9 +78,9 @@ final class Typo3NodeResolver
     public const SIM_ACCESS_TIME = 'SIM_ACCESS_TIME';
 
     public function __construct(
-        private ValueResolver $valueResolver,
-        private NodeNameResolver $nodeNameResolver,
-        private NodeTypeResolver $nodeTypeResolver
+        private readonly ValueResolver $valueResolver,
+        private readonly NodeNameResolver $nodeNameResolver,
+        private readonly NodeTypeResolver $nodeTypeResolver
     ) {
     }
 

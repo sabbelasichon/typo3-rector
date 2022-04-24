@@ -8,7 +8,7 @@ use RuntimeException;
 
 final class Url
 {
-    private string $url;
+    private readonly string $url;
 
     private function __construct(string $url)
     {

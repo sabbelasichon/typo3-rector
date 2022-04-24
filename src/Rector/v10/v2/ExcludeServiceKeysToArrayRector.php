@@ -21,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ExcludeServiceKeysToArrayRector extends AbstractRector
 {
     public function __construct(
-        private ArrayTypeAnalyzer $arrayTypeAnalyzer
+        private readonly ArrayTypeAnalyzer $arrayTypeAnalyzer
     ) {
     }
 
@@ -86,17 +86,17 @@ CODE_SAMPLE
         ]);
     }
 
-    private function isExpectedObjectType(StaticCall $node): bool
+    private function isExpectedObjectType(StaticCall $staticCall): bool
     {
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
         )) {
             return true;
         }
 
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         );
     }

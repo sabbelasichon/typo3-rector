@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class InstantiatePageRendererExplicitlyRector extends AbstractRector
 {
     public function __construct(
-        private Typo3NodeResolver $typo3NodeResolver
+        private readonly Typo3NodeResolver $typo3NodeResolver
     ) {
     }
 
@@ -62,31 +62,31 @@ final class InstantiatePageRendererExplicitlyRector extends AbstractRector
         ]);
     }
 
-    private function shouldSkip(MethodCall $node): bool
+    private function shouldSkip(MethodCall $methodCall): bool
     {
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Backend\Controller\BackendController')
         )) {
             return false;
         }
 
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Backend\Template\DocumentTemplate')
         )) {
             return false;
         }
 
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         )) {
             return false;
         }
 
         return ! $this->typo3NodeResolver->isAnyMethodCallOnGlobals(
-            $node,
+            $methodCall,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
         );
     }

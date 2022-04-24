@@ -31,7 +31,7 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
     ];
 
     public function __construct(
-        private Typo3NodeResolver $typo3NodeResolver
+        private readonly Typo3NodeResolver $typo3NodeResolver
     ) {
     }
 
@@ -102,22 +102,24 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(PropertyFetch $node): bool
+    private function shouldSkip(PropertyFetch $propertyFetch): bool
     {
         if ($this->isObjectType(
-            $node->var,
+            $propertyFetch->var,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         )) {
             return false;
         }
 
         if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
-            $node,
+            $propertyFetch,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
         )) {
             return false;
         }
 
-        return ! $this->typo3NodeResolver->isPropertyFetchOnParentVariableOfTypeTypoScriptFrontendController($node);
+        return ! $this->typo3NodeResolver->isPropertyFetchOnParentVariableOfTypeTypoScriptFrontendController(
+            $propertyFetch
+        );
     }
 }

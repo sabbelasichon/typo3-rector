@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class PropertyUserTsToMethodGetTsConfigOfBackendUserAuthenticationRector extends AbstractRector
 {
     public function __construct(
-        private Typo3NodeResolver $typo3NodeResolver
+        private readonly Typo3NodeResolver $typo3NodeResolver
     ) {
     }
 
@@ -69,14 +69,17 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(PropertyFetch $node): bool
+    private function shouldSkip(PropertyFetch $propertyFetch): bool
     {
-        if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals($node, Typo3NodeResolver::BACKEND_USER)) {
+        if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
+            $propertyFetch,
+            Typo3NodeResolver::BACKEND_USER
+        )) {
             return false;
         }
 
         return ! $this->isObjectType(
-            $node->var,
+            $propertyFetch->var,
             new ObjectType('TYPO3\CMS\Core\Authentication\BackendUserAuthentication')
         );
     }

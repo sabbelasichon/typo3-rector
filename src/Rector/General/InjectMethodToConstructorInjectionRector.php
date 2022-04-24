@@ -22,7 +22,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class InjectMethodToConstructorInjectionRector extends AbstractRector
 {
     public function __construct(
-        private ClassDependencyManipulator $classDependencyManipulator
+        private readonly ClassDependencyManipulator $classDependencyManipulator
     ) {
     }
 

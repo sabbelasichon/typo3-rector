@@ -12,7 +12,7 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 final class ConnectionCallFactory
 {
     public function __construct(
-        private NodeFactory $nodeFactory
+        private readonly NodeFactory $nodeFactory
     ) {
     }
 

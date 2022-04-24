@@ -118,7 +118,7 @@ CODE_SAMPLE
         $this->commandInputArguments = $commandInputArguments;
     }
 
-    private function addArgumentsToConfigureMethod(ClassMethod $node): ClassMethod
+    private function addArgumentsToConfigureMethod(ClassMethod $classMethod): ClassMethod
     {
         foreach ($this->commandInputArguments as $commandInputArgument) {
             $mode = $this->createMode((int) $commandInputArgument['mode']);
@@ -126,20 +126,20 @@ CODE_SAMPLE
             $name = new String_($commandInputArgument[self::NAME]);
             $description = new String_($commandInputArgument['description']);
             $defaultValue = $commandInputArgument['default'];
-            $node->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+            $classMethod->stmts[] = new Expression($this->nodeFactory->createMethodCall(
                 'this',
                 'addArgument',
                 [$name, $mode, $description, $defaultValue]
             ));
         }
 
-        return $node;
+        return $classMethod;
     }
 
-    private function addArgumentsToExecuteMethod(ClassMethod $node): ClassMethod
+    private function addArgumentsToExecuteMethod(ClassMethod $classMethod): ClassMethod
     {
-        if (null === $node->stmts) {
-            return $node;
+        if (null === $classMethod->stmts) {
+            return $classMethod;
         }
 
         $argumentStatements = [];
@@ -153,9 +153,9 @@ CODE_SAMPLE
             $argumentStatements[] = new Expression($assignment);
         }
 
-        array_unshift($node->stmts, ...$argumentStatements);
+        array_unshift($classMethod->stmts, ...$argumentStatements);
 
-        return $node;
+        return $classMethod;
     }
 
     private function createMode(int $mode): ClassConstFetch

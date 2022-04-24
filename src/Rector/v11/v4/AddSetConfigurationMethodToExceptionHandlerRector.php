@@ -30,7 +30,7 @@ final class AddSetConfigurationMethodToExceptionHandlerRector extends AbstractRe
     private const SET_CONFIGURATION = 'setConfiguration';
 
     public function __construct(
-        private ReflectionProvider $reflectionProvider
+        private readonly ReflectionProvider $reflectionProvider
     ) {
     }
 

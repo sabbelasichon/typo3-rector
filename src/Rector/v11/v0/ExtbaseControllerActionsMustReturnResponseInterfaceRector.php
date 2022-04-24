@@ -127,24 +127,24 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(ClassMethod $node): bool
+    private function shouldSkip(ClassMethod $classMethod): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $classMethod,
             new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
         )) {
             return true;
         }
 
-        if (! $node->isPublic()) {
+        if (! $classMethod->isPublic()) {
             return true;
         }
 
-        if ($node->isAbstract()) {
+        if ($classMethod->isAbstract()) {
             return true;
         }
 
-        $methodName = $this->getName($node->name);
+        $methodName = $this->getName($classMethod->name);
 
         if (null === $methodName) {
             return true;
@@ -158,23 +158,23 @@ CODE_SAMPLE
             return true;
         }
 
-        if ($this->lastStatementIsExitCall($node)) {
+        if ($this->lastStatementIsExitCall($classMethod)) {
             return true;
         }
 
-        if ($this->hasRedirectCall($node)) {
+        if ($this->hasRedirectCall($classMethod)) {
             return true;
         }
 
-        if ($this->lastStatementIsForwardCall($node)) {
+        if ($this->lastStatementIsForwardCall($classMethod)) {
             return true;
         }
 
-        if ($this->hasExceptionCall($node)) {
+        if ($this->hasExceptionCall($classMethod)) {
             return true;
         }
 
-        return $this->isAlreadyResponseReturnType($node);
+        return $this->isAlreadyResponseReturnType($classMethod);
     }
 
     /**
@@ -185,9 +185,9 @@ CODE_SAMPLE
         return $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, Return_::class);
     }
 
-    private function hasRedirectCall(ClassMethod $node): bool
+    private function hasRedirectCall(ClassMethod $classMethod): bool
     {
-        return (bool) $this->betterNodeFinder->find((array) $node->stmts, function (Node $node): bool {
+        return (bool) $this->betterNodeFinder->find((array) $classMethod->stmts, function (Node $node): bool {
             if (! $node instanceof MethodCall) {
                 return false;
             }
@@ -203,20 +203,20 @@ CODE_SAMPLE
         });
     }
 
-    private function lastStatementIsExitCall(ClassMethod $node): bool
+    private function lastStatementIsExitCall(ClassMethod $classMethod): bool
     {
-        if (null === $node->stmts) {
+        if (null === $classMethod->stmts) {
             return false;
         }
 
-        $statements = $node->stmts;
+        $statements = $classMethod->stmts;
         $lastStatement = array_pop($statements);
         return $lastStatement instanceof Expression && $lastStatement->expr instanceof Exit_;
     }
 
-    private function isAlreadyResponseReturnType(ClassMethod $node): bool
+    private function isAlreadyResponseReturnType(ClassMethod $classMethod): bool
     {
-        $returns = $this->findReturns($node);
+        $returns = $this->findReturns($classMethod);
 
         $responseObjectType = new ObjectType('Psr\Http\Message\ResponseInterface');
 
@@ -241,16 +241,16 @@ CODE_SAMPLE
         return false;
     }
 
-    private function hasExceptionCall(ClassMethod $node): bool
+    private function hasExceptionCall(ClassMethod $classMethod): bool
     {
-        if (null === $node->stmts) {
+        if (null === $classMethod->stmts) {
             return false;
         }
 
-        $statements = $node->stmts;
+        $statements = $classMethod->stmts;
         $lastStatement = array_pop($statements);
 
-        if (! ($lastStatement instanceof Throw_)) {
+        if (! $lastStatement instanceof Throw_) {
             return false;
         }
 
@@ -261,13 +261,13 @@ CODE_SAMPLE
             ->yes();
     }
 
-    private function lastStatementIsForwardCall(ClassMethod $node): bool
+    private function lastStatementIsForwardCall(ClassMethod $classMethod): bool
     {
-        if (null === $node->stmts) {
+        if (null === $classMethod->stmts) {
             return false;
         }
 
-        $statements = $node->stmts;
+        $statements = $classMethod->stmts;
         $lastStatement = array_pop($statements);
 
         if (! $lastStatement instanceof Expression) {

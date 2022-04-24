@@ -22,9 +22,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class MoveRenderArgumentsToInitializeArgumentsMethodRector extends AbstractRector
 {
     public function __construct(
-        private HelperArgumentAssignFactory $helperArgumentAssignFactory,
-        private InitializeArgumentsClassMethodFactory $initializeArgumentsClassMethodFactory,
-        private PhpDocTagRemover $phpDocTagRemover
+        private readonly HelperArgumentAssignFactory $helperArgumentAssignFactory,
+        private readonly InitializeArgumentsClassMethodFactory $initializeArgumentsClassMethodFactory,
+        private readonly PhpDocTagRemover $phpDocTagRemover
     ) {
     }
 

@@ -50,7 +50,7 @@ final class RefactorInternalPropertiesOfTSFERector extends AbstractRector
     private const QUERY_PARAMS = 'queryParams';
 
     public function __construct(
-        private Typo3NodeResolver $typo3NodeResolver
+        private readonly Typo3NodeResolver $typo3NodeResolver
     ) {
     }
 
@@ -109,10 +109,10 @@ CODE_SAMPLE
         return $this->refactorDomainStartPage();
     }
 
-    private function shouldSkip(PropertyFetch $node): bool
+    private function shouldSkip(PropertyFetch $propertyFetch): bool
     {
         return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
-            $node,
+            $propertyFetch,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
         );
     }

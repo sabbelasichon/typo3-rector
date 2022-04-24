@@ -11,7 +11,7 @@ use UnexpectedValueException;
 final class PackagistPackageResolver implements PackageResolver
 {
     public function __construct(
-        private PackageParser $packageParser
+        private readonly PackageParser $packageParser
     ) {
     }
 

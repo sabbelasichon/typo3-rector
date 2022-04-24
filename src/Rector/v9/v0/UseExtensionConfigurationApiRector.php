@@ -27,7 +27,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UseExtensionConfigurationApiRector extends AbstractRector
 {
     public function __construct(
-        private RectorOutputStyle $rectorOutputStyle
+        private readonly RectorOutputStyle $rectorOutputStyle
     ) {
     }
 
