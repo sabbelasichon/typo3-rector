@@ -138,9 +138,9 @@ CODE_SAMPLE
         )]);
     }
 
-    private function dropSelectedListType(Array_ $config): bool
+    private function dropSelectedListType(Array_ $configArray): bool
     {
-        $listStyle = $this->extractArrayItemByKey($config, 'selectedListStyle');
+        $listStyle = $this->extractArrayItemByKey($configArray, 'selectedListStyle');
         if (null !== $listStyle) {
             $this->removeNode($listStyle);
             return true;
@@ -149,18 +149,18 @@ CODE_SAMPLE
         return false;
     }
 
-    private function refactorShowThumbs(Array_ $config): bool
+    private function refactorShowThumbs(Array_ $configArray): bool
     {
         $hasAstBeenChanged = false;
-        $showThumbs = $this->extractArrayItemByKey($config, 'show_thumbs');
+        $showThumbs = $this->extractArrayItemByKey($configArray, 'show_thumbs');
         if (null !== $showThumbs) {
             $this->removeNode($showThumbs);
             $hasAstBeenChanged = true;
 
             if (! (bool) $this->getValue($showThumbs->value)) {
-                if ($this->hasKeyValuePair($config, 'internal_type', 'db')) {
+                if ($this->hasKeyValuePair($configArray, 'internal_type', 'db')) {
                     $this->addFieldWizards['recordsOverview'][self::DISABLED] = true;
-                } elseif ($this->hasKeyValuePair($config, 'internal_type', 'file')) {
+                } elseif ($this->hasKeyValuePair($configArray, 'internal_type', 'file')) {
                     $this->addFieldWizards['fileThumbnails'][self::DISABLED] = true;
                 }
             }
@@ -169,10 +169,10 @@ CODE_SAMPLE
         return $hasAstBeenChanged;
     }
 
-    private function refactorDisableControls(Array_ $config): bool
+    private function refactorDisableControls(Array_ $configArray): bool
     {
         $hasAstBeenChanged = false;
-        $disableControls = $this->extractArrayItemByKey($config, 'disable_controls');
+        $disableControls = $this->extractArrayItemByKey($configArray, 'disable_controls');
         if (null !== $disableControls) {
             $this->removeNode($disableControls);
             $hasAstBeenChanged = true;
@@ -183,7 +183,7 @@ CODE_SAMPLE
                     if ('browser' === $control) {
                         $this->addFieldControls['elementBrowser'][self::DISABLED] = true;
                     } elseif ('delete' === $control) {
-                        $config->items[] = new ArrayItem(
+                        $configArray->items[] = new ArrayItem(
                             $this->nodeFactory->createTrue(),
                             new String_('hideDeleteIcon')
                         );

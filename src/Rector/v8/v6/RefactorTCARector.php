@@ -147,9 +147,9 @@ CODE_SAMPLE
         return $node;
     }
 
-    private function addFieldControlInsteadOfWizardsAddListEdit(Array_ $items): void
+    private function addFieldControlInsteadOfWizardsAddListEdit(Array_ $itemsArray): void
     {
-        foreach ($items->items as $fieldValue) {
+        foreach ($itemsArray->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
             }

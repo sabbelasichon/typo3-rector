@@ -141,9 +141,9 @@ CODE_SAMPLE
         return null;
     }
 
-    private function isRenderTypeCheck(Array_ $configValue): bool
+    private function isRenderTypeCheck(Array_ $configValueArray): bool
     {
-        foreach ($configValue->items as $configItemValue) {
+        foreach ($configValueArray->items as $configItemValue) {
             if (! $configItemValue instanceof ArrayItem) {
                 continue;
             }

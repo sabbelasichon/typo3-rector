@@ -159,9 +159,9 @@ CODE_SAMPLE
         return \str_starts_with($defaultExtras, 'richtext');
     }
 
-    private function refactorRichtextColumns(Array_ $columnItems): void
+    private function refactorRichtextColumns(Array_ $columnItemsArray): void
     {
-        foreach ($columnItems->items as $columnItem) {
+        foreach ($columnItemsArray->items as $columnItem) {
             if (! $columnItem instanceof ArrayItem) {
                 continue;
             }

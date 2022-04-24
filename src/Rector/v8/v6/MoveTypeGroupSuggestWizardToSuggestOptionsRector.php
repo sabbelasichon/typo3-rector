@@ -165,9 +165,9 @@ CODE_SAMPLE
         return $this->hasAstBeenChanged ? $node : null;
     }
 
-    private function refactorWizards(Array_ $config): bool
+    private function refactorWizards(Array_ $configArray): bool
     {
-        $wizardsArrayItem = $this->extractArrayItemByKey($config, 'wizards');
+        $wizardsArrayItem = $this->extractArrayItemByKey($configArray, 'wizards');
         if (! $wizardsArrayItem instanceof ArrayItem) {
             return false;
         }
@@ -190,7 +190,7 @@ CODE_SAMPLE
             }
 
             if (! $this->isEmpty($wizardConfig)) {
-                $config->items[] = new ArrayItem($wizardConfig, new String_('suggestOptions'));
+                $configArray->items[] = new ArrayItem($wizardConfig, new String_('suggestOptions'));
             }
 
             $this->removeNode($wizard);

@@ -143,9 +143,9 @@ CODE_SAMPLE
         return $hasAstBeenChanged ? $node : null;
     }
 
-    private function isRenderTypeInputDateTime(Array_ $configValue): bool
+    private function isRenderTypeInputDateTime(Array_ $configValueArray): bool
     {
-        foreach ($configValue->items as $configItemValue) {
+        foreach ($configValueArray->items as $configItemValue) {
             if (! $configItemValue instanceof ArrayItem) {
                 continue;
             }

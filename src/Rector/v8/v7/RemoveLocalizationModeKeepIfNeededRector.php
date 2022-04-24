@@ -178,12 +178,12 @@ CODE_SAMPLE
         return $hasAstBeenChanged ? $node : null;
     }
 
-    private function isLocalizationModeKeepAndAllowLanguageSynchronization(Array_ $behaviourConfiguration): bool
+    private function isLocalizationModeKeepAndAllowLanguageSynchronization(Array_ $behaviourConfigurationArray): bool
     {
         $localizationMode = null;
         $allowLanguageSynchronization = null;
 
-        foreach ($behaviourConfiguration->items as $behaviourConfigurationItem) {
+        foreach ($behaviourConfigurationArray->items as $behaviourConfigurationItem) {
             if (! $behaviourConfigurationItem instanceof ArrayItem) {
                 continue;
             }

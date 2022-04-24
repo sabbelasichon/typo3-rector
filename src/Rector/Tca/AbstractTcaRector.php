@@ -104,11 +104,11 @@ abstract class AbstractTcaRector extends AbstractRector
      * refactors an TCA array such as [ 'column_1' => [ 'label' => 'column 1', 'config' => ... ], 'column_2' => [
      * 'label' => 'column 2', 'config' => ... ] ]
      *
-     * @param Array_ $columns a list of TCA definitions for columns
+     * @param Array_ $columnsArray a list of TCA definitions for columns
      */
-    protected function refactorColumnList(Array_ $columns): void
+    protected function refactorColumnList(Array_ $columnsArray): void
     {
-        foreach ($columns->items as $columnArrayItem) {
+        foreach ($columnsArray->items as $columnArrayItem) {
             if (! $columnArrayItem instanceof ArrayItem) {
                 continue;
             }
@@ -171,9 +171,9 @@ abstract class AbstractTcaRector extends AbstractRector
      * refactors an TCA types array such as [ '0' => [ 'showitem' => 'field_a,field_b' ], '1' => [ 'showitem' =>
      * 'field_a'] ]
      */
-    protected function refactorTypes(Array_ $types): void
+    protected function refactorTypes(Array_ $typesArray): void
     {
-        foreach ($types->items as $typeItem) {
+        foreach ($typesArray->items as $typeItem) {
             if (! $typeItem instanceof ArrayItem) {
                 continue;
             }
@@ -200,7 +200,7 @@ abstract class AbstractTcaRector extends AbstractRector
     /**
      * refactors an TCA ctrl section such as ['label' => 'foo', 'tstamp' => 'tstamp', 'crdate' => 'crdate']
      */
-    protected function refactorCtrl(Array_ $ctrl): void
+    protected function refactorCtrl(Array_ $ctrlArray): void
     {
         // override this as needed in child-classes
     }

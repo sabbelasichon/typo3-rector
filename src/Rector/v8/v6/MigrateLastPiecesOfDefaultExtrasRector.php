@@ -180,9 +180,9 @@ CODE_SAMPLE
         )]);
     }
 
-    private function refactorDefaultExtras(Array_ $columnItems): void
+    private function refactorDefaultExtras(Array_ $columnItemsArray): void
     {
-        foreach ($columnItems->items as $columnItem) {
+        foreach ($columnItemsArray->items as $columnItem) {
             if (! $columnItem instanceof ArrayItem) {
                 continue;
             }
