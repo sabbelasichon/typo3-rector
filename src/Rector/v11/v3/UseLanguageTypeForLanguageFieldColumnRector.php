@@ -78,6 +78,9 @@ CODE_SAMPLE
         );
     }
 
+    /**
+     * @param Array_ $node
+     */
     public function refactor(Node $node): ?Node
     {
         $this->hasAstBeenChanged = false;

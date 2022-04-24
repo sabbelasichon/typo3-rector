@@ -16,9 +16,9 @@ trait TcaHelperTrait
     protected function isFullTca(Return_ $node): bool
     {
         $ctrl = $this->extractCtrl($node);
-        $columns = $this->extractColumns($node);
+        $columnsArrayItem = $this->extractColumns($node);
 
-        return null !== $ctrl && null !== $columns;
+        return null !== $ctrl && null !== $columnsArrayItem;
     }
 
     protected function extractArrayItemByKey(?Node $node, string $key): ?ArrayItem

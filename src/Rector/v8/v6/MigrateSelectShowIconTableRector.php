@@ -44,13 +44,13 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
             return null;
         }
 
-        $columns = $this->extractColumns($node);
+        $columnsArrayItem = $this->extractColumns($node);
 
-        if (! $columns instanceof ArrayItem) {
+        if (! $columnsArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $columnItems = $columns->value;
+        $columnItems = $columnsArrayItem->value;
 
         if (! $columnItems instanceof Array_) {
             return null;

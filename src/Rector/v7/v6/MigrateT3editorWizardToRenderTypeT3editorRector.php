@@ -96,13 +96,13 @@ CODE_SAMPLE
             return null;
         }
 
-        $columns = $this->extractColumns($node);
+        $columnsArrayItem = $this->extractColumns($node);
 
-        if (! $columns instanceof ArrayItem) {
+        if (! $columnsArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $items = $columns->value;
+        $items = $columnsArrayItem->value;
 
         if (! $items instanceof Array_) {
             return null;
