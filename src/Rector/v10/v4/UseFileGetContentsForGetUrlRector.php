@@ -54,7 +54,7 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
         }
 
         // Cannot rewrite for external urls
-        if (preg_match('#^(?:http|ftp)s?|s(?:ftp|cp):#', $urlValue)) {
+        if (preg_match('#^(?:http|ftp)s?|s(?:ftp|cp):#', (string) $urlValue)) {
             return $this->nodeFactory->createMethodCall(
                 $this->nodeFactory->createMethodCall(
                     $this->nodeFactory->createMethodCall(

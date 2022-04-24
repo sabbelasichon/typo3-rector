@@ -131,7 +131,7 @@ CODE_SAMPLE
             }
 
             if (isset($json['name'])) {
-                [, $extensionKey] = explode('/', $json['name'], 2);
+                [, $extensionKey] = explode('/', (string) $json['name'], 2);
                 return str_replace('-', '_', $extensionKey);
             }
         } catch (FileNotFoundException) {

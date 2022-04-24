@@ -125,7 +125,7 @@ CODE_SAMPLE
 
             preg_match_all(
                 '#\s*(?P<optionName>[a-z0-9]+)\s*=\s*(?P<optionValue>"(?:"|[^"])*"|\'(?:\\\\\'|[^\'])*\'|(?:\s|[^,"\']*))#ixS',
-                $options,
+                (string) $options,
                 $optionNamesValues
             );
 

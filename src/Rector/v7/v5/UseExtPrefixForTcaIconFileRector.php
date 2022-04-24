@@ -159,7 +159,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (str_contains($pathToFile, '/')) {
+        if (str_contains((string) $pathToFile, '/')) {
             return;
         }
 
