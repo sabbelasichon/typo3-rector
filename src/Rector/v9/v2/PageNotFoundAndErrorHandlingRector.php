@@ -120,13 +120,10 @@ CODE_SAMPLE
             return $this->refactorCheckPageUnavailableHandlerMethod();
         }
 
-        $currentStmts = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
-        $positionNode = $currentStmts ?? $node;
-
         if ($this->isNames($node->name, ['pageUnavailableHandler', 'pageNotFoundHandler', 'pageErrorHandler'])) {
             $newNode = $this->refactorPageErrorHandlerIfPossible($node);
             if (null !== $newNode) {
-                $this->nodesToAddCollector->addNodeBeforeNode($newNode, $positionNode);
+                $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
                 $this->removeNodeOrParentNode($node);
             }
 
@@ -139,8 +136,8 @@ CODE_SAMPLE
             return null;
         }
 
-        $this->nodesToAddCollector->addNodeBeforeNode($responseNode, $positionNode);
-        $this->nodesToAddCollector->addNodeBeforeNode($this->throwException(), $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($responseNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($this->throwException(), $node);
         $this->removeNodeOrParentNode($node);
 
         return $node;

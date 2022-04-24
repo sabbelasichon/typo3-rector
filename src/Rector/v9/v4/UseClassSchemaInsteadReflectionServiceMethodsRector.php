@@ -191,9 +191,7 @@ CODE_SAMPLE
             $this->nodeFactory->createArray([])
         )));
 
-        $currentStmt = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
-        $positionNode = $currentStmt ?? $node;
-        $this->nodesToAddCollector->addNodeBeforeNode($propertyTagsValuesNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($propertyTagsValuesNode, $node);
 
         return $propertyTagsValuesVariable;
     }
@@ -301,9 +299,7 @@ CODE_SAMPLE
             [$node->args[1]->value]
         )));
 
-        $currentStmt = $node->getAttribute(AttributeKey::CURRENT_STATEMENT);
-        $positionNode = $currentStmt ?? $node;
-        $this->nodesToAddCollector->addNodeBeforeNode($propertyNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($propertyNode, $node);
 
         return new Ternary(
             new Empty_($propertyVariable),
