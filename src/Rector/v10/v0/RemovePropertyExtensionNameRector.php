@@ -85,12 +85,18 @@ CODE_SAMPLE
         );
     }
 
-    private function shouldSkip(PropertyFetch $node): bool
+    private function shouldSkip(PropertyFetch $propertyFetch): bool
     {
-        if ($this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\AbstractController'))) {
+        if ($this->isObjectType(
+            $propertyFetch->var,
+            new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\AbstractController')
+        )) {
             return false;
         }
 
-        return ! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController'));
+        return ! $this->isObjectType(
+            $propertyFetch->var,
+            new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
+        );
     }
 }

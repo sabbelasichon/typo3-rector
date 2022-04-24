@@ -172,17 +172,17 @@ CODE_SAMPLE
         );
     }
 
-    private function refactorPropertyFetch(PropertyFetch $node): ?Node
+    private function refactorPropertyFetch(PropertyFetch $propertyFetch): ?Node
     {
-        if (! $this->isObjectType($node->var, new ObjectType('TYPO3\CMS\Core\Imaging\GraphicalFunctions'))) {
+        if (! $this->isObjectType($propertyFetch->var, new ObjectType('TYPO3\CMS\Core\Imaging\GraphicalFunctions'))) {
             return null;
         }
 
-        if (! $this->isName($node->name, self::TEMP_PATH)) {
+        if (! $this->isName($propertyFetch->name, self::TEMP_PATH)) {
             return null;
         }
 
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $propertyFetch->getAttribute(AttributeKey::PARENT_NODE);
 
         // Check if we have an assigment to the property, if so do not change it
         if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
