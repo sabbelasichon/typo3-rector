@@ -35,7 +35,7 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
     private const TYPOSCRIPT = 'typoscript';
 
     public function __construct(
-        private Typo3NodeResolver $typo3NodeResolver
+        private readonly Typo3NodeResolver $typo3NodeResolver
     ) {
     }
 

@@ -24,8 +24,8 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
      * @param TyposcriptConditionMatcher[] $conditionMatchers
      */
     public function __construct(
-        private CurrentFileProvider $currentFileProvider,
-        private array $conditionMatchers = []
+        private readonly CurrentFileProvider $currentFileProvider,
+        private readonly array $conditionMatchers = []
     ) {
     }
 

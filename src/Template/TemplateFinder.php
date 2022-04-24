@@ -8,7 +8,7 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class TemplateFinder
 {
-    private string $templateDirectory;
+    private readonly string $templateDirectory;
 
     public function __construct()
     {

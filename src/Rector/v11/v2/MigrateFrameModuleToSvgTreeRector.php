@@ -21,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class MigrateFrameModuleToSvgTreeRector extends AbstractRector
 {
     public function __construct(
-        private FilesFinder $filesFinder
+        private readonly FilesFinder $filesFinder
     ) {
     }
 

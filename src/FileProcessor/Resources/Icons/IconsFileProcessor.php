@@ -31,9 +31,9 @@ final class IconsFileProcessor implements FileProcessorInterface
      * @param IconRectorInterface[] $iconsRector
      */
     public function __construct(
-        private FilesFinder $filesFinder,
-        private SmartFileSystem $smartFileSystem,
-        private array $iconsRector
+        private readonly FilesFinder $filesFinder,
+        private readonly SmartFileSystem $smartFileSystem,
+        private readonly array $iconsRector
     ) {
     }
 

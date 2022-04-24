@@ -22,8 +22,8 @@ final class FluidFileProcessor implements FileProcessorInterface
      * @param FluidRectorInterface[] $fluidRectors
      */
     public function __construct(
-        private array $fluidRectors,
-        private FileDiffFactory $fileDiffFactory,
+        private readonly array $fluidRectors,
+        private readonly FileDiffFactory $fileDiffFactory,
     ) {
     }
 

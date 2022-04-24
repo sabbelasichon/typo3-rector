@@ -7,10 +7,10 @@ namespace Ssch\TYPO3Rector\Generator\ValueObject;
 final class Typo3RectorRecipe
 {
     public function __construct(
-        private Typo3Version $typo3Version,
-        private Url $url,
-        private Name $name,
-        private Description $description
+        private readonly Typo3Version $typo3Version,
+        private readonly Url $url,
+        private readonly Name $name,
+        private readonly Description $description
     ) {
     }
 

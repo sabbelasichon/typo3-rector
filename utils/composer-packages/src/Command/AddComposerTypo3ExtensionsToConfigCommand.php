@@ -30,14 +30,14 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 {
     public function __construct(
-        private PackageResolver $packageResolver,
-        private RectorParser $rectorParser,
-        private ComposerConfigurationPathResolver $composerConfigurationPathResolver,
-        private SmartFileSystem $smartFileSystem,
-        private BetterStandardPrinter $betterStandardPrinter,
-        private AddPackageVersionRector $addPackageVersionRector,
-        private AddReplacePackageRector $replacePackageRector,
-        private CurrentFileProvider $currentFileProvider
+        private readonly PackageResolver $packageResolver,
+        private readonly RectorParser $rectorParser,
+        private readonly ComposerConfigurationPathResolver $composerConfigurationPathResolver,
+        private readonly SmartFileSystem $smartFileSystem,
+        private readonly BetterStandardPrinter $betterStandardPrinter,
+        private readonly AddPackageVersionRector $addPackageVersionRector,
+        private readonly AddReplacePackageRector $replacePackageRector,
+        private readonly CurrentFileProvider $currentFileProvider
     ) {
         parent::__construct();
     }

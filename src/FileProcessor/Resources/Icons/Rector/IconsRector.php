@@ -18,9 +18,9 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 final class IconsRector implements IconRectorInterface
 {
     public function __construct(
-        private ParameterProvider $parameterProvider,
-        private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        private SmartFileSystem $smartFileSystem
+        private readonly ParameterProvider $parameterProvider,
+        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        private readonly SmartFileSystem $smartFileSystem
     ) {
     }
 

@@ -16,9 +16,9 @@ use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 final class ImportExtbaseAnnotationIfMissingFactory
 {
     public function __construct(
-        private BetterNodeFinder $betterNodeFinder,
-        private  UseNodesToAddCollector $useNodesToAddCollector,
-        private NodeNameResolver $nodeNameResolver
+        private readonly BetterNodeFinder $betterNodeFinder,
+        private readonly UseNodesToAddCollector $useNodesToAddCollector,
+        private readonly NodeNameResolver $nodeNameResolver
     ) {
     }
 

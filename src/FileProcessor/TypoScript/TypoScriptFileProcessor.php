@@ -57,16 +57,16 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
      * @param TypoScriptPostRectorInterface[] $typoScriptPostRectors
      */
     public function __construct(
-        private ParserInterface $typoscriptParser,
-        private BufferedOutput $output,
-        private ASTPrinterInterface $typoscriptPrinter,
-        private CurrentFileProvider $currentFileProvider,
-        private EditorConfigParser $editorConfigParser,
-        private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        private RectorOutputStyle $rectorOutputStyle,
-        private FileDiffFactory $fileDiffFactory,
-        private array $typoScriptRectors = [],
-        private array $typoScriptPostRectors = []
+        private readonly ParserInterface $typoscriptParser,
+        private readonly BufferedOutput $output,
+        private readonly ASTPrinterInterface $typoscriptPrinter,
+        private readonly CurrentFileProvider $currentFileProvider,
+        private readonly EditorConfigParser $editorConfigParser,
+        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        private readonly RectorOutputStyle $rectorOutputStyle,
+        private readonly FileDiffFactory $fileDiffFactory,
+        private readonly array $typoScriptRectors = [],
+        private readonly array $typoScriptPostRectors = []
     ) {
     }
 

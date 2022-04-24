@@ -24,7 +24,7 @@ final class ReplaceInjectAnnotationWithMethodRector extends AbstractRector
     private const OLD_ANNOTATION = 'TYPO3\CMS\Extbase\Annotation\Inject';
 
     public function __construct(
-        private InjectMethodFactory $injectMethodFactory
+        private readonly InjectMethodFactory $injectMethodFactory
     ) {
     }
 

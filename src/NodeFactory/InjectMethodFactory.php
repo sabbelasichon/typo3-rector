@@ -26,9 +26,9 @@ use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 final class InjectMethodFactory
 {
     public function __construct(
-        private NodeNameResolver $nodeNameResolver,
-        private PhpDocTagRemover $phpDocTagRemover,
-        private PhpDocInfoFactory $phpDocInfoFactory
+        private readonly NodeNameResolver $nodeNameResolver,
+        private readonly PhpDocTagRemover $phpDocTagRemover,
+        private readonly PhpDocInfoFactory $phpDocInfoFactory
     ) {
     }
 

@@ -45,8 +45,8 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
     ];
 
     public function __construct(
-        private Broker $broker,
-        private FileTypeMapper $fileTypeMapper
+        private readonly Broker $broker,
+        private readonly FileTypeMapper $fileTypeMapper
     ) {
     }
 

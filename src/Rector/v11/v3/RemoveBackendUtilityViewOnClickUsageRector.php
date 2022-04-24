@@ -27,7 +27,7 @@ final class RemoveBackendUtilityViewOnClickUsageRector extends AbstractRector
     private const MESSAGE = 'Rector changed the BackendUtility::viewOnClick call, but further argument resolving is necessary. See Deprecation-91806-BackendUtilityViewOnClick.html and Important-91123-AvoidUsingBackendUtilityViewOnClick.html';
 
     public function __construct(
-        private RectorOutputStyle $rectorOutputStyle
+        private readonly RectorOutputStyle $rectorOutputStyle
     ) {
     }
 

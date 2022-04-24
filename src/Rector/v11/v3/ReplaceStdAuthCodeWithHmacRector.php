@@ -24,7 +24,7 @@ final class ReplaceStdAuthCodeWithHmacRector extends AbstractRector
     private const MESSAGE = 'You have to migrate GeneralUtility::stdAuthCode to GeneralUtility::hmac(). To make types work you should check the old function implementation';
 
     public function __construct(
-        private RectorOutputStyle $rectorOutputStyle
+        private readonly RectorOutputStyle $rectorOutputStyle
     ) {
     }
 

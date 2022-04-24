@@ -21,8 +21,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends AbstractRector
 {
     public function __construct(
-        private FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
-        private SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer
+        private readonly FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
+        private readonly SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer
     ) {
     }
 

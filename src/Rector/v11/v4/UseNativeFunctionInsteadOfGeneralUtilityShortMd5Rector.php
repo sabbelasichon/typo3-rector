@@ -20,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector extends AbstractRector
 {
     public function __construct(
-        private AstResolver $astResolver
+        private readonly AstResolver $astResolver
     ) {
     }
 

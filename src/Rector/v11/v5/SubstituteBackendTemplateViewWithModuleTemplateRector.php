@@ -46,8 +46,8 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
     private const MODULE_TEMPLATE = 'moduleTemplate';
 
     public function __construct(
-        private ClassDependencyManipulator $classDependencyManipulator,
-        private NodesToReplaceCollector $nodesToReplaceCollector
+        private readonly ClassDependencyManipulator $classDependencyManipulator,
+        private readonly NodesToReplaceCollector $nodesToReplaceCollector
     ) {
     }
 

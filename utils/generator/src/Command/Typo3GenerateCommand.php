@@ -30,10 +30,10 @@ final class Typo3GenerateCommand extends Command
     public const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Name__';
 
     public function __construct(
-        private TemplateFinder $templateFinder,
-        private FileGenerator $fileGenerator,
-        private RectorOutputStyle $rectorOutputStyle,
-        private ConfigFilesystem $configFilesystem
+        private readonly TemplateFinder $templateFinder,
+        private readonly FileGenerator $fileGenerator,
+        private readonly RectorOutputStyle $rectorOutputStyle,
+        private readonly ConfigFilesystem $configFilesystem
     ) {
         parent::__construct();
     }

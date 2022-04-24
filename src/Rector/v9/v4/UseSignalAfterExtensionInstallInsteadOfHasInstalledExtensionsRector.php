@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector extends AbstractRector
 {
     public function __construct(
-        private ClassConstAnalyzer $classConstAnalyzer
+        private readonly ClassConstAnalyzer $classConstAnalyzer
     ) {
     }
 

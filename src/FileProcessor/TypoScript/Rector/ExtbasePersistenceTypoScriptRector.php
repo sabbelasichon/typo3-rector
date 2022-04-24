@@ -56,9 +56,9 @@ final class ExtbasePersistenceTypoScriptRector extends AbstractTypoScriptRector 
     private static array $persistenceArray = [];
 
     public function __construct(
-        private ReflectionProvider $reflectionProvider,
-        private BetterStandardPrinter $betterStandardPrinter,
-        private NodeFactory $nodeFactory
+        private readonly ReflectionProvider $reflectionProvider,
+        private readonly BetterStandardPrinter $betterStandardPrinter,
+        private readonly NodeFactory $nodeFactory
     ) {
         $this->filename = getcwd() . '/Configuration_Extbase_Persistence_Classes.php';
     }

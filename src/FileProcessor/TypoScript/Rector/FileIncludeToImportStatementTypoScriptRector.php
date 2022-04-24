@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class FileIncludeToImportStatementTypoScriptRector extends AbstractTypoScriptRector
 {
     public function __construct(
-        private CurrentFileProvider $currentFileProvider
+        private readonly CurrentFileProvider $currentFileProvider
     ) {
     }
 

@@ -21,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class ExcludeServiceKeysToArrayRector extends AbstractRector
 {
     public function __construct(
-        private ArrayTypeAnalyzer $arrayTypeAnalyzer
+        private readonly ArrayTypeAnalyzer $arrayTypeAnalyzer
     ) {
     }
 
