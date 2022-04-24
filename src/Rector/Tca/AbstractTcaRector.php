@@ -129,10 +129,10 @@ abstract class AbstractTcaRector extends AbstractRector
      */
     protected function isFullTcaDefinition(Array_ $possibleTcaArray): bool
     {
-        $columnsArrayItem = $this->extractSubArrayByKey($possibleTcaArray, 'columns');
+        $columnsArray = $this->extractSubArrayByKey($possibleTcaArray, 'columns');
         $ctrl = $this->extractArrayItemByKey($possibleTcaArray, 'ctrl');
 
-        return null !== $columnsArrayItem && null !== $ctrl;
+        return null !== $columnsArray && null !== $ctrl;
     }
 
     /**

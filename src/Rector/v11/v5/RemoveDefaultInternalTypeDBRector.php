@@ -58,17 +58,16 @@ CODE_SAMPLE
 
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
-        $config = $this->extractSubArrayByKey($columnTca, self::CONFIG);
-
-        if (! $config instanceof Array_) {
+        $configArray = $this->extractSubArrayByKey($columnTca, self::CONFIG);
+        if (! $configArray instanceof Array_) {
             return;
         }
 
-        if (! $this->configIsOfInternalType($config, 'db')) {
+        if (! $this->configIsOfInternalType($configArray, 'db')) {
             return;
         }
 
-        $nodeToRemove = $this->extractArrayItemByKey($config, 'internal_type');
+        $nodeToRemove = $this->extractArrayItemByKey($configArray, 'internal_type');
         if (null !== $nodeToRemove) {
             $this->removeNode($nodeToRemove);
             $this->hasAstBeenChanged = true;

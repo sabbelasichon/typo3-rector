@@ -129,29 +129,29 @@ CODE_SAMPLE
         }
 
         // now check columnsOverrides of all type=group, internal_type=db fields:
-        $types = $this->extractSubArrayByKey($node->expr, 'types');
-        if (! $types instanceof Array_) {
+        $typesArray = $this->extractSubArrayByKey($node->expr, 'types');
+        if (! $typesArray instanceof Array_) {
             return null;
         }
 
-        foreach ($this->extractColumnConfig($types, 'columnsOverrides') as $columnOverride) {
+        foreach ($this->extractColumnConfig($typesArray, 'columnsOverrides') as $columnOverride) {
             if (! $columnOverride instanceof Array_) {
                 continue;
             }
 
             foreach ($columnNamesWithTypeGroupAndInternalTypeDb as $columnName => $columnConfig) {
-                $overrideForColumn = $this->extractSubArrayByKey($columnOverride, $columnName);
-                if (! $overrideForColumn instanceof Array_) {
+                $overrideForColumnArray = $this->extractSubArrayByKey($columnOverride, $columnName);
+                if (! $overrideForColumnArray instanceof Array_) {
                     continue;
                 }
 
-                $configOverride = $this->extractSubArrayByKey($overrideForColumn, 'config');
-                if (! $configOverride instanceof Array_) {
+                $configOverrideArray = $this->extractSubArrayByKey($overrideForColumnArray, 'config');
+                if (! $configOverrideArray instanceof Array_) {
                     continue;
                 }
 
-                if ($this->refactorWizards($configOverride)) {
-                    $configOverride->items[] = new ArrayItem(new ConstFetch(new Name('false')), new String_(
+                if ($this->refactorWizards($configOverrideArray)) {
+                    $configOverrideArray->items[] = new ArrayItem(new ConstFetch(new Name('false')), new String_(
                         'hideSuggest'
                     ));
                     $columnConfig->items[] = new ArrayItem(new ConstFetch(new Name('true')), new String_(

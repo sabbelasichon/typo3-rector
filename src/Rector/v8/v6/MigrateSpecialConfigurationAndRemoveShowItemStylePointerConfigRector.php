@@ -149,21 +149,21 @@ CODE_SAMPLE
                 $newDefaultExtras[] = $fieldArray[self::FIELD_EXTRA];
                 $newDefaultExtras = implode(':', $newDefaultExtras);
                 if ('' !== $newDefaultExtras) {
-                    $columnsOverrides = $this->extractSubArrayByKey($typeConfiguration, 'columnsOverrides');
-                    if (! $columnsOverrides instanceof Array_) {
-                        $columnsOverrides = new Array_([]);
-                        $typeConfiguration->items[] = new ArrayItem($columnsOverrides, new String_(
+                    $columnsOverridesArray = $this->extractSubArrayByKey($typeConfiguration, 'columnsOverrides');
+                    if (! $columnsOverridesArray instanceof Array_) {
+                        $columnsOverridesArray = new Array_([]);
+                        $typeConfiguration->items[] = new ArrayItem($columnsOverridesArray, new String_(
                             'columnsOverrides'
                         ));
                     }
 
-                    $columnOverride = $this->extractSubArrayByKey($columnsOverrides, $fieldName);
-                    if (! $columnOverride instanceof Array_) {
-                        $columnOverride = new Array_([]);
-                        $columnsOverrides->items[] = new ArrayItem($columnOverride, new String_($fieldName));
+                    $columnOverrideArray = $this->extractSubArrayByKey($columnsOverridesArray, $fieldName);
+                    if (! $columnOverrideArray instanceof Array_) {
+                        $columnOverrideArray = new Array_([]);
+                        $columnsOverridesArray->items[] = new ArrayItem($columnOverrideArray, new String_($fieldName));
                     }
 
-                    $columnOverride->items[] = new ArrayItem(new String_($newDefaultExtras), new String_(
+                    $columnOverrideArray->items[] = new ArrayItem(new String_($newDefaultExtras), new String_(
                         'defaultExtras'
                     ));
                     $this->hasAstBeenChanged = true;

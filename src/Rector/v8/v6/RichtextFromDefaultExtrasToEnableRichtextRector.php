@@ -140,17 +140,17 @@ CODE_SAMPLE
         return $this->hasAstBeenChanged ? $node : null;
     }
 
-    private function isRichtextInDefaultExtras(ArrayItem $configValue): bool
+    private function isRichtextInDefaultExtras(ArrayItem $configValueArrayItem): bool
     {
-        if (null === $configValue->key) {
+        if (null === $configValueArrayItem->key) {
             return false;
         }
 
-        if (! $this->valueResolver->isValue($configValue->key, 'defaultExtras')) {
+        if (! $this->valueResolver->isValue($configValueArrayItem->key, 'defaultExtras')) {
             return false;
         }
 
-        $defaultExtras = $this->valueResolver->getValue($configValue->value);
+        $defaultExtras = $this->valueResolver->getValue($configValueArrayItem->value);
 
         if (! is_string($defaultExtras)) {
             return false;
