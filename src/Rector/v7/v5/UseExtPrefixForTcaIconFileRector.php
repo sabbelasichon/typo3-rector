@@ -72,13 +72,12 @@ CODE_SAMPLE
             return null;
         }
 
-        $ctrl = $this->extractCtrl($node);
-
-        if (! $ctrl instanceof ArrayItem) {
+        $ctrlArrayItem = $this->extractCtrl($node);
+        if (! $ctrlArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $ctrlItems = $ctrl->value;
+        $ctrlItems = $ctrlArrayItem->value;
 
         if (! $ctrlItems instanceof Array_) {
             return null;
@@ -160,7 +159,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (str_contains($pathToFile, '/')) {
+        if (str_contains((string) $pathToFile, '/')) {
             return;
         }
 

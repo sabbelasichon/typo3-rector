@@ -128,10 +128,10 @@ CODE_SAMPLE
             // Keep empty parameters in trimExplode here (third parameter FALSE), so position is not changed
             $fieldArray = ArrayUtility::trimExplode(';', $fieldString);
             $fieldArray = [
-                self::FIELD_NAME => isset($fieldArray[0]) ? $fieldArray[0] : '',
-                self::FIELD_LABEL => isset($fieldArray[1]) ? $fieldArray[1] : null,
-                self::PALETTE_NAME => isset($fieldArray[2]) ? $fieldArray[2] : null,
-                self::FIELD_EXTRA => isset($fieldArray[3]) ? $fieldArray[3] : null,
+                self::FIELD_NAME => $fieldArray[0] ?? '',
+                self::FIELD_LABEL => $fieldArray[1] ?? null,
+                self::PALETTE_NAME => $fieldArray[2] ?? null,
+                self::FIELD_EXTRA => $fieldArray[3] ?? null,
             ];
 
             $fieldName = (string) $fieldArray[self::FIELD_NAME];
@@ -149,21 +149,21 @@ CODE_SAMPLE
                 $newDefaultExtras[] = $fieldArray[self::FIELD_EXTRA];
                 $newDefaultExtras = implode(':', $newDefaultExtras);
                 if ('' !== $newDefaultExtras) {
-                    $columnsOverrides = $this->extractSubArrayByKey($typeConfiguration, 'columnsOverrides');
-                    if (! $columnsOverrides instanceof Array_) {
-                        $columnsOverrides = new Array_([]);
-                        $typeConfiguration->items[] = new ArrayItem($columnsOverrides, new String_(
+                    $columnsOverridesArray = $this->extractSubArrayByKey($typeConfiguration, 'columnsOverrides');
+                    if (! $columnsOverridesArray instanceof Array_) {
+                        $columnsOverridesArray = new Array_([]);
+                        $typeConfiguration->items[] = new ArrayItem($columnsOverridesArray, new String_(
                             'columnsOverrides'
                         ));
                     }
 
-                    $columnOverride = $this->extractSubArrayByKey($columnsOverrides, $fieldName);
-                    if (! $columnOverride instanceof Array_) {
-                        $columnOverride = new Array_([]);
-                        $columnsOverrides->items[] = new ArrayItem($columnOverride, new String_($fieldName));
+                    $columnOverrideArray = $this->extractSubArrayByKey($columnsOverridesArray, $fieldName);
+                    if (! $columnOverrideArray instanceof Array_) {
+                        $columnOverrideArray = new Array_([]);
+                        $columnsOverridesArray->items[] = new ArrayItem($columnOverrideArray, new String_($fieldName));
                     }
 
-                    $columnOverride->items[] = new ArrayItem(new String_($newDefaultExtras), new String_(
+                    $columnOverrideArray->items[] = new ArrayItem(new String_($newDefaultExtras), new String_(
                         'defaultExtras'
                     ));
                     $this->hasAstBeenChanged = true;

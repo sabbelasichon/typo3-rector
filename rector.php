@@ -10,6 +10,7 @@ use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
+use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
 use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
@@ -28,7 +29,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests']);
 
     $rectorConfig->sets([
-        //        \Rector\Set\ValueObject\LevelSetList::UP_TO_PHP_80,
+        LevelSetList::UP_TO_PHP_81,
         SetList::PRIVATIZATION,
         SetList::CODING_STYLE,
         SetList::CODE_QUALITY,
@@ -50,5 +51,4 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->rule(TypedPropertyRector::class);
     $rectorConfig->rule(ClassPropertyAssignToConstructorPromotionRector::class);
-    $rectorConfig->rule(\Rector\Php81\Rector\Property\ReadOnlyPropertyRector::class);
 };

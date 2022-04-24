@@ -113,14 +113,14 @@ CODE_SAMPLE
                 );
             }
 
-            $returnForwardResponse = new Return_($forwardResponse);
+            $forwardResponseReturn = new Return_($forwardResponse);
 
-            $this->nodesToAddCollector->addNodeBeforeNode($returnForwardResponse, $forwardMethodCall);
+            $this->nodesToAddCollector->addNodeBeforeNode($forwardResponseReturn, $forwardMethodCall);
             $this->removeNode($forwardMethodCall);
         }
 
         // Add returnType only if it is the only statement, otherwise it is not reliable
-        if (is_countable($node->stmts) && 1 === count($node->stmts)) {
+        if (is_countable($node->stmts) && 1 === count((array) $node->stmts)) {
             $node->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
         }
 

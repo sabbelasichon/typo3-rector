@@ -22,10 +22,10 @@ final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConn
     /**
      * @return Expr[]
      */
-    public function refactor(MethodCall $oldNode): array
+    public function refactor(MethodCall $oldMethodCall): array
     {
-        $tableArgument = array_shift($oldNode->args);
-        $dataArgument = array_shift($oldNode->args);
+        $tableArgument = array_shift($oldMethodCall->args);
+        $dataArgument = array_shift($oldMethodCall->args);
 
         if (! $tableArgument instanceof Arg || ! $dataArgument instanceof Arg) {
             return [];

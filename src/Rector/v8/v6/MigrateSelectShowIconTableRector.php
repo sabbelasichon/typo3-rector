@@ -44,13 +44,13 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
             return null;
         }
 
-        $columns = $this->extractColumns($node);
+        $columnsArrayItem = $this->extractColumns($node);
 
-        if (! $columns instanceof ArrayItem) {
+        if (! $columnsArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $columnItems = $columns->value;
+        $columnItems = $columnsArrayItem->value;
 
         if (! $columnItems instanceof Array_) {
             return null;
@@ -109,14 +109,15 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                                     self::DISABLED => false,
                                 ],
                             ]), new String_('fieldWizard'));
-                        } elseif (($selectIcons = $this->extractSubArrayByKey(
+                        } elseif (($selectIconsArray = $this->extractSubArrayByKey(
                             $fieldWizard->value,
                             'selectIcons'
                         )) !== null) {
-                            if (null === $this->extractArrayItemByKey($selectIcons, self::DISABLED)) {
-                                $selectIcons->items[] = new ArrayItem($this->nodeFactory->createFalse(), new String_(
-                                    self::DISABLED
-                                ));
+                            if (null === $this->extractArrayItemByKey($selectIconsArray, self::DISABLED)) {
+                                $selectIconsArray->items[] = new ArrayItem(
+                                    $this->nodeFactory->createFalse(),
+                                    new String_(self::DISABLED)
+                                );
                             }
                         }
                     }
@@ -185,16 +186,16 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldAddFieldWizard(ArrayItem $configItemValue): bool
+    private function shouldAddFieldWizard(ArrayItem $configValueArrayItem): bool
     {
-        if (null === $configItemValue->key) {
+        if (null === $configValueArrayItem->key) {
             return false;
         }
 
-        if (! $this->valueResolver->isValue($configItemValue->key, 'showIconTable')) {
+        if (! $this->valueResolver->isValue($configValueArrayItem->key, 'showIconTable')) {
             return false;
         }
 
-        return $this->valueResolver->isTrue($configItemValue->value);
+        return $this->valueResolver->isTrue($configValueArrayItem->value);
     }
 }

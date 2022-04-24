@@ -66,21 +66,21 @@ CODE_SAMPLE
 
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
-        $config = $this->extractSubArrayByKey($columnTca, self::CONFIG);
-        if (! $config instanceof Array_) {
+        $configArray = $this->extractSubArrayByKey($columnTca, self::CONFIG);
+        if (! $configArray instanceof Array_) {
             return;
         }
 
-        if (! $this->hasKeyValuePair($config, self::TYPE, 'select')) {
+        if (! $this->hasKeyValuePair($configArray, self::TYPE, 'select')) {
             return;
         }
 
-        if (null !== $this->extractArrayItemByKey($config, self::RENDER_TYPE)) {
+        if (null !== $this->extractArrayItemByKey($configArray, self::RENDER_TYPE)) {
             // If the renderType is already set, do nothing
             return;
         }
 
-        $renderModeExpr = $this->extractArrayValueByKey($config, 'renderMode');
+        $renderModeExpr = $this->extractArrayValueByKey($configArray, 'renderMode');
         if (null !== $renderModeExpr) {
             if ($this->valueResolver->isValue($renderModeExpr, 'tree')) {
                 $renderType = 'selectTree';
@@ -99,13 +99,13 @@ CODE_SAMPLE
                 return;
             }
         } else {
-            $maxItemsExpr = $this->extractArrayValueByKey($config, 'maxitems');
+            $maxItemsExpr = $this->extractArrayValueByKey($configArray, 'maxitems');
             $maxItems = null !== $maxItemsExpr ? $this->valueResolver->getValue($maxItemsExpr) : null;
             $renderType = $maxItems <= 1 ? 'selectSingle' : 'selectMultipleSideBySide';
         }
 
         $renderTypeItem = new ArrayItem(new String_($renderType), new String_(self::RENDER_TYPE));
-        $this->insertItemAfterKey($config, $renderTypeItem, self::TYPE);
+        $this->insertItemAfterKey($configArray, $renderTypeItem, self::TYPE);
         $this->hasAstBeenChanged = true;
     }
 }

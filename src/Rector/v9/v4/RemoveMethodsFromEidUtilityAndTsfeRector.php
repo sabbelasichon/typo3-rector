@@ -92,19 +92,19 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(StaticCall|MethodCall $node): bool
+    private function shouldSkip(StaticCall|MethodCall $call): bool
     {
-        if ($this->isEidUtilityMethodCall($node)) {
+        if ($this->isEidUtilityMethodCall($call)) {
             return false;
         }
 
-        return ! $this->isMethodCallOnTsfe($node);
+        return ! $this->isMethodCallOnTsfe($call);
     }
 
-    private function isEidUtilityMethodCall(StaticCall|MethodCall $node): bool
+    private function isEidUtilityMethodCall(StaticCall|MethodCall $call): bool
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $call,
             new ObjectType('TYPO3\CMS\Frontend\Utility\EidUtility')
         );
     }

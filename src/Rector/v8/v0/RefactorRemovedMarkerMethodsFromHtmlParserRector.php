@@ -144,35 +144,35 @@ CODE_SAMPLE
         ]);
     }
 
-    public function removeMethods(StaticCall | MethodCall $node): void
+    public function removeMethods(StaticCall | MethodCall $call): void
     {
-        if ($this->isNames($node->name, self::REMOVED_METHODS)) {
-            $methodName = $this->getName($node->name);
+        if ($this->isNames($call->name, self::REMOVED_METHODS)) {
+            $methodName = $this->getName($call->name);
             if (null !== $methodName) {
                 try {
-                    $this->removeNode($node);
+                    $this->removeNode($call);
                 } catch (ShouldNotHappenException) {
-                    $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+                    $parentNode = $call->getAttribute(AttributeKey::PARENT_NODE);
                     $this->removeNode($parentNode);
                 }
             }
         }
     }
 
-    public function renameMethod(StaticCall | MethodCall $node): void
+    public function renameMethod(StaticCall | MethodCall $call): void
     {
-        if ($this->isName($node->name, self::RENAMED_METHOD)) {
-            $methodName = $this->getName($node->name);
+        if ($this->isName($call->name, self::RENAMED_METHOD)) {
+            $methodName = $this->getName($call->name);
             if (null !== $methodName) {
-                $node->name = new Identifier('HTMLcleaner');
+                $call->name = new Identifier('HTMLcleaner');
             }
         }
     }
 
-    private function migrateMethodsToMarkerBasedTemplateService(StaticCall | MethodCall $node): ?Node
+    private function migrateMethodsToMarkerBasedTemplateService(StaticCall | MethodCall $call): ?Node
     {
-        if ($this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
-            $methodName = $this->getName($node->name);
+        if ($this->isNames($call->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
+            $methodName = $this->getName($call->name);
             if (null !== $methodName) {
                 $classConstant = $this->nodeFactory->createClassConstReference(
                     'TYPO3\CMS\Core\Service\MarkerBasedTemplateService'
@@ -183,19 +183,19 @@ CODE_SAMPLE
                     [$classConstant]
                 );
 
-                return $this->nodeFactory->createMethodCall($staticCall, $methodName, $node->args);
+                return $this->nodeFactory->createMethodCall($staticCall, $methodName, $call->args);
             }
         }
 
         return null;
     }
 
-    private function shouldSkip(StaticCall | MethodCall $node): bool
+    private function shouldSkip(StaticCall | MethodCall $call): bool
     {
         $skip = false;
-        if (! $this->isNames($node->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)
-            && ! $this->isNames($node->name, self::REMOVED_METHODS)
-            && ! $this->isName($node->name, self::RENAMED_METHOD)) {
+        if (! $this->isNames($call->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)
+            && ! $this->isNames($call->name, self::REMOVED_METHODS)
+            && ! $this->isName($call->name, self::RENAMED_METHOD)) {
             $skip = true;
         }
 

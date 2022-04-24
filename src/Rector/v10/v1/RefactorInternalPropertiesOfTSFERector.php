@@ -143,7 +143,7 @@ CODE_SAMPLE
 
     private function getRelevantParametersFromCacheHashCalculator(): Node
     {
-        $ifNode = new If_(
+        $if = new If_(
             new BooleanAnd(
                 new BooleanNot(new Empty_(new Variable(self::QUERY_PARAMS))),
                 new Coalesce(
@@ -155,13 +155,13 @@ CODE_SAMPLE
                 )
             )
         );
-        $ifNode->stmts[] = new Expression(
+        $if->stmts[] = new Expression(
             new Assign(
                 new ArrayDimFetch(new Variable(self::QUERY_PARAMS), new String_('id')),
                 $this->nodeFactory->createMethodCall(new Variable(self::PAGE_ARGUMENTS), 'getPageId')
             )
         );
-        $ifNode->stmts[] = new Expression(
+        $if->stmts[] = new Expression(
             new Assign(
                 new Variable(self::RELEVANT_PARAMETERS_FOR_CACHING_FROM_PAGE_ARGUMENTS),
                 $this->nodeFactory->createMethodCall(
@@ -180,7 +180,7 @@ CODE_SAMPLE
             )
         );
 
-        return $ifNode;
+        return $if;
     }
 
     private function refactorCacheHashArray(PropertyFetch $propertyFetch): Node

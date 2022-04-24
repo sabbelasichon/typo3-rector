@@ -186,12 +186,12 @@ CODE_SAMPLE
         }
 
         $propertyTagsValuesVariable = new Variable('propertyTagsValues');
-        $propertyTagsValuesNode = new Expression(new Assign($propertyTagsValuesVariable, new Coalesce(
+        $propertyTagsAssignExpression = new Expression(new Assign($propertyTagsValuesVariable, new Coalesce(
             $this->createArrayDimFetchTags($methodCall),
             $this->nodeFactory->createArray([])
         )));
 
-        $this->nodesToAddCollector->addNodeBeforeNode($propertyTagsValuesNode, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($propertyTagsAssignExpression, $methodCall);
 
         return $propertyTagsValuesVariable;
     }
@@ -301,13 +301,13 @@ CODE_SAMPLE
         }
 
         $propertyVariable = new Variable('propertyReflectionService');
-        $propertyNode = new Expression(new Assign($propertyVariable, $this->nodeFactory->createMethodCall(
+        $propertyAssignExpression = new Expression(new Assign($propertyVariable, $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall($methodCall->var, 'getClassSchema', [$methodCall->args[0]->value]),
             'getProperty',
             [$methodCall->args[1]->value]
         )));
 
-        $this->nodesToAddCollector->addNodeBeforeNode($propertyNode, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($propertyAssignExpression, $methodCall);
 
         return new Ternary(
             new Empty_($propertyVariable),
@@ -331,9 +331,9 @@ CODE_SAMPLE
         $tagValue = $methodCall->args[1]->value;
         $closureUse = $tagValue instanceof Variable ? $tagValue : new Variable('tag');
         if (! $tagValue instanceof Variable) {
-            $tempVarNode = new Expression(new Assign($closureUse, $tagValue));
+            $tempVarAssignExpression = new Expression(new Assign($closureUse, $tagValue));
             $this->nodesToAddCollector->addNodeBeforeNode(
-                $tempVarNode,
+                $tempVarAssignExpression,
                 $methodCall->getAttribute(AttributeKey::PARENT_NODE)
             );
         }

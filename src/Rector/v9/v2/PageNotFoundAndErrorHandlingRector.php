@@ -158,22 +158,22 @@ CODE_SAMPLE
         );
     }
 
-    private function createResponse(MethodCall $node): ?Node
+    private function createResponse(MethodCall $methodCall): ?Node
     {
-        $methodCall = $this->getName($node->name);
+        $methodCallName = $this->getName($methodCall->name);
 
-        if (null === $methodCall) {
+        if (null === $methodCallName) {
             return null;
         }
 
-        if (! array_key_exists($methodCall, self::MAP_METHODS)) {
+        if (! array_key_exists($methodCallName, self::MAP_METHODS)) {
             return null;
         }
 
         $arguments = [new ArrayDimFetch(new Variable(Typo3NodeResolver::GLOBALS), new String_('TYPO3_REQUEST'))];
 
         // Message
-        $arguments[] = isset($node->args[0]) ? $node->args[0]->value : new String_('');
+        $arguments[] = isset($methodCall->args[0]) ? $methodCall->args[0]->value : new String_('');
 
         return new Expression(
             new Assign(
@@ -182,7 +182,7 @@ CODE_SAMPLE
                     $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
                         $this->nodeFactory->createClassConstReference('TYPO3\CMS\Frontend\Controller\ErrorController'),
                     ]),
-                    self::MAP_METHODS[$methodCall],
+                    self::MAP_METHODS[$methodCallName],
                     $arguments
                 )
             )

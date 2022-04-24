@@ -147,8 +147,8 @@ CODE_SAMPLE
             $queryBuilder = $queryBuilderArgument->value;
         }
 
-        $queryBuilderNode = new Assign(new Variable('queryBuilder'), $queryBuilder);
-        $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderNode, $positionNode);
+        $queryBuilderAssign = new Assign(new Variable('queryBuilder'), $queryBuilder);
+        $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderAssign, $positionNode);
     }
 
     private function isVariable(?Arg $queryBuilderArgument): bool
@@ -232,10 +232,10 @@ CODE_SAMPLE
             return;
         }
 
-        $ifNode = new If_($useDeleteClauseArgument->value);
-        $ifNode->stmts[] = new Expression($deletedRestrictionNode);
+        $if = new If_($useDeleteClauseArgument->value);
+        $if->stmts[] = new Expression($deletedRestrictionNode);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }
 
     private function addQueryBuilderSelectNode(
@@ -267,9 +267,12 @@ CODE_SAMPLE
         $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderWhereNode, $positionNode);
     }
 
-    private function addQueryWhereNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
-    {
-        $whereClauseArgument = $node->args[3] ?? null;
+    private function addQueryWhereNode(
+        string $queryBuilderVariableName,
+        StaticCall $staticCall,
+        Node $positionNode
+    ): void {
+        $whereClauseArgument = $staticCall->args[3] ?? null;
         $whereClause = null !== $whereClauseArgument ? $this->valueResolver->getValue($whereClauseArgument->value) : '';
 
         if ('' === $whereClause) {
@@ -280,7 +283,7 @@ CODE_SAMPLE
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Database\Query\QueryHelper',
                 'stripLogicalOperatorPrefix',
-                [$node->args[3]]
+                [$staticCall->args[3]]
             ),
         ]);
 
@@ -294,15 +297,18 @@ CODE_SAMPLE
             return;
         }
 
-        $ifNode = new If_($whereClauseArgument->value);
-        $ifNode->stmts[] = new Expression($whereClauseNode);
+        $if = new If_($whereClauseArgument->value);
+        $if->stmts[] = new Expression($whereClauseNode);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }
 
-    private function addQueryGroupByNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
-    {
-        $groupByArgument = $node->args[4] ?? null;
+    private function addQueryGroupByNode(
+        string $queryBuilderVariableName,
+        StaticCall $staticCall,
+        Node $positionNode
+    ): void {
+        $groupByArgument = $staticCall->args[4] ?? null;
         $groupBy = null !== $groupByArgument ? $this->valueResolver->getValue($groupByArgument->value) : '';
 
         if ('' === $groupBy) {
@@ -313,7 +319,7 @@ CODE_SAMPLE
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Database\Query\QueryHelper',
                 'parseGroupBy',
-                [$node->args[4]]
+                [$staticCall->args[4]]
             ),
         ]);
 
@@ -327,15 +333,15 @@ CODE_SAMPLE
             return;
         }
 
-        $ifNode = new If_(new NotIdentical($groupByArgument->value, new String_('')));
-        $ifNode->stmts[] = new Expression($groupByNode);
+        $if = new If_(new NotIdentical($groupByArgument->value, new String_('')));
+        $if->stmts[] = new Expression($groupByNode);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }
 
-    private function addOrderByNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
+    private function addOrderByNode(string $queryBuilderVariableName, StaticCall $staticCall, Node $positionNode): void
     {
-        $orderByArgument = $node->args[5] ?? null;
+        $orderByArgument = $staticCall->args[5] ?? null;
         $orderBy = null !== $orderByArgument ? $this->valueResolver->getValue($orderByArgument->value) : '';
 
         if ('' === $orderBy || 'null' === $orderBy) {
@@ -346,7 +352,7 @@ CODE_SAMPLE
             return;
         }
 
-        $orderByNode = new Foreach_(
+        $orderByForeach = new Foreach_(
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Database\Query\QueryHelper',
                 'parseOrderBy',
@@ -354,33 +360,33 @@ CODE_SAMPLE
             ),
             new Variable('orderPair')
         );
-        $orderByNode->stmts[] = new Expression(
+        $orderByForeach->stmts[] = new Expression(
             new Assign(
                 $this->nodeFactory->createFuncCall('list', [new Variable('fieldName'), new Variable('order')]),
                 new Variable('orderPair')
             )
         );
-        $orderByNode->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+        $orderByForeach->stmts[] = new Expression($this->nodeFactory->createMethodCall(
             $queryBuilderVariableName,
             'addOrderBy',
             [new Variable('fieldName'), new Variable('order')]
         ));
 
         if ($orderBy) {
-            $this->nodesToAddCollector->addNodeBeforeNode($orderByNode, $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($orderByForeach, $positionNode);
 
             return;
         }
 
-        $ifNode = new If_(new NotIdentical($orderByArgument->value, new String_('')));
-        $ifNode->stmts[] = $orderByNode;
+        $if = new If_(new NotIdentical($orderByArgument->value, new String_('')));
+        $if->stmts[] = $orderByForeach;
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }
 
-    private function addLimitNode(string $queryBuilderVariableName, StaticCall $node, Node $positionNode): void
+    private function addLimitNode(string $queryBuilderVariableName, StaticCall $staticCall, Node $positionNode): void
     {
-        $limitArgument = $node->args[6] ?? null;
+        $limitArgument = $staticCall->args[6] ?? null;
         $limit = null !== $limitArgument ? $this->valueResolver->getValue($limitArgument->value) : '';
 
         if ('' === $limit) {
@@ -391,8 +397,8 @@ CODE_SAMPLE
             return;
         }
 
-        $limitNode = new If_($this->nodeFactory->createFuncCall('strpos', [$limitArgument->value, ',']));
-        $limitNode->stmts[] = new Expression(
+        $limitIf = new If_($this->nodeFactory->createFuncCall('strpos', [$limitArgument->value, ',']));
+        $limitIf->stmts[] = new Expression(
             new Assign(
                 new Variable(self::LIMIT_OFFSET_AND_MAX),
                 $this->nodeFactory->createStaticCall(
@@ -402,33 +408,33 @@ CODE_SAMPLE
                 )
             )
         );
-        $limitNode->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+        $limitIf->stmts[] = new Expression($this->nodeFactory->createMethodCall(
             $queryBuilderVariableName,
             'setFirstResult',
             [new Int_(new ArrayDimFetch(new Variable(self::LIMIT_OFFSET_AND_MAX), new LNumber(0)))]
         ));
-        $limitNode->stmts[] = new Expression(
+        $limitIf->stmts[] = new Expression(
             $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'setMaxResults', [
                 new Int_(new ArrayDimFetch(new Variable(self::LIMIT_OFFSET_AND_MAX), new LNumber(1))),
             ])
         );
 
-        $limitNode->else = new Else_();
-        $limitNode->else->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+        $limitIf->else = new Else_();
+        $limitIf->else->stmts[] = new Expression($this->nodeFactory->createMethodCall(
             $queryBuilderVariableName,
             'setMaxResults',
             [new Int_(new Variable('limit'))]
         ));
 
         if ($limit) {
-            $this->nodesToAddCollector->addNodeBeforeNode($limitNode, $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($limitIf, $positionNode);
 
             return;
         }
 
-        $ifNode = new If_(new NotIdentical($limitArgument->value, new String_('')));
-        $ifNode->stmts[] = $limitNode;
+        $if = new If_(new NotIdentical($limitArgument->value, new String_('')));
+        $if->stmts[] = $limitIf;
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $positionNode);
+        $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }
 }

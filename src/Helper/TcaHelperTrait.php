@@ -13,12 +13,12 @@ use PhpParser\Node\Stmt\Return_;
 
 trait TcaHelperTrait
 {
-    protected function isFullTca(Return_ $node): bool
+    protected function isFullTca(Return_ $return): bool
     {
-        $ctrl = $this->extractCtrl($node);
-        $columns = $this->extractColumns($node);
+        $ctrlArrayItem = $this->extractCtrl($return);
+        $columnsArrayItem = $this->extractColumns($return);
 
-        return null !== $ctrl && null !== $columns;
+        return null !== $ctrlArrayItem && null !== $columnsArrayItem;
     }
 
     protected function extractArrayItemByKey(?Node $node, string $key): ?ArrayItem
@@ -73,9 +73,9 @@ trait TcaHelperTrait
         return $this->extractArrayItemByKey($node, $key)?->value;
     }
 
-    protected function hasKey(Array_ $configValue, string $configKey): bool
+    protected function hasKey(Array_ $configValuesArray, string $configKey): bool
     {
-        foreach ($configValue->items as $configItemValue) {
+        foreach ($configValuesArray->items as $configItemValue) {
             if (! $configItemValue instanceof ArrayItem) {
                 continue;
             }
@@ -92,9 +92,9 @@ trait TcaHelperTrait
         return false;
     }
 
-    protected function hasKeyValuePair(Array_ $configValue, string $configKey, string $expectedValue): bool
+    protected function hasKeyValuePair(Array_ $configValueArray, string $configKey, string $expectedValue): bool
     {
-        foreach ($configValue->items as $configItemValue) {
+        foreach ($configValueArray->items as $configItemValue) {
             if (! $configItemValue instanceof ArrayItem) {
                 continue;
             }
@@ -113,40 +113,40 @@ trait TcaHelperTrait
         return false;
     }
 
-    private function isInlineType(Array_ $columnItemConfiguration): bool
+    private function isInlineType(Array_ $columnItemConfigurationArray): bool
     {
-        return $this->isConfigType($columnItemConfiguration, 'inline');
+        return $this->isConfigType($columnItemConfigurationArray, 'inline');
     }
 
-    private function isConfigType(Array_ $columnItemConfiguration, string $type): bool
+    private function isConfigType(Array_ $columnItemConfigurationArray, string $type): bool
     {
-        return $this->hasKeyValuePair($columnItemConfiguration, 'type', $type);
+        return $this->hasKeyValuePair($columnItemConfigurationArray, 'type', $type);
     }
 
-    private function hasRenderType(Array_ $columnItemConfiguration): bool
+    private function hasRenderType(Array_ $columnItemConfigurationArray): bool
     {
-        $renderTypeItem = $this->extractArrayItemByKey($columnItemConfiguration, 'renderType');
+        $renderTypeItem = $this->extractArrayItemByKey($columnItemConfigurationArray, 'renderType');
         return null !== $renderTypeItem;
     }
 
-    private function extractColumns(Return_ $node): ?ArrayItem
+    private function extractColumns(Return_ $return): ?ArrayItem
     {
-        return $this->extractArrayItemByKey($node->expr, 'columns');
+        return $this->extractArrayItemByKey($return->expr, 'columns');
     }
 
-    private function extractTypes(Return_ $node): ?ArrayItem
+    private function extractTypes(Return_ $return): ?ArrayItem
     {
-        return $this->extractArrayItemByKey($node->expr, 'types');
+        return $this->extractArrayItemByKey($return->expr, 'types');
     }
 
-    private function extractCtrl(Return_ $node): ?ArrayItem
+    private function extractCtrl(Return_ $return): ?ArrayItem
     {
-        return $this->extractArrayItemByKey($node->expr, 'ctrl');
+        return $this->extractArrayItemByKey($return->expr, 'ctrl');
     }
 
-    private function extractInterface(Return_ $node): ?ArrayItem
+    private function extractInterface(Return_ $return): ?ArrayItem
     {
-        return $this->extractArrayItemByKey($node->expr, 'interface');
+        return $this->extractArrayItemByKey($return->expr, 'interface');
     }
 
     /**
@@ -173,22 +173,22 @@ trait TcaHelperTrait
         return null;
     }
 
-    private function configIsOfInternalType(Array_ $configValue, string $expectedType): bool
+    private function configIsOfInternalType(Array_ $configValueArray, string $expectedType): bool
     {
-        return $this->hasKeyValuePair($configValue, 'internal_type', $expectedType);
+        return $this->hasKeyValuePair($configValueArray, 'internal_type', $expectedType);
     }
 
-    private function configIsOfRenderType(Array_ $configValue, string $expectedRenderType): bool
+    private function configIsOfRenderType(Array_ $configValueArray, string $expectedRenderType): bool
     {
-        return $this->hasKeyValuePair($configValue, 'renderType', $expectedRenderType);
+        return $this->hasKeyValuePair($configValueArray, 'renderType', $expectedRenderType);
     }
 
     /**
      * @return Generator<string, Node>
      */
-    private function extractColumnConfig(Array_ $items, string $keyName = 'config'): Generator
+    private function extractColumnConfig(Array_ $array, string $keyName = 'config'): Generator
     {
-        foreach ($items->items as $columnConfig) {
+        foreach ($array->items as $columnConfig) {
             if (! $columnConfig instanceof ArrayItem) {
                 continue;
             }

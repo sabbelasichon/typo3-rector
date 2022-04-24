@@ -67,13 +67,13 @@ CODE_SAMPLE
             return null;
         }
 
-        $ctrl = $this->extractCtrl($node);
+        $ctrlArrayItem = $this->extractCtrl($node);
 
-        if (! $ctrl instanceof ArrayItem) {
+        if (! $ctrlArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $items = $ctrl->value;
+        $items = $ctrlArrayItem->value;
 
         if (! $items instanceof Array_) {
             return null;

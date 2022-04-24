@@ -78,6 +78,9 @@ CODE_SAMPLE
         );
     }
 
+    /**
+     * @param Array_ $node
+     */
     public function refactor(Node $node): ?Node
     {
         $this->hasAstBeenChanged = false;
@@ -85,27 +88,25 @@ CODE_SAMPLE
             return null;
         }
 
-        $ctrl = $this->extractSubArrayByKey($node, 'ctrl');
-        if (! $ctrl instanceof Array_) {
+        $ctrlArray = $this->extractSubArrayByKey($node, 'ctrl');
+        if (! $ctrlArray instanceof Array_) {
             return null;
         }
 
-        $value = $this->extractArrayValueByKey($ctrl, 'languageField');
-
+        $value = $this->extractArrayValueByKey($ctrlArray, 'languageField');
         if (! $value instanceof String_) {
             return null;
         }
 
         $this->languageField = $this->valueResolver->getValue($value);
-
         if (null === $this->languageField) {
             return null;
         }
 
         // we found a tca definition of a full table. Process it as a whole:
-        $columns = $this->extractSubArrayByKey($node, 'columns');
-        if (null !== $columns) {
-            $this->refactorColumnList($columns);
+        $columnsArray = $this->extractSubArrayByKey($node, 'columns');
+        if (null !== $columnsArray) {
+            $this->refactorColumnList($columnsArray);
         }
 
         return $this->hasAstBeenChanged ? $node : null;

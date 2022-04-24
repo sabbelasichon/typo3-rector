@@ -124,9 +124,9 @@ CODE_SAMPLE
         return $this->isName($node->name, 'get');
     }
 
-    private function renameClassIfNeeded(New_ $node): ?Node
+    private function renameClassIfNeeded(New_ $new): ?Node
     {
-        if (! $this->isObjectType($node, new ObjectType('TYPO3\CMS\Core\TimeTracker\NullTimeTracker'))) {
+        if (! $this->isObjectType($new, new ObjectType('TYPO3\CMS\Core\TimeTracker\NullTimeTracker'))) {
             return null;
         }
 

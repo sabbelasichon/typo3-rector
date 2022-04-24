@@ -149,10 +149,10 @@ CODE_SAMPLE
         return $propertyBuilder->getNode();
     }
 
-    private function isPropertyEnvironmentServiceInUse(Class_ $node): bool
+    private function isPropertyEnvironmentServiceInUse(Class_ $class): bool
     {
         $isEnvironmentServicePropertyUsed = false;
-        $this->traverseNodesWithCallable($node->stmts, function (Node $node) use (
+        $this->traverseNodesWithCallable($class->stmts, function (Node $node) use (
             &$isEnvironmentServicePropertyUsed
         ): ?PropertyFetch {
             if (! $node instanceof PropertyFetch) {
@@ -168,7 +168,7 @@ CODE_SAMPLE
         return $isEnvironmentServicePropertyUsed;
     }
 
-    private function addInjectEnvironmentServiceMethod(Class_ $node): void
+    private function addInjectEnvironmentServiceMethod(Class_ $class): void
     {
         $paramBuilder = new ParamBuilder(self::ENVIRONMENT_SERVICE);
         $paramBuilder->setType(new FullyQualified('TYPO3\CMS\Extbase\Service\EnvironmentService'));
@@ -183,7 +183,7 @@ CODE_SAMPLE
         $classMethodBuilder->addParam($param);
         $classMethodBuilder->addStmt($propertyAssignNode);
         $classMethodBuilder->makePublic();
-        $node->stmts[] = new Nop();
-        $node->stmts[] = $classMethodBuilder->getNode();
+        $class->stmts[] = new Nop();
+        $class->stmts[] = $classMethodBuilder->getNode();
     }
 }

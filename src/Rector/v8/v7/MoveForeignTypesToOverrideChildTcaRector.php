@@ -134,46 +134,49 @@ CODE_SAMPLE
             }
 
             $foreignTypesArrayItem = $this->extractArrayItemByKey($columnConfig, self::FOREIGN_TYPES);
-            $foreignRecordDefaults = $this->extractArrayItemByKey($columnConfig, self::FOREIGN_RECORD_DEFAULTS);
-            $foreignSelectorNode = $this->extractArrayItemByKey($columnConfig, self::FOREIGN_SELECTOR);
-            $overrideChildTcaNode = $this->extractSubArrayByKey($columnConfig, self::OVERRIDE_CHILD_TCA);
-            $foreignSelectorOverrideNode = $this->extractArrayItemByKey(
+            $foreignRecordDefaultsArrayItem = $this->extractArrayItemByKey(
+                $columnConfig,
+                self::FOREIGN_RECORD_DEFAULTS
+            );
+            $foreignSelectorArrayItem = $this->extractArrayItemByKey($columnConfig, self::FOREIGN_SELECTOR);
+            $overrideChildTcaArray = $this->extractSubArrayByKey($columnConfig, self::OVERRIDE_CHILD_TCA);
+            $foreignSelectorOverrideArrayItem = $this->extractArrayItemByKey(
                 $columnConfig,
                 self::FOREIGN_SELECTOR_FIELDTCAOVERRIDE
             );
 
             // don't search further if no foreign_types is configured
-            if (! $foreignSelectorOverrideNode instanceof ArrayItem && ! $foreignTypesArrayItem instanceof ArrayItem && ! $foreignRecordDefaults instanceof ArrayItem) {
+            if (! $foreignSelectorOverrideArrayItem instanceof ArrayItem && ! $foreignTypesArrayItem instanceof ArrayItem && ! $foreignRecordDefaultsArrayItem instanceof ArrayItem) {
                 continue;
             }
 
-            $foreignSelector = null !== $foreignSelectorNode ? $foreignSelectorNode->value : null;
+            $foreignSelector = null !== $foreignSelectorArrayItem ? $foreignSelectorArrayItem->value : null;
 
-            if (! $overrideChildTcaNode instanceof Array_) {
-                $overrideChildTcaNode = new Array_();
-                $columnConfig->items[] = new ArrayItem($overrideChildTcaNode, new String_(
+            if (! $overrideChildTcaArray instanceof Array_) {
+                $overrideChildTcaArray = new Array_();
+                $columnConfig->items[] = new ArrayItem($overrideChildTcaArray, new String_(
                     self::OVERRIDE_CHILD_TCA
                 ));
             }
 
             if (null !== $foreignTypesArrayItem && $foreignTypesArrayItem->value instanceof Array_) {
-                $this->injectOverrideChildTca($overrideChildTcaNode, 'types', $foreignTypesArrayItem->value);
+                $this->injectOverrideChildTca($overrideChildTcaArray, 'types', $foreignTypesArrayItem->value);
                 $this->removeNode($foreignTypesArrayItem);
                 $hasAstBeenChanged = true;
             }
 
-            if (null !== $foreignSelectorOverrideNode && $foreignSelectorOverrideNode->value instanceof Array_ && $foreignSelector instanceof String_) {
+            if (null !== $foreignSelectorOverrideArrayItem && $foreignSelectorOverrideArrayItem->value instanceof Array_ && $foreignSelector instanceof String_) {
                 $columnItem = new Array_([
-                    new ArrayItem($foreignSelectorOverrideNode->value, new String_($foreignSelector->value)),
+                    new ArrayItem($foreignSelectorOverrideArrayItem->value, new String_($foreignSelector->value)),
                 ]);
-                $this->injectOverrideChildTca($overrideChildTcaNode, 'columns', $columnItem);
-                $this->removeNode($foreignSelectorOverrideNode);
+                $this->injectOverrideChildTca($overrideChildTcaArray, 'columns', $columnItem);
+                $this->removeNode($foreignSelectorOverrideArrayItem);
                 $hasAstBeenChanged = true;
             }
 
-            if (null !== $foreignRecordDefaults && $foreignRecordDefaults->value instanceof Array_) {
+            if (null !== $foreignRecordDefaultsArrayItem && $foreignRecordDefaultsArrayItem->value instanceof Array_) {
                 $newOverrideColumns = new Array_();
-                foreach ($foreignRecordDefaults->value->items as $item) {
+                foreach ($foreignRecordDefaultsArrayItem->value->items as $item) {
                     if (! $item instanceof ArrayItem) {
                         continue;
                     }
@@ -187,8 +190,8 @@ CODE_SAMPLE
                     $newOverrideColumns->items[] = new ArrayItem($value, $item->key);
                 }
 
-                $this->injectOverrideChildTca($overrideChildTcaNode, 'columns', $newOverrideColumns);
-                $this->removeNode($foreignRecordDefaults);
+                $this->injectOverrideChildTca($overrideChildTcaArray, 'columns', $newOverrideColumns);
+                $this->removeNode($foreignRecordDefaultsArrayItem);
                 $hasAstBeenChanged = true;
             }
         }

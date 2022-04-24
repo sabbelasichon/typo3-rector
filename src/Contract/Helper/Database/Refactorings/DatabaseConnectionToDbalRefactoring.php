@@ -12,7 +12,7 @@ interface DatabaseConnectionToDbalRefactoring
     /**
      * @return Expr[]
      */
-    public function refactor(MethodCall $oldNode): array;
+    public function refactor(MethodCall $oldMethodCall): array;
 
     public function canHandle(string $methodName): bool;
 }

@@ -18,9 +18,9 @@ final class DatabaseConnectionExecTruncateTableRefactoring implements DatabaseCo
     ) {
     }
 
-    public function refactor(MethodCall $oldNode): array
+    public function refactor(MethodCall $oldMethodCall): array
     {
-        $tableArgument = array_shift($oldNode->args);
+        $tableArgument = array_shift($oldMethodCall->args);
 
         if (! $tableArgument instanceof Arg) {
             return [];

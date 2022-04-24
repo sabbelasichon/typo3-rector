@@ -63,11 +63,11 @@ final class UseGetMenuInsteadOfGetFirstWebPageRector extends AbstractRector
 
         $resetRootLevelPagesNode = $this->nodeFactory->createFuncCall('reset', [$rootLevelPagesVariable]);
 
-        $ifNode = new If_(new BooleanNot(new Empty_($rootLevelPagesVariable)));
+        $if = new If_(new BooleanNot(new Empty_($rootLevelPagesVariable)));
         $parentNode->expr = $resetRootLevelPagesNode;
-        $ifNode->stmts[] = new Expression($parentNode);
+        $if->stmts[] = new Expression($parentNode);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($if, $node);
 
         try {
             $this->removeNode($node);
@@ -116,13 +116,13 @@ CODE_SAMPLE
         );
     }
 
-    private function addRootLevelPagesAssignment(Variable $rootLevelPagesVariable, MethodCall $node): void
+    private function addRootLevelPagesAssignment(Variable $rootLevelPagesVariable, MethodCall $methodCall): void
     {
-        $rootLevelPagesNode = new Assign($rootLevelPagesVariable, $this->nodeFactory->createMethodCall(
-            $node->var,
+        $rootLevelPagesAssign = new Assign($rootLevelPagesVariable, $this->nodeFactory->createMethodCall(
+            $methodCall->var,
             'getMenu',
-            [$node->args[0], 'uid', 'sorting', '', false]
+            [$methodCall->args[0], 'uid', 'sorting', '', false]
         ));
-        $this->nodesToAddCollector->addNodeBeforeNode($rootLevelPagesNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($rootLevelPagesAssign, $methodCall);
     }
 }

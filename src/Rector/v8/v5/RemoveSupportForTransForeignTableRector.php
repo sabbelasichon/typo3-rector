@@ -38,13 +38,12 @@ final class RemoveSupportForTransForeignTableRector extends AbstractRector
             return null;
         }
 
-        $ctrl = $this->extractCtrl($node);
-
-        if (! $ctrl instanceof ArrayItem) {
+        $ctrlArrayItem = $this->extractCtrl($node);
+        if (! $ctrlArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $items = $ctrl->value;
+        $items = $ctrlArrayItem->value;
 
         if (! $items instanceof Array_) {
             return null;

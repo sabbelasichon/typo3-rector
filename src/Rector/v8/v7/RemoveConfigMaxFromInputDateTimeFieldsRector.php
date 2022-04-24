@@ -79,13 +79,13 @@ CODE_SAMPLE
             return null;
         }
 
-        $columns = $this->extractColumns($node);
+        $columnsArrayItem = $this->extractColumns($node);
 
-        if (! $columns instanceof ArrayItem) {
+        if (! $columnsArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $columnItems = $columns->value;
+        $columnItems = $columnsArrayItem->value;
 
         if (! $columnItems instanceof Array_) {
             return null;
@@ -143,9 +143,9 @@ CODE_SAMPLE
         return $hasAstBeenChanged ? $node : null;
     }
 
-    private function isRenderTypeInputDateTime(Array_ $configValue): bool
+    private function isRenderTypeInputDateTime(Array_ $configValueArray): bool
     {
-        foreach ($configValue->items as $configItemValue) {
+        foreach ($configValueArray->items as $configItemValue) {
             if (! $configItemValue instanceof ArrayItem) {
                 continue;
             }

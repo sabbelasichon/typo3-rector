@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
+use Nette\Utils\Json;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
@@ -123,14 +124,14 @@ CODE_SAMPLE
     {
         try {
             $composerJson = new SmartFileInfo($extEmConf->getRealPathDirectory() . '/composer.json');
-            $json = json_decode($composerJson->getContents(), true);
+            $json = Json::decode($composerJson->getContents(), Json::FORCE_ARRAY);
 
             if (isset($json['extra']['typo3/cms']['extension-key'])) {
                 return $json['extra']['typo3/cms']['extension-key'];
             }
 
             if (isset($json['name'])) {
-                [, $extensionKey] = explode('/', $json['name'], 2);
+                [, $extensionKey] = explode('/', (string) $json['name'], 2);
                 return str_replace('-', '_', $extensionKey);
             }
         } catch (FileNotFoundException) {

@@ -82,9 +82,9 @@ final class TemplateGetFileNameToFilePathSanitizerRector extends AbstractRector
             $this->createCatchBlockToLog([$assignmentNodeNull, $this->createIfLog()]),
         ];
 
-        $tryCatchNode = new TryCatch([$assignmentNode], $catches);
+        $tryCatch = new TryCatch([$assignmentNode], $catches);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($tryCatchNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($tryCatch, $node);
 
         return $node;
     }
@@ -176,7 +176,7 @@ CODE_SAMPLE
 
     private function createIfLog(): If_
     {
-        $ifNode = new If_($this->nodeFactory->createPropertyFetch(
+        $if = new If_($this->nodeFactory->createPropertyFetch(
             $this->nodeFactory->createPropertyFetch(new ArrayDimFetch(
                 new Variable('GLOBALS'),
                 new ScalarString_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
@@ -184,8 +184,8 @@ CODE_SAMPLE
             'tt_track'
         ));
 
-        $ifNode->stmts[] = $this->createTimeTrackerLogMessage();
+        $if->stmts[] = $this->createTimeTrackerLogMessage();
 
-        return $ifNode;
+        return $if;
     }
 }

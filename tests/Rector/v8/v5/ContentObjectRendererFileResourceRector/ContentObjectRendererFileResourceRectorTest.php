@@ -13,7 +13,7 @@ final class ContentObjectRendererFileResourceRectorTest extends AbstractRectorTe
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(SmartFileInfo $fileInfo): never
     {
         $this->markTestIncomplete('The comparison is false positive wrongly.');
         #$this->doTestFileInfo($fileInfo);

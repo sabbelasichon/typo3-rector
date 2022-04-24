@@ -79,25 +79,22 @@ CODE_SAMPLE
             return null;
         }
 
-        $ctrl = $this->extractCtrl($node);
-
-        if (! $ctrl instanceof ArrayItem) {
+        $ctrlArrayItem = $this->extractCtrl($node);
+        if (! $ctrlArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $ctrlItems = $ctrl->value;
-
+        $ctrlItems = $ctrlArrayItem->value;
         if (! $ctrlItems instanceof Array_) {
             return null;
         }
 
-        $columns = $this->extractColumns($node);
-
-        if (! $columns instanceof ArrayItem) {
+        $columnsArrayItem = $this->extractColumns($node);
+        if (! $columnsArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $columnItems = $columns->value;
+        $columnItems = $columnsArrayItem->value;
 
         if (! $columnItems instanceof Array_) {
             return null;

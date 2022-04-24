@@ -54,13 +54,14 @@ final class FlexFormToolsArrayValueByPathRector extends AbstractRector
 
         $args[] = $node->args[2];
         $variableName = $this->getName($node->args[1]->value) ?? 'dataArray';
-        $variableNode = new Variable($variableName);
+
+        $variable = new Variable($variableName);
         $staticCall = $this->nodeFactory->createStaticCall(
             'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
             'setValueByPath',
             $args
         );
-        $this->nodesToAddCollector->addNodeBeforeNode(new Assign($variableNode, $staticCall), $node);
+        $this->nodesToAddCollector->addNodeBeforeNode(new Assign($variable, $staticCall), $node);
         $this->removeNode($node);
 
         return $node;

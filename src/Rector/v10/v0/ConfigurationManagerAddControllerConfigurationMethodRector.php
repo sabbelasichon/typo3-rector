@@ -102,7 +102,7 @@ CODE_SAMPLE
         );
     }
 
-    private function addMethodGetControllerConfiguration(Class_ $node): void
+    private function addMethodGetControllerConfiguration(Class_ $class): void
     {
         $methodBuilder = new MethodBuilder('getControllerConfiguration');
         $methodBuilder->makeProtected();
@@ -119,7 +119,7 @@ CODE_SAMPLE
             'getSwitchableControllerActions',
             [new Variable('extensionName'), new Variable('pluginName')]
         ));
-        $node->stmts[] = new Nop();
-        $node->stmts[] = $newMethod;
+        $class->stmts[] = new Nop();
+        $class->stmts[] = $newMethod;
     }
 }

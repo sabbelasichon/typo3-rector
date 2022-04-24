@@ -147,9 +147,9 @@ CODE_SAMPLE
         return $node;
     }
 
-    private function addFieldControlInsteadOfWizardsAddListEdit(Array_ $items): void
+    private function addFieldControlInsteadOfWizardsAddListEdit(Array_ $itemsArray): void
     {
-        foreach ($items->items as $fieldValue) {
+        foreach ($itemsArray->items as $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
             }
@@ -396,13 +396,13 @@ CODE_SAMPLE
         }
     }
 
-    private function refactorRenderTypeInputDateTime(ArrayItem $configValue): void
+    private function refactorRenderTypeInputDateTime(ArrayItem $configValueArrayItem): void
     {
-        if (! $configValue->value instanceof Array_) {
+        if (! $configValueArrayItem->value instanceof Array_) {
             return;
         }
 
-        foreach ($configValue->value->items as $configItemValue) {
+        foreach ($configValueArrayItem->value->items as $configItemValue) {
             if (! $configItemValue instanceof ArrayItem) {
                 continue;
             }
@@ -427,7 +427,9 @@ CODE_SAMPLE
                 || in_array('time', $eval, true)
                 || in_array('timesec', $eval, true)
             ) {
-                $configValue->value->items[] = new ArrayItem(new String_('inputDateTime'), new String_('renderType'));
+                $configValueArrayItem->value->items[] = new ArrayItem(new String_('inputDateTime'), new String_(
+                    'renderType'
+                ));
             }
         }
     }

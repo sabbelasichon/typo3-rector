@@ -90,13 +90,13 @@ CODE_SAMPLE
             return null;
         }
 
-        $columns = $this->extractColumns($node);
+        $columnsArrayItem = $this->extractColumns($node);
 
-        if (! $columns instanceof ArrayItem) {
+        if (! $columnsArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $columnItems = $columns->value;
+        $columnItems = $columnsArrayItem->value;
 
         if (! $columnItems instanceof Array_) {
             return null;
@@ -178,12 +178,12 @@ CODE_SAMPLE
         return $hasAstBeenChanged ? $node : null;
     }
 
-    private function isLocalizationModeKeepAndAllowLanguageSynchronization(Array_ $behaviourConfiguration): bool
+    private function isLocalizationModeKeepAndAllowLanguageSynchronization(Array_ $behaviourConfigurationArray): bool
     {
         $localizationMode = null;
         $allowLanguageSynchronization = null;
 
-        foreach ($behaviourConfiguration->items as $behaviourConfigurationItem) {
+        foreach ($behaviourConfigurationArray->items as $behaviourConfigurationItem) {
             if (! $behaviourConfigurationItem instanceof ArrayItem) {
                 continue;
             }

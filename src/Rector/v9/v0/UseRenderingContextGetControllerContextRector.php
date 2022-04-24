@@ -74,9 +74,9 @@ CODE_SAMPLE
         )]);
     }
 
-    private function replaceWithRenderingContextGetControllerContext(Class_ $node): void
+    private function replaceWithRenderingContextGetControllerContext(Class_ $class): void
     {
-        foreach ($node->getMethods() as $classMethod) {
+        foreach ($class->getMethods() as $classMethod) {
             $this->traverseNodesWithCallable((array) $classMethod->getStmts(), function (Node $node) {
                 if (! $node instanceof PropertyFetch) {
                     return null;

@@ -137,9 +137,9 @@ CODE_SAMPLE
     /**
      * @return Node[]
      */
-    private function findModuleTemplateMethodCallsByName(Class_ $node, string $methodCallName): array
+    private function findModuleTemplateMethodCallsByName(Class_ $class, string $methodCallName): array
     {
-        return $this->betterNodeFinder->find($node->stmts, function (Node $node) use ($methodCallName) {
+        return $this->betterNodeFinder->find($class->stmts, function (Node $node) use ($methodCallName) {
             if (! $node instanceof MethodCall) {
                 return false;
             }
@@ -155,10 +155,10 @@ CODE_SAMPLE
         });
     }
 
-    private function addIconFactoryToConstructor(Class_ $node): void
+    private function addIconFactoryToConstructor(Class_ $class): void
     {
         $this->classDependencyManipulator->addConstructorDependency(
-            $node,
+            $class,
             new PropertyMetadata(
                 'iconFactory',
                 new ObjectType('TYPO3\CMS\Core\Imaging\IconFactory'),
@@ -167,10 +167,10 @@ CODE_SAMPLE
         );
     }
 
-    private function addPageRendererToConstructor(Class_ $node): void
+    private function addPageRendererToConstructor(Class_ $class): void
     {
         $this->classDependencyManipulator->addConstructorDependency(
-            $node,
+            $class,
             new PropertyMetadata(
                 'pageRenderer',
                 new ObjectType('TYPO3\CMS\Core\Page\PageRenderer'),

@@ -129,9 +129,9 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(Class_ $node): bool
+    private function shouldSkip(Class_ $class): bool
     {
-        $defaultViewObjectNameProperty = $node->getProperty('defaultViewObjectName');
+        $defaultViewObjectNameProperty = $class->getProperty('defaultViewObjectName');
         if (! $defaultViewObjectNameProperty instanceof Property) {
             return true;
         }
@@ -145,10 +145,10 @@ CODE_SAMPLE
         return ! $this->valueResolver->isValue($defaultViewObjectName, 'TYPO3\CMS\Backend\View\BackendTemplateView');
     }
 
-    private function addModuleTemplateFactoryToConstructor(Class_ $node): void
+    private function addModuleTemplateFactoryToConstructor(Class_ $class): void
     {
         $this->classDependencyManipulator->addConstructorDependency(
-            $node,
+            $class,
             new PropertyMetadata(
                 self::MODULE_TEMPLATE_FACTORY,
                 new ObjectType('TYPO3\CMS\Backend\Template\ModuleTemplateFactory'),
@@ -157,9 +157,9 @@ CODE_SAMPLE
         );
     }
 
-    private function removePropertyDefaultViewObjectName(Class_ $node): void
+    private function removePropertyDefaultViewObjectName(Class_ $class): void
     {
-        $defaultViewObjectNameProperty = $node->getProperty('defaultViewObjectName');
+        $defaultViewObjectNameProperty = $class->getProperty('defaultViewObjectName');
         if (! $defaultViewObjectNameProperty instanceof Property) {
             return;
         }
@@ -167,9 +167,9 @@ CODE_SAMPLE
         $this->nodeRemover->removeNode($defaultViewObjectNameProperty);
     }
 
-    private function removePropertyViewIfNeeded(Class_ $node): void
+    private function removePropertyViewIfNeeded(Class_ $class): void
     {
-        $viewProperty = $node->getProperty('view');
+        $viewProperty = $class->getProperty('view');
         if (! $viewProperty instanceof Property) {
             return;
         }
@@ -244,12 +244,12 @@ CODE_SAMPLE
             $moduleTemplateRenderContentMethodCall,
         ]);
 
-        $returnHtmlResponseMethodCall = new Return_($htmlResponseMethodCall);
+        $htmlResponseMethodCallReturn = new Return_($htmlResponseMethodCall);
 
         if (null === $classMethod->stmts) {
             $classMethod->stmts[] = $this->createModuleTemplateAssignment();
             $classMethod->stmts[] = $callSetContentOnModuleTemplateVariable;
-            $classMethod->stmts[] = $returnHtmlResponseMethodCall;
+            $classMethod->stmts[] = $htmlResponseMethodCallReturn;
             return;
         }
 
@@ -273,7 +273,7 @@ CODE_SAMPLE
 
         if ([] === $existingHtmlResponseMethodCallNodes) {
             $classMethod->stmts[] = $callSetContentOnModuleTemplateVariable;
-            $classMethod->stmts[] = $returnHtmlResponseMethodCall;
+            $classMethod->stmts[] = $htmlResponseMethodCallReturn;
             return;
         }
 

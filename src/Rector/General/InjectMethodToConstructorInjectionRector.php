@@ -77,11 +77,10 @@ CODE_SAMPLE
     }
 
     /**
-     * Process Node of matched type
+     * @param Class_ $node
      */
     public function refactor(Node $node): ?Node
     {
-        /** @var Class_ $node */
         if ($this->shouldSkip($node)) {
             return null;
         }

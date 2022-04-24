@@ -105,9 +105,9 @@ CODE_SAMPLE
             );
     }
 
-    private function migrateNavigationFrameModule(Array_ $moduleConfig): bool
+    private function migrateNavigationFrameModule(Array_ $moduleConfigArray): bool
     {
-        foreach ($moduleConfig->items as $item) {
+        foreach ($moduleConfigArray->items as $item) {
             if (null === $item) {
                 continue;
             }

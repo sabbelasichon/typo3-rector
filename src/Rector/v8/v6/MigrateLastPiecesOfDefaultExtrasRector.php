@@ -42,13 +42,13 @@ final class MigrateLastPiecesOfDefaultExtrasRector extends AbstractRector
             return null;
         }
 
-        $columns = $this->extractColumns($node);
+        $columnsArrayItem = $this->extractColumns($node);
 
-        if (! $columns instanceof ArrayItem) {
+        if (! $columnsArrayItem instanceof ArrayItem) {
             return null;
         }
 
-        $columnItems = $columns->value;
+        $columnItems = $columnsArrayItem->value;
 
         if (! $columnItems instanceof Array_) {
             return null;
@@ -180,9 +180,9 @@ CODE_SAMPLE
         )]);
     }
 
-    private function refactorDefaultExtras(Array_ $columnItems): void
+    private function refactorDefaultExtras(Array_ $columnItemsArray): void
     {
-        foreach ($columnItems->items as $columnItem) {
+        foreach ($columnItemsArray->items as $columnItem) {
             if (! $columnItem instanceof ArrayItem) {
                 continue;
             }

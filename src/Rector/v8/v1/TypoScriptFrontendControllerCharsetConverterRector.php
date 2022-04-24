@@ -128,7 +128,7 @@ CODE_SAMPLE
 
     private function addCharsetConverterNode(MethodCall $methodCall): void
     {
-        $charsetConverterNode = new Expression(
+        $charsetConverterAssignExpression = new Expression(
             new Assign(
                 new Variable(self::CHARSET_CONVERTER),
                 $this->nodeFactory->createStaticCall(
@@ -138,7 +138,7 @@ CODE_SAMPLE
                 )
             )
         );
-        $this->nodesToAddCollector->addNodeBeforeNode($charsetConverterNode, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($charsetConverterAssignExpression, $methodCall);
     }
 
     private function refactorCsConvObj(MethodCall $methodCall): ?Node

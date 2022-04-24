@@ -125,16 +125,16 @@ CODE_SAMPLE
     private function addTypoScriptFrontendControllerAssignmentNode(MethodCall $methodCall): void
     {
         $typoscriptFrontendControllerVariable = new Variable('typoscriptFrontendController');
-        $typoscriptFrontendControllerNode = new Assign(
+        $typoscriptFrontendControllerAssign = new Assign(
             $typoscriptFrontendControllerVariable,
             new ArrayDimFetch(new Variable('GLOBALS'), new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER))
         );
-        $this->nodesToAddCollector->addNodeBeforeNode($typoscriptFrontendControllerNode, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($typoscriptFrontendControllerAssign, $methodCall);
     }
 
     private function addFileNameNode(MethodCall $methodCall): void
     {
-        $fileNameNode = new Assign(
+        $fileNameAssign = new Assign(
             new Variable(self::PATH),
             $this->nodeFactory->createMethodCall(
                 $this->nodeFactory->createPropertyFetch(new Variable('typoscriptFrontendController'), 'tmpl'),
@@ -142,14 +142,14 @@ CODE_SAMPLE
                 $methodCall->args
             )
         );
-        $this->nodesToAddCollector->addNodeBeforeNode($fileNameNode, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($fileNameAssign, $methodCall);
     }
 
     private function addIfNode(MethodCall $methodCall): void
     {
         $parentNode = $methodCall->getAttribute(AttributeKey::PARENT_NODE);
 
-        $ifNode = new If_(new BooleanAnd(
+        $if = new If_(new BooleanAnd(
             new NotIdentical(new Variable(self::PATH), $this->nodeFactory->createNull()),
             $this->nodeFactory->createFuncCall('file_exists', [new Variable(self::PATH)])
         ));
@@ -158,8 +158,8 @@ CODE_SAMPLE
             'file_get_contents',
             [new Variable(self::PATH)]
         ));
-        $ifNode->stmts[] = new Expression($templateAssignment);
+        $if->stmts[] = new Expression($templateAssignment);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($if, $methodCall);
     }
 }
