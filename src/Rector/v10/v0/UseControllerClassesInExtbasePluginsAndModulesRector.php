@@ -173,8 +173,7 @@ CODE_SAMPLE
         StaticCall $staticCall,
         string $vendorName,
         string $extensionName
-    ): void
-    {
+    ): void {
         if (isset($staticCall->args[2]) && $staticCall->args[2]->value instanceof Array_) {
             $this->createNewControllerActionsArray($staticCall->args[2]->value, $vendorName, $extensionName);
         }
@@ -188,8 +187,7 @@ CODE_SAMPLE
         StaticCall $staticCall,
         string $vendorName,
         string $extensionName
-    ): void
-    {
+    ): void {
         if (isset($staticCall->args[4]) && $staticCall->args[4]->value instanceof Array_) {
             $this->createNewControllerActionsArray($staticCall->args[4]->value, $vendorName, $extensionName);
         }
