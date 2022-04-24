@@ -47,14 +47,14 @@ final class CopyMethodGetPidForModTSconfigRector extends AbstractRector
             return null;
         }
 
-        $tableVariableNode = $node->args[0]->value;
-        if ($tableVariableNode instanceof String_) {
-            $tableVariableNode = new Variable('table');
-            $this->nodesToAddCollector->addNodeBeforeNode(new Assign($tableVariableNode, $node->args[0]->value), $node);
+        $tableVariable = $node->args[0]->value;
+        if ($tableVariable instanceof String_) {
+            $tableVariable = new Variable('table');
+            $this->nodesToAddCollector->addNodeBeforeNode(new Assign($tableVariable, $node->args[0]->value), $node);
         }
 
         return new Ternary(new BooleanAnd(
-            new Identical($tableVariableNode, new String_('pages')),
+            new Identical($tableVariable, new String_('pages')),
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Utility\MathUtility',
                 'canBeInterpretedAsInteger',

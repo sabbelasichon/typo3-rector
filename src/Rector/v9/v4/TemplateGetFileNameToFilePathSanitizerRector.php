@@ -82,9 +82,9 @@ final class TemplateGetFileNameToFilePathSanitizerRector extends AbstractRector
             $this->createCatchBlockToLog([$assignmentNodeNull, $this->createIfLog()]),
         ];
 
-        $tryCatchNode = new TryCatch([$assignmentNode], $catches);
+        $tryCatch = new TryCatch([$assignmentNode], $catches);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($tryCatchNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($tryCatch, $node);
 
         return $node;
     }

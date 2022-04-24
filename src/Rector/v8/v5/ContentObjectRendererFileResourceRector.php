@@ -125,16 +125,16 @@ CODE_SAMPLE
     private function addTypoScriptFrontendControllerAssignmentNode(MethodCall $methodCall): void
     {
         $typoscriptFrontendControllerVariable = new Variable('typoscriptFrontendController');
-        $typoscriptFrontendControllerNode = new Assign(
+        $typoscriptFrontendControllerAssign = new Assign(
             $typoscriptFrontendControllerVariable,
             new ArrayDimFetch(new Variable('GLOBALS'), new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER))
         );
-        $this->nodesToAddCollector->addNodeBeforeNode($typoscriptFrontendControllerNode, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($typoscriptFrontendControllerAssign, $methodCall);
     }
 
     private function addFileNameNode(MethodCall $methodCall): void
     {
-        $fileNameNode = new Assign(
+        $fileNameAssign = new Assign(
             new Variable(self::PATH),
             $this->nodeFactory->createMethodCall(
                 $this->nodeFactory->createPropertyFetch(new Variable('typoscriptFrontendController'), 'tmpl'),
@@ -142,7 +142,7 @@ CODE_SAMPLE
                 $methodCall->args
             )
         );
-        $this->nodesToAddCollector->addNodeBeforeNode($fileNameNode, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($fileNameAssign, $methodCall);
     }
 
     private function addIfNode(MethodCall $methodCall): void

@@ -93,8 +93,8 @@ final class InitializeArgumentsClassMethodFactory
 
         if ($this->doesParentClassMethodExist($class, self::METHOD_NAME)) {
             // not in analyzed scope, nothing we can do
-            $parentConstructCallNode = new StaticCall(new Name('parent'), new Identifier(self::METHOD_NAME));
-            $classMethod->stmts[] = new Expression($parentConstructCallNode);
+            $parentConstructStaticCall = new StaticCall(new Name('parent'), new Identifier(self::METHOD_NAME));
+            $classMethod->stmts[] = new Expression($parentConstructStaticCall);
         }
 
         // empty line between methods

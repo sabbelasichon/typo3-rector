@@ -118,11 +118,11 @@ CODE_SAMPLE
 
     private function addRootLevelPagesAssignment(Variable $rootLevelPagesVariable, MethodCall $methodCall): void
     {
-        $rootLevelPagesNode = new Assign($rootLevelPagesVariable, $this->nodeFactory->createMethodCall(
+        $rootLevelPagesAssign = new Assign($rootLevelPagesVariable, $this->nodeFactory->createMethodCall(
             $methodCall->var,
             'getMenu',
             [$methodCall->args[0], 'uid', 'sorting', '', false]
         ));
-        $this->nodesToAddCollector->addNodeBeforeNode($rootLevelPagesNode, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($rootLevelPagesAssign, $methodCall);
     }
 }

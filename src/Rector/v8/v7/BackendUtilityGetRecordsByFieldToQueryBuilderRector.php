@@ -147,8 +147,8 @@ CODE_SAMPLE
             $queryBuilder = $queryBuilderArgument->value;
         }
 
-        $queryBuilderNode = new Assign(new Variable('queryBuilder'), $queryBuilder);
-        $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderNode, $positionNode);
+        $queryBuilderAssign = new Assign(new Variable('queryBuilder'), $queryBuilder);
+        $this->nodesToAddCollector->addNodeBeforeNode($queryBuilderAssign, $positionNode);
     }
 
     private function isVariable(?Arg $queryBuilderArgument): bool
@@ -352,7 +352,7 @@ CODE_SAMPLE
             return;
         }
 
-        $orderByNode = new Foreach_(
+        $orderByForeach = new Foreach_(
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Database\Query\QueryHelper',
                 'parseOrderBy',
@@ -360,26 +360,26 @@ CODE_SAMPLE
             ),
             new Variable('orderPair')
         );
-        $orderByNode->stmts[] = new Expression(
+        $orderByForeach->stmts[] = new Expression(
             new Assign(
                 $this->nodeFactory->createFuncCall('list', [new Variable('fieldName'), new Variable('order')]),
                 new Variable('orderPair')
             )
         );
-        $orderByNode->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+        $orderByForeach->stmts[] = new Expression($this->nodeFactory->createMethodCall(
             $queryBuilderVariableName,
             'addOrderBy',
             [new Variable('fieldName'), new Variable('order')]
         ));
 
         if ($orderBy) {
-            $this->nodesToAddCollector->addNodeBeforeNode($orderByNode, $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($orderByForeach, $positionNode);
 
             return;
         }
 
         $if = new If_(new NotIdentical($orderByArgument->value, new String_('')));
-        $if->stmts[] = $orderByNode;
+        $if->stmts[] = $orderByForeach;
 
         $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }
@@ -397,8 +397,8 @@ CODE_SAMPLE
             return;
         }
 
-        $limitNode = new If_($this->nodeFactory->createFuncCall('strpos', [$limitArgument->value, ',']));
-        $limitNode->stmts[] = new Expression(
+        $limitIf = new If_($this->nodeFactory->createFuncCall('strpos', [$limitArgument->value, ',']));
+        $limitIf->stmts[] = new Expression(
             new Assign(
                 new Variable(self::LIMIT_OFFSET_AND_MAX),
                 $this->nodeFactory->createStaticCall(
@@ -408,32 +408,32 @@ CODE_SAMPLE
                 )
             )
         );
-        $limitNode->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+        $limitIf->stmts[] = new Expression($this->nodeFactory->createMethodCall(
             $queryBuilderVariableName,
             'setFirstResult',
             [new Int_(new ArrayDimFetch(new Variable(self::LIMIT_OFFSET_AND_MAX), new LNumber(0)))]
         ));
-        $limitNode->stmts[] = new Expression(
+        $limitIf->stmts[] = new Expression(
             $this->nodeFactory->createMethodCall($queryBuilderVariableName, 'setMaxResults', [
                 new Int_(new ArrayDimFetch(new Variable(self::LIMIT_OFFSET_AND_MAX), new LNumber(1))),
             ])
         );
 
-        $limitNode->else = new Else_();
-        $limitNode->else->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+        $limitIf->else = new Else_();
+        $limitIf->else->stmts[] = new Expression($this->nodeFactory->createMethodCall(
             $queryBuilderVariableName,
             'setMaxResults',
             [new Int_(new Variable('limit'))]
         ));
 
         if ($limit) {
-            $this->nodesToAddCollector->addNodeBeforeNode($limitNode, $positionNode);
+            $this->nodesToAddCollector->addNodeBeforeNode($limitIf, $positionNode);
 
             return;
         }
 
         $if = new If_(new NotIdentical($limitArgument->value, new String_('')));
-        $if->stmts[] = $limitNode;
+        $if->stmts[] = $limitIf;
 
         $this->nodesToAddCollector->addNodeBeforeNode($if, $positionNode);
     }

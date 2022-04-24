@@ -91,7 +91,7 @@ CODE_SAMPLE
 
         $configuration = $this->createConfiguration($value);
 
-        $newNode = $this->nodeFactory->createMethodCall($node->var, 'getTSConfig');
+        $newArrayDimFetch = $this->nodeFactory->createMethodCall($node->var, 'getTSConfig');
 
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
@@ -101,10 +101,10 @@ CODE_SAMPLE
         }
 
         foreach ($configuration as $key) {
-            $newNode = new ArrayDimFetch($newNode, new String_(sprintf('%s.', $key)));
+            $newArrayDimFetch = new ArrayDimFetch($newArrayDimFetch, new String_(sprintf('%s.', $key)));
         }
 
-        return new Coalesce($newNode, $defaultValueNode);
+        return new Coalesce($newArrayDimFetch, $defaultValueNode);
     }
 
     public function provideMinPhpVersion(): int

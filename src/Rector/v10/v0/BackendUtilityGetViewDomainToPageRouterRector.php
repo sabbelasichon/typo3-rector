@@ -43,7 +43,7 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
             return null;
         }
 
-        $siteNode = new Assign(new Variable('site'), $this->nodeFactory->createMethodCall(
+        $siteAssign = new Assign(new Variable('site'), $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
                 $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Site\SiteFinder'),
             ]),
@@ -51,7 +51,7 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
             $node->args
         ));
 
-        $this->nodesToAddCollector->addNodeBeforeNode($siteNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($siteAssign, $node);
 
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall(new Variable('site'), 'getRouter'),

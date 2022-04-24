@@ -56,19 +56,18 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
         }
 
         if (! isset($node->args[3]) || (isset($node->args[3]) && $this->valueResolver->isNull($node->args[3]->value))) {
-            $propArrayNode = new Assign(new Variable('propArr'), $this->nodeFactory->createMethodCall(
+            $propArrayAssign = new Assign(new Variable('propArr'), $this->nodeFactory->createMethodCall(
                 $node->var,
                 'getRecordProperties',
                 [$node->args[1], $node->args[2]]
             ));
-            $this->nodesToAddCollector->addNodeBeforeNode($propArrayNode, $node);
+            $this->nodesToAddCollector->addNodeBeforeNode($propArrayAssign, $node);
 
-            $pidNode = new Expression(new Assign(new Variable(self::PID), new ArrayDimFetch(new Variable(
+            $pidAssignExpression = new Expression(new Assign(new Variable(self::PID), new ArrayDimFetch(new Variable(
                 'propArr'
             ), new String_(self::PID))));
-            $this->nodesToAddCollector->addNodeBeforeNode($pidNode, $node);
 
-            $this->nodesToAddCollector->addNodeBeforeNode(new Nop(), $node);
+            $this->nodesToAddCollector->addNodesBeforeNode([$pidAssignExpression, new Nop()], $node);
         }
 
         $node->name = new Identifier('log');

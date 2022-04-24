@@ -42,14 +42,14 @@ final class RefactorPrintContentMethodsRector extends AbstractRector
         }
 
         if ($this->isPageLayoutControllerClass($node)) {
-            $newNode = new Echo_([
+            $echo = new Echo_([
                 $this->nodeFactory->createMethodCall(
                     $this->nodeFactory->createMethodCall($node->var, 'getModuleTemplate'),
                     'renderContent'
                 ),
             ]);
         } else {
-            $newNode = new Echo_([$this->nodeFactory->createPropertyFetch($node->var, 'content')]);
+            $echo = new Echo_([$this->nodeFactory->createPropertyFetch($node->var, 'content')]);
         }
 
         try {
@@ -59,7 +59,7 @@ final class RefactorPrintContentMethodsRector extends AbstractRector
             $this->removeNode($parentNode);
         }
 
-        $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($echo, $node);
 
         return $node;
     }
