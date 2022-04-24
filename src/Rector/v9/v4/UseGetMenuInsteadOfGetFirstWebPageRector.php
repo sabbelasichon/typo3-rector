@@ -63,11 +63,11 @@ final class UseGetMenuInsteadOfGetFirstWebPageRector extends AbstractRector
 
         $resetRootLevelPagesNode = $this->nodeFactory->createFuncCall('reset', [$rootLevelPagesVariable]);
 
-        $ifNode = new If_(new BooleanNot(new Empty_($rootLevelPagesVariable)));
+        $if = new If_(new BooleanNot(new Empty_($rootLevelPagesVariable)));
         $parentNode->expr = $resetRootLevelPagesNode;
-        $ifNode->stmts[] = new Expression($parentNode);
+        $if->stmts[] = new Expression($parentNode);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($if, $node);
 
         try {
             $this->removeNode($node);

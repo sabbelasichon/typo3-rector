@@ -307,13 +307,13 @@ CODE_SAMPLE
 
     private function methodReplyTo(): Node
     {
-        $ifNode = new If_(new BooleanNot(new Empty_(new Variable(self::PARSED_REPLY_TO))));
-        $ifNode->stmts[] = new Expression($this->nodeFactory->createMethodCall(
+        $if = new If_(new BooleanNot(new Empty_(new Variable(self::PARSED_REPLY_TO))));
+        $if->stmts[] = new Expression($this->nodeFactory->createMethodCall(
             self::MAIL,
             'setReplyTo',
             [new Variable(self::PARSED_REPLY_TO)]
         ));
 
-        return $ifNode;
+        return $if;
     }
 }

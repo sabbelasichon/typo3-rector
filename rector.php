@@ -28,11 +28,11 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->paths([__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests']);
 
     $rectorConfig->sets([
-        //        \Rector\Set\ValueObject\LevelSetList::UP_TO_PHP_80,
+        \Rector\Set\ValueObject\LevelSetList::UP_TO_PHP_80,
         SetList::PRIVATIZATION,
         SetList::CODING_STYLE,
         SetList::CODE_QUALITY,
-        // SetList::NAMING,
+        SetList::NAMING,
     ]);
 
     $rectorConfig->skip([

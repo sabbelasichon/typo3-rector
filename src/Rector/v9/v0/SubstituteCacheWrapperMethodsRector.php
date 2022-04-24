@@ -134,11 +134,11 @@ CODE_SAMPLE
         $hashContentNode = new Assign(new Variable(self::HASH_CONTENT), $this->nodeFactory->createNull());
         $this->nodesToAddCollector->addNodeAfterNode($hashContentNode, $staticCall);
 
-        $ifNode = new If_(new Variable(self::CACHE_ENTRY));
-        $ifNode->stmts[] = new Expression(new Assign(new Variable(self::HASH_CONTENT), new Variable(
+        $if = new If_(new Variable(self::CACHE_ENTRY));
+        $if->stmts[] = new Expression(new Assign(new Variable(self::HASH_CONTENT), new Variable(
             self::CACHE_ENTRY
         )));
-        $this->nodesToAddCollector->addNodeAfterNode($ifNode, $staticCall);
+        $this->nodesToAddCollector->addNodeAfterNode($if, $staticCall);
 
         $this->nodesToAddCollector->addNodeAfterNode(
             new Assign(new Variable('content'), new Variable(self::HASH_CONTENT)),

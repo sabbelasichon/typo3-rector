@@ -149,7 +149,7 @@ CODE_SAMPLE
     {
         $parentNode = $methodCall->getAttribute(AttributeKey::PARENT_NODE);
 
-        $ifNode = new If_(new BooleanAnd(
+        $if = new If_(new BooleanAnd(
             new NotIdentical(new Variable(self::PATH), $this->nodeFactory->createNull()),
             $this->nodeFactory->createFuncCall('file_exists', [new Variable(self::PATH)])
         ));
@@ -158,8 +158,8 @@ CODE_SAMPLE
             'file_get_contents',
             [new Variable(self::PATH)]
         ));
-        $ifNode->stmts[] = new Expression($templateAssignment);
+        $if->stmts[] = new Expression($templateAssignment);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifNode, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($if, $methodCall);
     }
 }
