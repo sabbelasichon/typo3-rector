@@ -34,7 +34,7 @@ use TYPO3\CMS\Extbase\Mvc\Web\Response;
 class MyResponse extends Response
 {
     /**
-     * @var \TYPO3\CMS\Extbase\Service\EnvironmentService
+     * @var EnvironmentService
      */
     protected $environmentService;
 
