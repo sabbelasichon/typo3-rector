@@ -213,7 +213,12 @@ CODE_SAMPLE
                     continue;
                 }
 
-                if (! \str_starts_with($this->valueResolver->getValue($item->key), '_')) {
+                $keyValue = $this->valueResolver->getValue($item->key);
+                if (! is_string($keyValue)) {
+                    continue;
+                }
+
+                if (! \str_starts_with($keyValue, '_')) {
                     $nodeEmpty = false;
                     break;
                 }

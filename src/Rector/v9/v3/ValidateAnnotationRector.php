@@ -134,7 +134,12 @@ CODE_SAMPLE
 
             $optionsArray = [];
             foreach ($optionNames as $key => $optionName) {
-                $optionValue = str_replace("'", '"', $optionValues[$key]);
+                $optionValue = $optionValues[$key];
+                if (! is_string($optionValue)) {
+                    continue;
+                }
+
+                $optionValue = str_replace("'", '"', $optionValue);
                 $optionsArray[] = sprintf('"%s": %s', trim($optionName), trim($optionValue));
             }
 

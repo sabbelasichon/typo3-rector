@@ -142,7 +142,6 @@ CODE_SAMPLE
             $columnItem->value->items[] = new ArrayItem(new String_('reload'), new String_('onChange'));
         }
 
-        // change the node
         return $node;
     }
 }

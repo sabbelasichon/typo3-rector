@@ -244,7 +244,7 @@ CODE_SAMPLE
         }
 
         $message = null;
-        if ('1' === (string) $code || is_bool($code) || 'true' === strtolower($code)) {
+        if ('1' === (string) $code || is_bool($code) || 'true' === strtolower((string) $code)) {
             $message = new String_('The page did not exist or was inaccessible.');
             if (isset($methodCall->args[2])) {
                 $reason = $methodCall->args[2]->value;
