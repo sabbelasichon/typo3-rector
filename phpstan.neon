@@ -115,3 +115,8 @@ parameters:
         -
             message: "#^Value object \"RenamePackage\" should be named \"AddReplacePackage\" instead to respect used service$#"
             path: utils/composer-packages/tests/Rector/AddReplacePackageRector/config/configured_rule.php
+
+        # phpstan lost ability to analyze properties
+        -
+            message: '#Strict comparison using \!\=\= between array\{\} and array\{\} will always evaluate to false#'
+            path: src/Rector/v8/v6/MigrateOptionsOfTypeGroupRector.php

@@ -69,7 +69,6 @@ final class SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector e
             }
         }
 
-        // change the node
         return $node;
     }
 
@@ -169,13 +168,12 @@ CODE_SAMPLE
 
     private function addPageRendererToConstructor(Class_ $class): void
     {
-        $this->classDependencyManipulator->addConstructorDependency(
-            $class,
-            new PropertyMetadata(
-                'pageRenderer',
-                new ObjectType('TYPO3\CMS\Core\Page\PageRenderer'),
-                Class_::MODIFIER_PRIVATE
-            )
+        $propertyMetadata = new PropertyMetadata(
+            'pageRenderer',
+            new ObjectType('TYPO3\CMS\Core\Page\PageRenderer'),
+            Class_::MODIFIER_PRIVATE
         );
+
+        $this->classDependencyManipulator->addConstructorDependency($class, $propertyMetadata);
     }
 }

@@ -19,7 +19,6 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToReplaceCollector;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -47,7 +46,6 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
 
     public function __construct(
         private readonly ClassDependencyManipulator $classDependencyManipulator,
-        private readonly NodesToReplaceCollector $nodesToReplaceCollector
     ) {
     }
 
@@ -194,27 +192,27 @@ CODE_SAMPLE
             return;
         }
 
-        /** @var MethodCall[] $moduleTemplateMethodCalls */
-        $moduleTemplateMethodCalls = $this->betterNodeFinder->find($classMethod->stmts, function (Node $node) {
+        $hasChanged = false;
+
+        $this->traverseNodesWithCallable($classMethod->stmts, function (Node $node) use (&$hasChanged) {
             if (! $node instanceof MethodCall) {
-                return false;
+                return null;
             }
 
-            return $this->isName($node->name, 'getModuleTemplate');
+            if (! $this->isName($node->name, 'getModuleTemplate')) {
+                return null;
+            }
+
+            $hasChanged = true;
+
+            return new Variable(self::MODULE_TEMPLATE);
         });
 
-        if ([] === $moduleTemplateMethodCalls) {
+        if (false === $hasChanged) {
             return;
         }
 
         $this->callModuleTemplateFactoryCreateIfNeeded($classMethod);
-
-        foreach ($moduleTemplateMethodCalls as $moduleTemplateMethodCall) {
-            $this->nodesToReplaceCollector->addReplaceNodeWithAnotherNode(
-                $moduleTemplateMethodCall,
-                new Variable(self::MODULE_TEMPLATE)
-            );
-        }
     }
 
     private function callSetContentAndGetContent(ClassMethod $classMethod): void

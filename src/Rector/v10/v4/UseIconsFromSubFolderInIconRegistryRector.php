@@ -61,12 +61,13 @@ final class UseIconsFromSubFolderInIconRegistryRector extends AbstractRector
             return null;
         }
 
-        if (! str_starts_with($options[self::SOURCE], 'typo3/sysext/core/Resources/Public/Icons/T3Icons/content/')) {
+        $source = (string) $options[self::SOURCE];
+        if (! str_starts_with($source, 'typo3/sysext/core/Resources/Public/Icons/T3Icons/content/')) {
             return null;
         }
 
         $options[self::SOURCE] = Strings::replace(
-            $options[self::SOURCE],
+            $source,
             '#typo3/sysext/core/Resources/Public/Icons/T3Icons/content/#i',
             'typo3/sysext/core/Resources/Public/Icons/T3Icons/svgs/content/'
         );
