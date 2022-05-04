@@ -49,8 +49,7 @@ final class MoveLanguageFilesFromExtensionLangRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         $value = $this->valueResolver->getValue($node);
-
-        if (null === $value || ! is_string($value)) {
+        if (! is_string($value)) {
             return null;
         }
 

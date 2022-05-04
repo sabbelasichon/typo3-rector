@@ -208,7 +208,7 @@ CODE_SAMPLE
             return new Variable(self::MODULE_TEMPLATE);
         });
 
-        if (false === $hasChanged) {
+        if (! $hasChanged) {
             return;
         }
 

@@ -6,11 +6,11 @@ namespace Ssch\TYPO3Rector\Rector\v11\v5;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToReplaceCollector;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -23,7 +23,6 @@ final class SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector e
 {
     public function __construct(
         private readonly ClassDependencyManipulator $classDependencyManipulator,
-        private readonly NodesToReplaceCollector $nodesToReplaceCollector
     ) {
     }
 
@@ -40,33 +39,31 @@ final class SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector e
      */
     public function refactor(Node $node): ?Node
     {
-        $iconFactoryMethodCalls = $this->findModuleTemplateMethodCallsByName($node, 'getIconFactory');
-        $pageRendererMethodCalls = $this->findModuleTemplateMethodCallsByName($node, 'getPageRenderer');
+        $iconPropertyFetch = $this->nodeFactory->createPropertyFetch('this', 'iconFactory');
 
-        if ([] === $iconFactoryMethodCalls && [] === $pageRendererMethodCalls) {
+        $iconFactoryMethodCalls = $this->findModuleTemplateMethodCallsByName(
+            $node,
+            'getIconFactory',
+            $iconPropertyFetch
+        );
+
+        $pageRendererPropertyFetch = $this->nodeFactory->createPropertyFetch('this', 'pageRenderer');
+        $pageRendererMethodCalls = $this->findModuleTemplateMethodCallsByName(
+            $node,
+            'getPageRenderer',
+            $pageRendererPropertyFetch
+        );
+
+        if (! $iconFactoryMethodCalls && ! $pageRendererMethodCalls) {
             return null;
         }
 
-        if ([] !== $iconFactoryMethodCalls) {
+        if ($iconFactoryMethodCalls) {
             $this->addIconFactoryToConstructor($node);
-
-            foreach ($iconFactoryMethodCalls as $iconFactoryMethodCall) {
-                $this->nodesToReplaceCollector->addReplaceNodeWithAnotherNode(
-                    $iconFactoryMethodCall,
-                    $this->nodeFactory->createPropertyFetch('this', 'iconFactory')
-                );
-            }
         }
 
-        if ([] !== $pageRendererMethodCalls) {
+        if ($pageRendererMethodCalls) {
             $this->addPageRendererToConstructor($node);
-
-            foreach ($pageRendererMethodCalls as $pageRendererMethodCall) {
-                $this->nodesToReplaceCollector->addReplaceNodeWithAnotherNode(
-                    $pageRendererMethodCall,
-                    $this->nodeFactory->createPropertyFetch('this', 'pageRenderer')
-                );
-            }
         }
 
         return $node;
@@ -133,37 +130,48 @@ CODE_SAMPLE
         );
     }
 
-    /**
-     * @return Node[]
-     */
-    private function findModuleTemplateMethodCallsByName(Class_ $class, string $methodCallName): array
-    {
-        return $this->betterNodeFinder->find($class->stmts, function (Node $node) use ($methodCallName) {
+    private function findModuleTemplateMethodCallsByName(
+        Class_ $class,
+        string $methodCallName,
+        PropertyFetch $propertyFetch
+    ): bool {
+        $hasChanged = false;
+
+        $this->traverseNodesWithCallable($class->stmts, function (Node $node) use (
+            $methodCallName,
+            &$hasChanged,
+            $propertyFetch
+        ) {
             if (! $node instanceof MethodCall) {
-                return false;
+                return null;
             }
 
             if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
                 $node,
                 new ObjectType('TYPO3\CMS\Backend\Template\ModuleTemplate')
             )) {
-                return false;
+                return null;
             }
 
-            return $this->nodeNameResolver->isName($node->name, $methodCallName);
+            if (! $this->nodeNameResolver->isName($node->name, $methodCallName)) {
+                return null;
+            }
+
+            $hasChanged = true;
+            return $propertyFetch;
         });
+
+        return $hasChanged;
     }
 
     private function addIconFactoryToConstructor(Class_ $class): void
     {
-        $this->classDependencyManipulator->addConstructorDependency(
-            $class,
-            new PropertyMetadata(
-                'iconFactory',
-                new ObjectType('TYPO3\CMS\Core\Imaging\IconFactory'),
-                Class_::MODIFIER_PRIVATE
-            )
+        $propertyMetadata = new PropertyMetadata(
+            'iconFactory',
+            new ObjectType('TYPO3\CMS\Core\Imaging\IconFactory'),
+            Class_::MODIFIER_PRIVATE
         );
+        $this->classDependencyManipulator->addConstructorDependency($class, $propertyMetadata);
     }
 
     private function addPageRendererToConstructor(Class_ $class): void

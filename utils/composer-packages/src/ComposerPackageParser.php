@@ -74,7 +74,7 @@ final class ComposerPackageParser implements PackageParser
             $replacePackage = null;
             if (array_key_exists(self::REPLACE, $package) && is_array($package[self::REPLACE])) {
                 foreach (array_keys($package[self::REPLACE]) as $replace) {
-                    if (\str_starts_with($replace, 'typo3-ter')) {
+                    if (\str_starts_with((string) $replace, 'typo3-ter')) {
                         $replacePackage = new RenamePackage($replace, (string) $composerPackage);
                         break;
                     }
