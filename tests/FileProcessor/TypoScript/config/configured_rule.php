@@ -24,6 +24,7 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\ExtbasePersistenceTypoScrip
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\FileIncludeToImportStatementTypoScriptRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\LibFluidContentToLibContentElementRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\OldConditionToExpressionLanguageTypoScriptRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\TemplateToFluidTemplateTypoScriptRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../config/config_test.php');
@@ -51,4 +52,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(AdditionalHeadersToArrayTypoScriptRector::class);
     $rectorConfig->rule(LibFluidContentToLibContentElementRector::class);
     $rectorConfig->rule(LibFluidContentToContentElementTypoScriptPostRector::class);
+    $rectorConfig->rule(TemplateToFluidTemplateTypoScriptRector::class);
 };
