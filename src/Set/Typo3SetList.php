@@ -87,7 +87,12 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const TYPO3_11 = __DIR__ . '/../../config/typo3-11.0.php';
+    public const TYPO3_11 = __DIR__ . '/../../config/typo3-11.5.php';
+
+    /**
+     * @var string
+     */
+    public const TYPO3_12 = __DIR__ . '/../../config/typo3-12.0.php';
 
     /**
      * @var string
