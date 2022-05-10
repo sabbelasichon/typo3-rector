@@ -7,12 +7,10 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\NameResolver;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
@@ -25,6 +23,7 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\NodeAnalyzer\CommandArrayDecorator;
+use Ssch\TYPO3Rector\NodeAnalyzer\CommandMethodDecorator;
 use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symfony\Component\Console\Input\InputArgument;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -52,6 +51,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         private readonly NodePrinterInterface $nodePrinter,
         private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         private readonly CommandArrayDecorator $commandArrayDecorator,
+        private readonly CommandMethodDecorator $commandMethodDecorator,
     ) {
     }
 
@@ -158,16 +158,15 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 
             $stmts = $this->simplePhpParser->parseString($commandContent);
 
-            $nodeTraverser = new NodeTraverser();
-
             $inputArguments = $this->createInputArguments($methodParameters, $paramTags);
 
-//            $this->addArgumentToSymfonyCommandRector->configure([
-//                AddArgumentToSymfonyCommandRector::INPUT_ARGUMENTS => $inputArguments,
-//            ]);
+            $this->traverseNodesWithCallable($stmts, function (Node $node) use ($inputArguments) {
+                if (! $node instanceof ClassMethod) {
+                    return null;
+                }
 
-            /** @var Stmt[] $stmts */
-            $stmts = $nodeTraverser->traverse($stmts);
+                $this->commandMethodDecorator->decorate($node, $inputArguments);
+            });
 
             $changedSetConfigContent = $this->nodePrinter->prettyPrintFile($stmts);
 
@@ -285,7 +284,7 @@ CODE_SAMPLE
     /**
      * @param array<int, Node\Param> $methodParameters
      * @param ParamTagValueNode[] $paramTags
-     * @return array<string, array<string, mixed>>
+     * @return array<string, array{mode: int, name: string, description: string, default: mixed}>
      */
     private function createInputArguments(array $methodParameters, array $paramTags): array
     {
@@ -324,7 +323,7 @@ CODE_SAMPLE
             '__TEMPLATE_NAMESPACE__' => ltrim($commandNamespace, '\\'),
             '__TEMPLATE_COMMAND_NAME__' => $commandName,
             '__TEMPLATE_DESCRIPTION__' => $commandDescription,
-            '__TEMPLATE_COMMAND_BODY__' => $this->nodePrinter->prettyPrint($commandMethod->stmts),
+            '__TEMPLATE_COMMAND_BODY__' => $this->nodePrinter->prettyPrint((array) $commandMethod->stmts),
         ];
     }
 }
