@@ -282,17 +282,6 @@ CODE_SAMPLE
         );
     }
 
-//    /**
-//     * @param Stmt[] $methodParameters
-//     */
-//    private function decorateNamesToFullyQualified(array $stmts): void
-//    {
-//        // decorate nodes with names first
-//        $nameResolverNodeTraverser = new NodeTraverser();
-//        $nameResolverNodeTraverser->addVisitor(new NameResolver());
-//        $nameResolverNodeTraverser->traverse($stmts);
-//    }
-
     /**
      * @param array<int, Node\Param> $methodParameters
      * @param ParamTagValueNode[] $paramTags
