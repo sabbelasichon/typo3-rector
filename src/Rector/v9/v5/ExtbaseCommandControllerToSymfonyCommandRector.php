@@ -23,8 +23,6 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
-use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddArgumentToSymfonyCommandRector;
-use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddCommandsToReturnRector;
 use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symfony\Component\Console\Input\InputArgument;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -46,9 +44,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
     public function __construct(
         private readonly SmartFileSystem $smartFileSystem,
         private readonly RectorParser $rectorParser,
-        //private readonly AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector,
         private readonly FilesFinder $filesFinder,
-        //private readonly AddCommandsToReturnRector $addCommandsToReturnRector,
         private readonly SimplePhpParser $simplePhpParser,
         private readonly TemplateFinder $templateFinder,
         private readonly NodePrinterInterface $nodePrinter,
@@ -145,12 +141,12 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
                 continue;
             }
 
-            $commandVariables = [
-                '__TEMPLATE_NAMESPACE__' => ltrim($commandNamespace, '\\'),
-                '__TEMPLATE_COMMAND_NAME__' => $commandName,
-                '__TEMPLATE_DESCRIPTION__' => $commandDescription,
-                '__TEMPLATE_COMMAND_BODY__' => $this->nodePrinter->prettyPrint($commandMethod->stmts),
-            ];
+            $commandVariables = $this->createCommandVariables(
+                $commandNamespace,
+                $commandName,
+                $commandDescription,
+                $commandMethod
+            );
 
             // Add traits, other methods etc. to class
             // Maybe inject dependencies into __constructor
@@ -158,7 +154,6 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             $commandContent = str_replace(array_keys($commandVariables), $commandVariables, $commandContent);
 
             $stmts = $this->simplePhpParser->parseString($commandContent);
-//            $this->decorateNamesToFullyQualified($stmts);
 
             $nodeTraverser = new NodeTraverser();
 
@@ -167,7 +162,6 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 //            $this->addArgumentToSymfonyCommandRector->configure([
 //                AddArgumentToSymfonyCommandRector::INPUT_ARGUMENTS => $inputArguments,
 //            ]);
-//            $nodeTraverser->addVisitor($this->addArgumentToSymfonyCommandRector);
 
             /** @var Stmt[] $stmts */
             $stmts = $nodeTraverser->traverse($stmts);
@@ -183,13 +177,6 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         }
 
         $this->addNewCommandsToCommandsFile($commandsFilePath, $newCommandsWithFullQualifiedNamespace);
-
-//        $this->addArgumentToSymfonyCommandRector->configure([
-//            AddArgumentToSymfonyCommandRector::INPUT_ARGUMENTS => [],
-//        ]);
-//        $this->addCommandsToReturnRector->configure([
-//            AddCommandsToReturnRector::COMMANDS => [],
-//        ]);
 
         return $node;
     }
@@ -247,7 +234,7 @@ CODE_SAMPLE
     private function findCommandMethods(Class_ $class): array
     {
         return array_filter($class->getMethods(), function (ClassMethod $classMethod) {
-            if (!$classMethod->isPublic()) {
+            if (! $classMethod->isPublic()) {
                 return false;
             }
 
@@ -298,16 +285,9 @@ CODE_SAMPLE
             $stmts = [new Return_($this->nodeFactory->createArray([]))];
         }
 
-//        $this->decorateNamesToFullyQualified($stmts);
-
-//        $nodeTraverser = new NodeTraverser();
 //        $this->addCommandsToReturnRector->configure([
 //            AddCommandsToReturnRector::COMMANDS => $newCommandsWithFullQualifiedNamespace,
 //        ]);
-//        $nodeTraverser->addVisitor($this->addCommandsToReturnRector);
-
-//        /** @var Stmt[] $stmts */
-//        $stmts = $nodeTraverser->traverse($stmts);
 
         $changedCommandsContent = $this->nodePrinter->prettyPrintFile($stmts);
 
@@ -319,7 +299,7 @@ CODE_SAMPLE
     }
 
 //    /**
-//     * @param Stmt[] $stmts
+//     * @param Stmt[] $methodParameters
 //     */
 //    private function decorateNamesToFullyQualified(array $stmts): void
 //    {
@@ -334,9 +314,10 @@ CODE_SAMPLE
      * @param ParamTagValueNode[] $paramTags
      * @return array<string, array<string, mixed>>
      */
-    public function createInputArguments(array $methodParameters, array $paramTags): array
+    private function createInputArguments(array $methodParameters, array $paramTags): array
     {
         $inputArguments = [];
+
         foreach ($methodParameters as $key => $methodParameter) {
             $paramTag = $paramTags[$key] ?? null;
 
@@ -355,5 +336,22 @@ CODE_SAMPLE
         }
 
         return $inputArguments;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function createCommandVariables(
+        string $commandNamespace,
+        string $commandName,
+        string $commandDescription,
+        ClassMethod $commandMethod
+    ): array {
+        return [
+            '__TEMPLATE_NAMESPACE__' => ltrim($commandNamespace, '\\'),
+            '__TEMPLATE_COMMAND_NAME__' => $commandName,
+            '__TEMPLATE_DESCRIPTION__' => $commandDescription,
+            '__TEMPLATE_COMMAND_BODY__' => $this->nodePrinter->prettyPrint($commandMethod->stmts),
+        ];
     }
 }
