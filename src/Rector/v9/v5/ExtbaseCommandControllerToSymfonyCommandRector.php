@@ -240,35 +240,6 @@ CODE_SAMPLE
 
             return $this->isName($classMethod->name, '*Command');
         });
-//
-//        foreach ($class->getMethods() as $classMethod) {
-//            if (! $classMethod->isPublic()) {
-//                continue;
-//            }
-//
-//            if (! $this->isName($classMethod->name, '*Command')) {
-//                continue;
-//            }
-//        }
-//
-//
-//        return $this->betterNodeFinder->find($class->stmts, function (Node $node): bool {
-//            if (! $node instanceof ClassMethod) {
-//                return false;
-//            }
-//
-//            if (! $node->isPublic()) {
-//                return false;
-//            }
-//
-//            $methodName = $this->getName($node->name);
-//
-//            if (null === $methodName) {
-//                return false;
-//            }
-//
-//            return \str_ends_with($methodName, 'Command');
-//        });
     }
 
     /**
