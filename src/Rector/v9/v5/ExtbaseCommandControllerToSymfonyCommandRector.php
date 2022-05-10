@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -23,6 +24,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Ssch\TYPO3Rector\NodeAnalyzer\CommandArrayDecorator;
 use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symfony\Component\Console\Input\InputArgument;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -48,7 +50,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         private readonly SimplePhpParser $simplePhpParser,
         private readonly TemplateFinder $templateFinder,
         private readonly NodePrinterInterface $nodePrinter,
-        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
+        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        private readonly CommandArrayDecorator $commandArrayDecorator,
     ) {
     }
 
@@ -252,16 +255,26 @@ CODE_SAMPLE
         if ($this->smartFileSystem->exists($commandsFilePath)) {
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
             $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo);
+
+            $this->traverseNodesWithCallable($stmts, function (Node $node) use (
+                $newCommandsWithFullQualifiedNamespace
+            ) {
+                if (! $node instanceof Array_) {
+                    return null;
+                }
+
+                $this->commandArrayDecorator->decorateArray($node, $newCommandsWithFullQualifiedNamespace);
+
+                return NodeTraverser::DONT_TRAVERSE_CHILDREN;
+            });
         } else {
-            $stmts = [new Return_($this->nodeFactory->createArray([]))];
+            $array = new Array_();
+            $this->commandArrayDecorator->decorateArray($array, $newCommandsWithFullQualifiedNamespace);
+
+            $stmts = [new Return_($array)];
         }
 
-//        $this->addCommandsToReturnRector->configure([
-//            AddCommandsToReturnRector::COMMANDS => $newCommandsWithFullQualifiedNamespace,
-//        ]);
-
         $changedCommandsContent = $this->nodePrinter->prettyPrintFile($stmts);
-
         $changedCommandsContent = Strings::replace($changedCommandsContent, self::REMOVE_EMPTY_LINES, '');
 
         $this->removedAndAddedFilesCollector->addAddedFile(
