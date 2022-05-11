@@ -65,6 +65,7 @@ CODE_SAMPLE
         if ($toRemoveArrayItem instanceof ArrayItem) {
             $this->removeNode($toRemoveArrayItem);
         }
+
         $toChangeArrayItem = $this->extractArrayItemByKey($configArray, 'type');
         if ($toChangeArrayItem instanceof ArrayItem) {
             $toChangeArrayItem->value = new String_('folder');
