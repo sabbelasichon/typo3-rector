@@ -6,12 +6,12 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
-use PhpParser\Node\Stmt;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\NameResolver;
+use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
@@ -22,9 +22,10 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
-use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddArgumentToSymfonyCommandRector;
-use Ssch\TYPO3Rector\Rector\v9\v5\ExtbaseCommandControllerToSymfonyCommand\AddCommandsToReturnRector;
+use Ssch\TYPO3Rector\NodeAnalyzer\CommandArrayDecorator;
+use Ssch\TYPO3Rector\NodeAnalyzer\CommandMethodDecorator;
 use Ssch\TYPO3Rector\Template\TemplateFinder;
+use Symfony\Component\Console\Input\InputArgument;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -44,13 +45,13 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
     public function __construct(
         private readonly SmartFileSystem $smartFileSystem,
         private readonly RectorParser $rectorParser,
-        private readonly AddArgumentToSymfonyCommandRector $addArgumentToSymfonyCommandRector,
         private readonly FilesFinder $filesFinder,
-        private readonly AddCommandsToReturnRector $addCommandsToReturnRector,
         private readonly SimplePhpParser $simplePhpParser,
         private readonly TemplateFinder $templateFinder,
         private readonly NodePrinterInterface $nodePrinter,
-        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
+        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        private readonly CommandArrayDecorator $commandArrayDecorator,
+        private readonly CommandMethodDecorator $commandMethodDecorator,
     ) {
     }
 
@@ -71,9 +72,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             return null;
         }
 
-        $commandMethods = $this->findCommandMethods($node);
-
-        if ([] === $commandMethods) {
+        $commandClassMethods = $this->findCommandMethods($node);
+        if ([] === $commandClassMethods) {
             return null;
         }
 
@@ -103,7 +103,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         // Collect all new commands
         $newCommandsWithFullQualifiedNamespace = [];
 
-        foreach ($commandMethods as $commandMethod) {
+        foreach ($commandClassMethods as $commandMethod) {
             if (! $commandMethod instanceof ClassMethod) {
                 continue;
             }
@@ -144,12 +144,12 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
                 continue;
             }
 
-            $commandVariables = [
-                '__TEMPLATE_NAMESPACE__' => ltrim($commandNamespace, '\\'),
-                '__TEMPLATE_COMMAND_NAME__' => $commandName,
-                '__TEMPLATE_DESCRIPTION__' => $commandDescription,
-                '__TEMPLATE_COMMAND_BODY__' => $this->nodePrinter->prettyPrint($commandMethod->stmts),
-            ];
+            $commandVariables = $this->createCommandVariables(
+                $commandNamespace,
+                $commandName,
+                $commandDescription,
+                $commandMethod
+            );
 
             // Add traits, other methods etc. to class
             // Maybe inject dependencies into __constructor
@@ -157,35 +157,16 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             $commandContent = str_replace(array_keys($commandVariables), $commandVariables, $commandContent);
 
             $stmts = $this->simplePhpParser->parseString($commandContent);
-            $this->decorateNamesToFullyQualified($stmts);
 
-            $nodeTraverser = new NodeTraverser();
+            $inputArguments = $this->createInputArguments($methodParameters, $paramTags);
 
-            $inputArguments = [];
-            foreach ($methodParameters as $key => $methodParameter) {
-                $paramTag = $paramTags[$key] ?? null;
-
-                $methodParamName = $this->nodeNameResolver->getName($methodParameter->var);
-
-                if (null === $methodParamName) {
-                    continue;
+            $this->traverseNodesWithCallable($stmts, function (Node $node) use ($inputArguments) {
+                if (! $node instanceof ClassMethod) {
+                    return null;
                 }
 
-                $inputArguments[$methodParamName] = [
-                    'name' => $methodParamName,
-                    'description' => null !== $paramTag ? $paramTag->description : '',
-                    'mode' => null !== $methodParameter->default ? 2 : 1,
-                    'default' => $methodParameter->default,
-                ];
-            }
-
-            $this->addArgumentToSymfonyCommandRector->configure([
-                AddArgumentToSymfonyCommandRector::INPUT_ARGUMENTS => $inputArguments,
-            ]);
-            $nodeTraverser->addVisitor($this->addArgumentToSymfonyCommandRector);
-
-            /** @var Stmt[] $stmts */
-            $stmts = $nodeTraverser->traverse($stmts);
+                $this->commandMethodDecorator->decorate($node, $inputArguments);
+            });
 
             $changedSetConfigContent = $this->nodePrinter->prettyPrintFile($stmts);
 
@@ -198,13 +179,6 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         }
 
         $this->addNewCommandsToCommandsFile($commandsFilePath, $newCommandsWithFullQualifiedNamespace);
-
-        $this->addArgumentToSymfonyCommandRector->configure([
-            AddArgumentToSymfonyCommandRector::INPUT_ARGUMENTS => [],
-        ]);
-        $this->addCommandsToReturnRector->configure([
-            AddCommandsToReturnRector::COMMANDS => [],
-        ]);
 
         return $node;
     }
@@ -257,26 +231,16 @@ CODE_SAMPLE
     }
 
     /**
-     * @return Node[]|ClassMethod[]
+     * @return ClassMethod[]
      */
     private function findCommandMethods(Class_ $class): array
     {
-        return $this->betterNodeFinder->find($class->stmts, function (Node $node): bool {
-            if (! $node instanceof ClassMethod) {
+        return array_filter($class->getMethods(), function (ClassMethod $classMethod) {
+            if (! $classMethod->isPublic()) {
                 return false;
             }
 
-            if (! $node->isPublic()) {
-                return false;
-            }
-
-            $methodName = $this->getName($node->name);
-
-            if (null === $methodName) {
-                return false;
-            }
-
-            return \str_ends_with($methodName, 'Command');
+            return $this->isName($classMethod->name, '*Command');
         });
     }
 
@@ -290,23 +254,26 @@ CODE_SAMPLE
         if ($this->smartFileSystem->exists($commandsFilePath)) {
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
             $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo);
+
+            $this->traverseNodesWithCallable($stmts, function (Node $node) use (
+                $newCommandsWithFullQualifiedNamespace
+            ) {
+                if (! $node instanceof Array_) {
+                    return null;
+                }
+
+                $this->commandArrayDecorator->decorateArray($node, $newCommandsWithFullQualifiedNamespace);
+
+                return NodeTraverser::DONT_TRAVERSE_CHILDREN;
+            });
         } else {
-            $stmts = [new Return_($this->nodeFactory->createArray([]))];
+            $array = new Array_();
+            $this->commandArrayDecorator->decorateArray($array, $newCommandsWithFullQualifiedNamespace);
+
+            $stmts = [new Return_($array)];
         }
 
-        $this->decorateNamesToFullyQualified($stmts);
-
-        $nodeTraverser = new NodeTraverser();
-        $this->addCommandsToReturnRector->configure([
-            AddCommandsToReturnRector::COMMANDS => $newCommandsWithFullQualifiedNamespace,
-        ]);
-        $nodeTraverser->addVisitor($this->addCommandsToReturnRector);
-
-        /** @var Stmt[] $stmts */
-        $stmts = $nodeTraverser->traverse($stmts);
-
         $changedCommandsContent = $this->nodePrinter->prettyPrintFile($stmts);
-
         $changedCommandsContent = Strings::replace($changedCommandsContent, self::REMOVE_EMPTY_LINES, '');
 
         $this->removedAndAddedFilesCollector->addAddedFile(
@@ -315,13 +282,48 @@ CODE_SAMPLE
     }
 
     /**
-     * @param Stmt[] $stmts
+     * @param array<int, Node\Param> $methodParameters
+     * @param ParamTagValueNode[] $paramTags
+     * @return array<string, array{mode: int, name: string, description: string, default: mixed}>
      */
-    private function decorateNamesToFullyQualified(array $stmts): void
+    private function createInputArguments(array $methodParameters, array $paramTags): array
     {
-        // decorate nodes with names first
-        $nameResolverNodeTraverser = new NodeTraverser();
-        $nameResolverNodeTraverser->addVisitor(new NameResolver());
-        $nameResolverNodeTraverser->traverse($stmts);
+        $inputArguments = [];
+
+        foreach ($methodParameters as $key => $methodParameter) {
+            $paramTag = $paramTags[$key] ?? null;
+
+            $methodParamName = $this->nodeNameResolver->getName($methodParameter->var);
+
+            if (null === $methodParamName) {
+                continue;
+            }
+
+            $inputArguments[$methodParamName] = [
+                'name' => $methodParamName,
+                'description' => null !== $paramTag ? $paramTag->description : '',
+                'mode' => null !== $methodParameter->default ? InputArgument::OPTIONAL : InputArgument::REQUIRED,
+                'default' => $methodParameter->default,
+            ];
+        }
+
+        return $inputArguments;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function createCommandVariables(
+        string $commandNamespace,
+        string $commandName,
+        string $commandDescription,
+        ClassMethod $commandMethod
+    ): array {
+        return [
+            '__TEMPLATE_NAMESPACE__' => ltrim($commandNamespace, '\\'),
+            '__TEMPLATE_COMMAND_NAME__' => $commandName,
+            '__TEMPLATE_DESCRIPTION__' => $commandDescription,
+            '__TEMPLATE_COMMAND_BODY__' => $this->nodePrinter->prettyPrint((array) $commandMethod->stmts),
+        ];
     }
 }

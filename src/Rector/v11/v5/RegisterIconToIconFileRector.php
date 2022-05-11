@@ -6,11 +6,10 @@ namespace Ssch\TYPO3Rector\Rector\v11\v5;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\NameResolver;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Contract\PhpParser\NodePrinterInterface;
@@ -18,7 +17,7 @@ use Rector\Core\PhpParser\Parser\SimplePhpParser;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
-use Ssch\TYPO3Rector\Rector\v11\v5\RegisterIconToIconFileRector\AddIconsToReturnRector;
+use Ssch\TYPO3Rector\NodeFactory\IconArrayItemFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -36,10 +35,10 @@ final class RegisterIconToIconFileRector extends AbstractRector
 
     public function __construct(
         private readonly FilesFinder $filesFinder,
-        private readonly AddIconsToReturnRector $addIconsToReturnRector,
         private readonly SimplePhpParser $simplePhpParser,
         private readonly NodePrinterInterface $nodePrinter,
-        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
+        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        private readonly IconArrayItemFactory $iconArrayItemFactory
     ) {
     }
 
@@ -70,7 +69,6 @@ final class RegisterIconToIconFileRector extends AbstractRector
         $currentSmartFileInfo = $this->file->getSmartFileInfo();
 
         $extEmConfFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($currentSmartFileInfo);
-
         if (! $extEmConfFileInfo instanceof SmartFileInfo) {
             return null;
         }
@@ -109,7 +107,6 @@ final class RegisterIconToIconFileRector extends AbstractRector
     {
         return new RuleDefinition('Generate or add registerIcon calls to Icons.php file', [new CodeSample(
             <<<'CODE_SAMPLE'
-
 use TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -137,17 +134,6 @@ CODE_SAMPLE
     }
 
     /**
-     * @param Stmt[] $stmts
-     */
-    private function decorateNamesToFullyQualified(array $stmts): void
-    {
-        // decorate nodes with names first
-        $nameResolverNodeTraverser = new NodeTraverser();
-        $nameResolverNodeTraverser->addVisitor(new NameResolver());
-        $nameResolverNodeTraverser->traverse($stmts);
-    }
-
-    /**
      * @param array<string, mixed> $iconConfiguration
      */
     private function addNewIconToIconsFile(
@@ -164,26 +150,24 @@ CODE_SAMPLE
             }
         }
 
+        $iconArrayItem = $this->iconArrayItemFactory->create($iconConfiguration, $iconIdentifier);
+
         if (is_string($existingIcons)) {
             $stmts = $this->simplePhpParser->parseString($existingIcons);
+            $this->traverseNodesWithCallable($stmts, function (Node $node) use ($iconArrayItem) {
+                if (! $node instanceof Array_) {
+                    return null;
+                }
+
+                $node->items[] = $iconArrayItem;
+                return NodeTraverser::DONT_TRAVERSE_CHILDREN;
+            });
         } else {
-            $stmts = [new Return_($this->nodeFactory->createArray([]))];
+            $array = new Array_([$iconArrayItem]);
+            $stmts = [new Return_($array)];
         }
 
-        $this->decorateNamesToFullyQualified($stmts);
-
-        $nodeTraverser = new NodeTraverser();
-        $this->addIconsToReturnRector->configure([
-            AddIconsToReturnRector::ICON_IDENTIFIER => $iconIdentifier,
-            AddIconsToReturnRector::ICON_CONFIGURATION => $iconConfiguration,
-        ]);
-        $nodeTraverser->addVisitor($this->addIconsToReturnRector);
-
-        /** @var Stmt[] $stmts */
-        $stmts = $nodeTraverser->traverse($stmts);
-
         $changedIconsContent = $this->nodePrinter->prettyPrintFile($stmts);
-
         $changedIconsContent = Strings::replace($changedIconsContent, self::REMOVE_EMPTY_LINES);
 
         $this->removedAndAddedFilesCollector->addAddedFile(
