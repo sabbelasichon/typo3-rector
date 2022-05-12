@@ -18,6 +18,12 @@ return [
                 'size' => 50,
             ],
         ],
+        'cColumn' => [
+            'config' => [
+                'type' => 'text',
+                'cols' => '40',
+            ],
+        ],
     ],
 ];
 
@@ -40,6 +46,12 @@ return [
             'config' => [
                 'type' => 'none',
                 'size' => 20,
+            ],
+        ],
+        'cColumn' => [
+            'config' => [
+                'type' => 'text',
+                'cols' => '40',
             ],
         ],
     ],
