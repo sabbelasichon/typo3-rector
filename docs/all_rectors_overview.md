@@ -791,7 +791,7 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\ExtbasePersistenceTypoScriptRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ExtbasePersistenceTypoScriptRector::class, [Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\ExtbasePersistenceTypoScriptRector::FILENAME: 'path/to/Configuration/Extbase/Persistence/Classes.php']);
+    $rectorConfig->ruleWithConfiguration(ExtbasePersistenceTypoScriptRector::class, [Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\ExtbasePersistenceTypoScriptRector::FILENAME => 'path/to/Configuration/Extbase/Persistence/Classes.php']);
 };
 ```
 
