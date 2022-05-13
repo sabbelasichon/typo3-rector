@@ -57,13 +57,13 @@ CODE_SAMPLE
         if (! $configArray instanceof Array_) {
             return;
         }
-        
+
         if (! $this->isConfigType($configArray, 'none')) {
             return;
         }
 
         $arrayItemToChange = $this->extractArrayItemByKey($configArray, 'cols');
-        if(! $arrayItemToChange instanceof ArrayItem) {
+        if (! $arrayItemToChange instanceof ArrayItem) {
             return;
         }
 
