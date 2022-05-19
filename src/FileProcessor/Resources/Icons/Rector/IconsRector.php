@@ -13,14 +13,12 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class IconsRector implements IconRectorInterface
 {
     public function __construct(
         private readonly ParameterProvider $parameterProvider,
-        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        private readonly SmartFileSystem $smartFileSystem
+        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
     ) {
     }
 
@@ -58,7 +56,7 @@ CODE_SAMPLE
             return;
         }
 
-        $this->smartFileSystem->mkdir(dirname($newFullPath));
+        mkdir(dirname($newFullPath), 0777, true);
     }
 
     private function createIconPath(File $file): string
