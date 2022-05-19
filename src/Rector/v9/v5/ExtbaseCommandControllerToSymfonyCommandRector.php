@@ -29,7 +29,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 /**
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/9.5/en-us/ApiOverview/CommandControllers/Index.html
@@ -43,7 +42,6 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
     private const REMOVE_EMPTY_LINES = '/^[ \t]*[\r\n]+/m';
 
     public function __construct(
-        private readonly SmartFileSystem $smartFileSystem,
         private readonly RectorParser $rectorParser,
         private readonly FilesFinder $filesFinder,
         private readonly SimplePhpParser $simplePhpParser,
@@ -140,7 +138,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             $filePath = sprintf('%s/Classes/Command/%s.php', $extensionDirectory, $commandName);
 
             // Do not overwrite existing file
-            if ($this->smartFileSystem->exists($filePath) && ! StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            if (file_exists($filePath) && ! StaticPHPUnitEnvironment::isPHPUnitRun()) {
                 continue;
             }
 
@@ -251,7 +249,7 @@ CODE_SAMPLE
         string $commandsFilePath,
         array $newCommandsWithFullQualifiedNamespace
     ): void {
-        if ($this->smartFileSystem->exists($commandsFilePath)) {
+        if (file_exists($commandsFilePath)) {
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
             $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo);
 
