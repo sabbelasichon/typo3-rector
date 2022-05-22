@@ -12,10 +12,6 @@ abstract class AbstractTypoScriptRector implements Visitor, TypoScriptRectorInte
 {
     protected bool $hasChanged = false;
 
-    protected ?Statement $originalStatement = null;
-
-    protected ?Statement $newStatement = null;
-
     public function enterTree(array $statements): void
     {
     }
@@ -35,21 +31,5 @@ abstract class AbstractTypoScriptRector implements Visitor, TypoScriptRectorInte
     public function hasChanged(): bool
     {
         return $this->hasChanged;
-    }
-
-    public function getOriginalStatement(): ?Statement
-    {
-        return $this->originalStatement;
-    }
-
-    public function getNewStatement(): ?Statement
-    {
-        return $this->newStatement;
-    }
-
-    public function reset(): void
-    {
-        $this->newStatement = null;
-        $this->originalStatement = null;
     }
 }
