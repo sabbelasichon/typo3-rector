@@ -55,6 +55,40 @@ final class RefactorTCARector extends AbstractRector
     ];
 
     /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes(): array
+    {
+        return [Return_::class];
+    }
+
+    /**
+     * @param Return_ $node
+     */
+    public function refactor(Node $node): ?Node
+    {
+        if (! $this->isFullTca($node)) {
+            return null;
+        }
+
+        $columns = $this->extractColumns($node);
+
+        if (! $columns instanceof ArrayItem) {
+            return null;
+        }
+
+        $items = $columns->value;
+
+        if (! $items instanceof Array_) {
+            return null;
+        }
+
+        $this->addFieldControlInsteadOfWizardsAddListEdit($items);
+
+        return $node;
+    }
+
+    /**
      * @codeCoverageIgnore
      */
     public function getRuleDefinition(): RuleDefinition
@@ -113,40 +147,6 @@ CODE_SAMPLE
         ]);
     }
 
-    /**
-     * @return array<class-string<Node>>
-     */
-    public function getNodeTypes(): array
-    {
-        return [Return_::class];
-    }
-
-    /**
-     * @param Return_ $node
-     */
-    public function refactor(Node $node): ?Node
-    {
-        if (! $this->isFullTca($node)) {
-            return null;
-        }
-
-        $columns = $this->extractColumns($node);
-
-        if (! $columns instanceof ArrayItem) {
-            return null;
-        }
-
-        $items = $columns->value;
-
-        if (! $items instanceof Array_) {
-            return null;
-        }
-
-        $this->addFieldControlInsteadOfWizardsAddListEdit($items);
-
-        return $node;
-    }
-
     private function addFieldControlInsteadOfWizardsAddListEdit(Array_ $itemsArray): void
     {
         foreach ($itemsArray->items as $fieldValue) {
@@ -186,7 +186,6 @@ CODE_SAMPLE
                     $this->refactorRenderTypeInputDateTime($configValue);
                 }
 
-                $configValueArray = $configValueArray;
                 foreach ($configValueArray->items as $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;

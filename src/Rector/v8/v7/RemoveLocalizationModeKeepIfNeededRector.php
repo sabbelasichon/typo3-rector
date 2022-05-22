@@ -27,53 +27,6 @@ final class RemoveLocalizationModeKeepIfNeededRector extends AbstractRector
     private const LOCALIZATION_MODE = 'localizationMode';
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('Remove localizationMode keep if allowLanguageSynchronization is enabled', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
-return [
-    'columns' => [
-        'foo' => [
-            'label' => 'Bar',
-            'config' => [
-                'type' => 'inline',
-                'appearance' => [
-                    'behaviour' => [
-                        'localizationMode' => 'keep',
-                        'allowLanguageSynchronization' => true,
-                    ],
-                ],
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-return [
-    'columns' => [
-        'foo' => [
-            'label' => 'Bar',
-            'config' => [
-                'type' => 'inline',
-                'appearance' => [
-                    'behaviour' => [
-                        'allowLanguageSynchronization' => true,
-                    ],
-                ],
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-            ),
-        ]);
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -176,6 +129,53 @@ CODE_SAMPLE
         }
 
         return $hasAstBeenChanged ? $node : null;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Remove localizationMode keep if allowLanguageSynchronization is enabled', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+return [
+    'columns' => [
+        'foo' => [
+            'label' => 'Bar',
+            'config' => [
+                'type' => 'inline',
+                'appearance' => [
+                    'behaviour' => [
+                        'localizationMode' => 'keep',
+                        'allowLanguageSynchronization' => true,
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+return [
+    'columns' => [
+        'foo' => [
+            'label' => 'Bar',
+            'config' => [
+                'type' => 'inline',
+                'appearance' => [
+                    'behaviour' => [
+                        'allowLanguageSynchronization' => true,
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+            ),
+        ]);
     }
 
     private function isLocalizationModeKeepAndAllowLanguageSynchronization(Array_ $behaviourConfigurationArray): bool

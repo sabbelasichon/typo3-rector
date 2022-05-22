@@ -22,47 +22,6 @@ final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractRector
     use TcaHelperTrait;
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('transOrigPointerField is not longer allowed to be excluded', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-        'transOrigPointerField' => 'l10n_parent',
-    ],
-    'columns' => [
-        'l10n_parent' => [
-            'exclude' => true,
-            'config' => [
-                'type' => 'select',
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-        'transOrigPointerField' => 'l10n_parent',
-    ],
-    'columns' => [
-        'l10n_parent' => [
-            'config' => [
-                'type' => 'select',
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-            ),
-        ]);
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -159,5 +118,46 @@ CODE_SAMPLE
         }
 
         return $hasAstBeenChanged ? $node : null;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('transOrigPointerField is not longer allowed to be excluded', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+        'transOrigPointerField' => 'l10n_parent',
+    ],
+    'columns' => [
+        'l10n_parent' => [
+            'exclude' => true,
+            'config' => [
+                'type' => 'select',
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+        'transOrigPointerField' => 'l10n_parent',
+    ],
+    'columns' => [
+        'l10n_parent' => [
+            'config' => [
+                'type' => 'select',
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+            ),
+        ]);
     }
 }

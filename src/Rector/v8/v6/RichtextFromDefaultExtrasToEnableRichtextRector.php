@@ -25,42 +25,6 @@ final class RichtextFromDefaultExtrasToEnableRichtextRector extends AbstractRect
     private bool $hasAstBeenChanged = false;
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('TCA richtext configuration in defaultExtras dropped', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
-[
-    'columns' => [
-        'content' => [
-            'config' => [
-                'type' => 'text',
-            ],
-            'defaultExtras' => 'richtext:rte_transform',
-        ],
-    ],
-];
-CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-[
-    'columns' => [
-        'content' => [
-            'config' => [
-                'type' => 'text',
-                'enableRichtext' => true,
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-            ),
-        ]);
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -138,6 +102,42 @@ CODE_SAMPLE
         }
 
         return $this->hasAstBeenChanged ? $node : null;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('TCA richtext configuration in defaultExtras dropped', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+[
+    'columns' => [
+        'content' => [
+            'config' => [
+                'type' => 'text',
+            ],
+            'defaultExtras' => 'richtext:rte_transform',
+        ],
+    ],
+];
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+[
+    'columns' => [
+        'content' => [
+            'config' => [
+                'type' => 'text',
+                'enableRichtext' => true,
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+            ),
+        ]);
     }
 
     private function isRichtextInDefaultExtras(ArrayItem $configValueArrayItem): bool

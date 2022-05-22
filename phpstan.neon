@@ -19,6 +19,7 @@ parameters:
         - '*tests/*/Fixture/*'
         - '*tests/*/Source/*'
         - '*tests/Source/*'
+        - 'utils/generator/templates/*'
 
 
     scanDirectories:
@@ -101,9 +102,6 @@ parameters:
                 - src/FileProcessor/TypoScript/Rector/*Rector.php
                 - utils/composer-packages/src/Command/AddComposerTypo3ExtensionsToConfigCommand.php
 
-        -
-            message: '#Class "Ssch\\TYPO3Rector\\Rector\\__Major__\\__Minor__\\__Name__" is missing @see annotation with test case class reference#'
-            path: utils/generator/templates/src/Rector/__Major__/__Minor__/__Name__.php
         -
             message: "#^Property Ssch\\\\TYPO3Rector\\\\Rector\\\\Migrations\\\\RenameClassMapAliasRector\\:\\:\\$oldToNewClasses \\(array\\<string, string\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
             path: src/Rector/Migrations/RenameClassMapAliasRector.php

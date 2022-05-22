@@ -22,35 +22,6 @@ final class RemoveOptionVersioningFollowPagesRector extends AbstractRector
     use TcaHelperTrait;
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('TCA option versioning_followPages removed', [new CodeSample(
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-        'versioningWS' => 2,
-        'versioning_followPages' => TRUE,
-    ],
-    'columns' => [
-    ]
-];
-CODE_SAMPLE
-                ,
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-        'versioningWS' => true,
-    ],
-    'columns' => [
-    ]
-];
-CODE_SAMPLE
-        )]);
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -101,5 +72,34 @@ CODE_SAMPLE
         }
 
         return $hasAstBeenChanged ? $node : null;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('TCA option versioning_followPages removed', [new CodeSample(
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+        'versioningWS' => 2,
+        'versioning_followPages' => TRUE,
+    ],
+    'columns' => [
+    ]
+];
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+        'versioningWS' => true,
+    ],
+    'columns' => [
+    ]
+];
+CODE_SAMPLE
+        )]);
     }
 }

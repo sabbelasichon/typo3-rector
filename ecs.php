@@ -44,6 +44,7 @@ return static function (ECSConfig $ecsConfig): void {
             __DIR__ . '/src/FileProcessor/Yaml/Form/Rector/TranslationFileRector.php',
         ],
         __DIR__ . '/config/composer',
+        __DIR__ . '/utils/generator/templates/src',
         AssignmentInConditionSniff::class,
         DeclareStrictTypesFixer::class => ['*/Fixture/*'],
     ]);

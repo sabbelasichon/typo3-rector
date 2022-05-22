@@ -35,57 +35,6 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
     private array $oldToNewFileLocations = [];
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'The TCA migration migrates the icon calls to the new output if used as wizard icon',
-            [new ConfiguredCodeSample(<<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-    ],
-    'columns' => [
-        'bodytext' => [
-            'config' => [
-                'type' => 'text',
-                'wizards' => [
-                    't3editorHtml' => [
-                        'icon' => 'wizard_table.gif',
-                    ],
-                ],
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-                    , <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-    ],
-    'columns' => [
-        'bodytext' => [
-            'config' => [
-                'type' => 'text',
-                'wizards' => [
-                    't3editorHtml' => [
-                        'icon' => 'content-table',
-                    ],
-                ],
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-                , [
-                    self::OLD_TO_NEW_FILE_LOCATIONS => [
-                        'add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
-                    ],
-                ])]
-        );
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -215,5 +164,56 @@ CODE_SAMPLE
         Assert::allString($oldToNewFileLocations);
 
         $this->oldToNewFileLocations = $oldToNewFileLocations;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition(
+            'The TCA migration migrates the icon calls to the new output if used as wizard icon',
+            [new ConfiguredCodeSample(<<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+    ],
+    'columns' => [
+        'bodytext' => [
+            'config' => [
+                'type' => 'text',
+                'wizards' => [
+                    't3editorHtml' => [
+                        'icon' => 'wizard_table.gif',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+                , <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+    ],
+    'columns' => [
+        'bodytext' => [
+            'config' => [
+                'type' => 'text',
+                'wizards' => [
+                    't3editorHtml' => [
+                        'icon' => 'content-table',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+                , [
+                    self::OLD_TO_NEW_FILE_LOCATIONS => [
+                        'add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
+                    ],
+                ])]
+        );
     }
 }

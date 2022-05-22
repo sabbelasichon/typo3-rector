@@ -22,47 +22,6 @@ final class RemoveOptionShowIfRteRector extends AbstractRector
     use TcaHelperTrait;
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('Dropped TCA option showIfRTE in type=check', [new CodeSample(
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-    ],
-    'columns' => [
-        'rte_enabled' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.disableRTE',
-            'config' => [
-                'type' => 'check',
-                'showIfRTE' => 1
-            ]
-        ],
-    ],
-];
-CODE_SAMPLE
-                ,
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-    ],
-    'columns' => [
-        'rte_enabled' => [
-            'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.disableRTE',
-            'config' => [
-                'type' => 'check',
-            ]
-        ],
-    ],
-];
-CODE_SAMPLE
-        )]);
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -141,6 +100,47 @@ CODE_SAMPLE
         return null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Dropped TCA option showIfRTE in type=check', [new CodeSample(
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+    ],
+    'columns' => [
+        'rte_enabled' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.disableRTE',
+            'config' => [
+                'type' => 'check',
+                'showIfRTE' => 1
+            ]
+        ],
+    ],
+];
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+    ],
+    'columns' => [
+        'rte_enabled' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:lang/locallang_general.php:LGL.disableRTE',
+            'config' => [
+                'type' => 'check',
+            ]
+        ],
+    ],
+];
+CODE_SAMPLE
+        )]);
+    }
+
     private function isRenderTypeCheck(Array_ $configValueArray): bool
     {
         foreach ($configValueArray->items as $configItemValue) {
@@ -152,10 +152,9 @@ CODE_SAMPLE
                 continue;
             }
 
-            if ($this->valueResolver->isValue($configItemValue->key, 'type') && $this->valueResolver->isValue(
-                $configItemValue->value,
-                'check'
-            )) {
+            if ($this->valueResolver->isValue($configItemValue->key, 'type')
+                && $this->valueResolver->isValue($configItemValue->value, 'check')
+            ) {
                 return true;
             }
         }
