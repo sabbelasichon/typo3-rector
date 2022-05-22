@@ -51,7 +51,7 @@ CODE_SAMPLE
         )]);
     }
 
-    public function refactorColumn(Expr $columnName, Expr $columnTca): void
+    protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
         $configArray = $this->extractSubArrayByKey($columnTca, self::CONFIG);
         if (! $configArray instanceof Array_) {

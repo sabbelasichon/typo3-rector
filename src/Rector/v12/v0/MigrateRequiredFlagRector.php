@@ -26,6 +26,11 @@ final class MigrateRequiredFlagRector extends AbstractTcaRector
     use TcaHelperTrait;
 
     /**
+     * @var string
+     */
+    private const REQUIRED = 'required';
+
+    /**
      * @codeCoverageIgnore
      */
     public function getRuleDefinition(): RuleDefinition
@@ -71,14 +76,14 @@ CODE_SAMPLE
         $evalStringNode = $evalArrayItem->value;
         $value = $evalStringNode->value;
 
-        if (! StringUtility::inList($value, 'required')) {
+        if (! StringUtility::inList($value, self::REQUIRED)) {
             return;
         }
 
         $evalList = ArrayUtility::trimExplode(',', $value, true);
 
         // Remove "required" from $evalList
-        $evalList = array_filter($evalList, static fn (string $eval) => 'required' !== $eval);
+        $evalList = array_filter($evalList, static fn (string $eval) => self::REQUIRED !== $eval);
 
         if ([] !== $evalList) {
             // Write back filtered 'eval'
@@ -89,12 +94,12 @@ CODE_SAMPLE
         }
 
         // If required config exists already, remove it to avoid duplicate array items
-        $requiredItemToRemove = $this->extractArrayItemByKey($configArray, 'required');
+        $requiredItemToRemove = $this->extractArrayItemByKey($configArray, self::REQUIRED);
         if ($requiredItemToRemove instanceof ArrayItem) {
             $this->removeNode($requiredItemToRemove);
         }
 
-        $configArray->items[] = new ArrayItem(new ConstFetch(new Name('true')), new String_('required'));
+        $configArray->items[] = new ArrayItem(new ConstFetch(new Name('true')), new String_(self::REQUIRED));
 
         $this->hasAstBeenChanged = true;
     }
