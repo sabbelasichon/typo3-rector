@@ -1,4 +1,4 @@
-# 237 Rules Overview
+# 238 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -1466,6 +1466,23 @@ Migrate last pieces of default extras
                  ],
              ],
          ];
+```
+
+<br>
+
+## MigrateNullFlagRector
+
+Migrate null flag
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\MigrateNullFlagRector`](../src/Rector/v12/v0/MigrateNullFlagRector.php)
+
+```diff
+ 'nullable_column' => [
+     'config' => [
+-        'eval' => 'null',
++        'nullable' => true,
+     ],
+ ],
 ```
 
 <br>
