@@ -50,13 +50,16 @@ final class Typo3GenerateCommand extends Command
         $helper = $this->getHelper('question');
         /** @var Typo3Version $typo3Version */
         $typo3Version = $helper->ask($input, $output, $this->askForTypo3Version());
-        $urlToRstFile = $helper->ask($input, $output, $this->askForRstFile());
+        $changelogUrl = $helper->ask($input, $output, $this->askForChangelogUrl());
         $name = $helper->ask($input, $output, $this->askForName());
         $description = $helper->ask($input, $output, $this->askForDescription());
 
-        $recipe = new Typo3RectorRecipe($typo3Version, $urlToRstFile, $name, Description::createFromString(
-            $description
-        ));
+        $recipe = new Typo3RectorRecipe(
+            $typo3Version,
+            $changelogUrl,
+            $name,
+            Description::createFromString($description)
+        );
 
         $templateFileInfos = $this->templateFinder->find();
 
@@ -67,7 +70,7 @@ final class Typo3GenerateCommand extends Command
             '__Minor__' => $recipe->getMinorVersion(),
             '__Name__' => $recipe->getRectorName(),
             '__Test_Directory__' => $recipe->getTestDirectory(),
-            '__Rst_File__' => $recipe->getUrlToRstFile(),
+            '__Changelog_Url__' => $recipe->getChangelogUrl(),
             '__Description__' => addslashes($recipe->getDescription()),
         ];
 
@@ -92,17 +95,19 @@ final class Typo3GenerateCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function askForRstFile(): Question
+    private function askForChangelogUrl(): Question
     {
-        $whatIsTheUrlToRstFile = new Question('Url to rst file: ');
-        $whatIsTheUrlToRstFile->setNormalizer(fn ($url) => Url::createFromString(trim($url)));
+        $whatIsTheUrlToChangelog = new Question(
+            'Url to changelog (i.e. https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/...): '
+        );
+        $whatIsTheUrlToChangelog->setNormalizer(fn ($url) => Url::createFromString(trim($url)));
 
-        return $whatIsTheUrlToRstFile;
+        return $whatIsTheUrlToChangelog;
     }
 
     private function askForTypo3Version(): Question
     {
-        $whatTypo3Version = new Question('TYPO3-Version (i.e. 8.1): ');
+        $whatTypo3Version = new Question('TYPO3-Version (i.e. 12.0): ');
         $whatTypo3Version->setNormalizer(fn ($version) => Typo3Version::createFromString(trim($version)));
 
         return $whatTypo3Version;
@@ -110,7 +115,7 @@ final class Typo3GenerateCommand extends Command
 
     private function askForName(): Question
     {
-        $giveMeYourName = new Question('Name: ');
+        $giveMeYourName = new Question('Name (i.e MigrateRequiredFlag): ');
         $giveMeYourName->setNormalizer(fn ($name) => Name::createFromString(trim($name)));
 
         return $giveMeYourName;
@@ -118,7 +123,7 @@ final class Typo3GenerateCommand extends Command
 
     private function askForDescription(): Question
     {
-        $description = new Question('Description: ');
+        $description = new Question('Description (i.e. Migrate required flag): ');
         $description->setValidator(function ($description) {
             if (! is_string($description)) {
                 throw new RuntimeException('The description must not be empty');

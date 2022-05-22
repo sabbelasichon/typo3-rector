@@ -14,7 +14,7 @@ final class Typo3RectorRecipe
     ) {
     }
 
-    public function getUrlToRstFile(): string
+    public function getChangelogUrl(): string
     {
         return $this->url->getUrl();
     }
