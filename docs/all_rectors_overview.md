@@ -1,4 +1,4 @@
-# 238 Rules Overview
+# 239 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -1514,6 +1514,24 @@ Migrate options if type group in TCA
          ],
      ],
  ];
+```
+
+<br>
+
+## MigrateRequiredFlagRector
+
+Migrate required flag
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\MigrateRequiredFlagRector`](../src/Rector/v12/v0/MigrateRequiredFlagRector.php)
+
+```diff
+ 'required_column' => [
+     'config' => [
+-        'eval' => 'trim,required',
++        'eval' => 'trim',
++        'required' => true,
+     ],
+ ],
 ```
 
 <br>
