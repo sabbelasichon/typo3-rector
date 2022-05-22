@@ -1,5 +1,7 @@
 <?php
 
+namespace Ssch\TYPO3Rector\Tests\Rector\v11\v4\MigrateFileFolderConfigurationRector\Fixture;
+
 return [
     'ctrl' => [
     ],
@@ -19,6 +21,8 @@ return [
 ?>
 -----
 <?php
+
+namespace Ssch\TYPO3Rector\Tests\Rector\v11\v4\MigrateFileFolderConfigurationRector\Fixture;
 
 return [
     'ctrl' => [
