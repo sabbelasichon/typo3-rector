@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\TypoScript;
 
+use Helmich\TypoScriptParser\Parser\AST\NestedAssignment;
+use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Helmich\TypoScriptParser\Parser\ParseError;
 use Helmich\TypoScriptParser\Parser\ParserInterface;
 use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
@@ -28,6 +30,7 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptPostRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
 use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Collector\RemoveTypoScriptStatementCollector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AbstractTypoScriptRector;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Webmozart\Assert\Assert;
@@ -65,6 +68,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         private readonly RectorOutputStyle $rectorOutputStyle,
         private readonly FileDiffFactory $fileDiffFactory,
+        private readonly RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector,
         private readonly array $typoScriptRectors = [],
         private readonly array $typoScriptPostRectors = []
     ) {
@@ -162,7 +166,9 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
 
             $this->typoscriptPrinter->setPrettyPrinterConfiguration($prettyPrinterConfiguration);
 
-            $this->typoscriptPrinter->printStatements($originalStatements, $this->output);
+            $printStatements = $this->filterRemovedStatements($originalStatements, $file);
+
+            $this->typoscriptPrinter->printStatements($printStatements, $this->output);
 
             $newTypoScriptContent = $this->applyTypoScriptPostRectors($this->output->fetch());
 
@@ -220,5 +226,34 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         }
 
         return $content;
+    }
+
+    /**
+     * @param Statement[] $originalStatements
+     *
+     * @return Statement[]
+     */
+    private function filterRemovedStatements(array $originalStatements, File $file): array
+    {
+        $printStatements = [];
+        foreach ($originalStatements as $originalStatement) {
+            if (! $this->removeTypoScriptStatementCollector->shouldStatementBeRemoved($originalStatement, $file)) {
+                $printStatements[] = $originalStatement;
+            }
+            if ($originalStatement instanceof NestedAssignment) {
+                $originalNestedStatements = [];
+                foreach ($originalStatement->statements as $nestedOriginalStatement) {
+                    if (! $this->removeTypoScriptStatementCollector->shouldStatementBeRemoved(
+                        $nestedOriginalStatement,
+                        $file
+                    )) {
+                        $originalNestedStatements[] = $nestedOriginalStatement;
+                    }
+                }
+                $originalStatement->statements = $originalNestedStatements;
+            }
+        }
+
+        return $printStatements;
     }
 }
