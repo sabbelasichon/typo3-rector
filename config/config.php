@@ -37,6 +37,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
             __DIR__ . '/../src/FileProcessor/Composer/Rector',
             __DIR__ . '/../src/FileProcessor/FlexForms/Rector',
             __DIR__ . '/../src/FileProcessor/Resources/Icons/Rector',
+            __DIR__ . '/../src/FileProcessor/Resources/Files/Rector',
             __DIR__ . '/../src/FileProcessor/Fluid/Rector',
         ]);
 
