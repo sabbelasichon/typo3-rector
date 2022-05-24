@@ -51,52 +51,6 @@ final class MoveForeignTypesToOverrideChildTcaRector extends AbstractRector
     private const OVERRIDE_CHILD_TCA = 'overrideChildTca';
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('TCA InlineOverrideChildTca', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
-return [
-    'columns' => [
-        'aField' => [
-            'config' => [
-                'type' => 'inline',
-                'foreign_types' => [
-                    'aForeignType' => [
-                        'showitem' => 'aChildField',
-                    ],
-                ],
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-return [
-    'columns' => [
-        'aField' => [
-            'config' => [
-                'type' => 'inline',
-                'overrideChildTca' => [
-                    'types' => [
-                        'aForeignType' => [
-                            'showitem' => 'aChildField',
-                        ],
-                    ],
-                ],
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-            ),
-        ]);
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -197,6 +151,52 @@ CODE_SAMPLE
         }
 
         return $hasAstBeenChanged ? $node : null;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('TCA InlineOverrideChildTca', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+return [
+    'columns' => [
+        'aField' => [
+            'config' => [
+                'type' => 'inline',
+                'foreign_types' => [
+                    'aForeignType' => [
+                        'showitem' => 'aChildField',
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+return [
+    'columns' => [
+        'aField' => [
+            'config' => [
+                'type' => 'inline',
+                'overrideChildTca' => [
+                    'types' => [
+                        'aForeignType' => [
+                            'showitem' => 'aChildField',
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+            ),
+        ]);
     }
 
     private function extractConfigFromGetFileFieldTcaConfig(Node $columnConfig): Node

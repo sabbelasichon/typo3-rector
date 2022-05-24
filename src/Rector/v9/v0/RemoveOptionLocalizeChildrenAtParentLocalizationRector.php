@@ -22,46 +22,6 @@ final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends Abstr
     use TcaHelperTrait;
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('Remove option localizeChildrenAtParentLocalization', [new CodeSample(
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [],
-    'columns' => [
-        'foo' => [
-            'config' =>
-                [
-                    'type' => 'inline',
-                    'behaviour' => [
-                        'localizeChildrenAtParentLocalization' => '1',
-                    ],
-                ],
-        ],
-    ],
-];
-CODE_SAMPLE
-                ,
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [],
-    'columns' => [
-        'foo' => [
-            'config' =>
-                [
-                    'type' => 'inline',
-                    'behaviour' => [],
-                ],
-        ],
-    ],
-];
-CODE_SAMPLE
-        )]);
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -162,5 +122,45 @@ CODE_SAMPLE
         }
 
         return $hasAstBeenChanged ? $node : null;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Remove option localizeChildrenAtParentLocalization', [new CodeSample(
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [],
+    'columns' => [
+        'foo' => [
+            'config' =>
+                [
+                    'type' => 'inline',
+                    'behaviour' => [
+                        'localizeChildrenAtParentLocalization' => '1',
+                    ],
+                ],
+        ],
+    ],
+];
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [],
+    'columns' => [
+        'foo' => [
+            'config' =>
+                [
+                    'type' => 'inline',
+                    'behaviour' => [],
+                ],
+        ],
+    ],
+];
+CODE_SAMPLE
+        )]);
     }
 }

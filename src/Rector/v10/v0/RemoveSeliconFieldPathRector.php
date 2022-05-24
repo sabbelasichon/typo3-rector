@@ -22,31 +22,6 @@ final class RemoveSeliconFieldPathRector extends AbstractRector
     use TcaHelperTrait;
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('TCA option "selicon_field_path" removed', [new CodeSample(
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-        'selicon_field' => 'icon',
-        'selicon_field_path' => 'uploads/media'
-    ],
-];
-CODE_SAMPLE
-                ,
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-        'selicon_field' => 'icon',
-    ],
-];
-CODE_SAMPLE
-        )]);
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -92,5 +67,30 @@ CODE_SAMPLE
         }
 
         return $hasAstBeenChanged ? $node : null;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('TCA option "selicon_field_path" removed', [new CodeSample(
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+        'selicon_field' => 'icon',
+        'selicon_field_path' => 'uploads/media'
+    ],
+];
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+        'selicon_field' => 'icon',
+    ],
+];
+CODE_SAMPLE
+        )]);
     }
 }

@@ -22,47 +22,6 @@ final class RemoveConfigMaxFromInputDateTimeFieldsRector extends AbstractRector
     use TcaHelperTrait;
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition("Remove TCA config 'max' on inputDateTime fields", [new CodeSample(
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-    ],
-    'columns' => [
-        'date' => [
-            'exclude' => false,
-            'label' => 'Date',
-            'config' => [
-                'renderType' => 'inputDateTime',
-                'max' => 1,
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-                ,
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-    ],
-    'columns' => [
-        'date' => [
-            'exclude' => false,
-            'label' => 'Date',
-            'config' => [
-                'renderType' => 'inputDateTime',
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-        )]);
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -141,6 +100,47 @@ CODE_SAMPLE
         }
 
         return $hasAstBeenChanged ? $node : null;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition("Remove TCA config 'max' on inputDateTime fields", [new CodeSample(
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+    ],
+    'columns' => [
+        'date' => [
+            'exclude' => false,
+            'label' => 'Date',
+            'config' => [
+                'renderType' => 'inputDateTime',
+                'max' => 1,
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+    ],
+    'columns' => [
+        'date' => [
+            'exclude' => false,
+            'label' => 'Date',
+            'config' => [
+                'renderType' => 'inputDateTime',
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+        )]);
     }
 
     private function isRenderTypeInputDateTime(Array_ $configValueArray): bool

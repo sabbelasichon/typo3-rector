@@ -16,8 +16,10 @@ use Ssch\TYPO3Rector\Generator\ValueObject\Typo3RectorRecipe;
 use Ssch\TYPO3Rector\Generator\ValueObject\Typo3Version;
 use Ssch\TYPO3Rector\Generator\ValueObject\Url;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symplify\PackageBuilder\Console\Command\CommandNaming;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -47,21 +49,24 @@ final class Typo3GenerateCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
         /** @var Typo3Version $typo3Version */
         $typo3Version = $helper->ask($input, $output, $this->askForTypo3Version());
         $changelogUrl = $helper->ask($input, $output, $this->askForChangelogUrl());
         $name = $helper->ask($input, $output, $this->askForName());
         $description = $helper->ask($input, $output, $this->askForDescription());
+        $type = $helper->ask($input, $output, $this->askForType());
 
         $recipe = new Typo3RectorRecipe(
             $typo3Version,
             $changelogUrl,
             $name,
-            Description::createFromString($description)
+            Description::createFromString($description),
+            $type
         );
 
-        $templateFileInfos = $this->templateFinder->find();
+        $templateFileInfos = $this->templateFinder->find($type);
 
         $templateVariables = [
             '__Package__' => $recipe->getMajorVersion(),
@@ -133,6 +138,14 @@ final class Typo3GenerateCommand extends Command
         });
 
         return $description;
+    }
+
+    private function askForType(): Question
+    {
+        $question = new ChoiceQuestion('Please select the rector type (defaults to typo3)', ['typo3', 'tca'], 0);
+        $question->setErrorMessage('Type %s is invalid.');
+
+        return $question;
     }
 
     /**

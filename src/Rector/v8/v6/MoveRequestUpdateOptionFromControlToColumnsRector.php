@@ -24,37 +24,6 @@ final class MoveRequestUpdateOptionFromControlToColumnsRector extends AbstractRe
     use TcaHelperTrait;
 
     /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('TCA ctrl field requestUpdate dropped', [new CodeSample(
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-        'requestUpdate' => 'foo',
-    ],
-    'columns' => [
-        'foo' => []
-    ]
-];
-CODE_SAMPLE
-                ,
-            <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-    ],
-    'columns' => [
-        'foo' => [
-            'onChange' => 'reload'
-        ]
-    ]
-];
-CODE_SAMPLE
-        )]);
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
@@ -143,5 +112,36 @@ CODE_SAMPLE
         }
 
         return $node;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('TCA ctrl field requestUpdate dropped', [new CodeSample(
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+        'requestUpdate' => 'foo',
+    ],
+    'columns' => [
+        'foo' => []
+    ]
+];
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+    ],
+    'columns' => [
+        'foo' => [
+            'onChange' => 'reload'
+        ]
+    ]
+];
+CODE_SAMPLE
+        )]);
     }
 }

@@ -10,7 +10,8 @@ final class Typo3RectorRecipe
         private readonly Typo3Version $typo3Version,
         private readonly Url $url,
         private readonly Name $name,
-        private readonly Description $description
+        private readonly Description $description,
+        private readonly string $type,
     ) {
     }
 
@@ -47,8 +48,9 @@ final class Typo3RectorRecipe
     public function getSet(): string
     {
         return sprintf(
-            __DIR__ . '/../../../../config/%s/typo3-%d.php',
+            __DIR__ . '/../../../../config/%s/%s-%d.php',
             $this->getMajorVersion(),
+            $this->type,
             $this->typo3Version->getFullVersion()
         );
     }

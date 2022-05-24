@@ -16,9 +16,9 @@ final class TemplateFinder
     /**
      * @return SmartFileInfo[]
      */
-    public function find(): array
+    public function find(string $type): array
     {
-        $filePaths = $this->addRuleAndTestCase();
+        $filePaths = $this->addRuleAndTestCase($type);
 
         $smartFileInfos = [];
         foreach ($filePaths as $filePath) {
@@ -31,11 +31,14 @@ final class TemplateFinder
     /**
      * @return array<int, string>
      */
-    private function addRuleAndTestCase(): array
+    private function addRuleAndTestCase(string $type): array
     {
         $filePaths = [];
 
-        $filePaths[] = __DIR__ . '/../../templates/src/Rector/__Major__/__Minor__/__Name__.php';
+        if (file_exists(__DIR__ . '/../../templates/src/Rector/__Major__/__Minor__/' . $type . '/__Name__.php')) {
+            $filePaths[] = __DIR__ . '/../../templates/src/Rector/__Major__/__Minor__/' . $type . '/__Name__.php';
+        }
+
         $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/__Test_Directory__/__Name__Test.php.inc';
         $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/__Test_Directory__/Fixture/fixture.php.inc';
         $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/__Test_Directory__/config/configured_rule.php';
