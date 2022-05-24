@@ -50,6 +50,7 @@ config.disableCharsetHeader = true
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
+''
 CODE_SAMPLE
             ),
         ]);
