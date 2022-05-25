@@ -77,14 +77,9 @@ CODE_SAMPLE
         )) {
             return false;
         }
-
-        if (StaticPHPUnitEnvironment::isPHPUnitRun() && str_ends_with(
+        return ! (StaticPHPUnitEnvironment::isPHPUnitRun() && str_ends_with(
             $smartFileInfo->getBasename(),
             'ext_typoscript_setup.txt'
-        )) {
-            return false;
-        }
-
-        return true;
+        ));
     }
 }
