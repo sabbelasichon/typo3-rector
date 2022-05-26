@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\__Major__\__Minor__;
+namespace Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Type__;
 
 use PhpParser\Node;
 use Rector\Core\Rector\AbstractRector;
@@ -25,7 +25,8 @@ final class __Name__ extends AbstractRector
 
     public function refactor(Node $node): ?Node
     {
-        // change the node
+        // Your code here
+
         return $node;
     }
 

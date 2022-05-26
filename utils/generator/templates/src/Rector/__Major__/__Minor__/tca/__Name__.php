@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\__Major__\__Minor__;
+namespace Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Type__;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -23,7 +23,7 @@ final class __Name__ extends AbstractTcaRector
             return;
         }
 
-        // Your part here!
+        // Your code here
 
         $this->hasAstBeenChanged = true;
     }

@@ -72,6 +72,7 @@ final class Typo3GenerateCommand extends Command
             '__Category__' => $recipe->getMinorVersion(),
             '__Major__' => $recipe->getMajorVersion(),
             '__Minor__' => $recipe->getMinorVersion(),
+            '__Type__' => $type,
             '__Name__' => $recipe->getRectorName(),
             '__Test_Directory__' => $recipe->getTestDirectory(),
             '__Changelog_Url__' => $recipe->getChangelogUrl(),
