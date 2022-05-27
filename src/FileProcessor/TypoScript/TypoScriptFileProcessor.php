@@ -143,7 +143,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
                 return;
             }
 
-            $editorConfigConfigurationBuilder = EditorConfigConfigurationBuilder::create();
+            $editorConfigConfigurationBuilder = new EditorConfigConfigurationBuilder();
             $editorConfigConfigurationBuilder->withIndent(Indent::createSpaceWithSize(4));
 
             $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(
@@ -201,7 +201,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
     {
         return array_filter(
             $this->typoScriptRectors,
-            fn (Visitor $visitor): bool => is_a($visitor, ConvertToPhpFileInterface::class, true)
+            fn (Visitor $visitor): bool => $visitor instanceof ConvertToPhpFileInterface
         );
     }
 
@@ -240,6 +240,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
             if (! $this->removeTypoScriptStatementCollector->shouldStatementBeRemoved($originalStatement, $file)) {
                 $printStatements[] = $originalStatement;
             }
+
             if ($originalStatement instanceof NestedAssignment) {
                 $originalNestedStatements = [];
                 foreach ($originalStatement->statements as $nestedOriginalStatement) {
@@ -250,6 +251,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
                         $originalNestedStatements[] = $nestedOriginalStatement;
                     }
                 }
+
                 $originalStatement->statements = $originalNestedStatements;
             }
         }
