@@ -13,6 +13,7 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinterConfiguration;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
+use Nette\Utils\Strings;
 use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Console\Output\RectorOutputStyle;
@@ -21,9 +22,6 @@ use Rector\Core\ValueObject\Application\File;
 use Rector\Core\ValueObject\Configuration;
 use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
-use Rector\FileFormatter\EditorConfig\EditorConfigParser;
-use Rector\FileFormatter\ValueObject\Indent;
-use Rector\FileFormatter\ValueObjectFactory\EditorConfigConfigurationBuilder;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
@@ -64,7 +62,6 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         private readonly BufferedOutput $output,
         private readonly ASTPrinterInterface $typoscriptPrinter,
         private readonly CurrentFileProvider $currentFileProvider,
-        private readonly EditorConfigParser $editorConfigParser,
         private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         private readonly RectorOutputStyle $rectorOutputStyle,
         private readonly FileDiffFactory $fileDiffFactory,
@@ -143,36 +140,28 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
                 return;
             }
 
-            $editorConfigConfigurationBuilder = new EditorConfigConfigurationBuilder();
-            $editorConfigConfigurationBuilder->withIndent(Indent::createSpaceWithSize(4));
-
-            $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(
-                $file,
-                $editorConfigConfigurationBuilder
-            );
+            // keep original json format
+            $tabMatches = Strings::match($file->getFileContent(), "#^\n#");
+            $indentStyle = $tabMatches ? 'tab' : 'space';
 
             $prettyPrinterConfiguration = PrettyPrinterConfiguration::create();
             $prettyPrinterConfiguration = $prettyPrinterConfiguration->withEmptyLineBreaks();
 
-            if ('tab' === $editorConfiguration->getIndentStyle()) {
+            if ('tab' === $indentStyle) {
                 $prettyPrinterConfiguration = $prettyPrinterConfiguration->withTabs();
             } else {
-                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation(
-                    $editorConfiguration->getIndentSize()
-                );
+                // default indent
+                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation(4);
             }
 
             $prettyPrinterConfiguration = $prettyPrinterConfiguration->withClosingGlobalStatement();
-
             $this->typoscriptPrinter->setPrettyPrinterConfiguration($prettyPrinterConfiguration);
 
             $printStatements = $this->filterRemovedStatements($originalStatements, $file);
-
             $this->typoscriptPrinter->printStatements($printStatements, $this->output);
 
             $newTypoScriptContent = $this->applyTypoScriptPostRectors($this->output->fetch());
-
-            $typoScriptContent = rtrim($newTypoScriptContent) . $editorConfiguration->getNewLine();
+            $typoScriptContent = rtrim($newTypoScriptContent) . "\n";
 
             $oldFileContents = $file->getFileContent();
 
