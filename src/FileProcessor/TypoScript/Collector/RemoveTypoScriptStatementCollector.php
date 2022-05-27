@@ -21,6 +21,7 @@ final class RemoveTypoScriptStatementCollector
         if (! isset($this->statementsToBeRemoved[$filePath])) {
             $this->statementsToBeRemoved[$filePath] = [];
         }
+
         $this->statementsToBeRemoved[$filePath][$statement->sourceLine] = $statement;
     }
 
