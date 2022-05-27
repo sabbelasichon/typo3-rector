@@ -97,7 +97,7 @@
             ]
         },
         "branch-alias": {
-            "dev-main": "0.11-dev"
+            "dev-main": "0.13-dev"
         }
     },
     "conflict": {
