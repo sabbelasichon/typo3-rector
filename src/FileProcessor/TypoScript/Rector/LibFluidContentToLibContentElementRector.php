@@ -18,7 +18,7 @@ final class LibFluidContentToLibContentElementRector extends AbstractTypoScriptR
 {
     public function enterNode(Statement $statement): void
     {
-        if (! is_a($statement, NestedAssignment::class) && ! is_a($statement, Assignment::class)) {
+        if (! $statement instanceof NestedAssignment && ! $statement instanceof Assignment) {
             return;
         }
 

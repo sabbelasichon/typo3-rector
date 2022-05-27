@@ -201,7 +201,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
     {
         return array_filter(
             $this->typoScriptRectors,
-            fn (Visitor $visitor): bool => is_a($visitor, ConvertToPhpFileInterface::class, true)
+            fn (Visitor $visitor): bool => $visitor instanceof ConvertToPhpFileInterface
         );
     }
 
