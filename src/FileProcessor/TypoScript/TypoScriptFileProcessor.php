@@ -143,7 +143,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
                 return;
             }
 
-            $editorConfigConfigurationBuilder = EditorConfigConfigurationBuilder::create();
+            $editorConfigConfigurationBuilder = new EditorConfigConfigurationBuilder();
             $editorConfigConfigurationBuilder->withIndent(Indent::createSpaceWithSize(4));
 
             $editorConfiguration = $this->editorConfigParser->extractConfigurationForFile(
