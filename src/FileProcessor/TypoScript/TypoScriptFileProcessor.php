@@ -178,8 +178,6 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
             $smartFileInfo = $file->getSmartFileInfo();
             $errorFile = $smartFileInfo->getRelativeFilePath();
             $this->rectorOutputStyle->warning(sprintf('TypoScriptParser Error in: %s. File skipped.', $errorFile));
-
-            return;
         }
     }
 

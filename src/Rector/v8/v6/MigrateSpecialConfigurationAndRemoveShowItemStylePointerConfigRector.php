@@ -134,7 +134,7 @@ CODE_SAMPLE
                 self::FIELD_EXTRA => $fieldArray[3] ?? null,
             ];
 
-            $fieldName = (string) $fieldArray[self::FIELD_NAME];
+            $fieldName = $fieldArray[self::FIELD_NAME];
 
             if (null !== $fieldArray[self::FIELD_EXTRA]) {
                 // Move fieldExtra "specConf" to columnsOverrides "defaultExtras"
