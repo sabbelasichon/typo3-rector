@@ -10,12 +10,16 @@ use PhpParser\NodeVisitor\NameResolver;
 use Rector\Core\PhpParser\Parser\RectorParser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\Provider\CurrentFileProvider;
-use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerConfigurationPathResolver;
+use Ssch\TYPO3Rector\ComposerPackages\NodeDecorator\AddPackageVersionClosureDecorator;
 use Ssch\TYPO3Rector\ComposerPackages\PackageParser;
+<<<<<<< HEAD
 use Ssch\TYPO3Rector\ComposerPackages\PackagistPackageResolver;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
+=======
+use Ssch\TYPO3Rector\ComposerPackages\PackageResolver;
+>>>>>>> decopule AddPackageVersionClosureDecorator
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
@@ -29,14 +33,19 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 {
     public function __construct(
+<<<<<<< HEAD
         private readonly PackagistPackageResolver $packagistPackageResolver,
         private readonly RectorParser $rectorParser,
+=======
+        private readonly PackageResolver                   $packageResolver,
+        private readonly RectorParser                      $rectorParser,
+>>>>>>> decopule AddPackageVersionClosureDecorator
         private readonly ComposerConfigurationPathResolver $composerConfigurationPathResolver,
-        private readonly SmartFileSystem $smartFileSystem,
-        private readonly BetterStandardPrinter $betterStandardPrinter,
-        private readonly AddPackageVersionRector $addPackageVersionRector,
-        private readonly AddReplacePackageRector $replacePackageRector,
-        private readonly CurrentFileProvider $currentFileProvider
+        private readonly SmartFileSystem                   $smartFileSystem,
+        private readonly BetterStandardPrinter             $betterStandardPrinter,
+        private readonly AddPackageVersionClosureDecorator $addPackageVersionRector,
+        private readonly AddReplacePackageRector           $replacePackageRector,
+        private readonly CurrentFileProvider               $currentFileProvider
     ) {
         parent::__construct();
     }
@@ -82,12 +91,12 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                 $nodes = $this->rectorParser->parseFile($smartFileInfo);
 //                $this->decorateNamesToFullyQualified($nodes);
 
-                $nodeTraverser = new NodeTraverser();
+//                $nodeTraverser = new NodeTraverser();
 
-                $this->addPackageVersionRector->setExtension($extension);
+                $this->addPackageVersionRector->refactor($nodes, $extension);
 
-                $nodeTraverser->addVisitor($this->addPackageVersionRector);
-                $nodes = $nodeTraverser->traverse($nodes);
+//                $nodeTraverser->addVisitor($this->addPackageVersionRector);
+//                $nodes = $nodeTraverser->traverse($nodes);
 
                 $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
                 $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
@@ -100,6 +109,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
     }
 
     /**
+     * @todo is thi needed?
      * @param Node[] $nodes
      */
     private function decorateNamesToFullyQualified(array $nodes): void
@@ -126,13 +136,12 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
     private function addReplacePackages(ExtensionCollection $extensionCollection): void
     {
         $smartFileInfo = $this->composerConfigurationPathResolver->replacePackages();
-
         if (! $smartFileInfo instanceof SmartFileInfo) {
             return;
         }
 
-        $file = new File($smartFileInfo, $smartFileInfo->getContents());
-        $this->currentFileProvider->setFile($file);
+//        $file = new File($smartFileInfo, $smartFileInfo->getContents());
+//        $this->currentFileProvider->setFile($file);
 
         $nodes = $this->rectorParser->parseFile($smartFileInfo);
         $this->decorateNamesToFullyQualified($nodes);
