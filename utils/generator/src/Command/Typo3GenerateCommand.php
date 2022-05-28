@@ -41,7 +41,7 @@ final class Typo3GenerateCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('typo3-create');
+        $this->setName('typo3-generate');
         $this->setAliases(['typo3-create']);
         $this->setDescription('[DEV] Create a new TYPO3 Rector, in a proper location, with new tests');
     }

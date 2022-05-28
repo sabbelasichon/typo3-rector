@@ -9,7 +9,7 @@ use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
@@ -45,7 +45,7 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
     ];
 
     public function __construct(
-        private readonly Broker $broker,
+        private readonly ReflectionProvider $reflectionProvider,
         private readonly FileTypeMapper $fileTypeMapper
     ) {
     }
@@ -68,8 +68,7 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
 
         $fullyQualifiedClassName = $scope->getNamespace() . '\\' . $className;
 
-        $classReflection = $this->broker->getClass($fullyQualifiedClassName);
-
+        $classReflection = $this->reflectionProvider->getClass($fullyQualifiedClassName);
         if (! $classReflection->isSubclassOf(PhpRectorInterface::class)) {
             return [];
         }
