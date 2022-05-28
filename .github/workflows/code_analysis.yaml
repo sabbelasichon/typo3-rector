@@ -37,6 +37,10 @@ jobs:
                         run: composer analyze
 
                     -
+                        name: 'Rector'
+                        run: vendor/bin/rector process --ansi --dry-run
+
+                    -
                         name: 'Check Docs'
                         run: composer docs --ansi
 

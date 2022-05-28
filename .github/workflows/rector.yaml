@@ -14,9 +14,6 @@ name: Rector
 
 on:
     pull_request: null
-    push:
-        branches:
-            - main
 
 env:
     # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
@@ -24,12 +21,6 @@ env:
 
 jobs:
     rector:
-        strategy:
-            fail-fast: false
-            matrix:
-                directories:
-                    - src tests utils
-
         runs-on: ubuntu-latest
         steps:
             # workaround for missing secret in fork PRs - see https://github.com/actions/checkout/issues/298
@@ -55,7 +46,7 @@ jobs:
             -   run: composer install --no-progress --ansi
 
             ## First run Rector - here can't be --dry-run !!! it would stop the job with it and not commit anything in the future
-            -   run: vendor/bin/rector process ${{ matrix.directories }} --ansi --no-progress-bar
+            -   run: vendor/bin/rector process --ansi
 
             -   run: vendor/bin/ecs check --fix --ansi
 
