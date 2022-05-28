@@ -9,18 +9,21 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use Rector\Core\PhpParser\Parser\RectorParser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
-use Rector\Core\Provider\CurrentFileProvider;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerConfigurationPathResolver;
-use Ssch\TYPO3Rector\ComposerPackages\NodeDecorator\AddPackageVersionClosureDecorator;
+use Ssch\TYPO3Rector\ComposerPackages\NodeDecorator\AddPackageVersionDecorator;
+use Ssch\TYPO3Rector\ComposerPackages\NodeDecorator\AddReplacePackageDecorator;
 use Ssch\TYPO3Rector\ComposerPackages\PackageParser;
 <<<<<<< HEAD
 use Ssch\TYPO3Rector\ComposerPackages\PackagistPackageResolver;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 =======
 use Ssch\TYPO3Rector\ComposerPackages\PackageResolver;
+<<<<<<< HEAD
 >>>>>>> decopule AddPackageVersionClosureDecorator
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
+=======
+>>>>>>> extract AddReplacePackageDecorator, RemovePackageVersionsDecorator
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
 use Symfony\Component\Console\Command\Command;
@@ -34,18 +37,22 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 {
     public function __construct(
 <<<<<<< HEAD
+<<<<<<< HEAD
         private readonly PackagistPackageResolver $packagistPackageResolver,
         private readonly RectorParser $rectorParser,
 =======
         private readonly PackageResolver                   $packageResolver,
         private readonly RectorParser                      $rectorParser,
 >>>>>>> decopule AddPackageVersionClosureDecorator
+=======
+        private readonly PackageResolver $packageResolver,
+        private readonly RectorParser $rectorParser,
+>>>>>>> extract AddReplacePackageDecorator, RemovePackageVersionsDecorator
         private readonly ComposerConfigurationPathResolver $composerConfigurationPathResolver,
-        private readonly SmartFileSystem                   $smartFileSystem,
-        private readonly BetterStandardPrinter             $betterStandardPrinter,
-        private readonly AddPackageVersionClosureDecorator $addPackageVersionRector,
-        private readonly AddReplacePackageRector           $replacePackageRector,
-        private readonly CurrentFileProvider               $currentFileProvider
+        private readonly SmartFileSystem $smartFileSystem,
+        private readonly BetterStandardPrinter $betterStandardPrinter,
+        private readonly AddPackageVersionDecorator $addPackageVersionDecorator,
+        private readonly AddReplacePackageDecorator $addReplacePackageDecorator,
     ) {
         parent::__construct();
     }
@@ -85,18 +92,8 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                     continue;
                 }
 
-//                $file = new File($smartFileInfo, $smartFileInfo->getContents());
-//                $this->currentFileProvider->setFile($file);
-
                 $nodes = $this->rectorParser->parseFile($smartFileInfo);
-//                $this->decorateNamesToFullyQualified($nodes);
-
-//                $nodeTraverser = new NodeTraverser();
-
-                $this->addPackageVersionRector->refactor($nodes, $extension);
-
-//                $nodeTraverser->addVisitor($this->addPackageVersionRector);
-//                $nodes = $nodeTraverser->traverse($nodes);
+                $this->addPackageVersionDecorator->refactor($nodes, $extension);
 
                 $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
                 $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
@@ -140,17 +137,18 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
             return;
         }
 
-//        $file = new File($smartFileInfo, $smartFileInfo->getContents());
-//        $this->currentFileProvider->setFile($file);
-
         $nodes = $this->rectorParser->parseFile($smartFileInfo);
         $this->decorateNamesToFullyQualified($nodes);
 
+<<<<<<< HEAD
         $nodeTraverser = new NodeTraverser();
         $this->replacePackageRector->configure($extensionCollection->getRenamePackages());
 
         $nodeTraverser->addVisitor($this->replacePackageRector);
         $nodes = $nodeTraverser->traverse($nodes);
+=======
+        $this->addReplacePackageDecorator->refactor($nodes, $extensionCollection->getRenamePackages());
+>>>>>>> extract AddReplacePackageDecorator, RemovePackageVersionsDecorator
 
         $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
         $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
