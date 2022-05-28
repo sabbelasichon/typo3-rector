@@ -15,11 +15,11 @@ final class PackagistPackageResolver
     ) {
     }
 
-    public function findPackage(ComposerPackage $package): ExtensionCollection
+    public function findPackage(ComposerPackage $composerPackage): ExtensionCollection
     {
-        $json = $this->getUrl(sprintf('https://repo.packagist.org/p2/%s.json', $package));
+        $json = $this->getUrl(sprintf('https://repo.packagist.org/p2/%s.json', $composerPackage));
 
-        return $this->packageParser->parsePackage($json, $package);
+        return $this->packageParser->parsePackage($json, $composerPackage);
     }
 
     /**

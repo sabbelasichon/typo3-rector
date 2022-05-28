@@ -50,23 +50,23 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $typo3Versions = $this->createTypo3Versions();
-        $packages = $this->packagistPackageResolver->findAllPackagesByType('typo3-cms-extension');
+        $composerPackages = $this->packagistPackageResolver->findAllPackagesByType('typo3-cms-extension');
 
-        $progressBar = new ProgressBar($output, count($packages));
+        $progressBar = new ProgressBar($output, count($composerPackages));
 
-        foreach ($packages as $package) {
-            $collection = $this->packagistPackageResolver->findPackage($package);
+        foreach ($composerPackages as $composerPackage) {
+            $extensionCollection = $this->packagistPackageResolver->findPackage($composerPackage);
 
             $progressBar->advance();
 
-            if (0 === count($collection)) {
+            if (0 === count($extensionCollection)) {
                 continue;
             }
 
-            $this->addReplacePackages($collection);
+            $this->addReplacePackages($extensionCollection);
 
             foreach ($typo3Versions as $typo3Version) {
-                $extension = $collection->findHighestVersion($typo3Version);
+                $extension = $extensionCollection->findHighestVersion($typo3Version);
                 if (! $extension instanceof ExtensionVersion) {
                     continue;
                 }
@@ -123,7 +123,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         return $typo3Versions;
     }
 
-    private function addReplacePackages(ExtensionCollection $collection): void
+    private function addReplacePackages(ExtensionCollection $extensionCollection): void
     {
         $smartFileInfo = $this->composerConfigurationPathResolver->replacePackages();
 
@@ -138,7 +138,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $this->decorateNamesToFullyQualified($nodes);
 
         $nodeTraverser = new NodeTraverser();
-        $this->replacePackageRector->configure($collection->getRenamePackages());
+        $this->replacePackageRector->configure($extensionCollection->getRenamePackages());
 
         $nodeTraverser->addVisitor($this->replacePackageRector);
         $nodes = $nodeTraverser->traverse($nodes);
