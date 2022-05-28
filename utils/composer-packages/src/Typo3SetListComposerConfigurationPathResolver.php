@@ -9,7 +9,7 @@ use Ssch\TYPO3Rector\Set\Typo3SetList;
 use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class Typo3SetListComposerConfigurationPathResolver implements ComposerConfigurationPathResolver
+final class Typo3SetListComposerConfigurationPathResolver
 {
     public function resolveByTypo3Version(Typo3Version $typo3Version): ?SmartFileInfo
     {
