@@ -16,7 +16,7 @@ use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
 /**
  * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\ComposerPackageParserTest
  */
-final class ComposerPackageParser implements PackageParser
+final class ComposerPackageParser
 {
     /**
      * @var string
@@ -91,6 +91,9 @@ final class ComposerPackageParser implements PackageParser
         return $extensionCollection;
     }
 
+    /**
+     * @return ComposerPackage[]
+     */
     public function parsePackages(string $content): array
     {
         $json = Json::decode($content, Json::FORCE_ARRAY);
