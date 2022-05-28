@@ -9,11 +9,6 @@ use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ComposerPackage;
 
 interface PackageParser
 {
-    /**
-     * @var string[]
-     */
-    public const TYPO3_UPPER_BOUNDS = ['8.7.99', '9.5.99', '10.4.99', '11.0.99'];
-
     public function parsePackage(string $content, ComposerPackage $composerPackage): ExtensionCollection;
 
     /**

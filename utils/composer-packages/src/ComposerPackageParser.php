@@ -61,7 +61,7 @@ final class ComposerPackageParser implements PackageParser
 
             $typo3Versions = [];
 
-            foreach (self::TYPO3_UPPER_BOUNDS as $typo3Version) {
+            foreach (Enum\Typo3Bounds::UPPER_BOUNDS as $typo3Version) {
                 if (Semver::satisfies($typo3Version, $package['require'][$typo3RequiredPackage])) {
                     $typo3Versions[] = new Typo3Version($typo3Version);
                 }

@@ -13,7 +13,7 @@ use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerConfigurationPathResolver;
-use Ssch\TYPO3Rector\ComposerPackages\PackageParser;
+use Ssch\TYPO3Rector\ComposerPackages\Enum\Typo3Bounds;
 use Ssch\TYPO3Rector\ComposerPackages\PackagistPackageResolver;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
@@ -116,7 +116,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
     private function createTypo3Versions(): array
     {
         $typo3Versions = [];
-        foreach (PackageParser::TYPO3_UPPER_BOUNDS as $version) {
+        foreach (Typo3Bounds::UPPER_BOUNDS as $version) {
             $typo3Versions[] = new Typo3Version($version);
         }
 
