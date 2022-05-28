@@ -14,7 +14,7 @@ use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerConfigurationPathResolver;
 use Ssch\TYPO3Rector\ComposerPackages\PackageParser;
-use Ssch\TYPO3Rector\ComposerPackages\PackageResolver;
+use Ssch\TYPO3Rector\ComposerPackages\PackagistPackageResolver;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
@@ -29,7 +29,7 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 {
     public function __construct(
-        private readonly PackageResolver $packageResolver,
+        private readonly PackagistPackageResolver $packagistPackageResolver,
         private readonly RectorParser $rectorParser,
         private readonly ComposerConfigurationPathResolver $composerConfigurationPathResolver,
         private readonly SmartFileSystem $smartFileSystem,
@@ -50,12 +50,12 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $typo3Versions = $this->createTypo3Versions();
-        $packages = $this->packageResolver->findAllPackagesByType('typo3-cms-extension');
+        $packages = $this->packagistPackageResolver->findAllPackagesByType('typo3-cms-extension');
 
         $progressBar = new ProgressBar($output, count($packages));
 
         foreach ($packages as $package) {
-            $collection = $this->packageResolver->findPackage($package);
+            $collection = $this->packagistPackageResolver->findPackage($package);
 
             $progressBar->advance();
 
