@@ -14,6 +14,9 @@ name: Rector
 
 on:
     pull_request: null
+    push:
+        branches:
+            - main
 
 env:
     # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
