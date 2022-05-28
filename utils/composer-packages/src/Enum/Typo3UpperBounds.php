@@ -11,7 +11,7 @@ final class Typo3UpperBounds
     /**
      * @var string[]
      */
-    public const VERSIONS = ['8.7.99', '9.5.99', '10.4.99', '11.0.99'];
+    public const VERSIONS = ['8.7.99', '9.5.99', '10.4.99', '11.5.99'];
 
     /**
      * @return Typo3Version[]
