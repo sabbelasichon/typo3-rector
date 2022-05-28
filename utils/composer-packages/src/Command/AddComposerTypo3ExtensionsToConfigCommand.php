@@ -76,11 +76,11 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                     continue;
                 }
 
-                $file = new File($smartFileInfo, $smartFileInfo->getContents());
-                $this->currentFileProvider->setFile($file);
+//                $file = new File($smartFileInfo, $smartFileInfo->getContents());
+//                $this->currentFileProvider->setFile($file);
 
                 $nodes = $this->rectorParser->parseFile($smartFileInfo);
-                $this->decorateNamesToFullyQualified($nodes);
+//                $this->decorateNamesToFullyQualified($nodes);
 
                 $nodeTraverser = new NodeTraverser();
 

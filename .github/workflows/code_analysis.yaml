@@ -25,21 +25,45 @@ jobs:
                         run: composer validate --ansi
 
                     -
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> merge tests too
                         name: 'Tests'
                         run: vendor/bin/phpunit
 
                     -
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> merge typo3 check
                         name: 'Check TYPO3 Rector configs'
                         run: composer check-typo3-rector
 
                     -
+<<<<<<< HEAD
                         name: 'PHPStan'
                         run: composer analyze
 
                     -
+<<<<<<< HEAD
                         name: 'Check Docs'
                         run: composer docs --ansi
 
+=======
+=======
+>>>>>>> merge tests too
+=======
+>>>>>>> merge typo3 check
+                        name: 'PHPStan'
+                        run: composer analyze
+
+>>>>>>> [ci] merge php linter and phpstan to parallel job
+=======
+                        name: 'Composer Config Generator'
+                        run: vendor/bin/rector typo3-extensions --ansi
+
+>>>>>>> [ci] add generator config check
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
 
