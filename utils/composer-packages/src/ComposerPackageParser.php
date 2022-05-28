@@ -9,6 +9,7 @@ use Nette\Utils\Json;
 use Rector\Composer\ValueObject\PackageAndVersion;
 use Rector\Composer\ValueObject\RenamePackage;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
+use Ssch\TYPO3Rector\ComposerPackages\Enum\Typo3UpperBounds;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ComposerPackage;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
@@ -16,7 +17,7 @@ use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
 /**
  * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\ComposerPackageParserTest
  */
-final class ComposerPackageParser implements PackageParser
+final class ComposerPackageParser
 {
     /**
      * @var string
@@ -61,7 +62,7 @@ final class ComposerPackageParser implements PackageParser
 
             $typo3Versions = [];
 
-            foreach (self::TYPO3_UPPER_BOUNDS as $typo3Version) {
+            foreach (Typo3UpperBounds::VERSIONS as $typo3Version) {
                 if (Semver::satisfies($typo3Version, $package['require'][$typo3RequiredPackage])) {
                     $typo3Versions[] = new Typo3Version($typo3Version);
                 }
@@ -91,6 +92,9 @@ final class ComposerPackageParser implements PackageParser
         return $extensionCollection;
     }
 
+    /**
+     * @return ComposerPackage[]
+     */
     public function parsePackages(string $content): array
     {
         $json = Json::decode($content, Json::FORCE_ARRAY);

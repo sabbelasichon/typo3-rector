@@ -13,12 +13,11 @@ use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
 use Ssch\TYPO3Rector\ComposerPackages\ComposerConfigurationPathResolver;
-use Ssch\TYPO3Rector\ComposerPackages\PackageParser;
+use Ssch\TYPO3Rector\ComposerPackages\Enum\Typo3UpperBounds;
 use Ssch\TYPO3Rector\ComposerPackages\PackagistPackageResolver;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
-use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -49,7 +48,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $typo3Versions = $this->createTypo3Versions();
+        $typo3Versions = Typo3UpperBounds::provide();
         $composerPackages = $this->packagistPackageResolver->findAllPackagesByType('typo3-cms-extension');
 
         $progressBar = new ProgressBar($output, count($composerPackages));
@@ -108,19 +107,6 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $nameResolverNodeTraverser = new NodeTraverser();
         $nameResolverNodeTraverser->addVisitor(new NameResolver());
         $nameResolverNodeTraverser->traverse($nodes);
-    }
-
-    /**
-     * @return Typo3Version[]
-     */
-    private function createTypo3Versions(): array
-    {
-        $typo3Versions = [];
-        foreach (PackageParser::TYPO3_UPPER_BOUNDS as $version) {
-            $typo3Versions[] = new Typo3Version($version);
-        }
-
-        return $typo3Versions;
     }
 
     private function addReplacePackages(ExtensionCollection $extensionCollection): void

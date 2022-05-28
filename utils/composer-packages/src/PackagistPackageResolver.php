@@ -11,7 +11,7 @@ use UnexpectedValueException;
 final class PackagistPackageResolver
 {
     public function __construct(
-        private readonly PackageParser $packageParser
+        private readonly ComposerPackageParser $composerPackageParser
     ) {
     }
 
@@ -19,7 +19,7 @@ final class PackagistPackageResolver
     {
         $json = $this->getUrl(sprintf('https://repo.packagist.org/p2/%s.json', $composerPackage));
 
-        return $this->packageParser->parsePackage($json, $composerPackage);
+        return $this->composerPackageParser->parsePackage($json, $composerPackage);
     }
 
     /**
@@ -29,7 +29,7 @@ final class PackagistPackageResolver
     {
         $json = $this->getUrl(sprintf('https://packagist.org/packages/list.json?type=%s', $type));
 
-        return $this->packageParser->parsePackages($json);
+        return $this->composerPackageParser->parsePackages($json);
     }
 
     private function getUrl(string $url): string
