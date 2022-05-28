@@ -58,6 +58,8 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                 continue;
             }
 
+            $this->addReplacePackages($extensionCollection);
+
             foreach ($typo3Versions as $typo3Version) {
                 $extensionVersion = $extensionCollection->findHighestVersion($typo3Version);
                 if (! $extensionVersion instanceof ExtensionVersion) {
