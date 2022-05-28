@@ -12,11 +12,11 @@ use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
-use Ssch\TYPO3Rector\ComposerPackages\ComposerConfigurationPathResolver;
 use Ssch\TYPO3Rector\ComposerPackages\Enum\Typo3UpperBounds;
 use Ssch\TYPO3Rector\ComposerPackages\PackagistPackageResolver;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
+use Ssch\TYPO3Rector\ComposerPackages\Typo3SetListComposerConfigurationPathResolver;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -30,7 +30,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
     public function __construct(
         private readonly PackagistPackageResolver $packagistPackageResolver,
         private readonly RectorParser $rectorParser,
-        private readonly ComposerConfigurationPathResolver $composerConfigurationPathResolver,
+        private readonly Typo3SetListComposerConfigurationPathResolver $typo3SetListComposerConfigurationPathResolver,
         private readonly SmartFileSystem $smartFileSystem,
         private readonly BetterStandardPrinter $betterStandardPrinter,
         private readonly AddPackageVersionRector $addPackageVersionRector,
@@ -70,7 +70,9 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                     continue;
                 }
 
-                $smartFileInfo = $this->composerConfigurationPathResolver->resolveByTypo3Version($typo3Version);
+                $smartFileInfo = $this->typo3SetListComposerConfigurationPathResolver->resolveByTypo3Version(
+                    $typo3Version
+                );
                 if (! $smartFileInfo instanceof SmartFileInfo) {
                     continue;
                 }
@@ -111,7 +113,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 
     private function addReplacePackages(ExtensionCollection $extensionCollection): void
     {
-        $smartFileInfo = $this->composerConfigurationPathResolver->replacePackages();
+        $smartFileInfo = $this->typo3SetListComposerConfigurationPathResolver->replacePackages();
 
         if (! $smartFileInfo instanceof SmartFileInfo) {
             return;
