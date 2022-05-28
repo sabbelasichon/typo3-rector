@@ -15,9 +15,6 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 
-/**
- * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Rector\AddReplacePackageRector\AddReplacePackageRectorTest
- */
 final class AddReplacePackageDecorator
 {
     public function __construct(

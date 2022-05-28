@@ -10,14 +10,12 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 
-/**
- * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Rector\AddPackageVersionRector\AddPackageVersionRectorTest
- */
 final class AddPackageVersionDecorator
 {
     public function __construct(
@@ -28,11 +26,11 @@ final class AddPackageVersionDecorator
     }
 
     /**
-     * @param Node[] $nodes
+     * @param Stmt[] $stmts
      */
-    public function refactor(array $nodes, ExtensionVersion $extensionVersion): void
+    public function refactor(array $stmts, ExtensionVersion $extensionVersion): void
     {
-        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($nodes, function (Node $node) use (
+        $this->simpleCallableNodeTraverser->traverseNodesWithCallable($stmts, function (Node $node) use (
             $extensionVersion
         ) {
             if (! $node instanceof Assign) {

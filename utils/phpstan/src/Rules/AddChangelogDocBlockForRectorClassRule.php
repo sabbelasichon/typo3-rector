@@ -14,7 +14,6 @@ use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
-use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
@@ -40,7 +39,6 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
         AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class,
         ConvertImplicitVariablesToExplicitGlobalsRector::class,
         AbstractTcaRector::class,
-        AddPackageVersionRector::class,
         MethodGetInstanceToMakeInstanceCallRector::class,
     ];
 

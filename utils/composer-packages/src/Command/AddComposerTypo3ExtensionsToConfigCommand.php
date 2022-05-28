@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\ComposerPackages\Command;
 
-use PhpParser\Node;
-use PhpParser\NodeTraverser;
-use PhpParser\NodeVisitor\NameResolver;
 use Rector\Core\PhpParser\Parser\RectorParser;
 use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Ssch\TYPO3Rector\ComposerPackages\Collection\ExtensionCollection;
@@ -14,16 +11,7 @@ use Ssch\TYPO3Rector\ComposerPackages\ComposerConfigurationPathResolver;
 use Ssch\TYPO3Rector\ComposerPackages\NodeDecorator\AddPackageVersionDecorator;
 use Ssch\TYPO3Rector\ComposerPackages\NodeDecorator\AddReplacePackageDecorator;
 use Ssch\TYPO3Rector\ComposerPackages\PackageParser;
-<<<<<<< HEAD
 use Ssch\TYPO3Rector\ComposerPackages\PackagistPackageResolver;
-use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
-=======
-use Ssch\TYPO3Rector\ComposerPackages\PackageResolver;
-<<<<<<< HEAD
->>>>>>> decopule AddPackageVersionClosureDecorator
-use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
-=======
->>>>>>> extract AddReplacePackageDecorator, RemovePackageVersionsDecorator
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\ExtensionVersion;
 use Ssch\TYPO3Rector\ComposerPackages\ValueObject\Typo3Version;
 use Symfony\Component\Console\Command\Command;
@@ -36,18 +24,8 @@ use Symplify\SmartFileSystem\SmartFileSystem;
 final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 {
     public function __construct(
-<<<<<<< HEAD
-<<<<<<< HEAD
         private readonly PackagistPackageResolver $packagistPackageResolver,
         private readonly RectorParser $rectorParser,
-=======
-        private readonly PackageResolver                   $packageResolver,
-        private readonly RectorParser                      $rectorParser,
->>>>>>> decopule AddPackageVersionClosureDecorator
-=======
-        private readonly PackageResolver $packageResolver,
-        private readonly RectorParser $rectorParser,
->>>>>>> extract AddReplacePackageDecorator, RemovePackageVersionsDecorator
         private readonly ComposerConfigurationPathResolver $composerConfigurationPathResolver,
         private readonly SmartFileSystem $smartFileSystem,
         private readonly BetterStandardPrinter $betterStandardPrinter,
@@ -66,6 +44,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $typo3Versions = $this->createTypo3Versions();
+
         $composerPackages = $this->packagistPackageResolver->findAllPackagesByType('typo3-cms-extension');
 
         $progressBar = new ProgressBar($output, count($composerPackages));
@@ -79,11 +58,9 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                 continue;
             }
 
-            $this->addReplacePackages($extensionCollection);
-
             foreach ($typo3Versions as $typo3Version) {
-                $extension = $extensionCollection->findHighestVersion($typo3Version);
-                if (! $extension instanceof ExtensionVersion) {
+                $extensionVersion = $extensionCollection->findHighestVersion($typo3Version);
+                if (! $extensionVersion instanceof ExtensionVersion) {
                     continue;
                 }
 
@@ -93,7 +70,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                 }
 
                 $nodes = $this->rectorParser->parseFile($smartFileInfo);
-                $this->addPackageVersionDecorator->refactor($nodes, $extension);
+                $this->addPackageVersionDecorator->refactor($nodes, $extensionVersion);
 
                 $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
                 $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
@@ -103,18 +80,6 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $progressBar->finish();
 
         return Command::SUCCESS;
-    }
-
-    /**
-     * @todo is thi needed?
-     * @param Node[] $nodes
-     */
-    private function decorateNamesToFullyQualified(array $nodes): void
-    {
-        // decorate nodes with names first
-        $nameResolverNodeTraverser = new NodeTraverser();
-        $nameResolverNodeTraverser->addVisitor(new NameResolver());
-        $nameResolverNodeTraverser->traverse($nodes);
     }
 
     /**
@@ -138,6 +103,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         }
 
         $nodes = $this->rectorParser->parseFile($smartFileInfo);
+<<<<<<< HEAD
         $this->decorateNamesToFullyQualified($nodes);
 
 <<<<<<< HEAD
@@ -147,6 +113,8 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $nodeTraverser->addVisitor($this->replacePackageRector);
         $nodes = $nodeTraverser->traverse($nodes);
 =======
+=======
+>>>>>>> remove uneeded test
         $this->addReplacePackageDecorator->refactor($nodes, $extensionCollection->getRenamePackages());
 >>>>>>> extract AddReplacePackageDecorator, RemovePackageVersionsDecorator
 

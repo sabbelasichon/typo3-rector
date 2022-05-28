@@ -11,7 +11,6 @@ use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
-use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
 use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -43,7 +42,6 @@ return static function (RectorConfig $rectorConfig): void {
         StringClassNameToClassConstantRector::class,
         __DIR__ . '/src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php',
         __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
-        RemovePackageVersionsRector::class => [__DIR__ . '/config', __DIR__ . '/tests'],
         __DIR__ . '/src/Set',
         '*/Fixture/*',
     ]);

@@ -7,12 +7,10 @@ namespace Ssch\TYPO3Rector\ComposerPackages\NodeDecorator;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Stmt;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Symplify\Astral\NodeTraverser\SimpleCallableNodeTraverser;
 
-/**
- * @see \Ssch\TYPO3Rector\ComposerPackages\Tests\Rector\RemovePackageVersionsRector\RemovePackageVersionsRectorTest
- */
 final class RemovePackageVersionsDecorator
 {
     public function __construct(
@@ -21,7 +19,10 @@ final class RemovePackageVersionsDecorator
     ) {
     }
 
-    public function refactor(array $nodes)
+    /**
+     * @param Stmt[] $nodes
+     */
+    public function refactor(array $nodes): void
     {
         $this->simpleCallableNodeTraverser->traverseNodesWithCallable($nodes, function (Node $node) {
             if (! $node instanceof Assign) {
