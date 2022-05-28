@@ -18,13 +18,13 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TimeConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TreeLevelConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\UsergroupConditionMatcherMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\VersionConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\PostRector\LibFluidContentToContentElementTypoScriptPostRector;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AdditionalHeadersToArrayTypoScriptRector;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\ExtbasePersistenceTypoScriptRector;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\FileIncludeToImportStatementTypoScriptRector;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\LibFluidContentToLibContentElementRector;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\OldConditionToExpressionLanguageTypoScriptRector;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\TemplateToFluidTemplateTypoScriptRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\PostRector\v8\v7\LibFluidContentToContentElementTypoScriptPostRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0\ExtbasePersistenceTypoScriptRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v11\v0\TemplateToFluidTemplateTypoScriptRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v7\v1\AdditionalHeadersToArrayTypoScriptRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v8\v7\LibFluidContentToLibContentElementRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v9\v0\FileIncludeToImportStatementTypoScriptRector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v9\v4\OldConditionToExpressionLanguageTypoScriptRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../config/config_test.php');
@@ -46,11 +46,11 @@ return static function (RectorConfig $rectorConfig): void {
     $services->set(UsergroupConditionMatcherMatcher::class);
     $services->set(VersionConditionMatcher::class);
 
-    $rectorConfig->rule(OldConditionToExpressionLanguageTypoScriptRector::class);
-    $rectorConfig->rule(FileIncludeToImportStatementTypoScriptRector::class);
-    $rectorConfig->rule(ExtbasePersistenceTypoScriptRector::class);
     $rectorConfig->rule(AdditionalHeadersToArrayTypoScriptRector::class);
     $rectorConfig->rule(LibFluidContentToLibContentElementRector::class);
     $rectorConfig->rule(LibFluidContentToContentElementTypoScriptPostRector::class);
+    $rectorConfig->rule(FileIncludeToImportStatementTypoScriptRector::class);
+    $rectorConfig->rule(OldConditionToExpressionLanguageTypoScriptRector::class);
+    $rectorConfig->rule(ExtbasePersistenceTypoScriptRector::class);
     $rectorConfig->rule(TemplateToFluidTemplateTypoScriptRector::class);
 };

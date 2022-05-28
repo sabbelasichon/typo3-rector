@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v9\v4\AdditionalFieldProviderRector;
-
 use Ssch\TYPO3Rector\Rector\v9\v4\BackendUtilityShortcutExistsRector;
-
 use Ssch\TYPO3Rector\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\ConstantsToEnvironmentApiCallRector;
 use Ssch\TYPO3Rector\Rector\v9\v4\DocumentTemplateAddStyleSheetRector;
