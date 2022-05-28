@@ -103,20 +103,6 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         }
 
         $nodes = $this->rectorParser->parseFile($smartFileInfo);
-<<<<<<< HEAD
-        $this->decorateNamesToFullyQualified($nodes);
-
-<<<<<<< HEAD
-        $nodeTraverser = new NodeTraverser();
-        $this->replacePackageRector->configure($extensionCollection->getRenamePackages());
-
-        $nodeTraverser->addVisitor($this->replacePackageRector);
-        $nodes = $nodeTraverser->traverse($nodes);
-=======
-=======
->>>>>>> remove uneeded test
-        $this->addReplacePackageDecorator->refactor($nodes, $extensionCollection->getRenamePackages());
->>>>>>> extract AddReplacePackageDecorator, RemovePackageVersionsDecorator
 
         $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
         $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
