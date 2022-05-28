@@ -55,7 +55,7 @@ final class CommandMethodDecorator
     private function addArgumentsToConfigureMethod(ClassMethod $classMethod, array $commandInputArguments): void
     {
         foreach ($commandInputArguments as $commandInputArgument) {
-            $mode = $this->createMode((int) $commandInputArgument['mode']);
+            $mode = $this->createMode($commandInputArgument['mode']);
 
             $name = new String_($commandInputArgument['name']);
             $description = new String_($commandInputArgument['description']);

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\Config\RectorConfig;
-use Rector\Core\ValueObject\PhpVersion;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\Php74\Rector\Property\TypedPropertyRector;
@@ -33,12 +32,14 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::PRIVATIZATION,
         SetList::CODING_STYLE,
         SetList::CODE_QUALITY,
-        // SetList::NAMING,
+        SetList::DEAD_CODE,
     ]);
 
     $rectorConfig->skip([
         RemoveUnusedVariableAssignRector::class,
         __DIR__ . '/utils/generator/templates',
+        // tests
+        __DIR__ . '/tests/Rector/v11/v0/UsePhpNativeStringFunctionsRector/Source',
         StringClassNameToClassConstantRector::class,
         __DIR__ . '/src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php',
         __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
@@ -46,8 +47,6 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/src/Set',
         '*/Fixture/*',
     ]);
-
-    $rectorConfig->phpVersion(PhpVersion::PHP_81);
 
     $rectorConfig->rule(TypedPropertyRector::class);
     $rectorConfig->rule(ClassPropertyAssignToConstructorPromotionRector::class);
