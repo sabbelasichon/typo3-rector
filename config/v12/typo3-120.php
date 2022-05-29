@@ -20,4 +20,5 @@ return static function (RectorConfig $rectorConfig): void {
         ]);
     $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\ReplacePreviewUrlMethodRector::class);
     $rectorConfig->rule(RenameExtTypoScriptFilesFileRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector::class);
 };
