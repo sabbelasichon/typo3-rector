@@ -1,4 +1,4 @@
-# 241 Rules Overview
+# 242 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -3484,6 +3484,20 @@ return static function (RectorConfig $rectorConfig): void {
 + * @Extbase\ORM\Transient
   */
  private $someProperty;
+```
+
+<br>
+
+## ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector
+
+Replace usages of `ContentObjectRenderer->getMailTo()` with `EmailLinkBuilder->processEmailLink()`
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector`](../src/Rector/v12/v0/typo3/ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector.php)
+
+```diff
+-$result = $cObj->getMailTo($mailAddress, $linktxt)
++$result = GeneralUtility::makeInstance(EmailLinkBuilder::class, $cObj, $cObj->getTypoScriptFrontendController())
++    ->processEmailLink((string)$mailAddress, (string)$linktxt);
 ```
 
 <br>
