@@ -50,7 +50,7 @@ jobs:
             # see https://github.com/peter-evans/create-pull-request
             -
                 name: Create pull-request
-                uses: peter-evans/create-pull-request@v4.0.2
+                uses: peter-evans/create-pull-request@v4.0.3
                 with:
                     token: ${{ secrets.GITHUB_TOKEN }}
                     commit-message: "[automated] ${{ matrix.actions.name }}"
