@@ -91,7 +91,6 @@ Refactor AdditionalFieldProvider classes
  {
      public function getAdditionalFields (array &$taskInfo, $task, SchedulerModuleController $parentObject)
      {
--
          if (!isset($taskInfo[$this->fieldAgeInDays])) {
 -            if ($parentObject->CMD == 'edit') {
 +            if ((string) $parentObject->getCurrentAction() == 'edit') {

@@ -59,7 +59,6 @@ class FileCleanupTaskAdditionalFields implements AdditionalFieldProviderInterfac
 {
     public function getAdditionalFields (array &$taskInfo, $task, SchedulerModuleController $parentObject)
     {
-
         if (!isset($taskInfo[$this->fieldAgeInDays])) {
             if ($parentObject->CMD == 'edit') {
                 $taskInfo[$this->fieldAgeInDays] = (int)$task->ageInDays;
