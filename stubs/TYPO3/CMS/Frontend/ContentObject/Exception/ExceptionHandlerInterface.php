@@ -4,7 +4,7 @@ namespace TYPO3\CMS\Frontend\ContentObject\Exception;
 
 use TYPO3\CMS\Frontend\ContentObject\AbstractContentObject;
 
-if(interface_exists('TYPO3\CMS\Frontend\ContentObject\Exception\ExceptionHandlerInterface')) {
+if (interface_exists('TYPO3\CMS\Frontend\ContentObject\Exception\ExceptionHandlerInterface')) {
     return;
 }
 

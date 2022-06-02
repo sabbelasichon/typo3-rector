@@ -79,6 +79,7 @@ final class RemoveMethodsFromEidUtilityAndTsfeRector extends AbstractRector
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Frontend\Utility\EidUtility;
+
 EidUtility::initExtensionTCA('foo');
 EidUtility::initFeUser();
 EidUtility::initLanguage();
@@ -86,7 +87,7 @@ EidUtility::initTCA();
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-''
+-
 CODE_SAMPLE
             ),
         ]);

@@ -62,12 +62,14 @@ final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends Abstra
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+
 $querySettings = new Typo3QuerySettings();
 $querySettings->setLanguageUid(0)->setLanguageMode()->getLanguageMode();
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+
 $querySettings = new Typo3QuerySettings();
 $querySettings->setLanguageUid(0);
 CODE_SAMPLE

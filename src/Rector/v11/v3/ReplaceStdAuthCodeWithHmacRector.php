@@ -63,11 +63,11 @@ final class ReplaceStdAuthCodeWithHmacRector extends AbstractRector
     {
         return new RuleDefinition('Replace GeneralUtility::stdAuthCode with GeneralUtility::hmac', [new CodeSample(
             <<<'CODE_SAMPLE'
-// Just a warning
+\TYPO3\CMS\Core\Utility\GeneralUtility::stdAuthCode(5);
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-// Only outputting a warning message
+// You have to migrate GeneralUtility::stdAuthCode to GeneralUtility::hmac(). To make types work you should check the old function implementation
 CODE_SAMPLE
         )]);
     }

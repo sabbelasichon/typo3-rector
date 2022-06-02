@@ -77,26 +77,28 @@ final class UseSignalAfterExtensionInstallInsteadOfHasInstalledExtensionsRector 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extensionmanager\Service\ExtensionManagementService;
+
 $signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
 $signalSlotDispatcher->connect(
-        ExtensionManagementService::class,
-        'hasInstalledExtensions',
-        \stdClass::class,
-        'foo'
-    );
+    ExtensionManagementService::class,
+    'hasInstalledExtensions',
+    \stdClass::class,
+    'foo'
+);
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Extensionmanager\Utility\InstallUtility;
+
 $signalSlotDispatcher = GeneralUtility::makeInstance(Dispatcher::class);
-    $signalSlotDispatcher->connect(
-        InstallUtility::class,
-        'afterExtensionInstall',
-        \stdClass::class,
-        'foo'
-    );
+$signalSlotDispatcher->connect(
+    InstallUtility::class,
+    'afterExtensionInstall',
+    \stdClass::class,
+    'foo'
+);
 CODE_SAMPLE
             ),
         ]);

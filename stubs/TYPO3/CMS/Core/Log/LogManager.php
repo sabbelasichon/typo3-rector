@@ -1,7 +1,7 @@
 <?php
 namespace TYPO3\CMS\Core\Log;
 
-if(class_exists('TYPO3\CMS\Core\Log\LogManager')) {
+if (class_exists('TYPO3\CMS\Core\Log\LogManager')) {
     return null;
 }
 

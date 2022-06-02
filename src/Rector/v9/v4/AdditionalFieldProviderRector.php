@@ -55,11 +55,11 @@ final class AdditionalFieldProviderRector extends AbstractRector
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface;
 use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
+
 class FileCleanupTaskAdditionalFields implements AdditionalFieldProviderInterface
 {
     public function getAdditionalFields (array &$taskInfo, $task, SchedulerModuleController $parentObject)
     {
-
         if (!isset($taskInfo[$this->fieldAgeInDays])) {
             if ($parentObject->CMD == 'edit') {
                 $taskInfo[$this->fieldAgeInDays] = (int)$task->ageInDays;

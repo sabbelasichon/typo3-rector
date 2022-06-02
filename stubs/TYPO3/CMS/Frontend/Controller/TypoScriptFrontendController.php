@@ -334,9 +334,13 @@ class TypoScriptFrontendController
     }
 
     /**
-     * @return void
+     * @return bool
      */
     public function checkEnableFields($row, $bypassGroupCheck = false)
+    {
+    }
+
+    public function checkPagerecordForIncludeSection(array $row): bool
     {
     }
 

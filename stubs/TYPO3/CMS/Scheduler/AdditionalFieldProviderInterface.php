@@ -5,7 +5,7 @@ namespace TYPO3\CMS\Scheduler;
 
 use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
 
-if(interface_exists('TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface')) {
+if (interface_exists('TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface')) {
     return;
 }
 

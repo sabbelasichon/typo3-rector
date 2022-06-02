@@ -17,16 +17,16 @@ Head to [`rectorphp/rector`](http://github.com/rectorphp/rector) for installatio
 [`rectorphp/rector`](http://github.com/rectorphp/rector) is a prefixed and downgraded version (down to PHP 7.1) to use it in older projects and to avoid dependency conflicts.
 
 ```bash
-$ composer require --dev rector/rector
+composer require --dev rector/rector
 ```
 
 ## Non composer installations
 
-If you have a non composer TYPO3 installation. Don´t worry.
+If you have a non composer TYPO3 installation. Don't worry.
 Install typo3-rector either as a global dependency:
 
 ```bash
-$ composer global require --dev rector/rector
+composer global require --dev rector/rector
 ```
 
 Add an extra autoload file. In the example case it is placed in the Document Root of your TYPO3 project.
@@ -129,7 +129,7 @@ $configurationManager = new ConfigurationManager();
 $GLOBALS['TYPO3_CONF_VARS'] = $configurationManager->getDefaultConfiguration();
 
 $cache = new PhpFrontend('core', new NullBackend('production', []));
-$packageStateCache = new PackageStatesPackageCache(Environment::getLegacyConfigPath() . '/PackageStates.php', $cache);  
+$packageStateCache = new PackageStatesPackageCache(Environment::getLegacyConfigPath() . '/PackageStates.php', $cache);
 // Set all packages to active
 $packageManager = Bootstrap::createPackageManager(UnitTestPackageManager::class, $packageStateCache);
 

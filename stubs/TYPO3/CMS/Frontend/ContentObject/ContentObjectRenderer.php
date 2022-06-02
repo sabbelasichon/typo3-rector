@@ -111,4 +111,18 @@ class ContentObjectRenderer
     public function getATagParams($conf, $addGlobal = 1)
     {
     }
+
+    /**
+     * @return void
+     */
+    public function getMailTo($mailAddress, $linktxt)
+    {
+    }
+
+    /**
+     * @return void
+     */
+    public function getTypoScriptFrontendController()
+    {
+    }
 }

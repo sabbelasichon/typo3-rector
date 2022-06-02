@@ -6,31 +6,31 @@ class MyController
 {
     public function fooAction()
     {
-        if(TYPO3_REQUESTTYPE_BE) {
+        if (TYPO3_REQUESTTYPE_BE) {
             // Do something
         }
 
-        if(TYPO3_REQUESTTYPE_FE) {
+        if (TYPO3_REQUESTTYPE_FE) {
             // Do something
         }
 
-        if(TYPO3_MODE === 'BE') {
+        if (TYPO3_MODE === 'BE') {
             // Do something
         }
 
-        if(TYPO3_MODE === 'FE') {
+        if (TYPO3_MODE === 'FE') {
             // Do something
         }
 
-        if('BE' === TYPO3_MODE) {
+        if ('BE' === TYPO3_MODE) {
             // Do something
         }
 
-        if('FOO' === TYPO3_MODE) {
+        if ('FOO' === TYPO3_MODE) {
             // Do something
         }
 
-        if('FE' === TYPO3_MODE) {
+        if ('FE' === TYPO3_MODE) {
             // Do something
         }
     }
@@ -47,31 +47,31 @@ class MyController
 {
     public function fooAction()
     {
-        if(ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             // Do something
         }
 
-        if(ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
             // Do something
         }
 
-        if(ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             // Do something
         }
 
-        if(ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
             // Do something
         }
 
-        if(ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             // Do something
         }
 
-        if('FOO' === TYPO3_MODE) {
+        if ('FOO' === TYPO3_MODE) {
             // Do something
         }
 
-        if(ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
             // Do something
         }
     }

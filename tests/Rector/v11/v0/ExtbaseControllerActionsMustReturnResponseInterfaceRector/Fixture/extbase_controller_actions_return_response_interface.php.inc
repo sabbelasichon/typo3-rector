@@ -36,7 +36,7 @@ class MyController extends ActionController
 
     public function detailAction(bool $showError): ?string
     {
-        if($showError) {
+        if ($showError) {
             return 'Error forever';
         }
 
@@ -62,7 +62,7 @@ class MyController extends ActionController
 
     public function exportAction()
     {
-        echo 'Export someting here';
+        echo 'Export something here';
         exit();
     }
 
@@ -119,7 +119,7 @@ class MyController extends ActionController
 
     public function detailAction(bool $showError): ResponseInterface
     {
-        if($showError) {
+        if ($showError) {
             return $this->htmlResponse('Error forever');
         }
 
@@ -146,7 +146,7 @@ class MyController extends ActionController
 
     public function exportAction()
     {
-        echo 'Export someting here';
+        echo 'Export something here';
         exit();
     }
 

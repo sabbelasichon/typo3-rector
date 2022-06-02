@@ -36,7 +36,7 @@ class MyService
 
     public function isPropertyTaggedWith($property)
     {
-        if($this->reflectionService->isPropertyTaggedWith(\stdClass::class, $property, 'tag')) {
+        if ($this->reflectionService->isPropertyTaggedWith(\stdClass::class, $property, 'tag')) {
             // Do something here
         }
         return $this->reflectionService->isPropertyTaggedWith(\stdClass::class, $property, 'tag');
@@ -88,7 +88,7 @@ class MyService
     public function isPropertyTaggedWith($property)
     {
         $propertyReflectionService = $this->reflectionService->getClassSchema(stdClass::class)->getProperty($property);
-        if(empty($propertyReflectionService) ? false : isset($propertyReflectionService['tags']['tag'])) {
+        if (empty($propertyReflectionService) ? false : isset($propertyReflectionService['tags']['tag'])) {
             // Do something here
         }
         $propertyReflectionService = $this->reflectionService->getClassSchema(stdClass::class)->getProperty($property);

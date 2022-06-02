@@ -7,7 +7,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * tslib_cObj
  */
 
-if(class_exists('tslib_cObj')) {
+if (class_exists('tslib_cObj')) {
 
 }
 
@@ -31,7 +31,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * tslib_cObj
  */
 
-if(class_exists(ContentObjectRenderer::class)) {
+if (class_exists(ContentObjectRenderer::class)) {
 
 }
 

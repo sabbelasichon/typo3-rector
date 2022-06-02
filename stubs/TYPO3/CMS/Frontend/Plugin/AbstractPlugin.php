@@ -3,7 +3,7 @@ namespace TYPO3\CMS\Frontend\Plugin;
 
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
-if(class_exists('TYPO3\CMS\Frontend\Plugin\AbstractPlugin')) {
+if (class_exists('TYPO3\CMS\Frontend\Plugin\AbstractPlugin')) {
     return;
 }
 

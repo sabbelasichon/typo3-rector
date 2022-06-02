@@ -78,6 +78,7 @@ final class FlexFormToolsArrayValueByPathRector extends AbstractRector
                 new CodeSample(
                     <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools;
+
 $flexFormTools = new FlexFormTools();
 $searchArray = [];
 $value = $flexFormTools->getArrayValueByPath('search/path', $searchArray);
@@ -87,6 +88,7 @@ CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\ArrayUtility;
+
 $searchArray = [];
 $value = ArrayUtility::getValueByPath($searchArray, 'search/path');
 

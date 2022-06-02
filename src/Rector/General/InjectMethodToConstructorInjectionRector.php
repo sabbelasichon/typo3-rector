@@ -37,23 +37,29 @@ final class InjectMethodToConstructorInjectionRector extends AbstractRector
                 new CodeSample(
                     <<<'CODE_SAMPLE'
 namespace App\Service;
+
 use \TYPO3\CMS\Core\Cache\CacheManager;
+
 class Service
 {
     private CacheManager $cacheManager;
+
     public function injectCacheManager(CacheManager $cacheManager): void
     {
         $this->cacheManager = $cacheManager;
     }
 }
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 namespace App\Service;
+
 use \TYPO3\CMS\Core\Cache\CacheManager;
+
 class Service
 {
     private CacheManager $cacheManager;
+
     public function __construct(CacheManager $cacheManager)
     {
         $this->cacheManager = $cacheManager;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector;
+namespace Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0;
 
 use Helmich\TypoScriptParser\Parser\AST\Operator\Assignment;
 use Helmich\TypoScriptParser\Parser\AST\Scalar as ScalarValue;
@@ -19,6 +19,7 @@ use Rector\Core\PhpParser\Printer\BetterStandardPrinter;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AbstractTypoScriptRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 

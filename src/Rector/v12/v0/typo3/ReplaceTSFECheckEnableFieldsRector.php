@@ -42,16 +42,21 @@ final class ReplaceTSFECheckEnableFieldsRector extends AbstractRector
             return null;
         }
 
-        if (! $this->isName($node->name, 'checkEnableFields')) {
+        if (! $this->isNames($node->name, ['checkEnableFields', 'checkPagerecordForIncludeSection'])) {
             return null;
         }
 
-        $contextCall =
-            $this->nodeFactory->createMethodCall($node->var, 'getContext');
+        $contextCall = $this->nodeFactory->createMethodCall($node->var, 'getContext');
 
         $rowArgument = $node->args[0] ?? new Array_();
 
-        $arguments = [new String_('pages'), $rowArgument, $contextCall];
+        if ($this->isName($node->name, 'checkEnableFields')) {
+            $arguments = [new String_('pages'), $rowArgument, $contextCall];
+            $replacementMethod = 'accessGranted';
+        } else {
+            $arguments = [$rowArgument, $contextCall];
+            $replacementMethod = 'accessGrantedForPageInRootLine';
+        }
 
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
@@ -59,7 +64,7 @@ final class ReplaceTSFECheckEnableFieldsRector extends AbstractRector
                     'TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter'
                 ),
             ]),
-            'accessGranted',
+            $replacementMethod,
             $arguments
         );
     }
@@ -69,31 +74,37 @@ final class ReplaceTSFECheckEnableFieldsRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Replace TSFE calls to checkEnableFields with new RecordAccessVoter->accessGranted method ', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Replace TSFE calls to checkEnableFields with new RecordAccessVoter->accessGranted method ',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 $row = [];
 
 $foo = $GLOBALS['TSFE']->checkEnableFields($row);
+$foofoo = $GLOBALS['TSFE']->checkPagerecordForIncludeSection($row);
 
 /** @var TypoScriptFrontendController $typoscriptFrontendController */
 $typoscriptFrontendController = $GLOBALS['TSFE'];
 $bar = $typoscriptFrontendController->checkEnableFields($row);
-$baz = $typoscriptFrontendController->checkEnableFields($row, true);
+$baz = $typoscriptFrontendController->checkPagerecordForIncludeSection($row);
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 $row = [];
 
-$foo = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGranted('pages', $row, $GLOBALS['TSFE']->getContext());
+$foo = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter::class)->accessGranted('pages', $row, $GLOBALS['TSFE']->getContext());
+$foofoo = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGrantedForPageInRootLine($row, $GLOBALS['TSFE']->getContext());
 
 /** @var TypoScriptFrontendController $typoscriptFrontendController */
 $typoscriptFrontendController = $GLOBALS['TSFE'];
 $bar = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGranted('pages', $row, $typoscriptFrontendController->getContext());
-$baz = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGranted('pages', $row, $typoscriptFrontendController->getContext());
+$baz = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGrantedForPageInRootLine($row, $typoscriptFrontendController->getContext());
 CODE_SAMPLE
-            ),
-        ]);
+                ),
+
+            ]
+        );
     }
 
     private function shouldSkip(MethodCall $methodCall): bool

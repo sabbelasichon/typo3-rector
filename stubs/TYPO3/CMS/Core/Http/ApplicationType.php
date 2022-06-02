@@ -4,7 +4,7 @@ namespace TYPO3\CMS\Core\Http;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
 
-if(class_exists('TYPO3\CMS\Core\Http\ApplicationType')) {
+if (class_exists('TYPO3\CMS\Core\Http\ApplicationType')) {
     return;
 }
 

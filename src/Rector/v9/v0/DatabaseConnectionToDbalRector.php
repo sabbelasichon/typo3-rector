@@ -73,24 +73,24 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $GLOBALS['TYPO3_DB']->exec_INSERTquery(
-            'pages',
-            [
-                'pid' => 0,
-                'title' => 'Home',
-            ]
-        );
+    'pages',
+    [
+        'pid' => 0,
+        'title' => 'Home',
+    ]
+);
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 $connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
-        $databaseConnectionForPages = $connectionPool->getConnectionForTable('pages');
-        $databaseConnectionForPages->insert(
-            'pages',
-            [
-                'pid' => 0,
-                'title' => 'Home',
-            ]
-        );
+$databaseConnectionForPages = $connectionPool->getConnectionForTable('pages');
+$databaseConnectionForPages->insert(
+    'pages',
+    [
+        'pid' => 0,
+        'title' => 'Home',
+    ]
+);
 CODE_SAMPLE
             ),
         ]);

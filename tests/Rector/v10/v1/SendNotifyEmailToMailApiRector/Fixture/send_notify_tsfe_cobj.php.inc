@@ -11,7 +11,7 @@ class MyService
 
     public function send()
     {
-        if($GLOBALS['TSFE']->cObj->sendNotifyEmail("Subject\nMessage", 'max.mustermann@domain.com', 'max.mustermann@domain.com', 'max.mustermann@domain.com')) {
+        if ($GLOBALS['TSFE']->cObj->sendNotifyEmail("Subject\nMessage", 'max.mustermann@domain.com', 'max.mustermann@domain.com', 'max.mustermann@domain.com')) {
             //
         }
     }
@@ -74,7 +74,7 @@ class MyService
             }
             $success = true;
         }
-        if($success) {
+        if ($success) {
             //
         }
     }

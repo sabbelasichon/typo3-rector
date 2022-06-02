@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-
 namespace TYPO3\CMS\Core\Domain\Access\RecordAccessVoter;
-
 
 use TYPO3\CMS\Core\Context\Context;
 

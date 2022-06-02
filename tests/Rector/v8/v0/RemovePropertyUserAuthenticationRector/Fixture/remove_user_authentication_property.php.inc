@@ -10,7 +10,7 @@ final class TestCommandControllerWithUserAuthentication extends CommandControlle
     public function myMethod()
     {
         $userAuthentication = $this->userAuthentication;
-        if($this->userAuthentication !== null) {
+        if ($this->userAuthentication !== null) {
 
         }
     }
@@ -30,7 +30,7 @@ final class TestCommandControllerWithUserAuthentication extends CommandControlle
     public function myMethod()
     {
         $userAuthentication = $this->getBackendUserAuthentication();
-        if($this->getBackendUserAuthentication() !== null) {
+        if ($this->getBackendUserAuthentication() !== null) {
 
         }
     }

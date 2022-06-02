@@ -31,6 +31,7 @@ final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
             [new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 class FooController extends ActionController
 {
    public function listAction()

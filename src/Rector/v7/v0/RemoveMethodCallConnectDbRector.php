@@ -54,9 +54,9 @@ final class RemoveMethodCallConnectDbRector extends AbstractRector
         return new RuleDefinition('Remove EidUtility::connectDB() call', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
-'GeneralUtility::loadTCA()'
+EidUtility::connectDB()
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 -
 CODE_SAMPLE
