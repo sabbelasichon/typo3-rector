@@ -1,4 +1,4 @@
-# 242 Rules Overview
+# 243 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -3282,6 +3282,20 @@ TCA option setToDefaultOnCopy removed
      'columns' => [
      ],
  ];
+```
+
+<br>
+
+## RemoveUpdateRootlineDataRector
+
+Remove unused `TemplateService->updateRootlineData()` calls
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveUpdateRootlineDataRector`](../src/Rector/v12/v0/typo3/RemoveUpdateRootlineDataRector.php)
+
+```diff
+-$templateService = GeneralUtility::makeInstance(TemplateService::class);
+-$templateService->updateRootlineData();
++$templateService = GeneralUtility::makeInstance(TemplateService::class);
 ```
 
 <br>
