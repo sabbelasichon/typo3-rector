@@ -143,6 +143,8 @@ class TypoScriptFrontendController
      */
     public $renderCharset = '';
 
+    protected Context $context;
+
     /**
      * @return void
      */
@@ -329,5 +331,21 @@ class TypoScriptFrontendController
      */
     public function sendCacheHeaders()
     {
+    }
+
+    /**
+     * @return bool
+     */
+    public function checkEnableFields($row, $bypassGroupCheck = false)
+    {
+    }
+
+    public function checkPagerecordForIncludeSection(array $row): bool
+    {
+    }
+
+    public function getContext(): Context
+    {
+        return $this->context;
     }
 }
