@@ -68,22 +68,22 @@ final class ExtensionComposerRector implements ComposerRectorInterface
             <<<'CODE_SAMPLE'
 {
     "require": {
-      "typo3/cms-core": "^9.5"
-   },
+        "typo3/cms-core": "^9.5"
+    },
     "extra": {}
 }
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
 {
-   "require": {
-      "typo3/cms-core": "^10.4"
-   },
-   "extra": {
-      "typo3/cms": {
-         "extension-key": "my_extension"
-      }
-   }
+    "require": {
+        "typo3/cms-core": "^10.4"
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "my_extension"
+        }
+    }
 }
 CODE_SAMPLE
             ,

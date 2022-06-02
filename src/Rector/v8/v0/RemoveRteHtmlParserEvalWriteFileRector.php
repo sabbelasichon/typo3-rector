@@ -71,13 +71,11 @@ use TYPO3\CMS\Core\Html\RteHtmlParser;
 
 final class RteHtmlParserRemovedMethods
 {
-
     public function doSomething(): void
     {
         $rtehtmlparser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(RteHtmlParser::class);
         $rtehtmlparser->evalWriteFile();
     }
-
 }
 CODE_SAMPLE
                 ,
@@ -86,12 +84,10 @@ use TYPO3\CMS\Core\Html\RteHtmlParser;
 
 final class RteHtmlParserRemovedMethods
 {
-
     public function doSomething(): void
     {
         $rtehtmlparser = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(RteHtmlParser::class);
     }
-
 }
 CODE_SAMPLE
             ),

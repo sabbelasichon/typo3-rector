@@ -55,6 +55,7 @@ final class RemoveMethodInitTCARector extends AbstractRector
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Frontend\Utility\EidUtility;
+
 EidUtility::initTCA();
 CODE_SAMPLE
                 ,

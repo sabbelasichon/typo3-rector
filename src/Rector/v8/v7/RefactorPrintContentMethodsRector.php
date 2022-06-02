@@ -77,6 +77,7 @@ final class RefactorPrintContentMethodsRector extends AbstractRector
 use TYPO3\CMS\Backend\Controller\PageLayoutController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
+
 $pageLayoutController = GeneralUtility::makeInstance(PageLayoutController::class);
 $pageLayoutController->printContent();
 
@@ -86,9 +87,12 @@ CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Controller\PageLayoutController;
-use TYPO3\CMS\Core\Utility\GeneralUtility;use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Taskcenter\Controller\TaskModuleController;
+
 $pageLayoutController = GeneralUtility::makeInstance(PageLayoutController::class);
 echo $pageLayoutController->getModuleTemplate()->renderContent();
+
 $taskLayoutController = GeneralUtility::makeInstance(TaskModuleController::class);
 echo $taskLayoutController->content;
 CODE_SAMPLE

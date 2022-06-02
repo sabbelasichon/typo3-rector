@@ -102,6 +102,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 class MyController extends ActionController
 {
     public function someAction()
@@ -110,10 +111,11 @@ class MyController extends ActionController
     }
 }
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 class MyController extends ActionController
 {
     public function someAction(): ResponseInterface

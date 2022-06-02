@@ -58,7 +58,7 @@ class MyCommandController extends CommandController
 {
     public function myMethod()
     {
-        if($this->extensionName === 'whatever') {
+        if ($this->extensionName === 'whatever') {
 
         }
 
@@ -72,7 +72,7 @@ class MyCommandController extends CommandController
 {
     public function myMethod()
     {
-        if($this->request->getControllerExtensionName() === 'whatever') {
+        if ($this->request->getControllerExtensionName() === 'whatever') {
 
         }
 

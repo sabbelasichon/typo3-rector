@@ -71,7 +71,9 @@ final class CopyMethodGetPidForModTSconfigRector extends AbstractRector
         return new RuleDefinition('Copy method getPidForModTSconfig of class BackendUtility over', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
-use TYPO3\CMS\Backend\Utility\BackendUtility;BackendUtility::getPidForModTSconfig('pages', 1, 2);
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+
+BackendUtility::getPidForModTSconfig('pages', 1, 2);
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'

@@ -82,7 +82,7 @@ public function method($param)
 {
 }
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 /**

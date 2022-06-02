@@ -55,19 +55,19 @@ class MyCommandController extends CommandController
 {
     public function myMethod()
     {
-        if($this->userAuthentication !== null) {
+        if ($this->userAuthentication !== null) {
 
         }
     }
 }
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 class MyCommandController extends CommandController
 {
     public function myMethod()
     {
-        if($this->getBackendUserAuthentication() !== null) {
+        if ($this->getBackendUserAuthentication() !== null) {
 
         }
     }

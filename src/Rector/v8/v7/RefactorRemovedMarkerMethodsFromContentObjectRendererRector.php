@@ -125,7 +125,6 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
         return new RuleDefinition('Refactor removed Marker-related methods from ContentObjectRenderer.', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
-// build template
 $template = $this->cObj->getSubpart($this->config['templateFile'], '###TEMPLATE###');
 $html = $this->cObj->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
 $html2 = $this->cObj->substituteSubpartArray($html2, []);
@@ -136,11 +135,11 @@ $content .= $this->cObj->substituteMarkerInObject($tree, $markContentArray);
 $content .= $this->cObj->substituteMarkerAndSubpartArrayRecursive($content, $markersAndSubparts, $wrap, $uppercase, $deleteUnused);
 $content .= $this->cObj->fillInMarkerArray($markContentArray, $row, $fieldList, $nl2br, $prefix, $HSC);
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
-// build template
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 $template = GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->getSubpart($this->config['templateFile'], '###TEMPLATE###');
 $html = GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteSubpart($html, '###ADDITONAL_KEYWORD###', '');
 $html2 = GeneralUtility::makeInstance(MarkerBasedTemplateService::class)->substituteSubpartArray($html2, []);
