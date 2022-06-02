@@ -3624,11 +3624,14 @@ Replace TSFE calls to checkEnableFields with new RecordAccessVoter->accessGrante
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector`](../src/Rector/v12/v0/typo3/ReplaceTSFECheckEnableFieldsRector.php)
 
 ```diff
++use TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter;
+ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+
  $row = [];
 
 -$foo = $GLOBALS['TSFE']->checkEnableFields($row);
 -$foofoo = $GLOBALS['TSFE']->checkPagerecordForIncludeSection($row);
-+$foo = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter::class)->accessGranted('pages', $row, $GLOBALS['TSFE']->getContext());
++$foo = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGranted('pages', $row, $GLOBALS['TSFE']->getContext());
 +$foofoo = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGrantedForPageInRootLine($row, $GLOBALS['TSFE']->getContext());
 
  /** @var TypoScriptFrontendController $typoscriptFrontendController */

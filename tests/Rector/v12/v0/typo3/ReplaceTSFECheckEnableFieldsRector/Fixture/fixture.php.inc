@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\ReplaceTSFECheckEnableFieldsRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector\Fixture;
 
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -18,7 +18,7 @@ $baz = $typoscriptFrontendController->checkPagerecordForIncludeSection($row);
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\ReplaceTSFECheckEnableFieldsRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter;

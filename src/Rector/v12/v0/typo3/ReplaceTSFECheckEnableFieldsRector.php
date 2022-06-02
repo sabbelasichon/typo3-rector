@@ -16,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-96996-DeprecateTypoScriptFrontendController-checkEnableFields.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\ReplaceTSFECheckEnableFieldsRector\ReplaceTSFECheckEnableFieldsRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector\ReplaceTSFECheckEnableFieldsRectorTest
  */
 final class ReplaceTSFECheckEnableFieldsRector extends AbstractRector
 {
@@ -79,6 +79,8 @@ final class ReplaceTSFECheckEnableFieldsRector extends AbstractRector
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+
 $row = [];
 
 $foo = $GLOBALS['TSFE']->checkEnableFields($row);
@@ -91,9 +93,12 @@ $baz = $typoscriptFrontendController->checkPagerecordForIncludeSection($row);
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
+use TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter;
+use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+
 $row = [];
 
-$foo = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter::class)->accessGranted('pages', $row, $GLOBALS['TSFE']->getContext());
+$foo = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGranted('pages', $row, $GLOBALS['TSFE']->getContext());
 $foofoo = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGrantedForPageInRootLine($row, $GLOBALS['TSFE']->getContext());
 
 /** @var TypoScriptFrontendController $typoscriptFrontendController */
@@ -102,7 +107,6 @@ $bar = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGranted('pa
 $baz = GeneralUtility::makeInstance(RecordAccessVoter::class)->accessGrantedForPageInRootLine($row, $typoscriptFrontendController->getContext());
 CODE_SAMPLE
                 ),
-
             ]
         );
     }
