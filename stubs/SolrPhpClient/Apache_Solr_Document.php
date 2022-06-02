@@ -1,5 +1,5 @@
 <?php
-if(class_exists('Apache_Solr_Document')) {
+if (class_exists('Apache_Solr_Document')) {
     return;
 }
 

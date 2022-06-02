@@ -1,7 +1,7 @@
 <?php
 namespace TYPO3\CMS\Extbase\Reflection;
 
-if(class_exists('TYPO3\CMS\Extbase\Reflection\ClassSchema')) {
+if (class_exists('TYPO3\CMS\Extbase\Reflection\ClassSchema')) {
     return;
 }
 

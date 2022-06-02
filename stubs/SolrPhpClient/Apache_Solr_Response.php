@@ -1,5 +1,5 @@
 <?php
-if(class_exists('Apache_Solr_Response')) {
+if (class_exists('Apache_Solr_Response')) {
     return;
 }
 

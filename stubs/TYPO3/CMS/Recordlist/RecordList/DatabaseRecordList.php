@@ -1,7 +1,7 @@
 <?php
 namespace TYPO3\CMS\Recordlist\RecordList;
 
-if(class_exists('TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList')) {
+if (class_exists('TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList')) {
     return;
 }
 

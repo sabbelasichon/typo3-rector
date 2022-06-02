@@ -1,7 +1,7 @@
 <?php
 namespace TYPO3\CMS\Extbase\Mvc\Web\Routing;
 
-if(class_exists('TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder')) {
+if (class_exists('TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder')) {
     return;
 }
 

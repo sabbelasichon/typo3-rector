@@ -15,8 +15,6 @@ class MyClass
     {
         $modPid1 = BackendUtility::getPidForModTSconfig($this->table, 1, 2);
     }
-
-
 }
 
 ?>
@@ -39,8 +37,6 @@ class MyClass
     {
         $modPid1 = $this->table === 'pages' && MathUtility::canBeInterpretedAsInteger(1) ? 1 : 2;
     }
-
-
 }
 
 ?>

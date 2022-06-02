@@ -11,7 +11,7 @@ class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRectorFixture
     {
         $graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
         $graphicalFunctions->tempPath = 'typo3temp';
-        if($graphicalFunctions->createTempSubDir('var/transient/')) {
+        if ($graphicalFunctions->createTempSubDir('var/transient/')) {
             // Yes could be created nice. Do further things here
         }
         return $graphicalFunctions->tempPath . 'var/transient/';
@@ -44,7 +44,7 @@ class RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRectorFixture
             }
             return false;
         };
-        if(call_user_func($createTempSubDir, 'typo3temp', 'var/transient/')) {
+        if (call_user_func($createTempSubDir, 'typo3temp', 'var/transient/')) {
             // Yes could be created nice. Do further things here
         }
         return 'typo3temp/' . 'var/transient/';

@@ -6,7 +6,7 @@ final class RemoveExtensionNameProperty extends ActionController
 {
     public function myMethod()
     {
-        if($this->extensionName === 'whatever') {
+        if ($this->extensionName === 'whatever') {
 
         }
 
@@ -24,7 +24,7 @@ final class RemoveExtensionNameProperty extends ActionController
 {
     public function myMethod()
     {
-        if($this->request->getControllerExtensionName() === 'whatever') {
+        if ($this->request->getControllerExtensionName() === 'whatever') {
 
         }
 

@@ -1,7 +1,7 @@
 <?php
 namespace TYPO3\CMS\Frontend\Authentication;
 
-if(class_exists('TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication')) {
+if (class_exists('TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication')) {
     return;
 }
 

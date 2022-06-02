@@ -1,7 +1,7 @@
 <?php
 namespace ApacheSolrForTypo3\Solr\System\Solr\Document;
 
-if(class_exists('ApacheSolrForTypo3\Solr\System\Solr\Document\Document')) {
+if (class_exists('ApacheSolrForTypo3\Solr\System\Solr\Document\Document')) {
     return;
 }
 

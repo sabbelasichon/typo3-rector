@@ -12,7 +12,7 @@ class MyPlugin extends AbstractPlugin
         $translation2 = $this->pi_getLL('label', '', false);
         $translation3 = $this->pi_getLL('label', '', $hsc);
 
-        if($this->pi_getLL('label', '', true)) {
+        if ($this->pi_getLL('label', '', true)) {
             $translation4 = $this->pi_getLL('label', '', true);
         }
     }
@@ -34,7 +34,7 @@ class MyPlugin extends AbstractPlugin
         $translation2 = $this->pi_getLL('label', '');
         $translation3 = $this->pi_getLL('label', '', $hsc);
 
-        if(htmlspecialchars($this->pi_getLL('label', ''))) {
+        if (htmlspecialchars($this->pi_getLL('label', ''))) {
             $translation4 = htmlspecialchars($this->pi_getLL('label', ''));
         }
     }

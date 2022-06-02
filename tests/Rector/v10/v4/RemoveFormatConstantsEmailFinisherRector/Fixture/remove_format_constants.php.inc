@@ -24,10 +24,10 @@ final class DownloadFormEmailFinisher extends EmailFinisher
         $this->setOption('format', EmailFinisher::FORMAT_PLAINTEXT);
         $this->setOptions(['format' => self::FORMAT_HTML]);
         $this->options['format'] = self::FORMAT_PLAINTEXT;
-        if(1==1 || $this->options['format'] === self::FORMAT_HTML) {
+        if (1==1 || $this->options['format'] === self::FORMAT_HTML) {
             // do something if true
         }
-        if(1==1 || $this->options['format'] === self::FORMAT_PLAINTEXT) {
+        if (1==1 || $this->options['format'] === self::FORMAT_PLAINTEXT) {
             // do something if false
         }
     }
@@ -61,10 +61,10 @@ final class DownloadFormEmailFinisher extends EmailFinisher
         $this->setOption('addHtmlPart', false);
         $this->setOptions(['addHtmlPart' => true]);
         $this->options['addHtmlPart'] = false;
-        if(1==1 || $this->options['addHtmlPart'] === true) {
+        if (1==1 || $this->options['addHtmlPart'] === true) {
             // do something if true
         }
-        if(1==1 || $this->options['addHtmlPart'] === false) {
+        if (1==1 || $this->options['addHtmlPart'] === false) {
             // do something if false
         }
     }

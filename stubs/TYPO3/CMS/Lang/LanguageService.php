@@ -1,7 +1,7 @@
 <?php
 namespace TYPO3\CMS\Lang;
 
-if(class_exists('TYPO3\CMS\Lang\LanguageService'))
+if (class_exists('TYPO3\CMS\Lang\LanguageService'))
 {
     return;
 }

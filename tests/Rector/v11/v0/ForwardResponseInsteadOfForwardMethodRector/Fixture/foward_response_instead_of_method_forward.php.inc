@@ -15,7 +15,7 @@ class MyController extends ActionController
 
     public function copy2Action()
     {
-        if($this->forwardMe) {
+        if ($this->forwardMe) {
             $this->forward('new', null, null, ['foo' => 'bar']);
         }
 
@@ -63,7 +63,7 @@ class MyController extends ActionController
 
     public function copy2Action()
     {
-        if($this->forwardMe) {
+        if ($this->forwardMe) {
             return (new ForwardResponse('new'))->withArguments(['foo' => 'bar']);
         }
 
