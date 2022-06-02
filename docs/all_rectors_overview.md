@@ -3598,7 +3598,7 @@ Replace GeneralUtility::stdAuthCode with GeneralUtility::hmac
 - class: [`Ssch\TYPO3Rector\Rector\v11\v3\ReplaceStdAuthCodeWithHmacRector`](../src/Rector/v11/v3/ReplaceStdAuthCodeWithHmacRector.php)
 
 ```diff
--GeneralUtility::stdAuthCode(5);
+-\TYPO3\CMS\Core\Utility\GeneralUtility::stdAuthCode(5);
 +// You have to migrate GeneralUtility::stdAuthCode to GeneralUtility::hmac(). To make types work you should check the old function implementation
 ```
 
