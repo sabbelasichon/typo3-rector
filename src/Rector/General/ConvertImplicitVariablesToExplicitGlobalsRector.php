@@ -34,7 +34,7 @@ final class ConvertImplicitVariablesToExplicitGlobalsRector extends AbstractRect
                 <<<'CODE_SAMPLE'
 $TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_userauth.php']['postUserLookUp']['foo'] = 'FooBarBaz->handle';
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_userauth.php']['postUserLookUp']['foo'] = 'FooBarBaz->handle';
 CODE_SAMPLE
@@ -65,9 +65,9 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $this->filesFinder->isExtLocalConf($this->file->getSmartFileInfo()) && ! $this->filesFinder->isExtTables(
-            $this->file->getSmartFileInfo()
-        )) {
+        if (! $this->filesFinder->isExtLocalConf($this->file->getSmartFileInfo())
+            && ! $this->filesFinder->isExtTables($this->file->getSmartFileInfo())
+        ) {
             return null;
         }
 
