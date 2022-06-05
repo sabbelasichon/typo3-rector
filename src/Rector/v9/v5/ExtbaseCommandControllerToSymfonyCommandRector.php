@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
@@ -72,6 +73,10 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 
         $commandClassMethods = $this->findCommandMethods($node);
         if ([] === $commandClassMethods) {
+            return null;
+        }
+
+        if (! $node->namespacedName instanceof Name) {
             return null;
         }
 
