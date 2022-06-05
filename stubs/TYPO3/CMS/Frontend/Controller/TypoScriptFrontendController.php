@@ -342,10 +342,47 @@ class TypoScriptFrontendController
 
     public function checkPagerecordForIncludeSection(array $row): bool
     {
+        return true;
     }
 
     public function getContext(): Context
     {
         return $this->context;
+    }
+
+    /**
+     * @return void
+     */
+    public function initUserGroups()
+    {
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUserOrGroupSet()
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBackendUserLoggedIn()
+    {
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function doWorkspacePreview()
+    {
+        return true;
+    }
+
+    public function whichWorkspace(): int
+    {
+        return 0;
     }
 }
