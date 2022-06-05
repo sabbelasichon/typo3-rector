@@ -31,7 +31,7 @@ parameters:
         disableRuntimeReflectionProvider: true
 
     bootstrapFiles:
-         - tests/bootstrap.php
+         - tests/bootstrap-phpstan.php
 
     inferPrivatePropertyTypeFromConstructor: true
     reportUnmatchedIgnoredErrors: false
