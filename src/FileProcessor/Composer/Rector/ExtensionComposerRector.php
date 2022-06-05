@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
- * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ComposerJson/Index.html#extra
+ * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/FileStructure/ComposerJson.html#extra
  * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Composer\Rector\ExtensionComposerRector\ExtensionComposerRectorTest
  */
 final class ExtensionComposerRector implements ComposerRectorInterface
