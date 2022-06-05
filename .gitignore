@@ -17,3 +17,5 @@ composer.lock
 php-scoper.phar
 typo3-rector-scoped
 tests/FileProcessor/TypoScript/Configuration_Extbase_Persistence_Classes.php
+
+preload.php
