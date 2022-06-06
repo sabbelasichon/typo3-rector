@@ -14,7 +14,6 @@ class Context
      */
     public function getPropertyFromAspect($name, $property, $default = null)
     {
-
     }
 
     /**
@@ -23,6 +22,14 @@ class Context
      */
     public function setAspect($name, AspectInterface $aspect)
     {
+    }
 
+    /**
+     * @param string $name
+     * @return AspectInterface
+     */
+    public function getAspect(string $name): AspectInterface
+    {
+        return new DateTimeAspect();
     }
 }

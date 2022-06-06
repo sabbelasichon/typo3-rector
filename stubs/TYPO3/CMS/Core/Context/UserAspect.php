@@ -7,4 +7,8 @@ if (class_exists('TYPO3\CMS\Core\Context\UserAspect')) {
 
 class UserAspect
 {
+    public function isUserOrGroupSet(): bool
+    {
+        return true;
+    }
 }
