@@ -7,6 +7,7 @@ use Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector\RenameExtTypoScriptFil
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\MigrateColsToSizeForTcaTypeNoneRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\MigrateInternalTypeRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveUpdateRootlineDataRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector;
 
@@ -26,4 +27,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector::class);
     $rectorConfig->rule(RemoveUpdateRootlineDataRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFEWithContextMethodsRector::class);
+    $rectorConfig->rule(HintNecessaryUploadedFileChangesRector::class);
 };

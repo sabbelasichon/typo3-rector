@@ -1,4 +1,4 @@
-# 245 Rules Overview
+# 246 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -1117,6 +1117,21 @@ Removes deprecated params of the `ContentObjectRenderer->getATagParams()` method
  $cObjRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
 -$bar = $cObjRenderer->getATagParams([], false);
 +$bar = $cObjRenderer->getATagParams([]);
+```
+
+<br>
+
+## HintNecessaryUploadedFileChangesRector
+
+Add FIXME comment for necessary changes for addUploadedFile overrides
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector`](../src/Rector/v12/v0/typo3/HintNecessaryUploadedFileChangesRector.php)
+
+```diff
++// FIXME: Rector: https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-97214-UseUploadedFileObjectsInsteadOf_FILES.html
+ public function addUploadedFile(array $uploadedFileData)
+ {
+ }
 ```
 
 <br>
