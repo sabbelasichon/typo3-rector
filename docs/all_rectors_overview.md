@@ -2683,13 +2683,13 @@ Remove the default type for internal_type
 
 ## RemoveDisableCharsetHeaderConfigTypoScriptRector
 
-Use array syntax for additionalHeaders
+Remove config.disableCharsetHeader
 
 - class: [`Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v12\v0\RemoveDisableCharsetHeaderConfigTypoScriptRector`](../src/FileProcessor/TypoScript/Rector/v12/v0/RemoveDisableCharsetHeaderConfigTypoScriptRector.php)
 
 ```diff
 -config.disableCharsetHeader = true
-+''
++-
 ```
 
 <br>
