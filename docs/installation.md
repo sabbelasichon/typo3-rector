@@ -9,16 +9,25 @@
 1. [Limitations](./limitations.md)
 1. [Contribution](./contribution.md)
 
-# Installation
+# Installation (until rector version 0.13.4)
 
 This repository (`ssch/typo3-rector`) is for development TYPO3 Rector only.
-Head to [`rectorphp/rector`](http://github.com/rectorphp/rector) for installation.
+Head to [`rectorphp/rector`](http://github.com/rectorphp/rector) for installation. 
+
+This is only the case for rector versions until 0.13.4 and below.
 
 [`rectorphp/rector`](http://github.com/rectorphp/rector) is a prefixed and downgraded version (down to PHP 7.1) to use it in older projects and to avoid dependency conflicts.
 
 ```bash
 composer require --dev rector/rector
 ```
+
+# Installation (after rector version 0.13.4)
+
+With version `0.13.5` the rector core does not integrate typo3-rector anymore for faster and more stable development on both ends. Breaking changes always affect the whole rector ecosystem causing typo3-rector to be affected by them and slowing down the general development.
+
+Please use a earlier version of rector until this section is updated and typo3-rector is stable as standalone package. 
+
 
 ## Non composer installations
 
