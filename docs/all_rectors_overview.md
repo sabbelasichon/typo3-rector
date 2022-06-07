@@ -1,4 +1,4 @@
-# 246 Rules Overview
+# 247 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -3266,6 +3266,19 @@ Remove showRecordFieldList inside section interface
      'columns' => [
      ],
  ];
+```
+
+<br>
+
+## RemoveSpamProtectEmailAddressesAsciiOptionRector
+
+Remove config.spamProtectEmailAddresses with option ascii
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveSpamProtectEmailAddressesAsciiOptionRector`](../src/Rector/v12/v0/typoscript/RemoveSpamProtectEmailAddressesAsciiOptionRector.php)
+
+```diff
+-config.spamProtectEmailAddresses = ascii
++-
 ```
 
 <br>
