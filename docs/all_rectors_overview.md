@@ -1,4 +1,4 @@
-# 246 Rules Overview
+# 247 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -4518,6 +4518,21 @@ Use class Typo3Version instead of the constants
 +use TYPO3\CMS\Core\Information\Typo3Version;
 +$typo3Version = GeneralUtility::makeInstance(Typo3Version::class)->getVersion();
 +$typo3Branch = GeneralUtility::makeInstance(Typo3Version::class)->getBranch();
+```
+
+<br>
+
+## UseCompositeExpressionStaticMethodsRector
+
+Use CompositeExpression static methods instead of constructor
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\UseCompositeExpressionStaticMethodsRector`](../src/Rector/v12/v0/typo3/UseCompositeExpressionStaticMethodsRector.php)
+
+```diff
+-$compositeExpressionAND = new CompositeExpression(CompositeExpression::TYPE_AND, []);
+-$compositeExpressionOR = new CompositeExpression(CompositeExpression::TYPE_OR, []);
++$compositeExpressionAND = CompositeExpression::and([]);
++$compositeExpressionOR = CompositeExpression::or([]);
 ```
 
 <br>
