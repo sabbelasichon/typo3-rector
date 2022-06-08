@@ -1,4 +1,4 @@
-# 247 Rules Overview
+# 248 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
