@@ -86,6 +86,7 @@
         "check-style": "@php vendor/bin/ecs check --ansi",
         "fix-style": "@php vendor/bin/ecs check --fix --ansi",
         "analyze": "@php vendor/bin/phpstan analyse --memory-limit=-1 --ansi --error-format symplify",
+        "phpstan-generate-baseline": "@php vendor/bin/phpstan analyse --generate-baseline --memory-limit=-1 --ansi",
         "test": "@php vendor/bin/phpunit",
         "docs": "@php vendor/bin/rule-doc-generator generate src --output-file docs/all_rectors_overview.md --ansi",
         "rector": "@php vendor/bin/rector process --dry-run --ansi",

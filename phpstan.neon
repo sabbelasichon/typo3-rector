@@ -1,5 +1,6 @@
 includes:
     # see https://github.com/symplify/phpstan-extensions
+    - phpstan-baseline.neon
     - utils/phpstan/config/typo3-rector.neon
 
 parameters:
