@@ -4535,6 +4535,21 @@ Use class Typo3Version instead of the constants
 
 <br>
 
+## UseCompositeExpressionStaticMethodsRector
+
+Use CompositeExpression static methods instead of constructor
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\UseCompositeExpressionStaticMethodsRector`](../src/Rector/v12/v0/typo3/UseCompositeExpressionStaticMethodsRector.php)
+
+```diff
+-$compositeExpressionAND = new CompositeExpression(CompositeExpression::TYPE_AND, []);
+-$compositeExpressionOR = new CompositeExpression(CompositeExpression::TYPE_OR, []);
++$compositeExpressionAND = CompositeExpression::and([]);
++$compositeExpressionOR = CompositeExpression::or([]);
+```
+
+<br>
+
 ## UseContextApiForVersioningWorkspaceIdRector
 
 Use context API instead of versioningWorkspaceId

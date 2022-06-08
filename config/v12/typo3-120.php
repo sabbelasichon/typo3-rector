@@ -7,9 +7,13 @@ use Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector\RenameExtTypoScriptFil
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\MigrateColsToSizeForTcaTypeNoneRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\MigrateInternalTypeRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\ReplacePreviewUrlMethodRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveUpdateRootlineDataRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFEWithContextMethodsRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\UseCompositeExpressionStaticMethodsRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -21,11 +25,12 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/../../Migrations/TYPO3/12.0/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
             __DIR__ . '/../../Migrations/TYPO3/12.0/typo3/sysext/frontend/Migrations/Code/ClassAliasMap.php',
         ]);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\ReplacePreviewUrlMethodRector::class);
+    $rectorConfig->rule(ReplacePreviewUrlMethodRector::class);
     $rectorConfig->rule(RenameExtTypoScriptFilesFileRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector::class);
+    $rectorConfig->rule(ReplaceTSFECheckEnableFieldsRector::class);
     $rectorConfig->rule(ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector::class);
     $rectorConfig->rule(RemoveUpdateRootlineDataRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFEWithContextMethodsRector::class);
+    $rectorConfig->rule(ReplaceTSFEWithContextMethodsRector::class);
     $rectorConfig->rule(HintNecessaryUploadedFileChangesRector::class);
+    $rectorConfig->rule(UseCompositeExpressionStaticMethodsRector::class);
 };
