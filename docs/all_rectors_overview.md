@@ -1,4 +1,4 @@
-# 249 Rules Overview
+# 250 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -3296,6 +3296,26 @@ Remove support for transForeignTable in TCA
 -        'transOrigPointerTable' => 'l10n_parent',
 -    ],
 +    'ctrl' => [],
+ ];
+```
+
+<br>
+
+## RemoveTCAInterfaceAlwaysDescriptionRector
+
+Remove ['interface']['always_description']
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\RemoveTCAInterfaceAlwaysDescriptionRector`](../src/Rector/v12/v0/tca/RemoveTCAInterfaceAlwaysDescriptionRector.php)
+
+```diff
+ return [
+     'ctrl' => [
+     ],
+-    'interface' => [
+-        'always_description' => 'foo,bar,baz',
+-    ],
+     'columns' => [
+     ],
  ];
 ```
 
