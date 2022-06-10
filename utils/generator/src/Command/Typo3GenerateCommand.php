@@ -28,7 +28,7 @@ final class Typo3GenerateCommand extends Command
     /**
      * @var string
      */
-    public const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Name__';
+    public const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Type__\__Name__';
 
     public function __construct(
         private readonly TemplateFinder $templateFinder,
