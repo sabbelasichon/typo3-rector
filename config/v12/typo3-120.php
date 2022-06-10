@@ -13,6 +13,7 @@ use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveUpdateRootlineDataRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFEWithContextMethodsRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\SubstituteCompositeExpressionAddMethodsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\UseCompositeExpressionStaticMethodsRector;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -33,4 +34,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ReplaceTSFEWithContextMethodsRector::class);
     $rectorConfig->rule(HintNecessaryUploadedFileChangesRector::class);
     $rectorConfig->rule(UseCompositeExpressionStaticMethodsRector::class);
+    $rectorConfig->rule(SubstituteCompositeExpressionAddMethodsRector::class);
 };

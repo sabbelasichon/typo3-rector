@@ -34,4 +34,25 @@ class CompositeExpression
     {
         return (new self(self::TYPE_OR, []));
     }
+
+    /**
+     * @return $this
+     */
+    public function add($part)
+    {
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function addMultiple(array $parts = [])
+    {
+        return $this;
+    }
+
+    public function with($part, ...$parts): self
+    {
+        return $this;
+    }
 }

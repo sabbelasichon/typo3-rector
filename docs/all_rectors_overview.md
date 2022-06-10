@@ -1,4 +1,4 @@
-# 248 Rules Overview
+# 249 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -3936,6 +3936,41 @@ Caching framework wrapper methods in BackendUtility
 +    $hashContent = $cacheEntry;
 +}
 +$content = $hashContent;
+```
+
+<br>
+
+## SubstituteCompositeExpressionAddMethodsRector
+
+Replace `add()` and `addMultiple()` of CompositeExpression with `with()`
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\SubstituteCompositeExpressionAddMethodsRector`](../src/Rector/v12/v0/typo3/SubstituteCompositeExpressionAddMethodsRector.php)
+
+```diff
+ $compositeExpression = CompositeExpression::or();
+
+-$compositeExpression->add(
++$compositeExpression = $compositeExpression->with(
+     $queryBuilder->expr()->eq(
+         'field',
+         $queryBuilder->createNamedParameter('foo')
+     )
+ );
+
+-$compositeExpression->addMultiple(
+-    [
++$compositeExpression = $compositeExpression->with(
++    ...[
+         $queryBuilder->expr()->eq(
+             'field',
+             $queryBuilder->createNamedParameter('bar')
+         ),
+         $queryBuilder->expr()->eq(
+             'field',
+             $queryBuilder->createNamedParameter('baz')
+         ),
+     ]
+ );
 ```
 
 <br>
