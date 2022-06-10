@@ -2,6 +2,8 @@
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector\Fixture;
 
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class MyController extends ActionController
@@ -11,6 +13,27 @@ class MyController extends ActionController
     public function copyAction(): void
     {
         $this->forward('new', null, null, ['foo' => 'bar']);
+    }
+
+    /**
+     * @return void
+     */
+    public function copyActionWithReturnDoc(): void
+    {
+        $this->forward('new', null, null, ['foo' => 'bar']);
+    }
+
+    /**
+     * @param array $test
+     * @return void
+     */
+    public function copyActionWithParamsAndMultipleStmts(array $test): void
+    {
+        $start = 1;
+        $end = 2;
+        if ($start > $end) {
+            $this->forward('new', null, null, ['foo' => $test]);
+        }
     }
 
     public function copy2Action()
@@ -59,6 +82,27 @@ class MyController extends ActionController
     public function copyAction(): ResponseInterface
     {
         return (new ForwardResponse('new'))->withArguments(['foo' => 'bar']);
+    }
+
+    /**
+     *
+     */
+    public function copyActionWithReturnDoc(): ResponseInterface
+    {
+        return (new ForwardResponse('new'))->withArguments(['foo' => 'bar']);
+    }
+
+    /**
+     * @param array $test
+     *
+     */
+    public function copyActionWithParamsAndMultipleStmts(array $test)
+    {
+        $start = 1;
+        $end = 2;
+        if ($start > $end) {
+            return (new ForwardResponse('new'))->withArguments(['foo' => $test]);
+        }
     }
 
     public function copy2Action()
