@@ -819,7 +819,7 @@ return static function (RectorConfig $rectorConfig): void {
 
 ## ExtensionComposerRector
 
-Add extra extension_key in `composer.json` and add option default constraint
+Add extra extension-key in `composer.json` and add option default constraint
 
 :wrench: **configure it!**
 

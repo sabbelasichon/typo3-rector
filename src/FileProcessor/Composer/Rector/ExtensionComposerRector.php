@@ -64,7 +64,7 @@ final class ExtensionComposerRector implements ComposerRectorInterface
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Add extra extension_key in `composer.json` and add option default constraint', [new ConfiguredCodeSample(
+        return new RuleDefinition('Add extra extension-key in `composer.json` and add option default constraint', [new ConfiguredCodeSample(
             <<<'CODE_SAMPLE'
 {
     "require": {
