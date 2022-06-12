@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
+use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
@@ -119,6 +121,17 @@ CODE_SAMPLE
             $this->nodesToAddCollector->addNodeBeforeNode($forwardResponseReturn, $forwardMethodCall);
             $this->removeNode($forwardMethodCall);
         }
+
+        if (null !== $node->returnType && $node->returnType instanceof Identifier && null !== $node->returnType->name && 'void' === $node->returnType->name) {
+            $node->returnType = null;
+        }
+
+        $comments = $node->getComments();
+        $comments = array_map(
+            static fn (Comment $comment) => new Comment(str_replace(' @return void', '', $comment->getText())),
+            $comments,
+        );
+        $node->setAttribute('comments', $comments);
 
         // Add returnType only if it is the only statement, otherwise it is not reliable
         if (is_countable($node->stmts) && 1 === count((array) $node->stmts)) {
