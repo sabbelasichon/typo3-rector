@@ -1,4 +1,4 @@
-# 251 Rules Overview
+# 252 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -3595,10 +3595,10 @@ Replaces ExpressionBuilder methods `orX()` & `andX()`
    ->select(...)
    ->from(...)
    ->where(
--    $queryBuilder->expr()->andX(...),   // replace with and(...)
--    $queryBuilder->expr()->orX(...)     // replace with or(...)
-+    $queryBuilder->expr()->and(...), // replacement for andX(...)
-+    $queryBuilder->expr()->or(...)   // replacement for orX(...)
+-    $queryBuilder->expr()->andX(...),
+-    $queryBuilder->expr()->orX(...)
++    $queryBuilder->expr()->and(...),
++    $queryBuilder->expr()->or(...)
    )
    ->executeQuery()
    ->fetchAllAssociative();

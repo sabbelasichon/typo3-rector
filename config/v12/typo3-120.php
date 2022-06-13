@@ -11,11 +11,11 @@ use Ssch\TYPO3Rector\Rector\v12\v0\ReplacePreviewUrlMethodRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveUpdateRootlineDataRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceExpressionBuilderMethodsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFEWithContextMethodsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\SubstituteCompositeExpressionAddMethodsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\UseCompositeExpressionStaticMethodsRector;
-use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceExpressionBuilderMethodsRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
