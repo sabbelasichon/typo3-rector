@@ -3584,6 +3584,28 @@ Replace usages of `ContentObjectRenderer->getMailTo()` with `EmailLinkBuilder->p
 
 <br>
 
+## ReplaceExpressionBuilderMethodsRector
+
+Replaces ExpressionBuilder methods `orX()` & `andX()`
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceExpressionBuilderMethodsRector`](../src/Rector/v12/v0/typo3/ReplaceExpressionBuilderMethodsRector.php)
+
+```diff
+ $rows = $queryBuilder
+   ->select(...)
+   ->from(...)
+   ->where(
+-    $queryBuilder->expr()->andX(...),   // replace with and(...)
+-    $queryBuilder->expr()->orX(...)     // replace with or(...)
++    $queryBuilder->expr()->and(...), // replacement for andX(...)
++    $queryBuilder->expr()->or(...)   // replacement for orX(...)
+   )
+   ->executeQuery()
+   ->fetchAllAssociative();
+```
+
+<br>
+
 ## ReplaceExtKeyWithExtensionKeyRector
 
 Replace $_EXTKEY with extension key
