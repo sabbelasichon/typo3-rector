@@ -1,4 +1,4 @@
-# 250 Rules Overview
+# 251 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -2689,6 +2689,19 @@ Remove config.disableCharsetHeader
 
 ```diff
 -config.disableCharsetHeader = true
++-
+```
+
+<br>
+
+## RemoveDisablePageExternalUrlOptionRector
+
+Remove config.disablePageExternalUrl
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveDisablePageExternalUrlOptionRector`](../src/Rector/v12/v0/typoscript/RemoveDisablePageExternalUrlOptionRector.php)
+
+```diff
+-config.disablePageExternalUrl = 1
 +-
 ```
 
