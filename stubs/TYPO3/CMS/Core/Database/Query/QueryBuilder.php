@@ -44,13 +44,8 @@ class QueryBuilder
         return '';
     }
 
-    public function executeQuery(): QueryBuilder
+    public function executeQuery(): Result
     {
-        return $this;
-    }
-
-    public function fetchAllAssociative(): QueryBuilder
-    {
-        return $this;
+        return new Result();
     }
 }

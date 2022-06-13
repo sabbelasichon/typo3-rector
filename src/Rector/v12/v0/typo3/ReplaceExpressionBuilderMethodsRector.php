@@ -54,8 +54,8 @@ $rows = $queryBuilder
   ->select(...)
   ->from(...)
   ->where(
-    $queryBuilder->expr()->andX(...),   // replace with and(...)
-    $queryBuilder->expr()->orX(...)     // replace with or(...)
+    $queryBuilder->expr()->andX(...),
+    $queryBuilder->expr()->orX(...)
   )
   ->executeQuery()
   ->fetchAllAssociative();
@@ -66,8 +66,8 @@ $rows = $queryBuilder
   ->select(...)
   ->from(...)
   ->where(
-    $queryBuilder->expr()->and(...), // replacement for andX(...)
-    $queryBuilder->expr()->or(...)   // replacement for orX(...)
+    $queryBuilder->expr()->and(...),
+    $queryBuilder->expr()->or(...)
   )
   ->executeQuery()
   ->fetchAllAssociative();
@@ -77,17 +77,9 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $methodCall): bool
     {
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $methodCall,
-            new ObjectType('TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder')
-        )) {
-            return false;
-        }
-
-        // TODO: This should take care for the case: $methodCall->var->name = "expr"; but it does not work..
         return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $methodCall,
-            new ObjectType('TYPO3\CMS\Core\Database\Query\QueryBuilder')
+            new ObjectType('TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder')
         );
     }
 }

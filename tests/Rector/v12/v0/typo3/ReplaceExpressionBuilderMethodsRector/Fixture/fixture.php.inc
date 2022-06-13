@@ -30,6 +30,10 @@ $expr = $queryBuilder->expr();
 $singleAndConstraint = $expr->andX($testConstraint);
 $singleOrConstraint = $expr->orX($testConstraint);
 
+/** @var ExpressionBuilder $expressionBuilder */
+$expressionBuilder = GeneralUtility::makeInstance(ExpressionBuilder::class);
+$constraint = $expressionBuilder->andX($testConstraint);
+
 ?>
 -----
 <?php
@@ -63,5 +67,9 @@ $singleOrConstraint = $queryBuilder->expr()->or($testConstraint);
 $expr = $queryBuilder->expr();
 $singleAndConstraint = $expr->and($testConstraint);
 $singleOrConstraint = $expr->or($testConstraint);
+
+/** @var ExpressionBuilder $expressionBuilder */
+$expressionBuilder = GeneralUtility::makeInstance(ExpressionBuilder::class);
+$constraint = $expressionBuilder->and($testConstraint);
 
 ?>
