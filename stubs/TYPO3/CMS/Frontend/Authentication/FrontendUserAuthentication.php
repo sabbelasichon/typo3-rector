@@ -14,4 +14,13 @@ class FrontendUserAuthentication
     {
         return null;
     }
+
+    /**
+     * @return void
+     */
+    public function hideActiveLogin()
+    {
+        $this->user = null;
+        $this->loginHidden = true;
+    }
 }

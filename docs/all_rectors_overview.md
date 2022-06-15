@@ -1,4 +1,4 @@
-# 252 Rules Overview
+# 254 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -3212,6 +3212,19 @@ Use method getBackendUserAuthentication instead of removed property `$userAuthen
 
 <br>
 
+## RemoveRedundantFeLoginModeMethodsRector
+
+Remove redundant methods that are used to handle fe_login_mode
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveRedundantFeLoginModeMethodsRector`](../src/Rector/v12/v0/typo3/RemoveRedundantFeLoginModeMethodsRector.php)
+
+```diff
+-\TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication->hideActiveLogin();
++-
+```
+
+<br>
+
 ## RemoveRteHtmlParserEvalWriteFileRector
 
 remove evalWriteFile method from RteHtmlparser.
@@ -3259,6 +3272,19 @@ TCA option "selicon_field_path" removed
 -        'selicon_field_path' => 'uploads/media'
      ],
  ];
+```
+
+<br>
+
+## RemoveSendCacheHeadersConfigOptionRector
+
+Remove config.sendCacheHeaders_onlyWhenLoginDeniedInBranch
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveSendCacheHeadersConfigOptionRector`](../src/Rector/v12/v0/typoscript/RemoveSendCacheHeadersConfigOptionRector.php)
+
+```diff
+-config.sendCacheHeaders_onlyWhenLoginDeniedInBranch
++-
 ```
 
 <br>
