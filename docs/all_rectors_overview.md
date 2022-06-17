@@ -3547,7 +3547,7 @@ The property `$TSFE->renderCharset` is now always set to utf-8
 
 Add renderType node in Flexforms xml
 
-- class: [`Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector\RenderTypeFlexFormRector`](../src/FileProcessor/FlexForms/Rector/RenderTypeFlexFormRector.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector\v7\v6\RenderTypeFlexFormRector`](../src/FileProcessor/FlexForms/Rector/v7/v6/RenderTypeFlexFormRector.php)
 
 ```diff
  <type>select</type>
@@ -3557,6 +3557,7 @@ Add renderType node in Flexforms xml
          <numIndex index="0">
              LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.no-constraint
          </numIndex>
+     </numIndex>
  </items>
 ```
 

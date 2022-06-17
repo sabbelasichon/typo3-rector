@@ -3,7 +3,8 @@
         <sDEF>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
+                    <sheetTitle>
+                        LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
                     </sheetTitle>
                 </TCEforms>
                 <type>array</type>
@@ -20,7 +21,7 @@
                                         <numIndex index="0">
                                             LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.no-constraint
                                         </numIndex>
-                                        <numIndex index="1"></numIndex>
+                                        <numIndex index="1"/>
                                     </numIndex>
                                     <numIndex index="1">
                                         <numIndex index="0">
@@ -49,7 +50,8 @@
         <sDEF>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
+                    <sheetTitle>
+                        LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
                     </sheetTitle>
                 </TCEforms>
                 <type>array</type>

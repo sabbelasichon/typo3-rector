@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector;
+namespace Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector\v7\v6;
 
 use DOMDocument;
 use DOMElement;
@@ -14,7 +14,8 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @see \Ssch\TYPO3Rector\Tests\FileProcessor\FlexForms\FlexFormsProcessorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/7.6/Deprecation-69822-DeprecateSelectFieldTca.html
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\FlexForms\Rector\v7\v6\RenderTypeFlexFormRector\RenderTypeFlexFormRectorTest
  */
 final class RenderTypeFlexFormRector implements FlexFormRectorInterface
 {
@@ -94,6 +95,7 @@ final class RenderTypeFlexFormRector implements FlexFormRectorInterface
         <numIndex index="0">
             LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.no-constraint
         </numIndex>
+    </numIndex>
 </items>
 CODE_SAMPLE
                 ,
@@ -105,6 +107,7 @@ CODE_SAMPLE
         <numIndex index="0">
             LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.no-constraint
         </numIndex>
+    </numIndex>
 </items>
 CODE_SAMPLE
             ),

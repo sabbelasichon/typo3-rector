@@ -6,7 +6,6 @@ use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector;
-use Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector\RenderTypeFlexFormRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionInfoRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\CheckForExtensionVersionRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\FindByPidsAndAuthorIdRector;
@@ -72,6 +71,5 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
     $rectorConfig->rule(SubstituteGeneralUtilityDevLogRector::class);
     $rectorConfig->rule(ReplacedGeneralUtilitySysLogWithLogginApiRector::class);
-    $rectorConfig->rule(RenderTypeFlexFormRector::class);
     $rectorConfig->rule(QueryLogicalOrAndLogicalAndToArrayParameterRector::class);
 };

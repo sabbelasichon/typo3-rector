@@ -16,9 +16,6 @@ use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
 use UnexpectedValueException;
 
-/**
- * @see \Ssch\TYPO3Rector\Tests\FileProcessor\FlexForms\FlexFormsProcessorTest
- */
 final class FlexFormsProcessor implements FileProcessorInterface
 {
     /**

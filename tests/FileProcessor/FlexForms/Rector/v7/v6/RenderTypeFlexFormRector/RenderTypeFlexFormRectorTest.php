@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\FileProcessor\FlexForms;
+namespace Ssch\TYPO3Rector\Tests\FileProcessor\FlexForms\Rector\v7\v6\RenderTypeFlexFormRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FlexFormsProcessorTest extends AbstractRectorTestCase
+final class RenderTypeFlexFormRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData
