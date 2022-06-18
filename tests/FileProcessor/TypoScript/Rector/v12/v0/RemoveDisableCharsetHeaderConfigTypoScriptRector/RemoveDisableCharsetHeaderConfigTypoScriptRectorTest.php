@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\v12\v0\RemoveDisableCharsetHeaderConfigTypoScriptRector;
+namespace Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\Rector\v12\v0\RemoveDisableCharsetHeaderConfigTypoScriptRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

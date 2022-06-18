@@ -15,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-97550-TypoScriptOptionConfigdisableCharsetHeaderRemoved.html
- * @see \Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\v12\v0\RemoveDisableCharsetHeaderConfigTypoScriptRector\RemoveDisableCharsetHeaderConfigTypoScriptRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\Rector\v12\v0\RemoveDisableCharsetHeaderConfigTypoScriptRector\RemoveDisableCharsetHeaderConfigTypoScriptRectorTest
  */
 final class RemoveDisableCharsetHeaderConfigTypoScriptRector extends AbstractTypoScriptRector
 {
