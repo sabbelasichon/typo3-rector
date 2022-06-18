@@ -30,7 +30,7 @@ jobs:
 
             -   uses: stefanzweifel/git-auto-commit-action@v4.14.1
                 with:
-                    commit_message: [DOCS] Generate documentation
+                    commit_message: '[DOCS] Generate documentation'
                     commit_options: '--no-verify --signoff'
                     branch: "main"
                     push_options: '--force'
