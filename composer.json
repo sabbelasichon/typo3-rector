@@ -18,6 +18,9 @@
     ],
     "require": {
         "php": ">=8.1",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-simplexml": "*",
         "helmich/typo3-typoscript-parser": "^2.4.1",
         "symfony/string": "^6.0"
     },
