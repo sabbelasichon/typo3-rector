@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\FileProcessor\Yaml\Form;
+namespace Ssch\TYPO3Rector\Tests\FileProcessor\Yaml\Form\Rector\v10\v0\EmailFinisherRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FormYamlProcessorTest extends AbstractRectorTestCase
+final class EmailFinisherRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData

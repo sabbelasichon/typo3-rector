@@ -16,9 +16,6 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\Form\FormYamlRectorInterface;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\YamlIndentResolver;
 use Symfony\Component\Yaml\Yaml;
 
-/**
- * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Yaml\Form\FormYamlProcessorTest
- */
 final class FormYamlFileProcessor implements FileProcessorInterface
 {
     /**

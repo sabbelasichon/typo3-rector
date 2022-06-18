@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector;
+namespace Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\v10\v0;
 
 use Rector\ChangesReporting\ValueObject\RectorWithLineChange;
 use Rector\Core\Provider\CurrentFileProvider;
@@ -12,7 +12,8 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Feature-80420-AllowMultipleRecipientsInEmailFinisher.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.0/Feature-80420-AllowMultipleRecipientsInEmailFinisher.html
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Yaml\Form\Rector\v10\v0\EmailFinisherRector\EmailFinisherRectorTest
  */
 final class EmailFinisherRector implements FormYamlRectorInterface
 {

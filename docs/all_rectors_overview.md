@@ -622,7 +622,7 @@ TCA: Drop additional palette
 
 Convert single recipient values to array for EmailFinisher
 
-- class: [`Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\EmailFinisherRector`](../src/FileProcessor/Yaml/Form/Rector/EmailFinisherRector.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\v10\v0\EmailFinisherRector`](../src/FileProcessor/Yaml/Form/Rector/v10/v0/EmailFinisherRector.php)
 
 ```diff
  finishers:
@@ -4445,7 +4445,7 @@ Use class TimeTracker instead of NullTimeTracker
 
 Use key translationFiles instead of translationFile
 
-- class: [`Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\TranslationFileRector`](../src/FileProcessor/Yaml/Form/Rector/TranslationFileRector.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\v10\v0\TranslationFileRector`](../src/FileProcessor/Yaml/Form/Rector/v10/v0/TranslationFileRector.php)
 
 ```diff
  TYPO3:
