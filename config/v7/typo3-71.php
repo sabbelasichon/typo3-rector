@@ -7,6 +7,5 @@ use Ssch\TYPO3Rector\Rector\v7\v1\GetTemporaryImageWithTextRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
-
     $rectorConfig->rule(GetTemporaryImageWithTextRector::class);
 };
