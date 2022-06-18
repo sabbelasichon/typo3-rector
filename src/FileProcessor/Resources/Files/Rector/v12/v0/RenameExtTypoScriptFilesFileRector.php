@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector;
+namespace Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector\v12\v0;
 
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\ValueObject\Application\File;
@@ -13,6 +13,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
+/**
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-96518-Ext_typoscript_txtFilesNotIncludedAnymore.html
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Files\Rector\v12\v0\RenameExtTypoScriptFiles\RenameExtTypoScriptFilesFileRectorTest
+ */
 final class RenameExtTypoScriptFilesFileRector implements FileRectorInterface
 {
     public function __construct(

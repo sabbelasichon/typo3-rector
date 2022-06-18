@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Files\ExtTypoScriptFileProcessor;
+namespace Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Files\Rector\v12\v0\RenameExtTypoScriptFiles;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ExtTypoScriptFileProcessorTest extends AbstractRectorTestCase
+final class RenameExtTypoScriptFilesFileRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData

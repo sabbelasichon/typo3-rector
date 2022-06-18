@@ -3491,7 +3491,7 @@ return static function (RectorConfig $rectorConfig): void {
 
 Rename ext_typoscript_*.txt to ext_typoscript_*.typoscript
 
-- class: [`Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector\RenameExtTypoScriptFilesFileRector`](../src/FileProcessor/Resources/Files/Rector/RenameExtTypoScriptFilesFileRector.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector\v12\v0\RenameExtTypoScriptFilesFileRector`](../src/FileProcessor/Resources/Files/Rector/v12/v0/RenameExtTypoScriptFilesFileRector.php)
 
 ```diff
 -ext_typoscript_constants.txt
