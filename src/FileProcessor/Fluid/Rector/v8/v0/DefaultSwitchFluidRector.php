@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FileProcessor\Fluid\Rector;
+namespace Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\v8\v0;
 
 use Nette\Utils\Strings;
 use Rector\Core\ValueObject\Application\File;
@@ -11,7 +11,8 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://forge.typo3.org/issues/73068
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/8.0/Deprecation-73068-DeprecatedDefaultArgumentOnFcase.html
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Fluid\Rector\v8\v0\DefaultSwitchFluidRector\DefaultSwitchFluidRectorTest
  */
 final class DefaultSwitchFluidRector implements FluidRectorInterface
 {

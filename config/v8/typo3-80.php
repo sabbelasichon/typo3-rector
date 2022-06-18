@@ -7,6 +7,7 @@ use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
+use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\v8\v0\DefaultSwitchFluidRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v7\v1\AdditionalHeadersToArrayTypoScriptRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\ChangeMethodCallsForStandaloneViewRector;
 use Ssch\TYPO3Rector\Rector\v8\v0\GetFileAbsFileNameRemoveDeprecatedArgumentsRector;
@@ -97,5 +98,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(GetFileAbsFileNameRemoveDeprecatedArgumentsRector::class);
     $rectorConfig->rule(RemoveLangCsConvObjAndParserFactoryRector::class);
     $rectorConfig->rule(RenderCharsetDefaultsToUtf8Rector::class);
+    $rectorConfig->rule(DefaultSwitchFluidRector::class);
     $rectorConfig->rule(AdditionalHeadersToArrayTypoScriptRector::class);
 };

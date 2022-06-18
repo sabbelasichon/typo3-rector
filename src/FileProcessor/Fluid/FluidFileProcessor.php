@@ -13,9 +13,6 @@ use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
 
-/**
- * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Fluid\FluidProcessorTest
- */
 final class FluidFileProcessor implements FileProcessorInterface
 {
     /**

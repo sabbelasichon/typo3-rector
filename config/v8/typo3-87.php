@@ -6,7 +6,6 @@ use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
-use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\DefaultSwitchFluidRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\PostRector\v8\v7\LibFluidContentToContentElementTypoScriptPostRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v8\v7\LibFluidContentToLibContentElementRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
@@ -54,7 +53,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(DataHandlerVariousMethodsAndMethodArgumentsRector::class);
     $rectorConfig->rule(RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector::class);
     $rectorConfig->rule(UseCachingFrameworkInsteadGetAndStoreHashRector::class);
-    $rectorConfig->rule(DefaultSwitchFluidRector::class);
     $rectorConfig->rule(LibFluidContentToLibContentElementRector::class);
     $rectorConfig->rule(LibFluidContentToContentElementTypoScriptPostRector::class);
 };

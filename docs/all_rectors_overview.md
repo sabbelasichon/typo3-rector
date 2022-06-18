@@ -571,7 +571,7 @@ Use DateTimeAspect instead of superglobals like `$GLOBALS['EXEC_TIME']`
 
 Use <f:defaultCase> instead of <f:case default="1">
 
-- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\DefaultSwitchFluidRector`](../src/FileProcessor/Fluid/Rector/DefaultSwitchFluidRector.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\v8\v0\DefaultSwitchFluidRector`](../src/FileProcessor/Fluid/Rector/v8/v0/DefaultSwitchFluidRector.php)
 
 ```diff
  <f:switch expression="{someVariable}">
