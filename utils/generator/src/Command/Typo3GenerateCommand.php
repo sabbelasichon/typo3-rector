@@ -145,6 +145,7 @@ final class Typo3GenerateCommand extends Command
         $question = new ChoiceQuestion('Please select the rector type (defaults to typo3)', [
             'typo3',
             'tca',
+            'flexform',
             'typoscript',
         ], 0);
         $question->setErrorMessage('Type %s is invalid.');
