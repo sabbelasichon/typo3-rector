@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons\Rector;
+namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons\Rector\v8\v3;
 
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Configuration\Option;
@@ -14,6 +14,10 @@ use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
+/**
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/8.3/Feature-77349-AdditionalLocationsForExtensionIcons.html
+ * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Icons\Rector\v8\v3\IconsRector\IconsRectorTest
+ */
 final class IconsRector implements IconRectorInterface
 {
     public function __construct(
@@ -56,7 +60,14 @@ CODE_SAMPLE
             return;
         }
 
-        mkdir(dirname($newFullPath), 0777, true);
+        $directory = dirname($newFullPath);
+        if (is_dir($directory)) {
+            return;
+        }
+
+        if (! mkdir($directory, 0777, true)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $directory));
+        }
     }
 
     private function createIconPath(File $file): string

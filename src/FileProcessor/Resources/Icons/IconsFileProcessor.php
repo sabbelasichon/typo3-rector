@@ -15,10 +15,6 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-/**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.3/Feature-77349-AdditionalLocationsForExtensionIcons.html
- * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Icons\IconsProcessor\IconsProcessorTest
- */
 final class IconsFileProcessor implements FileProcessorInterface
 {
     /**

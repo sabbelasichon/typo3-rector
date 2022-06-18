@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Icons\IconsProcessor;
+namespace Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Icons\Rector\v8\v3\IconsRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class IconsProcessorTest extends AbstractRectorTestCase
+final class IconsRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData

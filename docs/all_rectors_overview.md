@@ -1140,7 +1140,7 @@ Add FIXME comment for necessary changes for addUploadedFile overrides
 
 Copy ext_icon.* to Resources/Icons/Extension.*
 
-- class: [`Ssch\TYPO3Rector\FileProcessor\Resources\Icons\Rector\IconsRector`](../src/FileProcessor/Resources/Icons/Rector/IconsRector.php)
+- class: [`Ssch\TYPO3Rector\FileProcessor\Resources\Icons\Rector\v8\v3\IconsRector`](../src/FileProcessor/Resources/Icons/Rector/v8/v3/IconsRector.php)
 
 ```diff
 -ext_icon.gif
