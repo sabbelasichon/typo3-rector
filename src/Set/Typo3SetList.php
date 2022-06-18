@@ -12,7 +12,7 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const TYPO3_76 = __DIR__ . '/../../config/typo3-7.6.php';
+    public const TYPO3_76 = __DIR__ . '/../../config/typo3-7.php';
 
     /**
      * @var string
@@ -22,7 +22,7 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const TYPO3_87 = __DIR__ . '/../../config/typo3-8.7.php';
+    public const TYPO3_87 = __DIR__ . '/../../config/typo3-8.php';
 
     /**
      * @var string
@@ -37,7 +37,7 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const TYPO3_95 = __DIR__ . '/../../config/typo3-9.5.php';
+    public const TYPO3_95 = __DIR__ . '/../../config/typo3-9.php';
 
     /**
      * @var string
@@ -62,7 +62,7 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const TYPO3_104 = __DIR__ . '/../../config/typo3-10.4.php';
+    public const TYPO3_104 = __DIR__ . '/../../config/typo3-10.php';
 
     /**
      * @var string
@@ -87,12 +87,12 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const TYPO3_11 = __DIR__ . '/../../config/typo3-11.5.php';
+    public const TYPO3_11 = __DIR__ . '/../../config/typo3-11.php';
 
     /**
      * @var string
      */
-    public const TYPO3_12 = __DIR__ . '/../../config/typo3-12.0.php';
+    public const TYPO3_12 = __DIR__ . '/../../config/typo3-12.php';
 
     /**
      * @var string
