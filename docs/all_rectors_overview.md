@@ -1,4 +1,4 @@
-# 254 Rules Overview
+# 255 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -3072,6 +3072,21 @@ Remove EidUtility and various TSFE methods
 -EidUtility::initLanguage();
 -EidUtility::initTCA();
 +-
+```
+
+<br>
+
+## RemoveNoCacheHashAndUseCacheHashAttributeFluidRector
+
+Remove noCacheHash="1" and useCacheHash="1" attribute
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\v10\v0\RemoveNoCacheHashAndUseCacheHashAttributeFluidRector`](../src/FileProcessor/Fluid/Rector/v10/v0/RemoveNoCacheHashAndUseCacheHashAttributeFluidRector.php)
+
+```diff
+-<f:link.page noCacheHash="1">Link</f:link.page>
+-<f:link.typolink useCacheHash="1">Link</f:link.typolink>
++<f:link.page>Link</f:link.page>
++<f:link.typolink>Link</f:link.typolink>
 ```
 
 <br>
