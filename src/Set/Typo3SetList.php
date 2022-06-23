@@ -72,6 +72,11 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const TYPOSCRIPT_100 = __DIR__ . '/../../config/v10/typoscript-100.php';
+
+    /**
+     * @var string
+     */
     public const TYPOSCRIPT_CONDITIONS_104 = __DIR__ . '/../../config/v10/typoscript-conditions-104.php';
 
     /**
