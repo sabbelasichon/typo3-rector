@@ -1,4 +1,4 @@
-# 255 Rules Overview
+# 256 Rules Overview
 
 ## AddRenderTypeToSelectFieldRector
 
@@ -3405,6 +3405,21 @@ Remove unused `TemplateService->updateRootlineData()` calls
 -$templateService = GeneralUtility::makeInstance(TemplateService::class);
 -$templateService->updateRootlineData();
 +$templateService = GeneralUtility::makeInstance(TemplateService::class);
+```
+
+<br>
+
+## RemoveUseCacheHashRector
+
+Remove useCacheHash TypoScript setting
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v0\typoscript\RemoveUseCacheHashRector`](../src/Rector/v10/v0/typoscript/RemoveUseCacheHashRector.php)
+
+```diff
+ typolink {
+     parameter = 3
+-    useCacheHash = 1
+ }
 ```
 
 <br>
