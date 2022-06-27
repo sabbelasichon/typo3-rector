@@ -1,6 +1,5 @@
 includes:
     # see https://github.com/symplify/phpstan-extensions
-    - phpstan-baseline.neon
     - utils/phpstan/config/typo3-rector.neon
 
 parameters:
@@ -35,7 +34,7 @@ parameters:
          - tests/bootstrap-phpstan.php
 
     inferPrivatePropertyTypeFromConstructor: true
-    reportUnmatchedIgnoredErrors: false
+    reportUnmatchedIgnoredErrors: true
 
     ignoreErrors:
         - '#^Cognitive complexity for#'
@@ -70,14 +69,6 @@ parameters:
         # node finder
         - '#Method Ssch\\TYPO3Rector\\Rector\\v11\\v0\\ForwardResponseInsteadOfForwardMethodRector\:\:extractForwardMethodCalls\(\) should return array<PhpParser\\Node\\Expr\\MethodCall\> but returns array<PhpParser\\Node\>#'
 
-        -
-            message: '#Instead of "instanceof/is_a\(\)" use ReflectionProvider service or "\(new ObjectType\(<desired_type\>\)\)\-\>isSuperTypeOf\(<element_type\>\)" for static reflection to work#'
-            paths:
-                # typostricpt check
-                - src/FileProcessor/TypoScript/TypoScriptFileProcessor.php
-                # xml check
-                - src/FileProcessor/FlexForms/Rector/RenderTypeFlexFormRector.php
-
         # waits for Rector and PHPStan to share same php-parser, probably with PHPStan 1.0
         - '#PhpParser\\Node\\Arg\|PhpParser\\Node\\VariadicPlaceholder#'
 
@@ -100,7 +91,9 @@ parameters:
             message: '#Instead of "instanceof/is_a\(\)" use ReflectionProvider service or "\(new ObjectType\(<desired_type\>\)\)\-\>isSuperTypeOf\(<element_type\>\)" for static reflection to work#'
             paths:
                 # typo3 instanceof traverser
-                - src/FileProcessor/TypoScript/Rector/*Rector.php
+                - src/Rector/**/**/typoscript/*Rector.php
+                - src/FileProcessor/**/Rector/**/**/*Rector.php
+                - src/FileProcessor/TypoScript/TypoScriptFileProcessor.php
                 - utils/composer-packages/src/Command/AddComposerTypo3ExtensionsToConfigCommand.php
 
         -
