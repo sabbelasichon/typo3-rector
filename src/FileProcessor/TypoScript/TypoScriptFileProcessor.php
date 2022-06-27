@@ -229,17 +229,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
             }
 
             if ($originalStatement instanceof NestedAssignment) {
-                $originalNestedStatements = [];
-                foreach ($originalStatement->statements as $nestedOriginalStatement) {
-                    if (! $this->removeTypoScriptStatementCollector->shouldStatementBeRemoved(
-                        $nestedOriginalStatement,
-                        $file
-                    )) {
-                        $originalNestedStatements[] = $nestedOriginalStatement;
-                    }
-                }
-
-                $originalStatement->statements = $originalNestedStatements;
+                $originalStatement->statements = $this->filterRemovedStatements($originalStatement->statements, $file);
             }
         }
 
