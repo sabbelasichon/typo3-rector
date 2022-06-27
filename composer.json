@@ -27,7 +27,6 @@
         "phpstan/phpstan": "^1.7.12",
         "rector/rector": "^0.13.5",
         "symfony/console": "^4.0 || ^5.0 || ^6.0",
-        "symfony/polyfill-php80": "^1.26",
         "symfony/string": "^5.0 || ^6.0",
         "webmozart/assert": "^1.0"
     },
@@ -39,13 +38,11 @@
         "rector/phpstan-rules": "^0.5",
         "rector/rector-generator": "0.6.5 as dev-main",
         "rector/rector-src": "^0.13.5",
-        "symplify/coding-standard": "^10.2",
         "symplify/easy-coding-standard": "^10.2",
         "symplify/phpstan-extensions": "^10.2",
         "symplify/phpstan-rules": "10.3.0",
         "symplify/rule-doc-generator": "^10.2",
-        "symplify/vendor-patches": "^10.2",
-        "tracy/tracy": "^2.8"
+        "symplify/vendor-patches": "^10.2"
     },
     "autoload": {
         "psr-4": {
