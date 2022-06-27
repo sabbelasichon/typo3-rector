@@ -60,7 +60,11 @@ final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector imp
 
         $class = $this->nodeFactory->createClassConstReference($className);
 
-        return $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\GeneralUtility', 'makeInstance', [$class]);
+        return $this->nodeFactory->createStaticCall(
+            'TYPO3\\CMS\\Core\\Utility\\GeneralUtility',
+            'makeInstance',
+            [$class]
+        );
     }
 
     /**
