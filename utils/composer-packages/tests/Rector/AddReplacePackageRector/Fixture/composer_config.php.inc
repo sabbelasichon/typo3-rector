@@ -16,7 +16,7 @@ use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../services.php');
-    $composerExtensions = [new RenamePackage('typo3-ter/news', 'georgringer/news')];
+    $composerExtensions = [new RenamePackage('typo3-ter/news', 'georgringer/news'), new RenamePackage('foo/bar', 'foo/baz')];
 };
 
 ?>

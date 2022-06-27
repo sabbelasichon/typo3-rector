@@ -42,7 +42,6 @@ use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
 use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use Symplify\PackageBuilder\Reflection\ClassLikeExistenceChecker;
 
 final class InitializeArgumentsClassMethodFactory
 {
@@ -64,8 +63,7 @@ final class InitializeArgumentsClassMethodFactory
         private readonly PhpDocInfoFactory $phpDocInfoFactory,
         private readonly ReflectionProvider $reflectionProvider,
         private readonly ValueResolver $valueResolver,
-        private readonly AstResolver $astResolver,
-        private readonly ClassLikeExistenceChecker $classLikeExistenceChecker
+        private readonly AstResolver $astResolver
     ) {
     }
 
@@ -354,11 +352,24 @@ final class InitializeArgumentsClassMethodFactory
             return $docString;
         }
 
-        if (! $this->classLikeExistenceChecker->doesClassLikeExist($classLikeName)) {
+        if (! $this->doesClassLikeExist($classLikeName)) {
             return $classLikeName;
         }
 
         $fullyQualified = new FullyQualified($classLikeName);
         return new ClassConstFetch($fullyQualified, 'class');
+    }
+
+    private function doesClassLikeExist(string $classLike): bool
+    {
+        if (class_exists($classLike)) {
+            return true;
+        }
+
+        if (interface_exists($classLike)) {
+            return true;
+        }
+
+        return trait_exists($classLike);
     }
 }

@@ -146,7 +146,7 @@ CODE_SAMPLE
                 return;
             }
 
-            $fieldValue->value = new String_(sprintf('EXT:%s/%s', $extensionKey, ltrim($pathToFile, '/')));
+            $fieldValue->value = new String_(sprintf('EXT:%s/%s', $extensionKey, ltrim((string) $pathToFile, '/')));
         }
 
         if (! $fieldValue->value instanceof String_) {

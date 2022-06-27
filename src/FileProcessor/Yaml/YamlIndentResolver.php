@@ -33,6 +33,6 @@ final class YamlIndentResolver
 
         $firstIndent = $firstSpaceMatch[self::FIRST_INDENT_KEY];
 
-        return substr_count($firstIndent, ' ');
+        return substr_count((string) $firstIndent, ' ');
     }
 }

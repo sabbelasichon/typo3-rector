@@ -34,10 +34,10 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
                 $matches
             );
 
-            $type = trim($matches['type']);
-            $property = trim($matches['property']);
-            $operator = trim($matches['operator']);
-            $value = trim($matches['value']);
+            $type = trim((string) $matches['type']);
+            $property = trim((string) $matches['property']);
+            $operator = trim((string) $matches['operator']);
+            $value = trim((string) $matches['value']);
 
             $newConditions[] = match ($type) {
                 'ENV' => $this->createEnvCondition($property, $operator, $value),

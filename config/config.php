@@ -10,20 +10,22 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
+use Rector\Config\RectorConfig;
 use Rector\RectorGenerator\FileSystem\ConfigFilesystem;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
-use Ssch\TYPO3Rector\Rector\PostRector\FullQualifiedNamePostRector;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\Filesystem\Filesystem;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->import(__DIR__ . '/../utils/**/config/config.php', null, true);
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->import(__DIR__ . '/../utils/**/config/config.php', null, true);
 
-    $services = $containerConfigurator->services();
+    $services = $rectorConfig->services();
     $services->defaults()
         ->public()
         ->autowire();
+
+    $services->set(Filesystem::class);
 
     $services->load('Ssch\\TYPO3Rector\\', __DIR__ . '/../src')
         ->exclude([
@@ -76,5 +78,4 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services->set(ConfigFilesystem::class);
     $services->set(\Rector\RectorGenerator\TemplateFactory::class);
     $services->set(\PhpParser\PrettyPrinter\Standard::class);
-    $services->set(FullQualifiedNamePostRector::class);
 };

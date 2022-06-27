@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 include_once __DIR__ . '/../typo3.constants.php';
+include_once __DIR__ . '/../vendor/rector/rector/vendor/symplify/composer-json-manipulator/src/ValueObject/ComposerJson.php';
+include_once __DIR__ . '/../vendor/rector/rector/vendor/symplify/smart-file-system/src/SmartFileInfo.php';
 // silent deprecations, since we test them
 error_reporting(E_ALL & ~E_NOTICE | E_DEPRECATED);
 // performance boost

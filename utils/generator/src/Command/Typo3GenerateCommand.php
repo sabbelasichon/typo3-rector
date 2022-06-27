@@ -6,8 +6,8 @@ namespace Ssch\TYPO3Rector\Generator\Command;
 
 use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Exception\ShouldNotHappenException;
-use Rector\RectorGenerator\FileSystem\ConfigFilesystem;
 use RuntimeException;
+use Ssch\TYPO3Rector\Generator\FileSystem\ConfigFilesystem;
 use Ssch\TYPO3Rector\Generator\Finder\TemplateFinder;
 use Ssch\TYPO3Rector\Generator\Generator\FileGenerator;
 use Ssch\TYPO3Rector\Generator\ValueObject\Description;
@@ -105,7 +105,7 @@ final class Typo3GenerateCommand extends Command
         $whatIsTheUrlToChangelog = new Question(
             'Url to changelog (i.e. https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/...): '
         );
-        $whatIsTheUrlToChangelog->setNormalizer(fn ($url) => Url::createFromString(trim($url)));
+        $whatIsTheUrlToChangelog->setNormalizer(fn ($url) => Url::createFromString(trim((string) $url)));
 
         return $whatIsTheUrlToChangelog;
     }
@@ -113,7 +113,7 @@ final class Typo3GenerateCommand extends Command
     private function askForTypo3Version(): Question
     {
         $whatTypo3Version = new Question('TYPO3-Version (i.e. 12.0): ');
-        $whatTypo3Version->setNormalizer(fn ($version) => Typo3Version::createFromString(trim($version)));
+        $whatTypo3Version->setNormalizer(fn ($version) => Typo3Version::createFromString(trim((string) $version)));
 
         return $whatTypo3Version;
     }
@@ -121,7 +121,7 @@ final class Typo3GenerateCommand extends Command
     private function askForName(): Question
     {
         $giveMeYourName = new Question('Name (i.e MigrateRequiredFlag): ');
-        $giveMeYourName->setNormalizer(fn ($name) => Name::createFromString(trim($name)));
+        $giveMeYourName->setNormalizer(fn ($name) => Name::createFromString(trim((string) $name)));
 
         return $giveMeYourName;
     }

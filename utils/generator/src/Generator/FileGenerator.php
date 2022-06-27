@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Generator\Generator;
 
-use Rector\RectorGenerator\TemplateFactory;
 use Ssch\TYPO3Rector\Generator\FileSystem\TemplateFileSystem;
+use Ssch\TYPO3Rector\Generator\TemplateFactory;
+use Symfony\Component\Filesystem\Filesystem;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class FileGenerator
 {
     public function __construct(
-        private readonly SmartFileSystem $smartFileSystem,
+        private readonly Filesystem $filesystem,
         private readonly TemplateFactory $templateFactory,
         private readonly TemplateFileSystem $templateFileSystem
     ) {
@@ -57,7 +57,7 @@ final class FileGenerator
 
         $content = $this->templateFactory->create($smartFileInfo->getContents(), $templateVariables);
 
-        $this->smartFileSystem->dumpFile($targetFilePath, $content);
+        $this->filesystem->dumpFile($targetFilePath, $content);
 
         return $targetFilePath;
     }

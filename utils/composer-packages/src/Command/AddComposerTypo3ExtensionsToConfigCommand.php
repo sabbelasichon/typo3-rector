@@ -22,8 +22,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symplify\SmartFileSystem\SmartFileInfo;
-use Symplify\SmartFileSystem\SmartFileSystem;
 
 final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 {
@@ -31,7 +31,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         private readonly PackagistPackageResolver $packagistPackageResolver,
         private readonly RectorParser $rectorParser,
         private readonly Typo3SetListComposerConfigurationPathResolver $typo3SetListComposerConfigurationPathResolver,
-        private readonly SmartFileSystem $smartFileSystem,
+        private readonly Filesystem $filesystem,
         private readonly BetterStandardPrinter $betterStandardPrinter,
         private readonly AddPackageVersionRector $addPackageVersionRector,
         private readonly AddReplacePackageRector $replacePackageRector,
@@ -91,7 +91,7 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
                 $nodes = $nodeTraverser->traverse($nodes);
 
                 $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
-                $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
+                $this->filesystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
             }
         }
 
@@ -132,6 +132,6 @@ final class AddComposerTypo3ExtensionsToConfigCommand extends Command
         $nodes = $nodeTraverser->traverse($nodes);
 
         $changedSetConfigContent = $this->betterStandardPrinter->prettyPrintFile($nodes);
-        $this->smartFileSystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
+        $this->filesystem->dumpFile($smartFileInfo->getRealPath(), $changedSetConfigContent);
     }
 }
