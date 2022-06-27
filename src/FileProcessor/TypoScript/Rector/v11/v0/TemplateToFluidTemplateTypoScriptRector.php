@@ -32,6 +32,7 @@ final class TemplateToFluidTemplateTypoScriptRector extends AbstractTypoScriptRe
         }
 
         $statement->value->value = 'FLUIDTEMPLATE';
+        $this->hasChanged = true;
     }
 
     public function getRuleDefinition(): RuleDefinition
