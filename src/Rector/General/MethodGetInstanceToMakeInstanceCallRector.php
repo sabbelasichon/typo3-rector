@@ -11,7 +11,6 @@ use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Webmozart\Assert\Assert;
 
 /**
@@ -61,7 +60,7 @@ final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector imp
 
         $class = $this->nodeFactory->createClassConstReference($className);
 
-        return $this->nodeFactory->createStaticCall(GeneralUtility::class, 'makeInstance', [$class]);
+        return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [$class]);
     }
 
     /**
@@ -80,7 +79,7 @@ use TYPO3\CMS\Core\Resource\Index\ExtractorRegistry;
 
 $instance = GeneralUtility::makeInstance(ExtractorRegistry::class);
 CODE_SAMPLE
-,
+                ,
                 self::EXAMPLE_CONFIGURATION
             ),
         ]);
