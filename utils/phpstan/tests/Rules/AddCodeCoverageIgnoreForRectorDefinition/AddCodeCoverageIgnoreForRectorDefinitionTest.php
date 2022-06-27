@@ -6,14 +6,14 @@ namespace Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDef
 
 use Iterator;
 use PHPStan\Rules\Rule;
+use PHPStan\Testing\RuleTestCase;
 use Ssch\TYPO3Rector\PHPStan\Rules\AddCodeCoverageIgnoreForRectorDefinitionRule;
 use Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\Fixture\MissingCodeCoverageIgnore;
-use Symplify\PHPStanExtensions\Testing\AbstractServiceAwareRuleTestCase;
 
 /**
- * @template-extends AbstractServiceAwareRuleTestCase<AddCodeCoverageIgnoreForRectorDefinitionRule>
+ * @extends RuleTestCase<AddCodeCoverageIgnoreForRectorDefinitionRule>
  */
-final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractServiceAwareRuleTestCase
+final class AddCodeCoverageIgnoreForRectorDefinitionTest extends RuleTestCase
 {
     /**
      * @dataProvider provideData()
@@ -37,11 +37,13 @@ final class AddCodeCoverageIgnoreForRectorDefinitionTest extends AbstractService
         yield [__DIR__ . '/Fixture/SkipWithCodeCoverageIgnore.php', []];
     }
 
+    public static function getAdditionalConfigFiles(): array
+    {
+        return [__DIR__ . '/../../../config/typo3-rector.neon'];
+    }
+
     protected function getRule(): Rule
     {
-        return $this->getRuleFromConfig(
-            AddCodeCoverageIgnoreForRectorDefinitionRule::class,
-            __DIR__ . '/../../../config/typo3-rector.neon'
-        );
+        return self::getContainer()->getByType(AddCodeCoverageIgnoreForRectorDefinitionRule::class);
     }
 }

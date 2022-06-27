@@ -6,13 +6,13 @@ namespace Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddChangelogDocBlockForRectorClas
 
 use Iterator;
 use PHPStan\Rules\Rule;
+use PHPStan\Testing\RuleTestCase;
 use Ssch\TYPO3Rector\PHPStan\Rules\AddChangelogDocBlockForRectorClassRule;
-use Symplify\PHPStanExtensions\Testing\AbstractServiceAwareRuleTestCase;
 
 /**
- * @template-extends AbstractServiceAwareRuleTestCase<AddChangelogDocBlockForRectorClassRule>
+ * @extends RuleTestCase<AddChangelogDocBlockForRectorClassRule>
  */
-final class AddChangelogDocBlockForRectorClassTest extends AbstractServiceAwareRuleTestCase
+final class AddChangelogDocBlockForRectorClassTest extends RuleTestCase
 {
     /**
      * @dataProvider provideData()
@@ -33,14 +33,13 @@ final class AddChangelogDocBlockForRectorClassTest extends AbstractServiceAwareR
         yield [__DIR__ . '/Fixture/SkipWithChangelog.php', []];
     }
 
-    /**
-     * @return AddChangelogDocBlockForRectorClassRule
-     */
+    public static function getAdditionalConfigFiles(): array
+    {
+        return [__DIR__ . '/../../../config/typo3-rector.neon'];
+    }
+
     protected function getRule(): Rule
     {
-        return $this->getRuleFromConfig(
-            AddChangelogDocBlockForRectorClassRule::class,
-            __DIR__ . '/../../../config/typo3-rector.neon'
-        );
+        return self::getContainer()->getByType(AddChangelogDocBlockForRectorClassRule::class);
     }
 }
