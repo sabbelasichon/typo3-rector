@@ -23,7 +23,7 @@ final class __Name__Test extends AbstractRectorTestCase
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.typoscript');
     }
 
     public function provideConfigFilePath(): string
