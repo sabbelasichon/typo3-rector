@@ -219,7 +219,9 @@ CODE_SAMPLE
     {
         $classMethodName = (string) $this->getName($classMethod->name);
 
-        if (! str_ends_with($classMethodName, 'Action')) {
+        if (! str_ends_with($classMethodName, 'Action')
+            || (str_starts_with($classMethodName, 'initialize') && str_ends_with($classMethodName, 'Action'))
+            ) {
             return;
         }
 
