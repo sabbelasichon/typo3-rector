@@ -84,7 +84,7 @@ final class Typo3GenerateCommand extends Command
         $generatedFilePaths = $this->fileGenerator->generateFiles(
             $templateFileInfos,
             $templateVariables,
-            $targetDirectory
+            (string) $targetDirectory
         );
 
         $testCaseDirectoryPath = $this->resolveTestCaseDirectoryPath($generatedFilePaths);

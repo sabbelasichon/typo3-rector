@@ -67,7 +67,7 @@ final class AddSetConfigurationMethodToExceptionHandlerRector extends AbstractRe
         // Add all statements from constructor to new configuration method
         $configurationMethod->stmts = (array) $constructClassMethod->stmts;
 
-        $this->renameFirstConstructorParameterVariableName($constructClassMethod, $firstParameterName);
+        $this->renameFirstConstructorParameterVariableName($constructClassMethod, (string) $firstParameterName);
 
         $constructClassMethod->stmts = [];
 
