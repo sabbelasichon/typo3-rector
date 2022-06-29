@@ -54,21 +54,83 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
     private array $fileDiffs = [];
 
     /**
+     * @readonly
+     */
+    private ParserInterface $typoscriptParser;
+
+    /**
+     * @readonly
+     */
+    private BufferedOutput $output;
+
+    /**
+     * @readonly
+     */
+    private ASTPrinterInterface $typoscriptPrinter;
+
+    /**
+     * @readonly
+     */
+    private CurrentFileProvider $currentFileProvider;
+
+    /**
+     * @readonly
+     */
+    private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector;
+
+    /**
+     * @readonly
+     */
+    private RectorOutputStyle $rectorOutputStyle;
+
+    /**
+     * @readonly
+     */
+    private FileDiffFactory $fileDiffFactory;
+
+    /**
+     * @readonly
+     */
+    private RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector;
+
+    /**
+     * @var TypoScriptRectorInterface[]
+     * @readonly
+     */
+    private array $typoScriptRectors = [];
+
+    /**
+     * @var TypoScriptPostRectorInterface[]
+     * @readonly
+     */
+    private array $typoScriptPostRectors = [];
+
+    /**
      * @param TypoScriptRectorInterface[] $typoScriptRectors
      * @param TypoScriptPostRectorInterface[] $typoScriptPostRectors
      */
     public function __construct(
-        private readonly ParserInterface $typoscriptParser,
-        private readonly BufferedOutput $output,
-        private readonly ASTPrinterInterface $typoscriptPrinter,
-        private readonly CurrentFileProvider $currentFileProvider,
-        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        private readonly RectorOutputStyle $rectorOutputStyle,
-        private readonly FileDiffFactory $fileDiffFactory,
-        private readonly RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector,
-        private readonly array $typoScriptRectors = [],
-        private readonly array $typoScriptPostRectors = []
+        ParserInterface $typoscriptParser,
+        BufferedOutput $output,
+        ASTPrinterInterface $typoscriptPrinter,
+        CurrentFileProvider $currentFileProvider,
+        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        RectorOutputStyle $rectorOutputStyle,
+        FileDiffFactory $fileDiffFactory,
+        RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector,
+        array $typoScriptRectors = [],
+        array $typoScriptPostRectors = []
     ) {
+        $this->typoscriptParser = $typoscriptParser;
+        $this->output = $output;
+        $this->typoscriptPrinter = $typoscriptPrinter;
+        $this->currentFileProvider = $currentFileProvider;
+        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+        $this->rectorOutputStyle = $rectorOutputStyle;
+        $this->fileDiffFactory = $fileDiffFactory;
+        $this->removeTypoScriptStatementCollector = $removeTypoScriptStatementCollector;
+        $this->typoScriptRectors = $typoScriptRectors;
+        $this->typoScriptPostRectors = $typoScriptPostRectors;
     }
 
     public function supports(File $file, Configuration $configuration): bool
@@ -172,9 +234,9 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
                 $oldFileContents,
                 $file->getFileContent()
             );
-        } catch (TokenizerException) {
+        } catch (TokenizerException $tokenizerException) {
             return;
-        } catch (ParseError) {
+        } catch (ParseError $parseError) {
             $smartFileInfo = $file->getSmartFileInfo();
             $errorFile = $smartFileInfo->getRelativeFilePath();
             $this->rectorOutputStyle->warning(sprintf('TypoScriptParser Error in: %s. File skipped.', $errorFile));

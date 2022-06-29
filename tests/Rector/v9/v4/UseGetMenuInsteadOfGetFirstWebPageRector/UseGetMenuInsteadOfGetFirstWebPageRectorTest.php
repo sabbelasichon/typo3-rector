@@ -12,8 +12,9 @@ final class UseGetMenuInsteadOfGetFirstWebPageRectorTest extends AbstractRectorT
 {
     /**
      * @dataProvider provideData()
+     * @return never
      */
-    public function test(SmartFileInfo $fileInfo): never
+    public function test(SmartFileInfo $fileInfo)
     {
         $this->markTestIncomplete('The comparison is false positive wrongly.');
         #$this->doTestFileInfo($fileInfo);

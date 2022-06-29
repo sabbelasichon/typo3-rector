@@ -19,12 +19,23 @@ use UnexpectedValueException;
 final class FlexFormsProcessor implements FileProcessorInterface
 {
     /**
+     * @var FlexFormRectorInterface[]
+     * @readonly
+     */
+    private array $flexFormRectors = [];
+
+    /**
+     * @readonly
+     */
+    private FileDiffFactory $fileDiffFactory;
+
+    /**
      * @param FlexFormRectorInterface[] $flexFormRectors
      */
-    public function __construct(
-        private readonly array $flexFormRectors,
-        private readonly FileDiffFactory $fileDiffFactory,
-    ) {
+    public function __construct(array $flexFormRectors, FileDiffFactory $fileDiffFactory)
+    {
+        $this->flexFormRectors = $flexFormRectors;
+        $this->fileDiffFactory = $fileDiffFactory;
     }
 
     /**
@@ -91,7 +102,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
 
         try {
             $xml = @simplexml_load_string($fileContent);
-        } catch (Exception) {
+        } catch (Exception $exception) {
             return false;
         }
 

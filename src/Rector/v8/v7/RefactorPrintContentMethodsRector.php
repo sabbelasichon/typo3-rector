@@ -54,7 +54,7 @@ final class RefactorPrintContentMethodsRector extends AbstractRector
 
         try {
             $this->removeNode($node);
-        } catch (ShouldNotHappenException) {
+        } catch (ShouldNotHappenException $shouldNotHappenException) {
             $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
             $this->removeNode($parentNode);
         }

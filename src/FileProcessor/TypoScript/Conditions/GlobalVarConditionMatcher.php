@@ -52,18 +52,38 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
                 $conditions[$key] = [];
             }
 
-            $conditions[$key][] = match ($type) {
-                'TSFE' => $this->refactorTsfe($property, $operator, $value),
-                'GP' => $this->refactorGetPost($property, $operator, $value),
-                'LIT' => sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property),
-                'ENV' => $this->createEnvCondition($property, $operator, $value),
-                'IENV' => $this->createIndependentCondition($property, $operator, $value),
-                'BE_USER' => $this->createBackendUserCondition($property, $operator, $value),
-                '_GET' => $this->refactorGet($property, $operator, $value),
-                'GPmerged' => $this->refactorGetPost($property, $operator, $value),
-                '_POST' => $this->refactorPost($property, $operator, $value),
-                default => $condition,
-            };
+            switch ($type) {
+                case 'TSFE':
+                    $conditions[$key][] = $this->refactorTsfe($property, $operator, $value);
+                    break;
+                case 'GP':
+                    $conditions[$key][] = $this->refactorGetPost($property, $operator, $value);
+                    break;
+                case 'LIT':
+                    $conditions[$key][] = sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property);
+                    break;
+                case 'ENV':
+                    $conditions[$key][] = $this->createEnvCondition($property, $operator, $value);
+                    break;
+                case 'IENV':
+                    $conditions[$key][] = $this->createIndependentCondition($property, $operator, $value);
+                    break;
+                case 'BE_USER':
+                    $conditions[$key][] = $this->createBackendUserCondition($property, $operator, $value);
+                    break;
+                case '_GET':
+                    $conditions[$key][] = $this->refactorGet($property, $operator, $value);
+                    break;
+                case 'GPmerged':
+                    $conditions[$key][] = $this->refactorGetPost($property, $operator, $value);
+                    break;
+                case '_POST':
+                    $conditions[$key][] = $this->refactorPost($property, $operator, $value);
+                    break;
+                default:
+                    $conditions[$key][] = $condition;
+                    break;
+            }
         }
 
         $keys = array_keys($conditions);
@@ -183,7 +203,11 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
         );
     }
 
-    private function normalizeValue(int|string $value): int|string
+    /**
+     * @param int|string $value
+     * @return int|string
+     */
+    private function normalizeValue($value)
     {
         if (! is_numeric($value)) {
             return sprintf("'%s'", $value);

@@ -15,10 +15,17 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\FileRectorInterface;
 final class ExtTypoScriptFileProcessor implements FileProcessorInterface
 {
     /**
+     * @var FileRectorInterface[]
+     * @readonly
+     */
+    private array $filesRector = [];
+
+    /**
      * @param FileRectorInterface[] $filesRector
      */
-    public function __construct(private readonly array $filesRector)
+    public function __construct(array $filesRector)
     {
+        $this->filesRector = $filesRector;
     }
 
     public function supports(File $file, Configuration $configuration): bool

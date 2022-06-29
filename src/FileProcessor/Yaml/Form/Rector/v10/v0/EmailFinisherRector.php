@@ -42,9 +42,14 @@ final class EmailFinisherRector implements FormYamlRectorInterface
      */
     private const VARIANTS = 'variants';
 
-    public function __construct(
-        private readonly CurrentFileProvider $currentFileProvider
-    ) {
+    /**
+     * @readonly
+     */
+    private CurrentFileProvider $currentFileProvider;
+
+    public function __construct(CurrentFileProvider $currentFileProvider)
+    {
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     /**

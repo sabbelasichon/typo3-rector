@@ -20,9 +20,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveMethodsFromEidUtilityAndTsfeRector extends AbstractRector
 {
-    public function __construct(
-        private readonly Typo3NodeResolver $typo3NodeResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private Typo3NodeResolver $typo3NodeResolver;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    {
+        $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
     /**
@@ -93,7 +98,10 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(StaticCall|MethodCall $call): bool
+    /**
+     * @param StaticCall|MethodCall $call
+     */
+    private function shouldSkip($call): bool
     {
         if ($this->isEidUtilityMethodCall($call)) {
             return false;
@@ -102,7 +110,10 @@ CODE_SAMPLE
         return ! $this->isMethodCallOnTsfe($call);
     }
 
-    private function isEidUtilityMethodCall(StaticCall|MethodCall $call): bool
+    /**
+     * @param StaticCall|MethodCall $call
+     */
+    private function isEidUtilityMethodCall($call): bool
     {
         return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $call,
@@ -125,11 +136,14 @@ CODE_SAMPLE
         );
     }
 
-    private function removeMethodCall(StaticCall|MethodCall|Node $node): void
+    /**
+     * @param StaticCall|MethodCall|Node $node
+     */
+    private function removeMethodCall($node): void
     {
         try {
             parent::removeNode($node);
-        } catch (ShouldNotHappenException) {
+        } catch (ShouldNotHappenException $shouldNotHappenException) {
         }
     }
 

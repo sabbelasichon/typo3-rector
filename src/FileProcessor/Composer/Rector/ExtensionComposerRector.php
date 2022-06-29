@@ -26,9 +26,14 @@ final class ExtensionComposerRector implements ComposerRectorInterface
 
     private string $defaultTypo3VersionConstraint = '';
 
-    public function __construct(
-        private readonly CurrentFileProvider $currentFileProvider
-    ) {
+    /**
+     * @readonly
+     */
+    private CurrentFileProvider $currentFileProvider;
+
+    public function __construct(CurrentFileProvider $currentFileProvider)
+    {
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function refactor(ComposerJson $composerJson): void

@@ -20,9 +20,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class ExcludeServiceKeysToArrayRector extends AbstractRector
 {
-    public function __construct(
-        private readonly ArrayTypeAnalyzer $arrayTypeAnalyzer
-    ) {
+    /**
+     * @readonly
+     */
+    private ArrayTypeAnalyzer $arrayTypeAnalyzer;
+
+    public function __construct(ArrayTypeAnalyzer $arrayTypeAnalyzer)
+    {
+        $this->arrayTypeAnalyzer = $arrayTypeAnalyzer;
     }
 
     /**

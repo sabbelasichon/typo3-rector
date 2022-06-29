@@ -20,9 +20,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class SubstituteGeneralUtilityDevLogRector extends AbstractRector
 {
-    public function __construct(
-        private readonly OldSeverityToLogLevelMapper $oldSeverityToLogLevelMapper
-    ) {
+    /**
+     * @readonly
+     */
+    private OldSeverityToLogLevelMapper $oldSeverityToLogLevelMapper;
+
+    public function __construct(OldSeverityToLogLevelMapper $oldSeverityToLogLevelMapper)
+    {
+        $this->oldSeverityToLogLevelMapper = $oldSeverityToLogLevelMapper;
     }
 
     /**

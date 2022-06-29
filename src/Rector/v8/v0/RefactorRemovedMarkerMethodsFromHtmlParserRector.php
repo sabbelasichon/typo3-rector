@@ -138,14 +138,17 @@ CODE_SAMPLE
         ]);
     }
 
-    public function removeMethods(StaticCall | MethodCall $call): void
+    /**
+     * @param StaticCall|MethodCall $call
+     */
+    public function removeMethods($call): void
     {
         if ($this->isNames($call->name, self::REMOVED_METHODS)) {
             $methodName = $this->getName($call->name);
             if (null !== $methodName) {
                 try {
                     $this->removeNode($call);
-                } catch (ShouldNotHappenException) {
+                } catch (ShouldNotHappenException $shouldNotHappenException) {
                     $parentNode = $call->getAttribute(AttributeKey::PARENT_NODE);
                     $this->removeNode($parentNode);
                 }
@@ -153,7 +156,10 @@ CODE_SAMPLE
         }
     }
 
-    public function renameMethod(StaticCall | MethodCall $call): void
+    /**
+     * @param StaticCall|MethodCall $call
+     */
+    public function renameMethod($call): void
     {
         if ($this->isName($call->name, self::RENAMED_METHOD)) {
             $methodName = $this->getName($call->name);
@@ -163,7 +169,10 @@ CODE_SAMPLE
         }
     }
 
-    private function migrateMethodsToMarkerBasedTemplateService(StaticCall | MethodCall $call): ?Node
+    /**
+     * @param StaticCall|MethodCall $call
+     */
+    private function migrateMethodsToMarkerBasedTemplateService($call): ?Node
     {
         if ($this->isNames($call->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
             $methodName = $this->getName($call->name);
@@ -184,7 +193,10 @@ CODE_SAMPLE
         return null;
     }
 
-    private function shouldSkip(StaticCall | MethodCall $call): bool
+    /**
+     * @param StaticCall|MethodCall $call
+     */
+    private function shouldSkip($call): bool
     {
         $skip = false;
         if (! $this->isNames($call->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)

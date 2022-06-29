@@ -34,9 +34,14 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
      */
     private const TYPOSCRIPT = 'typoscript';
 
-    public function __construct(
-        private readonly Typo3NodeResolver $typo3NodeResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private Typo3NodeResolver $typo3NodeResolver;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    {
+        $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
     /**
@@ -64,7 +69,7 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
 
             try {
                 $this->removeNode($node);
-            } catch (ShouldNotHappenException) {
+            } catch (ShouldNotHappenException $shouldNotHappenException) {
                 $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
                 $this->removeNode($parentNode);
             }

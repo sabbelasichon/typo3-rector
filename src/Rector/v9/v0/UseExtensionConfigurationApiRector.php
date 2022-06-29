@@ -26,9 +26,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class UseExtensionConfigurationApiRector extends AbstractRector
 {
-    public function __construct(
-        private readonly RectorOutputStyle $rectorOutputStyle
-    ) {
+    /**
+     * @readonly
+     */
+    private RectorOutputStyle $rectorOutputStyle;
+
+    public function __construct(RectorOutputStyle $rectorOutputStyle)
+    {
+        $this->rectorOutputStyle = $rectorOutputStyle;
     }
 
     /**
@@ -76,7 +81,7 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
                 'It seems that you are using the old unserialize function to access extension configuration'
             );
             $this->rectorOutputStyle->note(
-                "Use the new extension configuration API GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('YOUR_EXTENSION_KEY')",
+                "Use the new extension configuration API GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('YOUR_EXTENSION_KEY')"
             );
             return null;
         }

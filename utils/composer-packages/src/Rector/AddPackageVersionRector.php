@@ -25,9 +25,14 @@ final class AddPackageVersionRector extends AbstractRector
 {
     private ?ExtensionVersion $extensionVersion = null;
 
-    public function __construct(
-        private readonly SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer
-    ) {
+    /**
+     * @readonly
+     */
+    private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer;
+
+    public function __construct(SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer)
+    {
+        $this->symfonyPhpConfigClosureAnalyzer = $symfonyPhpConfigClosureAnalyzer;
     }
 
     public function setExtension(ExtensionVersion $extensionVersion): void

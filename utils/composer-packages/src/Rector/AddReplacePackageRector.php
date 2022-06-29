@@ -30,9 +30,14 @@ final class AddReplacePackageRector extends AbstractRector implements Configurab
      */
     private ?array $renamePackages = null;
 
-    public function __construct(
-        private readonly SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer
-    ) {
+    /**
+     * @readonly
+     */
+    private SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer;
+
+    public function __construct(SymfonyPhpConfigClosureAnalyzer $symfonyPhpConfigClosureAnalyzer)
+    {
+        $this->symfonyPhpConfigClosureAnalyzer = $symfonyPhpConfigClosureAnalyzer;
     }
 
     public function configure(array $configuration): void

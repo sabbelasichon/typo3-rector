@@ -10,10 +10,20 @@ use Ssch\TYPO3Rector\NodeFactory\CommandArrayItemFactory;
 
 final class CommandArrayDecorator
 {
-    public function __construct(
-        private readonly CommandArrayItemFactory $commandArrayItemFactory,
-        private readonly ValueResolver $valueResolver,
-    ) {
+    /**
+     * @readonly
+     */
+    private CommandArrayItemFactory $commandArrayItemFactory;
+
+    /**
+     * @readonly
+     */
+    private ValueResolver $valueResolver;
+
+    public function __construct(CommandArrayItemFactory $commandArrayItemFactory, ValueResolver $valueResolver)
+    {
+        $this->commandArrayItemFactory = $commandArrayItemFactory;
+        $this->valueResolver = $valueResolver;
     }
 
     /**

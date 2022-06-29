@@ -30,9 +30,14 @@ final class ProvideCObjViaMethodRector extends AbstractRector
      */
     private const COBJ = 'cObj';
 
-    public function __construct(
-        private readonly VisibilityManipulator $visibilityManipulator,
-    ) {
+    /**
+     * @readonly
+     */
+    private VisibilityManipulator $visibilityManipulator;
+
+    public function __construct(VisibilityManipulator $visibilityManipulator)
+    {
+        $this->visibilityManipulator = $visibilityManipulator;
     }
 
     /**

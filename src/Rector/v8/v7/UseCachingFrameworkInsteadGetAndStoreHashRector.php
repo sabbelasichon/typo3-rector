@@ -22,9 +22,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class UseCachingFrameworkInsteadGetAndStoreHashRector extends AbstractRector
 {
-    public function __construct(
-        private readonly Typo3NodeResolver $typo3NodeResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private Typo3NodeResolver $typo3NodeResolver;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    {
+        $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
     /**
@@ -96,7 +101,10 @@ CODE_SAMPLE
         ]);
     }
 
-    private function shouldSkip(MethodCall | StaticCall $node): bool
+    /**
+     * @param MethodCall|StaticCall $node
+     */
+    private function shouldSkip($node): bool
     {
         if ($this->typo3NodeResolver->isMethodCallOnSysPageOfTSFE($node)) {
             return false;

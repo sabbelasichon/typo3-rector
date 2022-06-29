@@ -129,7 +129,7 @@ CODE_SAMPLE
         $comments = $node->getComments();
         $comments = array_map(
             static fn (Comment $comment) => new Comment(str_replace(' @return void', '', $comment->getText())),
-            $comments,
+            $comments
         );
         $node->setAttribute('comments', $comments);
 

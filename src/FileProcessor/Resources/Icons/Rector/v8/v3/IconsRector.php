@@ -17,9 +17,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class IconsRector implements IconRectorInterface
 {
-    public function __construct(
-        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
-    ) {
+    /**
+     * @readonly
+     */
+    private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector;
+
+    public function __construct(RemovedAndAddedFilesCollector $removedAndAddedFilesCollector)
+    {
+        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
     }
 
     public function refactorFile(File $file): void

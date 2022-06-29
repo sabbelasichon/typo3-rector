@@ -52,9 +52,14 @@ final class PageNotFoundAndErrorHandlingRector extends AbstractRector
         'pageErrorHandler',
     ];
 
-    public function __construct(
-        private readonly Typo3NodeResolver $typo3NodeResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private Typo3NodeResolver $typo3NodeResolver;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    {
+        $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
     /**
@@ -290,7 +295,7 @@ CODE_SAMPLE
     {
         try {
             $this->removeNode($node);
-        } catch (ShouldNotHappenException) {
+        } catch (ShouldNotHappenException $shouldNotHappenException) {
             $this->removeNode($node->getAttribute(AttributeKey::PARENT_NODE));
         }
     }

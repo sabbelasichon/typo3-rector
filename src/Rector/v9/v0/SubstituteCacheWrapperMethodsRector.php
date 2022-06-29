@@ -75,7 +75,7 @@ final class SubstituteCacheWrapperMethodsRector extends AbstractRector
         // At the end, remove the old method call node
         try {
             $this->removeNode($node);
-        } catch (ShouldNotHappenException) {
+        } catch (ShouldNotHappenException $shouldNotHappenException) {
             $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
             $this->removeNode($parentNode);
         }

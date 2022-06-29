@@ -23,12 +23,23 @@ final class IconsFileProcessor implements FileProcessorInterface
     private const EXT_ICON_NAME = 'ext_icon';
 
     /**
+     * @readonly
+     */
+    private FilesFinder $filesFinder;
+
+    /**
+     * @var IconRectorInterface[]
+     * @readonly
+     */
+    private array $iconsRector = [];
+
+    /**
      * @param IconRectorInterface[] $iconsRector
      */
-    public function __construct(
-        private readonly FilesFinder $filesFinder,
-        private readonly array $iconsRector
-    ) {
+    public function __construct(FilesFinder $filesFinder, array $iconsRector)
+    {
+        $this->filesFinder = $filesFinder;
+        $this->iconsRector = $iconsRector;
     }
 
     /**

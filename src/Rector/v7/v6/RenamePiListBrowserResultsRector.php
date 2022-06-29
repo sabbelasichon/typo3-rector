@@ -59,8 +59,9 @@ final class RenamePiListBrowserResultsRector extends AbstractRector
 
     /**
      * @param string|string[] $newMethodNames
+     * @return MethodCall|ArrayDimFetch
      */
-    private function process(MethodCall $methodCall, string | array $newMethodNames): MethodCall | ArrayDimFetch
+    private function process(MethodCall $methodCall, $newMethodNames)
     {
         if (is_string($newMethodNames)) {
             $methodCall->name = new Identifier($newMethodNames);

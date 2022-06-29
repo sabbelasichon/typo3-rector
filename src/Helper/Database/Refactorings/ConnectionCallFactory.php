@@ -11,9 +11,14 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 
 final class ConnectionCallFactory
 {
-    public function __construct(
-        private readonly NodeFactory $nodeFactory
-    ) {
+    /**
+     * @readonly
+     */
+    private NodeFactory $nodeFactory;
+
+    public function __construct(NodeFactory $nodeFactory)
+    {
+        $this->nodeFactory = $nodeFactory;
     }
 
     public function createConnectionCall(Arg $firstArgument): Assign

@@ -19,10 +19,22 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveSendCacheHeadersConfigOptionRector extends AbstractTypoScriptRector
 {
+    /**
+     * @readonly
+     */
+    private RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector;
+
+    /**
+     * @readonly
+     */
+    private CurrentFileProvider $currentFileProvider;
+
     public function __construct(
-        private readonly RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector,
-        private readonly CurrentFileProvider $currentFileProvider
+        RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector,
+        CurrentFileProvider $currentFileProvider
     ) {
+        $this->removeTypoScriptStatementCollector = $removeTypoScriptStatementCollector;
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function enterNode(Statement $statement): void

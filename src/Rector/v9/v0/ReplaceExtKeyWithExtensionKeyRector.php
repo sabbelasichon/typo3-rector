@@ -25,9 +25,14 @@ use Throwable;
  */
 final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
 {
-    public function __construct(
-        private readonly FilesFinder $filesFinder
-    ) {
+    /**
+     * @readonly
+     */
+    private FilesFinder $filesFinder;
+
+    public function __construct(FilesFinder $filesFinder)
+    {
+        $this->filesFinder = $filesFinder;
     }
 
     /**
@@ -134,7 +139,7 @@ CODE_SAMPLE
                 [, $extensionKey] = explode('/', (string) $json['name'], 2);
                 return str_replace('-', '_', $extensionKey);
             }
-        } catch (Throwable) {
+        } catch (Throwable $throwable) {
             return null;
         }
 

@@ -27,9 +27,14 @@ final class ReplacePreviewUrlMethodRector extends AbstractRector
      */
     private const MESSAGE = 'Rector changed the BackendUtility::getPreviewUrl call, but there might be further steps necessary. See Deprecation-97544-PreviewURIGenerationRelatedFunctionalityInBackendUtility.html';
 
-    public function __construct(
-        private readonly RectorOutputStyle $rectorOutputStyle
-    ) {
+    /**
+     * @readonly
+     */
+    private RectorOutputStyle $rectorOutputStyle;
+
+    public function __construct(RectorOutputStyle $rectorOutputStyle)
+    {
+        $this->rectorOutputStyle = $rectorOutputStyle;
     }
 
     /**

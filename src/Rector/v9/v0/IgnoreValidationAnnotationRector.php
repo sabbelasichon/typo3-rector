@@ -31,10 +31,22 @@ final class IgnoreValidationAnnotationRector extends AbstractRector
      */
     private const VERY_OLD_ANNOTATION = 'dontvalidate';
 
+    /**
+     * @readonly
+     */
+    private PhpDocTagRemover $phpDocTagRemover;
+
+    /**
+     * @readonly
+     */
+    private ImportExtbaseAnnotationIfMissingFactory $importExtbaseAnnotationIfMissingFactory;
+
     public function __construct(
-        private readonly PhpDocTagRemover $phpDocTagRemover,
-        private readonly ImportExtbaseAnnotationIfMissingFactory $importExtbaseAnnotationIfMissingFactory
+        PhpDocTagRemover $phpDocTagRemover,
+        ImportExtbaseAnnotationIfMissingFactory $importExtbaseAnnotationIfMissingFactory
     ) {
+        $this->phpDocTagRemover = $phpDocTagRemover;
+        $this->importExtbaseAnnotationIfMissingFactory = $importExtbaseAnnotationIfMissingFactory;
     }
 
     /**

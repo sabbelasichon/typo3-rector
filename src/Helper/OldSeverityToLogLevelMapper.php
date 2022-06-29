@@ -9,9 +9,14 @@ use Rector\Core\PhpParser\Node\NodeFactory;
 
 final class OldSeverityToLogLevelMapper
 {
-    public function __construct(
-        private readonly NodeFactory $nodeFactory
-    ) {
+    /**
+     * @readonly
+     */
+    private NodeFactory $nodeFactory;
+
+    public function __construct(NodeFactory $nodeFactory)
+    {
+        $this->nodeFactory = $nodeFactory;
     }
 
     public function mapSeverityToLogLevel(int $severityValue): ClassConstFetch

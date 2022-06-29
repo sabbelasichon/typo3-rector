@@ -19,10 +19,20 @@ use Symplify\SmartFileSystem\SmartFileInfo;
  */
 final class RenameExtTypoScriptFilesFileRector implements FileRectorInterface
 {
-    public function __construct(
-        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        private readonly FilesFinder $filesFinder
-    ) {
+    /**
+     * @readonly
+     */
+    private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector;
+
+    /**
+     * @readonly
+     */
+    private FilesFinder $filesFinder;
+
+    public function __construct(RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, FilesFinder $filesFinder)
+    {
+        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+        $this->filesFinder = $filesFinder;
     }
 
     public function refactorFile(File $file): void

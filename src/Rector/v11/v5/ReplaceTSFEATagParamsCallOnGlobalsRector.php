@@ -24,9 +24,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class ReplaceTSFEATagParamsCallOnGlobalsRector extends AbstractRector
 {
-    public function __construct(
-        private readonly Typo3NodeResolver $typo3NodeResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private Typo3NodeResolver $typo3NodeResolver;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    {
+        $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
     /**
@@ -46,19 +51,13 @@ final class ReplaceTSFEATagParamsCallOnGlobalsRector extends AbstractRector
             return null;
         }
 
-        $propertyFetch = $this->nodeFactory->createPropertyFetch(
-            new ArrayDimFetch(
-                new Variable('GLOBALS'),
-                new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
-            ),
-            'config',
-        );
+        $propertyFetch = $this->nodeFactory->createPropertyFetch(new ArrayDimFetch(
+            new Variable('GLOBALS'),
+            new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
+        ), 'config');
 
         return new Coalesce(
-            new ArrayDimFetch(
-                new ArrayDimFetch($propertyFetch, new String_('config'),),
-                new String_('ATagParams'),
-            ),
+            new ArrayDimFetch(new ArrayDimFetch($propertyFetch, new String_('config')), new String_('ATagParams')),
             new String_('')
         );
     }
