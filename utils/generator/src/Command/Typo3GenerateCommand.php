@@ -69,8 +69,6 @@ final class Typo3GenerateCommand extends Command
         $templateFileInfos = $this->templateFinder->find($type);
 
         $templateVariables = [
-            '__Package__' => $recipe->getMajorVersion(),
-            '__Category__' => $recipe->getMinorVersion(),
             '__Major__' => $recipe->getMajorVersion(),
             '__Minor__' => $recipe->getMinorVersion(),
             '__Type__' => $type,
@@ -90,7 +88,7 @@ final class Typo3GenerateCommand extends Command
 
         $testCaseDirectoryPath = $this->resolveTestCaseDirectoryPath($generatedFilePaths);
 
-        $this->configFilesystem->appendRectorServiceToSet(
+        $this->configFilesystem->addRuleToConfigurationFile(
             $recipe->getSet(),
             $templateVariables,
             self::RECTOR_FQN_NAME_PATTERN
