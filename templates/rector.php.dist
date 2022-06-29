@@ -25,7 +25,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importNames();
 
     // this will not import root namespace classes, like \DateTime or \Exception
-    $rectorConfig->disableImportShortClasses();
+    $rectorConfig->importShortClasses(false);
 
     // this prevents infinite loop issues due to symlinks in e.g. ".Build/" folders within single extensions
     $parameters->set(Option::FOLLOW_SYMLINKS, false);

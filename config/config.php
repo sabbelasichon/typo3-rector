@@ -11,14 +11,13 @@ use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use Rector\Config\RectorConfig;
-use Rector\RectorGenerator\FileSystem\ConfigFilesystem;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/../utils/**/config/config.php', null, true);
+    $rectorConfig->import(__DIR__ . '/../utils/composer-packages/config/config.php', null, true);
 
     $services = $rectorConfig->services();
     $services->defaults()
@@ -41,6 +40,7 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/../src/FileProcessor/Resources/Icons/Rector',
             __DIR__ . '/../src/FileProcessor/Resources/Files/Rector',
             __DIR__ . '/../src/FileProcessor/Fluid/Rector',
+            __DIR__ . '/../src/Console/Application/Typo3RectorKernel.php',
         ]);
 
     $services->set(Traverser::class);
@@ -74,8 +74,5 @@ return static function (RectorConfig $rectorConfig): void {
             'typoscriptsetupts',
         ]]);
 
-    // custom generator
-    $services->set(ConfigFilesystem::class);
-    $services->set(\Rector\RectorGenerator\TemplateFactory::class);
     $services->set(\PhpParser\PrettyPrinter\Standard::class);
 };
