@@ -140,12 +140,12 @@ CODE_SAMPLE
                 }
 
                 $optionValue = str_replace("'", '"', $optionValue);
-                $optionsArray[] = sprintf('"%s": %s', trim($optionName), trim($optionValue));
+                $optionsArray[] = sprintf('"%s": %s', trim((string) $optionName), trim($optionValue));
             }
 
             $annotation = sprintf(
                 '@Extbase\Validate("%s", options={%s})',
-                trim($validator),
+                trim((string) $validator),
                 implode(', ', $optionsArray)
             );
         } else {

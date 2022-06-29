@@ -24,3 +24,4 @@ utils/generator export-ignore
 utils/rules export-ignore
 typo3.constants.php export-ignore
 /stubs export-ignore
+/bin export-ignore

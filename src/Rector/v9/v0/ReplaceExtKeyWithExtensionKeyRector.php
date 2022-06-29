@@ -14,8 +14,8 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 use Symplify\SmartFileSystem\SmartFileInfo;
+use Throwable;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Important-82692-GuidelinesForExtensionFiles.html
@@ -134,7 +134,7 @@ CODE_SAMPLE
                 [, $extensionKey] = explode('/', (string) $json['name'], 2);
                 return str_replace('-', '_', $extensionKey);
             }
-        } catch (FileNotFoundException) {
+        } catch (Throwable) {
             return null;
         }
 

@@ -13,8 +13,8 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->rule(RefactorMethodFileContentRector::class);
     $rectorConfig->rule(RefactorQueryViewTableWrapRector::class);
-    $rectorConfig->rule(IconsRector::class);
 
     $services = $rectorConfig->services();
     $services->set(IconsFileProcessor::class)->autowire();
+    $services->set(IconsRector::class);
 };

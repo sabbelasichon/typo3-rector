@@ -16,13 +16,13 @@ final class StringUtility
         $underscores = $stringy->snake();
         $lower = $underscores->lower();
 
-        $underScoredExtensionName = str_replace('_', ' ', $lower->toString());
+        $underScoredExtensionName = str_replace('_', ' ', (string) $lower->toString());
 
         $stringy = u($underScoredExtensionName);
         $trimmed = $stringy->trim();
         $uppercase = $trimmed->title();
 
-        $underScoredExtensionName = ucwords($uppercase->toString());
+        $underScoredExtensionName = ucwords((string) $uppercase->toString());
 
         return str_replace(' ', '', $underScoredExtensionName);
     }

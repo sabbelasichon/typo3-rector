@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\FileProcessor\Resources\Icons\Rector\v8\v3;
 
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\Application\File;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
-use Symplify\PackageBuilder\Parameter\ParameterProvider;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -21,7 +18,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class IconsRector implements IconRectorInterface
 {
     public function __construct(
-        private readonly ParameterProvider $parameterProvider,
         private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
     ) {
     }
@@ -31,8 +27,6 @@ final class IconsRector implements IconRectorInterface
         $smartFileInfo = $file->getSmartFileInfo();
 
         $newFullPath = $this->createIconPath($file);
-
-        $this->createDeepDirectory($newFullPath);
 
         $this->removedAndAddedFilesCollector->addAddedFile(
             new AddedFileWithContent($newFullPath, $smartFileInfo->getContents())
@@ -54,22 +48,6 @@ CODE_SAMPLE
         ]);
     }
 
-    private function createDeepDirectory(string $newFullPath): void
-    {
-        if ($this->shouldSkip()) {
-            return;
-        }
-
-        $directory = dirname($newFullPath);
-        if (is_dir($directory)) {
-            return;
-        }
-
-        if (! mkdir($directory, 0777, true)) {
-            throw new \RuntimeException(sprintf('Directory "%s" was not created', $directory));
-        }
-    }
-
     private function createIconPath(File $file): string
     {
         $smartFileInfo = $file->getSmartFileInfo();
@@ -78,12 +56,5 @@ CODE_SAMPLE
         $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());
 
         return $realPath . $relativeTargetFilePath;
-    }
-
-    private function shouldSkip(): bool
-    {
-        return $this->parameterProvider->provideBoolParameter(
-            Option::DRY_RUN
-        ) && ! StaticPHPUnitEnvironment::isPHPUnitRun();
     }
 }

@@ -15,7 +15,7 @@ use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../services.php');
-    $composerExtensions = [];
+    $composerExtensions = [new \Rector\Composer\ValueObject\RenamePackage('foo/bar', 'foo/baz')];
 };
 
 ?>

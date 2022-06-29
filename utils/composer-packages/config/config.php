@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
+use Rector\Composer\ValueObject\RenamePackage;
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\AddReplacePackageRector;
 use Ssch\TYPO3Rector\ComposerPackages\Rector\RemovePackageVersionsRector;
+use Symfony\Component\Filesystem\Filesystem;
 
 return static function (RectorConfig $rectorConfig): void {
     $services = $rectorConfig->services();
@@ -19,5 +21,10 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->rule(RemovePackageVersionsRector::class);
     $rectorConfig->rule(AddPackageVersionRector::class);
-    $rectorConfig->rule(AddReplacePackageRector::class);
+    // In order to have no complaints from rector we fill it with some dummy data, the actual packages are created on runtime.
+    $rectorConfig->ruleWithConfiguration(AddReplacePackageRector::class, [
+        'package' => new RenamePackage('foo/bar', 'foo/baz'),
+    ]);
+
+    $services->set(Filesystem::class);
 };

@@ -124,7 +124,9 @@ return static function (RectorConfig $rectorConfig): void {
 };
 CODE_SAMPLE
                 ,
-                [new RenamePackage('typo3-ter/news', 'georgringer/news')]
+                [
+                    'package' => new RenamePackage('typo3-ter/news', 'georgringer/news'),
+                ]
             ),
         ]);
     }

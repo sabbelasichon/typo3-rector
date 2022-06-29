@@ -20,7 +20,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->parallel();
     $rectorConfig->importNames();
-    $rectorConfig->disableImportShortClasses();
+    $rectorConfig->importShortClasses(false);
     $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
 
     $rectorConfig->rule(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);

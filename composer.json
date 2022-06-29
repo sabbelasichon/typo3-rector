@@ -21,11 +21,12 @@
         "ext-dom": "*",
         "ext-libxml": "*",
         "ext-simplexml": "*",
+        "composer/semver": "^3.3",
         "helmich/typo3-typoscript-parser": "^2.4.1",
         "nette/utils": "^3.0",
         "nikic/php-parser": "^4.14",
         "phpstan/phpstan": "^1.7.12",
-        "rector/rector": "^0.13.5",
+        "rector/rector": "dev-main",
         "symfony/console": "^4.0 || ^5.0 || ^6.0",
         "symfony/string": "^5.0 || ^6.0",
         "webmozart/assert": "^1.0"
@@ -35,11 +36,9 @@
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-phpunit": "^1.1",
         "phpunit/phpunit": "^9.5",
-        "rector/rector-generator": "0.6.5 as dev-main",
-        "rector/rector-src": "^0.13.5",
+        "symfony/filesystem": "^4.0 || ^5.0 || ^6.0",
         "symplify/easy-coding-standard": "^10.2",
-        "symplify/rule-doc-generator": "^10.2",
-        "symplify/vendor-patches": "^10.2"
+        "symplify/rule-doc-generator": "9.3.*"
     },
     "autoload": {
         "psr-4": {
@@ -68,9 +67,7 @@
         "sort-packages": true,
         "platform-check": false,
         "allow-plugins": {
-            "phpstan/extension-installer": true,
-            "rector/extension-installer": true,
-            "cweagans/composer-patches": true
+            "phpstan/extension-installer": true
         }
     },
     "scripts": {

@@ -42,7 +42,7 @@ not member of the project, make a comment to let everyone know that you are work
 Run the following command and answer all questions
 
 ```bash
-vendor/bin/rector typo3-generate
+bin/typo3-rector
 ```
 
 This command will ask you some questions to provide a proper rector setup.

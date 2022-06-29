@@ -33,6 +33,7 @@ return static function (ECSConfig $ecsConfig): void {
         __DIR__ . '/tests',
         __DIR__ . '/ecs.php',
         __DIR__ . '/rector.php',
+        __DIR__ . '/bin/typo3-rector.php',
         __DIR__ . '/config',
         __DIR__ . '/utils',
     ]);
