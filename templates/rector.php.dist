@@ -24,6 +24,9 @@ return static function (RectorConfig $rectorConfig): void {
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $rectorConfig->importNames();
 
+    // Disable parallel otherwise non php file processing is not working i.e. typoscript
+    $rectorConfig->disableParallel();
+
     // this will not import root namespace classes, like \DateTime or \Exception
     $rectorConfig->importShortClasses(false);
 
