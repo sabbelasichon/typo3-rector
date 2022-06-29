@@ -22,12 +22,23 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTypoScriptRector
 {
     /**
+     * @readonly
+     */
+    private CurrentFileProvider $currentFileProvider;
+
+    /**
+     * @var TyposcriptConditionMatcher[]
+     * @readonly
+     */
+    private array $conditionMatchers = [];
+
+    /**
      * @param TyposcriptConditionMatcher[] $conditionMatchers
      */
-    public function __construct(
-        private readonly CurrentFileProvider $currentFileProvider,
-        private readonly array $conditionMatchers = []
-    ) {
+    public function __construct(CurrentFileProvider $currentFileProvider, array $conditionMatchers = [])
+    {
+        $this->currentFileProvider = $currentFileProvider;
+        $this->conditionMatchers = $conditionMatchers;
     }
 
     public function enterNode(Statement $statement): void

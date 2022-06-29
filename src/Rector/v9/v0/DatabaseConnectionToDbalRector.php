@@ -20,12 +20,23 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class DatabaseConnectionToDbalRector extends AbstractRector
 {
     /**
+     * @readonly
+     */
+    private Typo3NodeResolver $typo3NodeResolver;
+
+    /**
+     * @var DatabaseConnectionToDbalRefactoring[]
+     * @readonly
+     */
+    private array $databaseConnectionRefactorings = [];
+
+    /**
      * @param DatabaseConnectionToDbalRefactoring[] $databaseConnectionRefactorings
      */
-    public function __construct(
-        private readonly Typo3NodeResolver $typo3NodeResolver,
-        private readonly array $databaseConnectionRefactorings
-    ) {
+    public function __construct(Typo3NodeResolver $typo3NodeResolver, array $databaseConnectionRefactorings)
+    {
+        $this->typo3NodeResolver = $typo3NodeResolver;
+        $this->databaseConnectionRefactorings = $databaseConnectionRefactorings;
     }
 
     /**

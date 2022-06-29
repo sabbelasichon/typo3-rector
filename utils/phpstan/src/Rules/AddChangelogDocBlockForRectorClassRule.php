@@ -44,10 +44,20 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
         MethodGetInstanceToMakeInstanceCallRector::class,
     ];
 
-    public function __construct(
-        private readonly ReflectionProvider $reflectionProvider,
-        private readonly FileTypeMapper $fileTypeMapper
-    ) {
+    /**
+     * @readonly
+     */
+    private ReflectionProvider $reflectionProvider;
+
+    /**
+     * @readonly
+     */
+    private FileTypeMapper $fileTypeMapper;
+
+    public function __construct(ReflectionProvider $reflectionProvider, FileTypeMapper $fileTypeMapper)
+    {
+        $this->reflectionProvider = $reflectionProvider;
+        $this->fileTypeMapper = $fileTypeMapper;
     }
 
     public function getNodeType(): string

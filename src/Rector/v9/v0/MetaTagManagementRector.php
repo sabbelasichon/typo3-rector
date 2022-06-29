@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Identifier;
@@ -92,15 +93,17 @@ CODE_SAMPLE
      */
     private function parseMetaTag(string $metaTag): array
     {
-        if (preg_match_all(self::PATTERN, $metaTag, $out)) {
-            return [
-                'type' => $out[1][0],
-                'name' => $out[2][0],
-                'content' => $out[3][0],
-            ];
+        $out = Strings::matchAll($metaTag, self::PATTERN);
+
+        if ([] === $out) {
+            return [];
         }
 
-        return [];
+        return [
+            'type' => $out[0][1],
+            'name' => $out[0][2],
+            'content' => $out[0][3],
+        ];
     }
 
     private function shouldSkip(MethodCall $methodCall): bool

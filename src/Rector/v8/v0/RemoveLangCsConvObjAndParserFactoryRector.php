@@ -20,9 +20,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveLangCsConvObjAndParserFactoryRector extends AbstractRector
 {
-    public function __construct(
-        private readonly Typo3NodeResolver $typo3NodeResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private Typo3NodeResolver $typo3NodeResolver;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    {
+        $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
     /**
@@ -78,7 +83,10 @@ CODE_SAMPLE
         );
     }
 
-    private function shouldSkip(MethodCall | PropertyFetch $node): bool
+    /**
+     * @param MethodCall|PropertyFetch $node
+     */
+    private function shouldSkip($node): bool
     {
         if ($this->isLanguageServiceCall($node)) {
             return false;

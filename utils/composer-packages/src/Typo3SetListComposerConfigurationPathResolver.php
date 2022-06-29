@@ -25,7 +25,7 @@ final class Typo3SetListComposerConfigurationPathResolver
 
         try {
             return new SmartFileInfo(constant($constant));
-        } catch (FileNotFoundException) {
+        } catch (FileNotFoundException $fileNotFoundException) {
             return null;
         }
     }
@@ -40,7 +40,7 @@ final class Typo3SetListComposerConfigurationPathResolver
 
         try {
             return new SmartFileInfo(constant($constant));
-        } catch (FileNotFoundException) {
+        } catch (FileNotFoundException $fileNotFoundException) {
             return null;
         }
     }

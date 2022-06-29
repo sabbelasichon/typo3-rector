@@ -55,16 +55,64 @@ final class InitializeArgumentsClassMethodFactory
      */
     private const MIXED = 'mixed';
 
+    /**
+     * @readonly
+     */
+    private NodeFactory $nodeFactory;
+
+    /**
+     * @readonly
+     */
+    private NodeNameResolver $nodeNameResolver;
+
+    /**
+     * @readonly
+     */
+    private StaticTypeMapper $staticTypeMapper;
+
+    /**
+     * @readonly
+     */
+    private ParamTypeInferer $paramTypeInferer;
+
+    /**
+     * @readonly
+     */
+    private PhpDocInfoFactory $phpDocInfoFactory;
+
+    /**
+     * @readonly
+     */
+    private ReflectionProvider $reflectionProvider;
+
+    /**
+     * @readonly
+     */
+    private ValueResolver $valueResolver;
+
+    /**
+     * @readonly
+     */
+    private AstResolver $astResolver;
+
     public function __construct(
-        private readonly NodeFactory $nodeFactory,
-        private readonly NodeNameResolver $nodeNameResolver,
-        private readonly StaticTypeMapper $staticTypeMapper,
-        private readonly ParamTypeInferer $paramTypeInferer,
-        private readonly PhpDocInfoFactory $phpDocInfoFactory,
-        private readonly ReflectionProvider $reflectionProvider,
-        private readonly ValueResolver $valueResolver,
-        private readonly AstResolver $astResolver
+        NodeFactory $nodeFactory,
+        NodeNameResolver $nodeNameResolver,
+        StaticTypeMapper $staticTypeMapper,
+        ParamTypeInferer $paramTypeInferer,
+        PhpDocInfoFactory $phpDocInfoFactory,
+        ReflectionProvider $reflectionProvider,
+        ValueResolver $valueResolver,
+        AstResolver $astResolver
     ) {
+        $this->nodeFactory = $nodeFactory;
+        $this->nodeNameResolver = $nodeNameResolver;
+        $this->staticTypeMapper = $staticTypeMapper;
+        $this->paramTypeInferer = $paramTypeInferer;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->reflectionProvider = $reflectionProvider;
+        $this->valueResolver = $valueResolver;
+        $this->astResolver = $astResolver;
     }
 
     public function decorateClass(Class_ $class): void
@@ -344,7 +392,10 @@ final class InitializeArgumentsClassMethodFactory
         return $definedArguments;
     }
 
-    private function transformDocStringToClassConstantIfPossible(string $docString): ClassConstFetch | string
+    /**
+     * @return ClassConstFetch|string
+     */
+    private function transformDocStringToClassConstantIfPossible(string $docString)
     {
         // remove leading slash
         $classLikeName = ltrim($docString, '\\');

@@ -19,9 +19,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class FileIncludeToImportStatementTypoScriptRector extends AbstractTypoScriptRector
 {
-    public function __construct(
-        private readonly CurrentFileProvider $currentFileProvider
-    ) {
+    /**
+     * @readonly
+     */
+    private CurrentFileProvider $currentFileProvider;
+
+    public function __construct(CurrentFileProvider $currentFileProvider)
+    {
+        $this->currentFileProvider = $currentFileProvider;
     }
 
     public function enterNode(Statement $statement): void

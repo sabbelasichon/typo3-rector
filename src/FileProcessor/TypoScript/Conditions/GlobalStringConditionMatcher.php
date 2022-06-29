@@ -39,15 +39,29 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
             $operator = trim((string) $matches['operator']);
             $value = trim((string) $matches['value']);
 
-            $newConditions[] = match ($type) {
-                'ENV' => $this->createEnvCondition($property, $operator, $value),
-                'IENV' => $this->createIndependentCondition($property, $operator, $value),
-                'TSFE' => $this->refactorTsfe($property, $operator, $value),
-                'GP' => $this->refactorGetPost($property, $operator, $value),
-                '_COOKIE' => $this->refactorCookie($property, $operator, $value),
-                'LIT' => sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property),
-                default => '',
-            };
+            switch ($type) {
+                case 'ENV':
+                    $newConditions[] = $this->createEnvCondition($property, $operator, $value);
+                    break;
+                case 'IENV':
+                    $newConditions[] = $this->createIndependentCondition($property, $operator, $value);
+                    break;
+                case 'TSFE':
+                    $newConditions[] = $this->refactorTsfe($property, $operator, $value);
+                    break;
+                case 'GP':
+                    $newConditions[] = $this->refactorGetPost($property, $operator, $value);
+                    break;
+                case '_COOKIE':
+                    $newConditions[] = $this->refactorCookie($property, $operator, $value);
+                    break;
+                case 'LIT':
+                    $newConditions[] = sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property);
+                    break;
+                default:
+                    $newConditions[] = '';
+                    break;
+            }
         }
 
         return implode(' || ', $newConditions);

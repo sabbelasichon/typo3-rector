@@ -27,16 +27,64 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class AddComposerTypo3ExtensionsToConfigCommand extends Command
 {
+    /**
+     * @readonly
+     */
+    private PackagistPackageResolver $packagistPackageResolver;
+
+    /**
+     * @readonly
+     */
+    private RectorParser $rectorParser;
+
+    /**
+     * @readonly
+     */
+    private Typo3SetListComposerConfigurationPathResolver $typo3SetListComposerConfigurationPathResolver;
+
+    /**
+     * @readonly
+     */
+    private Filesystem $filesystem;
+
+    /**
+     * @readonly
+     */
+    private BetterStandardPrinter $betterStandardPrinter;
+
+    /**
+     * @readonly
+     */
+    private AddPackageVersionRector $addPackageVersionRector;
+
+    /**
+     * @readonly
+     */
+    private AddReplacePackageRector $replacePackageRector;
+
+    /**
+     * @readonly
+     */
+    private CurrentFileProvider $currentFileProvider;
+
     public function __construct(
-        private readonly PackagistPackageResolver $packagistPackageResolver,
-        private readonly RectorParser $rectorParser,
-        private readonly Typo3SetListComposerConfigurationPathResolver $typo3SetListComposerConfigurationPathResolver,
-        private readonly Filesystem $filesystem,
-        private readonly BetterStandardPrinter $betterStandardPrinter,
-        private readonly AddPackageVersionRector $addPackageVersionRector,
-        private readonly AddReplacePackageRector $replacePackageRector,
-        private readonly CurrentFileProvider $currentFileProvider
+        PackagistPackageResolver $packagistPackageResolver,
+        RectorParser $rectorParser,
+        Typo3SetListComposerConfigurationPathResolver $typo3SetListComposerConfigurationPathResolver,
+        Filesystem $filesystem,
+        BetterStandardPrinter $betterStandardPrinter,
+        AddPackageVersionRector $addPackageVersionRector,
+        AddReplacePackageRector $replacePackageRector,
+        CurrentFileProvider $currentFileProvider
     ) {
+        $this->packagistPackageResolver = $packagistPackageResolver;
+        $this->rectorParser = $rectorParser;
+        $this->typo3SetListComposerConfigurationPathResolver = $typo3SetListComposerConfigurationPathResolver;
+        $this->filesystem = $filesystem;
+        $this->betterStandardPrinter = $betterStandardPrinter;
+        $this->addPackageVersionRector = $addPackageVersionRector;
+        $this->replacePackageRector = $replacePackageRector;
+        $this->currentFileProvider = $currentFileProvider;
         parent::__construct();
     }
 

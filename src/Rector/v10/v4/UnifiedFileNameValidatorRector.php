@@ -93,7 +93,10 @@ CODE_SAMPLE
         );
     }
 
-    public function isMethodVerifyFilenameAgainstDenyPattern(ConstFetch | StaticCall $node): bool
+    /**
+     * @param ConstFetch|StaticCall $node
+     */
+    public function isMethodVerifyFilenameAgainstDenyPattern($node): bool
     {
         return $node instanceof StaticCall && $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
@@ -101,7 +104,10 @@ CODE_SAMPLE
         ) && $this->isName($node->name, 'verifyFilenameAgainstDenyPattern');
     }
 
-    private function shouldSkip(ConstFetch | StaticCall $node): bool
+    /**
+     * @param ConstFetch|StaticCall $node
+     */
+    private function shouldSkip($node): bool
     {
         if ($this->isMethodVerifyFilenameAgainstDenyPattern($node)) {
             return false;
@@ -110,7 +116,10 @@ CODE_SAMPLE
         return ! $this->isConstFileDenyPatternDefault($node);
     }
 
-    private function isConstFileDenyPatternDefault(ConstFetch | StaticCall $node): bool
+    /**
+     * @param ConstFetch|StaticCall $node
+     */
+    private function isConstFileDenyPatternDefault($node): bool
     {
         return $node instanceof ConstFetch && $this->isName($node->name, 'FILE_DENY_PATTERN_DEFAULT');
     }

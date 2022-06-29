@@ -19,10 +19,20 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveRedundantFeLoginModeMethodsRector extends AbstractRector
 {
-    public function __construct(
-        private readonly RectorOutputStyle $rectorOutputStyle,
-        private readonly Typo3NodeResolver $typo3NodeResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private RectorOutputStyle $rectorOutputStyle;
+
+    /**
+     * @readonly
+     */
+    private Typo3NodeResolver $typo3NodeResolver;
+
+    public function __construct(RectorOutputStyle $rectorOutputStyle, Typo3NodeResolver $typo3NodeResolver)
+    {
+        $this->rectorOutputStyle = $rectorOutputStyle;
+        $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
     /**

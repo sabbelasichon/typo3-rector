@@ -42,16 +42,64 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
      */
     private const REMOVE_EMPTY_LINES = '/^[ \t]*[\r\n]+/m';
 
+    /**
+     * @readonly
+     */
+    private RectorParser $rectorParser;
+
+    /**
+     * @readonly
+     */
+    private FilesFinder $filesFinder;
+
+    /**
+     * @readonly
+     */
+    private SimplePhpParser $simplePhpParser;
+
+    /**
+     * @readonly
+     */
+    private TemplateFinder $templateFinder;
+
+    /**
+     * @readonly
+     */
+    private NodePrinterInterface $nodePrinter;
+
+    /**
+     * @readonly
+     */
+    private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector;
+
+    /**
+     * @readonly
+     */
+    private CommandArrayDecorator $commandArrayDecorator;
+
+    /**
+     * @readonly
+     */
+    private CommandMethodDecorator $commandMethodDecorator;
+
     public function __construct(
-        private readonly RectorParser $rectorParser,
-        private readonly FilesFinder $filesFinder,
-        private readonly SimplePhpParser $simplePhpParser,
-        private readonly TemplateFinder $templateFinder,
-        private readonly NodePrinterInterface $nodePrinter,
-        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        private readonly CommandArrayDecorator $commandArrayDecorator,
-        private readonly CommandMethodDecorator $commandMethodDecorator,
+        RectorParser $rectorParser,
+        FilesFinder $filesFinder,
+        SimplePhpParser $simplePhpParser,
+        TemplateFinder $templateFinder,
+        NodePrinterInterface $nodePrinter,
+        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        CommandArrayDecorator $commandArrayDecorator,
+        CommandMethodDecorator $commandMethodDecorator
     ) {
+        $this->rectorParser = $rectorParser;
+        $this->filesFinder = $filesFinder;
+        $this->simplePhpParser = $simplePhpParser;
+        $this->templateFinder = $templateFinder;
+        $this->nodePrinter = $nodePrinter;
+        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+        $this->commandArrayDecorator = $commandArrayDecorator;
+        $this->commandMethodDecorator = $commandMethodDecorator;
     }
 
     /**

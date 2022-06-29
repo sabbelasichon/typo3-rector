@@ -18,9 +18,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class UseSignalTablesDefinitionIsBeingBuiltSqlExpectedSchemaServiceRector extends AbstractRector
 {
-    public function __construct(
-        private readonly ClassConstAnalyzer $classConstAnalyzer
-    ) {
+    /**
+     * @readonly
+     */
+    private ClassConstAnalyzer $classConstAnalyzer;
+
+    public function __construct(ClassConstAnalyzer $classConstAnalyzer)
+    {
+        $this->classConstAnalyzer = $classConstAnalyzer;
     }
 
     /**

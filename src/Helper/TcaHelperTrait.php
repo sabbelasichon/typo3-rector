@@ -70,7 +70,10 @@ trait TcaHelperTrait
 
     protected function extractArrayValueByKey(?Node $node, string $key): ?Expr
     {
-        return $this->extractArrayItemByKey($node, $key)?->value;
+        return ($extractArrayItemByKey = $this->extractArrayItemByKey(
+            $node,
+            $key
+        )) ? $extractArrayItemByKey->value : null;
     }
 
     protected function hasKey(Array_ $configValuesArray, string $configKey): bool
@@ -209,7 +212,11 @@ trait TcaHelperTrait
 
             // search the config sub-array for this field
             foreach ($columnConfig->value->items as $configValue) {
-                if (null === $configValue?->key) {
+                if (! $configValue instanceof ArrayItem) {
+                    continue;
+                }
+
+                if (null === $configValue->key) {
                     continue;
                 }
 

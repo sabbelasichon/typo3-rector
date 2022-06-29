@@ -12,9 +12,14 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 
 final class IconArrayItemFactory
 {
-    public function __construct(
-        private readonly NodeFactory $nodeFactory
-    ) {
+    /**
+     * @readonly
+     */
+    private NodeFactory $nodeFactory;
+
+    public function __construct(NodeFactory $nodeFactory)
+    {
+        $this->nodeFactory = $nodeFactory;
     }
 
     /**

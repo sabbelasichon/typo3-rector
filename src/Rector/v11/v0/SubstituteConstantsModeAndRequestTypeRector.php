@@ -27,9 +27,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
 {
-    public function __construct(
-        private readonly FilesFinder $filesFinder
-    ) {
+    /**
+     * @readonly
+     */
+    private FilesFinder $filesFinder;
+
+    public function __construct(FilesFinder $filesFinder)
+    {
+        $this->filesFinder = $filesFinder;
     }
 
     /**

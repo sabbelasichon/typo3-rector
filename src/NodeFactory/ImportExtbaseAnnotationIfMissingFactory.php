@@ -15,11 +15,29 @@ use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
 
 final class ImportExtbaseAnnotationIfMissingFactory
 {
+    /**
+     * @readonly
+     */
+    private BetterNodeFinder $betterNodeFinder;
+
+    /**
+     * @readonly
+     */
+    private UseNodesToAddCollector $useNodesToAddCollector;
+
+    /**
+     * @readonly
+     */
+    private NodeNameResolver $nodeNameResolver;
+
     public function __construct(
-        private readonly BetterNodeFinder $betterNodeFinder,
-        private readonly UseNodesToAddCollector $useNodesToAddCollector,
-        private readonly NodeNameResolver $nodeNameResolver
+        BetterNodeFinder $betterNodeFinder,
+        UseNodesToAddCollector $useNodesToAddCollector,
+        NodeNameResolver $nodeNameResolver
     ) {
+        $this->betterNodeFinder = $betterNodeFinder;
+        $this->useNodesToAddCollector = $useNodesToAddCollector;
+        $this->nodeNameResolver = $nodeNameResolver;
     }
 
     public function addExtbaseAliasAnnotationIfMissing(Node $node): void

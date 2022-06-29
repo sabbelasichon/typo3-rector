@@ -46,14 +46,22 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
             return $defaultObjectType;
         }
 
-        return match ($argValue->value) {
-            'date' => new ObjectType('TYPO3\CMS\Core\Context\DateTimeAspect'),
-            'visibility' => new ObjectType('TYPO3\CMS\Core\Context\VisibilityAspect'),
-            'frontend.user','backend.user' => new ObjectType('TYPO3\CMS\Core\Context\UserAspect'),
-            'workspace' => new ObjectType('TYPO3\CMS\Core\Context\WorkspaceAspect'),
-            'language' => new ObjectType('TYPO3\CMS\Core\Context\LanguageAspect'),
-            'typoscript' => new ObjectType('TYPO3\CMS\Core\Context\TypoScriptAspect'),
-            default => $defaultObjectType,
-        };
+        switch ($argValue->value) {
+            case 'date':
+                return new ObjectType('TYPO3\CMS\Core\Context\DateTimeAspect');
+            case 'visibility':
+                return new ObjectType('TYPO3\CMS\Core\Context\VisibilityAspect');
+            case 'frontend.user':
+            case 'backend.user':
+                return new ObjectType('TYPO3\CMS\Core\Context\UserAspect');
+            case 'workspace':
+                return new ObjectType('TYPO3\CMS\Core\Context\WorkspaceAspect');
+            case 'language':
+                return new ObjectType('TYPO3\CMS\Core\Context\LanguageAspect');
+            case 'typoscript':
+                return new ObjectType('TYPO3\CMS\Core\Context\TypoScriptAspect');
+            default:
+                return $defaultObjectType;
+        }
     }
 }

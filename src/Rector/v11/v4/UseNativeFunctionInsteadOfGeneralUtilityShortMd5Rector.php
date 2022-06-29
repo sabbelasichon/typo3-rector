@@ -19,9 +19,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector extends AbstractRector
 {
-    public function __construct(
-        private readonly AstResolver $astResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private AstResolver $astResolver;
+
+    public function __construct(AstResolver $astResolver)
+    {
+        $this->astResolver = $astResolver;
     }
 
     /**
@@ -81,7 +86,10 @@ CODE_SAMPLE
         ]);
     }
 
-    private function extractLengthValue(StaticCall $staticCall): mixed
+    /**
+     * @return mixed
+     */
+    private function extractLengthValue(StaticCall $staticCall)
     {
         $classMethod = $this->astResolver->resolveClassMethodFromCall($staticCall);
 

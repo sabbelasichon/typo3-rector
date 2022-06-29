@@ -18,13 +18,25 @@ final class ExtensionVersion implements Stringable
     private array $typo3Versions = [];
 
     /**
+     * @readonly
+     */
+    private PackageAndVersion $packageAndVersion;
+
+    /**
+     * @readonly
+     */
+    private ?RenamePackage $replacePackage = null;
+
+    /**
      * @param Typo3Version[] $typo3Versions
      */
     public function __construct(
-        private readonly PackageAndVersion $packageAndVersion,
+        PackageAndVersion $packageAndVersion,
         array $typo3Versions,
-        private readonly ?RenamePackage $replacePackage = null
+        ?RenamePackage $replacePackage = null
     ) {
+        $this->packageAndVersion = $packageAndVersion;
+        $this->replacePackage = $replacePackage;
         Assert::allIsInstanceOf($typo3Versions, Typo3Version::class);
         $this->typo3Versions = $typo3Versions;
     }

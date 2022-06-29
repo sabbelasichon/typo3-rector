@@ -13,9 +13,14 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 
 final class CommandArrayItemFactory
 {
-    public function __construct(
-        private readonly NodeFactory $nodeFactory
-    ) {
+    /**
+     * @readonly
+     */
+    private NodeFactory $nodeFactory;
+
+    public function __construct(NodeFactory $nodeFactory)
+    {
+        $this->nodeFactory = $nodeFactory;
     }
 
     /**

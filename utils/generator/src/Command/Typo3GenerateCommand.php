@@ -33,12 +33,36 @@ final class Typo3GenerateCommand extends Command
 
     protected static $defaultDescription = '[DEV] Create a new TYPO3 Rector, in a proper location, with new tests';
 
+    /**
+     * @readonly
+     */
+    private TemplateFinder $templateFinder;
+
+    /**
+     * @readonly
+     */
+    private FileGenerator $fileGenerator;
+
+    /**
+     * @readonly
+     */
+    private OutputInterface $outputStyle;
+
+    /**
+     * @readonly
+     */
+    private ConfigFilesystem $configFilesystem;
+
     public function __construct(
-        private readonly TemplateFinder $templateFinder,
-        private readonly FileGenerator $fileGenerator,
-        private readonly OutputInterface $outputStyle,
-        private readonly ConfigFilesystem $configFilesystem
+        TemplateFinder $templateFinder,
+        FileGenerator $fileGenerator,
+        OutputInterface $outputStyle,
+        ConfigFilesystem $configFilesystem
     ) {
+        $this->templateFinder = $templateFinder;
+        $this->fileGenerator = $fileGenerator;
+        $this->outputStyle = $outputStyle;
+        $this->configFilesystem = $configFilesystem;
         parent::__construct();
     }
 

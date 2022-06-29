@@ -18,9 +18,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveInternalAnnotationRector extends AbstractRector
 {
-    public function __construct(
-        private readonly PhpDocTagRemover $phpDocTagRemover
-    ) {
+    /**
+     * @readonly
+     */
+    private PhpDocTagRemover $phpDocTagRemover;
+
+    public function __construct(PhpDocTagRemover $phpDocTagRemover)
+    {
+        $this->phpDocTagRemover = $phpDocTagRemover;
     }
 
     /**

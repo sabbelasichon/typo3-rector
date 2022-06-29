@@ -37,9 +37,11 @@ abstract class AbstractTcaRector extends AbstractRector
 
     protected bool $hasAstBeenChanged = false;
 
-    public function __construct(
-        protected RectorOutputStyle $rectorOutputStyle
-    ) {
+    protected RectorOutputStyle $rectorOutputStyle;
+
+    public function __construct(RectorOutputStyle $rectorOutputStyle)
+    {
+        $this->rectorOutputStyle = $rectorOutputStyle;
     }
 
     /**

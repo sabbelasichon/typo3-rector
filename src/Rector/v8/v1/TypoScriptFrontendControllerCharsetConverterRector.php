@@ -31,9 +31,14 @@ final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractR
      */
     private const CS_CONV = 'csConv';
 
-    public function __construct(
-        private readonly Typo3NodeResolver $typo3NodeResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private Typo3NodeResolver $typo3NodeResolver;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    {
+        $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
     /**

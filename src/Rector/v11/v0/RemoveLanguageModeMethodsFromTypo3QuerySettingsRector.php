@@ -20,10 +20,22 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
+    private FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer;
+
+    /**
+     * @readonly
+     */
+    private SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer;
+
     public function __construct(
-        private readonly FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
-        private readonly SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer
+        FluentChainMethodCallNodeAnalyzer $fluentChainMethodCallNodeAnalyzer,
+        SameClassMethodCallAnalyzer $sameClassMethodCallAnalyzer
     ) {
+        $this->fluentChainMethodCallNodeAnalyzer = $fluentChainMethodCallNodeAnalyzer;
+        $this->sameClassMethodCallAnalyzer = $sameClassMethodCallAnalyzer;
     }
 
     /**
@@ -84,7 +96,7 @@ CODE_SAMPLE
             $this->removeNode($methodCall);
 
             return $methodCall;
-        } catch (ShouldNotHappenException) {
+        } catch (ShouldNotHappenException $shouldNotHappenException) {
             $chainMethodCalls = $this->fluentChainMethodCallNodeAnalyzer->collectAllMethodCallsInChain($methodCall);
 
             if (! $this->sameClassMethodCallAnalyzer->haveSingleClass($chainMethodCalls)) {

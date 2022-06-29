@@ -33,13 +33,43 @@ final class RegisterIconToIconFileRector extends AbstractRector
      */
     private const REMOVE_EMPTY_LINES = '/^[ \t]*[\r\n]+/m';
 
+    /**
+     * @readonly
+     */
+    private FilesFinder $filesFinder;
+
+    /**
+     * @readonly
+     */
+    private SimplePhpParser $simplePhpParser;
+
+    /**
+     * @readonly
+     */
+    private NodePrinterInterface $nodePrinter;
+
+    /**
+     * @readonly
+     */
+    private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector;
+
+    /**
+     * @readonly
+     */
+    private IconArrayItemFactory $iconArrayItemFactory;
+
     public function __construct(
-        private readonly FilesFinder $filesFinder,
-        private readonly SimplePhpParser $simplePhpParser,
-        private readonly NodePrinterInterface $nodePrinter,
-        private readonly RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        private readonly IconArrayItemFactory $iconArrayItemFactory
+        FilesFinder $filesFinder,
+        SimplePhpParser $simplePhpParser,
+        NodePrinterInterface $nodePrinter,
+        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        IconArrayItemFactory $iconArrayItemFactory
     ) {
+        $this->filesFinder = $filesFinder;
+        $this->simplePhpParser = $simplePhpParser;
+        $this->nodePrinter = $nodePrinter;
+        $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+        $this->iconArrayItemFactory = $iconArrayItemFactory;
     }
 
     /**

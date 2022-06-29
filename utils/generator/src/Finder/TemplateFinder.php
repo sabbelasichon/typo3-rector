@@ -39,11 +39,17 @@ final class TemplateFinder
 
         $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/__Name__Test.php.inc';
 
-        match ($type) {
-            'flexform' => $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.xml',
-            'typoscript' => $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.typoscript',
-            default => $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.php.inc',
-        };
+        switch ($type) {
+            case 'flexform':
+                $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.xml';
+                break;
+            case 'typoscript':
+                $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.typoscript';
+                break;
+            default:
+                $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.php.inc';
+                break;
+        }
 
         $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/config/configured_rule.php.inc';
 

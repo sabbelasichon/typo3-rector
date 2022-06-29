@@ -12,7 +12,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
     /**
      * @var array<string, string>
      */
-    final public const IENV_MAPPING_NORMALIZED = [
+    public const IENV_MAPPING_NORMALIZED = [
         'SCRIPT_NAME' => 'getScriptName',
         'SCRIPT_FILENAME' => 'getScriptFilename',
         'REQUEST_URI' => 'getRequestUri',
@@ -37,7 +37,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
     /**
      * @var string[]
      */
-    final public const IENV_KEEP_SERVER_PARAMS = [
+    public const IENV_KEEP_SERVER_PARAMS = [
         'HTTP_REFERER',
         'HTTP_USER_AGENT',
         'HTTP_ACCEPT_ENCODING',
@@ -49,7 +49,7 @@ abstract class AbstractGlobalConditionMatcher implements TyposcriptConditionMatc
     /**
      * @var array<string, string>
      */
-    final public const USER_PROPERTY_MAPPING = [
+    public const USER_PROPERTY_MAPPING = [
         'uid' => 'userId',
     ];
 

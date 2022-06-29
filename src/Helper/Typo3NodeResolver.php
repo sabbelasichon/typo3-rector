@@ -77,11 +77,29 @@ final class Typo3NodeResolver
      */
     public const SIM_ACCESS_TIME = 'SIM_ACCESS_TIME';
 
+    /**
+     * @readonly
+     */
+    private ValueResolver $valueResolver;
+
+    /**
+     * @readonly
+     */
+    private NodeNameResolver $nodeNameResolver;
+
+    /**
+     * @readonly
+     */
+    private NodeTypeResolver $nodeTypeResolver;
+
     public function __construct(
-        private readonly ValueResolver $valueResolver,
-        private readonly NodeNameResolver $nodeNameResolver,
-        private readonly NodeTypeResolver $nodeTypeResolver
+        ValueResolver $valueResolver,
+        NodeNameResolver $nodeNameResolver,
+        NodeTypeResolver $nodeTypeResolver
     ) {
+        $this->valueResolver = $valueResolver;
+        $this->nodeNameResolver = $nodeNameResolver;
+        $this->nodeTypeResolver = $nodeTypeResolver;
     }
 
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool

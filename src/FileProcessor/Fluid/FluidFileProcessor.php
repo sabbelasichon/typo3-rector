@@ -16,12 +16,23 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
 final class FluidFileProcessor implements FileProcessorInterface
 {
     /**
+     * @var FluidRectorInterface[]
+     * @readonly
+     */
+    private array $fluidRectors = [];
+
+    /**
+     * @readonly
+     */
+    private FileDiffFactory $fileDiffFactory;
+
+    /**
      * @param FluidRectorInterface[] $fluidRectors
      */
-    public function __construct(
-        private readonly array $fluidRectors,
-        private readonly FileDiffFactory $fileDiffFactory,
-    ) {
+    public function __construct(array $fluidRectors, FileDiffFactory $fileDiffFactory)
+    {
+        $this->fluidRectors = $fluidRectors;
+        $this->fileDiffFactory = $fileDiffFactory;
     }
 
     public function supports(File $file, Configuration $configuration): bool

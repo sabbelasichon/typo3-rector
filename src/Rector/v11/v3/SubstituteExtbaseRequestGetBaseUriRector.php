@@ -85,10 +85,9 @@ CODE_SAMPLE
 
     private function createGlobalRequestAssignment(): Assign
     {
-        return new Assign(
-            new Variable('request'),
-            new ArrayDimFetch(new Variable(Typo3NodeResolver::GLOBALS), new String_('TYPO3_REQUEST')),
-        );
+        return new Assign(new Variable('request'), new ArrayDimFetch(new Variable(
+            Typo3NodeResolver::GLOBALS
+        ), new String_('TYPO3_REQUEST')));
     }
 
     private function createNormalizedParamsAssignment(): Assign

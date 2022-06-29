@@ -13,9 +13,14 @@ use Ssch\TYPO3Rector\PHPStan\TypeResolver\ArgumentTypeResolver;
 
 final class ValidatorResolverDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
-    public function __construct(
-        private readonly ArgumentTypeResolver $argumentTypeResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private ArgumentTypeResolver $argumentTypeResolver;
+
+    public function __construct(ArgumentTypeResolver $argumentTypeResolver)
+    {
+        $this->argumentTypeResolver = $argumentTypeResolver;
     }
 
     public function getClass(): string

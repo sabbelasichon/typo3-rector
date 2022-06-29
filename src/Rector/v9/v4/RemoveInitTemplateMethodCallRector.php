@@ -22,9 +22,14 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 final class RemoveInitTemplateMethodCallRector extends AbstractRector
 {
-    public function __construct(
-        private readonly Typo3NodeResolver $typo3NodeResolver
-    ) {
+    /**
+     * @readonly
+     */
+    private Typo3NodeResolver $typo3NodeResolver;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    {
+        $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
     /**
@@ -66,7 +71,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
 
         try {
             $this->removeNode($node);
-        } catch (ShouldNotHappenException) {
+        } catch (ShouldNotHappenException $shouldNotHappenException) {
             $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
             $this->removeNode($parentNode);
         }

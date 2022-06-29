@@ -25,11 +25,29 @@ use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 
 final class InjectMethodFactory
 {
+    /**
+     * @readonly
+     */
+    private NodeNameResolver $nodeNameResolver;
+
+    /**
+     * @readonly
+     */
+    private PhpDocTagRemover $phpDocTagRemover;
+
+    /**
+     * @readonly
+     */
+    private PhpDocInfoFactory $phpDocInfoFactory;
+
     public function __construct(
-        private readonly NodeNameResolver $nodeNameResolver,
-        private readonly PhpDocTagRemover $phpDocTagRemover,
-        private readonly PhpDocInfoFactory $phpDocInfoFactory
+        NodeNameResolver $nodeNameResolver,
+        PhpDocTagRemover $phpDocTagRemover,
+        PhpDocInfoFactory $phpDocInfoFactory
     ) {
+        $this->nodeNameResolver = $nodeNameResolver;
+        $this->phpDocTagRemover = $phpDocTagRemover;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
 
     /**

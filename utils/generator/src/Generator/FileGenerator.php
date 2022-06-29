@@ -11,11 +11,29 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FileGenerator
 {
+    /**
+     * @readonly
+     */
+    private Filesystem $filesystem;
+
+    /**
+     * @readonly
+     */
+    private TemplateFactory $templateFactory;
+
+    /**
+     * @readonly
+     */
+    private TemplateFileSystem $templateFileSystem;
+
     public function __construct(
-        private readonly Filesystem $filesystem,
-        private readonly TemplateFactory $templateFactory,
-        private readonly TemplateFileSystem $templateFileSystem
+        Filesystem $filesystem,
+        TemplateFactory $templateFactory,
+        TemplateFileSystem $templateFileSystem
     ) {
+        $this->filesystem = $filesystem;
+        $this->templateFactory = $templateFactory;
+        $this->templateFileSystem = $templateFileSystem;
     }
 
     /**

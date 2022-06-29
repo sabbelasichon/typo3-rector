@@ -31,9 +31,14 @@ final class HintNecessaryUploadedFileChangesRector extends AbstractRector
      */
     private const COMMENT = '// FIXME: Rector: https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-97214-UseUploadedFileObjectsInsteadOf_FILES.html';
 
-    public function __construct(
-        private readonly RectorOutputStyle $rectorOutputStyle
-    ) {
+    /**
+     * @readonly
+     */
+    private RectorOutputStyle $rectorOutputStyle;
+
+    public function __construct(RectorOutputStyle $rectorOutputStyle)
+    {
+        $this->rectorOutputStyle = $rectorOutputStyle;
     }
 
     /**

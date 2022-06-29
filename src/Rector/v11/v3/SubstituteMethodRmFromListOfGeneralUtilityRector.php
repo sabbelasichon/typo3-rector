@@ -22,9 +22,14 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class SubstituteMethodRmFromListOfGeneralUtilityRector extends AbstractRector
 {
-    public function __construct(
-        private readonly AnonymousFunctionFactory $anonymousFunctionFactory
-    ) {
+    /**
+     * @readonly
+     */
+    private AnonymousFunctionFactory $anonymousFunctionFactory;
+
+    public function __construct(AnonymousFunctionFactory $anonymousFunctionFactory)
+    {
+        $this->anonymousFunctionFactory = $anonymousFunctionFactory;
     }
 
     /**
@@ -55,7 +60,7 @@ final class SubstituteMethodRmFromListOfGeneralUtilityRector extends AbstractRec
 
         $itemVariable = new Variable('item');
 
-        $stmts = [new Return_(new Equal(new Variable('element'), $itemVariable,))];
+        $stmts = [new Return_(new Equal(new Variable('element'), $itemVariable))];
 
         $closureFunction = $this->anonymousFunctionFactory->create([new Param($itemVariable)], $stmts, null);
 

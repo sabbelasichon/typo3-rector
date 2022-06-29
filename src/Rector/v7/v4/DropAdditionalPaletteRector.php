@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v7\v4;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
@@ -73,7 +74,8 @@ CODE_SAMPLE
         }
 
         $showItemNode = $this->extractArrayItemByKey($typeConfig, 'showitem');
-        if (null === $showItemNode?->value) {
+
+        if (! $showItemNode instanceof ArrayItem) {
             return;
         }
 

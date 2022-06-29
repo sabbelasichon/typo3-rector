@@ -22,10 +22,20 @@ final class ConfigFilesystem
      */
     private const LAST_ITEM_REGEX = '#;\n};#';
 
-    public function __construct(
-        private readonly Filesystem $filesystem,
-        private readonly TemplateFactory $templateFactory
-    ) {
+    /**
+     * @readonly
+     */
+    private Filesystem $filesystem;
+
+    /**
+     * @readonly
+     */
+    private TemplateFactory $templateFactory;
+
+    public function __construct(Filesystem $filesystem, TemplateFactory $templateFactory)
+    {
+        $this->filesystem = $filesystem;
+        $this->templateFactory = $templateFactory;
     }
 
     /**

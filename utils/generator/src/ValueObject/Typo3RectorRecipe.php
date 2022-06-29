@@ -6,13 +6,43 @@ namespace Ssch\TYPO3Rector\Generator\ValueObject;
 
 final class Typo3RectorRecipe
 {
+    /**
+     * @readonly
+     */
+    private Typo3Version $typo3Version;
+
+    /**
+     * @readonly
+     */
+    private Url $url;
+
+    /**
+     * @readonly
+     */
+    private Name $name;
+
+    /**
+     * @readonly
+     */
+    private Description $description;
+
+    /**
+     * @readonly
+     */
+    private string $type;
+
     public function __construct(
-        private readonly Typo3Version $typo3Version,
-        private readonly Url $url,
-        private readonly Name $name,
-        private readonly Description $description,
-        private readonly string $type,
+        Typo3Version $typo3Version,
+        Url $url,
+        Name $name,
+        Description $description,
+        string $type
     ) {
+        $this->typo3Version = $typo3Version;
+        $this->url = $url;
+        $this->name = $name;
+        $this->description = $description;
+        $this->type = $type;
     }
 
     public function getChangelogUrl(): string
