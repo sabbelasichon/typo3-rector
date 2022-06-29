@@ -14,7 +14,7 @@ final class ConfigFilesystem
     /**
      * @var string[]
      */
-    private const REQUIRED_KEYS = ['__Package__', '__Category__', '__Name__'];
+    private const REQUIRED_KEYS = ['__MAJOR__', '__MINOR__', '__Name__'];
 
     /**
      * @see https://regex101.com/r/gJ0bHJ/1
@@ -31,29 +31,34 @@ final class ConfigFilesystem
     /**
      * @param array<string, string> $templateVariables
      */
-    public function appendRectorServiceToSet(
-        string $setFilePath,
+    public function addRuleToConfigurationFile(
+        string $configFilePath,
         array $templateVariables,
         string $rectorFqnNamePattern
     ): void {
-        $setFileContents = (string) file_get_contents($setFilePath);
+        $this->createConfigurationFileIfNotExists($configFilePath);
+
+        $configFileContents = (string) file_get_contents($configFilePath);
 
         $this->ensureRequiredKeysAreSet($templateVariables);
 
         // already added?
         $servicesFullyQualifiedName = $this->templateFactory->create($rectorFqnNamePattern, $templateVariables);
-        if (\str_contains($setFileContents, $servicesFullyQualifiedName)) {
+        if (\str_contains($configFileContents, $servicesFullyQualifiedName)) {
             return;
         }
 
-        $registerServiceLine = sprintf(
-            ';' . PHP_EOL . '    $rectorConfig->rule(\\%s::class);' . PHP_EOL . '};',
-            $servicesFullyQualifiedName
-        );
-        $setFileContents = Strings::replace($setFileContents, self::LAST_ITEM_REGEX, $registerServiceLine);
+        $rule = sprintf('$rectorConfig->rule(\\%s::class);', $servicesFullyQualifiedName);
+        // Add new rule to existing ones or add as first rule of new configuration file.
+        if (Strings::match($configFileContents, self::LAST_ITEM_REGEX)) {
+            $registerServiceLine = sprintf(';' . PHP_EOL . '    %s' . PHP_EOL . '};', $rule);
+            $configFileContents = Strings::replace($configFileContents, self::LAST_ITEM_REGEX, $registerServiceLine);
+        } else {
+            $configFileContents = str_replace('###FIRST_RULE###', $rule, $configFileContents);
+        }
 
         // 3. print the content back to file
-        $this->filesystem->dumpFile($setFilePath, $setFileContents);
+        $this->filesystem->dumpFile($configFilePath, $configFileContents);
     }
 
     /**
@@ -68,5 +73,17 @@ final class ConfigFilesystem
 
         $message = sprintf('Template variables for "%s" keys are missing', implode('", "', $missingKeys));
         throw new ShouldNotHappenException($message);
+    }
+
+    private function createConfigurationFileIfNotExists(string $configFilePath): void
+    {
+        if (! $this->filesystem->exists($configFilePath)) {
+            $this->filesystem->touch($configFilePath);
+            $this->filesystem->appendToFile(
+                $configFilePath,
+                (string) file_get_contents(__DIR__ . '/../../templates/config/config.php'),
+                true
+            );
+        }
     }
 }
