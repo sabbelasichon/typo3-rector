@@ -21,7 +21,6 @@
         "ext-dom": "*",
         "ext-libxml": "*",
         "ext-simplexml": "*",
-        "composer/semver": "^3.3",
         "helmich/typo3-typoscript-parser": "^2.4.1",
         "nette/utils": "^3.0",
         "nikic/php-parser": "^4.14",
@@ -35,6 +34,7 @@
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
+        "composer/semver": "^3.3",
         "php-parallel-lint/php-parallel-lint": "^1.3",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-phpunit": "^1.1",
