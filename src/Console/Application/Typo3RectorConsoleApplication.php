@@ -8,7 +8,10 @@ use Symfony\Component\Console\Application;
 
 final class Typo3RectorConsoleApplication extends Application
 {
-    public const NAME = 'TYPO3 Rector';
+    /**
+     * @var string
+     */
+    private const NAME = 'TYPO3 Rector';
 
     public function __construct()
     {
