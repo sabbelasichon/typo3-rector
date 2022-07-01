@@ -9,25 +9,21 @@
 1. [Limitations](./limitations.md)
 1. [Contribution](./contribution.md)
 
-# Installation (until rector version 0.13.4)
+# Installation
 
-This repository (`ssch/typo3-rector`) is for development TYPO3 Rector only.
-Head to [`rectorphp/rector`](http://github.com/rectorphp/rector) for installation. 
 
-This is only the case for rector versions until 0.13.4 and below.
-
-[`rectorphp/rector`](http://github.com/rectorphp/rector) is a prefixed and downgraded version (down to PHP 7.1) to use it in older projects and to avoid dependency conflicts.
-
+TYPO3 rector is a standalone package again, that builds up on `rectorphp/rector`
 ```bash
-composer require --dev rector/rector
+composer require --dev ssch/typo3-rector
 ```
 
-# Installation (after rector version 0.13.4)
+### Note to previous installation
 
-With version `0.13.5` the rector core does not integrate typo3-rector anymore for faster and more stable development on both ends. Breaking changes always affect the whole rector ecosystem causing typo3-rector to be affected by them and slowing down the general development.
+Earlier the year 2022 we have been part of the rector/rector core.
 
-Please use a earlier version of rector until this section is updated and typo3-rector is stable as standalone package. 
+This changed due to fast pace development and we split apart again.
 
+This means with version `0.13.5` the rector core does not integrate typo3-rector anymore for faster and more stable development on both ends. Breaking changes always affect the whole rector ecosystem causing typo3-rector to be affected by them and slowing down the general development.
 
 ## Non composer installations
 
@@ -35,7 +31,7 @@ If you have a non composer TYPO3 installation. Don't worry.
 Install typo3-rector either as a global dependency:
 
 ```bash
-composer global require --dev rector/rector
+composer global require --dev ssch/typo3-rector
 ```
 
 Add an extra autoload file. In the example case it is placed in the Document Root of your TYPO3 project.
