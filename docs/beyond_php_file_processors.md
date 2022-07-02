@@ -43,8 +43,6 @@ use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
 use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/config/config.php');
-
     $rectorConfig->ruleWithConfiguration(ExtensionComposerRector::class, [
         ExtensionComposerRector::TYPO3_VERSION_CONSTRAINT => '^10.4'
     ]);
@@ -55,8 +53,10 @@ Also you can update all your core packages and third party packages (that are on
 ```php
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 ...
-$rectorConfig->import(Typo3SetList::COMPOSER_PACKAGES_104_CORE);
-$rectorConfig->import(Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS);
+$rectorConfig->sets([
+    Typo3SetList::COMPOSER_PACKAGES_104_CORE,
+    Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS
+]);
 ```
 
 ## FormYamlProcessor
@@ -73,16 +73,12 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/config/config.php');
-
-    $rectorConfig = $containerConfigurator->services();
-
-    $rectorConfig->set(TypoScriptFileProcessor::class)
-        ->call('configure', [[
+    $rectorConfig->ruleWithConfiguration(TypoScriptFileProcessor::class, [
             TypoScriptFileProcessor::ALLOWED_FILE_EXTENSIONS => [
                 'special',
-            ],
-        ]]);
+            ]
+        ]
+    );
 };
 ```
 # Special Cases
@@ -100,8 +96,7 @@ By adding the following configuration your code is automatically rewritten into 
 ```php
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0\ExtbasePersistenceTypoScriptRector;
 ...
-$services = $containerConfigurator->services();
-$services->set(ExtbasePersistenceTypoScriptRector::class);
+$rectorConfig->rule(ExtbasePersistenceTypoScriptRector::class);
 ```
 
 Currently all of your packages are summarized into a single file.
