@@ -43,9 +43,9 @@ use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
-    $parameters = $rectorConfig->parameters();
-
-    $rectorConfig->import(Typo3LevelSetList::UP_TO_TYPO3_11);
+    $rectorConfig->sets([
+        Typo3LevelSetList::UP_TO_TYPO3_11
+    ]);
 
     // In order to have a better analysis from phpstan we teach it here some more things
     $rectorConfig->phpstanConfig(Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
@@ -59,14 +59,8 @@ return static function (RectorConfig $rectorConfig): void {
     // this will not import root namespace classes, like \DateTime or \Exception
     $rectorConfig->disableImportShortClasses();
 
-    // this prevents infinite loop issues due to symlinks in e.g. ".Build/" folders within single extensions
-    $parameters->set(Option::FOLLOW_SYMLINKS, false);
-
     // Define your target version which you want to support
     $rectorConfig->phpVersion(PhpVersion::PHP_74);
-
-    // If you have an editorconfig and changed files should keep their format enable it here
-    // $parameters->set(Option::ENABLE_EDITORCONFIG, true);
 
     // If you only want to process one/some TYPO3 extension(s), you can specify its path(s) here.
     // If you use the option --config change __DIR__ to getcwd()
@@ -98,9 +92,9 @@ return static function (RectorConfig $rectorConfig): void {
     // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file
     // @see https://github.com/sabbelasichon/typo3-rector/blob/master/typo3.constants.php
     // @see https://github.com/rectorphp/rector/blob/main/docs/static_reflection_and_autoload.md#include-files
-    // $parameters->set(Option::BOOTSTRAP_FILES, [
+    // $rectorConfig->bootstrapFiles([
     //    __DIR__ . '/typo3.constants.php'
-    // ]);
+    //]);
 
     // register a single rule
     // $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector::class);
@@ -163,8 +157,7 @@ The file `rector.php` is located in the directory` /var/www/Build/Apps/` and it 
 via` cd /var/www/html/ && ./vendor/bin/rector process --config ../Build/Apps/rector.php --dry-run`.
 The starting point with the PHP method `getcwd()` is then `/var/www/html/` instead of `/var/www/html/Build/Apps/` with `__DIR__`.
 ```php
-$parameters->set(
-    Option::SKIP,
+$rectorConfig->skip(
     [
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
@@ -178,17 +171,14 @@ $parameters->set(
             getcwd() . '/**/Configuration/Extbase/Persistence/Classes.php'
         ]
     ]
-);
+)
 ```
 
 ### Example with the option --config and predefined paths in a custom rector.php location
 In order to process the source files of only one TYPO3 extension it's recommended to defined said extension's path via the `Option::PATHS` parameter within the config file:
 ```php
 // paths to refactor; solid alternative to CLI arguments
-$parameters->set(
-    Option::PATHS,
-    [
-        getcwd() . '/**/acme_demo/'
-    ]
-);
+$rectorConfig->paths([
+    getcwd() . '/**/acme_demo/'
+]);
 ```

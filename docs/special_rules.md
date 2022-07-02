@@ -20,8 +20,7 @@ All special rules can be included via config file (rector.php) in the following 
 
 ```php
 ...
-$services = $containerConfigurator->services();
-$services->set(CLASSNAME);
+$rectorConfig->rule(CLASSNAME);
 ```
 
 ## Affected rules
