@@ -27,6 +27,7 @@ use Ssch\TYPO3Rector\NodeAnalyzer\CommandArrayDecorator;
 use Ssch\TYPO3Rector\NodeAnalyzer\CommandMethodDecorator;
 use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Filesystem\Filesystem;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -82,6 +83,11 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
      */
     private CommandMethodDecorator $commandMethodDecorator;
 
+    /**
+     * @readonly
+     */
+    private Filesystem $filesystem;
+
     public function __construct(
         RectorParser $rectorParser,
         FilesFinder $filesFinder,
@@ -90,7 +96,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         NodePrinterInterface $nodePrinter,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         CommandArrayDecorator $commandArrayDecorator,
-        CommandMethodDecorator $commandMethodDecorator
+        CommandMethodDecorator $commandMethodDecorator,
+        Filesystem $filesystem
     ) {
         $this->rectorParser = $rectorParser;
         $this->filesFinder = $filesFinder;
@@ -100,6 +107,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->commandArrayDecorator = $commandArrayDecorator;
         $this->commandMethodDecorator = $commandMethodDecorator;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -191,7 +199,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             $filePath = sprintf('%s/Classes/Command/%s.php', $extensionDirectory, $commandName);
 
             // Do not overwrite existing file
-            if (file_exists($filePath) && ! StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            if ($this->filesystem->exists($filePath) && ! StaticPHPUnitEnvironment::isPHPUnitRun()) {
                 continue;
             }
 
@@ -302,7 +310,7 @@ CODE_SAMPLE
         string $commandsFilePath,
         array $newCommandsWithFullQualifiedNamespace
     ): void {
-        if (file_exists($commandsFilePath)) {
+        if ($this->filesystem->exists($commandsFilePath)) {
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
             $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo);
 

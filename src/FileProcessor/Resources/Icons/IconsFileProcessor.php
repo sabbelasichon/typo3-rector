@@ -13,6 +13,7 @@ use Rector\Parallel\ValueObject\Bridge;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Symfony\Component\Filesystem\Filesystem;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class IconsFileProcessor implements FileProcessorInterface
@@ -34,12 +35,18 @@ final class IconsFileProcessor implements FileProcessorInterface
     private array $iconsRector = [];
 
     /**
+     * @readonly
+     */
+    private Filesystem $filesystem;
+
+    /**
      * @param IconRectorInterface[] $iconsRector
      */
-    public function __construct(FilesFinder $filesFinder, array $iconsRector)
+    public function __construct(FilesFinder $filesFinder, Filesystem $filesystem, array $iconsRector)
     {
         $this->filesFinder = $filesFinder;
         $this->iconsRector = $iconsRector;
+        $this->filesystem = $filesystem;
     }
 
     /**
@@ -72,7 +79,7 @@ final class IconsFileProcessor implements FileProcessorInterface
             return false;
         }
 
-        return ! file_exists($this->createIconPath($file));
+        return ! $this->filesystem->exists($this->createIconPath($file));
     }
 
     public function getSupportedFileExtensions(): array
