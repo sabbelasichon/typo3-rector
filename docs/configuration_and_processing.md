@@ -15,7 +15,7 @@ This library ships already with a bunch of configuration files organized by TYPO
 To get you started quickly run the following command inside the root directory of your project:
 
 ```bash
-./vendor/bin/rector init --template-type=typo3
+cp ./vendor/ssch/typo3-rector/templates/rector.php.dist rector.php
 ```
 
 The command generates a basic configuration skeleton which you can adapt to your needs.
@@ -52,7 +52,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $rectorConfig->importNames();
-    
+
     // Disable parallel otherwise non php file processing is not working i.e. typoscript
     $rectorConfig->disableParallel();
 
