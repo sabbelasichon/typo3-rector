@@ -1,4 +1,4 @@
-# 256 Rules Overview
+# 257 Rules Overview
 
 ## AddMethodToWidgetInterfaceClassesRector
 
@@ -3514,6 +3514,19 @@ return static function (RectorConfig $rectorConfig): void {
 -    t3lib_div::makeInstance(\tx_cms_BackendLayout::class);
 +    GeneralUtility::makeInstance(\TYPO3\CMS\Backend\View\BackendLayoutView::class);
  }
+```
+
+<br>
+
+## RenameConstantsAndSetupFileEndingRector
+
+Rename setup.txt and constants.txt to *.typoscript
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector\v12\v0\RenameConstantsAndSetupFileEndingRector`](../src/FileProcessor/Resources/Files/Rector/v12/v0/RenameConstantsAndSetupFileEndingRector.php)
+
+```diff
+-setup.txt
++setup.typoscript
 ```
 
 <br>
