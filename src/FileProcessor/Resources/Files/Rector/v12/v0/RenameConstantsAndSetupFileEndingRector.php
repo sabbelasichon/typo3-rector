@@ -13,11 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-/**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-96518-Ext_typoscript_txtFilesNotIncludedAnymore.html
- * @see \Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Files\Rector\v12\v0\RenameExtTypoScriptFiles\RenameExtTypoScriptFilesFileRectorTest
- */
-final class RenameExtTypoScriptFilesFileRector implements FileRectorInterface
+final class RenameConstantsAndSetupFileEndingRector implements FileRectorInterface
 {
     /**
      * @readonly
@@ -35,6 +31,21 @@ final class RenameExtTypoScriptFilesFileRector implements FileRectorInterface
         $this->filesFinder = $filesFinder;
     }
 
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Rename setup.txt and constants.txt to *.typoscript', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+setup.txt
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+setup.typoscript
+CODE_SAMPLE
+            ),
+        ]);
+    }
+
     public function refactorFile(File $file): void
     {
         if ($this->shouldSkip($file)) {
@@ -48,21 +59,6 @@ final class RenameExtTypoScriptFilesFileRector implements FileRectorInterface
         $this->removedAndAddedFilesCollector->addMovedFile($file, $newFileName);
     }
 
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('Rename ext_typoscript_*.txt to ext_typoscript_*.typoscript', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
-ext_typoscript_constants.txt
-CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-ext_typoscript_constants.typoscript
-CODE_SAMPLE
-            ),
-        ]);
-    }
-
     private function shouldSkip(File $file): bool
     {
         $smartFileInfo = $file->getSmartFileInfo();
@@ -73,27 +69,37 @@ CODE_SAMPLE
             return true;
         }
 
-        if ($extEmConfFile->getPath() !== $smartFileInfo->getPath()) {
+        // Test mode is handled differently
+        if ($this->isInTestMode()) {
+            return $this->shouldSkipInTestMode($smartFileInfo);
+        }
+
+        if (! str_ends_with($smartFileInfo->getRelativeFilePath(), 'Configuration/TypoScript/')) {
             return true;
         }
 
-        if ('ext_typoscript_setup.txt' === $smartFileInfo->getBasename()) {
+        if ('constants.txt' === $smartFileInfo->getBasename()) {
             return false;
         }
 
-        if ('ext_typoscript_constants.txt' === $smartFileInfo->getBasename()) {
+        if ('setup.txt' === $smartFileInfo->getBasename()) {
             return false;
         }
 
-        // This is a guard clause to prevent the further checks if not in test mode
-        if (! StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            return true;
-        }
+        return true;
+    }
 
-        if (str_ends_with($smartFileInfo->getBasename(), 'ext_typoscript_constants.txt')) {
+    private function isInTestMode(): bool
+    {
+        return StaticPHPUnitEnvironment::isPHPUnitRun();
+    }
+
+    private function shouldSkipInTestMode(SmartFileInfo $smartFileInfo): bool
+    {
+        if (str_ends_with($smartFileInfo->getBasename(), 'constants.txt')) {
             return false;
         }
 
-        return ! str_ends_with($smartFileInfo->getBasename(), 'ext_typoscript_setup.txt');
+        return ! str_ends_with($smartFileInfo->getBasename(), 'setup.txt');
     }
 }

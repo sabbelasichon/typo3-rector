@@ -11,8 +11,6 @@ use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -97,12 +95,12 @@ CODE_SAMPLE
     {
         $implementsInterface = false;
         foreach ($class->implements as $interface) {
-            if($this->isName($interface, 'TYPO3\CMS\Dashboard\Widgets\WidgetInterface')) {
+            if ($this->isName($interface, 'TYPO3\CMS\Dashboard\Widgets\WidgetInterface')) {
                 $implementsInterface = true;
             }
         }
 
-        if(!$implementsInterface) {
+        if (! $implementsInterface) {
             return true;
         }
 
