@@ -21,6 +21,9 @@ env:
 
 jobs:
     rector:
+        # Don't run on forks.
+        if: github.repository == 'sabbelasichon/typo3-rector'
+        timeout-minutes: 10
         runs-on: ubuntu-latest
         steps:
             # workaround for missing secret in fork PRs - see https://github.com/actions/checkout/issues/298
