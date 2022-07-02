@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v11\v5\RegisterIconToIconFileRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\v11\v4\RegisterIconToIconFileRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

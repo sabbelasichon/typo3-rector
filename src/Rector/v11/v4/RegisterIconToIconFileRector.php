@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\v11\v5;
+namespace Ssch\TYPO3Rector\Rector\v11\v4;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
@@ -23,8 +23,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
- * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/Icon/Index.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v5\RegisterIconToIconFileRector\RegisterIconToIconFileRectorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.4/Feature-94692-RegisteringIconsViaServiceContainer.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v4\RegisterIconToIconFileRector\RegisterIconToIconFileRectorTest
  */
 final class RegisterIconToIconFileRector extends AbstractRector
 {
