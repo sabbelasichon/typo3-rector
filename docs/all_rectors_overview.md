@@ -2465,7 +2465,7 @@ Refactor various deprecated methods of class GeneralUtility
 
 Generate or add registerIcon calls to Icons.php file
 
-- class: [`Ssch\TYPO3Rector\Rector\v11\v5\RegisterIconToIconFileRector`](../src/Rector/v11/v5/RegisterIconToIconFileRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v11\v4\RegisterIconToIconFileRector`](../src/Rector/v11/v4/RegisterIconToIconFileRector.php)
 
 ```diff
  use TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider;
