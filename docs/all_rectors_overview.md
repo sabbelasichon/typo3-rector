@@ -1,4 +1,31 @@
-# 255 Rules Overview
+# 256 Rules Overview
+
+## AddMethodToWidgetInterfaceClassesRector
+
+Add `getOptions()` to classes that implement the WidgetInterface
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\AddMethodToWidgetInterfaceClassesRector`](../src/Rector/v12/v0/typo3/AddMethodToWidgetInterfaceClassesRector.php)
+
+```diff
+ use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
+
+ class MyClass implements WidgetInterface
+ {
+     private readonly array $options;
+
+     public function renderWidgetContent(): string
+     {
+         return 'foo';
+     }
++
++    public function getOptions(): array
++    {
++        return $this->options;
++    }
+ }
+```
+
+<br>
 
 ## AddRenderTypeToSelectFieldRector
 
