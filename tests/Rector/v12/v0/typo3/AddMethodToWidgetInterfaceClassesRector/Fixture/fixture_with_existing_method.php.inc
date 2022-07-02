@@ -6,7 +6,7 @@ use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 
 class MyClass implements WidgetInterface
 {
-    private readonly array $options;
+    private array $options;
 
     public function renderWidgetContent(): string
     {

@@ -28,11 +28,6 @@ final class AddMethodToWidgetInterfaceClassesRector extends AbstractRector
      */
     private const GET_OPTIONS = 'getOptions';
 
-    public function __construct(
-        private readonly ReflectionProvider $reflectionProvider
-    ) {
-    }
-
     /**
      * @return array<class-string<Node>>
      */
@@ -100,27 +95,16 @@ CODE_SAMPLE
 
     private function shouldSkip(Class_ $class): bool
     {
-        if (! $this->nodeTypeResolver->isObjectType(
-            $class,
-            new ObjectType('TYPO3\CMS\Dashboard\Widgets\WidgetInterface')
-        )) {
-            return true;
+        $implementsInterface = false;
+        foreach ($class->implements as $interface) {
+            if($this->isName($interface, 'TYPO3\CMS\Dashboard\Widgets\WidgetInterface')) {
+                $implementsInterface = true;
+            }
         }
 
-        $className = $this->getName($class);
-        if (null === $className) {
+        if(!$implementsInterface) {
             return true;
         }
-
-        if (! $this->reflectionProvider->hasClass($className)) {
-            return true;
-        }
-
-        // TODO: as far as i understand this should be active, but does currently prevent the code migration
-        // $classReflection = $this->reflectionProvider->getClass($className);
-        // if ($classReflection->hasMethod(self::GET_OPTIONS)) {
-        //     return true;
-        // }
 
         return null !== $class->getMethod(self::GET_OPTIONS);
     }
