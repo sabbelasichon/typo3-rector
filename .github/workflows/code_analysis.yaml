@@ -37,10 +37,6 @@ jobs:
                         name: 'PHPStan'
                         run: composer analyze
 
-                    -
-                        name: 'Rector'
-                        run: vendor/bin/rector process --ansi --dry-run
-
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
 

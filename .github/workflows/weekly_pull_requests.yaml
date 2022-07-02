@@ -11,21 +11,17 @@ env:
 
 jobs:
     weekly_pull_requests:
+        # Don't run on forks.
+        if: github.repository == 'sabbelasichon/typo3-rector'
         strategy:
             fail-fast: false
             matrix:
                 actions:
                     -
-                        name: "Update composer packages"
-                        run: "composer update-composer"
-                        branch: 'automated-regenerated-composer-packages'
-                        
-                    -
-                        name: "Update config file to support php 7.1"
-                        run: |
-                            composer install
-                            vendor/bin/rector process config -c vendor/rector/rector-src/build/config/config-downgrade.php 
-                        branch: 'automated-make-config-php71-compatible'
+                        name: 'Apply Coding Standard'
+                        run: "composer fix-style"
+                        branch: 'automated-apply-coding-standards'
+
 
         name: ${{ matrix.actions.name }}
         runs-on: ubuntu-latest
@@ -58,3 +54,11 @@ jobs:
                     branch: ${{ matrix.actions.branch }}
                     title: '[automated] ${{ matrix.actions.name }}'
                     delete-branch: true
+            -
+                name: Enable Pull Request Automerge
+                if: steps.cpr.outputs.pull-request-operation == 'created'
+                uses: peter-evans/enable-pull-request-automerge@v1
+                with:
+                    token: ${{ secrets.ACCESS_TOKEN }}
+                    pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+                    merge-method: squash
