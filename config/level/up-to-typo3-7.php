@@ -6,5 +6,5 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->sets([Typo3SetList::TYPO3_76, Typo3SetList::TCA_76]);
+    $rectorConfig->sets([Typo3SetList::TYPO3_76]);
 };

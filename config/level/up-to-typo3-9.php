@@ -7,5 +7,5 @@ use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->sets([Typo3LevelSetList::UP_TO_TYPO3_8, Typo3SetList::TYPO3_95, Typo3SetList::TCA_95]);
+    $rectorConfig->sets([Typo3LevelSetList::UP_TO_TYPO3_8, Typo3SetList::TYPO3_95]);
 };
