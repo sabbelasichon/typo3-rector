@@ -12,13 +12,17 @@
 # Configuration and Processing
 
 This library ships already with a bunch of configuration files organized by TYPO3 version.
-To get you started quickly run the following command inside the root directory of your project:
+To get you started quickly check the following file provided by TYPO3 rector:
 
 ```bash
+<<<<<<< Updated upstream
 cp ./vendor/ssch/typo3-rector/templates/rector.php.dist rector.php
+=======
+./vendor/ssch/typo3-rector/templates/rector.php.dist
+>>>>>>> Stashed changes
 ```
 
-The command generates a basic configuration skeleton which you can adapt to your needs.
+This provides a basic configuration skeleton which you can adapt to your needs.
 The file is full of comments, so you can follow along what is going on.
 
 Also have a look at the class [Typo3SetList](https://github.com/sabbelasichon/typo3-rector/blob/master/src/Set/Typo3SetList.php).
