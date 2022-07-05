@@ -15,68 +15,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.3/Deprecation-94165-SysLanguageDatabaseTable.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v3\UseLanguageTypeForLanguageFieldColumnRector\UseLanguageTypeForLanguageFieldColumnRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v3\MigrateLanguageFieldToTcaTypeLanguageRector\MigrateLanguageFieldToTcaTypeLanguageRectorTest
  */
-final class UseLanguageTypeForLanguageFieldColumnRector extends AbstractTcaRector
+final class MigrateLanguageFieldToTcaTypeLanguageRector extends AbstractTcaRector
 {
     private ?string $languageField = null;
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition(
-            'use the new TCA type language instead of foreign_table => sys_language for selecting a records',
-            [
-                new CodeSample(
-                    <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-        'languageField' => 'sys_language_uid',
-    ],
-    'columns' => [
-        'sys_language_uid' => [
-            'exclude' => 1,
-            'label' => 'Language',
-            'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'sys_language',
-                'foreign_table_where' => 'ORDER BY sys_language.title',
-                'eval' => 'int',
-                'items' => [
-                    [$_LLL_general . ':LGL.allLanguages', -1],
-                    [$_LLL_general . ':LGL.default_value', 0]
-
-                ],
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-                    ,
-                    <<<'CODE_SAMPLE'
-return [
-    'ctrl' => [
-        'languageField' => 'sys_language_uid',
-    ],
-    'columns' => [
-        'sys_language_uid' => [
-            'exclude' => 1,
-            'label' => 'Language',
-            'config' => [
-                'type' => 'language'
-            ],
-        ],
-    ],
-];
-CODE_SAMPLE
-                ),
-
-            ]
-        );
-    }
 
     /**
      * @param Array_ $node
@@ -112,22 +55,74 @@ CODE_SAMPLE
         return $this->hasAstBeenChanged ? $node : null;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition(
+            'use the new TCA type language instead of foreign_table => sys_language for selecting a records',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+        'languageField' => 'sys_language_uid',
+    ],
+    'columns' => [
+        'sys_language_uid' => [
+            'exclude' => 1,
+            'label' => 'Language',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'sys_language',
+                'foreign_table_where' => 'ORDER BY sys_language.title',
+                'eval' => 'int',
+                'items' => [
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
+                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0],
+                ],
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+                    ,
+                    <<<'CODE_SAMPLE'
+return [
+    'ctrl' => [
+        'languageField' => 'sys_language_uid',
+    ],
+    'columns' => [
+        'sys_language_uid' => [
+            'exclude' => 1,
+            'label' => 'Language',
+            'config' => [
+                'type' => 'language',
+            ],
+        ],
+    ],
+];
+CODE_SAMPLE
+                ),
+            ]
+        );
+    }
+
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
         $column = $this->valueResolver->getValue($columnName);
-
         if ($column !== $this->languageField) {
             return;
         }
 
-        $configuration = $this->extractArrayItemByKey($columnTca, 'config');
-
+        $configuration = $this->extractArrayItemByKey($columnTca, self::CONFIG);
         if (! $configuration instanceof ArrayItem) {
             return;
         }
 
         $foreignTable = $this->extractArrayItemByKey($configuration->value, 'foreign_table');
-
         if (! $foreignTable instanceof ArrayItem) {
             return;
         }

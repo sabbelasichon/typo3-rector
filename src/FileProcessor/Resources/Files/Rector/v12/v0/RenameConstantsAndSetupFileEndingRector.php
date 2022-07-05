@@ -82,11 +82,7 @@ CODE_SAMPLE
             return false;
         }
 
-        if ('setup.txt' === $smartFileInfo->getBasename()) {
-            return false;
-        }
-
-        return true;
+        return 'setup.txt' !== $smartFileInfo->getBasename();
     }
 
     private function isInTestMode(): bool

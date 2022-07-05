@@ -1,4 +1,4 @@
-# 257 Rules Overview
+# 258 Rules Overview
 
 ## AddMethodToWidgetInterfaceClassesRector
 
@@ -1444,6 +1444,40 @@ Migrates TCA internal_type into new own seperate types
 
 <br>
 
+## MigrateLanguageFieldToTcaTypeLanguageRector
+
+use the new TCA type language instead of foreign_table => sys_language for selecting a records
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\MigrateLanguageFieldToTcaTypeLanguageRector`](../src/Rector/v11/v3/MigrateLanguageFieldToTcaTypeLanguageRector.php)
+
+```diff
+ return [
+     'ctrl' => [
+         'languageField' => 'sys_language_uid',
+     ],
+     'columns' => [
+         'sys_language_uid' => [
+             'exclude' => 1,
+             'label' => 'Language',
+             'config' => [
+-                'type' => 'select',
+-                'renderType' => 'selectSingle',
+-                'foreign_table' => 'sys_language',
+-                'foreign_table_where' => 'ORDER BY sys_language.title',
+-                'eval' => 'int',
+-                'items' => [
+-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
+-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0],
+-                ],
++                'type' => 'language',
+             ],
+         ],
+     ],
+ ];
+```
+
+<br>
+
 ## MigrateLastPiecesOfDefaultExtrasRector
 
 Migrate last pieces of default extras
@@ -1609,6 +1643,42 @@ Move special configuration to columns overrides
 +                    'defaultExtras' => 'nowrap',
 +                ],
 +            ],
+         ],
+     ],
+ ];
+```
+
+<br>
+
+## MigrateSpecialLanguagesToTcaTypeLanguageRector
+
+use the new TCA type language instead of foreign_table => sys_language for selecting a records
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\MigrateSpecialLanguagesToTcaTypeLanguageRector`](../src/Rector/v11/v3/MigrateSpecialLanguagesToTcaTypeLanguageRector.php)
+
+```diff
+ return [
+     'ctrl' => [
+         'languageField' => 'sys_language_uid',
+     ],
+     'columns' => [
+         'sys_language_uid' => [
+             'exclude' => true,
+             'label' => 'Language',
+             'config' => [
+-                'type' => 'select',
+-                'renderType' => 'selectSingle',
+-                'special' => 'languages',
+-                'items' => [
+-                    [
+-                        'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages',
+-                        -1,
+-                        'flags-multiple'
+-                    ],
+-                ],
+-                'default' => 0,
++                'type' => 'language'
+             ],
          ],
      ],
  ];
@@ -4898,41 +4968,6 @@ Use LanguageAspect instead of language properties of TSFE
 +use TYPO3\CMS\Core\Context\Context;
 +use TYPO3\CMS\Core\Utility\GeneralUtility;
 +$languageUid = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id');
-```
-
-<br>
-
-## UseLanguageTypeForLanguageFieldColumnRector
-
-use the new TCA type language instead of foreign_table => sys_language for selecting a records
-
-- class: [`Ssch\TYPO3Rector\Rector\v11\v3\UseLanguageTypeForLanguageFieldColumnRector`](../src/Rector/v11/v3/UseLanguageTypeForLanguageFieldColumnRector.php)
-
-```diff
- return [
-     'ctrl' => [
-         'languageField' => 'sys_language_uid',
-     ],
-     'columns' => [
-         'sys_language_uid' => [
-             'exclude' => 1,
-             'label' => 'Language',
-             'config' => [
--                'type' => 'select',
--                'renderType' => 'selectSingle',
--                'foreign_table' => 'sys_language',
--                'foreign_table_where' => 'ORDER BY sys_language.title',
--                'eval' => 'int',
--                'items' => [
--                    [$_LLL_general . ':LGL.allLanguages', -1],
--                    [$_LLL_general . ':LGL.default_value', 0]
--
--                ],
-+                'type' => 'language'
-             ],
-         ],
-     ],
- ];
 ```
 
 <br>

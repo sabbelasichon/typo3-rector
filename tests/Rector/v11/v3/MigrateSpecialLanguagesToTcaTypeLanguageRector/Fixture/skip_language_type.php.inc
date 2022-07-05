@@ -7,7 +7,7 @@ return [
         'languageField' => 'sys_language_uid',
     ],
     'columns' => [
-        'sys_language_uid' => [
+        'other_language_field' => [
             'exclude' => 1,
             'label' => $_LLL_general . ':LGL.language',
             'config' => [
@@ -19,28 +19,8 @@ return [
                 'items' => [
                     [$_LLL_general . ':LGL.allLanguages', -1],
                     [$_LLL_general . ':LGL.default_value', 0]
-
                 ],
             ],
-        ],
-    ],
-];
-
-?>
------
-<?php
-
-$_LLL_general = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf';
-
-return [
-    'ctrl' => [
-        'languageField' => 'sys_language_uid',
-    ],
-    'columns' => [
-        'sys_language_uid' => [
-            'exclude' => 1,
-            'label' => $_LLL_general . ':LGL.language',
-            'config' => ['type' => 'language'],
         ],
     ],
 ];
