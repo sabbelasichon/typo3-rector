@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v11\v3\UseLanguageTypeForLanguageFieldColumnRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\v11\v3\MigrateLanguageFieldToTcaTypeLanguageRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class UseLanguageTypeForLanguageFieldColumnRectorTest extends AbstractRectorTestCase
+final class MigrateLanguageFieldToTcaTypeLanguageRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

@@ -19,7 +19,6 @@ return [
                 'items' => [
                     [$_LLL_general . ':LGL.allLanguages', -1],
                     [$_LLL_general . ':LGL.default_value', 0]
-
                 ],
             ],
         ],
