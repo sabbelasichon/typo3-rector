@@ -1677,7 +1677,7 @@ use the new TCA type language instead of foreign_table => sys_language for selec
 -                    ],
 -                ],
 -                'default' => 0,
-+                'type' => 'language'
++                'type' => 'language',
              ],
          ],
      ],
