@@ -29,6 +29,26 @@ class QueryBuilder
         return $this;
     }
 
+    public function update(string $table): QueryBuilder
+    {
+        return $this;
+    }
+
+    public function count(string $table): QueryBuilder
+    {
+        return $this;
+    }
+
+    public function delete(string $table): QueryBuilder
+    {
+        return $this;
+    }
+
+    public function insert(string $table): QueryBuilder
+    {
+        return $this;
+    }
+
     public function from(string $from, string $alias = null): QueryBuilder
     {
         return $this;
@@ -47,5 +67,40 @@ class QueryBuilder
     public function executeQuery(): Result
     {
         return new Result();
+    }
+
+    public function execute(): Result
+    {
+        return new Result();
+    }
+
+    public function executeStatement(): int
+    {
+        return 1;
+    }
+
+    public function set(string $field, string $value): QueryBuilder
+    {
+        return $this;
+    }
+
+    public function values(array $values, bool $createNamedParameters = true): QueryBuilder
+    {
+        return $this;
+    }
+
+    public function selectLiteral(string ...$selects): QueryBuilder
+    {
+        return $this;
+    }
+
+    public function addSelect(string ...$selects): QueryBuilder
+    {
+        return $this;
+    }
+
+    public function addSelectLiteral(string ...$selects): QueryBuilder
+    {
+        return $this;
     }
 }
