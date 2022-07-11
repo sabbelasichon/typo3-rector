@@ -22,6 +22,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -55,11 +56,17 @@ final class PageNotFoundAndErrorHandlingRector extends AbstractRector
     /**
      * @readonly
      */
+    public NodesToAddCollector $nodesToAddCollector;
+
+    /**
+     * @readonly
+     */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
+        $this->nodesToAddCollector = $nodesToAddCollector;
     }
 
     /**

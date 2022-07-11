@@ -77,9 +77,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $newHeadersNode = $this->nodeFactory->createArray($newHeaders);
-
-        $node->args[2]->value = $newHeadersNode;
+        $node->args[2]->value = $this->nodeFactory->createArray($newHeaders);
 
         return $node;
     }

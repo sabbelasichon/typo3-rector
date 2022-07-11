@@ -12,6 +12,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\PostRector\Collector\NodesToRemoveCollector;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -29,7 +30,17 @@ final class MoveTypeGroupSuggestWizardToSuggestOptionsRector extends AbstractRec
      */
     private const TYPE = 'type';
 
+    /**
+     * @readonly
+     */
+    public NodesToRemoveCollector $nodesToRemoveCollector;
+
     private bool $hasAstBeenChanged = false;
+
+    public function __construct(NodesToRemoveCollector $nodesToRemoveCollector)
+    {
+        $this->nodesToRemoveCollector = $nodesToRemoveCollector;
+    }
 
     /**
      * @return array<class-string<Node>>
