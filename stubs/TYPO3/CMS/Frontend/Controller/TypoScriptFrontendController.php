@@ -143,6 +143,11 @@ class TypoScriptFrontendController
      */
     public $renderCharset = '';
 
+    /**
+     * @var string
+     */
+    public $metaCharset = 'utf-8';
+
     protected Context $context;
 
     /**
@@ -384,5 +389,14 @@ class TypoScriptFrontendController
     public function whichWorkspace(): int
     {
         return 0;
+    }
+
+    /**
+     * @param string
+     * @return string
+     */
+    public function convOutputCharset($content)
+    {
+        return $content;
     }
 }
