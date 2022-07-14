@@ -14,6 +14,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -23,6 +24,16 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class CopyMethodGetPidForModTSconfigRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
+    public NodesToAddCollector $nodesToAddCollector;
+
+    public function __construct(NodesToAddCollector $nodesToAddCollector)
+    {
+        $this->nodesToAddCollector = $nodesToAddCollector;
+    }
+
     /**
      * @return array<class-string<Node>>
      */

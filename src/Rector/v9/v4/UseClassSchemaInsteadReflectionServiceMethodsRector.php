@@ -25,6 +25,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PostRector\Collector\NodesToAddCollector;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -44,6 +45,16 @@ final class UseClassSchemaInsteadReflectionServiceMethodsRector extends Abstract
      * @var string
      */
     private const TAGS = 'tags';
+
+    /**
+     * @readonly
+     */
+    public NodesToAddCollector $nodesToAddCollector;
+
+    public function __construct(NodesToAddCollector $nodesToAddCollector)
+    {
+        $this->nodesToAddCollector = $nodesToAddCollector;
+    }
 
     /**
      * @codeCoverageIgnore

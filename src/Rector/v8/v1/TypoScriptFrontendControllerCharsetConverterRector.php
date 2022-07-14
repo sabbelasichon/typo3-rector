@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -34,11 +35,17 @@ final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractR
     /**
      * @readonly
      */
+    public NodesToAddCollector $nodesToAddCollector;
+
+    /**
+     * @readonly
+     */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
+        $this->nodesToAddCollector = $nodesToAddCollector;
     }
 
     /**

@@ -24,6 +24,7 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -77,6 +78,16 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
      * @var string
      */
     private const PARSED_REPLY_TO = 'parsedReplyTo';
+
+    /**
+     * @readonly
+     */
+    public NodesToAddCollector $nodesToAddCollector;
+
+    public function __construct(NodesToAddCollector $nodesToAddCollector)
+    {
+        $this->nodesToAddCollector = $nodesToAddCollector;
+    }
 
     /**
      * @return array<class-string<Node>>

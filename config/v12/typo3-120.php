@@ -12,6 +12,8 @@ use Ssch\TYPO3Rector\Rector\v12\v0\typo3\AddMethodToWidgetInterfaceClassesRector
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveRedundantFeLoginModeMethodsRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveTSFEConvOutputCharsetCallsRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveTSFEMetaCharSetCallsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveUpdateRootlineDataRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceExpressionBuilderMethodsRector;
@@ -43,4 +45,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ReplaceExpressionBuilderMethodsRector::class);
     $rectorConfig->rule(AddMethodToWidgetInterfaceClassesRector::class);
     $rectorConfig->rule(MigrateQueryBuilderExecuteRector::class);
+    $rectorConfig->rule(RemoveTSFEMetaCharSetCallsRector::class);
+    $rectorConfig->rule(RemoveTSFEConvOutputCharsetCallsRector::class);
 };

@@ -17,6 +17,7 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -30,6 +31,16 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
      * @var string
      */
     private const PID = 'pid';
+
+    /**
+     * @readonly
+     */
+    public NodesToAddCollector $nodesToAddCollector;
+
+    public function __construct(NodesToAddCollector $nodesToAddCollector)
+    {
+        $this->nodesToAddCollector = $nodesToAddCollector;
+    }
 
     /**
      * @return array<class-string<Node>>

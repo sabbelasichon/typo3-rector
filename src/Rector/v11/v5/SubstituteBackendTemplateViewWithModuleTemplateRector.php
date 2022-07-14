@@ -19,6 +19,7 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
 use Rector\Core\Rector\AbstractRector;
+use Rector\PostRector\Collector\NodesToAddCollector;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -47,11 +48,19 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
     /**
      * @readonly
      */
+    public NodesToAddCollector $nodesToAddCollector;
+
+    /**
+     * @readonly
+     */
     private ClassDependencyManipulator $classDependencyManipulator;
 
-    public function __construct(ClassDependencyManipulator $classDependencyManipulator)
-    {
+    public function __construct(
+        ClassDependencyManipulator $classDependencyManipulator,
+        NodesToAddCollector $nodesToAddCollector
+    ) {
         $this->classDependencyManipulator = $classDependencyManipulator;
+        $this->nodesToAddCollector = $nodesToAddCollector;
     }
 
     /**

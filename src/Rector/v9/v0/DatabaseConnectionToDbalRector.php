@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
+use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Contract\Helper\Database\Refactorings\DatabaseConnectionToDbalRefactoring;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -22,6 +23,11 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
     /**
      * @readonly
      */
+    public NodesToAddCollector $nodesToAddCollector;
+
+    /**
+     * @readonly
+     */
     private Typo3NodeResolver $typo3NodeResolver;
 
     /**
@@ -33,10 +39,14 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
     /**
      * @param DatabaseConnectionToDbalRefactoring[] $databaseConnectionRefactorings
      */
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, array $databaseConnectionRefactorings)
-    {
+    public function __construct(
+        Typo3NodeResolver $typo3NodeResolver,
+        array $databaseConnectionRefactorings,
+        NodesToAddCollector $nodesToAddCollector
+    ) {
         $this->typo3NodeResolver = $typo3NodeResolver;
         $this->databaseConnectionRefactorings = $databaseConnectionRefactorings;
+        $this->nodesToAddCollector = $nodesToAddCollector;
     }
 
     /**

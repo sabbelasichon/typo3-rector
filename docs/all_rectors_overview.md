@@ -1,4 +1,4 @@
-# 258 Rules Overview
+# 261 Rules Overview
 
 ## AddMethodToWidgetInterfaceClassesRector
 
@@ -3088,6 +3088,19 @@ Remove localizationMode keep if allowLanguageSynchronization is enabled
 
 <br>
 
+## RemoveMetaCharSetRector
+
+Remove config.metaCharset
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveMetaCharSetRector`](../src/Rector/v12/v0/typoscript/RemoveMetaCharSetRector.php)
+
+```diff
+-config.metaCharset = utf-8
++-
+```
+
+<br>
+
 ## RemoveMethodCallConnectDbRector
 
 Remove `EidUtility::connectDB()` call
@@ -3442,6 +3455,38 @@ Remove ['interface']['always_description']
      'columns' => [
      ],
  ];
+```
+
+<br>
+
+## RemoveTSFEConvOutputCharsetCallsRector
+
+Removes usages of TSFE->convOutputCharset(...)
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveTSFEConvOutputCharsetCallsRector`](../src/Rector/v12/v0/typo3/RemoveTSFEConvOutputCharsetCallsRector.php)
+
+```diff
+ $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
+-$foo = $GLOBALS['TSFE']->convOutputCharset($content);
+-$bar = $tsfe->convOutputCharset('content');
++$foo = $content;
++$bar = 'content';
+```
+
+<br>
+
+## RemoveTSFEMetaCharSetCallsRector
+
+Removes calls to metaCharset property or methods of TSFE
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveTSFEMetaCharSetCallsRector`](../src/Rector/v12/v0/typo3/RemoveTSFEMetaCharSetCallsRector.php)
+
+```diff
+ $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
+-$foo = $GLOBALS['TSFE']->metaCharset;
+-$bar = $tsfe->metaCharset;
++$foo = 'utf-8';
++$bar = 'utf-8';
 ```
 
 <br>

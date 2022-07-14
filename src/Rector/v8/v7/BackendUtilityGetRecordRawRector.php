@@ -14,6 +14,7 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Nop;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -27,6 +28,16 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
      * @var string
      */
     private const QUERY_BUILDER = 'queryBuilder';
+
+    /**
+     * @readonly
+     */
+    public NodesToAddCollector $nodesToAddCollector;
+
+    public function __construct(NodesToAddCollector $nodesToAddCollector)
+    {
+        $this->nodesToAddCollector = $nodesToAddCollector;
+    }
 
     /**
      * @return array<class-string<Node>>
