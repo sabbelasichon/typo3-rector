@@ -1,4 +1,4 @@
-# 261 Rules Overview
+# 262 Rules Overview
 
 ## AddMethodToWidgetInterfaceClassesRector
 
@@ -1570,6 +1570,27 @@ Migrate options if type group in TCA
          ],
      ],
  ];
+```
+
+<br>
+
+## MigrateQueryBuilderExecuteRector
+
+Replace `Querybuilder::execute()` with fitting methods
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\MigrateQueryBuilderExecuteRector`](../src/Rector/v12/v0/typo3/MigrateQueryBuilderExecuteRector.php)
+
+```diff
+ $rows = $queryBuilder
+   ->select(...)
+   ->from(...)
+-  ->execute()
++  ->executeQuery()
+   ->fetchAllAssociative();
+ $deletedRows = $queryBuilder
+   ->delete(...)
+-  ->execute();
++  ->executeStatement();
 ```
 
 <br>
