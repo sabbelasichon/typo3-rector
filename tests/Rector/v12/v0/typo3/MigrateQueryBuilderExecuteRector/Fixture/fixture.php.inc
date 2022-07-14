@@ -133,6 +133,7 @@ $testSecond = $queryBuilderSplitSecond
     ->select('*')
     ->from($table);
 
-$result = $testSecond->executeQuery();
+$result = $testSecond
+    ->execute();
 
 ?>

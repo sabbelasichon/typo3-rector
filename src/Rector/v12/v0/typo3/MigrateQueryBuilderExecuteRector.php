@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -17,6 +18,16 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateQueryBuilderExecuteRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
+    private RectorOutputStyle $rectorOutputStyle;
+
+    public function __construct(RectorOutputStyle $rectorOutputStyle)
+    {
+        $this->rectorOutputStyle = $rectorOutputStyle;
+    }
+
     /**
      * @return array<class-string<Node>>
      */
@@ -49,6 +60,12 @@ final class MigrateQueryBuilderExecuteRector extends AbstractRector
         if ($this->checkSpecifiedMethodCalls($node, $executeStatementMethods)) {
             return $this->nodeFactory->createMethodCall($node->var, 'executeStatement', $node->args);
         }
+
+        $this->rectorOutputStyle->warning(
+            'We could identify a QueryBuilder::execute() statement to migrate, but not apply the changes. 
+            In Short: [insert, update, delete] -> executeStatement, [select, count] + variations -> executeQuery.
+            Please refer to the official docs for more info: https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-96972-DeprecateQueryBuilderexecute.html'
+        );
 
         return null;
     }
@@ -91,6 +108,9 @@ CODE_SAMPLE
         );
     }
 
+    /**
+     * @param string[] $methodsToCheckFor
+     */
     private function checkSpecifiedMethodCalls(MethodCall $methodCall, array $methodsToCheckFor): bool
     {
         return (bool) $this->betterNodeFinder->findFirst($methodCall->var, function (Node $node) use (
