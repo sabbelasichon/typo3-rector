@@ -2088,32 +2088,6 @@ Replaces public `$cObj` with protected and set via method
 
 <br>
 
-## QueryLogicalOrAndLogicalAndToArrayParameterRector
-
-Use array instead of multiple parameters for logicalOr and logicalAnd of Extbase Query class
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\QueryLogicalOrAndLogicalAndToArrayParameterRector`](../src/Rector/v9/v0/QueryLogicalOrAndLogicalAndToArrayParameterRector.php)
-
-```diff
- use TYPO3\CMS\Extbase\Persistence\Repository;
-
- class ProductRepositoryLogicalAnd extends Repository
- {
-     public function findAllForList()
-     {
-         $query = $this->createQuery();
--        $query->matching($query->logicalAnd(
-+        $query->matching($query->logicalAnd([
-             $query->lessThan('foo', 1),
-             $query->lessThan('bar', 1)
--        ));
-+        ]));
-     }
- }
-```
-
-<br>
-
 ## RandomMethodsToRandomClassRector
 
 Deprecated random generator methods in GeneralUtility

@@ -14,7 +14,6 @@ use Ssch\TYPO3Rector\Rector\v9\v0\IgnoreValidationAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\MetaTagManagementRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\MoveRenderArgumentsToInitializeArgumentsMethodRector;
-use Ssch\TYPO3Rector\Rector\v9\v0\QueryLogicalOrAndLogicalAndToArrayParameterRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorBackendUtilityGetPagesTSconfigRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorDeprecationLogRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector;
@@ -71,5 +70,4 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
     $rectorConfig->rule(SubstituteGeneralUtilityDevLogRector::class);
     $rectorConfig->rule(ReplacedGeneralUtilitySysLogWithLogginApiRector::class);
-    $rectorConfig->rule(QueryLogicalOrAndLogicalAndToArrayParameterRector::class);
 };
