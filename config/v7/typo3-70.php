@@ -3,10 +3,12 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
+use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallConnectDbRector;
 use Ssch\TYPO3Rector\Rector\v7\v0\RemoveMethodCallLoadTcaRector;
@@ -47,4 +49,40 @@ return static function (RectorConfig $rectorConfig): void {
             ),
             new MethodCallRename('TYPO3\CMS\Extbase\Object\ObjectManagerInterface', 'create', 'get'),
         ]);
+
+    $rectorConfig->ruleWithConfiguration(
+        RenameClassConstFetchRector::class,
+        [
+            new RenameClassAndConstFetch(
+                'TYPO3\CMS\Core\Messaging\FlashMessage',
+                'NOTICE',
+                'TYPO3\CMS\Core\Messaging\AbstractMessage',
+                'NOTICE'
+            ),
+            new RenameClassAndConstFetch(
+                'TYPO3\CMS\Core\Messaging\FlashMessage',
+                'INFO',
+                'TYPO3\CMS\Core\Messaging\AbstractMessage',
+                'INFO'
+            ),
+            new RenameClassAndConstFetch(
+                'TYPO3\CMS\Core\Messaging\FlashMessage',
+                'OK',
+                'TYPO3\CMS\Core\Messaging\AbstractMessage',
+                'OK'
+            ),
+            new RenameClassAndConstFetch(
+                'TYPO3\CMS\Core\Messaging\FlashMessage',
+                'WARNING',
+                'TYPO3\CMS\Core\Messaging\AbstractMessage',
+                'WARNING'
+            ),
+            new RenameClassAndConstFetch(
+                'TYPO3\CMS\Core\Messaging\FlashMessage',
+                'ERROR',
+                'TYPO3\CMS\Core\Messaging\AbstractMessage',
+                'ERROR'
+            ),
+        ]
+    );
 };
