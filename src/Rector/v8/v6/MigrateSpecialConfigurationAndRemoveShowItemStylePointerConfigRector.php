@@ -40,6 +40,9 @@ final class MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector
      */
     private const FIELD_EXTRA = 'fieldExtra';
 
+    /**
+     * @var string
+     */
     private const REPLACE_ALL_WHITESPACES = '/\s+/';
 
     /**
@@ -150,8 +153,8 @@ CODE_SAMPLE
                 }
 
                 $newDefaultExtras[] = $fieldArray[self::FIELD_EXTRA];
-                $newDefaultExtras = implode(':', $newDefaultExtras);
-                if ('' !== $newDefaultExtras) {
+                $newDefaultExtrasString = trim(implode(':', $newDefaultExtras));
+                if ('' !== $newDefaultExtrasString) {
                     $columnsOverridesArray = $this->extractSubArrayByKey($typeConfiguration, 'columnsOverrides');
                     if (! $columnsOverridesArray instanceof Array_) {
                         $columnsOverridesArray = new Array_([]);
@@ -166,7 +169,7 @@ CODE_SAMPLE
                         $columnsOverridesArray->items[] = new ArrayItem($columnOverrideArray, new String_($fieldName));
                     }
 
-                    $columnOverrideArray->items[] = new ArrayItem(new String_($newDefaultExtras), new String_(
+                    $columnOverrideArray->items[] = new ArrayItem(new String_($newDefaultExtrasString), new String_(
                         'defaultExtras'
                     ));
                     $this->hasAstBeenChanged = true;

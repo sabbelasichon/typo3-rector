@@ -98,7 +98,7 @@ CODE_SAMPLE
 
         $injectMethods = array_filter(
             $node->getMethods(),
-            fn ($classMethod) => str_starts_with((string) $classMethod->name, 'inject')
+            static fn ($classMethod) => str_starts_with((string) $classMethod->name, 'inject')
         );
 
         if ([] === $injectMethods) {

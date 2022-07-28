@@ -218,10 +218,8 @@ final class InitializeArgumentsClassMethodFactory
             if (property_exists($phpDocTagNode, 'value')) {
                 /** @var ParamTagValueNode $paramTagValueNode */
                 $paramTagValueNode = $phpDocTagNode->value;
-                if (is_string($paramTagValueNode->parameterName)) {
-                    $paramName = ltrim($paramTagValueNode->parameterName, '$');
-                    $paramTagsByName[$paramName] = $paramTagValueNode;
-                }
+                $paramName = ltrim($paramTagValueNode->parameterName, '$');
+                $paramTagsByName[$paramName] = $paramTagValueNode;
             }
         }
 

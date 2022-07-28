@@ -184,7 +184,7 @@ CODE_SAMPLE
 
         if (is_string($existingIcons)) {
             $stmts = $this->simplePhpParser->parseString($existingIcons);
-            $this->traverseNodesWithCallable($stmts, function (Node $node) use ($iconArrayItem) {
+            $this->traverseNodesWithCallable($stmts, static function (Node $node) use ($iconArrayItem) {
                 if (! $node instanceof Array_) {
                     return null;
                 }

@@ -33,9 +33,9 @@ final class CommandArrayDecorator
     {
         $existingCommands = $this->valueResolver->getValue($array) ?? [];
 
-        $commands = array_filter($commands, fn (string $command) => array_reduce(
+        $commands = array_filter($commands, static fn (string $command) => array_reduce(
             $existingCommands,
-            fn ($carry, $existingCommand) => $existingCommand['class'] !== $command && $carry,
+            static fn ($carry, $existingCommand) => $existingCommand['class'] !== $command && $carry,
             true
         ));
 

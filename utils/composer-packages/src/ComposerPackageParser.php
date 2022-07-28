@@ -102,7 +102,7 @@ final class ComposerPackageParser
             return [];
         }
 
-        return array_map(fn (string $package) => new ComposerPackage($package), $json['packageNames']);
+        return array_map(static fn (string $package) => new ComposerPackage($package), $json['packageNames']);
     }
 
     /**
