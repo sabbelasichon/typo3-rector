@@ -1,4 +1,4 @@
-# 262 Rules Overview
+# 263 Rules Overview
 
 ## AddMethodToWidgetInterfaceClassesRector
 
@@ -3341,6 +3341,21 @@ Remove redundant methods that are used to handle fe_login_mode
 ```diff
 -\TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication->hideActiveLogin();
 +-
+```
+
+<br>
+
+## RemoveRelativeToCurrentScriptArgumentsRector
+
+Removes all usages of the relativeToCurrentScript parameter
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveRelativeToCurrentScriptArgumentsRector`](../src/Rector/v12/v0/typo3/RemoveRelativeToCurrentScriptArgumentsRector.php)
+
+```diff
+ /** @var AudioTagRenderer $audioTagRenderer */
+ $audioTagRenderer = GeneralUtility::makeInstance(AudioTagRenderer::class);
+-$foo = $audioTagRenderer->render($file, $width, $height, $options, $relative);
++$foo = $audioTagRenderer->render($file, $width, $height, $options);
 ```
 
 <br>
