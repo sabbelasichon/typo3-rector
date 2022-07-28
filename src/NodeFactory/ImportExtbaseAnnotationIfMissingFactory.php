@@ -11,7 +11,7 @@ use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
 use Rector\Restoration\ValueObject\CompleteImportForPartialAnnotation;
-use Rector\StaticTypeMapper\ValueObject\Type\AliasedObjectType;
+use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 
 final class ImportExtbaseAnnotationIfMissingFactory
 {
@@ -53,7 +53,7 @@ final class ImportExtbaseAnnotationIfMissingFactory
             $completeImportForPartialAnnotation
         )) {
             $this->useNodesToAddCollector->addUseImport(
-                new AliasedObjectType('Extbase', 'TYPO3\CMS\Extbase\Annotation')
+                new FullyQualifiedObjectType('TYPO3\CMS\Extbase\Annotation as Extbase')
             );
         }
     }
