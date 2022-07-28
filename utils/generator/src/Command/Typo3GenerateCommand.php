@@ -128,7 +128,7 @@ final class Typo3GenerateCommand extends Command
         $whatIsTheUrlToChangelog = new Question(
             'Url to changelog (i.e. https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/...): '
         );
-        $whatIsTheUrlToChangelog->setNormalizer(fn ($url) => Url::createFromString(trim((string) $url)));
+        $whatIsTheUrlToChangelog->setNormalizer(static fn ($url) => Url::createFromString(trim((string) $url)));
 
         return $whatIsTheUrlToChangelog;
     }
@@ -136,7 +136,9 @@ final class Typo3GenerateCommand extends Command
     private function askForTypo3Version(): Question
     {
         $whatTypo3Version = new Question('TYPO3-Version (i.e. 12.0): ');
-        $whatTypo3Version->setNormalizer(fn ($version) => Typo3Version::createFromString(trim((string) $version)));
+        $whatTypo3Version->setNormalizer(
+            static fn ($version) => Typo3Version::createFromString(trim((string) $version))
+        );
 
         return $whatTypo3Version;
     }
@@ -144,7 +146,7 @@ final class Typo3GenerateCommand extends Command
     private function askForName(): Question
     {
         $giveMeYourName = new Question('Name (i.e MigrateRequiredFlag): ');
-        $giveMeYourName->setNormalizer(fn ($name) => Name::createFromString(trim((string) $name)));
+        $giveMeYourName->setNormalizer(static fn ($name) => Name::createFromString(trim((string) $name)));
 
         return $giveMeYourName;
     }
@@ -152,7 +154,7 @@ final class Typo3GenerateCommand extends Command
     private function askForDescription(): Question
     {
         $description = new Question('Description (i.e. Migrate required flag): ');
-        $description->setValidator(function ($description) {
+        $description->setValidator(static function ($description) {
             if (! is_string($description)) {
                 throw new RuntimeException('The description must not be empty');
             }

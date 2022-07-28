@@ -195,7 +195,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
 
             $typoscriptRectorsWithChange = array_filter(
                 $this->typoScriptRectors,
-                fn (AbstractTypoScriptRector $typoScriptRector) => $typoScriptRector->hasChanged()
+                static fn (AbstractTypoScriptRector $typoScriptRector) => $typoScriptRector->hasChanged()
             );
 
             if ([] === $typoscriptRectorsWithChange) {
@@ -250,7 +250,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
     {
         return array_filter(
             $this->typoScriptRectors,
-            fn (Visitor $visitor): bool => $visitor instanceof ConvertToPhpFileInterface
+            static fn (Visitor $visitor): bool => $visitor instanceof ConvertToPhpFileInterface
         );
     }
 

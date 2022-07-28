@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
+use Nette\Utils\Strings;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -38,6 +39,11 @@ final class MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector
      * @var string
      */
     private const FIELD_EXTRA = 'fieldExtra';
+
+    /**
+     * @var string
+     */
+    private const REPLACE_ALL_WHITESPACES = '/\s+/';
 
     /**
      * @var array<string, string>
@@ -147,8 +153,8 @@ CODE_SAMPLE
                 }
 
                 $newDefaultExtras[] = $fieldArray[self::FIELD_EXTRA];
-                $newDefaultExtras = implode(':', $newDefaultExtras);
-                if ('' !== $newDefaultExtras) {
+                $newDefaultExtrasString = trim(implode(':', $newDefaultExtras));
+                if ('' !== $newDefaultExtrasString) {
                     $columnsOverridesArray = $this->extractSubArrayByKey($typeConfiguration, 'columnsOverrides');
                     if (! $columnsOverridesArray instanceof Array_) {
                         $columnsOverridesArray = new Array_([]);
@@ -163,7 +169,7 @@ CODE_SAMPLE
                         $columnsOverridesArray->items[] = new ArrayItem($columnOverrideArray, new String_($fieldName));
                     }
 
-                    $columnOverrideArray->items[] = new ArrayItem(new String_($newDefaultExtras), new String_(
+                    $columnOverrideArray->items[] = new ArrayItem(new String_($newDefaultExtrasString), new String_(
                         'defaultExtras'
                     ));
                     $this->hasAstBeenChanged = true;
@@ -190,6 +196,18 @@ CODE_SAMPLE
             }
         }
 
-        $showitemNode->value = implode(',', $newFieldStrings);
+        $newValue = implode(',', $newFieldStrings);
+
+        if (! $this->shouldSkip($showitemNode->value, $newValue)) {
+            $showitemNode->value = $newValue;
+        }
+    }
+
+    private function shouldSkip(string $oldValue, string $newValue): bool
+    {
+        $oldValueStripped = rtrim(Strings::replace($oldValue, self::REPLACE_ALL_WHITESPACES), ',');
+        $newValueStripped = rtrim(Strings::replace($newValue, self::REPLACE_ALL_WHITESPACES), ',');
+
+        return Strings::compare($oldValueStripped, $newValueStripped);
     }
 }
