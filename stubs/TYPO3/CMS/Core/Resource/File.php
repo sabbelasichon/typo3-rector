@@ -6,7 +6,7 @@ if (class_exists('TYPO3\CMS\Core\Resource\File')) {
     return;
 }
 
-class File
+class File implements FileInterface
 {
     /**
      * @return string
