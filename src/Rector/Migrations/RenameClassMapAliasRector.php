@@ -16,7 +16,6 @@ use Rector\Core\Configuration\RenamedClassesDataCollector;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Core\Util\StaticRectorStrings;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
@@ -179,12 +178,27 @@ CODE_SAMPLE
             return null;
         }
 
-        if (StaticRectorStrings::isInArrayInsensitive($classLikeName, $this->classesToSkip)) {
+        if (self::isInArrayInsensitive($classLikeName, $this->classesToSkip)) {
             return null;
         }
 
         $newClassName = $this->oldToNewClasses[$classLikeName];
 
         return $this->nodeFactory->createClassConstReference($newClassName);
+    }
+
+    /**
+     * @param string[] $array
+     */
+    private static function isInArrayInsensitive(string $checkedItem, array $array): bool
+    {
+        $checkedItem = strtolower($checkedItem);
+        foreach ($array as $singleArray) {
+            if (strtolower($singleArray) === $checkedItem) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

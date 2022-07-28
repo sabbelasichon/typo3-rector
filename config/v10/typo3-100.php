@@ -61,7 +61,9 @@ return static function (RectorConfig $rectorConfig): void {
             ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
         ]);
     $rectorConfig->rule(SwiftMailerBasedMailMessageToMailerBasedMessageRector::class);
-    $rectorConfig->ruleWithConfiguration(ExtbasePersistenceTypoScriptRector::class, []);
+    $rectorConfig->ruleWithConfiguration(ExtbasePersistenceTypoScriptRector::class, [
+        'foo' => 'bar',
+    ]);
 
     $rectorConfig
         ->ruleWithConfiguration(MethodCallToStaticCallRector::class, [
