@@ -88,7 +88,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate the method BackendUtility::editOnClick() to use UriBuilder API', [
+        return new RuleDefinition('Migrate BackendUtility::getRecordRaw() to QueryBuilder', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $table = 'fe_users';
