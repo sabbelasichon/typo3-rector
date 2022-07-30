@@ -233,7 +233,7 @@ Migrate the method `BackendUtility::getModuleUrl()` to use UriBuilder API
 
 ## BackendUtilityGetRecordRawRector
 
-Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API
+Migrate `BackendUtility::getRecordRaw()` to QueryBuilder
 
 - class: [`Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector`](../src/Rector/v8/v7/BackendUtilityGetRecordRawRector.php)
 
