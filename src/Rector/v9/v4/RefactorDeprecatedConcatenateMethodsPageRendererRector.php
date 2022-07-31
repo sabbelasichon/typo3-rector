@@ -76,7 +76,7 @@ final class RefactorDeprecatedConcatenateMethodsPageRendererRector extends Abstr
 $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 $files = $someObject->getConcatenateFiles();
 CODE_SAMPLE
-,
+            ,
             <<<'CODE_SAMPLE'
 $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 $files = array_merge($this->getConcatenateCss(), $this->getConcatenateJavascript());

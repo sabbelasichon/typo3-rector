@@ -69,7 +69,7 @@ public function myCommand()
 {
 }
 CODE_SAMPLE
-,
+            ,
             <<<'CODE_SAMPLE'
 /**
  * My Command

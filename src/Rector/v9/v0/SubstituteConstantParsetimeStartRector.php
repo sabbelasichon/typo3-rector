@@ -69,7 +69,7 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
                     <<<'CODE_SAMPLE'
 $parseTime = $GLOBALS['PARSETIME_START'];
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 $parseTime = round($GLOBALS['TYPO3_MISC']['microtime_start'] * 1000);
 CODE_SAMPLE

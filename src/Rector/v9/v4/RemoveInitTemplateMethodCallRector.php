@@ -90,7 +90,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
 $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 $tsfe->initTemplate();
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 CODE_SAMPLE

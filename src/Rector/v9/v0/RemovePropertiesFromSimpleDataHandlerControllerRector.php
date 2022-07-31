@@ -65,7 +65,7 @@ final class MySimpleDataHandlerController extends SimpleDataHandlerController
     }
 }
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 final class MySimpleDataHandlerController extends SimpleDataHandlerController
 {

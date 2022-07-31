@@ -66,7 +66,7 @@ $moduleName = 'record_edit';
 $params = ['pid' => 2];
 $url = BackendUtility::getModuleUrl($moduleName, $params);
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 $moduleName = 'record_edit';
 $params = ['pid' => 2];

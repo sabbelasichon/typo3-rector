@@ -56,7 +56,7 @@ final class RemoveMethodCallLoadTcaRector extends AbstractRector
                 <<<'CODE_SAMPLE'
 'GeneralUtility::loadTCA()'
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 -
 CODE_SAMPLE

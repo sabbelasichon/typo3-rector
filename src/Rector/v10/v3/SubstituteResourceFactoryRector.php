@@ -60,7 +60,7 @@ final class SubstituteResourceFactoryRector extends AbstractRector
                     <<<'CODE_SAMPLE'
 $resourceFactory = ResourceFactory::getInstance();
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
 CODE_SAMPLE

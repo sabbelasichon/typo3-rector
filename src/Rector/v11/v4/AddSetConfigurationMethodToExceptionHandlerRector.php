@@ -110,7 +110,7 @@ class CustomExceptionHandler implements ExceptionHandlerInterface
     }
 }
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Frontend\ContentObject\Exception\ExceptionHandlerInterface;
 use TYPO3\CMS\Frontend\ContentObject\AbstractContentObject;

@@ -75,7 +75,7 @@ final class RemoveColPosParameterRector extends AbstractRector
 $someObject = GeneralUtility::makeInstance(LocalizationRepository::class);
 $someObject->fetchOriginLanguage($pageId, $colPos, $localizedLanguage);
 CODE_SAMPLE
-,
+            ,
             <<<'CODE_SAMPLE'
 $someObject = GeneralUtility::makeInstance(LocalizationRepository::class);
 $someObject->fetchOriginLanguage($pageId, $localizedLanguage);

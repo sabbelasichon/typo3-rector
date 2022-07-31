@@ -65,7 +65,7 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
                 <<<'CODE_SAMPLE'
 ExtensionManagementUtility::removeCacheFiles();
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 GeneralUtility::makeInstance(\TYPO3\CMS\Core\Cache\CacheManager::class)->flushCachesInGroup('system');
 CODE_SAMPLE

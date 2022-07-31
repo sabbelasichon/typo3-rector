@@ -96,7 +96,7 @@ $where = 'uid > 5';
 $fields = ['uid', 'pid'];
 $record = BackendUtility::getRecordRaw($table, $where, $fields);
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 $table = 'fe_users';
 $where = 'uid > 5';

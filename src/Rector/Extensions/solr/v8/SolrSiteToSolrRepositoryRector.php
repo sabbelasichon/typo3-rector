@@ -27,7 +27,7 @@ final class SolrSiteToSolrRepositoryRector extends AbstractRector
                 <<<'CODE_SAMPLE'
 $site1 = GeneralUtility::makeInstance(Site::class, 1);
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 $site1 = GeneralUtility::makeInstance(SiteRepository::class)->getSiteByPageId(1);
 CODE_SAMPLE

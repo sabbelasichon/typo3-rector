@@ -73,7 +73,7 @@ final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector
 $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 $contentObjectRenderer->enableFields('pages', false, []);
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 GeneralUtility::makeInstance(PageRepository::class)->enableFields('pages', -1, []);

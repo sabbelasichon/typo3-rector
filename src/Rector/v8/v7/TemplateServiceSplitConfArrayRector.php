@@ -65,7 +65,7 @@ final class TemplateServiceSplitConfArrayRector extends AbstractRector
                     <<<'CODE_SAMPLE'
 $splitConfig = GeneralUtility::makeInstance(TemplateService::class)->splitConfArray($conf, $splitCount);
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 $splitConfig = GeneralUtility::makeInstance(TypoScriptService::class)->explodeConfigurationForOptionSplit($conf, $splitCount);
 CODE_SAMPLE

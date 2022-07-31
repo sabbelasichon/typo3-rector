@@ -46,7 +46,7 @@ $someObject->getLayoutRootPath();
 $someObject->setPartialRootPath();
 $someObject->getPartialRootPath();
 CODE_SAMPLE
-,
+            ,
             <<<'CODE_SAMPLE'
 $someObject = new StandaloneView();
 $someObject->setLayoutRootPaths();

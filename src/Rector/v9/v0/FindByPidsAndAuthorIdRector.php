@@ -64,7 +64,7 @@ $sysNoteRepository = GeneralUtility::makeInstance(SysNoteRepository::class);
 $backendUser = new BackendUser();
 $sysNoteRepository->findByPidsAndAuthor('1,2,3', $backendUser);
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 $sysNoteRepository = GeneralUtility::makeInstance(SysNoteRepository::class);
 $backendUser = new BackendUser();

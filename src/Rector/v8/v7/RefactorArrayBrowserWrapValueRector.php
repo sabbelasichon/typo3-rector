@@ -59,7 +59,7 @@ final class RefactorArrayBrowserWrapValueRector extends AbstractRector
 $arrayBrowser = GeneralUtility::makeInstance(ArrayBrowser::class);
 $arrayBrowser->wrapValue('value');
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 $arrayBrowser = GeneralUtility::makeInstance(ArrayBrowser::class);
 htmlspecialchars('value');

@@ -118,7 +118,7 @@ final class ReplaceTSFEWithContextMethodsRector extends AbstractRector
     
     $GLOBALS['TSFE']->whichWorkspace();
     CODE_SAMPLE
-    ,
+            ,
             <<<'CODE_SAMPLE'
     $GLOBALS['TSFE']->getContext()->setAspect('frontend.user', $GLOBALS['TSFE']->fe_user->createUserAspect());
     

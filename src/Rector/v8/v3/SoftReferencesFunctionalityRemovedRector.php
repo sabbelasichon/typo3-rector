@@ -158,7 +158,7 @@ return [
     ],
 ];
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 return [
     'ctrl' => [

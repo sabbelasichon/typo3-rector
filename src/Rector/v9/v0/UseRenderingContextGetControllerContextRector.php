@@ -61,7 +61,7 @@ class MyViewHelperAccessingControllerContext extends AbstractViewHelper
     }
 }
 CODE_SAMPLE
-,
+            ,
             <<<'CODE_SAMPLE'
 class MyViewHelperAccessingControllerContext extends AbstractViewHelper
 {

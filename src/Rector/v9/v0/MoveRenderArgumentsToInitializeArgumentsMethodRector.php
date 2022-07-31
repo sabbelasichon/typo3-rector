@@ -108,7 +108,7 @@ class MyViewHelper implements ViewHelperInterface
     }
 }
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 class MyViewHelper implements ViewHelperInterface
 {

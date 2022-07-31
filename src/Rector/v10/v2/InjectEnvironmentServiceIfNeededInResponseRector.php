@@ -116,7 +116,7 @@ class MyOtherResponse extends Response
     }
 }
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 class MyResponse extends Response
 {

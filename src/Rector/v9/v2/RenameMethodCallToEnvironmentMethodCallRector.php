@@ -28,7 +28,7 @@ Bootstrap::usesComposerClassLoading();
 GeneralUtility::getApplicationContext();
 EnvironmentService::isEnvironmentInCliMode();
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 Environment::isComposerMode();
 Environment::getContext();
