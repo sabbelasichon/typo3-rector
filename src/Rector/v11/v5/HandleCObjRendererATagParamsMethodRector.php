@@ -59,7 +59,7 @@ final class HandleCObjRendererATagParamsMethodRector extends AbstractRector
 $cObjRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
 $bar = $cObjRenderer->getATagParams([], false);
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 $cObjRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
 $bar = $cObjRenderer->getATagParams([]);

@@ -109,7 +109,7 @@ final class ValidateAnnotationRector extends AbstractRector
  */
 private $someProperty;
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 /**

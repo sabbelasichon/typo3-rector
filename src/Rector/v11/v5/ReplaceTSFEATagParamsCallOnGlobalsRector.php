@@ -73,7 +73,7 @@ final class ReplaceTSFEATagParamsCallOnGlobalsRector extends AbstractRector
                 <<<'CODE_SAMPLE'
 $foo = $GLOBALS['TSFE']->ATagParams;
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 $foo = $GLOBALS['TSFE']->config['config']['ATagParams'] ?? '';
 CODE_SAMPLE

@@ -44,7 +44,7 @@ final class UseCachingFrameworkInsteadGetAndStoreHashRector extends AbstractRect
 $GLOBALS['TSFE']->sys_page->storeHash('hash', ['foo', 'bar', 'baz'], 'ident');
 $hashContent2 = $GLOBALS['TSFE']->sys_page->getHash('hash');
 CODE_SAMPLE
-                    ,
+                ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

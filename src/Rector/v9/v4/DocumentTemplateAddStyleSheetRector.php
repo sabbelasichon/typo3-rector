@@ -73,7 +73,7 @@ final class DocumentTemplateAddStyleSheetRector extends AbstractRector
 $documentTemplate = GeneralUtility::makeInstance(DocumentTemplate::class);
 $documentTemplate->addStyleSheet('foo', 'foo.css');
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 GeneralUtility::makeInstance(PageRenderer::class)->addCssFile('foo.css', 'stylesheet', 'screen', '');
 CODE_SAMPLE

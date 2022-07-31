@@ -253,9 +253,9 @@ $EM_CONF[$_EXTKEY] = [
     '_md5_values_when_last_written' => 'a:0:{}',
 ];
 CODE_SAMPLE
-            , [
-                self::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
-            ]),
+                , [
+                    self::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
+                ]),
         ]);
     }
 

@@ -61,7 +61,7 @@ final class RemoveSecondArgumentGeneralUtilityMkdirDeepRector extends AbstractRe
                 <<<'CODE_SAMPLE'
 GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/', 'myfolder');
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/' . 'myfolder');
 CODE_SAMPLE

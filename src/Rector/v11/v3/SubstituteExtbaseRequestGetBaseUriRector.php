@@ -83,7 +83,7 @@ final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector
                 <<<'CODE_SAMPLE'
 $baseUri = $this->request->getBaseUri();
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 $request = $GLOBALS['TYPO3_REQUEST'];
 /** @var NormalizedParams $normalizedParams */

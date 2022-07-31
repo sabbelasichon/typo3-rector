@@ -102,7 +102,7 @@ class MyController extends ActionController
     }
 }
 CODE_SAMPLE
-                ,
+                    ,
                     <<<'CODE_SAMPLE'
 class MyController extends ActionController
 {

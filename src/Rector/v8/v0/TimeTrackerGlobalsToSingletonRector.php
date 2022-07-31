@@ -67,7 +67,7 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
             <<<'CODE_SAMPLE'
 $GLOBALS['TT']->setTSlogMessage('content');
 CODE_SAMPLE
-,
+            ,
             <<<'CODE_SAMPLE'
 GeneralUtility::makeInstance(TimeTracker::class)->setTSlogMessage('content');
 CODE_SAMPLE

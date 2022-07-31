@@ -63,7 +63,7 @@ final class ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector exte
                     <<<'CODE_SAMPLE'
 $result = $cObj->getMailTo($mailAddress, $linktxt)
 CODE_SAMPLE
-                ,
+                    ,
                     <<<'CODE_SAMPLE'
 $result = GeneralUtility::makeInstance(EmailLinkBuilder::class, $cObj, $cObj->getTypoScriptFrontendController())
     ->processEmailLink((string)$mailAddress, (string)$linktxt);

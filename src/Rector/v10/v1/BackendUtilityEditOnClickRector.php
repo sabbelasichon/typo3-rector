@@ -62,7 +62,7 @@ $pid = 2;
 $params = '&edit[pages][' . $pid . ']=new&returnNewPageId=1';
 $url = BackendUtility::editOnClick($params);
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 $pid = 2;
 $params = '&edit[pages][' . $pid . ']=new&returnNewPageId=1';

@@ -41,7 +41,7 @@ use TYPO3\CMS\Core\Localization\LanguageService;
 $languageService = new LanguageService();
 $languageService->sL('LLL:EXT:cms/web_info/locallang.xlf:pages_1');
 CODE_SAMPLE
-                ,
+            ,
             <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Localization\LanguageService;
 $languageService = new LanguageService();

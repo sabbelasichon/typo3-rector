@@ -60,7 +60,7 @@ final class GeneralUtilityGetHostNameToGetIndpEnvRector extends AbstractRector
                     <<<'CODE_SAMPLE'
 \TYPO3\CMS\Core\Utility\GeneralUtility::getHostname();
 CODE_SAMPLE
-                ,
+                    ,
                     <<<'CODE_SAMPLE'
 \TYPO3\CMS\Core\Utility\GeneralUtility::getIndpEnv('HTTP_HOST')
 CODE_SAMPLE

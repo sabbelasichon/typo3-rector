@@ -61,7 +61,7 @@ final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
                     <<<'CODE_SAMPLE'
 $copyright = BackendUtility::TYPO3_copyRightNotice();
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 $copyright = GeneralUtility::makeInstance(Typo3Information::class)->getCopyrightNotice();
 CODE_SAMPLE

@@ -82,7 +82,7 @@ $mail
     ->attach(Swift_Attachment::fromPath('my-document.pdf'))
     ->send();
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;

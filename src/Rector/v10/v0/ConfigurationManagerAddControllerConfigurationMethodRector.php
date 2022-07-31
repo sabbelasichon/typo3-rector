@@ -77,7 +77,7 @@ final class MyExtbaseConfigurationManager extends AbstractConfigurationManager
     }
 }
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 final class MyExtbaseConfigurationManager extends AbstractConfigurationManager
 {

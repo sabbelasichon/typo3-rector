@@ -66,7 +66,7 @@ class MyCommandController extends CommandController
     }
 }
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 class MyCommandController extends CommandController
 {

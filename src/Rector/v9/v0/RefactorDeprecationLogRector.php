@@ -80,7 +80,7 @@ GeneralUtility::logDeprecatedViewHelperAttribute();
 GeneralUtility::deprecationLog('Message');
 GeneralUtility::getDeprecationLogFileName();
 CODE_SAMPLE
-,
+            ,
             <<<'CODE_SAMPLE'
 trigger_error('A useful message', E_USER_DEPRECATED);
 CODE_SAMPLE

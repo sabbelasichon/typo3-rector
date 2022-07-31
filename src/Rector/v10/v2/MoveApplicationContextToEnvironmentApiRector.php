@@ -53,7 +53,7 @@ final class MoveApplicationContextToEnvironmentApiRector extends AbstractRector
             <<<'CODE_SAMPLE'
 GeneralUtility::getApplicationContext();
 CODE_SAMPLE
-,
+            ,
             <<<'CODE_SAMPLE'
 Environment::getContext();
 CODE_SAMPLE

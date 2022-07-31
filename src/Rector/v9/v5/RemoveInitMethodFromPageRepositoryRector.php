@@ -63,7 +63,7 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
 $repository = GeneralUtility::makeInstance(PageRepository::class);
 $repository->init(true);
 CODE_SAMPLE
-,
+            ,
             <<<'CODE_SAMPLE'
 $repository = GeneralUtility::makeInstance(PageRepository::class);
 CODE_SAMPLE

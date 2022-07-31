@@ -78,7 +78,7 @@ final class RefactorExplodeUrl2ArrayFromGeneralUtilityRector extends AbstractRec
 $variable = GeneralUtility::explodeUrl2Array('https://www.domain.com', true);
 $variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com', false);
 CODE_SAMPLE
-,
+                    ,
                     <<<'CODE_SAMPLE'
 parse_str('https://www.domain.com', $variable);
 $variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com');

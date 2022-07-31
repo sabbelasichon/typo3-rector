@@ -67,7 +67,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 $moduleTemplate = GeneralUtility::makeInstance(ModuleTemplate::class);
 $moduleTemplate->loadJavascriptLib('sysext/backend/Resources/Public/JavaScript/md5.js');
 CODE_SAMPLE
-                            ,
+                    ,
                     <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Core\Page\PageRenderer;

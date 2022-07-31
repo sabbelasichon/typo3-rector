@@ -74,7 +74,7 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
 $domain = GeneralUtility::idnaEncode('domain.com');
 $email = GeneralUtility::idnaEncode('email@domain.com');
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 $domain = idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
 $email = 'email@' . idn_to_ascii('domain.com', IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);

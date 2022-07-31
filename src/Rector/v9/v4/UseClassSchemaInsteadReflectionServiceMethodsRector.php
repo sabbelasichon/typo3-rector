@@ -80,7 +80,7 @@ class MyService
     }
 }
 CODE_SAMPLE
-                    ,
+                ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Reflection\ReflectionService;
 class MyService

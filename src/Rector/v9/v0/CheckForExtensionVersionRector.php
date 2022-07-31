@@ -60,7 +60,7 @@ $packageManager = GeneralUtility::makeInstance(PackageManager::class);
 if ($packageManager->isActive('version')) {
 }
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 if (ExtensionManagementUtility::isLoaded('workspaces')) {
 }

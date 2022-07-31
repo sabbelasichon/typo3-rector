@@ -64,7 +64,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 $relPath = ExtensionManagementUtility::extRelPath('my_extension');
 CODE_SAMPLE
 
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;

@@ -60,7 +60,6 @@ CODE_SAMPLE
         ]);
     }
 
-
     private function shouldSkipMethodCall(MethodCall $node): bool
     {
         if (! $this->isObjectType(

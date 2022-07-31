@@ -102,7 +102,7 @@ final class ReplaceAnnotationRector extends AbstractRector implements Configurab
  */
 private $someProperty;
 CODE_SAMPLE
-, <<<'CODE_SAMPLE'
+            , <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 /**
  * @Extbase\ORM\Transient
@@ -110,11 +110,11 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
 private $someProperty;
 
 CODE_SAMPLE
-, [
-    self::OLD_TO_NEW_ANNOTATIONS => [
-        'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
-    ],
-])]);
+            , [
+                self::OLD_TO_NEW_ANNOTATIONS => [
+                    'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
+                ],
+            ])]);
     }
 
     /**

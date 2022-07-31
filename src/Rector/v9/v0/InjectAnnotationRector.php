@@ -100,7 +100,7 @@ final class InjectAnnotationRector extends AbstractRector
  */
 private $someService;
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 /**
  * @var SomeService

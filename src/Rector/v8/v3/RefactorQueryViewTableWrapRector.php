@@ -66,7 +66,7 @@ final class RefactorQueryViewTableWrapRector extends AbstractRector
 $queryView = GeneralUtility::makeInstance(QueryView::class);
 $output = $queryView->tableWrap('value');
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 $queryView = GeneralUtility::makeInstance(QueryView::class);
 $output = '<pre>' . 'value' . '</pre>';

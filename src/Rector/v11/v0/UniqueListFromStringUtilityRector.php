@@ -59,7 +59,7 @@ final class UniqueListFromStringUtilityRector extends AbstractRector
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 GeneralUtility::uniqueList('1,2,2,3');
 CODE_SAMPLE
-            ,
+                ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\StringUtility;
 StringUtility::uniqueList('1,2,2,3');

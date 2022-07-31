@@ -76,7 +76,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 $returnTagParameters = true;
 BackendUtility::wrapClickMenuOnIcon('pages', 1, 'foo', '', '', '', $returnTagParameters);
 CODE_SAMPLE
-                    ,
+                ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 $returnTagParameters = true;

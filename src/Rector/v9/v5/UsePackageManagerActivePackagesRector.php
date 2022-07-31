@@ -64,7 +64,7 @@ final class UsePackageManagerActivePackagesRector extends AbstractRector
                 <<<'CODE_SAMPLE'
 $extensionList = $GLOBALS['TYPO3_LOADED_EXT'];
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 $extensionList = GeneralUtility::makeInstance(PackageManager::class)->getActivePackages();
 CODE_SAMPLE

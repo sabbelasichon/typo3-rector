@@ -58,7 +58,7 @@ final class UseMetaDataAspectRector extends AbstractRector
 $fileObject = new File();
 $fileObject->_getMetaData();
 CODE_SAMPLE
-,
+                ,
                 <<<'CODE_SAMPLE'
 $fileObject = new File();
 $fileObject->getMetaData()->get();

@@ -235,7 +235,7 @@ CODE_SAMPLE
 
         if (! str_ends_with($classMethodName, 'Action')
             || (str_starts_with($classMethodName, 'initialize') && str_ends_with($classMethodName, 'Action'))
-            ) {
+        ) {
             return;
         }
 
