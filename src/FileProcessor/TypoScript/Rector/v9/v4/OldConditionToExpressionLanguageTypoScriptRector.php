@@ -53,9 +53,9 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
         $conditions = array_filter($conditions);
         $operators = array_filter($operators);
 
-        $operators = array_map(fn (array $match) => $match[1], $operators);
+        $operators = array_map(static fn (array $match) => $match[1], $operators);
 
-        $conditions = array_map(fn (array $match) => $match[1], $conditions);
+        $conditions = array_map(static fn (array $match) => $match[1], $conditions);
 
         $newConditions = [];
         $applied = false;
