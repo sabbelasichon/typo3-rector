@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Ssch\TYPO3Rector\Rector\v12\v0\MigrateNullFlagRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateNullFlagRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
+    $rectorConfig->import(__DIR__ . '/../../../../../../../config/config_test.php');
     $rectorConfig->rule(MigrateNullFlagRector::class);
 };

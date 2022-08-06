@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateInternalTypeRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateInternalTypeRector\Fixture;
 
 return [
     'ctrl' => [],
@@ -18,7 +18,7 @@ return [
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateInternalTypeRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateInternalTypeRector\Fixture;
 
 return [
     'ctrl' => [],

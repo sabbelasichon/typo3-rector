@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\v12\v0;
+namespace Ssch\TYPO3Rector\Rector\v12\v0\tca;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -15,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-96983-TCAInternal_type.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateInternalTypeRector\MigrateInternalTypeRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateInternalTypeRector\MigrateInternalTypeRectorTest
  */
 final class MigrateInternalTypeRector extends AbstractTcaRector
 {

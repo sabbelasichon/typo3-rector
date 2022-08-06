@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\v12\v0;
+namespace Ssch\TYPO3Rector\Rector\v12\v0\tca;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -18,37 +18,31 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97035-RequiredOptionInEvalKeyword.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateRequiredFlagRector\MigrateRequiredFlagRectorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97384-TCAOptionNullable.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateNullFlagRector\MigrateNullFlagRectorTest
  */
-final class MigrateRequiredFlagRector extends AbstractTcaRector
+final class MigrateNullFlagRector extends AbstractTcaRector
 {
     use TcaHelperTrait;
-
-    /**
-     * @var string
-     */
-    private const REQUIRED = 'required';
 
     /**
      * @codeCoverageIgnore
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate required flag', [new CodeSample(
+        return new RuleDefinition('Migrate null flag', [new CodeSample(
             <<<'CODE_SAMPLE'
-'required_column' => [
+'nullable_column' => [
     'config' => [
-        'eval' => 'trim,required',
+        'eval' => 'null',
     ],
 ],
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-'required_column' => [
+'nullable_column' => [
     'config' => [
-        'eval' => 'trim',
-        'required' => true,
+        'nullable' => true,
     ],
 ],
 CODE_SAMPLE
@@ -76,14 +70,14 @@ CODE_SAMPLE
         $evalStringNode = $evalArrayItem->value;
         $value = $evalStringNode->value;
 
-        if (! StringUtility::inList($value, self::REQUIRED)) {
+        if (! StringUtility::inList($value, 'null')) {
             return;
         }
 
         $evalList = ArrayUtility::trimExplode(',', $value, true);
 
-        // Remove "required" from $evalList
-        $evalList = array_filter($evalList, static fn (string $eval) => self::REQUIRED !== $eval);
+        // Remove "null" from $evalList
+        $evalList = array_filter($evalList, static fn (string $eval) => 'null' !== $eval);
 
         if ([] !== $evalList) {
             // Write back filtered 'eval'
@@ -93,13 +87,13 @@ CODE_SAMPLE
             $this->removeNode($evalArrayItem);
         }
 
-        // If required config exists already, remove it to avoid duplicate array items
-        $requiredItemToRemove = $this->extractArrayItemByKey($configArray, self::REQUIRED);
-        if ($requiredItemToRemove instanceof ArrayItem) {
-            $this->removeNode($requiredItemToRemove);
+        // If nullable config exists already, remove it to avoid duplicate array items
+        $nullableItemToRemove = $this->extractArrayItemByKey($configArray, 'nullable');
+        if ($nullableItemToRemove instanceof ArrayItem) {
+            $this->removeNode($nullableItemToRemove);
         }
 
-        $configArray->items[] = new ArrayItem(new ConstFetch(new Name('true')), new String_(self::REQUIRED));
+        $configArray->items[] = new ArrayItem(new ConstFetch(new Name('true')), new String_('nullable'));
 
         $this->hasAstBeenChanged = true;
     }

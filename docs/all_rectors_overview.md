@@ -1370,7 +1370,7 @@ Use LocalizationFactory->getParsedData instead of GeneralUtility::readLLfile
 
 Migrates option cols to size for TCA type none
 
-- class: [`Ssch\TYPO3Rector\Rector\v12\v0\MigrateColsToSizeForTcaTypeNoneRector`](../src/Rector/v12/v0/MigrateColsToSizeForTcaTypeNoneRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateColsToSizeForTcaTypeNoneRector`](../src/Rector/v12/v0/tca/MigrateColsToSizeForTcaTypeNoneRector.php)
 
 ```diff
  'columns' => [
@@ -1428,7 +1428,7 @@ Migrate the iframe based file tree to SVG
 
 Migrates TCA internal_type into new own seperate types
 
-- class: [`Ssch\TYPO3Rector\Rector\v12\v0\MigrateInternalTypeRector`](../src/Rector/v12/v0/MigrateInternalTypeRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInternalTypeRector`](../src/Rector/v12/v0/tca/MigrateInternalTypeRector.php)
 
 ```diff
  'columns' => [
@@ -1530,7 +1530,7 @@ Migrate last pieces of default extras
 
 Migrate null flag
 
-- class: [`Ssch\TYPO3Rector\Rector\v12\v0\MigrateNullFlagRector`](../src/Rector/v12/v0/MigrateNullFlagRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateNullFlagRector`](../src/Rector/v12/v0/tca/MigrateNullFlagRector.php)
 
 ```diff
  'nullable_column' => [
@@ -1599,7 +1599,7 @@ Replace `Querybuilder::execute()` with fitting methods
 
 Migrate required flag
 
-- class: [`Ssch\TYPO3Rector\Rector\v12\v0\MigrateRequiredFlagRector`](../src/Rector/v12/v0/MigrateRequiredFlagRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateRequiredFlagRector`](../src/Rector/v12/v0/tca/MigrateRequiredFlagRector.php)
 
 ```diff
  'required_column' => [
