@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateRequiredFlagRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateRequiredFlagRector\Fixture;
 
 return [
     'ctrl' => [],
@@ -28,7 +28,7 @@ return [
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateRequiredFlagRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateRequiredFlagRector\Fixture;
 
 return [
     'ctrl' => [],
