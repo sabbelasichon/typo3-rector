@@ -216,8 +216,11 @@ final class InitializeArgumentsClassMethodFactory
         $paramTagsByName = [];
         foreach ($phpDocInfo->getTagsByName('param') as $phpDocTagNode) {
             if (property_exists($phpDocTagNode, 'value')) {
-                /** @var ParamTagValueNode $paramTagValueNode */
                 $paramTagValueNode = $phpDocTagNode->value;
+
+                if(!$paramTagValueNode instanceof ParamTagValueNode) {
+                    continue;
+                }
                 $paramName = ltrim($paramTagValueNode->parameterName, '$');
                 $paramTagsByName[$paramName] = $paramTagValueNode;
             }
