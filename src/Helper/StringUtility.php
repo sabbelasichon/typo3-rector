@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper;
 
-use function Symfony\Component\String\u;
+use Symfony\Component\String\UnicodeString;
 
 final class StringUtility
 {
@@ -12,13 +12,13 @@ final class StringUtility
     {
         $extensionName = substr($extensionName, $delimiterPosition + 1);
 
-        $stringy = u($extensionName);
+        $stringy = new UnicodeString($extensionName);
         $underscores = $stringy->snake();
         $lower = $underscores->lower();
 
         $underScoredExtensionName = str_replace('_', ' ', (string) $lower->toString());
 
-        $stringy = u($underScoredExtensionName);
+        $stringy = new UnicodeString($underScoredExtensionName);
         $trimmed = $stringy->trim();
         $uppercase = $trimmed->title();
 
