@@ -13,3 +13,19 @@ if (TYPO3_MODE == 'FE') {
 }
 
 ?>
+
+<?php
+
+if (TYPO3_MODE == 'FE') {
+    $TCA['tt_content']['types']['content_type']['showitems'] = 'header,subheader';
+}
+
+?>
+-----
+<?php
+
+if (TYPO3_MODE == 'FE') {
+    $GLOBALS['TCA']['tt_content']['types']['content_type']['showitems'] = 'header,subheader';
+}
+
+?>
