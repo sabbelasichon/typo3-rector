@@ -30,14 +30,8 @@ return static function (RectorConfig $rectorConfig): void {
     // this will not import root namespace classes, like \DateTime or \Exception
     $rectorConfig->importShortClasses(false);
 
-    // this prevents infinite loop issues due to symlinks in e.g. ".Build/" folders within single extensions
-    $parameters->set(Option::FOLLOW_SYMLINKS, false);
-
     // Define your target version which you want to support
     $rectorConfig->phpVersion(PhpVersion::PHP_74);
-
-    // If you have an editorconfig and changed files should keep their format enable it here
-    // $parameters->set(Option::ENABLE_EDITORCONFIG, true);
 
     // If you only want to process one/some TYPO3 extension(s), you can specify its path(s) here.
     // If you use the option --config change __DIR__ to getcwd()
