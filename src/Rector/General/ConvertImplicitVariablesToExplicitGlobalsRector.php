@@ -60,7 +60,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isNames($node, ['TYPO3_CONF_VARS', 'TBE_MODULES'])) {
+        if (! $this->isNames($node, ['TYPO3_CONF_VARS', 'TBE_MODULES', 'TCA'])) {
             return null;
         }
 
