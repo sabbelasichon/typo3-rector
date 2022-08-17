@@ -1,4 +1,4 @@
-# 264 Rules Overview
+# 265 Rules Overview
 
 ## AddMethodToWidgetInterfaceClassesRector
 
@@ -2721,6 +2721,19 @@ Remove parameter `$colPos` from methods.
  $someObject = GeneralUtility::makeInstance(LocalizationRepository::class);
 -$someObject->fetchOriginLanguage($pageId, $colPos, $localizedLanguage);
 +$someObject->fetchOriginLanguage($pageId, $localizedLanguage);
+```
+
+<br>
+
+## RemoveConfigDoctypeSwitchRector
+
+Remove config.doctypeSwitch
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveConfigDoctypeSwitchRector`](../src/Rector/v12/v0/typoscript/RemoveConfigDoctypeSwitchRector.php)
+
+```diff
+-config.doctypeSwitch = 1
++-
 ```
 
 <br>
