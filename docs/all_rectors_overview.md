@@ -1,4 +1,4 @@
-# 263 Rules Overview
+# 264 Rules Overview
 
 ## AddMethodToWidgetInterfaceClassesRector
 
@@ -2744,6 +2744,25 @@ Remove TCA config 'max' on inputDateTime fields
 -                'max' => 1,
              ],
          ],
+     ],
+ ];
+```
+
+<br>
+
+## RemoveCruserIdRector
+
+Remove the TCA option cruser_id
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\RemoveCruserIdRector`](../src/Rector/v12/v0/tca/RemoveCruserIdRector.php)
+
+```diff
+ return [
+     'ctrl' => [
+         'label' => 'foo',
+-        'cruser_id' => 'cruser_id',
+     ],
+     'columns' => [
      ],
  ];
 ```
