@@ -221,6 +221,7 @@ final class InitializeArgumentsClassMethodFactory
                 if (! $paramTagValueNode instanceof ParamTagValueNode) {
                     continue;
                 }
+
                 $paramName = ltrim($paramTagValueNode->parameterName, '$');
                 $paramTagsByName[$paramName] = $paramTagValueNode;
             }
