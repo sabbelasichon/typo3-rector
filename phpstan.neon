@@ -37,9 +37,6 @@ parameters:
     reportUnmatchedIgnoredErrors: true
 
     ignoreErrors:
-        # probably bug in Rector generics annotation
-        - '#Method Ssch\\TYPO3Rector\\Rector\\v9\\v0\\IgnoreValidationAnnotationRector\:\:refactorValidation\(\) has parameter \$phpDocInfo with generic class Rector\\BetterPhpDocParser\\PhpDocInfo\\PhpDocInfo but does not specify its types\: TNode#'
-
         # node finder
         - '#Method Ssch\\TYPO3Rector\\Rector\\v11\\v0\\ForwardResponseInsteadOfForwardMethodRector\:\:extractForwardMethodCalls\(\) should return array<PhpParser\\Node\\Expr\\MethodCall\> but returns array<PhpParser\\Node\>#'
 
