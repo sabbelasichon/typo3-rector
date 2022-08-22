@@ -31,7 +31,9 @@ or feel free to open an issue or start a discussion on GitHub.
 Many thanks to [Tomas Votruba](https://tomasvotruba.com) for his ongoing support and Rector.
 Many thanks to every other contributor.
 
-Oh, and if you've come down this far, you might as well follow me on [twitter](https://twitter.com/schreiberten).
+Follow us on twitter as well:
+- [TYPO3 Rector](https://twitter.com/TYPO3Rector)
+- [Sebastian](https://twitter.com/schreiberten)
 
 ## Known Drawbacks
 
