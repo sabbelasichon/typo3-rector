@@ -1,4 +1,4 @@
-# 265 Rules Overview
+# 267 Rules Overview
 
 ## AddMethodToWidgetInterfaceClassesRector
 
@@ -4890,6 +4890,32 @@ Use CompositeExpression static methods instead of constructor
 -$compositeExpressionOR = new CompositeExpression(CompositeExpression::TYPE_OR, []);
 +$compositeExpressionAND = CompositeExpression::and([]);
 +$compositeExpressionOR = CompositeExpression::or([]);
+```
+
+<br>
+
+## UseConfigArrayForTSFEPropertiesRector
+
+Use config array of TSFE instead of properties
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\UseConfigArrayForTSFEPropertiesRector`](../src/Rector/v12/v0/typo3/UseConfigArrayForTSFEPropertiesRector.php)
+
+```diff
+-$fileTarget = $GLOBALS['TSFE']->fileTarget;
++$fileTarget = $GLOBALS['TSFE']->config['config']['fileTarget'];
+```
+
+<br>
+
+## UseConfigArrayForTSFEPropertiesRector
+
+Use config array of TSFE instead of properties
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typoscript\UseConfigArrayForTSFEPropertiesRector`](../src/Rector/v12/v0/typoscript/UseConfigArrayForTSFEPropertiesRector.php)
+
+```diff
+-.data = TSFE:fileTarget
++.data = TSFE:config|config|fileTarget
 ```
 
 <br>
