@@ -17,4 +17,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveDisablePageExternalUrlOptionRector::class);
     $rectorConfig->rule(RemoveMetaCharSetRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveConfigDoctypeSwitchRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typoscript\UseConfigArrayForTSFEPropertiesRector::class);
 };

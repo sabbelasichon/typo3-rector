@@ -151,6 +151,11 @@ class TypoScriptFrontendController
     protected Context $context;
 
     /**
+     * @var array<string, mixed>
+     */
+    public array $config = [];
+
+    /**
      * @return void
      */
     public function initTemplate()
@@ -398,5 +403,10 @@ class TypoScriptFrontendController
     public function convOutputCharset($content)
     {
         return $content;
+    }
+
+    public function __get($name)
+    {
+        return $this->config['config'][$name];
     }
 }
