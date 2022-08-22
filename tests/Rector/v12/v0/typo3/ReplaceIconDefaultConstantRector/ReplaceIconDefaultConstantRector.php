@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ReplaceSeveritiesFlashMessageAndReportsRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ReplaceIconDefaultConstantRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class ReplaceSeveritiesFlashMessageAndReportsRector extends AbstractRectorTestCase
+final class ReplaceIconDefaultConstantRector extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
