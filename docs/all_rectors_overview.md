@@ -1,4 +1,4 @@
-# 267 Rules Overview
+# 268 Rules Overview
 
 ## AddMethodToWidgetInterfaceClassesRector
 
@@ -3137,6 +3137,19 @@ Remove localizationMode keep if allowLanguageSynchronization is enabled
          ],
      ],
  ];
+```
+
+<br>
+
+## RemoveMailerAdapterInterfaceRector
+
+Remove MailerAdapterInterface from implements
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveMailerAdapterInterfaceRector`](../src/Rector/v12/v0/typo3/RemoveMailerAdapterInterfaceRector.php)
+
+```diff
+-class RemoveMailerAdapterInterfaceRectorFixture implements \TYPO3\CMS\Mail\MailerAdapterInterface {};
++class RemoveMailerAdapterInterfaceRectorFixture {};
 ```
 
 <br>
