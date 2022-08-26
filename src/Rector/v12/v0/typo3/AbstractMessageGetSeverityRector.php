@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -18,7 +17,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class AbstractMessageGetSeverityRector extends AbstractRector
 {
-
     /**
      * @return array<class-string<Node>>
      */
@@ -41,9 +39,11 @@ final class AbstractMessageGetSeverityRector extends AbstractRector
         }
 
         return $this->nodeFactory->createPropertyFetch($node, 'value');
-
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use value property on getSeverity()', [new CodeSample(
