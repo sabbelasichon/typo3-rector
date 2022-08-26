@@ -24,11 +24,11 @@ final class AbstractMessageGetSeverityRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class, PropertyFetch::class];
+        return [MethodCall::class];
     }
 
     /**
-     * @param MethodCall|PropertyFetch $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node)
     {
@@ -40,7 +40,7 @@ final class AbstractMessageGetSeverityRector extends AbstractRector
             return null;
         }
 
-        return null;
+        return $this->nodeFactory->createPropertyFetch($node, 'value');
 
     }
 
