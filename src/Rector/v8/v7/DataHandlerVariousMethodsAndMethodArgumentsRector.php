@@ -43,7 +43,6 @@ final class DataHandlerVariousMethodsAndMethodArgumentsRector extends AbstractRe
         }
 
         if ($this->isName($node->name, 'destPathFromUploadFolder')) {
-
             /** @var Arg[] $args */
             $args = $node->args;
             $firstArgument = array_shift($args);
