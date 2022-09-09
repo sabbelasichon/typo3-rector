@@ -65,13 +65,13 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $methodCall): bool
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $methodCall,
             new ObjectType('TYPO3\CMS\Core\Messaging\FlashMessage')
-        )) {
-            return true;
-        }
-
-        return false;
+        )
+        && ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $methodCall,
+            new ObjectType('TYPO3\CMS\Core\Messaging\AbstractMessage')
+        );
     }
 }

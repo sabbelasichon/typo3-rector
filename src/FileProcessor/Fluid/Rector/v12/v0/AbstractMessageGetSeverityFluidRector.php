@@ -10,7 +10,7 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-class AbstractMessageGetSeverityFluidRector implements FluidRectorInterface
+final class AbstractMessageGetSeverityFluidRector implements FluidRectorInterface
 {
     /**
      * @var string
@@ -26,6 +26,7 @@ class AbstractMessageGetSeverityFluidRector implements FluidRectorInterface
     {
         $content = $file->getFileContent();
         $content = Strings::replace($content, self::PATTERN, self::REPLACEMENT);
+
         $file->changeFileContent($content);
     }
 
