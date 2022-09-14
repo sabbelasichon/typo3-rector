@@ -13,14 +13,14 @@ final class RenameExtTypoScriptFilesFileRectorTest extends AbstractRectorTestCas
     /**
      * @dataProvider provideData
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(string $filePath): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $this->doTestFile($filePath);
         $this->assertCount(1, $this->removedAndAddedFilesCollector->getMovedFiles());
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {

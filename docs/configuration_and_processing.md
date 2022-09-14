@@ -37,7 +37,6 @@ use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
-use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
@@ -109,12 +108,6 @@ return static function (RectorConfig $rectorConfig): void {
     // Optional non-php file functionalities:
     // @see https://github.com/sabbelasichon/typo3-rector/blob/main/docs/beyond_php_file_processors.md
 
-    // Adapt your composer.json dependencies to the latest available version for the defined SetList
-    // $rectorConfig->sets([
-    //    Typo3SetList::COMPOSER_PACKAGES_104_CORE,
-    //    Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS,
-    // ]);
-
     // Rewrite your extbase persistence class mapping from typoscript into php according to official docs.
     // This processor will create a summarized file with all the typoscript rewrites combined into a single file.
     /* $rectorConfig->ruleWithConfiguration(\Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0\ExtbasePersistenceTypoScriptRector::class, [
@@ -124,9 +117,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ConvertImplicitVariablesToExplicitGlobalsRector::class);
     $rectorConfig->ruleWithConfiguration(ExtEmConfRector::class, [
         ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => []
-    ]);
-    $rectorConfig->ruleWithConfiguration(ExtensionComposerRector::class, [
-        ExtensionComposerRector::TYPO3_VERSION_CONSTRAINT => ''
     ]);
 
     // Modernize your TypoScript include statements for files and move from <INCLUDE /> to @import use the FileIncludeToImportStatementVisitor (introduced with TYPO3 9.0)

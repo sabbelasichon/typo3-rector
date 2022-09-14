@@ -18,7 +18,6 @@ In TYPO3 Rector specifically we have already five of them:
 
 1. TypoScriptProcessor
 1. FlexFormsProcessor
-1. ComposerProcessor
 1. IconsProcessor
 1. FormYamlProcessor
 
@@ -32,32 +31,6 @@ The IconsProcessor is part of the TYPO3_87 set.
 ## FlexFormsProcessor
 The FlexFormsProcessor takes all xml files starting with the xml Node T3DataStructure and can do some modifications on it.
 For now only the renderType is added in the config section if missing.
-
-## ComposerProcessor
-The ComposerProcessor takes all composer.json files of type typo3-cms-extension.
-It adds an extension-key if it is missing. You can configure this Processor in your rector.php configuration file to add the typo3/cms-core dependency with the right version to your composer.json:
-
-```php
-# rector.php configuration file
-use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
-use Rector\Config\RectorConfig;
-
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ExtensionComposerRector::class, [
-        ExtensionComposerRector::TYPO3_VERSION_CONSTRAINT => '^10.4'
-    ]);
-};
-```
-
-Also you can update all your core packages and third party packages (that are on packageist and got a dependency against typo3/cms-core) with the following SetLists:
-```php
-use Ssch\TYPO3Rector\Set\Typo3SetList;
-...
-$rectorConfig->sets([
-    Typo3SetList::COMPOSER_PACKAGES_104_CORE,
-    Typo3SetList::COMPOSER_PACKAGES_104_EXTENSIONS
-]);
-```
 
 ## FormYamlProcessor
 The FormYamlProcessor only transforms the old single key value pair of the EmailFinisher to an array syntax and is part of the TYPO3_104 set.

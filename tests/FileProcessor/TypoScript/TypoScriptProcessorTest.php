@@ -13,9 +13,9 @@ final class TypoScriptProcessorTest extends AbstractRectorTestCase
     /**
      * @dataProvider provideData
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(string $filePath): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $this->doTestFile($filePath);
         $this->removedAndAddedFilesCollector->reset();
     }
 
@@ -40,7 +40,7 @@ final class TypoScriptProcessorTest extends AbstractRectorTestCase
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {

@@ -30,9 +30,9 @@ final class ReplaceExtKeyWithExtensionKeyFromComposerJsonExtensionKeyExtraSectio
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(string $filePath): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $this->doTestFile($filePath);
     }
 
     /**

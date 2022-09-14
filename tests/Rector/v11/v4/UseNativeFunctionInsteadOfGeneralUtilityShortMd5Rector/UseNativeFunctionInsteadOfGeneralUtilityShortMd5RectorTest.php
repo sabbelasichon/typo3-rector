@@ -13,13 +13,13 @@ final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5RectorTest extends A
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(string $filePath): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $this->doTestFile($filePath);
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {

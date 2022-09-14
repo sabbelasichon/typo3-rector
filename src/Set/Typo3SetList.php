@@ -29,11 +29,6 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const COMPOSER_PACKAGES_87_EXTENSIONS = __DIR__ . '/../../config/composer/typo3-87-composer-packages-extensions.php';
-
-    /**
-     * @var string
-     */
     public const TYPO3_95 = __DIR__ . '/../../config/typo3-9.php';
 
     /**
@@ -45,16 +40,6 @@ final class Typo3SetList
      * @var string
      */
     public const TYPOSCRIPT_CONDITIONS_95 = __DIR__ . '/../../config/v9/typoscript-conditions-95.php';
-
-    /**
-     * @var string
-     */
-    public const COMPOSER_PACKAGES_95_CORE = __DIR__ . '/../../config/composer/typo3-95-composer-packages-core.php';
-
-    /**
-     * @var string
-     */
-    public const COMPOSER_PACKAGES_95_EXTENSIONS = __DIR__ . '/../../config/composer/typo3-95-composer-packages-extensions.php';
 
     /**
      * @var string
@@ -75,16 +60,6 @@ final class Typo3SetList
      * @var string
      */
     public const TYPOSCRIPT_CONDITIONS_104 = __DIR__ . '/../../config/v10/typoscript-conditions-104.php';
-
-    /**
-     * @var string
-     */
-    public const COMPOSER_PACKAGES_104_CORE = __DIR__ . '/../../config/composer/typo3-104-composer-packages-core.php';
-
-    /**
-     * @var string
-     */
-    public const COMPOSER_PACKAGES_104_EXTENSIONS = __DIR__ . '/../../config/composer/typo3-104-composer-packages-extensions.php';
 
     /**
      * @var string
@@ -110,21 +85,6 @@ final class Typo3SetList
      * @var string
      */
     public const TYPOSCRIPT_120 = __DIR__ . '/../../config/v12/typoscript-120.php';
-
-    /**
-     * @var string
-     */
-    public const COMPOSER_PACKAGES_110_CORE = __DIR__ . '/../../config/composer/typo3-110-composer-packages-core.php';
-
-    /**
-     * @var string
-     */
-    public const COMPOSER_PACKAGES_TER_TO_PACKAGIST = __DIR__ . '/../../config/composer/move_extension_from_ter_to_packagist.php';
-
-    /**
-     * @var string
-     */
-    public const COMPOSER_PACKAGES_110_EXTENSIONS = __DIR__ . '/../../config/composer/typo3-110-composer-packages-extensions.php';
 
     /**
      * @var string

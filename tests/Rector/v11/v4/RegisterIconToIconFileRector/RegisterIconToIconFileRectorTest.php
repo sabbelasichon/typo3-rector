@@ -13,9 +13,9 @@ final class RegisterIconToIconFileRectorTest extends AbstractRectorTestCase
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(string $filePath): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $this->doTestFile($filePath);
         // This is not accurate. Unfortunately the content of the files are not mutable, so we added multiple times virtually
         $this->assertSame(3, $this->removedAndAddedFilesCollector->getAddedFileCount());
 
@@ -30,7 +30,7 @@ final class RegisterIconToIconFileRectorTest extends AbstractRectorTestCase
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {

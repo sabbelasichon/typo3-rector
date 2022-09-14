@@ -19,7 +19,7 @@ final class BackendUtilityGetModuleUrlRectorTest extends AbstractRectorTestCase
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {

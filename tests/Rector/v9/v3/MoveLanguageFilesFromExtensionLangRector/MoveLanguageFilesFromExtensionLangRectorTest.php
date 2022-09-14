@@ -19,7 +19,7 @@ final class MoveLanguageFilesFromExtensionLangRectorTest extends AbstractRectorT
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {

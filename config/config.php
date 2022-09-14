@@ -17,7 +17,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/../utils/composer-packages/config/config.php', null, true);
 
     $services = $rectorConfig->services();
     $services->defaults()
