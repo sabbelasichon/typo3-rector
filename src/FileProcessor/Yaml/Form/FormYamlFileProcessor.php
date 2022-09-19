@@ -73,7 +73,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
 
         $smartFileInfo = $file->getSmartFileInfo();
         $oldYamlContent = $smartFileInfo->getContents();
-        $yaml = Yaml::parse($oldYamlContent);
+        $yaml = Yaml::parse($oldYamlContent, Yaml::PARSE_CUSTOM_TAGS);
 
         if (! is_array($yaml)) {
             return $systemErrorsAndFileDiffs;
