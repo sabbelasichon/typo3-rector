@@ -12,18 +12,31 @@
 # Installation
 
 
-TYPO3 rector is a standalone package again, that builds up on `rectorphp/rector`
+TYPO3 rector is a standalone package again, that builds up on `rectorphp/rector` and requires PHP 7.4
 ```bash
 composer require --dev ssch/typo3-rector
 ```
 
-### Note to previous installation
+This will provide even the latest rules for TYPO3 v12
+
+## Installation below PHP 7.4
+
+```bash
+composer require --dev rector/rector:0.13.4
+```
+
+Provides all rules up to TYPO3 v11
+
+### "Historical" info
 
 Earlier the year 2022 we have been part of the rector/rector core.
 
 This changed due to fast pace development and we split apart again.
 
 This means with version `0.13.5` the rector core does not integrate typo3-rector anymore for faster and more stable development on both ends. Breaking changes always affect the whole rector ecosystem causing typo3-rector to be affected by them and slowing down the general development.
+
+That's why we are embedded until `0.13.4` and have the PHP version change between the different packages 
+
 
 ## Non composer installations
 

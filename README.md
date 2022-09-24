@@ -20,6 +20,13 @@ refactoring for any PHP code (5.3+).
 | **Repository:**    | https://github.com/sabbelasichon/typo3-rector                |
 | **Documentation:** | https://github.com/sabbelasichon/typo3-rector/tree/main/docs |
 | **Packagist:**     | https://packagist.org/packages/ssch/typo3-rector             |
+| **Website:**       | https://www.typo3-rector.com                                 |
+
+## Funding/Sponsoring
+
+Help us out and sponsor our work! Visit our website [typo3-rector.com](https://www.typo3-rector.com) for more info.
+
+This makes it possible to invest more time to keep the project alive and create even more rules for automated migration. 
 
 ## Support
 
@@ -34,6 +41,7 @@ Many thanks to every other contributor.
 Follow us on twitter as well:
 - [TYPO3 Rector](https://twitter.com/TYPO3Rector)
 - [Sebastian](https://twitter.com/schreiberten)
+- [Henrik](https://twitter.com/he_coli)
 
 ## Known Drawbacks
 

@@ -14,8 +14,15 @@
 This library ships already with a bunch of configuration files organized by TYPO3 version.
 To get you started quickly run the following command inside the root directory of your project:
 
+
+### For ssch/typo3-rector (PHP 7.4>= dependency)
 ```bash
 cp ./vendor/ssch/typo3-rector/templates/rector.php.dist rector.php
+```
+
+#### For rector/rector 0.13.4 (<PHP 7.4 dependency)
+```bash
+vendor/bin/rector init --template-type=typo3
 ```
 
 The command generates a basic configuration skeleton which you can adapt to your needs.
