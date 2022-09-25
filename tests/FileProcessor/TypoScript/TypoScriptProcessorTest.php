@@ -23,7 +23,7 @@ final class TypoScriptProcessorTest extends AbstractRectorTestCase
     {
         $news = new SmartFileInfo(__DIR__ . '/Fixture/Extbase/002_extbase_persistence.txt');
 
-        $this->doTestFileInfo($news);
+        $this->doTestFile($news->getRelativeFilePath());
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
         $extbasePersistenceSmartFileInfo = new SmartFileInfo(__DIR__ . '/Expected/Extbase.php.inc');

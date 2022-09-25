@@ -78,7 +78,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        $fileInfo = $this->file->getSmartFileInfo();
+        $fileInfo = new SmartFileInfo($this->file->getFilePath());
 
         if ($this->filesFinder->isExtEmconf($fileInfo)) {
             return null;

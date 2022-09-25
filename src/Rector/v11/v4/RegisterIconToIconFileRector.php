@@ -96,7 +96,7 @@ final class RegisterIconToIconFileRector extends AbstractRector
             return null;
         }
 
-        $currentSmartFileInfo = $this->file->getSmartFileInfo();
+        $currentSmartFileInfo = new SmartFileInfo($this->file->getFilePath());
 
         $extEmConfFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($currentSmartFileInfo);
         if (! $extEmConfFileInfo instanceof SmartFileInfo) {

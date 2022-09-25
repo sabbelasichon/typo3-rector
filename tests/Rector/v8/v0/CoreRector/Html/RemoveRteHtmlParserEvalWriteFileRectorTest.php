@@ -19,11 +19,11 @@ final class RemoveRteHtmlParserEvalWriteFileRectorTest extends AbstractRectorTes
     }
 
     /**
-     * @return Iterator<SmartFileInfo[]>
+     * @return Iterator<string[]>
      */
     public function provideData(): Iterator
     {
-        yield [new SmartFileInfo(__DIR__ . '/Fixture/remove_rte_html_parser_eval_write_file.php.inc')];
+        yield [__DIR__ . '/Fixture/remove_rte_html_parser_eval_write_file.php.inc'];
     }
 
     public function provideConfigFilePath(): string

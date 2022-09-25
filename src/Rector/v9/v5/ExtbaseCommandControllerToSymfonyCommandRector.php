@@ -141,7 +141,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         }
 
         // This is super hacky, but for now i have no other idea to test it here
-        $currentSmartFileInfo = $this->file->getSmartFileInfo();
+        $currentSmartFileInfo = new SmartFileInfo($this->file->getFilePath());
 
         $extEmConfFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($currentSmartFileInfo);
 

@@ -22,7 +22,7 @@ final class RenameConstantsAndSetupFileEndingRectorTest extends AbstractRectorTe
     /**
      * @dataProvider provideDataSkippedFiles
      */
-    public function testSkip(SmartFileInfo $fileInfo): void
+    public function testSkip(string $filePath): void
     {
         $this->doTestFile($filePath);
         $this->assertCount(0, $this->removedAndAddedFilesCollector->getMovedFiles());

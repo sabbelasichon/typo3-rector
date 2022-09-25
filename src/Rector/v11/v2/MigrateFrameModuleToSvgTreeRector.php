@@ -13,6 +13,7 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.2/Deprecation-93944-FileTreeAsIframeMigratedToSVG-basedTree.html
@@ -93,7 +94,7 @@ CODE_SAMPLE
 
     private function shouldSkip(Node $node): bool
     {
-        $fileInfo = $this->file->getSmartFileInfo();
+        $fileInfo = new SmartFileInfo($this->file->getFilePath());
 
         if (! $this->filesFinder->isExtTables($fileInfo)) {
             return true;

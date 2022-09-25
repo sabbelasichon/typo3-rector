@@ -67,7 +67,7 @@ final class IconsFileProcessor implements FileProcessorInterface
 
     public function supports(File $file, Configuration $configuration): bool
     {
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
         if ($this->shouldSkip($smartFileInfo->getFilenameWithoutExtension())) {
             return false;
@@ -89,7 +89,7 @@ final class IconsFileProcessor implements FileProcessorInterface
 
     private function createIconPath(File $file): string
     {
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
         $realPath = $smartFileInfo->getRealPathDirectory();
         $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());

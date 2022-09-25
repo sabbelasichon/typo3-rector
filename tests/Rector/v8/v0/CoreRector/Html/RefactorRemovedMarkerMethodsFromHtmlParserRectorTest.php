@@ -19,11 +19,11 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRectorTest extends Abstrac
     }
 
     /**
-     * @return Iterator<SmartFileInfo[]>
+     * @return Iterator<string[]>
      */
     public function provideData(): Iterator
     {
-        yield [new SmartFileInfo(__DIR__ . '/Fixture/refactor_removed_marker_methods_from_html_parser.php.inc')];
+        yield [__DIR__ . '/Fixture/refactor_removed_marker_methods_from_html_parser.php.inc'];
     }
 
     public function provideConfigFilePath(): string

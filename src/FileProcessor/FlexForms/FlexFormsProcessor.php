@@ -14,6 +14,7 @@ use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use UnexpectedValueException;
 
 final class FlexFormsProcessor implements FileProcessorInterface
@@ -92,7 +93,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
             return false;
         }
 
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
         if (! in_array($smartFileInfo->getExtension(), $this->getSupportedFileExtensions(), true)) {
             return false;

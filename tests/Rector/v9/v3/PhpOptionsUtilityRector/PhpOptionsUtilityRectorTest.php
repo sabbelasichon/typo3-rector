@@ -13,9 +13,9 @@ final class PhpOptionsUtilityRectorTest extends AbstractRectorTestCase
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $file): void
+    public function test(string $filePath): void
     {
-        $this->doTestFileInfo($file);
+        $this->doTestFile($filePath);
     }
 
     /**

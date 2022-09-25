@@ -13,6 +13,7 @@ use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\StringUtility;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.1/Deprecation-88995-CallingRegisterPluginWithVendorName.html
@@ -77,7 +78,7 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
 
         $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue);
 
-        $fileInfo = $this->file->getSmartFileInfo();
+        $fileInfo = new SmartFileInfo($this->file->getFilePath());
 
         if ($extensionNameArgumentValue instanceof Concat && $this->isPotentiallyUndefinedExtensionKeyVariable(
             $extensionNameArgumentValue
