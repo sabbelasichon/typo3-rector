@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateColsToSizeForTcaTypeNo
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class MigrateColsToSizeForTcaTypeNoneRectorTest extends AbstractRectorTestCase
 {

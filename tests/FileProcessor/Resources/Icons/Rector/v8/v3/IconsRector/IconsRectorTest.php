@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Icons\Rector\v8\v3\Icon
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class IconsRectorTest extends AbstractRectorTestCase
 {

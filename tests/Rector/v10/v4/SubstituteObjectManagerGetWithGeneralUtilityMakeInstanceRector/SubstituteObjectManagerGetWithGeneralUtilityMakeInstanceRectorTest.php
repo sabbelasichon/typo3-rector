@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\SubstituteObjectManagerGetWithGen
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class SubstituteObjectManagerGetWithGeneralUtilityMakeInstanceRectorTest extends AbstractRectorTestCase
 {

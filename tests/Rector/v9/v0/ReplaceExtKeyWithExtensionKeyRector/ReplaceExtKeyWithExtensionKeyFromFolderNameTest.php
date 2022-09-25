@@ -6,8 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRecto
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ReplaceExtKeyWithExtensionKeyFromFolderNameTest extends AbstractRectorTestCase
 {
@@ -20,11 +18,11 @@ final class ReplaceExtKeyWithExtensionKeyFromFolderNameTest extends AbstractRect
     }
 
     /**
-     * @return Iterator<array<int, SmartFileInfo>>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(__DIR__ . '/Fixture/my_extension_without_composer_json');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension_without_composer_json');
     }
 
     public function provideConfigFilePath(): string

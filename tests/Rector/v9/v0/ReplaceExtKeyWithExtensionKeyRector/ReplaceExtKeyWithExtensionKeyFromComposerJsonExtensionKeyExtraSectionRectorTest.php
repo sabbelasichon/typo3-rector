@@ -52,12 +52,12 @@ final class ReplaceExtKeyWithExtensionKeyFromComposerJsonExtensionKeyExtraSectio
 
     private function createTemporaryComposerJsonFile(): void
     {
-        $composerJsonSmartFileInfo = new SmartFileInfo(
+        $composerContents = file_get_contents(
             __DIR__ . '/Fixture/my_extension_with_composer_json_and_extension_key/composer.json'
         );
 
         $tempComposerJsonFileName = StaticFixtureSplitter::getTemporaryPath() . '/composer.json';
-        file_put_contents($tempComposerJsonFileName, $composerJsonSmartFileInfo->getContents());
+        file_put_contents($tempComposerJsonFileName, (string) $composerContents);
         $this->composerJsonFileName = $tempComposerJsonFileName;
     }
 }

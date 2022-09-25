@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v11\v5\ReplaceTSFEATagParamsCallOnGlobal
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ReplaceTSFEATagParamsCallOnGlobalsRectorTest extends AbstractRectorTestCase
 {

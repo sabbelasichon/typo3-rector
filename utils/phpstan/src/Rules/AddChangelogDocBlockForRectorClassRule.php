@@ -14,7 +14,6 @@ use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Core\Contract\Rector\PhpRectorInterface;
 use Rector\Core\Contract\Rector\RectorInterface;
-use Ssch\TYPO3Rector\ComposerPackages\Rector\AddPackageVersionRector;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
@@ -33,14 +32,13 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
     public const ERROR_MESSAGE = 'Provide @changelog doc block for "%s" Rector class';
 
     /**
-     * @var array<class-string<RectorInterface>>
+     * @var array<class-string>
      */
     private const ALLOWED_CLASSES_WITH_NON_CHANGELOG_DOC_BLOCK = [
         RenameClassMapAliasRector::class,
         AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class,
         ConvertImplicitVariablesToExplicitGlobalsRector::class,
         AbstractTcaRector::class,
-        AddPackageVersionRector::class,
         MethodGetInstanceToMakeInstanceCallRector::class,
     ];
 

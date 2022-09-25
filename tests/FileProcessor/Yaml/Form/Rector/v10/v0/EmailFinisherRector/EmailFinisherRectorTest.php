@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\FileProcessor\Yaml\Form\Rector\v10\v0\EmailFini
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class EmailFinisherRectorTest extends AbstractRectorTestCase
 {

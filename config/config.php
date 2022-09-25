@@ -17,7 +17,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 return static function (RectorConfig $rectorConfig): void {
-
     $services = $rectorConfig->services();
     $services->defaults()
         ->public()

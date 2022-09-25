@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\RemoveLangCsConvObjAndParserFactor
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RemoveLangCsConvObjAndParserFactoryRectorTest extends AbstractRectorTestCase
 {

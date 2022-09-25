@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\FileProcessor\Fluid\Rector\v10\v0\RemoveNoCache
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RemoveNoCacheHashAndUseCacheHashAttributeFluidRectorTest extends AbstractRectorTestCase
 {

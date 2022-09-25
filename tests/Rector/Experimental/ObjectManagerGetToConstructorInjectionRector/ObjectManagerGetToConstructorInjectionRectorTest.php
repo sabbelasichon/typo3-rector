@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Experimental\ObjectManagerGetToConstruct
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ObjectManagerGetToConstructorInjectionRectorTest extends AbstractRectorTestCase
 {

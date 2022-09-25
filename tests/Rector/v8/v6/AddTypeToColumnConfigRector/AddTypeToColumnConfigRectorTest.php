@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v8\v6\AddTypeToColumnConfigRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class AddTypeToColumnConfigRectorTest extends AbstractRectorTestCase
 {

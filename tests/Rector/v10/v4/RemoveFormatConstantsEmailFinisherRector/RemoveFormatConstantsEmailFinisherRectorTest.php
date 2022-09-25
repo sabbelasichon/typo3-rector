@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v10\v4\RemoveFormatConstantsEmailFinishe
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RemoveFormatConstantsEmailFinisherRectorTest extends AbstractRectorTestCase
 {

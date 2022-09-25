@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Extensions\solr\v9\ApacheSolrDocumentToS
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ApacheSolrDocumentToSolariumDocumentRectorTest extends AbstractRectorTestCase
 {

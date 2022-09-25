@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Migrations;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RenameClassMapAliasRectorTest extends AbstractRectorTestCase
 {

@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v11\v4\AddSetConfigurationMethodToExcept
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class AddSetConfigurationMethodToExceptionHandlerRectorTest extends AbstractRectorTestCase
 {

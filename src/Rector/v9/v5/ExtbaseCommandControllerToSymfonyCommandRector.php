@@ -312,7 +312,7 @@ CODE_SAMPLE
     ): void {
         if ($this->filesystem->exists($commandsFilePath)) {
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
-            $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo);
+            $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo->getRelativeFilePath());
 
             $this->traverseNodesWithCallable($stmts, function (Node $node) use (
                 $newCommandsWithFullQualifiedNamespace

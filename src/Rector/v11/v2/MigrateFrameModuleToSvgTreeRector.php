@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v2;
 
+use ECSPrefix202209\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\StaticCall;
@@ -96,7 +97,7 @@ CODE_SAMPLE
     {
         $fileInfo = new SmartFileInfo($this->file->getFilePath());
 
-        if (! $this->filesFinder->isExtTables($fileInfo)) {
+        if (! $this->filesFinder->isExtTables($fileInfo) && StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return true;
         }
 

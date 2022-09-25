@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\FileProcessor\Fluid\Rector\v8\v0\DefaultSwitchF
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class DefaultSwitchFluidRectorTest extends AbstractRectorTestCase
 {

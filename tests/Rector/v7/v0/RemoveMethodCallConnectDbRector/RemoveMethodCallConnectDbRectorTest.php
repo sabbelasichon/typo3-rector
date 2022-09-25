@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v7\v0\RemoveMethodCallConnectDbRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RemoveMethodCallConnectDbRectorTest extends AbstractRectorTestCase
 {

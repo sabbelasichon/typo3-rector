@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\RemoveInitMethodFromPageRepository
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RemoveInitMethodFromPageRepositoryRectorTest extends AbstractRectorTestCase
 {

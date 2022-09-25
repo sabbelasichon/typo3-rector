@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\GetClickMenuOnIconTagParametersRe
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class GetClickMenuOnIconTagParametersRectorTest extends AbstractRectorTestCase
 {

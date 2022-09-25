@@ -49,7 +49,6 @@ return static function (RectorConfig $rectorConfig): void {
         StringClassNameToClassConstantRector::class,
         __DIR__ . '/src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php',
         __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
-        RemovePackageVersionsRector::class => [__DIR__ . '/config', __DIR__ . '/tests'],
         __DIR__ . '/src/Set',
         '*/Fixture/*',
     ]);

@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Files\Rector\v12\v0\Ren
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RenameExtTypoScriptFilesFileRectorTest extends AbstractRectorTestCase
 {

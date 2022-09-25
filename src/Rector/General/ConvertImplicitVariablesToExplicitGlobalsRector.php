@@ -62,7 +62,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        if($this->shouldSkip($node)) {
+        if ($this->shouldSkip($node)) {
             return null;
         }
 
@@ -81,13 +81,13 @@ CODE_SAMPLE
             return true;
         }
 
-        if(StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return false;
         }
 
         $smartFileInfo = new SmartFileInfo($this->file->getFilePath());
 
-        if($this->filesFinder->isExtLocalConf($smartFileInfo)) {
+        if ($this->filesFinder->isExtLocalConf($smartFileInfo)) {
             return false;
         }
 

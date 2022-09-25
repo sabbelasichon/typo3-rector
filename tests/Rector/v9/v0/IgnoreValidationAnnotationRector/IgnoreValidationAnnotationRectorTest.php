@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\IgnoreValidationAnnotationRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class IgnoreValidationAnnotationRectorTest extends AbstractRectorTestCase
 {

@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\FileProcessor\FlexForms\Rector\v7\v6\RenderType
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RenderTypeFlexFormRectorTest extends AbstractRectorTestCase
 {

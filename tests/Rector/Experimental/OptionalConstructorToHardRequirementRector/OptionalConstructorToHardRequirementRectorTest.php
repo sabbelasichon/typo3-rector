@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\Experimental\OptionalConstructorToHardRe
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class OptionalConstructorToHardRequirementRectorTest extends AbstractRectorTestCase
 {

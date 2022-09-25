@@ -92,6 +92,6 @@ CODE_SAMPLE
 
     private function shouldSkipInTestMode(SmartFileInfo $smartFileInfo): bool
     {
-        return !str_ends_with($smartFileInfo->getBasename(), '.txt');
+        return ! str_ends_with($smartFileInfo->getBasename(), '.txt');
     }
 }

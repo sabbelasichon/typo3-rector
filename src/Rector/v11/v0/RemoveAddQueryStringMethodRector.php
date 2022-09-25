@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
-use PhpParser\Builder\Method;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Defluent\NodeAnalyzer\FluentChainMethodCallNodeAnalyzer;
 use Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
+use Ssch\TYPO3Rector\Helper\FluentChainMethodCallNodeAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
