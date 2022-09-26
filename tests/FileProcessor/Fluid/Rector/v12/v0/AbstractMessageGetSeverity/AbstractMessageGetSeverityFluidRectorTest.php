@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\FileProcessor\Fluid\Rector\v12\v0\AbstractMessa
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class AbstractMessageGetSeverityFluidRectorTest extends AbstractRectorTestCase
 {
@@ -19,7 +18,7 @@ final class AbstractMessageGetSeverityFluidRectorTest extends AbstractRectorTest
     }
 
     /**
-     * @return Iterator<array<string>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {
