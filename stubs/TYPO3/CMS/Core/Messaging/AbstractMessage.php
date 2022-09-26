@@ -15,8 +15,15 @@ abstract class AbstractMessage implements \JsonSerializable
     const WARNING = 1;
     const ERROR = 2;
 
+    private ContextualFeedbackSeverity $severity;
+
     public function setSeverity($severity = ContextualFeedbackSeverity::OK): void
     {
+        $this->severity = $severity;
+    }
 
+    public function getSeverity(): ContextualFeedbackSeverity
+    {
+        return $this->severity;
     }
 }

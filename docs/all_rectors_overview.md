@@ -1,4 +1,35 @@
-# 268 Rules Overview
+# 270 Rules Overview
+
+## AbstractMessageGetSeverityFluidRector
+
+Use <f:defaultCase> instead of <f:case default="1">
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\v12\v0\AbstractMessageGetSeverityFluidRector`](../src/FileProcessor/Fluid/Rector/v12/v0/AbstractMessageGetSeverityFluidRector.php)
+
+```diff
+-<div class="{severityClassMapping.{status.severity}}">
++<div class="{severityClassMapping.{status.severity.value}}">
+     <!-- stuff happens here -->
+ </div>
+```
+
+<br>
+
+## AbstractMessageGetSeverityRector
+
+Use value property on `getSeverity()`
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\AbstractMessageGetSeverityRector`](../src/Rector/v12/v0/typo3/AbstractMessageGetSeverityRector.php)
+
+```diff
+ use \TYPO3\CMS\Core\Messaging\FlashMessage;
+
+ $flashMessage = new FlashMessage('This is a message');
+-$severityAsInt = $flashMessage->getSeverity();
++$severityAsInt = $flashMessage->getSeverity()->value;
+```
+
+<br>
 
 ## AddMethodToWidgetInterfaceClassesRector
 
