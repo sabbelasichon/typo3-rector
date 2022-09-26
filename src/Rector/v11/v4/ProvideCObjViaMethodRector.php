@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v4;
 
+use PhpParser\Builder\Method;
+use PhpParser\Builder\Param;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
@@ -14,8 +16,6 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Privatization\NodeManipulator\VisibilityManipulator;
-use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -105,7 +105,7 @@ CODE_SAMPLE
 
     private function addSetContentObjectRendererMethod(Class_ $class): void
     {
-        $paramBuilder = new ParamBuilder(self::COBJ);
+        $paramBuilder = new Param(self::COBJ);
         $paramBuilder->setType(new FullyQualified('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'));
 
         $param = $paramBuilder->getNode();
@@ -114,7 +114,7 @@ CODE_SAMPLE
             new Variable(self::COBJ)
         );
 
-        $classMethodBuilder = new MethodBuilder('setContentObjectRenderer');
+        $classMethodBuilder = new Method('setContentObjectRenderer');
         $classMethodBuilder->addParam($param);
         $classMethodBuilder->addStmt($propertyAssignNode);
         $classMethodBuilder->makePublic();

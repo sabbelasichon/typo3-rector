@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\NodeFactory;
 
+use PhpParser\Builder\Method;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
@@ -41,7 +42,6 @@ use Rector\PHPStanStaticTypeMapper\Enum\TypeKind;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
 use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
-use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
 
 final class InitializeArgumentsClassMethodFactory
 {
@@ -153,7 +153,7 @@ final class InitializeArgumentsClassMethodFactory
 
     private function createNewClassMethod(): ClassMethod
     {
-        $methodBuilder = new MethodBuilder(self::METHOD_NAME);
+        $methodBuilder = new Method(self::METHOD_NAME);
         $methodBuilder->makePublic();
         $methodBuilder->setReturnType('void');
 
