@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v10\v2;
 
+use PhpParser\Builder\Method;
+use PhpParser\Builder\Param;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -19,9 +21,6 @@ use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PostRector\Collector\NodesToAddCollector;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
-use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
-use Symplify\Astral\ValueObject\NodeBuilder\PropertyBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -152,7 +151,7 @@ CODE_SAMPLE
 
     private function createEnvironmentServiceProperty(): Property
     {
-        $propertyBuilder = new PropertyBuilder(self::ENVIRONMENT_SERVICE);
+        $propertyBuilder = new \PhpParser\Builder\Property(self::ENVIRONMENT_SERVICE);
         $propertyBuilder->makeProtected();
 
         $type = new FullyQualifiedObjectType('TYPO3\CMS\Extbase\Service\EnvironmentService');
@@ -184,7 +183,7 @@ CODE_SAMPLE
 
     private function addInjectEnvironmentServiceMethod(Class_ $class): void
     {
-        $paramBuilder = new ParamBuilder(self::ENVIRONMENT_SERVICE);
+        $paramBuilder = new Param(self::ENVIRONMENT_SERVICE);
         $paramBuilder->setType(new FullyQualified('TYPO3\CMS\Extbase\Service\EnvironmentService'));
 
         $param = $paramBuilder->getNode();
@@ -193,7 +192,7 @@ CODE_SAMPLE
             new Variable(self::ENVIRONMENT_SERVICE)
         );
 
-        $classMethodBuilder = new MethodBuilder('injectEnvironmentService');
+        $classMethodBuilder = new Method('injectEnvironmentService');
         $classMethodBuilder->addParam($param);
         $classMethodBuilder->addStmt($propertyAssignNode);
         $classMethodBuilder->makePublic();

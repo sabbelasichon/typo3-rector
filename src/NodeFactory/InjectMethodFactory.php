@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\NodeFactory;
 
+use PhpParser\Builder\Method;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -20,8 +21,6 @@ use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
-use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 
 final class InjectMethodFactory
 {
@@ -61,7 +60,7 @@ final class InjectMethodFactory
         /** @var string $variableName */
         $variableName = $this->nodeNameResolver->getName($property);
 
-        $paramBuilder = new ParamBuilder($variableName);
+        $paramBuilder = new \PhpParser\Builder\Param($variableName);
         $varType = $propertyPhpDocInfo->getVarType();
         if (! $varType instanceof ObjectType) {
             return $statements;
@@ -95,7 +94,7 @@ final class InjectMethodFactory
     {
         $injectMethodName = $this->createInjectMethodName($variableName);
 
-        $injectMethodBuilder = new MethodBuilder($injectMethodName);
+        $injectMethodBuilder = new Method($injectMethodName);
         $injectMethodBuilder->makePublic();
         $injectMethodBuilder->addParam($param);
         $injectMethodBuilder->setReturnType('void');

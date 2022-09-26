@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v10\v0;
 
+use PhpParser\Builder\Method;
+use PhpParser\Builder\Param;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
@@ -13,8 +15,6 @@ use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Symplify\Astral\ValueObject\NodeBuilder\MethodBuilder;
-use Symplify\Astral\ValueObject\NodeBuilder\ParamBuilder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -104,12 +104,12 @@ CODE_SAMPLE
 
     private function addMethodGetControllerConfiguration(Class_ $class): void
     {
-        $methodBuilder = new MethodBuilder('getControllerConfiguration');
+        $methodBuilder = new Method('getControllerConfiguration');
         $methodBuilder->makeProtected();
 
         $methodBuilder->addParams([
-            (new ParamBuilder('extensionName'))->getNode(),
-            (new ParamBuilder('pluginName'))->getNode(),
+            (new Param('extensionName'))->getNode(),
+            (new Param('pluginName'))->getNode(),
         ]);
 
         $newMethod = $methodBuilder->getNode();
