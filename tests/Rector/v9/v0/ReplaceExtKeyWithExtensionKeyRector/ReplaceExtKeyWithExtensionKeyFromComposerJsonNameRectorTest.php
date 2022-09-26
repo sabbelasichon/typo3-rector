@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector;
 
 use Iterator;
+use Rector\Testing\Fixture\FixtureTempFileDumper;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\EasyTesting\DataProvider\StaticFixtureFinder;
-use Symplify\EasyTesting\StaticFixtureSplitter;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ReplaceExtKeyWithExtensionKeyFromComposerJsonNameRectorTest extends AbstractRectorTestCase
@@ -36,11 +35,11 @@ final class ReplaceExtKeyWithExtensionKeyFromComposerJsonNameRectorTest extends 
     }
 
     /**
-     * @return Iterator<array<int, SmartFileInfo>>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {
-        return StaticFixtureFinder::yieldDirectory(
+        return $this->yieldFilesFromDirectory(
             __DIR__ . '/Fixture/my_extension_with_composer_json_no_extension_key_defined'
         );
     }
@@ -56,7 +55,7 @@ final class ReplaceExtKeyWithExtensionKeyFromComposerJsonNameRectorTest extends 
             __DIR__ . '/Fixture/my_extension_with_composer_json_no_extension_key_defined/composer.json'
         );
 
-        $tempComposerJsonFileName = StaticFixtureSplitter::getTemporaryPath() . '/composer.json';
+        $tempComposerJsonFileName = FixtureTempFileDumper::getTempDirectory() . '/composer.json';
         file_put_contents($tempComposerJsonFileName, $composerJsonSmartFileInfo->getContents());
         $this->composerJsonFileName = $tempComposerJsonFileName;
     }

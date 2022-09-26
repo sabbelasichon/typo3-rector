@@ -10,8 +10,8 @@ use PhpParser\Node\Stmt\Use_;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\PostRector\Collector\UseNodesToAddCollector;
-use Ssch\TYPO3Rector\ValueObject\CompleteImportForPartialAnnotation;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use Ssch\TYPO3Rector\ValueObject\CompleteImportForPartialAnnotation;
 
 final class ImportExtbaseAnnotationIfMissingFactory
 {

@@ -1,9 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
-
 namespace Ssch\TYPO3Rector\ValueObject;
-
 
 final class CompleteImportForPartialAnnotation
 {
@@ -17,10 +16,8 @@ final class CompleteImportForPartialAnnotation
      */
     private string $alias;
 
-    public function __construct(
-        string $use,
-        string $alias
-    ) {
+    public function __construct(string $use, string $alias)
+    {
         $this->use = $use;
         $this->alias = $alias;
     }
