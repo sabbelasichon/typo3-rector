@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseGetMenuInsteadOfGetFirstWebPage
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class UseGetMenuInsteadOfGetFirstWebPageRectorTest extends AbstractRectorTestCase
 {
@@ -14,14 +13,14 @@ final class UseGetMenuInsteadOfGetFirstWebPageRectorTest extends AbstractRectorT
      * @dataProvider provideData()
      * @return never
      */
-    public function test(SmartFileInfo $fileInfo)
+    public function test(string $filePath): void
     {
         $this->markTestIncomplete('The comparison is false positive wrongly.');
-        #$this->doTestFileInfo($fileInfo);
+        #$this->doTestFile($filePath);
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {

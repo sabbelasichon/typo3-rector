@@ -52,7 +52,7 @@ CODE_SAMPLE
             return;
         }
 
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
         $newFileName = $smartFileInfo->getPath() . $smartFileInfo->getBasenameWithoutSuffix() . '.typoscript';
 
@@ -61,7 +61,7 @@ CODE_SAMPLE
 
     private function shouldSkip(File $file): bool
     {
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
         $extEmConfFile = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($smartFileInfo);
 
@@ -92,10 +92,6 @@ CODE_SAMPLE
 
     private function shouldSkipInTestMode(SmartFileInfo $smartFileInfo): bool
     {
-        if (str_ends_with($smartFileInfo->getBasename(), 'constants.txt')) {
-            return false;
-        }
-
-        return ! str_ends_with($smartFileInfo->getBasename(), 'setup.txt');
+        return ! str_ends_with($smartFileInfo->getBasename(), '.txt');
     }
 }

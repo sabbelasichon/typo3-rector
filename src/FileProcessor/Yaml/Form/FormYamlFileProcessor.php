@@ -15,6 +15,7 @@ use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\Form\FormYamlRectorInterface;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\YamlIndentResolver;
 use Symfony\Component\Yaml\Yaml;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FormYamlFileProcessor implements FileProcessorInterface
 {
@@ -71,7 +72,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
 
         $this->currentFileProvider->setFile($file);
 
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
         $oldYamlContent = $smartFileInfo->getContents();
         $yaml = Yaml::parse($oldYamlContent, Yaml::PARSE_CUSTOM_TAGS);
 
@@ -108,7 +109,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
             return false;
         }
 
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
         return \str_ends_with($smartFileInfo->getFilename(), 'yaml');
     }

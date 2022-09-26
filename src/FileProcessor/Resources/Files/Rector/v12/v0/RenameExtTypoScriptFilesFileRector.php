@@ -41,7 +41,7 @@ final class RenameExtTypoScriptFilesFileRector implements FileRectorInterface
             return;
         }
 
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
         $newFileName = $smartFileInfo->getPath() . $smartFileInfo->getBasenameWithoutSuffix() . '.typoscript';
 
@@ -65,7 +65,7 @@ CODE_SAMPLE
 
     private function shouldSkip(File $file): bool
     {
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
         $extEmConfFile = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($smartFileInfo);
 
@@ -90,10 +90,6 @@ CODE_SAMPLE
             return true;
         }
 
-        if (str_ends_with($smartFileInfo->getBasename(), 'ext_typoscript_constants.txt')) {
-            return false;
-        }
-
-        return ! str_ends_with($smartFileInfo->getBasename(), 'ext_typoscript_setup.txt');
+        return ! str_ends_with($smartFileInfo->getBasename(), '.txt');
     }
 }

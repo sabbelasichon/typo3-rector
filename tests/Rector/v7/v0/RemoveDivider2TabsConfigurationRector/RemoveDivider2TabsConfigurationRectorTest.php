@@ -7,20 +7,18 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v7\v0\RemoveDivider2TabsConfigurationRec
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
-
 final class RemoveDivider2TabsConfigurationRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(string $filePath): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $this->doTestFile($filePath);
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {

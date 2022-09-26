@@ -98,7 +98,7 @@ call_user_func(function ($extKey) {
 
 use TICH\TichPinacoteca\Controller\MostraController;
 use FriendsOfTYPO3\TtAddress\Controller\AddressController;
-use Enw\TempFixtureEasyTesting\Controller\MessageController;
+use Enw\TestsFixture\Controller\MessageController;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Form\Controller\FormFrontendController;
 
@@ -166,10 +166,10 @@ ExtensionUtility::configurePlugin(
 call_user_func(
     static function ($extensionKey) {
         ExtensionUtility::configurePlugin(
-            'TempFixtureEasyTesting',
+            'TestsFixture',
             'Formframework',
-            [\TYPO3\CMS\TempFixtureEasyTesting\Controller\FormFrontendController::class => 'render, perform'],
-            [\TYPO3\CMS\TempFixtureEasyTesting\Controller\FormFrontendController::class => 'perform'],
+            [\TYPO3\CMS\TestsFixture\Controller\FormFrontendController::class => 'render, perform'],
+            [\TYPO3\CMS\TestsFixture\Controller\FormFrontendController::class => 'perform'],
             ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
     }, ('Form')
@@ -177,7 +177,7 @@ call_user_func(
 
 call_user_func(function ($extKey) {
     ExtensionUtility::configurePlugin(
-        'TempFixtureEasyTesting',
+        'TestsFixture',
         'Messages',
         [
             MessageController::class => 'list, show, ajaxReloadTeaserResults',

@@ -141,7 +141,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         }
 
         // This is super hacky, but for now i have no other idea to test it here
-        $currentSmartFileInfo = $this->file->getSmartFileInfo();
+        $currentSmartFileInfo = new SmartFileInfo($this->file->getFilePath());
 
         $extEmConfFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($currentSmartFileInfo);
 
@@ -312,7 +312,7 @@ CODE_SAMPLE
     ): void {
         if ($this->filesystem->exists($commandsFilePath)) {
             $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
-            $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo);
+            $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo->getRelativeFilePath());
 
             $this->traverseNodesWithCallable($stmts, function (Node $node) use (
                 $newCommandsWithFullQualifiedNamespace

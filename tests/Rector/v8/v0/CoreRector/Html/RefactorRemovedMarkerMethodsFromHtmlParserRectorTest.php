@@ -6,24 +6,23 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v8\v0\CoreRector\Html;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class RefactorRemovedMarkerMethodsFromHtmlParserRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
      */
-    public function test(SmartFileInfo $fileInfo): void
+    public function test(string $filePath): void
     {
-        $this->doTestFileInfo($fileInfo);
+        $this->doTestFile($filePath);
     }
 
     /**
-     * @return Iterator<SmartFileInfo[]>
+     * @return Iterator<string[]>
      */
     public function provideData(): Iterator
     {
-        yield [new SmartFileInfo(__DIR__ . '/Fixture/refactor_removed_marker_methods_from_html_parser.php.inc')];
+        yield [__DIR__ . '/Fixture/refactor_removed_marker_methods_from_html_parser.php.inc'];
     }
 
     public function provideConfigFilePath(): string

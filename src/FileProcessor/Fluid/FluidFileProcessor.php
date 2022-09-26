@@ -12,6 +12,7 @@ use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
+use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FluidFileProcessor implements FileProcessorInterface
 {
@@ -41,7 +42,7 @@ final class FluidFileProcessor implements FileProcessorInterface
             return false;
         }
 
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
         return in_array($smartFileInfo->getExtension(), $this->getSupportedFileExtensions(), true);
     }

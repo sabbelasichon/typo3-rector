@@ -31,6 +31,7 @@ use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Collector\RemoveTypoScriptStatementCollector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AbstractTypoScriptRector;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Symplify\SmartFileSystem\SmartFileInfo;
 use Webmozart\Assert\Assert;
 
 /**
@@ -139,7 +140,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
             return false;
         }
 
-        $smartFileInfo = $file->getSmartFileInfo();
+        $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
         return in_array($smartFileInfo->getExtension(), $this->allowedFileExtensions, true);
     }
@@ -183,7 +184,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         try {
             $this->currentFileProvider->setFile($file);
 
-            $smartFileInfo = $file->getSmartFileInfo();
+            $smartFileInfo = new SmartFileInfo($file->getFilePath());
             $originalStatements = $this->typoscriptParser->parseString($smartFileInfo->getContents());
 
             $traverser = new Traverser($originalStatements);
@@ -237,7 +238,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         } catch (TokenizerException $tokenizerException) {
             return;
         } catch (ParseError $parseError) {
-            $smartFileInfo = $file->getSmartFileInfo();
+            $smartFileInfo = new SmartFileInfo($file->getFilePath());
             $errorFile = $smartFileInfo->getRelativeFilePath();
             $this->rectorOutputStyle->warning(sprintf('TypoScriptParser Error in: %s. File skipped.', $errorFile));
         }

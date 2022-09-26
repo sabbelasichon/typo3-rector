@@ -24,7 +24,6 @@ You can use typo3-rector in various ways:
 ### TLDR;
 
 - apply older or current version rulesets first (if you're going from v8 to v10, apply v7/v8 sets first)
-- composer package versions update via SetList (see [composer section below](#composer-packages-update))
 - add ClassAliasMap in case you're upgrading 2 versions to provide old classes to migrate (see [ClassAliasMap](#classaliasmap))
 - apply rulesets stepwise by version; first TCA only, then full set or combined
 - apply rulesets stepwise to your packages or multiple packages at once
@@ -46,22 +45,6 @@ Examples for often missed out upgrade steps:
 
 After making sure your current code base is properly upgraded you go on with the actual upgrade process.
 This requires manual action like allowing the core versions in your composer.json and ext_emconf.php files depending on your individual setup.
-
-#### Composer packages update
-
-We got your back with the version constraints of your packages though!
-For core packages but also extension packages we got a SetList that can be used to be processed and apply changes to your composer.json.
-
-```php
-use Ssch\TYPO3Rector\Set\Typo3SetList;
-...
-$rectorConfig->import(Typo3SetList::COMPOSER_PACKAGES_95_CORE);
-$rectorConfig->import(Typo3SetList::COMPOSER_PACKAGES_95_EXTENSIONS);
-```
-
-This will add the fitting constraints for each package available on packagist - **Be aware:** The list is based on extensions that got a dependency against *typo3/cms-core*
-
-Also: core packages that are not supported anymore (e.g. `css_styled_content`) will not be updated of course. This helps you to clean up a little!
 
 #### Applying rulesets
 

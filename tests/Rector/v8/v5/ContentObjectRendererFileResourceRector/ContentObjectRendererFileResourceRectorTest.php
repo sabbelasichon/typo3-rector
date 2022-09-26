@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v8\v5\ContentObjectRendererFileResourceR
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ContentObjectRendererFileResourceRectorTest extends AbstractRectorTestCase
 {
@@ -14,14 +13,14 @@ final class ContentObjectRendererFileResourceRectorTest extends AbstractRectorTe
      * @dataProvider provideData()
      * @return never
      */
-    public function test(SmartFileInfo $fileInfo)
+    public function test(string $filePath): void
     {
         $this->markTestIncomplete('The comparison is false positive wrongly.');
-        #$this->doTestFileInfo($fileInfo);
+        #$this->doTestFile($filePath);
     }
 
     /**
-     * @return Iterator<SmartFileInfo>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {

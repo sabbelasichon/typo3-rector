@@ -39,7 +39,7 @@ if (TYPO3_MODE === 'BE') {
      * Registers a Backend Module
      */
     ExtensionUtility::registerModule(
-        'Stepin.' . '_temp_fixture_easy_testing',
+        'Stepin.' . 'tests_fixture_',
         'web',   // Make module a submodule of 'tools'
         'brochure',  // Submodule key
         '',            // Position
@@ -48,8 +48,8 @@ if (TYPO3_MODE === 'BE') {
         ),
         array(
             'access' => 'user,group',
-            'icon' => 'EXT:' . '_temp_fixture_easy_testing' . '/ext_icon.gif',
-            'labels' => 'LLL:EXT:' . '_temp_fixture_easy_testing' . '/Resources/Private/Language/locallang_export.xlf',
+            'icon' => 'EXT:' . 'tests_fixture_' . '/ext_icon.gif',
+            'labels' => 'LLL:EXT:' . 'tests_fixture_' . '/Resources/Private/Language/locallang_export.xlf',
         )
     );
 }
