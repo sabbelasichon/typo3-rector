@@ -1,4 +1,4 @@
-# 270 Rules Overview
+# 268 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -871,46 +871,6 @@ return static function (RectorConfig $rectorConfig): void {
 +        'tableName' => 'sys_file_reference',
 +    ],
 +];
-```
-
-<br>
-
-## ExtensionComposerRector
-
-Add extra extension-key in `composer.json` and add option default constraint
-
-:wrench: **configure it!**
-
-- class: [`Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector`](../src/FileProcessor/Composer/Rector/ExtensionComposerRector.php)
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use Rector\Config\RectorConfig;
-use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\ExtensionComposerRector;
-
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ExtensionComposerRector::class, [ExtensionComposerRector::TYPO3_VERSION_CONSTRAINT => '^10.4']);
-};
-```
-
-↓
-
-```diff
- {
-     "require": {
--        "typo3/cms-core": "^9.5"
-+        "typo3/cms-core": "^10.4"
-     },
--    "extra": {}
-+    "extra": {
-+        "typo3/cms": {
-+            "extension-key": "my_extension"
-+        }
-+    }
- }
 ```
 
 <br>
@@ -2703,41 +2663,6 @@ Remove CharsetConvertParameters
 -$charsetConvert->utf8_to_numberarray('string', false, false);
 +$charsetConvert->entities_to_utf8('string');
 +$charsetConvert->utf8_to_numberarray('string');
-```
-
-<br>
-
-## RemoveCmsPackageDirFromExtraComposerRector
-
-Change package name in `composer.json`
-
-:wrench: **configure it!**
-
-- class: [`Ssch\TYPO3Rector\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector`](../src/FileProcessor/Composer/Rector/RemoveCmsPackageDirFromExtraComposerRector.php)
-
-```php
-<?php
-
-declare(strict_types=1);
-
-use Rector\Config\RectorConfig;
-use Ssch\TYPO3Rector\FileProcessor\Composer\Rector\RemoveCmsPackageDirFromExtraComposerRector;
-
-return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(RemoveCmsPackageDirFromExtraComposerRector::class, ['not_allowed' => 'not_available']);
-};
-```
-
-↓
-
-```diff
- {
-     "extra": {
-         "typo3/cms": {
--            "cms-package-dir": "{$vendor-dir}/typo3/cms"
-         }
-     }
- }
 ```
 
 <br>
