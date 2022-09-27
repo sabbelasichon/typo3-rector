@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -77,6 +78,10 @@ CODE_SAMPLE
     {
         if (! $this->isNames($node, ['TYPO3_CONF_VARS', 'TBE_MODULES', 'TCA'])) {
             return true;
+        }
+
+        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            return false;
         }
 
         if ($this->filesFinder->isExtLocalConf($this->file->getFilePath())) {

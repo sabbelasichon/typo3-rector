@@ -16,6 +16,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -54,9 +55,7 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
             return $this->refactorProbablySecurityGate($node);
         }
 
-        if ($this->filesFinder->isExtLocalConf($this->file->getFilePath()) || $this->filesFinder->isExtTables(
-            $this->file->getFilePath()
-        )) {
+        if ($this->shouldSkip()) {
             return null;
         }
 
@@ -156,5 +155,18 @@ CODE_SAMPLE
             $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Http\ApplicationType', 'fromRequest', $arguments),
             'isFrontend'
         );
+    }
+
+    private function shouldSkip(): bool
+    {
+        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
+            return false;
+        }
+
+        if ($this->filesFinder->isExtLocalConf($this->file->getFilePath())) {
+            return true;
+        }
+
+        return $this->filesFinder->isExtTables($this->file->getFilePath());
     }
 }
