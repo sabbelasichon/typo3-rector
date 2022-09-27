@@ -20,7 +20,6 @@ use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92947-DeprecateTYPO3_MODEAndTYPO3_REQUESTTYPEConstants.html
@@ -51,13 +50,13 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        $fileInfo = new SmartFileInfo($this->file->getFilePath());
-
         if ($node instanceof FuncCall && $this->isName($node, 'defined')) {
             return $this->refactorProbablySecurityGate($node);
         }
 
-        if ($this->filesFinder->isExtLocalConf($fileInfo) || $this->filesFinder->isExtTables($fileInfo)) {
+        if ($this->filesFinder->isExtLocalConf($this->file->getFilePath()) || $this->filesFinder->isExtTables(
+            $this->file->getFilePath()
+        )) {
             return null;
         }
 

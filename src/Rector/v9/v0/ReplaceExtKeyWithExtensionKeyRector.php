@@ -80,7 +80,7 @@ CODE_SAMPLE
     {
         $fileInfo = new SmartFileInfo($this->file->getFilePath());
 
-        if ($this->filesFinder->isExtEmconf($fileInfo)) {
+        if ($this->filesFinder->isExtEmconf($this->file->getFilePath())) {
             return null;
         }
 

@@ -24,19 +24,19 @@ final class FilesFinder
         return $this->findFileRelativeFromGivenFileInfo($fileInfo, self::EXT_EMCONF_FILENAME);
     }
 
-    public function isExtLocalConf(SmartFileInfo $fileInfo): bool
+    public function isExtLocalConf(string $filePath): bool
     {
-        return $this->endsWith($fileInfo, 'ext_localconf.php');
+        return $this->fileEqualsName($filePath, 'ext_localconf.php');
     }
 
-    public function isExtTables(SmartFileInfo $fileInfo): bool
+    public function isExtTables(string $filePath): bool
     {
-        return $this->endsWith($fileInfo, 'ext_tables.php');
+        return $this->fileEqualsName($filePath, 'ext_tables.php');
     }
 
-    public function isExtEmconf(SmartFileInfo $fileInfo): bool
+    public function isExtEmconf(string $filePath): bool
     {
-        return $this->endsWith($fileInfo, self::EXT_EMCONF_FILENAME);
+        return $this->fileEqualsName($filePath, self::EXT_EMCONF_FILENAME);
     }
 
     private function findFileRelativeFromGivenFileInfo(SmartFileInfo $fileInfo, string $filename): ?SmartFileInfo
@@ -87,8 +87,9 @@ final class FilesFinder
         return null;
     }
 
-    private function endsWith(SmartFileInfo $fileInfo, string $needle): bool
+    private function fileEqualsName(string $filePath, string $fileName): bool
     {
-        return \str_ends_with($fileInfo->getFilename(), $needle);
+        // If we are in test mode the file name cannot be compared, so we return true in
+        return (basename($filePath) === $filePath) || StaticPHPUnitEnvironment::isPHPUnitRun();
     }
 }

@@ -9,11 +9,9 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/ConfigurationFiles/Index.html
@@ -81,17 +79,11 @@ CODE_SAMPLE
             return true;
         }
 
-        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if ($this->filesFinder->isExtLocalConf($this->file->getFilePath())) {
             return false;
         }
 
-        $smartFileInfo = new SmartFileInfo($this->file->getFilePath());
-
-        if ($this->filesFinder->isExtLocalConf($smartFileInfo)) {
-            return false;
-        }
-
-        if ($this->filesFinder->isExtTables($smartFileInfo)) {
+        if ($this->filesFinder->isExtTables($this->file->getFilePath())) {
             return false;
         }
 

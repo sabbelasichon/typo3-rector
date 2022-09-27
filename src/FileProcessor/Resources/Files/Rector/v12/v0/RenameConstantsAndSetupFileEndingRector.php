@@ -70,7 +70,7 @@ CODE_SAMPLE
         }
 
         // Test mode is handled differently
-        if ($this->isInTestMode()) {
+        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return $this->shouldSkipInTestMode($smartFileInfo);
         }
 
@@ -83,11 +83,6 @@ CODE_SAMPLE
         }
 
         return 'setup.txt' !== $smartFileInfo->getBasename();
-    }
-
-    private function isInTestMode(): bool
-    {
-        return StaticPHPUnitEnvironment::isPHPUnitRun();
     }
 
     private function shouldSkipInTestMode(SmartFileInfo $smartFileInfo): bool
