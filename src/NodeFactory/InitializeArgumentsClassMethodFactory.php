@@ -125,7 +125,7 @@ final class InitializeArgumentsClassMethodFactory
         $newStmts = $this->createStmts($renderClassMethod, $class);
 
         $classMethod = $this->findOrCreateInitializeArgumentsClassMethod($class);
-        $classMethod->stmts = array_merge((array) $classMethod->stmts, $newStmts);
+        $classMethod->stmts = $this->mergeRegisterArgumentStatements($classMethod, $newStmts);
     }
 
     private function findOrCreateInitializeArgumentsClassMethod(Class_ $class): ClassMethod
@@ -410,6 +410,7 @@ final class InitializeArgumentsClassMethodFactory
         }
 
         $fullyQualified = new FullyQualified($classLikeName);
+
         return new ClassConstFetch($fullyQualified, 'class');
     }
 
@@ -424,5 +425,51 @@ final class InitializeArgumentsClassMethodFactory
         }
 
         return trait_exists($classLike);
+    }
+
+    /**
+     * @param Expression[] $newRegisterArgumentStatements
+     *
+     * @return Node\Stmt[]
+     */
+    private function mergeRegisterArgumentStatements(
+        ClassMethod $initializeArgumentsClassMethod,
+        array $newRegisterArgumentStatements
+    ): array {
+        $alreadyExistingArguments = [];
+        foreach ((array) $initializeArgumentsClassMethod->stmts as $stmt) {
+            if (! $stmt instanceof Expression) {
+                continue;
+            }
+
+            if (! $stmt->expr instanceof MethodCall) {
+                continue;
+            }
+
+            if (! $this->nodeNameResolver->isName($stmt->expr->name, 'registerArgument')) {
+                continue;
+            }
+
+            $alreadyExistingArguments[] = $this->valueResolver->getValue($stmt->expr->args[0]->value);
+        }
+
+        $keepNewRegisterArgumentStatements = array_filter(
+            $newRegisterArgumentStatements,
+            function (Expression $expression) use ($alreadyExistingArguments) {
+                if (! $expression->expr instanceof MethodCall) {
+                    return true;
+                }
+
+                if (! $this->nodeNameResolver->isName($expression->expr->name, 'registerArgument')) {
+                    return true;
+                }
+
+                $newRegisterArgumentName = $this->valueResolver->getValue($expression->expr->args[0]->value);
+
+                return ! in_array($newRegisterArgumentName, $alreadyExistingArguments, true);
+            }
+        );
+
+        return array_merge((array) $initializeArgumentsClassMethod->stmts, $keepNewRegisterArgumentStatements);
     }
 }

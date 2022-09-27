@@ -99,10 +99,10 @@ final class IconsFileProcessor implements FileProcessorInterface
 
     private function shouldSkip(string $filenameWithoutExtension): bool
     {
-        if(StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return false;
         }
 
-        return $filenameWithoutExtension !== self::EXT_ICON_NAME;
+        return self::EXT_ICON_NAME !== $filenameWithoutExtension;
     }
 }

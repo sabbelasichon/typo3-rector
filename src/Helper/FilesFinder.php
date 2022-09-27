@@ -89,7 +89,6 @@ final class FilesFinder
 
     private function fileEqualsName(string $filePath, string $fileName): bool
     {
-        // If we are in test mode the file name cannot be compared, so we return true in
-        return (basename($filePath) === $filePath) || StaticPHPUnitEnvironment::isPHPUnitRun();
+        return basename($filePath) === $fileName;
     }
 }
