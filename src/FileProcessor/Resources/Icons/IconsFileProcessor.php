@@ -32,7 +32,7 @@ final class IconsFileProcessor implements FileProcessorInterface
      * @var IconRectorInterface[]
      * @readonly
      */
-    private array $iconsRector = [];
+    private array $iconsRector;
 
     /**
      * @readonly
@@ -99,13 +99,10 @@ final class IconsFileProcessor implements FileProcessorInterface
 
     private function shouldSkip(string $filenameWithoutExtension): bool
     {
-        if (self::EXT_ICON_NAME === $filenameWithoutExtension) {
+        if(StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return false;
         }
 
-        return ! (StaticPHPUnitEnvironment::isPHPUnitRun() && str_contains(
-            $filenameWithoutExtension,
-            self::EXT_ICON_NAME
-        ));
+        return $filenameWithoutExtension !== self::EXT_ICON_NAME;
     }
 }
