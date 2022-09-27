@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v2;
 
-use ECSPrefix202209\Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -97,7 +97,7 @@ CODE_SAMPLE
     {
         $fileInfo = new SmartFileInfo($this->file->getFilePath());
 
-        if (! $this->filesFinder->isExtTables($fileInfo) && StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (! $this->filesFinder->isExtTables($fileInfo) && !StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return true;
         }
 

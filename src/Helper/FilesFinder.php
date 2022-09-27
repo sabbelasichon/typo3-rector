@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper;
 
-use Symplify\EasyTesting\PHPUnit\StaticPHPUnitEnvironment;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FilesFinder
