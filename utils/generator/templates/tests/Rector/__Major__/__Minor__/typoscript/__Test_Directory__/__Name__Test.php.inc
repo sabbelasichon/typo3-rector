@@ -19,7 +19,7 @@ final class __Name__Test extends AbstractRectorTestCase
     }
 
     /**
-     * @return Iterator<array<string>
+     * @return Iterator<array<string>>
      */
     public function provideData(): Iterator
     {
