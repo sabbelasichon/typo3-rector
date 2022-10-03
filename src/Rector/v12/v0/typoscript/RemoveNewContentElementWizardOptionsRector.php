@@ -14,10 +14,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-98437-WorkspaceTSConfigSwapModeAndChangeStageModeRemoved.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typoscript\RemoveTSConfigModesRector\RemoveTSConfigModesRectorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-97701-RemovedTsConfigOptionDisableNewContentElementWizard.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typoscript\RemoveNewContentElementWizardOptionsRector\RemoveNewContentElementWizardOptionsRectorTest
  */
-final class RemoveTSConfigModesRector extends AbstractTypoScriptRector
+final class RemoveNewContentElementWizardOptionsRector extends AbstractTypoScriptRector
 {
     /**
      * @readonly
@@ -43,8 +43,8 @@ final class RemoveTSConfigModesRector extends AbstractTypoScriptRector
             return;
         }
 
-        if ('options.workspaces.swapMode' !== $statement->object->absoluteName
-         && 'options.workspaces.changeStageMode' !== $statement->object->absoluteName) {
+        if ('mod.web_layout.disableNewContentElementWizard' !== $statement->object->absoluteName
+            && 'mod.newContentElementWizard.override' !== $statement->object->absoluteName) {
             return;
         }
 
@@ -63,10 +63,10 @@ final class RemoveTSConfigModesRector extends AbstractTypoScriptRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove TSConfig options.workspaces.swapMode and options.workspaces.changeStageMode', [new CodeSample(
+        return new RuleDefinition('Remove TSConfig mod.web_layout.disableNewContentElementWizard and mod.newContentElementWizard.override', [new CodeSample(
             <<<'CODE_SAMPLE'
-options.workspaces.swapMode = any
-options.workspaces.changeStageMode = any
+mod.web_layout.disableNewContentElementWizard = 1
+mod.newContentElementWizard.override = 1
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
