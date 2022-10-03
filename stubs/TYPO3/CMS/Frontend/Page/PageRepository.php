@@ -81,4 +81,18 @@ class PageRepository
     {
         GeneralUtility::makeInstance('TYPO3\CMS\Core\Cache\CacheManager')->getCache('cache_hash')->get($hash) !== null ? GeneralUtility::makeInstance('TYPO3\CMS\Core\Cache\CacheManager')->getCache('cache_hash')->get($hash) : null;
     }
+
+    /**
+     * @return void
+     */
+    public function getRecordOverlay($table, $row, $sys_language_content, $OLmode = '')
+    {
+    }
+
+    /**
+     * @return void
+     */
+    public function getLanguageOverlay(string $table, array $row)
+    {
+    }
 }
