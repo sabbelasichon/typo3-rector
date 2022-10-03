@@ -1,4 +1,4 @@
-# 269 Rules Overview
+# 270 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -3182,6 +3182,20 @@ Remove EidUtility and various TSFE methods
 
 <br>
 
+## RemoveNewContentElementWizardOptionsRector
+
+Remove TSConfig mod.web_layout.disableNewContentElementWizard and mod.newContentElementWizard.override
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveNewContentElementWizardOptionsRector`](../src/Rector/v12/v0/typoscript/RemoveNewContentElementWizardOptionsRector.php)
+
+```diff
+-mod.web_layout.disableNewContentElementWizard = 1
+-mod.newContentElementWizard.override = 1
++-
+```
+
+<br>
+
 ## RemoveNoCacheHashAndUseCacheHashAttributeFluidRector
 
 Remove noCacheHash="1" and useCacheHash="1" attribute
@@ -3498,7 +3512,7 @@ Remove ['interface']['always_description']
 
 ## RemoveTSConfigModesRector
 
-Remove config.spamProtectEmailAddresses with option ascii
+Remove TSConfig options.workspaces.swapMode and options.workspaces.changeStageMode
 
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveTSConfigModesRector`](../src/Rector/v12/v0/typoscript/RemoveTSConfigModesRector.php)
 
