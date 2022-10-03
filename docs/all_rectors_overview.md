@@ -1,4 +1,4 @@
-# 268 Rules Overview
+# 269 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -3492,6 +3492,20 @@ Remove ['interface']['always_description']
      'columns' => [
      ],
  ];
+```
+
+<br>
+
+## RemoveTSConfigModesRector
+
+Remove config.spamProtectEmailAddresses with option ascii
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveTSConfigModesRector`](../src/Rector/v12/v0/typoscript/RemoveTSConfigModesRector.php)
+
+```diff
+-options.workspaces.swapMode = any
+-options.workspaces.changeStageMode = any
++-
 ```
 
 <br>
