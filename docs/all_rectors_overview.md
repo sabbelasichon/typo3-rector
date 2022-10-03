@@ -1,4 +1,4 @@
-# 270 Rules Overview
+# 271 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -3894,6 +3894,19 @@ Turns properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection
 +{
 +    $this->someService = $someService;
 +}
+```
+
+<br>
+
+## ReplacePageRepoOverlayFunctionRector
+
+Replace `PageRepository->getRecordOverlay()` with `->getLanguageOverlay()`
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplacePageRepoOverlayFunctionRector`](../src/Rector/v12/v0/typo3/ReplacePageRepoOverlayFunctionRector.php)
+
+```diff
+-$pageRepo->getRecordOverlay('', [], '');
++$pageRepo->getLanguageOverlay('', []);
 ```
 
 <br>
