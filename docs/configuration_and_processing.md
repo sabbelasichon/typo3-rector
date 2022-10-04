@@ -43,6 +43,7 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
+use Rector\PostRector\Rector\NameImportingPostRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
@@ -93,6 +94,13 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/public/*',
         __DIR__ . '/.github/*',
         __DIR__ . '/.Build/*',
+        NameImportingPostRector::class => [
+            'ext_localconf.php',
+            'ext_tables.php',
+            'ClassAliasMap.php',
+            __DIR__ . '/**/Configuration/*.php',
+            __DIR__ . '/**/Configuration/**/*.php',
+        ]
     ]);
 
     // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file
