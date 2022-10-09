@@ -63,15 +63,20 @@ final class RemoveTSConfigModesRector extends AbstractTypoScriptRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove TSConfig options.workspaces.swapMode and options.workspaces.changeStageMode', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Remove TSConfig options.workspaces.swapMode and options.workspaces.changeStageMode',
+            [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 options.workspaces.swapMode = any
 options.workspaces.changeStageMode = any
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 -
 CODE_SAMPLE
-        )]);
+            ),
+        
+        ]);
     }
 }
