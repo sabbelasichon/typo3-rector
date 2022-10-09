@@ -46,15 +46,17 @@ final class ReplacePageRepoOverlayFunctionRector extends AbstractRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Replace PageRepository->getRecordOverlay() with ->getLanguageOverlay()', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition('Replace PageRepository->getRecordOverlay() with ->getLanguageOverlay()', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $pageRepo->getRecordOverlay('', [], '');
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $pageRepo->getLanguageOverlay('', []);
 CODE_SAMPLE
-        )]);
+            ),
+        ]);
     }
 
     private function shouldSkip(MethodCall $methodCall): bool
