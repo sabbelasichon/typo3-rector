@@ -66,17 +66,18 @@ final class RemoveNewContentElementWizardOptionsRector extends AbstractTypoScrip
         return new RuleDefinition(
             'Remove TSConfig mod.web_layout.disableNewContentElementWizard and mod.newContentElementWizard.override',
             [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 mod.web_layout.disableNewContentElementWizard = 1
 mod.newContentElementWizard.override = 1
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 -
 CODE_SAMPLE
-            ),
-        
-        ]);
+                ),
+
+            ]
+        );
     }
 }
