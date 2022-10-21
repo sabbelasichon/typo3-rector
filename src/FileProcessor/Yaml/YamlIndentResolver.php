@@ -26,7 +26,7 @@ final class YamlIndentResolver
 
     public function resolveIndentSpaceCount(string $yamlFileContent): int
     {
-        $firstSpaceMatch = Strings::match($yamlFileContent, self::FIRST_INDENT_REGEX);
+        $firstSpaceMatch = Strings::match(trim($yamlFileContent), self::FIRST_INDENT_REGEX);
         if (! isset($firstSpaceMatch[self::FIRST_INDENT_KEY])) {
             return self::DEFAULT_INDENT_SPACE_COUNT;
         }
