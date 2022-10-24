@@ -1,4 +1,4 @@
-# 271 Rules Overview
+# 272 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1155,6 +1155,38 @@ Turns properties with `@ignorevalidation` to properties with `@TYPO3\CMS\Extbase
   */
  public function method($param)
  {
+ }
+```
+
+<br>
+
+## ImplementSiteLanguageAwareInterfaceRector
+
+Implement SiteLanguageAwareInterface instead of using SiteLanguageAwareTrait
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector`](../src/Rector/v12/v0/typo3/ImplementSiteLanguageAwareInterfaceRector.php)
+
+```diff
+-use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
++use TYPO3\CMS\Core\Site\SiteLanguageAwareInterface;
++use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
+
+-class MyClass
++class MyClass implements SiteLanguageAwareInterface
+ {
+-    use SiteLanguageAwareTrait;
++
++    protected SiteLanguage $siteLanguage;
++
++    public function setSiteLanguage(SiteLanguage $siteLanguage)
++    {
++        $this->siteLanguage = $siteLanguage;
++    }
++
++    public function getSiteLanguage(): SiteLanguage
++    {
++        return $this->siteLanguage;
++    }
  }
 ```
 
