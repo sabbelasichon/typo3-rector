@@ -1,4 +1,4 @@
-# 272 Rules Overview
+# 273 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -3752,6 +3752,26 @@ Rename ext_typoscript_*.txt to ext_typoscript_*.typoscript
 ```diff
 -ext_typoscript_constants.txt
 +ext_typoscript_constants.typoscript
+```
+
+<br>
+
+## RenameMailLinkHandlerKeyRector
+
+Rename key mail to email for MailLinkHandler
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RenameMailLinkHandlerKeyRector`](../src/Rector/v12/v0/typoscript/RenameMailLinkHandlerKeyRector.php)
+
+```diff
+ TCEMAIN.linkHandler {
+-    mail {
++    email {
+         handler = TYPO3\\CMS\\Recordlist\\LinkHandler\\MailLinkHandler
+         label = LLL:EXT:recordlist/Resources/Private/Language/locallang_browse_links.xlf:email
+         displayAfter = page,file,folder,url
+         scanBefore = url
+     }
+ }
 ```
 
 <br>
