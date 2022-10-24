@@ -20,4 +20,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typoscript\UseConfigArrayForTSFEPropertiesRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveTSConfigModesRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveNewContentElementWizardOptionsRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RenameMailLinkHandlerKeyRector::class);
 };
