@@ -1,4 +1,4 @@
-# 273 Rules Overview
+# 274 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -4368,6 +4368,21 @@ Substitute TYPO3_MODE and TYPO3_REQUESTTYPE constants
 ```diff
 -defined('TYPO3_MODE') or die();
 +defined('TYPO3') or die();
+```
+
+<br>
+
+## SubstituteEnvironmentServiceWithApplicationTypeRector
+
+Substitute class EnvironmentService with ApplicationType class\"
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v2\typo3\SubstituteEnvironmentServiceWithApplicationTypeRector`](../src/Rector/v11/v2/typo3/SubstituteEnvironmentServiceWithApplicationTypeRector.php)
+
+```diff
+-if($this->environmentService->isEnvironmentInFrontendMode()) {
++if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend())
+     ...
+ }
 ```
 
 <br>
