@@ -20,15 +20,15 @@ final class RenameMailLinkHandlerKeyRector extends AbstractTypoScriptRector
 {
     public function enterNode(Statement $statement): void
     {
-        if(!$statement instanceof NestedAssignment && !$statement instanceof Assignment) {
+        if (! $statement instanceof NestedAssignment && ! $statement instanceof Assignment) {
             return;
         }
 
-        if(!$statement->object instanceof ObjectPath) {
+        if (! $statement->object instanceof ObjectPath) {
             return;
         }
 
-        if($statement->object->absoluteName !== 'TCEMAIN.linkHandler.mail') {
+        if ('TCEMAIN.linkHandler.mail' !== $statement->object->absoluteName) {
             return;
         }
 
