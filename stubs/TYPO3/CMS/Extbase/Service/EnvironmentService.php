@@ -8,11 +8,18 @@ if (class_exists('TYPO3\CMS\Extbase\Service\EnvironmentService')) {
 
 class EnvironmentService
 {
-    /**
-     * @return string
-     */
-    public function isEnvironmentInCliMode()
+    public function isEnvironmentInCliMode(): bool
     {
-        return 'foo';
+        return true;
+    }
+
+    public function isEnvironmentInFrontendMode(): bool
+    {
+        return true;
+    }
+
+    public function isEnvironmentInBackendMode(): bool
+    {
+        return true;
     }
 }
