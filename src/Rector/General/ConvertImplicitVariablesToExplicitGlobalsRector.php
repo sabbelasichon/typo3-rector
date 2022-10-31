@@ -11,6 +11,7 @@ use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -24,10 +25,12 @@ final class ConvertImplicitVariablesToExplicitGlobalsRector extends AbstractRect
      * @readonly
      */
     private FilesFinder $filesFinder;
+    private Typo3GlobalsFactory $typo3GlobalsFactory;
 
-    public function __construct(FilesFinder $filesFinder)
+    public function __construct(FilesFinder $filesFinder, Typo3GlobalsFactory $typo3GlobalsFactory)
     {
         $this->filesFinder = $filesFinder;
+        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
     /**
@@ -71,7 +74,7 @@ CODE_SAMPLE
             return null;
         }
 
-        return new ArrayDimFetch(new Variable('GLOBALS'), new String_($variableName));
+        return $this->typo3GlobalsFactory->create($variableName);
     }
 
     private function shouldSkip(Variable $node): bool
