@@ -29,6 +29,13 @@ class ActionController extends AbstractController
     protected $objectManager;
 
     /**
+     * The current request.
+     *
+     * @var \TYPO3\CMS\Extbase\Mvc\Request
+     */
+    protected $request;
+
+    /**
      * @return void
      * @param string $actionName
      * @param string $controllerName

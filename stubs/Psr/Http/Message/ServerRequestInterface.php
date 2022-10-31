@@ -8,4 +8,8 @@ if (interface_exists('Psr\Http\Message\ServerRequestInterface')) {
 interface ServerRequestInterface
 {
 
+    /**
+     * @return mixed
+     */
+    public function getAttribute($name, $default);
 }
