@@ -21,6 +21,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -60,10 +61,16 @@ final class RefactorInternalPropertiesOfTSFERector extends AbstractRector
      */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector)
+    /**
+     * @readonly
+     */
+    private Typo3GlobalsFactory $typo3GlobalsFactory;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector, Typo3GlobalsFactory $typo3GlobalsFactory)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
         $this->nodesToAddCollector = $nodesToAddCollector;
+        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
     /**
@@ -218,7 +225,7 @@ CODE_SAMPLE
     private function createPageArguments(): MethodCall
     {
         return $this->nodeFactory->createMethodCall(
-            new ArrayDimFetch(new Variable('GLOBALS'), new String_('REQUEST')),
+            $this->typo3GlobalsFactory->create('REQUEST'),
             'getAttribute',
             ['routing']
         );
@@ -228,7 +235,7 @@ CODE_SAMPLE
     {
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall(
-                new ArrayDimFetch(new Variable('GLOBALS'), new String_('REQUEST')),
+                $this->typo3GlobalsFactory->create('REQUEST'),
                 'getAttribute',
                 ['site']
             ),

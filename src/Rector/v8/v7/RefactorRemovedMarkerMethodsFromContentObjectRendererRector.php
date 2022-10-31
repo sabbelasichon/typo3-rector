@@ -12,6 +12,8 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -25,6 +27,16 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
      * @var string
      */
     private const FILL_IN_MARKER_ARRAY = 'fillInMarkerArray';
+
+    /**
+     * @readonly
+     */
+    private Typo3GlobalsFactory $typo3GlobalsFactory;
+
+    public function __construct(Typo3GlobalsFactory $typo3GlobalsFactory)
+    {
+        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
+    }
 
     /**
      * @return array<class-string<Node>>
@@ -97,9 +109,10 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
                 new BooleanNot($this->nodeFactory->createFuncCall(
                     'empty',
                     [$this->nodeFactory->createArg(
-                        $this->nodeFactory->createPropertyFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_(
-                            'TSFE'
-                        )), 'xhtmlDoctype')
+                        $this->nodeFactory->createPropertyFetch(
+                            $this->typo3GlobalsFactory->create(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER),
+                            'xhtmlDoctype'
+                        )
                     )]
                 ))
             );

@@ -13,6 +13,7 @@ use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -27,9 +28,15 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
      */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    /**
+     * @readonly
+     */
+    private Typo3GlobalsFactory $typo3GlobalsFactory;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver, Typo3GlobalsFactory $typo3GlobalsFactory)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
+        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
     /**
@@ -51,9 +58,15 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
 
         return $this->nodeFactory->createFuncCall(
             'round',
-            [new Mul(new ArrayDimFetch(new ArrayDimFetch(new Variable('GLOBALS'), new String_(
-                'TYPO3_MISC'
-            )), new String_('microtime_start')), new LNumber(1000))]
+            [
+                new Mul(
+                    new ArrayDimFetch(
+                        $this->typo3GlobalsFactory->create('TYPO3_MISC'),
+                        new String_('microtime_start')
+                    ),
+                    new LNumber(1000)
+                )
+            ]
         );
     }
 

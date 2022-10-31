@@ -20,6 +20,7 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -44,10 +45,16 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
      */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector)
+    /**
+     * @readonly
+     */
+    private Typo3GlobalsFactory $typo3GlobalsFactory;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector, Typo3GlobalsFactory $typo3GlobalsFactory)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
         $this->nodesToAddCollector = $nodesToAddCollector;
+        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
     /**
@@ -139,7 +146,7 @@ CODE_SAMPLE
         $typoscriptFrontendControllerVariable = new Variable('typoscriptFrontendController');
         $typoscriptFrontendControllerAssign = new Assign(
             $typoscriptFrontendControllerVariable,
-            new ArrayDimFetch(new Variable('GLOBALS'), new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER))
+            $this->typo3GlobalsFactory->create(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
         );
         $this->nodesToAddCollector->addNodeBeforeNode($typoscriptFrontendControllerAssign, $methodCall);
     }
