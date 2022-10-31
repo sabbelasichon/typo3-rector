@@ -1,4 +1,4 @@
-# 274 Rules Overview
+# 275 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -5298,6 +5298,19 @@ Use TYPO3/CMS/Backend/PageTree/PageTreeElement instead of typo3-pagetree
 +          'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement'
        ]
    );
+```
+
+<br>
+
+## UseNormalizedParamsToGetRequestUrlRector
+
+Use normalized params to get the request url
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v3\typo3\UseNormalizedParamsToGetRequestUrlRector`](../src/Rector/v11/v3/typo3/UseNormalizedParamsToGetRequestUrlRector.php)
+
+```diff
+-$requestUri = $this->request->getRequestUri();
++$requestUri = $this->request->getAttribute('normalizedParams')->getRequestUrl();
 ```
 
 <br>
