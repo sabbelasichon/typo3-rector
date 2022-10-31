@@ -12,4 +12,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(SubstituteMethodRmFromListOfGeneralUtilityRector::class);
     $rectorConfig->rule(SwitchBehaviorOfArrayUtilityMethodsRector::class);
     $rectorConfig->rule(SubstituteExtbaseRequestGetBaseUriRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v11\v3\typo3\UseNormalizedParamsToGetRequestUrlRector::class);
 };
