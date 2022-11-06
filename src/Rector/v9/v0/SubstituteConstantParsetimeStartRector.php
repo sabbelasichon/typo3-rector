@@ -8,7 +8,6 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\Mul;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
@@ -65,7 +64,7 @@ final class SubstituteConstantParsetimeStartRector extends AbstractRector
                         new String_('microtime_start')
                     ),
                     new LNumber(1000)
-                )
+                ),
             ]
         );
     }
