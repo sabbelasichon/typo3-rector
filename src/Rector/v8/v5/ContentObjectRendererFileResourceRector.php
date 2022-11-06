@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v5;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 use PhpParser\Node\Expr\BinaryOp\NotIdentical;
@@ -50,8 +49,11 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
      */
     private Typo3GlobalsFactory $typo3GlobalsFactory;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector, Typo3GlobalsFactory $typo3GlobalsFactory)
-    {
+    public function __construct(
+        Typo3NodeResolver $typo3NodeResolver,
+        NodesToAddCollector $nodesToAddCollector,
+        Typo3GlobalsFactory $typo3GlobalsFactory
+    ) {
         $this->typo3NodeResolver = $typo3NodeResolver;
         $this->nodesToAddCollector = $nodesToAddCollector;
         $this->typo3GlobalsFactory = $typo3GlobalsFactory;

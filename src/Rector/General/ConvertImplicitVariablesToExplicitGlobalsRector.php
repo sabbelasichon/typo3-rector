@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\General;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
@@ -25,6 +23,7 @@ final class ConvertImplicitVariablesToExplicitGlobalsRector extends AbstractRect
      * @readonly
      */
     private FilesFinder $filesFinder;
+
     private Typo3GlobalsFactory $typo3GlobalsFactory;
 
     public function __construct(FilesFinder $filesFinder, Typo3GlobalsFactory $typo3GlobalsFactory)
