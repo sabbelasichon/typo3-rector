@@ -21,6 +21,7 @@ class MySolrIndexer
      */
     public function multiple(array $documents)
     {
+        /** @var Apache_Solr_Document $document */
         foreach ($documents as $document) {
             $document->setMultiValue('key', 'foo', true);
         }
@@ -52,6 +53,7 @@ class MySolrIndexer
      */
     public function multiple(array $documents)
     {
+        /** @var Apache_Solr_Document $document */
         foreach ($documents as $document) {
             $document->addField('key', 'foo', true);
         }
