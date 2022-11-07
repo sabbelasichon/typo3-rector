@@ -13,7 +13,6 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use Rector\Core\Rector\AbstractScopeAwareRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -118,14 +117,7 @@ final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAware
             $classHasChanged = true;
         }
 
-        if ($classHasChanged) {
-            // invoke re-print
-            $node->setAttribute(AttributeKey::ORIGINAL_NODE, null);
-
-            return $node;
-        }
-
-        return null;
+        return $classHasChanged ? $node : null;
     }
 
     /**

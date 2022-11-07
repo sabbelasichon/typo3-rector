@@ -9,9 +9,7 @@ use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
 class MyClass implements SiteLanguageAwareInterface
 {
     use SiteLanguageAwareTrait;
-
     protected SiteLanguage $siteLanguage;
-
     public function setSiteLanguage(SiteLanguage $siteLanguage)
     {
         $this->siteLanguage = $siteLanguage;
