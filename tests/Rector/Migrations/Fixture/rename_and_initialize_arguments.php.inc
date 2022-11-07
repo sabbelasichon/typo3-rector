@@ -61,7 +61,7 @@ class MySpecialViewHelperWithFullQualifiedNamespaceLinkViewHelper extends Abstra
         return 'foo';
     }
 
-    public function injectPluginSettingsService(MySpecialViewHelperWithFullQualifiedNamespaceLinkViewHelper $pluginSettingsService): void
+    public function injectPluginSettingsService(\MySpecialViewHelperWithFullQualifiedNamespaceLinkViewHelper $pluginSettingsService): void
     {
         $this->pluginSettingsService = $pluginSettingsService;
     }

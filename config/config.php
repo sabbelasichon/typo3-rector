@@ -11,12 +11,19 @@ use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use Rector\Config\RectorConfig;
+use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->disableParallel();
+    $rectorConfig->importNames();
+    $rectorConfig->phpstanConfig(Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
+    // this will not import root namespace classes, like \DateTime or \Exception
+    $rectorConfig->importShortClasses(false);
+
     $services = $rectorConfig->services();
     $services->defaults()
         ->public()
