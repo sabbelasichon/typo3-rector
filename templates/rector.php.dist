@@ -12,23 +12,10 @@ use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
-    $parameters = $rectorConfig->parameters();
 
     $rectorConfig->sets([
         Typo3LevelSetList::UP_TO_TYPO3_11,
     ]);
-
-    // In order to have a better analysis from phpstan we teach it here some more things
-    $rectorConfig->phpstanConfig(Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
-
-    // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
-    $rectorConfig->importNames();
-
-    // Disable parallel otherwise non php file processing is not working i.e. typoscript
-    $rectorConfig->disableParallel();
-
-    // this will not import root namespace classes, like \DateTime or \Exception
-    $rectorConfig->importShortClasses(false);
 
     // Define your target version which you want to support
     $rectorConfig->phpVersion(PhpVersion::PHP_74);

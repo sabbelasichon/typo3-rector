@@ -29,14 +29,14 @@ class MyUnitTest extends UnitTestCase
 
 namespace Ssch\TYPO3Rector\Tests\Rector\Nimut\TestingFramework\Fixture;
 
-use Nimut\TestingFramework\Exception\Exception;
-use Nimut\TestingFramework\MockObject\AccessibleMockObjectInterface;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
+use TYPO3\TestingFramework\Core\Exception;
 
-class MyUnitTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+class MyUnitTest extends UnitTestCase
 {
     /**
-     * @var \TYPO3\TestingFramework\Core\AccessibleObjectInterface
+     * @var AccessibleObjectInterface
      */
     protected $fooBarBaz;
 
@@ -44,7 +44,7 @@ class MyUnitTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
     {
         try {
 
-        } catch (\TYPO3\TestingFramework\Core\Exception $e) {
+        } catch (Exception $e) {
 
         }
     }

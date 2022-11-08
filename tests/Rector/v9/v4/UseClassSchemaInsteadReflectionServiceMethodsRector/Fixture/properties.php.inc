@@ -49,7 +49,6 @@ class MyService
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v4\UseClassSchemaInsteadReflectionServiceMethodsRector\Fixture;
 
-use stdClass;
 use TYPO3\CMS\Extbase\Reflection\ReflectionService;
 
 class MyService
@@ -63,17 +62,17 @@ class MyService
 
     public function init(): void
     {
-        $properties = array_keys($this->reflectionService->getClassSchema(stdClass::class)->getProperties());
+        $properties = array_keys($this->reflectionService->getClassSchema(\stdClass::class)->getProperties());
         foreach ($properties as $property) {
-            $propertyTagsValues = $this->reflectionService->getClassSchema(stdClass::class)->getProperty($property)['tags'] ?? [];
+            $propertyTagsValues = $this->reflectionService->getClassSchema(\stdClass::class)->getProperty($property)['tags'] ?? [];
             $tags = $propertyTagsValues;
-            $tag = $this->reflectionService->getClassSchema(stdClass::class)->getProperty($property)['tags']['tag'] ?? [];
+            $tag = $this->reflectionService->getClassSchema(\stdClass::class)->getProperty($property)['tags']['tag'] ?? [];
         }
     }
 
     public function fooBarBaz()
     {
-        $propertyTagsValues = $this->reflectionService->getClassSchema(stdClass::class)->getProperty('property')['tags'] ?? [];
+        $propertyTagsValues = $this->reflectionService->getClassSchema(\stdClass::class)->getProperty('property')['tags'] ?? [];
         if ( ! empty($propertyTagsValues)) {
             // Do something here
         }
@@ -81,17 +80,17 @@ class MyService
 
     public function getProperty($property)
     {
-        $propertyTagsValues = $this->reflectionService->getClassSchema(stdClass::class)->getProperty($property)['tags'] ?? [];
+        $propertyTagsValues = $this->reflectionService->getClassSchema(\stdClass::class)->getProperty($property)['tags'] ?? [];
         return $propertyTagsValues;
     }
 
     public function isPropertyTaggedWith($property)
     {
-        $propertyReflectionService = $this->reflectionService->getClassSchema(stdClass::class)->getProperty($property);
+        $propertyReflectionService = $this->reflectionService->getClassSchema(\stdClass::class)->getProperty($property);
         if (empty($propertyReflectionService) ? false : isset($propertyReflectionService['tags']['tag'])) {
             // Do something here
         }
-        $propertyReflectionService = $this->reflectionService->getClassSchema(stdClass::class)->getProperty($property);
+        $propertyReflectionService = $this->reflectionService->getClassSchema(\stdClass::class)->getProperty($property);
         return empty($propertyReflectionService) ? false : isset($propertyReflectionService['tags']['tag']);
     }
 }
