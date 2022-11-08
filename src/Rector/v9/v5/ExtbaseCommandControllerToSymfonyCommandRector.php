@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -25,6 +26,7 @@ use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\NodeAnalyzer\CommandArrayDecorator;
 use Ssch\TYPO3Rector\NodeAnalyzer\CommandMethodDecorator;
+use Ssch\TYPO3Rector\NodeAnalyzer\CommandOutputWritelnDecorator;
 use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Filesystem\Filesystem;
@@ -86,6 +88,11 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
     /**
      * @readonly
      */
+    private CommandOutputWritelnDecorator $commandMethodCallDecorator;
+
+    /**
+     * @readonly
+     */
     private Filesystem $filesystem;
 
     public function __construct(
@@ -97,7 +104,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         CommandArrayDecorator $commandArrayDecorator,
         CommandMethodDecorator $commandMethodDecorator,
-        Filesystem $filesystem
+        Filesystem $filesystem,
+        CommandOutputWritelnDecorator $commandOutputWritelnDecorator
     ) {
         $this->rectorParser = $rectorParser;
         $this->filesFinder = $filesFinder;
@@ -108,6 +116,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         $this->commandArrayDecorator = $commandArrayDecorator;
         $this->commandMethodDecorator = $commandMethodDecorator;
         $this->filesystem = $filesystem;
+        $this->commandMethodCallDecorator = $commandOutputWritelnDecorator;
     }
 
     /**
@@ -220,11 +229,15 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             $inputArguments = $this->createInputArguments($methodParameters, $paramTags);
 
             $this->traverseNodesWithCallable($stmts, function (Node $node) use ($inputArguments) {
-                if (! $node instanceof ClassMethod) {
+                if (! $node instanceof ClassMethod && ! $node instanceof MethodCall) {
                     return null;
                 }
 
-                $this->commandMethodDecorator->decorate($node, $inputArguments);
+                if ($node instanceof ClassMethod) {
+                    $this->commandMethodDecorator->decorate($node, $inputArguments);
+                } else {
+                    $this->commandMethodCallDecorator->decorate($node);
+                }
             });
 
             $changedSetConfigContent = $this->nodePrinter->prettyPrintFile($stmts);
