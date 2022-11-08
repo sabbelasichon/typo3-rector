@@ -16,6 +16,7 @@ use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
 use Nette\Utils\Strings;
 use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
+use Rector\Core\Configuration\Parameter\ParameterProvider;
 use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
@@ -24,6 +25,7 @@ use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Parallel\ValueObject\Bridge;
+use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptPostRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
@@ -98,13 +100,15 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
      * @var TypoScriptRectorInterface[]
      * @readonly
      */
-    private array $typoScriptRectors = [];
+    private array $typoScriptRectors;
 
     /**
      * @var TypoScriptPostRectorInterface[]
      * @readonly
      */
-    private array $typoScriptPostRectors = [];
+    private array $typoScriptPostRectors;
+
+    private ParameterProvider $parameterProvider;
 
     /**
      * @param TypoScriptRectorInterface[] $typoScriptRectors
@@ -119,6 +123,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         RectorOutputStyle $rectorOutputStyle,
         FileDiffFactory $fileDiffFactory,
         RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector,
+        ParameterProvider $parameterProvider,
         array $typoScriptRectors = [],
         array $typoScriptPostRectors = []
     ) {
@@ -132,6 +137,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         $this->removeTypoScriptStatementCollector = $removeTypoScriptStatementCollector;
         $this->typoScriptRectors = $typoScriptRectors;
         $this->typoScriptPostRectors = $typoScriptPostRectors;
+        $this->parameterProvider = $parameterProvider;
     }
 
     public function supports(File $file, Configuration $configuration): bool
@@ -214,7 +220,9 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
                 $prettyPrinterConfiguration = $prettyPrinterConfiguration->withTabs();
             } else {
                 // default indent
-                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation(4);
+                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation(
+                    $this->parameterProvider->provideParameter(Typo3Option::TYPOSCRIPT_INDENT_SIZE)
+                );
             }
 
             $prettyPrinterConfiguration = $prettyPrinterConfiguration->withClosingGlobalStatement();

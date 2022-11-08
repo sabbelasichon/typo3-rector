@@ -10,4 +10,9 @@ final class Typo3Option
      * @var string
      */
     public const PHPSTAN_FOR_RECTOR_PATH = __DIR__ . '/../../utils/phpstan/config/extension.neon';
+
+    /**
+     * @var string
+     */
+    public const TYPOSCRIPT_INDENT_SIZE = 'typoscript-indent-size';
 }

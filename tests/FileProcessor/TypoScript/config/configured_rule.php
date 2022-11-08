@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\ApplicationContextConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\BrowserConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\CompatVersionConditionMatcher;
@@ -45,6 +46,9 @@ return static function (RectorConfig $rectorConfig): void {
     $services->set(TreeLevelConditionMatcher::class);
     $services->set(UsergroupConditionMatcherMatcher::class);
     $services->set(VersionConditionMatcher::class);
+
+    $parameters = $rectorConfig->parameters();
+    $parameters->set(Typo3Option::TYPOSCRIPT_INDENT_SIZE, 4);
 
     $rectorConfig->rule(AdditionalHeadersToArrayTypoScriptRector::class);
     $rectorConfig->rule(LibFluidContentToLibContentElementRector::class);
