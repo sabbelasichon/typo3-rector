@@ -13,6 +13,10 @@ use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
 
+    // If you want to override the number of spaces for your typoscript files you can define it here, the default value is 4
+    // $parameters = $rectorConfig->parameters();
+    // $parameters->set(Typo3Option::TYPOSCRIPT_INDENT_SIZE, 2);
+
     $rectorConfig->sets([
         Typo3LevelSetList::UP_TO_TYPO3_11,
     ]);
