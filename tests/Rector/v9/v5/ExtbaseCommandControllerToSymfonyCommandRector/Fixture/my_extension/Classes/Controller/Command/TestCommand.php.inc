@@ -43,7 +43,7 @@ final class TestCommand extends CommandController
         if ('' !== $clearCachePageUids) {
             $this->cacheService->clearPageCache(explode(',', $clearCachePageUids));
         }
-
+        $this->outputLine('foobar');
         GeneralUtility::makeInstance(CacheManager::class)->flushCachesByTag('dataimport');
     }
 

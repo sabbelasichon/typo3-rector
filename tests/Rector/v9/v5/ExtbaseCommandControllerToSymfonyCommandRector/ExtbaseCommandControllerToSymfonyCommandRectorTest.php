@@ -24,7 +24,9 @@ final class ExtbaseCommandControllerToSymfonyCommandRectorTest extends AbstractR
 
         // Assert that commands file is added
         $addedCommandsFile = $addedFilesWithContent[2];
+        $addedCommandFile = $addedFilesWithContent[0];
         $this->assertStringContainsString('Commands.php', $addedCommandsFile->getFilePath());
+        $this->assertStringContainsString('$output->writeln(\'foobar\');', $addedCommandFile->getFileContent());
         $this->assertSame($commandsFixture->getContents(), $addedCommandsFile->getFileContent());
     }
 

@@ -21,4 +21,8 @@ class ConsoleOutput
     public function askAndValidate($question, $validator, $attempts = null, $default = null, array $autocomplete = null)
     {
     }
+
+    public function outputLine($text = '', array $arguments = []): void
+    {
+    }
 }
