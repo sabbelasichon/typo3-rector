@@ -20,6 +20,15 @@ class MyRefactoredController extends ActionController
         return new ForwardResponse('another');
     }
 
+    public function somethingAction($range): ResponseInterface
+    {
+        $years = array_map(static function ($item): string {
+            return 'C'.$item.'-';
+        }, $range);
+
+        return $this->htmlResponse($years);
+    }
+
     abstract public function listAction($filter = null, string $letter = ''): ResponseInterface;
 }
 
