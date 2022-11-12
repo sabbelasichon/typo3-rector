@@ -14,7 +14,6 @@ final class IconsRectorTest extends AbstractRectorTestCase
      */
     public function test(string $filePath): void
     {
-        #$this->markTestIncomplete('Could not find a way to make this work again for now');
         $this->doTestFile($filePath);
         $this->assertSame(1, $this->removedAndAddedFilesCollector->getAddedFileCount());
     }

@@ -46,4 +46,9 @@ class ExtensionUtility
     public static function configurePlugin($extensionName, $pluginName, array $controllerActions, array $nonCacheableControllerActions = [], $pluginType = self::PLUGIN_TYPE_PLUGIN)
     {
     }
+
+    public static function registerTypeConverter($typeConverterClassName): void
+    {
+
+    }
 }
