@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
@@ -54,6 +55,13 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
 
         $returns = $this->findReturns($node);
         foreach ($returns as $return) {
+            // If it is inside a closure do nothing
+            $closure = $this->betterNodeFinder->findParentType($return, Closure::class);
+
+            if (null !== $closure) {
+                continue;
+            }
+
             $returnCallExpression = $return->expr;
 
             if ($returnCallExpression instanceof FuncCall && $this->isName(
