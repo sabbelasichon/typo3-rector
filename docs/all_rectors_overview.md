@@ -1,4 +1,4 @@
-# 275 Rules Overview
+# 276 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -2598,6 +2598,21 @@ Refactor various deprecated methods of class GeneralUtility
  $url = 'https://www.domain.com/';
 -$url = GeneralUtility::rawUrlEncodeFP($url);
 +$url = str_replace('%2F', '/', rawurlencode($url));
+```
+
+<br>
+
+## RegisterExtbaseTypeConvertersAsServicesRector
+
+Register extbase type converters as services
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\RegisterExtbaseTypeConvertersAsServicesRector`](../src/Rector/v12/v0/typo3/RegisterExtbaseTypeConvertersAsServicesRector.php)
+
+```diff
+-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerTypeConverter(
+-    MySpecialTypeConverter::class
+-);
++// Remove node and add or modify existing Services.yaml in Configuration/Services.yaml
 ```
 
 <br>
