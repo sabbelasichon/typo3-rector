@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+    TYPO3\CMS\Extbase\:
+        resource: '../Classes/*'
+    Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\RegisterExtbaseTypeConvertersAsServicesRector\Source\MySpecialTypeConverter:
+        tags:
+            name: extbase.type_converter
+            sources: 'int,string'
+            target: string
+            priority: 70
+    Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\RegisterExtbaseTypeConvertersAsServicesRector\Source\MySecondSpecialTypeConverter:
+        tags:
+            name: extbase.type_converter
+            sources: array
+            target: MySpecialEntity
+            priority: 10

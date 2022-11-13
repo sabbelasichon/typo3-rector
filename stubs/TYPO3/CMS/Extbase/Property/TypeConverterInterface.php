@@ -8,5 +8,16 @@ if (interface_exists('TYPO3\CMS\Extbase\Property\TypeConverterInterface')) {
 
 interface TypeConverterInterface
 {
+    public function getSupportedSourceTypes(): array;
 
+    public function getSupportedTargetType(): string;
+
+    /**
+     * Return the priority of this TypeConverter. TypeConverters with a high priority are chosen before low priority.
+     *
+     * @return int
+     */
+    public function getPriority(): int;
+
+    public function canConvertFrom($source, string $targetType): bool;
 }
