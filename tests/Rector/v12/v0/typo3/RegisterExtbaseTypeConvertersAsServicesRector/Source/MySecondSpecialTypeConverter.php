@@ -15,7 +15,7 @@ final class MySecondSpecialTypeConverter implements TypeConverterInterface
 
     public function getSupportedTargetType(): string
     {
-        return 'int';
+        return MySpecialEntity::class;
     }
 
     public function getPriority(): int

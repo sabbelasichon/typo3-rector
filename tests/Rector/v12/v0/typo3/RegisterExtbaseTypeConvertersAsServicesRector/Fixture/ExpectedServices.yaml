@@ -15,5 +15,5 @@ services:
         tags:
             name: extbase.type_converter
             sources: array
-            target: int
+            target: MySpecialEntity
             priority: 10

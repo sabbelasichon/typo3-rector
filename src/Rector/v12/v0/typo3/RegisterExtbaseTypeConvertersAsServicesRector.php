@@ -7,13 +7,17 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\NodeTraverser;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\PhpParser\Parser\SimplePhpParser;
+use Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Ssch\TYPO3Rector\NodeVisitor\RemoveExtbaseTypeConverterNodeVisitor;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -42,16 +46,20 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
 
     private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector;
 
+    private NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter;
+
     public function __construct(
         ReflectionProvider $reflectionProvider,
         SimplePhpParser $simplePhpParser,
         FilesFinder $filesFinder,
-        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector
+        RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
+        NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter
     ) {
         $this->reflectionProvider = $reflectionProvider;
         $this->simplePhpParser = $simplePhpParser;
         $this->filesFinder = $filesFinder;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+        $this->nodesWithFileDestinationPrinter = $nodesWithFileDestinationPrinter;
     }
 
     /**
@@ -94,8 +102,7 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
         }
 
         $classStatements = $this->simplePhpParser->parseFile($fileName);
-
-        $this->nodeRemover->removeNode($node);
+        $originalClassStatements = $classStatements;
 
         $collectServiceTags = $this->collectServiceTags($classStatements);
 
@@ -115,6 +122,9 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
 
         $servicesYaml = new AddedFileWithContent($existingServicesYamlFilePath, $yamlConfigurationAsYaml);
         $this->removedAndAddedFilesCollector->addAddedFile($servicesYaml);
+
+        $this->nodeRemover->removeNode($node);
+        $this->removeClassMethodsFromTypeConverter($fileName, $originalClassStatements);
 
         return null;
     }
@@ -151,18 +161,11 @@ CODE_SAMPLE
         ];
 
         $this->traverseNodesWithCallable($classStatements, function (Node $node) use (&$collectServiceTags) {
-            if (! $node instanceof ClassMethod) {
+            if ($this->shouldSkipNodeOfTypeConverter($node)) {
                 return null;
             }
 
-            if (! $this->nodeNameResolver->isNames(
-                $node->name,
-                ['getSupportedSourceTypes', 'getSupportedTargetType', 'getPriority']
-            )) {
-                return null;
-            }
-
-            if (null === $node->stmts) {
+            if (! $node instanceof ClassMethod || null === $node->stmts) {
                 return null;
             }
 
@@ -218,17 +221,48 @@ CODE_SAMPLE
         $yamlConfiguration = [];
 
         if (file_exists($existingServicesYamlFilePath)) {
-            $yamlConfiguration = Yaml::parse((string) file_get_contents($existingServicesYamlFilePath));
-        } else {
-            $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
-            foreach ($addedFilesWithContent as $addedFileWithContent) {
-                if ($addedFileWithContent->getFilePath() === $existingServicesYamlFilePath) {
-                    $yamlConfiguration = Yaml::parse($addedFileWithContent->getFileContent());
-                    break;
-                }
+            return Yaml::parse((string) file_get_contents($existingServicesYamlFilePath));
+        }
+
+        $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
+        foreach ($addedFilesWithContent as $addedFileWithContent) {
+            if ($addedFileWithContent->getFilePath() === $existingServicesYamlFilePath) {
+                return Yaml::parse($addedFileWithContent->getFileContent());
             }
         }
 
         return $yamlConfiguration;
+    }
+
+    private function shouldSkipNodeOfTypeConverter(Node $node): bool
+    {
+        if (! $node instanceof ClassMethod) {
+            return true;
+        }
+
+        if (! $this->nodeNameResolver->isNames(
+            $node->name,
+            ['getSupportedSourceTypes', 'getSupportedTargetType', 'getPriority']
+        )) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param Node\Stmt[] $classStatements
+     */
+    private function removeClassMethodsFromTypeConverter(string $fileName, array $classStatements): void
+    {
+        $nodeTraverser = new NodeTraverser();
+        $visitor = new RemoveExtbaseTypeConverterNodeVisitor($this->nodeNameResolver);
+
+        $nodeTraverser->addVisitor($visitor);
+        $nodeTraverser->traverse($classStatements);
+
+        $addedFileWithNodes = new AddedFileWithNodes($fileName, $classStatements);
+        $content = $this->nodesWithFileDestinationPrinter->printNodesWithFileDestination($addedFileWithNodes);
+        $this->removedAndAddedFilesCollector->addAddedFile(new AddedFileWithContent($fileName, $content));
     }
 }

@@ -19,9 +19,20 @@ final class RegisterExtbaseTypeConvertersAsServicesRectorTest extends AbstractRe
         $this->doTestFile($filePath);
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
+
+        self::assertStringEqualsFile(
+            __DIR__ . '/Fixture/ExpectedMySpecialTypeConverter.php',
+            $addedFilesWithContent[1]->getFileContent()
+        );
+
         self::assertStringEqualsFile(
             __DIR__ . '/Fixture/ExpectedServices.yaml',
-            $addedFilesWithContent[1]->getFileContent()
+            $addedFilesWithContent[2]->getFileContent()
+        );
+
+        self::assertStringEqualsFile(
+            __DIR__ . '/Fixture/ExpectedMySecondSpecialTypeConverter.php',
+            $addedFilesWithContent[3]->getFileContent()
         );
     }
 
