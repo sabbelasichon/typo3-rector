@@ -29,7 +29,7 @@ final class PageConditionMatcher implements TyposcriptConditionMatcher
             return $condition;
         }
 
-        return sprintf('page["%s"] == "%s"', trim((string) $matches[1]), trim((string) $matches[2]));
+        return sprintf('page["%s"] == "%s"', trim($matches[1]), trim($matches[2]));
     }
 
     public function shouldApply(string $condition): bool

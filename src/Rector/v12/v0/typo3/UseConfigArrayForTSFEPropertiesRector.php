@@ -95,6 +95,7 @@ CODE_SAMPLE
         )) {
             return false;
         }
+
         return ! $this->isObjectType(
             $node->var,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')

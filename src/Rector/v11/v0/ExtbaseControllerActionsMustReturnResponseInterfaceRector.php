@@ -31,6 +31,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
 {
     /**
      * @api
+     * @var string
      */
     public const REDIRECT_METHODS = 'redirect_methods';
 

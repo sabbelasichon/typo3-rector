@@ -6,9 +6,12 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 
 use PhpParser\Builder\Property;
 use PhpParser\Node;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
@@ -90,14 +93,14 @@ final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAware
                 [
                     'flags' => Class_::MODIFIER_PUBLIC,
                     'stmts' => [
-                        new Node\Stmt\Expression(
+                        new Expression(
                             $this->nodeFactory->createPropertyAssignmentWithExpr(
                                 'siteLanguage',
-                                new Node\Expr\Variable('siteLanguage')
+                                new Variable('siteLanguage')
                             )
                         ),
                     ],
-                    'params' => [new Node\Param(new Node\Expr\Variable('siteLanguage'), null, $siteLanguageName)],
+                    'params' => [new Param(new Variable('siteLanguage'), null, $siteLanguageName)],
                 ]
             );
             $node->stmts[] = $setterOfSiteLanguage;

@@ -70,7 +70,7 @@ final class TimeConditionMatcher implements TyposcriptConditionMatcher
                 'date("%s") %s %s',
                 trim(self::TIME_MAPPING[$time]),
                 trim(self::OPERATOR_MAPPING[$operator]),
-                trim((string) $value)
+                trim($value)
             );
         }
 

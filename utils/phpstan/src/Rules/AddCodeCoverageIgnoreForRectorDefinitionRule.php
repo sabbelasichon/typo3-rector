@@ -8,7 +8,6 @@ use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\FileTypeMapper;
@@ -50,10 +49,6 @@ final class AddCodeCoverageIgnoreForRectorDefinitionRule implements Rule
         }
 
         $classReflection = $scope->getClassReflection();
-
-        if (! $classReflection instanceof ClassReflection) {
-            return [];
-        }
 
         if (! $classReflection->isSubclassOf(PhpRectorInterface::class)) {
             return [];

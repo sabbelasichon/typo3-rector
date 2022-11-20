@@ -65,7 +65,7 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
 
         foreach ($conditions as $condition) {
             foreach ($this->conditionMatchers as $conditionMatcher) {
-                $condition = trim((string) $condition);
+                $condition = trim($condition);
                 if (! $conditionMatcher->shouldApply($condition)) {
                     continue;
                 }

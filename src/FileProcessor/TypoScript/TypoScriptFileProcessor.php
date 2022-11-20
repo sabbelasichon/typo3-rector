@@ -100,13 +100,13 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
      * @var TypoScriptRectorInterface[]
      * @readonly
      */
-    private array $typoScriptRectors;
+    private array $typoScriptRectors = [];
 
     /**
      * @var TypoScriptPostRectorInterface[]
      * @readonly
      */
-    private array $typoScriptPostRectors;
+    private array $typoScriptPostRectors = [];
 
     private ParameterProvider $parameterProvider;
 

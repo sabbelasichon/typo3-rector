@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v11\v3\typo3;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -34,7 +35,7 @@ final class UseNormalizedParamsToGetRequestUrlRector extends AbstractRector
             return null;
         }
 
-        $node->name = new Node\Identifier('getAttribute');
+        $node->name = new Identifier('getAttribute');
         $node->args = $this->nodeFactory->createArgs(['normalizedParams']);
 
         return $this->nodeFactory->createMethodCall($node, 'getRequestUrl');
