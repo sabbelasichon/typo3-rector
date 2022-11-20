@@ -89,6 +89,7 @@ CODE_SAMPLE
         if ($this->filesFinder->isExtLocalConf($this->file->getFilePath())) {
             return false;
         }
+
         return ! $this->filesFinder->isExtTables($this->file->getFilePath());
     }
 }

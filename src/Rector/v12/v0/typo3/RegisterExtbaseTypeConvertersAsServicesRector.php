@@ -238,6 +238,7 @@ CODE_SAMPLE
         if (! $node instanceof ClassMethod) {
             return true;
         }
+
         return ! $this->nodeNameResolver->isNames(
             $node->name,
             ['getSupportedSourceTypes', 'getSupportedTargetType', 'getPriority']
