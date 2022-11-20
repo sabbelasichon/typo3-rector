@@ -816,7 +816,24 @@ Migrate from extbase CommandController to Symfony Command
 
 Extbase controller actions must return ResponseInterface
 
+:wrench: **configure it!**
+
 - class: [`Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector`](../src/Rector/v11/v0/ExtbaseControllerActionsMustReturnResponseInterfaceRector.php)
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Rector\Config\RectorConfig;
+use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector;
+
+return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->ruleWithConfiguration(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class, [ExtbaseControllerActionsMustReturnResponseInterfaceRector::REDIRECT_METHODS => ['myRedirectMethod']]);
+};
+```
+
+↓
 
 ```diff
 +use Psr\Http\Message\ResponseInterface;
