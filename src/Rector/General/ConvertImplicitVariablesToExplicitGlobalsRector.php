@@ -90,10 +90,6 @@ CODE_SAMPLE
             return false;
         }
 
-        if ($this->filesFinder->isExtTables($this->file->getFilePath())) {
-            return false;
-        }
-
-        return true;
+        return ! $this->filesFinder->isExtTables($this->file->getFilePath());
     }
 }

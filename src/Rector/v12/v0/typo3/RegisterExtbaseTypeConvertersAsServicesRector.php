@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
@@ -97,7 +98,7 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
             new SmartFileInfo($this->file->getFilePath())
         );
 
-        if (null === $extEmConf) {
+        if (! $extEmConf instanceof SmartFileInfo) {
             return null;
         }
 
@@ -154,7 +155,7 @@ CODE_SAMPLE
      *
      * @return array<string, string|int>
      */
-    protected function collectServiceTags(array $classStatements): array
+    private function collectServiceTags(array $classStatements): array
     {
         $collectServiceTags = [
             'name' => 'extbase.type_converter',
@@ -170,7 +171,7 @@ CODE_SAMPLE
             }
 
             /** @var Node\Stmt\Return_[] $returns */
-            $returns = $this->betterNodeFinder->findInstanceOf($node->stmts, Node\Stmt\Return_::class);
+            $returns = $this->betterNodeFinder->findInstanceOf($node->stmts, Return_::class);
 
             $value = null;
             foreach ($returns as $return) {
@@ -218,8 +219,6 @@ CODE_SAMPLE
      */
     private function getYamlConfiguration(string $existingServicesYamlFilePath): array
     {
-        $yamlConfiguration = [];
-
         if (file_exists($existingServicesYamlFilePath)) {
             return Yaml::parse((string) file_get_contents($existingServicesYamlFilePath));
         }
@@ -231,7 +230,7 @@ CODE_SAMPLE
             }
         }
 
-        return $yamlConfiguration;
+        return [];
     }
 
     private function shouldSkipNodeOfTypeConverter(Node $node): bool
@@ -240,14 +239,10 @@ CODE_SAMPLE
             return true;
         }
 
-        if (! $this->nodeNameResolver->isNames(
+        return ! $this->nodeNameResolver->isNames(
             $node->name,
             ['getSupportedSourceTypes', 'getSupportedTargetType', 'getPriority']
-        )) {
-            return true;
-        }
-
-        return false;
+        );
     }
 
     /**

@@ -41,10 +41,10 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
                 continue;
             }
 
-            $type = isset($matches['type']) ? trim((string) $matches['type']) : '';
-            $property = isset($matches['property']) ? trim((string) $matches['property']) : '';
-            $operator = isset($matches['operator']) ? trim((string) $matches['operator']) : '';
-            $value = isset($matches[self::VALUE]) ? trim((string) $matches[self::VALUE]) : '';
+            $type = isset($matches['type']) ? trim($matches['type']) : '';
+            $property = isset($matches['property']) ? trim($matches['property']) : '';
+            $operator = isset($matches['operator']) ? trim($matches['operator']) : '';
+            $value = isset($matches[self::VALUE]) ? trim($matches[self::VALUE]) : '';
 
             $key = sprintf('%s.%s.%s', $type, $property, $operator);
 
@@ -106,7 +106,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
                     $condition = $valueMatches['condition'];
                 }
 
-                $newConditions[] = sprintf('%s in [%s]', trim((string) $condition), trim(implode(',', $values)));
+                $newConditions[] = sprintf('%s in [%s]', trim($condition), trim(implode(',', $values)));
             } else {
                 $newConditions[] = implode(' || ', $conditions[$key]);
             }
