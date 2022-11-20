@@ -75,6 +75,16 @@ class MyController extends ActionController
     {
         $this->redirectToUri('foo');
     }
+
+    public function additionalRedirectMethodToSkiAction()
+    {
+        $this->additionalRedirectMethod();
+    }
+
+    private function additionalRedirectMethod()
+    {
+
+    }
 }
 
 ?>
@@ -158,6 +168,16 @@ class MyController extends ActionController
     public function imageDeleteAction()
     {
         $this->redirectToUri('foo');
+    }
+
+    public function additionalRedirectMethodToSkiAction()
+    {
+        $this->additionalRedirectMethod();
+    }
+
+    private function additionalRedirectMethod()
+    {
+
     }
 }
 

@@ -15,17 +15,24 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Throw_;
 use PHPStan\Type\ObjectType;
+use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Webmozart\Assert\Assert;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.0/Deprecation-92784-ExtbaseControllerActionsMustReturnResponseInterface.html
  *
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\ExtbaseControllerActionsMustReturnResponseInterfaceRectorTest
  */
-final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends AbstractRector
+final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends AbstractRector implements ConfigurableRectorInterface
 {
+    /**
+     * @api
+     */
+    public const REDIRECT_METHODS = 'redirect_methods';
+
     /**
      * @var string
      */
@@ -35,6 +42,11 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
      * @var string
      */
     private const HTML_RESPONSE = 'htmlResponse';
+
+    /**
+     * @var array<int, string>
+     */
+    private array $redirectMethods = ['redirect', 'redirectToUri'];
 
     /**
      * @return array<class-string<Node>>
@@ -137,6 +149,18 @@ CODE_SAMPLE
         ]);
     }
 
+    /**
+     * @param mixed[] $configuration
+     */
+    public function configure(array $configuration): void
+    {
+        $redirectMethods = $configuration[self::REDIRECT_METHODS] ?? $configuration;
+        Assert::isArray($redirectMethods);
+        Assert::allString($redirectMethods);
+
+        $this->redirectMethods = array_unique(array_merge($redirectMethods, $this->redirectMethods));
+    }
+
     private function shouldSkip(ClassMethod $classMethod): bool
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
@@ -209,7 +233,7 @@ CODE_SAMPLE
                 return false;
             }
 
-            return $this->isNames($node->name, ['redirect', 'redirectToUri']);
+            return $this->isNames($node->name, $this->redirectMethods);
         });
     }
 

@@ -24,7 +24,9 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(UniqueListFromStringUtilityRector::class);
     $rectorConfig->rule(GetClickMenuOnIconTagParametersRector::class);
     $rectorConfig->rule(RemoveAddQueryStringMethodRector::class);
-    $rectorConfig->rule(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class);
+    $rectorConfig->ruleWithConfiguration(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class, [
+        ExtbaseControllerActionsMustReturnResponseInterfaceRector::REDIRECT_METHODS => ['redirect', 'redirectToUri'],
+    ]);
     $rectorConfig->rule(SubstituteConstantsModeAndRequestTypeRector::class);
     $rectorConfig->rule(RemoveLanguageModeMethodsFromTypo3QuerySettingsRector::class);
     $rectorConfig
