@@ -18,7 +18,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 
@@ -128,7 +128,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Extbase controller actions must return ResponseInterface', [
-            new CodeSample(
+            new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
@@ -154,6 +154,10 @@ class MyController extends ActionController
     }
 }
 CODE_SAMPLE
+                ,
+                [
+                    self::REDIRECT_METHODS => ['myRedirectMethod'],
+                ]
             ),
         ]);
     }
