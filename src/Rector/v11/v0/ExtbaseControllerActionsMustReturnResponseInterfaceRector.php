@@ -17,6 +17,7 @@ use PhpParser\Node\Stmt\Throw_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
@@ -47,6 +48,13 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
      * @var array<int, string>
      */
     private array $redirectMethods = ['redirect', 'redirectToUri'];
+
+    private ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer;
+
+    public function __construct(ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer)
+    {
+        $this->extbaseControllerRedirectAnalyzer = $extbaseControllerRedirectAnalyzer;
+    }
 
     /**
      * @return array<class-string<Node>>
@@ -196,7 +204,7 @@ CODE_SAMPLE
             return true;
         }
 
-        if ($this->hasRedirectCall($classMethod)) {
+        if ($this->extbaseControllerRedirectAnalyzer->hasRedirectCall($classMethod, $this->redirectMethods)) {
             return true;
         }
 
@@ -217,24 +225,6 @@ CODE_SAMPLE
     private function findReturns(ClassMethod $classMethod): array
     {
         return $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, Return_::class);
-    }
-
-    private function hasRedirectCall(ClassMethod $classMethod): bool
-    {
-        return (bool) $this->betterNodeFinder->find((array) $classMethod->stmts, function (Node $node): bool {
-            if (! $node instanceof MethodCall) {
-                return false;
-            }
-
-            if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-                $node,
-                new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
-            )) {
-                return false;
-            }
-
-            return $this->isNames($node->name, $this->redirectMethods);
-        });
     }
 
     private function lastStatementIsExitCall(ClassMethod $classMethod): bool

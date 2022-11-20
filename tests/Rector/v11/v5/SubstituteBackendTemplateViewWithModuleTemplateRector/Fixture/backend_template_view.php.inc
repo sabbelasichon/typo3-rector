@@ -37,6 +37,11 @@ class MyController extends ActionController
         $this->view->assign('someVar', 'someContent');
         return $this->htmlResponse();
     }
+
+    public function myOtherAction()
+    {
+        $this->redirect('index');
+    }
 }
 
 ?>
@@ -84,6 +89,11 @@ class MyController extends ActionController
         $this->view->assign('someVar', 'someContent');
         $moduleTemplate->setContent($this->view->render());
         return $this->htmlResponse($moduleTemplate->renderContent());
+    }
+
+    public function myOtherAction()
+    {
+        $this->redirect('index');
     }
 }
 

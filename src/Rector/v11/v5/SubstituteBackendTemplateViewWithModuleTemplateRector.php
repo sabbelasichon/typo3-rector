@@ -21,6 +21,7 @@ use Rector\Core\NodeManipulator\ClassDependencyManipulator;
 use Rector\Core\Rector\AbstractRector;
 use Rector\PostRector\Collector\NodesToAddCollector;
 use Rector\PostRector\ValueObject\PropertyMetadata;
+use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -55,12 +56,16 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
      */
     private ClassDependencyManipulator $classDependencyManipulator;
 
+    private ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer;
+
     public function __construct(
         ClassDependencyManipulator $classDependencyManipulator,
-        NodesToAddCollector $nodesToAddCollector
+        NodesToAddCollector $nodesToAddCollector,
+        ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer
     ) {
         $this->classDependencyManipulator = $classDependencyManipulator;
         $this->nodesToAddCollector = $nodesToAddCollector;
+        $this->extbaseControllerRedirectAnalyzer = $extbaseControllerRedirectAnalyzer;
     }
 
     /**
@@ -87,6 +92,13 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
         $classMethods = $node->getMethods();
 
         foreach ($classMethods as $classMethod) {
+            if ($this->extbaseControllerRedirectAnalyzer->hasRedirectCall(
+                $classMethod,
+                ['redirect', 'redirectToUri']
+            )) {
+                continue;
+            }
+
             $this->substituteModuleTemplateMethodCalls($classMethod);
             $this->callSetContentAndGetContent($classMethod);
         }
