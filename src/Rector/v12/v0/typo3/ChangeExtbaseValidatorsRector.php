@@ -8,13 +8,17 @@ use PhpParser\Builder\Method;
 use PhpParser\Builder\Param;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
+use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Expression;
 use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ClassReflection;
 use Rector\Core\Enum\ObjectReference;
 use Rector\Core\Rector\AbstractScopeAwareRector;
 use Rector\Core\ValueObject\MethodName;
@@ -42,7 +46,7 @@ final class ChangeExtbaseValidatorsRector extends AbstractScopeAwareRector
     {
         $classReflection = $scope->getClassReflection();
 
-        if (null === $classReflection) {
+        if (! $classReflection instanceof ClassReflection) {
             return null;
         }
 
@@ -58,7 +62,7 @@ final class ChangeExtbaseValidatorsRector extends AbstractScopeAwareRector
 
         // Add setOptions method only if validator is not already subclass of AbstractValidator
         $setOptionsClassMethod = $node->getMethod('setOptions');
-        if (null === $setOptionsClassMethod && ! $isSubClassOfAbstractValidator) {
+        if (! $setOptionsClassMethod instanceof ClassMethod && ! $isSubClassOfAbstractValidator) {
             $node->stmts[] = $this->createSetOptionsClassMethod($assignToOptionsProperty);
         }
 
@@ -149,15 +153,15 @@ CODE_SAMPLE
         $methodNode = $methodBuilder->getNode();
 
         if ($assignToOptionsProperty) {
-            $methodNode->stmts[] = new Node\Stmt\Expression($this->nodeFactory->createPropertyAssignment('options'));
+            $methodNode->stmts[] = new Expression($this->nodeFactory->createPropertyAssignment('options'));
         }
 
         return $methodNode;
     }
 
-    private function shouldKeepConstructorStatement(Node\Stmt $constructorStmt): bool
+    private function shouldKeepConstructorStatement(Stmt $constructorStmt): bool
     {
-        if (! $constructorStmt instanceof Node\Stmt\Expression) {
+        if (! $constructorStmt instanceof Expression) {
             return true;
         }
 
@@ -176,7 +180,7 @@ CODE_SAMPLE
     {
         $constructorMethod = $node->getMethod(MethodName::CONSTRUCT);
 
-        if (null === $constructorMethod) {
+        if (! $constructorMethod instanceof ClassMethod) {
             return false;
         }
 
@@ -187,6 +191,7 @@ CODE_SAMPLE
                 $assignToOptionsProperty = true;
                 continue;
             }
+
             $constructorParams[] = $param;
         }
 
@@ -207,15 +212,10 @@ CODE_SAMPLE
 
     private function shouldKeepAssignment(Assign $assign): bool
     {
-        if (! $assign->var instanceof Node\Expr\PropertyFetch) {
+        if (! $assign->var instanceof PropertyFetch) {
             return true;
         }
-
-        if (! $this->nodeNameResolver->isName($assign->var, 'options')) {
-            return true;
-        }
-
-        return false;
+        return ! $this->nodeNameResolver->isName($assign->var, 'options');
     }
 
     private function shouldKeepStaticCall(StaticCall $staticCall): bool
@@ -223,18 +223,15 @@ CODE_SAMPLE
         if (! $staticCall->class instanceof Name) {
             return true;
         }
-        if (! $this->isName($staticCall->class, ObjectReference::PARENT)) {
-            return true;
-        }
 
-        return false;
+        return ! $this->isName($staticCall->class, ObjectReference::PARENT);
     }
 
     private function manipulateIsValidMethod(Class_ $node): void
     {
         $isValidClassMethod = $node->getMethod('isValid');
 
-        if (null === $isValidClassMethod) {
+        if (! $isValidClassMethod instanceof ClassMethod) {
             return;
         }
 
@@ -249,7 +246,7 @@ CODE_SAMPLE
     {
         $validateClassMethod = $node->getMethod('validate');
 
-        if (null === $validateClassMethod) {
+        if (! $validateClassMethod instanceof ClassMethod) {
             return;
         }
 
