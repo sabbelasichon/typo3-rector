@@ -1,4 +1,4 @@
-# 276 Rules Overview
+# 277 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -389,6 +389,48 @@ Use new default cache names like core instead of cache_core)
 +$cacheManager->getCache('runtime');
 +$cacheManager->getCache('rootline');
 +$cacheManager->getCache('imagesizes');
+```
+
+<br>
+
+## ChangeExtbaseValidatorsRector
+
+Adapt extbase validators to new interface
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector`](../src/Rector/v12/v0/typo3/ChangeExtbaseValidatorsRector.php)
+
+```diff
+-final class MyCustomValidatorWithOptions implements ValidatorInterface
++use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
++use TYPO3\CMS\Extbase\Validation\ValidatorResolver\ValidatorResolver;
++
++final class MyCustomValidatorWithoutOptions implements ValidatorInterface
+ {
+     private array $options;
+     private \MyDependency $myDependency;
+
+-    public function __construct(array $options, \MyDependency $myDependency)
++    public function __construct(\MyDependency $myDependency)
+     {
+-        $this->options = $options;
+         $this->myDependency = $myDependency;
+     }
+
+     public function validate($value)
+     {
+         // Do something
+     }
+
+     public function getOptions(): array
+     {
+         return $this->options;
++    }
++
++    public function setOptions(array $options): void
++    {
++        $this->options = $options;
+     }
+ }
 ```
 
 <br>
