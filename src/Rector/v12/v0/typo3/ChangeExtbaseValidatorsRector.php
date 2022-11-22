@@ -215,6 +215,7 @@ CODE_SAMPLE
         if (! $assign->var instanceof PropertyFetch) {
             return true;
         }
+
         return ! $this->nodeNameResolver->isName($assign->var, 'options');
     }
 
