@@ -40,6 +40,8 @@ final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAware
     {
         $classHasChanged = false;
 
+        $isSiteLanguageAwareClass = false;
+
         $classReflection = $scope->getClassReflection();
         if (! $classReflection instanceof ClassReflection) {
             return null;
@@ -53,18 +55,23 @@ final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAware
 
                 $this->removeNode($traitUse);
                 $classHasChanged = true;
+                $isSiteLanguageAwareClass = true;
             }
+        }
+
+        if (! $isSiteLanguageAwareClass) {
+            return null;
         }
 
         // It was not working with the ClassReflection
-        $implementInterface = true;
+        $addSiteLanguageAwareInterfaceToClass = true;
         foreach ($node->implements as $implement) {
             if ($this->isName($implement, 'TYPO3\\CMS\\Core\\Site\\SiteLanguageAwareInterface')) {
-                $implementInterface = false;
+                $addSiteLanguageAwareInterfaceToClass = false;
             }
         }
 
-        if ($implementInterface) {
+        if ($addSiteLanguageAwareInterfaceToClass) {
             $node->implements[] = new FullyQualified('TYPO3\CMS\Core\Site\SiteLanguageAwareInterface');
             $classHasChanged = true;
         }
