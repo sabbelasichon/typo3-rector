@@ -23,7 +23,7 @@ jobs:
                     COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
             # see https://github.com/ramsey/composer-install
-            -   uses: "ramsey/composer-install@v1"
+            -   uses: "ramsey/composer-install@v2"
 
             -   name: Install rule doc generator
                 run: composer require symplify/rule-doc-generator --with-all-dependencies
