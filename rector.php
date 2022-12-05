@@ -52,6 +52,5 @@ return static function (RectorConfig $rectorConfig): void {
         '*/Fixture/*',
     ]);
 
-    $rectorConfig->rule(TypedPropertyRector::class);
     $rectorConfig->rule(ClassPropertyAssignToConstructorPromotionRector::class);
 };
