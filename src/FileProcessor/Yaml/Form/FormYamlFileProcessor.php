@@ -13,7 +13,7 @@ use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\Form\FormYamlRectorInterface;
-use Ssch\TYPO3Rector\FileProcessor\Yaml\YamlIndentResolver;
+use Ssch\TYPO3Rector\ValueObject\Indent;
 use Symfony\Component\Yaml\Yaml;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
@@ -35,11 +35,6 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     private FileDiffFactory $fileDiffFactory;
 
     /**
-     * @readonly
-     */
-    private YamlIndentResolver $yamlIndentResolver;
-
-    /**
      * @var FormYamlRectorInterface[]
      * @readonly
      */
@@ -51,12 +46,10 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     public function __construct(
         CurrentFileProvider $currentFileProvider,
         FileDiffFactory $fileDiffFactory,
-        YamlIndentResolver $yamlIndentResolver,
         array $transformer
     ) {
         $this->currentFileProvider = $currentFileProvider;
         $this->fileDiffFactory = $fileDiffFactory;
-        $this->yamlIndentResolver = $yamlIndentResolver;
         $this->transformer = $transformer;
     }
 
@@ -71,6 +64,8 @@ final class FormYamlFileProcessor implements FileProcessorInterface
         ];
 
         $this->currentFileProvider->setFile($file);
+
+        $indent = Indent::fromFile($file);
 
         $smartFileInfo = new SmartFileInfo($file->getFilePath());
         $oldYamlContent = $smartFileInfo->getContents();
@@ -91,9 +86,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
             return $systemErrorsAndFileDiffs;
         }
 
-        $spaceCount = $this->yamlIndentResolver->resolveIndentSpaceCount($oldYamlContent);
-
-        $newFileContent = Yaml::dump($newYaml, 99, $spaceCount);
+        $newFileContent = Yaml::dump($newYaml, 99, $indent->length());
         $file->changeFileContent($newFileContent);
 
         $fileDiff = $this->fileDiffFactory->createFileDiff($file, $oldYamlContent, $newFileContent);
