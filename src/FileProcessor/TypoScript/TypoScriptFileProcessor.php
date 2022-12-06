@@ -13,7 +13,6 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinterConfiguration;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
-use Nette\Utils\Strings;
 use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Configuration\Parameter\ParameterProvider;
@@ -32,6 +31,7 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface
 use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Collector\RemoveTypoScriptStatementCollector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AbstractTypoScriptRector;
+use Ssch\TYPO3Rector\ValueObject\Indent;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Webmozart\Assert\Assert;
@@ -209,20 +209,20 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
                 return;
             }
 
-            // keep original json format
-            $tabMatches = Strings::match($file->getFileContent(), "#^\n#");
-            $indentStyle = $tabMatches ? 'tab' : 'space';
+            // keep original TypoScript format
+            $indent = Indent::fromFile($file);
 
             $prettyPrinterConfiguration = PrettyPrinterConfiguration::create();
             $prettyPrinterConfiguration = $prettyPrinterConfiguration->withEmptyLineBreaks();
 
-            if ('tab' === $indentStyle) {
-                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withTabs();
-            } else {
+            if ($indent->isSpace()) {
                 // default indent
-                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation(
-                    $this->parameterProvider->provideParameter(Typo3Option::TYPOSCRIPT_INDENT_SIZE)
-                );
+                $indentation = $this->parameterProvider->provideParameter(
+                    Typo3Option::TYPOSCRIPT_INDENT_SIZE
+                ) ?? $indent->length();
+                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation($indentation);
+            } else {
+                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withTabs();
             }
 
             $prettyPrinterConfiguration = $prettyPrinterConfiguration->withClosingGlobalStatement();

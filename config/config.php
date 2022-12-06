@@ -81,6 +81,4 @@ return static function (RectorConfig $rectorConfig): void {
         ]]);
 
     $services->set(\PhpParser\PrettyPrinter\Standard::class);
-
-    $parameters->set(Typo3Option::TYPOSCRIPT_INDENT_SIZE, 4);
 };
