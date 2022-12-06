@@ -30,7 +30,7 @@ final class Indent
             return self::fromString($match['indent']);
         }
 
-        return self::fromSizeAndStyle(4, 'space',);
+        return self::fromSizeAndStyle(4, 'space');
     }
 
     public function toString(): string
