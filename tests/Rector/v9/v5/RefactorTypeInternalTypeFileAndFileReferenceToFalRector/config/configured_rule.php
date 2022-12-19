@@ -7,6 +7,6 @@ use Ssch\TYPO3Rector\Rector\v9\v5\RefactorTypeInternalTypeFileAndFileReferenceTo
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
-    $rectorConfig->disableImportNames();
+    $rectorConfig->importNames(false);
     $rectorConfig->rule(RefactorTypeInternalTypeFileAndFileReferenceToFalRector::class);
 };

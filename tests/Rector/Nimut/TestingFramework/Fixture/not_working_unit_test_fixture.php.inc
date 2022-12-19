@@ -8,10 +8,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 
 class MyUnitTest extends UnitTestCase
 {
-    /**
-     * @var AccessibleMockObjectInterface
-     */
-    protected $fooBarBaz;
+    protected AccessibleMockObjectInterface $fooBarBaz;
 
     public function testFooBar()
     {
@@ -35,10 +32,7 @@ use TYPO3\TestingFramework\Core\Exception;
 
 class MyUnitTest extends UnitTestCase
 {
-    /**
-     * @var AccessibleObjectInterface
-     */
-    protected $fooBarBaz;
+    protected AccessibleObjectInterface $fooBarBaz;
 
     public function testFooBar()
     {

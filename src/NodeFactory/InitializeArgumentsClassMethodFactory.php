@@ -41,7 +41,7 @@ use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PHPStanStaticTypeMapper\Enum\TypeKind;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
-use Rector\TypeDeclaration\TypeInferer\ParamTypeInferer;
+use Ssch\TYPO3Rector\TypeInferer\ParamTypeInferer\FunctionLikeDocParamTypeInferer;
 
 final class InitializeArgumentsClassMethodFactory
 {
@@ -73,7 +73,7 @@ final class InitializeArgumentsClassMethodFactory
     /**
      * @readonly
      */
-    private ParamTypeInferer $paramTypeInferer;
+    private FunctionLikeDocParamTypeInferer $paramTypeInferer;
 
     /**
      * @readonly
@@ -99,7 +99,7 @@ final class InitializeArgumentsClassMethodFactory
         NodeFactory $nodeFactory,
         NodeNameResolver $nodeNameResolver,
         StaticTypeMapper $staticTypeMapper,
-        ParamTypeInferer $paramTypeInferer,
+        FunctionLikeDocParamTypeInferer $paramTypeInferer,
         PhpDocInfoFactory $phpDocInfoFactory,
         ReflectionProvider $reflectionProvider,
         ValueResolver $valueResolver,
