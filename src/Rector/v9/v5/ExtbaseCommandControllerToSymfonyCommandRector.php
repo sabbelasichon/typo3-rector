@@ -16,6 +16,7 @@ use PhpParser\NodeTraverser;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ParamTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTextNode;
 use PHPStan\Type\ObjectType;
+use Rector\BetterPhpDocParser\PhpDocNodeFinder\PhpDocNodeByTypeFinder;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Contract\PhpParser\NodePrinterInterface;
 use Rector\Core\PhpParser\Parser\RectorParser;
@@ -95,6 +96,15 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
      */
     private Filesystem $filesystem;
 
+    /**
+     * @var PhpDocNodeByTypeFinder<PhpDocTextNode>
+     * @readonly
+     */
+    private PhpDocNodeByTypeFinder $phpDocNodeByTypeFinder;
+
+    /**
+     * @param PhpDocNodeByTypeFinder<PhpDocTextNode> $phpDocNodeByTypeFinder
+     */
     public function __construct(
         RectorParser $rectorParser,
         FilesFinder $filesFinder,
@@ -105,7 +115,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         CommandArrayDecorator $commandArrayDecorator,
         CommandMethodDecorator $commandMethodDecorator,
         Filesystem $filesystem,
-        CommandOutputWritelnDecorator $commandOutputWritelnDecorator
+        CommandOutputWritelnDecorator $commandOutputWritelnDecorator,
+        PhpDocNodeByTypeFinder $phpDocNodeByTypeFinder
     ) {
         $this->rectorParser = $rectorParser;
         $this->filesFinder = $filesFinder;
@@ -117,6 +128,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         $this->commandMethodDecorator = $commandMethodDecorator;
         $this->filesystem = $filesystem;
         $this->commandMethodCallDecorator = $commandOutputWritelnDecorator;
+        $this->phpDocNodeByTypeFinder = $phpDocNodeByTypeFinder;
     }
 
     /**
@@ -191,7 +203,10 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             $paramTags = $commandPhpDocInfo->getParamTagValueNodes();
 
             /** @var PhpDocTextNode[] $descriptionPhpDocNodes */
-            $descriptionPhpDocNodes = $commandPhpDocInfo->getByType(PhpDocTextNode::class);
+            $descriptionPhpDocNodes = $this->phpDocNodeByTypeFinder->findByType(
+                $commandPhpDocInfo->getPhpDocNode(),
+                PhpDocTextNode::class
+            );
 
             $methodParameters = $commandMethod->params;
 

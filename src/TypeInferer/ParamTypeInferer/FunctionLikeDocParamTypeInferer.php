@@ -14,6 +14,7 @@ use PHPStan\Type\Type;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Core\PhpParser\Node\BetterNodeFinder;
 use Rector\NodeNameResolver\NodeNameResolver;
+use Rector\StaticTypeMapper\StaticTypeMapper;
 
 final class FunctionLikeDocParamTypeInferer
 {
@@ -32,14 +33,21 @@ final class FunctionLikeDocParamTypeInferer
      */
     private BetterNodeFinder $betterNodeFinder;
 
+    /**
+     * @readonly
+     */
+    private StaticTypeMapper $staticTypeMapper;
+
     public function __construct(
         NodeNameResolver $nodeNameResolver,
         PhpDocInfoFactory $phpDocInfoFactory,
-        BetterNodeFinder $betterNodeFinder
+        BetterNodeFinder $betterNodeFinder,
+        StaticTypeMapper $staticTypeMapper
     ) {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
         $this->betterNodeFinder = $betterNodeFinder;
+        $this->staticTypeMapper = $staticTypeMapper;
     }
 
     public function inferParam(Param $param): Type
@@ -49,7 +57,19 @@ final class FunctionLikeDocParamTypeInferer
             return new MixedType();
         }
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($functionLike);
-        $paramTypesByName = $phpDocInfo->getParamTypesByName();
+        $paramTagValueNodes = $phpDocInfo->getParamTagValueNodes();
+
+        $paramTypesByName = [];
+
+        foreach ($paramTagValueNodes as $paramTagValueNode) {
+            $parameterType = $this->staticTypeMapper->mapPHPStanPhpDocTypeToPHPStanType(
+                $paramTagValueNode,
+                $phpDocInfo->getNode()
+            );
+
+            $paramTypesByName[$paramTagValueNode->parameterName] = $parameterType;
+        }
+
         if ([] === $paramTypesByName) {
             return new MixedType();
         }

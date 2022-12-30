@@ -9,8 +9,8 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\Defluent\NodeAnalyzer\SameClassMethodCallAnalyzer;
 use Ssch\TYPO3Rector\Helper\FluentChainMethodCallNodeAnalyzer;
+use Ssch\TYPO3Rector\NodeAnalyzer\SameClassMethodCallAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
