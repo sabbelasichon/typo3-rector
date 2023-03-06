@@ -22,7 +22,7 @@ final class TranslationFileRectorTest extends AbstractRectorTestCase
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.yaml');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.yaml.inc');
     }
 
     public function provideConfigFilePath(): string

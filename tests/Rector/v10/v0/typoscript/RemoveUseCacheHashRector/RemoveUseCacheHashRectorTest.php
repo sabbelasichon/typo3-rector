@@ -22,7 +22,7 @@ final class RemoveUseCacheHashRectorTest extends AbstractRectorTestCase
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.typoscript');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.typoscript.inc');
     }
 
     public function provideConfigFilePath(): string

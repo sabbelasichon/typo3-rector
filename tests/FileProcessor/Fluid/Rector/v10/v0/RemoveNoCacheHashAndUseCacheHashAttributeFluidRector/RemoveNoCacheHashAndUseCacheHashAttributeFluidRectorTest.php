@@ -22,7 +22,7 @@ final class RemoveNoCacheHashAndUseCacheHashAttributeFluidRectorTest extends Abs
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.html');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.html.inc');
     }
 
     public function provideConfigFilePath(): string

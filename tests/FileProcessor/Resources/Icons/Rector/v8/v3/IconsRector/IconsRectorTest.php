@@ -23,7 +23,7 @@ final class IconsRectorTest extends AbstractRectorTestCase
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension/', '*.gif');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension/', '*.gif.inc');
     }
 
     public function provideConfigFilePath(): string
