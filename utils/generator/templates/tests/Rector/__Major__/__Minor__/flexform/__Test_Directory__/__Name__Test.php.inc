@@ -23,7 +23,7 @@ final class __Name__Test extends AbstractRectorTestCase
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.xml');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture', '*.xml.inc');
     }
 
     public function provideConfigFilePath(): string
