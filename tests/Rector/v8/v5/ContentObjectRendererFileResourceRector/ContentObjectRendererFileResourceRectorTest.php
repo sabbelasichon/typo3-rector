@@ -11,7 +11,6 @@ final class ContentObjectRendererFileResourceRectorTest extends AbstractRectorTe
 {
     /**
      * @dataProvider provideData()
-     * @return never
      */
     public function test(string $filePath): void
     {

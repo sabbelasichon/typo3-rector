@@ -11,7 +11,6 @@ final class UseGetMenuInsteadOfGetFirstWebPageRectorTest extends AbstractRectorT
 {
     /**
      * @dataProvider provideData()
-     * @return never
      */
     public function test(string $filePath): void
     {
