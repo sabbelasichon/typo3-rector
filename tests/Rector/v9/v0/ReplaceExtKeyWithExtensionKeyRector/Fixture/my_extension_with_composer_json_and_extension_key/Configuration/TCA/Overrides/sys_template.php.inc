@@ -24,6 +24,6 @@ if ( ! defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-ExtensionManagementUtility::addStaticFile('foo_bar_baz', 'Configuration/TypoScript', 'Example');
+ExtensionManagementUtility::addStaticFile('Overrides', 'Configuration/TypoScript', 'Example');
 
 ?>

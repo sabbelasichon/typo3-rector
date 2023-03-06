@@ -14,8 +14,6 @@ final class RegisterExtbaseTypeConvertersAsServicesRectorTest extends AbstractRe
      */
     public function test(string $filePath): void
     {
-        $this->copyAdditionalFixturesToTemporaryDirectory();
-
         $this->doTestFile($filePath);
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
@@ -47,15 +45,5 @@ final class RegisterExtbaseTypeConvertersAsServicesRectorTest extends AbstractRe
     public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
-    }
-
-    private function copyAdditionalFixturesToTemporaryDirectory(): void
-    {
-        $configurationDirectory = self::getFixtureTempDirectory() . '/Configuration/';
-        if (! file_exists($configurationDirectory)) {
-            mkdir(self::getFixtureTempDirectory() . '/Configuration/');
-        }
-
-        copy(__DIR__ . '/Fixture/Services.yaml', self::getFixtureTempDirectory() . '/Configuration/Services.yaml');
     }
 }

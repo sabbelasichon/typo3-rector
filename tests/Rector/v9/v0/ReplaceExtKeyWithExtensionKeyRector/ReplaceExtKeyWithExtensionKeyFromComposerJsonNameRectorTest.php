@@ -11,21 +11,6 @@ use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ReplaceExtKeyWithExtensionKeyFromComposerJsonNameRectorTest extends AbstractRectorTestCase
 {
-    private string $composerJsonFileName;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->createTemporaryComposerJsonFile();
-    }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        unlink($this->composerJsonFileName);
-    }
-
     /**
      * @dataProvider provideData()
      */
@@ -47,16 +32,5 @@ final class ReplaceExtKeyWithExtensionKeyFromComposerJsonNameRectorTest extends 
     public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
-    }
-
-    private function createTemporaryComposerJsonFile(): void
-    {
-        $composerJsonSmartFileInfo = new SmartFileInfo(
-            __DIR__ . '/Fixture/my_extension_with_composer_json_no_extension_key_defined/composer.json'
-        );
-
-        $tempComposerJsonFileName = FixtureTempFileDumper::getTempDirectory() . '/composer.json';
-        file_put_contents($tempComposerJsonFileName, $composerJsonSmartFileInfo->getContents());
-        $this->composerJsonFileName = $tempComposerJsonFileName;
     }
 }
