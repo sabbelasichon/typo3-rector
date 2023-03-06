@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -40,7 +41,7 @@ final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of TYPO3\CMS\Extbase\Mvc\Controller\ActionController::forward()',
+            'Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of ' . ActionController::class . '::forward()',
             [new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;

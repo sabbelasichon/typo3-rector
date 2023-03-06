@@ -56,6 +56,7 @@ final class FunctionLikeDocParamTypeInferer
         if (! $functionLike instanceof FunctionLike) {
             return new MixedType();
         }
+
         $phpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($functionLike);
         $paramTagValueNodes = $phpDocInfo->getParamTagValueNodes();
 
@@ -73,6 +74,7 @@ final class FunctionLikeDocParamTypeInferer
         if ([] === $paramTypesByName) {
             return new MixedType();
         }
+
         return $this->matchParamNodeFromDoc($paramTypesByName, $param);
     }
 

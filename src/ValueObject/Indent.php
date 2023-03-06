@@ -9,9 +9,13 @@ use Webmozart\Assert\Assert;
 
 /**
  * @see https://github.com/ergebnis/json-normalizer/blob/main/src/Format/Indent.php
+ * @see \Ssch\TYPO3Rector\Tests\ValueObject\IndentTest
  */
 final class Indent
 {
+    /**
+     * @var array<string, string>
+     */
     public const CHARACTERS = [
         'space' => ' ',
         'tab' => "\t",
@@ -26,7 +30,7 @@ final class Indent
 
     public static function fromFile(File $file): self
     {
-        if (1 === \preg_match('/^(?P<indent>( +|\t+)).*/m', $file->getFileContent(), $match)) {
+        if (1 === \preg_match('#^(?P<indent>( +|\t+)).*#m', $file->getFileContent(), $match)) {
             return self::fromString($match['indent']);
         }
 
@@ -40,7 +44,7 @@ final class Indent
 
     public function isSpace(): bool
     {
-        return 1 === \preg_match('/^( +).*/', $this->value);
+        return 1 === \preg_match('#^( +).*#', $this->value);
     }
 
     public function length(): int

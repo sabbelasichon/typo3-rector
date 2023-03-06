@@ -36,6 +36,7 @@ final class SameClassMethodCallAnalyzer
                 $classOfClassMethod[] = null;
             }
         }
+
         $uniqueClasses = \array_unique($classOfClassMethod);
         return \count($uniqueClasses) < 2;
     }
