@@ -10,5 +10,3 @@ GeneralUtility::devLog('message', 'foo', 1, $data);
 GeneralUtility::devLog('message', 'foo', 2, $data);
 GeneralUtility::devLog('message', 'foo', GeneralUtility::SYSLOG_SEVERITY_ERROR, $data);
 GeneralUtility::devLog('message', 'foo', 4, $data);
-
-?>

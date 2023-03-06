@@ -37,6 +37,7 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/../src/Rector',
             __DIR__ . '/../src/Set',
             __DIR__ . '/../src/ValueObject',
+            __DIR__ . '/../src/AttributeDecorator/ExtbaseValidateAttributeDecorator.php',
             __DIR__ . '/../src/FileProcessor/TypoScript/Conditions',
             __DIR__ . '/../src/FileProcessor/TypoScript/Rector',
             __DIR__ . '/../src/FileProcessor/TypoScript/PostRector',

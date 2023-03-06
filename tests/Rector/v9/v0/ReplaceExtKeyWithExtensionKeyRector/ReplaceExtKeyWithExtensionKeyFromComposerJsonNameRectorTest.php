@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector;
 
 use Iterator;
-use Rector\Testing\Fixture\FixtureTempFileDumper;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class ReplaceExtKeyWithExtensionKeyFromComposerJsonNameRectorTest extends AbstractRectorTestCase
 {

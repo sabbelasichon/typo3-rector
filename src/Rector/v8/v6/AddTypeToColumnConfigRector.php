@@ -70,7 +70,7 @@ CODE_SAMPLE
             }
         }
 
-        if (!$config instanceof Array_) {
+        if (! $config instanceof Array_) {
             // found a column without a 'config' part. Create an empty 'config' array
             $config = new Array_();
             $columnTca->items[] = new ArrayItem($config, new String_('config'));

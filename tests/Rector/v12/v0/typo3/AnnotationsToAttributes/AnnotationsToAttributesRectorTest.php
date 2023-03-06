@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\AnnotationsToAttributes;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-final class ReplaceExtKeyWithExtensionKeyFromComposerJsonExtensionKeyExtraSectionRectorTest extends AbstractRectorTestCase
+final class AnnotationsToAttributesRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
@@ -22,7 +22,7 @@ final class ReplaceExtKeyWithExtensionKeyFromComposerJsonExtensionKeyExtraSectio
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension_with_composer_json_and_extension_key');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
     public function provideConfigFilePath(): string
