@@ -32,7 +32,7 @@ final class RenameConstantsAndSetupFileEndingRectorTest extends AbstractRectorTe
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension/', '*.txt');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension/', '*.txt.inc');
     }
 
     /**
@@ -40,7 +40,7 @@ final class RenameConstantsAndSetupFileEndingRectorTest extends AbstractRectorTe
      */
     public function provideDataSkippedFiles(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_other_extension/', '*.*');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_other_extension/', '*.inc');
     }
 
     public function provideConfigFilePath(): string

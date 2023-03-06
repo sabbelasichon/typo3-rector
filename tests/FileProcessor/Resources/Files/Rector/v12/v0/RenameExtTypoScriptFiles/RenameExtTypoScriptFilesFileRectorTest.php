@@ -23,7 +23,7 @@ final class RenameExtTypoScriptFilesFileRectorTest extends AbstractRectorTestCas
      */
     public function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension/', '*.txt');
+        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture/my_extension/', '*.txt.inc');
     }
 
     public function provideConfigFilePath(): string
