@@ -768,7 +768,12 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ExtEmConfRector::class, [ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder']]);
+    $rectorConfig->ruleWithConfiguration(ExtEmConfRector::class, [
+        ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => [
+            'createDirs',
+            'uploadfolder',
+        ],
+    ]);
 };
 ```
 
@@ -871,7 +876,11 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class, [ExtbaseControllerActionsMustReturnResponseInterfaceRector::REDIRECT_METHODS => ['myRedirectMethod']]);
+    $rectorConfig->ruleWithConfiguration(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class, [
+        ExtbaseControllerActionsMustReturnResponseInterfaceRector::REDIRECT_METHODS => [
+            'myRedirectMethod',
+        ],
+    ]);
 };
 ```
 
@@ -911,7 +920,9 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0\ExtbasePersistenceTypoScriptRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ExtbasePersistenceTypoScriptRector::class, [ExtbasePersistenceTypoScriptRector::FILENAME => 'path/to/Configuration/Extbase/Persistence/Classes.php']);
+    $rectorConfig->ruleWithConfiguration(ExtbasePersistenceTypoScriptRector::class, [
+        ExtbasePersistenceTypoScriptRector::FILENAME => 'path/to/Configuration/Extbase/Persistence/Classes.php',
+    ]);
 };
 ```
 
@@ -1418,7 +1429,11 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(MethodGetInstanceToMakeInstanceCallRector::class, [MethodGetInstanceToMakeInstanceCallRector::CLASSES_GET_INSTANCE_TO_MAKE_INSTANCE => ['SomeClass']]);
+    $rectorConfig->ruleWithConfiguration(MethodGetInstanceToMakeInstanceCallRector::class, [
+        MethodGetInstanceToMakeInstanceCallRector::CLASSES_GET_INSTANCE_TO_MAKE_INSTANCE => [
+            'SomeClass',
+        ],
+    ]);
 };
 ```
 
@@ -3783,7 +3798,9 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(RenameClassMapAliasRector::class, [RenameClassMapAliasRector::CLASS_ALIAS_MAPS => 'config/Migrations/Code/ClassAliasMap.php']);
+    $rectorConfig->ruleWithConfiguration(RenameClassMapAliasRector::class, [
+        RenameClassMapAliasRector::CLASS_ALIAS_MAPS => 'config/Migrations/Code/ClassAliasMap.php',
+    ]);
 };
 ```
 
@@ -3930,7 +3947,11 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ReplaceAnnotationRector::class, [ReplaceAnnotationRector::OLD_TO_NEW_ANNOTATIONS => ['transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient']]);
+    $rectorConfig->ruleWithConfiguration(ReplaceAnnotationRector::class, [
+        ReplaceAnnotationRector::OLD_TO_NEW_ANNOTATIONS => [
+            'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
+        ],
+    ]);
 };
 ```
 
@@ -4593,7 +4614,11 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v8\v4\SubstituteOldWizardIconsRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(SubstituteOldWizardIconsRector::class, [SubstituteOldWizardIconsRector::OLD_TO_NEW_FILE_LOCATIONS => ['add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif']]);
+    $rectorConfig->ruleWithConfiguration(SubstituteOldWizardIconsRector::class, [
+        SubstituteOldWizardIconsRector::OLD_TO_NEW_FILE_LOCATIONS => [
+            'add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
+        ],
+    ]);
 };
 ```
 
@@ -5336,7 +5361,7 @@ Use php native function instead of GeneralUtility::shortMd5
 
 ## UseNativePhpHex2binMethodRector
 
-Turns \TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php hex2bin
+Turns TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php hex2bin
 
 - class: [`Ssch\TYPO3Rector\Rector\v10\v0\UseNativePhpHex2binMethodRector`](../src/Rector/v10/v0/UseNativePhpHex2binMethodRector.php)
 
