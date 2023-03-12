@@ -212,7 +212,7 @@ CODE_SAMPLE
                     $configurationArray = $configValue;
                 }
 
-                if (!$configurationArray instanceof ArrayItem) {
+                if (! $configurationArray instanceof ArrayItem) {
                     $configurationArray = new ArrayItem(new Array_(), new String_('config'));
                     $columnItem->value->items[] = $configurationArray;
                     $this->hasAstBeenChanged = true;
