@@ -13,6 +13,7 @@ return [
                     ['My label', 0, 'my-icon', 'group1', 'My Description'],
                     ['My label 1', 1, 'my-icon', 'group1', 'My Description'],
                     ['My label 2', 2, 'my-icon', 'group1', 'My Description'],
+                    ['label' => 'My label 3', 'value' => 3, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
                 ],
             ],
         ],
@@ -23,6 +24,7 @@ return [
                     ['My label', 0],
                     ['My label 1', 1],
                     ['My label 2', 2],
+                    ['label' => 'My label 3', 'value' => 3],
                 ],
             ],
         ],
@@ -30,7 +32,8 @@ return [
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    ['My label', 'invertStateDisplay' => 1],
+                    [0 => 'My label', 'invertStateDisplay' => 1],
+                    ['label' => 'My label 2', 'invertStateDisplay' => 1],
                 ],
             ],
         ],
@@ -54,7 +57,8 @@ return [
                     ['label' => 'My label', 'value' => 0, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
                     ['label' => 'My label 1', 'value' => 1, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
                     ['label' => 'My label 2', 'value' => 2, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
-                ]
+                    ['label' => 'My label 3', 'value' => 3, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
+                ],
             ],
         ],
         'bColumn' => [
@@ -64,6 +68,7 @@ return [
                     ['label' => 'My label', 'value' => 0],
                     ['label' => 'My label 1', 'value' => 1],
                     ['label' => 'My label 2', 'value' => 2],
+                    ['label' => 'My label 3', 'value' => 3],
                 ],
             ],
         ],
@@ -72,6 +77,7 @@ return [
                 'type' => 'check',
                 'items' => [
                     ['label' => 'My label', 'invertStateDisplay' => 1],
+                    ['label' => 'My label 2', 'invertStateDisplay' => 1],
                 ],
             ],
         ],

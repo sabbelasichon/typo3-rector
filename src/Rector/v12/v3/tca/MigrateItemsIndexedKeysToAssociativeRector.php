@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\v12\v0\tca;
+namespace Ssch\TYPO3Rector\Rector\v12\v3\tca;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -14,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.3/Feature-99739-AssociativeArrayKeysForTCAItems.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateItemsIndexedKeysToAssociativeRector\MigrateItemsIndexedKeysToAssociativeRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v3\tca\MigrateItemsIndexedKeysToAssociativeRector\MigrateItemsIndexedKeysToAssociativeRectorTest
  */
 final class MigrateItemsIndexedKeysToAssociativeRector extends AbstractTcaRector
 {
@@ -75,12 +76,30 @@ CODE_SAMPLE
             return;
         }
 
-        $arrayItemToChange = $this->extractArrayItemByKey($configArray, 'items');
-        if (!$arrayItemToChange instanceof ArrayItem) {
+
+        $exprArrayItemToChange = $this->extractArrayItemByKey($configArray, 'items');
+        if (!$exprArrayItemToChange instanceof ArrayItem) {
             return;
         }
-
-        // @todo Implement migration.
+        foreach ($exprArrayItemToChange->value->items as $exprArrayItem) {
+            if (array_key_exists(0, $exprArrayItem->value->items)) {
+                $exprArrayItem->value->items[0]->key = new String_('label');
+            }
+            if (!$this->isConfigType($configArray, 'check') && array_key_exists(1, $exprArrayItem->value->items)) {
+                $exprArrayItem->value->items[1]->key = new String_('value');
+            }
+            if ($this->isConfigType($configArray, 'select')) {
+                if (array_key_exists(2, $exprArrayItem->value->items)) {
+                    $exprArrayItem->value->items[2]->key = new String_('icon');
+                }
+                if (array_key_exists(3, $exprArrayItem->value->items)) {
+                    $exprArrayItem->value->items[3]->key = new String_('group');
+                }
+                if (array_key_exists(4, $exprArrayItem->value->items)) {
+                    $exprArrayItem->value->items[4]->key = new String_('description');
+                }
+            }
+        }
 
         $this->hasAstBeenChanged = true;
     }
