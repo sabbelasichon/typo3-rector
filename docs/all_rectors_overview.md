@@ -3945,11 +3945,12 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
+use TYPO3\CMS\Extbase\Annotation\ORM\Transient;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(ReplaceAnnotationRector::class, [
         ReplaceAnnotationRector::OLD_TO_NEW_ANNOTATIONS => [
-            'transient' => 'TYPO3\CMS\Extbase\Annotation\ORM\Transient',
+            'transient' => Transient::class,
         ],
     ]);
 };
