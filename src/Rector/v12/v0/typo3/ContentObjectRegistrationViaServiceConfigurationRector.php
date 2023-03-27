@@ -118,13 +118,17 @@ final class ContentObjectRegistrationViaServiceConfigurationRector extends Abstr
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('ContentObject Registration via service configuration', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition('ContentObject Registration via service configuration', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+$GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'][Multivalue::CONTENT_OBJECT_NAME] = Multivalue::class;
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
+// Remove node and add or modify existing Services.yaml in Configuration/Services.yaml
 CODE_SAMPLE
-        )]);
+            ),
+        ]);
     }
 
     private function shouldSkip(Assign $node): bool
