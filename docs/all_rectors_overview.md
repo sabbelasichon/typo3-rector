@@ -1,4 +1,4 @@
-# 277 Rules Overview
+# 278 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -547,6 +547,19 @@ Turns defined constant to static method call of new Environment API.
 ```diff
 -PATH_thisScript;
 +Environment::getCurrentScript();
+```
+
+<br>
+
+## ContentObjectRegistrationViaServiceConfigurationRector
+
+ContentObject Registration via service configuration
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\ContentObjectRegistrationViaServiceConfigurationRector`](../src/Rector/v12/v0/typo3/ContentObjectRegistrationViaServiceConfigurationRector.php)
+
+```diff
+-$GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'][Multivalue::CONTENT_OBJECT_NAME] = Multivalue::class;
++// Remove node and add or modify existing Services.yaml in Configuration/Services.yaml
 ```
 
 <br>
