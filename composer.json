@@ -28,7 +28,7 @@
         "nette/utils": "^3.0",
         "nikic/php-parser": "^4.14",
         "phpstan/phpstan": "^1.9.7",
-        "rector/rector": "0.15.20",
+        "rector/rector": "0.15.22",
         "symfony/console": "^4.0 || ^5.0 || ^6.0",
         "symfony/polyfill-php80": "^1.26",
         "symfony/polyfill-php81": "^1.26",
