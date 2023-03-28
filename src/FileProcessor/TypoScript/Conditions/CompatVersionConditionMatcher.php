@@ -23,7 +23,7 @@ final class CompatVersionConditionMatcher implements TyposcriptConditionMatcher
             $matches
         );
 
-        if (! is_string($matches['value'])) {
+        if (! isset($matches['value'])) {
             return $condition;
         }
 
