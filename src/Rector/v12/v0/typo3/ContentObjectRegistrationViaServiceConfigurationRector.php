@@ -97,7 +97,7 @@ final class ContentObjectRegistrationViaServiceConfigurationRector extends Abstr
         }
 
         if (! isset($yamlConfiguration['services'][$contentObjectNameClass])) {
-            $yamlConfiguration['services'][$contentObjectNameClass]['tags'] = [
+            $yamlConfiguration['services'][$contentObjectNameClass]['tags'][] = [
                 'name' => 'frontend.contentobject',
                 'identifier' => sprintf('%s', $contentObjectName),
             ];

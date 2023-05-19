@@ -1,9 +1,11 @@
 services:
     Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ContentObjectRegistrationViaServiceConfigurationRector\Source\MultiValue:
         tags:
-            name: frontend.contentobject
-            identifier: my_object
+            -
+                name: frontend.contentobject
+                identifier: my_object
     Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ContentObjectRegistrationViaServiceConfigurationRector\Source\SingleValue:
         tags:
-            name: frontend.contentobject
-            identifier: my_other_object
+            -
+                name: frontend.contentobject
+                identifier: my_other_object
