@@ -2,7 +2,7 @@
 
 ## AbstractMessageGetSeverityFluidRector
 
-Use <f:defaultCase> instead of <f:case default="1">
+Migrate to severity property 'value'
 
 - class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\v12\v0\AbstractMessageGetSeverityFluidRector`](../src/FileProcessor/Fluid/Rector/v12/v0/AbstractMessageGetSeverityFluidRector.php)
 
