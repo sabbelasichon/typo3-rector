@@ -32,7 +32,7 @@ final class AbstractMessageGetSeverityFluidRector implements FluidRectorInterfac
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use <f:defaultCase> instead of <f:case default="1">', [
+        return new RuleDefinition('Migrate to severity property \'value\'', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 <div class="{severityClassMapping.{status.severity}}">
