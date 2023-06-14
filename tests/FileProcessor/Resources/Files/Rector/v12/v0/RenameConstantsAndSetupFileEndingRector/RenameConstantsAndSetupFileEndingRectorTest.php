@@ -15,7 +15,8 @@ final class RenameConstantsAndSetupFileEndingRectorTest extends AbstractRectorTe
     public function test(string $filePath): void
     {
         $this->doTestFile($filePath);
-        $this->assertCount(1, $this->removedAndAddedFilesCollector->getMovedFiles());
+        $this->assertSame(1, $this->removedAndAddedFilesCollector->getRemovedFilesCount());
+        $this->assertCount(1, $this->removedAndAddedFilesCollector->getAddedFilesWithContent());
     }
 
     /**
@@ -24,7 +25,8 @@ final class RenameConstantsAndSetupFileEndingRectorTest extends AbstractRectorTe
     public function testSkip(string $filePath): void
     {
         $this->doTestFile($filePath);
-        $this->assertCount(0, $this->removedAndAddedFilesCollector->getMovedFiles());
+        $this->assertSame(0, $this->removedAndAddedFilesCollector->getRemovedFilesCount());
+        $this->assertCount(0, $this->removedAndAddedFilesCollector->getAddedFilesWithContent());
     }
 
     /**

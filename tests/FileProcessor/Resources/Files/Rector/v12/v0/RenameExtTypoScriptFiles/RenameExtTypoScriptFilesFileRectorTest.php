@@ -15,7 +15,8 @@ final class RenameExtTypoScriptFilesFileRectorTest extends AbstractRectorTestCas
     public function test(string $filePath): void
     {
         $this->doTestFile($filePath);
-        $this->assertCount(1, $this->removedAndAddedFilesCollector->getMovedFiles());
+        $this->assertSame(1, $this->removedAndAddedFilesCollector->getRemovedFilesCount());
+        $this->assertCount(1, $this->removedAndAddedFilesCollector->getAddedFilesWithContent());
     }
 
     /**

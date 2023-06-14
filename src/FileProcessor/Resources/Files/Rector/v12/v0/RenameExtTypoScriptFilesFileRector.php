@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector\v12\v0;
 
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\ValueObject\Application\File;
+use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\FileRectorInterface;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
@@ -45,7 +46,10 @@ final class RenameExtTypoScriptFilesFileRector implements FileRectorInterface
 
         $newFileName = $smartFileInfo->getPath() . $smartFileInfo->getBasenameWithoutSuffix() . '.typoscript';
 
-        $this->removedAndAddedFilesCollector->addMovedFile($file, $newFileName);
+        $this->removedAndAddedFilesCollector->removeFile($file->getFilePath());
+        $this->removedAndAddedFilesCollector->addAddedFile(
+            new AddedFileWithContent($newFileName, $file->getFileContent())
+        );
     }
 
     public function getRuleDefinition(): RuleDefinition

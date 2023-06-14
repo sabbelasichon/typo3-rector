@@ -6,7 +6,6 @@ use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
-use Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RefactorPropertiesOfTypoScriptFrontendControllerRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RemoveFlushCachesRector;
 use Ssch\TYPO3Rector\Rector\v9\v5\RemoveInitMethodFromPageRepositoryRector;
@@ -37,6 +36,5 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/../../Migrations/TYPO3/9.5/typo3/sysext/workspaces/Migrations/Code/ClassAliasMap.php',
         ]);
     $rectorConfig->rule(RemoveInitMethodFromPageRepositoryRector::class);
-    $rectorConfig->rule(RefactorProcessOutputRector::class);
     $rectorConfig->rule(RefactorPropertiesOfTypoScriptFrontendControllerRector::class);
 };

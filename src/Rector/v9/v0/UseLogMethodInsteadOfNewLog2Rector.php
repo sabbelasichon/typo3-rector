@@ -78,7 +78,9 @@ final class UseLogMethodInsteadOfNewLog2Rector extends AbstractRector
                 'propArr'
             ), new String_(self::PID))));
 
-            $this->nodesToAddCollector->addNodesBeforeNode([$pidAssignExpression, new Nop()], $node);
+            foreach ([$pidAssignExpression, new Nop()] as $newNode) {
+                $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
+            }
         }
 
         $node->name = new Identifier('log');

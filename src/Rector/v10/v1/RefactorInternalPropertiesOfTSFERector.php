@@ -207,12 +207,14 @@ CODE_SAMPLE
 
     private function refactorCacheHashArray(PropertyFetch $propertyFetch): Node
     {
-        $this->nodesToAddCollector->addNodesBeforeNode([
+        foreach ([
             $this->initializeEmptyArray(),
             $this->initializePageArguments(),
             $this->initializeQueryParams(),
             $this->getRelevantParametersFromCacheHashCalculator(),
-        ], $propertyFetch);
+        ] as $newNode) {
+            $this->nodesToAddCollector->addNodeBeforeNode($newNode, $propertyFetch);
+        }
 
         return new Variable(self::RELEVANT_PARAMETERS_FOR_CACHING_FROM_PAGE_ARGUMENTS);
     }

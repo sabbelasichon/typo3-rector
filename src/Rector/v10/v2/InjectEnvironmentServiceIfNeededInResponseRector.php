@@ -83,7 +83,6 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
 
         $this->addInjectEnvironmentServiceMethod($node);
         $property = $this->createEnvironmentServiceProperty();
-        $this->nodesToAddCollector->addNodeAfterNode(new Nop(), $property);
         $this->classInsertManipulator->addAsFirstMethod($node, $property);
 
         return $node;

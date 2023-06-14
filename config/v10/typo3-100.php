@@ -14,7 +14,6 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
-use Rector\Renaming\Rector\Namespace_\RenameNamespaceRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
@@ -43,10 +42,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemovePropertyExtensionNameRector::class);
     $rectorConfig->rule(UseNativePhpHex2binMethodRector::class);
     $rectorConfig->rule(RefactorIdnaEncodeMethodToNativeFunctionRector::class);
-    $rectorConfig
-        ->ruleWithConfiguration(RenameNamespaceRector::class, [
-            'TYPO3\CMS\Backend\Controller\File' => 'TYPO3\CMS\Filelist\Controller\File',
-        ]);
     $rectorConfig->rule(UseMetaDataAspectRector::class);
     $rectorConfig->rule(ForceTemplateParsingInTsfeAndTemplateServiceRector::class);
     $rectorConfig->rule(BackendUtilityGetViewDomainToPageRouterRector::class);

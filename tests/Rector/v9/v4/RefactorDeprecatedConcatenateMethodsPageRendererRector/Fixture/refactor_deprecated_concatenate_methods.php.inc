@@ -50,11 +50,11 @@ final class ClassWithOldConcatenateMethodsPageRenderer
     {
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $files = array_merge($pageRenderer->getConcatenateCss(), $pageRenderer->getConcatenateJavascript());
+        $this->pageRenderer->enableConcatenateCss();
 
         $this->pageRenderer->enableConcatenateJavascript();
-        $this->pageRenderer->enableConcatenateCss();
-        $this->pageRenderer->disableConcatenateJavascript();
         $this->pageRenderer->disableConcatenateCss();
+        $this->pageRenderer->disableConcatenateJavascript();
 
         $files2 = array_merge($this->pageRenderer->getConcatenateCss(), $this->pageRenderer->getConcatenateJavascript());
     }

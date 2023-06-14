@@ -113,14 +113,16 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
             return null;
         }
 
-        $this->nodesToAddCollector->addNodesBeforeNode([
+        foreach ([
             $this->initializeSuccessVariable(),
             $this->initializeMailClass(),
             $this->trimMessage($node),
             $this->trimSenderName($node),
             $this->trimSenderAddress($node),
             $this->ifSenderAddress(),
-        ], $node);
+        ] as $newNode) {
+            $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
+        }
 
         $replyTo = isset($node->args[5]) ? $node->args[5]->value : null;
         if (null !== $replyTo) {

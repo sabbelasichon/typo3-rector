@@ -99,7 +99,7 @@ CODE_SAMPLE
 
         $node1 = clone $methodCall;
         $node1->name = new Identifier($secondMethod);
-        $this->nodesToAddCollector->addNodeAfterNode($node1, $methodCall);
+        $this->nodesToAddCollector->addNodeBeforeNode($node1, $methodCall);
 
         return $methodCall;
     }
