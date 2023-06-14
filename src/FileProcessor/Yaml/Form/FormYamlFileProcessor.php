@@ -13,8 +13,8 @@ use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\Form\FormYamlRectorInterface;
+use Ssch\TYPO3Rector\Helper\SymfonyYamlParser;
 use Ssch\TYPO3Rector\ValueObject\Indent;
-use Symfony\Component\Yaml\Yaml;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FormYamlFileProcessor implements FileProcessorInterface
@@ -38,7 +38,12 @@ final class FormYamlFileProcessor implements FileProcessorInterface
      * @var FormYamlRectorInterface[]
      * @readonly
      */
-    private array $transformer = [];
+    private array $transformer;
+
+    /**
+     * @readonly
+     */
+    private SymfonyYamlParser $symfonyYamlParser;
 
     /**
      * @param FormYamlRectorInterface[] $transformer
@@ -46,11 +51,13 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     public function __construct(
         CurrentFileProvider $currentFileProvider,
         FileDiffFactory $fileDiffFactory,
+        SymfonyYamlParser $symfonyYamlParser,
         array $transformer
     ) {
         $this->currentFileProvider = $currentFileProvider;
         $this->fileDiffFactory = $fileDiffFactory;
         $this->transformer = $transformer;
+        $this->symfonyYamlParser = $symfonyYamlParser;
     }
 
     /**
@@ -67,9 +74,8 @@ final class FormYamlFileProcessor implements FileProcessorInterface
 
         $indent = Indent::fromFile($file);
 
-        $smartFileInfo = new SmartFileInfo($file->getFilePath());
-        $oldYamlContent = $smartFileInfo->getContents();
-        $yaml = Yaml::parse($oldYamlContent, Yaml::PARSE_CUSTOM_TAGS);
+        $oldYamlContent = $file->getFileContent();
+        $yaml = $this->symfonyYamlParser->parse($file->getFilePath(), $oldYamlContent);
 
         if (! is_array($yaml)) {
             return $systemErrorsAndFileDiffs;
@@ -86,7 +92,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
             return $systemErrorsAndFileDiffs;
         }
 
-        $newFileContent = Yaml::dump($newYaml, 99, $indent->length());
+        $newFileContent = $this->symfonyYamlParser->dump($newYaml, $indent->length());
         $file->changeFileContent($newFileContent);
 
         $fileDiff = $this->fileDiffFactory->createFileDiff($file, $oldYamlContent, $newFileContent);
