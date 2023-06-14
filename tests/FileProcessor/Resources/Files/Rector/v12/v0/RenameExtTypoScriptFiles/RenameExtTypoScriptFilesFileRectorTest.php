@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\FileProcessor\Resources\Files\Rector\v12\v0\RenameExtTypoScriptFiles;
 
 use Iterator;
+use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
 final class RenameExtTypoScriptFilesFileRectorTest extends AbstractRectorTestCase
@@ -16,7 +17,9 @@ final class RenameExtTypoScriptFilesFileRectorTest extends AbstractRectorTestCas
     {
         $this->doTestFile($filePath);
         $this->assertSame(1, $this->removedAndAddedFilesCollector->getRemovedFilesCount());
-        $this->assertCount(1, $this->removedAndAddedFilesCollector->getAddedFilesWithContent());
+        $addedFiles = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
+        $this->assertCount(1, $addedFiles);
+        $this->assertInstanceOf(AddedFileWithContent::class, $addedFiles[0]);
     }
 
     /**
