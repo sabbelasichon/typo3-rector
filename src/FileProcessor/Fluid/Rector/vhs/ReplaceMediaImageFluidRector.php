@@ -39,7 +39,7 @@ final class ReplaceMediaImageFluidRector implements FluidRectorInterface
         return new RuleDefinition('Use <f:image> instead of <v:media.image>', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
-<v:media src="{image.uid}" treatIdAsReference="true" />
+<v:media.image src="{image.uid}" treatIdAsReference="true" />
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
