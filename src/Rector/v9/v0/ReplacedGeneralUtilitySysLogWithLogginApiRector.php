@@ -72,7 +72,7 @@ final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRect
         $severity = $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Log\LogLevel', 'INFO');
 
         if (isset($node->args[2]) && $severityValue = $this->valueResolver->getValue($node->args[2]->value)) {
-            $severity = $this->oldSeverityToLogLevelMapper->mapSeverityToLogLevel($severityValue);
+            $severity = $this->oldSeverityToLogLevelMapper->mapSeverityToLogLevel((int) $severityValue);
         }
 
         $args[] = $severity;
