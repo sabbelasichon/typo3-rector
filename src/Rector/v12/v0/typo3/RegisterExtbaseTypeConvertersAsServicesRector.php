@@ -18,8 +18,8 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Ssch\TYPO3Rector\Helper\SymfonyYamlParser;
 use Ssch\TYPO3Rector\NodeVisitor\RemoveExtbaseTypeConverterNodeVisitor;
-use Symfony\Component\Yaml\Yaml;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -49,18 +49,22 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
 
     private NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter;
 
+    private SymfonyYamlParser $symfonyYamlParser;
+
     public function __construct(
         ReflectionProvider $reflectionProvider,
         SimplePhpParser $simplePhpParser,
         FilesFinder $filesFinder,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter
+        NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter,
+        SymfonyYamlParser $symfonyYamlParser
     ) {
         $this->reflectionProvider = $reflectionProvider;
         $this->simplePhpParser = $simplePhpParser;
         $this->filesFinder = $filesFinder;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->nodesWithFileDestinationPrinter = $nodesWithFileDestinationPrinter;
+        $this->symfonyYamlParser = $symfonyYamlParser;
     }
 
     /**
@@ -119,7 +123,7 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
             $yamlConfiguration['services'][$className]['tags'] = $collectServiceTags;
         }
 
-        $yamlConfigurationAsYaml = Yaml::dump($yamlConfiguration, 99);
+        $yamlConfigurationAsYaml = $this->symfonyYamlParser->dump($yamlConfiguration);
 
         $servicesYaml = new AddedFileWithContent($existingServicesYamlFilePath, $yamlConfigurationAsYaml);
         $this->removedAndAddedFilesCollector->addAddedFile($servicesYaml);
@@ -220,13 +224,19 @@ CODE_SAMPLE
     private function getYamlConfiguration(string $existingServicesYamlFilePath): array
     {
         if (file_exists($existingServicesYamlFilePath)) {
-            return Yaml::parse((string) file_get_contents($existingServicesYamlFilePath));
+            return $this->symfonyYamlParser->parse(
+                $existingServicesYamlFilePath,
+                (string) file_get_contents($existingServicesYamlFilePath)
+            );
         }
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
         foreach ($addedFilesWithContent as $addedFileWithContent) {
             if ($addedFileWithContent->getFilePath() === $existingServicesYamlFilePath) {
-                return Yaml::parse($addedFileWithContent->getFileContent());
+                return $this->symfonyYamlParser->parse(
+                    $addedFileWithContent->getFilePath(),
+                    $addedFileWithContent->getFileContent()
+                );
             }
         }
 
