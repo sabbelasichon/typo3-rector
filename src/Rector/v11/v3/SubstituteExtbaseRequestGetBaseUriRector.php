@@ -68,7 +68,8 @@ final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector
         $normalizedParamsNode = $this->createNormalizedParamsAssignment();
         $this->addPhpDocInfo($normalizedParamsNode);
 
-        $this->nodesToAddCollector->addNodesBeforeNode([$globalRequestNode, $normalizedParamsNode], $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($globalRequestNode, $node);
+        $this->nodesToAddCollector->addNodeBeforeNode($normalizedParamsNode, $node);
 
         return $this->nodeFactory->createMethodCall(self::NORMALIZED_PARAMS, 'getSiteUrl');
     }
@@ -119,6 +120,5 @@ CODE_SAMPLE
         );
         $phpDocInfo->getPhpDocNode()
             ->children = [];
-        $phpDocInfo->makeSingleLined();
     }
 }
