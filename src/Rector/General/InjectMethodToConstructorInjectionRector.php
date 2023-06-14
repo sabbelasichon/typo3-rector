@@ -8,6 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
 use Rector\Core\Rector\AbstractRector;
@@ -130,8 +132,7 @@ CODE_SAMPLE
                 $node,
                 new PropertyMetadata($paramName, new ObjectType((string) $param->type), Class_::MODIFIER_PROTECTED)
             );
-
-            $this->nodeRemover->removeNodeFromStatements($node, $injectMethod);
+            $this->removeNodeFromStatements($node, $injectMethod);
         }
 
         return $node;
@@ -140,5 +141,21 @@ CODE_SAMPLE
     private function shouldSkip(Class_ $class): bool
     {
         return [] === $class->getMethods();
+    }
+
+    /**
+     * @param Class_ | ClassMethod | Function_ $nodeWithStatements
+     */
+    private function removeNodeFromStatements(Node $nodeWithStatements, Node $toBeRemovedNode): void
+    {
+        foreach ((array) $nodeWithStatements->stmts as $key => $stmt) {
+            if ($toBeRemovedNode !== $stmt) {
+                continue;
+            }
+
+            $this->removeNode($stmt);
+            unset($nodeWithStatements->stmts[$key]);
+            break;
+        }
     }
 }

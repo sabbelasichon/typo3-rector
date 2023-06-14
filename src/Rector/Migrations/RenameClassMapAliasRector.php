@@ -132,7 +132,7 @@ CODE_SAMPLE
             return $this->stringClassNameToClassConstantRectorIfPossible($node);
         }
 
-        return $this->classRenamer->renameNode($node, $this->oldToNewClasses);
+        return $this->classRenamer->renameNode($node, $this->oldToNewClasses, null);
     }
 
     /**

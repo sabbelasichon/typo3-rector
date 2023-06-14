@@ -37,7 +37,6 @@ class MyResponse extends Response
      * @var EnvironmentService
      */
     protected $environmentService;
-
     public function myMethod()
     {
         if ($this->environmentService->isEnvironmentInCliMode()) {

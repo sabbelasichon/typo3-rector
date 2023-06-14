@@ -11,9 +11,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -62,26 +60,14 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
     /**
      * @param Assign $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node)
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
 
         if ($this->isPropertyForceTemplateParsing($node->var)) {
-            //$node->var (left side is the target property, so its an assigment to it)
-
-            $contextCall = $this->createCallForSettingProperty();
-            $this->nodesToAddCollector->addNodeAfterNode($contextCall, $node);
-
-            try {
-                $this->removeNode($node);
-            } catch (ShouldNotHappenException $shouldNotHappenException) {
-                $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-                $this->removeNode($parentNode);
-            }
-
-            return $node;
+            return $this->createCallForSettingProperty();
         }
 
         $node->expr = $this->createCallForFetchingProperty();

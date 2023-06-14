@@ -73,12 +73,9 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
             'removeAll'
         );
 
-        $this->nodesToAddCollector->addNodesBeforeNode([
-            new Nop(),
-            $queryBuilderAssign,
-            $queryBuilderRemoveRestrictions,
-            new Nop(),
-        ], $node);
+        foreach ([new Nop(), $queryBuilderAssign, $queryBuilderRemoveRestrictions, new Nop()] as $newNode) {
+            $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
+        }
 
         return $this->fetchQueryBuilderResults($firstArgument, $secondArgument, $thirdArgument);
     }
