@@ -79,7 +79,7 @@ final class RemoveBackendUtilityViewOnClickUsageRector extends AbstractRector
 
         $chainCalls = $createCall;
 
-        if (isset($node->args[2])) {
+        if (isset($node->args[2]) && $node->args[2]->value instanceof Array_) {
             $chainCalls = $this->nodeFactory->createMethodCall($createCall, 'withRootLine', [$node->args[2]]);
         }
 

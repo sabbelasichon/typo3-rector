@@ -40,11 +40,11 @@ $viewUri = '';
 $getVars = '';
 $switchFocus = true;
 
-$onclick = PreviewUriBuilder::create($pageId, $viewUri)->withRootLine($rootLine)->withSection($section)->withAdditionalQueryParameters($getVars)->buildDispatcherDataAttributes([PreviewUriBuilder::OPTION_SWITCH_FOCUS => $switchFocus]);
+$onclick = PreviewUriBuilder::create($pageId, $viewUri)->withSection($section)->withAdditionalQueryParameters($getVars)->buildDispatcherDataAttributes([PreviewUriBuilder::OPTION_SWITCH_FOCUS => $switchFocus]);
 
 $testOnlyMandatoryParams = PreviewUriBuilder::create($pageId)->buildDispatcherDataAttributes();
 
-$foo = PreviewUriBuilder::create($pageId)->withRootLine($rootLine)->buildDispatcherDataAttributes();
+$foo = PreviewUriBuilder::create($pageId)->buildDispatcherDataAttributes();
 
 $bar = PreviewUriBuilder::create($pageId)->withRootLine([])->buildDispatcherDataAttributes();
 
