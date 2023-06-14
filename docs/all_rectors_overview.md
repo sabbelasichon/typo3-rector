@@ -1,4 +1,4 @@
-# 276 Rules Overview
+# 277 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -3667,6 +3667,24 @@ Removes calls to metaCharset property or methods of TSFE
 -$bar = $tsfe->metaCharset;
 +$foo = 'utf-8';
 +$bar = 'utf-8';
+```
+
+<br>
+
+## RemoveTableLocalPropertyRector
+
+Remove TCA property table_local in foreign_match_fields
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\RemoveTableLocalPropertyRector`](../src/Rector/v12/v0/tca/RemoveTableLocalPropertyRector.php)
+
+```diff
+ 'foreign_match_fields' => [
+     'fieldname' => 'media',
+     'tablenames' => 'tx_site_domain_model_mediacollection',
+-    'table_local' => 'sys_file',
+ ],
+ 'maxitems' => 1,
+ 'minitems' => 1,
 ```
 
 <br>
