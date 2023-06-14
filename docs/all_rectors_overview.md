@@ -1,4 +1,4 @@
-# 278 Rules Overview
+# 276 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -2426,25 +2426,6 @@ Refactor printContent methods of classes TaskModuleController and PageLayoutCont
 
 <br>
 
-## RefactorProcessOutputRector
-
-`TypoScriptFrontendController->processOutput()` to `TypoScriptFrontendController->applyHttpHeadersToResponse()` and `TypoScriptFrontendController->processContentForOutput()`
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v5\RefactorProcessOutputRector`](../src/Rector/v9/v5/RefactorProcessOutputRector.php)
-
-```diff
- use TYPO3\CMS\Core\Utility\GeneralUtility;
- use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-+use TYPO3\CMS\Core\Http\Response;
-
- $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
--$tsfe->processOutput();
-+$tsfe->applyHttpHeadersToResponse(new Response());
-+$tsfe->processContentForOutput();
-```
-
-<br>
-
 ## RefactorPropertiesOfTypoScriptFrontendControllerRector
 
 Refactor some properties of TypoScriptFrontendController
@@ -4392,30 +4373,6 @@ Use an instance of ModuleTemplate instead of BackendTemplateView
 +        return $this->htmlResponse($moduleTemplate->renderContent());
      }
  }
-```
-
-<br>
-
-## SubstituteCacheWrapperMethodsRector
-
-Caching framework wrapper methods in BackendUtility
-
-- class: [`Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector`](../src/Rector/v9/v0/SubstituteCacheWrapperMethodsRector.php)
-
-```diff
--use TYPO3\CMS\Backend\Utility\BackendUtility;
-+use TYPO3\CMS\Core\Cache\CacheManager;
-+use TYPO3\CMS\Core\Utility\GeneralUtility;
-+
- $hash = 'foo';
--$content = BackendUtility::getHash($hash);
-+$cacheManager = GeneralUtility::makeInstance(CacheManager::class);
-+$cacheEntry = $cacheManager->getCache('cache_hash')->get($hash);
-+$hashContent = null;
-+if ($cacheEntry) {
-+    $hashContent = $cacheEntry;
-+}
-+$content = $hashContent;
 ```
 
 <br>
