@@ -9,7 +9,7 @@ GeneralUtility::sysLog('message', 'foo');
 GeneralUtility::sysLog('message', 'foo', 0);
 GeneralUtility::sysLog('message', 'foo', 1);
 GeneralUtility::sysLog('message', 'foo', 2);
-GeneralUtility::sysLog('message', 'foo', 3);
+GeneralUtility::sysLog('message', 'foo', '3');
 GeneralUtility::sysLog('message', 'foo', 4);
 
 ?>
