@@ -23,7 +23,6 @@ use Ssch\TYPO3Rector\Rector\v9\v0\RemoveSecondArgumentGeneralUtilityMkdirDeepRec
 use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\ReplacedGeneralUtilitySysLogWithLogginApiRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector;
-use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteCacheWrapperMethodsRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteGeneralUtilityDevLogRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseExtensionConfigurationApiRector;
@@ -49,7 +48,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(UseRenderingContextGetControllerContextRector::class);
     $rectorConfig->rule(RemovePropertiesFromSimpleDataHandlerControllerRector::class);
     $rectorConfig->rule(RemoveMethodInitTCARector::class);
-    $rectorConfig->rule(SubstituteCacheWrapperMethodsRector::class);
     $rectorConfig->rule(UseLogMethodInsteadOfNewLog2Rector::class);
     $rectorConfig->rule(GeneratePageTitleRector::class);
     $rectorConfig->rule(SubstituteConstantParsetimeStartRector::class);
