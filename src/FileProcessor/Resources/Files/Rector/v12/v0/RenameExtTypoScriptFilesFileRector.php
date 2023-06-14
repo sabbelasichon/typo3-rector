@@ -44,7 +44,7 @@ final class RenameExtTypoScriptFilesFileRector implements FileRectorInterface
 
         $smartFileInfo = new SmartFileInfo($file->getFilePath());
 
-        $newFileName = $smartFileInfo->getPath() . $smartFileInfo->getBasenameWithoutSuffix() . '.typoscript';
+        $newFileName = $smartFileInfo->getPath() . '/' . $smartFileInfo->getBasenameWithoutSuffix() . '.typoscript';
 
         $this->removedAndAddedFilesCollector->removeFile($file->getFilePath());
         $this->removedAndAddedFilesCollector->addAddedFile(
