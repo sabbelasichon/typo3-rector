@@ -1,4 +1,4 @@
-# 277 Rules Overview
+# 278 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1550,6 +1550,41 @@ Migrates TCA internal_type into new own seperate types
          ],
      ],
  ],
+```
+
+<br>
+
+## MigrateItemsIndexedKeysToAssociativeRector
+
+Migrates indexed item array keys to associative for type select, radio and check
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v3\tca\MigrateItemsIndexedKeysToAssociativeRector`](../src/Rector/v12/v3/tca/MigrateItemsIndexedKeysToAssociativeRector.php)
+
+```diff
+ 'columns' => [
+-        'aColumn' => [
+-            'config' => [
+-                'type' => 'select',
+-                'renderType' => 'selectCheckBox',
+-                'items' => [
+-                    ['My label', 0, 'my-icon', 'group1', 'My Description'],
+-                    ['My label 1', 1, 'my-icon', 'group1', 'My Description'],
+-                    ['My label 2', 2, 'my-icon', 'group1', 'My Description'],
+-                ],
+-            ],
++    'aColumn' => [
++        'config' => [
++            'type' => 'select',
++            'renderType' => 'selectCheckBox',
++            'items' => [
++                ['label' => 'My label', 'value' => 0, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
++                ['label' => 'My label 1', 'value' => 1, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
++                ['label' => 'My label 2', 'value' => 2, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
++            ]
+         ],
+-    ],
++    ],
++],
 ```
 
 <br>
