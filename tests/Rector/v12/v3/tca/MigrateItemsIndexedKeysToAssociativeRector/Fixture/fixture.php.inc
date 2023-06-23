@@ -44,7 +44,7 @@ return [
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateItemsIndexedKeysToAssociativeRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v3\tca\MigrateItemsIndexedKeysToAssociativeRector\Fixture;
 
 return [
     'ctrl' => [],

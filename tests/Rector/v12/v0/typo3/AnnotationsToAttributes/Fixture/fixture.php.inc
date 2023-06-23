@@ -25,6 +25,11 @@ class MyEntity extends AbstractEntity
     protected $propertyWithValidateAnnotations;
 
     /**
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade remove
+     */
+    protected $cv = null;
+
+    /**
      * @Extbase\Validate(param="request", validator="TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator")
      */
     public function updateObjectInformationAction(){}
@@ -67,6 +72,9 @@ class MyEntity extends AbstractEntity
     #[Extbase\Validate(['validator' => NotEmptyValidator::class])]
     #[Extbase\Validate(['validator' => NotEmptyValidator::class])]
     protected $propertyWithValidateAnnotations;
+
+    #[Cascade(['value' => 'remove'])]
+    protected $cv = null;
 
     #[Extbase\Validate(['param' => 'request', 'validator' => NotEmptyValidator::class])]
     public function updateObjectInformationAction(){}

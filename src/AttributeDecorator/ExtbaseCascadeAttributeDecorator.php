@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\AttributeDecorator;
 
+use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
@@ -19,7 +20,12 @@ final class ExtbaseCascadeAttributeDecorator implements AttributeDecoratorInterf
 
     public function decorate(Attribute $attribute): void
     {
-        $firstArg = $attribute->args[0];
-        $firstArg->value = new Array_([new ArrayItem(new String_('remove'), new String_('value'))]);
+        $cascadeRemove = new Array_([new ArrayItem(new String_('remove'), new String_('value'))]);
+
+        if (! isset($attribute->args[0])) {
+            $attribute->args[0] = new Arg($cascadeRemove);
+        } else {
+            $attribute->args[0]->value = $cascadeRemove;
+        }
     }
 }
