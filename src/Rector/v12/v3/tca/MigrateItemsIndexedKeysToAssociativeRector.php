@@ -26,8 +26,9 @@ final class MigrateItemsIndexedKeysToAssociativeRector extends AbstractTcaRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrates indexed item array keys to associative for type select, radio and check', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition('Migrates indexed item array keys to associative for type select, radio and check', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
     'columns' => [
         'aColumn' => [
             'config' => [
@@ -42,8 +43,8 @@ final class MigrateItemsIndexedKeysToAssociativeRector extends AbstractTcaRector
         ],
     ],
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 'columns' => [
     'aColumn' => [
         'config' => [
@@ -58,48 +59,64 @@ CODE_SAMPLE
     ],
 ],
 CODE_SAMPLE
-        )]);
+            ),
+        ]);
     }
 
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
         $configArray = $this->extractSubArrayByKey($columnTca, self::CONFIG);
-        if (!$configArray instanceof Array_) {
+        if (! $configArray instanceof Array_) {
             return;
         }
 
         if (
-            !$this->isConfigType($configArray, 'select')
-            && !$this->isConfigType($configArray, 'radio')
-            && !$this->isConfigType($configArray, 'check')
+            ! $this->isConfigType($configArray, 'select')
+            && ! $this->isConfigType($configArray, 'radio')
+            && ! $this->isConfigType($configArray, 'check')
         ) {
             return;
         }
 
-
         $exprArrayItemToChange = $this->extractArrayItemByKey($configArray, 'items');
-        if (!$exprArrayItemToChange instanceof ArrayItem) {
+        if (null === $exprArrayItemToChange) {
             return;
         }
+
+        if (! $exprArrayItemToChange->value instanceof Array_) {
+            return;
+        }
+
         foreach ($exprArrayItemToChange->value->items as $exprArrayItem) {
-            if (array_key_exists(0, $exprArrayItem->value->items)) {
+            if (! $exprArrayItem instanceof ArrayItem) {
+                continue;
+            }
+
+            if (! $exprArrayItem->value instanceof Array_) {
+                continue;
+            }
+
+            if (array_key_exists(0, $exprArrayItem->value->items) && null !== $exprArrayItem->value->items[0]) {
                 $exprArrayItem->value->items[0]->key = new String_('label');
                 $this->hasAstBeenChanged = true;
             }
-            if (!$this->isConfigType($configArray, 'check') && array_key_exists(1, $exprArrayItem->value->items)) {
+            if (! $this->isConfigType($configArray, 'check') && array_key_exists(
+                1,
+                $exprArrayItem->value->items
+            ) && null !== $exprArrayItem->value->items[1]) {
                 $exprArrayItem->value->items[1]->key = new String_('value');
                 $this->hasAstBeenChanged = true;
             }
             if ($this->isConfigType($configArray, 'select')) {
-                if (array_key_exists(2, $exprArrayItem->value->items)) {
+                if (array_key_exists(2, $exprArrayItem->value->items) && null !== $exprArrayItem->value->items[2]) {
                     $exprArrayItem->value->items[2]->key = new String_('icon');
                     $this->hasAstBeenChanged = true;
                 }
-                if (array_key_exists(3, $exprArrayItem->value->items)) {
+                if (array_key_exists(3, $exprArrayItem->value->items) && null !== $exprArrayItem->value->items[3]) {
                     $exprArrayItem->value->items[3]->key = new String_('group');
                     $this->hasAstBeenChanged = true;
                 }
-                if (array_key_exists(4, $exprArrayItem->value->items)) {
+                if (array_key_exists(4, $exprArrayItem->value->items) && null !== $exprArrayItem->value->items[4]) {
                     $exprArrayItem->value->items[4]->key = new String_('description');
                     $this->hasAstBeenChanged = true;
                 }
