@@ -68,7 +68,7 @@ CODE_SAMPLE
 
         /** @var String_ $evalStringNode */
         $evalStringNode = $evalArrayItem->value;
-        $value = $evalStringNode->value;
+        $value = (string) $evalStringNode->value;
 
         if (! StringUtility::inList($value, 'null')) {
             return;

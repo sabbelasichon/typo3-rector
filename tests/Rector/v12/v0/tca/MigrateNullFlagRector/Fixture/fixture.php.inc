@@ -21,6 +21,11 @@ return [
                 'nullable' => true,
             ],
         ],
+        'employment_type' => [
+            'config' => [
+                'eval' => ''
+            ],
+        ],
     ],
 ];
 
@@ -45,6 +50,11 @@ return [
         ],
         'already_nullable_column' => [
             'config' => ['nullable' => true],
+        ],
+        'employment_type' => [
+            'config' => [
+                'eval' => ''
+            ],
         ],
     ],
 ];
