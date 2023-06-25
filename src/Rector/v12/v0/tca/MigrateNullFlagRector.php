@@ -66,9 +66,11 @@ CODE_SAMPLE
             return;
         }
 
-        /** @var String_ $evalStringNode */
-        $evalStringNode = $evalArrayItem->value;
-        $value = (string) $evalStringNode->value;
+        $value = $this->valueResolver->getValue($evalArrayItem->value);
+
+        if (! is_string($value)) {
+            return;
+        }
 
         if (! StringUtility::inList($value, 'null')) {
             return;
