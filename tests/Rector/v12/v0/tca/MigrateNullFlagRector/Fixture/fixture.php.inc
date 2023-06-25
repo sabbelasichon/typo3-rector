@@ -2,6 +2,8 @@
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateNullFlagRector\Fixture;
 
+$slugBehaviour = $GLOBALS['SLUG'];
+
 return [
     'ctrl' => [],
     'columns' => [
@@ -26,6 +28,11 @@ return [
                 'eval' => ''
             ],
         ],
+        'slug' => [
+            'config' => [
+                'eval' => $slugBehaviour,
+            ],
+        ],
     ],
 ];
 
@@ -34,6 +41,8 @@ return [
 <?php
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateNullFlagRector\Fixture;
+
+$slugBehaviour = $GLOBALS['SLUG'];
 
 return [
     'ctrl' => [],
@@ -54,6 +63,11 @@ return [
         'employment_type' => [
             'config' => [
                 'eval' => ''
+            ],
+        ],
+        'slug' => [
+            'config' => [
+                'eval' => $slugBehaviour,
             ],
         ],
     ],
