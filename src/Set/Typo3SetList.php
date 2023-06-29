@@ -84,6 +84,11 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const TCA_123 = __DIR__ . '/../../config/v12/tca-123.php';
+
+    /**
+     * @var string
+     */
     public const TYPOSCRIPT_120 = __DIR__ . '/../../config/v12/typoscript-120.php';
 
     /**
