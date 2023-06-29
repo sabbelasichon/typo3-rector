@@ -10,8 +10,12 @@ use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\ReplacePreviewUrlMethodRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\AbstractMessageGetSeverityRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\AddMethodToWidgetInterfaceClassesRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ContentObjectRegistrationViaServiceConfigurationRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\MigrateQueryBuilderExecuteRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RegisterExtbaseTypeConvertersAsServicesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveMailerAdapterInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveRedundantFeLoginModeMethodsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveRelativeToCurrentScriptArgumentsRector;
@@ -20,10 +24,12 @@ use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveTSFEMetaCharSetCallsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveUpdateRootlineDataRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceExpressionBuilderMethodsRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplacePageRepoOverlayFunctionRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplaceTSFEWithContextMethodsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\SubstituteCompositeExpressionAddMethodsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\UseCompositeExpressionStaticMethodsRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\UseConfigArrayForTSFEPropertiesRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -158,12 +164,10 @@ return static function (RectorConfig $rectorConfig): void {
             ),
         ]
     );
-    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typo3\UseConfigArrayForTSFEPropertiesRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplacePageRepoOverlayFunctionRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typo3\RegisterExtbaseTypeConvertersAsServicesRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector::class);
-    $rectorConfig->rule(
-        \Ssch\TYPO3Rector\Rector\v12\v0\typo3\ContentObjectRegistrationViaServiceConfigurationRector::class
-    );
+    $rectorConfig->rule(UseConfigArrayForTSFEPropertiesRector::class);
+    $rectorConfig->rule(ReplacePageRepoOverlayFunctionRector::class);
+    $rectorConfig->rule(ImplementSiteLanguageAwareInterfaceRector::class);
+    $rectorConfig->rule(RegisterExtbaseTypeConvertersAsServicesRector::class);
+    $rectorConfig->rule(ChangeExtbaseValidatorsRector::class);
+    $rectorConfig->rule(ContentObjectRegistrationViaServiceConfigurationRector::class);
 };
