@@ -19,4 +19,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveTCAInterfaceAlwaysDescriptionRector::class);
     $rectorConfig->rule(RemoveCruserIdRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\tca\RemoveTableLocalPropertyRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateToEmailTypeRector::class);
 };
