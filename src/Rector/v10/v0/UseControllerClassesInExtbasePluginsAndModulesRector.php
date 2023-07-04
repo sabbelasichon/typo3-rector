@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v10\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\BinaryOp\Concat;
@@ -147,7 +148,7 @@ CODE_SAMPLE
                 continue;
             }
 
-            if (null === $controllerActions->key) {
+            if (! $controllerActions->key instanceof Expr) {
                 continue;
             }
 

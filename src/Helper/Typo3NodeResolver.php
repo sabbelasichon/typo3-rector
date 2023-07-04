@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Helper;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
@@ -120,7 +121,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (null === $node->var->dim) {
+        if (! $node->var->dim instanceof Expr) {
             return false;
         }
 
@@ -141,7 +142,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (null === $node->var->dim) {
+        if (! $node->var->dim instanceof Expr) {
             return false;
         }
 
@@ -162,7 +163,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (null === $node->dim) {
+        if (! $node->dim instanceof Expr) {
             return false;
         }
 
@@ -207,7 +208,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (null === $node->var->dim) {
+        if (! $node->var->dim instanceof Expr) {
             return false;
         }
 
@@ -241,7 +242,7 @@ final class Typo3NodeResolver
             return false;
         }
 
-        if (null === $node->var->var->dim) {
+        if (! $node->var->var->dim instanceof Expr) {
             return false;
         }
 

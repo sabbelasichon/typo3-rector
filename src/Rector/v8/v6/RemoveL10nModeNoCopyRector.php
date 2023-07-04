@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\StaticCall;
@@ -68,7 +69,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                 continue;
             }
 
-            if (null === $fieldValue->key) {
+            if (! $fieldValue->key instanceof Expr) {
                 continue;
             }
 
@@ -86,11 +87,11 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
             ]), new String_('config'));
 
             foreach ($fieldValue->value->items as $configValue) {
-                if (null === $configValue) {
+                if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
 
-                if (null === $configValue->key) {
+                if (! $configValue->key instanceof Expr) {
                     continue;
                 }
 
@@ -117,7 +118,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                             continue;
                         }
 
-                        if (null === $configItemValue->key) {
+                        if (! $configItemValue->key instanceof Expr) {
                             continue;
                         }
 
@@ -139,7 +140,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                                 continue;
                             }
 
-                            if (null === $behaviourConfiguration->key) {
+                            if (! $behaviourConfiguration->key instanceof Expr) {
                                 continue;
                             }
 

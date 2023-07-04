@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
@@ -72,7 +73,7 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
                 continue;
             }
 
-            if (null === $columnItem->key) {
+            if (! $columnItem->key instanceof Expr) {
                 continue;
             }
 
@@ -81,11 +82,11 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
             }
 
             foreach ($columnItem->value->items as $configValue) {
-                if (null === $configValue) {
+                if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
 
-                if (null === $configValue->key) {
+                if (! $configValue->key instanceof Expr) {
                     continue;
                 }
 
@@ -114,7 +115,7 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
                         continue;
                     }
 
-                    if (null === $configItemValue->key) {
+                    if (! $configItemValue->key instanceof Expr) {
                         continue;
                     }
 
@@ -135,7 +136,7 @@ final class RefactorTypeInternalTypeFileAndFileReferenceToFalRector extends Abst
 
                 $args = [$columnItem->key, $newConfig];
 
-                if (null !== $allowed) {
+                if ($allowed instanceof Expr) {
                     $args[] = $allowed;
                 }
 

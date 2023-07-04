@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
@@ -138,7 +139,7 @@ CODE_SAMPLE
             return true;
         }
 
-        if (null === $extConf->dim) {
+        if (! $extConf->dim instanceof Expr) {
             return true;
         }
 
@@ -155,7 +156,7 @@ CODE_SAMPLE
             return true;
         }
 
-        if (null === $ext->dim) {
+        if (! $ext->dim instanceof Expr) {
             return true;
         }
 
@@ -168,7 +169,7 @@ CODE_SAMPLE
             return true;
         }
 
-        if (null === $typo3ConfVars->dim) {
+        if (! $typo3ConfVars->dim instanceof Expr) {
             return true;
         }
 
@@ -181,6 +182,6 @@ CODE_SAMPLE
             return true;
         }
 
-        return null === $node->dim;
+        return ! $node->dim instanceof Expr;
     }
 }

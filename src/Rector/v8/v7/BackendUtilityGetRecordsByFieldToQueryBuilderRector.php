@@ -166,14 +166,14 @@ CODE_SAMPLE
 
     private function isVariable(?Arg $queryBuilderArgument): bool
     {
-        return null !== $queryBuilderArgument && $queryBuilderArgument->value instanceof Variable;
+        return $queryBuilderArgument instanceof Arg && $queryBuilderArgument->value instanceof Variable;
     }
 
     private function extractQueryBuilderVariableName(StaticCall $staticCall): string
     {
         $queryBuilderArgument = $staticCall->getArgs()[8] ?? null;
         $queryBuilderVariableName = 'queryBuilder';
-        if (null !== $queryBuilderArgument && $this->isVariable($queryBuilderArgument)) {
+        if ($queryBuilderArgument instanceof Arg && $this->isVariable($queryBuilderArgument)) {
             $queryBuilderVariableName = $this->getName($queryBuilderArgument->value);
         }
 

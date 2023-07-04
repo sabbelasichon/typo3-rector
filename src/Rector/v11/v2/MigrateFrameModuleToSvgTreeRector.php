@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v2;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
@@ -114,11 +116,11 @@ CODE_SAMPLE
     private function migrateNavigationFrameModule(Array_ $moduleConfigArray): bool
     {
         foreach ($moduleConfigArray->items as $item) {
-            if (null === $item) {
+            if (! $item instanceof ArrayItem) {
                 continue;
             }
 
-            if (null === $item->key) {
+            if (! $item->key instanceof Expr) {
                 continue;
             }
 

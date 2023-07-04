@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
@@ -56,7 +57,7 @@ final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends Abstr
                 continue;
             }
 
-            if (null === $columnItem->key) {
+            if (! $columnItem->key instanceof Expr) {
                 continue;
             }
 
@@ -71,7 +72,7 @@ final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends Abstr
             }
 
             foreach ($columnItem->value->items as $columnItemConfiguration) {
-                if (null === $columnItemConfiguration) {
+                if (! $columnItemConfiguration instanceof ArrayItem) {
                     continue;
                 }
 
@@ -88,7 +89,7 @@ final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends Abstr
                         continue;
                     }
 
-                    if (null === $configItemValue->key) {
+                    if (! $configItemValue->key instanceof Expr) {
                         continue;
                     }
 
@@ -105,7 +106,7 @@ final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends Abstr
                             continue;
                         }
 
-                        if (null === $behaviourConfigurationItem->key) {
+                        if (! $behaviourConfigurationItem->key instanceof Expr) {
                             continue;
                         }
 

@@ -131,7 +131,7 @@ final class InitializeArgumentsClassMethodFactory
     private function findOrCreateInitializeArgumentsClassMethod(Class_ $class): ClassMethod
     {
         $classMethod = $class->getMethod(self::METHOD_NAME);
-        if (null !== $classMethod) {
+        if ($classMethod instanceof ClassMethod) {
             return $classMethod;
         }
 
@@ -241,7 +241,7 @@ final class InitializeArgumentsClassMethodFactory
             return $this->resolveParamType($param->type);
         }
 
-        if (null !== $paramTagValueNode && $paramTagValueNode->type instanceof IdentifierTypeNode) {
+        if ($paramTagValueNode instanceof ParamTagValueNode && $paramTagValueNode->type instanceof IdentifierTypeNode) {
             return $paramTagValueNode->type->name;
         }
 
@@ -268,7 +268,7 @@ final class InitializeArgumentsClassMethodFactory
             return $paramTypeNode->__toString();
         }
 
-        if (null === $paramTagValueNode) {
+        if (! $paramTagValueNode instanceof ParamTagValueNode) {
             return self::MIXED;
         }
 

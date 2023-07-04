@@ -23,7 +23,7 @@ trait TcaHelperTrait
 
     protected function extractArrayItemByKey(?Node $node, string $key): ?ArrayItem
     {
-        if (null === $node) {
+        if (! $node instanceof Node) {
             return null;
         }
 
@@ -36,7 +36,7 @@ trait TcaHelperTrait
                 continue;
             }
 
-            if (null === $item->key) {
+            if (! $item->key instanceof Expr) {
                 continue;
             }
 
@@ -51,7 +51,7 @@ trait TcaHelperTrait
 
     protected function extractSubArrayByKey(?Node $node, string $key): ?Array_
     {
-        if (null === $node) {
+        if (! $node instanceof Node) {
             return null;
         }
 
@@ -83,7 +83,7 @@ trait TcaHelperTrait
                 continue;
             }
 
-            if (null === $configItemValue->key) {
+            if (! $configItemValue->key instanceof Expr) {
                 continue;
             }
 
@@ -102,7 +102,7 @@ trait TcaHelperTrait
                 continue;
             }
 
-            if (null === $configItemValue->key) {
+            if (! $configItemValue->key instanceof Expr) {
                 continue;
             }
 
@@ -196,7 +196,7 @@ trait TcaHelperTrait
                 continue;
             }
 
-            if (null === $columnConfig->key) {
+            if (! $columnConfig->key instanceof Expr) {
                 continue;
             }
 
@@ -216,7 +216,7 @@ trait TcaHelperTrait
                     continue;
                 }
 
-                if (null === $configValue->key) {
+                if (! $configValue->key instanceof Expr) {
                     continue;
                 }
 

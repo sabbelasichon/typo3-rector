@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 use PhpParser\Comment;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
+use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\UnionType;
@@ -112,7 +113,7 @@ CODE_SAMPLE
 
     private function shouldSkip(Class_ $class): bool
     {
-        if (null === $class->extends) {
+        if (! $class->extends instanceof Name) {
             return true;
         }
 

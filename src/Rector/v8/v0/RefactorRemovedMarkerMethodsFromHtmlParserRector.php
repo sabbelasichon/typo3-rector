@@ -68,7 +68,7 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends AbstractRec
         }
 
         $migratedNode = $this->migrateMethodsToMarkerBasedTemplateService($node);
-        if (null !== $migratedNode) {
+        if ($migratedNode instanceof Node) {
             return $migratedNode;
         }
 

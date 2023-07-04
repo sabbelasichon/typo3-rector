@@ -44,7 +44,7 @@ final class RenderTypeFlexFormRector implements FlexFormRectorInterface
 
             $renderType = $renderTypes->item(0);
 
-            if (null !== $renderType) {
+            if ($renderType instanceof \DOMElement) {
                 continue;
             }
 
@@ -68,11 +68,11 @@ final class RenderTypeFlexFormRector implements FlexFormRectorInterface
 
             $renderType = $domDocument->createElement('renderType', $renderTypeName);
 
-            if (null === $insertBefore->parentNode) {
+            if (! $insertBefore->parentNode instanceof \DOMNode) {
                 continue;
             }
 
-            if (null === $insertBefore->nextSibling) {
+            if (! $insertBefore->nextSibling instanceof \DOMNode) {
                 continue;
             }
 

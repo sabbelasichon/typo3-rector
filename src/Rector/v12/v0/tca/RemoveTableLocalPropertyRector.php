@@ -20,7 +20,7 @@ final class RemoveTableLocalPropertyRector extends AbstractRector
 {
     public function getNodeTypes(): array
     {
-        return [Expr\ArrayItem::class];
+        return [ArrayItem::class];
     }
 
     /**
@@ -28,7 +28,7 @@ final class RemoveTableLocalPropertyRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (null === $node->key) {
+        if (! $node->key instanceof Expr) {
             return null;
         }
 
@@ -41,11 +41,11 @@ final class RemoveTableLocalPropertyRector extends AbstractRector
         }
 
         foreach ($node->value->items as $item) {
-            if (null === $item) {
+            if (! $item instanceof ArrayItem) {
                 continue;
             }
 
-            if (null === $item->key) {
+            if (! $item->key instanceof Expr) {
                 continue;
             }
 
