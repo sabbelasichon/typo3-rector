@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
@@ -62,7 +63,7 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                 continue;
             }
 
-            if (null === $fieldValue->key) {
+            if (! $fieldValue->key instanceof Expr) {
                 continue;
             }
 
@@ -71,7 +72,7 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
             }
 
             foreach ($fieldValue->value->items as $configValue) {
-                if (null === $configValue) {
+                if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
 
@@ -92,7 +93,7 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                         continue;
                     }
 
-                    if (null === $configItemValue->key) {
+                    if (! $configItemValue->key instanceof Expr) {
                         continue;
                     }
 
@@ -112,8 +113,11 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                         } elseif (($selectIconsArray = $this->extractSubArrayByKey(
                             $fieldWizard->value,
                             'selectIcons'
-                        )) !== null) {
-                            if (null === $this->extractArrayItemByKey($selectIconsArray, self::DISABLED)) {
+                        )) instanceof Array_) {
+                            if (! $this->extractArrayItemByKey(
+                                $selectIconsArray,
+                                self::DISABLED
+                            ) instanceof ArrayItem) {
                                 $selectIconsArray->items[] = new ArrayItem(
                                     $this->nodeFactory->createFalse(),
                                     new String_(self::DISABLED)
@@ -188,7 +192,7 @@ CODE_SAMPLE
 
     private function shouldAddFieldWizard(ArrayItem $configValueArrayItem): bool
     {
-        if (null === $configValueArrayItem->key) {
+        if (! $configValueArrayItem->key instanceof Expr) {
             return false;
         }
 

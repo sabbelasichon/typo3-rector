@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\StaticCall;
@@ -64,7 +65,7 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
                 continue;
             }
 
-            if (null === $item->key) {
+            if (! $item->key instanceof Expr) {
                 continue;
             }
 

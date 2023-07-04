@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v7\v5;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -63,7 +64,7 @@ CODE_SAMPLE
         }
 
         $item = $this->extractArrayItemByKey($configArray, 'iconsInOptionTags');
-        if (null !== $item) {
+        if ($item instanceof ArrayItem) {
             $this->removeNode($item);
             $this->hasAstBeenChanged = true;
         }

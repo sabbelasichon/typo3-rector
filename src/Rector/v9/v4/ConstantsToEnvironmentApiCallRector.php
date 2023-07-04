@@ -85,13 +85,13 @@ final class ConstantsToEnvironmentApiCallRector extends AbstractRector
 
         $property = $this->betterNodeFinder->findParentType($node, Property::class);
 
-        if (null !== $property) {
+        if ($property instanceof Property) {
             return null;
         }
 
         $constant = $this->betterNodeFinder->findParentType($node, Const_::class);
 
-        if (null !== $constant) {
+        if ($constant instanceof Const_) {
             return null;
         }
 

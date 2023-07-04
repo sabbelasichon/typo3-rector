@@ -68,8 +68,19 @@ final class Typo3SetList
 
     /**
      * @var string
+     * @deprecated Use TCA_114 instead.
      */
     public const TCA_110 = __DIR__ . '/../../config/v11/tca-114.php';
+
+    /**
+     * @var string
+     */
+    public const TCA_113 = __DIR__ . '/../../config/v11/tca-113.php';
+
+    /**
+     * @var string
+     */
+    public const TCA_114 = __DIR__ . '/../../config/v11/tca-114.php';
 
     /**
      * @var string

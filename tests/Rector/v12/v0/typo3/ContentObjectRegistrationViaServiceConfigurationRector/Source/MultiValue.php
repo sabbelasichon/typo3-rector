@@ -6,5 +6,8 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ContentObjectRegistrationVi
 
 final class MultiValue
 {
+    /**
+     * @var string
+     */
     public const CONTENT_OBJECT_NAME = 'my_object';
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\General;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\ArrayItem;
@@ -80,7 +81,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
             return null;
         }
 
-        if (null === $node->var->dim) {
+        if (! $node->var->dim instanceof Expr) {
             return null;
         }
 
@@ -95,7 +96,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
         $nodeHasChanged = false;
         foreach ($node->expr->items as $item) {
             /** @var ArrayItem $item */
-            if (null === $item->key) {
+            if (! $item->key instanceof Expr) {
                 continue;
             }
 
@@ -125,7 +126,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
 
             foreach ($item->value->items as $constraintItem) {
                 /** @var ArrayItem $constraintItem */
-                if (null === $constraintItem->key) {
+                if (! $constraintItem->key instanceof Expr) {
                     continue;
                 }
 
@@ -143,7 +144,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
 
                 foreach ($constraintItem->value->items as $dependsItem) {
                     /** @var ArrayItem $dependsItem */
-                    if (null === $dependsItem->key) {
+                    if (! $dependsItem->key instanceof Expr) {
                         continue;
                     }
 
@@ -252,7 +253,7 @@ CODE_SAMPLE
 
     private function propertyCanBeRemoved(ArrayItem $item): bool
     {
-        if (null === $item->key) {
+        if (! $item->key instanceof Expr) {
             return false;
         }
 

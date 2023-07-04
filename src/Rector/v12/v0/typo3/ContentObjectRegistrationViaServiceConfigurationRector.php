@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PHPStan\Reflection\ReflectionProvider;
@@ -76,7 +77,7 @@ final class ContentObjectRegistrationViaServiceConfigurationRector extends Abstr
             return null;
         }
 
-        if (! $node->var->dim instanceof Node\Expr) {
+        if (! $node->var->dim instanceof Expr) {
             return null;
         }
 
@@ -157,7 +158,7 @@ CODE_SAMPLE
             return true;
         }
 
-        if (null === $node->var->var->dim) {
+        if (! $node->var->var->dim instanceof Expr) {
             return true;
         }
 
@@ -169,15 +170,11 @@ CODE_SAMPLE
             return true;
         }
 
-        if (null === $node->var->var->var->dim) {
+        if (! $node->var->var->var->dim instanceof Expr) {
             return true;
         }
 
-        if (! $this->valueResolver->isValue($node->var->var->var->dim, 'FE')) {
-            return true;
-        }
-
-        return false;
+        return ! $this->valueResolver->isValue($node->var->var->var->dim, 'FE');
     }
 
     /**

@@ -79,7 +79,7 @@ CODE_SAMPLE
         }
 
         $exprArrayItemToChange = $this->extractArrayItemByKey($configArray, 'items');
-        if (null === $exprArrayItemToChange) {
+        if (! $exprArrayItemToChange instanceof ArrayItem) {
             return;
         }
 
@@ -96,27 +96,43 @@ CODE_SAMPLE
                 continue;
             }
 
-            if (array_key_exists(0, $exprArrayItem->value->items) && null !== $exprArrayItem->value->items[0]) {
+            if (array_key_exists(
+                0,
+                $exprArrayItem->value->items
+            ) && $exprArrayItem->value->items[0] instanceof ArrayItem) {
                 $exprArrayItem->value->items[0]->key = new String_('label');
                 $this->hasAstBeenChanged = true;
             }
+
             if (! $this->isConfigType($configArray, 'check') && array_key_exists(
                 1,
                 $exprArrayItem->value->items
-            ) && null !== $exprArrayItem->value->items[1]) {
+            ) && $exprArrayItem->value->items[1] instanceof ArrayItem) {
                 $exprArrayItem->value->items[1]->key = new String_('value');
                 $this->hasAstBeenChanged = true;
             }
+
             if ($this->isConfigType($configArray, 'select')) {
-                if (array_key_exists(2, $exprArrayItem->value->items) && null !== $exprArrayItem->value->items[2]) {
+                if (array_key_exists(
+                    2,
+                    $exprArrayItem->value->items
+                ) && $exprArrayItem->value->items[2] instanceof ArrayItem) {
                     $exprArrayItem->value->items[2]->key = new String_('icon');
                     $this->hasAstBeenChanged = true;
                 }
-                if (array_key_exists(3, $exprArrayItem->value->items) && null !== $exprArrayItem->value->items[3]) {
+
+                if (array_key_exists(
+                    3,
+                    $exprArrayItem->value->items
+                ) && $exprArrayItem->value->items[3] instanceof ArrayItem) {
                     $exprArrayItem->value->items[3]->key = new String_('group');
                     $this->hasAstBeenChanged = true;
                 }
-                if (array_key_exists(4, $exprArrayItem->value->items) && null !== $exprArrayItem->value->items[4]) {
+
+                if (array_key_exists(
+                    4,
+                    $exprArrayItem->value->items
+                ) && $exprArrayItem->value->items[4] instanceof ArrayItem) {
                     $exprArrayItem->value->items[4]->key = new String_('description');
                     $this->hasAstBeenChanged = true;
                 }

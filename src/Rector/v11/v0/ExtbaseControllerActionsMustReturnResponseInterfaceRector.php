@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
@@ -79,7 +80,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
             // If it is inside a closure do nothing
             $closure = $this->betterNodeFinder->findParentType($return, Closure::class);
 
-            if (null !== $closure) {
+            if ($closure instanceof Closure) {
                 continue;
             }
 
@@ -250,7 +251,7 @@ CODE_SAMPLE
         $responseObjectType = new ObjectType('Psr\Http\Message\ResponseInterface');
 
         foreach ($returns as $return) {
-            if (null === $return->expr) {
+            if (! $return->expr instanceof Expr) {
                 continue;
             }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v4;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
@@ -96,7 +97,7 @@ CODE_SAMPLE
         $lengthValue = 10;
         if (isset($staticCall->args[1])) {
             $lengthValue = $staticCall->args[1]->value;
-        } elseif ($classMethod instanceof ClassMethod && null !== $classMethod->params[1]->default) {
+        } elseif ($classMethod instanceof ClassMethod && $classMethod->params[1]->default instanceof Expr) {
             $lengthValue = $this->valueResolver->getValue($classMethod->params[1]->default);
         }
 

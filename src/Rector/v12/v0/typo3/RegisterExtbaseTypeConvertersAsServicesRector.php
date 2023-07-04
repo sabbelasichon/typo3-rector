@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
@@ -179,7 +180,7 @@ CODE_SAMPLE
 
             $value = null;
             foreach ($returns as $return) {
-                if (null === $return->expr) {
+                if (! $return->expr instanceof Expr) {
                     continue;
                 }
 

@@ -136,7 +136,7 @@ CODE_SAMPLE
 
         if ($this->isNames($node->name, ['pageUnavailableHandler', 'pageNotFoundHandler', 'pageErrorHandler'])) {
             $newNode = $this->refactorPageErrorHandlerIfPossible($node);
-            if (null !== $newNode) {
+            if ($newNode instanceof Node) {
                 $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
                 $this->removeNodeOrParentNode($node);
             }

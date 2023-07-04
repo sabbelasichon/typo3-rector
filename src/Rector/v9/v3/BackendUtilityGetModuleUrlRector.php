@@ -79,7 +79,7 @@ CODE_SAMPLE
     private function createUriBuilderCall(Arg $firstArgument, ?Arg $secondArgument): MethodCall
     {
         $buildUriArguments = [$firstArgument->value];
-        if (null !== $secondArgument) {
+        if ($secondArgument instanceof Arg) {
             $buildUriArguments[] = $secondArgument->value;
         }
 
