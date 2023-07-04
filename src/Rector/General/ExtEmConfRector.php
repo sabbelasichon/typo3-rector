@@ -13,7 +13,7 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
@@ -31,11 +31,6 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
      * @var string
      */
     public const ADDITIONAL_VALUES_TO_BE_REMOVED = 'additional_values_to_be_removed';
-
-    /**
-     * @var string[]
-     */
-    private const PROPERTIES_TO_BOOLEAN = ['clearCacheOnLoad', 'uploadfolder'];
 
     private string $targetTypo3VersionConstraint = '';
 
@@ -59,6 +54,10 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
         'modify_tables',
         'CGLcompliance',
         'CGLcompliance_note',
+        'clearCacheOnLoad',
+        'clearcacheonload',
+        'createDirs',
+        'uploadfolder',
     ];
 
     /**
@@ -101,30 +100,12 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
                 continue;
             }
 
-            if ($this->propertyFixString($item)) {
-                $item->key = new String_('clearCacheOnLoad');
-
-                $nodeHasChanged = true;
-            }
-
             if ($this->propertyCanBeRemoved($item)) {
                 $this->removeNode($item);
 
                 $nodeHasChanged = true;
 
                 continue;
-            }
-
-            if ($this->valueResolver->isValues($item->key, self::PROPERTIES_TO_BOOLEAN)) {
-                $nodeHasChanged = true;
-
-                if (! (bool) $this->valueResolver->getValue($item->value)) {
-                    $this->removeNode($item);
-
-                    continue;
-                }
-
-                $item->value = $this->nodeFactory->createTrue();
             }
 
             if ('' === $this->targetTypo3VersionConstraint) {
@@ -185,7 +166,8 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor file ext_emconf.php', [
-            new ConfiguredCodeSample(<<<'CODE_SAMPLE'
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Package Extension',
     'description' => 'Package Extension',
@@ -226,7 +208,8 @@ $EM_CONF[$_EXTKEY] = [
     '_md5_values_when_last_written' => 'a:0:{}',
 ];
 CODE_SAMPLE
-                , <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Package Extension',
     'description' => 'Package Extension',
@@ -254,9 +237,7 @@ $EM_CONF[$_EXTKEY] = [
     '_md5_values_when_last_written' => 'a:0:{}',
 ];
 CODE_SAMPLE
-                , [
-                    self::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
-                ]),
+            ),
         ]);
     }
 
@@ -277,14 +258,5 @@ CODE_SAMPLE
         }
 
         return $this->valueResolver->isValues($item->key, $this->valuesToBeRemoved);
-    }
-
-    private function propertyFixString(ArrayItem $item): bool
-    {
-        if (! $item->key instanceof Expr) {
-            return false;
-        }
-
-        return $this->valueResolver->isValue($item->key, 'clearcacheonload');
     }
 }
