@@ -9,6 +9,7 @@ use PhpParser\Node\Attribute;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\ClassConstFetch;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
@@ -38,20 +39,12 @@ final class ExtbaseValidateAttributeDecorator implements AttributeDecoratorInter
         $newArguments = new Array_();
 
         foreach ($attribute->args as $arg) {
-            if (null === $arg->name) {
-                $key = new String_('validator');
-            } else {
-                $key = new String_($arg->name->toString());
-            }
+            $key = $arg->name instanceof Identifier ? new String_($arg->name->toString()) : new String_('validator');
 
             if ($this->valueResolver->isValue($key, 'validator')) {
                 $className = ltrim($this->valueResolver->getValue($arg->value), '\\');
                 $classConstant = $this->stringClassNameToClassConstantRector->refactor(new String_($className));
-                if ($classConstant instanceof ClassConstFetch) {
-                    $value = $classConstant;
-                } else {
-                    $value = $arg->value;
-                }
+                $value = $classConstant instanceof ClassConstFetch ? $classConstant : $arg->value;
             } else {
                 $value = $arg->value;
             }

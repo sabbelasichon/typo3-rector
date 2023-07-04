@@ -61,7 +61,7 @@ CODE_SAMPLE
         }
 
         $toRemoveArrayItem = $this->extractArrayItemByKey($configArray, 'enableMultiSelectFilterTextfield');
-        if (! $toRemoveArrayItem instanceof ArrayItem || null === $toRemoveArrayItem->value) {
+        if (! $toRemoveArrayItem instanceof ArrayItem || ! $toRemoveArrayItem->value instanceof Expr) {
             return;
         }
 

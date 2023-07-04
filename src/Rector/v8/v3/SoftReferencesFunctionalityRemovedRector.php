@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v3;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
@@ -58,7 +59,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                 continue;
             }
 
-            if (null === $columnItem->key) {
+            if (! $columnItem->key instanceof Expr) {
                 continue;
             }
 
@@ -67,11 +68,11 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
             }
 
             foreach ($columnItem->value->items as $configValue) {
-                if (null === $configValue) {
+                if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
 
-                if (null === $configValue->key) {
+                if (! $configValue->key instanceof Expr) {
                     continue;
                 }
 
@@ -85,11 +86,11 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                 }
 
                 foreach ($configValue->value->items as $configItemValue) {
-                    if (null === $configItemValue) {
+                    if (! $configItemValue instanceof ArrayItem) {
                         continue;
                     }
 
-                    if (null === $configItemValue->key) {
+                    if (! $configItemValue->key instanceof Expr) {
                         continue;
                     }
 

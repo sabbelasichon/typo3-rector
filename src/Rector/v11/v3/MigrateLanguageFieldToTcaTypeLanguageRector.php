@@ -48,7 +48,7 @@ final class MigrateLanguageFieldToTcaTypeLanguageRector extends AbstractTcaRecto
 
         // we found a tca definition of a full table. Process it as a whole:
         $columnsArray = $this->extractSubArrayByKey($node, 'columns');
-        if (null !== $columnsArray) {
+        if ($columnsArray instanceof Array_) {
             $this->refactorColumnList($columnsArray);
         }
 

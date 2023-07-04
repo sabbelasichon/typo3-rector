@@ -68,7 +68,7 @@ CODE_SAMPLE
         $fileFolderConfig = new Array_();
 
         $fileFolder = $this->extractArrayItemByKey($configArray, 'fileFolder');
-        if (null !== $fileFolder) {
+        if ($fileFolder instanceof ArrayItem) {
             $fileFolderConfig->items[] = new ArrayItem($fileFolder->value, new String_('folder'));
             $this->removeNode($fileFolder);
             $this->hasAstBeenChanged = true;
@@ -77,7 +77,7 @@ CODE_SAMPLE
         if ($this->hasKey($configArray, 'fileFolder_extList')) {
             $fileFolderExtList = $this->extractArrayItemByKey($configArray, 'fileFolder_extList');
 
-            if (null !== $fileFolderExtList) {
+            if ($fileFolderExtList instanceof ArrayItem) {
                 $fileFolderConfig->items[] = new ArrayItem($fileFolderExtList->value, new String_('allowedExtensions'));
                 $this->removeNode($fileFolderExtList);
                 $this->hasAstBeenChanged = true;
@@ -87,7 +87,7 @@ CODE_SAMPLE
         if ($this->hasKey($configArray, 'fileFolder_recursions')) {
             $fileFolderRecursions = $this->extractArrayItemByKey($configArray, 'fileFolder_recursions');
 
-            if (null !== $fileFolderRecursions) {
+            if ($fileFolderRecursions instanceof ArrayItem) {
                 $fileFolderConfig->items[] = new ArrayItem($fileFolderRecursions->value, new String_('depth'));
                 $this->removeNode($fileFolderRecursions);
                 $this->hasAstBeenChanged = true;

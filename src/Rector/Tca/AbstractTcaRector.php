@@ -134,7 +134,7 @@ abstract class AbstractTcaRector extends AbstractRector
         $columnsArray = $this->extractSubArrayByKey($possibleTcaArray, 'columns');
         $ctrl = $this->extractArrayItemByKey($possibleTcaArray, 'ctrl');
 
-        return null !== $columnsArray && null !== $ctrl;
+        return $columnsArray instanceof Array_ && $ctrl instanceof ArrayItem;
     }
 
     /**
@@ -153,7 +153,7 @@ abstract class AbstractTcaRector extends AbstractRector
         }
 
         $typeNode = $this->extractArrayItemByKey($configNode->value, self::TYPE);
-        return null !== $typeNode;
+        return $typeNode instanceof ArrayItem;
     }
 
     /**
@@ -220,7 +220,7 @@ abstract class AbstractTcaRector extends AbstractRector
                 break;
             }
 
-            if (null === $configNode->key || $this->valueResolver->getValue($configNode->key) === $key) {
+            if (! $configNode->key instanceof Expr || $this->valueResolver->getValue($configNode->key) === $key) {
                 break;
             }
 

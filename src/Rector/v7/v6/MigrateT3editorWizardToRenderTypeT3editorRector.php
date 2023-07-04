@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v7\v6;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
@@ -114,7 +115,7 @@ CODE_SAMPLE
                 continue;
             }
 
-            if (null === $fieldValue->key) {
+            if (! $fieldValue->key instanceof Expr) {
                 continue;
             }
 
@@ -129,7 +130,7 @@ CODE_SAMPLE
             }
 
             foreach ($fieldValue->value->items as $configValue) {
-                if (null === $configValue) {
+                if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
 
@@ -142,7 +143,7 @@ CODE_SAMPLE
                         continue;
                     }
 
-                    if (null === $configItemValue->key) {
+                    if (! $configItemValue->key instanceof Expr) {
                         continue;
                     }
 
@@ -164,7 +165,7 @@ CODE_SAMPLE
                             continue;
                         }
 
-                        if (null === $wizardItemValue->key) {
+                        if (! $wizardItemValue->key instanceof Expr) {
                             continue;
                         }
 
@@ -180,7 +181,7 @@ CODE_SAMPLE
                                 continue;
                             }
 
-                            if (null === $wizardItemSubValue->key) {
+                            if (! $wizardItemSubValue->key instanceof Expr) {
                                 continue;
                             }
 
@@ -206,7 +207,7 @@ CODE_SAMPLE
                                         continue;
                                     }
 
-                                    if (null === $paramsValue->key) {
+                                    if (! $paramsValue->key instanceof Expr) {
                                         continue;
                                     }
 
@@ -224,7 +225,7 @@ CODE_SAMPLE
                                 'renderType'
                             ));
 
-                            if (null !== $format) {
+                            if ($format instanceof Expr) {
                                 $configValue->value->items[] = new ArrayItem($format, new String_('format'));
                             }
 

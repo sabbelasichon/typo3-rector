@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\Experimental;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\MethodCall;
@@ -47,7 +48,7 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
 
         $paramsToCheck = [];
         foreach ($node->getParams() as $param) {
-            if (null === $param->default) {
+            if (! $param->default instanceof Expr) {
                 continue;
             }
 

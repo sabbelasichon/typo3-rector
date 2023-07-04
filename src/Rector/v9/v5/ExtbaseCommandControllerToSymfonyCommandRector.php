@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
 use Nette\Utils\Strings;
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name;
@@ -388,8 +389,8 @@ CODE_SAMPLE
 
             $inputArguments[$methodParamName] = [
                 'name' => $methodParamName,
-                'description' => null !== $paramTag ? $paramTag->description : '',
-                'mode' => null !== $methodParameter->default ? InputArgument::OPTIONAL : InputArgument::REQUIRED,
+                'description' => $paramTag instanceof ParamTagValueNode ? $paramTag->description : '',
+                'mode' => $methodParameter->default instanceof Expr ? InputArgument::OPTIONAL : InputArgument::REQUIRED,
                 'default' => $methodParameter->default,
             ];
         }

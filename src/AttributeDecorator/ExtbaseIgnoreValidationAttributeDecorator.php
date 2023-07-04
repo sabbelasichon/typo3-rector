@@ -8,6 +8,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
 use Rector\Php80\Contract\AttributeDecoratorInterface;
 
@@ -23,11 +24,7 @@ final class ExtbaseIgnoreValidationAttributeDecorator implements AttributeDecora
         $newArguments = new Array_();
 
         foreach ($attribute->args as $arg) {
-            if (null === $arg->name) {
-                $key = new String_('value');
-            } else {
-                $key = new String_($arg->name->toString());
-            }
+            $key = $arg->name instanceof Identifier ? new String_($arg->name->toString()) : new String_('value');
 
             $newArguments->items[] = new ArrayItem($arg->value, $key);
         }

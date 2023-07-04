@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v10\v2;
 
 use PhpParser\Node;
+use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Core\Rector\AbstractRector;
@@ -30,7 +31,7 @@ final class UseActionControllerRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (null === $node->extends) {
+        if (! $node->extends instanceof Name) {
             return null;
         }
 

@@ -157,7 +157,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return null !== $class->getMethod(self::SET_CONFIGURATION);
+        return $class->getMethod(self::SET_CONFIGURATION) instanceof ClassMethod;
     }
 
     private function createSetConfigurationMethod(): ClassMethod

@@ -104,7 +104,7 @@ final class MoveForeignTypesToOverrideChildTcaRector extends AbstractRector
                 continue;
             }
 
-            $foreignSelector = null !== $foreignSelectorArrayItem ? $foreignSelectorArrayItem->value : null;
+            $foreignSelector = $foreignSelectorArrayItem instanceof ArrayItem ? $foreignSelectorArrayItem->value : null;
 
             if (! $overrideChildTcaArray instanceof Array_) {
                 $overrideChildTcaArray = new Array_();
@@ -113,13 +113,13 @@ final class MoveForeignTypesToOverrideChildTcaRector extends AbstractRector
                 ));
             }
 
-            if (null !== $foreignTypesArrayItem && $foreignTypesArrayItem->value instanceof Array_) {
+            if ($foreignTypesArrayItem instanceof ArrayItem && $foreignTypesArrayItem->value instanceof Array_) {
                 $this->injectOverrideChildTca($overrideChildTcaArray, 'types', $foreignTypesArrayItem->value);
                 $this->removeNode($foreignTypesArrayItem);
                 $hasAstBeenChanged = true;
             }
 
-            if (null !== $foreignSelectorOverrideArrayItem && $foreignSelectorOverrideArrayItem->value instanceof Array_ && $foreignSelector instanceof String_) {
+            if ($foreignSelectorOverrideArrayItem instanceof ArrayItem && $foreignSelectorOverrideArrayItem->value instanceof Array_ && $foreignSelector instanceof String_) {
                 $columnItem = new Array_([
                     new ArrayItem($foreignSelectorOverrideArrayItem->value, new String_($foreignSelector->value)),
                 ]);
@@ -128,7 +128,7 @@ final class MoveForeignTypesToOverrideChildTcaRector extends AbstractRector
                 $hasAstBeenChanged = true;
             }
 
-            if (null !== $foreignRecordDefaultsArrayItem && $foreignRecordDefaultsArrayItem->value instanceof Array_) {
+            if ($foreignRecordDefaultsArrayItem instanceof ArrayItem && $foreignRecordDefaultsArrayItem->value instanceof Array_) {
                 $newOverrideColumns = new Array_();
                 foreach ($foreignRecordDefaultsArrayItem->value->items as $item) {
                     if (! $item instanceof ArrayItem) {

@@ -125,7 +125,7 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
         }
 
         $replyTo = isset($node->args[5]) ? $node->args[5]->value : null;
-        if (null !== $replyTo) {
+        if ($replyTo instanceof Expr) {
             $this->nodesToAddCollector->addNodeBeforeNode($this->parsedReplyTo($replyTo), $node);
             $this->nodesToAddCollector->addNodeBeforeNode($this->methodReplyTo(), $node);
         }

@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v10\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\Assign;
@@ -124,7 +125,7 @@ CODE_SAMPLE
 
     private function refactorArrayItemOption(ArrayItem $parent, ClassConstFetch $node): void
     {
-        if (null === $parent->key || ! $this->valueResolver->isValue($parent->key, self::FORMAT)) {
+        if (! $parent->key instanceof Expr || ! $this->valueResolver->isValue($parent->key, self::FORMAT)) {
             return;
         }
 
@@ -143,7 +144,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (null === $parent->var->dim || ! $this->valueResolver->isValue($parent->var->dim, self::FORMAT)) {
+        if (! $parent->var->dim instanceof Expr || ! $this->valueResolver->isValue($parent->var->dim, self::FORMAT)) {
             return;
         }
 
@@ -162,7 +163,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (null === $parent->left->dim || ! $this->valueResolver->isValue($parent->left->dim, self::FORMAT)) {
+        if (! $parent->left->dim instanceof Expr || ! $this->valueResolver->isValue($parent->left->dim, self::FORMAT)) {
             return;
         }
 
