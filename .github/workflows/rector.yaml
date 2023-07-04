@@ -32,13 +32,18 @@ jobs:
                 if: github.event.pull_request.head.repo.full_name == github.repository
                 uses: actions/checkout@v3
                 with:
+                    repository: ${{ github.event.pull_request.head.repo.full_name }}
+                    ref: ${{ github.event.pull_request.head.ref }}
                     # Must be used to trigger workflow after push
                     token: ${{ secrets.ACCESS_TOKEN }}
 
-            # in forks, the token is not available - so we cannot us eit
+            # in forks, the token is not available - so we cannot use eit
             -
                 if: github.event.pull_request.head.repo.full_name != github.repository
                 uses: actions/checkout@v3
+                with:
+                    repository: ${{ github.event.pull_request.head.repo.full_name }}
+                    ref: ${{ github.event.pull_request.head.ref }}
 
             -
                 uses: shivammathur/setup-php@v2
