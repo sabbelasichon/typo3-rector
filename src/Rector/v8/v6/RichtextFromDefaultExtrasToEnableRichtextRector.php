@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
@@ -72,7 +73,7 @@ final class RichtextFromDefaultExtrasToEnableRichtextRector extends AbstractRect
                 continue;
             }
 
-            if (null === $typesItem->key) {
+            if (! $typesItem->key instanceof Expr) {
                 continue;
             }
 
@@ -81,11 +82,11 @@ final class RichtextFromDefaultExtrasToEnableRichtextRector extends AbstractRect
             }
 
             foreach ($typesItem->value->items as $configValue) {
-                if (null === $configValue) {
+                if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
 
-                if (null === $configValue->key) {
+                if (! $configValue->key instanceof Expr) {
                     continue;
                 }
 
@@ -142,7 +143,7 @@ CODE_SAMPLE
 
     private function isRichtextInDefaultExtras(ArrayItem $configValueArrayItem): bool
     {
-        if (null === $configValueArrayItem->key) {
+        if (! $configValueArrayItem->key instanceof Expr) {
             return false;
         }
 
@@ -166,7 +167,7 @@ CODE_SAMPLE
                 continue;
             }
 
-            if (null === $columnItem->key) {
+            if (! $columnItem->key instanceof Expr) {
                 continue;
             }
 
@@ -176,7 +177,7 @@ CODE_SAMPLE
 
             $hasRichTextConfiguration = false;
             foreach ($columnItem->value->items as $configValue) {
-                if (null === $configValue) {
+                if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
 
@@ -193,11 +194,11 @@ CODE_SAMPLE
                 $configurationArray = null;
 
                 foreach ($columnItem->value->items as $configValue) {
-                    if (null === $configValue) {
+                    if (! $configValue instanceof ArrayItem) {
                         continue;
                     }
 
-                    if (null === $configValue->key) {
+                    if (! $configValue->key instanceof Expr) {
                         continue;
                     }
 
@@ -219,14 +220,20 @@ CODE_SAMPLE
                 }
 
                 if ($configurationArray instanceof ArrayItem && $configurationArray->value instanceof Array_) {
-                    if (null === $this->extractArrayItemByKey($configurationArray->value, 'enableRichtext')) {
+                    if (! $this->extractArrayItemByKey(
+                        $configurationArray->value,
+                        'enableRichtext'
+                    ) instanceof ArrayItem) {
                         $configurationArray->value->items[] = new ArrayItem(
                             $this->nodeFactory->createTrue(),
                             new String_('enableRichtext')
                         );
                     }
 
-                    if (null === $this->extractArrayItemByKey($configurationArray->value, 'richtextConfiguration')) {
+                    if (! $this->extractArrayItemByKey(
+                        $configurationArray->value,
+                        'richtextConfiguration'
+                    ) instanceof ArrayItem) {
                         $configurationArray->value->items[] = new ArrayItem(new String_('default'), new String_(
                             'richtextConfiguration'
                         ));

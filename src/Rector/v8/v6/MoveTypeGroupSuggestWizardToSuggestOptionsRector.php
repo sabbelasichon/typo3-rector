@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\ConstFetch;
@@ -196,7 +197,7 @@ CODE_SAMPLE
             }
 
             $typeItem = $this->extractArrayItemByKey($wizardConfig, self::TYPE);
-            if (null !== $typeItem) {
+            if ($typeItem instanceof ArrayItem) {
                 $this->removeNode($typeItem);
             }
 
@@ -219,8 +220,8 @@ CODE_SAMPLE
     {
         $nodeEmpty = true;
         foreach ($array->items as $item) {
-            if (null !== $item && ! $this->nodesToRemoveCollector->isNodeRemoved($item)) {
-                if (null === $item->key) {
+            if ($item instanceof ArrayItem && ! $this->nodesToRemoveCollector->isNodeRemoved($item)) {
+                if (! $item->key instanceof Expr) {
                     continue;
                 }
 

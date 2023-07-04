@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v7;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
@@ -56,7 +57,7 @@ final class RemoveConfigMaxFromInputDateTimeFieldsRector extends AbstractRector
                 continue;
             }
 
-            if (null === $columnItem->key) {
+            if (! $columnItem->key instanceof Expr) {
                 continue;
             }
 
@@ -65,11 +66,11 @@ final class RemoveConfigMaxFromInputDateTimeFieldsRector extends AbstractRector
             }
 
             foreach ($columnItem->value->items as $configValue) {
-                if (null === $configValue) {
+                if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
 
-                if (null === $configValue->key) {
+                if (! $configValue->key instanceof Expr) {
                     continue;
                 }
 
@@ -86,7 +87,7 @@ final class RemoveConfigMaxFromInputDateTimeFieldsRector extends AbstractRector
                         continue;
                     }
 
-                    if (null === $configItemValue->key) {
+                    if (! $configItemValue->key instanceof Expr) {
                         continue;
                     }
 
@@ -150,7 +151,7 @@ CODE_SAMPLE
                 continue;
             }
 
-            if (null === $configItemValue->key) {
+            if (! $configItemValue->key instanceof Expr) {
                 continue;
             }
 

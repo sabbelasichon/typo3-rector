@@ -63,7 +63,7 @@ CODE_SAMPLE
         $config = null;
         $configItem = $this->extractArrayItemByKey($columnTca, 'config');
 
-        if (null !== $configItem) {
+        if ($configItem instanceof ArrayItem) {
             $config = $configItem->value;
             if (! $config instanceof Array_) {
                 return;
@@ -77,7 +77,7 @@ CODE_SAMPLE
             $this->hasAstBeenChanged = true;
         }
 
-        if (null === $this->extractArrayItemByKey($config, self::TYPE)) {
+        if (! $this->extractArrayItemByKey($config, self::TYPE) instanceof ArrayItem) {
             // found a column without a 'type' field in the config. add type => none
             $config->items[] = new ArrayItem(new String_('none'), new String_(self::TYPE));
             $this->hasAstBeenChanged = true;
@@ -93,6 +93,6 @@ CODE_SAMPLE
     protected function isSingleTcaColumn(ArrayItem $arrayItem): bool
     {
         $labelNode = $this->extractArrayItemByKey($arrayItem->value, 'label');
-        return null !== $labelNode;
+        return $labelNode instanceof ArrayItem;
     }
 }

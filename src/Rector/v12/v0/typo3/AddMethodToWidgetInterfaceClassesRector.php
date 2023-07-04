@@ -103,7 +103,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return null !== $class->getMethod(self::GET_OPTIONS);
+        return $class->getMethod(self::GET_OPTIONS) instanceof ClassMethod;
     }
 
     private function createGetOptionsMethod(): ClassMethod

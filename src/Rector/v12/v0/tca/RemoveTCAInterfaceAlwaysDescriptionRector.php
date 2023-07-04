@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v12\v0\tca;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
@@ -58,7 +59,7 @@ final class RemoveTCAInterfaceAlwaysDescriptionRector extends AbstractRector
                 continue;
             }
 
-            if (null === $interfaceItem->key) {
+            if (! $interfaceItem->key instanceof Expr) {
                 continue;
             }
 

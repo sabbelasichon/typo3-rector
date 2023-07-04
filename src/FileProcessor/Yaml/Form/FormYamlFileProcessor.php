@@ -38,7 +38,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
      * @var FormYamlRectorInterface[]
      * @readonly
      */
-    private array $transformer;
+    private array $transformer = [];
 
     /**
      * @readonly

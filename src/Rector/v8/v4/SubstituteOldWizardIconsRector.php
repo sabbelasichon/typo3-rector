@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v4;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
@@ -72,7 +73,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
                 continue;
             }
 
-            if (null === $fieldValue->key) {
+            if (! $fieldValue->key instanceof Expr) {
                 continue;
             }
 
@@ -87,7 +88,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
             }
 
             foreach ($fieldValue->value->items as $configValue) {
-                if (null === $configValue) {
+                if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
 
@@ -100,7 +101,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
                         continue;
                     }
 
-                    if (null === $configItemValue->key) {
+                    if (! $configItemValue->key instanceof Expr) {
                         continue;
                     }
 
@@ -113,7 +114,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
                     }
 
                     foreach ($configItemValue->value->items as $wizardItemValue) {
-                        if (null === $wizardItemValue) {
+                        if (! $wizardItemValue instanceof ArrayItem) {
                             continue;
                         }
 
@@ -121,7 +122,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
                             continue;
                         }
 
-                        if (null === $wizardItemValue->key) {
+                        if (! $wizardItemValue->key instanceof Expr) {
                             continue;
                         }
 
@@ -130,7 +131,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
                                 continue;
                             }
 
-                            if (null === $wizardItemSubValue->key) {
+                            if (! $wizardItemSubValue->key instanceof Expr) {
                                 continue;
                             }
 

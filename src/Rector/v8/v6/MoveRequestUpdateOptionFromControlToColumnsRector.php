@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v6;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
@@ -58,7 +59,7 @@ final class MoveRequestUpdateOptionFromControlToColumnsRector extends AbstractRe
                 continue;
             }
 
-            if (null === $fieldValue->key) {
+            if (! $fieldValue->key instanceof Expr) {
                 continue;
             }
 
@@ -94,7 +95,7 @@ final class MoveRequestUpdateOptionFromControlToColumnsRector extends AbstractRe
                 continue;
             }
 
-            if (null === $columnItem->key) {
+            if (! $columnItem->key instanceof Expr) {
                 continue;
             }
 

@@ -75,13 +75,13 @@ CODE_SAMPLE
             return;
         }
 
-        if (null !== $this->extractArrayItemByKey($configArray, self::RENDER_TYPE)) {
+        if ($this->extractArrayItemByKey($configArray, self::RENDER_TYPE) instanceof ArrayItem) {
             // If the renderType is already set, do nothing
             return;
         }
 
         $renderModeExpr = $this->extractArrayValueByKey($configArray, 'renderMode');
-        if (null !== $renderModeExpr) {
+        if ($renderModeExpr instanceof Expr) {
             if ($this->valueResolver->isValue($renderModeExpr, 'tree')) {
                 $renderType = 'selectTree';
             } elseif ($this->valueResolver->isValue($renderModeExpr, 'singlebox')) {
@@ -100,7 +100,7 @@ CODE_SAMPLE
             }
         } else {
             $maxItemsExpr = $this->extractArrayValueByKey($configArray, 'maxitems');
-            $maxItems = null !== $maxItemsExpr ? $this->valueResolver->getValue($maxItemsExpr) : null;
+            $maxItems = $maxItemsExpr instanceof Expr ? $this->valueResolver->getValue($maxItemsExpr) : null;
             $renderType = $maxItems <= 1 ? 'selectSingle' : 'selectMultipleSideBySide';
         }
 

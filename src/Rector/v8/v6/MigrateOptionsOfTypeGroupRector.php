@@ -141,7 +141,7 @@ CODE_SAMPLE
     private function dropSelectedListType(Array_ $configArray): bool
     {
         $listStyle = $this->extractArrayItemByKey($configArray, 'selectedListStyle');
-        if (null !== $listStyle) {
+        if ($listStyle instanceof ArrayItem) {
             $this->removeNode($listStyle);
             return true;
         }
@@ -153,7 +153,7 @@ CODE_SAMPLE
     {
         $hasAstBeenChanged = false;
         $showThumbs = $this->extractArrayItemByKey($configArray, 'show_thumbs');
-        if (null !== $showThumbs) {
+        if ($showThumbs instanceof ArrayItem) {
             $this->removeNode($showThumbs);
             $hasAstBeenChanged = true;
 
@@ -173,7 +173,7 @@ CODE_SAMPLE
     {
         $hasAstBeenChanged = false;
         $disableControls = $this->extractArrayItemByKey($configArray, 'disable_controls');
-        if (null !== $disableControls) {
+        if ($disableControls instanceof ArrayItem) {
             $this->removeNode($disableControls);
             $hasAstBeenChanged = true;
 
