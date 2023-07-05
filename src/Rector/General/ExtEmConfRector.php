@@ -13,7 +13,7 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
@@ -166,7 +166,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor file ext_emconf.php', [
-            new CodeSample(
+            new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Package Extension',
@@ -237,6 +237,10 @@ $EM_CONF[$_EXTKEY] = [
     '_md5_values_when_last_written' => 'a:0:{}',
 ];
 CODE_SAMPLE
+                ,
+                [
+                    'additional_values_to_be_removed' => ['createDirs', 'uploadfolder'],
+                ]
             ),
         ]);
     }
