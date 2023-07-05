@@ -239,7 +239,7 @@ $EM_CONF[$_EXTKEY] = [
 CODE_SAMPLE
                 ,
                 [
-                    'additional_values_to_be_removed' => ['createDirs', 'uploadfolder'],
+                    self::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
                 ]
             ),
         ]);
