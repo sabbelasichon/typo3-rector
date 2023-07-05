@@ -1,4 +1,4 @@
-# 278 Rules Overview
+# 279 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1884,6 +1884,31 @@ t3editor is no longer configured and enabled as wizard
 -                ],
 +                'renderType' => 't3editor',
 +                'format' => 'html',
+             ],
+         ],
+     ],
+ ];
+```
+
+<br>
+
+## MigrateToEmailTypeRector
+
+Migrates existing input TCA with eval email to new type
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateToEmailTypeRector`](../src/Rector/v12/v0/tca/MigrateToEmailTypeRector.php)
+
+```diff
+ return [
+     'ctrl' => [],
+     'columns' => [
+         'email_field' => [
+             'label' => 'Email',
+             'config' => [
+-                'type' => 'input',
+-                'eval' => 'trim,email',
+-                'max' => 255,
++                'type' => 'email',
              ],
          ],
      ],
