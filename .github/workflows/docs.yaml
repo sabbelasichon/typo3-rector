@@ -31,7 +31,7 @@ jobs:
             -   name: Generate documentation
                 run: composer docs
 
-            -   name: Deinstall rule doc generator
+            -   name: Uninstall rule doc generator
                 run: composer remove symplify/rule-doc-generator
 
             -   uses: stefanzweifel/git-auto-commit-action@v4.16.0
