@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -40,7 +41,7 @@ final class AbstractMessageGetSeverityRector extends AbstractRector
 
         $nextNode = $this->betterNodeFinder->resolveNextNode($node);
 
-        if ($nextNode instanceof Node\Identifier && $this->isName($nextNode, 'value')) {
+        if ($nextNode instanceof Identifier && $this->isName($nextNode, 'value')) {
             return null;
         }
 
