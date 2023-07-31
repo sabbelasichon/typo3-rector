@@ -38,6 +38,12 @@ final class AbstractMessageGetSeverityRector extends AbstractRector
             return null;
         }
 
+        $nextNode = $this->betterNodeFinder->resolveNextNode($node);
+
+        if ($nextNode instanceof Node\Identifier && $this->isName($nextNode, 'value')) {
+            return null;
+        }
+
         return $this->nodeFactory->createPropertyFetch($node, 'value');
     }
 
