@@ -95,10 +95,11 @@ CODE_SAMPLE
             $this->removeNode($evalArrayItem);
         }
 
-        // If required config exists already, remove it to avoid duplicate array items
+        // If required config exists already do not add one again
         $requiredItemToRemove = $this->extractArrayItemByKey($configArray, self::REQUIRED);
         if ($requiredItemToRemove instanceof ArrayItem) {
-            $this->removeNode($requiredItemToRemove);
+            $this->hasAstBeenChanged = true;
+            return;
         }
 
         $configArray->items[] = new ArrayItem(new ConstFetch(new Name('true')), new String_(self::REQUIRED));

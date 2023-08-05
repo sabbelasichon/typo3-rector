@@ -107,5 +107,8 @@
         "branch-alias": {
             "dev-main": "1.0-dev"
         }
+    },
+    "conflict": {
+        "phpstan/phpstan": "1.10.28"
     }
 }
