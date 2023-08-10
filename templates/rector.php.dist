@@ -10,6 +10,7 @@ use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
+use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 return static function (RectorConfig $rectorConfig): void {
 
@@ -19,6 +20,8 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->sets([
         Typo3LevelSetList::UP_TO_TYPO3_11,
+        // https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/FileStructure/Configuration/Icons.html
+        // Typo3SetList::REGISTER_ICONS_TO_ICON,
     ]);
 
     // Define your target version which you want to support
