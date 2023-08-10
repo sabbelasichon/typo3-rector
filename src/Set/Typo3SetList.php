@@ -70,12 +70,13 @@ final class Typo3SetList
      * @var string
      * @deprecated Use TCA_114 instead.
      */
-    public const TCA_110 = __DIR__ . '/../../config/v11/tca-114.php';
+    public const TCA_110 = self::TCA_114;
 
     /**
      * @var string
+     * @deprecated Use TCA_114 instead.
      */
-    public const TCA_113 = __DIR__ . '/../../config/v11/tca-113.php';
+    public const TCA_113 = self::TCA_114;
 
     /**
      * @var string
