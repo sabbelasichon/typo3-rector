@@ -54,7 +54,7 @@ final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector imp
 
         $className = $this->nodeNameResolver->getName($node->class);
 
-        if (null === $className) {
+        if ($className === null) {
             return null;
         }
 
@@ -103,7 +103,7 @@ CODE_SAMPLE
 
     private function shouldSkip(StaticCall $staticCall): bool
     {
-        if ([] === $this->classes) {
+        if ($this->classes === []) {
             return true;
         }
 

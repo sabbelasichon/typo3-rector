@@ -68,14 +68,14 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
         }
 
         $delimiterPosition = strrpos($extensionName, '.');
-        if (false === $delimiterPosition) {
+        if ($delimiterPosition === false) {
             return null;
         }
 
         $vendorName = $this->prepareVendorName($extensionName, $delimiterPosition);
         $extensionName = StringUtility::prepareExtensionName($extensionName, $delimiterPosition);
 
-        if ('' === $extensionName) {
+        if ($extensionName === '') {
             return null;
         }
 
@@ -154,7 +154,7 @@ CODE_SAMPLE
 
             $controllerClassName = $this->valueResolver->getValue($controllerActions->key);
 
-            if (null === $controllerClassName) {
+            if ($controllerClassName === null) {
                 continue;
             }
 
@@ -201,7 +201,7 @@ CODE_SAMPLE
             return false;
         }
 
-        return null === $this->valueResolver->getValue($extensionNameArgumentValue->right);
+        return $this->valueResolver->getValue($extensionNameArgumentValue->right) === null;
     }
 
     private function prepareVendorName(string $extensionName, int $delimiterPosition): string

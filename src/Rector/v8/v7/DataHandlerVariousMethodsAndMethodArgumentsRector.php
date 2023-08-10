@@ -54,7 +54,7 @@ final class DataHandlerVariousMethodsAndMethodArgumentsRector extends AbstractRe
             return new Concat(new ConstFetch(new Name('PATH_site')), $firstArgument->value);
         }
 
-        if ($this->isName($node->name, 'extFileFunctions') && 4 === count($node->args)) {
+        if ($this->isName($node->name, 'extFileFunctions') && count($node->args) === 4) {
             $this->removeNode($node->args[3]);
             return $node;
         }

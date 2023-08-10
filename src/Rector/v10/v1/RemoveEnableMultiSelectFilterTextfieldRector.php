@@ -67,7 +67,7 @@ CODE_SAMPLE
 
         $nodeValue = $this->valueResolver->getValue($toRemoveArrayItem->value);
 
-        if (true === $nodeValue) {
+        if ($nodeValue === true) {
             $this->removeNode($toRemoveArrayItem);
             $this->hasAstBeenChanged = true;
         }

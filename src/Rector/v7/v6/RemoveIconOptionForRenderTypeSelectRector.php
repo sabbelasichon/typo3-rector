@@ -107,7 +107,7 @@ CODE_SAMPLE
 
             $fieldName = $this->valueResolver->getValue($fieldValue->key);
 
-            if (null === $fieldName) {
+            if ($fieldName === null) {
                 continue;
             }
 
@@ -164,16 +164,16 @@ CODE_SAMPLE
                     continue;
                 }
 
-                if (null === $renderType || 'selectSingle' !== $renderType) {
+                if ($renderType === null || $renderType !== 'selectSingle') {
                     continue;
                 }
 
-                if (null !== $selicon_cols && null === $showIconTable) {
+                if ($selicon_cols !== null && $showIconTable === null) {
                     $configValue->value->items[] = new ArrayItem($this->nodeFactory->createTrue(), new String_(
                         self::SHOW_ICON_TABLE
                     ));
                     $hasAstBeenChanged = true;
-                } elseif (! $noIconsBelowSelect && null === $showIconTable) {
+                } elseif (! $noIconsBelowSelect && $showIconTable === null) {
                     $configValue->value->items[] = new ArrayItem($this->nodeFactory->createTrue(), new String_(
                         self::SHOW_ICON_TABLE
                     ));

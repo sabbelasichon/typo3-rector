@@ -107,7 +107,7 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
 
         $nodeName = $this->getName($node->name);
 
-        if (self::COMPAT_VERSION === $nodeName) {
+        if ($nodeName === self::COMPAT_VERSION) {
             return new GreaterOrEqual(
                 $this->nodeFactory->createStaticCall(
                     'TYPO3\CMS\Core\Utility\VersionNumberUtility',
@@ -122,7 +122,7 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
             );
         }
 
-        if (self::CONVERT_MICROTIME === $nodeName) {
+        if ($nodeName === self::CONVERT_MICROTIME) {
             $funcCall = $this->nodeFactory->createFuncCall('explode', [new String_(' '), $node->args[0]->value]);
             $this->nodesToAddCollector->addNodeBeforeNode(
                 new Expression(new Assign(new Variable(self::PARTS), $funcCall)),
@@ -137,7 +137,7 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
             ]);
         }
 
-        if (self::RAW_URL_ENCODE_JS === $nodeName) {
+        if ($nodeName === self::RAW_URL_ENCODE_JS) {
             return $this->nodeFactory->createFuncCall('str_replace', [
                 '%20',
                 ' ',
@@ -145,7 +145,7 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
             ]);
         }
 
-        if (self::RAW_URL_ENCODE_FP === $nodeName) {
+        if ($nodeName === self::RAW_URL_ENCODE_FP) {
             return $this->nodeFactory->createFuncCall('str_replace', [
                 '%2F',
                 '/',
@@ -153,11 +153,11 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
             ]);
         }
 
-        if (self::LCFIRST === $nodeName) {
+        if ($nodeName === self::LCFIRST) {
             return $this->nodeFactory->createFuncCall(self::LCFIRST, $node->args);
         }
 
-        if (self::GET_MAXIMUM_PATH_LENGTH === $nodeName) {
+        if ($nodeName === self::GET_MAXIMUM_PATH_LENGTH) {
             return new ConstFetch(new Name('PHP_MAXPATHLEN'));
         }
 

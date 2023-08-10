@@ -41,17 +41,17 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector
             return null;
         }
 
-        if (([] === $node->args) > 3) {
+        if (($node->args === []) > 3) {
             return null;
         }
 
         $returnTagParameters = isset($node->args[6]) ? $this->valueResolver->getValue($node->args[6]->value) : false;
 
-        if (null === $returnTagParameters) {
+        if ($returnTagParameters === null) {
             return null;
         }
 
-        if (false === $returnTagParameters) {
+        if ($returnTagParameters === false) {
             unset($node->args[3], $node->args[4], $node->args[5], $node->args[6]);
             return $node;
         }

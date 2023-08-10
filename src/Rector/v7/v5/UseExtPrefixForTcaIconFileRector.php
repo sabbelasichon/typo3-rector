@@ -132,7 +132,7 @@ CODE_SAMPLE
 
             $extensionKey = $this->valueResolver->getValue($staticCall->args[0]->value);
 
-            if (null === $extensionKey) {
+            if ($extensionKey === null) {
                 return;
             }
 
@@ -143,7 +143,7 @@ CODE_SAMPLE
 
             $pathToFile = $this->valueResolver->getValue($pathToFileNode);
 
-            if (null === $pathToFile) {
+            if ($pathToFile === null) {
                 return;
             }
 
@@ -156,7 +156,7 @@ CODE_SAMPLE
 
         $pathToFile = $this->valueResolver->getValue($fieldValue->value);
 
-        if (null === $pathToFile) {
+        if ($pathToFile === null) {
             return;
         }
 

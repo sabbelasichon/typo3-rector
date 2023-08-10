@@ -92,7 +92,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
         foreach ($keys as $key) {
             [, , $operator] = explode('.', $key);
 
-            if ('=' === $operator && is_countable($conditions[$key]) && count($conditions[$key]) > 1) {
+            if ($operator === '=' && is_countable($conditions[$key]) && count($conditions[$key]) > 1) {
                 $values = [];
                 $condition = '';
                 foreach ($conditions[$key] as $value) {
@@ -122,7 +122,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
 
     private function refactorGetPost(string $property, string $operator, string $value): string
     {
-        if ('L' === $property) {
+        if ($property === 'L') {
             return sprintf('siteLanguage("languageId") %s "%s"', self::OPERATOR_MAPPING[$operator], $value);
         }
 
@@ -130,7 +130,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
 
         $parameters = $this->explodeParameters($property);
 
-        if (1 === count($parameters)) {
+        if (count($parameters) === 1) {
             return sprintf(
                 'request.getQueryParams()[\'%1$s\'] %2$s %3$s',
                 $parameters[0],
@@ -139,7 +139,7 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
             );
         }
 
-        if ('_POST' === $property) {
+        if ($property === '_POST') {
             return sprintf(
                 'traverse(request.getParsedBody(), \'%1$s\') %2$s %3$s) %2$s %3$s',
                 implode('/', $parameters),

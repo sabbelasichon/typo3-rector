@@ -65,7 +65,7 @@ final class MoveRequestUpdateOptionFromControlToColumnsRector extends AbstractRe
 
             if ($this->valueResolver->isValue($fieldValue->key, 'requestUpdate')) {
                 $fields = $this->valueResolver->getValue($fieldValue->value);
-                if (null === $fields) {
+                if ($fields === null) {
                     return null;
                 }
 
@@ -74,7 +74,7 @@ final class MoveRequestUpdateOptionFromControlToColumnsRector extends AbstractRe
             }
         }
 
-        if ([] === $requestUpdateFields) {
+        if ($requestUpdateFields === []) {
             return null;
         }
 

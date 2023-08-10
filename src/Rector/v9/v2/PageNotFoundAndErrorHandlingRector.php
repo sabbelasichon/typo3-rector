@@ -176,7 +176,7 @@ CODE_SAMPLE
     {
         $methodCallName = $this->getName($methodCall->name);
 
-        if (null === $methodCallName) {
+        if ($methodCallName === null) {
             return null;
         }
 
@@ -253,12 +253,12 @@ CODE_SAMPLE
 
         $code = $this->valueResolver->getValue($methodCall->args[0]->value);
 
-        if (null === $code) {
+        if ($code === null) {
             return null;
         }
 
         $message = null;
-        if ('1' === (string) $code || is_bool($code) || 'true' === strtolower((string) $code)) {
+        if ((string) $code === '1' || is_bool($code) || strtolower((string) $code) === 'true') {
             $message = new String_('The page did not exist or was inaccessible.');
             if (isset($methodCall->args[2])) {
                 $reason = $methodCall->args[2]->value;
@@ -271,7 +271,7 @@ CODE_SAMPLE
             }
         }
 
-        if ('' === $code) {
+        if ($code === '') {
             $message = new String_('Page cannot be found.');
             if (isset($methodCall->args[2])) {
                 $reason = $methodCall->args[2]->value;
@@ -281,7 +281,7 @@ CODE_SAMPLE
             }
         }
 
-        if (null !== $message) {
+        if ($message !== null) {
             return new Echo_([
                 $this->nodeFactory->createMethodCall(
                     $this->nodeFactory->createStaticCall(

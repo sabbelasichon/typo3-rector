@@ -30,7 +30,7 @@ final class ValidatorResolverDynamicReturnTypeExtension implements DynamicMethod
 
     public function isMethodSupported(MethodReflection $methodReflection): bool
     {
-        return 'createValidator' === $methodReflection->getName();
+        return $methodReflection->getName() === 'createValidator';
     }
 
     public function getTypeFromMethodCall(

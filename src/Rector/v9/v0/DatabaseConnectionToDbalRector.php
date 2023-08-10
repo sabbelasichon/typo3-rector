@@ -67,7 +67,7 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
         }
 
         $methodName = $this->getName($node->name);
-        if (null === $methodName) {
+        if ($methodName === null) {
             return null;
         }
 

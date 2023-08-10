@@ -100,7 +100,7 @@ CODE_SAMPLE
 
         $extensionKey = $this->resolveExtensionKeyByComposerJson($extEmConf);
 
-        if (null === $extensionKey) {
+        if ($extensionKey === null) {
             $extensionKey = basename($extEmConf->getRealPathDirectory());
         }
 

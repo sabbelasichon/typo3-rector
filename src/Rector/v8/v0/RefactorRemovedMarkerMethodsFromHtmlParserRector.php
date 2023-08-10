@@ -145,7 +145,7 @@ CODE_SAMPLE
     {
         if ($this->isNames($call->name, self::REMOVED_METHODS)) {
             $methodName = $this->getName($call->name);
-            if (null !== $methodName) {
+            if ($methodName !== null) {
                 try {
                     $this->removeNode($call);
                 } catch (ShouldNotHappenException $shouldNotHappenException) {
@@ -163,7 +163,7 @@ CODE_SAMPLE
     {
         if ($this->isName($call->name, self::RENAMED_METHOD)) {
             $methodName = $this->getName($call->name);
-            if (null !== $methodName) {
+            if ($methodName !== null) {
                 $call->name = new Identifier('HTMLcleaner');
             }
         }
@@ -176,7 +176,7 @@ CODE_SAMPLE
     {
         if ($this->isNames($call->name, self::MOVED_METHODS_TO_MARKER_BASED_TEMPLATES)) {
             $methodName = $this->getName($call->name);
-            if (null !== $methodName) {
+            if ($methodName !== null) {
                 $classConstant = $this->nodeFactory->createClassConstReference(
                     'TYPO3\CMS\Core\Service\MarkerBasedTemplateService'
                 );

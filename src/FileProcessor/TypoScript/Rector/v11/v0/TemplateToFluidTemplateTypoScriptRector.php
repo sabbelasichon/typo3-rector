@@ -27,7 +27,7 @@ final class TemplateToFluidTemplateTypoScriptRector extends AbstractTypoScriptRe
             return;
         }
 
-        if ('TEMPLATE' !== $statement->value->value) {
+        if ($statement->value->value !== 'TEMPLATE') {
             return;
         }
 

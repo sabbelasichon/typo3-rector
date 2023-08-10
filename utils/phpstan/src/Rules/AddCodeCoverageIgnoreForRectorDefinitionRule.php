@@ -56,7 +56,7 @@ final class AddCodeCoverageIgnoreForRectorDefinitionRule implements Rule
 
         $methodName = $node->name->toString();
 
-        if ('getRuleDefinition' !== $methodName) {
+        if ($methodName !== 'getRuleDefinition') {
             return [];
         }
 

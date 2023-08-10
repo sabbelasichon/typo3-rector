@@ -35,12 +35,12 @@ final class UseCompositeExpressionStaticMethodsRector extends AbstractRector
             return null;
         }
 
-        if ('Expr_ClassConstFetch' === $node->args[0]->value->getType()) {
+        if ($node->args[0]->value->getType() === 'Expr_ClassConstFetch') {
             /** @var Node\Expr\ClassConstFetch $firstArg */
             $firstArg = $node->args[0]->value;
             /** @var Node\Identifier $identifier */
             $identifier = $firstArg->name;
-            $methodType = 'TYPE_AND' === $identifier->name ? 'and' : 'or';
+            $methodType = $identifier->name === 'TYPE_AND' ? 'and' : 'or';
         } else {
             /** @var String_ $firstArg */
             $firstArg = $node->args[0]->value;

@@ -236,7 +236,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (null !== $isValidClassMethod->returnType) {
+        if ($isValidClassMethod->returnType !== null) {
             return;
         }
 
@@ -251,7 +251,7 @@ CODE_SAMPLE
             return;
         }
 
-        if (null !== $validateClassMethod->returnType) {
+        if ($validateClassMethod->returnType !== null) {
             return;
         }
 

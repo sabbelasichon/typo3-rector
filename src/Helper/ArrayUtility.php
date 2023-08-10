@@ -17,7 +17,7 @@ final class ArrayUtility
         bool $removeEmptyValues = false,
         int $limit = 0
     ): array {
-        if ('' === $delimiter) {
+        if ($delimiter === '') {
             throw new InvalidArgumentException('Please define a correct delimiter');
         }
 
@@ -26,7 +26,7 @@ final class ArrayUtility
         if ($removeEmptyValues) {
             $temp = [];
             foreach ($result as $value) {
-                if ('' !== trim($value)) {
+                if (trim($value) !== '') {
                     $temp[] = $value;
                 }
             }

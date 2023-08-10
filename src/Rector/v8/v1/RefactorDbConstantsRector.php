@@ -43,7 +43,7 @@ final class RefactorDbConstantsRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         $constantsName = $this->getName($node);
-        if (null === $constantsName) {
+        if ($constantsName === null) {
             return null;
         }
 

@@ -21,23 +21,23 @@ final class OldSeverityToLogLevelMapper
 
     public function mapSeverityToLogLevel(int $severityValue): ClassConstFetch
     {
-        if (0 === $severityValue) {
+        if ($severityValue === 0) {
             return $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Log\LogLevel', 'INFO');
         }
 
-        if (1 === $severityValue) {
+        if ($severityValue === 1) {
             return $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Log\LogLevel', 'NOTICE');
         }
 
-        if (2 === $severityValue) {
+        if ($severityValue === 2) {
             return $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Log\LogLevel', 'WARNING');
         }
 
-        if (3 === $severityValue) {
+        if ($severityValue === 3) {
             return $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Log\LogLevel', 'ERROR');
         }
 
-        if (4 === $severityValue) {
+        if ($severityValue === 4) {
             return $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Log\LogLevel', 'CRITICAL');
         }
 
