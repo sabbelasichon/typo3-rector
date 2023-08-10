@@ -62,7 +62,7 @@ final class TimeConditionMatcher implements TyposcriptConditionMatcher
             $operator = $operatorAndValueMatches['operator'] ?? '';
             $value = $operatorAndValueMatches['value'] ?? '';
 
-            if ('' === $operator) {
+            if ($operator === '') {
                 $operator = '=';
             }
 
@@ -79,6 +79,6 @@ final class TimeConditionMatcher implements TyposcriptConditionMatcher
 
     public function shouldApply(string $condition): bool
     {
-        return null !== Strings::match($condition, '#' . self::ALLOWED_TIME_CONSTANTS . '#Ui');
+        return Strings::match($condition, '#' . self::ALLOWED_TIME_CONSTANTS . '#Ui') !== null;
     }
 }

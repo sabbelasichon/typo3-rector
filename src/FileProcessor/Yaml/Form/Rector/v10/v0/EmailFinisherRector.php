@@ -146,11 +146,11 @@ CODE_SAMPLE
                     continue;
                 }
 
-                if ('replyToAddress' === $optionKey) {
+                if ($optionKey === 'replyToAddress') {
                     $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS]['replyToRecipients'][] = $optionValue;
-                } elseif ('carbonCopyAddress' === $optionKey) {
+                } elseif ($optionKey === 'carbonCopyAddress') {
                     $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS]['carbonCopyRecipients'][] = $optionValue;
-                } elseif ('blindCarbonCopyAddress' === $optionKey) {
+                } elseif ($optionKey === 'blindCarbonCopyAddress') {
                     $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS]['blindCarbonCopyRecipients'][] = $optionValue;
                 }
 

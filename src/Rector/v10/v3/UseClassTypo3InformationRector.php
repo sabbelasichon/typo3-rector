@@ -46,35 +46,35 @@ final class UseClassTypo3InformationRector extends AbstractRector
 
         $nodeName = $this->getName($node->name);
 
-        if ('TYPO3_URL_GENERAL' === $nodeName) {
+        if ($nodeName === 'TYPO3_URL_GENERAL') {
             return $this->nodeFactory->createClassConstFetch(
                 'TYPO3\CMS\Core\Information\Typo3Information',
                 'URL_COMMUNITY'
             );
         }
 
-        if ('TYPO3_URL_LICENSE' === $nodeName) {
+        if ($nodeName === 'TYPO3_URL_LICENSE') {
             return $this->nodeFactory->createClassConstFetch(
                 'TYPO3\CMS\Core\Information\Typo3Information',
                 'URL_LICENSE'
             );
         }
 
-        if ('TYPO3_URL_EXCEPTION' === $nodeName) {
+        if ($nodeName === 'TYPO3_URL_EXCEPTION') {
             return $this->nodeFactory->createClassConstFetch(
                 'TYPO3\CMS\Core\Information\Typo3Information',
                 'URL_EXCEPTION'
             );
         }
 
-        if ('TYPO3_URL_DONATE' === $nodeName) {
+        if ($nodeName === 'TYPO3_URL_DONATE') {
             return $this->nodeFactory->createClassConstFetch(
                 'TYPO3\CMS\Core\Information\Typo3Information',
                 'URL_DONATE'
             );
         }
 
-        if ('TYPO3_URL_WIKI_OPCODECACHE' === $nodeName) {
+        if ($nodeName === 'TYPO3_URL_WIKI_OPCODECACHE') {
             return $this->nodeFactory->createClassConstFetch(
                 'TYPO3\CMS\Core\Information\Typo3Information',
                 'URL_OPCACHE'

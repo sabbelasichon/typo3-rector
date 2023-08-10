@@ -72,7 +72,7 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
 
         $nodeName = $this->getName($node->name);
 
-        if (null === $nodeName) {
+        if ($nodeName === null) {
             return null;
         }
 

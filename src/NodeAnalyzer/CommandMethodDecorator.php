@@ -45,7 +45,7 @@ final class CommandMethodDecorator
      */
     public function decorate(ClassMethod $classMethod, array $commandInputArguments): void
     {
-        if ([] === $commandInputArguments) {
+        if ($commandInputArguments === []) {
             return;
         }
 
@@ -83,7 +83,7 @@ final class CommandMethodDecorator
      */
     private function addArgumentsToExecuteMethod(ClassMethod $classMethod, array $commandInputArguments): void
     {
-        if (null === $classMethod->stmts) {
+        if ($classMethod->stmts === null) {
             return;
         }
 

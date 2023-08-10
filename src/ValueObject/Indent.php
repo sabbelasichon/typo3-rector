@@ -30,7 +30,7 @@ final class Indent
 
     public static function fromFile(File $file): self
     {
-        if (1 === \preg_match('#^(?P<indent>( +|\t+)).*#m', $file->getFileContent(), $match)) {
+        if (\preg_match('#^(?P<indent>( +|\t+)).*#m', $file->getFileContent(), $match) === 1) {
             return self::fromString($match['indent']);
         }
 
@@ -44,7 +44,7 @@ final class Indent
 
     public function isSpace(): bool
     {
-        return 1 === \preg_match('#^( +).*#', $this->value);
+        return \preg_match('#^( +).*#', $this->value) === 1;
     }
 
     public function length(): int

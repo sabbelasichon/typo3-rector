@@ -49,6 +49,6 @@ final class DatabaseConnectionExecTruncateTableRefactoring implements DatabaseCo
 
     public function canHandle(string $methodName): bool
     {
-        return 'exec_TRUNCATEquery' === $methodName;
+        return $methodName === 'exec_TRUNCATEquery';
     }
 }

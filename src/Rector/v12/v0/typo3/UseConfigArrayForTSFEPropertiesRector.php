@@ -61,7 +61,7 @@ final class UseConfigArrayForTSFEPropertiesRector extends AbstractRector
 
         $propertyName = $this->nodeNameResolver->getName($node->name);
 
-        if (null === $propertyName) {
+        if ($propertyName === null) {
             return null;
         }
 

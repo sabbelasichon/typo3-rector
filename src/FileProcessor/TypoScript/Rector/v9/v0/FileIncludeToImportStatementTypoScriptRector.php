@@ -35,7 +35,7 @@ final class FileIncludeToImportStatementTypoScriptRector extends AbstractTypoScr
             return;
         }
 
-        if (null !== $statement->condition) {
+        if ($statement->condition !== null) {
             return;
         }
 

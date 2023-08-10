@@ -43,7 +43,7 @@ final class RemoveUseCacheHashRector extends AbstractTypoScriptRector
             return;
         }
 
-        if ('useCacheHash' !== $statement->object->relativeName) {
+        if ($statement->object->relativeName !== 'useCacheHash') {
             return;
         }
 

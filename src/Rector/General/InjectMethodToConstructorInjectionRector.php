@@ -103,13 +103,13 @@ CODE_SAMPLE
             static fn ($classMethod) => str_starts_with((string) $classMethod->name, 'inject')
         );
 
-        if ([] === $injectMethods) {
+        if ($injectMethods === []) {
             return null;
         }
 
         foreach ($injectMethods as $injectMethod) {
             $params = $injectMethod->getParams();
-            if ([] === $params) {
+            if ($params === []) {
                 continue;
             }
 
@@ -124,7 +124,7 @@ CODE_SAMPLE
 
             $paramName = $this->getName($param->var);
 
-            if (null === $paramName) {
+            if ($paramName === null) {
                 continue;
             }
 
@@ -140,7 +140,7 @@ CODE_SAMPLE
 
     private function shouldSkip(Class_ $class): bool
     {
-        return [] === $class->getMethods();
+        return $class->getMethods() === [];
     }
 
     /**

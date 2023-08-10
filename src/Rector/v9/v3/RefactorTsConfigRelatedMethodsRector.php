@@ -86,11 +86,11 @@ CODE_SAMPLE
 
         $value = $this->valueResolver->getValue($node->args[0]->value);
 
-        if (null === $value) {
+        if ($value === null) {
             return null;
         }
 
-        if (! is_string($value) || '' === $value) {
+        if (! is_string($value) || $value === '') {
             return null;
         }
 

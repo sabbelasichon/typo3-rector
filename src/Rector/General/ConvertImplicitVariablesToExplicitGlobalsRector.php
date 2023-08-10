@@ -69,7 +69,7 @@ CODE_SAMPLE
 
         $variableName = $this->getName($node);
 
-        if (null === $variableName) {
+        if ($variableName === null) {
             return null;
         }
 

@@ -43,8 +43,8 @@ final class RemoveTSConfigModesRector extends AbstractTypoScriptRector
             return;
         }
 
-        if ('options.workspaces.swapMode' !== $statement->object->absoluteName
-         && 'options.workspaces.changeStageMode' !== $statement->object->absoluteName) {
+        if ($statement->object->absoluteName !== 'options.workspaces.swapMode'
+         && $statement->object->absoluteName !== 'options.workspaces.changeStageMode') {
             return;
         }
 

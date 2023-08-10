@@ -70,7 +70,7 @@ final class RemoveCruserIdRector extends AbstractRector
             }
         }
 
-        if (0 === $remainingInterfaceItems) {
+        if ($remainingInterfaceItems === 0) {
             $this->removeNode($ctrl);
             return $node;
         }

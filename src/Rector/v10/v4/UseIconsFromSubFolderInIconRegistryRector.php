@@ -113,7 +113,7 @@ CODE_SAMPLE
     {
         $iconProviderClassName = $this->valueResolver->getValue($methodCall->args[1]->value);
 
-        if (null === $iconProviderClassName) {
+        if ($iconProviderClassName === null) {
             return false;
         }
 

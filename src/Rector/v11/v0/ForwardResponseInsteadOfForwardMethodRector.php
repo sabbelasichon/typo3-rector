@@ -86,14 +86,14 @@ CODE_SAMPLE
     public function refactor(Node $node): ?Node
     {
         $forwardMethodCalls = $this->extractForwardMethodCalls($node);
-        if ([] === $forwardMethodCalls) {
+        if ($forwardMethodCalls === []) {
             return null;
         }
 
         foreach ($forwardMethodCalls as $forwardMethodCall) {
             $action = $this->valueResolver->getValue($forwardMethodCall->args[0]->value);
 
-            if (null === $action) {
+            if ($action === null) {
                 return null;
             }
 
@@ -134,7 +134,7 @@ CODE_SAMPLE
             $this->removeNode($forwardMethodCall);
         }
 
-        if (null !== $node->returnType && $node->returnType instanceof Identifier && null !== $node->returnType->name && 'void' === $node->returnType->name) {
+        if ($node->returnType !== null && $node->returnType instanceof Identifier && $node->returnType->name !== null && $node->returnType->name === 'void') {
             $node->returnType = null;
         }
 
@@ -146,7 +146,7 @@ CODE_SAMPLE
         $node->setAttribute('comments', $comments);
 
         // Add returnType only if it is the only statement, otherwise it is not reliable
-        if (is_countable($node->stmts) && 1 === count((array) $node->stmts)) {
+        if (is_countable($node->stmts) && count((array) $node->stmts) === 1) {
             $node->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
         }
 

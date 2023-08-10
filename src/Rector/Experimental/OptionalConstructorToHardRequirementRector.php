@@ -52,7 +52,7 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
                 continue;
             }
 
-            if (null === $param->type) {
+            if ($param->type === null) {
                 continue;
             }
 
@@ -65,7 +65,7 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
             }
 
             $paramName = $this->nodeNameResolver->getName($param->var);
-            if (null === $paramName) {
+            if ($paramName === null) {
                 continue;
             }
 
@@ -88,7 +88,7 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
             }
 
             $variableName = $this->nodeNameResolver->getName($stmt->expr->var);
-            if ($stmt->expr->var instanceof Variable && null !== $variableName) {
+            if ($stmt->expr->var instanceof Variable && $variableName !== null) {
                 $potentialStmtsToRemove[$variableName] = $stmt;
             }
 
@@ -107,7 +107,7 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
             if ($stmt->expr->expr->right instanceof Coalesce) {
                 // Reset param default value
                 $paramDefault = $this->nodeNameResolver->getName($stmt->expr->expr->left);
-                if (null === $paramDefault) {
+                if ($paramDefault === null) {
                     continue;
                 }
 
@@ -139,7 +139,7 @@ final class OptionalConstructorToHardRequirementRector extends AbstractRector
 
             $variableName = $this->nodeNameResolver->getName($stmt->expr->expr->var);
 
-            if (null === $variableName) {
+            if ($variableName === null) {
                 continue;
             }
 

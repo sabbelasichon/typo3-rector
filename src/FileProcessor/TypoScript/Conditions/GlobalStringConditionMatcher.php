@@ -84,7 +84,7 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
             $value = sprintf("'%s'", $value);
         }
 
-        if (1 === count($parameters)) {
+        if (count($parameters) === 1) {
             return sprintf(
                 'request.getQueryParams()[\'%1$s\'] %2$s %3$s',
                 $parameters[0],

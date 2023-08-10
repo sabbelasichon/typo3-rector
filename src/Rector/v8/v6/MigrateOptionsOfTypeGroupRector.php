@@ -77,13 +77,13 @@ final class MigrateOptionsOfTypeGroupRector extends AbstractRector
             $hasAstBeenChanged = $this->refactorShowThumbs($config) ? true : $hasAstBeenChanged;
             $hasAstBeenChanged = $this->refactorDisableControls($config) ? true : $hasAstBeenChanged;
 
-            if ([] !== $this->addFieldControls) {
+            if ($this->addFieldControls !== []) {
                 $config->items[] = new ArrayItem($this->nodeFactory->createArray(
                     $this->addFieldControls
                 ), new String_('fieldControl'));
             }
 
-            if ([] !== $this->addFieldWizards) {
+            if ($this->addFieldWizards !== []) {
                 $config->items[] = new ArrayItem($this->nodeFactory->createArray(
                     $this->addFieldWizards
                 ), new String_('fieldWizard'));
@@ -180,16 +180,16 @@ CODE_SAMPLE
             if (is_string($this->getValue($disableControls->value))) {
                 $controls = ArrayUtility::trimExplode(',', $this->getValue($disableControls->value), true);
                 foreach ($controls as $control) {
-                    if ('browser' === $control) {
+                    if ($control === 'browser') {
                         $this->addFieldControls['elementBrowser'][self::DISABLED] = true;
-                    } elseif ('delete' === $control) {
+                    } elseif ($control === 'delete') {
                         $configArray->items[] = new ArrayItem(
                             $this->nodeFactory->createTrue(),
                             new String_('hideDeleteIcon')
                         );
-                    } elseif ('allowedTables' === $control) {
+                    } elseif ($control === 'allowedTables') {
                         $this->addFieldWizards['tableList'][self::DISABLED] = true;
-                    } elseif ('upload' === $control) {
+                    } elseif ($control === 'upload') {
                         $this->addFieldWizards['fileUpload'][self::DISABLED] = true;
                     }
                 }

@@ -142,7 +142,7 @@ CODE_SAMPLE
 
             $fieldName = $fieldArray[self::FIELD_NAME];
 
-            if (null !== $fieldArray[self::FIELD_EXTRA]) {
+            if ($fieldArray[self::FIELD_EXTRA] !== null) {
                 // Move fieldExtra "specConf" to columnsOverrides "defaultExtras"
                 // Merge with given defaultExtras from columns.
                 // They will be the first part of the string, so if "specConf" from types changes the same settings,
@@ -154,7 +154,7 @@ CODE_SAMPLE
 
                 $newDefaultExtras[] = $fieldArray[self::FIELD_EXTRA];
                 $newDefaultExtrasString = trim(implode(':', $newDefaultExtras));
-                if ('' !== $newDefaultExtrasString) {
+                if ($newDefaultExtrasString !== '') {
                     $columnsOverridesArray = $this->extractSubArrayByKey($typeConfiguration, 'columnsOverrides');
                     if (! $columnsOverridesArray instanceof Array_) {
                         $columnsOverridesArray = new Array_([]);
@@ -177,21 +177,21 @@ CODE_SAMPLE
             }
 
             unset($fieldArray[self::FIELD_EXTRA]);
-            if (3 === count($fieldArray) && '' === ($fieldArray[self::PALETTE_NAME] ?? '')) {
+            if (count($fieldArray) === 3 && '' === ($fieldArray[self::PALETTE_NAME] ?? '')) {
                 unset($fieldArray[self::PALETTE_NAME]);
             }
 
-            if (2 === count($fieldArray) && '' === ($fieldArray[self::FIELD_LABEL] ?? '')) {
+            if (count($fieldArray) === 2 && '' === ($fieldArray[self::FIELD_LABEL] ?? '')) {
                 unset($fieldArray[self::FIELD_LABEL]);
             }
 
-            if (1 === count($fieldArray) && '' === $fieldArray[self::FIELD_NAME]) {
+            if (count($fieldArray) === 1 && $fieldArray[self::FIELD_NAME] === '') {
                 // The field may vanish if nothing is left
                 unset($fieldArray[self::FIELD_NAME]);
             }
 
             $newFieldString = implode(';', $fieldArray);
-            if ('' !== $newFieldString) {
+            if ($newFieldString !== '') {
                 $newFieldStrings[] = $newFieldString;
             }
         }

@@ -82,7 +82,7 @@ CODE_SAMPLE
         $showItemValue = $this->valueResolver->getValue($showItemNode->value);
 
         if (
-            null === $showItemValue
+            $showItemValue === null
             || ! is_string($showItemValue)
             || ! str_contains($showItemValue, ';')
         ) {
@@ -98,7 +98,7 @@ CODE_SAMPLE
                 self::FIELD_LABEL => $fieldArray[1] ?? null,
                 self::PALETTE_NAME => $fieldArray[2] ?? null,
             ];
-            if ('--palette--' !== $fieldArray[self::FIELD_NAME] && null !== $fieldArray[self::PALETTE_NAME]) {
+            if ($fieldArray[self::FIELD_NAME] !== '--palette--' && $fieldArray[self::PALETTE_NAME] !== null) {
                 if ($fieldArray[self::FIELD_LABEL]) {
                     $fieldString = $fieldArray[self::FIELD_NAME] . ';' . $fieldArray[self::FIELD_LABEL];
                 } else {
