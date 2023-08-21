@@ -97,7 +97,7 @@ CODE_SAMPLE
 
     private function isLanguageServiceCall(Node $node): bool
     {
-        if (! (property_exists($node, 'var') && $node->var !== null)) {
+        if (! (property_exists($node, 'var') && null !== $node->var)) {
             return false;
         }
 
@@ -114,13 +114,13 @@ CODE_SAMPLE
 
     private function refactorLanguageServiceCall(Node $node): ?StaticCall
     {
-        if (! (property_exists($node, 'name') && $node->name !== null)) {
+        if (! (property_exists($node, 'name') && null !== $node->name)) {
             return null;
         }
 
         $nodeName = $this->getName($node->name);
 
-        if ($nodeName === null) {
+        if (null === $nodeName) {
             return null;
         }
 

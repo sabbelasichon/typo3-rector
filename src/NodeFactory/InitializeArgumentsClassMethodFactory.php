@@ -189,7 +189,7 @@ final class InitializeArgumentsClassMethodFactory
             if ($param->default instanceof Expr) {
                 $args[] = new ConstFetch(new Name('false'));
                 $defaultValue = $this->valueResolver->getValue($param->default);
-                if ($defaultValue !== null && $defaultValue !== 'null') {
+                if (null !== $defaultValue && 'null' !== $defaultValue) {
                     $args[] = $defaultValue;
                 }
             } else {
@@ -237,7 +237,7 @@ final class InitializeArgumentsClassMethodFactory
 
     private function createTypeInString(?ParamTagValueNode $paramTagValueNode, Param $param): string
     {
-        if ($param->type !== null) {
+        if (null !== $param->type) {
             return $this->resolveParamType($param->type);
         }
 
@@ -347,7 +347,7 @@ final class InitializeArgumentsClassMethodFactory
 
     private function doesParentClassMethodExist(Class_ $class, string $methodName): bool
     {
-        return $this->getParentClassesMethodReflection($class, $methodName) !== [];
+        return [] !== $this->getParentClassesMethodReflection($class, $methodName);
     }
 
     /**
@@ -364,7 +364,7 @@ final class InitializeArgumentsClassMethodFactory
                 continue;
             }
 
-            if ($classMethod->stmts === null) {
+            if (null === $classMethod->stmts) {
                 continue;
             }
 
@@ -383,7 +383,7 @@ final class InitializeArgumentsClassMethodFactory
 
                 $value = $this->valueResolver->getValue($stmt->expr->args[0]->value);
 
-                if ($value === null) {
+                if (null === $value) {
                     continue;
                 }
 
@@ -401,7 +401,7 @@ final class InitializeArgumentsClassMethodFactory
     {
         // remove leading slash
         $classLikeName = ltrim($docString, '\\');
-        if ($classLikeName === '') {
+        if ('' === $classLikeName) {
             return $docString;
         }
 

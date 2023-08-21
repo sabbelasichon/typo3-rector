@@ -48,6 +48,6 @@ final class HostnameConditionMatcher implements TyposcriptConditionMatcher
             return false;
         }
 
-        return preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#', $condition) === 1;
+        return 1 === preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#', $condition);
     }
 }

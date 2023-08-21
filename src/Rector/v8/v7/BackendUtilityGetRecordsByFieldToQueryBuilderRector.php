@@ -139,11 +139,11 @@ CODE_SAMPLE
 
         $tableArgument = $staticCall->args[0];
 
-        if (! $queryBuilderArgument instanceof Arg || $this->valueResolver->getValue(
+        if (! $queryBuilderArgument instanceof Arg || 'null' === $this->valueResolver->getValue(
             $queryBuilderArgument->value
-        ) === 'null') {
+        )) {
             $table = $this->valueResolver->getValue($tableArgument->value);
-            if ($table === null) {
+            if (null === $table) {
                 $table = $tableArgument;
             }
 
@@ -211,11 +211,11 @@ CODE_SAMPLE
         Node $positionNode
     ): void {
         $useDeleteClauseArgument = $node->args[7] ?? null;
-        $useDeleteClause = $useDeleteClauseArgument !== null ? $this->valueResolver->getValue(
+        $useDeleteClause = null !== $useDeleteClauseArgument ? $this->valueResolver->getValue(
             $useDeleteClauseArgument->value
         ) : true;
 
-        if ($useDeleteClause === false) {
+        if (false === $useDeleteClause) {
             return;
         }
 
@@ -286,9 +286,9 @@ CODE_SAMPLE
         Node $positionNode
     ): void {
         $whereClauseArgument = $staticCall->args[3] ?? null;
-        $whereClause = $whereClauseArgument !== null ? $this->valueResolver->getValue($whereClauseArgument->value) : '';
+        $whereClause = null !== $whereClauseArgument ? $this->valueResolver->getValue($whereClauseArgument->value) : '';
 
-        if ($whereClause === '') {
+        if ('' === $whereClause) {
             return;
         }
 
@@ -322,9 +322,9 @@ CODE_SAMPLE
         Node $positionNode
     ): void {
         $groupByArgument = $staticCall->args[4] ?? null;
-        $groupBy = $groupByArgument !== null ? $this->valueResolver->getValue($groupByArgument->value) : '';
+        $groupBy = null !== $groupByArgument ? $this->valueResolver->getValue($groupByArgument->value) : '';
 
-        if ($groupBy === '') {
+        if ('' === $groupBy) {
             return;
         }
 
@@ -355,9 +355,9 @@ CODE_SAMPLE
     private function addOrderByNode(string $queryBuilderVariableName, StaticCall $staticCall, Node $positionNode): void
     {
         $orderByArgument = $staticCall->args[5] ?? null;
-        $orderBy = $orderByArgument !== null ? $this->valueResolver->getValue($orderByArgument->value) : '';
+        $orderBy = null !== $orderByArgument ? $this->valueResolver->getValue($orderByArgument->value) : '';
 
-        if ($orderBy === '' || $orderBy === 'null') {
+        if ('' === $orderBy || 'null' === $orderBy) {
             return;
         }
 
@@ -400,9 +400,9 @@ CODE_SAMPLE
     private function addLimitNode(string $queryBuilderVariableName, StaticCall $staticCall, Node $positionNode): void
     {
         $limitArgument = $staticCall->args[6] ?? null;
-        $limit = $limitArgument !== null ? $this->valueResolver->getValue($limitArgument->value) : '';
+        $limit = null !== $limitArgument ? $this->valueResolver->getValue($limitArgument->value) : '';
 
-        if ($limit === '') {
+        if ('' === $limit) {
             return;
         }
 

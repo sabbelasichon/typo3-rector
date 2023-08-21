@@ -69,11 +69,11 @@ final class UseNewComponentIdForPageTreeRector extends AbstractRector
                 continue;
             }
 
-            if ($this->valueResolver->getValue($item->key) !== 'navigationComponentId') {
+            if ('navigationComponentId' !== $this->valueResolver->getValue($item->key)) {
                 continue;
             }
 
-            if ($this->valueResolver->getValue($item->value) !== 'typo3-pagetree') {
+            if ('typo3-pagetree' !== $this->valueResolver->getValue($item->value)) {
                 continue;
             }
 

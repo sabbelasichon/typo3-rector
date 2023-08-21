@@ -34,7 +34,7 @@ final class HandleCObjRendererATagParamsMethodRector extends AbstractRector
             return null;
         }
 
-        if (count($node->args) === 1) {
+        if (1 === count($node->args)) {
             return null;
         }
 

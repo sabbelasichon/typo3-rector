@@ -67,31 +67,31 @@ final class UseContextApiRector extends AbstractRector
 
         $contextCall = $this->nodeFactory->createMethodCall($staticCall, 'getPropertyFromAspect');
 
-        if ($propertyName === 'loginUser') {
+        if ('loginUser' === $propertyName) {
             $contextCall->args = $this->nodeFactory->createArgs(['frontend.user', 'isLoggedIn']);
 
             return $contextCall;
         }
 
-        if ($propertyName === 'gr_list') {
+        if ('gr_list' === $propertyName) {
             $contextCall->args = $this->nodeFactory->createArgs(['frontend.user', 'groupIds']);
 
             return $this->nodeFactory->createFuncCall('implode', [new String_(','), $contextCall]);
         }
 
-        if ($propertyName === 'beUserLogin') {
+        if ('beUserLogin' === $propertyName) {
             $contextCall->args = $this->nodeFactory->createArgs(['backend.user', 'isLoggedIn']);
 
             return $contextCall;
         }
 
-        if ($propertyName === 'showHiddenPage') {
+        if ('showHiddenPage' === $propertyName) {
             $contextCall->args = $this->nodeFactory->createArgs(['visibility', 'includeHiddenPages']);
 
             return $contextCall;
         }
 
-        if ($propertyName === 'showHiddenRecords') {
+        if ('showHiddenRecords' === $propertyName) {
             $contextCall->args = $this->nodeFactory->createArgs(['visibility', 'includeHiddenContent']);
 
             return $contextCall;

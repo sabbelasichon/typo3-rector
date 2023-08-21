@@ -121,7 +121,7 @@ CODE_SAMPLE
 
             $fieldName = $this->valueResolver->getValue($fieldValue->key);
 
-            if ($fieldName === null) {
+            if (null === $fieldName) {
                 continue;
             }
 
@@ -233,7 +233,7 @@ CODE_SAMPLE
                         }
                     }
 
-                    if ($remainingWizards === 0) {
+                    if (0 === $remainingWizards) {
                         $this->removeNode($configItemValue);
                         $hasAstBeenChanged = true;
                     }

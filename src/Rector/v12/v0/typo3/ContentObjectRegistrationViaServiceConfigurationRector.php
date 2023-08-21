@@ -83,13 +83,13 @@ final class ContentObjectRegistrationViaServiceConfigurationRector extends Abstr
 
         $contentObjectName = $this->valueResolver->getValue($node->var->dim);
 
-        if ($contentObjectName === null || $contentObjectName === '') {
+        if (null === $contentObjectName || '' === $contentObjectName) {
             return null;
         }
 
         $contentObjectNameClass = $this->valueResolver->getValue($node->expr);
 
-        if ($contentObjectNameClass === null || $contentObjectNameClass === '') {
+        if (null === $contentObjectNameClass || '' === $contentObjectNameClass) {
             return null;
         }
 

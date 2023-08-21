@@ -50,12 +50,12 @@ final class RefactorBackendUtilityGetPagesTSconfigRector extends AbstractRector
         $returnPartArray = $this->valueResolver->getValue($node->args[2]->value);
 
         // If a custom non default rootline is given, nothing can be done
-        if ($rootLine !== 'null') {
+        if ('null' !== $rootLine) {
             return null;
         }
 
         // Just remove the arguments if equals to default ones
-        if ($returnPartArray === false) {
+        if (false === $returnPartArray) {
             $node->args = [$node->args[0]];
 
             return null;

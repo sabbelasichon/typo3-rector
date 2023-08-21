@@ -77,7 +77,7 @@ final class ConfigFilesystem
     private function ensureRequiredKeysAreSet(array $templateVariables): void
     {
         $missingKeys = array_diff(self::REQUIRED_KEYS, array_keys($templateVariables));
-        if ($missingKeys === []) {
+        if ([] === $missingKeys) {
             return;
         }
 

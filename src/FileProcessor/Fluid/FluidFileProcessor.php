@@ -38,7 +38,7 @@ final class FluidFileProcessor implements FileProcessorInterface
 
     public function supports(File $file, Configuration $configuration): bool
     {
-        if ($this->fluidRectors === []) {
+        if ([] === $this->fluidRectors) {
             return false;
         }
 

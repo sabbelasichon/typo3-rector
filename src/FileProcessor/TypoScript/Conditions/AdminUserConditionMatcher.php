@@ -23,7 +23,7 @@ final class AdminUserConditionMatcher implements TyposcriptConditionMatcher
 
         $value = (int) $matches['value'];
 
-        if ($value === 1) {
+        if (1 === $value) {
             return 'backend.user.isAdmin';
         }
 

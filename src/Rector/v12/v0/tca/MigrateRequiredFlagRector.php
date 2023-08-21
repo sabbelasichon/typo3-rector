@@ -85,9 +85,9 @@ CODE_SAMPLE
         $evalList = ArrayUtility::trimExplode(',', $value, true);
 
         // Remove "required" from $evalList
-        $evalList = array_filter($evalList, static fn (string $eval) => $eval !== self::REQUIRED);
+        $evalList = array_filter($evalList, static fn (string $eval) => self::REQUIRED !== $eval);
 
-        if ($evalList !== []) {
+        if ([] !== $evalList) {
             // Write back filtered 'eval'
             $evalArrayItem->value = new String_(implode(',', $evalList));
         } else {

@@ -34,6 +34,12 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
                 $matches
             );
 
+            // Nothing we can do here, might be something like TYPO3_LOADED_EXT
+            if (! isset($matches['type'], $matches['property'], $matches['operator'], $matches['value'])) {
+                $newConditions[] = $condition;
+                continue;
+            }
+
             $type = trim($matches['type']);
             $property = trim($matches['property']);
             $operator = trim($matches['operator']);
@@ -84,7 +90,7 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
             $value = sprintf("'%s'", $value);
         }
 
-        if (count($parameters) === 1) {
+        if (1 === count($parameters)) {
             return sprintf(
                 'request.getQueryParams()[\'%1$s\'] %2$s %3$s',
                 $parameters[0],

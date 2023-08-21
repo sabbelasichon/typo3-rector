@@ -63,7 +63,7 @@ final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends Abstr
 
             $fieldName = $this->valueResolver->getValue($columnItem->key);
 
-            if ($fieldName === null) {
+            if (null === $fieldName) {
                 continue;
             }
 

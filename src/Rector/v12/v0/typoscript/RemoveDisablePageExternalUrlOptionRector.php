@@ -43,7 +43,7 @@ final class RemoveDisablePageExternalUrlOptionRector extends AbstractTypoScriptR
             return;
         }
 
-        if ($statement->object->absoluteName !== 'config.disablePageExternalUrl') {
+        if ('config.disablePageExternalUrl' !== $statement->object->absoluteName) {
             return;
         }
 

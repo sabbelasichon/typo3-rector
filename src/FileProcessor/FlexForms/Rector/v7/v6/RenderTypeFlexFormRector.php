@@ -36,7 +36,7 @@ final class RenderTypeFlexFormRector implements FlexFormRectorInterface
                 continue;
             }
 
-            if ($type->textContent !== 'select') {
+            if ('select' !== $type->textContent) {
                 continue;
             }
 

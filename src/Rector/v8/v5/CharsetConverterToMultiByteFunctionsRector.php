@@ -39,31 +39,31 @@ final class CharsetConverterToMultiByteFunctionsRector extends AbstractRector
 
         $nodeName = $this->getName($node->name);
 
-        if ($nodeName === null) {
+        if (null === $nodeName) {
             return null;
         }
 
-        if ($nodeName === 'strlen') {
+        if ('strlen' === $nodeName) {
             return $this->toMultiByteStrlen($node);
         }
 
-        if ($nodeName === 'convCapitalize') {
+        if ('convCapitalize' === $nodeName) {
             return $this->toMultiByteConvertCase($node);
         }
 
-        if ($nodeName === 'substr') {
+        if ('substr' === $nodeName) {
             return $this->toMultiByteSubstr($node);
         }
 
-        if ($nodeName === 'conv_case') {
+        if ('conv_case' === $nodeName) {
             return $this->toMultiByteLowerUpperCase($node);
         }
 
-        if ($nodeName === 'utf8_strpos') {
+        if ('utf8_strpos' === $nodeName) {
             return $this->toMultiByteStrPos($node);
         }
 
-        if ($nodeName === 'utf8_strrpos') {
+        if ('utf8_strrpos' === $nodeName) {
             return $this->toMultiByteStrrPos($node);
         }
 
@@ -132,9 +132,9 @@ CODE_SAMPLE
 
     private function toMultiByteLowerUpperCase(MethodCall $methodCall): FuncCall
     {
-        $mbMethodCall = $this->valueResolver->getValue(
+        $mbMethodCall = 'toLower' === $this->valueResolver->getValue(
             $methodCall->args[2]->value
-        ) === 'toLower' ? 'mb_strtolower' : 'mb_strtoupper';
+        ) ? 'mb_strtolower' : 'mb_strtoupper';
 
         return $this->nodeFactory->createFuncCall($mbMethodCall, [$methodCall->args[1], $methodCall->args[0]]);
     }

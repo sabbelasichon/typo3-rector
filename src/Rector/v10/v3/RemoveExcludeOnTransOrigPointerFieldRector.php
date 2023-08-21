@@ -76,7 +76,7 @@ final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractRector
             }
         }
 
-        if ($transOrigPointerField === null) {
+        if (null === $transOrigPointerField) {
             return null;
         }
 
@@ -111,7 +111,7 @@ final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractRector
 
                 $configFieldName = $this->valueResolver->getValue($configValue->key);
 
-                if ($configFieldName === 'exclude') {
+                if ('exclude' === $configFieldName) {
                     $this->removeNode($configValue);
                     $hasAstBeenChanged = true;
                 }

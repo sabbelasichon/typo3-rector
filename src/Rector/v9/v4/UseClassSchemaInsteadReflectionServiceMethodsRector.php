@@ -136,49 +136,49 @@ CODE_SAMPLE
             return null;
         }
 
-        if ($node->args === []) {
+        if ([] === $node->args) {
             return null;
         }
 
         $nodeName = $this->getName($node->name);
 
-        if ($nodeName === null) {
+        if (null === $nodeName) {
             return null;
         }
 
-        if ($nodeName === 'getClassPropertyNames') {
+        if ('getClassPropertyNames' === $nodeName) {
             return $this->refactorGetClassPropertyNamesMethod($node);
         }
 
-        if ($nodeName === 'getPropertyTagsValues') {
+        if ('getPropertyTagsValues' === $nodeName) {
             return $this->refactorGetPropertyTagsValuesMethod($node);
         }
 
-        if ($nodeName === 'getPropertyTagValues') {
+        if ('getPropertyTagValues' === $nodeName) {
             return $this->refactorGetPropertyTagValuesMethod($node);
         }
 
-        if ($nodeName === 'getClassTagsValues') {
+        if ('getClassTagsValues' === $nodeName) {
             return $this->refactorGetClassTagsValues($node);
         }
 
-        if ($nodeName === 'getClassTagValues') {
+        if ('getClassTagValues' === $nodeName) {
             return $this->refactorGetClassTagValues($node);
         }
 
-        if ($nodeName === 'getMethodTagsValues') {
+        if ('getMethodTagsValues' === $nodeName) {
             return $this->refactorGetMethodTagsValues($node);
         }
 
-        if ($nodeName === self::HAS_METHOD) {
+        if (self::HAS_METHOD === $nodeName) {
             return $this->refactorHasMethod($node);
         }
 
-        if ($nodeName === 'getMethodParameters') {
+        if ('getMethodParameters' === $nodeName) {
             return $this->refactorGetMethodParameters($node);
         }
 
-        if ($nodeName === 'isClassTaggedWith') {
+        if ('isClassTaggedWith' === $nodeName) {
             return $this->refactorIsClassTaggedWith($node);
         }
 

@@ -72,7 +72,7 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
 
                 $changedCondition = $conditionMatcher->change($condition);
                 $applied = true;
-                if ($changedCondition !== null) {
+                if (null !== $changedCondition) {
                     $newConditions[] = $changedCondition;
                 }
             }
@@ -90,19 +90,19 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
             $file->addRectorClassWithLine(new RectorWithLineChange($this, $statement->sourceLine));
         }
 
-        if ($newConditions === []) {
+        if ([] === $newConditions) {
             $statement->condition = '';
 
             return;
         }
 
-        if (count($newConditions) === 1) {
+        if (1 === count($newConditions)) {
             $statement->condition = sprintf('[%s]', $newConditions[0]);
 
             return;
         }
 
-        if ($operators === []) {
+        if ([] === $operators) {
             $statement->condition = sprintf('[%s]', implode(' || ', $newConditions));
 
             return;
@@ -119,7 +119,7 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
         $newCondition = '';
         foreach ($newConditions as $key => $value) {
             $operator = $operators[$key];
-            if ($operator === '') {
+            if ('' === $operator) {
                 $newCondition .= $value;
                 continue;
             }

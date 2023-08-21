@@ -81,7 +81,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                 }
 
                 $configFieldName = $this->valueResolver->getValue($configValue->key);
-                if ($configFieldName !== 'config') {
+                if ('config' !== $configFieldName) {
                     continue;
                 }
 
@@ -100,7 +100,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
 
                     $configItemValueValue = $this->valueResolver->getValue($configItemValue->value);
 
-                    if ($configItemValueValue === null) {
+                    if (null === $configItemValueValue) {
                         continue;
                     }
 
@@ -118,7 +118,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                     }
 
                     if ($changed) {
-                        if ($softReferences !== []) {
+                        if ([] !== $softReferences) {
                             $softReferences = array_flip($softReferences);
                             $configItemValue->value = new String_(implode(',', $softReferences));
                         } else {

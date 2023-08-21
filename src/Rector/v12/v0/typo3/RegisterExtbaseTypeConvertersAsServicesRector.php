@@ -171,7 +171,7 @@ CODE_SAMPLE
                 return null;
             }
 
-            if (! $node instanceof ClassMethod || $node->stmts === null) {
+            if (! $node instanceof ClassMethod || null === $node->stmts) {
                 return null;
             }
 

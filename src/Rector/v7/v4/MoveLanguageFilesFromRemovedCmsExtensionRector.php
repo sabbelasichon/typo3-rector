@@ -65,7 +65,7 @@ CODE_SAMPLE
     {
         $value = $this->valueResolver->getValue($node);
 
-        if ($value === null || ! is_string($value)) {
+        if (null === $value || ! is_string($value)) {
             return null;
         }
 

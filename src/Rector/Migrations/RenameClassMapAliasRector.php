@@ -150,7 +150,7 @@ CODE_SAMPLE
             }
         }
 
-        if ($this->oldToNewClasses !== []) {
+        if ([] !== $this->oldToNewClasses) {
             $this->renamedClassesDataCollector->addOldToNewClasses($this->oldToNewClasses);
         }
 
@@ -170,7 +170,7 @@ CODE_SAMPLE
 
         // remove leading slash
         $classLikeName = ltrim($classLikeName, '\\');
-        if ($classLikeName === '') {
+        if ('' === $classLikeName) {
             return null;
         }
 

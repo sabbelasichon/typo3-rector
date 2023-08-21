@@ -89,7 +89,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
             return null;
         }
 
-        if ($node->expr->items === [] || $node->expr->items === null) {
+        if ([] === $node->expr->items || null === $node->expr->items) {
             return null;
         }
 
@@ -108,7 +108,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
                 continue;
             }
 
-            if ($this->targetTypo3VersionConstraint === '') {
+            if ('' === $this->targetTypo3VersionConstraint) {
                 continue;
             }
 
@@ -120,7 +120,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
                 continue;
             }
 
-            if ($item->value->items === null) {
+            if (null === $item->value->items) {
                 continue;
             }
 
@@ -138,7 +138,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
                     continue;
                 }
 
-                if ($constraintItem->value->items === null) {
+                if (null === $constraintItem->value->items) {
                     continue;
                 }
 

@@ -71,7 +71,7 @@ final class ConstantsToEnvironmentApiCallRector extends AbstractRector
     private function refactorConstants(ConstFetch $node): ?Node
     {
         $constantName = $this->getName($node);
-        if ($constantName === null) {
+        if (null === $constantName) {
             return null;
         }
 
@@ -95,22 +95,22 @@ final class ConstantsToEnvironmentApiCallRector extends AbstractRector
             return null;
         }
 
-        if ($constantName === 'PATH_thisScript') {
+        if ('PATH_thisScript' === $constantName) {
             return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getCurrentScript');
         }
 
-        if ($constantName === 'PATH_site') {
+        if ('PATH_site' === $constantName) {
             return new Concat($this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Core\Environment',
                 'getPublicPath'
             ), new String_('/'));
         }
 
-        if ($constantName === 'PATH_typo3') {
+        if ('PATH_typo3' === $constantName) {
             return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getBackendPath');
         }
 
-        if ($constantName === 'PATH_typo3conf') {
+        if ('PATH_typo3conf' === $constantName) {
             return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getLegacyConfigPath');
         }
 

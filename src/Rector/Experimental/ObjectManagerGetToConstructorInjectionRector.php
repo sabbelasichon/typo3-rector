@@ -105,7 +105,7 @@ CODE_SAMPLE
     public function replaceMethodCallWithPropertyFetchAndDependency(MethodCall $methodCall): ?PropertyFetch
     {
         $class = $this->valueResolver->getValue($methodCall->args[0]->value);
-        if ($class === null) {
+        if (null === $class) {
             return null;
         }
 

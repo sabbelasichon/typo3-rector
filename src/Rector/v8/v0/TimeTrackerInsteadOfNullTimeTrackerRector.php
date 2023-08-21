@@ -80,7 +80,7 @@ CODE_SAMPLE
 
         $value = $this->valueResolver->getValue($node->args[0]->value);
 
-        if ($value !== 'TYPO3\CMS\Core\TimeTracker\NullTimeTracker') {
+        if ('TYPO3\CMS\Core\TimeTracker\NullTimeTracker' !== $value) {
             return null;
         }
 

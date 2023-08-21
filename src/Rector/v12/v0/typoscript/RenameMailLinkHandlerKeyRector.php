@@ -28,7 +28,7 @@ final class RenameMailLinkHandlerKeyRector extends AbstractTypoScriptRector
             return;
         }
 
-        if ($statement->object->absoluteName !== 'TCEMAIN.linkHandler.mail') {
+        if ('TCEMAIN.linkHandler.mail' !== $statement->object->absoluteName) {
             return;
         }
 

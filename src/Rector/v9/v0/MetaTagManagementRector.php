@@ -95,7 +95,7 @@ CODE_SAMPLE
     {
         $out = Strings::matchAll($metaTag, self::PATTERN);
 
-        if ($out === []) {
+        if ([] === $out) {
             return [];
         }
 
@@ -163,7 +163,7 @@ CODE_SAMPLE
     private function createXUCompatibleMetaTag(MethodCall $methodCall): MethodCall
     {
         $value = 'IE=8';
-        if ($methodCall->args !== []) {
+        if ([] !== $methodCall->args) {
             $value = $methodCall->args[0]->value;
         }
 

@@ -214,7 +214,7 @@ CODE_SAMPLE
 
     private function substituteModuleTemplateMethodCalls(ClassMethod $classMethod): void
     {
-        if ($classMethod->stmts === null) {
+        if (null === $classMethod->stmts) {
             return;
         }
 
@@ -272,7 +272,7 @@ CODE_SAMPLE
 
         $htmlResponseMethodCallReturn = new Return_($htmlResponseMethodCall);
 
-        if ($classMethod->stmts === null) {
+        if (null === $classMethod->stmts) {
             $classMethod->stmts[] = $this->createModuleTemplateAssignment();
             $classMethod->stmts[] = $callSetContentOnModuleTemplateVariable;
             $classMethod->stmts[] = $htmlResponseMethodCallReturn;
@@ -293,11 +293,11 @@ CODE_SAMPLE
                     return false;
                 }
 
-                return $node->args === [];
+                return [] === $node->args;
             }
         );
 
-        if ($existingHtmlResponseMethodCallNodes === []) {
+        if ([] === $existingHtmlResponseMethodCallNodes) {
             $classMethod->stmts[] = $callSetContentOnModuleTemplateVariable;
             $classMethod->stmts[] = $htmlResponseMethodCallReturn;
             return;
@@ -316,7 +316,7 @@ CODE_SAMPLE
 
     private function callModuleTemplateFactoryCreateIfNeeded(ClassMethod $classMethod): void
     {
-        if ($classMethod->stmts === null) {
+        if (null === $classMethod->stmts) {
             $classMethod->stmts[] = $this->createModuleTemplateAssignment();
             return;
         }
@@ -340,7 +340,7 @@ CODE_SAMPLE
             }
         );
 
-        if ($existingModuleTemplateFactoryCreateMethodCall === []) {
+        if ([] === $existingModuleTemplateFactoryCreateMethodCall) {
             $moduleTemplateFactoryAssignment = $this->createModuleTemplateAssignment();
             array_unshift($classMethod->stmts, $moduleTemplateFactoryAssignment);
         }

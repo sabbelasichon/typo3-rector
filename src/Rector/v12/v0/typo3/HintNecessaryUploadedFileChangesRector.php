@@ -70,7 +70,7 @@ final class HintNecessaryUploadedFileChangesRector extends AbstractRector
             return null;
         }
 
-        if ($params[0]->type instanceof Identifier && $params[0]->type->name === 'array') {
+        if ($params[0]->type instanceof Identifier && 'array' === $params[0]->type->name) {
             $comments = $affectedMethod->getComments();
             $comments = array_filter(
                 $comments,

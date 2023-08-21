@@ -70,7 +70,7 @@ final class RemoveTCAInterfaceAlwaysDescriptionRector extends AbstractRector
             }
         }
 
-        if ($remainingInterfaceItems === 0) {
+        if (0 === $remainingInterfaceItems) {
             $this->removeNode($interface);
             return $node;
         }

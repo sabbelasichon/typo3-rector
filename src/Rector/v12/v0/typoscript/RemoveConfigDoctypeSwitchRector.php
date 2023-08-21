@@ -43,7 +43,7 @@ final class RemoveConfigDoctypeSwitchRector extends AbstractTypoScriptRector
             return;
         }
 
-        if ($statement->object->absoluteName !== 'config.doctypeSwitch') {
+        if ('config.doctypeSwitch' !== $statement->object->absoluteName) {
             return;
         }
 

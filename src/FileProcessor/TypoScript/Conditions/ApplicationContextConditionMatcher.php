@@ -48,11 +48,11 @@ final class ApplicationContextConditionMatcher implements TyposcriptConditionMat
             return false;
         }
 
-        return preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#', $condition) === 1;
+        return 1 === preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#', $condition);
     }
 
     private function isRegularExpression(string $regularExpression): bool
     {
-        return @preg_match($regularExpression, '') !== false;
+        return false !== @preg_match($regularExpression, '');
     }
 }

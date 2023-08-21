@@ -47,7 +47,7 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
         }
 
         $arguments = $node->args;
-        if ($arguments === []) {
+        if ([] === $arguments) {
             return null;
         }
 

@@ -51,7 +51,7 @@ final class TimeTrackerGlobalsToSingletonRector extends AbstractRector
             [$classConstant]
         );
         $methodCallName = $this->getName($node->name);
-        if ($methodCallName === null) {
+        if (null === $methodCallName) {
             return null;
         }
 

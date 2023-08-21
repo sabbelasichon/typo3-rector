@@ -65,7 +65,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
         }
 
         $xml = $domDocument->saveXML($domDocument->documentElement, LIBXML_NOEMPTYTAG);
-        if ($xml === false) {
+        if (false === $xml) {
             throw new UnexpectedValueException('Could not convert to xml');
         }
 
@@ -89,7 +89,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
     public function supports(File $file, Configuration $configuration): bool
     {
         // avoid empty run
-        if ($this->flexFormRectors === []) {
+        if ([] === $this->flexFormRectors) {
             return false;
         }
 
@@ -107,11 +107,11 @@ final class FlexFormsProcessor implements FileProcessorInterface
             return false;
         }
 
-        if ($xml === false) {
+        if (false === $xml) {
             return false;
         }
 
-        return $xml->getName() === 'T3DataStructure';
+        return 'T3DataStructure' === $xml->getName();
     }
 
     /**

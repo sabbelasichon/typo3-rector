@@ -53,15 +53,15 @@ CODE_SAMPLE
     {
         $className = $this->getName($node->class);
         $methodName = $this->getName($node->name);
-        if ($className === 'TYPO3\CMS\Core\Core\Bootstrap' && $methodName === 'usesComposerClassLoading') {
+        if ('TYPO3\CMS\Core\Core\Bootstrap' === $className && 'usesComposerClassLoading' === $methodName) {
             return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isComposerMode');
         }
 
-        if ($className === 'TYPO3\CMS\Core\Utility\GeneralUtility' && $methodName === 'getApplicationContext') {
+        if ('TYPO3\CMS\Core\Utility\GeneralUtility' === $className && 'getApplicationContext' === $methodName) {
             return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getContext');
         }
 
-        if ($className === 'TYPO3\CMS\Extbase\Service\EnvironmentService' && $methodName === 'isEnvironmentInCliMode') {
+        if ('TYPO3\CMS\Extbase\Service\EnvironmentService' === $className && 'isEnvironmentInCliMode' === $methodName) {
             return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isCli');
         }
 

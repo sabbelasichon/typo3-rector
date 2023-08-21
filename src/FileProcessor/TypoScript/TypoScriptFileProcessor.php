@@ -142,7 +142,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
 
     public function supports(File $file, Configuration $configuration): bool
     {
-        if ($this->typoScriptRectors === []) {
+        if ([] === $this->typoScriptRectors) {
             return false;
         }
 
@@ -205,7 +205,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
                 static fn (AbstractTypoScriptRector $typoScriptRector) => $typoScriptRector->hasChanged()
             );
 
-            if ($typoscriptRectorsWithChange === []) {
+            if ([] === $typoscriptRectorsWithChange) {
                 return;
             }
 

@@ -220,13 +220,13 @@ CODE_SAMPLE
                 $defaultExtrasArray = ArrayUtility::trimExplode(':', $defaultExtras, true);
 
                 foreach ($defaultExtrasArray as $defaultExtrasSetting) {
-                    if ($defaultExtrasSetting === 'nowrap') {
+                    if ('nowrap' === $defaultExtrasSetting) {
                         $additionalConfigItems[] = new ArrayItem(new String_('off'), new String_('wrap'));
-                    } elseif ($defaultExtrasSetting === 'enable-tab') {
+                    } elseif ('enable-tab' === $defaultExtrasSetting) {
                         $additionalConfigItems[] = new ArrayItem($this->nodeFactory->createTrue(), new String_(
                             'enableTabulator'
                         ));
-                    } elseif ($defaultExtrasSetting === 'fixed-font') {
+                    } elseif ('fixed-font' === $defaultExtrasSetting) {
                         $additionalConfigItems[] = new ArrayItem($this->nodeFactory->createTrue(), new String_(
                             'fixedFont'
                         ));
@@ -237,7 +237,7 @@ CODE_SAMPLE
                 $this->removeNode($configValue);
             }
 
-            if ($additionalConfigItems !== []) {
+            if ([] !== $additionalConfigItems) {
                 $this->hasAstBeenChanged = true;
 
                 $config = $this->extractArrayItemByKey($columnItem->value, 'config');

@@ -64,9 +64,9 @@ final class ChangeAttemptsParameterConsoleOutputRector extends AbstractRector
         $nodeNameArgument2 = isset($arguments[2]) ? $this->getName($arguments[2]->value) : '';
         $nodeNameArgument4 = isset($arguments[4]) ? $this->getName($arguments[4]->value) : '';
 
-        if ($this->isName($node->name, self::ASK_AND_VALIDATE) && $nodeNameArgument2 === 'false') {
+        if ($this->isName($node->name, self::ASK_AND_VALIDATE) && 'false' === $nodeNameArgument2) {
             $arguments[2] = null;
-        } elseif ($this->isName($node->name, self::SELECT) && $nodeNameArgument4 === 'false') {
+        } elseif ($this->isName($node->name, self::SELECT) && 'false' === $nodeNameArgument4) {
             $arguments[4] = null;
         }
 

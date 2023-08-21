@@ -49,7 +49,7 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
 
         $urlValue = $this->valueResolver->getValue($node->args[0]->value);
 
-        if ($urlValue === null) {
+        if (null === $urlValue) {
             return null;
         }
 

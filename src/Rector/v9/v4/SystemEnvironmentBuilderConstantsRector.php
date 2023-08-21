@@ -59,7 +59,7 @@ final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         $constantsName = $this->getName($node);
-        if ($constantsName === null) {
+        if (null === $constantsName) {
             return null;
         }
 
@@ -73,13 +73,13 @@ final class SystemEnvironmentBuilderConstantsRector extends AbstractRector
             return $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Service\AbstractService', $value);
         }
 
-        if ($constantsName === 'SUB') {
+        if ('SUB' === $constantsName) {
             return $this->nodeFactory->createFuncCall('chr', [(int) $value]);
         }
 
         $string = new String_($value);
 
-        if ($constantsName === 'TAB' || $constantsName === 'NUL') {
+        if ('TAB' === $constantsName || 'NUL' === $constantsName) {
             $string->setAttribute(AttributeKey::KIND, String_::KIND_DOUBLE_QUOTED);
         }
 

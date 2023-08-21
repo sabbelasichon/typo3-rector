@@ -81,11 +81,11 @@ CODE_SAMPLE
             return true;
         }
 
-        if ($smartFileInfo->getBasename() === 'ext_typoscript_setup.txt') {
+        if ('ext_typoscript_setup.txt' === $smartFileInfo->getBasename()) {
             return false;
         }
 
-        if ($smartFileInfo->getBasename() === 'ext_typoscript_constants.txt') {
+        if ('ext_typoscript_constants.txt' === $smartFileInfo->getBasename()) {
             return false;
         }
 

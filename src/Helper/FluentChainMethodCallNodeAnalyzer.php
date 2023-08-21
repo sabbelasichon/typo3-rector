@@ -30,7 +30,7 @@ final class FluentChainMethodCallNodeAnalyzer
         $methodNames = [];
         foreach ($methodCalls as $methodCall) {
             $methodName = $this->nodeNameResolver->getName($methodCall->name);
-            if ($methodName === null) {
+            if (null === $methodName) {
                 continue;
             }
 
@@ -55,7 +55,7 @@ final class FluentChainMethodCallNodeAnalyzer
         }
 
         // traverse down
-        if (count($chainMethodCalls) === 1) {
+        if (1 === count($chainMethodCalls)) {
             $currentNode = $methodCall->getAttribute(AttributeKey::PARENT_NODE);
             while ($currentNode instanceof MethodCall) {
                 $chainMethodCalls[] = $currentNode;

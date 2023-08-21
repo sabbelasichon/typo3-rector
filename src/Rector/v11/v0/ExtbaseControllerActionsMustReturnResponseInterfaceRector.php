@@ -194,7 +194,7 @@ CODE_SAMPLE
 
         $methodName = $this->getName($classMethod->name);
 
-        if ($methodName === null) {
+        if (null === $methodName) {
             return true;
         }
 
@@ -235,7 +235,7 @@ CODE_SAMPLE
 
     private function lastStatementIsExitCall(ClassMethod $classMethod): bool
     {
-        if ($classMethod->stmts === null) {
+        if (null === $classMethod->stmts) {
             return false;
         }
 
@@ -273,7 +273,7 @@ CODE_SAMPLE
 
     private function hasExceptionCall(ClassMethod $classMethod): bool
     {
-        if ($classMethod->stmts === null) {
+        if (null === $classMethod->stmts) {
             return false;
         }
 
@@ -293,7 +293,7 @@ CODE_SAMPLE
 
     private function lastStatementIsForwardCall(ClassMethod $classMethod): bool
     {
-        if ($classMethod->stmts === null) {
+        if (null === $classMethod->stmts) {
             return false;
         }
 

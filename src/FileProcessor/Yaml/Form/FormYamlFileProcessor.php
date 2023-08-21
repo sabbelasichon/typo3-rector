@@ -104,7 +104,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     public function supports(File $file, Configuration $configuration): bool
     {
         // Prevent unnecessary processing
-        if ($this->transformer === []) {
+        if ([] === $this->transformer) {
             return false;
         }
 

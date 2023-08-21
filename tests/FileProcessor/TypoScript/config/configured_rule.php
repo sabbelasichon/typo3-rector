@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\LanguageConditionMatche
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\LoginUserConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\PageConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\PIDinRootlineConditionMatcher;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\PIDupinRootlineConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TimeConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TreeLevelConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\UsergroupConditionMatcherMatcher;
@@ -30,6 +31,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../config/config_test.php');
 
     $services = $rectorConfig->services();
+    $services->set(\Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\AdminUserConditionMatcher::class);
     $services->set(ApplicationContextConditionMatcher::class);
     $services->set(BrowserConditionMatcher::class);
     $services->set(CompatVersionConditionMatcher::class);
@@ -41,6 +43,7 @@ return static function (RectorConfig $rectorConfig): void {
     $services->set(LoginUserConditionMatcher::class);
     $services->set(PageConditionMatcher::class);
     $services->set(PIDinRootlineConditionMatcher::class);
+    $services->set(PIDupinRootlineConditionMatcher::class);
     $services->set(TimeConditionMatcher::class);
     $services->set(TreeLevelConditionMatcher::class);
     $services->set(UsergroupConditionMatcherMatcher::class);

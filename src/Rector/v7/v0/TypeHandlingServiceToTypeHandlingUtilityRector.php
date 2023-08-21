@@ -39,7 +39,7 @@ final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRecto
 
         $methodCall = $this->getName($node->name);
 
-        if ($methodCall === null) {
+        if (null === $methodCall) {
             return null;
         }
 

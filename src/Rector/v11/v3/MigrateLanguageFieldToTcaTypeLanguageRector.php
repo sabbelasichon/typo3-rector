@@ -42,7 +42,7 @@ final class MigrateLanguageFieldToTcaTypeLanguageRector extends AbstractTcaRecto
         }
 
         $this->languageField = $this->valueResolver->getValue($value);
-        if ($this->languageField === null) {
+        if (null === $this->languageField) {
             return null;
         }
 

@@ -43,7 +43,7 @@ final class RemoveMetaCharSetRector extends AbstractTypoScriptRector
             return;
         }
 
-        if ($statement->object->absoluteName !== 'config.metaCharset') {
+        if ('config.metaCharset' !== $statement->object->absoluteName) {
             return;
         }
 

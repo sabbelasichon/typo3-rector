@@ -54,6 +54,6 @@ final class DatabaseConnectionExecInsertQueryRefactoring implements DatabaseConn
 
     public function canHandle(string $methodName): bool
     {
-        return $methodName === 'exec_INSERTquery';
+        return 'exec_INSERTquery' === $methodName;
     }
 }

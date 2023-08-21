@@ -154,13 +154,13 @@ CODE_SAMPLE
                 continue;
             }
 
-            if ($fieldValue->key === null) {
+            if (null === $fieldValue->key) {
                 continue;
             }
 
             $fieldName = $this->valueResolver->getValue($fieldValue->key);
 
-            if ($fieldName === null) {
+            if (null === $fieldName) {
                 continue;
             }
 
@@ -191,7 +191,7 @@ CODE_SAMPLE
                         continue;
                     }
 
-                    if ($configItemValue->key === null) {
+                    if (null === $configItemValue->key) {
                         continue;
                     }
 
@@ -238,7 +238,7 @@ CODE_SAMPLE
 
                         $wizardItemValueKey = $this->valueResolver->getValue($wizardItemValueKey);
 
-                        if ($wizardItemValueKey === null) {
+                        if (null === $wizardItemValueKey) {
                             continue;
                         }
 
@@ -246,7 +246,7 @@ CODE_SAMPLE
                         if (array_key_exists($wizardItemValueKey, self::MAP_WIZARD_TO_FIELD_CONTROL)) {
                             $fieldControlKey = self::MAP_WIZARD_TO_FIELD_CONTROL[$wizardItemValueKey];
 
-                            if ($wizardItemValueKey !== 'link') {
+                            if ('link' !== $wizardItemValueKey) {
                                 $fieldControl[$fieldControlKey] = [
                                     'disabled' => false,
                                 ];
@@ -256,7 +256,7 @@ CODE_SAMPLE
                         if (array_key_exists(
                             $wizardItemValueKey,
                             self::MAP_WIZARD_TO_RENDER_TYPE
-                        ) && $this->extractArrayItemByKey($configValueArray, 'renderType') === null) {
+                        ) && null === $this->extractArrayItemByKey($configValueArray, 'renderType')) {
                             $configValueArray->items[] = new ArrayItem(new String_(
                                 self::MAP_WIZARD_TO_RENDER_TYPE[$wizardItemValueKey]
                             ), new String_('renderType'));
@@ -269,12 +269,12 @@ CODE_SAMPLE
                                 continue;
                             }
 
-                            if ($wizardItemSubValue->key === null) {
+                            if (null === $wizardItemSubValue->key) {
                                 continue;
                             }
 
                             // Configuration of slider wizard
-                            if ($wizardItemValueKey === 'angle' && ! $this->valueResolver->isValue(
+                            if ('angle' === $wizardItemValueKey && ! $this->valueResolver->isValue(
                                 $wizardItemSubValue->key,
                                 'type'
                             )) {
@@ -284,7 +284,7 @@ CODE_SAMPLE
                                         $wizardItemSubValue->key
                                     )] = $sliderValue;
                                 }
-                            } elseif ($wizardItemValueKey === 'select' && $this->valueResolver->isValue(
+                            } elseif ('select' === $wizardItemValueKey && $this->valueResolver->isValue(
                                 $wizardItemSubValue->key,
                                 'items'
                             )) {
@@ -302,16 +302,16 @@ CODE_SAMPLE
                                         continue;
                                     }
 
-                                    if ($paramsValue->key === null) {
+                                    if (null === $paramsValue->key) {
                                         continue;
                                     }
 
                                     $value = $this->valueResolver->getValue($paramsValue->value);
-                                    if ($value === null) {
+                                    if (null === $value) {
                                         continue;
                                     }
 
-                                    if ($fieldControlKey !== null && $this->valueResolver->isValues($paramsValue->key, [
+                                    if (null !== $fieldControlKey && $this->valueResolver->isValues($paramsValue->key, [
                                         'table',
                                         'pid',
                                         'setValue',
@@ -321,20 +321,20 @@ CODE_SAMPLE
                                         'allowedExtensions',
                                     ])) {
                                         $paramsValueKey = $this->valueResolver->getValue($paramsValue->key);
-                                        if ($paramsValueKey !== null) {
-                                            if ($paramsValueKey === 'JSopenParams') {
+                                        if (null !== $paramsValueKey) {
+                                            if ('JSopenParams' === $paramsValueKey) {
                                                 $paramsValueKey = 'windowOpenParameters';
                                             }
                                             $fieldControl[$fieldControlKey]['options'][$paramsValueKey] = $value;
                                         }
                                     }
                                 }
-                            } elseif ($fieldControlKey !== null && $this->valueResolver->isValue(
+                            } elseif (null !== $fieldControlKey && $this->valueResolver->isValue(
                                 $wizardItemSubValue->key,
                                 'title'
                             )) {
                                 $value = $this->valueResolver->getValue($wizardItemSubValue->value);
-                                if ($value === null) {
+                                if (null === $value) {
                                     continue;
                                 }
                                 $fieldControl[$fieldControlKey]['options'][$this->valueResolver->getValue(
@@ -343,22 +343,22 @@ CODE_SAMPLE
                             }
                         }
 
-                        if ($selectOptions !== [] && $this->extractArrayItemByKey(
+                        if ([] !== $selectOptions && null === $this->extractArrayItemByKey(
                             $configValueArray,
                             self::MAP_WIZARD_TO_CUSTOM_TYPE['select']
-                        ) === null) {
+                        )) {
                             $configValueArray->items[] = new ArrayItem($this->nodeFactory->createArray(
                                 $selectOptions
                             ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE['select']));
                         }
 
-                        if ($customTypeOptions !== [] && array_key_exists(
+                        if ([] !== $customTypeOptions && array_key_exists(
                             $wizardItemValueKey,
                             self::MAP_WIZARD_TO_CUSTOM_TYPE
-                        ) && $this->extractArrayItemByKey(
+                        ) && null === $this->extractArrayItemByKey(
                             $configValueArray,
                             self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]
-                        ) === null) {
+                        )) {
                             $configValueArray->items[] = new ArrayItem($this->nodeFactory->createArray(
                                 $customTypeOptions
                             ), new String_(self::MAP_WIZARD_TO_CUSTOM_TYPE[$wizardItemValueKey]));
@@ -367,13 +367,13 @@ CODE_SAMPLE
 
                     $existingFieldControl = $this->extractArrayItemByKey($configValueArray, 'fieldControl');
 
-                    if ($existingFieldControl === null && $fieldControl !== []) {
+                    if (null === $existingFieldControl && [] !== $fieldControl) {
                         $configValueArray->items[] = new ArrayItem($this->nodeFactory->createArray(
                             $fieldControl
                         ), new String_('fieldControl'));
-                    } elseif ($fieldControl !== [] && $existingFieldControl instanceof ArrayItem) {
+                    } elseif ([] !== $fieldControl && $existingFieldControl instanceof ArrayItem) {
                         foreach ($fieldControl as $fieldControlKey => $fieldControlValue) {
-                            if ($this->extractArrayItemByKey($existingFieldControl->value, $fieldControlKey) !== null) {
+                            if (null !== $this->extractArrayItemByKey($existingFieldControl->value, $fieldControlKey)) {
                                 continue;
                             }
 
@@ -387,7 +387,7 @@ CODE_SAMPLE
                         }
                     }
 
-                    if ($remainingWizards === 0) {
+                    if (0 === $remainingWizards) {
                         $this->removeNode($configItemValue);
                     }
                 }
@@ -406,7 +406,7 @@ CODE_SAMPLE
                 continue;
             }
 
-            if ($configItemValue->key === null) {
+            if (null === $configItemValue->key) {
                 continue;
             }
 
@@ -416,7 +416,7 @@ CODE_SAMPLE
 
             $eval = $this->valueResolver->getValue($configItemValue->value);
 
-            if ($eval === null) {
+            if (null === $eval) {
                 continue;
             }
 

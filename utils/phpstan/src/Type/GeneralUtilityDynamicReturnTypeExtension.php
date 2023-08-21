@@ -24,7 +24,7 @@ final class GeneralUtilityDynamicReturnTypeExtension implements DynamicStaticMet
 
     public function isStaticMethodSupported(MethodReflection $methodReflection): bool
     {
-        return $methodReflection->getName() === 'makeInstance';
+        return 'makeInstance' === $methodReflection->getName();
     }
 
     public function getTypeFromStaticMethodCall(

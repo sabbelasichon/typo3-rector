@@ -22,7 +22,7 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
 
     public function isMethodSupported(MethodReflection $methodReflection): bool
     {
-        return $methodReflection->getName() === 'getAspect';
+        return 'getAspect' === $methodReflection->getName();
     }
 
     public function getTypeFromMethodCall(
@@ -32,7 +32,7 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
     ): Type {
         $defaultObjectType = new ObjectType('TYPO3\CMS\Core\Context\AspectInterface');
 
-        if ($methodCall->args === null) {
+        if (null === $methodCall->args) {
             return $defaultObjectType;
         }
 

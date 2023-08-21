@@ -93,7 +93,7 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
         }
 
         $delimiterPosition = strrpos($extensionName, '.');
-        if ($delimiterPosition === false) {
+        if (false === $delimiterPosition) {
             return null;
         }
 
@@ -108,7 +108,7 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
             return false;
         }
 
-        if ($this->valueResolver->getValue($extensionNameArgumentValue->right) !== null) {
+        if (null !== $this->valueResolver->getValue($extensionNameArgumentValue->right)) {
             return false;
         }
 

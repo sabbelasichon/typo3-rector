@@ -32,23 +32,23 @@ final class RefactorMethodsFromExtensionManagementUtilityRector extends Abstract
     {
         $className = $this->getName($node->class);
         $methodName = $this->getName($node->name);
-        if ($className !== 'TYPO3\CMS\Core\Utility\ExtensionManagementUtility') {
+        if ('TYPO3\CMS\Core\Utility\ExtensionManagementUtility' !== $className) {
             return null;
         }
 
-        if ($methodName === null) {
+        if (null === $methodName) {
             return null;
         }
 
-        if ($methodName === 'isLoaded') {
+        if ('isLoaded' === $methodName) {
             return $this->removeSecondArgumentFromMethodIsLoaded($node);
         }
 
-        if ($methodName === 'siteRelPath') {
+        if ('siteRelPath' === $methodName) {
             return $this->createNewMethodCallForSiteRelPath($node);
         }
 
-        if ($methodName === 'removeCacheFiles') {
+        if ('removeCacheFiles' === $methodName) {
             return $this->createNewMethodCallForRemoveCacheFiles();
         }
 

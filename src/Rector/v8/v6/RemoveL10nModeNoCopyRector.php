@@ -153,7 +153,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
 
                             $addAllowLanguageSynchronization = false;
 
-                            if ((string) $this->valueResolver->getValue($behaviourConfiguration->value) === '') {
+                            if ('' === (string) $this->valueResolver->getValue($behaviourConfiguration->value)) {
                                 $behaviourConfiguration->value = $this->nodeFactory->createTrue();
                                 $hasAstBeenChanged = true;
                             }

@@ -43,7 +43,7 @@ final class RemoveDisableCharsetHeaderConfigTypoScriptRector extends AbstractTyp
             return;
         }
 
-        if ($statement->object->absoluteName !== 'config.disableCharsetHeader') {
+        if ('config.disableCharsetHeader' !== $statement->object->absoluteName) {
             return;
         }
 

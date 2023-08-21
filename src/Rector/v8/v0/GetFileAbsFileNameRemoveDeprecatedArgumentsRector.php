@@ -41,7 +41,7 @@ final class GetFileAbsFileNameRemoveDeprecatedArgumentsRector extends AbstractRe
             return null;
         }
 
-        if (count($node->args) === 1) {
+        if (1 === count($node->args)) {
             return null;
         }
 

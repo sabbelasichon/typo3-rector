@@ -43,11 +43,11 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
         }
 
         $methodName = $this->getName($node->name);
-        if ($methodName === null) {
+        if (null === $methodName) {
             return null;
         }
 
-        if ($methodName === 'gif_compress') {
+        if ('gif_compress' === $methodName) {
             return $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Imaging\GraphicalFunctions',
                 'gifCompress',
@@ -55,7 +55,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
             );
         }
 
-        if ($methodName === 'png_to_gif_by_imagemagick') {
+        if ('png_to_gif_by_imagemagick' === $methodName) {
             return $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Imaging\GraphicalFunctions',
                 'pngToGifByImagemagick',
@@ -63,7 +63,7 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
             );
         }
 
-        if ($methodName === 'read_png_gif') {
+        if ('read_png_gif' === $methodName) {
             return $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Core\Imaging\GraphicalFunctions',
                 'readPngGif',
@@ -71,13 +71,13 @@ final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRecto
             );
         }
 
-        if ($methodName === 'array_merge') {
+        if ('array_merge' === $methodName) {
             [$arg1, $arg2] = $node->args;
 
             return new Plus($arg1->value, $arg2->value);
         }
 
-        if ($methodName === 'cleanOutputBuffers') {
+        if ('cleanOutputBuffers' === $methodName) {
             return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'flushOutputBuffers');
         }
 

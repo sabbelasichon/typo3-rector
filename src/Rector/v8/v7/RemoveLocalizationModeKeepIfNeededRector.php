@@ -68,7 +68,7 @@ final class RemoveLocalizationModeKeepIfNeededRector extends AbstractRector
 
             $fieldName = $this->valueResolver->getValue($columnItem->key);
 
-            if ($fieldName === null) {
+            if (null === $fieldName) {
                 continue;
             }
 
@@ -209,6 +209,6 @@ CODE_SAMPLE
             }
         }
 
-        return $allowLanguageSynchronization && $localizationMode === 'keep';
+        return $allowLanguageSynchronization && 'keep' === $localizationMode;
     }
 }

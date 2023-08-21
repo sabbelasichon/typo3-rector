@@ -133,7 +133,7 @@ CODE_SAMPLE
 
     public function convert(): ?AddedFileWithContent
     {
-        if (self::$persistenceArray === []) {
+        if ([] === self::$persistenceArray) {
             return null;
         }
 
@@ -188,7 +188,7 @@ CODE_SAMPLE
     {
         $filename = $configuration[self::FILENAME] ?? null;
 
-        if ($filename !== null) {
+        if (null !== $filename) {
             $this->filename = $filename;
         }
     }
@@ -242,11 +242,11 @@ CODE_SAMPLE
             return;
         }
 
-        if (isset($paths[4]) && $paths[4] === 'config') {
+        if (isset($paths[4]) && 'config' === $paths[4]) {
             return;
         }
 
-        if (isset($paths[5]) && $paths[5] === 'type') {
+        if (isset($paths[5]) && 'type' === $paths[5]) {
             return;
         }
 

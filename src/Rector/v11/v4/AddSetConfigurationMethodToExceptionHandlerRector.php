@@ -76,7 +76,7 @@ final class AddSetConfigurationMethodToExceptionHandlerRector extends AbstractRe
 
         $constructClassMethod->stmts = [];
 
-        if ($firstParameterName === '') {
+        if ('' === $firstParameterName) {
             return $node;
         }
 
@@ -143,7 +143,7 @@ CODE_SAMPLE
         }
 
         $className = $this->getName($class);
-        if ($className === null) {
+        if (null === $className) {
             return true;
         }
 
@@ -187,7 +187,7 @@ CODE_SAMPLE
             return $this->nodeNameResolver->isName($node, $firstParameterName);
         });
 
-        if ($variables === []) {
+        if ([] === $variables) {
             return;
         }
 

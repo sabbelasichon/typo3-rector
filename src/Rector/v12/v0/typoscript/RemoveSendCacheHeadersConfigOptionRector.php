@@ -43,7 +43,7 @@ final class RemoveSendCacheHeadersConfigOptionRector extends AbstractTypoScriptR
             return;
         }
 
-        if ($statement->object->absoluteName !== 'config.sendCacheHeaders_onlyWhenLoginDeniedInBranch') {
+        if ('config.sendCacheHeaders_onlyWhenLoginDeniedInBranch' !== $statement->object->absoluteName) {
             return;
         }
 

@@ -115,13 +115,13 @@ CODE_SAMPLE
             return null;
         }
 
-        if ($methodCall->args === []) {
+        if ([] === $methodCall->args) {
             return null;
         }
 
         $argumentValue = $this->valueResolver->getValue($methodCall->args[0]->value);
 
-        if ($argumentValue === null) {
+        if (null === $argumentValue) {
             return null;
         }
 
