@@ -73,7 +73,7 @@ CODE_SAMPLE
 
         $newHeaders = $this->buildHeaders($requestHeaders);
 
-        if ([] === $newHeaders) {
+        if ($newHeaders === []) {
             return null;
         }
 
@@ -91,11 +91,11 @@ CODE_SAMPLE
         $newHeaders = [];
         foreach ($requestHeaders as $requestHeader) {
             $parts = preg_split('#:[ \t]*#', (string) $requestHeader, 2, PREG_SPLIT_NO_EMPTY);
-            if (false === $parts) {
+            if ($parts === false) {
                 continue;
             }
 
-            if (2 !== count($parts)) {
+            if (count($parts) !== 2) {
                 continue;
             }
 

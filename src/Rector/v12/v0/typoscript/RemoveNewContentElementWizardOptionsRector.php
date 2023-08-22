@@ -43,8 +43,8 @@ final class RemoveNewContentElementWizardOptionsRector extends AbstractTypoScrip
             return;
         }
 
-        if ('mod.web_layout.disableNewContentElementWizard' !== $statement->object->absoluteName
-            && 'mod.newContentElementWizard.override' !== $statement->object->absoluteName) {
+        if ($statement->object->absoluteName !== 'mod.web_layout.disableNewContentElementWizard'
+            && $statement->object->absoluteName !== 'mod.newContentElementWizard.override') {
             return;
         }
 

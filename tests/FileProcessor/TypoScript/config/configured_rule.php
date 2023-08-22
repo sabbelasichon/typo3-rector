@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\AdminUserConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\ApplicationContextConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\BrowserConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\CompatVersionConditionMatcher;
@@ -31,7 +33,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../config/config_test.php');
 
     $services = $rectorConfig->services();
-    $services->set(\Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\AdminUserConditionMatcher::class);
+    $services->set(AdminUserConditionMatcher::class);
     $services->set(ApplicationContextConditionMatcher::class);
     $services->set(BrowserConditionMatcher::class);
     $services->set(CompatVersionConditionMatcher::class);

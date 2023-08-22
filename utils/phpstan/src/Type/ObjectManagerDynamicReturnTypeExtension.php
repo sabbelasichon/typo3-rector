@@ -30,7 +30,7 @@ final class ObjectManagerDynamicReturnTypeExtension implements DynamicMethodRetu
 
     public function isMethodSupported(MethodReflection $methodReflection): bool
     {
-        return 'get' === $methodReflection->getName();
+        return $methodReflection->getName() === 'get';
     }
 
     public function getTypeFromMethodCall(

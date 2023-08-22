@@ -150,7 +150,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         }
 
         $commandClassMethods = $this->findCommandMethods($node);
-        if ([] === $commandClassMethods) {
+        if ($commandClassMethods === []) {
             return null;
         }
 
@@ -158,7 +158,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
             return null;
         }
 
-        if ([] === $node->namespacedName->parts) {
+        if ($node->namespacedName->parts === []) {
             return null;
         }
 
@@ -191,11 +191,11 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 
             $commandMethodName = $this->getName($commandMethod->name);
 
-            if (null === $commandMethodName) {
+            if ($commandMethodName === null) {
                 continue;
             }
 
-            if (null === $commandMethod->stmts) {
+            if ($commandMethod->stmts === null) {
                 continue;
             }
 
@@ -383,7 +383,7 @@ CODE_SAMPLE
 
             $methodParamName = $this->nodeNameResolver->getName($methodParameter->var);
 
-            if (null === $methodParamName) {
+            if ($methodParamName === null) {
                 continue;
             }
 

@@ -83,13 +83,13 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
             $parentNode->right
         ) : $this->valueResolver->getValue($parentNode->left);
 
-        if (null === $type || ! in_array($type, ['FE', 'BE'], true)) {
+        if ($type === null || ! in_array($type, ['FE', 'BE'], true)) {
             return null;
         }
 
         $this->removeNode($parentNode->left === $node ? $parentNode->right : $parentNode->left);
 
-        if ('BE' === $type) {
+        if ($type === 'BE') {
             return $this->createIsBackendCall($arguments);
         }
 

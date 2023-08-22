@@ -18,7 +18,7 @@ trait TcaHelperTrait
         $ctrlArrayItem = $this->extractCtrl($return);
         $columnsArrayItem = $this->extractColumns($return);
 
-        return null !== $ctrlArrayItem && null !== $columnsArrayItem;
+        return $ctrlArrayItem !== null && $columnsArrayItem !== null;
     }
 
     protected function extractArrayItemByKey(?Node $node, string $key): ?ArrayItem
@@ -129,7 +129,7 @@ trait TcaHelperTrait
     private function hasRenderType(Array_ $columnItemConfigurationArray): bool
     {
         $renderTypeItem = $this->extractArrayItemByKey($columnItemConfigurationArray, 'renderType');
-        return null !== $renderTypeItem;
+        return $renderTypeItem !== null;
     }
 
     private function extractColumns(Return_ $return): ?ArrayItem
@@ -202,7 +202,7 @@ trait TcaHelperTrait
 
             $columnName = $this->getValue($columnConfig->key);
 
-            if (null === $columnName) {
+            if ($columnName === null) {
                 continue;
             }
 

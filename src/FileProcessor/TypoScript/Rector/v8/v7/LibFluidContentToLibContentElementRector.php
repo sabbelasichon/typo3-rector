@@ -23,14 +23,14 @@ final class LibFluidContentToLibContentElementRector extends AbstractTypoScriptR
             return;
         }
 
-        if ('lib.fluidContent' === $statement->object->relativeName) {
+        if ($statement->object->relativeName === 'lib.fluidContent') {
             $this->hasChanged = true;
             $statement->object->relativeName = 'lib.contentElement';
 
             return;
         }
 
-        if ('fluidContent' === $statement->object->relativeName) {
+        if ($statement->object->relativeName === 'fluidContent') {
             $this->hasChanged = true;
             $statement->object->relativeName = 'contentElement';
         }

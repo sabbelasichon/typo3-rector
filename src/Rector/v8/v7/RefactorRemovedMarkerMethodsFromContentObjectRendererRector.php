@@ -86,7 +86,7 @@ final class RefactorRemovedMarkerMethodsFromContentObjectRendererRector extends 
             ]
         )) {
             $methodName = $this->getName($node->name);
-            if (null === $methodName) {
+            if ($methodName === null) {
                 return null;
             }
 

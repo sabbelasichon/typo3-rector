@@ -103,6 +103,6 @@ final class IconsFileProcessor implements FileProcessorInterface
             return false;
         }
 
-        return self::EXT_ICON_NAME !== $filenameWithoutExtension;
+        return $filenameWithoutExtension !== self::EXT_ICON_NAME;
     }
 }

@@ -71,7 +71,7 @@ final class FunctionLikeDocParamTypeInferer
             $paramTypesByName[$paramTagValueNode->parameterName] = $parameterType;
         }
 
-        if ([] === $paramTypesByName) {
+        if ($paramTypesByName === []) {
             return new MixedType();
         }
 

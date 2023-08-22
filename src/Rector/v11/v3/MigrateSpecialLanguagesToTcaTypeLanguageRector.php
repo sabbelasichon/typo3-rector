@@ -42,7 +42,7 @@ final class MigrateSpecialLanguagesToTcaTypeLanguageRector extends AbstractTcaRe
         }
 
         $this->languageField = $this->valueResolver->getValue($value);
-        if (null === $this->languageField) {
+        if ($this->languageField === null) {
             return null;
         }
 

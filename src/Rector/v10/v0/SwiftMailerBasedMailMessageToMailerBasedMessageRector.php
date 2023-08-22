@@ -120,11 +120,11 @@ CODE_SAMPLE
         }
 
         $methodIdentifier = 'text';
-        if ('text/html' === $contentType) {
+        if ($contentType === 'text/html') {
             $methodIdentifier = 'html';
         }
 
-        if (null !== $contentType) {
+        if ($contentType !== null) {
             unset($methodCall->args[1]);
         }
 
@@ -145,7 +145,7 @@ CODE_SAMPLE
 
         unset($methodCall->args[1]);
 
-        if ('text/html' === $contentType) {
+        if ($contentType === 'text/html') {
             $methodCall->name = new Identifier('html');
             return $methodCall;
         }

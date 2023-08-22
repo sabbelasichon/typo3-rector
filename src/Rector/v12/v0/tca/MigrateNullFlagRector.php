@@ -79,9 +79,9 @@ CODE_SAMPLE
         $evalList = ArrayUtility::trimExplode(',', $value, true);
 
         // Remove "null" from $evalList
-        $evalList = array_filter($evalList, static fn (string $eval) => 'null' !== $eval);
+        $evalList = array_filter($evalList, static fn (string $eval) => $eval !== 'null');
 
-        if ([] !== $evalList) {
+        if ($evalList !== []) {
             // Write back filtered 'eval'
             $evalArrayItem->value = new String_(implode(',', $evalList));
         } else {

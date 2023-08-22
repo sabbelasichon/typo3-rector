@@ -42,7 +42,7 @@ final class RemoveRteHtmlParserEvalWriteFileRector extends AbstractRector
 
         if ($this->isName($node->name, 'evalWriteFile')) {
             $methodName = $this->getName($node->name);
-            if (null === $methodName) {
+            if ($methodName === null) {
                 return null;
             }
 

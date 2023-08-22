@@ -40,7 +40,7 @@ final class RefactorDeprecationLogRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         $className = $this->getName($node->class);
-        if ('TYPO3\CMS\Core\Utility\GeneralUtility' !== $className) {
+        if ($className !== 'TYPO3\CMS\Core\Utility\GeneralUtility') {
             return null;
         }
 

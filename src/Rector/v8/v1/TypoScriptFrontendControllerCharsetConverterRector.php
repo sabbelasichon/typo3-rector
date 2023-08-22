@@ -125,7 +125,7 @@ CODE_SAMPLE
     {
         $from = isset($methodCall->args[1]) ? $this->valueResolver->getValue($methodCall->args[1]->value) : null;
 
-        if ('' === $from || 'null' === $from || null === $from) {
+        if ($from === '' || $from === 'null' || $from === null) {
             return $methodCall->args[0]->value;
         }
 
@@ -158,7 +158,7 @@ CODE_SAMPLE
         $this->addCharsetConverterNode($methodCall);
 
         $methodName = $this->getName($methodCall->name);
-        if (null === $methodName) {
+        if ($methodName === null) {
             return null;
         }
 

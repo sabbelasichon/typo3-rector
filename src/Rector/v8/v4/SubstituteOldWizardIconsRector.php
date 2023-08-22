@@ -79,7 +79,7 @@ final class SubstituteOldWizardIconsRector extends AbstractRector implements Con
 
             $fieldName = $this->valueResolver->getValue($fieldValue->key);
 
-            if (null === $fieldName) {
+            if ($fieldName === null) {
                 continue;
             }
 

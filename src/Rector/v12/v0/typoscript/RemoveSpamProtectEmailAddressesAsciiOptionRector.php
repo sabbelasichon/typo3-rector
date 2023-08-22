@@ -43,11 +43,11 @@ final class RemoveSpamProtectEmailAddressesAsciiOptionRector extends AbstractTyp
             return;
         }
 
-        if ('config.spamProtectEmailAddresses' !== $statement->object->absoluteName) {
+        if ($statement->object->absoluteName !== 'config.spamProtectEmailAddresses') {
             return;
         }
 
-        if ('ascii' !== $statement->value->value) {
+        if ($statement->value->value !== 'ascii') {
             return;
         }
 

@@ -146,14 +146,14 @@ CODE_SAMPLE
 
         $hsc = $this->valueResolver->getValue($methodCall->args[$argumentPosition]->value);
 
-        if (null === $hsc) {
+        if ($hsc === null) {
             return null;
         }
 
         // If you don´t unset it you will end up in an infinite loop here
         unset($methodCall->args[$argumentPosition]);
 
-        if (false === $hsc) {
+        if ($hsc === false) {
             return null;
         }
 

@@ -22,7 +22,7 @@ final class UsergroupConditionMatcherMatcher implements TyposcriptConditionMatch
             return $condition;
         }
 
-        if (! isset($matches[1]) || '' === $matches[1]) {
+        if (! isset($matches[1]) || $matches[1] === '') {
             return "usergroup('*') == false";
         }
 
@@ -33,6 +33,6 @@ final class UsergroupConditionMatcherMatcher implements TyposcriptConditionMatch
 
     public function shouldApply(string $condition): bool
     {
-        return 1 === preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#', $condition);
+        return preg_match('#^' . self::TYPE . self::ZERO_ONE_OR_MORE_WHITESPACES . '=[^=]#', $condition) === 1;
     }
 }
