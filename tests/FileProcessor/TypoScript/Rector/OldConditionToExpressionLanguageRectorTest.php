@@ -6,57 +6,17 @@ namespace Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript\Rector;
 
 use Helmich\TypoScriptParser\Parser\AST\ConditionalStatement;
 use Iterator;
-use PHPUnit\Framework\TestCase;
-use Rector\Core\Provider\CurrentFileProvider;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\AdminUserConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\ApplicationContextConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\BrowserConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\CompatVersionConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\GlobalStringConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\GlobalVarConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\HostnameConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\IPConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\LanguageConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\LoginUserConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\PageConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\PIDinRootlineConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\PIDupinRootlineConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TimeConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\TreeLevelConditionMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\UsergroupConditionMatcherMatcher;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\VersionConditionMatcher;
+use Rector\Testing\PHPUnit\AbstractTestCase;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v9\v4\OldConditionToExpressionLanguageTypoScriptRector;
 
-final class OldConditionToExpressionLanguageRectorTest extends TestCase
+final class OldConditionToExpressionLanguageRectorTest extends AbstractTestCase
 {
     private OldConditionToExpressionLanguageTypoScriptRector $subject;
 
     protected function setUp(): void
     {
-        $conditionMatchers = [
-            new ApplicationContextConditionMatcher(),
-            new BrowserConditionMatcher(),
-            new CompatVersionConditionMatcher(),
-            new GlobalStringConditionMatcher(),
-            new GlobalVarConditionMatcher(),
-            new AdminUserConditionMatcher(),
-            new HostnameConditionMatcher(),
-            new IPConditionMatcher(),
-            new LanguageConditionMatcher(),
-            new LoginUserConditionMatcher(),
-            new PageConditionMatcher(),
-            new PIDinRootlineConditionMatcher(),
-            new PIDupinRootlineConditionMatcher(),
-            new TimeConditionMatcher(),
-            new TreeLevelConditionMatcher(),
-            new UsergroupConditionMatcherMatcher(),
-            new VersionConditionMatcher(),
-        ];
-
-        $this->subject = new OldConditionToExpressionLanguageTypoScriptRector(
-            new CurrentFileProvider(),
-            $conditionMatchers
-        );
+        $this->bootFromConfigFiles([__DIR__ . '/../config/configured_rule.php']);
+        $this->subject = $this->getService(OldConditionToExpressionLanguageTypoScriptRector::class);
     }
 
     /**
@@ -147,6 +107,11 @@ final class OldConditionToExpressionLanguageRectorTest extends TestCase
         yield 'TSFE id' => [
             'oldCondition' => '[globalVar = TSFE:id >= 10]',
             'newCondition' => '[getTSFE().id >= 10]',
+        ];
+
+        yield 'TYPO3_LOADED_EXT' => [
+            'oldCondition' => '[globalString = TYPO3_LOADED_EXT|tt_news|type=*]',
+            'newCondition' => '[globalString = TYPO3_LOADED_EXT|tt_news|type=*]',
         ];
 
         yield 'TSFE multiple page ids' => [

@@ -34,6 +34,12 @@ final class GlobalStringConditionMatcher extends AbstractGlobalConditionMatcher
                 $matches
             );
 
+            // Nothing we can do here, might be something like TYPO3_LOADED_EXT
+            if (! isset($matches['type'], $matches['property'], $matches['operator'], $matches['value'])) {
+                $newConditions[] = $condition;
+                continue;
+            }
+
             $type = trim($matches['type']);
             $property = trim($matches['property']);
             $operator = trim($matches['operator']);
