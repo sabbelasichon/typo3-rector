@@ -98,7 +98,6 @@
         "lint-php": "@php vendor/bin/parallel-lint src config tests"
     },
     "extra": {
-        "enable-patching": true,
         "rector": {
             "includes": [
                 "config/config.php"
@@ -109,6 +108,6 @@
         }
     },
     "conflict": {
-        "phpstan/phpstan": "1.10.28"
+        "phpstan/phpstan": ">= 1.10.28"
     }
 }
