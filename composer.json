@@ -26,7 +26,6 @@
         "ext-simplexml": "*",
         "helmich/typo3-typoscript-parser": "^2.4.1",
         "nette/utils": "^3.0",
-        "nikic/php-parser": "^4.14",
         "phpstan/phpstan": "^1.9.7",
         "rector/rector": "0.17.0",
         "symfony/console": "^4.0 || ^5.0 || ^6.0",
@@ -44,7 +43,8 @@
         "symfony/dependency-injection": "^5.0 || ^6.0",
         "symfony/filesystem": "^5.0 || ^6.0",
         "symfony/http-kernel": "^5.0 || ^6.0",
-        "symplify/easy-coding-standard": "^12.0"
+        "symplify/easy-coding-standard": "^12.0",
+        "symplify/rule-doc-generator": "^9.3 || ^11.1"
     },
     "autoload": {
         "psr-4": {
