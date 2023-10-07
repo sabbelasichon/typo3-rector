@@ -2,6 +2,7 @@
     "name": "ssch/typo3-rector",
     "type": "rector-extension",
     "description": "Instant fixes for your TYPO3 code by using Rector.",
+    "keywords": ["dev"],
     "homepage": "https://packagist.org/packages/ssch/typo3-rector",
     "support": {
         "docs": "https://github.com/sabbelasichon/typo3-rector/tree/main/docs",
