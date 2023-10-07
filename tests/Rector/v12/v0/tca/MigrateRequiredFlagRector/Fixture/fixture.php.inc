@@ -29,7 +29,7 @@ return [
         ],
         'contact_person_salutation' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:legacy_extensions/Resources/Private/Language/locallang_db.xlf:tx_legacy_exntesion_domain_model_order.contact_person_salutation',
+            'label' => 'LLL:EXT:legacy_extensions/Resources/Private/Language/locallang_db.xlf:tx_legacy_extension_domain_model_order.contact_person_salutation',
             'config' => [
                 'type' => 'select',
                 'items' => [
@@ -83,7 +83,7 @@ return [
         ],
         'contact_person_salutation' => [
             'exclude' => 1,
-            'label' => 'LLL:EXT:legacy_extensions/Resources/Private/Language/locallang_db.xlf:tx_legacy_exntesion_domain_model_order.contact_person_salutation',
+            'label' => 'LLL:EXT:legacy_extensions/Resources/Private/Language/locallang_db.xlf:tx_legacy_extension_domain_model_order.contact_person_salutation',
             'config' => [
                 'type' => 'select',
                 'items' => [

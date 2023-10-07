@@ -26,7 +26,7 @@ final class MigrateInternalTypeRector extends AbstractTcaRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrates TCA internal_type into new own seperate types', [new CodeSample(
+        return new RuleDefinition('Migrates TCA internal_type into new own separate types', [new CodeSample(
             <<<'CODE_SAMPLE'
 'columns' => [
     'aColumn' => [
