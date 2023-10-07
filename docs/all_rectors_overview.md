@@ -1536,7 +1536,7 @@ Migrate the iframe based file tree to SVG
 
 ## MigrateInternalTypeRector
 
-Migrates TCA internal_type into new own seperate types
+Migrates TCA internal_type into new own separate types
 
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInternalTypeRector`](../src/Rector/v12/v0/tca/MigrateInternalTypeRector.php)
 
