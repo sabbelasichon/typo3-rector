@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Tests\Rector\__Major__\__Minor__\__Type__\__Test_Dire
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class __Name__Test extends AbstractRectorTestCase
 {
