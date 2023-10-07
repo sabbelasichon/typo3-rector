@@ -1,0 +1,22 @@
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <sheetTitle>
+                    LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
+                </sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.topNewsRestriction>
+                        <label>
+                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
+                        </label>
+                        <config>
+                            <todo>TODO</todo>
+                        </config>
+                    </settings.topNewsRestriction>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

@@ -1,4 +1,4 @@
-# 279 Rules Overview
+# 280 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -2979,6 +2979,40 @@ Removed dividers2tabs functionality
      'columns' => [
      ],
  ];
+```
+
+<br>
+
+## RemoveElementTceFormsRector
+
+Remove TCEForms key from all elements in data structure
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\flexform\RemoveElementTceFormsRector`](../src/Rector/v12/v0/flexform/RemoveElementTceFormsRector.php)
+
+```diff
+ <T3DataStructure>
+     <ROOT>
+-        <TCEforms>
+-            <sheetTitle>aTitle</sheetTitle>
+-        </TCEforms>
++        <sheetTitle>aTitle</sheetTitle>
+         <type>array</type>
+         <el>
+             <aFlexField>
+-                <TCEforms>
+-                    <label>aFlexFieldLabel</label>
+-                    <config>
+-                        <type>input</type>
+-                    </config>
+-                </TCEforms>
++                <label>aFlexFieldLabel</label>
++                <config>
++                    <type>input</type>
++                </config>
+             </aFlexField>
+         </el>
+     </ROOT>
+ </T3DataStructure>
 ```
 
 <br>
