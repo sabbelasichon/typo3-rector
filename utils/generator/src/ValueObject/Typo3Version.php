@@ -34,7 +34,7 @@ final class Typo3Version
 
     public static function createFromString(string $version): self
     {
-        if (!str_contains($version, '.')) {
+        if (! str_contains($version, '.')) {
             $version .= '.0';
         }
 

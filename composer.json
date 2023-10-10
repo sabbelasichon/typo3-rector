@@ -76,16 +76,10 @@
         }
     },
     "scripts": {
-        "update-composer": [
-            "@update-composer-packages",
-            "@fix-rector",
-            "@fix-style"
-        ],
         "contribute": [
             "@fix-rector",
             "@fix-style",
-            "@analyze",
-            "@docs"
+            "@analyze"
         ],
         "check-style": "@php vendor/bin/ecs check --ansi",
         "fix-style": "@php vendor/bin/ecs check --fix --ansi",

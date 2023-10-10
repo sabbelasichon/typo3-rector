@@ -20,7 +20,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
-use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 use Symplify\SmartFileSystem\SmartFileInfo;
 use Webmozart\Assert\Assert;
 
@@ -73,10 +72,7 @@ final class Typo3GenerateCommand extends Command
         $this->setAliases(['typo3-create']);
     }
 
-    /**
-     * @throws ShouldNotHappenException
-     * @throws FileNotFoundException
-     */
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var QuestionHelper $helper */
@@ -88,13 +84,7 @@ final class Typo3GenerateCommand extends Command
         $description = $helper->ask($input, $output, $this->askForDescription());
         $type = $helper->ask($input, $output, $this->askForType());
 
-        $recipe = new Typo3RectorRecipe(
-            $typo3Version,
-            $changelogUrl,
-            $name,
-            $description,
-            $type
-        );
+        $recipe = new Typo3RectorRecipe($typo3Version, $changelogUrl, $name, $description, $type);
 
         $templateFileInfos = $this->templateFinder->find($type);
 
@@ -127,7 +117,9 @@ final class Typo3GenerateCommand extends Command
         $this->printSuccess($recipe->getRectorName(), $generatedFilePaths, $testCaseDirectoryPath);
 
         if ($type === 'tca') {
-            $this->outputStyle->writeln('<comment>If the TCA Rector is about a TCA config change, please also create a FlexForm Rector!</comment>');
+            $this->outputStyle->writeln(
+                '<comment>If the TCA Rector is about a TCA config change, please also create a FlexForm Rector!</comment>'
+            );
         }
 
         return Command::SUCCESS;
@@ -146,7 +138,8 @@ final class Typo3GenerateCommand extends Command
                 Assert::greaterThanEq($version->getMinor(), 0);
 
                 return $version;
-            });
+            }
+        );
 
         return $whatTypo3Version;
     }
@@ -163,10 +156,12 @@ final class Typo3GenerateCommand extends Command
                 if (! filter_var($url->getUrl(), FILTER_VALIDATE_URL)) {
                     throw new RuntimeException('Please enter a valid Url');
                 }
+
                 Assert::startsWith($url->getUrl(), 'https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/');
 
                 return $url;
-            });
+            }
+        );
 
         return $whatIsTheUrlToChangelog;
     }
@@ -224,7 +219,6 @@ final class Typo3GenerateCommand extends Command
 
     /**
      * @param string[] $generatedFilePaths
-     * @throws FileNotFoundException
      */
     private function printSuccess(string $name, array $generatedFilePaths, string $testCaseFilePath): void
     {
@@ -239,15 +233,16 @@ final class Typo3GenerateCommand extends Command
             $this->outputStyle->writeln(' * ' . $relativeFilePath);
         }
 
-        $message = sprintf('<info>Make tests green again:</info>%svendor/bin/phpunit %s', PHP_EOL . PHP_EOL, $testCaseFilePath . PHP_EOL);
+        $message = sprintf(
+            '<info>Make tests green again:</info>%svendor/bin/phpunit %s',
+            PHP_EOL . PHP_EOL,
+            $testCaseFilePath . PHP_EOL
+        );
         $this->outputStyle->writeln($message);
     }
 
     /**
      * @param string[] $generatedFilePaths
-     * @return string
-     * @throws FileNotFoundException
-     * @throws ShouldNotHappenException
      */
     private function resolveTestCaseDirectoryPath(array $generatedFilePaths): string
     {
