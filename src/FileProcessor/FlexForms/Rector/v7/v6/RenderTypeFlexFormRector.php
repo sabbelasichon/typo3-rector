@@ -28,9 +28,8 @@ final class RenderTypeFlexFormRector implements FlexFormRectorInterface
 
         $hasChanged = false;
         foreach ($elements as $element) {
-            $types = $element->getElementsByTagName('type');
-
-            $type = $types->item(0);
+            $type = $element->getElementsByTagName('type')
+                ->item(0);
 
             if (! $type instanceof DOMElement) {
                 continue;
@@ -40,20 +39,18 @@ final class RenderTypeFlexFormRector implements FlexFormRectorInterface
                 continue;
             }
 
-            $renderTypes = $element->getElementsByTagName('renderType');
+            $renderType = $element->getElementsByTagName('renderType')
+                ->item(0);
 
-            $renderType = $renderTypes->item(0);
-
-            if ($renderType instanceof \DOMElement) {
+            // If renderType is already set, migration can be skipped
+            if ($renderType instanceof DOMElement) {
                 continue;
             }
 
-            $renderModes = $element->getElementsByTagName('renderMode');
-            $renderMode = $renderModes->item(0);
-
-            $sizes = $element->getElementsByTagName('size');
-
-            $size = $sizes->item(0);
+            $renderMode = $element->getElementsByTagName('renderMode')
+                ->item(0);
+            $size = $element->getElementsByTagName('size')
+                ->item(0);
 
             $renderTypeName = 'selectSingle';
             $insertBefore = $type;
@@ -68,11 +65,11 @@ final class RenderTypeFlexFormRector implements FlexFormRectorInterface
 
             $renderType = $domDocument->createElement('renderType', $renderTypeName);
 
-            if (! $insertBefore->parentNode instanceof \DOMNode) {
+            if (! $insertBefore->parentNode instanceof DOMNode) {
                 continue;
             }
 
-            if (! $insertBefore->nextSibling instanceof \DOMNode) {
+            if (! $insertBefore->nextSibling instanceof DOMNode) {
                 continue;
             }
 
