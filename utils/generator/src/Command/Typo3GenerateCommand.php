@@ -20,7 +20,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
+use Symplify\SmartFileSystem\Exception\FileNotFoundException;
 use Symplify\SmartFileSystem\SmartFileInfo;
+use Webmozart\Assert\Assert;
 
 final class Typo3GenerateCommand extends Command
 {
@@ -71,6 +73,10 @@ final class Typo3GenerateCommand extends Command
         $this->setAliases(['typo3-create']);
     }
 
+    /**
+     * @throws ShouldNotHappenException
+     * @throws FileNotFoundException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var QuestionHelper $helper */
@@ -86,7 +92,7 @@ final class Typo3GenerateCommand extends Command
             $typo3Version,
             $changelogUrl,
             $name,
-            Description::createFromString($description),
+            $description,
             $type
         );
 
@@ -120,17 +126,11 @@ final class Typo3GenerateCommand extends Command
 
         $this->printSuccess($recipe->getRectorName(), $generatedFilePaths, $testCaseDirectoryPath);
 
+        if ($type === 'tca') {
+            $this->outputStyle->writeln('<comment>If the TCA Rector is about a TCA config change, please also create a FlexForm Rector!</comment>');
+        }
+
         return Command::SUCCESS;
-    }
-
-    private function askForChangelogUrl(): Question
-    {
-        $whatIsTheUrlToChangelog = new Question(
-            'Url to changelog (i.e. https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/...): '
-        );
-        $whatIsTheUrlToChangelog->setNormalizer(static fn ($url) => Url::createFromString(trim((string) $url)));
-
-        return $whatIsTheUrlToChangelog;
     }
 
     private function askForTypo3Version(): Question
@@ -139,14 +139,57 @@ final class Typo3GenerateCommand extends Command
         $whatTypo3Version->setNormalizer(
             static fn ($version) => Typo3Version::createFromString(trim((string) $version))
         );
+        $whatTypo3Version->setMaxAttempts(2);
+        $whatTypo3Version->setValidator(
+            static function (Typo3Version $version) {
+                Assert::greaterThanEq($version->getMajor(), 7);
+                Assert::greaterThanEq($version->getMinor(), 0);
+
+                return $version;
+            });
 
         return $whatTypo3Version;
+    }
+
+    private function askForChangelogUrl(): Question
+    {
+        $whatIsTheUrlToChangelog = new Question(
+            'Url to changelog (i.e. https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/...): '
+        );
+        $whatIsTheUrlToChangelog->setNormalizer(static fn ($url) => Url::createFromString((string) $url));
+        $whatIsTheUrlToChangelog->setMaxAttempts(3);
+        $whatIsTheUrlToChangelog->setValidator(
+            static function (Url $url) {
+                if (! filter_var($url->getUrl(), FILTER_VALIDATE_URL)) {
+                    throw new RuntimeException('Please enter a valid Url');
+                }
+                Assert::startsWith($url->getUrl(), 'https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/');
+
+                return $url;
+            });
+
+        return $whatIsTheUrlToChangelog;
     }
 
     private function askForName(): Question
     {
         $giveMeYourName = new Question('Name (i.e MigrateRequiredFlag): ');
-        $giveMeYourName->setNormalizer(static fn ($name) => Name::createFromString(trim((string) $name)));
+        $giveMeYourName->setNormalizer(static fn ($name) => Name::createFromString((string) $name));
+        $giveMeYourName->setMaxAttempts(3);
+        $giveMeYourName->setValidator(static function (Name $name) {
+            Assert::notEndsWith($name->getName(), 'Rector');
+            Assert::minLength($name->getName(), 5);
+            Assert::maxLength($name->getName(), 60);
+            Assert::notContains($name->getName(), ' ', 'The name must not contain spaces');
+            // Pattern from: https://www.php.net/manual/en/language.oop5.basic.php
+            Assert::regex(
+                $name->getName(),
+                '/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$/',
+                'The name must be a valid PHP class name. A valid class name starts with a letter or underscore, followed by any number of letters, numbers, or underscores.'
+            );
+
+            return $name;
+        });
 
         return $giveMeYourName;
     }
@@ -154,10 +197,11 @@ final class Typo3GenerateCommand extends Command
     private function askForDescription(): Question
     {
         $description = new Question('Description (i.e. Migrate required flag): ');
-        $description->setValidator(static function ($description) {
-            if (! is_string($description)) {
-                throw new RuntimeException('The description must not be empty');
-            }
+        $description->setNormalizer(static fn ($name) => Description::createFromString((string) $name));
+        $description->setMaxAttempts(3);
+        $description->setValidator(static function (Description $description) {
+            Assert::minLength($description->getDescription(), 5);
+            Assert::maxLength($description->getDescription(), 120);
 
             return $description;
         });
@@ -180,10 +224,11 @@ final class Typo3GenerateCommand extends Command
 
     /**
      * @param string[] $generatedFilePaths
+     * @throws FileNotFoundException
      */
     private function printSuccess(string $name, array $generatedFilePaths, string $testCaseFilePath): void
     {
-        $message = sprintf('New files generated for "%s":', $name);
+        $message = sprintf('<info>New files generated for "%s":</info>', $name);
         $this->outputStyle->writeln($message);
 
         sort($generatedFilePaths);
@@ -194,13 +239,15 @@ final class Typo3GenerateCommand extends Command
             $this->outputStyle->writeln(' * ' . $relativeFilePath);
         }
 
-        $message = sprintf('Make tests green again:%svendor/bin/phpunit %s', PHP_EOL . PHP_EOL, $testCaseFilePath);
-
+        $message = sprintf('<info>Make tests green again:</info>%svendor/bin/phpunit %s', PHP_EOL . PHP_EOL, $testCaseFilePath . PHP_EOL);
         $this->outputStyle->writeln($message);
     }
 
     /**
      * @param string[] $generatedFilePaths
+     * @return string
+     * @throws FileNotFoundException
+     * @throws ShouldNotHappenException
      */
     private function resolveTestCaseDirectoryPath(array $generatedFilePaths): string
     {

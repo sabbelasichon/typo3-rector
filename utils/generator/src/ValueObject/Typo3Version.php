@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Generator\ValueObject;
 
-use Webmozart\Assert\Assert;
-
 final class Typo3Version
 {
     /**
@@ -36,7 +34,9 @@ final class Typo3Version
 
     public static function createFromString(string $version): self
     {
-        Assert::contains($version, '.');
+        if (!str_contains($version, '.')) {
+            $version .= '.0';
+        }
 
         [$major, $minor] = explode('.', $version, 2);
 
