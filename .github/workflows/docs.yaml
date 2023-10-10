@@ -25,14 +25,14 @@ jobs:
             # see https://github.com/ramsey/composer-install
             -   uses: "ramsey/composer-install@v2"
 
-            #-   name: Install rule doc generator
-            #    run: composer require symplify/rule-doc-generator:^11.1 --with-all-dependencies
+            -   name: Install rule doc generator
+                run: composer require symplify/rule-doc-generator:^11.1 --with-all-dependencies
 
             -   name: Generate documentation
                 run: composer docs
 
-            #-   name: Uninstall rule doc generator
-            #    run: composer remove symplify/rule-doc-generator
+            -   name: Uninstall rule doc generator
+                run: composer remove symplify/rule-doc-generator
 
             -   uses: stefanzweifel/git-auto-commit-action@v4.16.0
                 with:
