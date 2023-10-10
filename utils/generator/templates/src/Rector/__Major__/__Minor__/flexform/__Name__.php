@@ -25,7 +25,7 @@ final class __Name__ implements FlexFormRectorInterface
         $xpath = new DOMXPath($domDocument);
 
         /** @var DOMNodeList<DOMElement> $elements */
-        $elements = $xpath->query('//TCEforms/config');
+        $elements = $xpath->query('//config');
 
         // Your code here
 

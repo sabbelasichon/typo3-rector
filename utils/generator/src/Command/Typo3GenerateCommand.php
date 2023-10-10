@@ -72,7 +72,6 @@ final class Typo3GenerateCommand extends Command
         $this->setAliases(['typo3-create']);
     }
 
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var QuestionHelper $helper */

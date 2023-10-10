@@ -2,22 +2,18 @@
     <sheets>
         <sDEF>
             <ROOT>
-                <TCEforms>
-                    <sheetTitle>
-                        LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
-                    </sheetTitle>
-                </TCEforms>
+                <sheetTitle>
+                    LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
+                </sheetTitle>
                 <type>array</type>
                 <el>
                     <settings.topNewsRestriction>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
-                            </label>
-                            <config>
-                                <todo>TODO</todo>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
+                        </label>
+                        <config>
+                            <todo>TODO</todo>
+                        </config>
                     </settings.topNewsRestriction>
                 </el>
             </ROOT>
@@ -29,22 +25,18 @@
     <sheets>
         <sDEF>
             <ROOT>
-                <TCEforms>
-                    <sheetTitle>
-                        LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
-                    </sheetTitle>
-                </TCEforms>
+                <sheetTitle>
+                    LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
+                </sheetTitle>
                 <type>array</type>
                 <el>
                     <settings.topNewsRestriction>
-                        <TCEforms>
-                            <label>
-                                LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
-                            </label>
-                            <config>
-                                <todo>TODO</todo>
-                            </config>
-                        </TCEforms>
+                        <label>
+                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
+                        </label>
+                        <config>
+                            <todo>TODO</todo>
+                        </config>
                     </settings.topNewsRestriction>
                 </el>
             </ROOT>
