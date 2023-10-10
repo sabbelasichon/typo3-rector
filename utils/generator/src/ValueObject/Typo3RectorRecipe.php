@@ -14,17 +14,17 @@ final class Typo3RectorRecipe
     /**
      * @readonly
      */
-    private Url $url;
+    private string $url;
 
     /**
      * @readonly
      */
-    private Name $name;
+    private string $name;
 
     /**
      * @readonly
      */
-    private Description $description;
+    private string $description;
 
     /**
      * @readonly
@@ -33,9 +33,9 @@ final class Typo3RectorRecipe
 
     public function __construct(
         Typo3Version $typo3Version,
-        Url $url,
-        Name $name,
-        Description $description,
+        string $url,
+        string $name,
+        string $description,
         string $type
     ) {
         $this->typo3Version = $typo3Version;
@@ -47,7 +47,7 @@ final class Typo3RectorRecipe
 
     public function getChangelogUrl(): string
     {
-        return $this->url->getUrl();
+        return $this->url;
     }
 
     public function getMajorVersion(): string
@@ -62,17 +62,17 @@ final class Typo3RectorRecipe
 
     public function getDescription(): string
     {
-        return $this->description->getDescription();
+        return $this->description;
     }
 
     public function getRectorName(): string
     {
-        return $this->name->getRectorName();
+        return $this->name . 'Rector';
     }
 
     public function getTestDirectory(): string
     {
-        return $this->name->getName() . 'Rector';
+        return $this->name . 'Rector';
     }
 
     public function getSet(): string

@@ -9,11 +9,8 @@ use RuntimeException;
 use Ssch\TYPO3Rector\Generator\FileSystem\ConfigFilesystem;
 use Ssch\TYPO3Rector\Generator\Finder\TemplateFinder;
 use Ssch\TYPO3Rector\Generator\Generator\FileGenerator;
-use Ssch\TYPO3Rector\Generator\ValueObject\Description;
-use Ssch\TYPO3Rector\Generator\ValueObject\Name;
 use Ssch\TYPO3Rector\Generator\ValueObject\Typo3RectorRecipe;
 use Ssch\TYPO3Rector\Generator\ValueObject\Typo3Version;
-use Ssch\TYPO3Rector\Generator\ValueObject\Url;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -148,15 +145,16 @@ final class Typo3GenerateCommand extends Command
         $whatIsTheUrlToChangelog = new Question(
             'Url to changelog (i.e. https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/...): '
         );
-        $whatIsTheUrlToChangelog->setNormalizer(static fn ($url) => Url::createFromString((string) $url));
         $whatIsTheUrlToChangelog->setMaxAttempts(3);
         $whatIsTheUrlToChangelog->setValidator(
-            static function (Url $url) {
-                if (! filter_var($url->getUrl(), FILTER_VALIDATE_URL)) {
+            static function (?string $url) {
+                Assert::notNull($url);
+
+                if (! filter_var($url, FILTER_VALIDATE_URL)) {
                     throw new RuntimeException('Please enter a valid Url');
                 }
 
-                Assert::startsWith($url->getUrl(), 'https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/');
+                Assert::startsWith($url, 'https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/');
 
                 return $url;
             }
@@ -168,16 +166,15 @@ final class Typo3GenerateCommand extends Command
     private function askForName(): Question
     {
         $giveMeYourName = new Question('Name (i.e MigrateRequiredFlag): ');
-        $giveMeYourName->setNormalizer(static fn ($name) => Name::createFromString((string) $name));
+        $giveMeYourName->setNormalizer(static fn ($name) => preg_replace('/Rector$/', '', ucfirst((string) $name)));
         $giveMeYourName->setMaxAttempts(3);
-        $giveMeYourName->setValidator(static function (Name $name) {
-            Assert::notEndsWith($name->getName(), 'Rector');
-            Assert::minLength($name->getName(), 5);
-            Assert::maxLength($name->getName(), 60);
-            Assert::notContains($name->getName(), ' ', 'The name must not contain spaces');
+        $giveMeYourName->setValidator(static function (string $name) {
+            Assert::minLength($name, 5);
+            Assert::maxLength($name, 60);
+            Assert::notContains($name, ' ', 'The name must not contain spaces');
             // Pattern from: https://www.php.net/manual/en/language.oop5.basic.php
             Assert::regex(
-                $name->getName(),
+                $name,
                 '/^[a-zA-Z_\x80-\xff][a-zA-Z0-9_\x80-\xff]*$/',
                 'The name must be a valid PHP class name. A valid class name starts with a letter or underscore, followed by any number of letters, numbers, or underscores.'
             );
@@ -191,11 +188,11 @@ final class Typo3GenerateCommand extends Command
     private function askForDescription(): Question
     {
         $description = new Question('Description (i.e. Migrate required flag): ');
-        $description->setNormalizer(static fn ($name) => Description::createFromString((string) $name));
         $description->setMaxAttempts(3);
-        $description->setValidator(static function (Description $description) {
-            Assert::minLength($description->getDescription(), 5);
-            Assert::maxLength($description->getDescription(), 120);
+        $description->setValidator(static function (?string $description) {
+            Assert::notNull($description, 'Please enter a description');
+            Assert::minLength($description, 5);
+            Assert::maxLength($description, 120);
 
             return $description;
         });
@@ -211,6 +208,7 @@ final class Typo3GenerateCommand extends Command
             'flexform',
             'typoscript',
         ], 0);
+        $question->setMaxAttempts(3);
         $question->setErrorMessage('Type %s is invalid.');
 
         return $question;
