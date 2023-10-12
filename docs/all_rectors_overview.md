@@ -1,4 +1,4 @@
-# 280 Rules Overview
+# 281 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1585,6 +1585,39 @@ Migrates indexed item array keys to associative for type select, radio and check
 -    ],
 +    ],
 +],
+```
+
+<br>
+
+## MigrateItemsToIndexedArrayKeysForFlexFormItemsRector
+
+Migrates indexed item array keys to associative for type select, radio and check in FlexForms. This Rector Rule is sponsored by UDG Rhein-Main GmbH
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v3\flexform\MigrateItemsToIndexedArrayKeysForFlexFormItemsRector`](../src/Rector/v12/v3/flexform/MigrateItemsToIndexedArrayKeysForFlexFormItemsRector.php)
+
+```diff
+ <select_single_1>
+     <label>select_single_1 description</label>
+     <description>field description</description>
+     <config>
+         <type>select</type>
+         <renderType>selectSingle</renderType>
+         <items>
+             <numIndex index="0">
+-                <numIndex index="0">Label 1</numIndex>
+-                <numIndex index="1">value1</numIndex>
++                <label>Label 1</label>
++                <value>value1</value>
+             </numIndex>
+             <numIndex index="1">
+-                <numIndex index="0">Label 2</numIndex>
+-                <numIndex index="1">value2</numIndex>
++                <label>Label 2</label>
++                <value>value2</value>
+             </numIndex>
+         </items>
+     </config>
+ </select_single_1>
 ```
 
 <br>
