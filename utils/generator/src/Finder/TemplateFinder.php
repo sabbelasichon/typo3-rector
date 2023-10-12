@@ -46,6 +46,9 @@ final class TemplateFinder
             case 'typoscript':
                 $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.typoscript.inc';
                 break;
+            case 'yaml':
+                $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.yaml.inc';
+                break;
             default:
                 $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.php.inc';
                 break;

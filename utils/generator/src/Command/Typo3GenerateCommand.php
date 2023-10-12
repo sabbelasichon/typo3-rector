@@ -207,6 +207,7 @@ final class Typo3GenerateCommand extends Command
             'tca',
             'flexform',
             'typoscript',
+            'yaml',
         ], 0);
         $question->setMaxAttempts(3);
         $question->setErrorMessage('Type %s is invalid.');
