@@ -810,7 +810,7 @@ return static function (RectorConfig $rectorConfig): void {
 -    'modify_tables' => '',
 -    'clearcacheonload' => 0,
 -    'lockType' => '',
-     'author' => 'Max Mustrmann',
+     'author' => 'Max Mustermann',
      'author_email' => 'max.mustermann@mustermann.de',
      'author_company' => 'Mustermann GmbH',
 -    'CGLcompliance' => '',
