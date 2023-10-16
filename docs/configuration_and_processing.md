@@ -37,7 +37,6 @@ Let's say you want to migrate the TCA from a TYPO3 7 project to the latest TYPO3
 ```php
 <?php
 
-// rector.php
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
@@ -48,23 +47,35 @@ use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
+use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 return static function (RectorConfig $rectorConfig): void {
+
+    // If you want to override the number of spaces for your typoscript files you can define it here, the default value is 4
+    // $parameters = $rectorConfig->parameters();
+    // $parameters->set(Typo3Option::TYPOSCRIPT_INDENT_SIZE, 2);
+
     $rectorConfig->sets([
-        Typo3LevelSetList::UP_TO_TYPO3_11
+        Typo3LevelSetList::UP_TO_TYPO3_11,
+        // https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/FileStructure/Configuration/Icons.html
+        // Typo3SetList::REGISTER_ICONS_TO_ICON,
     ]);
 
-    // In order to have a better analysis from phpstan we teach it here some more things
+    // Register a single rule. Single rules don't load the main config file, therefore the config file needs to be loaded manually.
+    // $rectorConfig->import(__DIR__ . '/vendor/ssch/typo3-rector/config/config.php');
+    // $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector::class);
+
+    // To have a better analysis from phpstan, we teach it here some more things
     $rectorConfig->phpstanConfig(Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
 
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $rectorConfig->importNames();
 
-    // Disable parallel otherwise non php file processing is not working i.e. typoscript
+    // Disable parallel otherwise non php file processing is not working i.e. typoscript or flexform
     $rectorConfig->disableParallel();
 
     // this will not import root namespace classes, like \DateTime or \Exception
-    $rectorConfig->disableImportShortClasses();
+    $rectorConfig->importShortClasses(false);
 
     // Define your target version which you want to support
     $rectorConfig->phpVersion(PhpVersion::PHP_74);
@@ -104,14 +115,11 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file
-    // @see https://github.com/sabbelasichon/typo3-rector/blob/master/typo3.constants.php
-    // @see https://github.com/rectorphp/rector/blob/main/docs/static_reflection_and_autoload.md#include-files
+    // @see https://github.com/sabbelasichon/typo3-rector/blob/main/typo3.constants.php
+    // @see https://getrector.com/documentation/static-reflection-and-autoload#include-files
     // $rectorConfig->bootstrapFiles([
     //    __DIR__ . '/typo3.constants.php'
-    //]);
-
-    // register a single rule
-    // $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector::class);
+    // ]);
 
     /**
      * Useful rule from RectorPHP itself to transform i.e. GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')
