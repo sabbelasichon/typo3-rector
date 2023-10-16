@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80440-EXTlowlevelArrayBrowser-wrapValue.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/8.7/Deprecation-80440-EXTlowlevelArrayBrowser-wrapValue.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v7\RefactorArrayBrowserWrapValueRector\RefactorArrayBrowserWrapValueRectorTest
  */
 final class RefactorArrayBrowserWrapValueRector extends AbstractRector

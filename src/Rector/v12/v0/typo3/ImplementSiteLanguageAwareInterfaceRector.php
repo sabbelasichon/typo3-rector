@@ -20,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/12.0/Deprecation-97435-UsageOfSiteLanguageAwareTraitToDenoteSiteLanguageAwareness.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97435-UsageOfSiteLanguageAwareTraitToDenoteSiteLanguageAwareness.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector\ImplementSiteLanguageAwareInterfaceRectorTest
  */
 final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAwareRector

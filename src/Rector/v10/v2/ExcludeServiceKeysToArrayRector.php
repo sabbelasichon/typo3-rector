@@ -15,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89579-ServiceChainsRequireAnArrayForExcludedServiceKeys.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.2/Deprecation-89579-ServiceChainsRequireAnArrayForExcludedServiceKeys.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v2\ExcludeServiceKeysToArrayRector\ExcludeServiceKeysToArrayRectorTest
  */
 final class ExcludeServiceKeysToArrayRector extends AbstractRector

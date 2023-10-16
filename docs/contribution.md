@@ -12,7 +12,7 @@
 # Contributing
 
 Want to help? Great!
-Join TYPO3 slack channel [#ext-typo3-rector](https://typo3.slack.com/archives/C019R5LAA6A)
+Join the TYPO3 Slack channel [#ext-typo3-rector](https://typo3.slack.com/archives/C019R5LAA6A)
 
 ## Fork the project
 
@@ -34,8 +34,8 @@ https://github.com/sabbelasichon/typo3-rector/issues You can filter by tags
 
 ## Assign the issue to yourself
 
-Assign the issue to yourself if you are member of the project, so others can see that you are working on it. If you are
-not member of the project, make a comment to let everyone know that you are working on it.
+Assign the issue to yourself if you are a member of the project, so others can see that you are working on it.
+If you are not a member of the project, make a comment to let everyone know that you are working on it.
 
 ## Create an own Rector
 
@@ -46,8 +46,8 @@ bin/typo3-rector
 ```
 
 This command will ask you some questions to provide a proper rector setup.
-Following this will lead to the creation of the overall rector structure necessay.
-It will create the skeleton for the rector with the class, test class, fixtures and directories to start coding - basically everything you need to start!
+Following this will lead to the creation of the overall rector structure necessary.
+It will create the skeleton for the rector with the class, test class, fixtures and directories to start coding — basically everything you need to start!
 
 ### Useful infos:
 
@@ -62,7 +62,7 @@ It will create the skeleton for the rector with the class, test class, fixtures 
 In this example the methods `GeneralUtility::strtoupper(...)` and `GeneralUtility::strtolower(...)` are migrated.
 - `getNodeTypes` checks for the StaticCall, preventing further rector execution if not met
 - `refactor` first checks for the ObjectType to do an early return in case the class scanned is not `TYPO3\CMS\Core\Utility\GeneralUtility`
-- after that the actual function call is checked for being one of the functions to migrate
+- after that, the actual function call is checked for being one of the functions to migrate
 
 
 ```php
@@ -102,8 +102,11 @@ final class GeneralUtilityToUpperAndLowerRector extends AbstractRector
 Make sure you have a test in place for your Rector
 
 All unit tests must pass before submitting a pull request.
+Additionally, the code style must be valid.
+Run the following commands:
 
 ```bash
+composer run-script contribute
 vendor/bin/phpunit
 ```
 

@@ -15,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.7/Deprecation-80027-RemoveTCAConfigMaxOnInputDateTimeFields.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/8.7/Deprecation-80027-RemoveTCAConfigMaxOnInputDateTimeFields.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v7\RemoveConfigMaxFromInputDateTimeFieldsRector\RemoveConfigMaxFromInputDateTimeFieldsRectorTest
  */
 final class RemoveConfigMaxFromInputDateTimeFieldsRector extends AbstractRector

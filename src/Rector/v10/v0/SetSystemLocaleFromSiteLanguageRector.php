@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.0/Deprecation-88473-TypoScriptFrontendController-settingLocale.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.0/Deprecation-88473-TypoScriptFrontendController-settingLocale.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\SetSystemLocaleFromSiteLanguageRector\SetSystemLocaleFromSiteLanguageRectorTest
  */
 final class SetSystemLocaleFromSiteLanguageRector extends AbstractRector

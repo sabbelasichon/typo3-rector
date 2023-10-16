@@ -17,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ExtensionArchitecture/DeclarationFile/Index.html
+ * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/FileStructure/ExtEmconf.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\General\ExtEmConfRector\ExtEmConfRectorTest
  */
 final class ExtEmConfRector extends AbstractRector implements ConfigurableRectorInterface
@@ -185,7 +185,7 @@ $EM_CONF[$_EXTKEY] = [
     'modify_tables' => '',
     'clearcacheonload' => 0,
     'lockType' => '',
-    'author' => 'Max Mustrmann',
+    'author' => 'Max Mustermann',
     'author_email' => 'max.mustermann@mustermann.de',
     'author_company' => 'Mustermann GmbH',
     'CGLcompliance' => '',
@@ -216,7 +216,7 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'fe',
     'version' => '2.0.1',
     'state' => 'stable',
-    'author' => 'Max Mustrmann',
+    'author' => 'Max Mustermann',
     'author_email' => 'max.mustermann@mustermann.de',
     'author_company' => 'Mustermann GmbH',
     'constraints' => [

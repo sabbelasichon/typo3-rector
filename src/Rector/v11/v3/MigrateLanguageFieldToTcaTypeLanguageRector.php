@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.3/Deprecation-94165-SysLanguageDatabaseTable.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.3/Deprecation-94165-SysLanguageDatabaseTable.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v3\MigrateLanguageFieldToTcaTypeLanguageRector\MigrateLanguageFieldToTcaTypeLanguageRectorTest
  */
 final class MigrateLanguageFieldToTcaTypeLanguageRector extends AbstractTcaRector

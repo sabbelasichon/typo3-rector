@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.0/Breaking-61786-ExtbaseDeprecatedTypeHandlingServiceRemoved.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/7.0/Breaking-61786-ExtbaseDeprecatedTypeHandlingServiceRemoved.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v0\TypeHandlingServiceToTypeHandlingUtilityRector\TypeHandlingServiceToTypeHandlingUtilityRectorTest
  */
 final class TypeHandlingServiceToTypeHandlingUtilityRector extends AbstractRector

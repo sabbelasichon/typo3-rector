@@ -13,18 +13,11 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Imaging\GraphicalFunctions;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Breaking-72342-RemovedDeprecatedCodeFromGeneralUtility.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/8.0/Breaking-72342-RemovedDeprecatedCodeFromGeneralUtility.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\RefactorRemovedMethodsFromGeneralUtilityRector\RefactorRemovedMethodsFromGeneralUtilityRectorTest
  */
 final class RefactorRemovedMethodsFromGeneralUtilityRector extends AbstractRector
 {
-    /**
-     * List of nodes this class checks, classes that implements \PhpParser\Node See beautiful map of all nodes
-     * https://github.com/rectorphp/rector/blob/master/docs/NodesOverview.md.
-     *
-     * @return string[]
-     */
-
     /**
      * @return array<class-string<Node>>
      */

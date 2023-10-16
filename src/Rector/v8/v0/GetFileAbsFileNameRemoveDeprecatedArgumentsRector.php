@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/8.0/Deprecation-73516-VariousGeneralUtilityMethods.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/8.0/Deprecation-73516-VariousGeneralUtilityMethods.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v8\v0\GetFileAbsFileNameRemoveDeprecatedArgumentsRector\GetFileAbsFileNameRemoveDeprecatedArgumentsRectorTest
  */
 final class GetFileAbsFileNameRemoveDeprecatedArgumentsRector extends AbstractRector

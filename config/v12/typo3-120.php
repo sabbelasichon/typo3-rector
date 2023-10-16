@@ -56,7 +56,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(SubstituteCompositeExpressionAddMethodsRector::class);
     $rectorConfig->rule(UseCompositeExpressionStaticMethodsRector::class);
 
-    # https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/12.0/Deprecation-97787-SeveritiesOfFlashMessagesAndReportsDeprecated.html
+    # https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97787-SeveritiesOfFlashMessagesAndReportsDeprecated.html
     $rectorConfig->ruleWithConfiguration(
         RenameClassConstFetchRector::class,
         [
@@ -152,7 +152,7 @@ return static function (RectorConfig $rectorConfig): void {
             ),
         ]
     );
-    # https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/12.0/Important-97809-UpdateTypo3iconsToV3.html
+    # https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Important-97809-UpdateTypo3iconsToV3.html
     $rectorConfig->ruleWithConfiguration(
         RenameClassConstFetchRector::class,
         [

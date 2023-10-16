@@ -15,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.6.x/Breaking-72931-SearchFormControllerpi_list_browseresultsHasBeenRenamed.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/7.6.x/Breaking-72931-SearchFormControllerpi_list_browseresultsHasBeenRenamed.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v6\RenamePiListBrowserResultsRector\RenamePiListBrowserResultsRectorTest
  */
 final class RenamePiListBrowserResultsRector extends AbstractRector

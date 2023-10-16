@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89554-DeprecateTYPO3CMSExtbaseMvcControllerAbstractController.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.2/Deprecation-89554-DeprecateTYPO3CMSExtbaseMvcControllerAbstractController.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v2\UseActionControllerRector\UseActionControllerRectorTest
  */
 final class UseActionControllerRector extends AbstractRector

@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85735-MethodAndPropertyInDocumentTemplate.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.4/Deprecation-85735-MethodAndPropertyInDocumentTemplate.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\DocumentTemplateAddStyleSheetRector\DocumentTemplateAddStyleSheetRectorTest
  */
 final class DocumentTemplateAddStyleSheetRector extends AbstractRector

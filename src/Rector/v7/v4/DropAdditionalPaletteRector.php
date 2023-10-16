@@ -15,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.4/Deprecation-67737-TcaDropAdditionalPalette.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/7.4/Deprecation-67737-TcaDropAdditionalPalette.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v4\DropAdditionalPaletteRector\DropAdditionalPaletteRectorTest
  */
 final class DropAdditionalPaletteRector extends AbstractTcaRector

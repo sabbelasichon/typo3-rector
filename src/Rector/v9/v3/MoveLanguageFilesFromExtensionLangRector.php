@@ -11,7 +11,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.3/Deprecation-84680-MoveLastLanguageFilesAwayFromExtlangAndRemoveExtlangCompletely.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.3/Deprecation-84680-MoveLastLanguageFilesAwayFromExtlangAndRemoveExtlangCompletely.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v3\MoveLanguageFilesFromExtensionLangRector\MoveLanguageFilesFromExtensionLangRectorTest
  */
 final class MoveLanguageFilesFromExtensionLangRector extends AbstractRector

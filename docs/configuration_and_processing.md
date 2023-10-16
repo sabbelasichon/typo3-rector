@@ -12,15 +12,16 @@
 # Configuration and Processing
 
 This library ships already with a bunch of configuration files organized by TYPO3 version.
-To get you started quickly run the following command inside the root directory of your project:
-
+To get you started quickly, run the following command inside the root directory of your project:
 
 ### For ssch/typo3-rector (PHP 7.4>= dependency)
+
 ```bash
 cp ./vendor/ssch/typo3-rector/templates/rector.php.dist rector.php
 ```
 
 #### For rector/rector 0.13.4 (<PHP 7.4 dependency)
+
 ```bash
 vendor/bin/rector init --template-type=typo3
 ```
@@ -28,7 +29,7 @@ vendor/bin/rector init --template-type=typo3
 The command generates a basic configuration skeleton which you can adapt to your needs.
 The file is full of comments, so you can follow along what is going on.
 
-Also have a look at the class [Typo3SetList](https://github.com/sabbelasichon/typo3-rector/blob/master/src/Set/Typo3SetList.php).
+Also have a look at the class [Typo3SetList](https://github.com/sabbelasichon/typo3-rector/blob/main/src/Set/Typo3SetList.php).
 There you can find all the available sets you can configure in the configuration file.
 
 To mitigate one of the most boring but also most tedious tasks, the TCA configuration, we offer dedicated sets for it.
@@ -86,8 +87,8 @@ return static function (RectorConfig $rectorConfig): void {
     //    __DIR__ . '/packages/acme_demo/',
     // ]);
 
-    // When you use rector there are rules that require some more actions like creating UpgradeWizards for outdated TCA types.
-    // To fully support you we added some warnings. So watch out for them.
+    // When you use rector, there are rules that require some more actions like creating UpgradeWizards for outdated TCA types.
+    // To fully support you, we added some warnings. So watch out for them.
 
     // If you use importNames(), you should consider excluding some TYPO3 files.
     $rectorConfig->skip([
@@ -114,7 +115,7 @@ return static function (RectorConfig $rectorConfig): void {
         ]
     ]);
 
-    // If you have trouble that rector cannot run because some TYPO3 constants are not defined add an additional constants file
+    // If you have trouble that rector cannot run because some TYPO3 constants are not defined, add an additional constants file
     // @see https://github.com/sabbelasichon/typo3-rector/blob/main/typo3.constants.php
     // @see https://getrector.com/documentation/static-reflection-and-autoload#include-files
     // $rectorConfig->bootstrapFiles([
@@ -188,7 +189,9 @@ $rectorConfig->skip(
 ```
 
 ### Example with the option --config and predefined paths in a custom rector.php location
-In order to process the source files of only one TYPO3 extension it's recommended to defined said extension's path via the `Option::PATHS` parameter within the config file:
+
+In order to process the source files of only one TYPO3 extension, it's recommended to define said extension's path via the `Option::PATHS` parameter within the config file:
+
 ```php
 // paths to refactor; solid alternative to CLI arguments
 $rectorConfig->paths([

@@ -20,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.4/Deprecation-94956-PublicCObj.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.4/Deprecation-94956-PublicCObj.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v4\ProvideCObjViaMethodRector\ProvideCObjViaMethodRectorTest
  */
 final class ProvideCObjViaMethodRector extends AbstractRector

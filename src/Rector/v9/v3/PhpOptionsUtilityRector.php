@@ -17,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Utility\PhpOptionsUtility;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.3/Deprecation-85102-PhpOptionsUtility.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.3/Deprecation-85102-PhpOptionsUtility.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v3\PhpOptionsUtilityRector\PhpOptionsUtilityRectorTest
  */
 final class PhpOptionsUtilityRector extends AbstractRector

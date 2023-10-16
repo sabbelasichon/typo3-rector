@@ -26,7 +26,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/12.0/Breaking-94117-RegisterExtbaseTypeConvertersAsServices.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-94117-RegisterExtbaseTypeConvertersAsServices.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\RegisterExtbaseTypeConvertersAsServicesRector\RegisterExtbaseTypeConvertersAsServicesRectorTest
  */
 final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector

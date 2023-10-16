@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.3/Deprecation-90260-ResourceFactorygetInstancePseudo-factory.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.3/Deprecation-90260-ResourceFactorygetInstancePseudo-factory.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v3\SubstituteResourceFactoryRector\SubstituteResourceFactoryRectorTest
  */
 final class SubstituteResourceFactoryRector extends AbstractRector

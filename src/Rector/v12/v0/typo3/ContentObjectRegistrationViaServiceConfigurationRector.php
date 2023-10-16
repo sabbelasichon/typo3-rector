@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/12.0/Feature-96659-ContentObjectRegistrationViaServiceConfiguration.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-96659-ContentObjectRegistrationViaServiceConfiguration.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ContentObjectRegistrationViaServiceConfigurationRector\ContentObjectRegistrationViaServiceConfigurationRectorTest
  */
 final class ContentObjectRegistrationViaServiceConfigurationRector extends AbstractRector

@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-85980-InternalAnnotationInExtbaseCommands.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.5/Deprecation-85980-InternalAnnotationInExtbaseCommands.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v5\RemoveInternalAnnotationRector\RemoveInternalAnnotationRectorTest
  */
 final class RemoveInternalAnnotationRector extends AbstractRector

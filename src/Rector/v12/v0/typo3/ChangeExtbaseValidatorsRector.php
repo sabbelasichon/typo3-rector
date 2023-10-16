@@ -26,7 +26,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/12.0/Breaking-96998-ExtbaseValidatorInterfaceChanged.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-96998-ExtbaseValidatorInterfaceChanged.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector\ChangeExtbaseValidatorsRectorTest
  */
 final class ChangeExtbaseValidatorsRector extends AbstractScopeAwareRector

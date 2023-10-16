@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.5/Deprecation-69736-SelectOptionIconsInOptionTagsRemoved.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/7.5/Deprecation-69736-SelectOptionIconsInOptionTagsRemoved.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v5\RemoveIconsInOptionTagsRector\RemoveIconsInOptionTagsRectorTest
  */
 final class RemoveIconsInOptionTagsRector extends AbstractTcaRector

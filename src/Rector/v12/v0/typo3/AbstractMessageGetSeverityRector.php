@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/12.0/Breaking-97787-AbstractMessageGetSeverityReturnsContextualFeedbackSeverity.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-97787-AbstractMessageGetSeverityReturnsContextualFeedbackSeverity.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\AbstractMessageGetSeverityRector\AbstractMessageGetSeverityRectorTest
  */
 final class AbstractMessageGetSeverityRector extends AbstractRector

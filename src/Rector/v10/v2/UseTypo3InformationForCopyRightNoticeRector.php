@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/10.2/Deprecation-89756-BackendUtilityTYPO3_copyRightNotice.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.2/Deprecation-89756-BackendUtilityTYPO3_copyRightNotice.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v2\UseTypo3InformationForCopyRightNoticeRector\UseTypo3InformationForCopyRightNoticeRectorTest
  */
 final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector

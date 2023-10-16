@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/11.3/Deprecation-94228-DeprecateExtbaseRequestGetRequestUri.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.3/Deprecation-94228-DeprecateExtbaseRequestGetRequestUri.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v3\typo3\UseNormalizedParamsToGetRequestUrlRector\UseNormalizedParamsToGetRequestUrlRectorTest
  */
 final class UseNormalizedParamsToGetRequestUrlRector extends AbstractRector

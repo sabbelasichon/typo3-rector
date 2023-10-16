@@ -79,9 +79,6 @@ CODE_SAMPLE
     }
 
     /**
-     * List of nodes this class checks, classes that implements \PhpParser\Node See beautiful map of all nodes
-     * https://github.com/rectorphp/rector/blob/master/docs/NodesOverview.md
-     *
      * @return class-string[]
      */
     public function getNodeTypes(): array

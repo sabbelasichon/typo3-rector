@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/12.0/Deprecation-97866-VariousPublicTSFEProperties.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97866-VariousPublicTSFEProperties.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typoscript\UseConfigArrayForTSFEPropertiesRector\UseConfigArrayForTSFEPropertiesRectorTest
  */
 final class UseConfigArrayForTSFEPropertiesRector extends AbstractTypoScriptRector

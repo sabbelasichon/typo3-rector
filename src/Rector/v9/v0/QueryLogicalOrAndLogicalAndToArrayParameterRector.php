@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/m/typo3/book-extbasefluid/master/en-us/6-Persistence/3-implement-individual-database-queries.html
+ * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/Extbase/Reference/Domain/Repository.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\QueryLogicalOrAndLogicalAndToArrayParameterRector\QueryLogicalOrAndLogicalAndToArrayParameterRectorTest
  */
 final class QueryLogicalOrAndLogicalAndToArrayParameterRector extends AbstractRector

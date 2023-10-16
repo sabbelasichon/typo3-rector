@@ -15,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85558-ContentObjectRenderer-enableFields.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.4/Deprecation-85558-ContentObjectRenderer-enableFields.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\CallEnableFieldsFromPageRepositoryRector\CallEnableFieldsFromPageRepositoryRectorTest
  */
 final class CallEnableFieldsFromPageRepositoryRector extends AbstractRector

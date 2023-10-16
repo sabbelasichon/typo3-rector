@@ -14,18 +14,11 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.0/Deprecation-82438-DeprecationMethods.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.0/Deprecation-82438-DeprecationMethods.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\RefactorDeprecationLogRector\RefactorDeprecationLogRectorTest
  */
 final class RefactorDeprecationLogRector extends AbstractRector
 {
-    /**
-     * List of nodes this class checks, classes that implements \PhpParser\Node See beautiful map of all nodes
-     * https://github.com/rectorphp/rector/blob/master/docs/NodesOverview.md.
-     *
-     * @return string[]
-     */
-
     /**
      * @return array<class-string<Node>>
      */

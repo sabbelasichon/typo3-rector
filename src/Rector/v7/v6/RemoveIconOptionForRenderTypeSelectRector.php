@@ -16,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/7.6/Breaking-70033-TcaIconOptionsForSelectFields.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/7.6/Breaking-70033-TcaIconOptionsForSelectFields.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v7\v6\RemoveIconOptionForRenderTypeSelectRector\RemoveIconOptionForRenderTypeSelectRectorTest
  */
 final class RemoveIconOptionForRenderTypeSelectRector extends AbstractRector

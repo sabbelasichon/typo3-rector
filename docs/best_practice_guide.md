@@ -14,7 +14,7 @@
 ## What to use for
 
 You can use typo3-rector in various ways:
-- checking existing code if there are left out segments of the last upgrade
+- checking existing code if there are left-out segments of the last upgrade
 - evaluate upgrades and see what parts of your custom setup will be updated automatically
 - partial execution of full core upgrades
 
@@ -24,7 +24,7 @@ You can use typo3-rector in various ways:
 ### TLDR;
 
 - apply older or current version rulesets first (if you're going from v8 to v10, apply v7/v8 sets first)
-- add ClassAliasMap in case you're upgrading 2 versions to provide old classes to migrate (see [ClassAliasMap](#classaliasmap))
+- add ClassAliasMap in case you're upgrading two versions to provide old classes to migrate (see [ClassAliasMap](#classaliasmap))
 - apply rulesets stepwise by version; first TCA only, then full set or combined
 - apply rulesets stepwise to your packages or multiple packages at once
 - don't use class aliases for Nimut Testing Framework (see [Migrating Testing Framework](#migrating-testing-framework))
@@ -50,8 +50,8 @@ This requires manual action like allowing the core versions in your composer.jso
 
 Depending on the amount of version steps you should add the ClassAliasMap as mentioned above for e.g. v8 if you're going from v8 to v10 directly.
 
-Once again you add you're wanted/needed rulesets that should be separated by version.
-It also comes in handy to divide between TCA and TYPO3 changes AND/OR you're packages.
+Once again, you add your wanted/needed rulesets that should be separated by version.
+It also comes in handy to divide between TCA and TYPO3 changes AND/OR your packages.
 
 **The TYPO3 sets always include the TCA sets!**
 
@@ -126,7 +126,7 @@ abstract class AbstractContentElement extends FunctionalTestCase
 
 ---
 **Be aware!**
-There are limitation to the TCA detection.
+There are limitations to the TCA detection.
 
 Typo3-rector can only detect TCA if there's a return statement along with a 'ctrl' and 'columns' key, just like here:
 
@@ -141,7 +141,6 @@ Depending on your TCA, which can include overrides with array_replace_recursive(
 So all other migrations are done for you via ruleset.
 
 ---
-
 
 The non-TCA rules are often a little more specific and should be applied in a separate step with the according set, e.g. `Typo3SetList::TYPO3_95`.
 
@@ -159,5 +158,4 @@ An example for this would be the TCA change of replacing `'internal_type' => 'fi
 
 The TCA is changed easy, but the whole DB record type changes as previously the whole name of the file was saved into the
 DB column, while now with FAL, it would only create an index-count - the reference to the new files that are saved in sys_file and connected via sys_file_reference.
-(see [internal_type deprecation changelog](https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.5/Deprecation-86406-TCATypeGroupInternal_typeFileAndFile_reference.html))
-
+(See [internal_type deprecation changelog](https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.5/Deprecation-86406-TCATypeGroupInternal_typeFileAndFile_reference.html))

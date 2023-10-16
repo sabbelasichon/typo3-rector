@@ -17,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.4/Deprecation-85666-TypoScriptFrontendController-initTemplate.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.4/Deprecation-85666-TypoScriptFrontendController-initTemplate.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v4\RemoveInitTemplateMethodCallRector\RemoveInitTemplateMethodCallRectorTest
  */
 final class RemoveInitTemplateMethodCallRector extends AbstractRector

@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/9.3/Deprecation-84981-BackendUserAuthentication-simplelogDeprecated.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.3/Deprecation-84981-BackendUserAuthentication-simplelogDeprecated.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v3\BackendUserAuthenticationSimplelogRector\BackendUserAuthenticationSimplelogRectorTest
  */
 final class BackendUserAuthenticationSimplelogRector extends AbstractRector
