@@ -106,6 +106,16 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const FLEXFORM_120 = __DIR__ . '/../../config/v12/flexform-120.php';
+
+    /**
+     * @var string
+     */
+    public const FLEXFORM_123 = __DIR__ . '/../../config/v12/flexform-123.php';
+
+    /**
+     * @var string
+     */
     public const DATABASE_TO_DBAL = __DIR__ . '/../../config/database-connection-to-dbal.php';
 
     /**
