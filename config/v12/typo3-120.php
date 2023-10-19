@@ -11,6 +11,7 @@ use Ssch\TYPO3Rector\Rector\v12\v0\typo3\AbstractMessageGetSeverityRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ContentObjectRegistrationViaServiceConfigurationRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HardenMethodSignatureOfLogicalAndAndLogicalOrRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\MigrateQueryBuilderExecuteRector;
@@ -170,4 +171,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RegisterExtbaseTypeConvertersAsServicesRector::class);
     $rectorConfig->rule(ChangeExtbaseValidatorsRector::class);
     $rectorConfig->rule(ContentObjectRegistrationViaServiceConfigurationRector::class);
+    $rectorConfig->rule(HardenMethodSignatureOfLogicalAndAndLogicalOrRector::class);
 };

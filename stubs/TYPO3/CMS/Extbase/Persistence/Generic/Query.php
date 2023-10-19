@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Extbase\Persistence\Generic;
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\AndInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\OrInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -38,11 +40,19 @@ final class Query implements QueryInterface
     {
     }
 
-    public function logicalAnd($constraint1)
+    /**
+     * @param ConstraintInterface ...$constraints
+     * @return AndInterface
+     */
+    public function logicalAnd($constraints)
     {
     }
 
-    public function logicalOr($constraint1)
+    /**
+     * @param ConstraintInterface ...$constraints
+     * @return OrInterface
+     */
+    public function logicalOr($constraints)
     {
     }
 
