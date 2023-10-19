@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace TYPO3\CMS\Extbase\Persistence;
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\AndInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\Qom\ConstraintInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Qom\OrInterface;
 use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
 
 if (interface_exists('TYPO3\CMS\Extbase\Persistence\QueryInterface')) {
@@ -58,9 +60,17 @@ interface QueryInterface
 
     public function matching($constraint);
 
-    public function logicalAnd($constraint1);
+    /**
+     * @param ConstraintInterface ...$constraints
+     * @return AndInterface
+     */
+    public function logicalAnd($constraints);
 
-    public function logicalOr($constraint1);
+    /**
+     * @param ConstraintInterface ...$constraints
+     * @return OrInterface
+     */
+    public function logicalOr($constraints);
 
     public function logicalNot(ConstraintInterface $constraint);
 
