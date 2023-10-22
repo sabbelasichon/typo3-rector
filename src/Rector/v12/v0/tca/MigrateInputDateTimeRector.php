@@ -79,8 +79,8 @@ CODE_SAMPLE
          'required' => true,
          'size' => 20,
          'default' => 0,
-     ]
- ]
+     ],
+ ],
 CODE_SAMPLE
         )]);
     }
