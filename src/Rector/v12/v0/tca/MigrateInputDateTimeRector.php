@@ -14,7 +14,6 @@ use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\MathUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-97232-NewTCATypeDatetime.html
@@ -184,7 +183,7 @@ CODE_SAMPLE
                 if ($defaultValue === '') {
                     // Always use int as default (string values are no longer supported for "datetime")
                     $defaultArrayItem->value = new LNumber(0);
-                } elseif (MathUtility::canBeInterpretedAsInteger($defaultValue)) {
+                } elseif (self::canBeInterpretedAsInteger($defaultValue)) {
                     // Cast default to int, in case it can be interpreted as integer
                     $defaultArrayItem->value = new LNumber((int) $defaultValue);
                 } else {
@@ -195,5 +194,17 @@ CODE_SAMPLE
         }
 
         $this->hasAstBeenChanged = true;
+    }
+
+    /**
+     * @param mixed $var
+     */
+    private static function canBeInterpretedAsInteger($var): bool
+    {
+        if ($var === '' || is_object($var) || is_array($var)) {
+            return false;
+        }
+
+        return (string) (int) $var === (string) $var;
     }
 }
