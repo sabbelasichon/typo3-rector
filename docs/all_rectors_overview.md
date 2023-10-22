@@ -1,4 +1,4 @@
-# 281 Rules Overview
+# 282 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1530,6 +1530,33 @@ Migrate the iframe based file tree to SVG
 ```diff
 -'navigationFrameModule' => 'file_navframe'
 +'navigationComponentId' => 'TYPO3/CMS/Backend/Tree/FileStorageTreeContainer'
+```
+
+<br>
+
+## MigrateInputDateTimeRector
+
+Migrate renderType inputDateTime to new TCA type datetime
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInputDateTimeRector`](../src/Rector/v12/v0/tca/MigrateInputDateTimeRector.php)
+
+```diff
+ 'a_datetime_field' => [
+      'label' => 'Datetime field',
+      'config' => [
+-         'type' => 'input',
+-         'renderType' => 'inputDateTime',
++         'type' => 'datetime',
++         'format' => 'date',
+          'required' => true,
+          'size' => 20,
+-         'max' => 1024,
+-         'eval' => 'date,int',
+          'default' => 0,
+-     ],
+- ],
++     ]
++ ]
 ```
 
 <br>
