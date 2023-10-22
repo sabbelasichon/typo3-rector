@@ -1553,10 +1553,8 @@ Migrate renderType inputDateTime to new TCA type datetime
 -         'max' => 1024,
 -         'eval' => 'date,int',
           'default' => 0,
--     ],
-- ],
-+     ]
-+ ]
+      ],
+  ],
 ```
 
 <br>
