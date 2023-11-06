@@ -18,23 +18,23 @@ jobs:
                 php-versions: [ 7.4, 8.0, 8.1 ]
                 actions:
                     -
-                        name: "PHP Linter"
+                        name: "${{ matrix.php-versions }} PHP Linter"
                         run: vendor/bin/parallel-lint src config tests
 
                     -
-                        name: 'Composer Validate'
+                        name: '${{ matrix.php-versions }} Composer Validate'
                         run: composer validate --ansi
 
                     -
-                        name: 'Tests'
+                        name: '${{ matrix.php-versions }} Tests'
                         run: vendor/bin/phpunit
 
                     -
-                        name: 'Check TYPO3 Rector configs'
+                        name: '${{ matrix.php-versions }} Check TYPO3 Rector configs'
                         run: composer check-typo3-rector
 
                     -
-                        name: 'PHPStan'
+                        name: '${{ matrix.php-versions }} PHPStan'
                         run: composer analyze
 
         name: ${{ matrix.actions.name }}
