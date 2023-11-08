@@ -4227,7 +4227,7 @@ Replace `PageRepository->getRecordOverlay()` with `->getLanguageOverlay()`
 
 Replace getPreviewUrl
 
-- class: [`Ssch\TYPO3Rector\Rector\v12\v0\ReplacePreviewUrlMethodRector`](../src/Rector/v12/v0/ReplacePreviewUrlMethodRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\ReplacePreviewUrlMethodRector`](../src/Rector/v12/v0/typo3/ReplacePreviewUrlMethodRector.php)
 
 ```diff
 -$foo = BackendUtility::getPreviewUrl(

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\v12\v0;
+namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
@@ -18,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97544-PreviewURIGenerationRelatedFunctionalityInBackendUtility.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\ReplacePreviewUrlMethodRector\ReplacePreviewUrlMethodRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ReplacePreviewUrlMethodRector\ReplacePreviewUrlMethodRectorTest
  */
 final class ReplacePreviewUrlMethodRector extends AbstractRector
 {

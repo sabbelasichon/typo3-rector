@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\ReplacePreviewUrlMethodRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ReplacePreviewUrlMethodRector\Fixture;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
@@ -26,7 +26,7 @@ $foo = BackendUtility::getPreviewUrl(
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\ReplacePreviewUrlMethodRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ReplacePreviewUrlMethodRector\Fixture;
 
 use TYPO3\CMS\Backend\Routing\PreviewUriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
