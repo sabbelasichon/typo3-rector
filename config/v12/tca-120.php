@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateColsToSizeForTcaTypeNoneRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateEvalIntAndDouble2ToTypeNumberRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInputDateTimeRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInternalTypeRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateNullFlagRector;
@@ -24,4 +25,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveTCAInterfaceAlwaysDescriptionRector::class);
     $rectorConfig->rule(RemoveCruserIdRector::class);
     $rectorConfig->rule(RemoveTableLocalPropertyRector::class);
+    $rectorConfig->rule(MigrateEvalIntAndDouble2ToTypeNumberRector::class);
 };

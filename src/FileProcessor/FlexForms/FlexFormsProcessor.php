@@ -52,6 +52,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
         $oldFileContents = $file->getFileContent();
 
         $domDocument = new DOMDocument();
+        $domDocument->preserveWhiteSpace = true;
         $domDocument->formatOutput = true;
         $domDocument->loadXML($oldFileContents);
 
@@ -68,6 +69,10 @@ final class FlexFormsProcessor implements FileProcessorInterface
         if ($xml === false) {
             throw new UnexpectedValueException('Could not convert to xml');
         }
+
+        // Remove empty lines
+        /** @see https://stackoverflow.com/a/709684 */
+        $xml = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $xml);
 
         // add end of line
         $xml .= PHP_EOL;

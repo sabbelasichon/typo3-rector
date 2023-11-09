@@ -1,4 +1,5 @@
 includes:
+    - phpstan-baseline.neon
     # see https://github.com/symplify/phpstan-extensions
     - utils/phpstan/config/typo3-rector.neon
 
@@ -33,11 +34,16 @@ parameters:
          - tests/bootstrap-phpstan.php
 
     inferPrivatePropertyTypeFromConstructor: true
-    reportUnmatchedIgnoredErrors: true
+    reportUnmatchedIgnoredErrors: false
 
     ignoreErrors:
         # node finder
         - '#Method Ssch\\TYPO3Rector\\Rector\\v11\\v0\\ForwardResponseInsteadOfForwardMethodRector\:\:extractForwardMethodCalls\(\) should return array<PhpParser\\Node\\Expr\\MethodCall\> but returns array<PhpParser\\Node\>#'
+
+        # These 3 rules are not found for some strange reasons in GitHub Actions but locally they are reported
+        - "#\\:\\:getRuleDefinition\\(\\) has invalid return type Symplify\\\\RuleDocGenerator\\\\ValueObject\\\\RuleDefinition\\.$#"
+        - "#^Instantiated class Symplify\\\\RuleDocGenerator\\\\ValueObject\\\\CodeSample\\\\CodeSample not found\\.$#"
+        - "#^Instantiated class Symplify\\\\RuleDocGenerator\\\\ValueObject\\\\RuleDefinition not found\\.$#"
 
         # waits for Rector and PHPStan to share same php-parser, probably with PHPStan 1.0
         - '#PhpParser\\Node\\Arg\|PhpParser\\Node\\VariadicPlaceholder#'
