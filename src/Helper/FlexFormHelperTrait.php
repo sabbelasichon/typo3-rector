@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper;
 
+use DOMDocument;
 use DOMElement;
+use DOMNode;
 
 trait FlexFormHelperTrait
 {
@@ -82,5 +84,24 @@ trait FlexFormHelperTrait
     private function isValue(string $element, string $value): bool
     {
         return $element === $value;
+    }
+
+    /**
+     * @see https://stackoverflow.com/a/21885789
+     */
+    private function changeTagName(DOMDocument $domDocument, DOMElement $node, string $elementName): void
+    {
+        $newNode = $domDocument->createElement($elementName);
+        foreach ($node->childNodes as $child) {
+            $newNode->appendChild($domDocument->importNode($child, false));
+        }
+
+        // We don't need to copy the attributes because TCA doesn't have attributes
+
+        if (! $node->parentNode instanceof DOMNode) {
+            return;
+        }
+
+        $node->parentNode->replaceChild($newNode, $node);
     }
 }
