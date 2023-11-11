@@ -6,10 +6,10 @@ namespace Ssch\TYPO3Rector\Rector\v12\v3\flexform;
 
 use DOMDocument;
 use DOMElement;
-use DOMNode;
 use DOMNodeList;
 use DOMXPath;
 use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
+use Ssch\TYPO3Rector\Helper\FlexFormHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -21,9 +21,16 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateItemsToIndexedArrayKeysForFlexFormItemsRector implements FlexFormRectorInterface
 {
+    use FlexFormHelperTrait;
+
+    private DOMDocument $domDocument;
+
+    private bool $domDocumentHasBeenChanged = false;
+
+
     public function transform(DOMDocument $domDocument): bool
     {
-        $hasChanged = false;
+        $this->domDocument = $domDocument;
 
         $xpath = new DOMXPath($domDocument);
 
@@ -35,90 +42,10 @@ final class MigrateItemsToIndexedArrayKeysForFlexFormItemsRector implements Flex
         }
 
         foreach ($elements as $element) {
-            /** @var DOMElement $element */
-            $type = $element->getElementsByTagName('type')
-                ->item(0);
-
-            if (! $type instanceof DOMElement) {
-                continue;
-            }
-
-            if ($type->textContent !== 'select' && $type->textContent !== 'radio' && $type->textContent !== 'check') {
-                continue;
-            }
-
-            $items = $element->getElementsByTagName('items')
-                ->item(0);
-
-            if (! $items instanceof DOMElement) {
-                continue;
-            }
-
-            $array_filter = [];
-            foreach ($items->childNodes as $item) {
-                if ($item instanceof DOMElement && $item->nodeName === 'numIndex') {
-                    $array_filter[] = $item;
-                }
-            }
-
-            // These are the main numIndex items
-            $numIndexes = $array_filter;
-
-            if ($numIndexes === []) {
-                continue;
-            }
-
-            foreach ($numIndexes as $item) {
-                /** @var DOMElement $item */
-
-                $numIndexes = $item->getElementsByTagName('numIndex');
-                $label = $numIndexes->item(0);
-                $value = $numIndexes->item(1);
-                $icon = $numIndexes->item(2);
-                $group = $numIndexes->item(3);
-                $description = $numIndexes->item(4);
-                if (! $label instanceof DOMElement) {
-                    continue;
-                }
-
-                $hasChanged = true;
-                $this->changeTagName($label, 'label');
-
-                if ($type->textContent !== 'check') {
-                    if (! $value instanceof DOMElement) {
-                        continue;
-                    }
-
-                    $hasChanged = true;
-                    $this->changeTagName($value, 'value');
-                }
-
-                if ($type->textContent === 'select') {
-                    if (! $icon instanceof DOMElement) {
-                        continue;
-                    }
-
-                    $hasChanged = true;
-                    $this->changeTagName($icon, 'icon');
-
-                    if (! $group instanceof DOMElement) {
-                        continue;
-                    }
-
-                    $hasChanged = true;
-                    $this->changeTagName($group, 'group');
-
-                    if (! $description instanceof DOMElement) {
-                        continue;
-                    }
-
-                    $hasChanged = true;
-                    $this->changeTagName($description, 'description');
-                }
-            }
+            $this->refactorColumn($element);
         }
 
-        return $hasChanged;
+        return $this->domDocumentHasBeenChanged;
     }
 
     /**
@@ -176,27 +103,88 @@ CODE_SAMPLE
         );
     }
 
-    private function changeTagName(DOMElement $node, string $name): void
+
+    private function refactorColumn(?DOMElement $configElement): void
     {
-        $childNodes = [];
-        foreach ($node->childNodes as $child) {
-            $childNodes[] = $child;
-        }
-
-        if (! $node->ownerDocument instanceof DOMDocument) {
+        if (! $configElement instanceof DOMElement) {
             return;
         }
 
-        $newNode = $node->ownerDocument->createElement($name);
-        foreach ($childNodes as $child) {
-            $child2 = $node->ownerDocument->importNode($child, false);
-            $newNode->appendChild($child2);
-        }
-
-        if (! $node->parentNode instanceof DOMNode) {
+        if (! $this->isConfigType($configElement, 'select')
+            && ! $this->isConfigType($configElement, 'radio')
+            && ! $this->isConfigType($configElement, 'check')
+        ) {
             return;
         }
 
-        $node->parentNode->replaceChild($newNode, $node);
+        $items = $configElement->getElementsByTagName('items')
+            ->item(0);
+
+        if (! $items instanceof DOMElement) {
+            return;
+        }
+
+        $array_filter = [];
+        foreach ($items->childNodes as $item) {
+            if ($item instanceof DOMElement && $item->nodeName === 'numIndex') {
+                $array_filter[] = $item;
+            }
+        }
+
+        // These are the main numIndex items
+        $numIndexes = $array_filter;
+
+        if ($numIndexes === []) {
+            return;
+        }
+
+        foreach ($numIndexes as $item) {
+            /** @var DOMElement $item */
+
+            $numIndexes = $item->getElementsByTagName('numIndex');
+            $label = $numIndexes->item(0);
+            $value = $numIndexes->item(1);
+            $icon = $numIndexes->item(2);
+            $group = $numIndexes->item(3);
+            $description = $numIndexes->item(4);
+            if (! $label instanceof DOMElement) {
+                continue;
+            }
+
+            $this->changeTagName($this->domDocument, $label, 'label');
+            $this->domDocumentHasBeenChanged = true;
+
+            if (! $this->isConfigType($configElement, 'check')) {
+                if (! $value instanceof DOMElement) {
+                    continue;
+                }
+
+                $this->changeTagName($this->domDocument, $value, 'value');
+                $this->domDocumentHasBeenChanged = true;
+            }
+
+            if ($this->isConfigType($configElement, 'select')) {
+                if (! $icon instanceof DOMElement) {
+                    continue;
+                }
+
+                $this->changeTagName($this->domDocument, $icon, 'icon');
+                $this->domDocumentHasBeenChanged = true;
+
+                if (! $group instanceof DOMElement) {
+                    continue;
+                }
+
+                $this->changeTagName($this->domDocument, $group, 'group');
+                $this->domDocumentHasBeenChanged = true;
+
+                if (! $description instanceof DOMElement) {
+                    continue;
+                }
+
+                $this->changeTagName($this->domDocument, $description, 'description');
+                $this->domDocumentHasBeenChanged = true;
+            }
+        }
     }
 }
