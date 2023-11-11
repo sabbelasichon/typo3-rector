@@ -66,17 +66,17 @@ CODE_SAMPLE
             return;
         }
 
-        $value = $this->valueResolver->getValue($evalArrayItem->value);
+        $evalListValue = $this->valueResolver->getValue($evalArrayItem->value);
 
-        if (! is_string($value)) {
+        if (! is_string($evalListValue)) {
             return;
         }
 
-        if (! StringUtility::inList($value, 'null')) {
+        if (! StringUtility::inList($evalListValue, 'null')) {
             return;
         }
 
-        $evalList = ArrayUtility::trimExplode(',', $value, true);
+        $evalList = ArrayUtility::trimExplode(',', $evalListValue, true);
 
         // Remove "null" from $evalList
         $evalList = array_filter($evalList, static fn (string $eval) => $eval !== 'null');
