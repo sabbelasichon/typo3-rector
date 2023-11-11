@@ -1,4 +1,4 @@
-# 282 Rules Overview
+# 284 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1490,6 +1490,62 @@ Migrates option cols to size for TCA type none
 -            'cols' => 20,
 +            'size' => 20,
          ],
+     ],
+ ],
+```
+
+<br>
+
+## MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector
+
+Migrate eval int and double2 to type number
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\flexform\MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector`](../src/Rector/v12/v0/flexform/MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector.php)
+
+```diff
+ <int_field>
+     <label>int field</label>
+     <config>
+-        <type>input</type>
+-        <eval>int</eval>
++        <type>number</type>
+     </config>
+ </int_field>
+ <double2_field>
+     <label>double2 field</label>
+     <config>
+-        <type>input</type>
+-        <eval>double2</eval>
++        <type>number</type>
++        <format>decimal</format>
+     </config>
+ </double2_field>
+```
+
+<br>
+
+## MigrateEvalIntAndDouble2ToTypeNumberRector
+
+Migrate eval int and double2 to type number
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateEvalIntAndDouble2ToTypeNumberRector`](../src/Rector/v12/v0/tca/MigrateEvalIntAndDouble2ToTypeNumberRector.php)
+
+```diff
+ 'int_field' => [
+     'label' => 'int field',
+     'config' => [
+-        'type' => 'input',
+-        'eval' => 'int',
++        'type' => 'number',
+     ],
+ ],
+ 'double2_field' => [
+     'label' => 'double2 field',
+     'config' => [
+-        'type' => 'input',
+-        'eval' => 'double2',
++        'type' => 'number',
++        'format' => 'decimal',
      ],
  ],
 ```
