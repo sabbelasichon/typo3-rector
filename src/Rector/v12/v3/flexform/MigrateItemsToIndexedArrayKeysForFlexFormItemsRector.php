@@ -27,7 +27,6 @@ final class MigrateItemsToIndexedArrayKeysForFlexFormItemsRector implements Flex
 
     private bool $domDocumentHasBeenChanged = false;
 
-
     public function transform(DOMDocument $domDocument): bool
     {
         $this->domDocument = $domDocument;
@@ -102,7 +101,6 @@ CODE_SAMPLE
             ]
         );
     }
-
 
     private function refactorColumn(?DOMElement $configElement): void
     {
