@@ -127,14 +127,14 @@ trait TcaHelperTrait
         return false;
     }
 
-    private function isInlineType(Array_ $columnItemConfigurationArray): bool
-    {
-        return $this->isConfigType($columnItemConfigurationArray, 'inline');
-    }
-
     protected function isConfigType(Array_ $columnItemConfigurationArray, string $type): bool
     {
         return $this->hasKeyValuePair($columnItemConfigurationArray, 'type', $type);
+    }
+
+    private function isInlineType(Array_ $columnItemConfigurationArray): bool
+    {
+        return $this->isConfigType($columnItemConfigurationArray, 'inline');
     }
 
     private function hasRenderType(Array_ $columnItemConfigurationArray): bool
