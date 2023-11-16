@@ -27,7 +27,9 @@ return [
     'columns' => [
         'email_field' => [
             'label' => 'Email',
-            'config' => ['type' => 'email'],
+            'config' => [
+                'type' => 'email',
+            ],
         ],
     ],
 ];
