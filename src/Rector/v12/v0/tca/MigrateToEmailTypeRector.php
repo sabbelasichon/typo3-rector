@@ -7,6 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\tca;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Scalar\String_;
+use Ssch\TYPO3Rector\Helper\ArrayUtility;
 use Ssch\TYPO3Rector\Helper\StringUtility;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -64,41 +66,60 @@ CODE_SAMPLE
 
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
-        $configArray = $this->extractArrayItemByKey($columnTca, self::CONFIG);
-
-        if (! $configArray instanceof ArrayItem) {
+        $configArrayItem = $this->extractArrayItemByKey($columnTca, self::CONFIG);
+        if (! $configArrayItem instanceof ArrayItem) {
             return;
         }
 
-        $configArrayValue = $configArray->value;
+        $configArray = $configArrayItem->value;
 
-        if (! $configArrayValue instanceof Array_) {
+        if (! $configArray instanceof Array_) {
             return;
         }
 
-        if (! $this->hasKey($configArrayValue, 'eval')) {
+        if (! $this->isConfigType($configArray, 'input')) {
             return;
         }
 
-        $evalArrayItem = $this->extractArrayItemByKey($configArrayValue, 'eval');
+        $this->removeArrayItemFromArrayByKey($configArray, 'max');
+
+        if (! $this->hasKey($configArray, 'eval')) {
+            return;
+        }
+
+        $evalArrayItem = $this->extractArrayItemByKey($configArray, 'eval');
 
         if (! $evalArrayItem instanceof ArrayItem) {
             return;
         }
 
-        $value = $this->valueResolver->getValue($evalArrayItem->value);
+        $evalListValue = $this->valueResolver->getValue($evalArrayItem->value);
 
-        if (! is_string($value)) {
+        if (! is_string($evalListValue)) {
             return;
         }
 
-        if (! StringUtility::inList($value, self::EMAIL)) {
+        if (! StringUtility::inList($evalListValue, self::EMAIL)) {
             return;
         }
 
-        $configArray->value = $this->nodeFactory->createArray([
-            'type' => self::EMAIL,
-        ]);
+        $evalList = ArrayUtility::trimExplode(',', $evalListValue, true);
+
+        // Remove "email" and "trim" from $evalList
+        $evalList = array_filter($evalList, static fn (string $eval) => $eval !== self::EMAIL && $eval !== 'trim');
+
+        if ($evalList !== []) {
+            // Write back filtered 'eval'
+            $evalArrayItem->value = new String_(implode(',', $evalList));
+        } else {
+            // 'eval' is empty, remove whole configuration
+            $this->removeNode($evalArrayItem);
+        }
+
+        $toChangeArrayItem = $this->extractArrayItemByKey($configArray, 'type');
+        if ($toChangeArrayItem instanceof ArrayItem) {
+            $toChangeArrayItem->value = new String_(self::EMAIL);
+        }
 
         $this->hasAstBeenChanged = true;
     }

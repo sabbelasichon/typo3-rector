@@ -116,14 +116,25 @@ trait TcaHelperTrait
         return false;
     }
 
+    protected function removeArrayItemFromArrayByKey(Array_ $array, string $configKey): bool
+    {
+        $arrayItemToRemove = $this->extractArrayItemByKey($array, $configKey);
+        if ($arrayItemToRemove instanceof ArrayItem) {
+            $this->removeNode($arrayItemToRemove);
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function isConfigType(Array_ $columnItemConfigurationArray, string $type): bool
+    {
+        return $this->hasKeyValuePair($columnItemConfigurationArray, 'type', $type);
+    }
+
     private function isInlineType(Array_ $columnItemConfigurationArray): bool
     {
         return $this->isConfigType($columnItemConfigurationArray, 'inline');
-    }
-
-    private function isConfigType(Array_ $columnItemConfigurationArray, string $type): bool
-    {
-        return $this->hasKeyValuePair($columnItemConfigurationArray, 'type', $type);
     }
 
     private function hasRenderType(Array_ $columnItemConfigurationArray): bool
