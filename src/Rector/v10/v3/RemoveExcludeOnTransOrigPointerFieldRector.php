@@ -100,21 +100,8 @@ final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractRector
                 continue;
             }
 
-            foreach ($columnItem->value->items as $configValue) {
-                if (! $configValue instanceof ArrayItem) {
-                    continue;
-                }
-
-                if (! $configValue->key instanceof Expr) {
-                    continue;
-                }
-
-                $configFieldName = $this->valueResolver->getValue($configValue->key);
-
-                if ($configFieldName === 'exclude') {
-                    $this->removeNode($configValue);
-                    $hasAstBeenChanged = true;
-                }
+            if ($this->removeArrayItemFromArrayByKey($columnItem->value, 'exclude')) {
+                $hasAstBeenChanged = true;
             }
         }
 

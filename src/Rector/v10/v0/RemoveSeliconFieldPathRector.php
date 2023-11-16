@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v10\v0;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
@@ -52,19 +51,8 @@ final class RemoveSeliconFieldPathRector extends AbstractRector
         }
 
         $hasAstBeenChanged = false;
-        foreach ($items->items as $fieldValue) {
-            if (! $fieldValue instanceof ArrayItem) {
-                continue;
-            }
-
-            if (! $fieldValue->key instanceof Expr) {
-                continue;
-            }
-
-            if ($this->valueResolver->isValue($fieldValue->key, 'selicon_field_path')) {
-                $this->removeNode($fieldValue);
-                $hasAstBeenChanged = true;
-            }
+        if ($this->removeArrayItemFromArrayByKey($items, 'selicon_field_path')) {
+            $hasAstBeenChanged = true;
         }
 
         return $hasAstBeenChanged ? $node : null;

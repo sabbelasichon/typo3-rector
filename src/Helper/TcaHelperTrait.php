@@ -132,6 +132,11 @@ trait TcaHelperTrait
         return $this->hasKeyValuePair($columnItemConfigurationArray, 'type', $type);
     }
 
+    protected function configIsOfRenderType(Array_ $configValueArray, string $expectedRenderType): bool
+    {
+        return $this->hasKeyValuePair($configValueArray, 'renderType', $expectedRenderType);
+    }
+
     private function isInlineType(Array_ $columnItemConfigurationArray): bool
     {
         return $this->isConfigType($columnItemConfigurationArray, 'inline');
@@ -190,11 +195,6 @@ trait TcaHelperTrait
     private function configIsOfInternalType(Array_ $configValueArray, string $expectedType): bool
     {
         return $this->hasKeyValuePair($configValueArray, 'internal_type', $expectedType);
-    }
-
-    private function configIsOfRenderType(Array_ $configValueArray, string $expectedRenderType): bool
-    {
-        return $this->hasKeyValuePair($configValueArray, 'renderType', $expectedRenderType);
     }
 
     /**

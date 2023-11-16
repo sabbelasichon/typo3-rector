@@ -6,8 +6,6 @@ namespace Ssch\TYPO3Rector\Rector\v10\v1;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
-use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -18,8 +16,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveEnableMultiSelectFilterTextfieldRector extends AbstractTcaRector
 {
-    use TcaHelperTrait;
-
     /**
      * @codeCoverageIgnore
      */
@@ -60,15 +56,7 @@ CODE_SAMPLE
             return;
         }
 
-        $toRemoveArrayItem = $this->extractArrayItemByKey($configArray, 'enableMultiSelectFilterTextfield');
-        if (! $toRemoveArrayItem instanceof ArrayItem || ! $toRemoveArrayItem->value instanceof Expr) {
-            return;
-        }
-
-        $nodeValue = $this->valueResolver->getValue($toRemoveArrayItem->value);
-
-        if ($nodeValue === true) {
-            $this->removeNode($toRemoveArrayItem);
+        if ($this->removeArrayItemFromArrayByKey($configArray, 'enableMultiSelectFilterTextfield')) {
             $this->hasAstBeenChanged = true;
         }
     }
