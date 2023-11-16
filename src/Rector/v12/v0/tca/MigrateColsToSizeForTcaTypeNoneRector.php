@@ -67,10 +67,7 @@ CODE_SAMPLE
             return;
         }
 
-        $arrayItemToRemove = $this->extractArrayItemByKey($configArray, 'size');
-        if ($arrayItemToRemove instanceof ArrayItem) {
-            $this->removeNode($arrayItemToRemove);
-        }
+        $this->removeArrayItemFromArrayByKey($configArray, 'size');
 
         $arrayItemToChange->key = new String_('size');
 
