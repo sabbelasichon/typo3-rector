@@ -57,13 +57,7 @@ final class CKEditor5Rector implements FormYamlRectorInterface
      */
     public function refactor(array $yaml): array
     {
-
-
-
-
         // This is currently copied!!!!
-
-
 
         $appliedForFinishers = false;
         $appliedForVariants = false;
@@ -154,11 +148,11 @@ CODE_SAMPLE
                     continue;
                 }
 
-                if ('replyToAddress' === $optionKey) {
+                if ($optionKey === 'replyToAddress') {
                     $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS]['replyToRecipients'][] = $optionValue;
-                } elseif ('carbonCopyAddress' === $optionKey) {
+                } elseif ($optionKey === 'carbonCopyAddress') {
                     $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS]['carbonCopyRecipients'][] = $optionValue;
-                } elseif ('blindCarbonCopyAddress' === $optionKey) {
+                } elseif ($optionKey === 'blindCarbonCopyAddress') {
                     $yamlToModify[self::FINISHERS][$finisherKey][self::OPTIONS]['blindCarbonCopyRecipients'][] = $optionValue;
                 }
 
