@@ -1,4 +1,4 @@
-# 284 Rules Overview
+# 285 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1192,6 +1192,41 @@ Removes deprecated params of the `ContentObjectRenderer->getATagParams()` method
  $cObjRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
 -$bar = $cObjRenderer->getATagParams([], false);
 +$bar = $cObjRenderer->getATagParams([]);
+```
+
+<br>
+
+## HardenMethodSignatureOfLogicalAndAndLogicalOrRector
+
+Use multiple parameters instead of array for logicalOr and logicalAnd of Extbase Query class
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\typo3\HardenMethodSignatureOfLogicalAndAndLogicalOrRector`](../src/Rector/v12/v0/typo3/HardenMethodSignatureOfLogicalAndAndLogicalOrRector.php)
+
+```diff
+ use TYPO3\CMS\Extbase\Persistence\Repository;
+
+ class ProductRepositoryLogicalAnd extends Repository
+ {
+     public function findAllForList()
+     {
+         $query = $this->createQuery();
+-        $query->matching($query->logicalAnd([
++        $query->matching($query->logicalAnd(
+             $query->equals('propertyName1', 'value1'),
+             $query->equals('propertyName2', 'value2'),
+             $query->equals('propertyName3', 'value3'),
+-        ]));
++        ));
+     }
+     public function findAllForSomething()
+     {
+         $query = $this->createQuery();
+         $constraints[] = $query->lessThan('foo', 1);
+         $constraints[] = $query->lessThan('bar', 1);
+-        $query->matching($query->logicalAnd($constraints));
++        $query->matching($query->logicalAnd(...$constraints));
+     }
+ }
 ```
 
 <br>
