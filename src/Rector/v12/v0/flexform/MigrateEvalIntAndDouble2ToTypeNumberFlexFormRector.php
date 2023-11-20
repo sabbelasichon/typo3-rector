@@ -120,23 +120,25 @@ CODE_SAMPLE
             return;
         }
 
-        if (StringUtility::inList($evalListValue, self::INT) || StringUtility::inList($evalListValue, self::DOUBLE2)) {
-            $evalList = ArrayUtility::trimExplode(',', $evalListValue, true);
+        if (! StringUtility::inList($evalListValue, self::INT) && ! StringUtility::inList($evalListValue, self::DOUBLE2)) {
+            return;
+        }
 
-            // Remove "int" from $evalList
-            $evalList = array_filter(
-                $evalList,
-                static fn (string $eval) => $eval !== self::INT && $eval !== self::DOUBLE2
-            );
+        $evalList = ArrayUtility::trimExplode(',', $evalListValue, true);
 
-            if ($evalList !== []) {
-                // Write back filtered 'eval'
-                $evalDomElement->nodeValue = '';
-                $evalDomElement->appendChild($domDocument->createTextNode(implode(',', $evalList)));
-            } elseif ($evalDomElement->parentNode instanceof DOMElement) {
-                // 'eval' is empty, remove whole configuration
-                $evalDomElement->parentNode->removeChild($evalDomElement);
-            }
+        // Remove "int" from $evalList
+        $evalList = array_filter(
+            $evalList,
+            static fn (string $eval) => $eval !== self::INT && $eval !== self::DOUBLE2
+        );
+
+        if ($evalList !== []) {
+            // Write back filtered 'eval'
+            $evalDomElement->nodeValue = '';
+            $evalDomElement->appendChild($domDocument->createTextNode(implode(',', $evalList)));
+        } elseif ($evalDomElement->parentNode instanceof DOMElement) {
+            // 'eval' is empty, remove whole configuration
+            $evalDomElement->parentNode->removeChild($evalDomElement);
         }
 
         $toChangeItem = $this->extractDomElementByKey($configElement, 'type');
