@@ -5,6 +5,13 @@
                 <sheetTitle>sheetTitle</sheetTitle>
                 <type>array</type>
                 <el>
+                    <settings.input_field>
+                        <label>Input field</label>
+                        <config>
+                            <type>input</type>
+                            <eval>trim</eval>
+                        </config>
+                    </settings.input_field>
                     <settings.int_field>
                         <label>Int field</label>
                         <config>
@@ -39,6 +46,13 @@
                 <sheetTitle>sheetTitle</sheetTitle>
                 <type>array</type>
                 <el>
+                    <settings.input_field>
+                        <label>Input field</label>
+                        <config>
+                            <type>input</type>
+                            <eval>trim</eval>
+                        </config>
+                    </settings.input_field>
                     <settings.int_field>
                         <label>Int field</label>
                         <config>

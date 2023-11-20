@@ -5,6 +5,13 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateEvalIntAndDouble2ToTyp
 return [
     'ctrl' => [],
     'columns' => [
+        'non_int_field_with_eval_defined' => [
+            'label' => 'input field',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'trim',
+            ],
+        ],
         'int_field' => [
             'label' => 'int field',
             'config' => [
@@ -51,6 +58,13 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateEvalIntAndDouble2ToTyp
 return [
     'ctrl' => [],
     'columns' => [
+        'non_int_field_with_eval_defined' => [
+            'label' => 'input field',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'trim',
+            ],
+        ],
         'int_field' => [
             'label' => 'int field',
             'config' => [
