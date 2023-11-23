@@ -81,8 +81,6 @@ CODE_SAMPLE
             return;
         }
 
-        $this->removeArrayItemFromArrayByKey($configArray, 'max');
-
         if (! $this->hasKey($configArray, 'eval')) {
             return;
         }
@@ -102,6 +100,8 @@ CODE_SAMPLE
         if (! StringUtility::inList($evalListValue, self::EMAIL)) {
             return;
         }
+
+        $this->removeArrayItemFromArrayByKey($configArray, 'max');
 
         $evalList = ArrayUtility::trimExplode(',', $evalListValue, true);
 

@@ -103,7 +103,9 @@ CODE_SAMPLE
             return;
         }
 
-        if (! StringUtility::inList($evalListValue, self::INT) && ! StringUtility::inList($evalListValue, self::DOUBLE2)) {
+        if (! StringUtility::inList($evalListValue, self::INT)
+            && ! StringUtility::inList($evalListValue, self::DOUBLE2)
+        ) {
             return;
         }
 
