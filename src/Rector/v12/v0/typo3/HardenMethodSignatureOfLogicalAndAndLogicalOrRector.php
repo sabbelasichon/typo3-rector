@@ -13,6 +13,7 @@ use PhpParser\Node\Expr\BinaryOp\GreaterOrEqual;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\Empty_;
+use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\LNumber;
@@ -73,6 +74,21 @@ final class HardenMethodSignatureOfLogicalAndAndLogicalOrRector extends Abstract
 
         if (count($args) > 1) {
             return null;
+        }
+
+        if ($args[0]->unpack === true) {
+            // In this case, the code looks like this: $query->logicalAnd(...$constraints);
+            $parentIfStatement = $this->betterNodeFinder->findParentType($node, If_::class);
+            // the if should not contain a count, otherwise it is probably migrated already
+            if ($parentIfStatement instanceof If_ && $parentIfStatement->cond instanceof Identical) {
+                $comparison = $parentIfStatement->cond;
+                if ($comparison->left instanceof FuncCall && $this->isName($comparison->left, 'count')) {
+                    return null;
+                }
+                if ($comparison->right instanceof FuncCall && $this->isName($comparison->right, 'count')) {
+                    return null;
+                }
+            }
         }
 
         $firstArgument = $args[0]->value;
