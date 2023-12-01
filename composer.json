@@ -104,6 +104,5 @@
         }
     },
     "conflict": {
-        "phpstan/phpstan": ">= 1.10.28"
     }
 }

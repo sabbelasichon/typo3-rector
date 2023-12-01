@@ -62,3 +62,7 @@ parameters:
         -
             message: '#Strict comparison using \!\=\= between array\{\} and array\{\} will always evaluate to false#'
             path: src/Rector/v8/v6/MigrateOptionsOfTypeGroupRector.php
+        -
+            message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(Ssch\\\\TYPO3Rector\\\\Contract\\\\FileProcessor\\\\TypoScript\\\\TypoScriptRectorInterface\\)\\: mixed\\)\\|null, Closure\\(Ssch\\\\TYPO3Rector\\\\FileProcessor\\\\TypoScript\\\\Rector\\\\AbstractTypoScriptRector\\)\\: bool given\\.$#"
+            count: 1
+            path: src/FileProcessor/TypoScript/TypoScriptFileProcessor.php

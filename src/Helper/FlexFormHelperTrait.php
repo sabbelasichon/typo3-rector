@@ -21,7 +21,7 @@ trait FlexFormHelperTrait
                 continue;
             }
 
-            $itemKey = (string) $childNode->nodeName;
+            $itemKey = $childNode->nodeName;
             if ($key === $itemKey) {
                 return $childNode;
             }
