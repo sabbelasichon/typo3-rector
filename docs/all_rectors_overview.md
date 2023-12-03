@@ -1,4 +1,4 @@
-# 285 Rules Overview
+# 286 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -3162,6 +3162,38 @@ Remove TCEForms key from all elements in data structure
          </el>
      </ROOT>
  </T3DataStructure>
+```
+
+<br>
+
+## RemoveElementTceFormsYamlRector
+
+Remove TCEForms key from all elements in data structure
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\yaml\RemoveElementTceFormsYamlRector`](../src/Rector/v12/v0/yaml/RemoveElementTceFormsYamlRector.php)
+
+```diff
+ TYPO3:
+   CMS:
+     Form:
+       prototypes:
+         standard:
+           finishersDefinition:
+             EmailToReceiver:
+               FormEngine:
+                 elements:
+                   recipients:
+                     el:
+                       _arrayContainer:
+                         el:
+                           email:
+-                            TCEforms:
+-                              label: tt_content.finishersDefinition.EmailToSender.recipients.email.label
+-                              config:
+-                                type: input
++                            label: tt_content.finishersDefinition.EmailToSender.recipients.email.label
++                            config:
++                              type: input
 ```
 
 <br>
