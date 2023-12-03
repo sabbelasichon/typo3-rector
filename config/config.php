@@ -35,19 +35,19 @@ return static function (RectorConfig $rectorConfig): void {
     $services->load('Ssch\\TYPO3Rector\\', __DIR__ . '/../src')
         ->exclude([
             __DIR__ . '/../src/Rector',
-            __DIR__ . '/../src/Set',
-            __DIR__ . '/../src/ValueObject',
             __DIR__ . '/../src/AttributeDecorator/ExtbaseValidateAttributeDecorator.php',
-            __DIR__ . '/../src/FileProcessor/TypoScript/Conditions',
-            __DIR__ . '/../src/FileProcessor/TypoScript/Rector',
-            __DIR__ . '/../src/FileProcessor/TypoScript/PostRector',
-            __DIR__ . '/../src/FileProcessor/Yaml/Form/Rector',
+            __DIR__ . '/../src/Console/Application/Typo3RectorKernel.php',
             __DIR__ . '/../src/FileProcessor/Composer/Rector',
             __DIR__ . '/../src/FileProcessor/FlexForms/Rector',
-            __DIR__ . '/../src/FileProcessor/Resources/Icons/Rector',
-            __DIR__ . '/../src/FileProcessor/Resources/Files/Rector',
             __DIR__ . '/../src/FileProcessor/Fluid/Rector',
-            __DIR__ . '/../src/Console/Application/Typo3RectorKernel.php',
+            __DIR__ . '/../src/FileProcessor/Resources/Files/Rector',
+            __DIR__ . '/../src/FileProcessor/Resources/Icons/Rector',
+            __DIR__ . '/../src/FileProcessor/TypoScript/Conditions',
+            __DIR__ . '/../src/FileProcessor/TypoScript/PostRector',
+            __DIR__ . '/../src/FileProcessor/TypoScript/Rector',
+            __DIR__ . '/../src/FileProcessor/Yaml/Form/Rector',
+            __DIR__ . '/../src/Set',
+            __DIR__ . '/../src/ValueObject',
         ]);
 
     $services->set(Traverser::class);
