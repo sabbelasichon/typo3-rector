@@ -76,7 +76,7 @@ final class HardenMethodSignatureOfLogicalAndAndLogicalOrRector extends Abstract
             return null;
         }
 
-        if ($args[0]->unpack === true) {
+        if ($args[0]->unpack) {
             // In this case, the code looks like this: $query->logicalAnd(...$constraints);
             $parentIfStatement = $this->betterNodeFinder->findParentType($node, If_::class);
             // the if should not contain a count, otherwise it is probably migrated already
@@ -85,6 +85,7 @@ final class HardenMethodSignatureOfLogicalAndAndLogicalOrRector extends Abstract
                 if ($comparison->left instanceof FuncCall && $this->isName($comparison->left, 'count')) {
                     return null;
                 }
+
                 if ($comparison->right instanceof FuncCall && $this->isName($comparison->right, 'count')) {
                     return null;
                 }
