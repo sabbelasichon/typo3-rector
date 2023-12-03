@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\FileProcessor\Yaml\Form;
+namespace Ssch\TYPO3Rector\FileProcessor\Yaml;
 
 use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Contract\Processor\FileProcessorInterface;
@@ -12,12 +12,12 @@ use Rector\Core\ValueObject\Configuration;
 use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
-use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\Form\FormYamlRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\YamlRectorInterface;
 use Ssch\TYPO3Rector\Helper\SymfonyYamlParser;
 use Ssch\TYPO3Rector\ValueObject\Indent;
 use Symplify\SmartFileSystem\SmartFileInfo;
 
-final class FormYamlFileProcessor implements FileProcessorInterface
+final class YamlFileProcessor implements FileProcessorInterface
 {
     /**
      * @var string[]
@@ -35,10 +35,10 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     private FileDiffFactory $fileDiffFactory;
 
     /**
-     * @var FormYamlRectorInterface[]
+     * @var YamlRectorInterface[]
      * @readonly
      */
-    private array $transformer = [];
+    private array $yamlRectors = [];
 
     /**
      * @readonly
@@ -46,17 +46,17 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     private SymfonyYamlParser $symfonyYamlParser;
 
     /**
-     * @param FormYamlRectorInterface[] $transformer
+     * @param YamlRectorInterface[] $yamlRectors
      */
     public function __construct(
         CurrentFileProvider $currentFileProvider,
         FileDiffFactory $fileDiffFactory,
         SymfonyYamlParser $symfonyYamlParser,
-        array $transformer
+        array $yamlRectors
     ) {
         $this->currentFileProvider = $currentFileProvider;
         $this->fileDiffFactory = $fileDiffFactory;
-        $this->transformer = $transformer;
+        $this->yamlRectors = $yamlRectors;
         $this->symfonyYamlParser = $symfonyYamlParser;
     }
 
@@ -83,8 +83,8 @@ final class FormYamlFileProcessor implements FileProcessorInterface
 
         $newYaml = $yaml;
 
-        foreach ($this->transformer as $transformer) {
-            $newYaml = $transformer->refactor($newYaml);
+        foreach ($this->yamlRectors as $yamlRector) {
+            $newYaml = $yamlRector->refactor($newYaml);
         }
 
         // Nothing has changed. Early return here.
@@ -104,7 +104,7 @@ final class FormYamlFileProcessor implements FileProcessorInterface
     public function supports(File $file, Configuration $configuration): bool
     {
         // Prevent unnecessary processing
-        if ($this->transformer === []) {
+        if ($this->yamlRectors === []) {
             return false;
         }
 
