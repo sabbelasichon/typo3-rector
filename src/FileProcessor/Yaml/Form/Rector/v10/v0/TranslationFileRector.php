@@ -62,22 +62,24 @@ CODE_SAMPLE
 
     /**
      * @param mixed[] $yaml
-     *
      * @return mixed[]
+     * @see https://github.com/TYPO3/typo3/blob/10.4/typo3/sysext/form/Classes/Controller/FormEditorController.php#L653-L689
      */
     private function refactorTranslationFile(array &$yaml): array
     {
         foreach ($yaml as &$section) {
-            if (is_array($section)) {
-                if (array_key_exists(self::TRANSLATION_FILE_KEY, $section) && is_array(
-                    $section[self::TRANSLATION_FILE_KEY]
-                )) {
-                    $section['translationFiles'] = $this->buildNewTranslations($section[self::TRANSLATION_FILE_KEY]);
-                    unset($section[self::TRANSLATION_FILE_KEY]);
-                }
-
-                $this->refactorTranslationFile($section);
+            if (! is_array($section)) {
+                continue;
             }
+
+            if (array_key_exists(self::TRANSLATION_FILE_KEY, $section)
+                && is_array($section[self::TRANSLATION_FILE_KEY])
+            ) {
+                $section['translationFiles'] = $this->buildNewTranslations($section[self::TRANSLATION_FILE_KEY]);
+                unset($section[self::TRANSLATION_FILE_KEY]);
+            }
+
+            $this->refactorTranslationFile($section);
         }
 
         unset($section);
