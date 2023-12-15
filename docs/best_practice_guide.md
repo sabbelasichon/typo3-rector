@@ -59,13 +59,13 @@ TCA changes are often not that big in their impact but necessary. Also, custom p
 Both of that is reason to gather multiple packages for a combined TCA run with the following config:
 
 ```php
-    $rectorConfig->import(Typo3SetList::TCA_95);
+$rectorConfig->import(Typo3SetList::TCA_95);
 
-    $rectorConfig->paths([
-        __DIR__ . '/packages/package_numberone',
-        __DIR__ . '/packages/package_thesecond',
-        __DIR__ . '/packages/package_thirdone',
-    ]);
+$rectorConfig->paths([
+    __DIR__ . '/packages/package_numberone',
+    __DIR__ . '/packages/package_thesecond',
+    __DIR__ . '/packages/package_thirdone',
+]);
 ```
 
 ### ClassAliasMap
@@ -131,10 +131,10 @@ There are limitations to the TCA detection.
 Typo3-rector can only detect TCA if there's a return statement along with a 'ctrl' and 'columns' key, just like here:
 
 ```php
-    return [
-        'ctrl' => [],
-        'columns' => [],
-    ];
+return [
+    'ctrl' => [],
+    'columns' => [],
+];
 ```
 
 Depending on your TCA, which can include overrides with array_replace_recursive() you have to manually adapt the TCA for the time of the typo3-rector process.

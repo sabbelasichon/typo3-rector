@@ -19,7 +19,6 @@ but the finishing checks have to be done by each use case.
 All special rules can be included via config file (rector.php) in the following way:
 
 ```php
-...
 $rectorConfig->rule(CLASSNAME);
 ```
 

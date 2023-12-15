@@ -64,7 +64,6 @@ In this example the methods `GeneralUtility::strtoupper(...)` and `GeneralUtilit
 - `refactor` first checks for the ObjectType to do an early return in case the class scanned is not `TYPO3\CMS\Core\Utility\GeneralUtility`
 - after that, the actual function call is checked for being one of the functions to migrate
 
-
 ```php
 final class GeneralUtilityToUpperAndLowerRector extends AbstractRector
 {

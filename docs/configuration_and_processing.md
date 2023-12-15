@@ -17,7 +17,7 @@ To get you started quickly, run the following command inside the root directory 
 ### For ssch/typo3-rector (PHP 7.4>= dependency)
 
 ```bash
-cp ./vendor/ssch/typo3-rector/templates/rector.php.dist rector.php
+cp vendor/ssch/typo3-rector/templates/rector.php.dist rector.php
 ```
 
 #### For rector/rector 0.13.4 (<PHP 7.4 dependency)
@@ -44,6 +44,7 @@ use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\PostRector\Rector\NameImportingPostRector;
+use Rector\Set\ValueObject\LevelSetList;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
@@ -57,6 +58,7 @@ return static function (RectorConfig $rectorConfig): void {
     // $parameters->set(Typo3Option::TYPOSCRIPT_INDENT_SIZE, 2);
 
     $rectorConfig->sets([
+        LevelSetList::UP_TO_PHP_74,
         Typo3LevelSetList::UP_TO_TYPO3_11,
         // https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/FileStructure/Configuration/Icons.html
         // Typo3SetList::REGISTER_ICONS_TO_ICON,
@@ -153,7 +155,7 @@ For more configuration options see [Rector README](https://github.com/rectorphp/
 After your adopt the configuration to your needs, run typo3-rector to simulate (hence the option `--dry-run`) the future code fixes:
 
 ```bash
-./vendor/bin/rector process packages/my_custom_extension --dry-run
+vendor/bin/rector process packages/my_custom_extension --dry-run
 ```
 
 Check if everything makes sense and run the process command without the `--dry-run` option to apply the changes.
@@ -170,22 +172,21 @@ Instead of `__DIR__` the PHP method `getcwd()` must be used. This takes the star
 The file `rector.php` is located in the directory` /var/www/Build/Apps/` and it is executed
 via` cd /var/www/html/ && ./vendor/bin/rector process --config ../Build/Apps/rector.php --dry-run`.
 The starting point with the PHP method `getcwd()` is then `/var/www/html/` instead of `/var/www/html/Build/Apps/` with `__DIR__`.
+
 ```php
-$rectorConfig->skip(
-    [
-        NameImportingPostRector::class => [
-            'ClassAliasMap.php',
-            'ext_localconf.php',
-            'ext_emconf.php',
-            'ext_tables.php',
-            getcwd() . '/**/Configuration/TCA/*',
-            getcwd() . '/**/Configuration/RequestMiddlewares.php',
-            getcwd() . '/**/Configuration/Commands.php',
-            getcwd() . '/**/Configuration/AjaxRoutes.php',
-            getcwd() . '/**/Configuration/Extbase/Persistence/Classes.php'
-        ]
+$rectorConfig->skip([
+    NameImportingPostRector::class => [
+        'ClassAliasMap.php',
+        'ext_localconf.php',
+        'ext_emconf.php',
+        'ext_tables.php',
+        getcwd() . '/**/Configuration/TCA/*',
+        getcwd() . '/**/Configuration/RequestMiddlewares.php',
+        getcwd() . '/**/Configuration/Commands.php',
+        getcwd() . '/**/Configuration/AjaxRoutes.php',
+        getcwd() . '/**/Configuration/Extbase/Persistence/Classes.php'
     ]
-)
+])
 ```
 
 ### Example with the option --config and predefined paths in a custom rector.php location
