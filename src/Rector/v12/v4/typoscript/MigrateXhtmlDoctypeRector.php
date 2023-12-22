@@ -26,8 +26,8 @@ final class MigrateXhtmlDoctypeRector extends AbstractTypoScriptRector
             return;
         }
 
-        $statement->object->relativeName = str_replace('xhtmlDoctype', 'doctype',$statement->object->relativeName);
-        $statement->object->absoluteName = str_replace('xhtmlDoctype', 'doctype',$statement->object->absoluteName);
+        $statement->object->relativeName = str_replace('xhtmlDoctype', 'doctype', $statement->object->relativeName);
+        $statement->object->absoluteName = str_replace('xhtmlDoctype', 'doctype', $statement->object->absoluteName);
 
         $this->hasChanged = true;
     }
