@@ -9,8 +9,11 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Rector\Core\Reflection\ReflectionResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -20,6 +23,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateMagicRepositoryMethodsRector extends AbstractRector
 {
+    private ReflectionResolver $reflectionResolver;
+
+    public function __construct(ReflectionResolver $reflectionResolver)
+    {
+        $this->reflectionResolver = $reflectionResolver;
+    }
+
     /**
      * @return array<class-string<Node>>
      */
@@ -42,6 +52,14 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector
         }
 
         // TODO: check if method already exists in class
+
+        $methodReflection = $this->reflectionResolver->resolveMethodReflectionFromMethodCall($node);
+        if ($methodReflection instanceof MethodReflection) {
+            $declaringClass = $methodReflection->getDeclaringClass();
+            if ($declaringClass instanceof ClassReflection) {
+                $classOfClassMethod = $declaringClass->getName();
+            }
+        }
 
         $methodName = $this->getName($node->name);
 
