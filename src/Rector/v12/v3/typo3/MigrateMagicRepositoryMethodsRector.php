@@ -7,7 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v12\v3\typo3;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -24,7 +25,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Expr\MethodCall::class];
+        return [MethodCall::class];
     }
 
     /**
@@ -33,7 +34,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector
     public function refactor(Node $node): ?Node
     {
         // TODO: this doesn't work with my ExampleRepo Stub
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Extbase\Persistence\Repository')
         )) {
@@ -48,9 +49,9 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector
             return null;
         }
 
-        if (!\str_starts_with($methodName, 'findBy')
-            && !\str_starts_with($methodName, 'findOneBy')
-            && !\str_starts_with($methodName, 'countBy')
+        if (! \str_starts_with($methodName, 'findBy')
+            && ! \str_starts_with($methodName, 'findOneBy')
+            && ! \str_starts_with($methodName, 'countBy')
         ) {
             return null;
         }
@@ -78,9 +79,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector
             return null;
         }
 
-        $newArgs = new Node\Expr\Array_([
-            new Node\Expr\ArrayItem($node->args[0]->value, new Node\Scalar\String_(lcfirst($propertyName))),
-        ]);
+        $newArgs = new Array_([new ArrayItem($node->args[0]->value, new String_(lcfirst($propertyName)))]);
 
         return $this->nodeFactory->createMethodCall($node->var, $newMethodCall, [$newArgs->items]);
     }
