@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
-use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
@@ -43,22 +42,11 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        // TODO: this doesn't work with my ExampleRepo Stub
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Extbase\Persistence\Repository')
         )) {
             return null;
-        }
-
-        // TODO: check if method already exists in class
-
-        $methodReflection = $this->reflectionResolver->resolveMethodReflectionFromMethodCall($node);
-        if ($methodReflection instanceof MethodReflection) {
-            $declaringClass = $methodReflection->getDeclaringClass();
-            if ($declaringClass instanceof ClassReflection) {
-                $classOfClassMethod = $declaringClass->getName();
-            }
         }
 
         $methodName = $this->getName($node->name);
@@ -74,10 +62,15 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector
             return null;
         }
 
+        $methodReflection = $this->reflectionResolver->resolveMethodReflectionFromMethodCall($node);
+        # Class reflection only works when the method exists - thus we don't migrate if it succeeds/is not null
+        if ($methodReflection !== null) {
+            return null;
+        }
+
         $propertyName = '';
         $newMethodCall = '';
 
-        // TODO: make this better somehow?
         if (\str_starts_with($methodName, 'findBy')) {
             $propertyName = str_replace('findBy', '', $methodName);
             $newMethodCall = 'findBy';

@@ -6,5 +6,6 @@ namespace TYPO3\CMS\Extbase\Persistence;
 
 class ExampleRepository extends Repository
 {
+    public function findByMethodExists(string $random): void {}
 
 }
