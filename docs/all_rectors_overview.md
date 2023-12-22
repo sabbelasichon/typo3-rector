@@ -1,4 +1,4 @@
-# 286 Rules Overview
+# 287 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -781,10 +781,15 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ExtEmConfRector::class, [
-        ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => [
-            'createDirs',
-            'uploadfolder',
+    $containerConfigurator->extension('rectorConfig', [
+        [
+            'class' => ExtEmConfRector::class,
+            'configuration' => [
+                'additional_values_to_be_removed' => [
+                    'createDirs',
+                    'uploadfolder',
+                ],
+            ],
         ],
     ]);
 };
@@ -889,9 +894,14 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class, [
-        ExtbaseControllerActionsMustReturnResponseInterfaceRector::REDIRECT_METHODS => [
-            'myRedirectMethod',
+    $containerConfigurator->extension('rectorConfig', [
+        [
+            'class' => ExtbaseControllerActionsMustReturnResponseInterfaceRector::class,
+            'configuration' => [
+                'redirect_methods' => [
+                    'myRedirectMethod',
+                ],
+            ],
         ],
     ]);
 };
@@ -933,8 +943,13 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0\ExtbasePersistenceTypoScriptRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ExtbasePersistenceTypoScriptRector::class, [
-        ExtbasePersistenceTypoScriptRector::FILENAME => 'path/to/Configuration/Extbase/Persistence/Classes.php',
+    $containerConfigurator->extension('rectorConfig', [
+        [
+            'class' => ExtbasePersistenceTypoScriptRector::class,
+            'configuration' => [
+                'filename' => 'path/to/Configuration/Extbase/Persistence/Classes.php',
+            ],
+        ],
     ]);
 };
 ```
@@ -1477,9 +1492,14 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(MethodGetInstanceToMakeInstanceCallRector::class, [
-        MethodGetInstanceToMakeInstanceCallRector::CLASSES_GET_INSTANCE_TO_MAKE_INSTANCE => [
-            'SomeClass',
+    $containerConfigurator->extension('rectorConfig', [
+        [
+            'class' => MethodGetInstanceToMakeInstanceCallRector::class,
+            'configuration' => [
+                'classes-get-instance-to-make-instance' => [
+                    'SomeClass',
+                ],
+            ],
         ],
     ]);
 };
@@ -2062,6 +2082,19 @@ Migrates existing input TCA with eval email to new type
          ],
      ],
  ];
+```
+
+<br>
+
+## MigrateXhtmlDoctypeRector
+
+Migrate typoscript xhtmlDoctype to doctype
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v4\typoscript\MigrateXhtmlDoctypeRector`](../src/Rector/v12/v4/typoscript/MigrateXhtmlDoctypeRector.php)
+
+```diff
+-config.xhtmlDoctype = 1
++config.doctype = 1
 ```
 
 <br>
@@ -4085,8 +4118,13 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(RenameClassMapAliasRector::class, [
-        RenameClassMapAliasRector::CLASS_ALIAS_MAPS => 'config/Migrations/Code/ClassAliasMap.php',
+    $containerConfigurator->extension('rectorConfig', [
+        [
+            'class' => RenameClassMapAliasRector::class,
+            'configuration' => [
+                'class_alias_maps' => 'config/Migrations/Code/ClassAliasMap.php',
+            ],
+        ],
     ]);
 };
 ```
@@ -4235,9 +4273,14 @@ use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
 use TYPO3\CMS\Extbase\Annotation\ORM\Transient;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(ReplaceAnnotationRector::class, [
-        ReplaceAnnotationRector::OLD_TO_NEW_ANNOTATIONS => [
-            'transient' => Transient::class,
+    $containerConfigurator->extension('rectorConfig', [
+        [
+            'class' => ReplaceAnnotationRector::class,
+            'configuration' => [
+                'old_to_new_annotations' => [
+                    'transient' => Transient::class,
+                ],
+            ],
         ],
     ]);
 };
@@ -4878,9 +4921,14 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Rector\v8\v4\SubstituteOldWizardIconsRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->ruleWithConfiguration(SubstituteOldWizardIconsRector::class, [
-        SubstituteOldWizardIconsRector::OLD_TO_NEW_FILE_LOCATIONS => [
-            'add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
+    $containerConfigurator->extension('rectorConfig', [
+        [
+            'class' => SubstituteOldWizardIconsRector::class,
+            'configuration' => [
+                'old_to_new_file_locations' => [
+                    'add.gif' => 'EXT:backend/Resources/Public/Images/FormFieldWizard/wizard_add.gif',
+                ],
+            ],
         ],
     ]);
 };
