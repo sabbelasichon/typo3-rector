@@ -15,9 +15,10 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-96983-TCAInternal_type.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-96983-TCATypeFolder.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateInternalTypeRector\MigrateInternalTypeRectorTest
  */
-final class MigrateInternalTypeRector extends AbstractTcaRector
+final class MigrateInternalTypeFolderToTypeFolderRector extends AbstractTcaRector
 {
     use TcaHelperTrait;
 
@@ -26,7 +27,7 @@ final class MigrateInternalTypeRector extends AbstractTcaRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrates TCA internal_type into new own separate types', [new CodeSample(
+        return new RuleDefinition('Migrates TCA internal_type into new new TCA type folder', [new CodeSample(
             <<<'CODE_SAMPLE'
 'columns' => [
     'aColumn' => [
