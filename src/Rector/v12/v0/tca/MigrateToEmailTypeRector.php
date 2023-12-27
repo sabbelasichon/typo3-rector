@@ -30,7 +30,7 @@ final class MigrateToEmailTypeRector extends AbstractTcaRector
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrates existing input TCA with eval email to new type', [new CodeSample(
+        return new RuleDefinition('Migrates existing input TCA with eval email to new TCA type email', [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
     'ctrl' => [],
