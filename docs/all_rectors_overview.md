@@ -1,4 +1,4 @@
-# 287 Rules Overview
+# 288 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1670,11 +1670,38 @@ Migrate renderType inputDateTime to new TCA type datetime
 
 <br>
 
-## MigrateInternalTypeRector
+## MigrateInternalTypeFolderToTypeFolderFlexFormRector
 
-Migrates TCA internal_type into new own separate types
+Migrates TCA internal_type into new new TCA type folder
 
-- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInternalTypeRector`](../src/Rector/v12/v0/tca/MigrateInternalTypeRector.php)
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\flexform\MigrateInternalTypeFolderToTypeFolderFlexFormRector`](../src/Rector/v12/v0/flexform/MigrateInternalTypeFolderToTypeFolderFlexFormRector.php)
+
+```diff
+ <T3DataStructure>
+     <ROOT>
+         <sheetTitle>aTitle</sheetTitle>
+         <type>array</type>
+         <el>
+             <aFlexField>
+                 <label>aFlexFieldLabel</label>
+                 <config>
+-                    <type>group</type>
+-                    <internal_type>folder</internal_type>
++                    <type>folder</type>
+                 </config>
+             </aFlexField>
+         </el>
+     </ROOT>
+ </T3DataStructure>
+```
+
+<br>
+
+## MigrateInternalTypeFolderToTypeFolderRector
+
+Migrates TCA internal_type into new new TCA type folder
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInternalTypeFolderToTypeFolderRector`](../src/Rector/v12/v0/tca/MigrateInternalTypeFolderToTypeFolderRector.php)
 
 ```diff
  'columns' => [
@@ -2063,7 +2090,7 @@ t3editor is no longer configured and enabled as wizard
 
 ## MigrateToEmailTypeRector
 
-Migrates existing input TCA with eval email to new type
+Migrates existing input TCA with eval email to new TCA type email
 
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateToEmailTypeRector`](../src/Rector/v12/v0/tca/MigrateToEmailTypeRector.php)
 
