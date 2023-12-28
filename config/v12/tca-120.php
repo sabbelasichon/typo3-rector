@@ -8,6 +8,7 @@ use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateEvalIntAndDouble2ToTypeNumberRecto
 use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInputDateTimeRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInternalTypeFolderToTypeFolderRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateNullFlagRector;
+use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigratePasswordAndSaltedPasswordToPasswordTypeRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateRequiredFlagRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateToEmailTypeRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\tca\RemoveCruserIdRector;
@@ -20,6 +21,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateInputDateTimeRector::class);
     $rectorConfig->rule(MigrateInternalTypeFolderToTypeFolderRector::class);
     $rectorConfig->rule(MigrateNullFlagRector::class);
+    $rectorConfig->rule(MigratePasswordAndSaltedPasswordToPasswordTypeRector::class);
     $rectorConfig->rule(MigrateRequiredFlagRector::class);
     $rectorConfig->rule(MigrateToEmailTypeRector::class);
     $rectorConfig->rule(RemoveTCAInterfaceAlwaysDescriptionRector::class);
