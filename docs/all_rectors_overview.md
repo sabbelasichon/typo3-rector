@@ -1,4 +1,4 @@
-# 290 Rules Overview
+# 291 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1937,6 +1937,42 @@ Migrate options if type group in TCA
          ],
      ],
  ];
+```
+
+<br>
+
+## MigratePasswordAndSaltedPasswordToPasswordTypeFlexFormRector
+
+Migrate password and salted password to password type
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\flexform\MigratePasswordAndSaltedPasswordToPasswordTypeFlexFormRector`](../src/Rector/v12/v0/flexform/MigratePasswordAndSaltedPasswordToPasswordTypeFlexFormRector.php)
+
+```diff
+ <T3DataStructure>
+     <ROOT>
+         <sheetTitle>aTitle</sheetTitle>
+         <type>array</type>
+         <el>
+             <password_field>
+                 <label>Password</label>
+                 <config>
+-                    <type>input</type>
+-                    <eval>trim,password,saltedPassword</eval>
++                    <type>password</type>
+                 </config>
+             </password_field>
+             <another_password_field>
+                 <label>Password</label>
+                 <config>
+-                    <type>input</type>
+-                    <eval>trim,password</eval>
++                    <type>password</type>
++                    <hashed>false</hashed>
+                 </config>
+             </another_password_field>
+         </el>
+     </ROOT>
+ </T3DataStructure>
 ```
 
 <br>
