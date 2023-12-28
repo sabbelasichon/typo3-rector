@@ -19,11 +19,17 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97384-TCAOptionNullable.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-97384-TCAOptionNullable.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateNullFlagRector\MigrateNullFlagRectorTest
  */
 final class MigrateNullFlagRector extends AbstractTcaRector
 {
     use TcaHelperTrait;
+
+    /**
+     * @var string
+     */
+    private const NULL = 'null';
 
     /**
      * @codeCoverageIgnore
@@ -72,14 +78,14 @@ CODE_SAMPLE
             return;
         }
 
-        if (! StringUtility::inList($evalListValue, 'null')) {
+        if (! StringUtility::inList($evalListValue, self::NULL)) {
             return;
         }
 
         $evalList = ArrayUtility::trimExplode(',', $evalListValue, true);
 
         // Remove "null" from $evalList
-        $evalList = array_filter($evalList, static fn (string $eval) => $eval !== 'null');
+        $evalList = array_filter($evalList, static fn (string $eval) => $eval !== self::NULL);
 
         if ($evalList !== []) {
             // Write back filtered 'eval'
