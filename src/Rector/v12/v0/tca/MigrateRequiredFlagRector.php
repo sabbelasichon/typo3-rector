@@ -67,13 +67,11 @@ CODE_SAMPLE
         }
 
         $evalArrayItem = $this->extractArrayItemByKey($configArray, 'eval');
-
         if (! $evalArrayItem instanceof ArrayItem) {
             return;
         }
 
         $value = $this->valueResolver->getValue($evalArrayItem->value);
-
         if (! is_string($value)) {
             return;
         }

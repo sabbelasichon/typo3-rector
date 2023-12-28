@@ -21,13 +21,13 @@
                         <label>Nullable field</label>
                         <config>
                             <eval>null,trim</eval>
-                            <nullable>true</nullable>
+                            <nullable>1</nullable>
                         </config>
                     </settings.nullable_field_partially_migrated>
                     <settings.migrated_nullable_field>
                         <label>Migrated nullable field</label>
                         <config>
-                            <nullable>true</nullable>
+                            <nullable>1</nullable>
                             <eval>trim</eval>
                         </config>
                     </settings.migrated_nullable_field>
@@ -48,23 +48,24 @@
                         <label>Nullable field trimmed</label>
                         <config>
                             <eval>trim</eval>
-                        <nullable>true</nullable></config>
+                        <nullable>1</nullable></config>
                     </settings.nullable_field_trimmed>
                     <settings.nullable_field>
                         <label>Nullable field</label>
                         <config>
-                        <nullable>true</nullable></config>
+                        <nullable>1</nullable></config>
                     </settings.nullable_field>
                     <settings.nullable_field_partially_migrated>
                         <label>Nullable field</label>
                         <config>
                             <eval>trim</eval>
-                        <nullable>true</nullable></config>
+                            <nullable>1</nullable>
+                        </config>
                     </settings.nullable_field_partially_migrated>
                     <settings.migrated_nullable_field>
                         <label>Migrated nullable field</label>
                         <config>
-                            <nullable>true</nullable>
+                            <nullable>1</nullable>
                             <eval>trim</eval>
                         </config>
                     </settings.migrated_nullable_field>

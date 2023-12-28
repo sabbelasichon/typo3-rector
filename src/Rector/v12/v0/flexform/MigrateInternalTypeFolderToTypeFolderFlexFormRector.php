@@ -95,7 +95,6 @@ CODE_SAMPLE
         }
 
         $internalTypeDomElement = $this->extractDomElementByKey($configElement, 'internal_type');
-
         if (! $internalTypeDomElement instanceof DOMElement) {
             return;
         }
@@ -105,14 +104,8 @@ CODE_SAMPLE
             $internalTypeDomElement->parentNode->removeChild($internalTypeDomElement);
         }
 
-        $internalTypeValue = $internalTypeDomElement->nodeValue;
-
-        if ($internalTypeValue === 'folder') {
-            $toChangeItem = $this->extractDomElementByKey($configElement, 'type');
-            if ($toChangeItem instanceof DOMElement) {
-                $toChangeItem->nodeValue = '';
-                $toChangeItem->appendChild($domDocument->createTextNode('folder'));
-            }
+        if ($internalTypeDomElement->nodeValue === 'folder') {
+            $this->changeTcaType($domDocument, $configElement, 'folder');
         }
 
         $this->domDocumentHasBeenChanged = true;

@@ -27,14 +27,12 @@ final class RemoveElementTceFormsRector implements FlexFormRectorInterface
 
         // Find all elements with a <TCEforms> parent and move their children to the parent level
         $tceformsElements = $xpath->query('//TCEforms');
-
         if (! $tceformsElements instanceof DOMNodeList) {
             return false;
         }
 
         foreach ($tceformsElements as $tceformsElement) {
             $parent = $tceformsElement->parentNode;
-
             if (! $parent instanceof DOMElement) {
                 return false;
             }

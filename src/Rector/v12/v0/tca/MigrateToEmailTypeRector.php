@@ -72,7 +72,6 @@ CODE_SAMPLE
         }
 
         $configArray = $configArrayItem->value;
-
         if (! $configArray instanceof Array_) {
             return;
         }
@@ -86,13 +85,11 @@ CODE_SAMPLE
         }
 
         $evalArrayItem = $this->extractArrayItemByKey($configArray, 'eval');
-
         if (! $evalArrayItem instanceof ArrayItem) {
             return;
         }
 
         $evalListValue = $this->valueResolver->getValue($evalArrayItem->value);
-
         if (! is_string($evalListValue)) {
             return;
         }
@@ -116,10 +113,7 @@ CODE_SAMPLE
             $this->removeNode($evalArrayItem);
         }
 
-        $toChangeArrayItem = $this->extractArrayItemByKey($configArray, 'type');
-        if ($toChangeArrayItem instanceof ArrayItem) {
-            $toChangeArrayItem->value = new String_(self::EMAIL);
-        }
+        $this->changeTcaType($configArray, self::EMAIL);
 
         $this->hasAstBeenChanged = true;
     }

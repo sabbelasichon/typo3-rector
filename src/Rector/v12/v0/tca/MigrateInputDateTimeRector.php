@@ -101,12 +101,7 @@ CODE_SAMPLE
         }
 
         // Set the TCA type to "datetime"
-        $typeArrayItem = $this->extractArrayItemByKey($configArray, 'type');
-        if (! $typeArrayItem instanceof ArrayItem) {
-            return;
-        }
-
-        $typeArrayItem->value = new String_('datetime');
+        $this->changeTcaType($configArray, 'datetime');
 
         // Remove 'renderType' => 'inputDateTime',
         $renderTypeArrayItem = $this->extractArrayItemByKey($configArray, 'renderType');
