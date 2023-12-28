@@ -1,4 +1,4 @@
-# 289 Rules Overview
+# 290 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1937,6 +1937,34 @@ Migrate options if type group in TCA
          ],
      ],
  ];
+```
+
+<br>
+
+## MigratePasswordAndSaltedPasswordToPasswordTypeRector
+
+Migrate password and salted password to password type
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigratePasswordAndSaltedPasswordToPasswordTypeRector`](../src/Rector/v12/v0/tca/MigratePasswordAndSaltedPasswordToPasswordTypeRector.php)
+
+```diff
+ 'password_field' => [
+     'label' => 'Password',
+     'config' => [
+-        'type' => 'input',
+-        'eval' => 'trim,password,saltedPassword',
++        'type' => 'password',
+     ],
+ ],
+ 'another_password_field' => [
+     'label' => 'Password',
+     'config' => [
+-        'type' => 'input',
+-        'eval' => 'trim,password',
++        'type' => 'password',
++        'hashed' => false,
+     ],
+ ],
 ```
 
 <br>
