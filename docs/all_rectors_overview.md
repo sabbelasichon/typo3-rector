@@ -1,4 +1,4 @@
-# 288 Rules Overview
+# 289 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1863,6 +1863,32 @@ Migrate last pieces of default extras
                  ],
              ],
          ];
+```
+
+<br>
+
+## MigrateNullFlagFlexFormRector
+
+Migrate null flag
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\flexform\MigrateNullFlagFlexFormRector`](../src/Rector/v12/v0/flexform/MigrateNullFlagFlexFormRector.php)
+
+```diff
+ <T3DataStructure>
+     <ROOT>
+         <sheetTitle>aTitle</sheetTitle>
+         <type>array</type>
+         <el>
+             <aFlexField>
+                 <label>aFlexFieldLabel</label>
+                 <config>
+-                    <eval>null</eval>
++                    <nullable>true</nullable>
+                 </config>
+             </aFlexField>
+         </el>
+     </ROOT>
+ </T3DataStructure>
 ```
 
 <br>
