@@ -81,6 +81,17 @@ trait FlexFormHelperTrait
         return false;
     }
 
+    private function removeChildElementFromDomElementByKey(DOMElement $configValueArray, string $configKey): bool
+    {
+        $arrayItemToRemove = $this->extractDomElementByKey($configValueArray, $configKey);
+        if ($arrayItemToRemove instanceof DOMElement && $arrayItemToRemove->parentNode instanceof DOMElement) {
+            $arrayItemToRemove->parentNode->removeChild($arrayItemToRemove);
+            return true;
+        }
+
+        return false;
+    }
+
     private function isValue(string $element, string $value): bool
     {
         return $element === $value;
@@ -103,5 +114,14 @@ trait FlexFormHelperTrait
         }
 
         $node->parentNode->replaceChild($newNode, $node);
+    }
+
+    private function changeTcaType(DOMDocument $domDocument, DOMElement $configElement, string $newType): void
+    {
+        $toChangeItem = $this->extractDomElementByKey($configElement, 'type');
+        if ($toChangeItem instanceof DOMElement) {
+            $toChangeItem->nodeValue = '';
+            $toChangeItem->appendChild($domDocument->createTextNode($newType));
+        }
     }
 }

@@ -7,7 +7,6 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\tca;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -67,10 +66,7 @@ CODE_SAMPLE
             $this->removeNode($toRemoveArrayItem);
         }
 
-        $toChangeArrayItem = $this->extractArrayItemByKey($configArray, 'type');
-        if ($toChangeArrayItem instanceof ArrayItem) {
-            $toChangeArrayItem->value = new String_('folder');
-        }
+        $this->changeTcaType($configArray, 'folder');
 
         $this->hasAstBeenChanged = true;
     }

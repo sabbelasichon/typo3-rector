@@ -16,18 +16,22 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97384-TCAOptionNullable.html
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-97384-TCAOptionNullable.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\flexform\MigrateNullFlagFlexFormRector\MigrateNullFlagFlexFormRectorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-97159-NewTCATypeLink.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\flexform\MigratePasswordAndSaltedPasswordToPasswordTypeFlexFormRector\MigratePasswordAndSaltedPasswordToPasswordTypeFlexFormRectorTest
  */
-final class MigrateNullFlagFlexFormRector implements FlexFormRectorInterface
+final class MigratePasswordAndSaltedPasswordToPasswordTypeFlexFormRector implements FlexFormRectorInterface
 {
     use FlexFormHelperTrait;
 
     /**
      * @var string
      */
-    private const NULL = 'null';
+    private const PASSWORD = 'password';
+
+    /**
+     * @var string
+     */
+    private const SALTED_PASSWORD = 'saltedPassword';
 
     private bool $domDocumentHasBeenChanged = false;
 
@@ -54,24 +58,31 @@ final class MigrateNullFlagFlexFormRector implements FlexFormRectorInterface
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate null flag', [new CodeSample(
+        return new RuleDefinition('Migrate password and salted password to password type', [new CodeSample(
             <<<'CODE_SAMPLE'
 <T3DataStructure>
     <ROOT>
         <sheetTitle>aTitle</sheetTitle>
         <type>array</type>
         <el>
-            <aFlexField>
-                <label>aFlexFieldLabel</label>
+            <password_field>
+                <label>Password</label>
                 <config>
-                    <eval>null</eval>
+                    <type>input</type>
+                    <eval>trim,password,saltedPassword</eval>
                 </config>
-            </aFlexField>
+            </password_field>
+            <another_password_field>
+                <label>Password</label>
+                <config>
+                    <type>input</type>
+                    <eval>trim,password</eval>
+                </config>
+            </another_password_field>
         </el>
     </ROOT>
 </T3DataStructure>
 CODE_SAMPLE
-
             ,
             <<<'CODE_SAMPLE'
 <T3DataStructure>
@@ -79,12 +90,19 @@ CODE_SAMPLE
         <sheetTitle>aTitle</sheetTitle>
         <type>array</type>
         <el>
-            <aFlexField>
-                <label>aFlexFieldLabel</label>
+            <password_field>
+                <label>Password</label>
                 <config>
-                    <nullable>true</nullable>
+                    <type>password</type>
                 </config>
-            </aFlexField>
+            </password_field>
+            <another_password_field>
+                <label>Password</label>
+                <config>
+                    <type>password</type>
+                    <hashed>false</hashed>
+                </config>
+            </another_password_field>
         </el>
     </ROOT>
 </T3DataStructure>
@@ -95,6 +113,10 @@ CODE_SAMPLE
     private function refactorColumn(DOMDocument $domDocument, ?DOMElement $configElement): void
     {
         if (! $configElement instanceof DOMElement) {
+            return;
+        }
+
+        if (! $this->isConfigType($configElement, 'input')) {
             return;
         }
 
@@ -112,27 +134,33 @@ CODE_SAMPLE
             return;
         }
 
-        if (! StringUtility::inList($evalListValue, self::NULL)) {
+        if (! StringUtility::inList($evalListValue, self::PASSWORD)
+            && ! StringUtility::inList($evalListValue, self::SALTED_PASSWORD)
+        ) {
             return;
         }
 
+        // Set the TCA type to "password"
+        $this->changeTcaType($domDocument, $configElement, self::PASSWORD);
+
+        // Remove 'max' and 'search' config
+        $this->removeChildElementFromDomElementByKey($configElement, 'max');
+        $this->removeChildElementFromDomElementByKey($configElement, 'search');
+
         $evalList = ArrayUtility::trimExplode(',', $evalListValue, true);
 
-        // Remove "null" from $evalList
-        $evalList = array_filter($evalList, static fn (string $eval) => $eval !== self::NULL);
+        // Disable password hashing, if eval=password is used standalone
+        if (in_array('password', $evalList, true) && ! in_array('saltedPassword', $evalList, true)) {
+            $configElement->appendChild($domDocument->createElement('hashed', '0'));
+        }
 
-        if ($evalList !== []) {
-            // Write back filtered 'eval'
+        if (in_array('null', $evalList, true)) {
+            // Set "eval" to "null", since it's currently defined and the only allowed "eval" for type=password
             $evalDomElement->nodeValue = '';
-            $evalDomElement->appendChild($domDocument->createTextNode(implode(',', $evalList)));
+            $evalDomElement->appendChild($domDocument->createTextNode('null'));
         } elseif ($evalDomElement->parentNode instanceof DOMElement) {
             // 'eval' is empty, remove whole configuration
             $evalDomElement->parentNode->removeChild($evalDomElement);
-        }
-
-        $nullableDomElement = $this->extractDomElementByKey($configElement, 'nullable');
-        if (! $nullableDomElement instanceof DOMElement) {
-            $configElement->appendChild($domDocument->createElement('nullable', '1'));
         }
 
         $this->domDocumentHasBeenChanged = true;

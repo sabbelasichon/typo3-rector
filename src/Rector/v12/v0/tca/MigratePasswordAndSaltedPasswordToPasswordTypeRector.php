@@ -93,13 +93,11 @@ CODE_SAMPLE
         }
 
         $evalArrayItem = $this->extractArrayItemByKey($configArray, 'eval');
-
         if (! $evalArrayItem instanceof ArrayItem) {
             return;
         }
 
         $evalListValue = $this->valueResolver->getValue($evalArrayItem->value);
-
         if (! is_string($evalListValue)) {
             return;
         }
@@ -111,22 +109,11 @@ CODE_SAMPLE
         }
 
         // Set the TCA type to "password"
-        $toChangeArrayItem = $this->extractArrayItemByKey($configArray, 'type');
-        if ($toChangeArrayItem instanceof ArrayItem) {
-            $toChangeArrayItem->value = new String_(self::PASSWORD);
-        }
+        $this->changeTcaType($configArray, self::PASSWORD);
 
-        // Remove 'max' config
-        $maxArrayItem = $this->extractArrayItemByKey($configArray, 'max');
-        if ($maxArrayItem instanceof ArrayItem) {
-            $this->removeNode($maxArrayItem);
-        }
-
-        // Remove 'search' config
-        $searchArrayItem = $this->extractArrayItemByKey($configArray, 'search');
-        if ($searchArrayItem instanceof ArrayItem) {
-            $this->removeNode($searchArrayItem);
-        }
+        // Remove 'max' and 'search' config
+        $this->removeArrayItemFromArrayByKey($configArray, 'max');
+        $this->removeArrayItemFromArrayByKey($configArray, 'search');
 
         $evalList = ArrayUtility::trimExplode(',', $evalListValue, true);
 

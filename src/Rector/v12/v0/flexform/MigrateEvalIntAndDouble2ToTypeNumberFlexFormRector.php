@@ -109,13 +109,11 @@ CODE_SAMPLE
         }
 
         $evalDomElement = $this->extractDomElementByKey($configElement, 'eval');
-
         if (! $evalDomElement instanceof DOMElement) {
             return;
         }
 
         $evalListValue = $evalDomElement->nodeValue;
-
         if (! is_string($evalListValue)) {
             return;
         }
@@ -143,11 +141,7 @@ CODE_SAMPLE
             $evalDomElement->parentNode->removeChild($evalDomElement);
         }
 
-        $toChangeItem = $this->extractDomElementByKey($configElement, 'type');
-        if ($toChangeItem instanceof DOMElement) {
-            $toChangeItem->nodeValue = '';
-            $toChangeItem->appendChild($domDocument->createTextNode('number'));
-        }
+        $this->changeTcaType($domDocument, $configElement, 'number');
 
         if (StringUtility::inList($evalListValue, self::DOUBLE2)) {
             $configElement->appendChild($domDocument->createElement('format', 'decimal'));

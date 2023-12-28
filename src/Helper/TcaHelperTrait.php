@@ -9,6 +9,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 
 trait TcaHelperTrait
@@ -135,6 +136,14 @@ trait TcaHelperTrait
     protected function configIsOfRenderType(Array_ $configValueArray, string $expectedRenderType): bool
     {
         return $this->hasKeyValuePair($configValueArray, 'renderType', $expectedRenderType);
+    }
+
+    protected function changeTcaType(Array_ $configArray, string $type): void
+    {
+        $toChangeArrayItem = $this->extractArrayItemByKey($configArray, 'type');
+        if ($toChangeArrayItem instanceof ArrayItem) {
+            $toChangeArrayItem->value = new String_($type);
+        }
     }
 
     private function isInlineType(Array_ $columnItemConfigurationArray): bool

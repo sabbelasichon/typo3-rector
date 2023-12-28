@@ -92,13 +92,11 @@ CODE_SAMPLE
         }
 
         $evalArrayItem = $this->extractArrayItemByKey($configArray, 'eval');
-
         if (! $evalArrayItem instanceof ArrayItem) {
             return;
         }
 
         $evalListValue = $this->valueResolver->getValue($evalArrayItem->value);
-
         if (! is_string($evalListValue)) {
             return;
         }
@@ -125,10 +123,7 @@ CODE_SAMPLE
             $this->removeNode($evalArrayItem);
         }
 
-        $toChangeArrayItem = $this->extractArrayItemByKey($configArray, 'type');
-        if ($toChangeArrayItem instanceof ArrayItem) {
-            $toChangeArrayItem->value = new String_('number');
-        }
+        $this->changeTcaType($configArray, 'number');
 
         if (StringUtility::inList($evalListValue, self::DOUBLE2)) {
             $configArray->items[] = new ArrayItem(new String_('decimal'), new String_('format'));
