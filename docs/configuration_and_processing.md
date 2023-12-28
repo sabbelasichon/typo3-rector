@@ -48,6 +48,7 @@ use Rector\Set\ValueObject\LevelSetList;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
+use Ssch\TYPO3Rector\Set\Extension\TYPO3TestingFrameworkSetList;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 
@@ -58,10 +59,12 @@ return static function (RectorConfig $rectorConfig): void {
     // $parameters->set(Typo3Option::TYPOSCRIPT_INDENT_SIZE, 2);
 
     $rectorConfig->sets([
-        LevelSetList::UP_TO_PHP_74,
-        Typo3LevelSetList::UP_TO_TYPO3_11,
+        LevelSetList::UP_TO_PHP_81,
+        Typo3LevelSetList::UP_TO_TYPO3_12,
         // https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/FileStructure/Configuration/Icons.html
         // Typo3SetList::REGISTER_ICONS_TO_ICON,
+        // If you use the TYPO3 Testing Framework and want to migrate to Version 7, then use this set list:
+        // TYPO3TestingFrameworkSetList::TYPO3_TESTING_FRAMEWORK_7
     ]);
 
     // Register a single rule. Single rules don't load the main config file, therefore the config file needs to be loaded manually.
@@ -81,7 +84,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importShortClasses(false);
 
     // Define your target version which you want to support
-    $rectorConfig->phpVersion(PhpVersion::PHP_74);
+    $rectorConfig->phpVersion(PhpVersion::PHP_81);
 
     // If you only want to process one/some TYPO3 extension(s), you can specify its path(s) here.
     // If you use the option --config change __DIR__ to getcwd()
