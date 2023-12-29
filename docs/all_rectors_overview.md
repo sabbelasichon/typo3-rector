@@ -1538,15 +1538,17 @@ Migrates option cols to size for TCA type none
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateColsToSizeForTcaTypeNoneRector`](../src/Rector/v12/v0/tca/MigrateColsToSizeForTcaTypeNoneRector.php)
 
 ```diff
- 'columns' => [
-     'aColumn' => [
-         'config' => [
-             'type' => 'none',
--            'cols' => 20,
-+            'size' => 20,
+ return [
+     'columns' => [
+         'aColumn' => [
+             'config' => [
+                 'type' => 'none',
+-                'cols' => 20,
++                'size' => 20,
+             ],
          ],
      ],
- ],
+ ];
 ```
 
 <br>
@@ -1586,23 +1588,27 @@ Migrate eval int and double2 to type number
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateEvalIntAndDouble2ToTypeNumberRector`](../src/Rector/v12/v0/tca/MigrateEvalIntAndDouble2ToTypeNumberRector.php)
 
 ```diff
- 'int_field' => [
-     'label' => 'int field',
-     'config' => [
--        'type' => 'input',
--        'eval' => 'int',
-+        'type' => 'number',
+ return [
+     'columns' => [
+         'int_field' => [
+             'label' => 'int field',
+             'config' => [
+-                'type' => 'input',
+-                'eval' => 'int',
++                'type' => 'number',
+             ],
+         ],
+         'double2_field' => [
+             'label' => 'double2 field',
+             'config' => [
+-                'type' => 'input',
+-                'eval' => 'double2',
++                'type' => 'number',
++                'format' => 'decimal',
+             ],
+         ],
      ],
- ],
- 'double2_field' => [
-     'label' => 'double2 field',
-     'config' => [
--        'type' => 'input',
--        'eval' => 'double2',
-+        'type' => 'number',
-+        'format' => 'decimal',
-     ],
- ],
+ ];
 ```
 
 <br>
@@ -1652,20 +1658,24 @@ Migrate renderType inputDateTime to new TCA type datetime
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInputDateTimeRector`](../src/Rector/v12/v0/tca/MigrateInputDateTimeRector.php)
 
 ```diff
- 'a_datetime_field' => [
-      'label' => 'Datetime field',
-      'config' => [
--         'type' => 'input',
--         'renderType' => 'inputDateTime',
-+         'type' => 'datetime',
-+         'format' => 'date',
-          'required' => true,
-          'size' => 20,
--         'max' => 1024,
--         'eval' => 'date,int',
-          'default' => 0,
-      ],
-  ],
+ return [
+     'columns' => [
+         'a_datetime_field' => [
+              'label' => 'Datetime field',
+              'config' => [
+-                 'type' => 'input',
+-                 'renderType' => 'inputDateTime',
++                 'type' => 'datetime',
++                 'format' => 'date',
+                  'required' => true,
+                  'size' => 20,
+-                 'max' => 1024,
+-                 'eval' => 'date,int',
+                  'default' => 0,
+              ],
+         ],
+     ],
+ ];
 ```
 
 <br>
@@ -1704,15 +1714,19 @@ Migrates TCA internal_type into new new TCA type folder
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateInternalTypeFolderToTypeFolderRector`](../src/Rector/v12/v0/tca/MigrateInternalTypeFolderToTypeFolderRector.php)
 
 ```diff
- 'columns' => [
-     'aColumn' => [
-         'config' => [
--            'type' => 'group',
--            'internal_type' => 'folder',
-+            'type' => 'folder',
+ return [
+     'columns' => [
+         'columns' => [
+             'aColumn' => [
+                 'config' => [
+-                    'type' => 'group',
+-                    'internal_type' => 'folder',
++                    'type' => 'folder',
+                 ],
+             ],
          ],
      ],
- ],
+ ];
 ```
 
 <br>
@@ -1900,12 +1914,16 @@ Migrate null flag
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateNullFlagRector`](../src/Rector/v12/v0/tca/MigrateNullFlagRector.php)
 
 ```diff
- 'nullable_column' => [
-     'config' => [
--        'eval' => 'null',
-+        'nullable' => true,
+ return [
+     'columns' => [
+         'nullable_column' => [
+             'config' => [
+-                'eval' => 'null',
++                'nullable' => true,
+             ],
+         ],
      ],
- ],
+ ];
 ```
 
 <br>
@@ -1984,23 +2002,27 @@ Migrate password and salted password to password type
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigratePasswordAndSaltedPasswordToPasswordTypeRector`](../src/Rector/v12/v0/tca/MigratePasswordAndSaltedPasswordToPasswordTypeRector.php)
 
 ```diff
- 'password_field' => [
-     'label' => 'Password',
-     'config' => [
--        'type' => 'input',
--        'eval' => 'trim,password,saltedPassword',
-+        'type' => 'password',
+ return [
+     'columns' => [
+         'password_field' => [
+             'label' => 'Password',
+             'config' => [
+-                'type' => 'input',
+-                'eval' => 'trim,password,saltedPassword',
++                'type' => 'password',
+             ],
+         ],
+         'another_password_field' => [
+             'label' => 'Password',
+             'config' => [
+-                'type' => 'input',
+-                'eval' => 'trim,password',
++                'type' => 'password',
++                'hashed' => false,
+             ],
+         ],
      ],
- ],
- 'another_password_field' => [
-     'label' => 'Password',
-     'config' => [
--        'type' => 'input',
--        'eval' => 'trim,password',
-+        'type' => 'password',
-+        'hashed' => false,
-     ],
- ],
+ ];
 ```
 
 <br>
@@ -2033,13 +2055,17 @@ Migrate required flag
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateRequiredFlagRector`](../src/Rector/v12/v0/tca/MigrateRequiredFlagRector.php)
 
 ```diff
- 'required_column' => [
-     'config' => [
--        'eval' => 'trim,required',
-+        'eval' => 'trim',
-+        'required' => true,
+ return [
+     'columns' => [
+         'required_column' => [
+             'config' => [
+-                'eval' => 'trim,required',
++                'eval' => 'trim',
++                'required' => true,
+             ],
+         ],
      ],
- ],
+ ];
 ```
 
 <br>
@@ -2186,7 +2212,6 @@ Migrates existing input TCA with eval email to new TCA type email
 
 ```diff
  return [
-     'ctrl' => [],
      'columns' => [
          'email_field' => [
              'label' => 'Email',
@@ -3220,8 +3245,6 @@ Remove the default type for internal_type
 
 ```diff
  return [
-     'ctrl' => [
-     ],
      'columns' => [
          'foobar' => [
              'config' => [
@@ -4038,8 +4061,6 @@ Remove ['interface']['always_description']
 
 ```diff
  return [
-     'ctrl' => [
-     ],
 -    'interface' => [
 -        'always_description' => 'foo,bar,baz',
 -    ],
@@ -4103,13 +4124,27 @@ Remove TCA property table_local in foreign_match_fields
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\RemoveTableLocalPropertyRector`](../src/Rector/v12/v0/tca/RemoveTableLocalPropertyRector.php)
 
 ```diff
- 'foreign_match_fields' => [
-     'fieldname' => 'media',
-     'tablenames' => 'tx_site_domain_model_mediacollection',
--    'table_local' => 'sys_file',
- ],
- 'maxitems' => 1,
- 'minitems' => 1,
+ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+ return [
+     'columns' => [
+         'images' => [
+             'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
+                 'images',
+                 [
+                     'foreign_match_fields' => [
+                         'fieldname' => 'media',
+                         'tablenames' => 'tx_site_domain_model_mediacollection',
+-                        'table_local' => 'sys_file',
+                     ],
+                     'maxitems' => 1,
+                     'minitems' => 1,
+                 ],
+                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
+             ),
+         ],
+     ],
+ ];
 ```
 
 <br>
