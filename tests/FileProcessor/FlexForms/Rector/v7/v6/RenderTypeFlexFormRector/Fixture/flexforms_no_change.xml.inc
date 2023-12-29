@@ -3,43 +3,33 @@
         <sDEF>
             <ROOT>
                 <TCEforms>
-                    <sheetTitle>
-                        LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
-                    </sheetTitle>
+                    <sheetTitle>sheetTitle</sheetTitle>
                 </TCEforms>
                 <type>array</type>
                 <el>
-                    <settings.topNewsRestriction>
+                    <settings.selectField>
                         <TCEforms>
-                            <label>
-                                LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
-                            </label>
+                            <label>Select Field</label>
                             <config>
                                 <type>select</type>
                                 <renderType>selectSingle</renderType>
                                 <items>
                                     <numIndex index="0" type="array">
-                                        <numIndex index="0">
-                                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.no-constraint
-                                        </numIndex>
+                                        <numIndex index="0">Label</numIndex>
                                         <numIndex index="1"/>
                                     </numIndex>
                                     <numIndex index="1">
-                                        <numIndex index="0">
-                                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction.1
-                                        </numIndex>
+                                        <numIndex index="0">Label 1</numIndex>
                                         <numIndex index="1">1</numIndex>
                                     </numIndex>
                                     <numIndex index="2">
-                                        <numIndex index="0">
-                                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction.2
-                                        </numIndex>
+                                        <numIndex index="0">Label 2</numIndex>
                                         <numIndex index="1">2</numIndex>
                                     </numIndex>
                                 </items>
                             </config>
                         </TCEforms>
-                    </settings.topNewsRestriction>
+                    </settings.selectField>
                 </el>
             </ROOT>
         </sDEF>

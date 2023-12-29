@@ -38,19 +38,27 @@ final class MigrateNullFlagRector extends AbstractTcaRector
     {
         return new RuleDefinition('Migrate null flag', [new CodeSample(
             <<<'CODE_SAMPLE'
-'nullable_column' => [
-    'config' => [
-        'eval' => 'null',
+return [
+    'columns' => [
+        'nullable_column' => [
+            'config' => [
+                'eval' => 'null',
+            ],
+        ],
     ],
-],
+];
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-'nullable_column' => [
-    'config' => [
-        'nullable' => true,
+return [
+    'columns' => [
+        'nullable_column' => [
+            'config' => [
+                'nullable' => true,
+            ],
+        ],
     ],
-],
+];
 CODE_SAMPLE
         )]);
     }

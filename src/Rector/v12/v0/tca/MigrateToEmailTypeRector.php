@@ -33,7 +33,6 @@ final class MigrateToEmailTypeRector extends AbstractTcaRector
         return new RuleDefinition('Migrates existing input TCA with eval email to new TCA type email', [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
-    'ctrl' => [],
     'columns' => [
         'email_field' => [
             'label' => 'Email',
@@ -50,7 +49,6 @@ CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
 return [
-    'ctrl' => [],
     'columns' => [
         'email_field' => [
             'label' => 'Email',
