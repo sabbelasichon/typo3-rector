@@ -37,20 +37,28 @@ final class MigrateRequiredFlagRector extends AbstractTcaRector
     {
         return new RuleDefinition('Migrate required flag', [new CodeSample(
             <<<'CODE_SAMPLE'
-'required_column' => [
-    'config' => [
-        'eval' => 'trim,required',
+return [
+    'columns' => [
+        'required_column' => [
+            'config' => [
+                'eval' => 'trim,required',
+            ],
+        ],
     ],
-],
+];
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-'required_column' => [
-    'config' => [
-        'eval' => 'trim',
-        'required' => true,
+return [
+    'columns' => [
+        'required_column' => [
+            'config' => [
+                'eval' => 'trim',
+                'required' => true,
+            ],
+        ],
     ],
-],
+];
 CODE_SAMPLE
         )]);
     }

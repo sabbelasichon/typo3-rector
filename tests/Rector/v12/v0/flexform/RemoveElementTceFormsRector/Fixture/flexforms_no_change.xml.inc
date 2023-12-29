@@ -2,19 +2,15 @@
     <sheets>
         <sDEF>
             <ROOT>
-                <sheetTitle>
-                    LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
-                </sheetTitle>
+                <sheetTitle>sheetTitle</sheetTitle>
                 <type>array</type>
                 <el>
-                    <settings.topNewsRestriction>
-                        <label>
-                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
-                        </label>
+                    <settings.todo>
+                        <label>Label</label>
                         <config>
                             <todo>TODO</todo>
                         </config>
-                    </settings.topNewsRestriction>
+                    </settings.todo>
                 </el>
             </ROOT>
         </sDEF>

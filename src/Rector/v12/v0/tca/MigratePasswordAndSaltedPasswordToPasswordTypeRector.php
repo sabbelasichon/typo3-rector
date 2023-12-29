@@ -42,36 +42,44 @@ final class MigratePasswordAndSaltedPasswordToPasswordTypeRector extends Abstrac
     {
         return new RuleDefinition('Migrate password and salted password to password type', [new CodeSample(
             <<<'CODE_SAMPLE'
-'password_field' => [
-    'label' => 'Password',
-    'config' => [
-        'type' => 'input',
-        'eval' => 'trim,password,saltedPassword',
+return [
+    'columns' => [
+        'password_field' => [
+            'label' => 'Password',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'trim,password,saltedPassword',
+            ],
+        ],
+        'another_password_field' => [
+            'label' => 'Password',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'trim,password',
+            ],
+        ],
     ],
-],
-'another_password_field' => [
-    'label' => 'Password',
-    'config' => [
-        'type' => 'input',
-        'eval' => 'trim,password',
-    ],
-],
+];
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-'password_field' => [
-    'label' => 'Password',
-    'config' => [
-        'type' => 'password',
+return [
+    'columns' => [
+        'password_field' => [
+            'label' => 'Password',
+            'config' => [
+                'type' => 'password',
+            ],
+        ],
+        'another_password_field' => [
+            'label' => 'Password',
+            'config' => [
+                'type' => 'password',
+                'hashed' => false,
+            ],
+        ],
     ],
-],
-'another_password_field' => [
-    'label' => 'Password',
-    'config' => [
-        'type' => 'password',
-        'hashed' => false,
-    ],
-],
+];
 CODE_SAMPLE
         )]);
     }

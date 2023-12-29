@@ -64,22 +64,50 @@ final class RemoveTableLocalPropertyRector extends AbstractRector
     {
         return new RuleDefinition('Remove TCA property table_local in foreign_match_fields', [new CodeSample(
             <<<'CODE_SAMPLE'
-'foreign_match_fields' => [
-    'fieldname' => 'media',
-    'tablenames' => 'tx_site_domain_model_mediacollection',
-    'table_local' => 'sys_file',
-],
-'maxitems' => 1,
-'minitems' => 1,
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+return [
+    'columns' => [
+        'images' => [
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
+                'images',
+                [
+                    'foreign_match_fields' => [
+                        'fieldname' => 'media',
+                        'tablenames' => 'tx_site_domain_model_mediacollection',
+                        'table_local' => 'sys_file',
+                    ],
+                    'maxitems' => 1,
+                    'minitems' => 1,
+                ],
+                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
+            ),
+        ],
+    ],
+];
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-'foreign_match_fields' => [
-    'fieldname' => 'media',
-    'tablenames' => 'tx_site_domain_model_mediacollection',
-],
-'maxitems' => 1,
-'minitems' => 1,
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+return [
+    'columns' => [
+        'images' => [
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
+                'images',
+                [
+                    'foreign_match_fields' => [
+                        'fieldname' => 'media',
+                        'tablenames' => 'tx_site_domain_model_mediacollection',
+                    ],
+                    'maxitems' => 1,
+                    'minitems' => 1,
+                ],
+                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
+            ),
+        ],
+    ],
+];
 CODE_SAMPLE
         )]);
     }

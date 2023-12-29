@@ -28,25 +28,29 @@ final class MigrateColsToSizeForTcaTypeNoneRector extends AbstractTcaRector
     {
         return new RuleDefinition('Migrates option cols to size for TCA type none', [new CodeSample(
             <<<'CODE_SAMPLE'
-'columns' => [
-    'aColumn' => [
-        'config' => [
-            'type' => 'none',
-            'cols' => 20,
+return [
+    'columns' => [
+        'aColumn' => [
+            'config' => [
+                'type' => 'none',
+                'cols' => 20,
+            ],
         ],
     ],
-],
+];
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-'columns' => [
-    'aColumn' => [
-        'config' => [
-            'type' => 'none',
-            'size' => 20,
+return [
+    'columns' => [
+        'aColumn' => [
+            'config' => [
+                'type' => 'none',
+                'size' => 20,
+            ],
         ],
     ],
-],
+];
 CODE_SAMPLE
         )]);
     }

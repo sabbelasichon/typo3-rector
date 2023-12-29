@@ -40,36 +40,44 @@ final class MigrateEvalIntAndDouble2ToTypeNumberRector extends AbstractTcaRector
     {
         return new RuleDefinition('Migrate eval int and double2 to type number', [new CodeSample(
             <<<'CODE_SAMPLE'
-'int_field' => [
-    'label' => 'int field',
-    'config' => [
-        'type' => 'input',
-        'eval' => 'int',
+return [
+    'columns' => [
+        'int_field' => [
+            'label' => 'int field',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'int',
+            ],
+        ],
+        'double2_field' => [
+            'label' => 'double2 field',
+            'config' => [
+                'type' => 'input',
+                'eval' => 'double2',
+            ],
+        ],
     ],
-],
-'double2_field' => [
-    'label' => 'double2 field',
-    'config' => [
-        'type' => 'input',
-        'eval' => 'double2',
-    ],
-],
+];
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-'int_field' => [
-    'label' => 'int field',
-    'config' => [
-        'type' => 'number',
+return [
+    'columns' => [
+        'int_field' => [
+            'label' => 'int field',
+            'config' => [
+                'type' => 'number',
+            ],
+        ],
+        'double2_field' => [
+            'label' => 'double2 field',
+            'config' => [
+                'type' => 'number',
+                'format' => 'decimal',
+            ],
+        ],
     ],
-],
-'double2_field' => [
-    'label' => 'double2 field',
-    'config' => [
-        'type' => 'number',
-        'format' => 'decimal',
-    ],
-],
+];
 CODE_SAMPLE
         )]);
     }

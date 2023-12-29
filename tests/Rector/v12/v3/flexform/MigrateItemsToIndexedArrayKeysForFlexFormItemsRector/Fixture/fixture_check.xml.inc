@@ -2,15 +2,11 @@
     <sheets>
         <sDEF>
             <ROOT>
-                <sheetTitle>
-                    LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
-                </sheetTitle>
+                <sheetTitle>sheetTitle</sheetTitle>
                 <type>array</type>
                 <el>
-                    <settings.topNewsRestriction>
-                        <label>
-                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
-                        </label>
+                    <settings.checkboxField>
+                        <label>Checkbox field</label>
                         <config>
                             <type>check</type>
                             <items>
@@ -20,7 +16,7 @@
                                 </numIndex>
                             </items>
                         </config>
-                    </settings.topNewsRestriction>
+                    </settings.checkboxField>
                 </el>
             </ROOT>
         </sDEF>
@@ -31,15 +27,11 @@
     <sheets>
         <sDEF>
             <ROOT>
-                <sheetTitle>
-                    LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
-                </sheetTitle>
+                <sheetTitle>sheetTitle</sheetTitle>
                 <type>array</type>
                 <el>
-                    <settings.topNewsRestriction>
-                        <label>
-                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
-                        </label>
+                    <settings.checkboxField>
+                        <label>Checkbox field</label>
                         <config>
                             <type>check</type>
                             <items>
@@ -49,7 +41,7 @@
                                 </numIndex>
                             </items>
                         </config>
-                    </settings.topNewsRestriction>
+                    </settings.checkboxField>
                 </el>
             </ROOT>
         </sDEF>

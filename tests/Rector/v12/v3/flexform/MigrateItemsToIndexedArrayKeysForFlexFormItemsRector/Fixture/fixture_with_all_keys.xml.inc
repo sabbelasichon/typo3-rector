@@ -2,15 +2,11 @@
     <sheets>
         <sDEF>
             <ROOT>
-                <sheetTitle>
-                    LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
-                </sheetTitle>
+                <sheetTitle>sheetTitle</sheetTitle>
                 <type>array</type>
                 <el>
-                    <settings.topNewsRestriction>
-                        <label>
-                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
-                        </label>
+                    <settings.selectField>
+                        <label>Select Field</label>
                         <config>
                             <type>select</type>
                             <renderType>selectSingle</renderType>
@@ -31,7 +27,7 @@
                                 </numIndex>
                             </items>
                         </config>
-                    </settings.topNewsRestriction>
+                    </settings.selectField>
                 </el>
             </ROOT>
         </sDEF>
@@ -42,15 +38,11 @@
     <sheets>
         <sDEF>
             <ROOT>
-                <sheetTitle>
-                    LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_tab.settings
-                </sheetTitle>
+                <sheetTitle>sheetTitle</sheetTitle>
                 <type>array</type>
                 <el>
-                    <settings.topNewsRestriction>
-                        <label>
-                            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.topNewsRestriction
-                        </label>
+                    <settings.selectField>
+                        <label>Select Field</label>
                         <config>
                             <type>select</type>
                             <renderType>selectSingle</renderType>
@@ -71,7 +63,7 @@
                                 </numIndex>
                             </items>
                         </config>
-                    </settings.topNewsRestriction>
+                    </settings.selectField>
                 </el>
             </ROOT>
         </sDEF>

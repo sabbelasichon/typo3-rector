@@ -28,24 +28,32 @@ final class MigrateInternalTypeFolderToTypeFolderRector extends AbstractTcaRecto
     {
         return new RuleDefinition('Migrates TCA internal_type into new new TCA type folder', [new CodeSample(
             <<<'CODE_SAMPLE'
-'columns' => [
-    'aColumn' => [
-        'config' => [
-            'type' => 'group',
-            'internal_type' => 'folder',
+return [
+    'columns' => [
+        'columns' => [
+            'aColumn' => [
+                'config' => [
+                    'type' => 'group',
+                    'internal_type' => 'folder',
+                ],
+            ],
         ],
     ],
-],
+];
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-'columns' => [
-    'aColumn' => [
-        'config' => [
-            'type' => 'folder',
+return [
+    'columns' => [
+        'columns' => [
+            'aColumn' => [
+                'config' => [
+                    'type' => 'folder',
+                ],
+            ],
         ],
     ],
-],
+];
 CODE_SAMPLE
         )]);
     }

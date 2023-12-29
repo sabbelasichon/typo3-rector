@@ -86,8 +86,6 @@ final class RemoveTCAInterfaceAlwaysDescriptionRector extends AbstractRector
         return new RuleDefinition("Remove ['interface']['always_description']", [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
-    'ctrl' => [
-    ],
     'interface' => [
         'always_description' => 'foo,bar,baz',
     ],
@@ -98,8 +96,6 @@ CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
 return [
-    'ctrl' => [
-    ],
     'columns' => [
     ],
 ];

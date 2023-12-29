@@ -55,31 +55,39 @@ final class MigrateInputDateTimeRector extends AbstractTcaRector
     {
         return new RuleDefinition('Migrate renderType inputDateTime to new TCA type datetime', [new CodeSample(
             <<<'CODE_SAMPLE'
-'a_datetime_field' => [
-     'label' => 'Datetime field',
-     'config' => [
-         'type' => 'input',
-         'renderType' => 'inputDateTime',
-         'required' => true,
-         'size' => 20,
-         'max' => 1024,
-         'eval' => 'date,int',
-         'default' => 0,
-     ],
- ],
+return [
+    'columns' => [
+        'a_datetime_field' => [
+             'label' => 'Datetime field',
+             'config' => [
+                 'type' => 'input',
+                 'renderType' => 'inputDateTime',
+                 'required' => true,
+                 'size' => 20,
+                 'max' => 1024,
+                 'eval' => 'date,int',
+                 'default' => 0,
+             ],
+        ],
+    ],
+];
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-'a_datetime_field' => [
-     'label' => 'Datetime field',
-     'config' => [
-         'type' => 'datetime',
-         'format' => 'date',
-         'required' => true,
-         'size' => 20,
-         'default' => 0,
-     ],
- ],
+return [
+    'columns' => [
+        'a_datetime_field' => [
+             'label' => 'Datetime field',
+             'config' => [
+                 'type' => 'datetime',
+                 'format' => 'date',
+                 'required' => true,
+                 'size' => 20,
+                 'default' => 0,
+             ],
+        ],
+    ],
+];
 CODE_SAMPLE
         )]);
     }

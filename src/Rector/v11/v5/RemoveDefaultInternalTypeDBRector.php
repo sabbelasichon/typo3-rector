@@ -28,8 +28,6 @@ final class RemoveDefaultInternalTypeDBRector extends AbstractTcaRector
         return new RuleDefinition('Remove the default type for internal_type', [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
-    'ctrl' => [
-    ],
     'columns' => [
         'foobar' => [
             'config' => [
@@ -43,8 +41,6 @@ CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
 return [
-    'ctrl' => [
-    ],
     'columns' => [
         'foobar' => [
             'config' => [

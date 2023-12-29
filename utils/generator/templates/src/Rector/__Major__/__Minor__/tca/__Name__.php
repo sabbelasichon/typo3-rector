@@ -16,6 +16,28 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class __Name__ extends AbstractTcaRector
 {
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('__Description__', [new CodeSample(
+            <<<'CODE_SAMPLE'
+return [
+    'columns' => [
+    ],
+];
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+return [
+    'columns' => [
+    ],
+];
+CODE_SAMPLE
+        )]);
+    }
+
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
         $configArray = $this->extractSubArrayByKey($columnTca, self::CONFIG);
@@ -26,19 +48,5 @@ final class __Name__ extends AbstractTcaRector
         // Your code here
 
         $this->hasAstBeenChanged = true;
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('__Description__', [new CodeSample(
-            <<<'CODE_SAMPLE'
-CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
-CODE_SAMPLE
-        )]);
     }
 }
