@@ -1,4 +1,4 @@
-# 291 Rules Overview
+# 292 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -4775,6 +4775,50 @@ Refactor `TypoScriptFrontendController->settingLocale()` to `Locales::setSystemL
  $controller = GeneralUtility::makeInstance(TypoScriptFrontendController::class, null, 0, 0);
 -$controller->settingLocale();
 +Locales::setSystemLocaleFromSiteLanguage($controller->getLanguage());
+```
+
+<br>
+
+## SimplifyCheckboxItemsTCARector
+
+Simplify checkbox items TCA
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v5\tca\SimplifyCheckboxItemsTCARector`](../src/Rector/v11/v5/tca/SimplifyCheckboxItemsTCARector.php)
+
+```diff
+ return [
+     'columns' => [
+         'enabled' => [
+             'label' => 'enabled',
+             'config' => [
+                 'type' => 'check',
+                 'renderType' => 'checkboxToggle',
+                 'default' => 1,
+-                'items' => [
+-                    [
+-                        0 => '',
+-                        1 => '',
+-                    ],
+-                ],
+             ],
+         ],
+         'hidden' => [
+             'label' => 'hidden',
+             'config' => [
+                 'type' => 'check',
+                 'renderType' => 'checkboxToggle',
+                 'default' => 0,
+                 'items' => [
+                     [
+                         0 => '',
+-                        1 => '',
+                         'invertStateDisplay' => true,
+                     ],
+                 ],
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br>
