@@ -30,6 +30,7 @@ final class MigrateItemsIndexedKeysToAssociativeRector extends AbstractTcaRector
         return new RuleDefinition('Migrates indexed item array keys to associative for type select, radio and check', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
+return [
     'columns' => [
         'aColumn' => [
             'config' => [
@@ -43,22 +44,25 @@ final class MigrateItemsIndexedKeysToAssociativeRector extends AbstractTcaRector
             ],
         ],
     ],
+];
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-'columns' => [
-    'aColumn' => [
-        'config' => [
-            'type' => 'select',
-            'renderType' => 'selectCheckBox',
-            'items' => [
-                ['label' => 'My label', 'value' => 0, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
-                ['label' => 'My label 1', 'value' => 1, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
-                ['label' => 'My label 2', 'value' => 2, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
-            ]
+return [
+    'columns' => [
+        'aColumn' => [
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectCheckBox',
+                'items' => [
+                    ['label' => 'My label', 'value' => 0, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
+                    ['label' => 'My label 1', 'value' => 1, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
+                    ['label' => 'My label 2', 'value' => 2, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
+                ],
+            ],
         ],
     ],
-],
+];
 CODE_SAMPLE
             ),
         ]);

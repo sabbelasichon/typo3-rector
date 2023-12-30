@@ -11,7 +11,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.1/Feature-88907-AlwaysEnableFilterInSelectMultipleSideBySideFields.html?highlight=enablemultiselectfiltertextfield
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.1/Feature-88907-AlwaysEnableFilterInSelectMultipleSideBySideFields.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v1\RemoveEnableMultiSelectFilterTextfieldRector\RemoveEnableMultiSelectFilterTextfieldRectorTest
  */
 final class RemoveEnableMultiSelectFilterTextfieldRector extends AbstractTcaRector
@@ -23,24 +23,32 @@ final class RemoveEnableMultiSelectFilterTextfieldRector extends AbstractTcaRect
     {
         return new RuleDefinition('Remove "enableMultiSelectFilterTextfield" => true as its default', [new CodeSample(
             <<<'CODE_SAMPLE'
-'foo' => [
-   'label' => 'foo',
-   'config' => [
-      'type' => 'select',
-      'renderType' => 'selectMultipleSideBySide',
-      'enableMultiSelectFilterTextfield' => true,
-   ]
-],
+return [
+    'columns' => [
+        'foo' => [
+            'label' => 'foo',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+                'enableMultiSelectFilterTextfield' => true,
+            ],
+        ],
+    ],
+];
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-'foo' => [
-   'label' => 'foo',
-   'config' => [
-      'type' => 'select',
-      'renderType' => 'selectMultipleSideBySide',
-   ]
-],
+return [
+    'columns' => [
+        'foo' => [
+            'label' => 'foo',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectMultipleSideBySide',
+            ],
+        ],
+    ],
+];
 CODE_SAMPLE
         )]);
     }

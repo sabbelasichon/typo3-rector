@@ -1738,30 +1738,24 @@ Migrates indexed item array keys to associative for type select, radio and check
 - class: [`Ssch\TYPO3Rector\Rector\v12\v3\tca\MigrateItemsIndexedKeysToAssociativeRector`](../src/Rector/v12/v3/tca/MigrateItemsIndexedKeysToAssociativeRector.php)
 
 ```diff
- 'columns' => [
--        'aColumn' => [
--            'config' => [
--                'type' => 'select',
--                'renderType' => 'selectCheckBox',
--                'items' => [
+ return [
+     'columns' => [
+         'aColumn' => [
+             'config' => [
+                 'type' => 'select',
+                 'renderType' => 'selectCheckBox',
+                 'items' => [
 -                    ['My label', 0, 'my-icon', 'group1', 'My Description'],
 -                    ['My label 1', 1, 'my-icon', 'group1', 'My Description'],
 -                    ['My label 2', 2, 'my-icon', 'group1', 'My Description'],
--                ],
--            ],
-+    'aColumn' => [
-+        'config' => [
-+            'type' => 'select',
-+            'renderType' => 'selectCheckBox',
-+            'items' => [
-+                ['label' => 'My label', 'value' => 0, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
-+                ['label' => 'My label 1', 'value' => 1, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
-+                ['label' => 'My label 2', 'value' => 2, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
-+            ]
++                    ['label' => 'My label', 'value' => 0, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
++                    ['label' => 'My label 1', 'value' => 1, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
++                    ['label' => 'My label 2', 'value' => 2, 'icon' => 'my-icon', 'group' => 'group1', 'description' => 'My Description'],
+                 ],
+             ],
          ],
--    ],
-+    ],
-+],
+     ],
+ ];
 ```
 
 <br>
@@ -1841,8 +1835,24 @@ Migrate last pieces of default extras
 
 ```diff
  return [
-             'ctrl' => [],
-             'columns' => [
+     'columns' => [
+         'constants' => [
+             'label' => 'Foo',
+             'config' => [
+                 'type' => 'text',
+                 'cols' => 48,
+                 'rows' => 15,
+-            ],
+-            'defaultExtras' => 'rte_only:nowrap:enable-tab:fixed-font'
++                'wrap' => 'off',
++                'enableTabulator' => true,
++                'fixedFont' => true,
++            ]
+         ],
+     ],
+     'types' => [
+         'myType' => [
+             'columnsOverrides' => [
                  'constants' => [
                      'label' => 'Foo',
                      'config' => [
@@ -1857,26 +1867,9 @@ Migrate last pieces of default extras
 +                    ]
                  ],
              ],
-             'types' => [
-                 'myType' => [
-                     'columnsOverrides' => [
-                         'constants' => [
-                             'label' => 'Foo',
-                             'config' => [
-                                 'type' => 'text',
-                                 'cols' => 48,
-                                 'rows' => 15,
--                            ],
--                            'defaultExtras' => 'rte_only:nowrap:enable-tab:fixed-font'
-+                                'wrap' => 'off',
-+                                'enableTabulator' => true,
-+                                'fixedFont' => true,
-+                            ]
-                         ],
-                     ],
-                 ],
-             ],
-         ];
+         ],
+     ],
+ ];
 ```
 
 <br>
@@ -3378,14 +3371,18 @@ Remove "enableMultiSelectFilterTextfield" => true as its default
 - class: [`Ssch\TYPO3Rector\Rector\v10\v1\RemoveEnableMultiSelectFilterTextfieldRector`](../src/Rector/v10/v1/RemoveEnableMultiSelectFilterTextfieldRector.php)
 
 ```diff
- 'foo' => [
-    'label' => 'foo',
-    'config' => [
-       'type' => 'select',
-       'renderType' => 'selectMultipleSideBySide',
--      'enableMultiSelectFilterTextfield' => true,
-    ]
- ],
+ return [
+     'columns' => [
+         'foo' => [
+             'label' => 'foo',
+             'config' => [
+                 'type' => 'select',
+                 'renderType' => 'selectMultipleSideBySide',
+-                'enableMultiSelectFilterTextfield' => true,
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br>

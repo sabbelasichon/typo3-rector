@@ -113,8 +113,20 @@ final class MigrateLastPiecesOfDefaultExtrasRector extends AbstractRector
         return new RuleDefinition('Migrate last pieces of default extras', [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
-            'ctrl' => [],
-            'columns' => [
+    'columns' => [
+        'constants' => [
+            'label' => 'Foo',
+            'config' => [
+                'type' => 'text',
+                'cols' => 48,
+                'rows' => 15,
+            ],
+            'defaultExtras' => 'rte_only:nowrap:enable-tab:fixed-font'
+        ],
+    ],
+    'types' => [
+        'myType' => [
+            'columnsOverrides' => [
                 'constants' => [
                     'label' => 'Foo',
                     'config' => [
@@ -125,28 +137,29 @@ return [
                     'defaultExtras' => 'rte_only:nowrap:enable-tab:fixed-font'
                 ],
             ],
-            'types' => [
-                'myType' => [
-                    'columnsOverrides' => [
-                        'constants' => [
-                            'label' => 'Foo',
-                            'config' => [
-                                'type' => 'text',
-                                'cols' => 48,
-                                'rows' => 15,
-                            ],
-                            'defaultExtras' => 'rte_only:nowrap:enable-tab:fixed-font'
-                        ],
-                    ],
-                ],
-            ],
-        ];
+        ],
+    ],
+];
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
 return [
-            'ctrl' => [],
-            'columns' => [
+    'columns' => [
+        'constants' => [
+            'label' => 'Foo',
+            'config' => [
+                'type' => 'text',
+                'cols' => 48,
+                'rows' => 15,
+                'wrap' => 'off',
+                'enableTabulator' => true,
+                'fixedFont' => true,
+            ]
+        ],
+    ],
+    'types' => [
+        'myType' => [
+            'columnsOverrides' => [
                 'constants' => [
                     'label' => 'Foo',
                     'config' => [
@@ -159,24 +172,9 @@ return [
                     ]
                 ],
             ],
-            'types' => [
-                'myType' => [
-                    'columnsOverrides' => [
-                        'constants' => [
-                            'label' => 'Foo',
-                            'config' => [
-                                'type' => 'text',
-                                'cols' => 48,
-                                'rows' => 15,
-                                'wrap' => 'off',
-                                'enableTabulator' => true,
-                                'fixedFont' => true,
-                            ]
-                        ],
-                    ],
-                ],
-            ],
-        ];
+        ],
+    ],
+];
 CODE_SAMPLE
         )]);
     }
