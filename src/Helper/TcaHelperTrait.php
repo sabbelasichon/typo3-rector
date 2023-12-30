@@ -22,7 +22,10 @@ trait TcaHelperTrait
         return $ctrlArrayItem !== null && $columnsArrayItem !== null;
     }
 
-    protected function extractArrayItemByKey(?Node $node, string $key): ?ArrayItem
+    /**
+     * @param string|int $key
+     */
+    protected function extractArrayItemByKey(?Node $node, $key): ?ArrayItem
     {
         if (! $node instanceof Node) {
             return null;
@@ -41,7 +44,7 @@ trait TcaHelperTrait
                 continue;
             }
 
-            $itemKey = (string) $this->getValue($item->key);
+            $itemKey = $this->getValue($item->key);
             if ($key === $itemKey) {
                 return $item;
             }
@@ -50,7 +53,10 @@ trait TcaHelperTrait
         return null;
     }
 
-    protected function extractSubArrayByKey(?Node $node, string $key): ?Array_
+    /**
+     * @param string|int $key
+     */
+    protected function extractSubArrayByKey(?Node $node, $key): ?Array_
     {
         if (! $node instanceof Node) {
             return null;
@@ -69,7 +75,10 @@ trait TcaHelperTrait
         return $columnItems;
     }
 
-    protected function extractArrayValueByKey(?Node $node, string $key): ?Expr
+    /**
+     * @param string|int $key
+     */
+    protected function extractArrayValueByKey(?Node $node, $key): ?Expr
     {
         return ($extractArrayItemByKey = $this->extractArrayItemByKey(
             $node,
@@ -77,7 +86,10 @@ trait TcaHelperTrait
         )) ? $extractArrayItemByKey->value : null;
     }
 
-    protected function hasKey(Array_ $configValuesArray, string $configKey): bool
+    /**
+     * @param string|int $configKey
+     */
+    protected function hasKey(Array_ $configValuesArray, $configKey): bool
     {
         foreach ($configValuesArray->items as $configItemValue) {
             if (! $configItemValue instanceof ArrayItem) {
@@ -117,9 +129,12 @@ trait TcaHelperTrait
         return false;
     }
 
-    protected function removeArrayItemFromArrayByKey(Array_ $array, string $configKey): bool
+    /**
+     * @param string|int $key
+     */
+    protected function removeArrayItemFromArrayByKey(Array_ $array, $key): bool
     {
-        $arrayItemToRemove = $this->extractArrayItemByKey($array, $configKey);
+        $arrayItemToRemove = $this->extractArrayItemByKey($array, $key);
         if ($arrayItemToRemove instanceof ArrayItem) {
             $this->removeNode($arrayItemToRemove);
             return true;
