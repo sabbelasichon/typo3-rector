@@ -24,7 +24,7 @@ final class MigrateRenderTypeColorpickerToTypeColorRector extends AbstractTcaRec
      */
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('migrateRenderTypeColorpickerToTypeColor', [new CodeSample(
+        return new RuleDefinition('Migrate renderType colorpicker to type color', [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
     'columns' => [

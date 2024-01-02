@@ -58,6 +58,15 @@ trait FlexFormHelperTrait
         return $this->hasKeyValuePair($columnItemConfigurationArray, 'type', $type);
     }
 
+    private function configIsOfRenderType(?DOMElement $columnItemConfigurationArray, string $expectedRenderType): bool
+    {
+        if (! $columnItemConfigurationArray instanceof \DOMElement) {
+            return false;
+        }
+
+        return $this->hasKeyValuePair($columnItemConfigurationArray, 'renderType', $expectedRenderType);
+    }
+
     private function hasRenderType(DOMElement $columnItemConfigurationArray): bool
     {
         $renderTypeItem = $this->extractDomElementByKey($columnItemConfigurationArray, 'renderType');
