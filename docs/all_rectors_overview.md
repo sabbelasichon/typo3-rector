@@ -1,4 +1,4 @@
-# 292 Rules Overview
+# 293 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -2037,6 +2037,38 @@ Replace `Querybuilder::execute()` with fitting methods
    ->delete(...)
 -  ->execute();
 +  ->executeStatement();
+```
+
+<br>
+
+## MigrateRenderTypeColorpickerToTypeColorRector
+
+migrateRenderTypeColorpickerToTypeColor
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateRenderTypeColorpickerToTypeColorRector`](../src/Rector/v12/v0/tca/MigrateRenderTypeColorpickerToTypeColorRector.php)
+
+```diff
+ return [
+     'columns' => [
+         'a_color_field' => [
+             'label' => 'Color field',
+             'config' => [
+-                'type' => 'input',
+-                'renderType' => 'colorpicker',
++                'type' => 'color',
+                 'required' => true,
+                 'size' => 20,
+-                'max' => 1024,
+-                'eval' => 'trim',
+                 'valuePicker' => [
+                     'items' => [
+                         ['typo3 orange', '#FF8700'],
+                     ],
+                 ],
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br>
