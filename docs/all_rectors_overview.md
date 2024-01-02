@@ -1,4 +1,4 @@
-# 293 Rules Overview
+# 294 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -2041,9 +2041,48 @@ Replace `Querybuilder::execute()` with fitting methods
 
 <br>
 
+## MigrateRenderTypeColorpickerToTypeColorFlexFormRector
+
+Migrate renderType colorpicker to type color
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\flexform\MigrateRenderTypeColorpickerToTypeColorFlexFormRector`](../src/Rector/v12/v0/flexform/MigrateRenderTypeColorpickerToTypeColorFlexFormRector.php)
+
+```diff
+ <T3DataStructure>
+     <ROOT>
+         <sheetTitle>aTitle</sheetTitle>
+         <type>array</type>
+         <el>
+             <a_color_field>
+                 <label>Color field</label>
+                 <config>
+-                    <type>input</type>
+-                    <renderType>colorpicker</renderType>
++                    <type>color</type>
+                     <required>1</required>
+                     <size>20</size>
+-                    <max>1234</max>
+-                    <eval>trim,null</eval>
+                     <valuePicker>
+                         <items type="array">
+                             <numIndex index="0" type="array">
+                                 <numIndex index="0">typo3 orange</numIndex>
+                                 <numIndex index="1">#FF8700</numIndex>
+                             </numIndex>
+                         </items>
+                     </valuePicker>
+                 </config>
+             </a_color_field>
+         </el>
+     </ROOT>
+ </T3DataStructure>
+```
+
+<br>
+
 ## MigrateRenderTypeColorpickerToTypeColorRector
 
-migrateRenderTypeColorpickerToTypeColor
+Migrate renderType colorpicker to type color
 
 - class: [`Ssch\TYPO3Rector\Rector\v12\v0\tca\MigrateRenderTypeColorpickerToTypeColorRector`](../src/Rector/v12/v0/tca/MigrateRenderTypeColorpickerToTypeColorRector.php)
 
