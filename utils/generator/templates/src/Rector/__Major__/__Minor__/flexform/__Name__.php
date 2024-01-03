@@ -9,6 +9,7 @@ use DOMElement;
 use DOMNodeList;
 use DOMXPath;
 use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
+use Ssch\TYPO3Rector\Helper\FlexFormHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -18,18 +19,26 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class __Name__ implements FlexFormRectorInterface
 {
+    use FlexFormHelperTrait;
+
+    private bool $domDocumentHasBeenChanged = false;
+
     public function transform(DOMDocument $domDocument): bool
     {
-        $hasChanged = false;
-
         $xpath = new DOMXPath($domDocument);
 
         /** @var DOMNodeList<DOMElement> $elements */
         $elements = $xpath->query('//config');
 
-        // Your code here
+        if ($elements->count() === 0) {
+            return false;
+        }
 
-        return $hasChanged;
+        foreach ($elements as $element) {
+            $this->refactorColumn($domDocument, $element);
+        }
+
+        return $this->domDocumentHasBeenChanged;
     }
 
     /**
@@ -39,10 +48,39 @@ final class __Name__ implements FlexFormRectorInterface
     {
         return new RuleDefinition('__Description__', [new CodeSample(
             <<<'CODE_SAMPLE'
+<T3DataStructure>
+    <ROOT>
+        <sheetTitle>aTitle</sheetTitle>
+        <type>array</type>
+        <el>
+
+        </el>
+    </ROOT>
+</T3DataStructure>
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
+<T3DataStructure>
+    <ROOT>
+        <sheetTitle>aTitle</sheetTitle>
+        <type>array</type>
+        <el>
+
+        </el>
+    </ROOT>
+</T3DataStructure>
 CODE_SAMPLE
         )]);
+    }
+
+    private function refactorColumn(DOMDocument $domDocument, ?DOMElement $configElement): void
+    {
+        if (!$configElement instanceof DOMElement) {
+            return;
+        }
+
+        // Your code here
+
+        $this->domDocumentHasBeenChanged = true;
     }
 }
