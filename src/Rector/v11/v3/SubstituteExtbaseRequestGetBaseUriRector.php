@@ -35,7 +35,7 @@ final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Stmt\Expression::class];
+        return [Expression::class];
     }
 
     /**
