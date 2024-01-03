@@ -34,7 +34,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Stmt\Expression::class];
+        return [Expression::class];
     }
 
     /**
@@ -52,6 +52,7 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
         if (! $staticCall instanceof StaticCall) {
             return null;
         }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $staticCall,
             new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
@@ -72,16 +73,12 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
             $this->nodeFactory->createMethodCall(new Variable(self::QUERY_BUILDER), 'getRestrictions'),
             'removeAll'
         );
-
-        $nodes = [];
-        foreach ([
+        $nodes = [
             new Nop(),
             new Expression($queryBuilderAssign),
             new Expression($queryBuilderRemoveRestrictions),
             new Nop(),
-        ] as $newNode) {
-            $nodes[] = $newNode;
-        }
+        ];
 
         $node->expr->expr = $this->fetchQueryBuilderResults($firstArgument, $secondArgument, $thirdArgument);
 
