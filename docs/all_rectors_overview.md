@@ -1,4 +1,4 @@
-# 294 Rules Overview
+# 293 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -2778,22 +2778,6 @@ Remove second argument of GeneralUtility::explodeUrl2Array if it is false or jus
 -$variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com', false);
 +parse_str('https://www.domain.com', $variable);
 +$variable2 = GeneralUtility::explodeUrl2Array('https://www.domain.com');
-```
-
-<br>
-
-## RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector
-
-Refactor `tempPath()` and createTempSubDir on GraphicalFunctions
-
-- class: [`Ssch\TYPO3Rector\Rector\v8\v7\RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector`](../src/Rector/v8/v7/RefactorGraphicalFunctionsTempPathAndCreateTemSubDirRector.php)
-
-```diff
- $graphicalFunctions = GeneralUtility::makeInstance(GraphicalFunctions::class);
--$graphicalFunctions->createTempSubDir('var/transient/');
--return $graphicalFunctions->tempPath . 'var/transient/';
-+GeneralUtility::mkdir_deep(PATH_site . 'typo3temp/var/transient/');
-+return 'typo3temp/' . 'var/transient/';
 ```
 
 <br>
