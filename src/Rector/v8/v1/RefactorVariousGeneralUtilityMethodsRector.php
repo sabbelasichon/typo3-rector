@@ -5,21 +5,12 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v1;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\GreaterOrEqual;
-use PhpParser\Node\Expr\BinaryOp\Mul;
-use PhpParser\Node\Expr\BinaryOp\Plus;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
-use PhpParser\Node\Scalar\LNumber;
-use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -33,11 +24,6 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
      * @var string
      */
     private const COMPAT_VERSION = 'compat_version';
-
-    /**
-     * @var string
-     */
-    private const CONVERT_MICROTIME = 'convertMicrotime';
 
     /**
      * @var string
@@ -58,21 +44,6 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
      * @var string
      */
     private const LCFIRST = 'lcfirst';
-
-    /**
-     * @var string
-     */
-    private const PARTS = 'parts';
-
-    /**
-     * @readonly
-     */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    public function __construct(NodesToAddCollector $nodesToAddCollector)
-    {
-        $this->nodesToAddCollector = $nodesToAddCollector;
-    }
 
     /**
      * @return array<class-string<Node>>
@@ -96,7 +67,6 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
 
         if (! $this->isNames($node->name, [
             self::COMPAT_VERSION,
-            self::CONVERT_MICROTIME,
             self::RAW_URL_ENCODE_JS,
             self::RAW_URL_ENCODE_FP,
             self::LCFIRST,
@@ -120,21 +90,6 @@ final class RefactorVariousGeneralUtilityMethodsRector extends AbstractRector
                     $node->args
                 )
             );
-        }
-
-        if ($nodeName === self::CONVERT_MICROTIME) {
-            $funcCall = $this->nodeFactory->createFuncCall('explode', [new String_(' '), $node->args[0]->value]);
-            $this->nodesToAddCollector->addNodeBeforeNode(
-                new Expression(new Assign(new Variable(self::PARTS), $funcCall)),
-                $node
-            );
-
-            return $this->nodeFactory->createFuncCall('round', [
-                new Mul(new Plus(
-                    new ArrayDimFetch(new Variable(self::PARTS), new LNumber(0)),
-                    new ArrayDimFetch(new Variable(self::PARTS), new LNumber(1))
-                ), new LNumber(1000)),
-            ]);
         }
 
         if ($nodeName === self::RAW_URL_ENCODE_JS) {
