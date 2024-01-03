@@ -11,10 +11,10 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -30,41 +30,41 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
     private const QUERY_BUILDER = 'queryBuilder';
 
     /**
-     * @readonly
-     */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    public function __construct(NodesToAddCollector $nodesToAddCollector)
-    {
-        $this->nodesToAddCollector = $nodesToAddCollector;
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
-        return [StaticCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param StaticCall $node
+     * @param Node\Stmt\Expression $node
+     * @return Node[]|null
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?array
     {
+        if (! $node->expr instanceof Assign) {
+            return null;
+        }
+
+        $staticCall = $node->expr->expr;
+
+        if (! $staticCall instanceof StaticCall) {
+            return null;
+        }
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'getRecordRaw')) {
+        if (! $this->isName($staticCall->name, 'getRecordRaw')) {
             return null;
         }
 
         /** @var Arg[] $args */
-        $args = $node->args;
+        $args = $staticCall->args;
         [$firstArgument, $secondArgument, $thirdArgument] = $args;
 
         $queryBuilderAssign = $this->createQueryBuilderCall($firstArgument);
@@ -73,11 +73,21 @@ final class BackendUtilityGetRecordRawRector extends AbstractRector
             'removeAll'
         );
 
-        foreach ([new Nop(), $queryBuilderAssign, $queryBuilderRemoveRestrictions, new Nop()] as $newNode) {
-            $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
+        $nodes = [];
+        foreach ([
+            new Nop(),
+            new Expression($queryBuilderAssign),
+            new Expression($queryBuilderRemoveRestrictions),
+            new Nop(),
+        ] as $newNode) {
+            $nodes[] = $newNode;
         }
 
-        return $this->fetchQueryBuilderResults($firstArgument, $secondArgument, $thirdArgument);
+        $node->expr->expr = $this->fetchQueryBuilderResults($firstArgument, $secondArgument, $thirdArgument);
+
+        $nodes[] = $node;
+
+        return $nodes;
     }
 
     /**
