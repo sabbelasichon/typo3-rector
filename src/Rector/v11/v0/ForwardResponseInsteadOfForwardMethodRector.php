@@ -14,7 +14,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -25,16 +25,6 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
 {
-    /**
-     * @readonly
-     */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    public function __construct(NodesToAddCollector $nodesToAddCollector)
-    {
-        $this->nodesToAddCollector = $nodesToAddCollector;
-    }
-
     /**
      * @codeCoverageIgnore
      */
@@ -77,100 +67,109 @@ CODE_SAMPLE
      */
     public function getNodeTypes(): array
     {
-        return [ClassMethod::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param ClassMethod $node
+     * @param Node\Stmt\Expression $node
      */
     public function refactor(Node $node): ?Node
     {
-        $forwardMethodCalls = $this->extractForwardMethodCalls($node);
-        if ($forwardMethodCalls === []) {
+        if (! $node->expr instanceof MethodCall) {
             return null;
         }
 
-        foreach ($forwardMethodCalls as $forwardMethodCall) {
-            $action = $this->valueResolver->getValue($forwardMethodCall->args[0]->value);
-
-            if ($action === null) {
-                return null;
-            }
-
-            $args = $this->nodeFactory->createArgs([$action]);
-            $forwardResponse = new New_(new FullyQualified('TYPO3\CMS\Extbase\Http\ForwardResponse'), $args);
-
-            if (isset($forwardMethodCall->args[1]) && ! $this->valueResolver->isNull(
-                $forwardMethodCall->args[1]->value
-            )) {
-                $forwardResponse = $this->nodeFactory->createMethodCall(
-                    $forwardResponse,
-                    'withControllerName',
-                    [$forwardMethodCall->args[1]->value]
-                );
-            }
-
-            if (isset($forwardMethodCall->args[2]) && ! $this->valueResolver->isNull(
-                $forwardMethodCall->args[2]->value
-            )) {
-                $forwardResponse = $this->nodeFactory->createMethodCall(
-                    $forwardResponse,
-                    'withExtensionName',
-                    [$forwardMethodCall->args[2]->value]
-                );
-            }
-
-            if (isset($forwardMethodCall->args[3])) {
-                $forwardResponse = $this->nodeFactory->createMethodCall(
-                    $forwardResponse,
-                    'withArguments',
-                    [$forwardMethodCall->args[3]->value]
-                );
-            }
-
-            $forwardResponseReturn = new Return_($forwardResponse);
-
-            $this->nodesToAddCollector->addNodeBeforeNode($forwardResponseReturn, $forwardMethodCall);
-            $this->removeNode($forwardMethodCall);
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node->expr,
+            new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
+        )) {
+            return null;
         }
 
-        if ($node->returnType !== null && $node->returnType instanceof Identifier && $node->returnType->name !== null && $node->returnType->name === 'void') {
-            $node->returnType = null;
+        if (! $this->isName($node->expr->name, 'forward')) {
+            return null;
         }
 
-        $comments = $node->getComments();
-        $comments = array_map(
-            static fn (Comment $comment) => new Comment(str_replace(' @return void', '', $comment->getText())),
-            $comments
-        );
-        $node->setAttribute('comments', $comments);
+        $forwardResponse = $this->createForwardResponseNode($node->expr);
 
-        // Add returnType only if it is the only statement, otherwise it is not reliable
-        if (is_countable($node->stmts) && count((array) $node->stmts) === 1) {
-            $node->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
+        if ($forwardResponse === null) {
+            return null;
         }
 
-        return $node;
+        $forwardResponseReturn = new Return_($forwardResponse);
+
+        $this->changeActionMethodReturnTypeIfPossible($node->expr);
+
+        return $forwardResponseReturn;
     }
 
     /**
-     * @return MethodCall[]
+     * @return MethodCall|New_|null
      */
-    private function extractForwardMethodCalls(ClassMethod $classMethod): array
+    public function createForwardResponseNode(MethodCall $forwardMethodCall)
     {
-        return $this->betterNodeFinder->find((array) $classMethod->stmts, function (Node $node): bool {
-            if (! $node instanceof MethodCall) {
-                return false;
+        $forwardMethodCallArguments = $forwardMethodCall->args;
+
+        $action = $this->valueResolver->getValue($forwardMethodCallArguments[0]->value);
+
+        if ($action === null) {
+            return null;
+        }
+
+        $args = $this->nodeFactory->createArgs([$action]);
+
+        $forwardResponse = new New_(new FullyQualified('TYPO3\CMS\Extbase\Http\ForwardResponse'), $args);
+
+        if (isset($forwardMethodCallArguments[1]) && ! $this->valueResolver->isNull(
+            $forwardMethodCallArguments[1]->value
+        )) {
+            $forwardResponse = $this->nodeFactory->createMethodCall(
+                $forwardResponse,
+                'withControllerName',
+                [$forwardMethodCallArguments[1]->value]
+            );
+        }
+
+        if (isset($forwardMethodCallArguments[2]) && ! $this->valueResolver->isNull(
+            $forwardMethodCallArguments[2]->value
+        )) {
+            $forwardResponse = $this->nodeFactory->createMethodCall(
+                $forwardResponse,
+                'withExtensionName',
+                [$forwardMethodCallArguments[2]->value]
+            );
+        }
+
+        if (isset($forwardMethodCallArguments[3])) {
+            $forwardResponse = $this->nodeFactory->createMethodCall(
+                $forwardResponse,
+                'withArguments',
+                [$forwardMethodCallArguments[3]->value]
+            );
+        }
+        return $forwardResponse;
+    }
+
+    private function changeActionMethodReturnTypeIfPossible(MethodCall $node): void
+    {
+        $actionMethodNode = $this->betterNodeFinder->findParentType($node, ClassMethod::class);
+
+        if ($actionMethodNode instanceof ClassMethod) {
+            if ($actionMethodNode->returnType instanceof Identifier && $actionMethodNode->returnType->name !== null && $actionMethodNode->returnType->name === 'void') {
+                $actionMethodNode->returnType = null;
             }
 
-            if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-                $node,
-                new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
-            )) {
-                return false;
-            }
+            $comments = $actionMethodNode->getComments();
+            $comments = array_map(
+                static fn (Comment $comment) => new Comment(str_replace(' @return void', '', $comment->getText())),
+                $comments
+            );
+            $actionMethodNode->setAttribute(AttributeKey::COMMENTS, $comments);
 
-            return $this->isName($node->name, 'forward');
-        });
+            // Add returnType only if it is the only statement, otherwise it is not reliable
+            if (is_countable($actionMethodNode->stmts) && count((array) $actionMethodNode->stmts) === 1) {
+                $actionMethodNode->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
+            }
+        }
     }
 }
