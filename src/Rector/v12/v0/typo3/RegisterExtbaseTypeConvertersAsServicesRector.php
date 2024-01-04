@@ -129,7 +129,7 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
         $servicesYaml = new AddedFileWithContent($existingServicesYamlFilePath, $yamlConfigurationAsYaml);
         $this->removedAndAddedFilesCollector->addAddedFile($servicesYaml);
 
-        $this->nodeRemover->removeNode($node);
+        $this->removeNode($node);
         $this->removeClassMethodsFromTypeConverter($fileName, $originalClassStatements);
 
         return null;
