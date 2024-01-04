@@ -75,7 +75,7 @@ CODE_SAMPLE
 
     private function refactorColumn(DOMDocument $domDocument, ?DOMElement $configElement): void
     {
-        if (!$configElement instanceof DOMElement) {
+        if (! $configElement instanceof DOMElement) {
             return;
         }
 
