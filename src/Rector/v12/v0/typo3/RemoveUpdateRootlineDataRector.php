@@ -41,7 +41,7 @@ final class RemoveUpdateRootlineDataRector extends AbstractRector
             return null;
         }
 
-        $this->nodeRemover->removeNode($node);
+        $this->removeNode($node);
 
         return $node;
     }

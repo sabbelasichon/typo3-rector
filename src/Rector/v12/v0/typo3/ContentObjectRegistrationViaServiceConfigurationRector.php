@@ -125,7 +125,7 @@ final class ContentObjectRegistrationViaServiceConfigurationRector extends Abstr
         $servicesYaml = new AddedFileWithContent($existingServicesYamlFilePath, $yamlConfigurationAsYaml);
         $this->removedAndAddedFilesCollector->addAddedFile($servicesYaml);
 
-        $this->nodeRemover->removeNode($node);
+        $this->removeNode($node);
 
         return null;
     }

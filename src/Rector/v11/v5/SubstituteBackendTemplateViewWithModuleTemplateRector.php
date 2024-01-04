@@ -188,7 +188,7 @@ CODE_SAMPLE
             return;
         }
 
-        $this->nodeRemover->removeNode($defaultViewObjectNameProperty);
+        $this->removeNode($defaultViewObjectNameProperty);
     }
 
     private function removePropertyViewIfNeeded(Class_ $class): void
@@ -198,7 +198,7 @@ CODE_SAMPLE
             return;
         }
 
-        $this->nodeRemover->removeNode($viewProperty);
+        $this->removeNode($viewProperty);
     }
 
     private function createModuleTemplateAssignment(): Expression
