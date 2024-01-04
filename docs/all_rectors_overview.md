@@ -1,4 +1,4 @@
-# 293 Rules Overview
+# 294 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1549,6 +1549,34 @@ Migrates option cols to size for TCA type none
          ],
      ],
  ];
+```
+
+<br>
+
+## MigrateEmailFlagToEmailTypeFlexFormRector
+
+Migrate email flag to email type
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\flexform\MigrateEmailFlagToEmailTypeFlexFormRector`](../src/Rector/v12/v0/flexform/MigrateEmailFlagToEmailTypeFlexFormRector.php)
+
+```diff
+ <T3DataStructure>
+     <ROOT>
+         <sheetTitle>aTitle</sheetTitle>
+         <type>array</type>
+         <el>
+             <email_field>
+                 <label>Email</label>
+                 <config>
+-                    <type>input</type>
+-                    <eval>trim,email</eval>
+-                    <max>255</max>
++                    <type>email</type>
+                 </config>
+             </email_field>
+         </el>
+     </ROOT>
+ </T3DataStructure>
 ```
 
 <br>
