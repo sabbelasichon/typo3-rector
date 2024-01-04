@@ -1,4 +1,4 @@
-# 294 Rules Overview
+# 295 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -2136,6 +2136,33 @@ Migrate renderType colorpicker to type color
          ],
      ],
  ];
+```
+
+<br>
+
+## MigrateRequiredFlagFlexFormRector
+
+Migrate required flag
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v0\flexform\MigrateRequiredFlagFlexFormRector`](../src/Rector/v12/v0/flexform/MigrateRequiredFlagFlexFormRector.php)
+
+```diff
+ <T3DataStructure>
+     <ROOT>
+         <sheetTitle>aTitle</sheetTitle>
+         <type>array</type>
+         <el>
+             <some_column>
+                 <title>foo</title>
+                 <config>
+-                    <eval>trim,required</eval>
++                    <eval>trim</eval>
++                    <required>1</required>
+                 </config>
+             </some_column>
+         </el>
+     </ROOT>
+ </T3DataStructure>
 ```
 
 <br>
