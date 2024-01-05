@@ -12,11 +12,11 @@ use PHPStan\Reflection\ReflectionProvider;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Helper\SymfonyYamlParser;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-96659-ContentObjectRegistrationViaServiceConfiguration.html
@@ -44,16 +44,20 @@ final class ContentObjectRegistrationViaServiceConfigurationRector extends Abstr
      */
     private SymfonyYamlParser $symfonyYamlParser;
 
+    private FileInfoFactory $fileInfoFactory;
+
     public function __construct(
         ReflectionProvider $reflectionProvider,
         FilesFinder $filesFinder,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        SymfonyYamlParser $symfonyYamlParser
+        SymfonyYamlParser $symfonyYamlParser,
+        FileInfoFactory $fileInfoFactory
     ) {
         $this->reflectionProvider = $reflectionProvider;
         $this->filesFinder = $filesFinder;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->symfonyYamlParser = $symfonyYamlParser;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     /**
@@ -98,14 +102,14 @@ final class ContentObjectRegistrationViaServiceConfigurationRector extends Abstr
         }
 
         $extEmConf = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo(
-            new SmartFileInfo($this->file->getFilePath())
+            $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath())
         );
 
-        if (! $extEmConf instanceof SmartFileInfo) {
+        if ($extEmConf === null) {
             return null;
         }
 
-        $existingServicesYamlFilePath = $extEmConf->getRealPathDirectory() . '/Configuration/Services.yaml';
+        $existingServicesYamlFilePath = dirname($extEmConf->getRealPath()) . '/Configuration/Services.yaml';
 
         $yamlConfiguration = $this->getYamlConfiguration($existingServicesYamlFilePath);
 
