@@ -34,7 +34,6 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AbstractTypoScriptRector;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\ValueObject\Indent;
 use Symfony\Component\Console\Output\BufferedOutput;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Webmozart\Assert\Assert;
 
 /**
@@ -198,7 +197,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         try {
             $this->currentFileProvider->setFile($file);
 
-            $smartFileInfo = new SmartFileInfo($file->getFilePath());
+            $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
             $originalStatements = $this->typoscriptParser->parseString($smartFileInfo->getContents());
 
             $traverser = new Traverser($originalStatements);
@@ -254,8 +253,8 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         } catch (TokenizerException $tokenizerException) {
             return;
         } catch (ParseError $parseError) {
-            $smartFileInfo = new SmartFileInfo($file->getFilePath());
-            $errorFile = $smartFileInfo->getRelativeFilePath();
+            $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
+            $errorFile = $smartFileInfo->getRelativePathname();
             $this->rectorOutputStyle->warning(sprintf('TypoScriptParser Error in: %s. File skipped.', $errorFile));
         }
     }
