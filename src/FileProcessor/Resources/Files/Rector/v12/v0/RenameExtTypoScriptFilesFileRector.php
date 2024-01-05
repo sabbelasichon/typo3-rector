@@ -9,10 +9,10 @@ use Rector\Core\ValueObject\Application\File;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\FileRectorInterface;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-96518-Ext_typoscript_txtFilesNotIncludedAnymore.html
@@ -30,10 +30,16 @@ final class RenameExtTypoScriptFilesFileRector implements FileRectorInterface
      */
     private FilesFinder $filesFinder;
 
-    public function __construct(RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, FilesFinder $filesFinder)
+    /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    public function __construct(RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, FilesFinder $filesFinder, FileInfoFactory $fileInfoFactory)
     {
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->filesFinder = $filesFinder;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     public function refactorFile(File $file): void
@@ -42,9 +48,11 @@ final class RenameExtTypoScriptFilesFileRector implements FileRectorInterface
             return;
         }
 
-        $smartFileInfo = new SmartFileInfo($file->getFilePath());
+        $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
 
-        $newFileName = $smartFileInfo->getPath() . '/' . $smartFileInfo->getBasenameWithoutSuffix() . '.typoscript';
+        $newFileName = $smartFileInfo->getPath() . '/' . pathinfo(
+            $smartFileInfo->getFilename()
+        )['filename'] . '.typoscript';
 
         $this->removedAndAddedFilesCollector->removeFile($file->getFilePath());
         $this->removedAndAddedFilesCollector->addAddedFile(
@@ -69,11 +77,11 @@ CODE_SAMPLE
 
     private function shouldSkip(File $file): bool
     {
-        $smartFileInfo = new SmartFileInfo($file->getFilePath());
+        $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
 
         $extEmConfFile = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($smartFileInfo);
 
-        if (! $extEmConfFile instanceof SmartFileInfo) {
+        if ($extEmConfFile === null) {
             return true;
         }
 
