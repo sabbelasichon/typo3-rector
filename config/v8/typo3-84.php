@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
-
 use Ssch\TYPO3Rector\Rector\v8\v4\ExtensionManagementUtilityExtRelPathRector;
 
 return static function (RectorConfig $rectorConfig): void {

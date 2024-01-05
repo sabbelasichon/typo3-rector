@@ -201,7 +201,7 @@ CODE_SAMPLE
     }
 
     private function addQueryBuilderDeletedRestrictionNode(
-        string     $queryBuilderVariableName,
+        string $queryBuilderVariableName,
         StaticCall $node
     ): ?Node {
         $useDeleteClauseArgument = $node->args[7] ?? null;

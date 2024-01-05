@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\AdminUserConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\ApplicationContextConditionMatcher;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Conditions\BrowserConditionMatcher;
