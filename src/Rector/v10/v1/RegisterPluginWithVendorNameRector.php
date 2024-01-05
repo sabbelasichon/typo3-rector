@@ -10,10 +10,10 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\StringUtility;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.1/Deprecation-88995-CallingRegisterPluginWithVendorName.html
@@ -21,6 +21,16 @@ use Symplify\SmartFileSystem\SmartFileInfo;
  */
 final class RegisterPluginWithVendorNameRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    public function __construct(FileInfoFactory $fileInfoFactory)
+    {
+        $this->fileInfoFactory = $fileInfoFactory;
+    }
+
     /**
      * @return array<class-string<Node>>
      */
@@ -78,13 +88,13 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
 
         $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue);
 
-        $fileInfo = new SmartFileInfo($this->file->getFilePath());
+        $fileInfo = $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath());
 
         if ($extensionNameArgumentValue instanceof Concat && $this->isPotentiallyUndefinedExtensionKeyVariable(
             $extensionNameArgumentValue
         )) {
             $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue->left) . basename(
-                $fileInfo->getRelativeDirectoryPath()
+                $fileInfo->getRelativePath()
             );
         }
 
