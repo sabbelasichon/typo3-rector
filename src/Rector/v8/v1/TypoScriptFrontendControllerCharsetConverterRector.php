@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v1;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
@@ -81,7 +82,7 @@ final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractR
             $newMethodCall = $this->refactorCsConvObj($methodCall);
         }
 
-        if ($newMethodCall === null) {
+        if (! $newMethodCall instanceof Expr) {
             return null;
         }
 
