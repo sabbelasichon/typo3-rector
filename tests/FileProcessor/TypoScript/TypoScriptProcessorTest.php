@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Tests\FileProcessor\TypoScript;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 
 final class TypoScriptProcessorTest extends AbstractRectorTestCase
 {
@@ -21,12 +21,13 @@ final class TypoScriptProcessorTest extends AbstractRectorTestCase
 
     public function testExtbasePersistence(): void
     {
-        $news = new SmartFileInfo(__DIR__ . '/Fixture/Extbase/002_extbase_persistence.txt.inc');
+        $fileInfoFactory = $this->getService(FileInfoFactory::class);
+        $news = $fileInfoFactory->createFileInfoFromPath(__DIR__ . '/Fixture/Extbase/002_extbase_persistence.txt.inc');
 
-        $this->doTestFile($news->getRelativeFilePath());
+        $this->doTestFile($news->getRelativePathname());
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
-        $extbasePersistenceSmartFileInfo = new SmartFileInfo(__DIR__ . '/Expected/Extbase.php.inc');
+        $extbasePersistenceSmartFileInfo = $fileInfoFactory->createFileInfoFromPath(__DIR__ . '/Expected/Extbase.php.inc');
         $this->assertSame(
             $extbasePersistenceSmartFileInfo->getContents(),
             $addedFilesWithContent[0]->getFileContent()

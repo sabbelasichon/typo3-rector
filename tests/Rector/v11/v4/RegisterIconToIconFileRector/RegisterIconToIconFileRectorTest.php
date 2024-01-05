@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v11\v4\RegisterIconToIconFileRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 
 final class RegisterIconToIconFileRectorTest extends AbstractRectorTestCase
 {
@@ -21,7 +21,7 @@ final class RegisterIconToIconFileRectorTest extends AbstractRectorTestCase
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
 
-        $commandsFixture = new SmartFileInfo(__DIR__ . '/Fixture/Expected/Configuration/Icons.php.inc');
+        $commandsFixture = $this->getService(FileInfoFactory::class)->createFileInfoFromPath(__DIR__ . '/Fixture/Expected/Configuration/Icons.php.inc');
 
         // Assert that commands file is added
         $addedCommandsFile = $addedFilesWithContent[2];

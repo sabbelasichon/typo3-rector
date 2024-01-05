@@ -35,7 +35,6 @@
         "symfony/polyfill-php81": "^1.26",
         "symfony/string": "^5.0 || ^6.0",
         "symfony/yaml": "^5.0 || ^6.0",
-        "symplify/smart-file-system": "^9.3 || ^10.0 || ^11.0",
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
