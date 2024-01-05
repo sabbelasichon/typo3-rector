@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Generator\Finder;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
+use Symfony\Component\Finder\SplFileInfo;
 
 final class TemplateFinder
 {
@@ -14,7 +15,17 @@ final class TemplateFinder
     public const TEMPLATES_DIRECTORY = __DIR__ . '/../../templates';
 
     /**
-     * @return SmartFileInfo[]
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    public function __construct(FileInfoFactory $fileInfoFactory)
+    {
+        $this->fileInfoFactory = $fileInfoFactory;
+    }
+
+    /**
+     * @return SplFileInfo[]
      */
     public function find(string $type): array
     {
@@ -22,7 +33,7 @@ final class TemplateFinder
 
         $smartFileInfos = [];
         foreach ($filePaths as $filePath) {
-            $smartFileInfos[] = new SmartFileInfo($filePath);
+            $smartFileInfos[] = $this->fileInfoFactory->createFileInfoFromPath($filePath);
         }
 
         return $smartFileInfos;

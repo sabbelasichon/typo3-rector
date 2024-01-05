@@ -21,7 +21,9 @@ final class RegisterIconToIconFileRectorTest extends AbstractRectorTestCase
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
 
-        $commandsFixture = $this->getService(FileInfoFactory::class)->createFileInfoFromPath(__DIR__ . '/Fixture/Expected/Configuration/Icons.php.inc');
+        $commandsFixture = $this->getService(FileInfoFactory::class)->createFileInfoFromPath(
+            __DIR__ . '/Fixture/Expected/Configuration/Icons.php.inc'
+        );
 
         // Assert that commands file is added
         $addedCommandsFile = $addedFilesWithContent[2];

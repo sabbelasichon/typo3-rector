@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Generator\Command;
 
 use Rector\Core\Exception\ShouldNotHappenException;
 use RuntimeException;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Generator\FileSystem\ConfigFilesystem;
 use Ssch\TYPO3Rector\Generator\Finder\TemplateFinder;
 use Ssch\TYPO3Rector\Generator\Generator\FileGenerator;
@@ -17,7 +18,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Webmozart\Assert\Assert;
 
 final class Typo3GenerateCommand extends Command
@@ -51,17 +51,24 @@ final class Typo3GenerateCommand extends Command
      */
     private ConfigFilesystem $configFilesystem;
 
+    /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
     public function __construct(
         TemplateFinder $templateFinder,
         FileGenerator $fileGenerator,
         OutputInterface $outputStyle,
-        ConfigFilesystem $configFilesystem
+        ConfigFilesystem $configFilesystem,
+        FileInfoFactory $fileInfoFactory
     ) {
         $this->templateFinder = $templateFinder;
         $this->fileGenerator = $fileGenerator;
         $this->outputStyle = $outputStyle;
         $this->configFilesystem = $configFilesystem;
         parent::__construct();
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     protected function configure(): void
@@ -226,9 +233,8 @@ final class Typo3GenerateCommand extends Command
         sort($generatedFilePaths);
 
         foreach ($generatedFilePaths as $generatedFilePath) {
-            $fileInfo = new SmartFileInfo($generatedFilePath);
-            $relativeFilePath = $fileInfo->getRelativeFilePathFromCwd();
-            $this->outputStyle->writeln(' * ' . $relativeFilePath);
+            $fileInfo = $this->fileInfoFactory->createFileInfoFromPath($generatedFilePath);
+            $this->outputStyle->writeln(' * ' . $fileInfo->getRelativePath());
         }
 
         $message = sprintf(
@@ -249,8 +255,8 @@ final class Typo3GenerateCommand extends Command
                 continue;
             }
 
-            $generatedFileInfo = new SmartFileInfo($generatedFilePath);
-            return dirname($generatedFileInfo->getRelativeFilePathFromCwd());
+            $generatedFileInfo = $this->fileInfoFactory->createFileInfoFromPath($generatedFilePath);
+            return dirname($generatedFileInfo->getRelativePath());
         }
 
         throw new ShouldNotHappenException();

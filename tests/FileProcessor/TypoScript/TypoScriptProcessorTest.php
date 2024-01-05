@@ -27,7 +27,9 @@ final class TypoScriptProcessorTest extends AbstractRectorTestCase
         $this->doTestFile($news->getRelativePathname());
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
-        $extbasePersistenceSmartFileInfo = $fileInfoFactory->createFileInfoFromPath(__DIR__ . '/Expected/Extbase.php.inc');
+        $extbasePersistenceSmartFileInfo = $fileInfoFactory->createFileInfoFromPath(
+            __DIR__ . '/Expected/Extbase.php.inc'
+        );
         $this->assertSame(
             $extbasePersistenceSmartFileInfo->getContents(),
             $addedFilesWithContent[0]->getFileContent()
