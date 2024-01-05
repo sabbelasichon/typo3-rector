@@ -1,4 +1,4 @@
-# 295 Rules Overview
+# 296 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -4324,6 +4324,23 @@ Remove __wakeup call for AbstractDomainObject
 -        parent::__wakeup();
      }
  }
+```
+
+<br>
+
+## RemoveWorkspacePlaceholderShadowColumnsConfigurationRector
+
+removeWorkspacePlaceholderShadowColumnsConfiguration
+
+- class: [`Ssch\TYPO3Rector\Rector\v11\v0\tca\RemoveWorkspacePlaceholderShadowColumnsConfigurationRector`](../src/Rector/v11/v0/tca/RemoveWorkspacePlaceholderShadowColumnsConfigurationRector.php)
+
+```diff
+ return [
+     'ctrl' => [
+-        'shadowColumnsForNewPlaceholders' => '',
+-        'shadowColumnsForMovePlaceholders' => '',
+     ],
+ ];
 ```
 
 <br>
