@@ -11,10 +11,11 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 use Throwable;
 
 /**
@@ -30,9 +31,15 @@ final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
      */
     private FilesFinder $filesFinder;
 
-    public function __construct(FilesFinder $filesFinder)
+    /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    public function __construct(FilesFinder $filesFinder, FileInfoFactory $fileInfoFactory)
     {
         $this->filesFinder = $filesFinder;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     /**
@@ -78,7 +85,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        $fileInfo = new SmartFileInfo($this->file->getFilePath());
+        $fileInfo = $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath());
 
         if ($this->filesFinder->isExtEmconf($this->file->getFilePath())) {
             return null;
@@ -90,7 +97,7 @@ CODE_SAMPLE
 
         $extEmConf = $this->createExtensionKeyFromFolder($fileInfo);
 
-        if (! $extEmConf instanceof SmartFileInfo) {
+        if (! $extEmConf instanceof SplFileInfo) {
             return null;
         }
 
@@ -101,7 +108,7 @@ CODE_SAMPLE
         $extensionKey = $this->resolveExtensionKeyByComposerJson($extEmConf);
 
         if ($extensionKey === null) {
-            $extensionKey = basename($extEmConf->getRealPathDirectory());
+            $extensionKey = basename(dirname($extEmConf->getRealPath()));
         }
 
         return new String_($extensionKey);
@@ -112,7 +119,7 @@ CODE_SAMPLE
         return $this->isName($variable, '_EXTKEY');
     }
 
-    private function createExtensionKeyFromFolder(SmartFileInfo $fileInfo): ?SmartFileInfo
+    private function createExtensionKeyFromFolder(SplFileInfo $fileInfo): ?SplFileInfo
     {
         return $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($fileInfo);
     }
@@ -125,10 +132,12 @@ CODE_SAMPLE
         return $parentNode instanceof Assign && $parentNode->var === $node;
     }
 
-    private function resolveExtensionKeyByComposerJson(SmartFileInfo $extEmConf): ?string
+    private function resolveExtensionKeyByComposerJson(SplFileInfo $extEmConf): ?string
     {
         try {
-            $composerJson = new SmartFileInfo($extEmConf->getRealPathDirectory() . '/composer.json');
+            $composerJson = $this->fileInfoFactory->createFileInfoFromPath(
+                dirname($extEmConf->getRealPath()) . '/composer.json'
+            );
             $json = Json::decode($composerJson->getContents(), Json::FORCE_ARRAY);
 
             if (isset($json['extra']['typo3/cms']['extension-key'])) {

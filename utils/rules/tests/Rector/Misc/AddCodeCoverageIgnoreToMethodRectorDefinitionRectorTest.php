@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\Rules\Tests\Rector\Misc;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class AddCodeCoverageIgnoreToMethodRectorDefinitionRectorTest extends AbstractRectorTestCase
 {
@@ -18,9 +17,6 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRectorTest extends Abst
         $this->doTestFile($filePath);
     }
 
-    /**
-     * @return Iterator<SmartFileInfo>
-     */
     public function provideData(): Iterator
     {
         return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');

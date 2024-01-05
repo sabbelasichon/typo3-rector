@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Generator\Generator;
 use Ssch\TYPO3Rector\Generator\FileSystem\TemplateFileSystem;
 use Ssch\TYPO3Rector\Generator\TemplateFactory;
 use Symfony\Component\Filesystem\Filesystem;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 
 final class FileGenerator
 {
@@ -37,7 +37,7 @@ final class FileGenerator
     }
 
     /**
-     * @param SmartFileInfo[] $templateFileInfos
+     * @param SplFileInfo[] $templateFileInfos
      * @param string[] $templateVariables
      * @return string[]
      */
@@ -63,7 +63,7 @@ final class FileGenerator
      * @param array<string, mixed> $templateVariables
      */
     private function generateFileInfoWithTemplateVariables(
-        SmartFileInfo $smartFileInfo,
+        SplFileInfo $smartFileInfo,
         array $templateVariables,
         string $targetDirectory
     ): string {

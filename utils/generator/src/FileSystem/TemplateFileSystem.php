@@ -6,8 +6,10 @@ namespace Ssch\TYPO3Rector\Generator\FileSystem;
 
 use Nette\Utils\Strings;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use Ssch\TYPO3Rector\Generator\Exception\ShouldNotHappenException;
 use Ssch\TYPO3Rector\Generator\Finder\TemplateFinder;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\SplFileInfo;
 
 final class TemplateFileSystem
 {
@@ -17,15 +19,22 @@ final class TemplateFileSystem
      */
     private const FIXTURE_SHORT_REGEX = '#/Fixture/#';
 
+    private Filesystem $filesystem;
+
+    public function __construct()
+    {
+        $this->filesystem = new Filesystem();
+    }
+
     /**
      * @param string[] $templateVariables
      */
     public function resolveDestination(
-        SmartFileInfo $smartFileInfo,
+        SplFileInfo $smartFileInfo,
         array $templateVariables,
         string $targetDirectory
     ): string {
-        $destination = $smartFileInfo->getRelativeFilePathFromDirectory(TemplateFinder::TEMPLATES_DIRECTORY);
+        $destination = $this->getRelativeFilePathFromDirectory($smartFileInfo, TemplateFinder::TEMPLATES_DIRECTORY);
         $destination = $this->applyVariables($destination, $templateVariables);
 
         // remove ".inc" protection from PHPUnit if not a test case
@@ -57,5 +66,32 @@ final class TemplateFileSystem
         }
 
         return \str_ends_with($filePath, '.inc');
+    }
+
+    private function getRelativeFilePathFromDirectory(SplFileInfo $fileInfo, string $directory): string
+    {
+        if (! file_exists($directory)) {
+            throw new ShouldNotHappenException(sprintf(
+                'Directory "%s" was not found in %s.',
+                $directory,
+                self::class
+            ));
+        }
+
+        $relativeFilePath = $this->filesystem->makePathRelative(
+            $this->getNormalizedRealPath($fileInfo),
+            (string) realpath($directory)
+        );
+        return rtrim($relativeFilePath, '/');
+    }
+
+    private function getNormalizedRealPath(SplFileInfo $fileInfo): string
+    {
+        return $this->normalizePath($fileInfo->getRealPath());
+    }
+
+    private function normalizePath(string $path): string
+    {
+        return str_replace('\\', '/', $path);
     }
 }

@@ -12,9 +12,10 @@ use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symfony\Component\Filesystem\Filesystem;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Symfony\Component\Finder\SplFileInfo;
 
 final class IconsFileProcessor implements FileProcessorInterface
 {
@@ -40,13 +41,19 @@ final class IconsFileProcessor implements FileProcessorInterface
     private Filesystem $filesystem;
 
     /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    /**
      * @param IconRectorInterface[] $iconsRector
      */
-    public function __construct(FilesFinder $filesFinder, Filesystem $filesystem, array $iconsRector)
+    public function __construct(FilesFinder $filesFinder, Filesystem $filesystem, array $iconsRector, FileInfoFactory $fileInfoFactory)
     {
         $this->filesFinder = $filesFinder;
         $this->iconsRector = $iconsRector;
         $this->filesystem = $filesystem;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     /**
@@ -67,7 +74,7 @@ final class IconsFileProcessor implements FileProcessorInterface
 
     public function supports(File $file, Configuration $configuration): bool
     {
-        $smartFileInfo = new SmartFileInfo($file->getFilePath());
+        $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
 
         if ($this->shouldSkip($smartFileInfo->getFilenameWithoutExtension())) {
             return false;
@@ -75,7 +82,7 @@ final class IconsFileProcessor implements FileProcessorInterface
 
         $extEmConfSmartFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($smartFileInfo);
 
-        if (! $extEmConfSmartFileInfo instanceof SmartFileInfo) {
+        if (! $extEmConfSmartFileInfo instanceof SplFileInfo) {
             return false;
         }
 
@@ -89,9 +96,9 @@ final class IconsFileProcessor implements FileProcessorInterface
 
     private function createIconPath(File $file): string
     {
-        $smartFileInfo = new SmartFileInfo($file->getFilePath());
+        $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
 
-        $realPath = $smartFileInfo->getRealPathDirectory();
+        $realPath = dirname($smartFileInfo->getRealPath());
         $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());
 
         return $realPath . $relativeTargetFilePath;

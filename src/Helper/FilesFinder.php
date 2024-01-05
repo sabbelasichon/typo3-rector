@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Helper;
 
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
+use Symfony\Component\Finder\SplFileInfo;
 
 final class FilesFinder
 {
@@ -19,7 +20,17 @@ final class FilesFinder
      */
     private const EXT_EMCONF_FILENAME = 'ext_emconf.php';
 
-    public function findExtEmConfRelativeFromGivenFileInfo(SmartFileInfo $fileInfo): ?SmartFileInfo
+    /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    public function __construct(FileInfoFactory $fileInfoFactory)
+    {
+        $this->fileInfoFactory = $fileInfoFactory;
+    }
+
+    public function findExtEmConfRelativeFromGivenFileInfo(SplFileInfo $fileInfo): ?SplFileInfo
     {
         return $this->findFileRelativeFromGivenFileInfo($fileInfo, self::EXT_EMCONF_FILENAME);
     }
@@ -39,7 +50,7 @@ final class FilesFinder
         return $this->fileEqualsName($filePath, self::EXT_EMCONF_FILENAME);
     }
 
-    private function findFileRelativeFromGivenFileInfo(SmartFileInfo $fileInfo, string $filename): ?SmartFileInfo
+    private function findFileRelativeFromGivenFileInfo(SplFileInfo $fileInfo, string $filename): ?SplFileInfo
     {
         // special case for tests
         if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
@@ -50,7 +61,7 @@ final class FilesFinder
 
         $smartFileInfo = $this->createSmartFileInfoIfFileExistsInCurrentDirectory($currentDirectory, $filename);
 
-        if ($smartFileInfo instanceof SmartFileInfo) {
+        if ($smartFileInfo instanceof SplFileInfo) {
             return $smartFileInfo;
         }
 
@@ -60,7 +71,7 @@ final class FilesFinder
         while ($currentDirectory = dirname($fileInfo->getPath(), $currentDirectoryLevel)) {
             $smartFileInfo = $this->createSmartFileInfoIfFileExistsInCurrentDirectory($currentDirectory, $filename);
 
-            if ($smartFileInfo instanceof SmartFileInfo) {
+            if ($smartFileInfo instanceof SplFileInfo) {
                 return $smartFileInfo;
             }
 
@@ -77,11 +88,11 @@ final class FilesFinder
     private function createSmartFileInfoIfFileExistsInCurrentDirectory(
         string $currentDirectory,
         string $filename
-    ): ?SmartFileInfo {
+    ): ?SplFileInfo {
         $filePath = sprintf('%s/%s', $currentDirectory, $filename);
 
         if (is_file($filePath)) {
-            return new SmartFileInfo($filePath);
+            return $this->fileInfoFactory->createFileInfoFromPath($filePath);
         }
 
         return null;

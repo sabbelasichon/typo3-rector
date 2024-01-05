@@ -25,6 +25,7 @@ use Rector\Core\PhpParser\Parser\SimplePhpParser;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\NodeAnalyzer\CommandArrayDecorator;
 use Ssch\TYPO3Rector\NodeAnalyzer\CommandMethodDecorator;
@@ -32,9 +33,9 @@ use Ssch\TYPO3Rector\NodeAnalyzer\CommandOutputWritelnDecorator;
 use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/9.5/en-us/ApiOverview/CommandControllers/Index.html
@@ -104,6 +105,11 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
     private PhpDocNodeByTypeFinder $phpDocNodeByTypeFinder;
 
     /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    /**
      * @param PhpDocNodeByTypeFinder<PhpDocTextNode> $phpDocNodeByTypeFinder
      */
     public function __construct(
@@ -117,7 +123,8 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         CommandMethodDecorator $commandMethodDecorator,
         Filesystem $filesystem,
         CommandOutputWritelnDecorator $commandOutputWritelnDecorator,
-        PhpDocNodeByTypeFinder $phpDocNodeByTypeFinder
+        PhpDocNodeByTypeFinder $phpDocNodeByTypeFinder,
+        FileInfoFactory $fileInfoFactory
     ) {
         $this->rectorParser = $rectorParser;
         $this->filesFinder = $filesFinder;
@@ -130,6 +137,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         $this->filesystem = $filesystem;
         $this->commandMethodCallDecorator = $commandOutputWritelnDecorator;
         $this->phpDocNodeByTypeFinder = $phpDocNodeByTypeFinder;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     /**
@@ -163,11 +171,11 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
         }
 
         // This is super hacky, but for now i have no other idea to test it here
-        $currentSmartFileInfo = new SmartFileInfo($this->file->getFilePath());
+        $currentFileInfo = $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath());
 
-        $extEmConfFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($currentSmartFileInfo);
+        $extEmConfFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($currentFileInfo);
 
-        if (! $extEmConfFileInfo instanceof SmartFileInfo) {
+        if (! $extEmConfFileInfo instanceof SplFileInfo) {
             return null;
         }
 
@@ -340,8 +348,8 @@ CODE_SAMPLE
         array $newCommandsWithFullQualifiedNamespace
     ): void {
         if ($this->filesystem->exists($commandsFilePath)) {
-            $commandsSmartFileInfo = new SmartFileInfo($commandsFilePath);
-            $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo->getRelativeFilePath());
+            $commandsSmartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($commandsFilePath);
+            $stmts = $this->rectorParser->parseFile($commandsSmartFileInfo->getRelativePathname());
 
             $this->traverseNodesWithCallable($stmts, function (Node $node) use (
                 $newCommandsWithFullQualifiedNamespace

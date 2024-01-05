@@ -16,11 +16,12 @@ use Rector\Core\Contract\PhpParser\NodePrinterInterface;
 use Rector\Core\PhpParser\Parser\SimplePhpParser;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\NodeFactory\IconArrayItemFactory;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.4/Feature-94692-RegisteringIconsViaServiceContainer.html
@@ -58,18 +59,25 @@ final class RegisterIconToIconFileRector extends AbstractRector
      */
     private IconArrayItemFactory $iconArrayItemFactory;
 
+    /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
     public function __construct(
         FilesFinder $filesFinder,
         SimplePhpParser $simplePhpParser,
         NodePrinterInterface $nodePrinter,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
-        IconArrayItemFactory $iconArrayItemFactory
+        IconArrayItemFactory $iconArrayItemFactory,
+        FileInfoFactory $fileInfoFactory
     ) {
         $this->filesFinder = $filesFinder;
         $this->simplePhpParser = $simplePhpParser;
         $this->nodePrinter = $nodePrinter;
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->iconArrayItemFactory = $iconArrayItemFactory;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     /**
@@ -96,10 +104,10 @@ final class RegisterIconToIconFileRector extends AbstractRector
             return null;
         }
 
-        $currentSmartFileInfo = new SmartFileInfo($this->file->getFilePath());
+        $currentSmartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath());
 
         $extEmConfFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($currentSmartFileInfo);
-        if (! $extEmConfFileInfo instanceof SmartFileInfo) {
+        if (! $extEmConfFileInfo instanceof SplFileInfo) {
             return null;
         }
 

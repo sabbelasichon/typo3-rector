@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v9\v5\ExtbaseCommandControllerToSymfonyC
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 
 final class ExtbaseCommandControllerToSymfonyCommandRectorTest extends AbstractRectorTestCase
 {
@@ -20,7 +20,9 @@ final class ExtbaseCommandControllerToSymfonyCommandRectorTest extends AbstractR
 
         $addedFilesWithContent = $this->removedAndAddedFilesCollector->getAddedFilesWithContent();
 
-        $commandsFixture = new SmartFileInfo(__DIR__ . '/Fixture/Expected/Configuration/Commands.php.inc');
+        $commandsFixture = $this->getService(FileInfoFactory::class)->createFileInfoFromPath(
+            __DIR__ . '/Fixture/Expected/Configuration/Commands.php.inc'
+        );
 
         // Assert that commands file is added
         $addedCommandsFile = $addedFilesWithContent[2];

@@ -13,9 +13,9 @@ use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\YamlRectorInterface;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\SymfonyYamlParser;
 use Ssch\TYPO3Rector\ValueObject\Indent;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class YamlFileProcessor implements FileProcessorInterface
 {
@@ -46,18 +46,25 @@ final class YamlFileProcessor implements FileProcessorInterface
     private SymfonyYamlParser $symfonyYamlParser;
 
     /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    /**
      * @param YamlRectorInterface[] $yamlRectors
      */
     public function __construct(
         CurrentFileProvider $currentFileProvider,
         FileDiffFactory $fileDiffFactory,
         SymfonyYamlParser $symfonyYamlParser,
-        array $yamlRectors
+        array $yamlRectors,
+        FileInfoFactory $fileInfoFactory
     ) {
         $this->currentFileProvider = $currentFileProvider;
         $this->fileDiffFactory = $fileDiffFactory;
         $this->yamlRectors = $yamlRectors;
         $this->symfonyYamlParser = $symfonyYamlParser;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     /**
@@ -108,7 +115,7 @@ final class YamlFileProcessor implements FileProcessorInterface
             return false;
         }
 
-        $smartFileInfo = new SmartFileInfo($file->getFilePath());
+        $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
 
         return \str_ends_with($smartFileInfo->getFilename(), 'yaml');
     }

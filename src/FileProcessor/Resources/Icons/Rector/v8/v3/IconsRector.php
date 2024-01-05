@@ -8,9 +8,9 @@ use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
 use Rector\Core\ValueObject\Application\File;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/8.3/Feature-77349-AdditionalLocationsForExtensionIcons.html
@@ -23,14 +23,20 @@ final class IconsRector implements IconRectorInterface
      */
     private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector;
 
-    public function __construct(RemovedAndAddedFilesCollector $removedAndAddedFilesCollector)
+    /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    public function __construct(RemovedAndAddedFilesCollector $removedAndAddedFilesCollector, FileInfoFactory $fileInfoFactory)
     {
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     public function refactorFile(File $file): void
     {
-        $smartFileInfo = new SmartFileInfo($file->getFilePath());
+        $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
 
         $newFullPath = $this->createIconPath($file);
 
@@ -56,9 +62,9 @@ CODE_SAMPLE
 
     private function createIconPath(File $file): string
     {
-        $smartFileInfo = new SmartFileInfo($file->getFilePath());
+        $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
 
-        $realPath = $smartFileInfo->getRealPathDirectory();
+        $realPath = dirname($smartFileInfo->getRealPath());
         $relativeTargetFilePath = sprintf('/Resources/Public/Icons/Extension.%s', $smartFileInfo->getExtension());
 
         return $realPath . $relativeTargetFilePath;

@@ -19,9 +19,9 @@ use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\Migrations\RenameClassMapAliasRectorTest
@@ -64,10 +64,16 @@ final class RenameClassMapAliasRector extends AbstractRector implements Configur
      */
     private ClassRenamer $classRenamer;
 
-    public function __construct(RenamedClassesDataCollector $renamedClassesDataCollector, ClassRenamer $classRenamer)
+    /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    public function __construct(RenamedClassesDataCollector $renamedClassesDataCollector, ClassRenamer $classRenamer, FileInfoFactory $fileInfoFactory)
     {
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
         $this->classRenamer = $classRenamer;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     /**
@@ -143,7 +149,7 @@ CODE_SAMPLE
         $classAliasMaps = $configuration[self::CLASS_ALIAS_MAPS] ?? $configuration;
 
         foreach ($classAliasMaps as $file) {
-            $filePath = new SmartFileInfo($file);
+            $filePath = $this->fileInfoFactory->createFileInfoFromPath($file);
             $classAliasMap = require $filePath->getRealPath();
             foreach ($classAliasMap as $oldClass => $newClass) {
                 $this->oldToNewClasses[$oldClass] = $newClass;
