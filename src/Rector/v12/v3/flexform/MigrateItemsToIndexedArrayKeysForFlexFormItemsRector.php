@@ -17,6 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * This Rector Rule is sponsored by UDG Rhein-Main GmbH
  *
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.3/Deprecation-99739-IndexedArrayKeysForTCAItems.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.3/Feature-99739-AssociativeArrayKeysForTCAItems.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v3\flexform\MigrateItemsToIndexedArrayKeysForFlexFormItemsRector\MigrateItemsToIndexedArrayKeysForFlexFormItemsRectorTest
  */
 final class MigrateItemsToIndexedArrayKeysForFlexFormItemsRector implements FlexFormRectorInterface
