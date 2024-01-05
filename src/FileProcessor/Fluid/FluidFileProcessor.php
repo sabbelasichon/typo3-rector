@@ -12,7 +12,7 @@ use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\Parallel\ValueObject\Bridge;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 
 final class FluidFileProcessor implements FileProcessorInterface
 {
@@ -28,12 +28,18 @@ final class FluidFileProcessor implements FileProcessorInterface
     private FileDiffFactory $fileDiffFactory;
 
     /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    /**
      * @param FluidRectorInterface[] $fluidRectors
      */
-    public function __construct(array $fluidRectors, FileDiffFactory $fileDiffFactory)
+    public function __construct(array $fluidRectors, FileDiffFactory $fileDiffFactory, FileInfoFactory $fileInfoFactory)
     {
         $this->fluidRectors = $fluidRectors;
         $this->fileDiffFactory = $fileDiffFactory;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     public function supports(File $file, Configuration $configuration): bool
@@ -42,7 +48,7 @@ final class FluidFileProcessor implements FileProcessorInterface
             return false;
         }
 
-        $smartFileInfo = new SmartFileInfo($file->getFilePath());
+        $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
 
         return in_array($smartFileInfo->getExtension(), $this->getSupportedFileExtensions(), true);
     }
