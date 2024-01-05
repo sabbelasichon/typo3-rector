@@ -7,7 +7,6 @@ namespace Ssch\TYPO3Rector\Helper;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Symfony\Component\Finder\SplFileInfo;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 final class FilesFinder
 {
@@ -93,7 +92,7 @@ final class FilesFinder
         $filePath = sprintf('%s/%s', $currentDirectory, $filename);
 
         if (is_file($filePath)) {
-            return new SmartFileInfo($filePath);
+            return $this->fileInfoFactory->createFileInfoFromPath($filePath);
         }
 
         return null;

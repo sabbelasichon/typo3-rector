@@ -18,12 +18,12 @@ use Rector\Core\PhpParser\Printer\NodesWithFileDestinationPrinter;
 use Rector\Core\Rector\AbstractRector;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\FileSystemRector\ValueObject\AddedFileWithNodes;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Helper\SymfonyYamlParser;
 use Ssch\TYPO3Rector\NodeVisitor\RemoveExtbaseTypeConverterNodeVisitor;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Symplify\SmartFileSystem\SmartFileInfo;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-94117-RegisterExtbaseTypeConvertersAsServices.html
@@ -46,11 +46,25 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
      */
     private FilesFinder $filesFinder;
 
+    /**
+     * @readonly
+     */
     private RemovedAndAddedFilesCollector $removedAndAddedFilesCollector;
 
+    /**
+     * @readonly
+     */
     private NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter;
 
+    /**
+     * @readonly
+     */
     private SymfonyYamlParser $symfonyYamlParser;
+
+    /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
 
     public function __construct(
         ReflectionProvider $reflectionProvider,
@@ -58,7 +72,8 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
         FilesFinder $filesFinder,
         RemovedAndAddedFilesCollector $removedAndAddedFilesCollector,
         NodesWithFileDestinationPrinter $nodesWithFileDestinationPrinter,
-        SymfonyYamlParser $symfonyYamlParser
+        SymfonyYamlParser $symfonyYamlParser,
+        FileInfoFactory $fileInfoFactory
     ) {
         $this->reflectionProvider = $reflectionProvider;
         $this->simplePhpParser = $simplePhpParser;
@@ -66,6 +81,7 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
         $this->removedAndAddedFilesCollector = $removedAndAddedFilesCollector;
         $this->nodesWithFileDestinationPrinter = $nodesWithFileDestinationPrinter;
         $this->symfonyYamlParser = $symfonyYamlParser;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     /**
@@ -100,7 +116,7 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
         }
 
         $extEmConf = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo(
-            new SmartFileInfo($this->file->getFilePath())
+            $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath())
         );
 
         if ($extEmConf === null) {
@@ -112,7 +128,7 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
 
         $collectServiceTags = $this->collectServiceTags($classStatements);
 
-        $existingServicesYamlFilePath = $extEmConf->getRealPathDirectory() . '/Configuration/Services.yaml';
+        $existingServicesYamlFilePath = dirname($extEmConf->getRealPath()) . '/Configuration/Services.yaml';
 
         $yamlConfiguration = $this->getYamlConfiguration($existingServicesYamlFilePath);
 
