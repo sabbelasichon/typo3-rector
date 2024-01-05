@@ -16,7 +16,7 @@
                                 <items>
                                     <numIndex index="0" type="array">
                                         <numIndex index="0">Label</numIndex>
-                                        <numIndex index="1"/>
+                                        <numIndex index="1"></numIndex>
                                     </numIndex>
                                     <numIndex index="1">
                                         <numIndex index="0">Label 1</numIndex>

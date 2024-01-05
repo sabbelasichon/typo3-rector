@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v12\v0\flexform;
 
-use DOMDocument;
 use DOMElement;
-use DOMNodeList;
-use DOMXPath;
 use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 use Ssch\TYPO3Rector\Helper\FlexFormHelperTrait;
 use Ssch\TYPO3Rector\Helper\StringUtility;
+use Ssch\TYPO3Rector\Rector\FlexForm\AbstractFlexFormRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -19,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-97193-NewTCATypeNumber.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\flexform\MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector\MigrateEvalIntAndDouble2ToTypeNumberFlexFormRectorTest
  */
-final class MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector implements FlexFormRectorInterface
+final class MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector extends AbstractFlexFormRector implements FlexFormRectorInterface
 {
     use FlexFormHelperTrait;
 
@@ -32,26 +30,6 @@ final class MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector implements FlexFo
      * @var string
      */
     private const DOUBLE2 = 'double2';
-
-    private bool $domDocumentHasBeenChanged = false;
-
-    public function transform(DOMDocument $domDocument): bool
-    {
-        $xpath = new DOMXPath($domDocument);
-
-        /** @var DOMNodeList<DOMElement> $elements */
-        $elements = $xpath->query('//config');
-
-        if ($elements->count() === 0) {
-            return false;
-        }
-
-        foreach ($elements as $element) {
-            $this->refactorColumn($domDocument, $element);
-        }
-
-        return $this->domDocumentHasBeenChanged;
-    }
 
     /**
      * @codeCoverageIgnore
@@ -94,7 +72,7 @@ CODE_SAMPLE
         )]);
     }
 
-    private function refactorColumn(DOMDocument $domDocument, ?DOMElement $configElement): void
+    protected function refactorColumn(?DOMElement $configElement): void
     {
         if (! $configElement instanceof DOMElement) {
             return;
@@ -135,16 +113,16 @@ CODE_SAMPLE
         if ($evalList !== []) {
             // Write back filtered 'eval'
             $evalDomElement->nodeValue = '';
-            $evalDomElement->appendChild($domDocument->createTextNode(implode(',', $evalList)));
+            $evalDomElement->appendChild($this->domDocument->createTextNode(implode(',', $evalList)));
         } elseif ($evalDomElement->parentNode instanceof DOMElement) {
             // 'eval' is empty, remove whole configuration
             $evalDomElement->parentNode->removeChild($evalDomElement);
         }
 
-        $this->changeTcaType($domDocument, $configElement, 'number');
+        $this->changeTcaType($this->domDocument, $configElement, 'number');
 
         if (StringUtility::inList($evalListValue, self::DOUBLE2)) {
-            $configElement->appendChild($domDocument->createElement('format', 'decimal'));
+            $configElement->appendChild($this->domDocument->createElement('format', 'decimal'));
         }
 
         $this->domDocumentHasBeenChanged = true;

@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v12\v0\flexform;
 
-use DOMDocument;
 use DOMElement;
-use DOMNodeList;
-use DOMXPath;
 use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
 use Ssch\TYPO3Rector\Helper\FlexFormHelperTrait;
+use Ssch\TYPO3Rector\Rector\FlexForm\AbstractFlexFormRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,29 +15,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-96983-TCATypeFolder.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\flexform\MigrateInternalTypeFolderToTypeFolderFlexFormRector\MigrateInternalTypeFolderToTypeFolderFlexFormRectorTest
  */
-final class MigrateInternalTypeFolderToTypeFolderFlexFormRector implements FlexFormRectorInterface
+final class MigrateInternalTypeFolderToTypeFolderFlexFormRector extends AbstractFlexFormRector implements FlexFormRectorInterface
 {
     use FlexFormHelperTrait;
-
-    private bool $domDocumentHasBeenChanged = false;
-
-    public function transform(DOMDocument $domDocument): bool
-    {
-        $xpath = new DOMXPath($domDocument);
-
-        /** @var DOMNodeList<DOMElement> $elements */
-        $elements = $xpath->query('//config');
-
-        if ($elements->count() === 0) {
-            return false;
-        }
-
-        foreach ($elements as $element) {
-            $this->refactorColumn($domDocument, $element);
-        }
-
-        return $this->domDocumentHasBeenChanged;
-    }
 
     /**
      * @codeCoverageIgnore
@@ -84,7 +62,7 @@ CODE_SAMPLE
         )]);
     }
 
-    private function refactorColumn(DOMDocument $domDocument, ?DOMElement $configElement): void
+    protected function refactorColumn(?DOMElement $configElement): void
     {
         if (! $configElement instanceof DOMElement) {
             return;
@@ -105,7 +83,7 @@ CODE_SAMPLE
         }
 
         if ($internalTypeDomElement->nodeValue === 'folder') {
-            $this->changeTcaType($domDocument, $configElement, 'folder');
+            $this->changeTcaType($this->domDocument, $configElement, 'folder');
         }
 
         $this->domDocumentHasBeenChanged = true;

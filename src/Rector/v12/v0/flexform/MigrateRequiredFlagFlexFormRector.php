@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v12\v0\flexform;
 
-use DOMDocument;
 use DOMElement;
-use DOMNodeList;
-use DOMXPath;
 use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 use Ssch\TYPO3Rector\Helper\FlexFormHelperTrait;
 use Ssch\TYPO3Rector\Helper\StringUtility;
+use Ssch\TYPO3Rector\Rector\FlexForm\AbstractFlexFormRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -20,29 +18,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-97035-UtilizeRequiredDirectlyInTCAFieldConfiguration.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\flexform\MigrateRequiredFlagFlexFormRector\MigrateRequiredFlagFlexFormRectorTest
  */
-final class MigrateRequiredFlagFlexFormRector implements FlexFormRectorInterface
+final class MigrateRequiredFlagFlexFormRector extends AbstractFlexFormRector implements FlexFormRectorInterface
 {
     use FlexFormHelperTrait;
-
-    private bool $domDocumentHasBeenChanged = false;
-
-    public function transform(DOMDocument $domDocument): bool
-    {
-        $xpath = new DOMXPath($domDocument);
-
-        /** @var DOMNodeList<DOMElement> $elements */
-        $elements = $xpath->query('//config');
-
-        if ($elements->count() === 0) {
-            return false;
-        }
-
-        foreach ($elements as $element) {
-            $this->refactorColumn($domDocument, $element);
-        }
-
-        return $this->domDocumentHasBeenChanged;
-    }
 
     /**
      * @codeCoverageIgnore
@@ -87,7 +65,7 @@ CODE_SAMPLE
         )]);
     }
 
-    private function refactorColumn(DOMDocument $domDocument, ?DOMElement $configElement): void
+    protected function refactorColumn(?DOMElement $configElement): void
     {
         if (! $configElement instanceof DOMElement) {
             return;
@@ -119,7 +97,7 @@ CODE_SAMPLE
         if ($evalList !== []) {
             // Write back filtered 'eval'
             $evalDomElement->nodeValue = '';
-            $evalDomElement->appendChild($domDocument->createTextNode(implode(',', $evalList)));
+            $evalDomElement->appendChild($this->domDocument->createTextNode(implode(',', $evalList)));
         } elseif ($evalDomElement->parentNode instanceof DOMElement) {
             // 'eval' is empty, remove whole configuration
             $evalDomElement->parentNode->removeChild($evalDomElement);
@@ -127,7 +105,7 @@ CODE_SAMPLE
 
         $requiredDomElement = $this->extractDomElementByKey($configElement, 'required');
         if (! $requiredDomElement instanceof DOMElement) {
-            $configElement->appendChild($domDocument->createElement('required', '1'));
+            $configElement->appendChild($this->domDocument->createElement('required', '1'));
         }
 
         $this->domDocumentHasBeenChanged = true;
