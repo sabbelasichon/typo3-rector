@@ -19,6 +19,7 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\NodeFactory\IconArrayItemFactory;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -106,7 +107,7 @@ final class RegisterIconToIconFileRector extends AbstractRector
         $currentSmartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath());
 
         $extEmConfFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($currentSmartFileInfo);
-        if ($extEmConfFileInfo === null) {
+        if (! $extEmConfFileInfo instanceof SplFileInfo) {
             return null;
         }
 

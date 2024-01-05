@@ -61,7 +61,7 @@ final class FilesFinder
 
         $smartFileInfo = $this->createSmartFileInfoIfFileExistsInCurrentDirectory($currentDirectory, $filename);
 
-        if ($smartFileInfo !== null) {
+        if ($smartFileInfo instanceof SplFileInfo) {
             return $smartFileInfo;
         }
 
@@ -71,7 +71,7 @@ final class FilesFinder
         while ($currentDirectory = dirname($fileInfo->getPath(), $currentDirectoryLevel)) {
             $smartFileInfo = $this->createSmartFileInfoIfFileExistsInCurrentDirectory($currentDirectory, $filename);
 
-            if ($smartFileInfo !== null) {
+            if ($smartFileInfo instanceof SplFileInfo) {
                 return $smartFileInfo;
             }
 

@@ -11,6 +11,7 @@ use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\FileRectorInterface;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -81,7 +82,7 @@ CODE_SAMPLE
 
         $extEmConfFile = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($smartFileInfo);
 
-        if ($extEmConfFile === null) {
+        if (! $extEmConfFile instanceof SplFileInfo) {
             return true;
         }
 

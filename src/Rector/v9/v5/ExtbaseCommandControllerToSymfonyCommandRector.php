@@ -33,6 +33,7 @@ use Ssch\TYPO3Rector\NodeAnalyzer\CommandOutputWritelnDecorator;
 use Ssch\TYPO3Rector\Template\TemplateFinder;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -174,7 +175,7 @@ final class ExtbaseCommandControllerToSymfonyCommandRector extends AbstractRecto
 
         $extEmConfFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($currentFileInfo);
 
-        if ($extEmConfFileInfo === null) {
+        if (! $extEmConfFileInfo instanceof SplFileInfo) {
             return null;
         }
 

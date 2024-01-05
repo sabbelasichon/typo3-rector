@@ -15,6 +15,7 @@ use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Helper\SymfonyYamlParser;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -105,7 +106,7 @@ final class ContentObjectRegistrationViaServiceConfigurationRector extends Abstr
             $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath())
         );
 
-        if ($extEmConf === null) {
+        if (! $extEmConf instanceof SplFileInfo) {
             return null;
         }
 

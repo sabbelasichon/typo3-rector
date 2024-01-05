@@ -15,6 +15,7 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Finder\SplFileInfo;
 
 final class IconsFileProcessor implements FileProcessorInterface
 {
@@ -81,7 +82,7 @@ final class IconsFileProcessor implements FileProcessorInterface
 
         $extEmConfSmartFileInfo = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($smartFileInfo);
 
-        if ($extEmConfSmartFileInfo === null) {
+        if (! $extEmConfSmartFileInfo instanceof SplFileInfo) {
             return false;
         }
 

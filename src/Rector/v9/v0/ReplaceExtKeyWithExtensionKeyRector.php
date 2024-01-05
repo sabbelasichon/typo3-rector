@@ -97,7 +97,7 @@ CODE_SAMPLE
 
         $extEmConf = $this->createExtensionKeyFromFolder($fileInfo);
 
-        if ($extEmConf === null) {
+        if (! $extEmConf instanceof SplFileInfo) {
             return null;
         }
 

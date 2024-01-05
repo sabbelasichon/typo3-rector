@@ -76,7 +76,7 @@ CODE_SAMPLE
 
         $extEmConfFile = $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($smartFileInfo);
 
-        if ($extEmConfFile === null) {
+        if (! $extEmConfFile instanceof SplFileInfo) {
             return true;
         }
 

@@ -22,6 +22,7 @@ use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Helper\SymfonyYamlParser;
 use Ssch\TYPO3Rector\NodeVisitor\RemoveExtbaseTypeConverterNodeVisitor;
+use Symfony\Component\Finder\SplFileInfo;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -119,7 +120,7 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
             $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath())
         );
 
-        if ($extEmConf === null) {
+        if (! $extEmConf instanceof SplFileInfo) {
             return null;
         }
 
