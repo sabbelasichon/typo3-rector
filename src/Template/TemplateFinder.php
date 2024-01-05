@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Template;
 
-use Symplify\SmartFileSystem\SmartFileInfo;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
+use Symfony\Component\Finder\SplFileInfo;
 
 final class TemplateFinder
 {
@@ -13,18 +14,19 @@ final class TemplateFinder
      */
     private string $templateDirectory;
 
-    public function __construct()
+    /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    public function __construct(FileInfoFactory $fileInfoFactory)
     {
         $this->templateDirectory = __DIR__ . '/../../templates/maker/';
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
-    public function getCommand(): SmartFileInfo
+    public function getCommand(): SplFileInfo
     {
-        return $this->createSmartFileInfo('Commands/Command.tpl');
-    }
-
-    private function createSmartFileInfo(string $template): SmartFileInfo
-    {
-        return new SmartFileInfo($this->templateDirectory . $template);
+        return $this->fileInfoFactory->createFileInfoFromPath($this->templateDirectory . 'Commands/Command.tpl');
     }
 }

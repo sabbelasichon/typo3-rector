@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Filesystem;
@@ -19,13 +20,13 @@ final class FileInfoFactory
     public function createFileInfoFromPath(string $filePath): SplFileInfo
     {
         $currentWorkingDirectory = getcwd();
-        if($currentWorkingDirectory === false) {
+        if ($currentWorkingDirectory === false) {
             throw new ShouldNotHappenException('Could not get current working directory');
         }
 
         $realPath = realpath($filePath);
 
-        if($realPath === false) {
+        if ($realPath === false) {
             throw new ShouldNotHappenException(sprintf('Could not get realpath for file "%s"', $filePath));
         }
 
