@@ -19,7 +19,6 @@ use PHPStan\Type\ObjectType;
 use PHPStan\Type\VerbosityLevel;
 use Rector\Core\NodeManipulator\ClassInsertManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -39,19 +38,12 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
     /**
      * @readonly
      */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    /**
-     * @readonly
-     */
     private ClassInsertManipulator $classInsertManipulator;
 
     public function __construct(
-        ClassInsertManipulator $classInsertManipulator,
-        NodesToAddCollector $nodesToAddCollector
+        ClassInsertManipulator $classInsertManipulator
     ) {
         $this->classInsertManipulator = $classInsertManipulator;
-        $this->nodesToAddCollector = $nodesToAddCollector;
     }
 
     /**
