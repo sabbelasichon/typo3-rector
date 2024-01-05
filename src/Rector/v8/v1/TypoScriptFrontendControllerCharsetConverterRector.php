@@ -9,9 +9,9 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -35,17 +35,11 @@ final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractR
     /**
      * @readonly
      */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    /**
-     * @readonly
-     */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector)
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
-        $this->nodesToAddCollector = $nodesToAddCollector;
     }
 
     /**
@@ -53,27 +47,55 @@ final class TypoScriptFrontendControllerCharsetConverterRector extends AbstractR
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class];
+        return [Expression::class, Return_::class];
     }
 
     /**
-     * @param MethodCall $node
+     * @param Expression|Return_ $node
+     * @return Node[]|null
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?array
     {
-        if ($this->shouldSkip($node)) {
+        $methodCall = null;
+        if ($node instanceof Return_) {
+            $methodCall = $node->expr;
+        } elseif ($node->expr instanceof Assign) {
+            $methodCall = $node->expr->expr;
+        }
+
+        if (! $methodCall instanceof MethodCall) {
             return null;
         }
 
-        if (! $this->isNames($node->name, [self::CS_CONV, 'conv_case'])) {
+        if ($this->shouldSkip($methodCall)) {
             return null;
         }
 
-        if ($this->isName($node->name, self::CS_CONV)) {
-            return $this->refactorMethodCsConv($node);
+        if (! $this->isNames($methodCall->name, [self::CS_CONV, 'conv_case'])) {
+            return null;
         }
 
-        return $this->refactorCsConvObj($node);
+        if ($this->isName($methodCall->name, self::CS_CONV)) {
+            $newMethodCall = $this->refactorMethodCsConv($methodCall);
+        } else {
+            $newMethodCall = $this->refactorCsConvObj($methodCall);
+        }
+
+        if ($newMethodCall === null) {
+            return null;
+        }
+
+        if ($node->expr instanceof Assign) {
+            $node->expr->expr = $newMethodCall;
+        } else {
+            $node->expr = $newMethodCall;
+        }
+
+        if (! $newMethodCall instanceof MethodCall) {
+            return [$node];
+        }
+
+        return [$this->addCharsetConverterNode(), $node];
     }
 
     /**
@@ -121,15 +143,16 @@ CODE_SAMPLE
         );
     }
 
-    private function refactorMethodCsConv(MethodCall $methodCall): Node
+    /**
+     * @return Node\Expr|MethodCall
+     */
+    private function refactorMethodCsConv(MethodCall $methodCall)
     {
         $from = isset($methodCall->args[1]) ? $this->valueResolver->getValue($methodCall->args[1]->value) : null;
 
         if ($from === '' || $from === 'null' || $from === null) {
             return $methodCall->args[0]->value;
         }
-
-        $this->addCharsetConverterNode($methodCall);
 
         return $this->nodeFactory->createMethodCall(self::CHARSET_CONVERTER, 'conv', [
             $methodCall->args[0],
@@ -138,9 +161,9 @@ CODE_SAMPLE
         ]);
     }
 
-    private function addCharsetConverterNode(MethodCall $methodCall): void
+    private function addCharsetConverterNode(): Expression
     {
-        $charsetConverterAssignExpression = new Expression(
+        return new Expression(
             new Assign(
                 new Variable(self::CHARSET_CONVERTER),
                 $this->nodeFactory->createStaticCall(
@@ -150,13 +173,10 @@ CODE_SAMPLE
                 )
             )
         );
-        $this->nodesToAddCollector->addNodeBeforeNode($charsetConverterAssignExpression, $methodCall);
     }
 
-    private function refactorCsConvObj(MethodCall $methodCall): ?Node
+    private function refactorCsConvObj(MethodCall $methodCall): ?MethodCall
     {
-        $this->addCharsetConverterNode($methodCall);
-
         $methodName = $this->getName($methodCall->name);
         if ($methodName === null) {
             return null;
