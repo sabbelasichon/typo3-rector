@@ -43,13 +43,19 @@ CODE_SAMPLE
 
     protected function refactorCtrl(Array_ $ctrlArray): void
     {
-        $shadowColumnsForNewPlaceholdersArrayItem = $this->extractArrayItemByKey($ctrlArray, 'shadowColumnsForNewPlaceholders');
+        $shadowColumnsForNewPlaceholdersArrayItem = $this->extractArrayItemByKey(
+            $ctrlArray,
+            'shadowColumnsForNewPlaceholders'
+        );
         if ($shadowColumnsForNewPlaceholdersArrayItem instanceof ArrayItem) {
             $this->removeNode($shadowColumnsForNewPlaceholdersArrayItem);
             $this->hasAstBeenChanged = true;
         }
 
-        $shadowColumnsForMovePlaceholdersArrayItem = $this->extractArrayItemByKey($ctrlArray, 'shadowColumnsForMovePlaceholders');
+        $shadowColumnsForMovePlaceholdersArrayItem = $this->extractArrayItemByKey(
+            $ctrlArray,
+            'shadowColumnsForMovePlaceholders'
+        );
         if ($shadowColumnsForMovePlaceholdersArrayItem instanceof ArrayItem) {
             $this->removeNode($shadowColumnsForMovePlaceholdersArrayItem);
             $this->hasAstBeenChanged = true;
