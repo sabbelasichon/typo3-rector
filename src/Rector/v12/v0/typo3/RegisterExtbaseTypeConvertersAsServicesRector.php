@@ -103,7 +103,7 @@ final class RegisterExtbaseTypeConvertersAsServicesRector extends AbstractRector
             new SmartFileInfo($this->file->getFilePath())
         );
 
-        if (! $extEmConf instanceof SmartFileInfo) {
+        if ($extEmConf === null) {
             return null;
         }
 
