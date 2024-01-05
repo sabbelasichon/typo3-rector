@@ -6,6 +6,10 @@ $domain1 = BackendUtility::getViewDomain(1);
 $rootline = [1, 2, 3];
 $domain2 = BackendUtility::getViewDomain(1, $rootline);
 
+$domainCallBack = function() use($rootline) {
+    return BackendUtility::getViewDomain(1, $rootline);
+};
+
 ?>
 -----
 <?php
@@ -19,5 +23,10 @@ $domain1 = $site->getRouter()->generateUri(1);
 $rootline = [1, 2, 3];
 $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId(1, $rootline);
 $domain2 = $site->getRouter()->generateUri(1);
+
+$domainCallBack = function() use($rootline) {
+    $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByPageId(1, $rootline);
+    return $site->getRouter()->generateUri(1);
+};
 
 ?>

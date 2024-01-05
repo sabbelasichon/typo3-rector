@@ -8,9 +8,10 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -21,54 +22,62 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
 {
     /**
-     * @readonly
-     */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    public function __construct(NodesToAddCollector $nodesToAddCollector)
-    {
-        $this->nodesToAddCollector = $nodesToAddCollector;
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
-        return [StaticCall::class];
+        return [Expression::class, Return_::class];
     }
 
     /**
-     * @param StaticCall $node
+     * @param Expression|Return_ $node
+     * @return Node[]|null
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?array
     {
+        $methodCall = null;
+        if ($node instanceof Return_) {
+            $methodCall = $node->expr;
+        } elseif ($node->expr instanceof Assign) {
+            $methodCall = $node->expr->expr;
+        }
+
+        if (! $methodCall instanceof StaticCall) {
+            return null;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'getViewDomain')) {
+        if (! $this->isName($methodCall->name, 'getViewDomain')) {
             return null;
         }
 
-        $siteAssign = new Assign(new Variable('site'), $this->nodeFactory->createMethodCall(
+        $siteAssign = new Expression(new Assign(new Variable('site'), $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
                 $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Site\SiteFinder'),
             ]),
             'getSiteByPageId',
-            $node->args
-        ));
+            $methodCall->args
+        )));
 
-        $this->nodesToAddCollector->addNodeBeforeNode($siteAssign, $node);
-
-        return $this->nodeFactory->createMethodCall(
+        $methodCallGenerateUri = $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall(new Variable('site'), 'getRouter'),
             'generateUri',
-            [$node->args[0]]
+            [$methodCall->args[0]]
         );
+
+        if ($node->expr instanceof Assign) {
+            $node->expr->expr = $methodCallGenerateUri;
+        } else {
+            $node->expr = $methodCallGenerateUri;
+        }
+
+        return [$siteAssign, $node];
     }
 
     /**
