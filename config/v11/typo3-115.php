@@ -8,7 +8,6 @@ use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
 use Ssch\TYPO3Rector\Rector\v11\v5\FlexFormToolsArrayValueByPathRector;
 use Ssch\TYPO3Rector\Rector\v11\v5\HandleCObjRendererATagParamsMethodRector;
-
 use Ssch\TYPO3Rector\Rector\v11\v5\RemoveDefaultInternalTypeDBRector;
 use Ssch\TYPO3Rector\Rector\v11\v5\ReplaceTSFEATagParamsCallOnGlobalsRector;
 use Ssch\TYPO3Rector\Rector\v11\v5\SubstituteBackendTemplateViewWithModuleTemplateRector;
