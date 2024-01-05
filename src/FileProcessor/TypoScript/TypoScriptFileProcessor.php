@@ -31,6 +31,7 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface
 use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Collector\RemoveTypoScriptStatementCollector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AbstractTypoScriptRector;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\ValueObject\Indent;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symplify\SmartFileSystem\SmartFileInfo;
@@ -111,6 +112,11 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
     private ParameterProvider $parameterProvider;
 
     /**
+     * @readonly
+     */
+    private FileInfoFactory $fileInfoFactory;
+
+    /**
      * @param TypoScriptRectorInterface[] $typoScriptRectors
      * @param TypoScriptPostRectorInterface[] $typoScriptPostRectors
      */
@@ -124,6 +130,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         FileDiffFactory $fileDiffFactory,
         RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector,
         ParameterProvider $parameterProvider,
+        FileInfoFactory $fileInfoFactory,
         array $typoScriptRectors = [],
         array $typoScriptPostRectors = []
     ) {
@@ -138,6 +145,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         $this->typoScriptRectors = $typoScriptRectors;
         $this->typoScriptPostRectors = $typoScriptPostRectors;
         $this->parameterProvider = $parameterProvider;
+        $this->fileInfoFactory = $fileInfoFactory;
     }
 
     public function supports(File $file, Configuration $configuration): bool
@@ -146,7 +154,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
             return false;
         }
 
-        $smartFileInfo = new SmartFileInfo($file->getFilePath());
+        $smartFileInfo = $this->fileInfoFactory->createFileInfoFromPath($file->getFilePath());
 
         return in_array($smartFileInfo->getExtension(), $this->allowedFileExtensions, true);
     }
