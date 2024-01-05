@@ -8,10 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Echo_;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -22,57 +19,42 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RefactorPrintContentMethodsRector extends AbstractRector
 {
     /**
-     * @readonly
-     */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    public function __construct(NodesToAddCollector $nodesToAddCollector)
-    {
-        $this->nodesToAddCollector = $nodesToAddCollector;
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param MethodCall $node
+     * @param Node\Stmt\Expression $node
      */
     public function refactor(Node $node): ?Node
     {
-        if ($this->shouldSkip($node)) {
+        if (! $node->expr instanceof MethodCall) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'printContent')) {
+        if ($this->shouldSkip($node->expr)) {
             return null;
         }
 
-        if ($this->isPageLayoutControllerClass($node)) {
+        if (! $this->isName($node->expr->name, 'printContent')) {
+            return null;
+        }
+
+        if ($this->isPageLayoutControllerClass($node->expr)) {
             $echo = new Echo_([
                 $this->nodeFactory->createMethodCall(
-                    $this->nodeFactory->createMethodCall($node->var, 'getModuleTemplate'),
+                    $this->nodeFactory->createMethodCall($node->expr->var, 'getModuleTemplate'),
                     'renderContent'
                 ),
             ]);
         } else {
-            $echo = new Echo_([$this->nodeFactory->createPropertyFetch($node->var, 'content')]);
+            $echo = new Echo_([$this->nodeFactory->createPropertyFetch($node->expr->var, 'content')]);
         }
 
-        try {
-            $this->removeNode($node);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
-            $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-            $this->removeNode($parentNode);
-        }
-
-        $this->nodesToAddCollector->addNodeBeforeNode($echo, $node);
-
-        return $node;
+        return $echo;
     }
 
     /**
