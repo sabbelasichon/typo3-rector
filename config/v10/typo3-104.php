@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
-
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector;

@@ -64,7 +64,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector
 
         $methodReflection = $this->reflectionResolver->resolveMethodReflectionFromMethodCall($node);
         # Class reflection only works when the method exists - thus we don't migrate if it succeeds/is not null
-        if ($methodReflection !== null) {
+        if ($methodReflection instanceof MethodReflection) {
             return null;
         }
 
