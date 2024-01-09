@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper\Database\Refactorings;
 
+use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\Variable;
 use Rector\Core\PhpParser\Node\NodeFactory;
 use Ssch\TYPO3Rector\Contract\Helper\Database\Refactorings\DatabaseConnectionToDbalRefactoring;
 
@@ -28,23 +28,19 @@ final class DatabaseConnectionExecTruncateTableRefactoring implements DatabaseCo
         $this->nodeFactory = $nodeFactory;
     }
 
-    public function refactor(MethodCall $oldMethodCall): array
+    public function refactor(MethodCall $oldMethodCall): ?Node
     {
         $tableArgument = array_shift($oldMethodCall->args);
 
         if (! $tableArgument instanceof Arg) {
-            return [];
+            return null;
         }
 
-        $connectionAssignment = $this->connectionCallFactory->createConnectionCall($tableArgument);
-
-        $connectionInsertCall = $this->nodeFactory->createMethodCall(
-            new Variable('connection'),
+        return $this->nodeFactory->createMethodCall(
+            $this->connectionCallFactory->createConnectionCall($tableArgument),
             'truncate',
             [$tableArgument->value]
         );
-
-        return [$connectionAssignment, $connectionInsertCall];
     }
 
     public function canHandle(string $methodName): bool

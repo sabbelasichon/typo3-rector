@@ -7,7 +7,6 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Contract\Helper\Database\Refactorings\DatabaseConnectionToDbalRefactoring;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -20,11 +19,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class DatabaseConnectionToDbalRector extends AbstractRector
 {
-    /**
-     * @readonly
-     */
-    public NodesToAddCollector $nodesToAddCollector;
-
     /**
      * @readonly
      */
@@ -41,12 +35,10 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
      */
     public function __construct(
         Typo3NodeResolver $typo3NodeResolver,
-        array $databaseConnectionRefactorings,
-        NodesToAddCollector $nodesToAddCollector
+        array $databaseConnectionRefactorings
     ) {
         $this->typo3NodeResolver = $typo3NodeResolver;
         $this->databaseConnectionRefactorings = $databaseConnectionRefactorings;
-        $this->nodesToAddCollector = $nodesToAddCollector;
     }
 
     /**
@@ -73,12 +65,7 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
 
         foreach ($this->databaseConnectionRefactorings as $databaseConnectionRefactoring) {
             if ($databaseConnectionRefactoring->canHandle($methodName)) {
-                $nodes = $databaseConnectionRefactoring->refactor($node);
-                foreach ($nodes as $newNode) {
-                    $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
-                }
-
-                $this->removeNode($node);
+                return $databaseConnectionRefactoring->refactor($node);
             }
         }
 
@@ -103,9 +90,11 @@ $GLOBALS['TYPO3_DB']->exec_INSERTquery(
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-$connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
-$databaseConnectionForPages = $connectionPool->getConnectionForTable('pages');
-$databaseConnectionForPages->insert(
+
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Database\ConnectionPool;
+
+GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('pages')->insert(
     'pages',
     [
         'pid' => 0,
