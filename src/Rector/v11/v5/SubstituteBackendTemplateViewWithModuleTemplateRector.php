@@ -19,7 +19,6 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -49,22 +48,15 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
     /**
      * @readonly
      */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    /**
-     * @readonly
-     */
     private ClassDependencyManipulator $classDependencyManipulator;
 
     private ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer;
 
     public function __construct(
         ClassDependencyManipulator $classDependencyManipulator,
-        NodesToAddCollector $nodesToAddCollector,
         ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer
     ) {
         $this->classDependencyManipulator = $classDependencyManipulator;
-        $this->nodesToAddCollector = $nodesToAddCollector;
         $this->extbaseControllerRedirectAnalyzer = $extbaseControllerRedirectAnalyzer;
     }
 
@@ -281,21 +273,7 @@ CODE_SAMPLE
 
         $this->callModuleTemplateFactoryCreateIfNeeded($classMethod);
 
-        /** @var MethodCall[] $existingHtmlResponseMethodCallNodes */
-        $existingHtmlResponseMethodCallNodes = $this->betterNodeFinder->find(
-            (array) $classMethod->stmts,
-            function (Node $node) {
-                if (! $node instanceof MethodCall) {
-                    return false;
-                }
-
-                if (! $this->isName($node->name, 'htmlResponse')) {
-                    return false;
-                }
-
-                return $node->args === [];
-            }
-        );
+        $existingHtmlResponseMethodCallNodes = $this->findAllExistingHtmlResponseMethodCalls($classMethod->stmts ?? []);
 
         if ($existingHtmlResponseMethodCallNodes === []) {
             $classMethod->stmts[] = $callSetContentOnModuleTemplateVariable;
@@ -303,15 +281,31 @@ CODE_SAMPLE
             return;
         }
 
-        foreach ($existingHtmlResponseMethodCallNodes as $existingHtmlResponseMethodCallNode) {
-            $this->nodesToAddCollector->addNodeBeforeNode(
-                $callSetContentOnModuleTemplateVariable,
-                $existingHtmlResponseMethodCallNode
+        $classMethodStatements = [];
+        foreach ($classMethod->stmts ?? [] as $position => $classMethodStatement) {
+            $existingHtmlResponseMethodCallNodes = $this->findAllExistingHtmlResponseMethodCalls(
+                [$classMethodStatement]
             );
-            $existingHtmlResponseMethodCallNode->args = $this->nodeFactory->createArgs([
-                $moduleTemplateRenderContentMethodCall,
-            ]);
+
+            if ($existingHtmlResponseMethodCallNodes === []) {
+                $classMethodStatements[] = $classMethodStatement;
+                continue;
+            }
+
+            foreach ($existingHtmlResponseMethodCallNodes as $existingHtmlResponseMethodCallNode) {
+                if (! $existingHtmlResponseMethodCallNode instanceof MethodCall) {
+                    continue;
+                }
+
+                $classMethodStatements[] = $callSetContentOnModuleTemplateVariable;
+                $classMethodStatements[] = $classMethodStatement;
+                $existingHtmlResponseMethodCallNode->args = $this->nodeFactory->createArgs([
+                    $moduleTemplateRenderContentMethodCall,
+                ]);
+            }
         }
+
+        $classMethod->stmts = $classMethodStatements;
     }
 
     private function callModuleTemplateFactoryCreateIfNeeded(ClassMethod $classMethod): void
@@ -344,5 +338,27 @@ CODE_SAMPLE
             $moduleTemplateFactoryAssignment = $this->createModuleTemplateAssignment();
             array_unshift($classMethod->stmts, $moduleTemplateFactoryAssignment);
         }
+    }
+
+    /**
+     * @param Node[] $nodes
+     * @return Node[]
+     */
+    private function findAllExistingHtmlResponseMethodCalls(array $nodes): array
+    {
+        return $this->betterNodeFinder->find(
+            $nodes,
+            function (Node $node) {
+                if (! $node instanceof MethodCall) {
+                    return false;
+                }
+
+                if (! $this->isName($node->name, 'htmlResponse')) {
+                    return false;
+                }
+
+                return $node->args === [];
+            }
+        );
     }
 }
