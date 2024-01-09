@@ -46,10 +46,7 @@ class MyClassService
     {
         $classTagValues = $this->reflectionService->getClassSchema(stdClass::class)->getTags()['tag'] ?? [];
         $classTagsValues = $this->reflectionService->getClassSchema(stdClass::class)->getTags();
-        $tag = 'tag';
-        if ((bool) count(array_filter(array_keys($this->reflectionService->getClassSchema(stdClass::class)->getTags()), function ($tagName) use ($tag) {
-            return $tagName === $tag;
-        }))) {
+        if ($this->reflectionService->isClassTaggedWith(stdClass::class, 'tag')) {
 
         }
     }
