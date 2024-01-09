@@ -20,7 +20,7 @@ final class FluidFileProcessor implements FileProcessorInterface
      * @var FluidRectorInterface[]
      * @readonly
      */
-    private array $fluidRectors = [];
+    private iterable $fluidRectors;
 
     /**
      * @readonly
@@ -35,7 +35,7 @@ final class FluidFileProcessor implements FileProcessorInterface
     /**
      * @param FluidRectorInterface[] $fluidRectors
      */
-    public function __construct(array $fluidRectors, FileDiffFactory $fileDiffFactory, FileInfoFactory $fileInfoFactory)
+    public function __construct(iterable $fluidRectors, FileDiffFactory $fileDiffFactory, FileInfoFactory $fileInfoFactory)
     {
         $this->fluidRectors = $fluidRectors;
         $this->fileDiffFactory = $fileDiffFactory;

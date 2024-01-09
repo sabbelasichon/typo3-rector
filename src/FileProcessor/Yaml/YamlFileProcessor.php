@@ -38,7 +38,7 @@ final class YamlFileProcessor implements FileProcessorInterface
      * @var YamlRectorInterface[]
      * @readonly
      */
-    private array $yamlRectors = [];
+    private iterable $yamlRectors;
 
     /**
      * @readonly
@@ -57,7 +57,7 @@ final class YamlFileProcessor implements FileProcessorInterface
         CurrentFileProvider $currentFileProvider,
         FileDiffFactory $fileDiffFactory,
         SymfonyYamlParser $symfonyYamlParser,
-        array $yamlRectors,
+        iterable $yamlRectors,
         FileInfoFactory $fileInfoFactory
     ) {
         $this->currentFileProvider = $currentFileProvider;

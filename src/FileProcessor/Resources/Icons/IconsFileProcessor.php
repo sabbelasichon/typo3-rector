@@ -33,7 +33,7 @@ final class IconsFileProcessor implements FileProcessorInterface
      * @var IconRectorInterface[]
      * @readonly
      */
-    private array $iconsRector = [];
+    private iterable $iconsRector;
 
     /**
      * @readonly
@@ -48,7 +48,7 @@ final class IconsFileProcessor implements FileProcessorInterface
     /**
      * @param IconRectorInterface[] $iconsRector
      */
-    public function __construct(FilesFinder $filesFinder, Filesystem $filesystem, array $iconsRector, FileInfoFactory $fileInfoFactory)
+    public function __construct(FilesFinder $filesFinder, Filesystem $filesystem, iterable $iconsRector, FileInfoFactory $fileInfoFactory)
     {
         $this->filesFinder = $filesFinder;
         $this->iconsRector = $iconsRector;

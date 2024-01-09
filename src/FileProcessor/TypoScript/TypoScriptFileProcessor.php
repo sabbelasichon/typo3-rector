@@ -100,13 +100,13 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
      * @var TypoScriptRectorInterface[]
      * @readonly
      */
-    private array $typoScriptRectors = [];
+    private iterable $typoScriptRectors = [];
 
     /**
      * @var TypoScriptPostRectorInterface[]
      * @readonly
      */
-    private array $typoScriptPostRectors = [];
+    private iterable $typoScriptPostRectors = [];
 
     private ParameterProvider $parameterProvider;
 
@@ -130,8 +130,8 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector,
         ParameterProvider $parameterProvider,
         FileInfoFactory $fileInfoFactory,
-        array $typoScriptRectors = [],
-        array $typoScriptPostRectors = []
+        iterable $typoScriptRectors = [],
+        iterable $typoScriptPostRectors = []
     ) {
         $this->typoscriptParser = $typoscriptParser;
         $this->output = $output;
@@ -207,8 +207,12 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
 
             $traverser->walk();
 
+            $typoScriptRectors = is_array($this->typoScriptRectors) ? $this->typoScriptRectors : iterator_to_array(
+                $this->typoScriptRectors
+            );
+
             $typoscriptRectorsWithChange = array_filter(
-                $this->typoScriptRectors,
+                $typoScriptRectors,
                 static fn (AbstractTypoScriptRector $typoScriptRector) => $typoScriptRector->hasChanged()
             );
 
@@ -264,8 +268,12 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
      */
     private function convertToPhpFileRectors(): array
     {
+        $typoScriptRectors = is_array($this->typoScriptRectors) ? $this->typoScriptRectors : iterator_to_array(
+            $this->typoScriptRectors
+        );
+
         return array_filter(
-            $this->typoScriptRectors,
+            $typoScriptRectors,
             static fn (Visitor $visitor): bool => $visitor instanceof ConvertToPhpFileInterface
         );
     }

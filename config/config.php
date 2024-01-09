@@ -10,9 +10,23 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
+use PhpParser\PrettyPrinter\Standard;
 use Rector\Config\RectorConfig;
+use RectorPrefix202306\Symfony\Component\DependencyInjection\Argument\TaggedIteratorArgument;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
+use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptPostRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\YamlRectorInterface;
+use Ssch\TYPO3Rector\Contract\Helper\Database\Refactorings\DatabaseConnectionToDbalRefactoring;
+use Ssch\TYPO3Rector\FileProcessor\FlexForms\FlexFormsProcessor;
+use Ssch\TYPO3Rector\FileProcessor\Fluid\FluidFileProcessor;
+use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\IconsFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
+use Ssch\TYPO3Rector\FileProcessor\Yaml\YamlFileProcessor;
+use Ssch\TYPO3Rector\Rector\v9\v0\DatabaseConnectionToDbalRector;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -28,7 +42,6 @@ return static function (RectorConfig $rectorConfig): void {
     $services->defaults()
         ->public()
         ->autowire();
-    $parameters = $rectorConfig->parameters();
 
     $services->set(Filesystem::class);
 
@@ -81,5 +94,33 @@ return static function (RectorConfig $rectorConfig): void {
             'typoscriptsetupts',
         ]]);
 
-    $services->set(\PhpParser\PrettyPrinter\Standard::class);
+    $services->set(Standard::class);
+    $services->set(FlexFormsProcessor::class)->arg(
+        '$flexFormRectors',
+        new TaggedIteratorArgument(FlexFormRectorInterface::class)
+    );
+    $services->set(TypoScriptFileProcessor::class)->arg(
+        '$typoScriptRectors',
+        new TaggedIteratorArgument(TypoScriptRectorInterface::class)
+    );
+    $services->set(TypoScriptFileProcessor::class)->arg(
+        '$typoScriptPostRectors',
+        new TaggedIteratorArgument(TypoScriptPostRectorInterface::class)
+    );
+    $services->set(FluidFileProcessor::class)->arg(
+        '$fluidRectors',
+        new TaggedIteratorArgument(FluidRectorInterface::class)
+    );
+    $services->set(YamlFileProcessor::class)->arg(
+        '$yamlRectors',
+        new TaggedIteratorArgument(YamlRectorInterface::class)
+    );
+    $services->set(IconsFileProcessor::class)->arg(
+        '$iconsRector',
+        new TaggedIteratorArgument(IconRectorInterface::class)
+    );
+    $services->set(DatabaseConnectionToDbalRector::class)->arg(
+        '$databaseConnectionRefactorings',
+        new TaggedIteratorArgument(DatabaseConnectionToDbalRefactoring::class)
+    );
 };

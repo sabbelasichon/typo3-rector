@@ -28,14 +28,14 @@ final class DatabaseConnectionToDbalRector extends AbstractRector
      * @var DatabaseConnectionToDbalRefactoring[]
      * @readonly
      */
-    private array $databaseConnectionRefactorings = [];
+    private iterable $databaseConnectionRefactorings;
 
     /**
      * @param DatabaseConnectionToDbalRefactoring[] $databaseConnectionRefactorings
      */
     public function __construct(
         Typo3NodeResolver $typo3NodeResolver,
-        array $databaseConnectionRefactorings
+        iterable $databaseConnectionRefactorings
     ) {
         $this->typo3NodeResolver = $typo3NodeResolver;
         $this->databaseConnectionRefactorings = $databaseConnectionRefactorings;
