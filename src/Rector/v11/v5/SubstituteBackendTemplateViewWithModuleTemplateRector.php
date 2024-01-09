@@ -282,7 +282,7 @@ CODE_SAMPLE
         }
 
         $classMethodStatements = [];
-        foreach ($classMethod->stmts ?? [] as $position => $classMethodStatement) {
+        foreach ($classMethod->stmts ?? [] as $classMethodStatement) {
             $existingHtmlResponseMethodCallNodes = $this->findAllExistingHtmlResponseMethodCalls(
                 [$classMethodStatement]
             );
