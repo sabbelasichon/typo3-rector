@@ -5,18 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v4;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\BooleanNot;
-use PhpParser\Node\Expr\Empty_;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Stmt\Expression;
-use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -30,17 +21,11 @@ final class UseGetMenuInsteadOfGetFirstWebPageRector extends AbstractRector
     /**
      * @readonly
      */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    /**
-     * @readonly
-     */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector)
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
-        $this->nodesToAddCollector = $nodesToAddCollector;
     }
 
     /**
@@ -60,35 +45,11 @@ final class UseGetMenuInsteadOfGetFirstWebPageRector extends AbstractRector
             return null;
         }
 
-        if (! $this->isName($node->name, 'getFirstWebPage')) {
-            return null;
-        }
-
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
-        if (! $parentNode instanceof Assign) {
-            return null;
-        }
-
-        $rootLevelPagesVariable = new Variable('rootLevelPages');
-        $this->addRootLevelPagesAssignment($rootLevelPagesVariable, $node);
-
-        $resetRootLevelPagesNode = $this->nodeFactory->createFuncCall('reset', [$rootLevelPagesVariable]);
-
-        $if = new If_(new BooleanNot(new Empty_($rootLevelPagesVariable)));
-        $parentNode->expr = $resetRootLevelPagesNode;
-        $if->stmts[] = new Expression($parentNode);
-
-        $this->nodesToAddCollector->addNodeBeforeNode($if, $node);
-
-        try {
-            $this->removeNode($node);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
-            $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-            $this->removeNode($parentNode);
-        }
-
-        return null;
+        return $this->nodeFactory->createFuncCall('reset', [$this->nodeFactory->createMethodCall(
+            $node->var,
+            'getMenu',
+            [$node->args[0], 'uid', 'sorting', '', false]
+        )]);
     }
 
     /**
@@ -103,10 +64,7 @@ $theFirstPage = $GLOBALS['TSFE']->sys_page->getFirstWebPage(0);
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-$rootLevelPages = $GLOBALS['TSFE']->sys_page->getMenu(0, 'uid', 'sorting', '', false);
-if (!empty($rootLevelPages)) {
-    $theFirstPage = reset($rootLevelPages);
-}
+$theFirstPage = reset($GLOBALS['TSFE']->sys_page->getMenu(0, 'uid', 'sorting', '', false));
 CODE_SAMPLE
             ),
         ]);
@@ -114,27 +72,17 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $methodCall): bool
     {
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $methodCall,
             new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository')
+        ) && ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
+            $methodCall,
+            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
+            'sys_page'
         )) {
             return false;
         }
 
-        return ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
-            $methodCall,
-            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
-            'sys_page'
-        );
-    }
-
-    private function addRootLevelPagesAssignment(Variable $rootLevelPagesVariable, MethodCall $methodCall): void
-    {
-        $rootLevelPagesAssign = new Assign($rootLevelPagesVariable, $this->nodeFactory->createMethodCall(
-            $methodCall->var,
-            'getMenu',
-            [$methodCall->args[0], 'uid', 'sorting', '', false]
-        ));
-        $this->nodesToAddCollector->addNodeBeforeNode($rootLevelPagesAssign, $methodCall);
+        return ! $this->isName($methodCall->name, 'getFirstWebPage');
     }
 }
