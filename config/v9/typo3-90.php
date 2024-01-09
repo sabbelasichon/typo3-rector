@@ -26,7 +26,6 @@ use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteConstantParsetimeStartRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\SubstituteGeneralUtilityDevLogRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseExtensionConfigurationApiRector;
-use Ssch\TYPO3Rector\Rector\v9\v0\UseLogMethodInsteadOfNewLog2Rector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseNewComponentIdForPageTreeRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\UseRenderingContextGetControllerContextRector;
 
@@ -48,7 +47,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(UseRenderingContextGetControllerContextRector::class);
     $rectorConfig->rule(RemovePropertiesFromSimpleDataHandlerControllerRector::class);
     $rectorConfig->rule(RemoveMethodInitTCARector::class);
-    $rectorConfig->rule(UseLogMethodInsteadOfNewLog2Rector::class);
     $rectorConfig->rule(GeneratePageTitleRector::class);
     $rectorConfig->rule(SubstituteConstantParsetimeStartRector::class);
     $rectorConfig->rule(RemoveSecondArgumentGeneralUtilityMkdirDeepRector::class);
