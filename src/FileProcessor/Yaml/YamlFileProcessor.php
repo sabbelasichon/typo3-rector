@@ -38,7 +38,7 @@ final class YamlFileProcessor implements FileProcessorInterface
      * @var YamlRectorInterface[]
      * @readonly
      */
-    private iterable $yamlRectors;
+    private iterable $yamlRectors = [];
 
     /**
      * @readonly

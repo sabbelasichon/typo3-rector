@@ -33,7 +33,7 @@ final class IconsFileProcessor implements FileProcessorInterface
      * @var IconRectorInterface[]
      * @readonly
      */
-    private iterable $iconsRector;
+    private iterable $iconsRector = [];
 
     /**
      * @readonly

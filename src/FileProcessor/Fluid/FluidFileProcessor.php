@@ -20,7 +20,7 @@ final class FluidFileProcessor implements FileProcessorInterface
      * @var FluidRectorInterface[]
      * @readonly
      */
-    private iterable $fluidRectors;
+    private iterable $fluidRectors = [];
 
     /**
      * @readonly
