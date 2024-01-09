@@ -12,7 +12,6 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -36,17 +35,11 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
     /**
      * @readonly
      */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    /**
-     * @readonly
-     */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector)
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
-        $this->nodesToAddCollector = $nodesToAddCollector;
     }
 
     /**
