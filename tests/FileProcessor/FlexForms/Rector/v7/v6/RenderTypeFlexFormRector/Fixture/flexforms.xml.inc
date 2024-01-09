@@ -29,6 +29,96 @@
                             </config>
                         </TCEforms>
                     </settings.selectField>
+                    <a-tree-column>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>tree</renderMode>
+                            </config>
+                        </TCEforms>
+                    </a-tree-column>
+                    <a-singlebox-column>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>singlebox</renderMode>
+                            </config>
+                        </TCEforms>
+                    </a-singlebox-column>
+                    <a-checkbox-column>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>checkbox</renderMode>
+                            </config>
+                        </TCEforms>
+                    </a-checkbox-column>
+                    <an-unknown-column>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>unknown</renderMode>
+                            </config>
+                        </TCEforms>
+                    </an-unknown-column>
+                    <a-maxitems-column-not-set>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                            </config>
+                        </TCEforms>
+                    </a-maxitems-column-not-set>
+                    <a-maxitems-column-0>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <maxitems>0</maxitems>
+                            </config>
+                        </TCEforms>
+                    </a-maxitems-column-0>
+                    <a-maxitems-column-1>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </a-maxitems-column-1>
+                    <a-maxitems-column-2>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <maxitems>2</maxitems>
+                            </config>
+                        </TCEforms>
+                    </a-maxitems-column-2>
+                    <a-tree-column-with-maxitems>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>tree</renderMode>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </a-tree-column-with-maxitems>
+                    <a-singlebox-column-with-maxitems>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>singlebox</renderMode>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </a-singlebox-column-with-maxitems>
+                    <a-checkbox-column-with-maxitems>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>checkbox</renderMode>
+                                <maxitems>1</maxitems>
+                            </config>
+                        </TCEforms>
+                    </a-checkbox-column-with-maxitems>
                 </el>
             </ROOT>
         </sDEF>
@@ -49,7 +139,6 @@
                             <label>Select Field</label>
                             <config>
                                 <type>select</type>
-<renderType>selectSingle</renderType>
                                 <items>
                                     <numIndex index="0" type="array">
                                         <numIndex index="0">Label</numIndex>
@@ -64,9 +153,99 @@
                                         <numIndex index="1">2</numIndex>
                                     </numIndex>
                                 </items>
-                            </config>
+                            <renderType>selectSingle</renderType></config>
                         </TCEforms>
                     </settings.selectField>
+                    <a-tree-column>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>tree</renderMode>
+                            <renderType>selectTree</renderType></config>
+                        </TCEforms>
+                    </a-tree-column>
+                    <a-singlebox-column>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>singlebox</renderMode>
+                            <renderType>selectSingleBox</renderType></config>
+                        </TCEforms>
+                    </a-singlebox-column>
+                    <a-checkbox-column>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>checkbox</renderMode>
+                            <renderType>selectCheckBox</renderType></config>
+                        </TCEforms>
+                    </a-checkbox-column>
+                    <an-unknown-column>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>unknown</renderMode>
+                            </config>
+                        </TCEforms>
+                    </an-unknown-column>
+                    <a-maxitems-column-not-set>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                            <renderType>selectSingle</renderType></config>
+                        </TCEforms>
+                    </a-maxitems-column-not-set>
+                    <a-maxitems-column-0>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <maxitems>0</maxitems>
+                            <renderType>selectSingle</renderType></config>
+                        </TCEforms>
+                    </a-maxitems-column-0>
+                    <a-maxitems-column-1>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <maxitems>1</maxitems>
+                            <renderType>selectSingle</renderType></config>
+                        </TCEforms>
+                    </a-maxitems-column-1>
+                    <a-maxitems-column-2>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <maxitems>2</maxitems>
+                            <renderType>selectMultipleSideBySide</renderType></config>
+                        </TCEforms>
+                    </a-maxitems-column-2>
+                    <a-tree-column-with-maxitems>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>tree</renderMode>
+                                <maxitems>1</maxitems>
+                            <renderType>selectTree</renderType></config>
+                        </TCEforms>
+                    </a-tree-column-with-maxitems>
+                    <a-singlebox-column-with-maxitems>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>singlebox</renderMode>
+                                <maxitems>1</maxitems>
+                            <renderType>selectSingleBox</renderType></config>
+                        </TCEforms>
+                    </a-singlebox-column-with-maxitems>
+                    <a-checkbox-column-with-maxitems>
+                        <TCEforms>
+                            <config>
+                                <type>select</type>
+                                <renderMode>checkbox</renderMode>
+                                <maxitems>1</maxitems>
+                            <renderType>selectCheckBox</renderType></config>
+                        </TCEforms>
+                    </a-checkbox-column-with-maxitems>
                 </el>
             </ROOT>
         </sDEF>

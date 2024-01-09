@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector\v7\v6;
 
-use DOMDocument;
 use DOMElement;
-use DOMNode;
-use DOMNodeList;
-use DOMXPath;
 use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
+use Ssch\TYPO3Rector\Helper\FlexFormHelperTrait;
+use Ssch\TYPO3Rector\Rector\FlexForm\AbstractFlexFormRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,97 +15,114 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/7.6/Deprecation-69822-DeprecateSelectFieldTca.html
  * @see \Ssch\TYPO3Rector\Tests\FileProcessor\FlexForms\Rector\v7\v6\RenderTypeFlexFormRector\RenderTypeFlexFormRectorTest
  */
-final class RenderTypeFlexFormRector implements FlexFormRectorInterface
+final class RenderTypeFlexFormRector extends AbstractFlexFormRector implements FlexFormRectorInterface
 {
-    public function transform(DOMDocument $domDocument): bool
-    {
-        $xpath = new DOMXPath($domDocument);
-
-        /** @var DOMNodeList<DOMElement> $elements */
-        $elements = $xpath->query('//TCEforms/config');
-
-        $hasChanged = false;
-        foreach ($elements as $element) {
-            $type = $element->getElementsByTagName('type')
-                ->item(0);
-
-            if (! $type instanceof DOMElement) {
-                continue;
-            }
-
-            if ($type->textContent !== 'select') {
-                continue;
-            }
-
-            $renderType = $element->getElementsByTagName('renderType')
-                ->item(0);
-
-            // If renderType is already set, migration can be skipped
-            if ($renderType instanceof DOMElement) {
-                continue;
-            }
-
-            $renderMode = $element->getElementsByTagName('renderMode')
-                ->item(0);
-            $size = $element->getElementsByTagName('size')
-                ->item(0);
-
-            $renderTypeName = 'selectSingle';
-            $insertBefore = $type;
-
-            if ($renderMode instanceof DOMNode) {
-                $renderTypeName = 'selectTree';
-                $insertBefore = $renderMode;
-            } elseif ($size instanceof DOMNode && (int) $size->textContent > 1) {
-                // Could be also selectCheckBox. This is a sensitive default
-                $renderTypeName = 'selectMultipleSideBySide';
-            }
-
-            $renderType = $domDocument->createElement('renderType', $renderTypeName);
-
-            if (! $insertBefore->parentNode instanceof DOMNode) {
-                continue;
-            }
-
-            if (! $insertBefore->nextSibling instanceof DOMNode) {
-                continue;
-            }
-
-            $hasChanged = true;
-            $insertBefore->parentNode->insertBefore($renderType, $insertBefore->nextSibling);
-            $insertBefore->parentNode->insertBefore($domDocument->createTextNode("\n"), $insertBefore->nextSibling);
-        }
-
-        return $hasChanged;
-    }
+    use FlexFormHelperTrait;
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Add renderType node in Flexforms xml', [
+        return new RuleDefinition('Add renderType node in FlexForm', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
-<type>select</type>
-<items>
-    <numIndex index="0" type="array">
-        <numIndex index="0">
-            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.no-constraint
-        </numIndex>
-    </numIndex>
-</items>
+<T3DataStructure>
+    <ROOT>
+        <sheetTitle>aTitle</sheetTitle>
+        <type>array</type>
+        <el>
+            <a_select_field>
+                <label>Select field</label>
+                <config>
+                    <type>select</type>
+                    <items>
+                        <numIndex index="0" type="array">
+                            <numIndex index="0">Label</numIndex>
+                        </numIndex>
+                    </items>
+                </config>
+            </a_select_field>
+        </el>
+    </ROOT>
+</T3DataStructure>
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-<type>select</type>
-<renderType>selectSingle</renderType>
-<items>
-    <numIndex index="0" type="array">
-        <numIndex index="0">
-            LLL:EXT:news/Resources/Private/Language/locallang_be.xlf:flexforms_general.no-constraint
-        </numIndex>
-    </numIndex>
-</items>
+<T3DataStructure>
+    <ROOT>
+        <sheetTitle>aTitle</sheetTitle>
+        <type>array</type>
+        <el>
+            <a_select_field>
+                <label>Select field</label>
+                <config>
+                    <type>select</type>
+                    <renderType>selectSingle</renderType>
+                    <items>
+                        <numIndex index="0" type="array">
+                            <numIndex index="0">Label</numIndex>
+                        </numIndex>
+                    </items>
+                </config>
+            </a_select_field>
+        </el>
+    </ROOT>
+</T3DataStructure>
 CODE_SAMPLE
             ),
         ]);
+    }
+
+    protected function refactorColumn(?DOMElement $configElement): void
+    {
+        if (! $configElement instanceof DOMElement) {
+            return;
+        }
+
+        if (! $this->isConfigType($configElement, 'select')) {
+            return;
+        }
+
+        // Do not handle field where the render type is set.
+        if ($this->hasRenderType($configElement)) {
+            return;
+        }
+
+        $renderModeDomElement = $this->extractDomElementByKey($configElement, 'renderMode');
+        if ($renderModeDomElement instanceof DOMElement) {
+            $renderMode = $renderModeDomElement->nodeValue;
+            switch ($renderMode) {
+                case 'tree':
+                    $renderTypeName = 'selectTree';
+                    break;
+                case 'singlebox':
+                    $renderTypeName = 'selectSingleBox';
+                    break;
+                case 'checkbox':
+                    $renderTypeName = 'selectCheckBox';
+                    break;
+                default:
+                    $renderTypeName = null;
+            }
+
+            if ($renderTypeName !== null) {
+                $configElement->appendChild($this->domDocument->createElement('renderType', $renderTypeName));
+
+                $this->domDocumentHasBeenChanged = true;
+            }
+
+            return;
+        }
+
+        $maxItemsDomElement = $this->extractDomElementByKey($configElement, 'maxitems');
+        if ($maxItemsDomElement instanceof DOMElement) {
+            $maxItems = (int) $maxItemsDomElement->nodeValue;
+
+            $renderTypeName = $maxItems <= 1 ? 'selectSingle' : 'selectMultipleSideBySide';
+        } else {
+            $renderTypeName = 'selectSingle';
+        }
+
+        $configElement->appendChild($this->domDocument->createElement('renderType', $renderTypeName));
+
+        $this->domDocumentHasBeenChanged = true;
     }
 }
