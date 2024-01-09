@@ -5,16 +5,13 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v3;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Ternary;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -24,16 +21,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class CopyMethodGetPidForModTSconfigRector extends AbstractRector
 {
-    /**
-     * @readonly
-     */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    public function __construct(NodesToAddCollector $nodesToAddCollector)
-    {
-        $this->nodesToAddCollector = $nodesToAddCollector;
-    }
-
     /**
      * @return array<class-string<Node>>
      */
@@ -59,19 +46,23 @@ final class CopyMethodGetPidForModTSconfigRector extends AbstractRector
         }
 
         $tableVariable = $node->args[0]->value;
-        if ($tableVariable instanceof String_) {
-            $tableVariable = new Variable('table');
-            $this->nodesToAddCollector->addNodeBeforeNode(new Assign($tableVariable, $node->args[0]->value), $node);
+
+        $canBeInterpretedAsIntegerMethodCall = $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Utility\MathUtility',
+            'canBeInterpretedAsInteger',
+            [$node->args[1]]
+        );
+
+        if ($this->valueResolver->isValue($tableVariable, 'pages')) {
+            $ternaryCondition = $canBeInterpretedAsIntegerMethodCall;
+        } else {
+            $ternaryCondition = new BooleanAnd(
+                new Identical($tableVariable, new String_('pages')),
+                $canBeInterpretedAsIntegerMethodCall
+            );
         }
 
-        return new Ternary(new BooleanAnd(
-            new Identical($tableVariable, new String_('pages')),
-            $this->nodeFactory->createStaticCall(
-                'TYPO3\CMS\Core\Utility\MathUtility',
-                'canBeInterpretedAsInteger',
-                [$node->args[1]]
-            )
-        ), $node->args[1]->value, $node->args[2]->value);
+        return new Ternary($ternaryCondition, $node->args[1]->value, $node->args[2]->value);
     }
 
     /**
@@ -90,9 +81,6 @@ CODE_SAMPLE
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\MathUtility;
 
-$table = 'pages';
-$uid = 1;
-$pid = 2;
 $table === 'pages' && MathUtility::canBeInterpretedAsInteger($uid) ? $uid : $pid;
 CODE_SAMPLE
             ),
