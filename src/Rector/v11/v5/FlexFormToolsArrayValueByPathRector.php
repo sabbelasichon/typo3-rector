@@ -8,9 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -21,61 +21,36 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class FlexFormToolsArrayValueByPathRector extends AbstractRector
 {
     /**
-     * @readonly
-     */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    public function __construct(NodesToAddCollector $nodesToAddCollector)
-    {
-        $this->nodesToAddCollector = $nodesToAddCollector;
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class];
+        return [Expression::class, MethodCall::class];
     }
 
     /**
-     * @param MethodCall $node
+     * @param MethodCall|Expression $node
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
-            new ObjectType('TYPO3\\CMS\\Core\\Configuration\\FlexForm\\FlexFormTools')
-        )) {
+        if ($node instanceof Expression) {
+            return $this->refactorSetValueByPath($node);
+        }
+
+        if (! $this->isMethodCallOnFlexFormTools($node)) {
             return null;
         }
 
-        if (! $this->isNames($node->name, ['getArrayValueByPath', 'setArrayValueByPath'])) {
+        if (! $this->isNames($node->name, ['getArrayValueByPath'])) {
             return null;
         }
 
         $args = [$node->args[1], $node->args[0]];
-        if ($this->isName($node->name, 'getArrayValueByPath')) {
-            return $this->nodeFactory->createStaticCall(
-                'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
-                'getValueByPath',
-                $args
-            );
-        }
-
-        $args[] = $node->args[2];
-        $variableName = $this->getName($node->args[1]->value) ?? 'dataArray';
-
-        $variable = new Variable($variableName);
-        $staticCall = $this->nodeFactory->createStaticCall(
+        return $this->nodeFactory->createStaticCall(
             'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
-            'setValueByPath',
+            'getValueByPath',
             $args
         );
-        $this->nodesToAddCollector->addNodeBeforeNode(new Assign($variable, $staticCall), $node);
-        $this->removeNode($node);
-
-        return $node;
     }
 
     /**
@@ -108,6 +83,37 @@ CODE_SAMPLE
                 ),
 
             ]
+        );
+    }
+
+    private function refactorSetValueByPath(Expression $node): ?Node
+    {
+        $methodCall = $node->expr;
+        if (! $methodCall instanceof MethodCall) {
+            return null;
+        }
+
+        if (! $this->isMethodCallOnFlexFormTools($methodCall)) {
+            return null;
+        }
+
+        $variableName = $this->getName($methodCall->args[1]->value) ?? 'dataArray';
+
+        $variable = new Variable($variableName);
+        $staticCall = $this->nodeFactory->createStaticCall(
+            'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
+            'setValueByPath',
+            [$methodCall->args[1], $methodCall->args[0], $methodCall->args[2]]
+        );
+
+        return new Expression(new Assign($variable, $staticCall));
+    }
+
+    private function isMethodCallOnFlexFormTools(MethodCall $methodCall): bool
+    {
+        return $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $methodCall,
+            new ObjectType('TYPO3\\CMS\\Core\\Configuration\\FlexForm\\FlexFormTools')
         );
     }
 }
