@@ -19,10 +19,7 @@ use PhpParser\Node\Stmt\Echo_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Throw_;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -56,17 +53,11 @@ final class PageNotFoundAndErrorHandlingRector extends AbstractRector
     /**
      * @readonly
      */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    /**
-     * @readonly
-     */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, NodesToAddCollector $nodesToAddCollector)
+    public function __construct(Typo3NodeResolver $typo3NodeResolver)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
-        $this->nodesToAddCollector = $nodesToAddCollector;
     }
 
     /**
@@ -114,47 +105,45 @@ CODE_SAMPLE
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class];
+        return [MethodCall::class, Expression::class];
     }
 
     /**
-     * @param MethodCall $node
+     * @param MethodCall|Expression $node
+     *
+     * @return Node|Node[]|null
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node)
     {
-        if ($this->shouldSkip($node)) {
+        $methodCall = $node instanceof Expression ? $node->expr : $node;
+
+        if (! $methodCall instanceof MethodCall) {
             return null;
         }
 
-        if (! $this->isNames($node->name, self::METHODS)) {
+        if ($this->shouldSkip($methodCall)) {
             return null;
         }
 
-        if ($this->isName($node->name, 'checkPageUnavailableHandler')) {
+        if (! $this->isNames($methodCall->name, self::METHODS)) {
+            return null;
+        }
+
+        if ($this->isName($methodCall->name, 'checkPageUnavailableHandler')) {
             return $this->refactorCheckPageUnavailableHandlerMethod();
         }
 
-        if ($this->isNames($node->name, ['pageUnavailableHandler', 'pageNotFoundHandler', 'pageErrorHandler'])) {
-            $newNode = $this->refactorPageErrorHandlerIfPossible($node);
-            if ($newNode instanceof Node) {
-                $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
-                $this->removeNodeOrParentNode($node);
-            }
-
-            return null;
+        if ($this->isNames($methodCall->name, ['pageUnavailableHandler', 'pageNotFoundHandler', 'pageErrorHandler'])) {
+            return $this->refactorPageErrorHandlerIfPossible($methodCall);
         }
 
-        $responseNode = $this->createResponse($node);
+        $responseNode = $this->createResponse($methodCall);
 
         if (! $responseNode instanceof Node) {
             return null;
         }
 
-        $this->nodesToAddCollector->addNodeBeforeNode($responseNode, $node);
-        $this->nodesToAddCollector->addNodeBeforeNode($this->throwException(), $node);
-        $this->removeNodeOrParentNode($node);
-
-        return $node;
+        return [$responseNode, $this->throwException()];
     }
 
     private function shouldSkip(MethodCall $methodCall): bool
@@ -296,14 +285,5 @@ CODE_SAMPLE
         }
 
         return null;
-    }
-
-    private function removeNodeOrParentNode(Node $node): void
-    {
-        try {
-            $this->removeNode($node);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
-            $this->removeNode($node->getAttribute(AttributeKey::PARENT_NODE));
-        }
     }
 }
