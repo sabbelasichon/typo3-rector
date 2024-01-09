@@ -24,8 +24,7 @@ class LegacyDatabaseConnectionUsage
 {
     public function insertData()
     {
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('pages');
-        $connection->insert('pages', [
+        GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('pages')->insert('pages', [
             'pid' => 0,
             'title' => 'Home',
         ]);

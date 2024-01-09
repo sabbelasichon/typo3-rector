@@ -18,7 +18,6 @@ class LegacyDatabaseConnectionTruncateQueryUsage
 {
     public function insertData()
     {
-        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('pages');
-        $connection->truncate('pages');
+        GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('pages')->truncate('pages');
     }
 }
