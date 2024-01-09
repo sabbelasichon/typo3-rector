@@ -604,9 +604,6 @@ Copy method getPidForModTSconfig of class BackendUtility over
 +use TYPO3\CMS\Core\Utility\MathUtility;
 
 -BackendUtility::getPidForModTSconfig('pages', 1, 2);
-+$table = 'pages';
-+$uid = 1;
-+$pid = 2;
 +$table === 'pages' && MathUtility::canBeInterpretedAsInteger($uid) ? $uid : $pid;
 ```
 
@@ -5844,10 +5841,7 @@ Use method getMenu instead of getFirstWebPage
 
 ```diff
 -$theFirstPage = $GLOBALS['TSFE']->sys_page->getFirstWebPage(0);
-+$rootLevelPages = $GLOBALS['TSFE']->sys_page->getMenu(0, 'uid', 'sorting', '', false);
-+if (!empty($rootLevelPages)) {
-+    $theFirstPage = reset($rootLevelPages);
-+}
++$theFirstPage = reset($GLOBALS['TSFE']->sys_page->getMenu(0, 'uid', 'sorting', '', false));
 ```
 
 <br>
