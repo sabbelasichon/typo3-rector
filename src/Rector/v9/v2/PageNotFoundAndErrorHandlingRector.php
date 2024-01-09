@@ -115,11 +115,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node)
     {
-        if ($node instanceof Expression) {
-            $methodCall = $node->expr;
-        } else {
-            $methodCall = $node;
-        }
+        $methodCall = $node instanceof Expression ? $node->expr : $node;
 
         if (! $methodCall instanceof MethodCall) {
             return null;
