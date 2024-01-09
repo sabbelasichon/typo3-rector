@@ -22,9 +22,9 @@ use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
+use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -80,67 +80,89 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
     private const PARSED_REPLY_TO = 'parsedReplyTo';
 
     /**
-     * @readonly
-     */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    public function __construct(NodesToAddCollector $nodesToAddCollector)
-    {
-        $this->nodesToAddCollector = $nodesToAddCollector;
-    }
-
-    /**
      * @return array<class-string<Node>>
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class];
+        return [Expression::class, If_::class, Return_::class];
     }
 
     /**
-     * @param MethodCall $node
+     * @param Expression|If_|Return_ $node
+     *
+     * @return Node[]|null
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?array
     {
+        $methodCall = null;
+        if ($node instanceof Expression) {
+            $methodCall = $node->expr;
+        } elseif ($node instanceof If_) {
+            $methodCall = $node->cond;
+        } elseif ($node instanceof Return_) {
+            $methodCall = $node->expr;
+        }
+
+        if (! $methodCall instanceof MethodCall) {
+            return null;
+        }
+
         if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'sendNotifyEmail')) {
+        if (! $this->isName($methodCall->name, 'sendNotifyEmail')) {
             return null;
         }
 
-        foreach ([
+        $nodes = [
             $this->initializeSuccessVariable(),
             $this->initializeMailClass(),
-            $this->trimMessage($node),
-            $this->trimSenderName($node),
-            $this->trimSenderAddress($node),
+            $this->trimMessage($methodCall),
+            $this->trimSenderName($methodCall),
+            $this->trimSenderAddress($methodCall),
             $this->ifSenderAddress(),
-        ] as $newNode) {
-            $this->nodesToAddCollector->addNodeBeforeNode($newNode, $node);
-        }
+        ];
 
-        $replyTo = isset($node->args[5]) ? $node->args[5]->value : null;
+        $replyTo = isset($methodCall->args[5]) ? $methodCall->args[5]->value : null;
         if ($replyTo instanceof Expr) {
-            $this->nodesToAddCollector->addNodeBeforeNode($this->parsedReplyTo($replyTo), $node);
-            $this->nodesToAddCollector->addNodeBeforeNode($this->methodReplyTo(), $node);
+            $nodes[] = $this->parsedReplyTo($replyTo);
+            $nodes[] = $this->methodReplyTo();
         }
 
         $ifMessageNotEmpty = $this->messageNotEmpty();
         $ifMessageNotEmpty->stmts[] = $this->messageParts();
         $ifMessageNotEmpty->stmts[] = $this->subjectFromMessageParts();
         $ifMessageNotEmpty->stmts[] = $this->bodyFromMessageParts();
-        $ifMessageNotEmpty->stmts[] = $this->parsedRecipients($node);
+        $ifMessageNotEmpty->stmts[] = $this->parsedRecipients($methodCall);
         $ifMessageNotEmpty->stmts[] = $this->ifParsedRecipients();
         $ifMessageNotEmpty->stmts[] = $this->createSuccessTrue();
 
-        $this->nodesToAddCollector->addNodeBeforeNode($ifMessageNotEmpty, $node);
+        $nodes[] = $ifMessageNotEmpty;
 
-        return new Variable(self::SUCCESS);
+        $successVariable = new Variable(self::SUCCESS);
+
+        if ($node instanceof Return_) {
+            $node->expr = $successVariable;
+            $nodes[] = $node;
+
+            return $nodes;
+        }
+
+        if ($node instanceof If_) {
+            $node->cond = $successVariable;
+
+            $nodes[] = $node;
+
+            return $nodes;
+        }
+
+        $nodes[] = new Expression($successVariable);
+
+        return $nodes;
     }
 
     /**
@@ -201,10 +223,10 @@ CODE_SAMPLE
 
     private function trimMessage(MethodCall $methodCall): Node
     {
-        return new Assign(new Variable(self::MESSAGE), $this->nodeFactory->createFuncCall(
+        return new Expression(new Assign(new Variable(self::MESSAGE), $this->nodeFactory->createFuncCall(
             self::TRIM,
             [$methodCall->args[0]]
-        ));
+        )));
     }
 
     private function trimSenderName(MethodCall $methodCall): Node
