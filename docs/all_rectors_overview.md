@@ -648,9 +648,10 @@ Refactor legacy calls of DatabaseConnection to Dbal
 
 ```diff
 -$GLOBALS['TYPO3_DB']->exec_INSERTquery(
-+$connectionPool = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class);
-+$databaseConnectionForPages = $connectionPool->getConnectionForTable('pages');
-+$databaseConnectionForPages->insert(
++use \TYPO3\CMS\Core\Utility\GeneralUtility;
++use \TYPO3\CMS\Core\Database\ConnectionPool;
++
++GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('pages')->insert(
      'pages',
      [
          'pid' => 0,
