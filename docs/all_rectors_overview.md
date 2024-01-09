@@ -1,4 +1,4 @@
-# 295 Rules Overview
+# 296 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -2767,6 +2767,30 @@ Refactor method getPagesTSconfig of class BackendUtility if possible
  use TYPO3\CMS\Backend\Utility\BackendUtility;
 -$pagesTsConfig = BackendUtility::getPagesTSconfig(1, $rootLine = null, $returnPartArray = true);
 +$pagesTsConfig = BackendUtility::getRawPagesTSconfig(1, $rootLine = null);
+```
+
+<br>
+
+## RefactorCHashArrayOfTSFERector
+
+Refactor Internal public property cHash_array
+
+- class: [`Ssch\TYPO3Rector\Rector\v10\v1\typo3\RefactorCHashArrayOfTSFERector`](../src/Rector/v10/v1/typo3/RefactorCHashArrayOfTSFERector.php)
+
+```diff
+-$cHash_array = $GLOBALS['TSFE']->cHash_array;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Core\Utility\HttpUtility;
++use TYPO3\CMS\Frontend\Page\CacheHashCalculator;
++
++$relevantParametersForCachingFromPageArguments = [];
++$pageArguments = $GLOBALS['REQUEST']->getAttribute('routing');
++$queryParams = $pageArguments->getDynamicArguments();
++if (!empty($queryParams) && ($pageArguments->getArguments()['cHash'] ?? false)) {
++    $queryParams['id'] = $pageArguments->getPageId();
++    $relevantParametersForCachingFromPageArguments = GeneralUtility::makeInstance(CacheHashCalculator::class)->getRelevantParameters(HttpUtility::buildQueryString($queryParams));
++}
++$cHash_array = $relevantParametersForCachingFromPageArguments;
 ```
 
 <br>
