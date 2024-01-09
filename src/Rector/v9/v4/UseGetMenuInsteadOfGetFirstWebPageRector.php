@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
@@ -45,11 +46,10 @@ final class UseGetMenuInsteadOfGetFirstWebPageRector extends AbstractRector
             return null;
         }
 
-        return $this->nodeFactory->createFuncCall('reset', [$this->nodeFactory->createMethodCall(
-            $node->var,
-            'getMenu',
-            [$node->args[0], 'uid', 'sorting', '', false]
-        )]);
+        $node->name = new Identifier('getMenu');
+        $node->args = $this->nodeFactory->createArgs([$node->args[0], 'uid', 'sorting', '', false]);
+
+        return $this->nodeFactory->createFuncCall('reset', [$node]);
     }
 
     /**
@@ -72,15 +72,15 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $methodCall): bool
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $methodCall,
             new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository')
-        ) && ! $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
+        ) && $this->typo3NodeResolver->isMethodCallOnPropertyOfGlobals(
             $methodCall,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER,
             'sys_page'
         )) {
-            return false;
+            return true;
         }
 
         return ! $this->isName($methodCall->name, 'getFirstWebPage');

@@ -52,4 +52,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(SendNotifyEmailToMailApiRector::class);
     $rectorConfig->rule(RefactorInternalPropertiesOfTSFERector::class);
     $rectorConfig->rule(RemoveEnableMultiSelectFilterTextfieldRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v10\v1\typo3\RefactorCHashArrayOfTSFERector::class);
 };
