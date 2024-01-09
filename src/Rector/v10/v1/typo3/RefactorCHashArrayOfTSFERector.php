@@ -44,6 +44,9 @@ final class RefactorCHashArrayOfTSFERector extends AbstractRector
      */
     private const QUERY_PARAMS = 'queryParams';
 
+    /**
+     * @var string
+     */
     private const HASH = 'cHash';
 
     /**

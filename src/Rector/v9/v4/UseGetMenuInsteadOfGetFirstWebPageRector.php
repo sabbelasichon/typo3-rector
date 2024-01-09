@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
@@ -45,7 +46,7 @@ final class UseGetMenuInsteadOfGetFirstWebPageRector extends AbstractRector
             return null;
         }
 
-        $node->name = new Node\Identifier('getMenu');
+        $node->name = new Identifier('getMenu');
         $node->args = $this->nodeFactory->createArgs([$node->args[0], 'uid', 'sorting', '', false]);
 
         return $this->nodeFactory->createFuncCall('reset', [$node]);
