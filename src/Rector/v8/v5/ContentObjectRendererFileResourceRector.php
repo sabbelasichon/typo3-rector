@@ -16,8 +16,6 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PostRector\Collector\NodesToAddCollector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -37,11 +35,6 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
     /**
      * @readonly
      */
-    public NodesToAddCollector $nodesToAddCollector;
-
-    /**
-     * @readonly
-     */
     private Typo3NodeResolver $typo3NodeResolver;
 
     /**
@@ -51,11 +44,9 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
 
     public function __construct(
         Typo3NodeResolver $typo3NodeResolver,
-        NodesToAddCollector $nodesToAddCollector,
         Typo3GlobalsFactory $typo3GlobalsFactory
     ) {
         $this->typo3NodeResolver = $typo3NodeResolver;
-        $this->nodesToAddCollector = $nodesToAddCollector;
         $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
@@ -64,36 +55,39 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class];
+        return [Expression::class];
     }
 
     /**
-     * @param MethodCall $node
+     * @param Expression $node
+     * @return Node[]
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?array
     {
-        if ($this->shouldSkip($node)) {
+        if (! $node->expr instanceof Assign) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'fileResource')) {
+        $methodCall = $node->expr->expr;
+
+        if (! $methodCall instanceof MethodCall) {
             return null;
         }
 
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
-        if (! $parentNode instanceof Assign) {
+        if ($this->shouldSkip($methodCall)) {
             return null;
         }
 
-        $this->addInitializeVariableNode($node);
-        $this->addTypoScriptFrontendControllerAssignmentNode($node);
-        $this->addFileNameNode($node);
-        $this->addIfNode($node);
+        if (! $this->isName($methodCall->name, 'fileResource')) {
+            return null;
+        }
 
-        $this->removeNode($parentNode);
-
-        return $node;
+        return array_filter([
+            $this->addInitializeVariableNode($methodCall),
+            $this->addTypoScriptFrontendControllerAssignmentNode($methodCall),
+            $this->addFileNameNode($methodCall),
+            $this->addIfNode($methodCall),
+        ]);
     }
 
     /**
@@ -133,42 +127,40 @@ CODE_SAMPLE
         );
     }
 
-    private function addInitializeVariableNode(MethodCall $methodCall): void
+    private function addInitializeVariableNode(MethodCall $methodCall): ?Node
     {
-        $parentNode = $methodCall->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $methodCall->getAttribute('parent');
 
-        if (! $parentNode->var instanceof PropertyFetch) {
-            $initializeVariable = new Expression(new Assign($parentNode->var, new String_('')));
-            $this->nodesToAddCollector->addNodeBeforeNode($initializeVariable, $methodCall);
+        if ($parentNode->var instanceof PropertyFetch) {
+            return null;
         }
+
+        return new Expression(new Assign($parentNode->var, new String_('')));
     }
 
-    private function addTypoScriptFrontendControllerAssignmentNode(MethodCall $methodCall): void
+    private function addTypoScriptFrontendControllerAssignmentNode(MethodCall $methodCall): Node
     {
-        $typoscriptFrontendControllerVariable = new Variable('typoscriptFrontendController');
-        $typoscriptFrontendControllerAssign = new Assign(
-            $typoscriptFrontendControllerVariable,
+        return new Expression(new Assign(
+            new Variable('typoscriptFrontendController'),
             $this->typo3GlobalsFactory->create(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
-        );
-        $this->nodesToAddCollector->addNodeBeforeNode($typoscriptFrontendControllerAssign, $methodCall);
+        ));
     }
 
-    private function addFileNameNode(MethodCall $methodCall): void
+    private function addFileNameNode(MethodCall $methodCall): Node
     {
-        $fileNameAssign = new Assign(
+        return new Expression(new Assign(
             new Variable(self::PATH),
             $this->nodeFactory->createMethodCall(
                 $this->nodeFactory->createPropertyFetch(new Variable('typoscriptFrontendController'), 'tmpl'),
                 'getFileName',
                 $methodCall->args
             )
-        );
-        $this->nodesToAddCollector->addNodeBeforeNode($fileNameAssign, $methodCall);
+        ));
     }
 
-    private function addIfNode(MethodCall $methodCall): void
+    private function addIfNode(MethodCall $methodCall): Node
     {
-        $parentNode = $methodCall->getAttribute(AttributeKey::PARENT_NODE);
+        $parentNode = $methodCall->getAttribute('parent');
 
         $if = new If_(new BooleanAnd(
             new NotIdentical(new Variable(self::PATH), $this->nodeFactory->createNull()),
@@ -181,6 +173,6 @@ CODE_SAMPLE
         ));
         $if->stmts[] = new Expression($templateAssignment);
 
-        $this->nodesToAddCollector->addNodeBeforeNode($if, $methodCall);
+        return $if;
     }
 }
