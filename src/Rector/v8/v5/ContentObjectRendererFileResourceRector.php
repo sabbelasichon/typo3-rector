@@ -84,7 +84,7 @@ final class ContentObjectRendererFileResourceRector extends AbstractRector
 
         return array_filter([
             $this->addInitializeVariableNode($methodCall),
-            $this->addTypoScriptFrontendControllerAssignmentNode($methodCall),
+            $this->addTypoScriptFrontendControllerAssignmentNode(),
             $this->addFileNameNode($methodCall),
             $this->addIfNode($methodCall),
         ]);
@@ -138,7 +138,7 @@ CODE_SAMPLE
         return new Expression(new Assign($parentNode->var, new String_('')));
     }
 
-    private function addTypoScriptFrontendControllerAssignmentNode(MethodCall $methodCall): Node
+    private function addTypoScriptFrontendControllerAssignmentNode(): Node
     {
         return new Expression(new Assign(
             new Variable('typoscriptFrontendController'),
