@@ -1,4 +1,4 @@
-# 296 Rules Overview
+# 297 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -1896,6 +1896,23 @@ Migrate last pieces of default extras
          ],
      ],
  ];
+```
+
+<br>
+
+## MigrateMagicRepositoryMethodsRector
+
+Migrate the magic findBy methods
+
+- class: [`Ssch\TYPO3Rector\Rector\v12\v3\typo3\MigrateMagicRepositoryMethodsRector`](../src/Rector/v12/v3/typo3/MigrateMagicRepositoryMethodsRector.php)
+
+```diff
+-$blogRepository->findByFooBar('bar');
+-$blogRepository->findOneByFoo('bar');
+-$blogRepository->countByFoo('bar');
++$blogRepository->findBy(['fooBar' => 'bar']);
++$blogRepository->findOneBy(['foo' => 'bar']);
++$blogRepository->count(['foo' => 'bar']);
 ```
 
 <br>
