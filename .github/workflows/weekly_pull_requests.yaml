@@ -49,10 +49,10 @@ jobs:
                 uses: peter-evans/create-pull-request@v5.0.2
                 with:
                     token: ${{ secrets.GITHUB_TOKEN }}
-                    commit-message: "[automated] ${{ matrix.actions.name }}"
+                    commit-message: "[AUTOMATED] ${{ matrix.actions.name }}"
                     base: 'main'
                     branch: ${{ matrix.actions.branch }}
-                    title: '[automated] ${{ matrix.actions.name }}'
+                    title: '[AUTOMATED] ${{ matrix.actions.name }}'
                     delete-branch: true
             -
                 name: Enable Pull Request Automerge
