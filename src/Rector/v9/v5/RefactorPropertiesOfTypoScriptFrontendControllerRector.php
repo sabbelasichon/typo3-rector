@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -35,38 +34,47 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
      */
     public function getNodeTypes(): array
     {
-        return [PropertyFetch::class];
+        return [Node\Stmt\Return_::class, Assign::class];
     }
 
     /**
-     * @param PropertyFetch $node
+     * @param Node\Stmt\Return_|Assign $node
      */
     public function refactor(Node $node): ?Node
     {
+        $propertyFetch = $node->expr;
+
+        if (! $propertyFetch instanceof PropertyFetch) {
+            return null;
+        }
+
         if (! $this->isObjectType(
-            $node->var,
+            $propertyFetch->var,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         )
             && ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
-                $node,
+                $propertyFetch,
                 Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
             )) {
             return null;
         }
 
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
         // Check if we have an assigment to the property, if so do not change it
-        if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
+        if ($node instanceof Assign && $node->var instanceof PropertyFetch) {
             return null;
         }
 
-        if (! $this->isNames($node->name, ['ADMCMD_preview_BEUSER_uid', 'workspacePreview', 'loginAllowedInBranch'])) {
+        if (! $this->isNames(
+            $propertyFetch->name,
+            ['ADMCMD_preview_BEUSER_uid', 'workspacePreview', 'loginAllowedInBranch']
+        )) {
             return null;
         }
 
-        if ($this->isName($node->name, 'loginAllowedInBranch')) {
-            return $this->nodeFactory->createMethodCall($node->var, 'checkIfLoginAllowedInBranch');
+        if ($this->isName($propertyFetch->name, 'loginAllowedInBranch')) {
+            $node->expr = $this->nodeFactory->createMethodCall($propertyFetch->var, 'checkIfLoginAllowedInBranch');
+
+            return $node;
         }
 
         $contextInstanceNode = $this->nodeFactory->createStaticCall(
@@ -75,19 +83,23 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
             [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context')]
         );
 
-        if ($this->isName($node->name, 'ADMCMD_preview_BEUSER_uid')) {
-            return $this->nodeFactory->createMethodCall(
+        if ($this->isName($propertyFetch->name, 'ADMCMD_preview_BEUSER_uid')) {
+            $node->expr = $this->nodeFactory->createMethodCall(
                 $contextInstanceNode,
                 'getPropertyFromAspect',
                 ['backend.user', 'id', 0]
             );
+
+            return $node;
         }
 
-        return $this->nodeFactory->createMethodCall(
+        $node->expr = $this->nodeFactory->createMethodCall(
             $contextInstanceNode,
             'getPropertyFromAspect',
             ['workspace', 'id', 0]
         );
+
+        return $node;
     }
 
     /**
