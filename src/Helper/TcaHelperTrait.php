@@ -172,6 +172,12 @@ trait TcaHelperTrait
         return $renderTypeItem !== null;
     }
 
+    private function hasInternalType(Array_ $columnItemConfigurationArray): bool
+    {
+        $internalType = $this->extractArrayItemByKey($columnItemConfigurationArray, 'internal_type');
+        return $internalType !== null;
+    }
+
     private function extractColumns(Return_ $return): ?ArrayItem
     {
         return $this->extractArrayItemByKey($return->expr, 'columns');
