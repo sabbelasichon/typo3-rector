@@ -5,6 +5,18 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateRequiredFlagRector\Fix
 return [
     'ctrl' => [],
     'columns' => [
+        'fullExample' => [
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'format' => 'date',
+                'required' => true,
+                'readOnly' => true,
+                'size' => 20,
+                'max' => 1234,
+                'eval' => 'trim,null,time,int',
+            ],
+        ],
         'a_date_field' => [
             'config' => [
                 'type' => 'input',
@@ -84,6 +96,45 @@ return [
                 'default' => '00:00:00',
             ],
         ],
+        'aColumn' => [
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
+                'default' => '0',
+            ],
+        ],
+        'bColumn' => [
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
+                'default' => '',
+            ],
+        ],
+        'cColumn' => [
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
+                'default' => '16362836',
+            ],
+        ],
+        'dColumn' => [
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'eval' => 'datetime',
+                'default' => 'invalid',
+            ],
+        ],
+        'eColumn' => [
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'default' => time(),
+            ],
+        ],
     ],
 ];
 
@@ -96,6 +147,16 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateRequiredFlagRector\Fix
 return [
     'ctrl' => [],
     'columns' => [
+        'fullExample' => [
+            'config' => [
+                'type' => 'datetime',
+                'required' => true,
+                'readOnly' => true,
+                'size' => 20,
+                'format' => 'time',
+                'eval' => 'null',
+            ],
+        ],
         'a_date_field' => [
             'config' => [
                 'type' => 'datetime',
@@ -157,6 +218,35 @@ return [
             'config' => [
                 'type' => 'datetime',
                 'dbType' => 'time',
+            ],
+        ],
+        'aColumn' => [
+            'config' => [
+                'type' => 'datetime',
+                'default' => 0,
+            ],
+        ],
+        'bColumn' => [
+            'config' => [
+                'type' => 'datetime',
+                'default' => 0,
+            ],
+        ],
+        'cColumn' => [
+            'config' => [
+                'type' => 'datetime',
+                'default' => 16362836,
+            ],
+        ],
+        'dColumn' => [
+            'config' => [
+                'type' => 'datetime',
+            ],
+        ],
+        'eColumn' => [
+            'config' => [
+                'type' => 'datetime',
+                'default' => time(),
             ],
         ],
     ],
