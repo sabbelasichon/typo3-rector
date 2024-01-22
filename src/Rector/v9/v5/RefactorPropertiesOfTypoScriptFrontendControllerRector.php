@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v5;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
@@ -34,7 +35,7 @@ final class RefactorPropertiesOfTypoScriptFrontendControllerRector extends Abstr
      */
     public function getNodeTypes(): array
     {
-        return [Node\Stmt\Return_::class, Assign::class];
+        return [Return_::class, Assign::class];
     }
 
     /**
