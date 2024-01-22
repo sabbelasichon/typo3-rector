@@ -37,6 +37,12 @@ return [
                     'internal_type' => 'folder',
                 ],
             ],
+            'bColumn' => [
+                'config' => [
+                    'type' => 'group',
+                    'internal_type' => 'db',
+                ],
+            ],
         ],
     ],
 ];
@@ -49,6 +55,11 @@ return [
             'aColumn' => [
                 'config' => [
                     'type' => 'folder',
+                ],
+            ],
+            'bColumn' => [
+                'config' => [
+                    'type' => 'group',
                 ],
             ],
         ],
@@ -65,16 +76,26 @@ CODE_SAMPLE
             return;
         }
 
-        if (! $this->configIsOfInternalType($configArray, 'folder')) {
+        if (! $this->isConfigType($configArray, 'group') || ! $this->hasInternalType($configArray)) {
             return;
         }
 
-        $toRemoveArrayItem = $this->extractArrayItemByKey($configArray, 'internal_type');
-        if ($toRemoveArrayItem instanceof ArrayItem) {
-            $this->removeNode($toRemoveArrayItem);
+        $internalTypeArrayItem = $this->extractArrayItemByKey($configArray, 'internal_type');
+        if (! $internalTypeArrayItem instanceof ArrayItem) {
+            return;
         }
 
-        $this->changeTcaType($configArray, 'folder');
+        $internalTypeValue = $this->valueResolver->getValue($internalTypeArrayItem->value);
+
+        if (! is_string($internalTypeValue)) {
+            return;
+        }
+
+        if ($internalTypeValue === 'folder') {
+            $this->changeTcaType($configArray, 'folder');
+        }
+
+        $this->removeNode($internalTypeArrayItem);
 
         $this->hasAstBeenChanged = true;
     }

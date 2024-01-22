@@ -9,6 +9,14 @@ return [
             'config' => [
                 'type' => 'group',
                 'internal_type' => 'folder',
+                'maxitems' => 2,
+            ],
+        ],
+        'bColumn' => [
+            'config' => [
+                'type' => 'group',
+                'internal_type' => 'db',
+                'minitems' => 2,
             ],
         ],
     ],
@@ -26,6 +34,13 @@ return [
         'aColumn' => [
             'config' => [
                 'type' => 'folder',
+                'maxitems' => 2,
+            ],
+        ],
+        'bColumn' => [
+            'config' => [
+                'type' => 'group',
+                'minitems' => 2,
             ],
         ],
     ],
