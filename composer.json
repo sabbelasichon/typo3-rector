@@ -30,13 +30,13 @@
         "nikic/php-parser": "^4.17",
         "phpstan/phpstan": "^1.9.7",
         "rector/rector": "0.17.0",
-        "symfony/console": "^4.0 || ^5.0 || ^6.0",
-        "symfony/filesystem": "^5.4 || ^6.0",
-        "symfony/finder": "^5.4 || ^6.0",
+        "symfony/console": "^5.4 || ^6.4 || ^7.0",
+        "symfony/filesystem": "^5.4 || ^6.4 || ^7.0",
+        "symfony/finder": "^5.4 || ^6.4 || ^7.0",
         "symfony/polyfill-php80": "^1.26",
         "symfony/polyfill-php81": "^1.26",
-        "symfony/string": "^5.0 || ^6.0",
-        "symfony/yaml": "^5.0 || ^6.0",
+        "symfony/string": "^5.4 || ^6.4 || ^7.0",
+        "symfony/yaml": "^5.4 || ^6.4 || ^7.0",
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
@@ -44,8 +44,8 @@
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-phpunit": "^1.1",
         "phpunit/phpunit": "^9.5",
-        "symfony/dependency-injection": "^5.0 || ^6.0",
-        "symfony/http-kernel": "^5.0 || ^6.0",
+        "symfony/dependency-injection": "^5.4 || ^6.4 || ^7.0",
+        "symfony/http-kernel": "^5.4 || ^6.4 || ^7.0",
         "symplify/easy-coding-standard": "^12.0"
     },
     "autoload": {
