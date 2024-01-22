@@ -20,6 +20,11 @@ class MyCustomClassWithOldPropertyCalls
         $backendUserIsLoggedIn = $this->getTypoScriptFrontendController()->beUserLogin;
     }
 
+    public function getLoginUser()
+    {
+        return $this->typoScriptFrontendController->loginUser;
+    }
+
     private function getTypoScriptFrontendController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
@@ -50,6 +55,11 @@ class MyCustomClassWithOldPropertyCalls
     {
         $frontendUserIsLoggedIn = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('frontend.user', 'isLoggedIn');
         $backendUserIsLoggedIn = GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('backend.user', 'isLoggedIn');
+    }
+
+    public function getLoginUser()
+    {
+        return GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('frontend.user', 'isLoggedIn');
     }
 
     private function getTypoScriptFrontendController(): TypoScriptFrontendController
