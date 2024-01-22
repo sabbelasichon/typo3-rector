@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -24,33 +24,38 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class];
+        return [MethodCall::class, Assign::class];
     }
 
     /**
-     * @param MethodCall $node
+     * @param MethodCall|Node\Expr\Assign $node
      */
     public function refactor(Node $node): ?Node
     {
+        $methodeCall = $node instanceof Assign ? $node->expr : $node;
+
+        if (! $methodeCall instanceof MethodCall) {
+            return null;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodeCall,
             new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'init')) {
+        if (! $this->isName($methodeCall->name, 'init')) {
             return null;
         }
 
         try {
             $this->removeNode($node);
         } catch (ShouldNotHappenException $shouldNotHappenException) {
-            $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-            $this->removeNode($parentNode);
+            return null;
         }
 
-        return $node;
+        return null;
     }
 
     /**
