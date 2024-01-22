@@ -9,19 +9,19 @@
 # Remove files for archives generated using `git archive`
 .editorconfig export-ignore
 .gitattributes export-ignore
+.github export-ignore
 .gitignore export-ignore
 .phpstorm.meta.php export-ignore
-.github export-ignore
+/bin export-ignore
+/stubs export-ignore
 LICENSE export-ignore
 ecs.php export-ignore
 phpstan.neon export-ignore
 phpunit.xml export-ignore
 rector.php export-ignore
 tests export-ignore
-utils/phpstan/tests export-ignore
+typo3.constants.php export-ignore
 utils/composer-packages export-ignore
 utils/generator export-ignore
+utils/phpstan/tests export-ignore
 utils/rules export-ignore
-typo3.constants.php export-ignore
-/stubs export-ignore
-/bin export-ignore
