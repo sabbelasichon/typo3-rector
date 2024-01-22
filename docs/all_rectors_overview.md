@@ -1750,6 +1750,12 @@ Migrates TCA internal_type into new new TCA type folder
 +                    'type' => 'folder',
                  ],
              ],
+             'bColumn' => [
+                 'config' => [
+                     'type' => 'group',
+-                    'internal_type' => 'db',
+                 ],
+             ],
          ],
      ],
  ];
