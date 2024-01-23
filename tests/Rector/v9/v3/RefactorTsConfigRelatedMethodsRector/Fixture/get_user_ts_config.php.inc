@@ -40,7 +40,7 @@ class SC_alt_db_navframe
     {
         $tsConfig = $this->getBackendUser()->getTSConfig();
         $tsConfigSubArray = $this->getBackendUser()->getTSConfig()['options.']['someToggle.'] ?? null;
-        $value = (array)($this->getBackendUser()->getTSConfig()['options.']['somePartWithSubToggles.'] ?? []);
+        $value = (array)($this->getBackendUser()->getTSConfig()['options.']['somePartWithSubToggles.'] ?? null);
         $hasFilterBox = !($GLOBALS['BE_USER']->getTSConfig()['options.']['pageTree.']['hideFilter.'] ?? null);
         $showPageWithTitle = $this->getBackendUser()->getTSConfig()['options.']['pageTree.']['showPageIdWithTitle.'] ?? null;
     }

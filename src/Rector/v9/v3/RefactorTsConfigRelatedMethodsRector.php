@@ -5,21 +5,13 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v3;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
-use PhpParser\Node\Expr\Cast;
-use PhpParser\Node\Expr\Cast\Array_;
-use PhpParser\Node\Expr\Cast\Bool_;
-use PhpParser\Node\Expr\Cast\Int_;
-use PhpParser\Node\Expr\Cast\String_ as StringCast;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -98,12 +90,7 @@ CODE_SAMPLE
 
         $newArrayDimFetch = $this->nodeFactory->createMethodCall($node->var, 'getTSConfig');
 
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
         $defaultValueNode = $this->nodeFactory->createNull();
-        if ($parentNode instanceof Cast) {
-            $defaultValueNode = $this->transformToSpecificCast($parentNode);
-        }
 
         foreach ($configuration as $key) {
             $newArrayDimFetch = new ArrayDimFetch($newArrayDimFetch, new String_(sprintf('%s.', $key)));
@@ -138,26 +125,5 @@ CODE_SAMPLE
     private function createConfiguration(string $objectString): array
     {
         return explode('.', $objectString);
-    }
-
-    private function transformToSpecificCast(Cast $node): Expr
-    {
-        if ($node instanceof Array_) {
-            return $this->nodeFactory->createArray([]);
-        }
-
-        if ($node instanceof StringCast) {
-            return new String_('');
-        }
-
-        if ($node instanceof Bool_) {
-            return $this->nodeFactory->createFalse();
-        }
-
-        if ($node instanceof Int_) {
-            return new LNumber(0);
-        }
-
-        return $this->nodeFactory->createNull();
     }
 }

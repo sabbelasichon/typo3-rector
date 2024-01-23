@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v10\v0;
 
 use PhpParser\Node;
-use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\ArrayItem;
@@ -16,7 +15,6 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -46,40 +44,27 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [ClassConstFetch::class];
+        return [MethodCall::class, Identical::class, Assign::class, ArrayItem::class];
     }
 
     /**
-     * @param ClassConstFetch $node
+     * @param MethodCall|Assign|ArrayItem|Identical $node
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node->class, new ObjectType('TYPO3\CMS\Form\Domain\Finishers\EmailFinisher'))) {
-            return null;
+        if ($node instanceof MethodCall) {
+            return $this->refactorSetOptionMethodCall($node);
         }
 
-        if (! $this->isNames($node->name, [self::FORMAT_HTML, 'FORMAT_PLAINTEXT'])) {
-            return null;
+        if ($node instanceof Assign) {
+            return $this->refactorOptionAssignment($node);
         }
 
-        $parent = $node->getAttribute(AttributeKey::PARENT_NODE);
-        if ($parent instanceof Arg) {
-            $this->refactorSetOptionMethodCall($parent, $node);
+        if ($node instanceof ArrayItem) {
+            return $this->refactorArrayItemOption($node);
         }
 
-        if ($parent instanceof ArrayItem) {
-            $this->refactorArrayItemOption($parent, $node);
-        }
-
-        if ($parent instanceof Assign) {
-            $this->refactorOptionAssignment($parent, $node);
-        }
-
-        if ($parent instanceof Identical) {
-            $this->refactorCondition($parent, $node);
-        }
-
-        return null;
+        return $this->refactorCondition($node);
     }
 
     /**
@@ -103,72 +88,149 @@ CODE_SAMPLE
         );
     }
 
-    private function refactorSetOptionMethodCall(Arg $parent, ClassConstFetch $node): void
+    private function refactorSetOptionMethodCall(MethodCall $methodCall): ?Node
     {
-        $parent = $parent->getAttribute(AttributeKey::PARENT_NODE);
-        if (! $parent instanceof MethodCall) {
-            return;
+        if (! $this->isName($methodCall->name, 'setOption')) {
+            return null;
         }
 
-        if (! $this->isName($parent->name, 'setOption')) {
-            return;
+        if (! isset($methodCall->args[0])) {
+            return null;
         }
 
-        if (! $this->valueResolver->isValue($parent->args[0]->value, self::FORMAT)) {
-            return;
+        if (! $this->valueResolver->isValue($methodCall->args[0]->value, self::FORMAT)) {
+            return null;
         }
 
-        $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
-        $parent->args[0]->value = new String_(self::ADD_HTML_PART);
-        $parent->args[1]->value = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
+        if (! isset($methodCall->args[1])) {
+            return null;
+        }
+
+        $classConstFetch = $methodCall->args[1]->value;
+
+        if (! $classConstFetch instanceof ClassConstFetch) {
+            return null;
+        }
+
+        if ($this->shouldSkip($classConstFetch)) {
+            return null;
+        }
+
+        $methodCall->args[0]->value = new String_(self::ADD_HTML_PART);
+        $methodCall->args[1]->value = $this->nodeNameResolver->isName(
+            $classConstFetch->name,
+            self::FORMAT_HTML
+        ) ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
+
+        return $methodCall;
     }
 
-    private function refactorArrayItemOption(ArrayItem $parent, ClassConstFetch $node): void
+    private function refactorArrayItemOption(ArrayItem $arrayItem): ?Node
     {
-        if (! $parent->key instanceof Expr || ! $this->valueResolver->isValue($parent->key, self::FORMAT)) {
-            return;
+        if (! $arrayItem->key instanceof Expr || ! $this->valueResolver->isValue($arrayItem->key, self::FORMAT)) {
+            return null;
         }
 
-        $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
-        $parent->key = new String_(self::ADD_HTML_PART);
-        $parent->value = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
+        $classConstFetch = $arrayItem->value;
+
+        if (! $classConstFetch instanceof ClassConstFetch) {
+            return null;
+        }
+
+        if ($this->shouldSkip($classConstFetch)) {
+            return null;
+        }
+
+        $addHtmlPart = $this->isName($classConstFetch->name, self::FORMAT_HTML);
+        $arrayItem->key = new String_(self::ADD_HTML_PART);
+        $arrayItem->value = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
+
+        return $arrayItem;
     }
 
-    private function refactorOptionAssignment(Assign $parent, ClassConstFetch $node): void
+    private function refactorOptionAssignment(Assign $assign): ?Node
     {
-        if (! $parent->var instanceof ArrayDimFetch) {
-            return;
+        if (! $assign->var instanceof ArrayDimFetch) {
+            return null;
         }
 
-        if (! $this->isName($parent->var->var, 'options')) {
-            return;
+        if (! $this->isName($assign->var->var, 'options')) {
+            return null;
         }
 
-        if (! $parent->var->dim instanceof Expr || ! $this->valueResolver->isValue($parent->var->dim, self::FORMAT)) {
-            return;
+        if (! $assign->var->dim instanceof Expr || ! $this->valueResolver->isValue($assign->var->dim, self::FORMAT)) {
+            return null;
         }
 
-        $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
-        $parent->var->dim = new String_(self::ADD_HTML_PART);
-        $parent->expr = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
+        $classConstFetch = $assign->expr;
+
+        if (! $classConstFetch instanceof ClassConstFetch) {
+            return null;
+        }
+
+        if ($this->shouldSkip($classConstFetch)) {
+            return null;
+        }
+
+        $addHtmlPart = $this->isName($classConstFetch->name, self::FORMAT_HTML);
+        $assign->var->dim = new String_(self::ADD_HTML_PART);
+        $assign->expr = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
+
+        return $assign;
     }
 
-    private function refactorCondition(Identical $parent, ClassConstFetch $node): void
+    private function refactorCondition(Identical $identical): ?Node
     {
-        if (! $parent->left instanceof ArrayDimFetch) {
-            return;
+        $arrayDimFetch = $identical->left instanceof ArrayDimFetch ? $identical->left : $identical->right;
+
+        if (! $arrayDimFetch instanceof ArrayDimFetch) {
+            return null;
         }
 
-        if (! $this->isName($parent->left->var, 'options')) {
-            return;
+        if (! $this->isName($arrayDimFetch->var, 'options')) {
+            return null;
         }
 
-        if (! $parent->left->dim instanceof Expr || ! $this->valueResolver->isValue($parent->left->dim, self::FORMAT)) {
-            return;
+        if (! $arrayDimFetch->dim instanceof Expr || ! $this->valueResolver->isValue(
+            $arrayDimFetch->dim,
+            self::FORMAT
+        )) {
+            return null;
         }
 
-        $addHtmlPart = $this->isName($node->name, self::FORMAT_HTML);
-        $parent->left->dim = new String_(self::ADD_HTML_PART);
-        $parent->right = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
+        $classConstFetch = $identical->right instanceof ClassConstFetch ? $identical->right : $identical->left;
+
+        if (! $classConstFetch instanceof ClassConstFetch) {
+            return null;
+        }
+
+        if ($this->shouldSkip($classConstFetch)) {
+            return null;
+        }
+
+        $addHtmlPart = $this->isName($classConstFetch->name, self::FORMAT_HTML);
+        $arrayDimFetch->dim = new String_(self::ADD_HTML_PART);
+
+        $boolean = $addHtmlPart ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
+
+        if ($identical->right instanceof ClassConstFetch) {
+            $identical->right = $boolean;
+        } else {
+            $identical->left = $boolean;
+        }
+
+        return $identical;
+    }
+
+    private function shouldSkip(ClassConstFetch $classConstFetch): bool
+    {
+        if (! $this->isObjectType(
+            $classConstFetch->class,
+            new ObjectType('TYPO3\\CMS\\Form\\Domain\\Finishers\\EmailFinisher')
+        )) {
+            return true;
+        }
+
+        return ! $this->isNames($classConstFetch->name, [self::FORMAT_HTML, 'FORMAT_PLAINTEXT']);
     }
 }

@@ -27,6 +27,11 @@ class MyClass
     {
         return $GLOBALS['TSFE'];
     }
+
+    public function getLanguageUid(): int
+    {
+        return $this->getTsfe()->sys_language_uid;
+    }
 }
 
 ?>
@@ -61,6 +66,11 @@ class MyClass
     private function getTsfe()
     {
         return $GLOBALS['TSFE'];
+    }
+
+    public function getLanguageUid(): int
+    {
+        return GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('language', 'id');
     }
 }
 

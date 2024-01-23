@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v4;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
@@ -49,13 +48,6 @@ final class UseContextApiForVersioningWorkspaceIdRector extends AbstractRector
         }
 
         if (! $this->isName($node->name, 'versioningWorkspaceId')) {
-            return null;
-        }
-
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
-        // Check if we have an assigment to the property, if so do not change it
-        if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
             return null;
         }
 
