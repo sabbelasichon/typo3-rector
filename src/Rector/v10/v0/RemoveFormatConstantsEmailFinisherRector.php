@@ -230,6 +230,7 @@ CODE_SAMPLE
         )) {
             return true;
         }
+
         return ! $this->isNames($classConstFetch->name, [self::FORMAT_HTML, 'FORMAT_PLAINTEXT']);
     }
 }
