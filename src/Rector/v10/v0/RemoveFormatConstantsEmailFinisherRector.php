@@ -48,7 +48,7 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
     }
 
     /**
-     * @param ClassConstFetch|MethodCall|Assign|ArrayItem|Identical $node
+     * @param MethodCall|Assign|ArrayItem|Identical $node
      */
     public function refactor(Node $node): ?Node
     {
