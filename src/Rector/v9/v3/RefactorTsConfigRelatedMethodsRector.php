@@ -19,7 +19,6 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Rector\Core\ValueObject\PhpVersionFeature;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -98,12 +97,7 @@ CODE_SAMPLE
 
         $newArrayDimFetch = $this->nodeFactory->createMethodCall($node->var, 'getTSConfig');
 
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
         $defaultValueNode = $this->nodeFactory->createNull();
-        if ($parentNode instanceof Cast) {
-            $defaultValueNode = $this->transformToSpecificCast($parentNode);
-        }
 
         foreach ($configuration as $key) {
             $newArrayDimFetch = new ArrayDimFetch($newArrayDimFetch, new String_(sprintf('%s.', $key)));
