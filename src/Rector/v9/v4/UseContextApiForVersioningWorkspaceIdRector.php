@@ -36,36 +36,42 @@ final class UseContextApiForVersioningWorkspaceIdRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [PropertyFetch::class];
+        return [Assign::class, Node\Stmt\Return_::class];
     }
 
     /**
-     * @param PropertyFetch $node
+     * @param Assign|Node\Stmt\Return_ $node
      */
     public function refactor(Node $node): ?Node
     {
-        if ($this->shouldSkip($node)) {
+        $propertyFetch = $node->expr;
+
+        if (! $propertyFetch instanceof PropertyFetch) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'versioningWorkspaceId')) {
+        if ($this->shouldSkip($propertyFetch)) {
             return null;
         }
 
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+        if (! $this->isName($propertyFetch->name, 'versioningWorkspaceId')) {
+            return null;
+        }
 
         // Check if we have an assigment to the property, if so do not change it
-        if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
+        if ($node instanceof Assign && $node->var instanceof PropertyFetch) {
             return null;
         }
 
-        return $this->nodeFactory->createMethodCall(
+        $node->expr = $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
                 $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
             ]),
             'getPropertyFromAspect',
             ['workspace', 'id', 0]
         );
+
+        return $node;
     }
 
     /**
