@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
+use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
@@ -44,7 +45,7 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
      */
     public function getNodeTypes(): array
     {
-        return [Assign::class, Node\Stmt\Return_::class];
+        return [Assign::class, Return_::class];
     }
 
     /**

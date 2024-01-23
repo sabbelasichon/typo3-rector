@@ -90,14 +90,9 @@ CODE_SAMPLE
         )) {
             return false;
         }
-
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $methodCall,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
-        )) {
-            return false;
-        }
-
-        return true;
+        );
     }
 }
