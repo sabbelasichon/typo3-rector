@@ -65,6 +65,10 @@ CODE_SAMPLE
             return;
         }
 
+        if ($this->hasKey($configArray, 'fileFolderConfig')) {
+            return;
+        }
+
         $fileFolderConfig = new Array_();
 
         $fileFolder = $this->extractArrayItemByKey($configArray, 'fileFolder');
