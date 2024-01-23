@@ -191,7 +191,10 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $arrayDimFetch->dim instanceof Expr || ! $this->valueResolver->isValue($arrayDimFetch->dim, self::FORMAT)) {
+        if (! $arrayDimFetch->dim instanceof Expr || ! $this->valueResolver->isValue(
+            $arrayDimFetch->dim,
+            self::FORMAT
+        )) {
             return null;
         }
 

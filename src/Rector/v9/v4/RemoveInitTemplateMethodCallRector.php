@@ -8,9 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -37,44 +35,29 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class, Expression::class];
+        return [Expression::class];
     }
 
     /**
-     * @param Expression|MethodCall $node
+     * @param Expression $node
      */
     public function refactor(Node $node): ?Node
     {
-        if ($this->typo3NodeResolver->isMethodCallOnGlobals(
-            $node,
-            'initTemplate',
-            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
-        )) {
-            $this->removeNode($node);
+        $methodCall = $node->expr;
+
+        if (! $methodCall instanceof MethodCall) {
             return null;
         }
 
-        if (! $node instanceof MethodCall) {
+        if ($this->shouldSkip($methodCall)) {
             return null;
         }
 
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
-            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
-        )) {
+        if (! $this->isName($methodCall->name, 'initTemplate')) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'initTemplate')) {
-            return null;
-        }
-
-        try {
-            $this->removeNode($node);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
-            $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-            $this->removeNode($parentNode);
-        }
+        $this->removeNode($node);
 
         return $node;
     }
@@ -96,5 +79,25 @@ $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 CODE_SAMPLE
             ),
         ]);
+    }
+
+    private function shouldSkip(MethodCall $methodCall): bool
+    {
+        if ($this->typo3NodeResolver->isMethodCallOnGlobals(
+            $methodCall,
+            'initTemplate',
+            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
+        )) {
+            return false;
+        }
+
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $methodCall,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        )) {
+            return false;
+        }
+
+        return true;
     }
 }
