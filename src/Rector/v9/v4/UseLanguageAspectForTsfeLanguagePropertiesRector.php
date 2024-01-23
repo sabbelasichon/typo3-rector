@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -45,32 +44,37 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
      */
     public function getNodeTypes(): array
     {
-        return [PropertyFetch::class];
+        return [Assign::class, Node\Stmt\Return_::class];
     }
 
     /**
-     * @param PropertyFetch $node
+     * @param Assign|Node\Stmt\Return_ $node
      */
     public function refactor(Node $node): ?Node
     {
-        if ($this->shouldSkip($node)) {
+        $propertyFetch = $node->expr;
+
+        if (! $propertyFetch instanceof PropertyFetch) {
+            return null;
+        }
+
+        if ($this->shouldSkip($propertyFetch)) {
             return null;
         }
 
         if (! $this->isNames(
-            $node->name,
+            $propertyFetch->name,
             ['sys_language_uid', 'sys_language_content', 'sys_language_contentOL', 'sys_language_mode']
         )) {
             return null;
         }
 
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
         // Check if we have an assigment to the property, if so do not change it
-        if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
+        if ($node instanceof Assign && $node->var instanceof PropertyFetch) {
             return null;
         }
 
-        $nodeName = $this->getName($node->name);
+        $nodeName = $this->getName($propertyFetch->name);
 
         if ($nodeName === null) {
             return null;
@@ -78,13 +82,15 @@ final class UseLanguageAspectForTsfeLanguagePropertiesRector extends AbstractRec
 
         $property = self::NODE_NAME_MAPPING[$nodeName];
 
-        return $this->nodeFactory->createMethodCall(
+        $node->expr = $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
                 $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
             ]),
             'getPropertyFromAspect',
             ['language', $property]
         );
+
+        return $node;
     }
 
     /**
