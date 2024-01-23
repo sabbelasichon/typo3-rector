@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v4;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
@@ -36,42 +35,29 @@ final class UseContextApiForVersioningWorkspaceIdRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Assign::class, Node\Stmt\Return_::class];
+        return [PropertyFetch::class];
     }
 
     /**
-     * @param Assign|Node\Stmt\Return_ $node
+     * @param PropertyFetch $node
      */
     public function refactor(Node $node): ?Node
     {
-        $propertyFetch = $node->expr;
-
-        if (! $propertyFetch instanceof PropertyFetch) {
+        if ($this->shouldSkip($node)) {
             return null;
         }
 
-        if ($this->shouldSkip($propertyFetch)) {
+        if (! $this->isName($node->name, 'versioningWorkspaceId')) {
             return null;
         }
 
-        if (! $this->isName($propertyFetch->name, 'versioningWorkspaceId')) {
-            return null;
-        }
-
-        // Check if we have an assigment to the property, if so do not change it
-        if ($node instanceof Assign && $node->var instanceof PropertyFetch) {
-            return null;
-        }
-
-        $node->expr = $this->nodeFactory->createMethodCall(
+        return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
                 $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Context\Context'),
             ]),
             'getPropertyFromAspect',
             ['workspace', 'id', 0]
         );
-
-        return $node;
     }
 
     /**
