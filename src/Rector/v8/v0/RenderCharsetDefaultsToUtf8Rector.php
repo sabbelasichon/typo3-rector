@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v8\v0;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -75,13 +73,6 @@ CODE_SAMPLE
 
     private function shouldSkip(PropertyFetch $propertyFetch): bool
     {
-        $parentNode = $propertyFetch->getAttribute(AttributeKey::PARENT_NODE);
-
-        // Check if we have an assigment to the property, if so do not change it
-        if ($parentNode instanceof Assign && $parentNode->var instanceof PropertyFetch) {
-            return true;
-        }
-
         if ($this->isObjectType(
             $propertyFetch->var,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
