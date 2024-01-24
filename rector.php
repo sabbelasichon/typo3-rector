@@ -37,13 +37,16 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->skip([
         RemoveUnusedVariableAssignRector::class,
         __DIR__ . '/utils/generator/templates',
-        // tests
-        __DIR__ . '/tests/Rector/v11/v0/UsePhpNativeStringFunctionsRector/Source',
         StringClassNameToClassConstantRector::class,
         __DIR__ . '/src/Rector/v8/v0/RefactorRemovedMethodsFromContentObjectRendererRector.php',
         __DIR__ . '/src/Rector/v8/v6/RefactorTCARector.php',
         __DIR__ . '/src/Set',
+        // tests
         '*/Fixture/*',
+        '*/Fixture*',
+        '*/Source/*',
+        '*/Source*',
+        '*/Expected/*',
     ]);
 
     $rectorConfig->rule(ClassPropertyAssignToConstructorPromotionRector::class);
