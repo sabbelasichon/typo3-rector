@@ -2,18 +2,34 @@
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v3\typo3\MigrateMagicRepositoryMethodsRector\Fixture;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\ExampleRepository;
+use Ssch\TYPO3Rector\Tests\Rector\v12\v3\typo3\MigrateMagicRepositoryMethodsRector\Source\ExampleRepository;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-$exampleRepo = GeneralUtility::makeInstance(ExampleRepository::class);
-$exampleRepo->findByFoo('bar');
-$exampleRepo->findByFooBar('bar');
-$bar = 'bar';
-$exampleRepo->findByFoo($bar);
-$exampleRepo->findOneByFoo('bar');
-$exampleRepo->countByFoo('bar');
+class MyController extends ActionController
+{
+    protected ?ExampleRepository $exampleRepository = null;
 
-$exampleRepo->findByMethodExists('bar');
+    public function injectExampleRepository(ExampleRepository $exampleRepository)
+    {
+        $this->exampleRepository = $exampleRepository;
+    }
+
+    public function myAction()
+    {
+        $this->exampleRepository->findByFoo('bar');
+        $this->exampleRepository->findByFooBar('bar');
+        $bar = 'bar';
+        $this->exampleRepository->findByFoo($bar);
+        $this->exampleRepository->findOneByFoo('bar');
+        $this->exampleRepository->countByFoo('bar');
+
+        $this->exampleRepository->findByUid(1);
+
+        $this->exampleRepository->findByMethodExists('bar');
+    }
+}
+
+
 
 ?>
 -----
@@ -21,17 +37,32 @@ $exampleRepo->findByMethodExists('bar');
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v3\typo3\MigrateMagicRepositoryMethodsRector\Fixture;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\ExampleRepository;
+use Ssch\TYPO3Rector\Tests\Rector\v12\v3\typo3\MigrateMagicRepositoryMethodsRector\Source\ExampleRepository;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
-$exampleRepo = GeneralUtility::makeInstance(ExampleRepository::class);
-$exampleRepo->findBy(['foo' => 'bar']);
-$exampleRepo->findBy(['fooBar' => 'bar']);
-$bar = 'bar';
-$exampleRepo->findBy(['foo' => $bar]);
-$exampleRepo->findOneBy(['foo' => 'bar']);
-$exampleRepo->count(['foo' => 'bar']);
+class MyController extends ActionController
+{
+    protected ?ExampleRepository $exampleRepository = null;
 
-$exampleRepo->findByMethodExists('bar');
+    public function injectExampleRepository(ExampleRepository $exampleRepository)
+    {
+        $this->exampleRepository = $exampleRepository;
+    }
+
+    public function myAction()
+    {
+        $this->exampleRepository->findBy(['foo' => 'bar']);
+        $this->exampleRepository->findBy(['fooBar' => 'bar']);
+        $bar = 'bar';
+        $this->exampleRepository->findBy(['foo' => $bar]);
+        $this->exampleRepository->findOneBy(['foo' => 'bar']);
+        $this->exampleRepository->count(['foo' => 'bar']);
+
+        $this->exampleRepository->findByUid(1);
+
+        $this->exampleRepository->findByMethodExists('bar');
+    }
+}
+
 
 ?>
