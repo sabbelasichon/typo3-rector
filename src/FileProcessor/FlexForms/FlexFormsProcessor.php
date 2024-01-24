@@ -23,7 +23,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
      * @var FlexFormRectorInterface[]
      * @readonly
      */
-    private array $flexFormRectors = [];
+    private iterable $flexFormRectors = [];
 
     /**
      * @readonly
@@ -38,7 +38,7 @@ final class FlexFormsProcessor implements FileProcessorInterface
     /**
      * @param FlexFormRectorInterface[] $flexFormRectors
      */
-    public function __construct(array $flexFormRectors, FileDiffFactory $fileDiffFactory, FileInfoFactory $fileInfoFactory)
+    public function __construct(iterable $flexFormRectors, FileDiffFactory $fileDiffFactory, FileInfoFactory $fileInfoFactory)
     {
         $this->flexFormRectors = $flexFormRectors;
         $this->fileDiffFactory = $fileDiffFactory;

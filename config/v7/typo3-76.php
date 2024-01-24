@@ -51,5 +51,6 @@ return static function (RectorConfig $rectorConfig): void {
             ),
         ]);
     $rectorConfig->rule(WrapClickMenuOnIconRector::class);
-    $rectorConfig->rule(RenderTypeFlexFormRector::class);
+    $rectorConfig->services()
+        ->set(RenderTypeFlexFormRector::class)->tag('typo3_rector.flexform_rectors');
 };

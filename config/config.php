@@ -13,10 +13,12 @@ use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use PhpParser\PrettyPrinter\Standard;
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
+use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\FileRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\YamlRectorInterface;
+use Ssch\TYPO3Rector\FileProcessor\FlexForms\FlexFormsProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Fluid\FluidFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Resources\Files\ExtTypoScriptFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\IconsFileProcessor;
@@ -126,5 +128,14 @@ return static function (RectorConfig $rectorConfig): void {
     $services->set(ExtTypoScriptFileProcessor::class)->arg(
         '$filesRector',
         TaggedIterator::tagged_iterator('typo3_rector.file_rectors')
+    );
+
+    $services
+        ->instanceof(FlexFormRectorInterface::class)
+        ->tag('typo3_rector.flexform_rectors');
+
+    $services->set(FlexFormsProcessor::class)->arg(
+        '$flexFormRectors',
+        TaggedIterator::tagged_iterator('typo3_rector.flexform_rectors')
     );
 };

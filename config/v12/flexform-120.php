@@ -14,12 +14,16 @@ use Ssch\TYPO3Rector\Rector\v12\v0\flexform\RemoveElementTceFormsRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
-    $rectorConfig->rule(MigrateEmailFlagToEmailTypeFlexFormRector::class);
-    $rectorConfig->rule(MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector::class);
-    $rectorConfig->rule(MigrateInternalTypeFolderToTypeFolderFlexFormRector::class);
-    $rectorConfig->rule(MigrateNullFlagFlexFormRector::class);
-    $rectorConfig->rule(MigratePasswordAndSaltedPasswordToPasswordTypeFlexFormRector::class);
-    $rectorConfig->rule(MigrateRenderTypeColorpickerToTypeColorFlexFormRector::class);
-    $rectorConfig->rule(MigrateRequiredFlagFlexFormRector::class);
-    $rectorConfig->rule(RemoveElementTceFormsRector::class);
+
+    $services = $rectorConfig->services();
+    $services->set(MigrateEmailFlagToEmailTypeFlexFormRector::class)->tag('typo3_rector.flexform_rectors');
+    $services->set(MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector::class)->tag('typo3_rector.flexform_rectors');
+    $services->set(MigrateInternalTypeFolderToTypeFolderFlexFormRector::class)->tag('typo3_rector.flexform_rectors');
+    $services->set(MigrateNullFlagFlexFormRector::class)->tag('typo3_rector.flexform_rectors');
+    $services->set(MigratePasswordAndSaltedPasswordToPasswordTypeFlexFormRector::class)->tag(
+        'typo3_rector.flexform_rectors'
+    );
+    $services->set(MigrateRenderTypeColorpickerToTypeColorFlexFormRector::class)->tag('typo3_rector.flexform_rectors');
+    $services->set(MigrateRequiredFlagFlexFormRector::class)->tag('typo3_rector.flexform_rectors');
+    $services->set(RemoveElementTceFormsRector::class)->tag('typo3_rector.flexform_rectors');
 };

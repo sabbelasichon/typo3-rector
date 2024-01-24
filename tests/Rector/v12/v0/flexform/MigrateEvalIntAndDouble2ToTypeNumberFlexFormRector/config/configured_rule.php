@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\Rector\v12\v0\flexform\MigrateEvalIntAndDouble2ToTypeNumber
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../config/config_test.php');
-    $rectorConfig->rule(MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector::class);
+    $rectorConfig->services()
+        ->set(MigrateEvalIntAndDouble2ToTypeNumberFlexFormRector::class)->tag('typo3_rector.flexform_rectors');
 };
