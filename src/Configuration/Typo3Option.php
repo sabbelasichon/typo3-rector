@@ -15,4 +15,19 @@ final class Typo3Option
      * @var string
      */
     public const TYPOSCRIPT_INDENT_SIZE = 'typoscript-indent-size';
+
+    /**
+     * @var string
+     */
+    public const TYPOSCRIPT_INDENT_CONDITIONS = 'typoscript-indent-conditions';
+
+    /**
+     * @var string
+     */
+    public const TYPOSCRIPT_WITH_CLOSING_GLOBAL_STATEMENT = 'typoscript-with-closing-global-statement';
+
+    /**
+     * @var string
+     */
+    public const TYPOSCRIPT_WITH_EMPTY_LINE_BREAKS = 'typoscript-with-empty-line-breaks';
 }
