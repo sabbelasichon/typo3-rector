@@ -4,6 +4,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v3\typo3\MigrateMagicRepositoryMetho
 
 use Ssch\TYPO3Rector\Tests\Rector\v12\v3\typo3\MigrateMagicRepositoryMethodsRector\Source\ExampleRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class MyController extends ActionController
 {
@@ -29,6 +30,21 @@ class MyController extends ActionController
     }
 }
 
+class MyRepository extends Repository
+{
+    public function findByUids(array $uids): array
+    {
+        $result = [];
+        foreach ($uids as $uid) {
+            $contact = $this->findByUid($uid);
+            if ($contact) {
+                $result[] = $contact;
+            }
+        }
+        return $result;
+    }
+}
+
 ?>
 -----
 <?php
@@ -37,6 +53,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v3\typo3\MigrateMagicRepositoryMetho
 
 use Ssch\TYPO3Rector\Tests\Rector\v12\v3\typo3\MigrateMagicRepositoryMethodsRector\Source\ExampleRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class MyController extends ActionController
 {
@@ -59,6 +76,21 @@ class MyController extends ActionController
         $this->exampleRepository->findByUid(1);
 
         $this->exampleRepository->findByMethodExists('bar');
+    }
+}
+
+class MyRepository extends Repository
+{
+    public function findByUids(array $uids): array
+    {
+        $result = [];
+        foreach ($uids as $uid) {
+            $contact = $this->findByUid($uid);
+            if ($contact) {
+                $result[] = $contact;
+            }
+        }
+        return $result;
     }
 }
 
