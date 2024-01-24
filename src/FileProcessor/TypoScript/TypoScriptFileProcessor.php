@@ -9,13 +9,11 @@ use Helmich\TypoScriptParser\Parser\AST\Statement;
 use Helmich\TypoScriptParser\Parser\ParseError;
 use Helmich\TypoScriptParser\Parser\ParserInterface;
 use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
-use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinterConfiguration;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Parser\Traverser\Visitor;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerException;
 use Rector\ChangesReporting\ValueObjectFactory\FileDiffFactory;
 use Rector\Core\Application\FileSystem\RemovedAndAddedFilesCollector;
-use Rector\Core\Configuration\Parameter\ParameterProvider;
 use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Provider\CurrentFileProvider;
 use Rector\Core\ValueObject\Application\File;
@@ -24,15 +22,14 @@ use Rector\Core\ValueObject\Error\SystemError;
 use Rector\Core\ValueObject\Reporting\FileDiff;
 use Rector\FileSystemRector\ValueObject\AddedFileWithContent;
 use Rector\Parallel\ValueObject\Bridge;
-use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\ConvertToPhpFileInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptPostRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
 use Ssch\TYPO3Rector\Contract\Processor\ConfigurableProcessorInterface;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Collector\RemoveTypoScriptStatementCollector;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Factory\PrettyPrinterConfigurationFactory;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\AbstractTypoScriptRector;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
-use Ssch\TYPO3Rector\ValueObject\Indent;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Webmozart\Assert\Assert;
 
@@ -108,12 +105,15 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
      */
     private array $typoScriptPostRectors = [];
 
-    private ParameterProvider $parameterProvider;
-
     /**
      * @readonly
      */
     private FileInfoFactory $fileInfoFactory;
+
+    /**
+     * @readonly
+     */
+    private PrettyPrinterConfigurationFactory $prettyPrinterConfigurationFactory;
 
     /**
      * @param TypoScriptRectorInterface[] $typoScriptRectors
@@ -128,8 +128,8 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         RectorOutputStyle $rectorOutputStyle,
         FileDiffFactory $fileDiffFactory,
         RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector,
-        ParameterProvider $parameterProvider,
         FileInfoFactory $fileInfoFactory,
+        PrettyPrinterConfigurationFactory $prettyPrinterConfigurationFactory,
         array $typoScriptRectors = [],
         array $typoScriptPostRectors = []
     ) {
@@ -143,8 +143,8 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         $this->removeTypoScriptStatementCollector = $removeTypoScriptStatementCollector;
         $this->typoScriptRectors = $typoScriptRectors;
         $this->typoScriptPostRectors = $typoScriptPostRectors;
-        $this->parameterProvider = $parameterProvider;
         $this->fileInfoFactory = $fileInfoFactory;
+        $this->prettyPrinterConfigurationFactory = $prettyPrinterConfigurationFactory;
     }
 
     public function supports(File $file, Configuration $configuration): bool
@@ -216,24 +216,9 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
                 return;
             }
 
-            // keep original TypoScript format
-            $indent = Indent::fromFile($file);
-
-            $prettyPrinterConfiguration = PrettyPrinterConfiguration::create();
-            $prettyPrinterConfiguration = $prettyPrinterConfiguration->withEmptyLineBreaks();
-
-            if ($indent->isSpace()) {
-                // default indent
-                $indentation = $this->parameterProvider->provideParameter(
-                    Typo3Option::TYPOSCRIPT_INDENT_SIZE
-                ) ?? $indent->length();
-                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withSpaceIndentation($indentation);
-            } else {
-                $prettyPrinterConfiguration = $prettyPrinterConfiguration->withTabs();
-            }
-
-            $prettyPrinterConfiguration = $prettyPrinterConfiguration->withClosingGlobalStatement();
-            $this->typoscriptPrinter->setPrettyPrinterConfiguration($prettyPrinterConfiguration);
+            $this->typoscriptPrinter->setPrettyPrinterConfiguration(
+                $this->prettyPrinterConfigurationFactory->createPrettyPrinterConfiguration($file)
+            );
 
             $printStatements = $this->filterRemovedStatements($originalStatements, $file);
             $this->typoscriptPrinter->printStatements($printStatements, $this->output);

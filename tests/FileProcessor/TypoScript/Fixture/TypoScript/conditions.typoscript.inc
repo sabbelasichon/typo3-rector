@@ -17,17 +17,17 @@
 -----
 # Comment
 [siteLanguage("languageId") == "2"]
-lib.breadcrumb = TEXT
-lib.breadcrumb.value = Foo
+    lib.breadcrumb = TEXT
+    lib.breadcrumb.value = Foo
 [else]
-lib.breadcrumb = TEXT
-lib.breadcrumb.value = Baz
+    lib.breadcrumb = TEXT
+    lib.breadcrumb.value = Baz
 [global]
 [siteLanguage("languageId") == "3"]
-lib.breadcrumb = TEXT
-lib.breadcrumb.value = Bar
+    lib.breadcrumb = TEXT
+    lib.breadcrumb.value = Bar
 [global]
 [applicationContext matches "/^Development/" || applicationContext == "Production/Staging"]
-lib.breadcrumb = TEXT
-lib.breadcrumb.value = Bar
+    lib.breadcrumb = TEXT
+    lib.breadcrumb.value = Bar
 [global]
