@@ -10,6 +10,7 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
+use PhpParser\PrettyPrinter\Standard;
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
@@ -28,7 +29,6 @@ return static function (RectorConfig $rectorConfig): void {
     $services->defaults()
         ->public()
         ->autowire();
-    $parameters = $rectorConfig->parameters();
 
     $services->set(Filesystem::class);
 
@@ -80,5 +80,5 @@ return static function (RectorConfig $rectorConfig): void {
             'typoscriptsetupts',
         ]]);
 
-    $services->set(\PhpParser\PrettyPrinter\Standard::class);
+    $services->set(Standard::class);
 };
