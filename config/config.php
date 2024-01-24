@@ -14,8 +14,10 @@ use PhpParser\PrettyPrinter\Standard;
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\YamlRectorInterface;
 use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\IconsFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
+use Ssch\TYPO3Rector\FileProcessor\Yaml\YamlFileProcessor;
 use Ssch\TYPO3Rector\Helper\TaggedIterator;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -92,5 +94,14 @@ return static function (RectorConfig $rectorConfig): void {
     $services->set(IconsFileProcessor::class)->arg(
         '$iconsRector',
         TaggedIterator::tagged_iterator('typo3_rector.icon_rectors')
+    );
+
+    $services
+        ->instanceof(YamlRectorInterface::class)
+        ->tag('typo3_rector.yaml_rectors');
+
+    $services->set(YamlFileProcessor::class)->arg(
+        '$yamlRectors',
+        TaggedIterator::tagged_iterator('typo3_rector.yaml_rectors')
     );
 };

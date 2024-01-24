@@ -74,8 +74,10 @@ return static function (RectorConfig $rectorConfig): void {
             new MethodCallRename('TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList', 'requestUri', 'listURL'),
         ]);
 
-    $rectorConfig->rule(EmailFinisherRector::class);
-    $rectorConfig->rule(TranslationFileRector::class);
+    $rectorConfig->services()
+        ->set(EmailFinisherRector::class)->tag('typo3_rector.yaml_rectors');
+    $rectorConfig->services()
+        ->set(TranslationFileRector::class)->tag('typo3_rector.yaml_rectors');
 
     $rectorConfig
         ->ruleWithConfiguration(AddReturnTypeDeclarationRector::class, [
