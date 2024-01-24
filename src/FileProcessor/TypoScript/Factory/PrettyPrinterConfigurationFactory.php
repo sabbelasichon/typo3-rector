@@ -50,6 +50,7 @@ final class PrettyPrinterConfigurationFactory
         if ($this->parameterProvider->provideParameter(Typo3Option::TYPOSCRIPT_WITH_EMPTY_LINE_BREAKS) ?? true) {
             $prettyPrinterConfiguration = $prettyPrinterConfiguration->withEmptyLineBreaks();
         }
+
         return $prettyPrinterConfiguration;
     }
 }

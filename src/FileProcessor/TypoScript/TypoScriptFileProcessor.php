@@ -215,6 +215,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
             if ($typoscriptRectorsWithChange === []) {
                 return;
             }
+
             $this->typoscriptPrinter->setPrettyPrinterConfiguration(
                 $this->prettyPrinterConfigurationFactory->createPrettyPrinterConfiguration($file)
             );
