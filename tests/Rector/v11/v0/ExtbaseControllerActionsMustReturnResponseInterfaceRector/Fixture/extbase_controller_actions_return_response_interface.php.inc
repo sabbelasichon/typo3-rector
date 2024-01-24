@@ -2,6 +2,7 @@
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\Fixture;
 
+use Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\Source\JsonResponse;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\HttpUtility;
@@ -85,6 +86,16 @@ class MyController extends ActionController
     {
 
     }
+
+    public function someAction(): ResponseInterface
+    {
+        return new JsonResponse();
+    }
+
+    public function someActionWithSwitchStatement(string $format): ResponseInterface
+    {
+        return JsonResponse::fromArray();
+    }
 }
 
 ?>
@@ -94,6 +105,7 @@ class MyController extends ActionController
 namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\Fixture;
 
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
+use Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\Source\JsonResponse;
 use Exception;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\HttpUtility;
@@ -178,6 +190,16 @@ class MyController extends ActionController
     private function additionalRedirectMethod()
     {
 
+    }
+
+    public function someAction(): ResponseInterface
+    {
+        return new JsonResponse();
+    }
+
+    public function someActionWithSwitchStatement(string $format): ResponseInterface
+    {
+        return JsonResponse::fromArray();
     }
 }
 

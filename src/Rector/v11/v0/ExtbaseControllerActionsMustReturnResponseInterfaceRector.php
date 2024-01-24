@@ -248,22 +248,14 @@ CODE_SAMPLE
     {
         $returns = $this->findReturns($classMethod);
 
-        $responseObjectType = new ObjectType('Psr\Http\Message\ResponseInterface');
+        $responseObjectType = new ObjectType('Psr\\Http\\Message\\ResponseInterface');
 
         foreach ($returns as $return) {
             if (! $return->expr instanceof Expr) {
                 continue;
             }
 
-            $returnType = $this->getType($return->expr);
-
-            if ($returnType->isSuperTypeOf($responseObjectType)->yes()) {
-                return true;
-            }
-
-            if ($returnType instanceof ObjectType && $returnType->isInstanceOf(
-                'Psr\Http\Message\ResponseInterface'
-            )->yes()) {
+            if ($this->isObjectType($return->expr, $responseObjectType)) {
                 return true;
             }
         }
