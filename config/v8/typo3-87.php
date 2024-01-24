@@ -52,5 +52,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(DataHandlerVariousMethodsAndMethodArgumentsRector::class);
     $rectorConfig->rule(UseCachingFrameworkInsteadGetAndStoreHashRector::class);
     $rectorConfig->rule(LibFluidContentToLibContentElementRector::class);
-    $rectorConfig->rule(LibFluidContentToContentElementTypoScriptPostRector::class);
+    $rectorConfig->services()
+        ->set(LibFluidContentToContentElementTypoScriptPostRector::class)->tag('typo3_rector.typoscript_post_rectors');
 };

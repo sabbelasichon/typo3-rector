@@ -17,6 +17,8 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInter
 use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\FileRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptPostRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\YamlRectorInterface;
 use Ssch\TYPO3Rector\FileProcessor\FlexForms\FlexFormsProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Fluid\FluidFileProcessor;
@@ -76,7 +78,20 @@ return static function (RectorConfig $rectorConfig): void {
 
     $services->set(Builder::class);
 
+    $services->set(Standard::class);
+
+    # A custom hacky way to add tagged_iterators with minimal coupling to a specific rector version
+    $services
+        ->instanceof(TypoScriptRectorInterface::class)
+        ->tag('typo3_rector.typoscript_rectors');
+
+    $services
+        ->instanceof(TypoScriptPostRectorInterface::class)
+        ->tag('typo3_rector.typoscript_post_rectors');
+
     $services->set(TypoScriptFileProcessor::class)
+        ->arg('$typoScriptRectors', TaggedIterator::tagged_iterator('typo3_rector.typoscript_rectors'))
+        ->arg('$typoScriptPostRectors', TaggedIterator::tagged_iterator('typo3_rector.typoscript_post_rectors'))
         ->call('configure', [[
             'typoscript',
             'ts',
@@ -91,9 +106,6 @@ return static function (RectorConfig $rectorConfig): void {
             'typoscriptsetupts',
         ]]);
 
-    $services->set(Standard::class);
-
-    # A custom hacky way to add tagged_iterators with minimal coupling to a specific rector version
     $services
         ->instanceof(IconRectorInterface::class)
         ->tag('typo3_rector.icon_rectors');
