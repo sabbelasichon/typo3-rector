@@ -13,7 +13,10 @@ use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use PhpParser\PrettyPrinter\Standard;
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
+use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\IconsFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
+use Ssch\TYPO3Rector\Helper\TaggedIterator;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -81,4 +84,13 @@ return static function (RectorConfig $rectorConfig): void {
         ]]);
 
     $services->set(Standard::class);
+
+    $services
+        ->instanceof(IconRectorInterface::class)
+        ->tag('typo3_rector.icon_rectors');
+
+    $services->set(IconsFileProcessor::class)->arg(
+        '$iconsRector',
+        TaggedIterator::tagged_iterator('typo3_rector.icon_rectors')
+    );
 };
