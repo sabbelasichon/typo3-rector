@@ -53,34 +53,34 @@ final class GlobalVarConditionMatcher extends AbstractGlobalConditionMatcher
             }
 
             switch ($type) {
-                case 'TSFE':
+                case 'TSFE' :
                     $conditions[$key][] = $this->refactorTsfe($property, $operator, $value);
                     break;
-                case 'GP':
+                case 'GP' :
                     $conditions[$key][] = $this->refactorGetPost($property, $operator, $value);
                     break;
-                case 'LIT':
+                case 'LIT' :
                     $conditions[$key][] = sprintf('"%s" %s "%s"', $value, self::OPERATOR_MAPPING[$operator], $property);
                     break;
-                case 'ENV':
+                case 'ENV' :
                     $conditions[$key][] = $this->createEnvCondition($property, $operator, $value);
                     break;
-                case 'IENV':
+                case 'IENV' :
                     $conditions[$key][] = $this->createIndependentCondition($property, $operator, $value);
                     break;
-                case 'BE_USER':
+                case 'BE_USER' :
                     $conditions[$key][] = $this->createBackendUserCondition($property, $operator, $value);
                     break;
-                case '_GET':
+                case '_GET' :
                     $conditions[$key][] = $this->refactorGet($property, $operator, $value);
                     break;
-                case 'GPmerged':
+                case 'GPmerged' :
                     $conditions[$key][] = $this->refactorGetPost($property, $operator, $value);
                     break;
-                case '_POST':
+                case '_POST' :
                     $conditions[$key][] = $this->refactorPost($property, $operator, $value);
                     break;
-                default:
+                default :
                     $conditions[$key][] = $condition;
                     break;
             }
