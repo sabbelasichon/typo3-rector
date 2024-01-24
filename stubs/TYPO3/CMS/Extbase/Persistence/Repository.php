@@ -16,4 +16,9 @@ class Repository
     {
         return new Query();
     }
+
+    public function findByUid(int $uid): ?object
+    {
+
+    }
 }
