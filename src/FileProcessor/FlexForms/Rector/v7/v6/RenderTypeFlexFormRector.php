@@ -90,16 +90,16 @@ CODE_SAMPLE
         if ($renderModeDomElement instanceof DOMElement) {
             $renderMode = $renderModeDomElement->nodeValue;
             switch ($renderMode) {
-                case 'tree' :
+                case 'tree':
                     $renderTypeName = 'selectTree';
                     break;
-                case 'singlebox' :
+                case 'singlebox':
                     $renderTypeName = 'selectSingleBox';
                     break;
-                case 'checkbox' :
+                case 'checkbox':
                     $renderTypeName = 'selectCheckBox';
                     break;
-                default :
+                default:
                     $renderTypeName = null;
             }
 
