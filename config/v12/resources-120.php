@@ -9,7 +9,8 @@ use Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector\v12\v0\RenameExtTypoSc
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
-    $rectorConfig->rule(AbstractMessageGetSeverityFluidRector::class);
+    $rectorConfig->services()
+        ->set(AbstractMessageGetSeverityFluidRector::class)->tag('typo3_rector.fluid_rectors');
     $rectorConfig->rule(RenameConstantsAndSetupFileEndingRector::class);
     $rectorConfig->rule(RenameExtTypoScriptFilesFileRector::class);
 };

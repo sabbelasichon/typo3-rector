@@ -97,5 +97,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(GetFileAbsFileNameRemoveDeprecatedArgumentsRector::class);
     $rectorConfig->rule(RemoveLangCsConvObjAndParserFactoryRector::class);
     $rectorConfig->rule(RenderCharsetDefaultsToUtf8Rector::class);
-    $rectorConfig->rule(DefaultSwitchFluidRector::class);
+    $rectorConfig->services()
+        ->set(DefaultSwitchFluidRector::class)->tag('typo3_rector.fluid_rectors');
 };

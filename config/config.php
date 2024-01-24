@@ -13,8 +13,10 @@ use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use PhpParser\PrettyPrinter\Standard;
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\YamlRectorInterface;
+use Ssch\TYPO3Rector\FileProcessor\Fluid\FluidFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\IconsFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\YamlFileProcessor;
@@ -87,6 +89,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     $services->set(Standard::class);
 
+    # A custom hacky way to add tagged_iterators with minimal coupling to a specific rector version
     $services
         ->instanceof(IconRectorInterface::class)
         ->tag('typo3_rector.icon_rectors');
@@ -103,5 +106,14 @@ return static function (RectorConfig $rectorConfig): void {
     $services->set(YamlFileProcessor::class)->arg(
         '$yamlRectors',
         TaggedIterator::tagged_iterator('typo3_rector.yaml_rectors')
+    );
+
+    $services
+        ->instanceof(FluidRectorInterface::class)
+        ->tag('typo3_rector.fluid_rectors');
+
+    $services->set(FluidFileProcessor::class)->arg(
+        '$fluidRectors',
+        TaggedIterator::tagged_iterator('typo3_rector.fluid_rectors')
     );
 };
