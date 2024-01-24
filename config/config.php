@@ -35,7 +35,6 @@ return static function (RectorConfig $rectorConfig): void {
     $services->load('Ssch\\TYPO3Rector\\', __DIR__ . '/../src')
         ->exclude([
             __DIR__ . '/../src/Rector',
-            __DIR__ . '/../src/AttributeDecorator/ExtbaseValidateAttributeDecorator.php',
             __DIR__ . '/../src/Console/Application/Typo3RectorKernel.php',
             __DIR__ . '/../src/FileProcessor/Composer/Rector',
             __DIR__ . '/../src/FileProcessor/FlexForms/Rector',
