@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector\v12\v0\RenameConstants
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../../../config/config_test.php');
-    $rectorConfig->rule(RenameConstantsAndSetupFileEndingRector::class);
+    $rectorConfig->services()
+        ->set(RenameConstantsAndSetupFileEndingRector::class)->tag('typo3_rector.file_rectors');
 };

@@ -14,9 +14,11 @@ use PhpParser\PrettyPrinter\Standard;
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\FileRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\YamlRectorInterface;
 use Ssch\TYPO3Rector\FileProcessor\Fluid\FluidFileProcessor;
+use Ssch\TYPO3Rector\FileProcessor\Resources\Files\ExtTypoScriptFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\IconsFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\YamlFileProcessor;
@@ -115,5 +117,14 @@ return static function (RectorConfig $rectorConfig): void {
     $services->set(FluidFileProcessor::class)->arg(
         '$fluidRectors',
         TaggedIterator::tagged_iterator('typo3_rector.fluid_rectors')
+    );
+
+    $services
+        ->instanceof(FileRectorInterface::class)
+        ->tag('typo3_rector.file_rectors');
+
+    $services->set(ExtTypoScriptFileProcessor::class)->arg(
+        '$filesRector',
+        TaggedIterator::tagged_iterator('typo3_rector.file_rectors')
     );
 };

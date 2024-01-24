@@ -18,12 +18,12 @@ final class ExtTypoScriptFileProcessor implements FileProcessorInterface
      * @var FileRectorInterface[]
      * @readonly
      */
-    private array $filesRector = [];
+    private iterable $filesRector = [];
 
     /**
      * @param FileRectorInterface[] $filesRector
      */
-    public function __construct(array $filesRector)
+    public function __construct(iterable $filesRector)
     {
         $this->filesRector = $filesRector;
     }
