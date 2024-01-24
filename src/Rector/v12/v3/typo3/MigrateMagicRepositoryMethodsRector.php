@@ -9,9 +9,12 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Rector\AbstractRector;
+use PHPStan\Type\TypeCombinator;
+use Rector\Core\Rector\AbstractScopeAwareRector;
 use Rector\Core\Reflection\ReflectionResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -20,7 +23,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.3/Deprecation-100071-MagicRepositoryFindByMethods.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v3\typo3\MigrateMagicRepositoryMethodsRector\MigrateMagicRepositoryMethodsRectorTest
  */
-final class MigrateMagicRepositoryMethodsRector extends AbstractRector
+final class MigrateMagicRepositoryMethodsRector extends AbstractScopeAwareRector
 {
     private ReflectionResolver $reflectionResolver;
 
@@ -40,7 +43,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector
     /**
      * @param Node\Expr\MethodCall $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactorWithScope(Node $node, Scope $scope): ?Node
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
@@ -62,7 +65,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector
             return null;
         }
 
-        $methodReflection = $this->reflectionResolver->resolveMethodReflectionFromMethodCall($node);
+        $methodReflection = $this->resolveMethodReflection($node, $scope, $methodName);
         # Class reflection only works when the method exists - thus we don't migrate if it succeeds/is not null
         if ($methodReflection instanceof MethodReflection) {
             return null;
@@ -115,5 +118,20 @@ $blogRepository->count(['foo' => 'bar']);
 CODE_SAMPLE
             ),
         ]);
+    }
+
+    private function resolveMethodReflection(MethodCall $node, Scope $scope, string $methodName): ?MethodReflection
+    {
+        $resolvedType = $this->getType($node->var);
+        $type = TypeCombinator::removeNull($resolvedType);
+        $type = TypeCombinator::remove($type, new ConstantBooleanType(\false));
+        if (! $type instanceof ObjectType) {
+            return null;
+        }
+
+        /** @phpstan-var class-string $className */
+        $className = $type->getClassName();
+
+        return $this->reflectionResolver->resolveMethodReflection($className, $methodName, $scope);
     }
 }
