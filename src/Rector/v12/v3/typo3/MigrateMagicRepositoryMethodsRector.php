@@ -13,6 +13,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ThisType;
 use PHPStan\Type\TypeCombinator;
 use Rector\Core\Rector\AbstractScopeAwareRector;
 use Rector\Core\Reflection\ReflectionResolver;
@@ -123,14 +124,18 @@ CODE_SAMPLE
     private function resolveMethodReflection(MethodCall $node, Scope $scope, string $methodName): ?MethodReflection
     {
         $resolvedType = $this->getType($node->var);
+
         $type = TypeCombinator::removeNull($resolvedType);
         $type = TypeCombinator::remove($type, new ConstantBooleanType(\false));
-        if (! $type instanceof ObjectType) {
+        if ($type instanceof ObjectType) {
+            /** @phpstan-var class-string $className */
+            $className = $type->getClassName();
+        } elseif ($resolvedType instanceof ThisType) {
+            /** @phpstan-var class-string $className */
+            $className = $resolvedType->getClassName();
+        } else {
             return null;
         }
-
-        /** @phpstan-var class-string $className */
-        $className = $type->getClassName();
 
         return $this->reflectionResolver->resolveMethodReflection($className, $methodName, $scope);
     }
