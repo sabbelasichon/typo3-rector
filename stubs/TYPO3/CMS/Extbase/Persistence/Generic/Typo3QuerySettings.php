@@ -5,7 +5,7 @@ if (class_exists('TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings')) {
     return;
 }
 
-class Typo3QuerySettings
+class Typo3QuerySettings implements QuerySettingsInterface
 {
     /**
      * @var int

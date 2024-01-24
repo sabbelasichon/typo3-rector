@@ -8,6 +8,7 @@ $querySettings = new Typo3QuerySettings();
 $querySettings->setLanguageMode();
 $querySettings->setLanguageMode()->setLanguageUid(0);
 $querySettings->setLanguageUid(0)->setLanguageMode()->getLanguageMode();
+$querySettings->setLanguageMode('ignore');
 
 ?>
 -----

@@ -53,7 +53,7 @@ final class RemoveLanguageModeMethodsFromTypo3QuerySettingsRector extends Abstra
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings')
+            new ObjectType('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QuerySettingsInterface')
         )) {
             return null;
         }
