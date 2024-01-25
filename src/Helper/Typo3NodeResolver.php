@@ -11,7 +11,6 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\NodeTypeResolver;
 
 final class Typo3NodeResolver
 {
@@ -85,19 +84,12 @@ final class Typo3NodeResolver
      */
     private NodeNameResolver $nodeNameResolver;
 
-    /**
-     * @readonly
-     */
-    private NodeTypeResolver $nodeTypeResolver;
-
     public function __construct(
         ValueResolver $valueResolver,
-        NodeNameResolver $nodeNameResolver,
-        NodeTypeResolver $nodeTypeResolver
+        NodeNameResolver $nodeNameResolver
     ) {
         $this->valueResolver = $valueResolver;
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->nodeTypeResolver = $nodeTypeResolver;
     }
 
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool

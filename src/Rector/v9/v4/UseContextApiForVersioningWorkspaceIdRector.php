@@ -96,14 +96,9 @@ CODE_SAMPLE
         if ($this->isObjectType($propertyFetch->var, new ObjectType('TYPO3\CMS\Frontend\Page\PageRepository'))) {
             return false;
         }
-
-        if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
+        return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
             $propertyFetch->var,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
-        )) {
-            return false;
-        }
-
-        return true;
+        );
     }
 }

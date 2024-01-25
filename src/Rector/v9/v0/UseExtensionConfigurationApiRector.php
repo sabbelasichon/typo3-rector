@@ -55,7 +55,7 @@ final class UseExtensionConfigurationApiRector extends AbstractScopeAwareRector
             return null;
         }
 
-        if ($node->dim === null) {
+        if (! $node->dim instanceof Expr) {
             return null;
         }
 
@@ -167,7 +167,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if ($arrayDimFetch->dim === null) {
+        if (! $arrayDimFetch->dim instanceof Expr) {
             return null;
         }
 

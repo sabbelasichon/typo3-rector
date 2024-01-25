@@ -88,11 +88,6 @@ CODE_SAMPLE
         )) {
             return false;
         }
-
-        if ($this->isName($node->name, 'sys_language_isocode')) {
-            return false;
-        }
-
-        return true;
+        return ! $this->isName($node->name, 'sys_language_isocode');
     }
 }
