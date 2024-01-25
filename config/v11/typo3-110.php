@@ -39,5 +39,6 @@ return static function (RectorConfig $rectorConfig): void {
             ),
         ]);
     $rectorConfig->rule(ReplaceInjectAnnotationWithMethodRector::class);
-    $rectorConfig->rule(TemplateToFluidTemplateTypoScriptRector::class);
+    $rectorConfig->services()
+        ->set(TemplateToFluidTemplateTypoScriptRector::class)->tag('typo3_rector.typoscript_rectors');
 };

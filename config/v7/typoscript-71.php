@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v7\v1\AdditionalHeadersToAr
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
-    $rectorConfig->rule(AdditionalHeadersToArrayTypoScriptRector::class);
+    $rectorConfig->services()
+        ->set(AdditionalHeadersToArrayTypoScriptRector::class)->tag('typo3_rector.typoscript_rectors');
 };

@@ -17,6 +17,7 @@ use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInter
 use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\FileRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\Conditions\TyposcriptConditionMatcher;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptPostRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
 use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\YamlRectorInterface;
@@ -24,6 +25,7 @@ use Ssch\TYPO3Rector\FileProcessor\FlexForms\FlexFormsProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Fluid\FluidFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Resources\Files\ExtTypoScriptFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\IconsFileProcessor;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v9\v4\OldConditionToExpressionLanguageTypoScriptRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\YamlFileProcessor;
 use Ssch\TYPO3Rector\Helper\TaggedIterator;
@@ -105,6 +107,14 @@ return static function (RectorConfig $rectorConfig): void {
             'typoscriptconstants',
             'typoscriptsetupts',
         ]]);
+
+    $services
+        ->instanceof(TyposcriptConditionMatcher::class)
+        ->tag('typo3_rector.typoscript_condition_matcher');
+
+    $rectorConfig->services()
+        ->set(OldConditionToExpressionLanguageTypoScriptRector::class)->tag('typo3_rector.typoscript_rectors')
+        ->arg('$conditionMatchers', TaggedIterator::tagged_iterator('typo3_rector.typoscript_condition_matcher'));
 
     $services
         ->instanceof(IconRectorInterface::class)

@@ -51,7 +51,8 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RefactorArrayBrowserWrapValueRector::class);
     $rectorConfig->rule(DataHandlerVariousMethodsAndMethodArgumentsRector::class);
     $rectorConfig->rule(UseCachingFrameworkInsteadGetAndStoreHashRector::class);
-    $rectorConfig->rule(LibFluidContentToLibContentElementRector::class);
+    $rectorConfig->services()
+        ->set(LibFluidContentToLibContentElementRector::class)->tag('typo3_rector.typoscript_rectors');
     $rectorConfig->services()
         ->set(LibFluidContentToContentElementTypoScriptPostRector::class)->tag('typo3_rector.typoscript_post_rectors');
 };

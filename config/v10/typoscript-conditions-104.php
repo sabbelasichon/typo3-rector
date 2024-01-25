@@ -9,5 +9,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
 
     $services = $rectorConfig->services();
-    $services->set(PIDupinRootlineConditionMatcher::class);
+    $services->set(PIDupinRootlineConditionMatcher::class)->tag('typo3_rector.typoscript_condition_matcher');
 };

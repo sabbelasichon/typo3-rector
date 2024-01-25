@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v12\v0\RemoveDisableCharset
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../../config/config_test.php');
-    $rectorConfig->rule(RemoveDisableCharsetHeaderConfigTypoScriptRector::class);
+    $rectorConfig->services()
+        ->set(RemoveDisableCharsetHeaderConfigTypoScriptRector::class)->tag('typo3_rector.typoscript_rectors');
 };

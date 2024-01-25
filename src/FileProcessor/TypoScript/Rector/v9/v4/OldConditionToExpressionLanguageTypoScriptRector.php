@@ -30,12 +30,12 @@ final class OldConditionToExpressionLanguageTypoScriptRector extends AbstractTyp
      * @var TyposcriptConditionMatcher[]
      * @readonly
      */
-    private array $conditionMatchers = [];
+    private iterable $conditionMatchers = [];
 
     /**
      * @param TyposcriptConditionMatcher[] $conditionMatchers
      */
-    public function __construct(CurrentFileProvider $currentFileProvider, array $conditionMatchers = [])
+    public function __construct(CurrentFileProvider $currentFileProvider, iterable $conditionMatchers = [])
     {
         $this->currentFileProvider = $currentFileProvider;
         $this->conditionMatchers = $conditionMatchers;
