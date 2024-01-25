@@ -5,18 +5,14 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\BinaryOp\Equal;
-use PhpParser\Node\Expr\BinaryOp\Identical;
+use PhpParser\Node\Expr\BinaryOp;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -43,57 +39,55 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [ConstFetch::class, FuncCall::class];
+        return [BinaryOp::class, FuncCall::class, ConstFetch::class];
     }
 
     /**
-     * @param ConstFetch|FuncCall $node
+     * @param BinaryOp|FuncCall|ConstFetch $node
      */
     public function refactor(Node $node): ?Node
     {
-        if ($node instanceof FuncCall && $this->isName($node, 'defined')) {
-            return $this->refactorProbablySecurityGate($node);
+        if ($node instanceof FuncCall) {
+            return $this->refactorProbablySecurityGuard($node);
+        }
+
+        if ($node instanceof ConstFetch) {
+            return $this->refactorRequestType($node);
         }
 
         if ($this->shouldSkip()) {
             return null;
         }
 
-        if (! $this->isNames($node, ['TYPO3_MODE', 'TYPO3_REQUESTTYPE_FE', 'TYPO3_REQUESTTYPE_BE'])) {
+        $constFetch = null;
+        $type = null;
+        if ($node->left instanceof ConstFetch) {
+            $constFetch = $node->left;
+            $type = $node->right;
+        } elseif ($node->right instanceof ConstFetch) {
+            $constFetch = $node->right;
+            $type = $node->left;
+        }
+
+        if (! $constFetch instanceof ConstFetch) {
             return null;
         }
 
-        $arguments = [new ArrayDimFetch(new Variable(Typo3NodeResolver::GLOBALS), new String_('TYPO3_REQUEST'))];
-
-        if ($this->isName($node, 'TYPO3_REQUESTTYPE_FE')) {
-            return $this->createIsFrontendCall($arguments);
-        }
-
-        if ($this->isName($node, 'TYPO3_REQUESTTYPE_BE')) {
-            return $this->createIsBackendCall($arguments);
-        }
-
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
-        if (! $parentNode instanceof Identical && ! $parentNode instanceof Equal) {
+        if (! $this->isName($constFetch->name, 'TYPO3_MODE')) {
             return null;
         }
 
-        $type = $parentNode->left === $node ? $this->valueResolver->getValue(
-            $parentNode->right
-        ) : $this->valueResolver->getValue($parentNode->left);
+        $typeValue = $this->valueResolver->getValue($type);
 
-        if ($type === null || ! in_array($type, ['FE', 'BE'], true)) {
+        if (! in_array($typeValue, ['FE', 'BE'], true)) {
             return null;
         }
 
-        $this->removeNode($parentNode->left === $node ? $parentNode->right : $parentNode->left);
-
-        if ($type === 'BE') {
-            return $this->createIsBackendCall($arguments);
+        if ($typeValue === 'BE') {
+            return $this->createIsBackendCall();
         }
 
-        return $this->createIsFrontendCall($arguments);
+        return $this->createIsFrontendCall();
     }
 
     /**
@@ -114,9 +108,9 @@ CODE_SAMPLE
         ]);
     }
 
-    private function refactorProbablySecurityGate(Node $node): ?Node
+    private function refactorProbablySecurityGuard(FuncCall $node): ?Node
     {
-        if (! $node instanceof FuncCall) {
+        if (! $this->isName($node, 'defined')) {
             return null;
         }
 
@@ -135,38 +129,61 @@ CODE_SAMPLE
         return $node;
     }
 
-    /**
-     * @param Expr[] $arguments
-     */
-    private function createIsBackendCall(array $arguments): MethodCall
+    private function createIsBackendCall(): MethodCall
     {
         return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Http\ApplicationType', 'fromRequest', $arguments),
+            $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Http\ApplicationType',
+                'fromRequest',
+                $this->createRequestArguments()
+            ),
             'isBackend'
         );
     }
 
-    /**
-     * @param Expr[] $arguments
-     */
-    private function createIsFrontendCall(array $arguments): MethodCall
+    private function createIsFrontendCall(): MethodCall
     {
         return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Http\ApplicationType', 'fromRequest', $arguments),
+            $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Core\Http\ApplicationType',
+                'fromRequest',
+                $this->createRequestArguments()
+            ),
             'isFrontend'
         );
     }
 
     private function shouldSkip(): bool
     {
-        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            return false;
-        }
-
         if ($this->filesFinder->isExtLocalConf($this->file->getFilePath())) {
             return true;
         }
 
         return $this->filesFinder->isExtTables($this->file->getFilePath());
+    }
+
+    private function refactorRequestType(ConstFetch $node): ?Node
+    {
+        if (! $this->isNames($node, ['TYPO3_MODE', 'TYPO3_REQUESTTYPE_FE', 'TYPO3_REQUESTTYPE_BE'])) {
+            return null;
+        }
+
+        if ($this->isName($node, 'TYPO3_REQUESTTYPE_FE')) {
+            return $this->createIsFrontendCall();
+        }
+
+        if ($this->isName($node, 'TYPO3_REQUESTTYPE_BE')) {
+            return $this->createIsBackendCall();
+        }
+
+        return null;
+    }
+
+    /**
+     * @return ArrayDimFetch[]
+     */
+    private function createRequestArguments(): array
+    {
+        return [new ArrayDimFetch(new Variable(Typo3NodeResolver::GLOBALS), new String_('TYPO3_REQUEST'))];
     }
 }

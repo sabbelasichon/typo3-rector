@@ -13,13 +13,6 @@ class MyViewHelperAccessingControllerContext extends AbstractViewHelper
     {
         $controllerContext = $this->controllerContext;
     }
-
-    public function setRenderingContext(RenderingContextInterface $renderingContext)
-    {
-        if ($renderingContext instanceof RenderingContext) {
-            $this->controllerContext = $renderingContext->getControllerContext();
-        }
-    }
 }
 
 class AccessingControllerContext
@@ -58,13 +51,6 @@ class MyViewHelperAccessingControllerContext extends AbstractViewHelper
     public function render()
     {
         $controllerContext = $this->renderingContext->getControllerContext();
-    }
-
-    public function setRenderingContext(RenderingContextInterface $renderingContext)
-    {
-        if ($renderingContext instanceof RenderingContext) {
-            $this->controllerContext = $renderingContext->getControllerContext();
-        }
     }
 }
 

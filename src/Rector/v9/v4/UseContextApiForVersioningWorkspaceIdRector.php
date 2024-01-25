@@ -97,13 +97,9 @@ CODE_SAMPLE
             return false;
         }
 
-        if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
+        return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
             $propertyFetch->var,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
-        )) {
-            return false;
-        }
-
-        return ! $this->typo3NodeResolver->isPropertyFetchOnParentVariableOfTypePageRepository($propertyFetch);
+        );
     }
 }

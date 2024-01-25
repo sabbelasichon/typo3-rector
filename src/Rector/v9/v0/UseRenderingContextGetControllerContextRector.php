@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -83,12 +81,6 @@ CODE_SAMPLE
                 }
 
                 if (! $this->isName($node, 'controllerContext')) {
-                    return null;
-                }
-
-                $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
-                if ($parentNode instanceof Assign && $parentNode->var === $node) {
                     return null;
                 }
 

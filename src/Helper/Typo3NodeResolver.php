@@ -7,14 +7,10 @@ namespace Ssch\TYPO3Rector\Helper;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
-use PHPStan\Type\ObjectType;
 use Rector\Core\PhpParser\Node\Value\ValueResolver;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\NodeTypeResolver\NodeTypeResolver;
 
 final class Typo3NodeResolver
 {
@@ -88,19 +84,12 @@ final class Typo3NodeResolver
      */
     private NodeNameResolver $nodeNameResolver;
 
-    /**
-     * @readonly
-     */
-    private NodeTypeResolver $nodeTypeResolver;
-
     public function __construct(
         ValueResolver $valueResolver,
-        NodeNameResolver $nodeNameResolver,
-        NodeTypeResolver $nodeTypeResolver
+        NodeNameResolver $nodeNameResolver
     ) {
         $this->valueResolver = $valueResolver;
         $this->nodeNameResolver = $nodeNameResolver;
-        $this->nodeTypeResolver = $nodeTypeResolver;
     }
 
     public function isMethodCallOnGlobals(Node $node, string $methodCall, string $global): bool
@@ -184,16 +173,6 @@ final class Typo3NodeResolver
         return false;
     }
 
-    public function isPropertyFetchOnParentVariableOfTypeTypoScriptFrontendController(Node $node): bool
-    {
-        return $this->isPropertyFetchOnParentVariableOfType($node, 'TypoScriptFrontendController');
-    }
-
-    public function isPropertyFetchOnParentVariableOfTypePageRepository(Node $node): bool
-    {
-        return $this->isPropertyFetchOnParentVariableOfType($node, 'PageRepository');
-    }
-
     public function isPropertyFetchOnAnyPropertyOfGlobals(Node $node, string $global): bool
     {
         if (! $node instanceof PropertyFetch) {
@@ -252,25 +231,5 @@ final class Typo3NodeResolver
     public function isMethodCallOnBackendUser(Node $node): bool
     {
         return $this->isAnyMethodCallOnGlobals($node, self::BACKEND_USER);
-    }
-
-    private function isPropertyFetchOnParentVariableOfType(Node $node, string $type): bool
-    {
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
-        if (! $parentNode instanceof Assign) {
-            return false;
-        }
-
-        if (! $parentNode->expr instanceof PropertyFetch) {
-            return false;
-        }
-
-        $objectType = $this->nodeTypeResolver->getType($parentNode->expr->var);
-        if (! $objectType instanceof ObjectType) {
-            return false;
-        }
-
-        return $type === $objectType->getClassName();
     }
 }
