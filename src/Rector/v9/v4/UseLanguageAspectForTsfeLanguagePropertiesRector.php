@@ -122,6 +122,7 @@ CODE_SAMPLE
         )) {
             return false;
         }
+
         return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
             $propertyFetch,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
