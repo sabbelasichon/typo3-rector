@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rules\Tests\Rector\Misc;
+namespace Ssch\TYPO3Rector\Rules\Tests\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

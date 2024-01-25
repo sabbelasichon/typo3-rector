@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\Rector\v12\v0\flexform\MigrateRenderTypeColorpickerToTypeCo
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../config/config_test.php');
-    $rectorConfig->rule(MigrateRenderTypeColorpickerToTypeColorFlexFormRector::class);
+    $rectorConfig->services()
+        ->set(MigrateRenderTypeColorpickerToTypeColorFlexFormRector::class)->tag('typo3_rector.flexform_rectors');
 };

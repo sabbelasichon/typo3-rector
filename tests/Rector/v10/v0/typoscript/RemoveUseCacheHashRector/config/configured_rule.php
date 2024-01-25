@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\Rector\v10\v0\typoscript\RemoveUseCacheHashRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../config/config_test.php');
-    $rectorConfig->rule(RemoveUseCacheHashRector::class);
+    $rectorConfig->services()
+        ->set(RemoveUseCacheHashRector::class)->tag('typo3_rector.typoscript_rectors');
 };

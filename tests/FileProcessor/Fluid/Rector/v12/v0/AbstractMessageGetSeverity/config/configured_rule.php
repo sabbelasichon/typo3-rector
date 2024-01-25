@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\v12\v0\AbstractMessageGetSeverit
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../../config/config_test.php');
-    $rectorConfig->rule(AbstractMessageGetSeverityFluidRector::class);
+    $rectorConfig->services()
+        ->set(AbstractMessageGetSeverityFluidRector::class)->tag('typo3_rector.fluid_rectors');
 };

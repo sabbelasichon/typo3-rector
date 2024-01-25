@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @see \Ssch\TYPO3Rector\Rules\Tests\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRectorTest
+ * @see \Ssch\TYPO3Rector\Rules\Tests\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector\AddCodeCoverageIgnoreToMethodRectorDefinitionRectorTest
  */
 final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends AbstractRector
 {

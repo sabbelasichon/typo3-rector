@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\Rector\v12\v0\typoscript\RemoveSpamProtectEmailAddressesAsc
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../config/config_test.php');
-    $rectorConfig->rule(RemoveSpamProtectEmailAddressesAsciiOptionRector::class);
+    $rectorConfig->services()
+        ->set(RemoveSpamProtectEmailAddressesAsciiOptionRector::class)->tag('typo3_rector.typoscript_rectors');
 };

@@ -10,9 +10,25 @@ use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
 use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
+use PhpParser\PrettyPrinter\Standard;
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
+use Ssch\TYPO3Rector\Contract\FileProcessor\FlexForms\Rector\FlexFormRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Fluid\Rector\FluidRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\FileRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Resources\IconRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\Conditions\TyposcriptConditionMatcher;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptPostRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\TypoScript\TypoScriptRectorInterface;
+use Ssch\TYPO3Rector\Contract\FileProcessor\Yaml\YamlRectorInterface;
+use Ssch\TYPO3Rector\FileProcessor\FlexForms\FlexFormsProcessor;
+use Ssch\TYPO3Rector\FileProcessor\Fluid\FluidFileProcessor;
+use Ssch\TYPO3Rector\FileProcessor\Resources\Files\ExtTypoScriptFileProcessor;
+use Ssch\TYPO3Rector\FileProcessor\Resources\Icons\IconsFileProcessor;
+use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v9\v4\OldConditionToExpressionLanguageTypoScriptRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\TypoScriptFileProcessor;
+use Ssch\TYPO3Rector\FileProcessor\Yaml\YamlFileProcessor;
+use Ssch\TYPO3Rector\Helper\TaggedIterator;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -28,7 +44,6 @@ return static function (RectorConfig $rectorConfig): void {
     $services->defaults()
         ->public()
         ->autowire();
-    $parameters = $rectorConfig->parameters();
 
     $services->set(Filesystem::class);
 
@@ -65,7 +80,20 @@ return static function (RectorConfig $rectorConfig): void {
 
     $services->set(Builder::class);
 
+    $services->set(Standard::class);
+
+    # A custom hacky way to add tagged_iterators with minimal coupling to a specific rector version
+    $services
+        ->instanceof(TypoScriptRectorInterface::class)
+        ->tag('typo3_rector.typoscript_rectors');
+
+    $services
+        ->instanceof(TypoScriptPostRectorInterface::class)
+        ->tag('typo3_rector.typoscript_post_rectors');
+
     $services->set(TypoScriptFileProcessor::class)
+        ->arg('$typoScriptRectors', TaggedIterator::tagged_iterator('typo3_rector.typoscript_rectors'))
+        ->arg('$typoScriptPostRectors', TaggedIterator::tagged_iterator('typo3_rector.typoscript_post_rectors'))
         ->call('configure', [[
             'typoscript',
             'ts',
@@ -80,5 +108,56 @@ return static function (RectorConfig $rectorConfig): void {
             'typoscriptsetupts',
         ]]);
 
-    $services->set(\PhpParser\PrettyPrinter\Standard::class);
+    $services
+        ->instanceof(TyposcriptConditionMatcher::class)
+        ->tag('typo3_rector.typoscript_condition_matcher');
+
+    $rectorConfig->services()
+        ->set(OldConditionToExpressionLanguageTypoScriptRector::class)->tag('typo3_rector.typoscript_rectors')
+        ->arg('$conditionMatchers', TaggedIterator::tagged_iterator('typo3_rector.typoscript_condition_matcher'));
+
+    $services
+        ->instanceof(IconRectorInterface::class)
+        ->tag('typo3_rector.icon_rectors');
+
+    $services->set(IconsFileProcessor::class)->arg(
+        '$iconsRector',
+        TaggedIterator::tagged_iterator('typo3_rector.icon_rectors')
+    );
+
+    $services
+        ->instanceof(YamlRectorInterface::class)
+        ->tag('typo3_rector.yaml_rectors');
+
+    $services->set(YamlFileProcessor::class)->arg(
+        '$yamlRectors',
+        TaggedIterator::tagged_iterator('typo3_rector.yaml_rectors')
+    );
+
+    $services
+        ->instanceof(FluidRectorInterface::class)
+        ->tag('typo3_rector.fluid_rectors');
+
+    $services->set(FluidFileProcessor::class)->arg(
+        '$fluidRectors',
+        TaggedIterator::tagged_iterator('typo3_rector.fluid_rectors')
+    );
+
+    $services
+        ->instanceof(FileRectorInterface::class)
+        ->tag('typo3_rector.file_rectors');
+
+    $services->set(ExtTypoScriptFileProcessor::class)->arg(
+        '$filesRector',
+        TaggedIterator::tagged_iterator('typo3_rector.file_rectors')
+    );
+
+    $services
+        ->instanceof(FlexFormRectorInterface::class)
+        ->tag('typo3_rector.flexform_rectors');
+
+    $services->set(FlexFormsProcessor::class)->arg(
+        '$flexFormRectors',
+        TaggedIterator::tagged_iterator('typo3_rector.flexform_rectors')
+    );
 };

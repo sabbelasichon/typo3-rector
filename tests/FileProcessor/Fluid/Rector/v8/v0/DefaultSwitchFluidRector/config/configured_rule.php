@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\v8\v0\DefaultSwitchFluidRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../../config/config_test.php');
-    $rectorConfig->rule(DefaultSwitchFluidRector::class);
+    $rectorConfig->services()
+        ->set(DefaultSwitchFluidRector::class)->tag('typo3_rector.fluid_rectors');
 };

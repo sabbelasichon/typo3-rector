@@ -18,6 +18,7 @@ use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
+use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\v10\v0\RemoveNoCacheHashAndUseCacheHashAttributeFluidRector;
 use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0\ExtbasePersistenceTypoScriptRector;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\v10\v0\EmailFinisherRector;
 use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\v10\v0\TranslationFileRector;
@@ -74,8 +75,10 @@ return static function (RectorConfig $rectorConfig): void {
             new MethodCallRename('TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList', 'requestUri', 'listURL'),
         ]);
 
-    $rectorConfig->rule(EmailFinisherRector::class);
-    $rectorConfig->rule(TranslationFileRector::class);
+    $rectorConfig->services()
+        ->set(EmailFinisherRector::class)->tag('typo3_rector.yaml_rectors');
+    $rectorConfig->services()
+        ->set(TranslationFileRector::class)->tag('typo3_rector.yaml_rectors');
 
     $rectorConfig
         ->ruleWithConfiguration(AddReturnTypeDeclarationRector::class, [
@@ -330,4 +333,7 @@ return static function (RectorConfig $rectorConfig): void {
                 new BooleanType()
             ),
         ]);
+
+    $rectorConfig->services()
+        ->set(RemoveNoCacheHashAndUseCacheHashAttributeFluidRector::class)->tag('typo3_rector.fluid_rectors');
 };

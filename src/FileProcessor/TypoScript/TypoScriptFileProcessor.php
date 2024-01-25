@@ -97,13 +97,13 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
      * @var TypoScriptRectorInterface[]
      * @readonly
      */
-    private array $typoScriptRectors = [];
+    private iterable $typoScriptRectors = [];
 
     /**
      * @var TypoScriptPostRectorInterface[]
      * @readonly
      */
-    private array $typoScriptPostRectors = [];
+    private iterable $typoScriptPostRectors = [];
 
     /**
      * @readonly
@@ -130,8 +130,8 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         RemoveTypoScriptStatementCollector $removeTypoScriptStatementCollector,
         FileInfoFactory $fileInfoFactory,
         PrettyPrinterConfigurationFactory $prettyPrinterConfigurationFactory,
-        array $typoScriptRectors = [],
-        array $typoScriptPostRectors = []
+        iterable $typoScriptRectors = [],
+        iterable $typoScriptPostRectors = []
     ) {
         $this->typoscriptParser = $typoscriptParser;
         $this->output = $output;
@@ -208,7 +208,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
             $traverser->walk();
 
             $typoscriptRectorsWithChange = array_filter(
-                $this->typoScriptRectors,
+                $this->typoScriptRectorsToArray(),
                 static fn (AbstractTypoScriptRector $typoScriptRector) => $typoScriptRector->hasChanged()
             );
 
@@ -250,7 +250,7 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
     private function convertToPhpFileRectors(): array
     {
         return array_filter(
-            $this->typoScriptRectors,
+            $this->typoScriptRectorsToArray(),
             static fn (Visitor $visitor): bool => $visitor instanceof ConvertToPhpFileInterface
         );
     }
@@ -297,5 +297,17 @@ final class TypoScriptFileProcessor implements ConfigurableProcessorInterface
         }
 
         return $printStatements;
+    }
+
+    /**
+     * @return TypoScriptRectorInterface[]
+     */
+    private function typoScriptRectorsToArray(): array
+    {
+        if ($this->typoScriptRectors instanceof \Traversable) {
+            return iterator_to_array($this->typoScriptRectors);
+        }
+
+        return $this->typoScriptRectors;
     }
 }
