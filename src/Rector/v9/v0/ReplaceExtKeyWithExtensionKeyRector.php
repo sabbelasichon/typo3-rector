@@ -6,11 +6,10 @@ namespace Ssch\TYPO3Rector\Rector\v9\v0;
 
 use Nette\Utils\Json;
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
-use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
+use PHPStan\Analyser\Scope;
+use Rector\Core\Rector\AbstractScopeAwareRector;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\FilesFinder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -24,7 +23,7 @@ use Throwable;
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector\ReplaceExtKeyWithExtensionKeyFromComposerJsonNameRectorTest
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\ReplaceExtKeyWithExtensionKeyRector\ReplaceExtKeyWithExtensionKeyFromComposerJsonExtensionKeyExtraSectionRectorTest
  */
-final class ReplaceExtKeyWithExtensionKeyRector extends AbstractRector
+final class ReplaceExtKeyWithExtensionKeyRector extends AbstractScopeAwareRector
 {
     /**
      * @readonly
@@ -83,7 +82,7 @@ CODE_SAMPLE
     /**
      * @param Variable $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactorWithScope(Node $node, Scope $scope): ?Node
     {
         $fileInfo = $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath());
 
@@ -101,7 +100,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if ($this->isAssignment($node)) {
+        if ($scope->isInFirstLevelStatement()) {
             return null;
         }
 
@@ -122,14 +121,6 @@ CODE_SAMPLE
     private function createExtensionKeyFromFolder(SplFileInfo $fileInfo): ?SplFileInfo
     {
         return $this->filesFinder->findExtEmConfRelativeFromGivenFileInfo($fileInfo);
-    }
-
-    private function isAssignment(Variable $node): bool
-    {
-        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-
-        // Check if we have an assigment to the property, if so do not change it
-        return $parentNode instanceof Assign && $parentNode->var === $node;
     }
 
     private function resolveExtensionKeyByComposerJson(SplFileInfo $extEmConf): ?string

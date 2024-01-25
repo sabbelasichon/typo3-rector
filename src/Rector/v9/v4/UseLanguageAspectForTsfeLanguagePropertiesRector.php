@@ -130,8 +130,6 @@ CODE_SAMPLE
             return false;
         }
 
-        return ! $this->typo3NodeResolver->isPropertyFetchOnParentVariableOfTypeTypoScriptFrontendController(
-            $propertyFetch
-        );
+        return true;
     }
 }

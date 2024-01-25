@@ -11,7 +11,6 @@ use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -149,8 +148,6 @@ CODE_SAMPLE
                 try {
                     $this->removeNode($call);
                 } catch (ShouldNotHappenException $shouldNotHappenException) {
-                    $parentNode = $call->getAttribute(AttributeKey::PARENT_NODE);
-                    $this->removeNode($parentNode);
                 }
             }
         }

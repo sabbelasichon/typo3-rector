@@ -10,7 +10,6 @@ use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
-use Rector\NodeTypeResolver\Node\AttributeKey;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -50,9 +49,6 @@ final class RemoveRteHtmlParserEvalWriteFileRector extends AbstractRector
                 $this->removeNode($node);
                 return $node;
             } catch (ShouldNotHappenException $shouldNotHappenException) {
-                $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-                $this->removeNode($parentNode);
-                return $node;
             }
         }
 

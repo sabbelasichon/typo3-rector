@@ -104,6 +104,6 @@ CODE_SAMPLE
             return false;
         }
 
-        return ! $this->typo3NodeResolver->isPropertyFetchOnParentVariableOfTypePageRepository($propertyFetch);
+        return true;
     }
 }
