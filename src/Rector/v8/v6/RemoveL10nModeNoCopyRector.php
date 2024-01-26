@@ -86,7 +86,7 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
                 ],
             ]), new String_('config'));
 
-            foreach ($fieldValue->value->items as $configValue) {
+            foreach ($fieldValue->value->items as $configKey => $configValue) {
                 if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
@@ -101,10 +101,10 @@ final class RemoveL10nModeNoCopyRector extends AbstractRector
 
                 if ($this->valueResolver->isValue($configValue->value, 'mergeIfNotBlank')) {
                     $addAllowLanguageSynchronization = true;
-                    $this->removeNode($configValue);
+                    unset($fieldValue->value->items[$configKey]);
                     $hasAstBeenChanged = true;
                 } elseif ($this->valueResolver->isValue($configValue->value, 'noCopy')) {
-                    $this->removeNode($configValue);
+                    unset($fieldValue->value->items[$configKey]);
                     $hasAstBeenChanged = true;
                 } elseif ($configValue->value instanceof Array_) {
                     $configArray = $configValue->value;
