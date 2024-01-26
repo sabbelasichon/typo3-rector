@@ -6,7 +6,6 @@ use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
-use Ssch\TYPO3Rector\Rector\v12\v0\typo3\AbstractMessageGetSeverityRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
@@ -35,7 +34,6 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/../../Migrations/TYPO3/12.0/typo3/sysext/frontend/Migrations/Code/ClassAliasMap.php',
     ]);
     $rectorConfig->rule(ReplacePreviewUrlMethodRector::class);
-    $rectorConfig->rule(AbstractMessageGetSeverityRector::class);
     $rectorConfig->rule(AddMethodToWidgetInterfaceClassesRector::class);
     $rectorConfig->rule(HintNecessaryUploadedFileChangesRector::class);
     $rectorConfig->rule(MigrateQueryBuilderExecuteRector::class);
