@@ -88,7 +88,7 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                     continue;
                 }
 
-                foreach ($configValue->value->items as $configItemValue) {
+                foreach ($configValue->value->items as $configItemKey => $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;
                     }
@@ -126,7 +126,7 @@ final class MigrateSelectShowIconTableRector extends AbstractRector
                         }
                     }
 
-                    $this->removeNode($configItemValue);
+                    unset($configValue->value->items[$configItemKey]);
                     $hasAstBeenChanged = true;
                 }
             }
