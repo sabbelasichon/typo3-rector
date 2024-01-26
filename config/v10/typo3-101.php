@@ -12,6 +12,7 @@ use Ssch\TYPO3Rector\Rector\v10\v1\RefactorInternalPropertiesOfTSFERector;
 use Ssch\TYPO3Rector\Rector\v10\v1\RegisterPluginWithVendorNameRector;
 use Ssch\TYPO3Rector\Rector\v10\v1\RemoveEnableMultiSelectFilterTextfieldRector;
 use Ssch\TYPO3Rector\Rector\v10\v1\SendNotifyEmailToMailApiRector;
+use Ssch\TYPO3Rector\Rector\v10\v1\typo3\RefactorCHashArrayOfTSFERector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -52,5 +53,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(SendNotifyEmailToMailApiRector::class);
     $rectorConfig->rule(RefactorInternalPropertiesOfTSFERector::class);
     $rectorConfig->rule(RemoveEnableMultiSelectFilterTextfieldRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v10\v1\typo3\RefactorCHashArrayOfTSFERector::class);
+    $rectorConfig->rule(RefactorCHashArrayOfTSFERector::class);
 };
