@@ -13,62 +13,66 @@
 name: Rector
 
 on:
-    pull_request: null
+  pull_request: null
 
 env:
-    # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
-    COMPOSER_ROOT_VERSION: "dev-main"
+  # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
+  COMPOSER_ROOT_VERSION: "dev-main"
 
 jobs:
-    rector:
-        # Don't run on forks.
-        if: github.repository == 'sabbelasichon/typo3-rector'
-        timeout-minutes: 10
-        runs-on: ubuntu-latest
-        steps:
-            # workaround for missing secret in fork PRs - see https://github.com/actions/checkout/issues/298
-            # see https://github.com/rectorphp/rector/commit/d395e1c28b8e6a56711dcc2e10490a82965850e4
-            -
-                if: github.event.pull_request.head.repo.full_name == github.repository
-                uses: actions/checkout@v4
-                with:
-                    repository: ${{ github.event.pull_request.head.repo.full_name }}
-                    ref: ${{ github.event.pull_request.head.ref }}
-                    # Must be used to trigger workflow after push
-                    token: ${{ secrets.ACCESS_TOKEN }}
+  rector:
+    # Don't run on forks.
+    if: github.repository == 'sabbelasichon/typo3-rector'
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      # workaround for missing secret in fork PRs - see https://github.com/actions/checkout/issues/298
+      # see https://github.com/rectorphp/rector/commit/d395e1c28b8e6a56711dcc2e10490a82965850e4
+      - name: "Checkout"
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          # Must be used to trigger workflow after push
+          token: ${{ secrets.ACCESS_TOKEN }}
 
-            # in forks, the token is not available - so we cannot use eit
-            -
-                if: github.event.pull_request.head.repo.full_name != github.repository
-                uses: actions/checkout@v4
-                with:
-                    repository: ${{ github.event.pull_request.head.repo.full_name }}
-                    ref: ${{ github.event.pull_request.head.ref }}
+      # in forks, the token is not available - so we cannot use eit
+      - name: "Checkout"
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
 
-            -
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: 7.4
-                    coverage: none
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+          coverage: none
 
-            -   run: composer install --no-progress --ansi
+      # see https://github.com/ramsey/composer-install
+      - name: "Install Composer dependencies"
+        uses: ramsey/composer-install@v2
 
-            ## First run Rector - here can't be --dry-run !!! it would stop the job with it and not commit anything in the future
-            -   run: vendor/bin/rector process --ansi
+      ## First run Rector - here can't be --dry-run !!! it would stop the job with it and not commit anything in the future
+      - name: "Run Rector"
+        run: "composer fix:rector"
 
-            -   run: vendor/bin/ecs check --fix --ansi
+      - name: "Run Easy Coding Standard"
+        run: "composer fix:style"
 
-            # see https://github.com/EndBug/add-and-commit
-            -
-                # commit only to core contributors who have repository access
-                if: github.event.pull_request.head.repo.full_name == github.repository
-                uses: EndBug/add-and-commit@v9.1.3
-                with:
-                    # The arguments for the `git add` command (see the paragraph below for more info)
-                    add: .
-                    message: "[CI] Rector Rectify"
-                    author_name: "GitHub Action"
-                    author_email: "action@github.com"
-                env:
-                    # to get push access
-                    GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      # see https://github.com/EndBug/add-and-commit
+      - name: "Commit changes"
+        # commit only to core contributors who have repository access
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: EndBug/add-and-commit@v9.1.3
+        with:
+          # The arguments for the `git add` command (see the paragraph below for more info)
+          add: .
+          message: "[CI] Rector Rectify"
+          author_name: "GitHub Action"
+          author_email: "action@github.com"
+        env:
+          # to get push access
+          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}

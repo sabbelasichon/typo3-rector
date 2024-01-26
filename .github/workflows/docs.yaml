@@ -1,44 +1,48 @@
 name: Docs
 
 on:
-    push:
-        branches:
-            - "main"
+  push:
+    branches:
+      - "main"
 
 env:
-    # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
-    COMPOSER_ROOT_VERSION: "dev-main"
+  # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
+  COMPOSER_ROOT_VERSION: "dev-main"
 
 jobs:
-    docs:
-        runs-on: ubuntu-latest
-        steps:
-            -   uses: actions/checkout@v4
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
 
-            -   uses: shivammathur/setup-php@v2
-                with:
-                    php-version: 8.1
-                    coverage: none
-                env:
-                    COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+          coverage: none
+          env:
+            COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-            # see https://github.com/ramsey/composer-install
-            -   uses: "ramsey/composer-install@v2"
+      # see https://github.com/ramsey/composer-install
+      - name: "Install Composer dependencies"
+        uses: ramsey/composer-install@v2
 
-            -   name: Install rule doc generator
-                run: composer require symplify/rule-doc-generator:^11.1 --with-all-dependencies
+      - name: "Install rule doc generator"
+        run: composer require symplify/rule-doc-generator:^11.1 --with-all-dependencies
 
-            -   name: Generate documentation
-                run: composer docs
+      - name: "Generate documentation"
+        run: "composer docs:generate"
 
-            -   name: Uninstall rule doc generator
-                run: composer remove symplify/rule-doc-generator
+      - name: "Uninstall rule doc generator"
+        run: composer remove symplify/rule-doc-generator
 
-            -   uses: stefanzweifel/git-auto-commit-action@v5.0.0
-                with:
-                    commit_message: '[DOCS] Generate documentation'
-                    commit_options: '--no-verify --signoff'
-                    branch: "main"
-                    push_options: '--force'
-                env:
-                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: "Commit documentation"
+        uses: stefanzweifel/git-auto-commit-action@v5.0.0
+        with:
+          commit_message: '[DOCS] Generate documentation'
+          commit_options: '--no-verify --signoff'
+          branch: "main"
+          push_options: '--force'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
