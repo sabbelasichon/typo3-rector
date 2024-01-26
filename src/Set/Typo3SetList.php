@@ -39,27 +39,12 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const TYPOSCRIPT_CONDITIONS_95 = __DIR__ . '/../../config/v9/typoscript-conditions-95.php';
-
-    /**
-     * @var string
-     */
     public const TYPO3_104 = __DIR__ . '/../../config/typo3-10.php';
 
     /**
      * @var string
      */
     public const TCA_104 = __DIR__ . '/../../config/v10/tca-104.php';
-
-    /**
-     * @var string
-     */
-    public const TYPOSCRIPT_100 = __DIR__ . '/../../config/v10/typoscript-100.php';
-
-    /**
-     * @var string
-     */
-    public const TYPOSCRIPT_CONDITIONS_104 = __DIR__ . '/../../config/v10/typoscript-conditions-104.php';
 
     /**
      * @var string
@@ -97,26 +82,6 @@ final class Typo3SetList
      * @var string
      */
     public const TCA_123 = __DIR__ . '/../../config/v12/tca-123.php';
-
-    /**
-     * @var string
-     */
-    public const TYPOSCRIPT_120 = __DIR__ . '/../../config/v12/typoscript-120.php';
-
-    /**
-     * @var string
-     */
-    public const FLEXFORM_120 = __DIR__ . '/../../config/v12/flexform-120.php';
-
-    /**
-     * @var string
-     */
-    public const FLEXFORM_123 = __DIR__ . '/../../config/v12/flexform-123.php';
-
-    /**
-     * @var string
-     */
-    public const DATABASE_TO_DBAL = __DIR__ . '/../../config/database-connection-to-dbal.php';
 
     /**
      * @var string
