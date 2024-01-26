@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Rector\AbstractRector;
@@ -40,34 +41,40 @@ final class RemoveRedundantFeLoginModeMethodsRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param Node\Expr\MethodCall $node
+     * @param Node\Stmt\Expression $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?int
     {
-        if ($this->shouldSkip($node)) {
+        $methodCall = $node->expr;
+
+        if (! $methodCall instanceof MethodCall) {
             return null;
         }
 
-        if ($this->isName($node->name, 'checkIfLoginAllowedInBranch')) {
+        if ($this->shouldSkip($methodCall)) {
+            return null;
+        }
+
+        if ($this->isName($methodCall->name, 'checkIfLoginAllowedInBranch')) {
             $this->rectorOutputStyle->note(
                 'Please remove the usage of TypoScriptFrontendController->checkIfLoginAllowedInBranch(). Also check the changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-96616-RemoveFrontendLoginModeForPages.html for further migration advice.'
             );
             return null;
         }
 
-        if (! $this->isName($node->name, 'hideActiveLogin')) {
+        if (! $this->isName($methodCall->name, 'hideActiveLogin')) {
             return null;
         }
 
-        $this->removeNode($node);
         $this->rectorOutputStyle->note(
             'Please check the changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-96616-RemoveFrontendLoginModeForPages.html for further migration advice.'
         );
-        return null;
+
+        return NodeTraverser::REMOVE_NODE;
     }
 
     /**
