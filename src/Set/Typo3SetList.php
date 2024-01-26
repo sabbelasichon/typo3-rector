@@ -87,9 +87,4 @@ final class Typo3SetList
      * @var string
      */
     public const UNDERSCORE_TO_NAMESPACE = __DIR__ . '/../../config/underscore-to-namespace.php';
-
-    /**
-     * @var string
-     */
-    public const REGISTER_ICONS_TO_ICON = __DIR__ . '/../../config/register-icon-to-icons-file/register-icon-to-icons-file.php';
 }
