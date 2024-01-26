@@ -85,7 +85,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                     continue;
                 }
 
-                foreach ($configValue->value->items as $configItemValue) {
+                foreach ($configValue->value->items as $configItemKey => $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;
                     }
@@ -122,7 +122,7 @@ final class SoftReferencesFunctionalityRemovedRector extends AbstractRector
                             $softReferences = array_flip($softReferences);
                             $configItemValue->value = new String_(implode(',', $softReferences));
                         } else {
-                            $this->removeNode($configItemValue);
+                            unset($configValue->value->items[$configItemKey]);
                         }
 
                         $hasAstBeenChanged = true;

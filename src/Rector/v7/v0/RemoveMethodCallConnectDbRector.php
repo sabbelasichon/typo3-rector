@@ -32,7 +32,7 @@ final class RemoveMethodCallConnectDbRector extends AbstractRector
     public function refactor(Node $node): ?int
     {
         $staticCall = $node->expr;
-        if(!$staticCall instanceof StaticCall) {
+        if (! $staticCall instanceof StaticCall) {
             return null;
         }
 
