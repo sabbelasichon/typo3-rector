@@ -16,10 +16,6 @@ use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 return static function (RectorConfig $rectorConfig): void {
 
-    // If you want to override the number of spaces for your typoscript files you can define it here, the default value is 4
-    // $parameters = $rectorConfig->parameters();
-    // $parameters->set(Typo3Option::TYPOSCRIPT_INDENT_SIZE, 2);
-
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_81,
         Typo3LevelSetList::UP_TO_TYPO3_12,
@@ -38,9 +34,6 @@ return static function (RectorConfig $rectorConfig): void {
 
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $rectorConfig->importNames();
-
-    // Disable parallel otherwise non php file processing is not working i.e. typoscript or flexform
-    $rectorConfig->disableParallel();
 
     // this will not import root namespace classes, like \DateTime or \Exception
     $rectorConfig->importShortClasses(false);
@@ -82,13 +75,6 @@ return static function (RectorConfig $rectorConfig): void {
         ]
     ]);
 
-    // If you have trouble that rector cannot run because some TYPO3 constants are not defined, add an additional constants file
-    // @see https://github.com/sabbelasichon/typo3-rector/blob/main/typo3.constants.php
-    // @see https://getrector.com/documentation/static-reflection-and-autoload#include-files
-    // $rectorConfig->bootstrapFiles([
-    //    __DIR__ . '/typo3.constants.php'
-    // ]);
-
     /**
      * Useful rule from RectorPHP itself to transform i.e. GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')
      * to GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class) calls.
@@ -96,20 +82,9 @@ return static function (RectorConfig $rectorConfig): void {
      */
     // $rectorConfig->rule(\Rector\Php55\Rector\String_\StringClassNameToClassConstantRector::class);
 
-    // Optional non-php file functionalities:
-    // @see https://github.com/sabbelasichon/typo3-rector/blob/main/docs/beyond_php_file_processors.md
-
-    // Rewrite your extbase persistence class mapping from typoscript into php according to official docs.
-    // This processor will create a summarized file with all the typoscript rewrites combined into a single file.
-    /* $rectorConfig->ruleWithConfiguration(\Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0\ExtbasePersistenceTypoScriptRector::class, [
-        \Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0\ExtbasePersistenceTypoScriptRector::FILENAME => __DIR__ . '/packages/acme_demo/Configuration/Extbase/Persistence/Classes.php',
-    ]); */
     // Add some general TYPO3 rules
     $rectorConfig->rule(ConvertImplicitVariablesToExplicitGlobalsRector::class);
     $rectorConfig->ruleWithConfiguration(ExtEmConfRector::class, [
         ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => []
     ]);
-
-    // Modernize your TypoScript include statements for files and move from <INCLUDE /> to @import use the FileIncludeToImportStatementVisitor (introduced with TYPO3 9.0)
-    // $rectorConfig->rule(\Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v9\v0\FileIncludeToImportStatementTypoScriptRector::class);
 };
