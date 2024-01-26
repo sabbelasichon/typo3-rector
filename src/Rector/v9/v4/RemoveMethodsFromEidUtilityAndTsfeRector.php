@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -35,25 +35,31 @@ final class RemoveMethodsFromEidUtilityAndTsfeRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [StaticCall::class, MethodCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param MethodCall|StaticCall $node
+     * @param Node\Stmt\Expression $node
+     * @return int|null|Node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node)
     {
-        if ($this->shouldSkip($node)) {
+        $staticOrMethodCall = $node->expr;
+
+        if (! $staticOrMethodCall instanceof StaticCall && ! $staticOrMethodCall instanceof MethodCall) {
             return null;
         }
 
-        if ($this->isEidUtilityMethodCall($node)) {
-            $this->removeMethodCall($node);
+        if ($this->shouldSkip($staticOrMethodCall)) {
             return null;
+        }
+
+        if ($this->isEidUtilityMethodCall($staticOrMethodCall)) {
+            return NodeTraverser::REMOVE_NODE;
         }
 
         if (! $this->isNames(
-            $node->name,
+            $staticOrMethodCall->name,
             [
                 'initFEuser',
                 'storeSessionData',
@@ -66,13 +72,11 @@ final class RemoveMethodsFromEidUtilityAndTsfeRector extends AbstractRector
             return null;
         }
 
-        if ($this->isName($node->name, 'storeSessionData') && $node instanceof MethodCall) {
-            return $this->delegateToFrontendUserProperty($node);
+        if ($this->isName($staticOrMethodCall->name, 'storeSessionData') && $staticOrMethodCall instanceof MethodCall) {
+            return $this->delegateToFrontendUserProperty($staticOrMethodCall);
         }
 
-        $this->removeMethodCall($node);
-
-        return null;
+        return NodeTraverser::REMOVE_NODE;
     }
 
     /**
@@ -134,17 +138,6 @@ CODE_SAMPLE
             $node,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         );
-    }
-
-    /**
-     * @param StaticCall|MethodCall|Node $node
-     */
-    private function removeMethodCall($node): void
-    {
-        try {
-            parent::removeNode($node);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
-        }
     }
 
     private function delegateToFrontendUserProperty(MethodCall $methodCall): MethodCall
