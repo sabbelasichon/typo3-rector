@@ -15,7 +15,6 @@ use Ssch\TYPO3Rector\Rector\v8\v6\MigrateOptionsOfTypeGroupRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MigrateSelectShowIconTableRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\MoveRequestUpdateOptionFromControlToColumnsRector;
-use Ssch\TYPO3Rector\Rector\v8\v6\MoveTypeGroupSuggestWizardToSuggestOptionsRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\RefactorTCARector;
 use Ssch\TYPO3Rector\Rector\v8\v6\RemoveL10nModeNoCopyRector;
 use Ssch\TYPO3Rector\Rector\v8\v6\RichtextFromDefaultExtrasToEnableRichtextRector;
@@ -58,6 +57,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveLocalizationModeKeepIfNeededRector::class);
     $rectorConfig->rule(MoveForeignTypesToOverrideChildTcaRector::class);
     $rectorConfig->rule(MigrateLastPiecesOfDefaultExtrasRector::class);
-    $rectorConfig->rule(MoveTypeGroupSuggestWizardToSuggestOptionsRector::class);
     $rectorConfig->rule(MigrateSpecialConfigurationAndRemoveShowItemStylePointerConfigRector::class);
 };
