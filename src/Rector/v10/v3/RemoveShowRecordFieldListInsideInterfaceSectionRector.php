@@ -47,7 +47,9 @@ final class RemoveShowRecordFieldListInsideInterfaceSectionRector extends Abstra
         $interfaceItems = $interface->value;
 
         if (! $interfaceItems instanceof Array_) {
-            $this->removeNode($interface);
+            if ($node->expr instanceof Array_) {
+                $this->removeArrayItemFromArrayByKey($node->expr, 'interface');
+            }
             return null;
         }
 
@@ -58,7 +60,9 @@ final class RemoveShowRecordFieldListInsideInterfaceSectionRector extends Abstra
         }
 
         if ($remainingInterfaceItems === 0) {
-            $this->removeNode($interface);
+            if ($node->expr instanceof Array_) {
+                $this->removeArrayItemFromArrayByKey($node->expr, 'interface');
+            }
             return $node;
         }
 
