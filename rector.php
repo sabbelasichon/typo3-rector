@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-use Rector\CodingStyle\Rector\ClassConst\VarConstantCommentRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
-use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
@@ -21,8 +19,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
 
     $rectorConfig->rule(AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class);
-    $rectorConfig->rule(AddSeeTestAnnotationRector::class);
-    $rectorConfig->rule(VarConstantCommentRector::class);
 
     $rectorConfig->paths([__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests']);
 
