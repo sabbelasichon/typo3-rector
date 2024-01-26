@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Expression;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
@@ -41,7 +42,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
     /**
      * @param Expression $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?int
     {
         $methodCall = $node->expr;
 
@@ -57,9 +58,7 @@ final class RemoveInitTemplateMethodCallRector extends AbstractRector
             return null;
         }
 
-        $this->removeNode($node);
-
-        return $node;
+        return NodeTraverser::REMOVE_NODE;
     }
 
     /**
