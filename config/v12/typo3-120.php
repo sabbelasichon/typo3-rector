@@ -8,7 +8,6 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector;
-use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveMailerAdapterInterfaceRector;
@@ -32,7 +31,6 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/../../Migrations/TYPO3/12.0/typo3/sysext/frontend/Migrations/Code/ClassAliasMap.php',
     ]);
     $rectorConfig->rule(AddMethodToWidgetInterfaceClassesRector::class);
-    $rectorConfig->rule(HintNecessaryUploadedFileChangesRector::class);
     $rectorConfig->rule(MigrateQueryBuilderExecuteRector::class);
     $rectorConfig->rule(RemoveMailerAdapterInterfaceRector::class);
     $rectorConfig->rule(RemoveRelativeToCurrentScriptArgumentsRector::class);
