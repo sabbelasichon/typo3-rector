@@ -51,7 +51,7 @@ final class RemoveSupportForTransForeignTableRector extends AbstractRector
         }
 
         $hasAstBeenChanged = false;
-        foreach ($items->items as $fieldValue) {
+        foreach ($items->items as $fieldKey => $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
             }
@@ -61,7 +61,7 @@ final class RemoveSupportForTransForeignTableRector extends AbstractRector
             }
 
             if ($this->valueResolver->isValues($fieldValue->key, ['transForeignTable', 'transOrigPointerTable'])) {
-                $this->removeNode($fieldValue);
+                unset($items->items[$fieldKey]);
                 $hasAstBeenChanged = true;
             }
         }
