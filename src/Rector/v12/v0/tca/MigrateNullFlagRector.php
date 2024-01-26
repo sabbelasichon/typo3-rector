@@ -98,14 +98,11 @@ CODE_SAMPLE
             $evalArrayItem->value = new String_(implode(',', $evalList));
         } else {
             // 'eval' is empty, remove whole configuration
-            $this->removeNode($evalArrayItem);
+            $this->removeArrayItemFromArrayByKey($configArray, 'eval');
         }
 
-        // If nullable config exists already, remove it to avoid duplicate array items
-        $nullableItemToRemove = $this->extractArrayItemByKey($configArray, 'nullable');
-        if ($nullableItemToRemove instanceof ArrayItem) {
-            $this->removeNode($nullableItemToRemove);
-        }
+
+        $this->removeArrayItemFromArrayByKey($configArray, 'nullable');
 
         $configArray->items[] = new ArrayItem(new ConstFetch(new Name('true')), new String_('nullable'));
 
