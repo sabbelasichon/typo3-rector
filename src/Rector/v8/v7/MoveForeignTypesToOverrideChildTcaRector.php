@@ -115,7 +115,7 @@ final class MoveForeignTypesToOverrideChildTcaRector extends AbstractRector
 
             if ($foreignTypesArrayItem instanceof ArrayItem && $foreignTypesArrayItem->value instanceof Array_) {
                 $this->injectOverrideChildTca($overrideChildTcaArray, 'types', $foreignTypesArrayItem->value);
-                $this->removeNode($foreignTypesArrayItem);
+                $this->removeArrayItemFromArrayByKey($columnConfig, self::FOREIGN_TYPES);
                 $hasAstBeenChanged = true;
             }
 
@@ -124,7 +124,7 @@ final class MoveForeignTypesToOverrideChildTcaRector extends AbstractRector
                     new ArrayItem($foreignSelectorOverrideArrayItem->value, new String_($foreignSelector->value)),
                 ]);
                 $this->injectOverrideChildTca($overrideChildTcaArray, 'columns', $columnItem);
-                $this->removeNode($foreignSelectorOverrideArrayItem);
+                $this->removeArrayItemFromArrayByKey($columnConfig, self::FOREIGN_SELECTOR_FIELDTCAOVERRIDE);
                 $hasAstBeenChanged = true;
             }
 
@@ -145,7 +145,7 @@ final class MoveForeignTypesToOverrideChildTcaRector extends AbstractRector
                 }
 
                 $this->injectOverrideChildTca($overrideChildTcaArray, 'columns', $newOverrideColumns);
-                $this->removeNode($foreignRecordDefaultsArrayItem);
+                $this->removeArrayItemFromArrayByKey($columnConfig, self::FOREIGN_RECORD_DEFAULTS);
                 $hasAstBeenChanged = true;
             }
         }
