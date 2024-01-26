@@ -140,23 +140,15 @@ CODE_SAMPLE
 
     private function dropSelectedListType(Array_ $configArray): bool
     {
-        $listStyle = $this->extractArrayItemByKey($configArray, 'selectedListStyle');
-        if ($listStyle instanceof ArrayItem) {
-            $this->removeNode($listStyle);
-            return true;
-        }
-
-        return false;
+        return $this->removeArrayItemFromArrayByKey($configArray, 'selectedListStyle');
     }
 
     private function refactorShowThumbs(Array_ $configArray): bool
     {
         $hasAstBeenChanged = false;
         $showThumbs = $this->extractArrayItemByKey($configArray, 'show_thumbs');
+        $hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($configArray, 'show_thumbs');
         if ($showThumbs instanceof ArrayItem) {
-            $this->removeNode($showThumbs);
-            $hasAstBeenChanged = true;
-
             if (! (bool) $this->getValue($showThumbs->value)) {
                 if ($this->hasKeyValuePair($configArray, 'internal_type', 'db')) {
                     $this->addFieldWizards['recordsOverview'][self::DISABLED] = true;
@@ -171,12 +163,9 @@ CODE_SAMPLE
 
     private function refactorDisableControls(Array_ $configArray): bool
     {
-        $hasAstBeenChanged = false;
         $disableControls = $this->extractArrayItemByKey($configArray, 'disable_controls');
+        $hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($configArray, 'disable_controls');
         if ($disableControls instanceof ArrayItem) {
-            $this->removeNode($disableControls);
-            $hasAstBeenChanged = true;
-
             if (is_string($this->getValue($disableControls->value))) {
                 $controls = ArrayUtility::trimExplode(',', $this->getValue($disableControls->value), true);
                 foreach ($controls as $control) {
