@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\NodeTraverser;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -24,15 +25,22 @@ final class RefactorDeprecationLogRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [StaticCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param StaticCall $node
+     * @param Node\Stmt\Expression $node
+     * @return int|null|Node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node)
     {
-        $className = $this->getName($node->class);
+        $staticCall = $node->expr;
+
+        if (! $staticCall instanceof StaticCall) {
+            return null;
+        }
+
+        $className = $this->getName($staticCall->class);
         if ($className !== 'TYPO3\CMS\Core\Utility\GeneralUtility') {
             return null;
         }
@@ -41,21 +49,25 @@ final class RefactorDeprecationLogRector extends AbstractRector
 
         $usefulMessage = new String_('A useful message');
         $emptyFallbackString = new String_('');
-        $arguments = $node->args;
+        $arguments = $staticCall->args;
 
-        if ($this->isNames($node->name, ['logDeprecatedFunction', 'logDeprecatedViewHelperAttribute'])) {
-            return $this->nodeFactory->createFuncCall('trigger_error', [$usefulMessage, $constFetch]);
+        if ($this->isNames($staticCall->name, ['logDeprecatedFunction', 'logDeprecatedViewHelperAttribute'])) {
+            $node->expr = $this->nodeFactory->createFuncCall('trigger_error', [$usefulMessage, $constFetch]);
+
+            return $node;
         }
 
-        if ($this->isName($node->name, 'deprecationLog')) {
-            return $this->nodeFactory->createFuncCall(
+        if ($this->isName($staticCall->name, 'deprecationLog')) {
+            $node->expr = $this->nodeFactory->createFuncCall(
                 'trigger_error',
                 [$arguments[0] ?? $emptyFallbackString, $constFetch]
             );
+
+            return $node;
         }
 
-        if ($this->isName($node->name, 'getDeprecationLogFileName')) {
-            $this->removeNode($node);
+        if ($this->isName($staticCall->name, 'getDeprecationLogFileName')) {
+            return NodeTraverser::REMOVE_NODE;
         }
 
         return null;
