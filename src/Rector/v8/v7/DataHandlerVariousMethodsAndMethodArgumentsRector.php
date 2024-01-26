@@ -55,7 +55,7 @@ final class DataHandlerVariousMethodsAndMethodArgumentsRector extends AbstractRe
         }
 
         if ($this->isName($node->name, 'extFileFunctions') && count($node->args) === 4) {
-            $this->removeNode($node->args[3]);
+            unset($node->args[3]);
             return $node;
         }
 
