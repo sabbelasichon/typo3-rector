@@ -40,7 +40,7 @@ final class RemoveTableLocalPropertyRector extends AbstractRector
             return null;
         }
 
-        foreach ($node->value->items as $item) {
+        foreach ($node->value->items as $itemKey => $item) {
             if (! $item instanceof ArrayItem) {
                 continue;
             }
@@ -50,7 +50,7 @@ final class RemoveTableLocalPropertyRector extends AbstractRector
             }
 
             if ($this->valueResolver->isValue($item->key, 'table_local')) {
-                $this->removeNode($item);
+                unset($node->value->items[$itemKey]);
             }
         }
 
