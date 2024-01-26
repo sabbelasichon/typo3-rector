@@ -48,13 +48,16 @@ final class RemoveTCAInterfaceAlwaysDescriptionRector extends AbstractRector
         $interfaceItems = $interface->value;
 
         if (! $interfaceItems instanceof Array_) {
-            $this->removeNode($interface);
+            if ($node->expr instanceof Array_) {
+                $this->removeArrayItemFromArrayByKey($node->expr, 'interface');
+            }
+
             return null;
         }
 
         $remainingInterfaceItems = count($interfaceItems->items);
 
-        foreach ($interfaceItems->items as $interfaceItem) {
+        foreach ($interfaceItems->items as $interfaceItemKey => $interfaceItem) {
             if (! $interfaceItem instanceof ArrayItem) {
                 continue;
             }
@@ -64,14 +67,14 @@ final class RemoveTCAInterfaceAlwaysDescriptionRector extends AbstractRector
             }
 
             if ($this->valueResolver->isValue($interfaceItem->key, 'always_description')) {
-                $this->removeNode($interfaceItem);
+                unset($interfaceItems->items[$interfaceItemKey]);
                 --$remainingInterfaceItems;
                 break;
             }
         }
 
-        if ($remainingInterfaceItems === 0) {
-            $this->removeNode($interface);
+        if ($remainingInterfaceItems === 0 && $node->expr instanceof Array_) {
+            $this->removeArrayItemFromArrayByKey($node->expr, 'interface');
             return $node;
         }
 

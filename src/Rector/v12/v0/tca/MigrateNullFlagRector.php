@@ -101,7 +101,6 @@ CODE_SAMPLE
             $this->removeArrayItemFromArrayByKey($configArray, 'eval');
         }
 
-
         $this->removeArrayItemFromArrayByKey($configArray, 'nullable');
 
         $configArray->items[] = new ArrayItem(new ConstFetch(new Name('true')), new String_('nullable'));
