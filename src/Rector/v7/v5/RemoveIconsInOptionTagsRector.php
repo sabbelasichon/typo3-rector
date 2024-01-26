@@ -62,6 +62,6 @@ CODE_SAMPLE
             return;
         }
 
-        $this->removeArrayItemFromArrayByKey($configArray, 'iconsInOptionTags');
+        $this->hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($configArray, 'iconsInOptionTags');
     }
 }

@@ -138,7 +138,7 @@ CODE_SAMPLE
                     continue;
                 }
 
-                foreach ($configValue->value->items as $configItemValue) {
+                foreach ($configValue->value->items as $configItemKey => $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;
                     }
@@ -156,7 +156,7 @@ CODE_SAMPLE
                     }
 
                     $remainingWizards = count($configItemValue->value->items);
-                    foreach ($configItemValue->value->items as $wizardItemValue) {
+                    foreach ($configItemValue->value->items as $wizardItemKey => $wizardItemValue) {
                         if (! $wizardItemValue instanceof ArrayItem) {
                             continue;
                         }
@@ -219,7 +219,7 @@ CODE_SAMPLE
                         }
 
                         if ($isUserFunc && ! $enableByTypeConfig) {
-                            $this->removeNode($wizardItemValue);
+                            unset($configItemValue->value->items[$wizardItemKey]);
                             $hasAstBeenChanged = true;
                             $configValue->value->items[] = new ArrayItem(new String_('t3editor'), new String_(
                                 'renderType'
@@ -234,7 +234,7 @@ CODE_SAMPLE
                     }
 
                     if ($remainingWizards === 0) {
-                        $this->removeNode($configItemValue);
+                        unset($configValue->value->items[$configItemKey]);
                         $hasAstBeenChanged = true;
                     }
                 }
