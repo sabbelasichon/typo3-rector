@@ -51,7 +51,7 @@ final class RemoveOptionVersioningFollowPagesRector extends AbstractRector
         }
 
         $hasAstBeenChanged = false;
-        foreach ($ctrlItems->items as $fieldValue) {
+        foreach ($ctrlItems->items as $fieldKey => $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
             }
@@ -61,7 +61,7 @@ final class RemoveOptionVersioningFollowPagesRector extends AbstractRector
             }
 
             if ($this->valueResolver->isValue($fieldValue->key, 'versioning_followPages')) {
-                $this->removeNode($fieldValue);
+                unset($ctrlItems->items[$fieldKey]);
                 $hasAstBeenChanged = true;
             } elseif ($this->valueResolver->isValue($fieldValue->key, 'versioningWS')) {
                 $versioningWS = $this->valueResolver->getValue($fieldValue->value);
