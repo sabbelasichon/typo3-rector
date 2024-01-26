@@ -135,9 +135,15 @@ trait TcaHelperTrait
     protected function removeArrayItemFromArrayByKey(Array_ $array, $key): bool
     {
         $arrayItemToRemove = $this->extractArrayItemByKey($array, $key);
-        if ($arrayItemToRemove instanceof ArrayItem) {
-            $this->removeNode($arrayItemToRemove);
-            return true;
+        if ($arrayItemToRemove === null) {
+            return false;
+        }
+
+        foreach ($array->items as $arrayItemKey => $arrayItem) {
+            if($arrayItem === $arrayItemToRemove) {
+                unset($array->items[$arrayItemKey]);
+                return true;
+            }
         }
 
         return false;

@@ -94,14 +94,14 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
         }
 
         $nodeHasChanged = false;
-        foreach ($node->expr->items as $item) {
+        foreach ($node->expr->items as $itemKey => $item) {
             /** @var ArrayItem $item */
             if (! $item->key instanceof Expr) {
                 continue;
             }
 
             if ($this->propertyCanBeRemoved($item)) {
-                $this->removeNode($item);
+                unset($node->expr->items[$itemKey]);
 
                 $nodeHasChanged = true;
 
