@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v9\v4;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -22,28 +23,31 @@ final class RemoveInitMethodTemplateServiceRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param MethodCall $node
+     * @param Node\Stmt\Expression $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?int
     {
+        $methodCall = $node->expr;
+
+        if (! $methodCall instanceof MethodCall) {
+            return null;
+        }
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $methodCall,
             new ObjectType('TYPO3\CMS\Core\TypoScript\TemplateService')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'init')) {
+        if (! $this->isName($methodCall->name, 'init')) {
             return null;
         }
 
-        $this->removeNode($node);
-
-        return $node;
+        return NodeTraverser::REMOVE_NODE;
     }
 
     /**
