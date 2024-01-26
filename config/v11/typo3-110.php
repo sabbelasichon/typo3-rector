@@ -9,7 +9,6 @@ use Ssch\TYPO3Rector\Rector\v11\v0\DateTimeAspectInsteadOfGlobalsExecTimeRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\GetClickMenuOnIconTagParametersRector;
-use Ssch\TYPO3Rector\Rector\v11\v0\RemoveLanguageModeMethodsFromTypo3QuerySettingsRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\ReplaceInjectAnnotationWithMethodRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\SubstituteConstantsModeAndRequestTypeRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\UniqueListFromStringUtilityRector;
@@ -24,7 +23,6 @@ return static function (RectorConfig $rectorConfig): void {
         ExtbaseControllerActionsMustReturnResponseInterfaceRector::REDIRECT_METHODS => ['redirect', 'redirectToUri'],
     ]);
     $rectorConfig->rule(SubstituteConstantsModeAndRequestTypeRector::class);
-    $rectorConfig->rule(RemoveLanguageModeMethodsFromTypo3QuerySettingsRector::class);
     $rectorConfig
         ->ruleWithConfiguration(StaticCallToFuncCallRector::class, [
             new StaticCallToFuncCall('TYPO3\CMS\Core\Utility\StringUtility', 'beginsWith', 'str_starts_with'),
