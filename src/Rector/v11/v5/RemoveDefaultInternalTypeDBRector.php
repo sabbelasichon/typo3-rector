@@ -64,10 +64,6 @@ CODE_SAMPLE
             return;
         }
 
-        $toRemoveArrayItem = $this->extractArrayItemByKey($configArray, 'internal_type');
-        if ($toRemoveArrayItem instanceof ArrayItem) {
-            $this->removeNode($toRemoveArrayItem);
-            $this->hasAstBeenChanged = true;
-        }
+        $this->hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($configArray, 'internal_type');
     }
 }
