@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
+use PhpParser\Node\Stmt\TraitUse;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use Rector\Core\Rector\AbstractScopeAwareRector;
@@ -47,15 +48,17 @@ final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAware
             return null;
         }
 
-        foreach ($node->getTraitUses() as $traitUse) {
-            foreach ($traitUse->traits as $trait) {
-                if (! $this->isName($trait, 'TYPO3\CMS\Core\Site\SiteLanguageAwareTrait')) {
-                    continue;
-                }
+        foreach ($node->stmts as $stmtKey => $stmt) {
+            if ($stmt instanceof TraitUse) {
+                foreach ($stmt->traits as $trait) {
+                    if (! $this->isName($trait, 'TYPO3\CMS\Core\Site\SiteLanguageAwareTrait')) {
+                        continue;
+                    }
 
-                $this->removeNode($traitUse);
-                $classHasChanged = true;
-                $isSiteLanguageAwareClass = true;
+                    unset($node->stmts[$stmtKey]);
+                    $classHasChanged = true;
+                    $isSiteLanguageAwareClass = true;
+                }
             }
         }
 
