@@ -115,7 +115,7 @@ final class RemovedTcaSelectTreeOptionsRector extends AbstractRector
                                 continue;
                             }
 
-                            foreach ($treeConfigValue->value->items as $appearanceConfigValue) {
+                            foreach ($treeConfigValue->value->items as $appearanceConfigKey => $appearanceConfigValue) {
                                 if (! $appearanceConfigValue instanceof ArrayItem) {
                                     continue;
                                 }
@@ -131,7 +131,7 @@ final class RemovedTcaSelectTreeOptionsRector extends AbstractRector
                                     continue;
                                 }
 
-                                $this->removeNode($appearanceConfigValue);
+                                unset($treeConfigValue->value->items[$appearanceConfigKey]);
                                 $hasAstBeenChanged = true;
                             }
                         }
