@@ -89,13 +89,6 @@ CODE_SAMPLE
             } elseif ($this->valueResolver->isValue($renderModeExpr, 'checkbox')) {
                 $renderType = 'selectCheckBox';
             } else {
-                $this->rectorOutputStyle->warning(
-                    sprintf(
-                        'The render mode %s is invalid for the select field in %s',
-                        $this->valueResolver->getValue($renderModeExpr),
-                        $this->valueResolver->getValue($columnName)
-                    )
-                );
                 return;
             }
         } else {
