@@ -33,7 +33,7 @@ final class RemoveMethodInitTCARector extends AbstractRector
     {
         $staticCall = $node->expr;
 
-        if(!$staticCall instanceof StaticCall) {
+        if (! $staticCall instanceof StaticCall) {
             return null;
         }
 
