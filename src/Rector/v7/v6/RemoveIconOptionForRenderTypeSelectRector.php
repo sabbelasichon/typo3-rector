@@ -130,7 +130,7 @@ CODE_SAMPLE
                 $noIconsBelowSelect = null;
                 $doSomething = false;
 
-                foreach ($configValue->value->items as $configItemValue) {
+                foreach ($configValue->value->items as $configItemValueKey => $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;
                     }
@@ -147,15 +147,15 @@ CODE_SAMPLE
                     } elseif ($this->valueResolver->isValue($configItemValue->key, self::SHOW_ICON_TABLE)) {
                         $showIconTable = $this->valueResolver->getValue($configItemValue->value);
                     } elseif ($this->valueResolver->isValue($configItemValue->key, 'suppress_icons')) {
-                        $this->removeNode($configItemValue);
+                        unset($configValue->value->items[$configItemValueKey]);
                         $hasAstBeenChanged = true;
                     } elseif ($this->valueResolver->isValue($configItemValue->key, 'noIconsBelowSelect')) {
                         $noIconsBelowSelect = $this->valueResolver->getValue($configItemValue->value);
                         $doSomething = true;
-                        $this->removeNode($configItemValue);
+                        unset($configValue->value->items[$configItemValueKey]);
                         $hasAstBeenChanged = true;
                     } elseif ($this->valueResolver->isValue($configItemValue->key, 'foreign_table_loadIcons')) {
-                        $this->removeNode($configItemValue);
+                        unset($configValue->value->items[$configItemValueKey]);
                         $hasAstBeenChanged = true;
                     }
                 }
@@ -164,7 +164,7 @@ CODE_SAMPLE
                     continue;
                 }
 
-                if ($renderType === null || $renderType !== 'selectSingle') {
+                if ($renderType !== 'selectSingle') {
                     continue;
                 }
 
