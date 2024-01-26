@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\MagicConst\Class_;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\OldSeverityToLogLevelMapper;
@@ -35,28 +36,34 @@ final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRect
      */
     public function getNodeTypes(): array
     {
-        return [StaticCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param StaticCall $node
+     * @param Node\Stmt\Expression $node
+     * @return int|null|Node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node)
     {
+        $staticCall = $node->expr;
+
+        if (! $staticCall instanceof StaticCall) {
+            return null;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return null;
         }
 
-        if (! $this->isNames($node->name, ['initSysLog', 'sysLog'])) {
+        if (! $this->isNames($staticCall->name, ['initSysLog', 'sysLog'])) {
             return null;
         }
 
-        if ($this->isName($node->name, 'initSysLog')) {
-            $this->removeNode($node);
-            return null;
+        if ($this->isName($staticCall->name, 'initSysLog')) {
+            return NodeTraverser::REMOVE_NODE;
         }
 
         $makeInstanceCall = $this->nodeFactory->createStaticCall(
@@ -71,15 +78,19 @@ final class ReplacedGeneralUtilitySysLogWithLogginApiRector extends AbstractRect
 
         $severity = $this->nodeFactory->createClassConstFetch('TYPO3\CMS\Core\Log\LogLevel', 'INFO');
 
-        if (isset($node->args[2]) && $severityValue = $this->valueResolver->getValue($node->args[2]->value)) {
+        if (isset($staticCall->args[2]) && $severityValue = $this->valueResolver->getValue(
+            $staticCall->args[2]->value
+        )) {
             $severity = $this->oldSeverityToLogLevelMapper->mapSeverityToLogLevel((int) $severityValue);
         }
 
         $args[] = $severity;
 
-        $args[] = $node->args[0] ?? $this->nodeFactory->createArg(new String_(''));
+        $args[] = $staticCall->args[0] ?? $this->nodeFactory->createArg(new String_(''));
 
-        return $this->nodeFactory->createMethodCall($loggerCall, 'log', $args);
+        $node->expr = $this->nodeFactory->createMethodCall($loggerCall, 'log', $args);
+
+        return $node;
     }
 
     /**
