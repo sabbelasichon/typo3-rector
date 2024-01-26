@@ -12,7 +12,6 @@ use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\MigrateQueryBuilderExecuteRector;
-use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RegisterExtbaseTypeConvertersAsServicesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveMailerAdapterInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveRedundantFeLoginModeMethodsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveRelativeToCurrentScriptArgumentsRector;
@@ -164,6 +163,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(UseConfigArrayForTSFEPropertiesRector::class);
     $rectorConfig->rule(ReplacePageRepoOverlayFunctionRector::class);
     $rectorConfig->rule(ImplementSiteLanguageAwareInterfaceRector::class);
-    $rectorConfig->rule(RegisterExtbaseTypeConvertersAsServicesRector::class);
     $rectorConfig->rule(ChangeExtbaseValidatorsRector::class);
 };
