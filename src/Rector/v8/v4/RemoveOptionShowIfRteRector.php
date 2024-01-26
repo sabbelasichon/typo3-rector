@@ -81,7 +81,7 @@ final class RemoveOptionShowIfRteRector extends AbstractRector
                     continue;
                 }
 
-                foreach ($configValue->value->items as $configItemValue) {
+                foreach ($configValue->value->items as $configItemKey => $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;
                     }
@@ -91,7 +91,7 @@ final class RemoveOptionShowIfRteRector extends AbstractRector
                     }
 
                     if ($this->valueResolver->isValue($configItemValue->key, 'showIfRTE')) {
-                        $this->removeNode($configItemValue);
+                        unset($configValue->value->items[$configItemKey]);
                         return $node;
                     }
                 }
