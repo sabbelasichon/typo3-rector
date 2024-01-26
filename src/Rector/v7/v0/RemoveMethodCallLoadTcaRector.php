@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v7\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -22,28 +23,32 @@ final class RemoveMethodCallLoadTcaRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [StaticCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param StaticCall $node
+     * @param Node\Stmt\Expression $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?int
     {
+        $staticCall = $node->expr;
+
+        if (! $staticCall instanceof StaticCall) {
+            return null;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->name, 'loadTCA')) {
+        if (! $this->isName($staticCall->name, 'loadTCA')) {
             return null;
         }
 
-        $this->removeNode($node);
-
-        return $node;
+        return NodeTraverser::REMOVE_NODE;
     }
 
     /**
