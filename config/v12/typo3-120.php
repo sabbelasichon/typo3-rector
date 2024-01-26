@@ -12,7 +12,6 @@ use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveMailerAdapterInterfaceRector;
-use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveRedundantFeLoginModeMethodsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveRelativeToCurrentScriptArgumentsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveTSFEConvOutputCharsetCallsRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\RemoveTSFEMetaCharSetCallsRector;
@@ -36,7 +35,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(HintNecessaryUploadedFileChangesRector::class);
     $rectorConfig->rule(MigrateQueryBuilderExecuteRector::class);
     $rectorConfig->rule(RemoveMailerAdapterInterfaceRector::class);
-    $rectorConfig->rule(RemoveRedundantFeLoginModeMethodsRector::class);
     $rectorConfig->rule(RemoveRelativeToCurrentScriptArgumentsRector::class);
     $rectorConfig->rule(RemoveTSFEConvOutputCharsetCallsRector::class);
     $rectorConfig->rule(RemoveTSFEMetaCharSetCallsRector::class);
