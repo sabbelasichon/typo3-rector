@@ -110,7 +110,7 @@ final class RemoveLocalizationModeKeepIfNeededRector extends AbstractRector
                         continue;
                     }
 
-                    foreach ($configItemValue->value->items as $behaviourConfigurationItem) {
+                    foreach ($configItemValue->value->items as $behaviourConfigurationItemKey => $behaviourConfigurationItem) {
                         if (! $behaviourConfigurationItem instanceof ArrayItem) {
                             continue;
                         }
@@ -120,7 +120,7 @@ final class RemoveLocalizationModeKeepIfNeededRector extends AbstractRector
                         }
 
                         if ($this->valueResolver->isValue($behaviourConfigurationItem->key, self::LOCALIZATION_MODE)) {
-                            $this->removeNode($behaviourConfigurationItem);
+                            unset($configItemValue->value->items[$behaviourConfigurationItemKey]);
                             $hasAstBeenChanged = true;
                             break;
                         }
