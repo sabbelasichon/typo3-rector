@@ -1,16 +1,11 @@
 {
     "name": "ssch/typo3-rector",
-    "type": "rector-extension",
     "description": "Instant fixes for your TYPO3 code by using Rector.",
-    "keywords": ["dev"],
-    "homepage": "https://packagist.org/packages/ssch/typo3-rector",
-    "support": {
-        "docs": "https://github.com/sabbelasichon/typo3-rector/tree/main/docs",
-        "issues": "https://github.com/sabbelasichon/typo3-rector/issues",
-        "source": "https://github.com/sabbelasichon/typo3-rector",
-        "chat": "https://typo3.slack.com/archives/C019R5LAA6A"
-    },
     "license": "MIT",
+    "type": "rector-extension",
+    "keywords": [
+        "dev"
+    ],
     "authors": [
         {
             "name": "Sebastian Schreiber",
@@ -18,8 +13,18 @@
         },
         {
             "name": "Henrik Elsner"
+        },
+        {
+            "name": "Simon Schaufelberger"
         }
     ],
+    "homepage": "https://packagist.org/packages/ssch/typo3-rector",
+    "support": {
+        "issues": "https://github.com/sabbelasichon/typo3-rector/issues",
+        "chat": "https://typo3.slack.com/archives/C019R5LAA6A",
+        "source": "https://github.com/sabbelasichon/typo3-rector",
+        "docs": "https://github.com/sabbelasichon/typo3-rector/tree/main/docs"
+    },
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-dom": "*",
@@ -40,6 +45,7 @@
         "webmozart/assert": "^1.11.0"
     },
     "require-dev": {
+        "ergebnis/composer-normalize": "^2.28",
         "php-parallel-lint/php-parallel-lint": "^1.3.2",
         "phpstan/extension-installer": "^1.3.1",
         "phpstan/phpstan-phpunit": "^1.3.15",
@@ -48,6 +54,9 @@
         "symfony/http-kernel": "^5.4.34 || ^6.4.2 || ^7.0.2",
         "symplify/easy-coding-standard": "^12.1.8"
     },
+    "conflict": {
+        "phpstan/phpstan": ">= 1.10.28"
+    },
     "autoload": {
         "psr-4": {
             "Ssch\\TYPO3Rector\\": "src",
@@ -55,7 +64,6 @@
         }
     },
     "autoload-dev": {
-        "classmap": ["stubs"],
         "psr-4": {
             "Ssch\\TYPO3Rector\\Generator\\": "utils/generator/src",
             "Ssch\\TYPO3Rector\\Tests\\": "tests",
@@ -63,48 +71,51 @@
             "Ssch\\TYPO3Rector\\Rules\\Tests\\": "utils/rules/tests",
             "Ssch\\TYPO3Rector\\Rules\\": "utils/rules/src"
         },
+        "classmap": [
+            "stubs"
+        ],
         "exclude-from-classmap": [
             "**.php.inc"
         ]
     },
     "config": {
-        "optimize-autoloader": true,
-        "update-with-dependencies": true,
-        "sort-packages": true,
-        "platform-check": false,
         "allow-plugins": {
-            "phpstan/extension-installer": true
-        }
-    },
-    "scripts": {
-        "contribute": [
-            "@fix-rector",
-            "@fix-style",
-            "@analyze",
-            "@phpstan-generate-baseline"
-        ],
-        "check-style": "@php vendor/bin/ecs check --ansi",
-        "fix-style": "@php vendor/bin/ecs check --fix --ansi",
-        "analyze": "@php vendor/bin/phpstan analyse --memory-limit=-1 --ansi",
-        "phpstan-generate-baseline": "@php vendor/bin/phpstan analyse --generate-baseline --memory-limit=-1 --ansi --allow-empty-baseline",
-        "test": "@php vendor/bin/phpunit",
-        "docs": "@php vendor/bin/rule-doc-generator generate src --output-file docs/all_rectors_overview.md --ansi",
-        "rector": "@php vendor/bin/rector process --dry-run --ansi",
-        "fix-rector": "@php vendor/bin/rector process --ansi",
-        "check-typo3-rector": "@php vendor/bin/rector process src/Helper --config templates/rector.php --dry-run --ansi",
-        "lint-php": "@php vendor/bin/parallel-lint src config tests"
+            "phpstan/extension-installer": true,
+            "ergebnis/composer-normalize": true
+        },
+        "optimize-autoloader": true,
+        "platform-check": false,
+        "sort-packages": true,
+        "update-with-dependencies": true
     },
     "extra": {
+        "branch-alias": {
+            "dev-main": "1.0-dev"
+        },
         "rector": {
             "includes": [
                 "config/config.php"
             ]
-        },
-        "branch-alias": {
-            "dev-main": "1.0-dev"
         }
     },
-    "conflict": {
-        "phpstan/phpstan": ">= 1.10.28"
+    "scripts": {
+        "ci:check-style": "@php vendor/bin/ecs check --ansi",
+        "ci:check-typo3-rector": "@php vendor/bin/rector process src/Helper --config templates/rector.php --dry-run --ansi",
+        "ci:composer:normalize": "@composer normalize --no-check-lock --dry-run",
+        "ci:php:lint": "@php vendor/bin/parallel-lint src config tests",
+        "ci:php:stan": "@php vendor/bin/phpstan analyse --memory-limit=-1 --ansi",
+        "ci:rector": "@php vendor/bin/rector process --dry-run --ansi",
+        "ci:tests:unit": "@php vendor/bin/phpunit",
+        "docs:generate": "@php vendor/bin/rule-doc-generator generate src --output-file docs/all_rectors_overview.md --ansi",
+        "fix:composer:normalize": "@composer normalize --no-check-lock",
+        "fix:rector": "@php vendor/bin/rector process --ansi",
+        "fix:style": "@php vendor/bin/ecs check --fix --ansi",
+        "local:contribute": [
+            "@fix:rector",
+            "@fix:style",
+            "@ci:php:stan",
+            "@phpstan:baseline"
+        ],
+        "phpstan:baseline": "@php vendor/bin/phpstan analyse --generate-baseline --memory-limit=-1 --ansi --allow-empty-baseline"
     }
 }
