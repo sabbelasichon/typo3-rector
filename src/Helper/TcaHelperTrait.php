@@ -140,7 +140,7 @@ trait TcaHelperTrait
         }
 
         foreach ($array->items as $arrayItemKey => $arrayItem) {
-            if($arrayItem === $arrayItemToRemove) {
+            if ($arrayItem === $arrayItemToRemove) {
                 unset($array->items[$arrayItemKey]);
                 return true;
             }

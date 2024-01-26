@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v8\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -23,28 +23,32 @@ final class RemoveWakeupCallFromEntityRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [StaticCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param ClassMethod $node
+     * @param Node\Stmt\Expression $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?int
     {
+        $staticCall = $node->expr;
+
+        if (! $staticCall instanceof StaticCall) {
+            return null;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticCall,
             new ObjectType('TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->name, '__wakeup')) {
+        if (! $this->isName($staticCall->name, '__wakeup')) {
             return null;
         }
 
-        $this->removeNode($node);
-
-        return $node;
+        return NodeTraverser::REMOVE_NODE;
     }
 
     /**
