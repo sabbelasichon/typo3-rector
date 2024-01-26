@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
-use PhpCsFixer\Fixer\FunctionNotation\FunctionTypehintSpaceFixer;
 use PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
@@ -39,13 +38,7 @@ return static function (ECSConfig $ecsConfig): void {
     ]);
 
     $ecsConfig->skip([
-        __DIR__ . '/tests/Rector/v12/v0/typo3/RegisterExtbaseTypeConvertersAsServicesRector/Fixture/ExpectedMySpecialTypeConverter.php',
-        __DIR__ . '/tests/Rector/v12/v0/typo3/RegisterExtbaseTypeConvertersAsServicesRector/Fixture/ExpectedMySecondSpecialTypeConverter.php',
         // on php 8.1, it adds space on &$variable
-        FunctionTypehintSpaceFixer::class => [
-            __DIR__ . '/src/FileProcessor/Yaml/Form/Rector/EmailFinisherRector.php',
-            __DIR__ . '/src/FileProcessor/Yaml/Form/Rector/TranslationFileRector.php',
-        ],
         __DIR__ . '/utils/generator/templates/src',
         AssignmentInConditionSniff::class,
         DeclareStrictTypesFixer::class => ['*/Fixture/*'],
