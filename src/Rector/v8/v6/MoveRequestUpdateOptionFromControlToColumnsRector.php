@@ -54,7 +54,7 @@ final class MoveRequestUpdateOptionFromControlToColumnsRector extends AbstractRe
 
         $requestUpdateFields = [];
 
-        foreach ($ctrlItems->items as $fieldValue) {
+        foreach ($ctrlItems->items as $fieldKey => $fieldValue) {
             if (! $fieldValue instanceof ArrayItem) {
                 continue;
             }
@@ -70,7 +70,7 @@ final class MoveRequestUpdateOptionFromControlToColumnsRector extends AbstractRe
                 }
 
                 $requestUpdateFields = ArrayUtility::trimExplode(',', $fields);
-                $this->removeNode($fieldValue);
+                unset($ctrlItems->items[$fieldKey]);
             }
         }
 
