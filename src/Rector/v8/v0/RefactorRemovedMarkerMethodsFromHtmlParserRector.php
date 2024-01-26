@@ -8,8 +8,8 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -47,35 +47,40 @@ final class RefactorRemovedMarkerMethodsFromHtmlParserRector extends AbstractRec
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class, StaticCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param StaticCall|MethodCall $node
+     * @param Node\Stmt\Expression $node
+     * @return int|null|Node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node)
     {
+        $staticOrMethodCall = $node->expr;
+
+        if (! $staticOrMethodCall instanceof StaticCall && ! $staticOrMethodCall instanceof MethodCall) {
+            return null;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticOrMethodCall,
             new ObjectType('TYPO3\CMS\Core\Html\HtmlParser')
         )) {
             return null;
         }
 
-        if ($this->shouldSkip($node)) {
+        if ($this->shouldSkip($staticOrMethodCall)) {
             return null;
         }
 
-        $migratedNode = $this->migrateMethodsToMarkerBasedTemplateService($node);
+        $migratedNode = $this->migrateMethodsToMarkerBasedTemplateService($staticOrMethodCall);
         if ($migratedNode instanceof Node) {
             return $migratedNode;
         }
 
-        $this->renameMethod($node);
+        $this->renameMethod($staticOrMethodCall);
 
-        $this->removeMethods($node);
-
-        return $node;
+        return $this->removeMethods($staticOrMethodCall);
     }
 
     /**
@@ -140,17 +145,15 @@ CODE_SAMPLE
     /**
      * @param StaticCall|MethodCall $call
      */
-    public function removeMethods($call): void
+    public function removeMethods($call): ?int
     {
         if ($this->isNames($call->name, self::REMOVED_METHODS)) {
             $methodName = $this->getName($call->name);
             if ($methodName !== null) {
-                try {
-                    $this->removeNode($call);
-                } catch (ShouldNotHappenException $shouldNotHappenException) {
-                }
+                return NodeTraverser::REMOVE_NODE;
             }
         }
+        return null;
     }
 
     /**
