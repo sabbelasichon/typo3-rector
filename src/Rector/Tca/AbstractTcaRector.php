@@ -9,7 +9,6 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
-use Rector\Core\Console\Output\RectorOutputStyle;
 use Rector\Core\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 
@@ -36,13 +35,6 @@ abstract class AbstractTcaRector extends AbstractRector
     protected const LABEL = 'label';
 
     protected bool $hasAstBeenChanged = false;
-
-    protected RectorOutputStyle $rectorOutputStyle;
-
-    public function __construct(RectorOutputStyle $rectorOutputStyle)
-    {
-        $this->rectorOutputStyle = $rectorOutputStyle;
-    }
 
     /**
      * @return array<class-string<Node>>
