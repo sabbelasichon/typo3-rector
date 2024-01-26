@@ -5,7 +5,6 @@
 3. [Installation](installation.md)
 4. [Configuration and Processing](configuration_and_processing.md)
 5. [Best practice guide](best_practice_guide.md)
-6. [Beyond PHP - Entering the realm of FileProcessors](beyond_php_file_processors.md)
 7. [Limitations](limitations.md)
 8. [Contribution](contribution.md)
 

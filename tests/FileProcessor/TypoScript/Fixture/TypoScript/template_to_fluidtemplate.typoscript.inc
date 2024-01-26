@@ -1,3 +1,0 @@
-page.10 = TEMPLATE
------
-page.10 = FLUIDTEMPLATE
