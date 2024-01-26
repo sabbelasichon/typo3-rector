@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v9\v5;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -24,15 +23,15 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class, Assign::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param MethodCall|Node\Expr\Assign $node
+     * @param Node\Stmt\Expression $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?int
     {
-        $methodeCall = $node instanceof Assign ? $node->expr : $node;
+        $methodeCall = $node->expr;
 
         if (! $methodeCall instanceof MethodCall) {
             return null;
@@ -49,13 +48,7 @@ final class RemoveInitMethodFromPageRepositoryRector extends AbstractRector
             return null;
         }
 
-        try {
-            $this->removeNode($node);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
-            return null;
-        }
-
-        return null;
+        return NodeTraverser::REMOVE_NODE;
     }
 
     /**

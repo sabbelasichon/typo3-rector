@@ -5,7 +5,6 @@ use TYPO3\CMS\Frontend\Page\PageRepository;
 
 $repository = GeneralUtility::makeInstance(PageRepository::class);
 $repository->init(true);
-$assignment = $repository->init(true);
 
 GeneralUtility::makeInstance(PageRepository::class)->init();
 
