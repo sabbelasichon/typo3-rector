@@ -30,7 +30,6 @@
         "ext-dom": "*",
         "ext-libxml": "*",
         "ext-simplexml": "*",
-        "helmich/typo3-typoscript-parser": "^2.5.0",
         "nette/utils": "^3.2.10 || ^4.0.4",
         "nikic/php-parser": "^4.18.0",
         "phpstan/phpstan": "^1.10.27",
@@ -96,6 +95,9 @@
             "includes": [
                 "config/config.php"
             ]
+        },
+        "branch-alias": {
+            "dev-main": "2.0-dev"
         }
     },
     "scripts": {
