@@ -18,7 +18,6 @@ use Ssch\TYPO3Rector\Rector\v9\v0\RefactorBackendUtilityGetPagesTSconfigRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorDeprecationLogRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RefactorMethodsFromExtensionManagementUtilityRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveMethodInitTCARector;
-use Ssch\TYPO3Rector\Rector\v9\v0\RemovePropertiesFromSimpleDataHandlerControllerRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\RemoveSecondArgumentGeneralUtilityMkdirDeepRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\ReplaceAnnotationRector;
 use Ssch\TYPO3Rector\Rector\v9\v0\ReplacedGeneralUtilitySysLogWithLogginApiRector;
@@ -45,7 +44,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MetaTagManagementRector::class);
     $rectorConfig->rule(FindByPidsAndAuthorIdRector::class);
     $rectorConfig->rule(UseRenderingContextGetControllerContextRector::class);
-    $rectorConfig->rule(RemovePropertiesFromSimpleDataHandlerControllerRector::class);
     $rectorConfig->rule(RemoveMethodInitTCARector::class);
     $rectorConfig->rule(GeneratePageTitleRector::class);
     $rectorConfig->rule(SubstituteConstantParsetimeStartRector::class);
