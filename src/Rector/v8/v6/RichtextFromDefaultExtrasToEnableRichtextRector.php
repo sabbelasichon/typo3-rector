@@ -176,7 +176,7 @@ CODE_SAMPLE
             }
 
             $hasRichTextConfiguration = false;
-            foreach ($columnItem->value->items as $configValue) {
+            foreach ($columnItem->value->items as $configKey => $configValue) {
                 if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
@@ -186,7 +186,7 @@ CODE_SAMPLE
                 }
 
                 $hasRichTextConfiguration = true;
-                $this->removeNode($configValue);
+                unset($columnItem->value->items[$configKey]);
                 $this->hasAstBeenChanged = true;
             }
 
