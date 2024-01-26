@@ -11,6 +11,4 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->rule(RefactorMethodFileContentRector::class);
     $rectorConfig->rule(RefactorQueryViewTableWrapRector::class);
-
-    $services = $rectorConfig->services();
 };
