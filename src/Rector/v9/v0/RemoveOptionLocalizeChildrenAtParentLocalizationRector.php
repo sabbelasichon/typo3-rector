@@ -101,7 +101,7 @@ final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends Abstr
                         continue;
                     }
 
-                    foreach ($configItemValue->value->items as $behaviourConfigurationItem) {
+                    foreach ($configItemValue->value->items as $behaviourConfigurationItemKey => $behaviourConfigurationItem) {
                         if (! $behaviourConfigurationItem instanceof ArrayItem) {
                             continue;
                         }
@@ -114,7 +114,7 @@ final class RemoveOptionLocalizeChildrenAtParentLocalizationRector extends Abstr
                             $behaviourConfigurationItem->key,
                             'localizeChildrenAtParentLocalization'
                         )) {
-                            $this->removeNode($behaviourConfigurationItem);
+                            unset($configItemValue->value->items[$behaviourConfigurationItemKey]);
                             $hasAstBeenChanged = true;
                         }
                     }
