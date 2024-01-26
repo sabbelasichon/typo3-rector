@@ -6,8 +6,6 @@ use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\PostRector\v8\v7\LibFluidContentToContentElementTypoScriptPostRector;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v8\v7\LibFluidContentToLibContentElementRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordRawRector;
 use Ssch\TYPO3Rector\Rector\v8\v7\BackendUtilityGetRecordsByFieldToQueryBuilderRector;
@@ -51,8 +49,4 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RefactorArrayBrowserWrapValueRector::class);
     $rectorConfig->rule(DataHandlerVariousMethodsAndMethodArgumentsRector::class);
     $rectorConfig->rule(UseCachingFrameworkInsteadGetAndStoreHashRector::class);
-    $rectorConfig->services()
-        ->set(LibFluidContentToLibContentElementRector::class)->tag('typo3_rector.typoscript_rectors');
-    $rectorConfig->services()
-        ->set(LibFluidContentToContentElementTypoScriptPostRector::class)->tag('typo3_rector.typoscript_post_rectors');
 };

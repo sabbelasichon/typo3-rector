@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Transform\Rector\StaticCall\StaticCallToFuncCallRector;
 use Rector\Transform\ValueObject\StaticCallToFuncCall;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v11\v0\TemplateToFluidTemplateTypoScriptRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\DateTimeAspectInsteadOfGlobalsExecTimeRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector;
@@ -39,6 +38,4 @@ return static function (RectorConfig $rectorConfig): void {
             ),
         ]);
     $rectorConfig->rule(ReplaceInjectAnnotationWithMethodRector::class);
-    $rectorConfig->services()
-        ->set(TemplateToFluidTemplateTypoScriptRector::class)->tag('typo3_rector.typoscript_rectors');
 };

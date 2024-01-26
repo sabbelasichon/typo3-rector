@@ -7,7 +7,6 @@ use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
-use Ssch\TYPO3Rector\FileProcessor\FlexForms\Rector\v7\v6\RenderTypeFlexFormRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\RenamePiListBrowserResultsRector;
 use Ssch\TYPO3Rector\Rector\v7\v6\WrapClickMenuOnIconRector;
 
@@ -51,6 +50,4 @@ return static function (RectorConfig $rectorConfig): void {
             ),
         ]);
     $rectorConfig->rule(WrapClickMenuOnIconRector::class);
-    $rectorConfig->services()
-        ->set(RenderTypeFlexFormRector::class)->tag('typo3_rector.flexform_rectors');
 };
