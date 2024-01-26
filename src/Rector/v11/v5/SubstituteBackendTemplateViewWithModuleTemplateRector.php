@@ -15,6 +15,7 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Property;
+use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\NodeManipulator\ClassDependencyManipulator;
@@ -78,8 +79,8 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
         }
 
         $this->addModuleTemplateFactoryToConstructor($node);
-        $this->removePropertyDefaultViewObjectName($node);
-        $this->removePropertyViewIfNeeded($node);
+        $this->removePropertyFromClass($node, 'defaultViewObjectName');
+        $this->removePropertyFromClass($node, 'view');
 
         $classMethods = $node->getMethods();
 
@@ -173,24 +174,17 @@ CODE_SAMPLE
         );
     }
 
-    private function removePropertyDefaultViewObjectName(Class_ $class): void
+    private function removePropertyFromClass(Class_ $class, string $propertyName): void
     {
-        $defaultViewObjectNameProperty = $class->getProperty('defaultViewObjectName');
-        if (! $defaultViewObjectNameProperty instanceof Property) {
-            return;
+        foreach ($class->stmts as $stmtKey => $stmt) {
+            if ($stmt instanceof Property) {
+                foreach ($stmt->props as $prop) {
+                    if ($prop instanceof PropertyProperty && $propertyName === $prop->name->toString()) {
+                        unset($class->stmts[$stmtKey]);
+                    }
+                }
+            }
         }
-
-        $this->removeNode($defaultViewObjectNameProperty);
-    }
-
-    private function removePropertyViewIfNeeded(Class_ $class): void
-    {
-        $viewProperty = $class->getProperty('view');
-        if (! $viewProperty instanceof Property) {
-            return;
-        }
-
-        $this->removeNode($viewProperty);
     }
 
     private function createModuleTemplateAssignment(): Expression
