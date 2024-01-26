@@ -7,8 +7,8 @@ namespace Ssch\TYPO3Rector\Rector\v8\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Exception\ShouldNotHappenException;
 use Rector\Core\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -24,32 +24,34 @@ final class RemoveRteHtmlParserEvalWriteFileRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [MethodCall::class, StaticCall::class];
+        return [Node\Stmt\Expression::class];
     }
 
     /**
-     * @param StaticCall|MethodCall $node
+     * @param Node\Stmt\Expression $node
      */
-    public function refactor(Node $node): ?Node
+    public function refactor(Node $node): ?int
     {
+        $staticOrMethodCall = $node->expr;
+
+        if (! $staticOrMethodCall instanceof StaticCall && ! $staticOrMethodCall instanceof MethodCall) {
+            return null;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node,
+            $staticOrMethodCall,
             new ObjectType('TYPO3\CMS\Core\Html\RteHtmlParser')
         )) {
             return null;
         }
 
-        if ($this->isName($node->name, 'evalWriteFile')) {
-            $methodName = $this->getName($node->name);
+        if ($this->isName($staticOrMethodCall->name, 'evalWriteFile')) {
+            $methodName = $this->getName($staticOrMethodCall->name);
             if ($methodName === null) {
                 return null;
             }
 
-            try {
-                $this->removeNode($node);
-                return $node;
-            } catch (ShouldNotHappenException $shouldNotHappenException) {
-            }
+            return NodeTraverser::REMOVE_NODE;
         }
 
         return null;
