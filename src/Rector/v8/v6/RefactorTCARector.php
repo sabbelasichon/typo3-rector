@@ -186,7 +186,7 @@ CODE_SAMPLE
                     $this->refactorRenderTypeInputDateTime($configValue);
                 }
 
-                foreach ($configValueArray->items as $configItemValue) {
+                foreach ($configValueArray->items as $configItemKey => $configItemValue) {
                     if (! $configItemValue instanceof ArrayItem) {
                         continue;
                     }
@@ -207,7 +207,7 @@ CODE_SAMPLE
                     $customTypeOptions = [];
 
                     $remainingWizards = count($configItemValue->value->items);
-                    foreach ($configItemValue->value->items as $wizardItemValue) {
+                    foreach ($configItemValue->value->items as $wizardItemKey => $wizardItemValue) {
                         if (! $wizardItemValue instanceof ArrayItem) {
                             continue;
                         }
@@ -230,7 +230,7 @@ CODE_SAMPLE
                             continue;
                         }
 
-                        $this->removeNode($wizardItemValue);
+                        unset($configItemValue->value->items[$wizardItemKey]);
 
                         if (! $wizardItemValue->value instanceof Array_) {
                             continue;
@@ -388,7 +388,7 @@ CODE_SAMPLE
                     }
 
                     if ($remainingWizards === 0) {
-                        $this->removeNode($configItemValue);
+                        unset($configValueArray->items[$configItemKey]);
                     }
                 }
             }
