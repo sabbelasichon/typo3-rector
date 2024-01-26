@@ -9,7 +9,6 @@ use Ssch\TYPO3Rector\Rector\v11\v0\DateTimeAspectInsteadOfGlobalsExecTimeRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\ForwardResponseInsteadOfForwardMethodRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\GetClickMenuOnIconTagParametersRector;
-use Ssch\TYPO3Rector\Rector\v11\v0\RemoveAddQueryStringMethodRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\RemoveLanguageModeMethodsFromTypo3QuerySettingsRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\ReplaceInjectAnnotationWithMethodRector;
 use Ssch\TYPO3Rector\Rector\v11\v0\SubstituteConstantsModeAndRequestTypeRector;
@@ -21,7 +20,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(DateTimeAspectInsteadOfGlobalsExecTimeRector::class);
     $rectorConfig->rule(UniqueListFromStringUtilityRector::class);
     $rectorConfig->rule(GetClickMenuOnIconTagParametersRector::class);
-    $rectorConfig->rule(RemoveAddQueryStringMethodRector::class);
     $rectorConfig->ruleWithConfiguration(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class, [
         ExtbaseControllerActionsMustReturnResponseInterfaceRector::REDIRECT_METHODS => ['redirect', 'redirectToUri'],
     ]);
