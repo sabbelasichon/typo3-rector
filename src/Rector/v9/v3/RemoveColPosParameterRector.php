@@ -60,9 +60,9 @@ final class RemoveColPosParameterRector extends AbstractRector
             return null;
         }
 
-        $this->removeNode($node->args[1]);
+        unset($node->args[1]);
 
-        return null;
+        return $node;
     }
 
     /**
