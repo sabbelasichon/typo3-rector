@@ -6,13 +6,15 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->disableParallel();
     $rectorConfig->importNames();
     $rectorConfig->phpstanConfig(Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
     // this will not import root namespace classes, like \DateTime or \Exception
     $rectorConfig->importShortClasses(false);
 
     $services = $rectorConfig->services();
+    $services->defaults()
+        ->public()
+        ->autowire();
 
     $services->load('Ssch\\TYPO3Rector\\', __DIR__ . '/../src')
         ->exclude([
