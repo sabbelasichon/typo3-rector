@@ -196,7 +196,7 @@ CODE_SAMPLE
 
             $additionalConfigItems = [];
 
-            foreach ($columnItem->value->items as $configValue) {
+            foreach ($columnItem->value->items as $configKey => $configValue) {
                 if (! $configValue instanceof ArrayItem) {
                     continue;
                 }
@@ -232,7 +232,7 @@ CODE_SAMPLE
                 }
 
                 // Remove the defaultExtras
-                $this->removeNode($configValue);
+                unset($columnItem->value->items[$configKey]);
             }
 
             if ($additionalConfigItems !== []) {
