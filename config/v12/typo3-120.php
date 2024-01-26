@@ -5,12 +5,10 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
-use Ssch\TYPO3Rector\FileProcessor\Resources\Files\Rector\v12\v0\RenameExtTypoScriptFilesFileRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\AbstractMessageGetSeverityRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector;
-use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ContentObjectRegistrationViaServiceConfigurationRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\HintNecessaryUploadedFileChangesRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\Rector\v12\v0\typo3\MigrateQueryBuilderExecuteRector;
@@ -33,7 +31,6 @@ use Ssch\TYPO3Rector\Rector\v12\v0\typo3\UseConfigArrayForTSFEPropertiesRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
-    $rectorConfig->rule(RenameExtTypoScriptFilesFileRector::class);
     $rectorConfig->ruleWithConfiguration(RenameClassMapAliasRector::class, [
         __DIR__ . '/../../Migrations/TYPO3/12.0/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
         __DIR__ . '/../../Migrations/TYPO3/12.0/typo3/sysext/frontend/Migrations/Code/ClassAliasMap.php',
@@ -169,5 +166,4 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ImplementSiteLanguageAwareInterfaceRector::class);
     $rectorConfig->rule(RegisterExtbaseTypeConvertersAsServicesRector::class);
     $rectorConfig->rule(ChangeExtbaseValidatorsRector::class);
-    $rectorConfig->rule(ContentObjectRegistrationViaServiceConfigurationRector::class);
 };

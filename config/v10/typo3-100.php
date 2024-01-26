@@ -18,10 +18,6 @@ use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
-use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\v10\v0\RemoveNoCacheHashAndUseCacheHashAttributeFluidRector;
-use Ssch\TYPO3Rector\FileProcessor\TypoScript\Rector\v10\v0\ExtbasePersistenceTypoScriptRector;
-use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\v10\v0\EmailFinisherRector;
-use Ssch\TYPO3Rector\FileProcessor\Yaml\Form\Rector\v10\v0\TranslationFileRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\BackendUtilityGetViewDomainToPageRouterRector;
 use Ssch\TYPO3Rector\Rector\v10\v0\ChangeDefaultCachingFrameworkNamesRector;
@@ -56,9 +52,6 @@ return static function (RectorConfig $rectorConfig): void {
             ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
         ]);
     $rectorConfig->rule(SwiftMailerBasedMailMessageToMailerBasedMessageRector::class);
-    $rectorConfig->ruleWithConfiguration(ExtbasePersistenceTypoScriptRector::class, [
-        'foo' => 'bar',
-    ]);
 
     $rectorConfig
         ->ruleWithConfiguration(MethodCallToStaticCallRector::class, [
@@ -74,11 +67,6 @@ return static function (RectorConfig $rectorConfig): void {
         ->ruleWithConfiguration(RenameMethodRector::class, [
             new MethodCallRename('TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList', 'requestUri', 'listURL'),
         ]);
-
-    $rectorConfig->services()
-        ->set(EmailFinisherRector::class)->tag('typo3_rector.yaml_rectors');
-    $rectorConfig->services()
-        ->set(TranslationFileRector::class)->tag('typo3_rector.yaml_rectors');
 
     $rectorConfig
         ->ruleWithConfiguration(AddReturnTypeDeclarationRector::class, [
@@ -333,7 +321,4 @@ return static function (RectorConfig $rectorConfig): void {
                 new BooleanType()
             ),
         ]);
-
-    $rectorConfig->services()
-        ->set(RemoveNoCacheHashAndUseCacheHashAttributeFluidRector::class)->tag('typo3_rector.fluid_rectors');
 };
