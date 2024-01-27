@@ -21,7 +21,6 @@ parameters:
         - '*tests/*/Source/*'
         - '*tests/Source/*'
         - 'utils/generator/templates/*'
-        - 'src/Helper/TaggedIterator.php'
 
 
     scanDirectories:
