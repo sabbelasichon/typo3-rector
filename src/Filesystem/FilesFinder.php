@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Helper;
+namespace Ssch\TYPO3Rector\Filesystem;
 
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
-use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Symfony\Component\Finder\SplFileInfo;
 
 final class FilesFinder
