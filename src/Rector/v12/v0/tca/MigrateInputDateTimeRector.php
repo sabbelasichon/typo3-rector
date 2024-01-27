@@ -130,7 +130,7 @@ CODE_SAMPLE
             $evalList = ArrayUtility::trimExplode(',', $evalString, true);
 
             // Remove 'eval' config
-            $this->removeNode($evalArrayItem);
+            $this->removeArrayItemFromArrayByKey($configArray, 'eval');
         }
 
         // Set the "format" based on "eval"
@@ -166,7 +166,7 @@ CODE_SAMPLE
             if (in_array($dbTypeValue, self::DATETIME_TYPES, true)) {
                 if ($defaultValue === self::DATETIME_EMPTY_VALUES[$dbTypeValue]['empty']) {
                     // Remove default for native datetime fields if the default is the native "empty" value
-                    $this->removeNode($defaultArrayItem);
+                    $this->removeArrayItemFromArrayByKey($configArray, 'default');
                 }
 
                 $this->hasAstBeenChanged = true;
@@ -200,7 +200,7 @@ CODE_SAMPLE
             }
 
             // Unset default in case it's a no longer supported string
-            $this->removeNode($defaultArrayItem);
+            $this->removeArrayItemFromArrayByKey($configArray, 'default');
         }
 
         $this->hasAstBeenChanged = true;
