@@ -10,7 +10,6 @@ use Rector\Set\ValueObject\LevelSetList;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
-use Ssch\TYPO3Rector\Set\Extension\TYPO3TestingFrameworkSetList;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 use Ssch\TYPO3Rector\Set\Typo3SetList;
 
@@ -19,15 +18,10 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_81,
         Typo3LevelSetList::UP_TO_TYPO3_12,
-        // https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/FileStructure/Configuration/Icons.html
-        // Typo3SetList::REGISTER_ICONS_TO_ICON,
-        // If you use the TYPO3 Testing Framework and want to migrate to Version 7, then use this set list:
-        // TYPO3TestingFrameworkSetList::TYPO3_TESTING_FRAMEWORK_7
     ]);
 
     // Register a single rule. Single rules don't load the main config file, therefore the config file needs to be loaded manually.
     // $rectorConfig->import(__DIR__ . '/vendor/ssch/typo3-rector/config/config.php');
-    // $rectorConfig->rule(\Ssch\TYPO3Rector\Rector\v9\v0\InjectAnnotationRector::class);
 
     // To have a better analysis from phpstan, we teach it here some more things
     $rectorConfig->phpstanConfig(Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
@@ -74,13 +68,6 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/**/Configuration/**/*.php',
         ]
     ]);
-
-    /**
-     * Useful rule from RectorPHP itself to transform i.e. GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')
-     * to GeneralUtility::makeInstance(\TYPO3\CMS\Core\Log\LogManager::class) calls.
-     * But be warned, sometimes it produces false positives (edge cases), so watch out
-     */
-    // $rectorConfig->rule(\Rector\Php55\Rector\String_\StringClassNameToClassConstantRector::class);
 
     // Add some general TYPO3 rules
     $rectorConfig->rule(ConvertImplicitVariablesToExplicitGlobalsRector::class);
