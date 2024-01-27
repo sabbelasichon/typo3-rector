@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Helper;
+namespace Ssch\TYPO3Rector\NodeResolver;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
