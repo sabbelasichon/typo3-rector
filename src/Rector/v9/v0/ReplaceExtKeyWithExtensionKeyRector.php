@@ -11,7 +11,7 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\Scope;
 use Rector\Core\Rector\AbstractScopeAwareRector;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
-use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;

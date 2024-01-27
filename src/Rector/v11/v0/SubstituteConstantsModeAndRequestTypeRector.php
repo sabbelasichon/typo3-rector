@@ -13,7 +13,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Core\Rector\AbstractRector;
-use Ssch\TYPO3Rector\Helper\FilesFinder;
+use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
