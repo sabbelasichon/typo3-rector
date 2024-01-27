@@ -12,7 +12,8 @@ use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
-use Rector\Core\Rector\AbstractRector;
+use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -29,9 +30,12 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
      */
     private FilesFinder $filesFinder;
 
-    public function __construct(FilesFinder $filesFinder)
+    private ValueResolver $valueResolver;
+
+    public function __construct(FilesFinder $filesFinder, ValueResolver $valueResolver)
     {
         $this->filesFinder = $filesFinder;
+        $this->valueResolver = $valueResolver;
     }
 
     /**

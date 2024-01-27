@@ -9,8 +9,9 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Type\ObjectType;
-use Rector\Core\PhpParser\AstResolver;
-use Rector\Core\Rector\AbstractRector;
+use Rector\PhpParser\AstResolver;
+use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -25,9 +26,12 @@ final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector extends Abstr
      */
     private AstResolver $astResolver;
 
-    public function __construct(AstResolver $astResolver)
+    private ValueResolver $valueResolver;
+
+    public function __construct(AstResolver $astResolver, ValueResolver $valueResolver)
     {
         $this->astResolver = $astResolver;
+        $this->valueResolver = $valueResolver;
     }
 
     /**

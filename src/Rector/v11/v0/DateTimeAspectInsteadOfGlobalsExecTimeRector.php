@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
-use Rector\Core\Rector\AbstractRector;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;

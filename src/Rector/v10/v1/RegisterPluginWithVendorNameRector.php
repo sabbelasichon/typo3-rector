@@ -9,7 +9,8 @@ use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Rector\AbstractRector;
+use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\StringUtility;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -26,9 +27,12 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
      */
     private FileInfoFactory $fileInfoFactory;
 
-    public function __construct(FileInfoFactory $fileInfoFactory)
+    private ValueResolver $valueResolver;
+
+    public function __construct(FileInfoFactory $fileInfoFactory, ValueResolver $valueResolver)
     {
         $this->fileInfoFactory = $fileInfoFactory;
+        $this->valueResolver = $valueResolver;
     }
 
     /**

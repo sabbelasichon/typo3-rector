@@ -11,9 +11,9 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Type\ObjectType;
-use Rector\Core\NodeManipulator\ClassDependencyManipulator;
-use Rector\Core\Rector\AbstractRector;
+use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PostRector\ValueObject\PropertyMetadata;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -150,7 +150,6 @@ CODE_SAMPLE
                 continue;
             }
 
-            $this->removeNode($stmt);
             unset($nodeWithStatements->stmts[$key]);
             break;
         }

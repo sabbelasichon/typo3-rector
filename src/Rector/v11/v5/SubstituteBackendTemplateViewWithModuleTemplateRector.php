@@ -18,9 +18,11 @@ use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
-use Rector\Core\NodeManipulator\ClassDependencyManipulator;
-use Rector\Core\Rector\AbstractRector;
+use Rector\NodeManipulator\ClassDependencyManipulator;
+use Rector\PhpParser\Node\BetterNodeFinder;
+use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PostRector\ValueObject\PropertyMetadata;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -53,12 +55,20 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
 
     private ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer;
 
+    private ValueResolver $valueResolver;
+
+    private BetterNodeFinder $betterNodeFinder;
+
     public function __construct(
         ClassDependencyManipulator $classDependencyManipulator,
-        ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer
+        ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer,
+        ValueResolver $valueResolver,
+        BetterNodeFinder $betterNodeFinder
     ) {
         $this->classDependencyManipulator = $classDependencyManipulator;
         $this->extbaseControllerRedirectAnalyzer = $extbaseControllerRedirectAnalyzer;
+        $this->valueResolver = $valueResolver;
+        $this->betterNodeFinder = $betterNodeFinder;
     }
 
     /**

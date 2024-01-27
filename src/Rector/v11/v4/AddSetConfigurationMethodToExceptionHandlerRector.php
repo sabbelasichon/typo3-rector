@@ -13,8 +13,9 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Nop;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Rector\AbstractRector;
-use Rector\Core\ValueObject\MethodName;
+use Rector\PhpParser\Node\BetterNodeFinder;
+use Rector\Rector\AbstractRector;
+use Rector\ValueObject\MethodName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -34,9 +35,12 @@ final class AddSetConfigurationMethodToExceptionHandlerRector extends AbstractRe
      */
     private ReflectionProvider $reflectionProvider;
 
-    public function __construct(ReflectionProvider $reflectionProvider)
+    private BetterNodeFinder $betterNodeFinder;
+
+    public function __construct(ReflectionProvider $reflectionProvider, BetterNodeFinder $betterNodeFinder)
     {
         $this->reflectionProvider = $reflectionProvider;
+        $this->betterNodeFinder = $betterNodeFinder;
     }
 
     /**
