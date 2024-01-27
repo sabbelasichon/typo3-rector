@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\General;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
-use Rector\Core\Rector\AbstractRector;
+use Rector\Rector\AbstractRector;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;

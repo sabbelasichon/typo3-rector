@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Helper;
 
 use PhpParser\Node\Expr\ClassConstFetch;
-use Rector\Core\PhpParser\Node\NodeFactory;
+use Rector\PhpParser\Node\NodeFactory;
 use TYPO3\CMS\Core\Log\LogLevel;
 
 final class OldSeverityToLogLevelMapper

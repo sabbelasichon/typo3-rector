@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v12\v0\typo3;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use Rector\Core\Rector\AbstractRector;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 

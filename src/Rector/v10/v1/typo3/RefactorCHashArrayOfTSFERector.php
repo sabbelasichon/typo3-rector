@@ -17,7 +17,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
-use Rector\Core\Rector\AbstractRector;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;

@@ -7,13 +7,14 @@ namespace Ssch\TYPO3Rector\Rector\v10\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Rector\AbstractRector;
+use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\Rector\AbstractRector;
+use Rector\StaticTypeMapper\StaticTypeMapper;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\StringUtility;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -30,9 +31,15 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
      */
     private FileInfoFactory $fileInfoFactory;
 
-    public function __construct(FileInfoFactory $fileInfoFactory)
+    private ValueResolver $valueResolver;
+
+    private StaticTypeMapper $staticTypeMapper;
+
+    public function __construct(FileInfoFactory $fileInfoFactory, ValueResolver $valueResolver, StaticTypeMapper $staticTypeMapper)
     {
         $this->fileInfoFactory = $fileInfoFactory;
+        $this->valueResolver = $valueResolver;
+        $this->staticTypeMapper = $staticTypeMapper;
     }
 
     /**
@@ -154,10 +161,6 @@ CODE_SAMPLE
         string $extensionName
     ): void {
         foreach ($controllerActions->items as $controllerActions) {
-            if (! $controllerActions instanceof ArrayItem) {
-                continue;
-            }
-
             if (! $controllerActions->key instanceof Expr) {
                 continue;
             }

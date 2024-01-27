@@ -16,7 +16,7 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\TraitUse;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use Rector\Core\Rector\AbstractScopeAwareRector;
+use Rector\Rector\AbstractScopeAwareRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 

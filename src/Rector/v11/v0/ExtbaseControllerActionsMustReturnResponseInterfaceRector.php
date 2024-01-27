@@ -16,8 +16,9 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Throw_;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
-use Rector\Core\Rector\AbstractRector;
+use Rector\Contract\Rector\ConfigurableRectorInterface;
+use Rector\PhpParser\Node\BetterNodeFinder;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -53,9 +54,12 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
 
     private ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer;
 
-    public function __construct(ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer)
+    private BetterNodeFinder $betterNodeFinder;
+
+    public function __construct(ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer, BetterNodeFinder $betterNodeFinder)
     {
         $this->extbaseControllerRedirectAnalyzer = $extbaseControllerRedirectAnalyzer;
+        $this->betterNodeFinder = $betterNodeFinder;
     }
 
     /**
