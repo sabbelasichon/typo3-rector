@@ -1,11 +1,10 @@
 <?php
 
 use PhpParser\Node;
-use Rector\Core\Contract\Rector\PhpRectorInterface;
-use Rector\Core\Rector\AbstractRector;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-final class AddToMissingCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
+final class AddToMissingCodeCoverageIgnore extends AbstractRector
 {
     /**
      * @return array<class-string<\PhpParser\Node>>
@@ -23,7 +22,7 @@ final class AddToMissingCodeCoverageIgnore extends AbstractRector implements Php
     }
 }
 
-final class HasCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
+final class HasCodeCoverageIgnore extends AbstractRector
 {
     /**
      * @return array<class-string<\PhpParser\Node>>
@@ -49,11 +48,10 @@ final class HasCodeCoverageIgnore extends AbstractRector implements PhpRectorInt
 <?php
 
 use PhpParser\Node;
-use Rector\Core\Contract\Rector\PhpRectorInterface;
-use Rector\Core\Rector\AbstractRector;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-final class AddToMissingCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
+final class AddToMissingCodeCoverageIgnore extends AbstractRector
 {
     /**
      * @return array<class-string<Node>>
@@ -74,7 +72,7 @@ final class AddToMissingCodeCoverageIgnore extends AbstractRector implements Php
     }
 }
 
-final class HasCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
+final class HasCodeCoverageIgnore extends AbstractRector
 {
     /**
      * @return array<class-string<Node>>
