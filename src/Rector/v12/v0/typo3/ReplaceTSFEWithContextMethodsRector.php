@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
+use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -109,25 +109,25 @@ final class ReplaceTSFEWithContextMethodsRector extends AbstractRector
         return new RuleDefinition('Replace TSFE with Context methods', [new CodeSample(
             <<<'CODE_SAMPLE'
     $GLOBALS['TSFE']->initUserGroups();
-    
+
     $GLOBALS['TSFE']->isUserOrGroupSet();
-    
+
     $GLOBALS['TSFE']->isBackendUserLoggedIn();
-    
+
     $GLOBALS['TSFE']->doWorkspacePreview();
-    
+
     $GLOBALS['TSFE']->whichWorkspace();
     CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
     $GLOBALS['TSFE']->getContext()->setAspect('frontend.user', $GLOBALS['TSFE']->fe_user->createUserAspect());
-    
+
     $GLOBALS['TSFE']->getContext()->getAspect('frontend.user')->isUserOrGroupSet();
-    
+
     $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
-    
+
     $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'isOffline', false);
-    
+
     $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'id', 0);
     CODE_SAMPLE
         )]);
