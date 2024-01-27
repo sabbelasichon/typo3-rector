@@ -12,10 +12,9 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Core\Rector\AbstractRector;
-use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
+use Ssch\TYPO3Rector\Rector\Tca\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/8.7/Deprecation-80000-InlineOverrideChildTca.html?highlight=foreign_types

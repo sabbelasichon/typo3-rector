@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Rector\AbstractRector;
-use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
+use Ssch\TYPO3Rector\Rector\Tca\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 

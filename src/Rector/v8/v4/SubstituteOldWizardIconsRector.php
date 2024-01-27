@@ -12,7 +12,7 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Core\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Core\Rector\AbstractRector;
-use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
+use Ssch\TYPO3Rector\Rector\Tca\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
