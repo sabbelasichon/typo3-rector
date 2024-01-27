@@ -40,7 +40,6 @@ class MyControllerWithActionWithoutStatements extends ActionController
     public function __construct(ModuleTemplateFactory $moduleTemplateFactory)
     {
         $this->moduleTemplateFactory = $moduleTemplateFactory;
-        parent::__construct();
     }
 
     public function myAction(): ResponseInterface
