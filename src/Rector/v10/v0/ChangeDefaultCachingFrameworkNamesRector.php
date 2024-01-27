@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v10\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
+use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -17,6 +18,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
 {
+    private ValueResolver $valueResolver;
+
+    public function __construct(ValueResolver $valueResolver)
+    {
+        $this->valueResolver = $valueResolver;
+    }
+
     /*
      * @return string[]
      */
@@ -34,7 +42,10 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->nodeTypeResolver->isObjectType($node->var, new ObjectType('TYPO3\CMS\Core\Cache\CacheManager'))) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $node,
+            new ObjectType('TYPO3\CMS\Core\Cache\CacheManager')
+        )) {
             return null;
         }
 

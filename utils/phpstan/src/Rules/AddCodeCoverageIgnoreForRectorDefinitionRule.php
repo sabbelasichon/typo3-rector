@@ -11,7 +11,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\FileTypeMapper;
-use Rector\Core\Contract\Rector\PhpRectorInterface;
+use Rector\Contract\Rector\RectorInterface;
 
 /**
  * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\AddCodeCoverageIgnoreForRectorDefinitionTest
@@ -50,7 +50,7 @@ final class AddCodeCoverageIgnoreForRectorDefinitionRule implements Rule
 
         $classReflection = $scope->getClassReflection();
 
-        if (! $classReflection->isSubclassOf(PhpRectorInterface::class)) {
+        if (! $classReflection->isSubclassOf(RectorInterface::class)) {
             return [];
         }
 

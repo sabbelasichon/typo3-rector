@@ -18,6 +18,7 @@ use PhpParser\Node\Stmt\Property;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
+use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
 use Rector\StaticTypeMapper\ValueObject\Type\ShortenedObjectType;
@@ -39,14 +40,18 @@ final class InjectMethodFactory
      */
     private PhpDocInfoFactory $phpDocInfoFactory;
 
+    private DocBlockUpdater $docBlockUpdater;
+
     public function __construct(
         NodeNameResolver $nodeNameResolver,
         PhpDocTagRemover $phpDocTagRemover,
-        PhpDocInfoFactory $phpDocInfoFactory
+        PhpDocInfoFactory $phpDocInfoFactory,
+        DocBlockUpdater $docBlockUpdater
     ) {
         $this->nodeNameResolver = $nodeNameResolver;
         $this->phpDocTagRemover = $phpDocTagRemover;
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->docBlockUpdater = $docBlockUpdater;
     }
 
     /**
@@ -67,7 +72,11 @@ final class InjectMethodFactory
         }
 
         // Remove the old annotation and use setterInjection instead
-        $this->phpDocTagRemover->removeByName($propertyPhpDocInfo, $oldAnnotation);
+        $hasChanged = $this->phpDocTagRemover->removeByName($propertyPhpDocInfo, $oldAnnotation);
+
+        if ($hasChanged) {
+            $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($property);
+        }
 
         if ($varType instanceof FullyQualifiedObjectType) {
             $paramBuilder->setType(new FullyQualified($varType->getClassName()));
