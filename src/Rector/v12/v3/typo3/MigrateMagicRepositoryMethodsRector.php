@@ -15,8 +15,8 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\TypeCombinator;
-use Rector\Core\Rector\AbstractScopeAwareRector;
-use Rector\Core\Reflection\ReflectionResolver;
+use Rector\Rector\AbstractScopeAwareRector;
+use Rector\Reflection\ReflectionResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 

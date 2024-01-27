@@ -9,7 +9,8 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Stmt\Return_;
-use Rector\Core\Rector\AbstractRector;
+use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Rector\Tca\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,6 +22,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractRector
 {
     use TcaHelperTrait;
+
+    private ValueResolver $valueResolver;
+
+    public function __construct(ValueResolver $valueResolver)
+    {
+        $this->valueResolver = $valueResolver;
+    }
 
     /**
      * @return array<class-string<Node>>

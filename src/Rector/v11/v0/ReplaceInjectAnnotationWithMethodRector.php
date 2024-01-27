@@ -6,7 +6,8 @@ namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use Rector\Core\Rector\AbstractRector;
+use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\InjectMethodFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -27,9 +28,12 @@ final class ReplaceInjectAnnotationWithMethodRector extends AbstractRector
      */
     private InjectMethodFactory $injectMethodFactory;
 
-    public function __construct(InjectMethodFactory $injectMethodFactory)
+    private PhpDocInfoFactory $phpDocInfoFactory;
+
+    public function __construct(InjectMethodFactory $injectMethodFactory, PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->injectMethodFactory = $injectMethodFactory;
+        $this->phpDocInfoFactory = $phpDocInfoFactory;
     }
 
     /**

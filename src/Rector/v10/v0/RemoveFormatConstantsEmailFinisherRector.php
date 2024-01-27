@@ -14,7 +14,8 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Rector\AbstractRector;
+use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -38,6 +39,13 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
      * @var string
      */
     private const ADD_HTML_PART = 'addHtmlPart';
+
+    private ValueResolver $valueResolver;
+
+    public function __construct(ValueResolver $valueResolver)
+    {
+        $this->valueResolver = $valueResolver;
+    }
 
     /**
      * @return array<class-string<Node>>

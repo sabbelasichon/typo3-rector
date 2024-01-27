@@ -11,7 +11,8 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Rector\AbstractRector;
+use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\Rector\AbstractRector;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -28,9 +29,12 @@ final class MigrateFrameModuleToSvgTreeRector extends AbstractRector
      */
     private FilesFinder $filesFinder;
 
-    public function __construct(FilesFinder $filesFinder)
+    private ValueResolver $valueResolver;
+
+    public function __construct(FilesFinder $filesFinder, ValueResolver $valueResolver)
     {
         $this->filesFinder = $filesFinder;
+        $this->valueResolver = $valueResolver;
     }
 
     /**

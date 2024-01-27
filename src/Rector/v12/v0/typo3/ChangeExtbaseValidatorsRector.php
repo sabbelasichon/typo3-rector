@@ -19,9 +19,9 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use Rector\Core\Enum\ObjectReference;
-use Rector\Core\Rector\AbstractScopeAwareRector;
-use Rector\Core\ValueObject\MethodName;
+use Rector\Enum\ObjectReference;
+use Rector\Rector\AbstractScopeAwareRector;
+use Rector\ValueObject\MethodName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 

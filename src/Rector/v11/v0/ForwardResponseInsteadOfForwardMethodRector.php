@@ -14,8 +14,10 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
-use Rector\Core\Rector\AbstractRector;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PhpParser\Node\BetterNodeFinder;
+use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -26,6 +28,16 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
 {
+    private ValueResolver $valueResolver;
+
+    private BetterNodeFinder $betterNodeFinder;
+
+    public function __construct(ValueResolver $valueResolver, BetterNodeFinder $betterNodeFinder)
+    {
+        $this->valueResolver = $valueResolver;
+        $this->betterNodeFinder = $betterNodeFinder;
+    }
+
     /**
      * @codeCoverageIgnore
      */

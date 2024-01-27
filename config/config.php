@@ -4,6 +4,15 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
+use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
+use Ssch\TYPO3Rector\Filesystem\FilesFinder;
+use Ssch\TYPO3Rector\Helper\OldSeverityToLogLevelMapper;
+use Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer;
+use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
+use Ssch\TYPO3Rector\NodeFactory\InjectMethodFactory;
+use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
+use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
+use Ssch\TYPO3Rector\Yaml\SymfonyYamlParser;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importNames();
@@ -11,16 +20,13 @@ return static function (RectorConfig $rectorConfig): void {
     // this will not import root namespace classes, like \DateTime or \Exception
     $rectorConfig->importShortClasses(false);
 
-    $services = $rectorConfig->services();
-    $services->defaults()
-        ->public()
-        ->autowire();
-
-    $services->load('Ssch\\TYPO3Rector\\', __DIR__ . '/../src')
-        ->exclude([
-            __DIR__ . '/../src/Rector',
-            __DIR__ . '/../src/Console/Application/Typo3RectorKernel.php',
-            __DIR__ . '/../src/Set',
-            __DIR__ . '/../src/ValueObject',
-        ]);
+    $rectorConfig->singleton(FileInfoFactory::class);
+    $rectorConfig->singleton(FilesFinder::class);
+    $rectorConfig->singleton(OldSeverityToLogLevelMapper::class);
+    $rectorConfig->singleton(ClassConstAnalyzer::class);
+    $rectorConfig->singleton(ExtbaseControllerRedirectAnalyzer::class);
+    $rectorConfig->singleton(InjectMethodFactory::class);
+    $rectorConfig->singleton(Typo3GlobalsFactory::class);
+    $rectorConfig->singleton(Typo3NodeResolver::class);
+    $rectorConfig->singleton(SymfonyYamlParser::class);
 };
