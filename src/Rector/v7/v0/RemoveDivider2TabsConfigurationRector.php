@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v7\v0;
 
 use PhpParser\Node\Expr\Array_;
-use Ssch\TYPO3Rector\Helper\TcaHelperTrait;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
+use Ssch\TYPO3Rector\Rector\Tca\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
