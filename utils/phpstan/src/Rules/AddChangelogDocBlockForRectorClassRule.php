@@ -12,8 +12,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
-use Rector\Core\Contract\Rector\PhpRectorInterface;
-use Rector\Core\Contract\Rector\RectorInterface;
+use Rector\Contract\Rector\RectorInterface;
 use Ssch\TYPO3Rector\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
 use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
@@ -77,7 +76,7 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
         $fullyQualifiedClassName = $scope->getNamespace() . '\\' . $className;
 
         $classReflection = $this->reflectionProvider->getClass($fullyQualifiedClassName);
-        if (! $classReflection->isSubclassOf(PhpRectorInterface::class)) {
+        if (! $classReflection->isSubclassOf(RectorInterface::class)) {
             return [];
         }
 

@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Rector\v10\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
@@ -161,6 +162,10 @@ CODE_SAMPLE
         string $extensionName
     ): void {
         foreach ($controllerActions->items as $controllerActions) {
+            if (! $controllerActions instanceof ArrayItem) {
+                continue;
+            }
+
             if (! $controllerActions->key instanceof Expr) {
                 continue;
             }

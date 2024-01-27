@@ -15,6 +15,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\VarTagValueNode;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\ValueObject\Type\FullyQualifiedIdentifierTypeNode;
+use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -33,9 +34,12 @@ final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector
 
     private PhpDocInfoFactory $phpDocInfoFactory;
 
-    public function __construct(PhpDocInfoFactory $phpDocInfoFactory)
+    private DocBlockUpdater $docBlockUpdater;
+
+    public function __construct(PhpDocInfoFactory $phpDocInfoFactory, DocBlockUpdater $docBlockUpdater)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->docBlockUpdater = $docBlockUpdater;
     }
 
     /**
@@ -128,5 +132,6 @@ CODE_SAMPLE
         );
         $phpDocInfo->getPhpDocNode()
             ->children = [];
+        $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($normalizedParamsNode);
     }
 }

@@ -10,6 +10,7 @@ use PHPStan\PhpDocParser\Ast\PhpDoc\GenericTagValueNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
+use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,9 +22,12 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
 {
     private PhpDocInfoFactory $phpDocInfoFactory;
 
-    public function __construct(PhpDocInfoFactory $phpDocInfoFactory)
+    private DocBlockUpdater $docBlockUpdater;
+
+    public function __construct(PhpDocInfoFactory $phpDocInfoFactory, DocBlockUpdater $docBlockUpdater)
     {
         $this->phpDocInfoFactory = $phpDocInfoFactory;
+        $this->docBlockUpdater = $docBlockUpdater;
     }
 
     /**
@@ -41,7 +45,7 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType('Rector\Core\Rector\AbstractRector')
+            new ObjectType('Rector\Rector\AbstractRector')
         )) {
             return null;
         }
@@ -57,6 +61,8 @@ final class AddCodeCoverageIgnoreToMethodRectorDefinitionRector extends Abstract
         }
 
         $phpDocInfo->addPhpDocTagNode(new PhpDocTagNode('@codeCoverageIgnore', new GenericTagValueNode('')));
+
+        $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
 
         return $node;
     }
