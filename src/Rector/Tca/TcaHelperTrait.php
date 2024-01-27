@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\Tca;
 
-use Generator;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -167,11 +166,6 @@ trait TcaHelperTrait
         }
     }
 
-    private function isInlineType(Array_ $columnItemConfigurationArray): bool
-    {
-        return $this->isConfigType($columnItemConfigurationArray, 'inline');
-    }
-
     private function hasRenderType(Array_ $columnItemConfigurationArray): bool
     {
         $renderTypeItem = $this->extractArrayItemByKey($columnItemConfigurationArray, 'renderType');
@@ -204,76 +198,9 @@ trait TcaHelperTrait
         return $this->extractArrayItemByKey($return->expr, 'interface');
     }
 
-    /**
-     * @return Generator<ArrayItem>
-     */
-    private function extractSubArraysWithArrayItemMatching(Array_ $array, string $key, string $value): Generator
-    {
-        foreach ($array->items as $arrayItem) {
-            if (! $arrayItem instanceof ArrayItem) {
-                continue;
-            }
-
-            if (! $arrayItem->value instanceof Array_) {
-                continue;
-            }
-
-            if (! $this->hasKeyValuePair($arrayItem->value, $key, $value)) {
-                continue;
-            }
-
-            yield $arrayItem;
-        }
-
-        return null;
-    }
-
     private function configIsOfInternalType(Array_ $configValueArray, string $expectedType): bool
     {
         return $this->hasKeyValuePair($configValueArray, 'internal_type', $expectedType);
-    }
-
-    /**
-     * @return Generator<string, Node>
-     */
-    private function extractColumnConfig(Array_ $array, string $keyName = 'config'): Generator
-    {
-        foreach ($array->items as $columnConfig) {
-            if (! $columnConfig instanceof ArrayItem) {
-                continue;
-            }
-
-            if (! $columnConfig->key instanceof Expr) {
-                continue;
-            }
-
-            $columnName = $this->getValue($columnConfig->key);
-
-            if ($columnName === null) {
-                continue;
-            }
-
-            if (! $columnConfig->value instanceof Array_) {
-                continue;
-            }
-
-            // search the config sub-array for this field
-            foreach ($columnConfig->value->items as $configValue) {
-                if (! $configValue instanceof ArrayItem) {
-                    continue;
-                }
-
-                if (! $configValue->key instanceof Expr) {
-                    continue;
-                }
-
-                if (! $this->isValue($configValue->key, $keyName)) {
-                    continue;
-                }
-
-                yield $columnName => $configValue->value;
-            }
-        }
     }
 
     /**

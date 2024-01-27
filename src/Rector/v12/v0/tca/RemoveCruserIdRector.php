@@ -48,13 +48,13 @@ final class RemoveCruserIdRector extends AbstractRector
         $ctrlItems = $ctrl->value;
 
         if (! $ctrlItems instanceof Array_) {
-            $this->removeNode($ctrl);
+            $this->removeCtrl($node);
             return null;
         }
 
         $remainingInterfaceItems = count($ctrlItems->items);
 
-        foreach ($ctrlItems->items as $ctrlItem) {
+        foreach ($ctrlItems->items as $ctrlItemKey => $ctrlItem) {
             if (! $ctrlItem instanceof ArrayItem) {
                 continue;
             }
@@ -64,14 +64,14 @@ final class RemoveCruserIdRector extends AbstractRector
             }
 
             if ($this->valueResolver->isValue($ctrlItem->key, 'cruser_id')) {
-                $this->removeNode($ctrlItem);
+                unset($ctrlItems->items[$ctrlItemKey]);
                 --$remainingInterfaceItems;
                 break;
             }
         }
 
         if ($remainingInterfaceItems === 0) {
-            $this->removeNode($ctrl);
+            $this->removeCtrl($node);
             return $node;
         }
 
@@ -105,5 +105,12 @@ return [
 ];
 CODE_SAMPLE
         )]);
+    }
+
+    private function removeCtrl(Return_ $node): void
+    {
+        if ($node->expr instanceof Array_) {
+            $this->removeArrayItemFromArrayByKey($node->expr, 'ctrl');
+        }
     }
 }

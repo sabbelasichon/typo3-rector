@@ -90,16 +90,10 @@ CODE_SAMPLE
         $this->changeTcaType($configArray, 'color');
 
         // Remove 'max' config
-        $maxArrayItem = $this->extractArrayItemByKey($configArray, 'max');
-        if ($maxArrayItem instanceof ArrayItem) {
-            $this->removeNode($maxArrayItem);
-        }
+        $this->hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($configArray, 'max');
 
         // Remove 'renderType' config
-        $renderTypeArrayItem = $this->extractArrayItemByKey($configArray, 'renderType');
-        if ($renderTypeArrayItem instanceof ArrayItem) {
-            $this->removeNode($renderTypeArrayItem);
-        }
+        $this->hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($configArray, 'renderType');
 
         $evalArrayItem = $this->extractArrayItemByKey($configArray, 'eval');
         if (! $evalArrayItem instanceof ArrayItem) {
@@ -118,7 +112,7 @@ CODE_SAMPLE
             $evalArrayItem->value = new String_('null');
         } else {
             // 'eval' is empty, remove whole configuration
-            $this->removeNode($evalArrayItem);
+            $this->removeArrayItemFromArrayByKey($configArray, 'eval');
         }
 
         $this->hasAstBeenChanged = true;
