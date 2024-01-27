@@ -152,6 +152,9 @@ CODE_SAMPLE
             $filePath = $this->fileInfoFactory->createFileInfoFromPath($file);
             $classAliasMap = require $filePath->getRealPath();
             foreach ($classAliasMap as $oldClass => $newClass) {
+                if(!is_string($oldClass) || !is_string($newClass)) {
+                    continue;
+                }
                 $this->oldToNewClasses[$oldClass] = $newClass;
             }
         }
