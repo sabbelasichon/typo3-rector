@@ -98,8 +98,7 @@ CODE_SAMPLE
             // Write back filtered 'eval'
             $evalArrayItem->value = new String_(implode(',', $evalList));
         } else {
-            // 'eval' is empty, remove whole configuration
-            $this->removeNode($evalArrayItem);
+            $this->removeArrayItemFromArrayByKey($configArray, 'eval');
         }
 
         // If required config exists already do not add one again

@@ -95,7 +95,7 @@ CODE_SAMPLE
             $this->changeTcaType($configArray, 'folder');
         }
 
-        $this->removeNode($internalTypeArrayItem);
+        $this->removeArrayItemFromArrayByKey($configArray, 'internal_type');
 
         $this->hasAstBeenChanged = true;
     }

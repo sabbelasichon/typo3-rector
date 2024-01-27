@@ -135,7 +135,7 @@ CODE_SAMPLE
             $evalArrayItem->value = new String_('null');
         } else {
             // 'eval' is empty, remove whole configuration
-            $this->removeNode($evalArrayItem);
+            $this->removeArrayItemFromArrayByKey($configArray, 'eval');
         }
 
         $this->hasAstBeenChanged = true;
