@@ -82,9 +82,4 @@ final class Typo3SetList
      * @var string
      */
     public const TCA_123 = __DIR__ . '/../../config/v12/tca-123.php';
-
-    /**
-     * @var string
-     */
-    public const UNDERSCORE_TO_NAMESPACE = __DIR__ . '/../../config/underscore-to-namespace.php';
 }
