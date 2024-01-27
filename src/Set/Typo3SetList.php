@@ -9,36 +9,6 @@ final class Typo3SetList
     /**
      * @var string
      */
-    public const TYPO3_76 = __DIR__ . '/../../config/typo3-7.php';
-
-    /**
-     * @var string
-     */
-    public const TCA_76 = __DIR__ . '/../../config/v7/tca-76.php';
-
-    /**
-     * @var string
-     */
-    public const TYPO3_87 = __DIR__ . '/../../config/typo3-8.php';
-
-    /**
-     * @var string
-     */
-    public const TCA_87 = __DIR__ . '/../../config/v8/tca-87.php';
-
-    /**
-     * @var string
-     */
-    public const TYPO3_95 = __DIR__ . '/../../config/typo3-9.php';
-
-    /**
-     * @var string
-     */
-    public const TCA_95 = __DIR__ . '/../../config/v9/tca-95.php';
-
-    /**
-     * @var string
-     */
     public const TYPO3_104 = __DIR__ . '/../../config/typo3-10.php';
 
     /**
