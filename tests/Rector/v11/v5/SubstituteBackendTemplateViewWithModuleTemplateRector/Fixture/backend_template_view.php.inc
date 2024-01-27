@@ -63,7 +63,6 @@ class MyController extends ActionController
     public function __construct(ModuleTemplateFactory $moduleTemplateFactory)
     {
         $this->moduleTemplateFactory = $moduleTemplateFactory;
-        parent::__construct();
     }
 
     /**

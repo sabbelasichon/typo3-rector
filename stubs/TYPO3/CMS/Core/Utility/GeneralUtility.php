@@ -22,14 +22,12 @@ class GeneralUtility
     }
 
     /**
-     * @return object
-     * @param string $class
+     * @template T of object
+     * @phpstan-param class-string<T> $className
+     * @phpstan-param mixed $constructorArguments
+     * @phpstan-return T
      */
-    public static function makeInstance($class, ...$constructorArguments)
-    {
-        $class = (string) $class;
-        return new $class(...$constructorArguments);
-    }
+    public static function makeInstance($className, ...$constructorArguments);
 
     /**
      * @return void

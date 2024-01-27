@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddCodeCoverageIgnoreForRectorDefinition\Fixture;
 
 use PhpParser\Node;
-use Rector\Core\Contract\Rector\PhpRectorInterface;
-use Rector\Core\Rector\AbstractRector;
+use Rector\Contract\Rector\RectorInterface;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
-final class MissingCodeCoverageIgnore extends AbstractRector implements PhpRectorInterface
+final class MissingCodeCoverageIgnore extends AbstractRector implements RectorInterface
 {
     /**
      * @return array<class-string<\PhpParser\Node>>
