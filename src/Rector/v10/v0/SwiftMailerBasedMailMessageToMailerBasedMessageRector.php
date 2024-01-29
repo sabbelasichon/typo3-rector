@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\StringType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -123,7 +122,7 @@ CODE_SAMPLE
         $bodyType = $this->nodeTypeResolver->getType($methodCall->args[0]->value);
         $contentType = isset($methodCall->args[1]) ? $this->valueResolver->getValue($methodCall->args[1]->value) : null;
 
-        if (! $bodyType instanceof StringType) {
+        if ($bodyType->isString()->no()) {
             return null;
         }
 

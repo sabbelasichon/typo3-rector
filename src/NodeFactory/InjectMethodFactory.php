@@ -15,7 +15,6 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\Node\Stmt\Property;
-use PHPStan\Type\ObjectType;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\BetterPhpDocParser\PhpDocManipulator\PhpDocTagRemover;
 use Rector\Comments\NodeDocBlock\DocBlockUpdater;
@@ -67,7 +66,7 @@ final class InjectMethodFactory
 
         $paramBuilder = new \PhpParser\Builder\Param($variableName);
         $varType = $propertyPhpDocInfo->getVarType();
-        if (! $varType instanceof ObjectType) {
+        if ($varType->isObject()->no()) {
             return $statements;
         }
 
