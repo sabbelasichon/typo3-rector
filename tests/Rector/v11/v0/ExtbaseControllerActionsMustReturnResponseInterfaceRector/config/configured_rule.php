@@ -10,10 +10,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
     $rectorConfig->rule(ForwardResponseInsteadOfForwardMethodRector::class);
     $rectorConfig->ruleWithConfiguration(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class, [
-        ExtbaseControllerActionsMustReturnResponseInterfaceRector::REDIRECT_METHODS => [
-            'redirect',
-            'redirectToUri',
-            'additionalRedirectMethod',
-        ],
+        'redirect_methods' => ['redirect', 'redirectToUri', 'additionalRedirectMethod'],
     ]);
 };

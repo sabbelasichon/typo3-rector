@@ -39,7 +39,11 @@ class MyController extends ActionController
     public function copy2Action()
     {
         if ($this->forwardMe) {
-            $this->forward('new', null, null, ['foo' => 'bar']);
+            try {
+                $this->forward('new', null, null, ['foo' => 'bar']);
+            } catch (\Exception $e) {
+
+            }
         }
 
         return 'foo';
@@ -108,7 +112,11 @@ class MyController extends ActionController
     public function copy2Action()
     {
         if ($this->forwardMe) {
-            return (new ForwardResponse('new'))->withArguments(['foo' => 'bar']);
+            try {
+                return (new ForwardResponse('new'))->withArguments(['foo' => 'bar']);
+            } catch (\Exception $e) {
+
+            }
         }
 
         return 'foo';
@@ -125,7 +133,7 @@ class MyController extends ActionController
             return;
         }
 
-        $this->forward('detail', null, null, ['foo' => 'bar']);
+        return (new ForwardResponse('detail'))->withArguments(['foo' => 'bar']);
     }
 
     protected function isActionAllowed(string $action): bool
