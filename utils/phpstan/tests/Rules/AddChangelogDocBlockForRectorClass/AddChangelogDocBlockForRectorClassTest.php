@@ -26,7 +26,7 @@ final class AddChangelogDocBlockForRectorClassTest extends RuleTestCase
     /**
      * @return Iterator<mixed>
      */
-    public function provideData(): Iterator
+    public static function provideData(): Iterator
     {
         $message = sprintf(AddChangelogDocBlockForRectorClassRule::ERROR_MESSAGE, 'MissingChangelog');
         yield [__DIR__ . '/Fixture/MissingChangelog.php', [[$message, 12]]];
