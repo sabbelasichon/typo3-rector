@@ -20,7 +20,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(UniqueListFromStringUtilityRector::class);
     $rectorConfig->rule(GetClickMenuOnIconTagParametersRector::class);
     $rectorConfig->ruleWithConfiguration(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class, [
-        ExtbaseControllerActionsMustReturnResponseInterfaceRector::REDIRECT_METHODS => ['redirect', 'redirectToUri'],
+        'redirect_methods' => ['redirect', 'redirectToUri'],
     ]);
     $rectorConfig->rule(SubstituteConstantsModeAndRequestTypeRector::class);
     $rectorConfig
