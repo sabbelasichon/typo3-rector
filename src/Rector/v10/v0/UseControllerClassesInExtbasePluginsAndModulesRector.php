@@ -11,7 +11,6 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
-use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
@@ -178,7 +177,7 @@ CODE_SAMPLE
 
             $controllerClassNameType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($controllerActions->key);
 
-            if ($controllerClassNameType instanceof ConstantStringType) {
+            if ($controllerClassNameType->getConstantStrings() !== []) {
                 // Already transformed
                 continue;
             }

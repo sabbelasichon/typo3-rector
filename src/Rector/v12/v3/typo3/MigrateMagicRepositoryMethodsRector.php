@@ -127,9 +127,9 @@ CODE_SAMPLE
 
         $type = TypeCombinator::removeNull($resolvedType);
         $type = TypeCombinator::remove($type, new ConstantBooleanType(\false));
-        if ($type instanceof ObjectType) {
+        if ($type->isObject()->yes()) {
             /** @phpstan-var class-string $className */
-            $className = $type->getClassName();
+            $className = $type->getObjectClassNames()[0];
         } elseif ($resolvedType instanceof ThisType) {
             /** @phpstan-var class-string $className */
             $className = $resolvedType->getClassName();
