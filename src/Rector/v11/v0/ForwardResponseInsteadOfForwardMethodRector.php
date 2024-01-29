@@ -80,40 +80,54 @@ CODE_SAMPLE
      */
     public function getNodeTypes(): array
     {
-        return [Expression::class];
+        return [ClassMethod::class];
     }
 
     /**
-     * @param Node\Stmt\Expression $node
+     * @param ClassMethod $node
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $node->expr instanceof MethodCall) {
-            return null;
-        }
-
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $node->expr,
+            $node,
             new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
         )) {
             return null;
         }
 
-        if (! $this->isName($node->expr->name, 'forward')) {
+        $hasChanged = false;
+
+        $this->traverseNodesWithCallable($node, function (Node $node) use (&$hasChanged) {
+            if (! $node instanceof Expression) {
+                return null;
+            }
+            $methodCall = $node->expr;
+            if (! $methodCall instanceof MethodCall) {
+                return null;
+            }
+
+            if (! $this->isName($methodCall->name, 'forward')) {
+                return null;
+            }
+
+            $forwardResponse = $this->createForwardResponseNode($methodCall);
+
+            if ($forwardResponse === null) {
+                return null;
+            }
+
+            $forwardResponseReturn = new Return_($forwardResponse);
+            $hasChanged = true;
+            return $forwardResponseReturn;
+        });
+
+        if (! $hasChanged) {
             return null;
         }
 
-        $forwardResponse = $this->createForwardResponseNode($node->expr);
+        $this->changeActionMethodReturnTypeIfPossible($node);
 
-        if ($forwardResponse === null) {
-            return null;
-        }
-
-        $forwardResponseReturn = new Return_($forwardResponse);
-
-        $this->changeActionMethodReturnTypeIfPossible($node->expr);
-
-        return $forwardResponseReturn;
+        return $node;
     }
 
     /**
@@ -164,26 +178,22 @@ CODE_SAMPLE
         return $forwardResponse;
     }
 
-    private function changeActionMethodReturnTypeIfPossible(MethodCall $node): void
+    private function changeActionMethodReturnTypeIfPossible(ClassMethod $actionMethodNode): void
     {
-        $actionMethodNode = $this->betterNodeFinder->findParentType($node, ClassMethod::class);
+        if ($actionMethodNode->returnType instanceof Identifier && $actionMethodNode->returnType->name !== null && $actionMethodNode->returnType->name === 'void') {
+            $actionMethodNode->returnType = null;
+        }
 
-        if ($actionMethodNode instanceof ClassMethod) {
-            if ($actionMethodNode->returnType instanceof Identifier && $actionMethodNode->returnType->name !== null && $actionMethodNode->returnType->name === 'void') {
-                $actionMethodNode->returnType = null;
-            }
+        $comments = $actionMethodNode->getComments();
+        $comments = array_map(
+            static fn (Comment $comment) => new Comment(str_replace(' @return void', '', $comment->getText())),
+            $comments
+        );
+        $actionMethodNode->setAttribute(AttributeKey::COMMENTS, $comments);
 
-            $comments = $actionMethodNode->getComments();
-            $comments = array_map(
-                static fn (Comment $comment) => new Comment(str_replace(' @return void', '', $comment->getText())),
-                $comments
-            );
-            $actionMethodNode->setAttribute(AttributeKey::COMMENTS, $comments);
-
-            // Add returnType only if it is the only statement, otherwise it is not reliable
-            if (is_countable($actionMethodNode->stmts) && count((array) $actionMethodNode->stmts) === 1) {
-                $actionMethodNode->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
-            }
+        // Add returnType only if it is the only statement, otherwise it is not reliable
+        if (is_countable($actionMethodNode->stmts) && count((array) $actionMethodNode->stmts) === 1) {
+            $actionMethodNode->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
         }
     }
 }

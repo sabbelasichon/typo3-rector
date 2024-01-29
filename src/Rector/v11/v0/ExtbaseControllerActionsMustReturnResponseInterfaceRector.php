@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Rector\v11\v0;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\Throw_;
+use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
-use Rector\PhpParser\Node\BetterNodeFinder;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -32,34 +33,15 @@ use Webmozart\Assert\Assert;
 final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends AbstractRector implements ConfigurableRectorInterface
 {
     /**
-     * @api
-     * @var string
-     */
-    public const REDIRECT_METHODS = 'redirect_methods';
-
-    /**
-     * @var string
-     */
-    private const THIS = 'this';
-
-    /**
-     * @var string
-     */
-    private const HTML_RESPONSE = 'htmlResponse';
-
-    /**
      * @var array<int, string>
      */
     private array $redirectMethods = ['redirect', 'redirectToUri'];
 
     private ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer;
 
-    private BetterNodeFinder $betterNodeFinder;
-
-    public function __construct(ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer, BetterNodeFinder $betterNodeFinder)
+    public function __construct(ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer)
     {
         $this->extbaseControllerRedirectAnalyzer = $extbaseControllerRedirectAnalyzer;
-        $this->betterNodeFinder = $betterNodeFinder;
     }
 
     /**
@@ -79,36 +61,42 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
             return null;
         }
 
-        $returns = $this->findReturns($node);
-        foreach ($returns as $return) {
-            // If it is inside a closure do nothing
-            $closure = $this->betterNodeFinder->findParentType($return, Closure::class);
-
-            if ($closure instanceof Closure) {
-                continue;
+        $this->traverseNodesWithCallable($node, function (Node $node) {
+            if ($node instanceof Class_ || $node instanceof Function_ || $node instanceof Closure) {
+                return NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
             }
 
-            $returnCallExpression = $return->expr;
+            if (! $node instanceof Return_) {
+                return null;
+            }
+
+            $responseObjectType = new ObjectType('Psr\\Http\\Message\\ResponseInterface');
+
+            if ($node->expr !== null && $this->isObjectType($node->expr, $responseObjectType)) {
+                return null;
+            }
+
+            $returnCallExpression = $node->expr;
 
             if ($returnCallExpression instanceof FuncCall && $this->isName(
                 $returnCallExpression->name,
                 'json_encode'
             )) {
-                $return->expr = $this->nodeFactory->createMethodCall(self::THIS, 'jsonResponse', [$return->expr]);
-            } else {
-                // avoid duplication
-                if ($return->expr instanceof MethodCall && $this->isName(
-                    $return->expr->name,
-                    self::HTML_RESPONSE
-                )) {
-                    $args = [];
-                } else {
-                    $args = [$return->expr];
-                }
-
-                $return->expr = $this->nodeFactory->createMethodCall(self::THIS, self::HTML_RESPONSE, $args);
+                return new Return_($this->nodeFactory->createMethodCall(
+                    'this',
+                    'jsonResponse',
+                    [$returnCallExpression]
+                ));
             }
-        }
+            // avoid duplication
+            if ($node->expr instanceof MethodCall && $this->isName($node->expr->name, 'htmlResponse')) {
+                $args = [];
+            } else {
+                $args = [$node->expr];
+            }
+
+            return new Return_($this->createHtmlResponseMethodCall($args));
+        });
 
         $node->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
 
@@ -120,8 +108,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
         }
 
         if (! $lastStatement instanceof Return_) {
-            $returnResponse = $this->nodeFactory->createMethodCall(self::THIS, self::HTML_RESPONSE);
-            $node->stmts[] = new Return_($returnResponse);
+            $node->stmts[] = new Return_($this->createHtmlResponseMethodCall([]));
         }
 
         return $node;
@@ -161,7 +148,7 @@ class MyController extends ActionController
 CODE_SAMPLE
                 ,
                 [
-                    self::REDIRECT_METHODS => ['myRedirectMethod'],
+                    'redirect_methods' => ['myRedirectMethod'],
                 ]
             ),
         ]);
@@ -172,7 +159,7 @@ CODE_SAMPLE
      */
     public function configure(array $configuration): void
     {
-        $redirectMethods = $configuration[self::REDIRECT_METHODS] ?? $configuration;
+        $redirectMethods = $configuration['redirect_methods'] ?? $configuration;
         Assert::isArray($redirectMethods);
         Assert::allString($redirectMethods);
 
@@ -210,72 +197,35 @@ CODE_SAMPLE
             return true;
         }
 
-        if ($this->lastStatementIsExitCall($classMethod)) {
-            return true;
-        }
-
         if ($this->extbaseControllerRedirectAnalyzer->hasRedirectCall($classMethod, $this->redirectMethods)) {
             return true;
         }
 
-        if ($this->lastStatementIsForwardCall($classMethod)) {
-            return true;
-        }
-
-        if ($this->hasExceptionCall($classMethod)) {
-            return true;
-        }
-
-        return $this->isAlreadyResponseReturnType($classMethod);
-    }
-
-    /**
-     * @return Return_[]
-     */
-    private function findReturns(ClassMethod $classMethod): array
-    {
-        return $this->betterNodeFinder->findInstanceOf((array) $classMethod->stmts, Return_::class);
-    }
-
-    private function lastStatementIsExitCall(ClassMethod $classMethod): bool
-    {
         if ($classMethod->stmts === null) {
             return false;
         }
 
         $statements = $classMethod->stmts;
         $lastStatement = array_pop($statements);
+
+        if ($this->lastStatementIsExitCall($lastStatement)) {
+            return true;
+        }
+
+        if ($this->lastStatementIsForwardCall($lastStatement)) {
+            return true;
+        }
+
+        return $this->hasExceptionCall($lastStatement);
+    }
+
+    private function lastStatementIsExitCall(Node $lastStatement): bool
+    {
         return $lastStatement instanceof Expression && $lastStatement->expr instanceof Exit_;
     }
 
-    private function isAlreadyResponseReturnType(ClassMethod $classMethod): bool
+    private function hasExceptionCall(Node $lastStatement): bool
     {
-        $returns = $this->findReturns($classMethod);
-
-        $responseObjectType = new ObjectType('Psr\\Http\\Message\\ResponseInterface');
-
-        foreach ($returns as $return) {
-            if (! $return->expr instanceof Expr) {
-                continue;
-            }
-
-            if ($this->isObjectType($return->expr, $responseObjectType)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private function hasExceptionCall(ClassMethod $classMethod): bool
-    {
-        if ($classMethod->stmts === null) {
-            return false;
-        }
-
-        $statements = $classMethod->stmts;
-        $lastStatement = array_pop($statements);
-
         if (! $lastStatement instanceof Throw_) {
             return false;
         }
@@ -287,15 +237,8 @@ CODE_SAMPLE
             ->yes();
     }
 
-    private function lastStatementIsForwardCall(ClassMethod $classMethod): bool
+    private function lastStatementIsForwardCall(Node $lastStatement): bool
     {
-        if ($classMethod->stmts === null) {
-            return false;
-        }
-
-        $statements = $classMethod->stmts;
-        $lastStatement = array_pop($statements);
-
         if (! $lastStatement instanceof Expression) {
             return false;
         }
@@ -305,5 +248,10 @@ CODE_SAMPLE
         }
 
         return $this->isName($lastStatement->expr->name, 'forward');
+    }
+
+    private function createHtmlResponseMethodCall(array $args): MethodCall
+    {
+        return $this->nodeFactory->createMethodCall('this', 'htmlResponse', $args);
     }
 }
