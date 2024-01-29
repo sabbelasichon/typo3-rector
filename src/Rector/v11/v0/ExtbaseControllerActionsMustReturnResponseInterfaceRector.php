@@ -208,6 +208,10 @@ CODE_SAMPLE
         $statements = $classMethod->stmts;
         $lastStatement = array_pop($statements);
 
+        if ($lastStatement === null) {
+            return false;
+        }
+
         if ($this->lastStatementIsExitCall($lastStatement)) {
             return true;
         }
@@ -250,6 +254,9 @@ CODE_SAMPLE
         return $this->isName($lastStatement->expr->name, 'forward');
     }
 
+    /**
+     * @param mixed[] $args
+     */
     private function createHtmlResponseMethodCall(array $args): MethodCall
     {
         return $this->nodeFactory->createMethodCall('this', 'htmlResponse', $args);
