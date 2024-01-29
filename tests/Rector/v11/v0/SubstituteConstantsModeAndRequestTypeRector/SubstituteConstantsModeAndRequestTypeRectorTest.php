@@ -20,9 +20,9 @@ final class SubstituteConstantsModeAndRequestTypeRectorTest extends AbstractRect
     /**
      * @return Iterator<array<string>>
      */
-    public function provideData(): Iterator
+    public static function provideData(): Iterator
     {
-        return $this->yieldFilesFromDirectory(__DIR__ . '/Fixture');
+        return self::yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
 
     public function provideConfigFilePath(): string

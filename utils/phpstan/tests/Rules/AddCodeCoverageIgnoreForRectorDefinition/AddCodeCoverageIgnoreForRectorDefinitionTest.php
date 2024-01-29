@@ -27,7 +27,7 @@ final class AddCodeCoverageIgnoreForRectorDefinitionTest extends RuleTestCase
     /**
      * @return Iterator<mixed>
      */
-    public function provideData(): Iterator
+    public static function provideData(): Iterator
     {
         $message = sprintf(
             AddCodeCoverageIgnoreForRectorDefinitionRule::ERROR_MESSAGE,
