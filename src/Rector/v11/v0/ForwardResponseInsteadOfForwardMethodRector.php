@@ -15,7 +15,6 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PhpParser\Node\BetterNodeFinder;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -30,12 +29,9 @@ final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
 {
     private ValueResolver $valueResolver;
 
-    private BetterNodeFinder $betterNodeFinder;
-
-    public function __construct(ValueResolver $valueResolver, BetterNodeFinder $betterNodeFinder)
+    public function __construct(ValueResolver $valueResolver)
     {
         $this->valueResolver = $valueResolver;
-        $this->betterNodeFinder = $betterNodeFinder;
     }
 
     /**
