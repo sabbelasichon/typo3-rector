@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Type__;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
-use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
+use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
