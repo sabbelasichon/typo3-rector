@@ -41,9 +41,6 @@ final class UseNormalizedParamsToGetRequestUrlRector extends AbstractRector
         return $this->nodeFactory->createMethodCall($node, 'getRequestUrl');
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use normalized params to get the request url', [new CodeSample(

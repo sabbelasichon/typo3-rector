@@ -75,9 +75,6 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
         return $this->refactorCondition($node);
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

@@ -165,9 +165,6 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector
         return $nodes;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor ContentObjectRenderer::sendNotifyEmail to MailMessage-API', [

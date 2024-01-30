@@ -101,9 +101,6 @@ final class ReplaceTSFEWithContextMethodsRector extends AbstractRector
         );
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Replace TSFE with Context methods', [new CodeSample(

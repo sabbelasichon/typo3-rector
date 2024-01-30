@@ -62,9 +62,6 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
         return $this->removeVendorNameIfNeeded($node);
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove vendor name from registerPlugin call', [

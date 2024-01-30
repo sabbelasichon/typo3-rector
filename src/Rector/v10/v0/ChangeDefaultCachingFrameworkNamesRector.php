@@ -76,9 +76,6 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use new default cache names like core instead of cache_core)', [

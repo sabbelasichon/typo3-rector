@@ -74,9 +74,6 @@ final class ReplaceTSFECheckEnableFieldsRector extends AbstractRector
         );
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

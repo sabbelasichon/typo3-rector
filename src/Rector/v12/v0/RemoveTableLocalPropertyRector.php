@@ -65,9 +65,6 @@ final class RemoveTableLocalPropertyRector extends AbstractRector
         return null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove TCA property table_local in foreign_match_fields', [new CodeSample(

@@ -48,9 +48,6 @@ final class UniqueListFromStringUtilityRector extends AbstractRector
         );
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use StringUtility::uniqueList() instead of GeneralUtility::uniqueList', [

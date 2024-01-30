@@ -71,9 +71,6 @@ final class UseConfigArrayForTSFEPropertiesRector extends AbstractRector
         ), new String_($propertyName));
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use config array of TSFE instead of properties', [new CodeSample(

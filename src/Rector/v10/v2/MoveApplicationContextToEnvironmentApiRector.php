@@ -44,9 +44,6 @@ final class MoveApplicationContextToEnvironmentApiRector extends AbstractRector
         return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'getContext', []);
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use Environment API to fetch application context', [new CodeSample(

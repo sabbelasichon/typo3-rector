@@ -32,9 +32,6 @@ final class ConvertImplicitVariablesToExplicitGlobalsRector extends AbstractRect
         $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Convert $TYPO3_CONF_VARS to $GLOBALS[\'TYPO3_CONF_VARS\']', [

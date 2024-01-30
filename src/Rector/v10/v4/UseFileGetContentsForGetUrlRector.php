@@ -81,9 +81,6 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
         return new ErrorSuppress($this->nodeFactory->createFuncCall('file_get_contents', $node->args));
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

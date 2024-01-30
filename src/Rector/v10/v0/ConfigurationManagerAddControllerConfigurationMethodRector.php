@@ -54,9 +54,6 @@ final class ConfigurationManagerAddControllerConfigurationMethodRector extends A
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

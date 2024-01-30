@@ -16,9 +16,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveWorkspacePlaceholderShadowColumnsConfigurationRector extends AbstractTcaRector
 {
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('removeWorkspacePlaceholderShadowColumnsConfiguration', [new CodeSample(

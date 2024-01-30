@@ -28,9 +28,6 @@ final class MigrateNullFlagRector extends AbstractTcaRector
      */
     private const NULL = 'null';
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate null flag', [new CodeSample(

@@ -49,9 +49,6 @@ final class AddMethodToWidgetInterfaceClassesRector extends AbstractRector
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Add getOptions() to classes that implement the WidgetInterface', [new CodeSample(

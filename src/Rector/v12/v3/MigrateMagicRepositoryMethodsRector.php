@@ -99,9 +99,6 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractScopeAwareRector
         return $this->nodeFactory->createMethodCall($node->var, $newMethodCall, [$newArgs->items]);
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate the magic findBy methods', [

@@ -109,9 +109,6 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
         return null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use controller classes when registering extbase plugins/modules', [

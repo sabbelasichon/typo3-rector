@@ -94,9 +94,6 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
         return $this->createIsFrontendCall();
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Substitute TYPO3_MODE and TYPO3_REQUESTTYPE constants', [

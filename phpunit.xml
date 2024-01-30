@@ -18,7 +18,6 @@
         <testsuite name="small">
             <directory>tests</directory>
             <directory>utils/phpstan/tests</directory>
-            <directory>utils/rules/tests</directory>
         </testsuite>
     </testsuites>
 </phpunit>

@@ -30,9 +30,6 @@ final class MigrateEvalIntAndDouble2ToTypeNumberRector extends AbstractTcaRector
      */
     private const DOUBLE2 = 'double2';
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate eval int and double2 to type number', [new CodeSample(

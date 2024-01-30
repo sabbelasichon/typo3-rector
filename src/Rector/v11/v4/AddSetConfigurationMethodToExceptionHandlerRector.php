@@ -90,9 +90,6 @@ final class AddSetConfigurationMethodToExceptionHandlerRector extends AbstractRe
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Add method setConfiguration to class which implements ExceptionHandlerInterface', [

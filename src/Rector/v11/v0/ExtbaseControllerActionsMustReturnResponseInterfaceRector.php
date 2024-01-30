@@ -114,9 +114,6 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Extbase controller actions must return ResponseInterface', [
