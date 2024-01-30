@@ -207,29 +207,6 @@ abstract class AbstractTcaRector extends AbstractRector
     }
 
     /**
-     * @param Array_ $array An array into which a new ArrayItem should be inserted
-     * @param ArrayItem $newItem The item to be inserted
-     * @param string $key The key after which the ArrayItem should be inserted
-     */
-    protected function insertItemAfterKey(Array_ $array, ArrayItem $newItem, string $key): void
-    {
-        $positionOfTypeInConfig = 0;
-        foreach ($array->items as $configNode) {
-            if (! $configNode instanceof ArrayItem) {
-                break;
-            }
-
-            if (! $configNode->key instanceof Expr || $this->valueResolver->getValue($configNode->key) === $key) {
-                break;
-            }
-
-            ++$positionOfTypeInConfig;
-        }
-
-        array_splice($array->items, $positionOfTypeInConfig + 1, 0, [$newItem]);
-    }
-
-    /**
      * may be overridden by child classes to be notified of the start of a node
      */
     protected function resetInnerState(): void
