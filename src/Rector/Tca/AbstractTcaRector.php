@@ -75,6 +75,11 @@ abstract class AbstractTcaRector extends AbstractRector
                 $this->refactorCtrl($ctrlArray);
             }
 
+            $interfaceArray = $this->extractSubArrayByKey($node, 'interface');
+            if ($interfaceArray instanceof Array_) {
+                $this->refactorInterface($interfaceArray, $node);
+            }
+
             return $this->hasAstBeenChanged ? $node : null;
         }
 
@@ -210,6 +215,10 @@ abstract class AbstractTcaRector extends AbstractRector
      * may be overridden by child classes to be notified of the start of a node
      */
     protected function resetInnerState(): void
+    {
+    }
+
+    protected function refactorInterface(Array_ $interfaceArray, Node $node): void
     {
     }
 }
