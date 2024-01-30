@@ -6,10 +6,10 @@ use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Ssch\TYPO3Rector\Rector\CodeQuality\Rector\General\RenameClassMapAliasRector;
-use Ssch\TYPO3Rector\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector;
-use Ssch\TYPO3Rector\Rector\v10\v4\UnifiedFileNameValidatorRector;
-use Ssch\TYPO3Rector\Rector\v10\v4\UseFileGetContentsForGetUrlRector;
-use Ssch\TYPO3Rector\Rector\v10\v4\UseIconsFromSubFolderInIconRegistryRector;
+use Ssch\TYPO3Rector\Rector\TYPO310\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector;
+use Ssch\TYPO3Rector\Rector\TYPO310\v4\UnifiedFileNameValidatorRector;
+use Ssch\TYPO3Rector\Rector\TYPO310\v4\UseFileGetContentsForGetUrlRector;
+use Ssch\TYPO3Rector\Rector\TYPO310\v4\UseIconsFromSubFolderInIconRegistryRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
