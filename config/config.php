@@ -21,7 +21,6 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->singleton(FileInfoFactory::class);
     $rectorConfig->singleton(FilesFinder::class);
-    $rectorConfig->singleton(ClassConstAnalyzer::class);
     $rectorConfig->singleton(ExtbaseControllerRedirectAnalyzer::class);
     $rectorConfig->singleton(InjectMethodFactory::class);
     $rectorConfig->singleton(Typo3GlobalsFactory::class);
