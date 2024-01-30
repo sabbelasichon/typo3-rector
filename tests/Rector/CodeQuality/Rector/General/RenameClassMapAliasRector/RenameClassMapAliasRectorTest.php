@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rector\CodeQuality\Rector\General\RenameClassMapAliasRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\RenameClassMapAliasRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

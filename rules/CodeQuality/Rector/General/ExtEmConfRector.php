@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/FileStructure/ExtEmconf.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\General\ExtEmConfRector\ExtEmConfRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\ExtEmConfRector\ExtEmConfRectorTest
  */
 final class ExtEmConfRector extends AbstractRector implements ConfigurableRectorInterface
 {
