@@ -4,13 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Rector\v10\v0;
 
-use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Stmt\Return_;
-use Rector\PhpParser\Node\Value\ValueResolver;
-use Rector\Rector\AbstractRector;
-use Ssch\TYPO3Rector\Rector\Tca\TcaHelperTrait;
+use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -18,54 +13,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.0/Breaking-87937-TCAOption_selicon_field_path_removed.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\RemoveSeliconFieldPathRector\RemoveSeliconFieldPathRectorTest
  */
-final class RemoveSeliconFieldPathRector extends AbstractRector
+final class RemoveSeliconFieldPathRector extends AbstractTcaRector
 {
-    use TcaHelperTrait;
-
-    private ValueResolver $valueResolver;
-
-    public function __construct(ValueResolver $valueResolver)
-    {
-        $this->valueResolver = $valueResolver;
-    }
-
-    /**
-     * @return array<class-string<Node>>
-     */
-    public function getNodeTypes(): array
-    {
-        return [Return_::class];
-    }
-
-    /**
-     * @param Return_ $node
-     */
-    public function refactor(Node $node): ?Node
-    {
-        if (! $this->isFullTca($node)) {
-            return null;
-        }
-
-        $ctrlArrayItem = $this->extractCtrl($node);
-
-        if (! $ctrlArrayItem instanceof ArrayItem) {
-            return null;
-        }
-
-        $items = $ctrlArrayItem->value;
-
-        if (! $items instanceof Array_) {
-            return null;
-        }
-
-        $hasAstBeenChanged = false;
-        if ($this->removeArrayItemFromArrayByKey($items, 'selicon_field_path')) {
-            $hasAstBeenChanged = true;
-        }
-
-        return $hasAstBeenChanged ? $node : null;
-    }
-
     /**
      * @codeCoverageIgnore
      */
@@ -89,5 +38,14 @@ return [
 ];
 CODE_SAMPLE
         )]);
+    }
+
+    protected function refactorCtrl(Array_ $ctrlArray): void
+    {
+        $hasAstBeenChanged = false;
+        if ($this->removeArrayItemFromArrayByKey($ctrlArray, 'selicon_field_path')) {
+            $hasAstBeenChanged = true;
+        }
+        $this->hasAstBeenChanged = $hasAstBeenChanged;
     }
 }
