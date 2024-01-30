@@ -75,9 +75,6 @@ final class ChangeExtbaseValidatorsRector extends AbstractScopeAwareRector
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Adapt extbase validators to new interface', [

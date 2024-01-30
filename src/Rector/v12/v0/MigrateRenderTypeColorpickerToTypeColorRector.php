@@ -19,9 +19,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateRenderTypeColorpickerToTypeColorRector extends AbstractTcaRector
 {
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate renderType colorpicker to type color', [new CodeSample(

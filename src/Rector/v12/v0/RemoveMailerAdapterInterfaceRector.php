@@ -43,9 +43,6 @@ final class RemoveMailerAdapterInterfaceRector extends AbstractRector
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor AdditionalFieldProvider classes', [

@@ -133,9 +133,6 @@ final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAware
         return $classHasChanged ? $node : null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Implement SiteLanguageAwareInterface instead of using SiteLanguageAwareTrait', [

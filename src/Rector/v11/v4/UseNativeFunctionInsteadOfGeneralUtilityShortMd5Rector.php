@@ -65,9 +65,6 @@ final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector extends Abstr
         return $this->nodeFactory->createFuncCall('substr', $arguments);
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use php native function instead of GeneralUtility::shortMd5', [

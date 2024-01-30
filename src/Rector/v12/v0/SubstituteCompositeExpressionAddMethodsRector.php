@@ -52,9 +52,6 @@ final class SubstituteCompositeExpressionAddMethodsRector extends AbstractRector
         return new Assign($node->var, $this->nodeFactory->createMethodCall($node->var, 'with', $arguments));
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Replace add() and addMultiple() of CompositeExpression with with()', [new CodeSample(

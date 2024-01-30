@@ -32,9 +32,6 @@ final class MigratePasswordAndSaltedPasswordToPasswordTypeRector extends Abstrac
      */
     private const SALTED_PASSWORD = 'saltedPassword';
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate password and salted password to password type', [new CodeSample(

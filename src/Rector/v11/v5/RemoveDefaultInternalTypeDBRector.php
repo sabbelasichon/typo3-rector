@@ -16,9 +16,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveDefaultInternalTypeDBRector extends AbstractTcaRector
 {
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove the default type for internal_type', [new CodeSample(

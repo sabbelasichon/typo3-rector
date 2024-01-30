@@ -4,8 +4,3 @@ services:
         tags:
             - phpstan.rules.rule
 
-    -
-        class: Ssch\TYPO3Rector\PHPStan\Rules\AddCodeCoverageIgnoreForRectorDefinitionRule
-        tags:
-            - phpstan.rules.rule
-

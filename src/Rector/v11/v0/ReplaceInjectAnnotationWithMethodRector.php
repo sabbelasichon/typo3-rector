@@ -67,9 +67,6 @@ final class ReplaceInjectAnnotationWithMethodRector extends AbstractRector
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Turns properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection', [

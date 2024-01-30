@@ -80,9 +80,6 @@ final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRec
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Inject EnvironmentService if needed in subclass of Response', [

@@ -17,9 +17,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class SimplifyCheckboxItemsTCARector extends AbstractTcaRector
 {
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Simplify checkbox items TCA', [new CodeSample(

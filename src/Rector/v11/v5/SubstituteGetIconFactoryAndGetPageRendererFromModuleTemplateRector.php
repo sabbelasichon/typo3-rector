@@ -74,9 +74,6 @@ final class SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector e
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

@@ -85,9 +85,6 @@ final class UseIconsFromSubFolderInIconRegistryRector extends AbstractRector
         return null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use icons from subfolder in IconRegistry', [

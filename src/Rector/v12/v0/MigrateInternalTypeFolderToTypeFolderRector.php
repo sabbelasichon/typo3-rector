@@ -18,9 +18,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateInternalTypeFolderToTypeFolderRector extends AbstractTcaRector
 {
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrates TCA internal_type into new new TCA type folder', [new CodeSample(

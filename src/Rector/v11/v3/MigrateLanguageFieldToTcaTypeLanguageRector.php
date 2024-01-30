@@ -55,9 +55,6 @@ final class MigrateLanguageFieldToTcaTypeLanguageRector extends AbstractTcaRecto
         return $this->hasAstBeenChanged ? $node : null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

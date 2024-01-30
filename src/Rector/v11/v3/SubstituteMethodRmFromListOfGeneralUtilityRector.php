@@ -70,9 +70,6 @@ final class SubstituteMethodRmFromListOfGeneralUtilityRector extends AbstractRec
         return $this->nodeFactory->createFuncCall('implode', [',', $arrayFilterFuncCall]);
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use native php functions instead of GeneralUtility::rmFromList', [

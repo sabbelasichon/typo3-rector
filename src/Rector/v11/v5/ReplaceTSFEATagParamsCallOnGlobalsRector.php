@@ -60,9 +60,6 @@ final class ReplaceTSFEATagParamsCallOnGlobalsRector extends AbstractRector
         );
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

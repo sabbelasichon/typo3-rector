@@ -50,9 +50,6 @@ final class BackendUtilityEditOnClickRector extends AbstractRector
         return new Concat($this->createUriBuilderCall($firstArgument), $this->createRequestUriCall());
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate the method BackendUtility::editOnClick() to use UriBuilder API', [

@@ -66,9 +66,6 @@ final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends Abstra
         return $this->refactorEmbedMethod($node);
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('New Mail API based on symfony/mailer and symfony/mime', [

@@ -109,9 +109,6 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use an instance of ModuleTemplate instead of BackendTemplateView', [

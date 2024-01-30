@@ -71,9 +71,6 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Change parameter $excludeServiceKeys explicity to an array', [

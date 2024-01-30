@@ -105,9 +105,6 @@ final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractTcaRector
         return $hasAstBeenChanged ? $node : null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('transOrigPointerField is not longer allowed to be excluded', [

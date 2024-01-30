@@ -67,9 +67,6 @@ final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector imp
         );
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use GeneralUtility::makeInstance instead of getInstance call', [

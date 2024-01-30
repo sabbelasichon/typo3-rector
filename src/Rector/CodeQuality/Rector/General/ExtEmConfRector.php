@@ -168,9 +168,6 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
         return $nodeHasChanged ? $node : null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor file ext_emconf.php', [

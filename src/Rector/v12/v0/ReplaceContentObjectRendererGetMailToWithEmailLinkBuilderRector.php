@@ -51,9 +51,6 @@ final class ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector exte
         );
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

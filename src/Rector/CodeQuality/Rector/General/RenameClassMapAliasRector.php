@@ -76,9 +76,6 @@ final class RenameClassMapAliasRector extends AbstractRector implements Configur
         $this->fileInfoFactory = $fileInfoFactory;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Replaces defined classes by new ones.', [

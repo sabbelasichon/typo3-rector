@@ -74,9 +74,6 @@ final class ProvideCObjViaMethodRector extends AbstractRector
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Replaces public $cObj with protected and set via method', [
