@@ -6,7 +6,6 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
-use Ssch\TYPO3Rector\Helper\OldSeverityToLogLevelMapper;
 use Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
 use Ssch\TYPO3Rector\NodeFactory\InjectMethodFactory;
@@ -22,7 +21,6 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->singleton(FileInfoFactory::class);
     $rectorConfig->singleton(FilesFinder::class);
-    $rectorConfig->singleton(OldSeverityToLogLevelMapper::class);
     $rectorConfig->singleton(ClassConstAnalyzer::class);
     $rectorConfig->singleton(ExtbaseControllerRedirectAnalyzer::class);
     $rectorConfig->singleton(InjectMethodFactory::class);
