@@ -17,7 +17,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importShortClasses(false);
     $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
 
-    $rectorConfig->paths([__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests']);
+    $rectorConfig->paths([__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests', __DIR__ . '/rules']);
 
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_74,
