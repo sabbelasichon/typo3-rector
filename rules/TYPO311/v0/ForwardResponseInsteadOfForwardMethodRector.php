@@ -94,6 +94,7 @@ CODE_SAMPLE
             if (! $node instanceof Expression) {
                 return null;
             }
+
             $methodCall = $node->expr;
             if (! $methodCall instanceof MethodCall) {
                 return null;

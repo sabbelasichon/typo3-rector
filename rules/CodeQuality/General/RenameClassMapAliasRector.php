@@ -152,6 +152,7 @@ CODE_SAMPLE
                 if (! is_string($oldClass) || ! is_string($newClass)) {
                     continue;
                 }
+
                 $this->oldToNewClasses[$oldClass] = $newClass;
             }
         }
@@ -184,7 +185,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (self::isInArrayInsensitive($classLikeName, $this->classesToSkip)) {
+        if ($this->isInArrayInsensitive($classLikeName, $this->classesToSkip)) {
             return null;
         }
 
@@ -196,7 +197,7 @@ CODE_SAMPLE
     /**
      * @param string[] $array
      */
-    private static function isInArrayInsensitive(string $checkedItem, array $array): bool
+    private function isInArrayInsensitive(string $checkedItem, array $array): bool
     {
         $checkedItem = strtolower($checkedItem);
         foreach ($array as $singleArray) {
