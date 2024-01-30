@@ -775,8 +775,7 @@ Refactor file ext_emconf.php
 
 declare(strict_types=1);
 
-use Rector\Config\RectorConfig;
-use Ssch\TYPO3Rector\Rector\General\ExtEmConfRector;
+use Rector\Config\RectorConfig;use Ssch\TYPO3Rector\Rector\CodeQuality\Rector\General\ExtEmConfRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $containerConfigurator->extension('rectorConfig', [
@@ -1451,8 +1450,7 @@ Use GeneralUtility::makeInstance instead of getInstance call
 
 declare(strict_types=1);
 
-use Rector\Config\RectorConfig;
-use Ssch\TYPO3Rector\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
+use Rector\Config\RectorConfig;use Ssch\TYPO3Rector\Rector\CodeQuality\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $containerConfigurator->extension('rectorConfig', [
@@ -4400,8 +4398,7 @@ Replaces defined classes by new ones.
 
 declare(strict_types=1);
 
-use Rector\Config\RectorConfig;
-use Ssch\TYPO3Rector\Rector\Migrations\RenameClassMapAliasRector;
+use Rector\Config\RectorConfig;use Ssch\TYPO3Rector\Rector\CodeQuality\Rector\General\RenameClassMapAliasRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $containerConfigurator->extension('rectorConfig', [
