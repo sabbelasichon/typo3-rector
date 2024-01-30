@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 
 /**
- * @see \Ssch\TYPO3Rector\Tests\Rector\General\MethodGetInstanceToMakeInstanceCallRector\MethodGetInstanceToMakeInstanceCallRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\MethodGetInstanceToMakeInstanceCallRector\MethodGetInstanceToMakeInstanceCallRectorTest
  */
 final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector implements ConfigurableRectorInterface
 {
