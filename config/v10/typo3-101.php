@@ -7,12 +7,12 @@ use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector;
 use Rector\Transform\ValueObject\PropertyFetchToMethodCall;
-use Ssch\TYPO3Rector\Rector\TYPO310\v1\BackendUtilityEditOnClickRector;
-use Ssch\TYPO3Rector\Rector\TYPO310\v1\RefactorCHashArrayOfTSFERector;
-use Ssch\TYPO3Rector\Rector\TYPO310\v1\RefactorInternalPropertiesOfTSFERector;
-use Ssch\TYPO3Rector\Rector\TYPO310\v1\RegisterPluginWithVendorNameRector;
-use Ssch\TYPO3Rector\Rector\TYPO310\v1\RemoveEnableMultiSelectFilterTextfieldRector;
-use Ssch\TYPO3Rector\Rector\TYPO310\v1\SendNotifyEmailToMailApiRector;
+use Ssch\TYPO3Rector\TYPO310\v1\BackendUtilityEditOnClickRector;
+use Ssch\TYPO3Rector\TYPO310\v1\RefactorCHashArrayOfTSFERector;
+use Ssch\TYPO3Rector\TYPO310\v1\RefactorInternalPropertiesOfTSFERector;
+use Ssch\TYPO3Rector\TYPO310\v1\RegisterPluginWithVendorNameRector;
+use Ssch\TYPO3Rector\TYPO310\v1\RemoveEnableMultiSelectFilterTextfieldRector;
+use Ssch\TYPO3Rector\TYPO310\v1\SendNotifyEmailToMailApiRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
