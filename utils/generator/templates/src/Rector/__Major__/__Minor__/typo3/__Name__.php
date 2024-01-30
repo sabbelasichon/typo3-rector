@@ -11,6 +11,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog __Changelog_Url__
+ * @see \Ssch\TYPO3Rector\Tests\Rector\__Major__\__Minor__\__Type__\__Test_Directory__\__Name__Test
  */
 final class __Name__ extends AbstractRector
 {
@@ -29,6 +30,9 @@ final class __Name__ extends AbstractRector
         return $node;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('__Description__', [new CodeSample(
