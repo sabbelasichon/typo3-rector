@@ -43,6 +43,7 @@ CODE_SAMPLE
         if ($this->removeArrayItemFromArrayByKey($ctrlArray, 'selicon_field_path')) {
             $hasAstBeenChanged = true;
         }
+
         $this->hasAstBeenChanged = $hasAstBeenChanged;
     }
 }

@@ -179,7 +179,7 @@ CODE_SAMPLE
                 return;
             }
 
-            if (self::canBeInterpretedAsInteger($defaultValue)) {
+            if ($this->canBeInterpretedAsInteger($defaultValue)) {
                 // Cast default to int, in case it can be interpreted as integer
                 $defaultArrayItem->value = new LNumber((int) $defaultValue);
                 $this->hasAstBeenChanged = true;
@@ -203,7 +203,7 @@ CODE_SAMPLE
     /**
      * @param mixed $var
      */
-    private static function canBeInterpretedAsInteger($var): bool
+    private function canBeInterpretedAsInteger($var): bool
     {
         if ($var === '' || is_object($var) || is_array($var)) {
             return false;
