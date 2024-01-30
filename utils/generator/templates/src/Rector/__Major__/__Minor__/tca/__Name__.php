@@ -16,9 +16,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class __Name__ extends AbstractTcaRector
 {
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('__Description__', [new CodeSample(
