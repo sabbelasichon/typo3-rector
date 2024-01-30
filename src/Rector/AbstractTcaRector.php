@@ -226,7 +226,7 @@ abstract class AbstractTcaRector extends AbstractRector
         $ctrlArrayItem = $this->extractCtrl($return);
         $columnsArrayItem = $this->extractColumns($return);
 
-        return $ctrlArrayItem !== null && $columnsArrayItem !== null;
+        return $ctrlArrayItem instanceof ArrayItem && $columnsArrayItem instanceof ArrayItem;
     }
 
     /**
@@ -287,10 +287,10 @@ abstract class AbstractTcaRector extends AbstractRector
      */
     protected function extractArrayValueByKey(?Node $node, $key): ?Expr
     {
-        return ($extractArrayItemByKey = $this->extractArrayItemByKey(
+        return (($extractArrayItemByKey = $this->extractArrayItemByKey(
             $node,
             $key
-        )) ? $extractArrayItemByKey->value : null;
+        )) instanceof ArrayItem) ? $extractArrayItemByKey->value : null;
     }
 
     /**
@@ -342,7 +342,7 @@ abstract class AbstractTcaRector extends AbstractRector
     protected function removeArrayItemFromArrayByKey(Array_ $array, $key): bool
     {
         $arrayItemToRemove = $this->extractArrayItemByKey($array, $key);
-        if ($arrayItemToRemove === null) {
+        if (!$arrayItemToRemove instanceof ArrayItem) {
             return false;
         }
 
@@ -377,13 +377,13 @@ abstract class AbstractTcaRector extends AbstractRector
     protected function hasRenderType(Array_ $columnItemConfigurationArray): bool
     {
         $renderTypeItem = $this->extractArrayItemByKey($columnItemConfigurationArray, 'renderType');
-        return $renderTypeItem !== null;
+        return $renderTypeItem instanceof ArrayItem;
     }
 
     protected function hasInternalType(Array_ $columnItemConfigurationArray): bool
     {
         $internalType = $this->extractArrayItemByKey($columnItemConfigurationArray, 'internal_type');
-        return $internalType !== null;
+        return $internalType instanceof ArrayItem;
     }
 
     protected function configIsOfInternalType(Array_ $configValueArray, string $expectedType): bool

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
+use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\NodeTraverser;
@@ -23,7 +24,7 @@ final class RemoveUpdateRootlineDataRector extends AbstractRector
      */
     public function getNodeTypes(): array
     {
-        return [Node\Stmt\Expression::class];
+        return [Expression::class];
     }
 
     /**
