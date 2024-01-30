@@ -6,11 +6,7 @@ namespace Ssch\TYPO3Rector\Rector\v10\v3;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Stmt\Return_;
-use Rector\PhpParser\Node\Value\ValueResolver;
-use Rector\Rector\AbstractRector;
-use Ssch\TYPO3Rector\Rector\Tca\TcaHelperTrait;
+use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -18,65 +14,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.3/Feature-88901-RenderAllFieldsInElementInformationController.html?highlight=showrecordfieldlist
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v3\RemoveShowRecordFieldListInsideInterfaceSectionRector\RemoveShowRecordFieldListInsideInterfaceSectionRectorTest
  */
-final class RemoveShowRecordFieldListInsideInterfaceSectionRector extends AbstractRector
+final class RemoveShowRecordFieldListInsideInterfaceSectionRector extends AbstractTcaRector
 {
-    use TcaHelperTrait;
-
-    private ValueResolver $valueResolver;
-
-    public function __construct(ValueResolver $valueResolver)
-    {
-        $this->valueResolver = $valueResolver;
-    }
-
-    /**
-     * @return array<class-string<Node>>
-     */
-    public function getNodeTypes(): array
-    {
-        return [Return_::class];
-    }
-
-    /**
-     * @param Return_ $node
-     */
-    public function refactor(Node $node): ?Node
-    {
-        if (! $this->isFullTca($node)) {
-            return null;
-        }
-
-        $interface = $this->extractInterface($node);
-
-        if (! $interface instanceof ArrayItem) {
-            return null;
-        }
-
-        $interfaceItems = $interface->value;
-
-        if (! $interfaceItems instanceof Array_) {
-            if ($node->expr instanceof Array_) {
-                $this->removeArrayItemFromArrayByKey($node->expr, 'interface');
-            }
-            return null;
-        }
-
-        $remainingInterfaceItems = count($interfaceItems->items);
-
-        if ($this->removeArrayItemFromArrayByKey($interfaceItems, 'showRecordFieldList')) {
-            --$remainingInterfaceItems;
-        }
-
-        if ($remainingInterfaceItems === 0) {
-            if ($node->expr instanceof Array_) {
-                $this->removeArrayItemFromArrayByKey($node->expr, 'interface');
-            }
-            return $node;
-        }
-
-        return null;
-    }
-
     /**
      * @codeCoverageIgnore
      */
@@ -106,5 +45,19 @@ return [
 CODE_SAMPLE
             ),
         ]);
+    }
+
+    protected function refactorInterface(Array_ $interfaceArray, Node $node): void
+    {
+        $remainingInterfaceItems = count($interfaceArray->items);
+
+        if ($this->removeArrayItemFromArrayByKey($interfaceArray, 'showRecordFieldList')) {
+            --$remainingInterfaceItems;
+        }
+
+        if ($remainingInterfaceItems === 0) {
+            $this->removeArrayItemFromArrayByKey($node, 'interface');
+            $this->hasAstBeenChanged = true;
+        }
     }
 }
