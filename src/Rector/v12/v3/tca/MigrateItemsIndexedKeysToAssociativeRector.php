@@ -9,7 +9,6 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Rector\Tca\AbstractTcaRector;
-use Ssch\TYPO3Rector\Rector\Tca\TcaHelperTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -20,8 +19,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateItemsIndexedKeysToAssociativeRector extends AbstractTcaRector
 {
-    use TcaHelperTrait;
-
     /**
      * @codeCoverageIgnore
      */
