@@ -54,9 +54,6 @@ final class UseCompositeExpressionStaticMethodsRector extends AbstractRector
         );
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use CompositeExpression static methods instead of constructor', [new CodeSample(

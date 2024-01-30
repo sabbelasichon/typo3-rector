@@ -80,9 +80,6 @@ final class MigrateFrameModuleToSvgTreeRector extends AbstractRector
         return $hasAstBeenChanged ? $node : null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate the iframe based file tree to SVG', [

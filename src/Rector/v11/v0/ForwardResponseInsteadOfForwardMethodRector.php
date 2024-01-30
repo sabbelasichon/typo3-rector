@@ -34,9 +34,6 @@ final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
         $this->valueResolver = $valueResolver;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

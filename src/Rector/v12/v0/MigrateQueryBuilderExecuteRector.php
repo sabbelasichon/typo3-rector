@@ -61,9 +61,6 @@ final class MigrateQueryBuilderExecuteRector extends AbstractRector
         return null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Replace Querybuilder::execute() with fitting methods', [new CodeSample(

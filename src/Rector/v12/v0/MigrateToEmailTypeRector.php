@@ -25,9 +25,6 @@ final class MigrateToEmailTypeRector extends AbstractTcaRector
      */
     private const EMAIL = 'email';
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrates existing input TCA with eval email to new TCA type email', [new CodeSample(

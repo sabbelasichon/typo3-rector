@@ -52,9 +52,6 @@ final class RemoveTSFEConvOutputCharsetCallsRector extends AbstractRector
         return $node->args[0];
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Removes usages of TSFE->convOutputCharset(...)', [new CodeSample(

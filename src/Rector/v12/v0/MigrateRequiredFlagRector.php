@@ -28,9 +28,6 @@ final class MigrateRequiredFlagRector extends AbstractTcaRector
      */
     private const REQUIRED = 'required';
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate required flag', [new CodeSample(

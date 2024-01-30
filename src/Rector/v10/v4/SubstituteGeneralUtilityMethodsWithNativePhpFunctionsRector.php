@@ -77,9 +77,6 @@ final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector extends 
         return null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

@@ -41,9 +41,6 @@ final class ReplacePageRepoOverlayFunctionRector extends AbstractRector
         return $this->nodeFactory->createMethodCall($node->var, 'getLanguageOverlay', array_slice($node->args, 0, 2));
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Replace PageRepository->getRecordOverlay() with ->getLanguageOverlay()', [

@@ -84,9 +84,6 @@ final class UseClassTypo3InformationRector extends AbstractRector
         return null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

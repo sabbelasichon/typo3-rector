@@ -17,7 +17,6 @@ use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
 use Ssch\TYPO3Rector\Rector\CodeQuality\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\Rector\CodeQuality\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
 use Ssch\TYPO3Rector\Rector\CodeQuality\Rector\General\RenameClassMapAliasRector;
-use Ssch\TYPO3Rector\Rules\Rector\Misc\AddCodeCoverageIgnoreToMethodRectorDefinitionRector;
 
 /**
  * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddChangelogDocBlockForRectorClass\AddChangelogDocBlockForRectorClassTest
@@ -35,7 +34,6 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
      */
     private const ALLOWED_CLASSES_WITH_NON_CHANGELOG_DOC_BLOCK = [
         RenameClassMapAliasRector::class,
-        AddCodeCoverageIgnoreToMethodRectorDefinitionRector::class,
         ConvertImplicitVariablesToExplicitGlobalsRector::class,
         AbstractTcaRector::class,
         MethodGetInstanceToMakeInstanceCallRector::class,

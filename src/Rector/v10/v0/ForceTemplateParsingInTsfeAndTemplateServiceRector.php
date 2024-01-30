@@ -68,9 +68,6 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

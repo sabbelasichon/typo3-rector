@@ -44,9 +44,6 @@ final class RefactorInternalPropertiesOfTSFERector extends AbstractRector
         $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor Internal public TSFE properties', [

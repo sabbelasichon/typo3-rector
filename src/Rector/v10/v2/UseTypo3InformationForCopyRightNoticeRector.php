@@ -49,9 +49,6 @@ final class UseTypo3InformationForCopyRightNoticeRector extends AbstractRector
         return $this->nodeFactory->createMethodCall($staticCall, 'getCopyrightNotice');
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

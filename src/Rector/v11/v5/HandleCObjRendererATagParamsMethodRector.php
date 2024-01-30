@@ -56,9 +56,6 @@ final class HandleCObjRendererATagParamsMethodRector extends AbstractRector
         return $node;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Removes deprecated params of the ContentObjectRenderer->getATagParams() method', [

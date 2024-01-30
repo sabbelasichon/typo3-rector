@@ -60,9 +60,6 @@ final class DateTimeAspectInsteadOfGlobalsExecTimeRector extends AbstractRector
         );
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use DateTimeAspect instead of superglobals like $GLOBALS[\'EXEC_TIME\']', [

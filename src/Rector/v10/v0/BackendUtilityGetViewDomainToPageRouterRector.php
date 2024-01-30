@@ -80,9 +80,6 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
         return [$siteAssign, $node];
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor method call BackendUtility::getViewDomain() to PageRouter', [

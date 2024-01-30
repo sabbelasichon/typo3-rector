@@ -49,9 +49,6 @@ final class RemoveTSFEMetaCharSetCallsRector extends AbstractRector
         return new String_('utf-8');
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Removes calls to metaCharset property or methods of TSFE', [new CodeSample(

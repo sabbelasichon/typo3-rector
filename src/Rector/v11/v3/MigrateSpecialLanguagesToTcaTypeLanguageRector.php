@@ -55,9 +55,6 @@ final class MigrateSpecialLanguagesToTcaTypeLanguageRector extends AbstractTcaRe
         return $this->hasAstBeenChanged ? $node : null;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

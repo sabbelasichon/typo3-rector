@@ -53,9 +53,6 @@ final class SubstituteEnvironmentServiceWithApplicationTypeRector extends Abstra
         return $this->nodeFactory->createMethodCall($factoryCall, $method);
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Substitute class EnvironmentService with ApplicationType class\"', [new CodeSample(

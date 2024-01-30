@@ -38,9 +38,6 @@ final class RemoveRelativeToCurrentScriptArgumentsRector extends AbstractRector
         return $this->refactorClassMethod($node);
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Removes all usages of the relativeToCurrentScript parameter', [

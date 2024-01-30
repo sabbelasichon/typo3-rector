@@ -33,9 +33,6 @@ final class InjectMethodToConstructorInjectionRector extends AbstractRector
         $this->classDependencyManipulator = $classDependencyManipulator;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(

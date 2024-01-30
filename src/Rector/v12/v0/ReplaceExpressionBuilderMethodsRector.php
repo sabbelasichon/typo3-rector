@@ -43,9 +43,6 @@ final class ReplaceExpressionBuilderMethodsRector extends AbstractRector
         return $this->nodeFactory->createMethodCall($node->var, $methodName, $node->args);
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Replaces ExpressionBuilder methods orX() & andX()', [new CodeSample(

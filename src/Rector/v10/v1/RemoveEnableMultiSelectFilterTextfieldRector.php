@@ -16,9 +16,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class RemoveEnableMultiSelectFilterTextfieldRector extends AbstractTcaRector
 {
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove "enableMultiSelectFilterTextfield" => true as its default', [new CodeSample(

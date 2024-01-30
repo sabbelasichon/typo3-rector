@@ -111,9 +111,6 @@ final class RefactorCHashArrayOfTSFERector extends AbstractRector
         ];
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Refactor Internal public property cHash_array', [new CodeSample(

@@ -51,9 +51,6 @@ final class RemoveUpdateRootlineDataRector extends AbstractRector
         return NodeTraverser::REMOVE_NODE;
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Remove unused TemplateService->updateRootlineData() calls', [new CodeSample(

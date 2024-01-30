@@ -47,9 +47,6 @@ final class MigrateInputDateTimeRector extends AbstractTcaRector
         ],
     ];
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate renderType inputDateTime to new TCA type datetime', [new CodeSample(

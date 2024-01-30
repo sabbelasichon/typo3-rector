@@ -86,9 +86,6 @@ final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector
         return [$globalRequestNode, new Expression($normalizedParamsNode), $node];
     }
 
-    /**
-     * @codeCoverageIgnore
-     */
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Use PSR-7 compatible request for uri instead of the method getBaseUri', [
