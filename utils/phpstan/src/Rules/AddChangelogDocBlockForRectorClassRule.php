@@ -13,10 +13,10 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Contract\Rector\RectorInterface;
+use Ssch\TYPO3Rector\CodeQuality\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
+use Ssch\TYPO3Rector\CodeQuality\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
+use Ssch\TYPO3Rector\CodeQuality\Rector\General\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
-use Ssch\TYPO3Rector\Rector\CodeQuality\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;
-use Ssch\TYPO3Rector\Rector\CodeQuality\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
-use Ssch\TYPO3Rector\Rector\CodeQuality\Rector\General\RenameClassMapAliasRector;
 
 /**
  * @see \Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddChangelogDocBlockForRectorClass\AddChangelogDocBlockForRectorClassTest

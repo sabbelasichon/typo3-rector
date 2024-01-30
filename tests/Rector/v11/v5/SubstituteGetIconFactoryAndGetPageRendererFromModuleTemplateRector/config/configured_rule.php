@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Rector\ValueObject\PhpVersion;
-use Ssch\TYPO3Rector\Rector\TYPO311\v5\SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector;
+use Ssch\TYPO3Rector\TYPO311\v5\SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->phpVersion(PhpVersion::PHP_74);
