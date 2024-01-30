@@ -887,8 +887,7 @@ Extbase controller actions must return ResponseInterface
 
 declare(strict_types=1);
 
-use Rector\Config\RectorConfig;
-use Ssch\TYPO3Rector\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector;
+use Rector\Config\RectorConfig;use Ssch\TYPO3Rector\Rector\TYPO311\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $containerConfigurator->extension('rectorConfig', [
