@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Ssch\TYPO3Rector\CodeQuality\Rector\General\ExtEmConfRector;
+use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../config/config_test.php');

@@ -39,7 +39,7 @@ Let's say you want to migrate the TCA from a TYPO3 7 project to the latest TYPO3
 
 declare(strict_types=1);
 
-use Rector\Config\RectorConfig;use Rector\Core\Configuration\Option;use Rector\Core\ValueObject\PhpVersion;use Rector\PostRector\Rector\NameImportingPostRector;use Rector\Set\ValueObject\LevelSetList;use Ssch\TYPO3Rector\CodeQuality\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector;use Ssch\TYPO3Rector\CodeQuality\Rector\General\ExtEmConfRector;use Ssch\TYPO3Rector\Configuration\Typo3Option;use Ssch\TYPO3Rector\Set\Extension\TYPO3TestingFrameworkSetList;use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
+use Rector\Config\RectorConfig;use Rector\Core\Configuration\Option;use Rector\Core\ValueObject\PhpVersion;use Rector\PostRector\Rector\NameImportingPostRector;use Rector\Set\ValueObject\LevelSetList;use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector;use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;use Ssch\TYPO3Rector\Configuration\Typo3Option;use Ssch\TYPO3Rector\Set\Extension\TYPO3TestingFrameworkSetList;use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 
 return static function (RectorConfig $rectorConfig): void {
 
