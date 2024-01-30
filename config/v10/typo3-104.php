@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
-use Ssch\TYPO3Rector\CodeQuality\Rector\General\RenameClassMapAliasRector;
+use Ssch\TYPO3Rector\CodeQuality\General\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\TYPO310\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector;
 use Ssch\TYPO3Rector\TYPO310\v4\UnifiedFileNameValidatorRector;
 use Ssch\TYPO3Rector\TYPO310\v4\UseFileGetContentsForGetUrlRector;

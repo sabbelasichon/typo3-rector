@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\StaticCall\RenameStaticMethodRector;
 use Rector\Renaming\ValueObject\RenameStaticMethod;
-use Ssch\TYPO3Rector\CodeQuality\Rector\General\MethodGetInstanceToMakeInstanceCallRector;
+use Ssch\TYPO3Rector\CodeQuality\General\MethodGetInstanceToMakeInstanceCallRector;
 use Ssch\TYPO3Rector\TYPO311\v5\FlexFormToolsArrayValueByPathRector;
 use Ssch\TYPO3Rector\TYPO311\v5\HandleCObjRendererATagParamsMethodRector;
 use Ssch\TYPO3Rector\TYPO311\v5\RemoveDefaultInternalTypeDBRector;
