@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Rector\Tca;
+namespace Ssch\TYPO3Rector\Rector;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
