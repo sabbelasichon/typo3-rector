@@ -166,26 +166,26 @@ trait TcaHelperTrait
         }
     }
 
-    private function hasRenderType(Array_ $columnItemConfigurationArray): bool
+    protected function hasRenderType(Array_ $columnItemConfigurationArray): bool
     {
         $renderTypeItem = $this->extractArrayItemByKey($columnItemConfigurationArray, 'renderType');
         return $renderTypeItem !== null;
     }
 
-    private function hasInternalType(Array_ $columnItemConfigurationArray): bool
+    protected function hasInternalType(Array_ $columnItemConfigurationArray): bool
     {
         $internalType = $this->extractArrayItemByKey($columnItemConfigurationArray, 'internal_type');
         return $internalType !== null;
     }
 
+    protected function configIsOfInternalType(Array_ $configValueArray, string $expectedType): bool
+    {
+        return $this->hasKeyValuePair($configValueArray, 'internal_type', $expectedType);
+    }
+
     private function extractColumns(Return_ $return): ?ArrayItem
     {
         return $this->extractArrayItemByKey($return->expr, 'columns');
-    }
-
-    private function extractTypes(Return_ $return): ?ArrayItem
-    {
-        return $this->extractArrayItemByKey($return->expr, 'types');
     }
 
     private function extractCtrl(Return_ $return): ?ArrayItem
@@ -196,11 +196,6 @@ trait TcaHelperTrait
     private function extractInterface(Return_ $return): ?ArrayItem
     {
         return $this->extractArrayItemByKey($return->expr, 'interface');
-    }
-
-    private function configIsOfInternalType(Array_ $configValueArray, string $expectedType): bool
-    {
-        return $this->hasKeyValuePair($configValueArray, 'internal_type', $expectedType);
     }
 
     /**
