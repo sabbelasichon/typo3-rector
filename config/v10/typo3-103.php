@@ -6,8 +6,8 @@ use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
-use Ssch\TYPO3Rector\Rector\TYPO310\v3\SubstituteResourceFactoryRector;
-use Ssch\TYPO3Rector\Rector\TYPO310\v3\UseClassTypo3VersionRector;
+use Ssch\TYPO3Rector\TYPO310\v3\SubstituteResourceFactoryRector;
+use Ssch\TYPO3Rector\TYPO310\v3\UseClassTypo3VersionRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
