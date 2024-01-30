@@ -49,6 +49,20 @@ return [
                 ],
             ],
         ],
+        'leave_as_is' => [
+            'label' => 'Leave as is!',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxLabeledToggle',
+                'items' => [
+                    [
+                        'label' => 'Enabled/Disabled',
+                        'labelChecked' => 'Enabled',
+                        'labelUnchecked' => 'Disabled',
+                    ],
+                ],
+            ],
+        ],
     ],
 ];
 ?>
@@ -92,6 +106,20 @@ return [
                     [
                         0 => '',
                         'invertStateDisplay' => true,
+                    ],
+                ],
+            ],
+        ],
+        'leave_as_is' => [
+            'label' => 'Leave as is!',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxLabeledToggle',
+                'items' => [
+                    [
+                        'label' => 'Enabled/Disabled',
+                        'labelChecked' => 'Enabled',
+                        'labelUnchecked' => 'Disabled',
                     ],
                 ],
             ],

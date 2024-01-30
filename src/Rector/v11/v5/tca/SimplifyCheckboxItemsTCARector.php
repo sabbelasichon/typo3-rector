@@ -100,9 +100,11 @@ CODE_SAMPLE
             return;
         }
 
-        if (! $this->isConfigType($configArray, 'check')
-            && ! $this->configIsOfRenderType($configArray, 'checkboxToggle')
-        ) {
+        if (! $this->isConfigType($configArray, 'check')) {
+            return;
+        }
+
+        if (! $this->configIsOfRenderType($configArray, 'checkboxToggle')) {
             return;
         }
 
