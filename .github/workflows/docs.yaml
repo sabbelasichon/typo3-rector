@@ -29,7 +29,7 @@ jobs:
         uses: ramsey/composer-install@v2
 
       - name: "Install rule doc generator"
-        run: composer require symplify/rule-doc-generator:^11.1 --with-all-dependencies
+        run: composer require symplify/rule-doc-generator:^12.1 --with-all-dependencies
 
       - name: "Generate documentation"
         run: "composer docs:generate"

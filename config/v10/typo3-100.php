@@ -18,7 +18,7 @@ use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
-use Ssch\TYPO3Rector\CodeQuality\Rector\General\ExtEmConfRector;
+use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\TYPO310\v0\BackendUtilityGetViewDomainToPageRouterRector;
 use Ssch\TYPO3Rector\TYPO310\v0\ChangeDefaultCachingFrameworkNamesRector;
 use Ssch\TYPO3Rector\TYPO310\v0\ConfigurationManagerAddControllerConfigurationMethodRector;
