@@ -55,7 +55,7 @@ CODE_SAMPLE
             --$remainingInterfaceItems;
         }
 
-        if ($remainingInterfaceItems === 0) {
+        if ($remainingInterfaceItems === 0 && $node instanceof Array_) {
             $this->removeArrayItemFromArrayByKey($node, 'interface');
             $this->hasAstBeenChanged = true;
         }
