@@ -90,7 +90,9 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
             }
 
             // avoid duplication
-            $args = $node->expr instanceof MethodCall && $this->isName($node->expr->name, 'htmlResponse') ? [] : [$node->expr];
+            $args = $node->expr instanceof MethodCall && $this->isName($node->expr->name, 'htmlResponse') ? [] : [
+                $node->expr,
+            ];
 
             return new Return_($this->createHtmlResponseMethodCall($args));
         });

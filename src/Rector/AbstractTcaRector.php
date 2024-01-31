@@ -342,7 +342,7 @@ abstract class AbstractTcaRector extends AbstractRector
     protected function removeArrayItemFromArrayByKey(Array_ $array, $key): bool
     {
         $arrayItemToRemove = $this->extractArrayItemByKey($array, $key);
-        if (!$arrayItemToRemove instanceof ArrayItem) {
+        if (! $arrayItemToRemove instanceof ArrayItem) {
             return false;
         }
 
