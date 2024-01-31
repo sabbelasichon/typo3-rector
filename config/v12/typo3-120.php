@@ -8,6 +8,7 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Ssch\TYPO3Rector\CodeQuality\General\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\TYPO312\v0\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ChangeExtbaseValidatorsRector;
+use Ssch\TYPO3Rector\TYPO312\v0\ExtbaseAnnotationToAttributeRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveMailerAdapterInterfaceRector;
@@ -152,8 +153,10 @@ return static function (RectorConfig $rectorConfig): void {
             ),
         ]
     );
+
     $rectorConfig->rule(UseConfigArrayForTSFEPropertiesRector::class);
     $rectorConfig->rule(ReplacePageRepoOverlayFunctionRector::class);
     $rectorConfig->rule(ImplementSiteLanguageAwareInterfaceRector::class);
     $rectorConfig->rule(ChangeExtbaseValidatorsRector::class);
+    $rectorConfig->rule(ExtbaseAnnotationToAttributeRector::class);
 };

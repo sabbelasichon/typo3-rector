@@ -6,11 +6,15 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
-use Ssch\TYPO3Rector\NodeAnalyzer\ClassConstAnalyzer;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
 use Ssch\TYPO3Rector\NodeFactory\InjectMethodFactory;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
+use Ssch\TYPO3Rector\TYPO312\AnnotationToAttribute\AttributeDecorator;
+use Ssch\TYPO3Rector\TYPO312\AnnotationToAttribute\CascadeAttributeDecorator;
+use Ssch\TYPO3Rector\TYPO312\AnnotationToAttribute\IgnoreValidationAttributeDecorator;
+use Ssch\TYPO3Rector\TYPO312\AnnotationToAttribute\ValidateAttributeDecorator;
+use Ssch\TYPO3Rector\TYPO312\Contract\AttributeDecoratorInterface;
 use Ssch\TYPO3Rector\Yaml\SymfonyYamlParser;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -26,4 +30,13 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->singleton(Typo3GlobalsFactory::class);
     $rectorConfig->singleton(Typo3NodeResolver::class);
     $rectorConfig->singleton(SymfonyYamlParser::class);
+
+    $rectorConfig->autotagInterface(AttributeDecoratorInterface::class);
+    $rectorConfig->singleton(CascadeAttributeDecorator::class);
+    $rectorConfig->singleton(IgnoreValidationAttributeDecorator::class);
+
+    $rectorConfig->singleton(ValidateAttributeDecorator::class);
+    $rectorConfig->when(AttributeDecorator::class)->needs('$decorators')->giveTagged(
+        AttributeDecoratorInterface::class
+    );
 };
