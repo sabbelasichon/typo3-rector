@@ -44,3 +44,6 @@ parameters:
 
         # waits for Rector and PHPStan to share same php-parser, probably with PHPStan 1.0
         - '#PhpParser\\Node\\Arg\|PhpParser\\Node\\VariadicPlaceholder#'
+
+        - '#^Call to method needs\(\) on an unknown class Illuminate\\Contracts\\Container\\ContextualBindingBuilder.$#'
+        - '#^Parameter \#1 \$node \(PhpParser\\Node\\Stmt\\Return_\) of method Ssch\\TYPO3Rector\\TYPO310\\v3\\RemoveExcludeOnTransOrigPointerFieldRector::refactor\(\)#'

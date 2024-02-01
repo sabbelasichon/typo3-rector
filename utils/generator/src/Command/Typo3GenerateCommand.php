@@ -27,9 +27,9 @@ final class Typo3GenerateCommand extends Command
      */
     public const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Type__\__Name__';
 
-    private static $defaultName = 'typo3-generate';
+    protected static $defaultName = 'typo3-generate';
 
-    private static $defaultDescription = '[DEV] Create a new TYPO3 Rector, in a proper location, with new tests';
+    protected static $defaultDescription = '[DEV] Create a new TYPO3 Rector, in a proper location, with new tests';
 
     /**
      * @readonly
