@@ -8,7 +8,6 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Ssch\TYPO3Rector\CodeQuality\General\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\TYPO312\v0\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ChangeExtbaseValidatorsRector;
-use Ssch\TYPO3Rector\TYPO312\v0\ExtbaseAnnotationToAttributeRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveMailerAdapterInterfaceRector;
@@ -27,6 +26,8 @@ use Ssch\TYPO3Rector\TYPO312\v0\UseConfigArrayForTSFEPropertiesRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->import(__DIR__ . '/extbase_annotations_to_attributes.php');
+
     $rectorConfig->ruleWithConfiguration(RenameClassMapAliasRector::class, [
         __DIR__ . '/../../Migrations/TYPO3/12.0/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
         __DIR__ . '/../../Migrations/TYPO3/12.0/typo3/sysext/frontend/Migrations/Code/ClassAliasMap.php',
@@ -158,5 +159,4 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ReplacePageRepoOverlayFunctionRector::class);
     $rectorConfig->rule(ImplementSiteLanguageAwareInterfaceRector::class);
     $rectorConfig->rule(ChangeExtbaseValidatorsRector::class);
-    $rectorConfig->rule(ExtbaseAnnotationToAttributeRector::class);
 };
