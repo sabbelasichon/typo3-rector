@@ -7,7 +7,7 @@ use Ssch\TYPO3Rector\TYPO311\v0\ExtbaseControllerActionsMustReturnResponseInterf
 use Ssch\TYPO3Rector\TYPO311\v0\ForwardResponseInsteadOfForwardMethodRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
+    $rectorConfig->import(__DIR__ . '/../../../../../../config/config.php');
     $rectorConfig->rule(ForwardResponseInsteadOfForwardMethodRector::class);
     $rectorConfig->ruleWithConfiguration(ExtbaseControllerActionsMustReturnResponseInterfaceRector::class, [
         'redirect_methods' => ['redirect', 'redirectToUri', 'additionalRedirectMethod'],
