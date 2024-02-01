@@ -6,7 +6,7 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/../../../../../../../config/config_test.php');
+    $rectorConfig->import(__DIR__ . '/../../../../../../../config/config.php');
     $rectorConfig
         ->ruleWithConfiguration(ExtEmConfRector::class, [
             ExtEmConfRector::TYPO3_VERSION_CONSTRAINT => '9.5.0-10.4.99',
