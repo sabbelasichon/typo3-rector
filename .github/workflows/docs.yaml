@@ -3,11 +3,11 @@ name: Docs
 on:
   push:
     branches:
-      - "main"
+      - "2.x"
 
 env:
   # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
-  COMPOSER_ROOT_VERSION: "dev-main"
+  COMPOSER_ROOT_VERSION: "2.x"
 
 jobs:
   docs:
@@ -42,7 +42,7 @@ jobs:
         with:
           commit_message: '[DOCS] Generate documentation'
           commit_options: '--no-verify --signoff'
-          branch: "main"
+          branch: "2.x"
           push_options: '--force'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

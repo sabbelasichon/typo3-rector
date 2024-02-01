@@ -4,11 +4,11 @@ on:
   pull_request: null
   push:
     branches:
-      - "main"
+      - "2.x"
 
 env:
   # see https://github.com/composer/composer/issues/9368#issuecomment-718112361
-  COMPOSER_ROOT_VERSION: "dev-main"
+  COMPOSER_ROOT_VERSION: "2.x"
 
 jobs:
   code_analysis:
