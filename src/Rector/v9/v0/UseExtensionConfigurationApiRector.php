@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Isset_;
@@ -52,7 +53,7 @@ final class UseExtensionConfigurationApiRector extends AbstractRector
         }
 
         $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
-        if ($parentNode instanceof Expr\Assign && $parentNode->var === $node) {
+        if ($parentNode instanceof Assign && $parentNode->var === $node) {
             return null;
         }
 
