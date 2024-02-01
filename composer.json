@@ -57,7 +57,10 @@
     },
     "autoload": {
         "psr-4": {
-            "Ssch\\TYPO3Rector\\": ["src", "rules"],
+            "Ssch\\TYPO3Rector\\": [
+                "src",
+                "rules"
+            ],
             "Ssch\\TYPO3Rector\\PHPStan\\": "utils/phpstan/src"
         }
     },
