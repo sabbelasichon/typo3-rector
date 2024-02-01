@@ -46,7 +46,11 @@ final class ValidateAttributeDecorator implements AttributeDecoratorInterface
             $key = $arg->name instanceof Identifier ? new String_($arg->name->toString()) : new String_('validator');
 
             if ($this->valueResolver->isValue($key, 'validator')) {
-                $className = ltrim($this->valueResolver->getValue($arg->value), '\\');
+                $classNameString = $this->valueResolver->getValue($arg->value);
+                if (! is_string($classNameString)) {
+                    continue;
+                }
+                $className = ltrim($classNameString, '\\');
                 $classConstant = $this->stringClassNameToClassConstantRector->refactor(new String_($className));
                 $value = $classConstant instanceof ClassConstFetch ? $classConstant : $arg->value;
             } else {
