@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Generator\ValueObject;
 
+use Ssch\TYPO3Rector\Generator\Contract\Typo3RectorTypeInterface;
+
 final class Typo3RectorRecipe
 {
     /**
@@ -29,14 +31,14 @@ final class Typo3RectorRecipe
     /**
      * @readonly
      */
-    private string $type;
+    private Typo3RectorTypeInterface $type;
 
     public function __construct(
         Typo3Version $typo3Version,
         string $url,
         string $name,
         string $description,
-        string $type
+        Typo3RectorTypeInterface $type
     ) {
         $this->typo3Version = $typo3Version;
         $this->url = $url;
@@ -50,12 +52,17 @@ final class Typo3RectorRecipe
         return $this->url;
     }
 
-    public function getMajorVersion(): string
+    public function getMajorVersionPrefixed(): string
     {
         return sprintf('v%d', $this->typo3Version->getMajor());
     }
 
-    public function getMinorVersion(): string
+    public function getMajorVersion(): int
+    {
+        return $this->typo3Version->getMajor();
+    }
+
+    public function getMinorVersionPrefixed(): string
     {
         return sprintf('v%d', $this->typo3Version->getMinor());
     }
@@ -79,9 +86,19 @@ final class Typo3RectorRecipe
     {
         return sprintf(
             __DIR__ . '/../../../../config/%s/%s-%d.php',
-            $this->getMajorVersion(),
-            $this->type,
+            $this->getMajorVersionPrefixed(),
+            $this->type->__toString(),
             $this->typo3Version->getFullVersion()
         );
+    }
+
+    public function getRectorClass(): string
+    {
+        return $this->type->getRectorClass();
+    }
+
+    public function getRectorShortClassName(): string
+    {
+        return $this->type->getRectorShortClassName();
     }
 }

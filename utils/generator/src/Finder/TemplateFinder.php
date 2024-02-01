@@ -27,9 +27,9 @@ final class TemplateFinder
     /**
      * @return SplFileInfo[]
      */
-    public function find(string $type): array
+    public function find(): array
     {
-        $filePaths = $this->addRuleAndTestCase($type);
+        $filePaths = $this->addRuleAndTestCase();
 
         $smartFileInfos = [];
         foreach ($filePaths as $filePath) {
@@ -42,31 +42,13 @@ final class TemplateFinder
     /**
      * @return array<int, string>
      */
-    private function addRuleAndTestCase(string $type): array
+    private function addRuleAndTestCase(): array
     {
-        $filePaths = [];
-
-        $filePaths[] = __DIR__ . '/../../templates/src/Rector/__Major__/__Minor__/' . $type . '/__Name__.php';
-
-        $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/__Name__Test.php.inc';
-
-        switch ($type) {
-            case 'flexform':
-                $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.xml.inc';
-                break;
-            case 'typoscript':
-                $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.typoscript.inc';
-                break;
-            case 'yaml':
-                $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.yaml.inc';
-                break;
-            default:
-                $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/Fixture/fixture.php.inc';
-                break;
-        }
-
-        $filePaths[] = __DIR__ . '/../../templates/tests/Rector/__Major__/__Minor__/' . $type . '/__Test_Directory__/config/configured_rule.php.inc';
-
-        return $filePaths;
+        return [
+            __DIR__ . '/../../templates/rules/TYPO3__Major__/__MinorPrefixed__/__Name__.php',
+            __DIR__ . '/../../templates/tests/Rector/__MajorPrefixed__/__MinorPrefixed__/__Test_Directory__/__Name__Test.php.inc',
+            __DIR__ . '/../../templates/tests/Rector/__MajorPrefixed__/__MinorPrefixed__/__Test_Directory__/Fixture/fixture.php.inc',
+            __DIR__ . '/../../templates/tests/Rector/__MajorPrefixed__/__MinorPrefixed__/__Test_Directory__/config/configured_rule.php.inc',
+        ];
     }
 }
