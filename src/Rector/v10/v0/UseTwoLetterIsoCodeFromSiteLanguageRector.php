@@ -45,6 +45,10 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
             return null;
         }
 
+        if(! $this->isName($node->name, 'sys_language_isocode')) {
+            return null;
+        }
+
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall($node->var, 'getLanguage'),
             'getTwoLetterIsoCode'
@@ -89,6 +93,6 @@ CODE_SAMPLE
             return false;
         }
 
-        return ! $this->isName($node->name, 'sys_language_isocode');
+        return true;
     }
 }
