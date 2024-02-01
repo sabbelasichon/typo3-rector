@@ -1,4 +1,4 @@
-# 98 Rules Overview
+# 99 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO311](#typo311) (27)
 
-- [TYPO312](#typo312) (31)
+- [TYPO312](#typo312) (32)
 
 <br>
 
@@ -1507,6 +1507,29 @@ Adapt extbase validators to new interface
 +    {
 +        $this->options = $options;
      }
+ }
+```
+
+<br>
+
+### ExtbaseAnnotationToAttributeRector
+
+Change annotation to attribute
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\ExtbaseAnnotationToAttributeRector`](../rules/TYPO312/v0/ExtbaseAnnotationToAttributeRector.php)
+
+```diff
+ use TYPO3\CMS\Extbase\Annotation as Extbase;
+
+ class MyEntity
+ {
+-    /**
+-    * @Extbase\ORM\Lazy()
+-    * @Extbase\ORM\Transient()
+-    */
++    #[Extbase\ORM\Lazy()]
++    #[Extbase\ORM\Transient()]
+     protected string $myProperty
  }
 ```
 
