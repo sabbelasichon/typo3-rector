@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\__Major__\__Minor__\__Type__\__Test_Directory__;
+namespace Ssch\TYPO3Rector\Tests\Rector\__MajorPrefixed__\__MinorPrefixed__\__Test_Directory__;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;

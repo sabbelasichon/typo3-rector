@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\Generator\Command;
 use Rector\Exception\ShouldNotHappenException;
 use RuntimeException;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
+use Ssch\TYPO3Rector\Generator\Factory\Typo3RectorTypeFactory;
 use Ssch\TYPO3Rector\Generator\FileSystem\ConfigFilesystem;
 use Ssch\TYPO3Rector\Generator\Finder\TemplateFinder;
 use Ssch\TYPO3Rector\Generator\Generator\FileGenerator;
@@ -25,7 +26,7 @@ final class Typo3GenerateCommand extends Command
     /**
      * @var string
      */
-    public const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Type__\__Name__';
+    public const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\TYPO3__Major__\__MinorPrefixed__\__Name__';
 
     protected static $defaultName = 'typo3-generate';
 
@@ -87,18 +88,26 @@ final class Typo3GenerateCommand extends Command
         $description = $helper->ask($input, $output, $this->askForDescription());
         $type = $helper->ask($input, $output, $this->askForType());
 
-        $recipe = new Typo3RectorRecipe($typo3Version, $changelogUrl, $name, $description, $type);
+        $recipe = new Typo3RectorRecipe(
+            $typo3Version,
+            $changelogUrl,
+            $name,
+            $description,
+            Typo3RectorTypeFactory::fromString($type)
+        );
 
-        $templateFileInfos = $this->templateFinder->find($type);
+        $templateFileInfos = $this->templateFinder->find();
 
         $templateVariables = [
+            '__MajorPrefixed__' => $recipe->getMajorVersionPrefixed(),
             '__Major__' => $recipe->getMajorVersion(),
-            '__Minor__' => $recipe->getMinorVersion(),
-            '__Type__' => $type,
+            '__MinorPrefixed__' => $recipe->getMinorVersionPrefixed(),
             '__Name__' => $recipe->getRectorName(),
             '__Test_Directory__' => $recipe->getTestDirectory(),
             '__Changelog_Url__' => $recipe->getChangelogUrl(),
             '__Description__' => addslashes($recipe->getDescription()),
+            '__Base_Rector_Class__' => $recipe->getRectorClass(),
+            '__Base_Rector_ShortClassName__' => $recipe->getRectorShortClassName(),
         ];
 
         $targetDirectory = getcwd();
@@ -118,12 +127,6 @@ final class Typo3GenerateCommand extends Command
         );
 
         $this->printSuccess($recipe->getRectorName(), $generatedFilePaths, $testCaseDirectoryPath);
-
-        if ($type === 'tca') {
-            $this->outputStyle->writeln(
-                '<comment>If the TCA Rector is about a TCA config change, please also create a FlexForm Rector!</comment>'
-            );
-        }
 
         return Command::SUCCESS;
     }
