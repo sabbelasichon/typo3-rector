@@ -40,7 +40,7 @@ return static function (ECSConfig $ecsConfig): void {
 
     $ecsConfig->skip([
         // on php 8.1, it adds space on &$variable
-        __DIR__ . '/utils/generator/templates/src',
+        __DIR__ . '/utils/generator/templates/rules',
         AssignmentInConditionSniff::class,
         DeclareStrictTypesFixer::class => ['*/Fixture/*'],
     ]);

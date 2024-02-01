@@ -14,7 +14,7 @@ final class ConfigFilesystem
     /**
      * @var string[]
      */
-    private const REQUIRED_KEYS = ['__Major__', '__Minor__', '__Name__'];
+    private const REQUIRED_KEYS = ['__MajorPrefixed__', '__MinorPrefixed__', '__Name__'];
 
     /**
      * @see https://regex101.com/r/gJ0bHJ/1
