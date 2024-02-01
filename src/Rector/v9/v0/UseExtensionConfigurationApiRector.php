@@ -8,14 +8,15 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Isset_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
-use PHPStan\Analyser\Scope;
-use Rector\Core\Rector\AbstractScopeAwareRector;
+use Rector\Core\Rector\AbstractRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Ssch\TYPO3Rector\Helper\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -24,7 +25,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.0/Deprecation-82254-DeprecateGLOBALSTYPO3_CONF_VARSEXTextConf.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v9\v0\UseExtensionConfigurationApiRector\UseExtensionConfigurationApiRectorTest
  */
-final class UseExtensionConfigurationApiRector extends AbstractScopeAwareRector
+final class UseExtensionConfigurationApiRector extends AbstractRector
 {
     /**
      * @return array<class-string<Node>>
@@ -37,7 +38,7 @@ final class UseExtensionConfigurationApiRector extends AbstractScopeAwareRector
     /**
      * @param FuncCall|Isset_|ArrayDimFetch $node
      */
-    public function refactorWithScope(Node $node, Scope $scope): ?Node
+    public function refactor(Node $node): ?Node
     {
         if ($node instanceof FuncCall) {
             return $this->refactorUnserialize($node);
@@ -51,7 +52,8 @@ final class UseExtensionConfigurationApiRector extends AbstractScopeAwareRector
             return null;
         }
 
-        if ($scope->isInFirstLevelStatement()) {
+        $parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
+        if ($parentNode instanceof Assign && $parentNode->var === $node) {
             return null;
         }
 
