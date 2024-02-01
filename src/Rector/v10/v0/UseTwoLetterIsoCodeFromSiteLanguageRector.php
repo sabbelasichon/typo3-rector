@@ -45,6 +45,10 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
             return null;
         }
 
+        if (! $this->isName($node->name, 'sys_language_isocode')) {
+            return null;
+        }
+
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall($node->var, 'getLanguage'),
             'getTwoLetterIsoCode'
@@ -82,13 +86,9 @@ CODE_SAMPLE
             return false;
         }
 
-        if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
+        return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
             $node,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
-        )) {
-            return false;
-        }
-
-        return ! $this->isName($node->name, 'sys_language_isocode');
+        );
     }
 }
