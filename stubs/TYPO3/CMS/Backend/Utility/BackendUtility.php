@@ -163,4 +163,14 @@ class BackendUtility
     {
 
     }
+
+    public static function getRecordToolTip(string $string)
+    {
+
+    }
+
+    public static function getRecordIconAltText(string $string)
+    {
+
+    }
 }
