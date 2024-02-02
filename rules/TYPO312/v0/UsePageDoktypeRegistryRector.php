@@ -98,6 +98,7 @@ CODE_SAMPLE
         if (! $pageTypes instanceof Node\Scalar\String_) {
             return true;
         }
+
         return $pageTypes->value !== 'PAGES_TYPES';
     }
 }
