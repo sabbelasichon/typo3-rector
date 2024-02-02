@@ -9,7 +9,6 @@ use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/vendor/rector/rector-generator/config/config.php');
     $rectorConfig->phpstanConfig(__DIR__ . '/phpstan.neon');
 
     $rectorConfig->paths([__DIR__ . '/utils', __DIR__ . '/src', __DIR__ . '/tests', __DIR__ . '/rules']);

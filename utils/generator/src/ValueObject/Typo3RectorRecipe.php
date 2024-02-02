@@ -57,9 +57,9 @@ final class Typo3RectorRecipe
         return sprintf('v%d', $this->typo3Version->getMajor());
     }
 
-    public function getMajorVersion(): int
+    public function getMajorVersion(): string
     {
-        return $this->typo3Version->getMajor();
+        return (string) $this->typo3Version->getMajor();
     }
 
     public function getMinorVersionPrefixed(): string
