@@ -79,11 +79,6 @@ CODE_SAMPLE
         )) {
             return true;
         }
-
-        if (! $this->isNames($node->name, ['lastTypoLinkUrl', 'lastTypoLinkTarget', 'lastTypoLinkLD'])) {
-            return true;
-        }
-
-        return false;
+        return ! $this->isNames($node->name, ['lastTypoLinkUrl', 'lastTypoLinkTarget', 'lastTypoLinkLD']);
     }
 }
