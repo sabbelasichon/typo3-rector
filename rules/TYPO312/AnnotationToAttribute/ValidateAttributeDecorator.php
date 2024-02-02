@@ -50,6 +50,7 @@ final class ValidateAttributeDecorator implements AttributeDecoratorInterface
                 if (! is_string($classNameString)) {
                     continue;
                 }
+
                 $className = ltrim($classNameString, '\\');
                 $classConstant = $this->stringClassNameToClassConstantRector->refactor(new String_($className));
                 $value = $classConstant instanceof ClassConstFetch ? $classConstant : $arg->value;
