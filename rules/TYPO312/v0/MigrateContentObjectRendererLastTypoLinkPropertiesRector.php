@@ -22,9 +22,21 @@ final class MigrateContentObjectRendererLastTypoLinkPropertiesRector extends Abs
     {
         return new RuleDefinition('Migrate lastTypoLink properties from ContentObjectRenderer', [new CodeSample(
             <<<'CODE_SAMPLE'
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+$contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+$lastTypoLinkUrl = $contentObjectRenderer->lastTypoLinkUrl;
+$lastTypoLinkTarget = $contentObjectRenderer->lastTypoLinkTarget;
+$lastTypoLinkLD = $contentObjectRenderer->lastTypoLinkLD;
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+$contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+$lastTypoLinkUrl = $contentObjectRenderer->lastTypoLinkResult->getUrl();
+$lastTypoLinkTarget = $contentObjectRenderer->lastTypoLinkResult->getTarget();
+$lastTypoLinkLD = ['target' => htmlspecialchars($contentObjectRenderer->lastTypoLinkResult->getTarget()), 'totalUrl' => $contentObjectRenderer->lastTypoLinkResult->getUrl(), 'type' => $contentObjectRenderer->lastTypoLinkResult->getType()];
 CODE_SAMPLE
         )]);
     }
