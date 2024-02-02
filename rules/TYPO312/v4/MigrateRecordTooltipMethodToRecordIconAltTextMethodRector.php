@@ -64,7 +64,7 @@ CODE_SAMPLE
 
         try {
             return $this->nodeFactory->createConcat($concatenationWithTitleAttribute);
-        } catch (ShouldNotHappenException $e) {
+        } catch (ShouldNotHappenException $shouldNotHappenException) {
             return null;
         }
     }
@@ -77,11 +77,6 @@ CODE_SAMPLE
         )) {
             return true;
         }
-
-        if (! $this->isName($node->name, 'getRecordToolTip')) {
-            return true;
-        }
-
-        return false;
+        return ! $this->isName($node->name, 'getRecordToolTip');
     }
 }
