@@ -1,4 +1,4 @@
-# 102 Rules Overview
+# 103 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO311](#typo311) (27)
 
-- [TYPO312](#typo312) (35)
+- [TYPO312](#typo312) (36)
 
 <br>
 
@@ -1863,6 +1863,23 @@ Migrate renderType colorpicker to type color
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateRequestArgumentFromMethodStartRector
+
+Use method setRequest of ContentObjectRenderer instead of third argument of method start
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v4\MigrateRequestArgumentFromMethodStartRector`](../rules/TYPO312/v4/MigrateRequestArgumentFromMethodStartRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+ $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+-$contentObjectRenderer->start([], 'pages', $GLOBALS['TYPO3_REQUEST']);
++$contentObjectRenderer->setRequest($GLOBALS['TYPO3_REQUEST']);
++$contentObjectRenderer->start([], 'pages');
 ```
 
 <br>
