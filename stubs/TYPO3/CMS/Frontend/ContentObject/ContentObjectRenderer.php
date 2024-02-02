@@ -4,6 +4,7 @@ namespace TYPO3\CMS\Frontend\ContentObject;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
+use TYPO3\CMS\Frontend\Typolink\LinkResultInterface;
 
 if (class_exists('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')) {
     return;
@@ -11,6 +12,15 @@ if (class_exists('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer')) {
 
 class ContentObjectRenderer
 {
+    public $lastTypoLinkUrl = '';
+
+    public $lastTypoLinkTarget = '';
+
+    public $lastTypoLinkLD = [];
+
+    public $parameters = [];
+
+    public ?LinkResultInterface $lastTypoLinkResult = null;
     /**
      * @return void
      */
