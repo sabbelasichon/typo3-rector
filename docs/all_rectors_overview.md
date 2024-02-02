@@ -1,4 +1,4 @@
-# 99 Rules Overview
+# 101 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO311](#typo311) (27)
 
-- [TYPO312](#typo312) (32)
+- [TYPO312](#typo312) (34)
 
 <br>
 
@@ -1589,6 +1589,26 @@ Migrates option cols to size for TCA type none
 
 <br>
 
+### MigrateContentObjectRendererLastTypoLinkPropertiesRector
+
+Migrate lastTypoLink properties from ContentObjectRenderer
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector`](../rules/TYPO312/v0/MigrateContentObjectRendererLastTypoLinkPropertiesRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+ $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+-$lastTypoLinkUrl = $contentObjectRenderer->lastTypoLinkUrl;
+-$lastTypoLinkTarget = $contentObjectRenderer->lastTypoLinkTarget;
+-$lastTypoLinkLD = $contentObjectRenderer->lastTypoLinkLD;
++$lastTypoLinkUrl = $contentObjectRenderer->lastTypoLinkResult->getUrl();
++$lastTypoLinkTarget = $contentObjectRenderer->lastTypoLinkResult->getTarget();
++$lastTypoLinkLD = ['target' => htmlspecialchars($contentObjectRenderer->lastTypoLinkResult->getTarget()), 'totalUrl' => $contentObjectRenderer->lastTypoLinkResult->getUrl(), 'type' => $contentObjectRenderer->lastTypoLinkResult->getType()];
+```
+
+<br>
+
 ### MigrateEvalIntAndDouble2ToTypeNumberRector
 
 Migrate eval int and double2 to type number
@@ -2181,6 +2201,25 @@ Use config array of TSFE instead of properties
 ```diff
 -$fileTarget = $GLOBALS['TSFE']->fileTarget;
 +$fileTarget = $GLOBALS['TSFE']->config['config']['fileTarget'];
+```
+
+<br>
+
+### UsePageDoktypeRegistryRector
+
+Migrate from `$GLOBALS['PAGES_TYPES']` to the new PageDoktypeRegistry
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\UsePageDoktypeRegistryRector`](../rules/TYPO312/v0/UsePageDoktypeRegistryRector.php)
+
+```diff
+-$GLOBALS['PAGES_TYPES'][116] = [
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Core\DataHandling\PageDoktypeRegistry;
++GeneralUtility::makeInstance(PageDoktypeRegistry::class)->add(116, [
+     'type' => 'web',
+     'allowedTables' => '*',
+-];
++]);
 ```
 
 <br>
