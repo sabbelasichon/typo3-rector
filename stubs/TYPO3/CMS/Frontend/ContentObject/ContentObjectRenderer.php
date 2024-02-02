@@ -2,6 +2,7 @@
 
 namespace TYPO3\CMS\Frontend\ContentObject;
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Page\PageRepository;
 use TYPO3\CMS\Frontend\Typolink\LinkResultInterface;
@@ -134,5 +135,15 @@ class ContentObjectRenderer
      */
     public function getTypoScriptFrontendController()
     {
+    }
+
+    public function start($data, $table = '', ?ServerRequestInterface $request = null): void
+    {
+
+    }
+
+    public function setRequest(ServerRequestInterface $request): void
+    {
+
     }
 }
