@@ -142,11 +142,13 @@ CODE_SAMPLE
         if (! $phpDocInfo instanceof PhpDocInfo) {
             return null;
         }
+
         $uses = $this->useImportsResolver->resolveBareUses();
         $annotationAttributeGroups = $this->processDoctrineAnnotationClasses($phpDocInfo, $uses);
         if ($annotationAttributeGroups === []) {
             return null;
         }
+
         $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
 
         foreach ($annotationAttributeGroups as $attributeGroup) {
@@ -174,33 +176,40 @@ CODE_SAMPLE
         if ($phpDocInfo->getPhpDocNode()->children === []) {
             return [];
         }
+
         $doctrineTagAndAnnotationToAttributes = [];
         $doctrineTagValueNodes = [];
         foreach ($phpDocInfo->getPhpDocNode()->children as $phpDocChildNode) {
             if (! $phpDocChildNode instanceof PhpDocTagNode) {
                 continue;
             }
+
             if (! $phpDocChildNode->value instanceof DoctrineAnnotationTagValueNode) {
                 continue;
             }
+
             $doctrineTagValueNode = $phpDocChildNode->value;
             $annotationToAttribute = $this->matchAnnotationToAttribute($doctrineTagValueNode);
             if (! $annotationToAttribute instanceof AnnotationToAttribute) {
                 continue;
             }
+
             $doctrineTagAndAnnotationToAttributes[] = new DoctrineTagAndAnnotationToAttribute(
                 $doctrineTagValueNode,
                 $annotationToAttribute
             );
             $doctrineTagValueNodes[] = $doctrineTagValueNode;
         }
+
         $attributeGroups = $this->attrGroupsFactory->create($doctrineTagAndAnnotationToAttributes, $uses);
         if ($this->phpAttributeAnalyzer->hasRemoveArrayState($attributeGroups)) {
             return [];
         }
+
         foreach ($doctrineTagValueNodes as $doctrineTagValueNode) {
             $this->phpDocTagRemover->removeTagValueFromNode($phpDocInfo, $doctrineTagValueNode);
         }
+
         return $attributeGroups;
     }
 
@@ -211,8 +220,10 @@ CODE_SAMPLE
             if (! $doctrineAnnotationTagValueNode->hasClassName($annotationToAttribute->getTag())) {
                 continue;
             }
+
             return $annotationToAttribute;
         }
+
         return null;
     }
 }
