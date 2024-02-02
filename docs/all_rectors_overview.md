@@ -1,4 +1,4 @@
-# 101 Rules Overview
+# 102 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO311](#typo311) (27)
 
-- [TYPO312](#typo312) (34)
+- [TYPO312](#typo312) (35)
 
 <br>
 
@@ -1816,6 +1816,21 @@ Replace `Querybuilder::execute()` with fitting methods
    ->delete(...)
 -  ->execute();
 +  ->executeStatement();
+```
+
+<br>
+
+### MigrateRecordTooltipMethodToRecordIconAltTextMethodRector
+
+Migrate the method `BackendUtility::getRecordToolTip()` to `BackendUtility::getRecordIconAltText()`
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v4\MigrateRecordTooltipMethodToRecordIconAltTextMethodRector`](../rules/TYPO312/v4/MigrateRecordTooltipMethodToRecordIconAltTextMethodRector.php)
+
+```diff
+ use TYPO3\CMS\Backend\Utility\BackendUtility;
+
+-$link = '<a href="..." ' . BackendUtility::getRecordToolTip('tooltip') . '>my link</a>';
++$link = '<a href="..." title="' . BackendUtility::getRecordIconAltText('tooltip') . '">my link</a>';
 ```
 
 <br>
