@@ -10,6 +10,7 @@ jobs:
       matrix:
         paths:
           - src tests
+          - rules
           - config utils
 
     runs-on: ubuntu-latest
