@@ -62,6 +62,7 @@ CODE_SAMPLE
             if (! $this->isName($node->name, $renameClassConstFetch->getOldConstant())) {
                 continue;
             }
+
             if (! $this->isObjectType($node->class, $renameClassConstFetch->getOldObjectType())) {
                 continue;
             }
@@ -73,6 +74,7 @@ CODE_SAMPLE
 
             return new PropertyFetch($enumConstFetch, 'value');
         }
+
         return null;
     }
 
