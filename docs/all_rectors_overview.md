@@ -1,4 +1,4 @@
-# 103 Rules Overview
+# 104 Rules Overview
 
 <br>
 
@@ -11,6 +11,8 @@
 - [TYPO311](#typo311) (27)
 
 - [TYPO312](#typo312) (36)
+
+- [TYPO313](#typo313) (1)
 
 <br>
 
@@ -2252,6 +2254,21 @@ Migrate from `$GLOBALS['PAGES_TYPES']` to the new PageDoktypeRegistry
      'allowedTables' => '*',
 -];
 +]);
+```
+
+<br>
+
+## TYPO313
+
+### MigrateFileTypeConstantsToFileTypeEnumRector
+
+Migrate all FILETYPE_* constants from AbstractFile to FileType enum class
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateFileTypeConstantsToFileTypeEnumRector`](../rules/TYPO313/v0/MigrateFileTypeConstantsToFileTypeEnumRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_UNKNOWN;
++\TYPO3\CMS\Core\Resource\FileType::UNKNOWN->value;
 ```
 
 <br>
