@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v4\MigrateRecordTooltipMethodToRecordIconAltTextMethodRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateFileTypeConstantsToFileTypeEnumRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-final class MigrateRecordTooltipMethodToRecordIconAltTextMethodRectorTest extends AbstractRectorTestCase
+final class MigrateFileTypeConstantsToFileTypeEnumRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
