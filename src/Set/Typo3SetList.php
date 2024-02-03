@@ -20,4 +20,9 @@ final class Typo3SetList
      * @var string
      */
     public const TYPO3_12 = __DIR__ . '/../../config/typo3-12.php';
+
+    /**
+     * @var string
+     */
+    public const TYPO3_13 = __DIR__ . '/../../config/typo3-13.php';
 }
