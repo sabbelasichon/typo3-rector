@@ -20,7 +20,7 @@ final class MigrateContentObjectRendererLastTypoLinkPropertiesRectorTest extends
     /**
      * @return Iterator<array<string>>
      */
-    public function provideData(): Iterator
+    public static function provideData(): Iterator
     {
         return self::yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
