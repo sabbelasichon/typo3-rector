@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateFileTypeConstantsToFileTypeEnumRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\General\Renaming\ConstantsToBackedEnumValueRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-final class MigrateFileTypeConstantsToFileTypeEnumRectorTest extends AbstractRectorTestCase
+final class ConstantsToBackedEnumValueRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

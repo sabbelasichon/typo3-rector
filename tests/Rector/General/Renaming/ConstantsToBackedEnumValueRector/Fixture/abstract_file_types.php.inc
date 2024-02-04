@@ -1,8 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateFileTypeConstantsToFileTypeEnumRector\Fixture;
-
-use Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateFileTypeConstantsToFileTypeEnumRector\Source\MyOtherFileType;
+use Ssch\TYPO3Rector\Tests\Rector\General\Renaming\ConstantsToBackedEnumValueRector\Source\MyOtherFileType;
 use TYPO3\CMS\Core\Resource\AbstractFile;
 
 $type1 = AbstractFile::FILETYPE_UNKNOWN;
@@ -18,10 +16,8 @@ $typeFromOtherClass = MyOtherFileType::FILETYPE_UNKNOWN;
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateFileTypeConstantsToFileTypeEnumRector\Fixture;
-
 use TYPO3\CMS\Core\Resource\FileType;
-use Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateFileTypeConstantsToFileTypeEnumRector\Source\MyOtherFileType;
+use Ssch\TYPO3Rector\Tests\Rector\General\Renaming\ConstantsToBackedEnumValueRector\Source\MyOtherFileType;
 use TYPO3\CMS\Core\Resource\AbstractFile;
 
 $type1 = FileType::UNKNOWN->value;
