@@ -14,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.2/Deprecation-92494-ExtbaseEnvironmentService.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v2\typo3\SubstituteEnvironmentServiceWithApplicationTypeRector\SubstituteEnvironmentServiceWithApplicationTypeRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v2\SubstituteEnvironmentServiceWithApplicationTypeRector\SubstituteEnvironmentServiceWithApplicationTypeRectorTest
  */
 final class SubstituteEnvironmentServiceWithApplicationTypeRector extends AbstractRector
 {

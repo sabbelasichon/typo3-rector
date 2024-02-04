@@ -13,7 +13,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://review.typo3.org/c/Packages/TYPO3.CMS/+/72056
- * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v5\tca\SimplifyCheckboxItemsTCARector\SimplifyCheckboxItemsTCARectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v5\SimplifyCheckboxItemsTCARector\SimplifyCheckboxItemsTCARectorTest
  */
 final class SimplifyCheckboxItemsTCARector extends AbstractTcaRector
 {
