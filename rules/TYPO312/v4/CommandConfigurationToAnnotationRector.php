@@ -174,15 +174,18 @@ CODE_SAMPLE
         } elseif ($aliasesArray instanceof Array_) {
             $attributeGroup->attrs[0]->args[] = new Arg($this->nodeFactory->createNull());
         }
+
         if ($aliasesArray instanceof Array_) {
             $attributeGroup->attrs[0]->args[] = new Arg($aliasesArray, false, false, [], new Node\Identifier(
                 'aliases'
             ));
         }
+
         if ($hidden !== null) {
             $hiddenNode = $hidden ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
             $attributeGroup->attrs[0]->args[] = new Arg($hiddenNode, false, false, [], new Node\Identifier('hidden'));
         }
+
         return $attributeGroup;
     }
 
@@ -191,10 +194,12 @@ CODE_SAMPLE
         if (\count($property->props) !== 1) {
             return null;
         }
+
         $propertyProperty = $property->props[0];
         if ($propertyProperty->default instanceof String_) {
             return $propertyProperty->default->value;
         }
+
         return null;
     }
 
@@ -204,9 +209,11 @@ CODE_SAMPLE
             if (! $stmt instanceof Property) {
                 continue;
             }
+
             if (! $this->isName($stmt->props[0], 'defaultName')) {
                 continue;
             }
+
             $defaultName = $this->getValueFromProperty($stmt);
             if ($defaultName !== null) {
                 // remove property
@@ -214,6 +221,7 @@ CODE_SAMPLE
                 return $defaultName;
             }
         }
+
         return $this->defaultDefaultNameFromAttribute($class);
     }
 
@@ -223,15 +231,18 @@ CODE_SAMPLE
             if (! $stmt instanceof Property) {
                 continue;
             }
+
             if (! $this->isName($stmt, 'defaultDescription')) {
                 continue;
             }
+
             $defaultDescription = $this->getValueFromProperty($stmt);
             if ($defaultDescription !== null) {
                 unset($class->stmts[$key]);
                 return $defaultDescription;
             }
         }
+
         return $this->resolveDefaultDescriptionFromAttribute($class);
     }
 
@@ -243,6 +254,7 @@ CODE_SAMPLE
                 return $defaultDescriptionFromArgument;
             }
         }
+
         return null;
     }
 
@@ -258,13 +270,16 @@ CODE_SAMPLE
                 }
             }
         }
+
         if ($hasAsCommandAttribute === \false) {
             $class->attrGroups[] = $createAttributeGroup;
             $replacedAsCommandAttribute = \true;
         }
+
         if ($replacedAsCommandAttribute === \false) {
             return null;
         }
+
         return $class;
     }
 
@@ -275,18 +290,22 @@ CODE_SAMPLE
             $attribute->args[0] = $createAttributeGroup->attrs[0]->args[0];
             $replacedAsCommandAttribute = \true;
         }
+
         if (! isset($attribute->args[1]) && isset($createAttributeGroup->attrs[0]->args[1])) {
             $attribute->args[1] = $createAttributeGroup->attrs[0]->args[1];
             $replacedAsCommandAttribute = \true;
         }
+
         if (! isset($attribute->args[2]) && isset($createAttributeGroup->attrs[0]->args[2])) {
             $attribute->args[2] = $createAttributeGroup->attrs[0]->args[2];
             $replacedAsCommandAttribute = \true;
         }
+
         if (! isset($attribute->args[3]) && isset($createAttributeGroup->attrs[0]->args[3])) {
             $attribute->args[3] = $createAttributeGroup->attrs[0]->args[3];
             $replacedAsCommandAttribute = \true;
         }
+
         return $replacedAsCommandAttribute;
     }
 
@@ -295,10 +314,12 @@ CODE_SAMPLE
         if (! $this->phpAttributeAnalyzer->hasPhpAttribute($class, SymfonyAnnotation::AS_COMMAND)) {
             return null;
         }
+
         $defaultNameFromArgument = $this->attributeValueResolver->getArgumentValueFromAttribute($class, 0);
         if (\is_string($defaultNameFromArgument)) {
             return $defaultNameFromArgument;
         }
+
         return null;
     }
 }
