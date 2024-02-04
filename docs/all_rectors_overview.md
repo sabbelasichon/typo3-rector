@@ -1,4 +1,4 @@
-# 104 Rules Overview
+# 105 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (27)
 
-- [TYPO312](#typo312) (36)
+- [TYPO312](#typo312) (37)
 
 <br>
 
@@ -1656,6 +1656,59 @@ Migrate eval int and double2 to type number
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateFileFieldTCAConfigToTCATypeFileRector
+
+Migrate method `ExtensionManagementUtility::getFileFieldTCAConfig()` to TCA type file
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateFileFieldTCAConfigToTCATypeFileRector`](../rules/TYPO312/v0/MigrateFileFieldTCAConfigToTCATypeFileRector.php)
+
+```diff
+-'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
+-                'logo',
+-                [
+-                    'maxitems' => 1,
+-                    'appearance' => [
+-                        'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference',
+-                        'fileUploadAllowed' => 0
+-                    ],
+-                    'overrideChildTca' => [
+-                        'types' => [
+-                            '0' => [
+-                                'showitem' => '
++'config' => [
++
++                'type' => 'file',
++                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
++                'maxitems' => 1,
++                'appearance' => [
++                    'createNewRelationLinkTitle' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:images.addFileReference',
++                    'fileUploadAllowed' => 0
++                ],
++                'overrideChildTca' => [
++                    'types' => [
++                        '0' => [
++                            'showitem' => '
+                             --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                             --palette--;;filePalette'
+-                            ],
+-                            AbstractFile::FILETYPE_IMAGE => [
+-                                'showitem' => '
++                        ],
++                        AbstractFile::FILETYPE_IMAGE => [
++                            'showitem' => '
+                             --palette--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file_reference.imageoverlayPalette;imageoverlayPalette,
+                             --palette--;;filePalette'
+-                            ],
+                         ],
+                     ],
+                 ],
+-                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
+-            ),
++            ],
 ```
 
 <br>
