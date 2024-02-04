@@ -12,10 +12,10 @@ use Rector\Rector\AbstractRector;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
-use Webmozart\Assert\Assert;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Webmozart\Assert\Assert;
 
 final class ConstantsToBackedEnumValueRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface, NoChangelogRequiredInterface
 {
