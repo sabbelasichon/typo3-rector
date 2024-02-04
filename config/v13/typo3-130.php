@@ -77,6 +77,17 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Core\Imaging\IconSize',
             'MEGA'
         ),
-
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Authentication\LoginType',
+            'LOGIN',
+            'TYPO3\CMS\Core\Authentication\LoginType',
+            'LOGIN'
+        ),
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Authentication\LoginType',
+            'LOGOUT',
+            'TYPO3\CMS\Core\Authentication\LoginType',
+            'LOGOUT'
+        ),
     ]);
 };
