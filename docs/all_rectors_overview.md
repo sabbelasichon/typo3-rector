@@ -6,13 +6,13 @@
 
 - [CodeQuality](#codequality) (5)
 
+- [General](#general) (1)
+
 - [TYPO310](#typo310) (35)
 
 - [TYPO311](#typo311) (27)
 
 - [TYPO312](#typo312) (36)
-
-- [TYPO313](#typo313) (1)
 
 <br>
 
@@ -144,6 +144,23 @@ Replaces defined classes by new ones.
 -    t3lib_div::makeInstance(\tx_cms_BackendLayout::class);
 +    GeneralUtility::makeInstance(\TYPO3\CMS\Backend\View\BackendLayoutView::class);
  }
+```
+
+<br>
+
+## General
+
+### ConstantsToBackedEnumValueRector
+
+Migrate all FILETYPE_* constants from AbstractFile to FileType enum class
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumValueRector`](../rules/General/Renaming/ConstantsToBackedEnumValueRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_UNKNOWN;
++\TYPO3\CMS\Core\Resource\FileType::UNKNOWN->value;
 ```
 
 <br>
@@ -2254,21 +2271,6 @@ Migrate from `$GLOBALS['PAGES_TYPES']` to the new PageDoktypeRegistry
      'allowedTables' => '*',
 -];
 +]);
-```
-
-<br>
-
-## TYPO313
-
-### MigrateFileTypeConstantsToFileTypeEnumRector
-
-Migrate all FILETYPE_* constants from AbstractFile to FileType enum class
-
-- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateFileTypeConstantsToFileTypeEnumRector`](../rules/TYPO313/v0/MigrateFileTypeConstantsToFileTypeEnumRector.php)
-
-```diff
--\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_UNKNOWN;
-+\TYPO3\CMS\Core\Resource\FileType::UNKNOWN->value;
 ```
 
 <br>
