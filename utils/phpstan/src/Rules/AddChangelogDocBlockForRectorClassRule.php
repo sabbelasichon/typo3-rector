@@ -13,9 +13,7 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Contract\Rector\RectorInterface;
-use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector;
-use Ssch\TYPO3Rector\CodeQuality\General\MethodGetInstanceToMakeInstanceCallRector;
-use Ssch\TYPO3Rector\CodeQuality\General\RenameClassMapAliasRector;
+use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
 
 /**
@@ -32,12 +30,7 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
     /**
      * @var array<class-string<RectorInterface>>
      */
-    private const ALLOWED_CLASSES_WITH_NON_CHANGELOG_DOC_BLOCK = [
-        RenameClassMapAliasRector::class,
-        ConvertImplicitVariablesToExplicitGlobalsRector::class,
-        AbstractTcaRector::class,
-        MethodGetInstanceToMakeInstanceCallRector::class,
-    ];
+    private const ALLOWED_CLASSES_WITH_NON_CHANGELOG_DOC_BLOCK = [AbstractTcaRector::class];
 
     /**
      * @readonly
@@ -75,6 +68,10 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
 
         $classReflection = $this->reflectionProvider->getClass($fullyQualifiedClassName);
         if (! $classReflection->isSubclassOf(RectorInterface::class)) {
+            return [];
+        }
+
+        if ($classReflection->isSubclassOf(NoChangelogRequiredInterface::class)) {
             return [];
         }
 
