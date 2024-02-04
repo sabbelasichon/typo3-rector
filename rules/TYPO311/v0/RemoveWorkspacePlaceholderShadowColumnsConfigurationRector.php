@@ -12,7 +12,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Breaking-92791-NewPlaceholderRecordsRemovedInWorkspaces.html
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Breaking-92497-WorkspacesMovePlaceholdersRemoved.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\tca\RemoveWorkspacePlaceholderShadowColumnsConfigurationRector\RemoveWorkspacePlaceholderShadowColumnsConfigurationRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\RemoveWorkspacePlaceholderShadowColumnsConfigurationRector\RemoveWorkspacePlaceholderShadowColumnsConfigurationRectorTest
  */
 final class RemoveWorkspacePlaceholderShadowColumnsConfigurationRector extends AbstractTcaRector
 {
