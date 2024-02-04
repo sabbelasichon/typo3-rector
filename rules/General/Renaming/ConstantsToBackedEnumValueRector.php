@@ -12,7 +12,7 @@ use Rector\Rector\AbstractRector;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
-use RectorPrefix202401\Webmozart\Assert\Assert;
+use Webmozart\Assert\Assert;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
