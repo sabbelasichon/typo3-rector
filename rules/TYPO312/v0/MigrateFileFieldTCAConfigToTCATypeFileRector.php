@@ -106,6 +106,7 @@ CODE_SAMPLE
         if (isset($node->args[2])) {
             $fileFieldTCAConfigArray->items[] = new ArrayItem($node->args[2]->value, new String_('allowed'));
         }
+
         if (isset($node->args[3])) {
             $fileFieldTCAConfigArray->items[] = new ArrayItem($node->args[3]->value, new String_('disallowed'));
         }
