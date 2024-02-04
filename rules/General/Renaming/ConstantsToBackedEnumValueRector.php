@@ -14,7 +14,7 @@ use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use RectorPrefix202401\Webmozart\Assert\Assert;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 final class ConstantsToBackedEnumValueRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface, NoChangelogRequiredInterface
@@ -36,7 +36,7 @@ final class ConstantsToBackedEnumValueRector extends AbstractRector implements C
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate all FILETYPE_* constants from AbstractFile to FileType enum class', [
-            new CodeSample(
+            new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
 \TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_UNKNOWN;
 CODE_SAMPLE
@@ -44,6 +44,15 @@ CODE_SAMPLE
                 <<<'CODE_SAMPLE'
 \TYPO3\CMS\Core\Resource\FileType::UNKNOWN->value;
 CODE_SAMPLE
+                ,
+                [
+                    new RenameClassAndConstFetch(
+                        'TYPO3\CMS\Core\Imaging\Icon',
+                        'SIZE_MEDIUM',
+                        'TYPO3\CMS\Core\Imaging\IconSize',
+                        'MEDIUM'
+                    ),
+                ]
             ),
         ]);
     }
