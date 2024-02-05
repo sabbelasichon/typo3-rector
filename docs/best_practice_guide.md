@@ -4,7 +4,6 @@
 1. [Installation](./installation.md)
 1. [Configuration and Processing](./configuration_and_processing.md)
 1. [Best practice guide](./best_practice_guide.md)
-1. [Special rules](./special_rules.md)
 1. [Limitations](./limitations.md)
 1. [Contribution](./contribution.md)
 
@@ -26,7 +25,6 @@ You can use typo3-rector in various ways:
 - add ClassAliasMap in case you're upgrading two versions to provide old classes to migrate (see [ClassAliasMap](#classaliasmap))
 - apply rulesets stepwise by version; first TCA only, then full set or combined
 - apply rulesets stepwise to your packages or multiple packages at once
-- don't use class aliases for Nimut Testing Framework (see [Migrating Testing Framework](#migrating-testing-framework))
 
 ### Starting
 
@@ -79,20 +77,6 @@ Those need to be provided via `extra` section inside `composer.json` of the proj
     "extra": {
         "typo3/class-alias-loader": {
             "class-alias-maps": [
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/8.7/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/8.7/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/8.7/typo3/sysext/version/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/adminpanel/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/core/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/extbase/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/fluid/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/info/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/lowlevel/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/recordlist/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/reports/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/t3editor/Migrations/Code/ClassAliasMap.php",
-                "vendor/ssch/typo3-rector/Migrations/TYPO3/9.5/typo3/sysext/workspaces/Migrations/Code/ClassAliasMap.php",
                 "vendor/ssch/typo3-rector/Migrations/TYPO3/10.4/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php",
                 "vendor/ssch/typo3-rector/Migrations/TYPO3/10.4/typo3/sysext/core/Migrations/Code/ClassAliasMap.php",
                 "vendor/ssch/typo3-rector/Migrations/TYPO3/12.0/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php",
@@ -104,24 +88,6 @@ Those need to be provided via `extra` section inside `composer.json` of the proj
 ```
 
 Provide ClassAliasMap files of all necessary extensions for all necessary versions.
-
-### Migrating Testing Framework
-
-Do not use any class alias like
-
-```php
-use Nimut\TestingFramework\TestCase\FunctionalTestCase as TestCase;
-
-abstract class AbstractContentElement extends TestCase
-```
-
-This will only work partially, resolve them beforehand:
-
-```php
-use Nimut\TestingFramework\TestCase\FunctionalTestCase;
-
-abstract class AbstractContentElement extends FunctionalTestCase
-```
 
 ---
 **Be aware!**
@@ -151,10 +117,3 @@ You can focus on testing and possibly learning the new implementation of previou
 ## Special cases
 
 There are changes that typo3-rector knows of but cannot fully complete.
-That's why rector provides a message to inform you about changes made and necessary steps to fully migrate.
-
-An example for this would be the TCA change of replacing `'internal_type' => 'file'` with FAL.
-
-The TCA is changed easy, but the whole DB record type changes as previously the whole name of the file was saved into the
-DB column, while now with FAL, it would only create an index-count - the reference to the new files that are saved in sys_file and connected via sys_file_reference.
-(See [internal_type deprecation changelog](https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/9.5/Deprecation-86406-TCATypeGroupInternal_typeFileAndFile_reference.html))

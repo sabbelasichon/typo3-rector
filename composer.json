@@ -52,6 +52,9 @@
         "webmozart/assert": "^1.11.0",
         "symfony/console": "^5.4 || ^6.4 || ^7.0"
     },
+    "suggest": {
+        "ssch/typo3-debug-dump-pass": "^0.0.1"
+    },
     "autoload": {
         "psr-4": {
             "Ssch\\TYPO3Rector\\": [
