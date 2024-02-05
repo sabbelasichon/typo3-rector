@@ -42,6 +42,7 @@ CODE_SAMPLE
         if ($this->removeArrayItemFromArrayByKey($ctrlArray, 'shadowColumnsForNewPlaceholders')) {
             $this->hasAstBeenChanged = true;
         }
+
         if ($this->removeArrayItemFromArrayByKey($ctrlArray, 'shadowColumnsForMovePlaceholders')) {
             $this->hasAstBeenChanged = true;
         }
