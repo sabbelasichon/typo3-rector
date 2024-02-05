@@ -57,6 +57,6 @@ CODE_SAMPLE
             return;
         }
 
-        $this->hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($configArray, 'internal_type');
+        $this->removeArrayItemFromArrayByKey($configArray, 'internal_type');
     }
 }
