@@ -39,7 +39,11 @@ CODE_SAMPLE
 
     protected function refactorCtrl(Array_ $ctrlArray): void
     {
-        $this->hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($ctrlArray, 'shadowColumnsForNewPlaceholders');
-        $this->hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($ctrlArray, 'shadowColumnsForMovePlaceholders');
+        if ($this->removeArrayItemFromArrayByKey($ctrlArray, 'shadowColumnsForNewPlaceholders')) {
+            $this->hasAstBeenChanged = true;
+        }
+        if ($this->removeArrayItemFromArrayByKey($ctrlArray, 'shadowColumnsForMovePlaceholders')) {
+            $this->hasAstBeenChanged = true;
+        }
     }
 }
