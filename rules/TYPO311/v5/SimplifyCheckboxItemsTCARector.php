@@ -126,7 +126,6 @@ CODE_SAMPLE
         if ($this->hasKey($firstItemsArray, 'invertStateDisplay')) {
             // Remove array key 1
             $this->removeArrayItemFromArrayByKey($firstItemsArray, 1);
-            $this->hasAstBeenChanged = true;
             return;
         }
 
@@ -134,12 +133,10 @@ CODE_SAMPLE
         $zeroKeyArrayItem = $this->extractArrayItemByKey($firstItemsArray, 0);
         if ($zeroKeyArrayItem instanceof ArrayItem && ! $this->valueResolver->isValue($zeroKeyArrayItem->value, '')) {
             $this->removeArrayItemFromArrayByKey($firstItemsArray, 1);
-            $this->hasAstBeenChanged = true;
             return;
         }
 
         // Remove the whole items array
         $this->removeArrayItemFromArrayByKey($configArray, 'items');
-        $this->hasAstBeenChanged = true;
     }
 }

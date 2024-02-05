@@ -43,11 +43,6 @@ CODE_SAMPLE
 
     protected function refactorCtrl(Array_ $ctrlArray): void
     {
-        $hasAstBeenChanged = false;
-        if ($this->removeArrayItemFromArrayByKey($ctrlArray, 'setToDefaultOnCopy')) {
-            $hasAstBeenChanged = true;
-        }
-
-        $this->hasAstBeenChanged = $hasAstBeenChanged;
+        $this->removeArrayItemFromArrayByKey($ctrlArray, 'setToDefaultOnCopy');
     }
 }
