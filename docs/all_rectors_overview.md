@@ -1,4 +1,4 @@
-# 105 Rules Overview
+# 106 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (27)
 
-- [TYPO312](#typo312) (37)
+- [TYPO312](#typo312) (38)
 
 <br>
 
@@ -1526,6 +1526,23 @@ Adapt extbase validators to new interface
 +    {
 +        $this->options = $options;
      }
+ }
+```
+
+<br>
+
+### CommandConfigurationToAnnotationRector
+
+Use Symfony attribute to autoconfigure cli commands
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v4\CommandConfigurationToAnnotationRector`](../rules/TYPO312/v4/CommandConfigurationToAnnotationRector.php)
+
+```diff
+ use Symfony\Component\Console\Command\Command;
++use Symfony\Component\Console\Attribute\AsCommand;
++#[AsCommand(name: 'my_special_command')]
+ class MySpecialCommand extends Command
+ {
  }
 ```
 
