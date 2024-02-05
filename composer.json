@@ -35,7 +35,7 @@
         "symfony/finder": "^5.4 || ^6.4 || ^7.0",
         "symfony/polyfill-php80": "^1.28.0",
         "symfony/polyfill-php81": "^1.28.0",
-        "symfony/string": "^5.4 || ^6.0 || ^7.0",
+        "symfony/string": "^5.4 || ^6.4 || ^7.0",
         "symfony/yaml": "^5.4 || ^6.4 || ^7.0"
     },
     "require-dev": {
