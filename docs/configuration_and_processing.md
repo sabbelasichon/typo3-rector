@@ -4,7 +4,6 @@
 1. [Installation](./installation.md)
 1. [Configuration and Processing](./configuration_and_processing.md)
 1. [Best practice guide](./best_practice_guide.md)
-1. [Special rules](./special_rules.md)
 1. [Limitations](./limitations.md)
 1. [Contribution](./contribution.md)
 
@@ -66,9 +65,6 @@ return static function (RectorConfig $rectorConfig): void {
     // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
     $rectorConfig->importNames();
 
-    // Disable parallel otherwise non php file processing is not working i.e. typoscript or flexform
-    $rectorConfig->disableParallel();
-
     // this will not import root namespace classes, like \DateTime or \Exception
     $rectorConfig->importShortClasses(false);
 
@@ -88,13 +84,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->skip([
         // @see https://github.com/sabbelasichon/typo3-rector/issues/2536
         __DIR__ . '/**/Configuration/ExtensionBuilder/*',
-        // We skip those directories on purpose as there might be node_modules or similar
-        // that include typescript which would result in false positive processing
-        __DIR__ . '/**/Resources/**/node_modules/*',
-        __DIR__ . '/**/Resources/**/NodeModules/*',
-        __DIR__ . '/**/Resources/**/BowerComponents/*',
-        __DIR__ . '/**/Resources/**/bower_components/*',
-        __DIR__ . '/**/Resources/**/build/*',
         __DIR__ . '/vendor/*',
         __DIR__ . '/Build/*',
         __DIR__ . '/public/*',
