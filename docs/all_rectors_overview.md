@@ -1,4 +1,4 @@
-# 296 Rules Overview
+# 303 Rules Overview
 
 ## AbstractMessageGetSeverityFluidRector
 
@@ -4651,6 +4651,32 @@ Replace $_EXTKEY with extension key
 
 <br>
 
+## ReplaceExtensionPathRelativeFluidRector
+
+Use <f:uri.resource> instead of <v:extension.path.relative>
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\vhs\ReplaceExtensionPathRelativeFluidRector`](../src/FileProcessor/Fluid/Rector/vhs/ReplaceExtensionPathRelativeFluidRector.php)
+
+```diff
+-{v:extension.path.relative(extensionName:'my_extension')}Resources/Public/Css/style.css
++{f:uri.resource(extensionName:'my_extension',path:'Css/style.css')}
+```
+
+<br>
+
+## ReplaceFormatJsonEncodeFluidRector
+
+Use <f:format.json> instead of <v:format.json.encode>
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\vhs\ReplaceFormatJsonEncodeFluidRector`](../src/FileProcessor/Fluid/Rector/vhs/ReplaceFormatJsonEncodeFluidRector.php)
+
+```diff
+-{someArray -> v:format.json.encode()}
++{someArray -> f:format.json()}
+```
+
+<br>
+
 ## ReplaceInjectAnnotationWithMethodRector
 
 Turns properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection
@@ -4669,6 +4695,50 @@ Turns properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection
 +{
 +    $this->someService = $someService;
 +}
+```
+
+<br>
+
+## ReplaceLFluidRector
+
+Use <f:translate> instead of <v:l>
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\vhs\ReplaceLFluidRector`](../src/FileProcessor/Fluid/Rector/vhs/ReplaceLFluidRector.php)
+
+```diff
+-<v:l key="my-key" extensionName="my_extension" />
+-<vhs:l key="my-other-key" />
++<f:translate key="my-key" extensionName="my_extension" />
++<f:translate key="my-other-key" />
+ <v:loop ...>
+```
+
+<br>
+
+## ReplaceMediaImageFluidRector
+
+Use <f:image> instead of <v:media.image>
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\vhs\ReplaceMediaImageFluidRector`](../src/FileProcessor/Fluid/Rector/vhs/ReplaceMediaImageFluidRector.php)
+
+```diff
+-<v:media.image src="{image.uid}" treatIdAsReference="true" />
++<f:image src="{image.uid}" treatIdAsReference="true" />
+```
+
+<br>
+
+## ReplaceOrFluidRector
+
+Use <f:or> instead of <v:or>
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\vhs\ReplaceOrFluidRector`](../src/FileProcessor/Fluid/Rector/vhs/ReplaceOrFluidRector.php)
+
+```diff
+-{someVariable -> v:or(alternative: 'Fallback text')}
+-{v:or(content: someVariable, alternative: 'Fallback text')}
++{someVariable ?: 'Fallback text'}
++{someVariable ?: 'Fallback text'}
 ```
 
 <br>
@@ -4787,6 +4857,40 @@ Replace TSFE with Context methods
 
 -$GLOBALS['TSFE']->whichWorkspace();
 +$GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'id', 0);
+```
+
+<br>
+
+## ReplaceUriImageFluidRector
+
+Use <f:uri.image> instead of <v:uri.image>
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\vhs\ReplaceUriImageFluidRector`](../src/FileProcessor/Fluid/Rector/vhs/ReplaceUriImageFluidRector.php)
+
+```diff
+-{v:uri.image(src:image.uid, treatIdAsReference: 1)}
+-{v:uri.image(src:image.uid, treatIdAsReference: 1, relative: 1)}
+-{v:uri.image(src:image.uid, treatIdAsReference: 1, relative: 0)}
+-{v:uri.image(src:image.uid, treatIdAsReference: 1, maxW: 250, maxH: 250)}
++{f:uri.image(src:image.uid, treatIdAsReference: 1)}
++{f:uri.image(src:image.uid, treatIdAsReference: 1)}
++{f:uri.image(src:image.uid, treatIdAsReference: 1, absolute: 1)}
++{f:uri.image(src:image.uid, treatIdAsReference: 1, maxWidth: 250, maxHeight: 250)}
+```
+
+<br>
+
+## ReplaceVariableSetFluidRector
+
+Use <f:variable> instead of <v:variable.set>
+
+- class: [`Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\vhs\ReplaceVariableSetFluidRector`](../src/FileProcessor/Fluid/Rector/vhs/ReplaceVariableSetFluidRector.php)
+
+```diff
+-<v:variable.set name="myvariable" value="a string value" />
+-{myvariable -> v:variable.set(name:'othervariable')}
++<f:variable name="myvariable" value="a string value" />
++{myvariable -> f:variable(name:'othervariable')}
 ```
 
 <br>
