@@ -339,21 +339,19 @@ abstract class AbstractTcaRector extends AbstractRector
     /**
      * @param string|int $key
      */
-    protected function removeArrayItemFromArrayByKey(Array_ $array, $key): bool
+    protected function removeArrayItemFromArrayByKey(Array_ $array, $key): void
     {
         $arrayItemToRemove = $this->extractArrayItemByKey($array, $key);
         if (! $arrayItemToRemove instanceof ArrayItem) {
-            return false;
+            return;
         }
 
         foreach ($array->items as $arrayItemKey => $arrayItem) {
             if ($arrayItem === $arrayItemToRemove) {
                 unset($array->items[$arrayItemKey]);
-                return true;
+                $this->hasAstBeenChanged = true;
             }
         }
-
-        return false;
     }
 
     protected function isConfigType(Array_ $columnItemConfigurationArray, string $type): bool

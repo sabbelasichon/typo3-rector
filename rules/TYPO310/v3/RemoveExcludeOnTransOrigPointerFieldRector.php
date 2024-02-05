@@ -77,7 +77,6 @@ final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractTcaRector
             return null;
         }
 
-        $hasAstBeenChanged = false;
         foreach ($columnItems->items as $columnItem) {
             if (! $columnItem instanceof ArrayItem) {
                 continue;
@@ -97,12 +96,10 @@ final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractTcaRector
                 continue;
             }
 
-            if ($this->removeArrayItemFromArrayByKey($columnItem->value, 'exclude')) {
-                $hasAstBeenChanged = true;
-            }
+            $this->removeArrayItemFromArrayByKey($columnItem->value, 'exclude');
         }
 
-        return $hasAstBeenChanged ? $node : null;
+        return $this->hasAstBeenChanged ? $node : null;
     }
 
     public function getRuleDefinition(): RuleDefinition

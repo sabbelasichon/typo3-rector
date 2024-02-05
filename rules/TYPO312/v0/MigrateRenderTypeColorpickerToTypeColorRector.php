@@ -87,10 +87,10 @@ CODE_SAMPLE
         $this->changeTcaType($configArray, 'color');
 
         // Remove 'max' config
-        $this->hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($configArray, 'max');
+        $this->removeArrayItemFromArrayByKey($configArray, 'max');
 
         // Remove 'renderType' config
-        $this->hasAstBeenChanged = $this->removeArrayItemFromArrayByKey($configArray, 'renderType');
+        $this->removeArrayItemFromArrayByKey($configArray, 'renderType');
 
         $evalArrayItem = $this->extractArrayItemByKey($configArray, 'eval');
         if (! $evalArrayItem instanceof ArrayItem) {

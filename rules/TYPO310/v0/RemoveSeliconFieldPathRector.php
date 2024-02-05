@@ -39,11 +39,6 @@ CODE_SAMPLE
 
     protected function refactorCtrl(Array_ $ctrlArray): void
     {
-        $hasAstBeenChanged = false;
-        if ($this->removeArrayItemFromArrayByKey($ctrlArray, 'selicon_field_path')) {
-            $hasAstBeenChanged = true;
-        }
-
-        $this->hasAstBeenChanged = $hasAstBeenChanged;
+        $this->removeArrayItemFromArrayByKey($ctrlArray, 'selicon_field_path');
     }
 }

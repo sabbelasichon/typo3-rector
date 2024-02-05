@@ -46,15 +46,11 @@ CODE_SAMPLE
 
     protected function refactorInterface(Array_ $interfaceArray, Node $node): void
     {
+        $this->removeArrayItemFromArrayByKey($interfaceArray, 'showRecordFieldList');
+
         $remainingInterfaceItems = count($interfaceArray->items);
-
-        if ($this->removeArrayItemFromArrayByKey($interfaceArray, 'showRecordFieldList')) {
-            --$remainingInterfaceItems;
-        }
-
         if ($remainingInterfaceItems === 0 && $node instanceof Array_) {
             $this->removeArrayItemFromArrayByKey($node, 'interface');
-            $this->hasAstBeenChanged = true;
         }
     }
 }
