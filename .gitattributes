@@ -12,7 +12,8 @@
 .github export-ignore
 .gitignore export-ignore
 .phpstorm.meta.php export-ignore
-/bin export-ignore
+/bin/typo3-rector export-ignore
+/bin/typo3-rector.php export-ignore
 /stubs export-ignore
 LICENSE export-ignore
 ecs.php export-ignore

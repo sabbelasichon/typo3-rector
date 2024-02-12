@@ -9,10 +9,11 @@ parameters:
     level: 8
 
     paths:
-        - rector.php
-        - src
-        - rules
+        - bin
         - config
+        - rector.php
+        - rules
+        - src
         - tests
         - utils
 

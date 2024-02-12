@@ -11,53 +11,29 @@ use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
 
-return static function (RectorConfig $rectorConfig): void {
-
-    $rectorConfig->sets([
+return RectorConfig::configure()
+    ->withConfiguredRule(ExtEmConfRector::class, [
+        ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => []
+    ])
+    ->withPaths([
+        __PATHS__
+    ])
+    ->withPhpSets(
         LevelSetList::UP_TO_PHP_81,
         Typo3LevelSetList::UP_TO_TYPO3_12,
-    ]);
-
-    // Register a single rule. Single rules don't load the main config file, therefore the config file needs to be loaded manually.
-    // $rectorConfig->import(__DIR__ . '/vendor/ssch/typo3-rector/config/config.php');
-
-    // To have a better analysis from phpstan, we teach it here some more things
-    $rectorConfig->phpstanConfig(Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
-
-    // FQN classes are not imported by default. If you don't do it manually after every Rector run, enable it by:
-    $rectorConfig->importNames();
-
-    // this will not import root namespace classes, like \DateTime or \Exception
-    $rectorConfig->importShortClasses(false);
-
-    // Define your target version which you want to support
-    $rectorConfig->phpVersion(PhpVersion::PHP_81);
-
-    // If you only want to process one/some TYPO3 extension(s), you can specify its path(s) here.
-    // If you use the option --config change __DIR__ to getcwd()
-    // $rectorConfig->paths([
-    //    __DIR__ . '/packages/acme_demo/',
-    // ]);
-
-    // When you use rector, there are rules that require some more actions like creating UpgradeWizards for outdated TCA types.
-    // To fully support you, we added some warnings. So watch out for them.
-
-    // If you use importNames(), you should consider excluding some TYPO3 files.
-    $rectorConfig->skip([
+    )
+    # To have a better analysis from PHPStan, we teach it here some more things
+    ->withPHPStanConfigs([
+        Typo3Option::PHPSTAN_FOR_RECTOR_PATH
+    ])
+    ->withPhpVersion(PhpVersion::PHP_81)
+    ->withRules([
+        ConvertImplicitVariablesToExplicitGlobalsRector::class,
+    ])
+    # If you use importNames(), you should consider excluding some TYPO3 files.
+    ->withSkip([
         // @see https://github.com/sabbelasichon/typo3-rector/issues/2536
         __DIR__ . '/**/Configuration/ExtensionBuilder/*',
-        // We skip those directories on purpose as there might be node_modules or similar
-        // that include typescript which would result in false positive processing
-        __DIR__ . '/**/Resources/**/node_modules/*',
-        __DIR__ . '/**/Resources/**/NodeModules/*',
-        __DIR__ . '/**/Resources/**/BowerComponents/*',
-        __DIR__ . '/**/Resources/**/bower_components/*',
-        __DIR__ . '/**/Resources/**/build/*',
-        __DIR__ . '/vendor/*',
-        __DIR__ . '/Build/*',
-        __DIR__ . '/public/*',
-        __DIR__ . '/.github/*',
-        __DIR__ . '/.Build/*',
         NameImportingPostRector::class => [
             'ext_localconf.php',
             'ext_tables.php',
@@ -65,11 +41,5 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/**/Configuration/*.php',
             __DIR__ . '/**/Configuration/**/*.php',
         ]
-    ]);
-
-    // Add some general TYPO3 rules
-    $rectorConfig->rule(ConvertImplicitVariablesToExplicitGlobalsRector::class);
-    $rectorConfig->ruleWithConfiguration(ExtEmConfRector::class, [
-        ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => []
-    ]);
-};
+    ])
+;

@@ -53,11 +53,11 @@ CODE_SAMPLE
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
     {
         $configArray = $this->extractSubArrayByKey($columnTca, self::CONFIG);
-        if (!$configArray instanceof Array_) {
+        if (! $configArray instanceof Array_) {
             return;
         }
 
-        if (!$this->configIsOfRenderType($configArray, 'selectMultipleSideBySide')) {
+        if (! $this->configIsOfRenderType($configArray, 'selectMultipleSideBySide')) {
             return;
         }
 
