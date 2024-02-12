@@ -5,6 +5,8 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumValueRector;
+use Ssch\TYPO3Rector\General\Renaming\RenameAttributeRector;
+use Ssch\TYPO3Rector\General\Renaming\ValueObject\RenameAttribute;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -89,5 +91,8 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Core\Authentication\LoginType',
             'LOGOUT'
         ),
+    ]);
+    $rectorConfig->ruleWithConfiguration(RenameAttributeRector::class, [
+        new RenameAttribute('TYPO3\CMS\Backend\Attribute\Controller', 'TYPO3\CMS\Backend\Attribute\AsController'),
     ]);
 };
