@@ -1,4 +1,4 @@
-# 106 Rules Overview
+# 107 Rules Overview
 
 <br>
 
@@ -6,7 +6,7 @@
 
 - [CodeQuality](#codequality) (5)
 
-- [General](#general) (1)
+- [General](#general) (2)
 
 - [TYPO310](#typo310) (35)
 
@@ -161,6 +161,21 @@ Migrate all FILETYPE_* constants from AbstractFile to FileType enum class
 ```diff
 -\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_UNKNOWN;
 +\TYPO3\CMS\Core\Resource\FileType::UNKNOWN->value;
+```
+
+<br>
+
+### RenameAttributeRector
+
+Rename Attribute
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\General\Renaming\RenameAttributeRector`](../rules/General/Renaming/RenameAttributeRector.php)
+
+```diff
+-#[Controller]
++#[AsController]
 ```
 
 <br>
