@@ -42,7 +42,7 @@ jobs:
         with:
           commit_message: '[DOCS] Generate documentation'
           commit_options: '--no-verify --signoff'
-          branch: "2.x"
+          branch: "main"
           push_options: '--force'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
