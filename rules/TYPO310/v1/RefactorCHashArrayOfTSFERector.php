@@ -17,6 +17,7 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
+use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
@@ -96,7 +97,14 @@ final class RefactorCHashArrayOfTSFERector extends AbstractRector
         if (! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
             $propertyFetch,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
+        ) && $this->isObjectType(
+            $propertyFetch->var,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
         )) {
+            return null;
+        }
+
+        if (! $this->isName($propertyFetch->name, 'cHash_array')) {
             return null;
         }
 
