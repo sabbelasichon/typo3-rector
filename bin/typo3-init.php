@@ -9,7 +9,23 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\SingleCommandApplication;
 
-include_once __DIR__ . '/../vendor/autoload.php';
+$autoloadPaths = [
+    // Package was included as a library
+    __DIR__ . '/../../../autoload.php',
+    // Local package usage
+    __DIR__ . '/../vendor/autoload.php',
+    // Local package in packages folder
+    __DIR__ . '/../../../vendor/autoload.php',
+];
+
+foreach ($autoloadPaths as $path) {
+    if (! file_exists($path)) {
+        continue;
+    }
+
+    include_once $path;
+    break;
+}
 
 (new SingleCommandApplication())
     ->setName('Initialize TYPO3-Rector configuration')
