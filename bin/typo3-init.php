@@ -52,6 +52,13 @@ foreach ($autoloadPaths as $path) {
         if ($projectPhpDirectories === []) {
             $projectPhpDirectories[] = 'src';
         }
+
+        // Filter some blacklisted folders
+        $projectPhpDirectories = array_filter(
+            $projectPhpDirectories,
+            fn (string $projectDirectory) => $projectDirectory !== 'public'
+        );
+
         $projectPhpDirectoriesContents = '';
         foreach ($projectPhpDirectories as $projectPhpDirectory) {
             $projectPhpDirectoriesContents .= "        __DIR__ . '/" . $projectPhpDirectory . "'," . \PHP_EOL;
