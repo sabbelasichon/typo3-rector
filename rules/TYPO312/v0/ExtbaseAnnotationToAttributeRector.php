@@ -194,6 +194,15 @@ CODE_SAMPLE
                 continue;
             }
 
+            // Fix the missing leading slash in most of the wild use cases
+            if (str_starts_with($doctrineTagValueNode->identifierTypeNode->name, '@TYPO3\CMS')) {
+                $doctrineTagValueNode->identifierTypeNode->name = str_replace(
+                    '@TYPO3\CMS',
+                    '@\\TYPO3\CMS',
+                    $doctrineTagValueNode->identifierTypeNode->name
+                );
+            }
+
             $doctrineTagAndAnnotationToAttributes[] = new DoctrineTagAndAnnotationToAttribute(
                 $doctrineTagValueNode,
                 $annotationToAttribute

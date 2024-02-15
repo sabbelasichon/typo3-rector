@@ -3,12 +3,14 @@
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ExtbaseAnnotationToAttributeRector\Fixture;
 
 use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 
 class MyClass
 {
     /**
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy()
      * @TYPO3\CMS\Extbase\Annotation\ORM\Transient()
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      * @Extbase\ORM\Lazy()
      */
     protected string $property = '';
@@ -25,6 +27,7 @@ class MyClass
      * @Extbase\Validate("TYPO3.CMS.Extbase.Tests.Unit.Reflection.Fixture:DummyValidator")
      * @Extbase\Validate("\TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator")
      * @Extbase\Validate("TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator")
+     * @Validate("TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator")
      */
     protected $propertyWithValidateAnnotations;
 
@@ -45,13 +48,17 @@ class MyClass
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ExtbaseAnnotationToAttributeRector\Fixture;
 
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Annotation\ORM\Transient;
 use TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator;
 use TYPO3\CMS\Extbase\Annotation as Extbase;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 
 class MyClass
 {
-    #[TYPO3\CMS\Extbase\Annotation\ORM\Lazy]
-    #[TYPO3\CMS\Extbase\Annotation\ORM\Transient]
+    #[Lazy]
+    #[Transient]
+    #[Validate(['validator' => 'NotEmpty'])]
     #[Extbase\ORM\Lazy]
     protected string $property = '';
 
@@ -64,6 +71,7 @@ class MyClass
     #[Extbase\Validate(['validator' => 'TYPO3.CMS.Extbase.Tests.Unit.Reflection.Fixture:DummyValidator'])]
     #[Extbase\Validate(['validator' => NotEmptyValidator::class])]
     #[Extbase\Validate(['validator' => NotEmptyValidator::class])]
+    #[Validate(['validator' => NotEmptyValidator::class])]
     protected $propertyWithValidateAnnotations;
 
     #[Extbase\IgnoreValidation(['value' => 'param'])]
