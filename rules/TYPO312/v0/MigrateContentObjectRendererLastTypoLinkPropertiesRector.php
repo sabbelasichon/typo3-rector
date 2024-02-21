@@ -6,9 +6,9 @@ namespace Ssch\TYPO3Rector\TYPO312\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
-use PHPStan\Analyser\Scope;
 use PHPStan\Type\ObjectType;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -16,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97549-ContentObjectRenderer-lastTypoLinkProperties.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector\MigrateContentObjectRendererLastTypoLinkPropertiesRectorTest
  */
-final class MigrateContentObjectRendererLastTypoLinkPropertiesRector extends AbstractScopeAwareRector
+final class MigrateContentObjectRendererLastTypoLinkPropertiesRector extends AbstractRector
 {
     public function getRuleDefinition(): RuleDefinition
     {
@@ -52,13 +52,13 @@ CODE_SAMPLE
     /**
      * @param PropertyFetch $node
      */
-    public function refactorWithScope(Node $node, Scope $scope): ?Node
+    public function refactor(Node $node): ?Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
 
-        if ($scope->isInFirstLevelStatement()) {
+        if ($node->getAttribute(AttributeKey::IS_BEING_ASSIGNED) !== null) {
             return null;
         }
 
