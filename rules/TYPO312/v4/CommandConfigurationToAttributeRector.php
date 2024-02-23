@@ -22,15 +22,15 @@ use Rector\Symfony\NodeAnalyzer\Command\AttributeValueResolver;
 use Rector\Symfony\NodeAnalyzer\Command\SetAliasesMethodCallExtractor;
 use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
-use Ssch\TYPO3Rector\Helper\SymfonyCommandHelper;
+use Ssch\TYPO3Rector\Helper\ServiceDefinitionHelper;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.4.x/Important-101567-UseSymfonyAttributeToAutoconfigureCliCommands.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAnnotationRector\CommandConfigurationToAnnotationRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\CommandConfigurationToAttributeRectorTest
  */
-final class CommandConfigurationToAnnotationRector extends AbstractRector implements MinPhpVersionInterface
+final class CommandConfigurationToAttributeRector extends AbstractRector implements MinPhpVersionInterface
 {
     /**
      * @readonly
@@ -60,16 +60,18 @@ final class CommandConfigurationToAnnotationRector extends AbstractRector implem
     /**
      * @readonly
      */
-    private SymfonyCommandHelper $symfonyCommandHelper;
+    private ServiceDefinitionHelper $serviceDefinitionHelper;
 
-    public function __construct(SymfonyCommandHelper $symfonyCommandHelper, PhpAttributeGroupFactory $phpAttributeGroupFactory, PhpAttributeAnalyzer $phpAttributeAnalyzer, AttributeValueResolver $attributeValueResolver, ReflectionProvider $reflectionProvider, SetAliasesMethodCallExtractor $setAliasesMethodCallExtractor)
+    private string $commandTagName = 'console.command';
+
+    public function __construct(ServiceDefinitionHelper $symfonyCommandHelper, PhpAttributeGroupFactory $phpAttributeGroupFactory, PhpAttributeAnalyzer $phpAttributeAnalyzer, AttributeValueResolver $attributeValueResolver, ReflectionProvider $reflectionProvider, SetAliasesMethodCallExtractor $setAliasesMethodCallExtractor)
     {
         $this->phpAttributeGroupFactory = $phpAttributeGroupFactory;
         $this->phpAttributeAnalyzer = $phpAttributeAnalyzer;
         $this->attributeValueResolver = $attributeValueResolver;
         $this->reflectionProvider = $reflectionProvider;
         $this->setAliasesMethodCallExtractor = $setAliasesMethodCallExtractor;
-        $this->symfonyCommandHelper = $symfonyCommandHelper;
+        $this->serviceDefinitionHelper = $symfonyCommandHelper;
     }
 
     public function provideMinPhpVersion(): int
@@ -120,7 +122,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $commands = $this->symfonyCommandHelper->getCommandsFromServices();
+        $commands = $this->serviceDefinitionHelper->getServiceDefinitionsByTagName($this->commandTagName);
         if ($commands === []) {
             return null;
         }
@@ -128,7 +130,10 @@ CODE_SAMPLE
         $options = null;
         foreach ($commands as $command) {
             if ($this->isName($node, $command->getClass() ?? $command->getId())) {
-                $options = $this->symfonyCommandHelper->extractOptionsFromServiceDefinition($command);
+                $options = $this->serviceDefinitionHelper->extractOptionsFromServiceDefinition(
+                    $command,
+                    $this->commandTagName
+                );
             }
         }
 

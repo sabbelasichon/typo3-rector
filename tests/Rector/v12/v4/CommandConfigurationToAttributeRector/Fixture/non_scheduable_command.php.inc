@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAnnotationRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\Fixture;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

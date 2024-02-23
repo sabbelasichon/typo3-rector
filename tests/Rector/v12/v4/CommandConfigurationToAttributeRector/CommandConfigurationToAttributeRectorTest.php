@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAnnotationRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-final class CommandConfigurationToAnnotationRectorTest extends AbstractRectorTestCase
+final class CommandConfigurationToAttributeRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
