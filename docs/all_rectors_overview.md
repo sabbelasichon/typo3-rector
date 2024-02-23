@@ -1,4 +1,4 @@
-# 107 Rules Overview
+# 108 Rules Overview
 
 <br>
 
@@ -13,6 +13,8 @@
 - [TYPO311](#typo311) (27)
 
 - [TYPO312](#typo312) (38)
+
+- [TYPO313](#typo313) (1)
 
 <br>
 
@@ -1546,11 +1548,11 @@ Adapt extbase validators to new interface
 
 <br>
 
-### CommandConfigurationToAnnotationRector
+### CommandConfigurationToAttributeRector
 
 Use Symfony attribute to autoconfigure cli commands
 
-- class: [`Ssch\TYPO3Rector\TYPO312\v4\CommandConfigurationToAnnotationRector`](../rules/TYPO312/v4/CommandConfigurationToAnnotationRector.php)
+- class: [`Ssch\TYPO3Rector\TYPO312\v4\CommandConfigurationToAttributeRector`](../rules/TYPO312/v4/CommandConfigurationToAttributeRector.php)
 
 ```diff
  use Symfony\Component\Console\Command\Command;
@@ -2356,6 +2358,31 @@ Migrate from `$GLOBALS['PAGES_TYPES']` to the new PageDoktypeRegistry
      'allowedTables' => '*',
 -];
 +]);
+```
+
+<br>
+
+## TYPO313
+
+### EventListenerConfigurationToAttributeRector
+
+Use AsEventListener attribute
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\EventListenerConfigurationToAttributeRector`](../rules/TYPO313/v0/EventListenerConfigurationToAttributeRector.php)
+
+```diff
+ namespace MyVendor\MyExtension\EventListener;
++use TYPO3\CMS\Core\Attribute\AsEventListener;
+ use TYPO3\CMS\Core\Mail\Event\AfterMailerInitializationEvent;
++#[AsEventListener(
++    identifier: 'my-extension/null-mailer'
++)]
+ final class NullMailer
+ {
+     public function __invoke(AfterMailerInitializationEvent $event): void
+     {
+     }
+ }
 ```
 
 <br>
