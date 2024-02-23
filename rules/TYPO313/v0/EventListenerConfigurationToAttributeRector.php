@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\TYPO313\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
@@ -135,11 +136,11 @@ CODE_SAMPLE
 
         return $this->replaceAsEventListenerAttribute(
             $node,
-            $this->createAttributeGroupAsCommand($before, $after, $identifier, $method, $event)
+            $this->createAttributeGroupAsEventListener($before, $after, $identifier, $method, $event)
         );
     }
 
-    private function createAttributeGroupAsCommand(
+    private function createAttributeGroupAsEventListener(
         ?string $before,
         ?string $after,
         ?string $identifier,
@@ -179,7 +180,7 @@ CODE_SAMPLE
             foreach ($attrGroup->attrs as $attribute) {
                 if ($this->nodeNameResolver->isName($attribute->name, AsEventListener::class)) {
                     $hasAsEventListenerAttribute = \true;
-                    #$replacedAsEventListenerAttribute = $this->replaceArguments($attribute, $createAttributeGroup);
+                    $replacedAsEventListenerAttribute = $this->replaceArguments($attribute, $createAttributeGroup);
                 }
             }
         }
@@ -194,5 +195,36 @@ CODE_SAMPLE
         }
 
         return $class;
+    }
+
+    private function replaceArguments(Attribute $attribute, AttributeGroup $createAttributeGroup): bool
+    {
+        $replacedAsEventListenerAttribute = \false;
+        if (! $attribute->args[0]->value instanceof String_) {
+            $attribute->args[0] = $createAttributeGroup->attrs[0]->args[0];
+            $replacedAsEventListenerAttribute = \true;
+        }
+
+        if (! isset($attribute->args[1]) && isset($createAttributeGroup->attrs[0]->args[1])) {
+            $attribute->args[1] = $createAttributeGroup->attrs[0]->args[1];
+            $replacedAsEventListenerAttribute = \true;
+        }
+
+        if (! isset($attribute->args[2]) && isset($createAttributeGroup->attrs[0]->args[2])) {
+            $attribute->args[2] = $createAttributeGroup->attrs[0]->args[2];
+            $replacedAsEventListenerAttribute = \true;
+        }
+
+        if (! isset($attribute->args[3]) && isset($createAttributeGroup->attrs[0]->args[3])) {
+            $attribute->args[3] = $createAttributeGroup->attrs[0]->args[3];
+            $replacedAsEventListenerAttribute = \true;
+        }
+
+        if (! isset($attribute->args[4]) && isset($createAttributeGroup->attrs[0]->args[4])) {
+            $attribute->args[4] = $createAttributeGroup->attrs[0]->args[4];
+            $replacedAsEventListenerAttribute = \true;
+        }
+
+        return $replacedAsEventListenerAttribute;
     }
 }
