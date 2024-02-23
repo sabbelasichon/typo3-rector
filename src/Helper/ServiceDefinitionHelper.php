@@ -7,14 +7,12 @@ namespace Ssch\TYPO3Rector\Helper;
 use Rector\Symfony\DataProvider\ServiceMapProvider;
 use Rector\Symfony\ValueObject\ServiceDefinition;
 
-final class SymfonyCommandHelper
+final class ServiceDefinitionHelper
 {
     /**
      * @readonly
      */
     private ServiceMapProvider $serviceMapProvider;
-
-    private string $commandTagName = 'console.command';
 
     public function __construct(ServiceMapProvider $serviceMapProvider)
     {
@@ -24,11 +22,11 @@ final class SymfonyCommandHelper
     /**
      * @return array<string, mixed>
      */
-    public function extractOptionsFromServiceDefinition(ServiceDefinition $serviceDefinition): array
+    public function extractOptionsFromServiceDefinition(ServiceDefinition $serviceDefinition, string $tagName): array
     {
         $options = [];
         foreach ($serviceDefinition->getTags() as $tag) {
-            if ($this->commandTagName === $tag->getName()) {
+            if ($tagName === $tag->getName()) {
                 $options = $tag->getData();
             }
         }
@@ -39,9 +37,9 @@ final class SymfonyCommandHelper
     /**
      * @return ServiceDefinition[]
      */
-    public function getCommandsFromServices(): array
+    public function getServiceDefinitionsByTagName(string $tagName): array
     {
         $serviceMap = $this->serviceMapProvider->provide();
-        return $serviceMap->getServicesByTag($this->commandTagName);
+        return $serviceMap->getServicesByTag($tagName);
     }
 }

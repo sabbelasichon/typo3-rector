@@ -1,7 +1,8 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAnnotationRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\Fixture;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,7 +18,7 @@ class MySpecialCommand extends Command
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAnnotationRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\Fixture;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
