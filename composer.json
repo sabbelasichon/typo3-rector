@@ -37,7 +37,8 @@
         "symfony/polyfill-php80": "^1.28.0",
         "symfony/polyfill-php81": "^1.28.0",
         "symfony/string": "^5.4 || ^6.4 || ^7.0",
-        "symfony/yaml": "^5.4 || ^6.4 || ^7.0"
+        "symfony/yaml": "^5.4 || ^6.4 || ^7.0",
+        "webmozart/assert": "^1.11.0"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.28",
@@ -49,8 +50,7 @@
         "symfony/config": "^5.0 || ^6.0 || ^7.0",
         "symfony/dependency-injection": "^5.4.34 || ^6.4.2 || ^7.0.2",
         "symfony/http-kernel": "^5.4.34 || ^6.4.2 || ^7.0.2",
-        "symplify/easy-coding-standard": "^12.1.8",
-        "webmozart/assert": "^1.11.0"
+        "symplify/easy-coding-standard": "^12.1.8"
     },
     "suggest": {
         "ssch/typo3-debug-dump-pass": "^0.0.1"
