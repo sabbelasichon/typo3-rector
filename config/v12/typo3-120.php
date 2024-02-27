@@ -161,4 +161,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ChangeExtbaseValidatorsRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v0\UsePageDoktypeRegistryRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v0\SluggerRector::class);
 };
