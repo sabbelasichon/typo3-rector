@@ -121,6 +121,7 @@ CODE_SAMPLE
                 $replacementItems->items[] = $slashRule;
                 $astBeenChanged = true;
             }
+
             // No "replacements" yet, add the whole section
         } else {
             $replacements = new ArrayItem(new Array_([$slashRule]), new String_('replacements'));
