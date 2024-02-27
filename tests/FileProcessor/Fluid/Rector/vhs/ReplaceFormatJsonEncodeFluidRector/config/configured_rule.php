@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\vhs\ReplaceFormatJsonEncodeFluid
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../config/config_test.php');
-    $rectorConfig->rule(ReplaceFormatJsonEncodeFluidRector::class);
+    $rectorConfig->services()
+        ->set(ReplaceFormatJsonEncodeFluidRector::class)->tag('typo3_rector.fluid_rectors');
 };

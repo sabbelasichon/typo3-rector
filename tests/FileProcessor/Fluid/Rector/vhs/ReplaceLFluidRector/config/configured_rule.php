@@ -7,5 +7,6 @@ use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\vhs\ReplaceLFluidRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../../config/config_test.php');
-    $rectorConfig->rule(ReplaceLFluidRector::class);
+    $rectorConfig->services()
+        ->set(ReplaceLFluidRector::class)->tag('typo3_rector.fluid_rectors');
 };

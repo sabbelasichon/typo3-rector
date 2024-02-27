@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 use Ssch\TYPO3Rector\Console\Application\Typo3RectorConsoleApplication;
 use Ssch\TYPO3Rector\Console\Application\Typo3RectorKernel;
 

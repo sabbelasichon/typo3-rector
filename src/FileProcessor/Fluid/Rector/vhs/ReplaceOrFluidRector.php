@@ -16,11 +16,7 @@ final class ReplaceOrFluidRector implements FluidRectorInterface
     {
         $content = $file->getFileContent();
 
-        $content = Strings::replace(
-            $content,
-            '#-> (v|vhs):or\(alternative:(\s?)([^),]+)\)#ims',
-            '?: $3'
-        );
+        $content = Strings::replace($content, '#-> (v|vhs):or\(alternative:(\s?)([^),]+)\)#ims', '?: $3');
 
         $content = Strings::replace(
             $content,

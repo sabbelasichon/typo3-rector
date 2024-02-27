@@ -45,11 +45,15 @@ final class ReplaceVariableSetFluidRector implements FluidRectorInterface
         $content = Strings::replace($content, self::PATTERN_STRICT, 'f:variable$3$4$5');
 
         if (Strings::matchAll($content, self::PATTERN_DOT)) {
-            $this->rectorOutputStyle->warning('There\'s occurrences of v:variable.set that contain a dot in its name attribute and thus cannot be migrated to f:variable!');
+            $this->rectorOutputStyle->warning(
+                'There\'s occurrences of v:variable.set that contain a dot in its name attribute and thus cannot be migrated to f:variable!'
+            );
         }
 
         if (Strings::matchAll($content, self::PATTERN_LEFTOVERS)) {
-            $this->rectorOutputStyle->warning('There\'s occurrences of v:variable.set that couldn\'t be migrated automatically. Migrate them manually!');
+            $this->rectorOutputStyle->warning(
+                'There\'s occurrences of v:variable.set that couldn\'t be migrated automatically. Migrate them manually!'
+            );
         }
 
         $file->changeFileContent($content);

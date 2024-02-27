@@ -27,10 +27,6 @@ final class Typo3GenerateCommand extends Command
      */
     public const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\Rector\__Major__\__Minor__\__Type__\__Name__';
 
-    protected static $defaultName = 'typo3-generate';
-
-    protected static $defaultDescription = '[DEV] Create a new TYPO3 Rector, in a proper location, with new tests';
-
     /**
      * @readonly
      */
@@ -73,7 +69,10 @@ final class Typo3GenerateCommand extends Command
 
     protected function configure(): void
     {
-        $this->setAliases(['typo3-create']);
+        $this
+            ->setName('typo3-generate')
+            ->setDescription('[DEV] Create a new TYPO3 Rector, in a proper location, with new tests')
+            ->setAliases(['typo3-create']);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
