@@ -13,11 +13,13 @@ use Ssch\TYPO3Rector\FileProcessor\Fluid\Rector\vhs\ReplaceVariableSetFluidRecto
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/config.php');
-    $rectorConfig->rule(ReplaceExtensionPathRelativeFluidRector::class);
-    $rectorConfig->rule(ReplaceFormatJsonEncodeFluidRector::class);
-    $rectorConfig->rule(ReplaceLFluidRector::class);
-    $rectorConfig->rule(ReplaceMediaImageFluidRector::class);
-    $rectorConfig->rule(ReplaceOrFluidRector::class);
-    $rectorConfig->rule(ReplaceUriImageFluidRector::class);
-    $rectorConfig->rule(ReplaceVariableSetFluidRector::class);
+    $services = $rectorConfig->services();
+
+    $services->set(ReplaceExtensionPathRelativeFluidRector::class)->tag('typo3_rector.fluid_rectors');
+    $services->set(ReplaceFormatJsonEncodeFluidRector::class)->tag('typo3_rector.fluid_rectors');
+    $services->set(ReplaceLFluidRector::class)->tag('typo3_rector.fluid_rectors');
+    $services->set(ReplaceMediaImageFluidRector::class)->tag('typo3_rector.fluid_rectors');
+    $services->set(ReplaceOrFluidRector::class)->tag('typo3_rector.fluid_rectors');
+    $services->set(ReplaceUriImageFluidRector::class)->tag('typo3_rector.fluid_rectors');
+    $services->set(ReplaceVariableSetFluidRector::class)->tag('typo3_rector.fluid_rectors');
 };

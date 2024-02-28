@@ -44,7 +44,9 @@ final class ReplaceExtensionPathRelativeFluidRector implements FluidRectorInterf
         );
 
         if (Strings::matchAll($content, self::PATTERN_LEFTOVERS)) {
-            $this->rectorOutputStyle->warning('There\'s occurrences of v:extension.path.relative that couldn\'t be migrated automatically. Migrate them manually!');
+            $this->rectorOutputStyle->warning(
+                "There's occurrences of v:extension.path.relative that couldn't be migrated automatically. Migrate them manually!"
+            );
         }
 
         $file->changeFileContent($content);

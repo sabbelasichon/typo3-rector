@@ -7,7 +7,6 @@ use Helmich\TypoScriptParser\Parser\Parser;
 use Helmich\TypoScriptParser\Parser\ParserInterface;
 use Helmich\TypoScriptParser\Parser\Printer\ASTPrinterInterface;
 use Helmich\TypoScriptParser\Parser\Printer\PrettyPrinter;
-use Helmich\TypoScriptParser\Parser\Traverser\Traverser;
 use Helmich\TypoScriptParser\Tokenizer\Tokenizer;
 use Helmich\TypoScriptParser\Tokenizer\TokenizerInterface;
 use PhpParser\PrettyPrinter\Standard;
@@ -63,8 +62,6 @@ return static function (RectorConfig $rectorConfig): void {
             __DIR__ . '/../src/Set',
             __DIR__ . '/../src/ValueObject',
         ]);
-
-    $services->set(Traverser::class);
 
     $services->set(Tokenizer::class);
     $services->alias(TokenizerInterface::class, Tokenizer::class);
