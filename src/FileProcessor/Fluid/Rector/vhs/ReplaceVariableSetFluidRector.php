@@ -46,13 +46,13 @@ final class ReplaceVariableSetFluidRector implements FluidRectorInterface
 
         if (Strings::matchAll($content, self::PATTERN_DOT)) {
             $this->rectorOutputStyle->warning(
-                'There\'s occurrences of v:variable.set that contain a dot in its name attribute and thus cannot be migrated to f:variable!'
+                "There's occurrences of v:variable.set that contain a dot in its name attribute and thus cannot be migrated to f:variable!"
             );
         }
 
         if (Strings::matchAll($content, self::PATTERN_LEFTOVERS)) {
             $this->rectorOutputStyle->warning(
-                'There\'s occurrences of v:variable.set that couldn\'t be migrated automatically. Migrate them manually!'
+                "There's occurrences of v:variable.set that couldn't be migrated automatically. Migrate them manually!"
             );
         }
 
