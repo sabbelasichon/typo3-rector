@@ -26,7 +26,7 @@ jobs:
 
       # see https://github.com/ramsey/composer-install
       - name: "Install Composer dependencies"
-        uses: ramsey/composer-install@v2
+        uses: ramsey/composer-install@v3
 
       - name: "Install rule doc generator"
         run: composer require symplify/rule-doc-generator:^12.1 --with-all-dependencies
