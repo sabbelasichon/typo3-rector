@@ -139,8 +139,13 @@ CODE_SAMPLE
             }
         }
 
-        if (in_array('null', $evalList, true)) {
-            // Set "eval" to "null", since it's currently defined and the only allowed "eval" for type=datetime
+        // Set "eval" to "null" or "required", since they're currently defined and the only allowed "eval" for type=datetime
+        // Those will be migrated by according rector rules, but have to be kept by this one
+        if (in_array('null', $evalList, true) && in_array('required', $evalList, true)) {
+            $configArray->items[] = new ArrayItem(new String_('null,required'), new String_('eval'));
+        } elseif (in_array('required', $evalList, true)) {
+            $configArray->items[] = new ArrayItem(new String_('required'), new String_('eval'));
+        } elseif (in_array('null', $evalList, true)) {
             $configArray->items[] = new ArrayItem(new String_('null'), new String_('eval'));
         } else {
             $this->removeArrayItemFromArrayByKey($configArray, 'eval');
