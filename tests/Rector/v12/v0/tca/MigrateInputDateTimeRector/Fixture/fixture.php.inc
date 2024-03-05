@@ -17,6 +17,26 @@ return [
                 'eval' => 'trim,null,time,int',
             ],
         ],
+        'test_required' => [
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'readOnly' => true,
+                'size' => 20,
+                'max' => 1234,
+                'eval' => 'date,required',
+            ],
+        ],
+        'test_required_and_null' => [
+            'config' => [
+                'type' => 'input',
+                'renderType' => 'inputDateTime',
+                'readOnly' => true,
+                'size' => 20,
+                'max' => 1234,
+                'eval' => 'date,required,null',
+            ],
+        ],
         'a_date_field' => [
             'config' => [
                 'type' => 'input',
@@ -155,6 +175,24 @@ return [
                 'size' => 20,
                 'format' => 'time',
                 'eval' => 'null',
+            ],
+        ],
+        'test_required' => [
+            'config' => [
+                'type' => 'datetime',
+                'readOnly' => true,
+                'size' => 20,
+                'format' => 'date',
+                'eval' => 'required',
+            ],
+        ],
+        'test_required_and_null' => [
+            'config' => [
+                'type' => 'datetime',
+                'readOnly' => true,
+                'size' => 20,
+                'format' => 'date',
+                'eval' => 'null,required',
             ],
         ],
         'a_date_field' => [
