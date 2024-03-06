@@ -56,15 +56,18 @@ CODE_SAMPLE
         if (! $this->isName($node->name, 'lastInsertId')) {
             return null;
         }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType(Connection::class)
         )) {
             return null;
         }
+
         if (count($node->args) === 0) {
             return null;
         }
+
         $node->args = [];
         return $node;
     }
