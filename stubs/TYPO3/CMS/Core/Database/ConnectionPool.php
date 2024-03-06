@@ -2,6 +2,8 @@
 
 namespace TYPO3\CMS\Core\Database;
 
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+
 if (class_exists('TYPO3\CMS\Core\Database\ConnectionPool')) {
     return;
 }
@@ -21,7 +23,8 @@ class ConnectionPool
     /**
      * @return void
      */
-    public function getQueryBuilderForTable($table)
+    public function getQueryBuilderForTable($table): QueryBuilder
     {
+        return new QueryBuilder();
     }
 }

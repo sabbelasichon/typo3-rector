@@ -8,7 +8,7 @@ if (class_exists('TYPO3\CMS\Core\Database\Connection')) {
     return;
 }
 
-class Connection
+class Connection extends \Doctrine\DBAL\Connection
 {
     /** @var ExpressionBuilder */
     protected $_expr;

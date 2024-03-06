@@ -98,4 +98,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\EventListenerConfigurationToAttributeRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\AddMethodGetAllPageNumbersToPaginationInterfaceRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureForLastInsertIdRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\ChangeSingnatureOfConnectionQuoteRector::class);
 };
