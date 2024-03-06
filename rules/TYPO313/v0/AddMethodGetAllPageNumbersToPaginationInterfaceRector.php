@@ -6,14 +6,13 @@ namespace Ssch\TYPO3Rector\TYPO313\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
-use PHPStan\Analyser\Scope;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Comments\NodeDocBlock\DocBlockUpdater;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -21,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-102980-GetAllPageNumbersInPaginationInterface.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\AddMethodGetAllPageNumbersToPaginationInterfaceRector\AddMethodGetAllPageNumbersToPaginationInterfaceRectorTest
  */
-final class AddMethodGetAllPageNumbersToPaginationInterfaceRector extends AbstractScopeAwareRector
+final class AddMethodGetAllPageNumbersToPaginationInterfaceRector extends AbstractRector
 {
     /**
      * @readonly
@@ -77,14 +76,16 @@ CODE_SAMPLE
     /**
      * @param Class_ $node
      */
-    public function refactorWithScope(Node $node, Scope $scope)
+    public function refactor(Node $node)
     {
-        $classReflection = $scope->getClassReflection();
-        if ($classReflection === null) {
-            return null;
+        $skip = count($node->implements) === 0 ? true : false;
+        foreach ($node->implements as $interface) {
+            if ($interface === 'TYPO3\CMS\Core\Pagination\PaginationInterface') {
+                $skip = true;
+                break;
+            }
         }
-
-        if (! $classReflection->implementsInterface('TYPO3\CMS\Core\Pagination\PaginationInterface')) {
+        if ($skip === true) {
             return null;
         }
 
