@@ -13,10 +13,7 @@ use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Ssch\TYPO3Rector\Yaml\SymfonyYamlParser;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->importNames();
     $rectorConfig->phpstanConfig(Typo3Option::PHPSTAN_FOR_RECTOR_PATH);
-    // this will not import root namespace classes, like \DateTime or \Exception
-    $rectorConfig->importShortClasses(false);
 
     $rectorConfig->singleton(FileInfoFactory::class);
     $rectorConfig->singleton(FilesFinder::class);
