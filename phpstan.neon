@@ -19,6 +19,7 @@ parameters:
     excludePaths:
         - "*/Expected/*"
         - '*tests/*/Fixture/*'
+        - '*tests/*/Assertions/*'
         - '*tests/*/Source/*'
         - '*tests/Source/*'
         - 'utils/generator/templates/*'
