@@ -20,4 +20,7 @@ class Connection
     {
         return $this->_expr;
     }
+
+    public function lastInsertId()
+    {}
 }
