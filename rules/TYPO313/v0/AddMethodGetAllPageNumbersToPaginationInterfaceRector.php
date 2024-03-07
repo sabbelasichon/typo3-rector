@@ -78,14 +78,15 @@ CODE_SAMPLE
      */
     public function refactor(Node $node)
     {
-        $skip = count($node->implements) === 0 ? true : false;
+        $skip = count($node->implements) === 0;
         foreach ($node->implements as $interface) {
             if ($interface === 'TYPO3\CMS\Core\Pagination\PaginationInterface') {
                 $skip = true;
                 break;
             }
         }
-        if ($skip === true) {
+
+        if ($skip) {
             return null;
         }
 
