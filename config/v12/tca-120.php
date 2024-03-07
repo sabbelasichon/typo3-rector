@@ -31,4 +31,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveTableLocalPropertyRector::class);
     $rectorConfig->rule(RemoveTCAInterfaceAlwaysDescriptionRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v0\MigrateFileFieldTCAConfigToTCATypeFileRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v0\MigrateRenderTypeInputLinkToTypeLinkRector::class);
 };

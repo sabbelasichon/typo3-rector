@@ -315,7 +315,10 @@ abstract class AbstractTcaRector extends AbstractRector
         return false;
     }
 
-    protected function hasKeyValuePair(Array_ $configValueArray, string $configKey, string $expectedValue): bool
+    /**
+     * @param mixed $expectedValue
+     */
+    protected function hasKeyValuePair(Array_ $configValueArray, string $configKey, $expectedValue): bool
     {
         foreach ($configValueArray->items as $configItemValue) {
             if (! $configItemValue instanceof ArrayItem) {
