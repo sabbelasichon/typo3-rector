@@ -1,4 +1,4 @@
-# 114 Rules Overview
+# 115 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (38)
 
-- [TYPO313](#typo313) (5)
+- [TYPO313](#typo313) (6)
 
 <br>
 
@@ -2519,6 +2519,27 @@ Migrate the class HashService from extbase to the one from TYPO3 core
 -$validatedStringWithHashRemoved = $hashService->validateAndStripHmac($stringWithAppendedHash);
 +$stringWithAppendedHash = $hashService->appendHmac('123', 'changeMe');
 +$validatedStringWithHashRemoved = $hashService->validateAndStripHmac($stringWithAppendedHash, 'changeMe');
+```
+
+<br>
+
+### RemoveMmHasUidFieldRector
+
+Unset the value in the config mmHasUidField
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\RemoveMmHasUidFieldRector`](../rules/TYPO313/v0/RemoveMmHasUidFieldRector.php)
+
+```diff
+ return [
+     'columns' => [
+         'nullable_column' => [
+             'config' => [
+                 'type' => 'group',
+-                'MM_hasUidField' => false,
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br>
