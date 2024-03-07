@@ -1,4 +1,4 @@
-# 110 Rules Overview
+# 111 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (38)
 
-- [TYPO313](#typo313) (3)
+- [TYPO313](#typo313) (4)
 
 <br>
 
@@ -2402,6 +2402,23 @@ Remove table argument from `lastInsertID()` call
 
 -$uid = $connection->lastInsertId('tx_myextension_mytable');
 +$uid = $connection->lastInsertId();
+```
+
+<br>
+
+### ChangeSignatureOfConnectionQuoteRector
+
+Ensure first parameter is of type string and remove second parameter
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureOfConnectionQuoteRector`](../rules/TYPO313/v0/ChangeSignatureOfConnectionQuoteRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Database\Connection;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+ $connection = GeneralUtility::makeInstance(Connection::class);
+-$connection->quote(1, 1);
++$connection->quote((string) 1);
 ```
 
 <br>
