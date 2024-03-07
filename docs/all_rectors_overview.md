@@ -1,4 +1,4 @@
-# 109 Rules Overview
+# 110 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (38)
 
-- [TYPO313](#typo313) (2)
+- [TYPO313](#typo313) (3)
 
 <br>
 
@@ -2363,6 +2363,29 @@ Migrate from `$GLOBALS['PAGES_TYPES']` to the new PageDoktypeRegistry
 <br>
 
 ## TYPO313
+
+### AddMethodGetAllPageNumbersToPaginationInterfaceRector
+
+Add new method getAllPageNumbers to classes implementing PaginationInterface
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\AddMethodGetAllPageNumbersToPaginationInterfaceRector`](../rules/TYPO313/v0/AddMethodGetAllPageNumbersToPaginationInterfaceRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Pagination\PaginationInterface;
+
+ class MySpecialPaginationImplementingPaginationInterface implements PaginationInterface
+ {
++    /**
++     * @return int[]
++     */
++    public function getAllPageNumbers(): array
++    {
++        return range($this->getFirstPageNumber(), $this->getLastPageNumber());
++    }
+ }
+```
+
+<br>
 
 ### ChangeSignatureForLastInsertIdRector
 
