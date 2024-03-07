@@ -61,6 +61,7 @@ CODE_SAMPLE
         )) {
             return null;
         }
+
         if (! $this->isName($node->name, 'quote')) {
             return null;
         }
@@ -68,6 +69,7 @@ CODE_SAMPLE
         if (count($node->args) === 2) {
             unset($node->args[1]);
         }
+
         /** @var Node\Arg $argument */
         $argument = $node->args[0];
         $value = $argument->value;
@@ -75,6 +77,7 @@ CODE_SAMPLE
         if ($type !== 'Scalar_String') {
             $node->args[0]->value = new Node\Expr\Cast\String_($value);
         }
+
         return $node;
     }
 }
