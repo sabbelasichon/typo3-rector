@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\TYPO313\v0;
 
 use Doctrine\DBAL\Connection;
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
@@ -70,12 +71,16 @@ CODE_SAMPLE
             unset($node->args[1]);
         }
 
-        /** @var Node\Arg $argument */
         $argument = $node->args[0];
-        $value = $argument->value;
-        $type = $value->getType();
-        if ($type !== 'Scalar_String') {
-            $node->args[0]->value = new Node\Expr\Cast\String_($value);
+
+        if (! $argument instanceof Arg) {
+            return null;
+        }
+
+        $type = $this->nodeTypeResolver->getType($argument->value);
+
+        if ($type->isString()->no()) {
+            $node->args[0]->value = new Node\Expr\Cast\String_($argument->value);
         }
 
         return $node;

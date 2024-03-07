@@ -6,7 +6,8 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('table');
-$queryBuilder->quote('foo', 0);
+$input = 1;
+$queryBuilder->quote($input, 0);
 ?>
 -----
 <?php
@@ -17,5 +18,6 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('table');
-$queryBuilder->quote('foo');
+$input = 1;
+$queryBuilder->quote((string) $input);
 ?>

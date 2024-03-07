@@ -6,7 +6,8 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $connection = GeneralUtility::makeInstance(Connection::class);
-$connection->quote('foo', 0);
+$input = 'foo';
+$connection->quote($input, 0);
 ?>
 -----
 <?php
@@ -17,5 +18,6 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $connection = GeneralUtility::makeInstance(Connection::class);
-$connection->quote('foo');
+$input = 'foo';
+$connection->quote($input);
 ?>
