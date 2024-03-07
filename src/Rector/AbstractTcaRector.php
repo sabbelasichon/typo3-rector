@@ -354,7 +354,7 @@ abstract class AbstractTcaRector extends AbstractRector
      * $this->removeArrayItemFromArrayByKey($appearanceArray, 'showRemovedLocalizationRecords');
      * ```
      *
-     * Attention: Strict comparizion is used for the key. key with int 42 will
+     * Attention: Strict comparison is used for the key. key with int 42 will
      * not remove string "42"!
      *
      * @param string|int $key
