@@ -103,4 +103,9 @@ class QueryBuilder
     {
         return $this;
     }
+
+    public function quote(string $input, int $type): string
+    {
+        return $input;
+    }
 }

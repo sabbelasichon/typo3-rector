@@ -80,7 +80,7 @@ CODE_SAMPLE
     public function refactorWithScope(Node $node, Scope $scope)
     {
         $classReflection = $scope->getClassReflection();
-        if (!$classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+        if (! $classReflection instanceof \PHPStan\Reflection\ClassReflection) {
             return null;
         }
 
