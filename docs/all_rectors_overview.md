@@ -1,4 +1,4 @@
-# 115 Rules Overview
+# 116 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (38)
 
-- [TYPO313](#typo313) (6)
+- [TYPO313](#typo313) (7)
 
 <br>
 
@@ -2540,6 +2540,31 @@ Unset the value in the config mmHasUidField
          ],
      ],
  ];
+```
+
+<br>
+
+### StrictTypesPersistenceManagerRector
+
+Strict types for PersistenceManager
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\StrictTypesPersistenceManagerRector`](../rules/TYPO313/v0/StrictTypesPersistenceManagerRector.php)
+
+```diff
+-protected $newObjects = [];
+-    protected $changedObjects;
+-    protected $addedObjects;
+-    protected $removedObjects;
+-    protected $queryFactory;
+-    protected $backend;
+-    protected $persistenceSession;
++protected array $newObjects = [];
++    protected ObjectStorage $changedObjects;
++    protected ObjectStorage $addedObjects;
++    protected ObjectStorage $removedObjects;
++    protected QueryFactoryInterface $queryFactory;
++    protected BackendInterface $backend;
++    protected Session $persistenceSession;
 ```
 
 <br>
