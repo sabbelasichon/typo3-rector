@@ -1,4 +1,4 @@
-# 108 Rules Overview
+# 109 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (38)
 
-- [TYPO313](#typo313) (1)
+- [TYPO313](#typo313) (2)
 
 <br>
 
@@ -2363,6 +2363,25 @@ Migrate from `$GLOBALS['PAGES_TYPES']` to the new PageDoktypeRegistry
 <br>
 
 ## TYPO313
+
+### ChangeSignatureForLastInsertIdRector
+
+Remove table argument from `lastInsertID()` call
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureForLastInsertIdRector`](../rules/TYPO313/v0/ChangeSignatureForLastInsertIdRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Database\ConnectionPool;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+ $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+     ->getConnectionForTable('tx_myextension_mytable');
+
+-$uid = $connection->lastInsertId('tx_myextension_mytable');
++$uid = $connection->lastInsertId();
+```
+
+<br>
 
 ### EventListenerConfigurationToAttributeRector
 
