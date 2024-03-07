@@ -1,4 +1,4 @@
-# 111 Rules Overview
+# 112 Rules Overview
 
 <br>
 
@@ -8,7 +8,7 @@
 
 - [General](#general) (2)
 
-- [TYPO310](#typo310) (35)
+- [TYPO310](#typo310) (36)
 
 - [TYPO311](#typo311) (27)
 
@@ -542,6 +542,30 @@ Remove showRecordFieldList inside section interface
 -        'showRecordFieldList' => 'foo,bar,baz',
 -    ],
      'columns' => [
+     ],
+ ];
+```
+
+<br>
+
+### RemoveShowRemovedLocalizationRecordsRector
+
+Remove showRemovedLocalizationRecords from inline TCA configurations.
+
+- class: [`Ssch\TYPO3Rector\TYPO310\v0\RemoveShowRemovedLocalizationRecordsRector`](../rules/TYPO310/v0/RemoveShowRemovedLocalizationRecordsRector.php)
+
+```diff
+ return [
+     'columns' => [
+         'falFileRelation' => [
+             'config' => [
+                 'type' => 'inline',
+                 'appearance' => [
+                     'showPossibleLocalizationRecords' => false,
+-                    'showRemovedLocalizationRecords' => false,
+                 ],
+             ],
+         ],
      ],
  ];
 ```
