@@ -1,4 +1,4 @@
-# 116 Rules Overview
+# 117 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (38)
 
-- [TYPO313](#typo313) (7)
+- [TYPO313](#typo313) (8)
 
 <br>
 
@@ -1564,7 +1564,7 @@ Adapt extbase validators to new interface
 ```diff
 -final class MyCustomValidatorWithOptions implements ValidatorInterface
 +use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
-+use TYPO3\CMS\Extbase\Validation\ValidatorResolver\ValidatorResolver;
++use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 +
 +final class MyCustomValidatorWithoutOptions implements ValidatorInterface
  {
@@ -2571,7 +2571,7 @@ Strict types for PersistenceManager
 
 ### UseStrictTypesInExtbaseActionControllerRector
 
-Use Strict Types In Extbase ActionController
+Use strict types in Extbase ActionController
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v0\UseStrictTypesInExtbaseActionControllerRector`](../rules/TYPO313/v0/UseStrictTypesInExtbaseActionControllerRector.php)
 
