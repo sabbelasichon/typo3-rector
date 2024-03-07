@@ -105,7 +105,7 @@ CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
-use TYPO3\CMS\Extbase\Validation\ValidatorResolver\ValidatorResolver;
+use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 final class MyCustomValidatorWithoutOptions implements ValidatorInterface
 {

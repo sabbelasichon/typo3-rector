@@ -2568,3 +2568,25 @@ Strict types for PersistenceManager
 ```
 
 <br>
+
+### UseStrictTypesInExtbaseActionControllerRector
+
+Use Strict Types In Extbase ActionController
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\UseStrictTypesInExtbaseActionControllerRector`](../rules/TYPO313/v0/UseStrictTypesInExtbaseActionControllerRector.php)
+
+```diff
+ namespace Vendor\MyExtension\Controller;
+
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ class MyController extends ActionController
+ {
+-    public $defaultViewObjectName = JsonView::class;
+-    public $errorMethodName = 'myAction';
++    public string $defaultViewObjectName = JsonView::class;
++    public string $errorMethodName = 'myAction';
+ }
+```
+
+<br>

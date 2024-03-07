@@ -25,7 +25,7 @@ final class ValidatorResolverDynamicReturnTypeExtension implements DynamicMethod
 
     public function getClass(): string
     {
-        return 'TYPO3\CMS\Extbase\Validation\ValidatorResolver\ValidatorResolver';
+        return 'TYPO3\CMS\Extbase\Validation\ValidatorResolver';
     }
 
     public function isMethodSupported(MethodReflection $methodReflection): bool
