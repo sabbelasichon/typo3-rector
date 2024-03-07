@@ -1,4 +1,4 @@
-# 113 Rules Overview
+# 114 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO310](#typo310) (36)
 
-- [TYPO311](#typo311) (27)
+- [TYPO311](#typo311) (28)
 
 - [TYPO312](#typo312) (38)
 
@@ -1121,6 +1121,31 @@ use the new TCA type language instead of foreign_table => sys_language for selec
 -                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0],
 -                ],
 +                'type' => 'language',
+             ],
+         ],
+     ],
+ ];
+```
+
+<br>
+
+### MigrateRootUidToStartingPointsRector
+
+If a column has [treeConfig][rootUid] defined, migrate to [treeConfig][startingPoints] on the same level.
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v4\MigrateRootUidToStartingPointsRector`](../rules/TYPO311/v4/MigrateRootUidToStartingPointsRector.php)
+
+```diff
+ return [
+     'columns' => [
+         'aField' => [
+             'config' => [
+                 'type' => 'select',
+                 'renderType' => 'selectTree',
+                 'treeConfig' => [
+-                    'rootUid' => 42
++                    'startingPoints' => '42'
+                 ],
              ],
          ],
      ],
