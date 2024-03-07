@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\ChangeSingnatureOfConnectionQuoteRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\ChangeSignatureOfConnectionQuoteRector;
 
 use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-final class ChangeSingnatureOfConnectionQuoteRectorTest extends AbstractRectorTestCase
+final class ChangeSignatureOfConnectionQuoteRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

@@ -15,9 +15,9 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-102875-ChangedConnectionMethodSignaturesAndBehaviour.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\ChangeSingnatureOfConnectionQuoteRector\ChangeSingnatureOfConnectionQuoteRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\ChangeSignatureOfConnectionQuoteRector\ChangeSignatureOfConnectionQuoteRectorTest
  */
-final class ChangeSingnatureOfConnectionQuoteRector extends AbstractRector
+final class ChangeSignatureOfConnectionQuoteRector extends AbstractRector
 {
     public function getRuleDefinition(): RuleDefinition
     {
