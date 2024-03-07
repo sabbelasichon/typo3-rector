@@ -42,7 +42,7 @@ return static function (ECSConfig $ecsConfig): void {
         // on php 8.1, it adds space on &$variable
         __DIR__ . '/utils/generator/templates/rules',
         AssignmentInConditionSniff::class,
-        DeclareStrictTypesFixer::class => ['*/Fixture/*'],
+        DeclareStrictTypesFixer::class => ['*/Fixture/*', '*/Assertions/*'],
     ]);
 
     $ecsConfig->rule(DeclareStrictTypesFixer::class);
