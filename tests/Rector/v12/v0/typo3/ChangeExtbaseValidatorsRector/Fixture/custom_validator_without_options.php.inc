@@ -3,7 +3,7 @@
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector\Fixture;
 
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
-use TYPO3\CMS\Extbase\Validation\ValidatorResolver\ValidatorResolver;
+use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 final class MyCustomValidatorWithoutOptions implements ValidatorInterface
 {
@@ -35,7 +35,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRect
 
 use TYPO3\CMS\Extbase\Error\Result;
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
-use TYPO3\CMS\Extbase\Validation\ValidatorResolver\ValidatorResolver;
+use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 final class MyCustomValidatorWithoutOptions implements ValidatorInterface
 {

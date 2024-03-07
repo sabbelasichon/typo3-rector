@@ -11,6 +11,7 @@ use Ssch\TYPO3Rector\General\Renaming\ValueObject\RenameAttribute;
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
     $rectorConfig->import(__DIR__ . '/extbase-strict-types-persistence-manager.php');
+    $rectorConfig->import(__DIR__ . '/extbase-strict-types.php');
 
     $rectorConfig->import(__DIR__ . '/typo3-130-extbase-hash-service-core-hash-service.php');
     $rectorConfig->ruleWithConfiguration(ConstantsToBackedEnumValueRector::class, [
@@ -103,4 +104,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureOfConnectionQuoteRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\MigrateExtbaseHashServiceToUseCoreHashServiceRector::class);
     $rectorConfig->singleton(\Ssch\TYPO3Rector\TYPO313\v0\StrictTypesPersistenceManagerRector::class);
+    $rectorConfig->singleton(\Ssch\TYPO3Rector\TYPO313\v0\UseStrictTypesInExtbaseActionControllerRector::class);
 };
