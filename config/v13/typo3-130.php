@@ -11,6 +11,7 @@ use Ssch\TYPO3Rector\General\Renaming\ValueObject\RenameAttribute;
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
 
+    $rectorConfig->import(__DIR__ . '/typo3-130-extbase-hash-service-core-hash-service.php');
     $rectorConfig->ruleWithConfiguration(ConstantsToBackedEnumValueRector::class, [
         new RenameClassAndConstFetch(
             'TYPO3\CMS\Core\Resource\AbstractFile',
@@ -99,4 +100,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\AddMethodGetAllPageNumbersToPaginationInterfaceRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureForLastInsertIdRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureOfConnectionQuoteRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\MigrateExtbaseHashServiceToUseCoreHashServiceRector::class);
 };
