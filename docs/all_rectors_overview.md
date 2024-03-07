@@ -1,4 +1,4 @@
-# 112 Rules Overview
+# 113 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (38)
 
-- [TYPO313](#typo313) (4)
+- [TYPO313](#typo313) (5)
 
 <br>
 
@@ -2466,6 +2466,34 @@ Use AsEventListener attribute
      {
      }
  }
+```
+
+<br>
+
+### MigrateExtbaseHashServiceToUseCoreHashServiceRector
+
+Migrate the class HashService from extbase to the one from TYPO3 core
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateExtbaseHashServiceToUseCoreHashServiceRector`](../rules/TYPO313/v0/MigrateExtbaseHashServiceToUseCoreHashServiceRector.php)
+
+```diff
++use TYPO3\CMS\Core\Crypto\HashService;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-use TYPO3\CMS\Extbase\Security\Cryptography\HashService;
+
+ $hashService = GeneralUtility::makeInstance(HashService::class);
+
+-$generatedHash = $hashService->generateHmac('123');
+-$isValidHash = $hashService->validateHmac('123', $generatedHash);
++$generatedHash = $hashService->hmac('123', 'changeMe');
++$isValidHash = $hashService->validateHmac('123', 'changeMe', $generatedHash);
+
+-$stringWithAppendedHash = $hashService->appendHmac('123');
+-$validatedStringWithHashRemoved = $hashService->validateAndStripHmac($stringWithAppendedHash);
++$stringWithAppendedHash = $hashService->appendHmac('123', 'changeMe');
++$validatedStringWithHashRemoved = $hashService->validateAndStripHmac($stringWithAppendedHash, 'changeMe');
 ```
 
 <br>
