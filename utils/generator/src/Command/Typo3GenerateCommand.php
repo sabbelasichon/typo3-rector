@@ -251,7 +251,7 @@ final class Typo3GenerateCommand extends Command
             }
 
             $generatedFileInfo = $this->fileInfoFactory->createFileInfoFromPath($generatedFilePath);
-            return dirname($generatedFileInfo->getRelativePath());
+            return $generatedFileInfo->getRelativePath();
         }
 
         throw new ShouldNotHappenException();
