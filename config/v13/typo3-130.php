@@ -96,5 +96,6 @@ return static function (RectorConfig $rectorConfig): void {
         new RenameAttribute('TYPO3\CMS\Backend\Attribute\Controller', 'TYPO3\CMS\Backend\Attribute\AsController'),
     ]);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\EventListenerConfigurationToAttributeRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\AddMethodGetAllPageNumbersToPaginationInterfaceRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureForLastInsertIdRector::class);
 };
