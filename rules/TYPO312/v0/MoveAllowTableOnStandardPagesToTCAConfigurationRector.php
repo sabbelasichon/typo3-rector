@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
+use League\Flysystem\FilesystemOperator;
 use Nette\Utils\FileSystem;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
@@ -51,8 +52,9 @@ final class MoveAllowTableOnStandardPagesToTCAConfigurationRector extends Abstra
      * @readonly
      */
     private FormatPerservingPrinter $formatPerservingPrinter;
+    private FilesystemOperator $filesystemOperator;
 
-    public function __construct(FilesFinder $filesFinder, ValueResolver $valueResolver, IgnorePageTypeRestrictionRector $ignorePageTypeRestrictionRector, FormatPerservingPrinter $formatPerservingPrinter)
+    public function __construct(FilesFinder $filesFinder, ValueResolver $valueResolver, IgnorePageTypeRestrictionRector $ignorePageTypeRestrictionRector, FormatPerservingPrinter $formatPerservingPrinter, FilesystemOperator $filesystemOperator)
     {
         $this->filesFinder = $filesFinder;
         $this->valueResolver = $valueResolver;
@@ -60,6 +62,7 @@ final class MoveAllowTableOnStandardPagesToTCAConfigurationRector extends Abstra
         $this->phpParser = $parserFactory->create(ParserFactory::ONLY_PHP7);
         $this->ignorePageTypeRestrictionRector = $ignorePageTypeRestrictionRector;
         $this->formatPerservingPrinter = $formatPerservingPrinter;
+        $this->filesystemOperator = $filesystemOperator;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -115,15 +118,12 @@ CODE_SAMPLE
             $this->addIgnorePageTypeRestrictionIfNeeded($pathToExistingConfigurationFile, $tableName);
         } else {
             $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableName . '.php';
-            if ($this->isTestMode()) {
-                $newConfigurationFile .= '.inc';
-            }
 
             $content = sprintf(
                 '$GLOBALS[\'TCA\'][\'%s\'][\'ctrl\'][\'security\'][\'ignorePageTypeRestriction\'] = true;',
                 $tableName
             );
-            FileSystem::write($newConfigurationFile, <<<CODE
+            $this->filesystemOperator->write($newConfigurationFile, <<<CODE
 <?php
 
 {$content}
@@ -176,18 +176,7 @@ CODE
         $newContent = $this->formatPerservingPrinter->printParsedStmstAndTokensToString($existingConfigurationFile);
         $existingConfigurationFile->changeFileContent($newContent);
 
-        if ($this->isTestMode()) {
-            $targetFileName = $pathToExistingConfigurationFile . '.inc';
-            FileSystem::copy($pathToExistingConfigurationFile, $targetFileName, true);
-        } else {
-            $targetFileName = $pathToExistingConfigurationFile;
-        }
 
-        $this->formatPerservingPrinter->dumpFile($targetFileName, $newContent);
-    }
-
-    private function isTestMode(): bool
-    {
-        return StaticPHPUnitEnvironment::isPHPUnitRun();
+        $this->filesystemOperator->write($pathToExistingConfigurationFile, $newContent);
     }
 }

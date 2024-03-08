@@ -29,12 +29,13 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->singleton(Typo3GlobalsFactory::class);
     $rectorConfig->singleton(Typo3NodeResolver::class);
     $rectorConfig->bind(FilesystemOperator::class, function() {
-        $argv ??= $_SERVER['argv'] ?? [];
-        $isDryRun = in_array('--dry-run' ?? '', $argv);
-        if(StaticPHPUnitEnvironment::isPHPUnitRun() || $isDryRun) {
+        $argv = $_SERVER['argv'] ?? [];
+        $isDryRun = in_array('--dry-run', $argv);
+        $currentWorkingDirectory = getcwd();
+        if(StaticPHPUnitEnvironment::isPHPUnitRun() || $isDryRun || $currentWorkingDirectory === false) {
             $adapter = new InMemoryFilesystemAdapter();
         } else {
-            $adapter = new LocalFilesystemAdapter(getcwd());
+            $adapter = new LocalFilesystemAdapter($currentWorkingDirectory);
         }
 
         return new Filesystem($adapter);
