@@ -7,14 +7,12 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumValueRector;
 use Ssch\TYPO3Rector\General\Renaming\RenameAttributeRector;
 use Ssch\TYPO3Rector\General\Renaming\ValueObject\RenameAttribute;
-use Ssch\TYPO3Rector\TYPO312\v0\IgnorePageTypeRestrictionRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
     $rectorConfig->import(__DIR__ . '/extbase-strict-types-persistence-manager.php');
     $rectorConfig->import(__DIR__ . '/extbase-strict-types.php');
 
-    $rectorConfig->ruleWithConfiguration(IgnorePageTypeRestrictionRector::class, []);
     $rectorConfig->import(__DIR__ . '/typo3-130-extbase-hash-service-core-hash-service.php');
     $rectorConfig->ruleWithConfiguration(ConstantsToBackedEnumValueRector::class, [
         new RenameClassAndConstFetch(
