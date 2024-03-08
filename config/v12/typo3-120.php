@@ -8,9 +8,11 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Ssch\TYPO3Rector\CodeQuality\General\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\TYPO312\v0\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ChangeExtbaseValidatorsRector;
+use Ssch\TYPO3Rector\TYPO312\v0\IgnorePageTypeRestrictionRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
+use Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveMailerAdapterInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveRelativeToCurrentScriptArgumentsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveTSFEConvOutputCharsetCallsRector;
@@ -161,4 +163,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(UsePageDoktypeRegistryRector::class);
     $rectorConfig->rule(UseServerRequestInsteadOfGeneralUtilityPostRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector::class);
+    $rectorConfig->ruleWithConfiguration(IgnorePageTypeRestrictionRector::class, []);
+    $rectorConfig->rule(MoveAllowTableOnStandardPagesToTCAConfigurationRector::class);
 };
