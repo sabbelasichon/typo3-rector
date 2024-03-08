@@ -10,7 +10,6 @@ updates:
       prefix: "[TASK] "
     allow:
       - dependency-type: "development"
-    versioning-strategy: "increase"
 
   - package-ecosystem: github-actions
     directory: "/"
