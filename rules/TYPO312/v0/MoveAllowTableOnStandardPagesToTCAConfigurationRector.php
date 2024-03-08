@@ -161,6 +161,7 @@ CODE_SAMPLE
         $newStmts = $nodeTraverser->traverse($nodes);
         $existingConfigurationFile->changeHasChanged(true);
         $existingConfigurationFile->changeNewStmts($newStmts);
+
         $newContent = $this->formatPerservingPrinter->printParsedStmstAndTokensToString($existingConfigurationFile);
         $existingConfigurationFile->changeFileContent($newContent);
 
