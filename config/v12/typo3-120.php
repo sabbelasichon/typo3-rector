@@ -9,6 +9,7 @@ use Ssch\TYPO3Rector\CodeQuality\General\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\TYPO312\v0\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ChangeExtbaseValidatorsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ImplementSiteLanguageAwareInterfaceRector;
+use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveMailerAdapterInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveRelativeToCurrentScriptArgumentsRector;
@@ -23,6 +24,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\ReplaceTSFEWithContextMethodsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\SubstituteCompositeExpressionAddMethodsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\UseCompositeExpressionStaticMethodsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\UseConfigArrayForTSFEPropertiesRector;
+use Ssch\TYPO3Rector\TYPO312\v0\UsePageDoktypeRegistryRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -159,6 +161,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ReplacePageRepoOverlayFunctionRector::class);
     $rectorConfig->rule(ImplementSiteLanguageAwareInterfaceRector::class);
     $rectorConfig->rule(ChangeExtbaseValidatorsRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v0\UsePageDoktypeRegistryRector::class);
+    $rectorConfig->rule(MigrateContentObjectRendererLastTypoLinkPropertiesRector::class);
+    $rectorConfig->rule(UsePageDoktypeRegistryRector::class);
 };
