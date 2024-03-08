@@ -37,6 +37,7 @@ return static function (RectorConfig $rectorConfig): void {
         } else {
             $adapter = new LocalFilesystemAdapter('/');
         }
+
         return new FlysystemFilesystem(new Filesystem($adapter));
     });
 };
