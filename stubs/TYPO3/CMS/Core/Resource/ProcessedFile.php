@@ -5,7 +5,7 @@ if (class_exists('TYPO3\CMS\Core\Resource\ProcessedFile')) {
     return;
 }
 
-class ProcessedFile
+class ProcessedFile extends AbstractFile
 {
 
 }
