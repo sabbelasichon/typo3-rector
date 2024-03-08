@@ -41,4 +41,11 @@ class ExpressionBuilder
     {
         return '';
     }
+
+    /**
+     * @param mixed $value
+     */
+    public function lte(string $fieldName, $value): string
+    {
+    }
 }

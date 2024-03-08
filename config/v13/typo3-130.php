@@ -11,6 +11,7 @@ use Ssch\TYPO3Rector\General\Renaming\ValueObject\RenameAttribute;
 use Ssch\TYPO3Rector\TYPO313\v0\AddMethodGetAllPageNumbersToPaginationInterfaceRector;
 use Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureForLastInsertIdRector;
 use Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureOfConnectionQuoteRector;
+use Ssch\TYPO3Rector\TYPO313\v0\ConvertVersionStateToEnumRector;
 use Ssch\TYPO3Rector\TYPO313\v0\EventListenerConfigurationToAttributeRector;
 use Ssch\TYPO3Rector\TYPO313\v0\IntroduceCapabilitiesBitSetRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateAddPageTSConfigToPageTsConfigFileRector;
@@ -128,4 +129,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateAddPageTSConfigToPageTsConfigFileRector::class);
     $rectorConfig->rule(MigrateAddUserTSConfigToUserTsConfigFileRector::class);
     $rectorConfig->rule(MigrateExpressionBuilderTrimMethodSecondParameterRector::class);
+    $rectorConfig->rule(ConvertVersionStateToEnumRector::class);
 };
