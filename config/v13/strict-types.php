@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\BooleanType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
 use Rector\Config\RectorConfig;
@@ -157,12 +157,7 @@ return static function (RectorConfig $rectorConfig): void {
                 0,
                 new StringType()
             ),
-            new AddParamTypeDeclaration(
-                'TYPO3\CMS\Core\Resource\FileInterface',
-                'rename',
-                0,
-                new StringType()
-            ),
+            new AddParamTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'rename', 0, new StringType()),
             new AddParamTypeDeclaration(
                 'TYPO3\CMS\Core\Resource\FileInterface',
                 'getForLocalProcessing',
@@ -175,12 +170,7 @@ return static function (RectorConfig $rectorConfig): void {
                 0,
                 new StringType()
             ),
-            new AddParamTypeDeclaration(
-                'TYPO3\CMS\Core\Resource\FileInterface',
-                'getProperty',
-                0,
-                new StringType()
-            )
+            new AddParamTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getProperty', 0, new StringType()),
         ]
     );
 
@@ -200,10 +190,23 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration(FileInterface::class, 'getMimeType', new StringType()),
             new AddReturnTypeDeclaration(FileInterface::class, 'delete', new BooleanType()),
             new AddReturnTypeDeclaration(FileInterface::class, 'isIndexed', new BooleanType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getPublicUrl', TypeCombinator::addNull(new StringType())),
-            new AddReturnTypeDeclaration(FileInterface::class, 'toArray', new ArrayType(new MixedType(), new MixedType())),
-            new AddReturnTypeDeclaration(FileInterface::class, 'rename', new ObjectType('TYPO3\CMS\Core\Resource\FileInterface')),
-            new AddReturnTypeDeclaration(FileInterface::class, 'setContents', new \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType('TYPO3\CMS\Core\Resource\FileInterface')),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getPublicUrl', TypeCombinator::addNull(
+                new StringType()
+            )),
+            new AddReturnTypeDeclaration(FileInterface::class, 'toArray', new ArrayType(
+                new MixedType(),
+                new MixedType()
+            )),
+            new AddReturnTypeDeclaration(FileInterface::class, 'rename', new ObjectType(
+                'TYPO3\CMS\Core\Resource\FileInterface'
+            )),
+            new AddReturnTypeDeclaration(
+                FileInterface::class,
+                'setContents',
+                new \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType(
+                    'TYPO3\CMS\Core\Resource\FileInterface'
+                )
+            ),
             new AddReturnTypeDeclaration(ResourceInterface::class, 'getIdentifier', new StringType()),
             new AddReturnTypeDeclaration(ResourceInterface::class, 'getName', new StringType()),
             new AddReturnTypeDeclaration(
