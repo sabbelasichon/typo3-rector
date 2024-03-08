@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector;
 
-use League\Flysystem\FilesystemOperator;
-use Nette\Utils\FileSystem;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 
 final class MoveAllowTableOnStandardPagesToTCAConfigurationRectorTest extends AbstractRectorTestCase
 {
-    private FilesystemOperator $filesystemOperator;
+    private FilesystemInterface $filesystemOperator;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->filesystemOperator = $this->getContainer()->get(FilesystemOperator::class);
+        $this->filesystemOperator = $this->getContainer()
+            ->get(FilesystemInterface::class);
     }
 
     public function test(): void
