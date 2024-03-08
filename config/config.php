@@ -10,7 +10,6 @@ use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
 use Ssch\TYPO3Rector\NodeFactory\InjectMethodFactory;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
-use Ssch\TYPO3Rector\Yaml\SymfonyYamlParser;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importNames();
