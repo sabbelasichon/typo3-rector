@@ -348,7 +348,7 @@ abstract class AbstractTcaRector extends AbstractRector
      *
      * ```
      * $appearanceArray = $this->extractSubArrayByKey($configArray, 'appearance');
-     *      if (! $appearanceArray instanceof Array_) {
+     * if (! $appearanceArray instanceof Array_) {
      *          return;
      * }
      * $this->removeArrayItemFromArrayByKey($appearanceArray, 'showRemovedLocalizationRecords');
