@@ -114,7 +114,7 @@ CODE_SAMPLE
 
         $pathToExistingConfigurationFile = $directoryName . '/Configuration/TCA/' . $tableName . '.php';
 
-        if (file_exists($pathToExistingConfigurationFile)) {
+        if ($this->filesystem->fileExists($pathToExistingConfigurationFile)) {
             $this->addIgnorePageTypeRestrictionIfNeeded($pathToExistingConfigurationFile, $tableName);
         } else {
             $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableName . '.php';
