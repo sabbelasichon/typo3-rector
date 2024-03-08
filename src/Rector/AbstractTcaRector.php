@@ -337,6 +337,26 @@ abstract class AbstractTcaRector extends AbstractRector
     }
 
     /**
+     * Removes an array key directly from the first level of an array.
+     *
+     * ```
+     * $this->removeArrayItemFromArrayByKey($configArray, 'myKeyToBeRemoved');
+     * ```
+     *
+     * If the key to be removed is in a sub array of the current one
+     * use `extractSubArrayByKey` to extract the sub array first:
+     *
+     * ```
+     * $appearanceArray = $this->extractSubArrayByKey($configArray, 'appearance');
+     * if (! $appearanceArray instanceof Array_) {
+     *     return;
+     * }
+     * $this->removeArrayItemFromArrayByKey($appearanceArray, 'showRemovedLocalizationRecords');
+     * ```
+     *
+     * Attention: Strict comparison is used for the key. key with int 42 will
+     * not remove string "42"!
+     *
      * @param string|int $key
      */
     protected function removeArrayItemFromArrayByKey(Array_ $array, $key): void
