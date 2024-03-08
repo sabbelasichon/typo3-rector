@@ -3,6 +3,7 @@
 namespace TYPO3\CMS\Core\Database;
 
 use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 
 if (class_exists('TYPO3\CMS\Core\Database\Connection')) {
     return;
@@ -10,17 +11,22 @@ if (class_exists('TYPO3\CMS\Core\Database\Connection')) {
 
 class Connection extends \Doctrine\DBAL\Connection
 {
-    /** @var ExpressionBuilder */
-    protected $_expr;
+    const PARAM_STR = 'string';
+    protected ExpressionBuilder $_expr;
 
-    /**
-     * @return ExpressionBuilder
-     */
-    public function getExpressionBuilder()
+    public function getExpressionBuilder(): ExpressionBuilder
     {
         return $this->_expr;
     }
 
+    public function createQueryBuilder(): QueryBuilder
+    {
+    }
+
     public function lastInsertId()
-    {}
+    {
+
+    }
+
+
 }
