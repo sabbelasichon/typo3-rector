@@ -7,8 +7,6 @@ namespace Ssch\TYPO3Rector\TYPO311\v4;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Expr\ConstFetch;
-use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -22,8 +20,11 @@ final class MigrateRootUidToStartingPointsRector extends AbstractTcaRector
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('If a column has [treeConfig][rootUid] defined, migrate to [treeConfig][startingPoints] on the same level.', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'If a column has [treeConfig][rootUid] defined, migrate to [treeConfig][startingPoints] on the same level.',
+            [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'aField' => [
@@ -38,8 +39,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'aField' => [
@@ -54,7 +55,9 @@ return [
     ],
 ];
 CODE_SAMPLE
-        )]);
+            ),
+        
+        ]);
     }
 
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
@@ -65,7 +68,7 @@ CODE_SAMPLE
         }
 
         // Fetch type
-        if (!$this->isConfigType($configArray, 'select') && !$this->isConfigType($configArray, 'category')) {
+        if (! $this->isConfigType($configArray, 'select') && ! $this->isConfigType($configArray, 'category')) {
             return;
         }
 
@@ -91,7 +94,9 @@ CODE_SAMPLE
                 return;
             }
 
-            $treeConfigArray->items[] = new ArrayItem(new String_((string)$rootUidValue), new String_('startingPoints'));
+            $treeConfigArray->items[] = new ArrayItem(new String_((string) $rootUidValue), new String_(
+                'startingPoints'
+            ));
         }
 
         $this->removeArrayItemFromArrayByKey($treeConfigArray, 'rootUid');

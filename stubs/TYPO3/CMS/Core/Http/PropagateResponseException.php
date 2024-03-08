@@ -10,7 +10,7 @@ if (class_exists('TYPO3\CMS\Core\Http\PropagateResponseException')) {
 
 final class PropagateResponseException extends ImmediateResponseException
 {
-    public function __construct(ResponseInterface $response, int $code)
+    public function __construct(ResponseInterface $response, int $code = 0)
     {
         parent::__construct();
     }
