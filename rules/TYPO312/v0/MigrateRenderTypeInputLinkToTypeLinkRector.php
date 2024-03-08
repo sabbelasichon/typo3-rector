@@ -72,7 +72,12 @@ return [
                 'size' => 21,
                 'eval' => 'null',
                 'allowedTypes' => ['page', 'url', 'record'],
-                'appearance' => ['enableBrowser' => false, 'browserTitle' => 'Browser title', 'allowedOptions' => ['params', 'rel'], 'allowedFileExtensions' => ['jpg', 'png']],
+                'appearance' => [
+                    'enableBrowser' => false,
+                    'browserTitle' => 'Browser title',
+                    'allowedOptions' => ['params', 'rel'],
+                    'allowedFileExtensions' => ['jpg', 'png']
+                ],
             ],
         ],
     ],
