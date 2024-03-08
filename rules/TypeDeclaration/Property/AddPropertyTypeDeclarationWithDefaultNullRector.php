@@ -78,17 +78,21 @@ CODE_SAMPLE
         if ($node->type !== null) {
             return null;
         }
+
         $classReflection = $scope->getClassReflection();
         if (! $classReflection instanceof ClassReflection) {
             return null;
         }
+
         foreach ($this->addPropertyTypeDeclarations as $addPropertyTypeDeclaration) {
             if (! $this->isClassReflectionType($classReflection, $addPropertyTypeDeclaration->getClass())) {
                 continue;
             }
+
             if (! $this->isName($node, $addPropertyTypeDeclaration->getPropertyName())) {
                 continue;
             }
+
             $typeNode = $this->staticTypeMapper->mapPHPStanTypeToPhpParserNode(
                 $addPropertyTypeDeclaration->getType(),
                 TypeKind::PROPERTY
@@ -97,10 +101,12 @@ CODE_SAMPLE
                 // invalid configuration
                 throw new ShouldNotHappenException();
             }
+
             $node->type = $typeNode;
             $node->props[0]->default = $this->nodeFactory->createNull();
             return $node;
         }
+
         return null;
     }
 
@@ -118,6 +124,7 @@ CODE_SAMPLE
         if ($classReflection->hasTraitUse($type)) {
             return \true;
         }
+
         return $classReflection->isSubclassOf($type);
     }
 }
