@@ -1,4 +1,4 @@
-# 120 Rules Overview
+# 121 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (39)
 
-- [TYPO313](#typo313) (8)
+- [TYPO313](#typo313) (9)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -2632,6 +2632,24 @@ Strict types for PersistenceManager
 +    protected QueryFactoryInterface $queryFactory;
 +    protected BackendInterface $backend;
 +    protected Session $persistenceSession;
+```
+
+<br>
+
+### UseStrictTypesInExtbaseAbstractDomainObjectRector
+
+Use strict types in Extbase AbstractDomainObject
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\UseStrictTypesInExtbaseAbstractDomainObjectRector`](../rules/TYPO313/v0/UseStrictTypesInExtbaseAbstractDomainObjectRector.php)
+
+```diff
+ abstract class AbstractDomainObject
+ {
+-    protected $uid;
+-    protected $pid;
++    protected ?int $uid = null;
++    protected ?int $pid = null;
+ }
 ```
 
 <br>
