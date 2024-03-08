@@ -28,6 +28,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "league/flysystem": "^2.0",
+        "league/flysystem-memory": "^2.0",
         "nette/utils": "^3.2.10 || ^4.0.4",
         "nikic/php-parser": "^4.18.0",
         "phpstan/phpstan": "^1.10.56",
