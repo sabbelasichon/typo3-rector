@@ -2645,19 +2645,19 @@ Strict types for PersistenceManager
 
 ```diff
 -protected $newObjects = [];
--    protected $changedObjects;
--    protected $addedObjects;
--    protected $removedObjects;
--    protected $queryFactory;
--    protected $backend;
--    protected $persistenceSession;
+-protected $changedObjects;
+-protected $addedObjects;
+-protected $removedObjects;
+-protected $queryFactory;
+-protected $backend;
+-protected $persistenceSession;
 +protected array $newObjects = [];
-+    protected ObjectStorage $changedObjects;
-+    protected ObjectStorage $addedObjects;
-+    protected ObjectStorage $removedObjects;
-+    protected QueryFactoryInterface $queryFactory;
-+    protected BackendInterface $backend;
-+    protected Session $persistenceSession;
++protected ObjectStorage $changedObjects;
++protected ObjectStorage $addedObjects;
++protected ObjectStorage $removedObjects;
++protected QueryFactoryInterface $queryFactory;
++protected BackendInterface $backend;
++protected Session $persistenceSession;
 ```
 
 <br>
