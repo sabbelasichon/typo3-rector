@@ -1,4 +1,4 @@
-# 117 Rules Overview
+# 118 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO310](#typo310) (36)
 
-- [TYPO311](#typo311) (28)
+- [TYPO311](#typo311) (29)
 
 - [TYPO312](#typo312) (38)
 
@@ -1091,6 +1091,27 @@ Migrate the iframe based file tree to SVG
 ```diff
 -'navigationFrameModule' => 'file_navframe'
 +'navigationComponentId' => 'TYPO3/CMS/Backend/Tree/FileStorageTreeContainer'
+```
+
+<br>
+
+### MigrateHttpUtilityRedirectRector
+
+Migrate `HttpUtilty::redirect()` to responseFactory
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v3\MigrateHttpUtilityRedirectRector`](../rules/TYPO311/v3/MigrateHttpUtilityRedirectRector.php)
+
+```diff
++use Psr\Http\Message\ResponseFactoryInterface;
++use TYPO3\CMS\Core\Http\PropagateResponseException;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Core\Utility\HttpUtility;
+
+-HttpUtility::redirect('https://example.com', HttpUtility::HTTP_STATUS_303);
++$response = GeneralUtility::makeInstance(ResponseFactoryInterface::class)
++    ->createResponse(HttpUtility::HTTP_STATUS_303)
++    ->withAddedHeader('location', 'https://example.com');
++throw new PropagateResponseException($response);
 ```
 
 <br>
