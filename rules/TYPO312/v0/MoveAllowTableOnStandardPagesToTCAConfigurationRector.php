@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
-use Nette\Utils\FileSystem;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Expression;
@@ -118,18 +117,7 @@ CODE_SAMPLE
             $this->addIgnorePageTypeRestrictionIfNeeded($pathToExistingConfigurationFile, $tableName);
         } else {
             $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableName . '.php';
-
-            $content = sprintf(
-                '$GLOBALS[\'TCA\'][\'%s\'][\'ctrl\'][\'security\'][\'ignorePageTypeRestriction\'] = true;',
-                $tableName
-            );
-            $this->filesystem->write($newConfigurationFile, <<<CODE
-<?php
-
-{$content}
-
-CODE
-            );
+            $this->writeConfigurationToFile($newConfigurationFile, $tableName);
         }
 
         return NodeTraverser::REMOVE_NODE;
@@ -155,7 +143,7 @@ CODE
         string $pathToExistingConfigurationFile,
         string $tableName
     ): void {
-        $existingConfigurationFile = new File($pathToExistingConfigurationFile, FileSystem::read(
+        $existingConfigurationFile = new File($pathToExistingConfigurationFile, $this->filesystem->read(
             $pathToExistingConfigurationFile
         ));
         $nodes = $this->phpParser->parse($existingConfigurationFile->getFileContent());
@@ -176,6 +164,23 @@ CODE
         $newContent = $this->formatPerservingPrinter->printParsedStmstAndTokensToString($existingConfigurationFile);
         $existingConfigurationFile->changeFileContent($newContent);
 
-        $this->filesystem->write($pathToExistingConfigurationFile, $newContent);
+        if ($existingConfigurationFile->hasChanged()) {
+            $this->filesystem->write($pathToExistingConfigurationFile, $newContent);
+        }
+    }
+
+    private function writeConfigurationToFile(string $newConfigurationFile, string $tableName): void
+    {
+        $content = sprintf(
+            '$GLOBALS[\'TCA\'][\'%s\'][\'ctrl\'][\'security\'][\'ignorePageTypeRestriction\'] = true;',
+            $tableName
+        );
+        $this->filesystem->write($newConfigurationFile, <<<CODE
+<?php
+
+{$content}
+
+CODE
+        );
     }
 }
