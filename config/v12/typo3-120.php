@@ -142,18 +142,18 @@ return static function (RectorConfig $rectorConfig): void {
                 'TYPO3\CMS\Core\Type\ContextualFeedbackSeverity',
                 'ERROR'
             ),
-        ]
-    );
-    # https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Important-97809-UpdateTypo3iconsToV3.html
-    $rectorConfig->ruleWithConfiguration(
-        RenameClassConstFetchRector::class,
-        [
+            # https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Important-97809-UpdateTypo3iconsToV3.html
             new RenameClassAndConstFetch(
                 'TYPO3\CMS\Core\Imaging\Icon',
                 'SIZE_DEFAULT',
                 'TYPO3\CMS\Core\Imaging\Icon',
                 'SIZE_MEDIUM'
             ),
+            new RenameClassAndConstFetch(\PDO::class, 'PARAM_INT', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_INT'),
+            new RenameClassAndConstFetch(\PDO::class, 'PARAM_STR', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_STR'),
+            new RenameClassAndConstFetch(\PDO::class, 'PARAM_NULL', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_NULL'),
+            new RenameClassAndConstFetch(\PDO::class, 'PARAM_LOB', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_LOB'),
+            new RenameClassAndConstFetch(\PDO::class, 'PARAM_BOOL', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_BOOL'),
         ]
     );
 
