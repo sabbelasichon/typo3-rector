@@ -24,5 +24,4 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->singleton(InjectMethodFactory::class);
     $rectorConfig->singleton(Typo3GlobalsFactory::class);
     $rectorConfig->singleton(Typo3NodeResolver::class);
-    $rectorConfig->singleton(SymfonyYamlParser::class);
 };
