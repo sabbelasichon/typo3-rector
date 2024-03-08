@@ -10,6 +10,8 @@ if (class_exists('TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder')) 
 
 class ExpressionBuilder
 {
+    const EQ = 1;
+
     public function eq(string $fieldName, $value): string
     {
         return '';
@@ -29,5 +31,14 @@ class ExpressionBuilder
 
     public function or(...$expressions): void
     {
+    }
+
+    public function comparison($trim, int $EQ, string $createNamedParameter)
+    {
+    }
+
+    public function trim(string $string, int $int): string
+    {
+        return '';
     }
 }
