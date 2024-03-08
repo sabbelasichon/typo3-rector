@@ -1,4 +1,4 @@
-# 121 Rules Overview
+# 122 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (39)
 
-- [TYPO313](#typo313) (9)
+- [TYPO313](#typo313) (10)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -2558,6 +2558,28 @@ Use AsEventListener attribute
      {
      }
  }
+```
+
+<br>
+
+### IntroduceCapabilitiesBitSetRector
+
+Introduce capabilities bit set
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\IntroduceCapabilitiesBitSetRector`](../rules/TYPO313/v0/IntroduceCapabilitiesBitSetRector.php)
+
+```diff
++use TYPO3\CMS\Core\Resource\Capabilities;
+ use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
+
+-echo ResourceStorageInterface::CAPABILITY_BROWSABLE;
+-echo ResourceStorageInterface::CAPABILITY_PUBLIC;
+-echo ResourceStorageInterface::CAPABILITY_WRITABLE;
+-echo ResourceStorageInterface::CAPABILITY_HIERARCHICAL_IDENTIFIERS;
++echo Capabilities::CAPABILITY_BROWSABLE;
++echo Capabilities::CAPABILITY_PUBLIC;
++echo Capabilities::CAPABILITY_WRITABLE;
++echo Capabilities::CAPABILITY_HIERARCHICAL_IDENTIFIERS;
 ```
 
 <br>
