@@ -32,11 +32,10 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->bind(FilesystemInterface::class, function () {
         $argv = $_SERVER['argv'] ?? [];
         $isDryRun = in_array('--dry-run', $argv);
-        $currentWorkingDirectory = getcwd();
-        if (StaticPHPUnitEnvironment::isPHPUnitRun() || $isDryRun || $currentWorkingDirectory === false) {
+        if (StaticPHPUnitEnvironment::isPHPUnitRun() || $isDryRun) {
             $adapter = new InMemoryFilesystemAdapter();
         } else {
-            $adapter = new LocalFilesystemAdapter($currentWorkingDirectory);
+            $adapter = new LocalFilesystemAdapter('/');
         }
 
         return new FlysystemFilesystem(new Filesystem($adapter));
