@@ -6,5 +6,5 @@ use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../config/config.php');
-    $rectorConfig->import(__DIR__ . '/../../../../../../config/v13/extbase-strict-types.php');
+    $rectorConfig->import(__DIR__ . '/../../../../../../config/v13/strict-types.php');
 };

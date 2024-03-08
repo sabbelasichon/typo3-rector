@@ -14,8 +14,44 @@ use Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
 use Ssch\TYPO3Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationWithDefaultNullRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    // TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     $rectorConfig->ruleWithConfiguration(AddPropertyTypeDeclarationRector::class, [
+        // TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'newObjects',
+            new ArrayType(new MixedType(), new MixedType())
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'changedObjects',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage')
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'addedObjects',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage')
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'removedObjects',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage')
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'queryFactory',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\QueryFactoryInterface')
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'backend',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\BackendInterface')
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'persistenceSession',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\Session')
+        ),
+        // TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         new AddPropertyTypeDeclaration(
             'TYPO3\CMS\Extbase\Mvc\Controller\ActionController',
             'responseFactory',
@@ -87,44 +123,6 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Extbase\Mvc\Controller\ActionController',
             'settings',
             new ArrayType(new MixedType(), new MixedType())
-        ),
-    ]);
-    // TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-    $rectorConfig->ruleWithConfiguration(AddPropertyTypeDeclarationRector::class, [
-        new AddPropertyTypeDeclaration(
-            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
-            'newObjects',
-            new ArrayType(new MixedType(), new MixedType())
-        ),
-        new AddPropertyTypeDeclaration(
-            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
-            'changedObjects',
-            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage')
-        ),
-        new AddPropertyTypeDeclaration(
-            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
-            'addedObjects',
-            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage')
-        ),
-        new AddPropertyTypeDeclaration(
-            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
-            'removedObjects',
-            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage')
-        ),
-        new AddPropertyTypeDeclaration(
-            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
-            'queryFactory',
-            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\QueryFactoryInterface')
-        ),
-        new AddPropertyTypeDeclaration(
-            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
-            'backend',
-            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\BackendInterface')
-        ),
-        new AddPropertyTypeDeclaration(
-            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
-            'persistenceSession',
-            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\Session')
         ),
     ]);
     // TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject
