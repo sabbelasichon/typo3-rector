@@ -2,7 +2,12 @@
 
 declare(strict_types=1);
 
+use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemOperator;
+use League\Flysystem\InMemory\InMemoryFilesystemAdapter;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use Rector\Config\RectorConfig;
+use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
@@ -23,4 +28,15 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->singleton(InjectMethodFactory::class);
     $rectorConfig->singleton(Typo3GlobalsFactory::class);
     $rectorConfig->singleton(Typo3NodeResolver::class);
+    $rectorConfig->bind(FilesystemOperator::class, function() {
+        $argv ??= $_SERVER['argv'] ?? [];
+        $isDryRun = in_array('--dry-run' ?? '', $argv);
+        if(StaticPHPUnitEnvironment::isPHPUnitRun() || $isDryRun) {
+            $adapter = new InMemoryFilesystemAdapter();
+        } else {
+            $adapter = new LocalFilesystemAdapter(getcwd());
+        }
+
+        return new Filesystem($adapter);
+    });
 };
