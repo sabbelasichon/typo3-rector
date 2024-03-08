@@ -19,23 +19,23 @@ final class StrictTypesPersistenceManagerRector extends AbstractRector
     {
         return new RuleDefinition('Strict types for PersistenceManager', [new CodeSample(
             <<<'CODE_SAMPLE'
-    protected $newObjects = [];
-    protected $changedObjects;
-    protected $addedObjects;
-    protected $removedObjects;
-    protected $queryFactory;
-    protected $backend;
-    protected $persistenceSession;
+protected $newObjects = [];
+protected $changedObjects;
+protected $addedObjects;
+protected $removedObjects;
+protected $queryFactory;
+protected $backend;
+protected $persistenceSession;
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-    protected array $newObjects = [];
-    protected ObjectStorage $changedObjects;
-    protected ObjectStorage $addedObjects;
-    protected ObjectStorage $removedObjects;
-    protected QueryFactoryInterface $queryFactory;
-    protected BackendInterface $backend;
-    protected Session $persistenceSession;
+protected array $newObjects = [];
+protected ObjectStorage $changedObjects;
+protected ObjectStorage $addedObjects;
+protected ObjectStorage $removedObjects;
+protected QueryFactoryInterface $queryFactory;
+protected BackendInterface $backend;
+protected Session $persistenceSession;
 CODE_SAMPLE
         )]);
     }
