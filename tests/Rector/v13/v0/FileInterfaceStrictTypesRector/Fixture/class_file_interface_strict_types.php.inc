@@ -6,6 +6,7 @@ use TYPO3\CMS\Core\Resource\FileInterface;
 
 class MyFile implements FileInterface
 {
+
     public function hasProperty($key)
     {
     }
@@ -25,11 +26,12 @@ use TYPO3\CMS\Core\Resource\FileInterface;
 
 class MyFile implements FileInterface
 {
-    public function hasProperty(string $key)
+
+    public function hasProperty(string $key): bool
     {
     }
 
-    public function getProperty(string $key)
+    public function getProperty(string $key): mixed
     {
     }
 }

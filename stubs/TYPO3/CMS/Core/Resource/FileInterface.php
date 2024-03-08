@@ -9,6 +9,6 @@ if (interface_exists('TYPO3\CMS\Core\Resource\FileInterface')) {
 
 interface FileInterface extends ResourceInterface
 {
-    public function hasProperty(string $key);
-    public function getProperty(string $key);
+    public function hasProperty(string $key): bool;
+    public function getProperty(string $key): mixed;
 }
