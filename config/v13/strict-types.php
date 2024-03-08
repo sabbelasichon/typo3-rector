@@ -150,14 +150,37 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->ruleWithConfiguration(
         AddParamTypeDeclarationRector::class,
-        [new AddParamTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface',
-            'hasProperty',
-            0,
-            new StringType()),
-            new AddParamTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface',
+        [
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FileInterface',
+                'setContents',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FileInterface',
+                'rename',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FileInterface',
+                'getForLocalProcessing',
+                0,
+                new BooleanType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FileInterface',
+                'hasProperty',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FileInterface',
                 'getProperty',
                 0,
-                new StringType())
+                new StringType()
+            )
         ]
     );
 
@@ -166,6 +189,21 @@ return static function (RectorConfig $rectorConfig): void {
         [
             new AddReturnTypeDeclaration(FileInterface::class, 'hasProperty', new BooleanType()),
             new AddReturnTypeDeclaration(FileInterface::class, 'getProperty', new MixedType(true)),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getSize', new IntegerType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getModificationTime', new IntegerType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getCreationTime', new IntegerType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getSha1', new StringType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getNameWithoutExtension', new StringType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getExtension', new StringType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getContents', new StringType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getForLocalProcessing', new StringType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getMimeType', new StringType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'delete', new BooleanType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'isIndexed', new BooleanType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getPublicUrl', TypeCombinator::addNull(new StringType())),
+            new AddReturnTypeDeclaration(FileInterface::class, 'toArray', new ArrayType(new MixedType(), new MixedType())),
+            new AddReturnTypeDeclaration(FileInterface::class, 'rename', new ObjectType('TYPO3\CMS\Core\Resource\FileInterface')),
+            new AddReturnTypeDeclaration(FileInterface::class, 'setContents', new \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType('TYPO3\CMS\Core\Resource\FileInterface')),
             new AddReturnTypeDeclaration(ResourceInterface::class, 'getIdentifier', new StringType()),
             new AddReturnTypeDeclaration(ResourceInterface::class, 'getName', new StringType()),
             new AddReturnTypeDeclaration(
