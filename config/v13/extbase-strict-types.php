@@ -3,14 +3,18 @@
 declare(strict_types=1);
 
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
+use PHPStan\Type\TypeCombinator;
 use Rector\Config\RectorConfig;
 use Rector\TypeDeclaration\Rector\Property\AddPropertyTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
+use Ssch\TYPO3Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationWithDefaultNullRector;
 
 return static function (RectorConfig $rectorConfig): void {
+    // TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     $rectorConfig->ruleWithConfiguration(AddPropertyTypeDeclarationRector::class, [
         new AddPropertyTypeDeclaration(
             'TYPO3\CMS\Extbase\Mvc\Controller\ActionController',
@@ -83,6 +87,57 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Extbase\Mvc\Controller\ActionController',
             'settings',
             new ArrayType(new MixedType(), new MixedType())
+        ),
+    ]);
+    // TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+    $rectorConfig->ruleWithConfiguration(AddPropertyTypeDeclarationRector::class, [
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'newObjects',
+            new ArrayType(new MixedType(), new MixedType())
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'changedObjects',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage')
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'addedObjects',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage')
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'removedObjects',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\ObjectStorage')
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'queryFactory',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\QueryFactoryInterface')
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'backend',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\BackendInterface')
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
+            'persistenceSession',
+            new ObjectType('TYPO3\CMS\Extbase\Persistence\Generic\Session')
+        ),
+    ]);
+    // TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject
+    $rectorConfig->ruleWithConfiguration(AddPropertyTypeDeclarationWithDefaultNullRector::class, [
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject',
+            'uid',
+            TypeCombinator::addNull(new IntegerType())
+        ),
+        new AddPropertyTypeDeclaration(
+            'TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject',
+            'pid',
+            TypeCombinator::addNull(new IntegerType())
         ),
     ]);
 };
