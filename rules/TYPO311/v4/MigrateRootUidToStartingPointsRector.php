@@ -23,8 +23,8 @@ final class MigrateRootUidToStartingPointsRector extends AbstractTcaRector
         return new RuleDefinition(
             'If a column has [treeConfig][rootUid] defined, migrate to [treeConfig][startingPoints] on the same level.',
             [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'aField' => [
@@ -39,8 +39,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'aField' => [
@@ -55,9 +55,10 @@ return [
     ],
 ];
 CODE_SAMPLE
-            ),
-        
-        ]);
+                ),
+
+            ]
+        );
     }
 
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
