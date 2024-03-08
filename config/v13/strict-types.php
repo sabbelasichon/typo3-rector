@@ -6,14 +6,23 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\BooleanType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
 use Rector\Config\RectorConfig;
+use Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\Rector\Property\AddPropertyTypeDeclarationRector;
+use Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
 use Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
+use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
+use Rector\ValueObject\PhpVersionFeature;
 use Ssch\TYPO3Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationWithDefaultNullRector;
+use TYPO3\CMS\Core\Resource\FileInterface;
+use TYPO3\CMS\Core\Resource\ResourceInterface;
 
 return static function (RectorConfig $rectorConfig): void {
+    $rectorConfig->phpVersion(PhpVersionFeature::MIXED_TYPE);
     $rectorConfig->ruleWithConfiguration(AddPropertyTypeDeclarationRector::class, [
         // TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
         new AddPropertyTypeDeclaration(
@@ -138,4 +147,38 @@ return static function (RectorConfig $rectorConfig): void {
             TypeCombinator::addNull(new IntegerType())
         ),
     ]);
+
+    $rectorConfig->ruleWithConfiguration(
+        AddParamTypeDeclarationRector::class,
+        [new AddParamTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface',
+            'hasProperty',
+            0,
+            new StringType()),
+            new AddParamTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface',
+                'getProperty',
+                0,
+                new StringType())
+        ]
+    );
+
+    $rectorConfig->ruleWithConfiguration(
+        AddReturnTypeDeclarationRector::class,
+        [
+            new AddReturnTypeDeclaration(FileInterface::class, 'hasProperty', new BooleanType()),
+            new AddReturnTypeDeclaration(FileInterface::class, 'getProperty', new MixedType(true)),
+            new AddReturnTypeDeclaration(ResourceInterface::class, 'getIdentifier', new StringType()),
+            new AddReturnTypeDeclaration(ResourceInterface::class, 'getName', new StringType()),
+            new AddReturnTypeDeclaration(
+                ResourceInterface::class,
+                'getStorage',
+                new ObjectType('TYPO3\CMS\Core\Resource\ResourceStorage')
+            ),
+            new AddReturnTypeDeclaration(ResourceInterface::class, 'getHashedIdentifier', new StringType()),
+            new AddReturnTypeDeclaration(
+                ResourceInterface::class,
+                'getParentFolder',
+                new ObjectType('TYPO3\CMS\Core\Resource\FolderInterface')
+            ),
+        ]
+    );
 };
