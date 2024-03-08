@@ -1,4 +1,4 @@
-# 118 Rules Overview
+# 119 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (29)
 
-- [TYPO312](#typo312) (38)
+- [TYPO312](#typo312) (39)
 
 - [TYPO313](#typo313) (8)
 
@@ -2035,6 +2035,50 @@ Migrate renderType colorpicker to type color
                          ['typo3 orange', '#FF8700'],
                      ],
                  ],
+             ],
+         ],
+     ],
+ ];
+```
+
+<br>
+
+### MigrateRenderTypeInputLinkToTypeLinkRector
+
+migrate renderType inputLink to new tca field type link
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateRenderTypeInputLinkToTypeLinkRector`](../rules/TYPO312/v0/MigrateRenderTypeInputLinkToTypeLinkRector.php)
+
+```diff
+ return [
+     'ctrl' => [],
+     'columns' => [
+         'full_example' => [
+             'config' => [
+-                'type' => 'input',
+-                'renderType' => 'inputLink',
++                'type' => 'link',
+                 'required' => true,
+                 'size' => 21,
+-                'max' => 1234,
+-                'eval' => 'trim,null',
+-                'fieldControl' => [
+-                    'linkPopup' => [
+-                        'disabled' => true,
+-                        'options' => [
+-                            'title' => 'Browser title',
+-                            'allowedExtensions' => 'jpg,png',
+-                            'blindLinkFields' => 'class,target,title',
+-                            'blindLinkOptions' => 'mail,folder,file,telephone',
+-                        ],
+-                    ],
+-                ],
+-                'softref' => 'typolink',
++                'eval' => 'null',
++                'allowedTypes' => ['page', 'url', 'record'],
++                'appearance' => ['enableBrowser' => false, 'browserTitle' => 'Browser title', 'allowedOptions' => ['params', 'rel'], 'allowedFileExtensions' => ['jpg', 'png']],
              ],
          ],
      ],
