@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
-use League\Flysystem\FilesystemOperator;
 use Nette\Utils\FileSystem;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
@@ -16,8 +15,8 @@ use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PhpParser\Printer\FormatPerservingPrinter;
 use Rector\Rector\AbstractRector;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Rector\ValueObject\Application\File;
+use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -52,9 +51,10 @@ final class MoveAllowTableOnStandardPagesToTCAConfigurationRector extends Abstra
      * @readonly
      */
     private FormatPerservingPrinter $formatPerservingPrinter;
-    private FilesystemOperator $filesystemOperator;
 
-    public function __construct(FilesFinder $filesFinder, ValueResolver $valueResolver, IgnorePageTypeRestrictionRector $ignorePageTypeRestrictionRector, FormatPerservingPrinter $formatPerservingPrinter, FilesystemOperator $filesystemOperator)
+    private FilesystemInterface $filesystem;
+
+    public function __construct(FilesFinder $filesFinder, ValueResolver $valueResolver, IgnorePageTypeRestrictionRector $ignorePageTypeRestrictionRector, FormatPerservingPrinter $formatPerservingPrinter, FilesystemInterface $filesystem)
     {
         $this->filesFinder = $filesFinder;
         $this->valueResolver = $valueResolver;
@@ -62,7 +62,7 @@ final class MoveAllowTableOnStandardPagesToTCAConfigurationRector extends Abstra
         $this->phpParser = $parserFactory->create(ParserFactory::ONLY_PHP7);
         $this->ignorePageTypeRestrictionRector = $ignorePageTypeRestrictionRector;
         $this->formatPerservingPrinter = $formatPerservingPrinter;
-        $this->filesystemOperator = $filesystemOperator;
+        $this->filesystem = $filesystem;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -123,7 +123,7 @@ CODE_SAMPLE
                 '$GLOBALS[\'TCA\'][\'%s\'][\'ctrl\'][\'security\'][\'ignorePageTypeRestriction\'] = true;',
                 $tableName
             );
-            $this->filesystemOperator->write($newConfigurationFile, <<<CODE
+            $this->filesystem->write($newConfigurationFile, <<<CODE
 <?php
 
 {$content}
@@ -176,7 +176,6 @@ CODE
         $newContent = $this->formatPerservingPrinter->printParsedStmstAndTokensToString($existingConfigurationFile);
         $existingConfigurationFile->changeFileContent($newContent);
 
-
-        $this->filesystemOperator->write($pathToExistingConfigurationFile, $newContent);
+        $this->filesystem->write($pathToExistingConfigurationFile, $newContent);
     }
 }
