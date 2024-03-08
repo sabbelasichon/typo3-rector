@@ -1,4 +1,4 @@
-# 119 Rules Overview
+# 120 Rules Overview
 
 <br>
 
@@ -15,6 +15,8 @@
 - [TYPO312](#typo312) (39)
 
 - [TYPO313](#typo313) (8)
+
+- [TypeDeclaration](#typedeclaration) (1)
 
 <br>
 
@@ -2651,6 +2653,26 @@ Use strict types in Extbase ActionController
 -    public $errorMethodName = 'myAction';
 +    public string $defaultViewObjectName = JsonView::class;
 +    public string $errorMethodName = 'myAction';
+ }
+```
+
+<br>
+
+## TypeDeclaration
+
+### AddPropertyTypeDeclarationWithDefaultNullRector
+
+Add type to property by added rules, mostly public/property by parent type with default value null
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationWithDefaultNullRector`](../rules/TypeDeclaration/Property/AddPropertyTypeDeclarationWithDefaultNullRector.php)
+
+```diff
+ class SomeClass extends ParentClass
+ {
+-    public $name;
++    public ?string $name = null;
  }
 ```
 
