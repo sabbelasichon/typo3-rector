@@ -37,11 +37,13 @@ foreach ($autoloadPaths as $path) {
             $output->writeln('<error>Could not determine current working directory!</error>');
             return Command::FAILURE;
         }
+
         $commonRectorConfigPath = $projectDirectory . '/rector.php';
         if (file_exists($commonRectorConfigPath)) {
             $output->writeln('Configuration already exists.');
             return Command::FAILURE;
         }
+
         $configContents = FileSystem::read(__DIR__ . '/../templates/rector.php.dist');
         $iniFilePathsResolver = new InitFilePathsResolver();
         $projectPhpDirectories = $iniFilePathsResolver->resolve($projectDirectory);
@@ -49,6 +51,7 @@ foreach ($autoloadPaths as $path) {
         if ($projectPhpDirectories === []) {
             $projectPhpDirectories[] = 'src';
         }
+
         // Filter some blacklisted folders
         $projectPhpDirectories = array_filter(
             $projectPhpDirectories,
