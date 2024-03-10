@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
@@ -149,6 +150,10 @@ class TypoScriptFrontendController
     public $metaCharset = 'utf-8';
 
     protected Context $context;
+
+    public int $type = 0;
+
+    protected PageArguments $pageArguments;
 
     /**
      * @var array<string, mixed>
@@ -403,6 +408,11 @@ class TypoScriptFrontendController
     public function convOutputCharset($content)
     {
         return $content;
+    }
+
+    public function getPageArguments(): PageArguments
+    {
+        return $this->pageArguments;
     }
 
     public function __get($name)
