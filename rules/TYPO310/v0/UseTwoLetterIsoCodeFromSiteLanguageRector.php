@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO310\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -23,9 +25,17 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
      */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver)
-    {
+    /**
+     * @readonly
+     */
+    private Typo3GlobalsFactory $typo3GlobalsFactory;
+
+    public function __construct(
+        Typo3NodeResolver $typo3NodeResolver,
+        Typo3GlobalsFactory $typo3GlobalsFactory
+    ) {
         $this->typo3NodeResolver = $typo3NodeResolver;
+        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
     /**
@@ -49,9 +59,12 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
             return null;
         }
 
-        return $this->nodeFactory->createMethodCall(
-            $this->nodeFactory->createMethodCall($node->var, 'getLanguage'),
-            'getTwoLetterIsoCode'
+        if ($this->isGlobals($node)) {
+            return $this->createGetTwoLetterIsoCodeMethodCall($this->createTSFEGetTwoLetterIsoCodeMethodCall());
+        }
+
+        return $this->createGetTwoLetterIsoCodeMethodCall(
+            $this->nodeFactory->createMethodCall($node->var, 'getLanguage')
         );
     }
 
@@ -77,15 +90,29 @@ CODE_SAMPLE
         );
     }
 
-    private function shouldSkip(PropertyFetch $node): bool
+    private function shouldSkip(PropertyFetch $propertyFetch): bool
     {
-        if ($this->isObjectType($node, new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController'))) {
-            return false;
-        }
+        return ! $this->isGlobals($propertyFetch) && ! $this->isObjectType(
+            $propertyFetch->var,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        );
+    }
 
-        return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
-            $node,
+    private function isGlobals(PropertyFetch $propertyFetch): bool
+    {
+        return $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
+            $propertyFetch,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
         );
+    }
+
+    private function createTSFEGetTwoLetterIsoCodeMethodCall(): MethodCall
+    {
+        return $this->nodeFactory->createMethodCall($this->typo3GlobalsFactory->create('TSFE'), 'getLanguage');
+    }
+
+    private function createGetTwoLetterIsoCodeMethodCall(MethodCall $methodCall): MethodCall
+    {
+        return $this->nodeFactory->createMethodCall($methodCall, 'getTwoLetterIsoCode');
     }
 }

@@ -2,14 +2,25 @@
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\RemoveTSFEMetaCharSetCallsRector\Fixture;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-$foo = $GLOBALS['TSFE']->metaCharset;
+class TestClass
+{
+    public function testWithGlobals(): void
+    {
+        $foo = $GLOBALS['TSFE']->metaCharset;
+    }
 
-/** @var TypoScriptFrontendController $tsfe */
-$tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
-$bar = $tsfe->metaCharset;
+    public function testWithReference(): void
+    {
+        $bar = $this->getTypoScriptFrontendController()->metaCharset;
+    }
+
+    private function getTypoScriptFrontendController(): TypoScriptFrontendController
+    {
+        return $GLOBALS['TSFE'];
+    }
+}
 
 ?>
 -----
@@ -17,13 +28,24 @@ $bar = $tsfe->metaCharset;
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\RemoveTSFEMetaCharSetCallsRector\Fixture;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
-$foo = 'utf-8';
+class TestClass
+{
+    public function testWithGlobals(): void
+    {
+        $foo = 'utf-8';
+    }
 
-/** @var TypoScriptFrontendController $tsfe */
-$tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
-$bar = 'utf-8';
+    public function testWithReference(): void
+    {
+        $bar = 'utf-8';
+    }
+
+    private function getTypoScriptFrontendController(): TypoScriptFrontendController
+    {
+        return $GLOBALS['TSFE'];
+    }
+}
 
 ?>

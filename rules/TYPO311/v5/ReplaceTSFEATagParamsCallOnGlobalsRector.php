@@ -8,10 +8,10 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -27,9 +27,15 @@ final class ReplaceTSFEATagParamsCallOnGlobalsRector extends AbstractRector
      */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver)
+    /**
+     * @readonly
+     */
+    private Typo3GlobalsFactory $typo3GlobalsFactory;
+
+    public function __construct(Typo3NodeResolver $typo3NodeResolver, Typo3GlobalsFactory $typo3GlobalsFactory)
     {
         $this->typo3NodeResolver = $typo3NodeResolver;
+        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
     /**
@@ -49,10 +55,7 @@ final class ReplaceTSFEATagParamsCallOnGlobalsRector extends AbstractRector
             return null;
         }
 
-        $propertyFetch = $this->nodeFactory->createPropertyFetch(new ArrayDimFetch(
-            new Variable('GLOBALS'),
-            new String_(Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER)
-        ), 'config');
+        $propertyFetch = $this->nodeFactory->createPropertyFetch($this->typo3GlobalsFactory->create('TSFE'), 'config');
 
         return new Coalesce(
             new ArrayDimFetch(new ArrayDimFetch($propertyFetch, new String_('config')), new String_('ATagParams')),

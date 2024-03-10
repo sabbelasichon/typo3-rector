@@ -94,13 +94,7 @@ final class RefactorCHashArrayOfTSFERector extends AbstractRector
             return null;
         }
 
-        if (! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
-            $propertyFetch,
-            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
-        ) && $this->isObjectType(
-            $propertyFetch->var,
-            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
-        )) {
+        if ($this->shouldSkip($propertyFetch)) {
             return null;
         }
 
@@ -142,6 +136,17 @@ if (!empty($queryParams) && ($pageArguments->getArguments()['cHash'] ?? false)) 
 $cHash_array = $relevantParametersForCachingFromPageArguments;
 CODE_SAMPLE
         )]);
+    }
+
+    private function shouldSkip(PropertyFetch $propertyFetch): bool
+    {
+        return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
+            $propertyFetch,
+            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
+        ) && ! $this->isObjectType(
+            $propertyFetch->var,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        );
     }
 
     private function initializeEmptyArray(): Node

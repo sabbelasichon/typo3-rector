@@ -6,13 +6,13 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class TestClass
 {
-    protected function getTypeWithGlobals()
+    protected function getTypeWithGlobals(): void
     {
         $type = $GLOBALS['TSFE']->type;
         $type2 = $GLOBALS['TSFE']->getPageArguments()->getPageType();
     }
 
-    protected function getTypeWithLocalVariable()
+    protected function getTypeWithLocalVariable(): void
     {
         $tsfe = $this->getTypoScriptFrontendController();
         $type = $tsfe->type;
@@ -38,13 +38,13 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 class TestClass
 {
-    protected function getTypeWithGlobals()
+    protected function getTypeWithGlobals(): void
     {
         $type = $GLOBALS['TSFE']->getPageArguments()->getPageType();
         $type2 = $GLOBALS['TSFE']->getPageArguments()->getPageType();
     }
 
-    protected function getTypeWithLocalVariable()
+    protected function getTypeWithLocalVariable(): void
     {
         $tsfe = $this->getTypoScriptFrontendController();
         $type = $tsfe->getPageArguments()->getPageType();

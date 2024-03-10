@@ -25,6 +25,11 @@ class CanonicalParametersGetDataHook
         return GeneralUtility::implodeArrayForUrl('', $cHash_array);
     }
 
+    public function doNotTouchThis()
+    {
+        $cHash_array = $GLOBALS['TYPO3_REQUEST']->cHash_array;
+    }
+
     private function getTypoScriptFrontendController(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
@@ -74,6 +79,11 @@ class CanonicalParametersGetDataHook
         unset($cHash_array['encryptionKey']);
 
         return GeneralUtility::implodeArrayForUrl('', $cHash_array);
+    }
+
+    public function doNotTouchThis()
+    {
+        $cHash_array = $GLOBALS['TYPO3_REQUEST']->cHash_array;
     }
 
     private function getTypoScriptFrontendController(): TypoScriptFrontendController

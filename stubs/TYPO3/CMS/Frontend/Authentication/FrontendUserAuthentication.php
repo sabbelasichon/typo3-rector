@@ -1,12 +1,16 @@
 <?php
 namespace TYPO3\CMS\Frontend\Authentication;
 
+use TYPO3\CMS\Core\Authentication\AbstractUserAuthentication;
+
 if (class_exists('TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication')) {
     return;
 }
 
-class FrontendUserAuthentication
+class FrontendUserAuthentication extends AbstractUserAuthentication
 {
+    protected bool $loginHidden = false;
+
     /**
      * @return mixed
      */

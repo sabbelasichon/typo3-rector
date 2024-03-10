@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO310\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
@@ -75,16 +78,16 @@ final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractR
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
-$myvariable = $GLOBALS['TSFE']->forceTemplateParsing;
-$myvariable2 = $GLOBALS['TSFE']->tmpl->forceTemplateParsing;
+$myVariable = $GLOBALS['TSFE']->forceTemplateParsing;
+$myVariable2 = $GLOBALS['TSFE']->tmpl->forceTemplateParsing;
 
 $GLOBALS['TSFE']->forceTemplateParsing = true;
 $GLOBALS['TSFE']->tmpl->forceTemplateParsing = true;
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
-$myvariable = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
-$myvariable2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
+$myVariable = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
+$myVariable2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
 
 \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
 \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->setAspect('typoscript', \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\TypoScriptAspect::class, true));
@@ -130,7 +133,19 @@ CODE_SAMPLE
         ]);
     }
 
-    private function isPropertyForceTemplateParsing(Node $node): bool
+    private function shouldSkip(Assign $node): bool
+    {
+        if ($this->isPropertyForceTemplateParsing($node->var)) {
+            return false;
+        }
+
+        return ! $this->isPropertyForceTemplateParsing($node->expr);
+    }
+
+    /**
+     * @param PropertyFetch|Variable|MethodCall|Expr $node
+     */
+    private function isPropertyForceTemplateParsing($node): bool
     {
         if (! property_exists($node, 'name')) {
             return false;
@@ -142,18 +157,8 @@ CODE_SAMPLE
             return false;
         }
 
-        if ($this->isObjectType($node, new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController'))) {
-            return true;
-        }
-
-        if ($this->isObjectType($node, new ObjectType('TYPO3\CMS\Core\TypoScript\TemplateService'))) {
-            return true;
-        }
-
-        if ($this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
-            $node,
-            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
-        )) {
+        /** @var PropertyFetch $node */
+        if ($this->isGlobals($node)) {
             return true;
         }
 
@@ -161,18 +166,33 @@ CODE_SAMPLE
             return false;
         }
 
-        return $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
-            $node->var,
-            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
-        );
-    }
-
-    private function shouldSkip(Assign $node): bool
-    {
-        if ($this->isPropertyForceTemplateParsing($node->var)) {
-            return false;
+        /** @var PropertyFetch|MethodCall $propertyFetchOrMethodCall */
+        $propertyFetchOrMethodCall = $node->var;
+        if ($this->isObjectType(
+            $propertyFetchOrMethodCall,
+            new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
+        )) {
+            return true;
         }
 
-        return ! $this->isPropertyForceTemplateParsing($node->expr);
+        if ($this->isObjectType(
+            $propertyFetchOrMethodCall,
+            new ObjectType('TYPO3\CMS\Core\TypoScript\TemplateService')
+        )) {
+            return true;
+        }
+
+        return $this->isGlobals($propertyFetchOrMethodCall);
+    }
+
+    /**
+     * @param PropertyFetch|MethodCall $propertyFetchOrMethodCall
+     */
+    private function isGlobals($propertyFetchOrMethodCall): bool
+    {
+        return $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
+            $propertyFetchOrMethodCall,
+            Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
+        );
     }
 }

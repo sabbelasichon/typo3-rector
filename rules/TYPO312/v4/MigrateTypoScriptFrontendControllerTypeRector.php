@@ -21,11 +21,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class MigrateTypoScriptFrontendControllerTypeRector extends AbstractRector
 {
     /**
-     * @var string
-     */
-    private const TYPE = 'type';
-
-    /**
      * @readonly
      */
     private Typo3NodeResolver $typo3NodeResolver;
@@ -70,7 +65,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $this->isNames($node->name, [self::TYPE])) {
+        if (! $this->isName($node->name, 'type')) {
             return null;
         }
 
