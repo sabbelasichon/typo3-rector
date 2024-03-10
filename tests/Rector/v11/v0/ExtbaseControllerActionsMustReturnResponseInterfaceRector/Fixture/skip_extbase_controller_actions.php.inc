@@ -29,6 +29,11 @@ class MyRefactoredController extends ActionController
         return $this->htmlResponse($years);
     }
 
+    public function listAction(): ResponseInterface
+    {
+
+    }
+
     abstract public function listAction($filter = null, string $letter = ''): ResponseInterface;
 }
 

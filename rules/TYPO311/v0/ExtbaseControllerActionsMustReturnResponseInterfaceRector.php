@@ -37,6 +37,9 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
      */
     private array $redirectMethods = ['redirect', 'redirectToUri'];
 
+    /**
+     * @readonly
+     */
     private ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer;
 
     public function __construct(ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer)
@@ -164,6 +167,13 @@ CODE_SAMPLE
 
     private function shouldSkip(ClassMethod $classMethod): bool
     {
+        if ($classMethod->returnType !== null && $this->isObjectType(
+            $classMethod->returnType,
+            new ObjectType('Psr\\Http\\Message\\ResponseInterface')
+        )) {
+            return true;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $classMethod,
             new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
