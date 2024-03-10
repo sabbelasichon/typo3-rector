@@ -1,4 +1,4 @@
-# 122 Rules Overview
+# 123 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (29)
 
-- [TYPO312](#typo312) (39)
+- [TYPO312](#typo312) (40)
 
 - [TYPO313](#typo313) (10)
 
@@ -2152,6 +2152,19 @@ Migrates existing input TCA with eval email to new TCA type email
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateTypoScriptFrontendControllerTypeRector
+
+Migrate TypoScriptFrontendController->type
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v4\MigrateTypoScriptFrontendControllerTypeRector`](../rules/TYPO312/v4/MigrateTypoScriptFrontendControllerTypeRector.php)
+
+```diff
+-$GLOBALS['TSFE']->type;
++$GLOBALS['TSFE']->getPageArguments()->getPageType();
 ```
 
 <br>
