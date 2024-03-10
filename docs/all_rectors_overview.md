@@ -295,10 +295,10 @@ Force template parsing in tsfe is replaced with context api and aspects
 - class: [`Ssch\TYPO3Rector\TYPO310\v0\ForceTemplateParsingInTsfeAndTemplateServiceRector`](../rules/TYPO310/v0/ForceTemplateParsingInTsfeAndTemplateServiceRector.php)
 
 ```diff
--$myvariable = $GLOBALS['TSFE']->forceTemplateParsing;
--$myvariable2 = $GLOBALS['TSFE']->tmpl->forceTemplateParsing;
-+$myvariable = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
-+$myvariable2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
+-$myVariable = $GLOBALS['TSFE']->forceTemplateParsing;
+-$myVariable2 = $GLOBALS['TSFE']->tmpl->forceTemplateParsing;
++$myVariable = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
++$myVariable2 = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class)->getPropertyFromAspect('typoscript', 'forcedTemplateParsing');
 
 -$GLOBALS['TSFE']->forceTemplateParsing = true;
 -$GLOBALS['TSFE']->tmpl->forceTemplateParsing = true;
