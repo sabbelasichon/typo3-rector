@@ -55,7 +55,8 @@ final class ReplaceTSFEATagParamsCallOnGlobalsRector extends AbstractRector
             return null;
         }
 
-        $propertyFetch = $this->nodeFactory->createPropertyFetch($this->typo3GlobalsFactory->create('TSFE'), 'config');
+        $expression = $this->isGlobals($node) ? $this->typo3GlobalsFactory->create('TSFE') : $node->var;
+        $propertyFetch = $this->nodeFactory->createPropertyFetch($expression, 'config');
 
         return new Coalesce(
             new ArrayDimFetch(new ArrayDimFetch($propertyFetch, new String_('config')), new String_('ATagParams')),
@@ -92,7 +93,12 @@ CODE_SAMPLE
             return false;
         }
 
-        return ! $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
+        return ! $this->isGlobals($propertyFetch);
+    }
+
+    private function isGlobals(PropertyFetch $propertyFetch): bool
+    {
+        return $this->typo3NodeResolver->isPropertyFetchOnAnyPropertyOfGlobals(
             $propertyFetch,
             Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
         );

@@ -160,6 +160,8 @@ class TypoScriptFrontendController
      */
     public array $config = [];
 
+    public string $ATagParams = '';
+
     /**
      * @return void
      */
