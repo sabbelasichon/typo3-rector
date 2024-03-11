@@ -31,7 +31,7 @@ jobs:
           token: ${{ secrets.ACCESS_TOKEN }}
 
       # see https://github.com/shivammathur/setup-php
-      - name: "Install PHP"
+      - name: "Setup PHP"
         uses: shivammathur/setup-php@v2
         with:
           php-version: 7.4

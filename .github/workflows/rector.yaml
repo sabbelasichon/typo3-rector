@@ -18,7 +18,7 @@ jobs:
 
     if: github.event.pull_request.head.repo.full_name == 'sabbelasichon/typo3-rector'
     steps:
-      -
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           # Must be used to trigger workflow after push
@@ -26,22 +26,22 @@ jobs:
 
       - run: echo "run on ${{ github.event.pull_request.head.repo.full_name }}"
 
-      -
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          # PHP 7.4 is required, so Rector's code is PHP 8.2 compatible even after refactoring
+          # PHP 7.4 is required, so Rector's code is PHP 7.4 compatible even after refactoring
           php-version: 7.4
           coverage: none
 
-      -   run: composer install --no-progress --ansi
+      - name: Install Composer dependencies
+        run: composer install --no-progress --ansi
 
       ## First run Rector - here can't be --dry-run !!! it would stop the job with it and not commit anything in the future
-      -   run: vendor/bin/rector process ${{ matrix.paths }} --ansi
+      - name: Run Rector
+        run: vendor/bin/rector process ${{ matrix.paths }} --ansi
 
-      -
+      - name: Auto commit changes
         # commit only to core contributors who have repository access
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: '[ci-review] Rector Rectify'
-          commit_author: 'GitHub Action <actions@github.com>'
-          commit_user_email: 'action@github.com'
