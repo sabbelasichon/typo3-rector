@@ -77,15 +77,9 @@ CODE_SAMPLE
             return null;
         }
 
-        $node->args[1]->value = $this->nodeFactory->createClassConstFetch(
-            'Doctrine\\DBAL\\Platforms\\TrimMode',
-            'UNSPECIFIED'
-        );
-        return $node;
-
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType('TYPO3\\CMS\\Core\Database\\Query\\Expression\\ExpressionBuilder')
+            new ObjectType('TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder')
         )) {
             return null;
         }
