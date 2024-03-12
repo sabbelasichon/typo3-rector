@@ -77,15 +77,9 @@ CODE_SAMPLE
             return null;
         }
 
-        $node->args[1]->value = $this->nodeFactory->createClassConstFetch(
-            'Doctrine\\DBAL\\Platforms\\TrimMode',
-            'UNSPECIFIED'
-        );
-        return $node;
-
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
-            new ObjectType('TYPO3\\CMS\\Core\Database\\Query\\Expression\\ExpressionBuilder')
+            new ObjectType('TYPO3\\CMS\\Core\\Database\\Query\\Expression\\ExpressionBuilder')
         )) {
             return null;
         }
@@ -98,15 +92,15 @@ CODE_SAMPLE
 
         $trimMode = $this->valueResolver->getValue($secondArgument->value);
 
-        if (! is_int($trimMode)) {
+        if (! is_numeric($trimMode)) {
             return null;
         }
 
-        if (! isset(self::$integerToTrimMode[$trimMode])) {
+        if (! isset(self::$integerToTrimMode[((int) $trimMode)])) {
             return null;
         }
 
-        $trimModeConstant = self::$integerToTrimMode[$trimMode];
+        $trimModeConstant = self::$integerToTrimMode[((int) $trimMode)];
 
         $node->args[1]->value = $this->nodeFactory->createClassConstFetch(
             'Doctrine\\DBAL\\Platforms\\TrimMode',
