@@ -2,6 +2,10 @@
 
 namespace TYPO3\CMS\Core\Resource;
 
+if(interface_exists('TYPO3\CMS\Core\Resource\Capabilities')) {
+    return;
+}
+
 interface Capabilities
 {
 
