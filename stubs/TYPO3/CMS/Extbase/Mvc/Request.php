@@ -8,7 +8,7 @@ if (class_exists('TYPO3\CMS\Extbase\Mvc\Request')) {
     return;
 }
 
-class Request
+class Request implements ServerRequestInterface
 {
     protected ServerRequestInterface $request;
 
@@ -31,5 +31,10 @@ class Request
     public function getAttribute($name, $default = null)
     {
         return $this->request->getAttribute($name, $default);
+    }
+
+    public function getQueryParams(): array
+    {
+        return [];
     }
 }

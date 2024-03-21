@@ -10,4 +10,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v4\MigrateRequestArgumentFromMethodStartRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v4\CommandConfigurationToAttributeRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v4\MigrateTypoScriptFrontendControllerTypeRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v4\UseServerRequestInsteadOfGeneralUtilityGetRector::class);
 };
