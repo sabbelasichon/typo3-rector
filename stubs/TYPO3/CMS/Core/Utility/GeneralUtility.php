@@ -408,4 +408,9 @@ class GeneralUtility
     public static function shortMD5($input, $len = 10)
     {
     }
+
+    public static function _GET(string $string): string
+    {
+        return $string;
+    }
 }
