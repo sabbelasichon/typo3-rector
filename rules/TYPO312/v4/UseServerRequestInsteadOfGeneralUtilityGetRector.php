@@ -108,7 +108,7 @@ CODE_SAMPLE
 
         $classReflection = $scope->getClassReflection();
 
-        if ($classReflection !== null && $classReflection->isSubclassOf(
+        if ($classReflection instanceof \PHPStan\Reflection\ClassReflection && $classReflection->isSubclassOf(
             'TYPO3\CMS\Extbase\Mvc\Controller\ActionController'
         )) {
             $requestFetcherVariable = $this->nodeFactory->createPropertyFetch('this', 'request');
