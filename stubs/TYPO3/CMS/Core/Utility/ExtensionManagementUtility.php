@@ -95,4 +95,9 @@ class ExtensionManagementUtility
     public static function addTCAcolumns($string, array $columns) {
 
     }
+
+    public static function allowTableOnStandardPages(string $table)
+    {
+
+    }
 }
