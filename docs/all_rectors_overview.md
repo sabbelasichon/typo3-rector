@@ -1,4 +1,4 @@
-# 123 Rules Overview
+# 124 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (29)
 
-- [TYPO312](#typo312) (40)
+- [TYPO312](#typo312) (41)
 
 - [TYPO313](#typo313) (10)
 
@@ -2491,6 +2491,34 @@ Migrate from `$GLOBALS['PAGES_TYPES']` to the new PageDoktypeRegistry
      'allowedTables' => '*',
 -];
 +]);
+```
+
+<br>
+
+### UseServerRequestInsteadOfGeneralUtilityGetRector
+
+Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v4\UseServerRequestInsteadOfGeneralUtilityGetRector`](../rules/TYPO312/v4/UseServerRequestInsteadOfGeneralUtilityGetRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-$value = GeneralUtility::_GET('tx_scheduler');
++$value = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'] ?? null;
+```
+
+<br>
+
+```diff
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+ class MyActionController extends ActionController
+ {
+     public function myMethod()
+     {
+-        $value = GeneralUtility::_GET('tx_scheduler');
++        $value = $this->request->getQueryParams()['tx_scheduler'] ?? null;
+     }
+ }
 ```
 
 <br>
