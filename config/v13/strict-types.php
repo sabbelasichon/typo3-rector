@@ -11,6 +11,7 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VoidType;
 use Rector\Config\RectorConfig;
+use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\Rector\Property\AddPropertyTypeDeclarationRector;
@@ -646,6 +647,22 @@ return static function (RectorConfig $rectorConfig): void {
                 0,
                 new StringType()
             ),
+            // TYPO3\CMS\Core\Resource\FolderInterface
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FolderInterface',
+                'getSubfolder',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FolderInterface',
+                'hasFolder',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration('TYPO3\CMS\Core\Resource\FolderInterface', 'hasFile', 0, new StringType()),
+            new AddParamTypeDeclaration('TYPO3\CMS\Core\Resource\FolderInterface', 'getFile', 0, new StringType()),
+            new AddParamTypeDeclaration('TYPO3\CMS\Core\Resource\FolderInterface', 'rename', 0, new StringType()),
         ]
     );
 
@@ -678,9 +695,7 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration(
                 FileInterface::class,
                 'setContents',
-                new \Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType(
-                    'TYPO3\CMS\Core\Resource\FileInterface'
-                )
+                new SelfObjectType('TYPO3\CMS\Core\Resource\FileInterface')
             ),
             new AddReturnTypeDeclaration(ResourceInterface::class, 'getIdentifier', new StringType()),
             new AddReturnTypeDeclaration(ResourceInterface::class, 'getName', new StringType()),
@@ -919,6 +934,40 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Core\Resource\Driver\DriverInterface',
                 'countFoldersInFolder',
+                new IntegerType()
+            ),
+            // TYPO3\CMS\Core\Resource\FolderInterface
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FolderInterface',
+                'getSubfolders',
+                new ArrayType(new MixedType(), new MixedType())
+            ),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FolderInterface',
+                'getSubfolder',
+                new ObjectType('TYPO3\CMS\Core\Resource\Folder')
+            ),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FolderInterface', 'hasFolder', new BooleanType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FolderInterface', 'hasFile', new BooleanType()),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FolderInterface',
+                'getFile',
+                TypeCombinator::addNull(new ObjectType('TYPO3\CMS\Core\Resource\FileInterface'))
+            ),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FolderInterface',
+                'rename',
+                new SelfObjectType('TYPO3\CMS\Core\Resource\FolderInterface')
+            ),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FolderInterface', 'delete', new BooleanType()),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FolderInterface',
+                'getModificationTime',
+                new IntegerType()
+            ),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FolderInterface',
+                'getCreationTime',
                 new IntegerType()
             ),
         ]
