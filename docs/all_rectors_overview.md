@@ -1,4 +1,4 @@
-# 124 Rules Overview
+# 125 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (29)
 
-- [TYPO312](#typo312) (41)
+- [TYPO312](#typo312) (42)
 
 - [TYPO313](#typo313) (10)
 
@@ -2517,6 +2517,34 @@ Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
      {
 -        $value = GeneralUtility::_GET('tx_scheduler');
 +        $value = $this->request->getQueryParams()['tx_scheduler'] ?? null;
+     }
+ }
+```
+
+<br>
+
+### UseServerRequestInsteadOfGeneralUtilityPostRector
+
+Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\UseServerRequestInsteadOfGeneralUtilityPostRector`](../rules/TYPO312/v0/UseServerRequestInsteadOfGeneralUtilityPostRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+-$value = GeneralUtility::_POST('tx_scheduler');
++$value = $GLOBALS['TYPO3_REQUEST']->getParsedBody()['tx_scheduler'];
+```
+
+<br>
+
+```diff
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+ class MyActionController extends ActionController
+ {
+     public function myMethod()
+     {
+-        $value = GeneralUtility::_POST('tx_scheduler');
++        $value = $this->request->getParsedBody()['tx_scheduler'] ?? null;
      }
  }
 ```
