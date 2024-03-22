@@ -1,4 +1,4 @@
-# 125 Rules Overview
+# 126 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (29)
 
-- [TYPO312](#typo312) (42)
+- [TYPO312](#typo312) (43)
 
 - [TYPO313](#typo313) (10)
 
@@ -2444,6 +2444,19 @@ Replace `add()` and `addMultiple()` of CompositeExpression with `with()`
          ),
      ]
  );
+```
+
+<br>
+
+### TemplateServiceToServerRequestFrontendTypoScriptAttributeRector
+
+Migrate TemplateService to ServerRequest frontend.typsocript attribute
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v1\TemplateServiceToServerRequestFrontendTypoScriptAttributeRector`](../rules/TYPO312/v1/TemplateServiceToServerRequestFrontendTypoScriptAttributeRector.php)
+
+```diff
+-$setup = $GLOBALS['TSFE']->tmpl->setup;
++$setup = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.typoscript')->getSetupArray();
 ```
 
 <br>
