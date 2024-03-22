@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\TYPO312\v4;
+namespace Ssch\TYPO3Rector\TYPO312\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
@@ -13,10 +13,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.4/Deprecation-100596-GeneralUtility_GET.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v4\UseServerRequestInsteadOfGeneralUtilityGetRector\UseServerRequestInsteadOfGeneralUtilityGetRectorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-99633-GeneralUtilityPOST.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\UseServerRequestInsteadOfGeneralUtilityPostRector\UseServerRequestInsteadOfGeneralUtilityPostRectorTest
  */
-final class UseServerRequestInsteadOfGeneralUtilityGetRector extends AbstractScopeAwareRector
+final class UseServerRequestInsteadOfGeneralUtilityPostRector extends AbstractScopeAwareRector
 {
     /**
      * @readonly
@@ -34,12 +34,12 @@ final class UseServerRequestInsteadOfGeneralUtilityGetRector extends AbstractSco
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-$value = GeneralUtility::_GET('tx_scheduler');
+$value = GeneralUtility::_POST('tx_scheduler');
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-$value = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'] ?? null;
+$value = $GLOBALS['TYPO3_REQUEST']->getParsedBody()['tx_scheduler'];
 CODE_SAMPLE
             ),
             new CodeSample(
@@ -49,7 +49,7 @@ class MyActionController extends ActionController
 {
     public function myMethod()
     {
-        $value = GeneralUtility::_GET('tx_scheduler');
+        $value = GeneralUtility::_POST('tx_scheduler');
     }
 }
 CODE_SAMPLE
@@ -60,7 +60,7 @@ class MyActionController extends ActionController
 {
     public function myMethod()
     {
-        $value = $this->request->getQueryParams()['tx_scheduler'] ?? null;
+        $value = $this->request->getParsedBody()['tx_scheduler'] ?? null;
     }
 }
 CODE_SAMPLE
@@ -81,8 +81,8 @@ CODE_SAMPLE
         return $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
             $scope->getClassReflection(),
             $node,
-            'getQueryParams',
-            '_GET'
+            'getParsedBody',
+            '_POST'
         );
     }
 }

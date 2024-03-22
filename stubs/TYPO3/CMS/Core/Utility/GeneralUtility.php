@@ -413,4 +413,9 @@ class GeneralUtility
     {
         return $string;
     }
+
+    public static function _POST(): string
+    {
+        return '';
+    }
 }
