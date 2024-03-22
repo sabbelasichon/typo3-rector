@@ -25,6 +25,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\SubstituteCompositeExpressionAddMethodsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\UseCompositeExpressionStaticMethodsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\UseConfigArrayForTSFEPropertiesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\UsePageDoktypeRegistryRector;
+use Ssch\TYPO3Rector\TYPO312\v0\UseServerRequestInsteadOfGeneralUtilityPostRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -163,5 +164,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ChangeExtbaseValidatorsRector::class);
     $rectorConfig->rule(MigrateContentObjectRendererLastTypoLinkPropertiesRector::class);
     $rectorConfig->rule(UsePageDoktypeRegistryRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v0\UseServerRequestInsteadOfGeneralUtilityPostRector::class);
+    $rectorConfig->rule(UseServerRequestInsteadOfGeneralUtilityPostRector::class);
 };
