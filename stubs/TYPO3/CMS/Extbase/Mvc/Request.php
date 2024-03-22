@@ -37,4 +37,9 @@ class Request implements ServerRequestInterface
     {
         return [];
     }
+
+    public function getParsedBody(): array
+    {
+        return [];
+    }
 }
