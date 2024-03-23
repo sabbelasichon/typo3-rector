@@ -1,4 +1,4 @@
-# 126 Rules Overview
+# 127 Rules Overview
 
 <br>
 
@@ -8,7 +8,7 @@
 
 - [General](#general) (2)
 
-- [TYPO310](#typo310) (36)
+- [TYPO310](#typo310) (37)
 
 - [TYPO311](#typo311) (29)
 
@@ -790,6 +790,34 @@ Use class Typo3Version instead of the constants
 +use TYPO3\CMS\Core\Information\Typo3Version;
 +$typo3Version = GeneralUtility::makeInstance(Typo3Version::class)->getVersion();
 +$typo3Branch = GeneralUtility::makeInstance(Typo3Version::class)->getBranch();
+```
+
+<br>
+
+### UseConstantsFromTYPO3DatabaseConnection
+
+Use strict types in Extbase ActionController
+
+- class: [`Ssch\TYPO3Rector\TYPO310\v0\UseConstantsFromTYPO3DatabaseConnection`](../rules/TYPO310/v0/UseConstantsFromTYPO3DatabaseConnection.php)
+
+```diff
++use TYPO3\CMS\Core\Database\Connection;
++
+ $queryBuilder = $this->connectionPool->getQueryBuilderForTable('table');
+ $result = $queryBuilder
+     ->select('uid')
+     ->from('table')
+     ->where(
+-        $queryBuilder->expr()->eq('bodytext', $queryBuilder->createNamedParameter('lorem', \PDO::PARAM_STR)),
+-        $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter(42, \PDO::PARAM_INT)),
+-        $queryBuilder->expr()->eq('available', $queryBuilder->createNamedParameter(true, \PDO::PARAM_BOOL)),
+-        $queryBuilder->expr()->eq('foo', $queryBuilder->createNamedParameter(true, \PDO::PARAM_NULL))
++        $queryBuilder->expr()->eq('bodytext', $queryBuilder->createNamedParameter('lorem', Connection::PARAM_STR)),
++        $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter(42, Connection::PARAM_INT)),
++        $queryBuilder->expr()->eq('available', $queryBuilder->createNamedParameter(true, Connection::PARAM_BOOL)),
++        $queryBuilder->expr()->eq('foo', $queryBuilder->createNamedParameter(true, Connection::PARAM_NULL))
+     )
+     ->executeQuery();
 ```
 
 <br>
