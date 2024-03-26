@@ -1,0 +1,30 @@
+# Include setup
+@import './Helper/ContentElement.typoscript'
+@import './Helper/ParseFunc.typoscript'
+
+# Typical content elements
+@import './ContentElement/Bullets.typoscript'
+@import './ContentElement/Div.typoscript'
+@import './ContentElement/Header.typoscript'
+@import './ContentElement/Html.typoscript'
+@import './ContentElement/Image.typoscript'
+@import './ContentElement/List.typoscript'
+@import './ContentElement/Shortcut.typoscript'
+@import './ContentElement/Table.typoscript'
+@import './ContentElement/Text.typoscript'
+@import './ContentElement/Textmedia.typoscript'
+@import './ContentElement/Textpic.typoscript'
+@import './ContentElement/Uploads.typoscript'
+
+# Menu content elements
+@import './ContentElement/MenuAbstract.typoscript'
+@import './ContentElement/MenuCategorizedContent.typoscript'
+@import './ContentElement/MenuCategorizedPages.typoscript'
+@import './ContentElement/MenuPages.typoscript'
+@import './ContentElement/MenuSubpages.typoscript'
+@import './ContentElement/MenuSection.typoscript'
+@import './ContentElement/MenuSectionPages.typoscript'
+@import './ContentElement/MenuRecentlyUpdated.typoscript'
+@import './ContentElement/MenuRelatedPages.typoscript'
+@import './ContentElement/MenuSitemap.typoscript'
+@import './ContentElement/MenuSitemapPages.typoscript'

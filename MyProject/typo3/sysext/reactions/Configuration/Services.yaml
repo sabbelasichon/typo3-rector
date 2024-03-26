@@ -1,0 +1,15 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Reactions\:
+    resource: '../Classes/*'
+
+  TYPO3\CMS\Reactions\ReactionRegistry:
+    arguments:
+      $registeredReactions: !tagged_iterator { tag: 'reactions.reaction', default_index_method: 'getType' }
+
+  TYPO3\CMS\Reactions\Form\ReactionItemsProcFunc:
+    public: true

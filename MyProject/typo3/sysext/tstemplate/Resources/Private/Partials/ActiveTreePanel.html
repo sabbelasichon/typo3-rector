@@ -1,0 +1,70 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row align-items-center justify-content-between">
+            <div class="col align-middle">
+                <h3 class="panel-title" id="typoscript-active-{type}-ast-heading">
+                    <a
+                        href="#"
+                        class="collapsed"
+                        id="panel-tree-heading-{type}"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#typoscript-active-{type}-ast-body"
+                        aria-expanded="false"
+                        aria-controls="typoscript-active-{type}-ast-body"
+                    >
+                        <span class="caret"></span>
+                        <strong><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_active.xlf:panel.header.configuration"/></strong>
+                    </a>
+                </h3>
+            </div>
+            <div class="col text-end">
+                <span class="badge badge-success hidden t3js-collapse-states-search-numberOfSearchMatches"></span>
+            </div>
+        </div>
+    </div>
+    <div
+        id="typoscript-active-{type}-ast-body"
+        class="panel-collapse collapse"
+        data-persist-collapse-state="true"
+        data-persist-collapse-state-if-state="shown"
+        aria-labelledby="typoscript-active-{type}-ast-heading"
+        role="tabpanel"
+    >
+        <div class="panel-body t3js-collapse-states-search-tree">
+            <form action="{f:be.uri(route: 'typoscript_active', parameters: '{id: pageUid}')}" method="post">
+                <ul class="treelist">
+                    <f:comment>
+                        Variable {editUri} is a performance optimization hack: The ActiveTree template is called
+                        recursive for each node and then creates an "edit" link in each. This is expensive with
+                        many nodes. With client side expand/collapse, we always render the entire tree in fluid,
+                        with a bigger tree we're easily creating the link thousands of times. The hack below
+                        creates the link once, the usage then adds the child parameter.
+                        Ugly but effective in this case. Don't do this at home, kids.
+                    </f:comment>
+                    <f:variable
+                        name="editUri"
+                        value="{f:be.uri(route: 'typoscript_active.edit', parameters: '{id: pageUid, type: type}')}"
+                    />
+                    <f:render
+                        partial="ActiveTree"
+                        arguments="{
+                            type: type,
+                            tree: tree,
+                            pageUid: pageUid,
+                            displayConstantSubstitutions: displayConstantSubstitutions,
+                            displayComments: displayComments,
+                            editUri: editUri
+                        }"
+                    />
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>
+
+</html>

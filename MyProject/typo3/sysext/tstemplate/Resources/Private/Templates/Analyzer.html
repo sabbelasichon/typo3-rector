@@ -1,0 +1,126 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Module"/>
+
+<f:section name="Before">
+    <f:be.pageRenderer
+        includeJavaScriptModules="{
+            0: '@typo3/backend/context-menu.js',
+            1: '@typo3/backend/element/immediate-action-element.js',
+            2: '@typo3/tstemplate/template-analyzer.js'
+        }"
+    />
+    <f:variable name="args" value="{0: 'web', 1: pageUid}" />
+    <typo3-immediate-action
+        action="TYPO3.Backend.Storage.ModuleStateStorage.update"
+        args="{args -> f:format.json() -> f:format.htmlspecialchars()}"
+    ></typo3-immediate-action>
+</f:section>
+
+<f:section name="Content">
+
+    <h1>
+        <f:if condition="{templateTitle}">
+            <f:then>
+                <f:translate
+                    key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_analyzer.xlf:submodule.titleWithRecord"
+                    arguments="{
+                        0: '{templateTitle}'
+                    }"
+                />
+            </f:then>
+            <f:else>
+                <f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_analyzer.xlf:submodule.title" />
+            </f:else>
+        </f:if>
+    </h1>
+    <p><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_analyzer.xlf:submodule.description" /></p>
+
+    <f:comment><!-- General options --></f:comment>
+    <f:render
+        partial="AnalyzerOptions"
+        arguments="{
+            allTemplatesOnPage: allTemplatesOnPage,
+            pageUid: pageUid,
+            selectedTemplateUid: selectedTemplateUid
+        }"
+    />
+
+    <f:comment><!-- Constants: Syntax errors, conditions, source and tree --></f:comment>
+    <f:if condition="{constantIncludeTree.children}">
+        <h2><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_analyzer.xlf:sectionHeadline.constants" /></h2>
+        <div class="panel-group">
+            <f:render
+                partial="AnalyzerSyntaxErrors"
+                arguments="{
+                    type: 'constants',
+                    pageUid: pageUid,
+                    errors: constantErrors,
+                    errorCount: constantErrorCount
+                }"
+            />
+            <f:render
+                partial="AnalyzerConditions"
+                arguments="{
+                    pageUid: pageUid,
+                    type: 'constants',
+                    conditions: constantConditions,
+                    conditionActiveCount: constantConditionsActiveCount
+                }"
+            />
+            <f:render
+                partial="AnalyzerTreePanel"
+                arguments="{
+                    type: 'constants',
+                    tree: constantIncludeTree,
+                    pageUid: pageUid
+                }"
+            />
+        </div>
+    </f:if>
+
+    <f:comment><!-- Setup: Syntax errors, conditions, source and tree --></f:comment>
+    <f:if condition="{setupIncludeTree.children}">
+        <h2><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_analyzer.xlf:sectionHeadline.setup" /></h2>
+        <div class="panel-group">
+            <f:render
+                partial="AnalyzerSyntaxErrors"
+                arguments="{
+                    type: 'setup',
+                    pageUid: pageUid,
+                    errors: setupErrors,
+                    errorCount: setupErrorCount
+                }"
+            />
+            <f:render
+                partial="AnalyzerConditions"
+                arguments="{
+                    pageUid: pageUid,
+                    type: 'setup',
+                    conditions: setupConditions,
+                    conditionActiveCount: setupConditionsActiveCount
+                }"
+            />
+            <f:render
+                partial="AnalyzerTreePanel"
+                arguments="{
+                    type: 'setup',
+                    tree: setupIncludeTree,
+                    pageUid: pageUid
+                }"
+            />
+        </div>
+    </f:if>
+
+    <f:if condition="!{constantIncludeTree.children} && !{setupIncludeTree.children}">
+        <f:be.infobox
+            message="{f:translate(key: 'LLL:EXT:tstemplate/Resources/Private/Language/locallang_analyzer.xlf:infobox.message.noTypoScriptFound')}"
+            state="-1"
+        />
+    </f:if>
+</f:section>
+
+</html>

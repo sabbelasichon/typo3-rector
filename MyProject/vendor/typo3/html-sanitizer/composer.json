@@ -1,0 +1,39 @@
+{
+	"name": "typo3/html-sanitizer",
+	"description": "HTML sanitizer aiming to provide XSS-safe markup based on explicitly allowed tags, attributes and values.",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Oliver Hader",
+			"email": "oliver@typo3.org"
+		}
+	],
+	"extra": {
+		"branch-alias": {
+			"dev-main": "2.x-dev"
+		}
+	},
+	"require": {
+		"ext-dom": "*",
+		"masterminds/html5": "^2.7.6",
+		"php": "^7.2 || ^8.0",
+		"psr/log": "^1.0 || ^2.0 || ^3.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^8.5"
+	},
+	"scripts": {
+		"test": "phpunit"
+	},
+	"autoload": {
+		"psr-4": {
+			"TYPO3\\HtmlSanitizer\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"TYPO3\\HtmlSanitizer\\Tests\\": "tests/"
+		}
+	}
+}

@@ -1,0 +1,30 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="page-header">
+                <img src="{f:uri.resource(path: 'EXT:core/Resources/Public/Images/typo3_orange.svg')}" width="130" class="logo" />
+            </div>
+
+            <div class="callout callout-warning">
+                <div class="callout-title">The Install Tool is locked</div>
+                <div class="callout-body">
+                    <p>
+                        To enable the Install Tool, the file <code>ENABLE_INSTALL_TOOL</code>
+                        must be created in the directory <code>{enableInstallToolPath}</code>.
+                        The file must be writable by the web server user.
+                        The filename is case-sensitive but the file itself can be empty.
+                    </p>
+                    <p>
+                        <strong>Security note:</strong>
+                        When you are finished with the Install Tool, you should rename or delete this file.
+                        It will automatically be deleted if you log out of the Install Tool or if the file is older than one hour.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

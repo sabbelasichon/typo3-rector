@@ -1,0 +1,51 @@
+{
+	"name": "typo3/cms-adminpanel",
+	"type": "typo3-cms-framework",
+	"description": "TYPO3 CMS Admin Panel - The Admin Panel displays information about your site in the frontend and contains a range of metrics including debug and caching information.",
+	"homepage": "https://typo3.org",
+	"license": ["GPL-2.0-or-later"],
+	"authors": [{
+		"name": "TYPO3 Core Team",
+		"email": "typo3cms@typo3.org",
+		"role": "Developer"
+	}],
+	"support": {
+		"chat": "https://typo3.org/help",
+		"docs": "https://docs.typo3.org/c/typo3/cms-adminpanel/main/en-us/",
+		"issues": "https://forge.typo3.org",
+		"source": "https://github.com/typo3/typo3"
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"require": {
+		"psr/http-message": "^1.1 || ^2.0",
+		"psr/http-server-handler": "^1.0",
+		"psr/http-server-middleware": "^1.0",
+		"symfony/var-dumper": "^6.4 || ^7.0",
+		"typo3/cms-backend": "12.4.10",
+		"typo3/cms-core": "12.4.10",
+		"typo3/cms-fluid": "12.4.10",
+		"typo3/cms-frontend": "12.4.10",
+		"typo3fluid/fluid": "^2.9.2"
+	},
+	"conflict": {
+		"typo3/cms": "*"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-main": "12.4.x-dev"
+		},
+		"typo3/cms": {
+			"Package": {
+				"partOfFactoryDefault": true
+			},
+			"extension-key": "adminpanel"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"TYPO3\\CMS\\Adminpanel\\": "Classes/"
+		}
+	}
+}

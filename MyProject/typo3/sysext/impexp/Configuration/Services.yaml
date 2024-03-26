@@ -1,0 +1,29 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Impexp\:
+    resource: '../Classes/*'
+
+  TYPO3\CMS\Impexp\Utility\ImportExportUtility:
+    public: true
+
+  TYPO3\CMS\Impexp\Controller\ExportController:
+    tags: [ 'backend.controller' ]
+
+  TYPO3\CMS\Impexp\Controller\ImportController:
+    tags: [ 'backend.controller' ]
+
+  TYPO3\CMS\Impexp\Command\ImportCommand:
+    tags:
+      - name: 'console.command'
+        command: 'impexp:import'
+        description: 'Imports a T3D / XML file with content into a page tree'
+
+  TYPO3\CMS\Impexp\Command\ExportCommand:
+    tags:
+      - name: 'console.command'
+        command: 'impexp:export'
+        description: 'Exports a T3D / XML file with content of a page tree'

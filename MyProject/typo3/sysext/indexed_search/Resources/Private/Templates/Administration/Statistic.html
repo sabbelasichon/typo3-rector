@@ -1,0 +1,151 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    xmlns:is="http://typo3.org/ns/TYPO3/CMS/IndexedSearch/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+    <h1><f:translate key="administration.statistics" /></h1>
+    <f:if condition="{tree}">
+        <f:then>
+            <f:form name="statistic" action="statistic" arguments="{id:pageUid}">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="mode" class="form-label">
+                            <f:translate key="LLL:EXT:indexed_search/Resources/Private/Language/locallang.xlf:administration.moduleFunctions.mode" />
+                        </label>
+                        <f:form.select class="form-select" id="mode" name="mode" options="{
+                            overview:'{f:translate(key:\'administration.statistics.view.overview\')}',
+                            content:'{f:translate(key:\'administration.statistics.view.content\')}'
+                            }" value="{mode}" additionalAttributes="{data-global-event='change', data-action-submit: '$form'}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="depth" class="form-label">
+                            <f:translate key="LLL:EXT:indexed_search/Resources/Private/Language/locallang.xlf:administration.moduleFunctions.depth" />
+                        </label>
+                        <f:form.select class="form-select" id="depth" name="depth" options="{levelTranslations}" value="{depth}" additionalAttributes="{data-global-event='change', data-action-submit: '$form'}" />
+                    </div>
+                </div>
+            </f:form>
+            <div class="table-fit">
+                <table class="table table-striped table-hover table-vertical-top">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>
+                                <a href="{f:uri.action(action:'deleteIndexedItem', arguments:'{itemId:\'ALL\', depth:depth, mode:mode}')}" title="{f:translate(key:'administration.removeAllEntries')}">
+                                    <core:icon identifier="actions-edit-delete" />
+                                </a>
+                            </th>
+                            <th>
+                                <f:translate key="field.fileName" />
+                            </th>
+                            <f:switch expression="{mode}">
+                                <f:case value="content">
+                                    <th>
+                                        <f:translate key="field.content" />
+                                    </th>
+                                    <f:if condition="{extensionConfiguration.useMysqlFulltext} == false">
+                                        <th>
+                                            <f:translate key="field.words" />
+                                        </th>
+                                    </f:if>
+                                </f:case>
+                                <f:defaultCase>
+                                    <f:if condition="{extensionConfiguration.useMysqlFulltext} == false">
+                                        <th>
+                                            <f:translate key="field.wordCount" />
+                                        </th>
+                                    </f:if>
+                                    <th>
+                                        <f:translate key="field.fileSize" />
+                                    </th>
+                                    <th>
+                                        <f:translate key="field.indexed" />
+                                    </th>
+                                </f:defaultCase>
+                            </f:switch>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <f:for each="{tree}" as="line">
+                            <f:if condition="{line.lines}">
+                                <f:then>
+                                    <f:for each="{line.lines}" as="l" iteration="i">
+                                        <tr>
+                                            <td class="nowrap">
+                                                {line.HTML -> f:format.raw()}
+                                                <f:if condition="{i.index} == 0"> {line.row.title}</f:if>
+                                            </td>
+                                            <td>
+                                                <a href="{f:uri.action(action:'deleteIndexedItem',arguments:'{itemId:l.phash,depth:depth,mode:mode}')}" title="{f:translate(key:'administration.removeEntry')}">
+                                                    <core:icon identifier="actions-edit-delete" />
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <f:image src="{l.icon}" />
+                                                <f:link.action action="statisticDetails" arguments="{pageHash:l.phash}">{l.item_title}</f:link.action>
+                                            </td>
+                                            <f:switch expression="{mode}">
+                                                <f:case value="content">
+                                                    <td>
+                                                        {l.fulltextData.fulltextdata}
+                                                    </td>
+                                                    <f:if condition="{extensionConfiguration.useMysqlFulltext} == false">
+                                                        <td>
+                                                            <f:for each="{l.allWords}" as="w">
+                                                                {w}
+                                                            </f:for>
+                                                            <br><br>
+                                                            <em>{f:translate(key:'administration.statistics.count')}: {f:count(subject:l.allWords)}</em>
+                                                        </td>
+                                                    </f:if>
+                                                </f:case>
+                                                <f:defaultCase>
+                                                    <f:if condition="{extensionConfiguration.useMysqlFulltext} == false">
+                                                        <td>{l.wordCount}</td>
+                                                    </f:if>
+                                                    <td>
+                                                        <f:format.bytes decimals="1">{l.item_size}</f:format.bytes>
+                                                    </td>
+                                                    <td>
+                                                        <is:format.dateTime>{l.tstamp}</is:format.dateTime>
+                                                    </td>
+                                                </f:defaultCase>
+                                            </f:switch>
+                                        </tr>
+                                    </f:for>
+                                </f:then>
+                                <f:else>
+                                    <tr>
+                                        <td class="nowrap">{line.HTML -> f:format.raw()} {line.row.title}</td>
+                                        <f:switch expression="{mode}">
+                                            <f:case value="content">
+                                                <td colspan="5">
+                                                    <f:translate key="administration.notIndexed" />
+                                                </td>
+                                            </f:case>
+                                            <f:defaultCase>
+                                                <td colspan="5">
+                                                    <f:translate key="administration.notIndexed" />
+                                                </td>
+                                            </f:defaultCase>
+                                        </f:switch>
+                                    </tr>
+                                </f:else>
+                            </f:if>
+                        </f:for>
+                        </tbody>
+                </table>
+            </div>
+        </f:then>
+        <f:else>
+            <h2><f:translate key="administration.noPageSelected" /></h2>
+        </f:else>
+    </f:if>
+</f:section>
+
+</html>

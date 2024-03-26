@@ -1,0 +1,55 @@
+{
+	"name": "typo3/cms-frontend",
+	"type": "typo3-cms-framework",
+	"description": "TYPO3 CMS Frontend",
+	"homepage": "https://typo3.org",
+	"license": ["GPL-2.0-or-later"],
+	"authors": [{
+		"name": "TYPO3 Core Team",
+		"email": "typo3cms@typo3.org",
+		"role": "Developer"
+	}],
+	"support": {
+		"chat": "https://typo3.org/help",
+		"docs": "https://docs.typo3.org",
+		"issues": "https://forge.typo3.org",
+		"source": "https://github.com/typo3/typo3"
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"require": {
+		"ext-libxml": "*",
+		"typo3/cms-core": "12.4.10"
+	},
+	"conflict": {
+		"typo3/cms": "*"
+	},
+	"suggest": {
+		"typo3/cms-adminpanel": "Provides additional information and functionality for backend users in the frontend."
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-main": "12.4.x-dev"
+		},
+		"typo3/cms": {
+			"Package": {
+				"serviceProvider": "TYPO3\\CMS\\Frontend\\ServiceProvider",
+				"protected": true,
+				"partOfFactoryDefault": true,
+				"partOfMinimalUsableSystem": true
+			},
+			"extension-key": "frontend"
+		},
+		"typo3/class-alias-loader": {
+			"class-alias-maps": [
+				"Migrations/Code/ClassAliasMap.php"
+			]
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"TYPO3\\CMS\\Frontend\\": "Classes/"
+		}
+	}
+}

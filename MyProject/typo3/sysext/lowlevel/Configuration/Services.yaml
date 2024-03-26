@@ -1,0 +1,229 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Lowlevel\:
+    resource: '../Classes/*'
+
+  TYPO3\CMS\Lowlevel\Controller\ConfigurationController:
+    tags: ['backend.controller']
+  TYPO3\CMS\Lowlevel\Controller\DatabaseIntegrityController:
+    tags: ['backend.controller']
+
+  TYPO3\CMS\Lowlevel\Command\ListSysLogCommand:
+    tags:
+      - name: 'console.command'
+        command: 'syslog:list'
+        description: 'Show entries from the sys_log database table of the last 24 hours.'
+        schedulable: false
+
+  TYPO3\CMS\Lowlevel\Command\MissingRelationsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'cleanup:missingrelations'
+        description: 'Find all record references pointing to a non-existing record'
+
+  TYPO3\CMS\Lowlevel\Command\DeletedRecordsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'cleanup:deletedrecords'
+        description: 'Permanently deletes all records marked as "deleted" in the database.'
+
+  TYPO3\CMS\Lowlevel\Command\OrphanRecordsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'cleanup:orphanrecords'
+        description: 'Find and delete records that have lost their connection with the page tree.'
+
+  TYPO3\CMS\Lowlevel\Command\CleanFlexFormsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'cleanup:flexforms'
+        description: 'Updates all database records which have a FlexForm field and the XML data does not match the chosen datastructure.'
+
+  TYPO3\CMS\Lowlevel\Command\CleanUpLocalProcessedFilesCommand:
+    tags:
+      - name: 'console.command'
+        command: 'cleanup:localprocessedfiles'
+        description: 'Delete processed files and their database records.'
+
+  TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\ProviderRegistry:
+    public: true
+
+  TYPO3\CMS\Lowlevel\HookProvider\ModifyBlindedConfigurationOptionsHookProvider:
+    tags: ['event.listener']
+
+  lowlevel.configuration.module.provider.confvars:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\GlobalVariableProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'confVars'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:typo3ConfVars'
+        globalVariableKey: 'TYPO3_CONF_VARS'
+        before: 'tca'
+
+  lowlevel.configuration.module.provider.tca:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\GlobalVariableProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'tca'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:tca'
+        globalVariableKey: 'TCA'
+        before: 'services'
+        after: 'confVars'
+
+  lowlevel.configuration.module.provider.services:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\GlobalVariableProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'services'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:t3services'
+        globalVariableKey: 'T3_SERVICES'
+        before: 'tbeStyles'
+        after: 'tca'
+
+  lowlevel.configuration.module.provider.tbestyles:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\GlobalVariableProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'tbeStyles'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:tbeStyles'
+        globalVariableKey: 'TBE_STYLES'
+        before: 'userSettings'
+        after: 'services'
+
+  lowlevel.configuration.module.provider.usersettings:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\GlobalVariableProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'userSettings'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:usersettings'
+        globalVariableKey: 'TYPO3_USER_SETTINGS'
+        before: 'pagesTypes'
+        after: 'tbeStyles'
+
+  lowlevel.configuration.module.provider.pagestypes:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\PageDoktypeProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'pagesTypes'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:pagesTypes'
+        before: 'beUserUc'
+        after: 'userSettings'
+
+  lowlevel.configuration.module.provider.beuseruc:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\BackendUserSettingsProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'beUserUc'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:beUser'
+        before: 'beUserTsConfig'
+        after: 'pagesTypes'
+
+  lowlevel.configuration.module.provider.beusertsconfig:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\BackendUserTsConfigProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'beUserTsConfig'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:beUserTsConfig'
+        before: 'beRoutes'
+        after: 'beUserUc'
+
+  lowlevel.configuration.module.provider.backendroutes:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\BackendRoutesProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'beRoutes'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:routes'
+        before: 'backendModules'
+        after: 'beUserTsConfig'
+
+  lowlevel.configuration.module.provider.backendModules:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\BackendModuleProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'backendModules'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:backendModules'
+        before: 'httpMiddlewareStacks'
+        after: 'beRoutes'
+
+  lowlevel.configuration.module.provider.httpmiddlewarestacks:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\HttpMiddlewareStackProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'httpMiddlewareStacks'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:httpMiddlewareStacks'
+        before: 'sitesTcaConfiguration'
+        after: 'backendModules'
+
+  lowlevel.configuration.module.provider.contentsecuritypolicymutationsprovider:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\ContentSecurityPolicyMutationsProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'contentSecurityPolicyMutations'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:contentSecurityPolicyMutations'
+        before: 'softReferenceParsers'
+        after: 'httpMiddlewareStacks'
+
+  lowlevel.configuration.module.provider.sitestcaconfiguration:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\SitesTcaConfigurationProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'sitesTcaConfiguration'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:sitesTcaConfiguration'
+        before: 'sitesYamlConfiguration'
+        after: 'contentSecurityPolicyMutations'
+
+  lowlevel.configuration.module.provider.sitesyamlconfiguration:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\SitesYamlConfigurationProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'sitesYamlConfiguration'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:sitesYamlConfiguration'
+        before: 'eventListeners'
+        after: 'sitesTcaConfiguration'
+
+  lowlevel.configuration.module.provider.eventlisteners:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\EventListenersProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'eventListeners'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:eventListeners'
+        before: 'mfaProviders'
+        after: 'sitesYamlConfiguration'
+
+  lowlevel.configuration.module.provider.mfaproviders:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\MfaProvidersProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'mfaProviders'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:mfaProviders'
+        before: 'softReferenceParsers'
+        after: 'eventListeners'
+
+  lowlevel.configuration.module.provider.softreferenceparsers:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\SoftReferenceParsersProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'softReferenceParsers'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:softReferenceParsers'
+        before: 'toolbaritems'
+        after: 'mfaproviders'
+
+  lowlevel.configuration.module.provider.toolbaritems:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\ToolbarItemsProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'toolbaritems'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:toolbarItems'
+        after: 'softReferenceParsers'
+
+  lowlevel.configuration.module.provider.expressionlanguage:
+    class: 'TYPO3\CMS\Lowlevel\ConfigurationModuleProvider\SymfonyExpressionLanguageProvidersProvider'
+    tags:
+      - name: 'lowlevel.configuration.module.provider'
+        identifier: 'symfonyExpressionLanguage'
+        label: 'LLL:EXT:lowlevel/Resources/Private/Language/locallang.xlf:symfonyExpressionLanguage'
+        after: 'toolbaritems'

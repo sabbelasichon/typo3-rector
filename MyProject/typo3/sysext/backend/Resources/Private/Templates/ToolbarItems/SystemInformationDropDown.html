@@ -1,0 +1,74 @@
+<html xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers" data-namespace-typo3-fluid="true">
+<span data-systeminformation-data
+    data-systeminformation-data-count="{count}"
+    data-systeminformation-data-severitybadgeclass="{severityBadgeClass}"
+></span>
+
+<h3 class="dropdown-headline"><f:translate key="LLL:EXT:backend/Resources/Private/Language/locallang.xlf:systemInformation.header"/></h3>
+<p class="dropdown-item-text">
+    <f:translate key="LLL:EXT:backend/Resources/Private/Language/locallang.xlf:systemmessage.intro.text"/>
+    <a href="#" data-moduleroute-identifier="tools_toolsenvironment">
+        <f:translate key="LLL:EXT:backend/Resources/Private/Language/locallang.xlf:systemmessage.intro.link"/>
+    </a>
+</p>
+
+<f:if condition="{systemInformation}">
+    <table class="dropdown-table">
+        <f:for each="{systemInformation}" as="info">
+            <tr>
+                <th data-type="icon">
+                    <f:if condition="{info.iconIdentifier}">
+                        <f:then>
+                            <core:icon identifier="{info.iconIdentifier}" size="small" alternativeMarkupIdentifier="inline" />
+                        </f:then>
+                        <f:else>{info.icon -> f:format.raw()}</f:else>
+                    </f:if>
+                </th>
+                <th data-type="title">
+                    <f:translate key="{info.title}" default="{info.title}"/>
+                    <f:if condition="{info.titleAddition}"> ({info.titleAddition -> f:format.htmlspecialchars()})</f:if>
+                </th>
+                <td data-type="value">
+                    {info.value}
+                </td>
+            </tr>
+        </f:for>
+    </table>
+</f:if>
+
+<hr class="dropdown-divider" aria-hidden="true">
+
+<f:if condition="{messages -> f:count()} > 0">
+    <f:then>
+        <f:for each="{messages}" as="message">
+            <div class="dropdown-row"
+                data-systeminformation-message-module="{message.module}"
+                data-systeminformation-message-params="{message.params}"
+                data-systeminformation-message-count="{message.count}"
+                data-systeminformation-message-status="{message.status}"
+            >
+                <div>
+                    <span class="text-{message.status}">
+                        <core:icon identifier="actions-exclamation-circle-alt" />
+                    </span>
+                </div>
+                <div>
+                    <f:format.raw>{message.text}</f:format.raw>
+                </div>
+            </div>
+        </f:for>
+    </f:then>
+    <f:else>
+        <div class="dropdown-row">
+            <div>
+                <span class="text-success">
+                    <core:icon identifier="actions-check-circle-alt" />
+                </span>
+            </div>
+            <div>
+                <f:format.nl2br><f:translate key="LLL:EXT:backend/Resources/Private/Language/locallang.xlf:systemmessage.allgood" /></f:format.nl2br>
+            </div>
+        </div>
+    </f:else>
+</f:if>
+</html>

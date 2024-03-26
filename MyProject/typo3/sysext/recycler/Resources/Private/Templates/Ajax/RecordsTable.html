@@ -1,0 +1,20 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:for each="{groupedRecords}" as="table">
+    <f:if condition="{showTableHeader}">
+        <tr>
+            <th colspan="6">{table.information.title} {f:if(condition: showTableName, then:'<code>[{table.information.table}]</code>')}</th>
+        </tr>
+    </f:if>
+    <f:for each="{table.records}" as="record">
+        <f:render
+            partial="RecordsTable/DeletedRecord"
+            arguments="{record: record, allowDelete: allowDelete, table: table.information.table}"
+        />
+    </f:for>
+</f:for>
+
+</html>

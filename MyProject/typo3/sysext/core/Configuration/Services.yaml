@@ -1,0 +1,568 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Core\:
+    resource: '../Classes/*'
+    # glob for services that have been previously available as
+    # container entries and have been removed in the mean time
+    # (e.g. because factories are to be used instead)
+    exclude: '../Classes/{Localization/LanguageService.php}'
+
+  TYPO3\CMS\Core\DependencyInjection\EnvVarProcessor:
+    tags: ['container.env_var_processor']
+
+  TYPO3\CMS\Core\Command\ExtensionListCommand:
+    tags:
+      - name: 'console.command'
+        command: 'extension:list'
+        description: 'Shows the list of extensions available to the system'
+        schedulable: false
+
+  TYPO3\CMS\Core\Command\SendEmailCommand:
+    tags:
+      - name: 'console.command'
+        command: 'mailer:spool:send'
+        description: 'Sends emails from the spool'
+      - name: 'console.command'
+        command: 'swiftmailer:spool:send'
+        alias: true
+        schedulable: false
+
+
+  TYPO3\CMS\Core\Command\SiteListCommand:
+    tags:
+      - name: 'console.command'
+        command: 'site:list'
+        description: 'Shows the list of sites available to the system'
+        schedulable: false
+
+  TYPO3\CMS\Core\Command\SiteShowCommand:
+    tags:
+      - name: 'console.command'
+        command: 'site:show'
+        description: 'Shows the configuration of the specified site'
+        schedulable: false
+
+  TYPO3\CMS\Core\Configuration\SiteConfiguration:
+    arguments:
+      $coreCache: '@cache.core'
+      $configPath: '%env(TYPO3:configPath)%/sites'
+
+  TYPO3\CMS\Core\Package\UnitTestPackageManager:
+    autoconfigure: false
+
+  TYPO3\CMS\Core\Http\MiddlewareDispatcher:
+    autoconfigure: false
+
+  # @deprecated since v12, will be removed with v13 together with class PageTsConfigLoader.
+  TYPO3\CMS\Core\Configuration\Loader\PageTsConfigLoader:
+    public: true
+
+  # @deprecated since v12, will be removed with v13 together with class PageTsConfigParser.
+  TYPO3\CMS\Core\Configuration\Parser\PageTsConfigParser:
+    public: true
+    arguments:
+      $cache: '@cache.hash'
+
+  # @deprecated since v12, will be removed with v13 together with class PageTsConfig.
+  TYPO3\CMS\Core\Configuration\PageTsConfig:
+    public: true
+    arguments:
+      $cache: '@cache.runtime'
+
+  TYPO3\CMS\Core\Database\Schema\SchemaMigrator:
+    public: true
+
+  TYPO3\CMS\Core\DataHandling\ItemProcessingService:
+    public: true
+
+  TYPO3\CMS\Core\Database\Schema\SqlReader:
+    public: true
+
+  TYPO3\CMS\Core\Html\RteHtmlParser:
+    public: true
+
+  TYPO3\CMS\Core\Mail\Mailer:
+    public: true
+
+  TYPO3\CMS\Core\Controller\FileDumpController:
+    public: true
+
+  TYPO3\CMS\Core\Controller\PasswordGeneratorController:
+    public: true
+
+  TYPO3\CMS\Core\Localization\TcaSystemLanguageCollector:
+    public: true
+
+  TYPO3\CMS\Core\Authentication\Mfa\MfaProviderRegistry:
+    public: true
+
+  TYPO3\CMS\Core\RateLimiter\Storage\CachingFrameworkStorage:
+    public: true
+
+  TYPO3\CMS\Core\Authentication\Mfa\Provider\TotpProvider:
+    tags:
+      - name: mfa.provider
+        identifier: 'totp'
+        title: 'LLL:EXT:core/Resources/Private/Language/locallang_mfa_provider.xlf:totp.title'
+        description: 'LLL:EXT:core/Resources/Private/Language/locallang_mfa_provider.xlf:totp.description'
+        setupInstructions: 'LLL:EXT:core/Resources/Private/Language/locallang_mfa_provider.xlf:totp.setupInstructions'
+        icon: 'actions-qrcode'
+        defaultProviderAllowed: true
+        before: 'recovery-codes'
+
+  TYPO3\CMS\Core\Authentication\Mfa\Provider\RecoveryCodesProvider:
+    tags:
+      - name: mfa.provider
+        identifier: 'recovery-codes'
+        title: 'LLL:EXT:core/Resources/Private/Language/locallang_mfa_provider.xlf:recoveryCodes.title'
+        description: 'LLL:EXT:core/Resources/Private/Language/locallang_mfa_provider.xlf:recoveryCodes.description'
+        setupInstructions: 'LLL:EXT:core/Resources/Private/Language/locallang_mfa_provider.xlf:recoveryCodes.setupInstructions'
+        icon: 'content-text-columns'
+        defaultProviderAllowed: false
+        after: 'totp'
+
+  TYPO3\CMS\Core\Core\ClassLoadingInformation:
+    public: false
+    tags:
+      - name: event.listener
+        identifier: 'non-composer-class-loader'
+        method: 'updateClassLoadingInformationAfterPackageActivation'
+      - name: event.listener
+        identifier: 'non-composer-class-loader'
+        method: 'updateClassLoadingInformationAfterPackageDeactivation'
+
+  TYPO3\CMS\Core\Tree\TableConfiguration\DatabaseTreeDataProvider:
+    shared: false
+    public: true
+
+  TYPO3\CMS\Core\Authentication\GroupResolver:
+    shared: false
+    public: true
+
+  TYPO3\CMS\Core\RateLimiter\RateLimiterFactory:
+    shared: false
+    public: true
+
+  TYPO3\CMS\Core\Routing\BackendEntryPointResolver:
+    public: true
+
+  TYPO3\CMS\Core\Routing\RequestContextFactory:
+    public: true
+
+  TYPO3\CMS\Core\Routing\Enhancer\VariableProcessor:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Core\Routing\Enhancer\VariableProcessorCache:
+    shared: true
+
+  # FAL security checks for backend users
+  TYPO3\CMS\Core\Resource\Security\StoragePermissionsAspect:
+    tags:
+      - name: event.listener
+        identifier: 'backend-user-permissions'
+        method: 'addUserPermissionsToStorage'
+
+  TYPO3\CMS\Core\Cache\DatabaseSchemaService:
+    tags:
+      - name: event.listener
+        identifier: 'caching-framework'
+        method: 'addCachingFrameworkDatabaseSchema'
+
+  # Soft Reference Parsers
+  TYPO3\CMS\Core\DataHandling\SoftReference\SubstituteSoftReferenceParser:
+    tags:
+      - name: softreference.parser
+        parserKey: substitute
+
+  TYPO3\CMS\Core\DataHandling\SoftReference\NotifySoftReferenceParser:
+    tags:
+      - name: softreference.parser
+        parserKey: notify
+
+  TYPO3\CMS\Core\DataHandling\SoftReference\TypolinkSoftReferenceParser:
+    tags:
+      - name: softreference.parser
+        parserKey: typolink
+
+  TYPO3\CMS\Core\DataHandling\SoftReference\TypolinkTagSoftReferenceParser:
+    tags:
+      - name: softreference.parser
+        parserKey: typolink_tag
+
+  TYPO3\CMS\Core\DataHandling\SoftReference\ExtensionPathSoftReferenceParser:
+    tags:
+      - name: softreference.parser
+        parserKey: ext_fileref
+
+  TYPO3\CMS\Core\DataHandling\SoftReference\EmailSoftReferenceParser:
+    tags:
+      - name: softreference.parser
+        parserKey: email
+
+  TYPO3\CMS\Core\DataHandling\SoftReference\UrlSoftReferenceParser:
+    tags:
+      - name: softreference.parser
+        parserKey: url
+
+  TYPO3\CMS\Core\DataHandling\SoftReference\SoftReferenceParserFactory:
+    public: true
+    arguments:
+      $runtimeCache: '@cache.runtime'
+
+  TYPO3\CMS\Core\Core\Event\WarmupBaseTcaCache:
+    public: true
+    arguments:
+      $coreCache: '@cache.core'
+
+  TYPO3\CMS\Core\Localization\CacheWarmer:
+    tags:
+      - name: event.listener
+        method: 'warmupCaches'
+        event: TYPO3\CMS\Core\Cache\Event\CacheWarmupEvent
+
+  TYPO3\CMS\Core\ExpressionLanguage\DefaultProvider:
+    public: true
+
+  TYPO3\CMS\Core\ExpressionLanguage\ProviderConfigurationLoader:
+    public: true
+    arguments:
+      $coreCache: '@cache.core'
+      $cacheIdentifier: '@=service("TYPO3\\CMS\\Core\\Package\\Cache\\PackageDependentCacheIdentifier").withPrefix("ExpressionLanguageProviders").toString()'
+    tags:
+      - name: event.listener
+        method: 'warmupCaches'
+        event: TYPO3\CMS\Core\Cache\Event\CacheWarmupEvent
+
+  TYPO3\CMS\Core\Locking\ResourceMutex:
+    public: true
+
+  TYPO3\CMS\Core\Page\PageRenderer:
+    arguments:
+      $assetsCache: '@cache.assets'
+
+  TYPO3\CMS\Core\Page\AssetRenderer:
+    public: true
+    arguments:
+      $eventDispatcher: '@Psr\EventDispatcher\EventDispatcherInterface'
+
+  TYPO3\CMS\Core\Page\ImportMapCacheWarmer:
+    tags:
+      - name: event.listener
+        method: 'warmupCaches'
+        event: TYPO3\CMS\Core\Cache\Event\CacheWarmupEvent
+
+  TYPO3\CMS\Core\Page\ImportMapFactory:
+    public: true
+    arguments:
+      $assetsCache: '@cache.assets'
+      $cacheIdentifier: '@=service("TYPO3\\CMS\\Core\\Package\\Cache\\PackageDependentCacheIdentifier").withPrefix("ImportMap").toString()'
+
+  # clean up files
+  TYPO3\CMS\Core\Resource\Processing\FileDeletionAspect:
+    tags:
+      - name: event.listener
+        identifier: 'delete-processed-files-after-add'
+        method: 'cleanupProcessedFilesPostFileAdd'
+      - name: event.listener
+        identifier: 'delete-processed-files-after-replace'
+        method: 'cleanupProcessedFilesPostFileReplace'
+      - name: event.listener
+        identifier: 'delete-processed-files-after-delete'
+        method: 'removeFromRepositoryAfterFileDeleted'
+
+  # synchronize folder relations
+  TYPO3\CMS\Core\Resource\SynchronizeFolderRelations:
+    tags:
+      - name: event.listener
+        identifier: 'synchronize-file-collections-after-folder-renamed'
+        method: 'synchronizeFileCollectionsAfterRename'
+      - name: event.listener
+        identifier: 'synchronize-filemounts-after-folder-renamed'
+        method: 'synchronizeFilemountsAfterRename'
+
+  TYPO3\CMS\Core\Resource\DefaultUploadFolderResolver:
+    public: true
+
+  TYPO3\CMS\Core\Resource\Security\SvgEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'svg-resource-storage-listener-before-file-added'
+        method: 'beforeFileAdded'
+        event: TYPO3\CMS\Core\Resource\Event\BeforeFileAddedEvent
+      - name: event.listener
+        identifier: 'svg-resource-storage-listener-before-file-replaced'
+        method: 'beforeFileReplaced'
+        event: TYPO3\CMS\Core\Resource\Event\BeforeFileReplacedEvent
+      - name: event.listener
+        identifier: 'svg-resource-storage-listener-after-file-content-set'
+        method: 'afterFileContentsSet'
+        event: TYPO3\CMS\Core\Resource\Event\AfterFileContentsSetEvent
+
+  TYPO3\CMS\Core\Resource\MetaDataEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'synchronize-file-meta-data-translations-after-update'
+        method: 'afterFileMetaDataUpdated'
+        event: TYPO3\CMS\Core\Resource\Event\AfterFileMetaDataUpdatedEvent
+
+  TYPO3\CMS\Core\Resource\Security\FileMetadataPermissionsAspect:
+    tags:
+      - name: event.listener
+        identifier: 'evaluate-file-meta-data-edit-form-access'
+        method: 'isAllowedToShowEditForm'
+
+  TYPO3\CMS\Core\Resource\Security\SvgHookHandler:
+    public: true
+
+  TYPO3\CMS\Core\Resource\Security\SvgTypeCheck:
+    public: true
+
+  TYPO3\CMS\Core\Resource\OnlineMedia\Processing\PreviewProcessing:
+    public: true
+
+  TYPO3\CMS\Core\Domain\Access\RecordAccessVoter:
+    public: true
+
+  TYPO3\CMS\Core\Service\MarkerBasedTemplateService:
+    public: true
+    arguments:
+      $hashCache: '@cache.assets'
+      $runtimeCache: '@cache.runtime'
+
+  TYPO3\CMS\Core\TypoScript\AST\AstBuilderInterface:
+    alias: TYPO3\CMS\Core\TypoScript\AST\AstBuilder
+
+  TYPO3\CMS\Core\TypoScript\AST\AstBuilder:
+    public: true
+
+  TYPO3\CMS\Core\TypoScript\IncludeTree\StringTreeBuilder:
+    public: true
+
+  TYPO3\CMS\Core\TypoScript\IncludeTree\SysTemplateRepository:
+    public: true
+
+  TYPO3\CMS\Core\TypoScript\IncludeTree\SysTemplateTreeBuilder:
+    public: true
+
+  TYPO3\CMS\Core\TypoScript\IncludeTree\TsConfigTreeBuilder:
+    public: true
+
+  TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeAstBuilderVisitor:
+    public: true
+    # Ast builder visitor creates state and should not be re-used
+    shared: false
+
+  TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeCommentAwareAstBuilderVisitor:
+    public: true
+    # This Ast builder visitor creates state and should not be re-used
+    shared: false
+
+  TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeConditionMatcherVisitor:
+    public: true
+    # This visitor creates state and should not be re-used
+    shared: false
+
+  TYPO3\CMS\Core\TypoScript\Tokenizer\TokenizerInterface:
+    alias: TYPO3\CMS\Core\TypoScript\Tokenizer\LossyTokenizer
+
+  TYPO3\CMS\Core\TypoScript\PageTsConfigFactory:
+    public: true
+    arguments:
+      $cache: '@cache.typoscript'
+
+  TYPO3\CMS\Core\TypoScript\UserTsConfigFactory:
+    public: true
+    arguments:
+      $cache: '@cache.typoscript'
+
+  # Core caches, cache.core and cache.assets are injected as early
+  # entries in TYPO3\CMS\Core\Core\Bootstrap and therefore omitted here
+  cache.hash:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['hash']
+
+  cache.pages:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['pages']
+
+  cache.runtime:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['runtime']
+
+  cache.rootline:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['rootline']
+
+  cache.imagesizes:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['imagesizes']
+
+  cache.l10n:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['l10n']
+
+  cache.typoscript:
+    class: TYPO3\CMS\Core\Cache\Frontend\PhpFrontend
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['typoscript']
+
+  country.provider:
+    class: TYPO3\CMS\Core\Country\CountryProvider
+    public: true
+
+  ## messenger
+
+  Symfony\Component\Messenger\Middleware\SendMessageMiddleware:
+    arguments:
+      $sendersLocator: '@Symfony\Component\Messenger\Transport\Sender\SendersLocatorInterface'
+      $eventDispatcher: '@Psr\EventDispatcher\EventDispatcherInterface'
+    tags:
+      - { name: 'messenger.middleware' }
+
+  Symfony\Component\Messenger\Middleware\HandleMessageMiddleware:
+    arguments:
+      $handlersLocator: '@Symfony\Component\Messenger\Handler\HandlersLocatorInterface'
+    tags:
+      - name: 'messenger.middleware'
+        after: 'Symfony\Component\Messenger\Middleware\SendMessageMiddleware'
+
+  messenger.bus.default:
+    class: Symfony\Component\Messenger\MessageBusInterface
+    factory: [ '@TYPO3\CMS\Core\Messenger\BusFactory', 'createBus' ]
+
+  Symfony\Component\Messenger\MessageBusInterface:
+    alias: messenger.bus.default
+
+  TYPO3\CMS\Core\Messenger\HandlersLocator:
+    factory: [ '@TYPO3\CMS\Core\Messenger\HandlersLocatorFactory', 'createHandlersLocator' ]
+
+  TYPO3\CMS\Core\Messenger\TransportLocator:
+    arguments:
+      $sendersLocator: !tagged_locator { tag: 'messenger.sender', index_by: 'identifier' }
+
+  Symfony\Component\Messenger\Handler\HandlersLocatorInterface:
+    alias: TYPO3\CMS\Core\Messenger\HandlersLocator
+
+  Symfony\Component\Messenger\Transport\Sender\SendersLocatorInterface:
+    alias: TYPO3\CMS\Core\Messenger\TransportLocator
+
+  Symfony\Component\Messenger\Transport\Serialization\PhpSerializer:
+
+  Symfony\Component\Messenger\Transport\Serialization\SerializerInterface:
+    alias: Symfony\Component\Messenger\Transport\Serialization\PhpSerializer
+
+  TYPO3\CMS\Core\Command\ConsumeMessagesCommand:
+    arguments:
+      $messageBus: '@messenger.bus.default'
+      $receiverLocator: !tagged_locator { tag: 'messenger.receiver', index_by: 'identifier' }
+    tags:
+      - name: 'console.command'
+        command: 'messenger:consume'
+        description: 'Consume messages'
+
+  TYPO3\CMS\Core\Messenger\EventListener\StopWorkerOnTimeLimitListener:
+    arguments:
+      # 1 hour
+      $timeLimitInSeconds: 3600
+    tags:
+      - name: event.listener
+        identifier: 'messenger-stopontime-on-worker-running'
+        method: 'onWorkerRunning'
+      - name: event.listener
+        identifier: 'messenger-stopontime-on-worker-started'
+        method: 'onWorkerStarted'
+
+  Symfony\Component\Messenger\Transport\Sync\SyncTransport:
+    tags:
+      - name: 'messenger.sender'
+        identifier: 'default'
+
+  Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransport:
+    factory: [ '@TYPO3\CMS\Core\Messenger\DoctrineTransportFactory', 'createTransport' ]
+    arguments:
+      $options:
+        queue_name: 'default'
+    tags:
+      - name: 'messenger.sender'
+        identifier: 'doctrine'
+      - name: 'messenger.receiver'
+        identifier: 'doctrine'
+
+  # Interface implementations
+  Psr\Container\ContainerInterface:
+    alias: service_container
+    public: true
+  Psr\EventDispatcher\EventDispatcherInterface:
+    alias: TYPO3\CMS\Core\EventDispatcher\EventDispatcher
+    public: true
+  Psr\Http\Client\ClientInterface:
+    alias: GuzzleHttp\Client
+    public: true
+  Psr\Http\Message\RequestFactoryInterface:
+    alias: TYPO3\CMS\Core\Http\RequestFactory
+    public: true
+  Psr\Http\Message\ResponseFactoryInterface:
+    alias: TYPO3\CMS\Core\Http\ResponseFactory
+    public: true
+  Psr\Http\Message\ServerRequestFactoryInterface:
+    alias: TYPO3\CMS\Core\Http\ServerRequestFactory
+    public: true
+  Psr\Http\Message\StreamFactoryInterface:
+    alias: TYPO3\CMS\Core\Http\StreamFactory
+    public: true
+  Psr\Http\Message\UploadedFileFactoryInterface:
+    alias: TYPO3\CMS\Core\Http\UploadedFileFactory
+    public: true
+  Psr\Http\Message\UriFactoryInterface:
+    alias: TYPO3\CMS\Core\Http\UriFactory
+    public: true
+  GuzzleHttp\ClientInterface:
+    alias: GuzzleHttp\Client
+    public: true
+  Symfony\Contracts\EventDispatcher\EventDispatcherInterface:
+      alias: TYPO3\CMS\Core\Adapter\EventDispatcherAdapter
+      public: true
+  TYPO3\CMS\Core\Mail\MailerInterface:
+    alias: TYPO3\CMS\Core\Mail\Mailer
+    public: true
+
+  # Content-Security-Policy Handlers
+
+  TYPO3\CMS\Core\Security\ContentSecurityPolicy\MutationRepository:
+    arguments:
+      $staticMutations: '@content.security.policies'
+
+  TYPO3\CMS\Core\Security\ContentSecurityPolicy\PolicyProvider:
+    public: true
+
+  TYPO3\CMS\Core\Security\ContentSecurityPolicy\PolicyRegistry:
+    public: true
+
+  TYPO3\CMS\Core\Security\ContentSecurityPolicy\Processing\AssetHandler:
+    tags:
+      - name: event.listener
+        identifier: 'security-csp-asset-handler'
+
+  TYPO3\CMS\Core\Security\ContentSecurityPolicy\Processing\GoogleMapsHandler:
+    tags:
+      - name: event.listener
+        identifier: 'security-csp-google-maps-handler'
+
+  # External dependencies
+
+  GuzzleHttp\Client:
+    factory: ['@TYPO3\CMS\Core\Http\Client\GuzzleClientFactory', 'getClient']
+  Masterminds\HTML5:
+    public: true
+    factory: ['TYPO3\CMS\Core\DependencyInjection\CommonFactory', 'createHtml5Parser']

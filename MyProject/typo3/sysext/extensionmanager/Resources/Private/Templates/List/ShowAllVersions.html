@@ -1,0 +1,75 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:em="http://typo3.org/ns/TYPO3/CMS/Extensionmanager/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+
+    <f:be.pageRenderer
+        includeJavaScriptModules="{
+            0: '@typo3/extensionmanager/main.js'
+        }"
+    />
+
+    <em:be.trigger triggers="{triggers}" />
+
+    <h1><f:translate key="showAllVersions" /> {extensionKey}</h1>
+    <f:if condition="{currentVersion}">
+        <p><f:format.nl2br>{currentVersion.description}</f:format.nl2br></p>
+        <table class="simpletable">
+            <tr>
+                <th><f:translate key="extensionList.showAllVersions.extensionKey" /></th>
+                <td><strong>{currentVersion.extensionKey}</strong></td>
+            </tr>
+            <tr>
+                <th><f:translate key="extensionList.showAllVersions.version" /></th>
+                <td>{currentVersion.version} <span class="badge badge-{currentVersion.stateString}">{currentVersion.stateString}</span></td>
+            </tr>
+            <tr>
+                <th><f:translate key="extensionList.showAllVersions.lastUploaded" /></th>
+                <td><f:format.date>{currentVersion.lastUpdated}</f:format.date></td>
+            </tr>
+            <tr>
+                <th><f:translate key="extensionList.showAllVersions.downloads" /></th>
+                <td><f:format.number decimals="0">{currentVersion.alldownloadcounter}</f:format.number></td>
+            </tr>
+            <tr>
+                <th><f:translate key="extensionList.showAllVersions.category" /></th>
+                <td>{currentVersion.categoryString}</td>
+            </tr>
+            <tr>
+                <th><f:translate key="extensionList.showAllVersions.manual" /></th>
+                <td>
+                    <a href="{f:if(condition:currentVersion.documentationLink,then:currentVersion.documentationLink,else:'https://docs.typo3.org/typo3cms/extensions/{currentVersion.extensionKey}/')}" target="_blank" rel="noreferrer">
+                        <f:translate key="extensionList.showAllVersions.readOnline" />
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <th><f:translate key="extensionList.showAllVersions.author" /></th>
+                <td>{currentVersion.authorName}</td>
+            </tr>
+            <f:for each="{em:constraints(extension: currentVersion)}" key="type" as="constraintGroup">
+                <tr>
+                    <th><f:translate key="extensionList.showAllVersions.{type}" /></th>
+                    <td>
+                        <f:for each="{constraintGroup}" key="identifier" as="constraint">
+                            <span>{identifier} {constraint.version}</span>
+                            <f:if condition="!{constraint.versionCompatible}">
+                                <span class="badge badge-warning"><f:translate key="extensionList.showAllVersions.notCompatibleVersion" /></span>
+                            </f:if>
+                            <br/>
+                        </f:for>
+                    </td>
+                </tr>
+            </f:for>
+        </table>
+    </f:if>
+    <f:render partial="List/TerShowVersionsTable" arguments="{tableId: 'terVersionTable', extensions: extensions}" />
+
+</f:section>
+
+</html>

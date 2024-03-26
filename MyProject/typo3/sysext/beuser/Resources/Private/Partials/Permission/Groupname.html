@@ -1,0 +1,42 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<span id="g_{pageId}">
+    <button
+        type="button"
+        class="ug_selector changegroup btn btn-sm btn-link"
+        data-page="{pageId}"
+        data-group-id="{groupId}"
+        data-groupname="{groupname}"
+        title="{groupname}"
+    >
+        <f:if condition="{groupId} == 0">
+            <f:then>
+                <f:comment>
+                    No group set -> [not set]
+                </f:comment>
+                [<f:translate key="LLL:EXT:beuser/Resources/Private/Language/locallang_mod_permission.xlf:notSet" />]
+            </f:then>
+            <f:else>
+                <f:if condition="{groupname}">
+                    <f:then>
+                        <f:comment>
+                            A group name can be resolved
+                        </f:comment>
+                        {groupname}
+                    </f:then>
+                    <f:else>
+                        <f:comment>
+                            Group was deleted -> [deleted]
+                        </f:comment>
+                        [<f:translate key="LLL:EXT:beuser/Resources/Private/Language/locallang_mod_permission.xlf:deleted" />]
+                    </f:else>
+                </f:if>
+            </f:else>
+        </f:if>
+    </button>
+</span>
+
+</html>

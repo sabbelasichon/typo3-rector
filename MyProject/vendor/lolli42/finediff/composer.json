@@ -1,0 +1,40 @@
+{
+    "name": "lolli42/finediff",
+    "description": "PHP implementation of a Fine granularity Diff engine",
+    "homepage": "https://github.com/lolli42/FineDiff",
+    "license": "MIT",
+    "keywords": ["finediff", "diff", "text", "string", "opcode"],
+    "authors": [
+        {
+            "name": "Raymond Hill"
+        },
+        {
+            "name": "Rob Crowe",
+            "email": "rob@cogpowered.com"
+        },
+        {
+            "name": "Christian Kuhn",
+            "email": "lolli@schwarzbu.ch",
+            "role": "maintainer"
+        }
+    ],
+    "type": "library",
+    "require": {
+        "php": ">=7.2.0",
+        "symfony/polyfill-mbstring": "^1.23"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8 || ^9",
+        "friendsofphp/php-cs-fixer": "^3.4",
+        "phpstan/phpstan": "^1.6"
+    },
+    "replace": {
+        "cogpowered/finediff": "*"
+    },
+    "autoload": {
+        "psr-4": { "cogpowered\\FineDiff\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "cogpowered\\FineDiff\\Tests\\": "tests/"}
+    }
+}

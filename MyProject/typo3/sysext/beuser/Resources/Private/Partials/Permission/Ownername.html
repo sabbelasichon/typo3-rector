@@ -1,0 +1,42 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<span id="o_{pageId}">
+    <button
+        type="button"
+        class="ug_selector changeowner btn btn-sm btn-link"
+        data-page="{pageId}"
+        data-owner="{userId}"
+        data-username="{username}"
+        title="{username}"
+    >
+        <f:if condition="{userId} == 0">
+            <f:then>
+                <f:comment>
+                    No owner set -> [not set]
+                </f:comment>
+                [<f:translate key="LLL:EXT:beuser/Resources/Private/Language/locallang_mod_permission.xlf:notSet" />]
+            </f:then>
+            <f:else>
+                <f:if condition="{username}">
+                    <f:then>
+                        <f:comment>
+                            A user name can be resolved
+                        </f:comment>
+                        {username}
+                    </f:then>
+                    <f:else>
+                        <f:comment>
+                            User was deleted -> [deleted]
+                        </f:comment>
+                        [<f:translate key="LLL:EXT:beuser/Resources/Private/Language/locallang_mod_permission.xlf:deleted" />]
+                    </f:else>
+                </f:if>
+            </f:else>
+        </f:if>
+    </button>
+</span>
+
+</html>

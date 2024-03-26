@@ -1,0 +1,80 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Workspaces\:
+    resource: '../Classes/*'
+
+  cache.workspaces:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['workspaces_cache']
+
+  TYPO3\CMS\Workspaces\Controller\Remote\RemoteServer:
+    public: true
+
+  TYPO3\CMS\Workspaces\Notification\StageChangeNotification:
+    public: true
+
+  TYPO3\CMS\Workspaces\Preview\PreviewUriBuilder:
+    public: true
+
+  TYPO3\CMS\Workspaces\Service\GridDataService:
+    public: true
+
+  TYPO3\CMS\Workspaces\Service\WorkspaceService:
+    public: true
+    shared: true
+
+  TYPO3\CMS\Workspaces\Controller\AjaxController:
+    tags: ['backend.controller']
+
+  TYPO3\CMS\Workspaces\Controller\PreviewController:
+    tags: ['backend.controller']
+
+  TYPO3\CMS\Workspaces\Controller\ReviewController:
+    tags: ['backend.controller']
+
+  TYPO3\CMS\Workspaces\Controller\Remote\ActionHandler:
+    public: true
+
+  TYPO3\CMS\Workspaces\Hook\DataHandlerHook:
+    public: true
+
+  TYPO3\CMS\Workspaces\Hook\BackendUtilityHook:
+    tags:
+      - name: event.listener
+        identifier: 'typo3-workspaces/link-modifier'
+        method: 'createPageUriForWorkspaceVersion'
+      - name: event.listener
+        identifier: 'typo3-workspaces/display-editing-staged-element-information'
+        method: 'displayEditingStagedElementInformation'
+
+  TYPO3\CMS\Workspaces\EventListener\PageTreeItemsHighlighter:
+    tags:
+      - name: event.listener
+        identifier: 'typo3-workspaces/page-tree-items-highlighter'
+
+  TYPO3\CMS\Workspaces\Command\WorkspaceVersionRecordsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'cleanup:versions'
+        description: 'Find all versioned records and possibly cleans up invalid records in the database.'
+
+  TYPO3\CMS\Workspaces\Command\CleanupPreviewLinksCommand:
+    tags:
+      - name: 'console.command'
+        command: 'cleanup:previewlinks'
+        description: 'Clean up expired preview links from shared workspace previews.'
+
+  TYPO3\CMS\Workspaces\Command\AutoPublishCommand:
+    tags:
+      - name: 'console.command'
+        command: 'workspace:autopublish'
+        description: 'Publish a workspace with a publication date.'
+
+  TYPO3\CMS\Workspaces\MessageHandler\StageChangeNotificationHandler:
+    tags:
+      - name: 'messenger.message_handler'

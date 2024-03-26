@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="EXT:adminpanel/Resources/Private/Language/locallang_info.xlf" date="2018-03-12T13:52:01Z" product-name="adminpanel">
+        <header/>
+        <body>
+            <trans-unit id="module.label" resname="module.label">
+                <source>Info</source>
+            </trans-unit>
+            <trans-unit id="module.shortinfoLoadAndMemory" resname="module.shortinfoLoadAndMemory">
+                <source>(Load Time: %1$u ms, Memory: %2$s)</source>
+            </trans-unit>
+            <trans-unit id="imagesOnPage" resname="imagesOnPage">
+                <source>Images on this page</source>
+            </trans-unit>
+            <trans-unit id="imagesSize" resname="imagesSize">
+                <source>Total image file sizes</source>
+            </trans-unit>
+            <trans-unit id="DocumentSize" resname="DocumentSize">
+                <source>Document size</source>
+            </trans-unit>
+            <trans-unit id="pageUid" resname="pageUid">
+                <source>Page Uid</source>
+            </trans-unit>
+            <trans-unit id="pageType" resname="pageType">
+                <source>Page type</source>
+            </trans-unit>
+            <trans-unit id="groupList" resname="groupList">
+                <source>Frontenduser group combination</source>
+            </trans-unit>
+            <trans-unit id="noCache" resname="noCache">
+                <source>Page cached</source>
+            </trans-unit>
+            <trans-unit id="noCache_yes" resname="noCache_yes">
+                <source>Yes</source>
+            </trans-unit>
+            <trans-unit id="noCache_no" resname="noCache_no">
+                <source>No</source>
+            </trans-unit>
+            <trans-unit id="countUserInt" resname="countUserInt">
+                <source>Count of USER_INT objects</source>
+            </trans-unit>
+            <trans-unit id="feuserName" resname="feuserName">
+                <source>Name of logged in FE-User</source>
+            </trans-unit>
+            <trans-unit id="feuserId" resname="feuserId">
+                <source>Id of logged in FE-User</source>
+            </trans-unit>
+            <trans-unit id="totalParsetime" resname="totalParsetime">
+                <source>Total parsetime</source>
+            </trans-unit>
+            <trans-unit id="noUserInt" resname="noUserInt">
+                <source>There are no USER_INT objects on this page.</source>
+            </trans-unit>
+            <trans-unit id="key" resname="key">
+                <source>Key</source>
+            </trans-unit>
+            <trans-unit id="value" resname="value">
+                <source>Value</source>
+            </trans-unit>
+            <trans-unit id="sub.general.label" resname="sub.general.label">
+                <source>General</source>
+            </trans-unit>
+            <trans-unit id="sub.php.label" resname="sub.php.label">
+                <source>PHP</source>
+            </trans-unit>
+            <trans-unit id="sub.request.label" resname="sub.request.label">
+                <source>REQUEST</source>
+            </trans-unit>
+            <trans-unit id="sub.userint.label" resname="sub.userint.label">
+                <source>USER_INT</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

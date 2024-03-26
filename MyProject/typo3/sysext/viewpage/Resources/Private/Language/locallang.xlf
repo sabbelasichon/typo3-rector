@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:viewpage/Resources/Private/Language/locallang.xlf" date="2011-10-17T20:22:37Z" product-name="viewpage">
+		<header/>
+		<body>
+			<trans-unit id="width" resname="width">
+				<source>Width</source>
+			</trans-unit>
+			<trans-unit id="tablet" resname="tablet">
+				<source>Tablet</source>
+			</trans-unit>
+			<trans-unit id="mobile" resname="mobile">
+				<source>Mobile</source>
+			</trans-unit>
+			<trans-unit id="computer" resname="computer">
+				<source>Computer</source>
+			</trans-unit>
+			<trans-unit id="desktop" resname="desktop">
+				<source>Desktop</source>
+			</trans-unit>
+			<trans-unit id="customWidth" resname="customWidth">
+				<source>Custom Size</source>
+			</trans-unit>
+			<trans-unit id="autoSize" resname="autoSize">
+				<source>Auto Size</source>
+			</trans-unit>
+			<trans-unit id="refreshPage" resname="refreshPage">
+				<source>Refresh page</source>
+			</trans-unit>
+			<trans-unit id="language" resname="language">
+				<source>Language</source>
+			</trans-unit>
+			<trans-unit id="automatic" resname="automatic">
+				<source>Automatic</source>
+			</trans-unit>
+			<trans-unit id="maximized" resname="maximized">
+				<source>Maximized</source>
+			</trans-unit>
+			<trans-unit id="custom" resname="custom">
+				<source>Custom</source>
+			</trans-unit>
+			<trans-unit id="unidentified" resname="unidentified">
+				<source>Unidentified</source>
+			</trans-unit>
+			<trans-unit id="noValidPageSelected" resname="noValidPageSelected">
+				<source>Please select a page with a valid page type in the page tree to get a preview of it in different screen resolutions.</source>
+			</trans-unit>
+			<trans-unit id="noSiteConfiguration" resname="noSiteConfiguration">
+				<source>The requested page is missing a valid site configuration.</source>
+			</trans-unit>
+			<trans-unit id="iframe.title" resname="iframe.title">
+				<source>View selected page in different screen resolutions</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

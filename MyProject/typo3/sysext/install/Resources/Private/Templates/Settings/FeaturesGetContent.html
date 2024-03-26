@@ -1,0 +1,45 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<p>
+    Enable and disable certain core features. Feature toggles in the core are used to globally
+    use new features of TYPO3 that may be activated on new installations but upgrading installations
+    can still use the old behaviour.
+</p>
+
+<f:render partial="Generic/ConfigurationNotWritable" arguments="{_all}"/>
+
+<p>
+    <strong>Available features:</strong>
+</p>
+
+<div class="t3js-module-content" data-features-save-token="{featuresSaveToken}">
+    <form method="post">
+        <div class="card-container">
+            <f:for each="{features}" as="feature" iteration="iterator">
+                <div class="card card-size-large">
+                    <div class="card-header">
+                        <h4>{feature.label}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-check form-switch">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                value="1"
+                                name="install[values][{feature.name}]"
+                                id="t3-install-tool-features-{feature.name}"
+                                {f:if(condition: '{feature.value} == 1', then: 'checked="checked"')}
+                                {f:if(condition: '!{isWritable}', then: 'disabled')}
+                            />
+                            <label class="form-check-label" for="t3-install-tool-features-{feature.name}">
+                                {feature.description}<br>
+                                <strong>Default setting: {f:if(condition: '{feature.default} == 1', then: 'Enabled', else: 'Disabled')}</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </f:for>
+        </div>
+    </form>
+</div>
+</html>

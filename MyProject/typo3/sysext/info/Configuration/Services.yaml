@@ -1,0 +1,20 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Info\:
+    resource: '../Classes/*'
+
+  TYPO3\CMS\Info\Controller\InfoModuleController:
+    tags: ['backend.controller']
+
+  TYPO3\CMS\Info\Controller\InfoPageTyposcriptConfigController:
+    tags: ['backend.controller']
+
+  TYPO3\CMS\Info\Controller\PageInformationController:
+    tags: ['backend.controller']
+
+  TYPO3\CMS\Info\Controller\TranslationStatusController:
+    tags: ['backend.controller']

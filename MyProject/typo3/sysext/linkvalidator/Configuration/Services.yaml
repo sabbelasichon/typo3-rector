@@ -1,0 +1,44 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Linkvalidator\:
+    resource: '../Classes/*'
+    # Tasks require EXT:scheduler to be installed, ignore for now.
+    exclude: '../Classes/Task'
+
+  TYPO3\CMS\Linkvalidator\Controller\LinkValidatorController:
+    tags: ['backend.controller']
+
+  TYPO3\CMS\Linkvalidator\LinkAnalyzer:
+    public: true
+
+  TYPO3\CMS\Linkvalidator\Linktype\ExternalLinktype:
+    public: true
+
+  TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository:
+    public: true
+
+  TYPO3\CMS\Linkvalidator\Result\LinkAnalyzerResult:
+    public: true
+
+  # EventListeners
+  TYPO3\CMS\Linkvalidator\EventListener\CheckBrokenRteLinkEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'rte-check-link-external'
+        method: 'checkExternalLink'
+      - name: event.listener
+        identifier: 'rte-check-link-to-page'
+        method: 'checkPageLink'
+      - name: event.listener
+        identifier: 'rte-check-link-to-file'
+        method: 'checkFileLink'
+
+  # Linktype registry
+  TYPO3\CMS\Linkvalidator\Linktype\LinktypeRegistry:
+    public: true
+    arguments:
+      - !tagged_iterator linkvalidator.linktype

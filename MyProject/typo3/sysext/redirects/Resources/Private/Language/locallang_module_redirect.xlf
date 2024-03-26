@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf" date="2017-12-29T20:23:34Z" product-name="redirects">
+		<header/>
+		<body>
+			<trans-unit id="mlang_labels_tablabel" resname="mlang_labels_tablabel">
+				<source>Redirect Administration</source>
+			</trans-unit>
+			<trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
+				<source>This is the administration area for Web Redirects.</source>
+			</trans-unit>
+			<trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
+				<source>Redirects</source>
+			</trans-unit>
+
+			<trans-unit id="source_host_global_text" resname="source_host_global_text">
+				<source>Global redirect (any domain)</source>
+			</trans-unit>
+
+			<trans-unit id="heading_text" resname="heading_text">
+				<source>Redirect Management</source>
+			</trans-unit>
+			<trans-unit id="redirect_add_text" resname="redirect_add_text">
+				<source>Add redirect</source>
+			</trans-unit>
+			<trans-unit id="redirect_not_found.title" resname="redirect_not_found.title">
+				<source>No redirects found!</source>
+			</trans-unit>
+			<trans-unit id="redirect_not_found.message" resname="redirect_not_found.message">
+				<source>There are currently no redirect records found in the database.</source>
+			</trans-unit>
+			<trans-unit id="redirect_create" resname="redirect_create">
+				<source>Create new redirect</source>
+			</trans-unit>
+
+			<trans-unit id="redirect_not_found_with_filter.title" resname="redirect_not_found_with_filter.title">
+				<source>No redirects found!</source>
+			</trans-unit>
+			<trans-unit id="redirect_not_found_with_filter.message" resname="redirect_not_found_with_filter.message">
+				<source>With the current set of filters applied, no redirect could be found.</source>
+			</trans-unit>
+			<trans-unit id="redirect_no_filter" resname="redirect_no_filter">
+				<source>Remove all filter</source>
+			</trans-unit>
+			<trans-unit id="filter.source_host.showAll" resname="filter.source_host.showAll">
+				<source>Show All</source>
+			</trans-unit>
+			<trans-unit id="filter.targetStatusCode" resname="filter.targetStatusCode">
+				<source>Status Code</source>
+			</trans-unit>
+			<trans-unit id="filter.creationType" resname="filter.creationType">
+				<source>Creation type</source>
+			</trans-unit>
+			<trans-unit id="filter.creationType.showAll" resname="filter.creationType.showAll">
+				<source>Show All</source>
+			</trans-unit>
+			<trans-unit id="filter.neverHit" resname="filter.neverHit">
+				<source>Never hit</source>
+			</trans-unit>
+			<trans-unit id="filter.sendButton" resname="filter.sendButton">
+				<source>Filter</source>
+			</trans-unit>
+			<trans-unit id="filter.resetButton" resname="filter.resetButton">
+				<source>Reset</source>
+			</trans-unit>
+
+			<trans-unit id="record_disabled" resname="record_disabled">
+				<source>Redirect is not activated!</source>
+			</trans-unit>
+			<trans-unit id="source_path.placeholder" resname="source_path.placeholder">
+				<source>/my-path/ or #^/my-path/$# (when regex enabled)</source>
+			</trans-unit>
+			<trans-unit id="pageID" resname="pageID">
+				<source>Page ID</source>
+			</trans-unit>
+			<trans-unit id="destination_status_code" resname="destination_status_code">
+				<source>Status Code</source>
+			</trans-unit>
+			<trans-unit id="hit_text" resname="hit_text">
+				<source>%s hit</source>
+			</trans-unit>
+			<trans-unit id="hits_text" resname="hits_text">
+				<source>%s hits</source>
+			</trans-unit>
+			<trans-unit id="hit_reset" resname="hit_reset">
+				<source>Reset Hit Counter (!)</source>
+			</trans-unit>
+			<trans-unit id="hit_reset.confirm.title" resname="hit_reset.confirm.title">
+				<source>Reset the hitcounter of this record?</source>
+			</trans-unit>
+			<trans-unit id="hit_reset.confirm.content" resname="hit_reset.confirm.content">
+				<source>Are you sure you want to reset the hitcounter of this record?</source>
+			</trans-unit>
+			<trans-unit id="hit_last_never" resname="hit_last_never">
+				<source>Never</source>
+			</trans-unit>
+			<trans-unit id="visit_destination" resname="visit_destination">
+				<source>Go to</source>
+			</trans-unit>
+			<trans-unit id="view_redirect" resname="view_redirect">
+				<source>View redirect</source>
+			</trans-unit>
+
+			<trans-unit id="labels.delete.title" resname="labels.delete.title">
+				<source>Delete redirects</source>
+			</trans-unit>
+			<trans-unit id="labels.delete.message" resname="labels.delete.message">
+				<source>Are you sure you want to delete all marked redirects?</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

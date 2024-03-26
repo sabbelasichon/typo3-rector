@@ -1,0 +1,341 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:rd="http://typo3.org/ns/TYPO3/CMS/Redirects/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+
+    <f:be.pageRenderer
+        includeJavaScriptModules="{
+            0: '@typo3/backend/modal.js',
+            1: '@typo3/backend/multi-record-selection.js',
+            2: '@typo3/backend/multi-record-selection-edit-action.js',
+            3: '@typo3/backend/multi-record-selection-delete-action.js',
+            4: '@typo3/redirects/redirects-module.js',
+        }"
+    />
+    <h1><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:heading_text"/></h1>
+    <f:variable
+        name="returnUrl"
+        value="{f:be.uri(route:'site_redirects', parameters: '{action: \'overview\', page: pagination.current, demand: demand.parameters, orderField: demand.orderField, orderDirection: demand.orderDirection}')}"
+    />
+    <f:if condition="{redirects -> f:count()}">
+        <f:then>
+            <f:render section="filter" arguments="{_all}" />
+            <f:render section="table" arguments="{_all}" />
+        </f:then>
+        <f:else>
+            <f:if condition="{demand.constraints}">
+                <f:then>
+                    <f:render section="filter" arguments="{_all}" />
+                    <f:be.infobox state="-2" title="{f:translate(key: 'LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:redirect_not_found_with_filter.title')}">
+                        <p><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:redirect_not_found_with_filter.message"/></p>
+                        <a class="btn btn-default" href="{f:be.uri(route:'site_redirects', parameters: '{action: \'overview\'}')}">
+                            <f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:redirect_no_filter"/>
+                        </a>
+                        <be:link.newRecord returnUrl="{returnUrl}" class="btn btn-primary" table="sys_redirect">
+                            <f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:redirect_create"/>
+                        </be:link.newRecord>
+                    </f:be.infobox>
+
+                    <f:variable name="gotToPageUrl"><f:be.uri route="site_redirects" parameters="{action: 'overview', demand: demand.parameters, page: 987654322}" /></f:variable>
+                    <form data-on-submit="processNavigate">
+                        <input type="hidden" value="1" name="paginator-target-page" data-number-of-pages="1" data-url="{gotToPageUrl}"/>
+                    </form>
+                </f:then>
+                <f:else>
+                    <f:be.infobox state="-1" title="{f:translate(key: 'LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:redirect_not_found.title')}">
+                        <p><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:redirect_not_found.message"/></p>
+                        <be:link.newRecord returnUrl="{returnUrl}" class="btn btn-primary" table="sys_redirect">
+                            <f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:redirect_create"/>
+                        </be:link.newRecord>
+                    </f:be.infobox>
+                </f:else>
+            </f:if>
+        </f:else>
+    </f:if>
+
+</f:section>
+
+<f:section name="table">
+    <f:comment>Partial is used from EXT:backend/Resources/Private/Partials/MultiRecordSelection/Actions.html</f:comment>
+    <f:render partial="MultiRecordSelection/Actions" arguments="{actions: actions}"/>
+    <div class="table-fit">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="btn-group dropdown">
+                            <a href="javascript:;" class="dropdown-toggle t3js-multi-record-selection-check-actions-toggle" data-bs-toggle="dropdown" data-bs-boundary="window" aria-expanded="false">
+                                <core:icon identifier="actions-selection" size="small" />
+                            </a>
+                            <ul class="dropdown-menu t3js-multi-record-selection-check-actions">
+                                <li>
+                                    <button type="button" class="dropdown-item disabled" data-multi-record-selection-check-action="check-all" title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.checkAll')}">
+                                    <span class="dropdown-item-columns">
+                                        <span class="dropdown-item-column dropdown-item-column-icon" aria-hidden="true">
+                                            <core:icon identifier="actions-selection-elements-all" size="small" />
+                                        </span>
+                                        <span class="dropdown-item-column dropdown-item-column-title">
+                                            <f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.checkAll" />
+                                        </span>
+                                    </span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="dropdown-item disabled" data-multi-record-selection-check-action="check-none" title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.uncheckAll')}">
+                                    <span class="dropdown-item-columns">
+                                        <span class="dropdown-item-column dropdown-item-column-icon" aria-hidden="true">
+                                            <core:icon identifier="actions-selection-elements-none" size="small" />
+                                        </span>
+                                        <span class="dropdown-item-column dropdown-item-column-title">
+                                            <f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.uncheckAll" />
+                                        </span>
+                                    </span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button type="button" class="dropdown-item" data-multi-record-selection-check-action="toggle" title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.toggleSelection')}">
+                                    <span class="dropdown-item-columns">
+                                        <span class="dropdown-item-column dropdown-item-column-icon" aria-hidden="true">
+                                            <core:icon identifier="actions-selection-elements-invert" size="small" />
+                                        </span>
+                                        <span class="dropdown-item-column dropdown-item-column-title">
+                                            <f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.toggleSelection" />
+                                        </span>
+                                    </span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </th>
+                    <th>
+                        <f:render section="listHeaderSorting" arguments="{field: 'source_host', label: 'sys_redirect.source_host', demand: demand}"/>
+                    </th>
+                    <th>
+                        <f:render section="listHeaderSorting" arguments="{field: 'source_path', label: 'sys_redirect.source_path', demand: demand}"/>
+                    </th>
+                    <th><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_db.xlf:sys_redirect.target"/></th>
+                    <f:if condition="{showHitCounter}">
+                        <th><f:render section="listHeaderSorting" arguments="{field: 'hitcount', label: 'sys_redirect.hitcount', demand: demand}"/></th>
+                        <th><f:render section="listHeaderSorting" arguments="{field: 'lasthiton', label: 'sys_redirect.lasthiton', demand: demand}"/></th>
+                    </f:if>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-multi-record-selection-row-selection="true">
+                <f:for each="{redirects}" key="domainName" as="redirect">
+                    <f:variable name="pageId" value="{rd:targetPageId(target:redirect.target)}" />
+                    <f:variable name="targetUri" value="{f:uri.typolink(parameter:redirect.target)}" />
+                    <tr data-uid="{redirect.uid}" data-multi-record-selection-element="true">
+                        <td class="col-checkbox">
+                            <span class="form-check form-check-type-toggle">
+                                <input class="form-check-input t3js-multi-record-selection-check" type="checkbox">
+                            </span>
+                        </td>
+                        <td>{redirect.source_host}</td>
+                        <td>
+                            <f:alias map="{
+                                disable: '{f:translate(key: \'LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:record_disabled\')}',
+                                onlystart: '{f:translate(key: \'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:start\')}: {f:format.date(date: redirect.starttime, format: \'d.m.Y H:i:s\')}',
+                                onlyend: '{f:translate(key: \'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:stop\')}: {f:format.date(date: redirect.endtime, format: \'d.m.Y H:i:s\')}',
+                                startend: '{f:translate(key: \'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:start\')}: {f:format.date(date: redirect.starttime, format: \'d.m.Y H:i:s\')} - {f:translate(key: \'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:stop\')}: {f:format.date(date: redirect.endtime, format: \'d.m.Y H:i:s\')}'
+                            }">
+                                <f:if condition="{redirect.disabled}">
+                                    <f:then><span title="{disable}"><core:iconForRecord table="sys_redirect" row="{redirect}" /></span></f:then>
+                                    <f:else if="{redirect.starttime} && !{redirect.endtime}"><span title="{onlystart}"><core:iconForRecord table="sys_redirect" row="{redirect}" /></span></f:else>
+                                    <f:else if="!{redirect.starttime} && {redirect.endtime}"><span title="{onlyend}"><core:iconForRecord table="sys_redirect" row="{redirect}" /></span></f:else>
+                                    <f:else if="{redirect.starttime} && {redirect.endtime}"><span title="{startend}"><core:iconForRecord table="sys_redirect" row="{redirect}" /></span></f:else>
+                                    <f:else><span><core:iconForRecord table="sys_redirect" row="{redirect}" /></span></f:else>
+                                </f:if>
+                            </f:alias>
+                            <be:link.editRecord
+                                returnUrl="{returnUrl}"
+                                table="sys_redirect"
+                                uid="{redirect.uid}"
+                                title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:edit')}: {redirect.source_path}"
+                            >
+                                {redirect.source_path -> f:format.crop(maxCharacters:100)}
+                            </be:link.editRecord>
+                        </td>
+                        <td>
+                            <f:link.typolink
+                                parameter="{redirect.target}"
+                                target="_blank"
+                                title="{f:translate(key: 'LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:visit_destination')} {f:if(condition: targetUri, then:targetUri, else:redirect.target)}"
+                            >
+                                {f:if(condition: targetUri, then:targetUri, else:redirect.target)}
+                            </f:link.typolink>
+                            (<f:if condition="{pageId}"><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:pageID"/>: {pageId},
+                            </f:if><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:destination_status_code"/>: {redirect.target_statuscode})
+                        </td>
+                        <f:if condition="{showHitCounter}">
+                            <td>
+                                <f:if condition="!{redirect.disable_hitcount}">
+                                    <f:translate
+                                        key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:hit{f:if(condition:'{redirect.hitcount} > 1',then:'s')}_text"
+                                        arguments="{0:redirect.hitcount}"
+                                    />
+                                    <f:if condition="{redirect.hitcount} != 0">
+                                        <a class="t3js-modal-trigger"
+                                            href="{be:moduleLink(route:'tce_db', query:'data[sys_redirect][{redirect.uid}][hitcount]=0', arguments:'{redirect: returnUrl}')}"
+                                            title="{f:translate(key: 'LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:hit_reset')}"
+                                            data-title="{f:translate(key: 'LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:hit_reset.confirm.title')}"
+                                            data-bs-content="{f:translate(key: 'LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:hit_reset.confirm.content')}"
+                                            data-button-close-text="{f:translate(key: 'LLL:EXT:backend/Resources/Private/Language/locallang_alt_doc.xlf:buttons.confirm.delete_record.no')}"
+                                        >
+                                            <core:icon identifier="actions-edit-restore" />
+                                        </a>
+                                    </f:if>
+                                </f:if>
+                            <td>
+                                <f:if condition="{redirect.lasthiton}">
+                                    <f:then><f:format.date format="d.m.Y H:i:s">@{redirect.lasthiton}</f:format.date></f:then>
+                                    <f:else><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:hit_last_never"/></f:else>
+                                </f:if>
+                            </td>
+                        </f:if>
+                        <td class="col-control">
+                            <div class="btn-group">
+                                <f:if condition="{redirect.is_regexp} || {redirect.source_host} === '*'">
+                                    <f:then>
+                                        <span class="btn btn-default disabled"><core:icon identifier="empty-empty" /></span>
+                                    </f:then>
+                                    <f:else>
+                                        <f:link.external
+                                            class="btn btn-default"
+                                            uri="{redirect.source_host}{redirect.source_path}"
+                                            target="_blank"
+                                            title="{f:translate(key: 'LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:view_redirect')}"
+                                        >
+                                            <core:icon identifier="actions-view-page" />
+                                        </f:link.external>
+                                    </f:else>
+                                </f:if>
+                                <be:link.editRecord
+                                    returnUrl="{returnUrl}"
+                                    class="btn btn-default"
+                                    table="sys_redirect"
+                                    uid="{redirect.uid}"
+                                    title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:edit')}"
+                                >
+                                    <core:icon identifier="actions-open" />
+                                </be:link.editRecord>
+                                <f:if condition="{redirect.disabled} == 1">
+                                    <f:then>
+                                        <a
+                                            class="btn btn-default"
+                                            href="{be:moduleLink(route:'tce_db', query:'data[sys_redirect][{redirect.uid}][disabled]=0', arguments:'{redirect: returnUrl}')}"
+                                            title="{f:translate(key:'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:unHide')}"
+                                        >
+                                            <core:icon identifier="actions-edit-unhide" />
+                                        </a>
+                                    </f:then>
+                                    <f:else>
+                                        <a
+                                            class="btn btn-default"
+                                            href="{be:moduleLink(route:'tce_db', query:'data[sys_redirect][{redirect.uid}][disabled]=1', arguments:'{redirect: returnUrl}')}"
+                                            title="{f:translate(key:'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:hide')}"
+                                        >
+                                            <core:icon identifier="actions-edit-hide" />
+                                        </a>
+                                    </f:else>
+                                </f:if>
+                                <a class="btn btn-default t3js-modal-trigger"
+                                    href="{be:moduleLink(route:'tce_db', query:'cmd[sys_redirect][{redirect.uid}][delete]=1', arguments:'{redirect: returnUrl}')}"
+                                    title="{f:translate(key: 'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:delete')}"
+                                    data-severity="warning"
+                                    data-title="{f:translate(key: 'LLL:EXT:backend/Resources/Private/Language/locallang_alt_doc.xlf:label.confirm.delete_record.title')}"
+                                    data-bs-content="{f:translate(key: 'LLL:EXT:backend/Resources/Private/Language/locallang_alt_doc.xlf:deleteWarning')}"
+                                    data-button-close-text="{f:translate(key: 'LLL:EXT:backend/Resources/Private/Language/locallang_alt_doc.xlf:buttons.confirm.delete_record.no')}">
+                                    <core:icon identifier="actions-delete" />
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </f:for>
+            </tbody>
+        </table>
+    </div>
+    <f:render partial="MultiRecordSelection/Actions" arguments="{actions: actions}"/>
+    <f:render partial="Pagination" arguments="{_all}" />
+</f:section>
+
+<f:section name="listHeaderSorting">
+    <f:if condition="{demand.orderField} === {field}">
+        <f:then>
+            <a href="{f:be.uri(route:'site_redirects', parameters: '{action: \'overview\', demand: demand.parameters, orderField: field, orderDirection: demand.reverseOrderDirection}')}">
+                <f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_db.xlf:{label}"/>
+            </a>
+            <core:icon identifier="status-status-sorting-{demand.orderDirection}"/>
+        </f:then>
+        <f:else>
+            <a href="{f:be.uri(route:'site_redirects', parameters: '{action: \'overview\', demand: demand.parameters, orderField: field, orderDirection: demand.defaultOrderDirection}')}">
+                <f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_db.xlf:{label}"/>
+            </a>
+        </f:else>
+    </f:if>
+</f:section>
+
+<f:section name="filter">
+    <form action="{f:be.uri(route:'site_redirects', parameters: '{action: \'overview\'}')}" method="post" enctype="multipart/form-data" name="demand">
+        <input type="hidden" name="orderField" value="{demand.orderField}">
+        <input type="hidden" name="orderDirection" value="{demand.orderDirection}">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="demand-source-host" class="form-label"><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_db.xlf:sys_redirect.source_host"/></label>
+                <select id="demand-source-host" class="form-select" name="demand[source_host]" data-on-change="submit">
+                    <option value=""><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:filter.source_host.showAll"/></option>
+                    <f:for each="{hosts}" as="host">
+                        <option value="{host.name}" {f:if(condition: '{host.name} == {demand.firstSourceHost}', then: 'selected')}>{host.name}</option>
+                    </f:for>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="demand-source-path" class="form-label"><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_db.xlf:sys_redirect.source_path"/></label>
+                <input type="text" id="demand-source-path" class="form-control" name="demand[source_path]" value="{demand.sourcePath}"/>
+            </div>
+            <div class="form-group">
+                <label for="demand-target" class="form-label"><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_db.xlf:sys_redirect.target"/></label>
+                <input type="text" id="demand-target" class="form-control" name="demand[target]" value="{demand.target}"/>
+            </div>
+            <div class="form-group">
+                <label for="demand-target-status-code" class="form-label"><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:filter.targetStatusCode"/></label>
+                <select id="demand-target-status-code" class="form-select" name="demand[target_statuscode]" data-on-change="submit">
+                    <option value=""><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:filter.source_host.showAll"/></option>
+                    <f:for each="{statusCodes}" as="statusCode">
+                        <option value="{statusCode.code}" {f:if(condition: '{statusCode.code} == {demand.firstStatusCode}', then: 'selected')}>{statusCode.code}</option>
+                    </f:for>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="demand-target-automatically-created" class="form-label"><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:filter.creationType"/></label>
+                <select id="demand-target-automatically-created" class="form-select" name="demand[creation_type]" data-on-change="submit">
+                    <option value="-1"><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:filter.creationType.showAll"/></option>
+                    <f:for each="{creationTypes}" key="creationType" as="label">
+                        <option value="{creationType}" {f:if(condition: '{demand.creationType} == {creationType}', then: 'selected')}>{f:translate(key: label, default: label)}</option>
+                    </f:for>
+                </select>
+            </div>
+            <f:if condition="{showHitCounter}">
+                <div class="form-group align-self-end">
+                    <div class="form-check form-switch form-check-size-input">
+                        <input type="checkbox" class="form-check-input" name="demand[max_hits]" id="demand-never-hit" value="1" data-on-change="submit" {f:if(condition: demand.maxHits, then: 'checked="checked"')}>
+                        <label class="form-check-label" for="demand-never-hit">
+                            <f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:filter.neverHit"/>
+                        </label>
+                    </div>
+                </div>
+            </f:if>
+            <div class="form-group align-self-end">
+                <input type="submit" value="{f:translate(key: 'LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:filter.sendButton')}" class="btn btn-default" />
+                <a href="{f:be.uri(route:'site_redirects')}" class="btn btn-link"><f:translate key="LLL:EXT:redirects/Resources/Private/Language/locallang_module_redirect.xlf:filter.resetButton"/></a>
+            </div>
+        </div>
+    </form>
+</f:section>
+</html>

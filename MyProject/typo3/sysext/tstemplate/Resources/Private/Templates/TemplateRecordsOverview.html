@@ -1,0 +1,104 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Module"/>
+
+<f:section name="Content">
+
+    <f:be.pageRenderer
+        includeJavaScriptModules="{
+            0: '@typo3/backend/context-menu.js',
+            1: '@typo3/backend/element/immediate-action-element.js'
+        }"
+    />
+
+    <h1>
+        <f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_records_overview.xlf:typoscriptRecords.title" />
+    </h1>
+    <p><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_records_overview.xlf:typoscriptRecords.description" /></p>
+
+    <f:if condition="{pageTree}">
+        <f:then>
+            <div class="table-fit">
+                <table class="table table-striped table-hover" id="ts-overview">
+                    <thead>
+                        <tr>
+                            <th class="nowrap align-top"><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_records_overview.xlf:typoscriptRecords.table.column.pageTitle" /></th>
+                            <th class="nowrap align-top"><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_records_overview.xlf:typoscriptRecords.table.column.typoscriptRecords" /></th>
+                            <th class="nowrap align-top"><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_records_overview.xlf:typoscriptRecords.table.column.root" /></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <f:for each="{pageTree}" as="page">
+                            <f:render
+                                section="TableRow"
+                                arguments="{
+                                    page: page,
+                                    level: 0
+                                }"
+                            />
+                        </f:for>
+                    </tbody>
+                </table>
+            </div>
+        </f:then>
+        <f:else>
+            <f:be.infobox
+                message="{f:translate(key: 'LLL:EXT:tstemplate/Resources/Private/Language/locallang_records_overview.xlf:typoscriptRecords.noRecordsFound')}"
+                state="-1"
+            />
+        </f:else>
+    </f:if>
+
+</f:section>
+
+<f:section name="TableRow">
+    <f:variable name="maxCharacters" value="30" />
+
+    <tr class="{f:if(condition: page.hidden, then: 'inactive')}">
+        <td class="align-top nowrap">
+            <span title="id={page.uid}" style="margin-left: {level * 20}px">
+                <core:IconForRecord table="pages" row="{page}" />
+                {page.title -> f:format.crop(maxCharacters: maxCharacters)}
+            </span>
+        </td>
+        <td class="align-top">
+            <f:for each="{page._templates}" as="templateFile" iteration="templateIterator">
+                <div class="{f:if(condition: '{templateIterator.isLast}', then: '', else: 'mb-2')}">
+                    <core:IconForRecord table="sys_template" row="{templateFile}" />
+                    <a
+                        href="{f:be.uri(route: 'web_typoscript_infomodify', parameters:'{id: templateFile.pid, selectedTemplate: templateFile.uid}')}"
+                        title="ID: {templateFile.uid}"
+                    >
+                        {templateFile.title -> f:format.crop(maxCharacters: maxCharacters)}
+                    </a>
+                </div>
+            </f:for>
+        </td>
+        <td class="align-top">
+            <f:for each="{page._templates}" as="templateFile" iteration="templateIterator">
+                <div class="{f:if(condition: '{templateIterator.isLast}', then: '', else: 'mb-2')}">
+                    {f:if(condition: '{templateFile.root}', then: '{core:icon(identifier: \'status-status-checked\')}', else: '&nbsp;' )}
+                </div>
+            </f:for>
+        </td>
+    </tr>
+
+    <f:comment><!-- Subpages --></f:comment>
+    <f:if condition="{page._nodes -> f:count()}">
+        <f:for each="{page._nodes}" as="page">
+            <f:render
+                section="TableRow"
+                arguments="{
+                    page: page,
+                    level: '{level + 1}'
+                }"
+            />
+        </f:for>
+    </f:if>
+</f:section>
+
+</html>

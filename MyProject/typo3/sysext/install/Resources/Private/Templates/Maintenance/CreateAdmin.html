@@ -1,0 +1,78 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<div class="t3js-module-content" data-create-admin-token="{createAdminToken}">
+    <form action="" id="t3js-createAdmin-form" method="post" spellcheck="false">
+        <div class="form-group">
+            <label for="t3-install-admin-username" class="form-label">Username:</label>
+            <input
+                id="t3-install-admin-username"
+                class="t3-install-form-input-text t3js-createAdmin-user form-control"
+                type="text"
+                autocomplete="off"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="t3-install-admin-password" class="form-label">Password:</label>
+            <input
+                id="t3-install-admin-password"
+                class="t3-install-form-input-text t3-install-form-password-strength t3js-createAdmin-password form-control"
+                type="password"
+                autocomplete="off"
+                required
+            />
+            <f:if condition="{passwordPolicyRequirements}">
+                <p class="mt-2 mb-1 text-body-secondary">The password must match the following requirements:</p>
+                <ul>
+                    <f:for each="{passwordPolicyRequirements}" as="requirement">
+                        <li class="text-body-secondary">{requirement}</li>
+                    </f:for>
+                </ul>
+            </f:if>
+        </div>
+        <div class="form-group">
+            <label for="t3-install-admin-password-repeat" class="form-label">Repeat password:</label>
+            <input
+                id="t3-install-admin-password-repeat"
+                class="t3-install-form-input-text t3js-createAdmin-password-check form-control"
+                type="password"
+                autocomplete="off"
+                required
+            />
+        </div>
+        <div class="form-group">
+            <label for="t3-install-admin-realname" class="form-label">Name</label>
+            <input
+                type="text"
+                class="t3-install-form-input-text t3js-createAdmin-realname form-control"
+                name="realName"
+                id="t3-install-admin-realname"
+            />
+        </div>
+        <div class="form-group">
+            <label for="t3-install-admin-email" class="form-label">Email address</label>
+            <input
+                type="email"
+                class="t3-install-form-input-text t3js-createAdmin-email form-control"
+                name="email"
+                id="t3-install-admin-email"
+            />
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input
+                    class="t3-install-form-input-checkbox t3js-createAdmin-system-maintainer form-check-input"
+                    type="checkbox"
+                    id="typo3-install-admin-add-as-system-maintainer"
+                />
+                <label for="typo3-install-admin-add-as-system-maintainer" class="form-check-label">
+                    Add as system maintainer
+                </label>
+            </div>
+        </div>
+
+        <div class="t3js-createAdmin-output"></div>
+    </form>
+</div>
+
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-11-27T22:26:21Z" product-name="dashboard">
+		<header/>
+		<body>
+			<trans-unit id="be_dashboard" xml:space="preserve">
+				<source>Dashboard</source>
+			</trans-unit>
+			<trans-unit id="identifier" xml:space="preserve">
+				<source>Identifier</source>
+			</trans-unit>
+			<trans-unit id="title" xml:space="preserve">
+				<source>Title</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

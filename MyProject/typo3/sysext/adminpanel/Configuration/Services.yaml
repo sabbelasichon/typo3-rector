@@ -1,0 +1,40 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Adminpanel\:
+    resource: '../Classes/*'
+
+  cache.adminpanel_requestcache:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['adminpanel_requestcache']
+
+  TYPO3\CMS\Adminpanel\Controller\AjaxController:
+    public: true
+  TYPO3\CMS\Adminpanel\Controller\MainController:
+    public: true
+
+  TYPO3\CMS\Adminpanel\Modules\CacheModule:
+    public: true
+  TYPO3\CMS\Adminpanel\Modules\DebugModule:
+    public: true
+  TYPO3\CMS\Adminpanel\Modules\InfoModule:
+    public: true
+  TYPO3\CMS\Adminpanel\Modules\PreviewModule:
+    public: true
+  TYPO3\CMS\Adminpanel\Modules\TsDebugModule:
+    public: true
+  TYPO3\CMS\Adminpanel\Modules\Debug\Log:
+    public: true
+  TYPO3\CMS\Adminpanel\Modules\Debug\Events:
+    public: true
+  TYPO3\CMS\Adminpanel\Modules\TsDebug\TypoScriptWaterfall:
+    public: true
+
+  Psr\EventDispatcher\EventDispatcherInterface:
+    alias: TYPO3\CMS\Adminpanel\Service\EventDispatcher
+    public: true
+  Psr\EventDispatcher\ListenerProviderInterface: '@TYPO3\CMS\Core\EventDispatcher\ListenerProvider'

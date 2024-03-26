@@ -1,0 +1,45 @@
+<div class="module-loading-indicator"></div>
+<div class="module-docheader t3js-module-docheader">
+    <div class="module-docheader-bar module-docheader-bar-navigation t3js-module-docheader-bar t3js-module-docheader-bar-navigation">
+        <div class="module-docheader-bar-column-left">
+            <f:if condition="{docHeader.menus}">
+                <div class="module-docheader-bar-container">
+                    <f:for each="{docHeader.menus}" as="menu">
+                        <div class="form-group form-group-sm">
+                            <f:render partial="Menus/SelectBoxJumpMenu" arguments="{menu:menu}"/>
+                        </div>
+                    </f:for>
+                </div>
+            </f:if>
+        </div>
+        <div class="module-docheader-bar-column-right">
+            <f:if condition="{docHeader.metaInformation.recordInformation}">
+                <f:if condition="{docHeader.metaInformation.fileOrFolder}">
+                    <f:then>
+                        <f:format.raw>{docHeader.metaInformation.path}</f:format.raw>
+                    </f:then>
+                    <f:else>
+                        <span class="typo3-docheader-pagePath">
+                            <f:translate key="LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:labels.path"/>: <f:format.raw>{docHeader.metaInformation.path}</f:format.raw>
+                        </span>
+                    </f:else>
+                </f:if>
+                <strong>
+                    <f:format.raw>
+                        {docHeader.metaInformation.recordInformationIcon} {docHeader.metaInformation.recordInformationTitle}
+                        <f:if condition="{docHeader.metaInformation.recordInformationUid}">[{docHeader.metaInformation.recordInformationUid}]</f:if>
+                    </f:format.raw>
+                </strong>
+                {docHeader.metaInformation.recordInformationAdditionalInfo}
+            </f:if>
+        </div>
+    </div>
+    <div class="module-docheader-bar module-docheader-bar-buttons t3js-module-docheader-bar t3js-module-docheader-bar-buttons">
+        <div class="module-docheader-bar-column-left">
+            <f:render partial="ButtonBar" arguments="{buttons:docHeader.buttons.left}" />
+        </div>
+        <div class="module-docheader-bar-column-right">
+            <f:render partial="ButtonBar" arguments="{buttons:docHeader.buttons.right}" />
+        </div>
+    </div>
+</div>

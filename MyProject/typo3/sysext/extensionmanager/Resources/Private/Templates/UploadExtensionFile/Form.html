@@ -1,0 +1,25 @@
+<f:form enctype="multipart/form-data" id="extensionUploadForm" method="post" controller="UploadExtensionFile" action="extract">
+    <div class="row mb-3">
+        <label for="extensionFile" class="col-sm-2 col-form-label text-end">
+            <f:translate key="uploadTemplate.extensionLabel" />
+        </label>
+        <div class="col-sm-4">
+            <f:form.upload name="extensionFile" id="extensionFile" class="form-control" additionalAttributes="{required: 'required'}" accept=".zip" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-sm-10 offset-sm-2">
+            <div class="form-check">
+                <f:form.checkbox name="overwrite" id="extensionOverwrite" value="1" class="form-check-input" />
+                <label for="extensionOverwrite" class="form-check-label">
+                    {f:translate(key:'extensionList.overwriteExtension')}
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10 offset-sm-2">
+            <f:form.submit value="{f:translate(key:'uploadTemplate.uploadButton')}" id="extensionUpload" class="btn btn-primary"/>
+        </div>
+    </div>
+</f:form>

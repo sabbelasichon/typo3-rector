@@ -1,0 +1,41 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Fluid\:
+    resource: '../Classes/*'
+    # glob for services that have been previously available as
+    # container entries and have been removed in the meantime
+    # (e.g. because factories are to be used instead)
+    exclude: '../Classes/{Core/Rendering/RenderingContext.php}'
+
+  # TemplateView and StandaloneView have $context = null, symfony auto-injects in that case,
+  # extbase did not, force passing `null`
+  TYPO3\CMS\Fluid\View\StandaloneView:
+    public: true
+    shared: false
+    arguments:
+      $context: null
+  TYPO3\CMS\Fluid\View\TemplateView:
+    public: true
+    shared: false
+    arguments:
+      $context: null
+
+  cache.fluid_template:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['fluid_template']
+
+  # Classes of base package
+  TYPO3Fluid\Fluid\Core\Parser\TemplateProcessor\EscapingModifierTemplateProcessor:
+    public: true
+    shared: false
+  TYPO3Fluid\Fluid\Core\Parser\TemplateProcessor\PassthroughSourceModifierTemplateProcessor:
+    public: true
+    shared: false
+  TYPO3Fluid\Fluid\Core\Parser\TemplateProcessor\NamespaceDetectionTemplateProcessor:
+    public: true
+    shared: false

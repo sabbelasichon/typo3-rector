@@ -1,0 +1,36 @@
+.. include:: /Includes.rst.txt
+
+formEditor.propertyCollections.finishers.10.editors.1050
+--------------------------------------------------------
+
+:aspect:`Option path`
+      prototypes.<prototypeIdentifier>.formElementsDefinition.Form.formEditor.propertyCollections.finishers.10.editors.1050
+
+:aspect:`Data type`
+      array/ :ref:`[CheckboxEditor] <prototypes.\<prototypeidentifier>.formelementsdefinition.\<formelementtypeidentifier>.formeditor.editors.*.checkboxeditor>`
+
+:aspect:`Needed by`
+      Backend (form editor)
+
+:aspect:`Mandatory`
+      Recommended
+
+:aspect:`Default value (for prototype 'standard')`
+      .. code-block:: yaml
+         :linenos:
+         :emphasize-lines: 8-
+
+         Form:
+           formEditor:
+             propertyCollections:
+               finishers:
+                 10:
+                   identifier: EmailToSender
+                   editors:
+                     1050:
+                       identifier: addHtmlPart
+                       templateName: Inspector-CheckboxEditor
+                       label: formEditor.elements.Form.finisher.EmailToSender.editor.addHtmlPart.label
+                       propertyPath: options.addHtmlPart
+                       fieldExplanationText: formEditor.elements.Form.finisher.EmailToSender.editor.addHtmlPart.fieldExplanationText
+

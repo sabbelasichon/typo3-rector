@@ -1,0 +1,53 @@
+{
+	"name": "typo3/cms-redirects",
+	"type": "typo3-cms-framework",
+	"description": "TYPO3 CMS Redirects - Create manual redirects, list existing redirects and automatically create\nredirects on slug changes.",
+	"homepage": "https://typo3.org",
+	"license": ["GPL-2.0-or-later"],
+	"authors": [{
+		"name": "TYPO3 Core Team",
+		"email": "typo3cms@typo3.org",
+		"role": "Developer"
+	}],
+	"support": {
+		"chat": "https://typo3.org/help",
+		"docs": "https://docs.typo3.org/c/typo3/cms-redirects/main/en-us/",
+		"issues": "https://forge.typo3.org",
+		"source": "https://github.com/typo3/typo3"
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"require": {
+		"doctrine/dbal": "^3.7.2",
+		"psr/http-message": "^1.1 || ^2.0",
+		"psr/log": "^2.0 || ^3.0",
+		"symfony/console": "^6.4 || ^7.0",
+		"typo3/cms-backend": "12.4.10",
+		"typo3/cms-core": "12.4.10",
+		"typo3fluid/fluid": "^2.9.2"
+	},
+	"conflict": {
+		"typo3/cms": "*"
+	},
+	"suggest": {
+		"typo3/cms-reports": "Get reports of redirects",
+		"typo3/cms-scheduler": "Execute commands to update redirect status"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-main": "12.4.x-dev"
+		},
+		"typo3/cms": {
+			"extension-key": "redirects",
+			"Package": {
+				"partOfFactoryDefault": true
+			}
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"TYPO3\\CMS\\Redirects\\": "Classes/"
+		}
+	}
+}

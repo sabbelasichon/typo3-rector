@@ -1,0 +1,80 @@
+identifier: ext-form-simple-contact-form-example
+label: 'Simple Contact Form'
+type: Form
+
+finishers:
+  -
+    identifier: EmailToReceiver
+    options:
+      subject: 'Your message: {subject}'
+      recipients:
+        your.company@example.com: 'Your Company name'
+      senderAddress: '{email}'
+      senderName: '{name}'
+      replyToRecipients: {}
+      carbonCopyRecipients: {}
+      blindCarbonCopyRecipients: {}
+      format: 'html'
+      attachUploads: 'true'
+      translation:
+        language: ''
+      title: 'Confirmation of your message'
+
+renderables:
+  -
+    identifier: page-1
+    label: 'Contact Form'
+    type: Page
+
+    renderables:
+      -
+        identifier: name
+        label: 'Name'
+        type: Text
+        properties:
+          fluidAdditionalAttributes:
+            placeholder: 'Name'
+        defaultValue: ''
+        validators:
+          -
+            identifier: NotEmpty
+      -
+        identifier: subject
+        label: 'Subject'
+        type: Text
+        properties:
+          fluidAdditionalAttributes:
+            placeholder: 'Subject'
+        defaultValue: ''
+        validators:
+          -
+            identifier: NotEmpty
+      -
+        identifier: email
+        label: 'Email'
+        type: Text
+        properties:
+          fluidAdditionalAttributes:
+            placeholder: 'Email address'
+        defaultValue: ''
+        validators:
+          -
+            identifier: NotEmpty
+          -
+            identifier: EmailAddress
+      -
+        identifier: message
+        label: 'Message'
+        type: Textarea
+        properties:
+          fluidAdditionalAttributes:
+            placeholder: ''
+        defaultValue: ''
+        validators:
+          -
+            identifier: NotEmpty
+
+  -
+    identifier: summarypage
+    label: 'Summary page'
+    type: SummaryPage

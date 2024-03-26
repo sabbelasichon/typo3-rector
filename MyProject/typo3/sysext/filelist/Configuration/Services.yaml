@@ -1,0 +1,46 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Filelist\:
+    resource: '../Classes/*'
+
+  TYPO3\CMS\Filelist\Controller\FileListController:
+    tags: [ 'backend.controller' ]
+
+  TYPO3\CMS\Filelist\Controller\FileDownloadController:
+    tags: [ 'backend.controller' ]
+
+  TYPO3\CMS\Filelist\Controller\File\CreateFolderController:
+    tags: [ 'backend.controller' ]
+
+  TYPO3\CMS\Filelist\Controller\File\CreateFileController:
+    tags: [ 'backend.controller' ]
+
+  TYPO3\CMS\Filelist\Controller\File\EditFileController:
+    tags: [ 'backend.controller' ]
+
+  TYPO3\CMS\Filelist\Controller\File\FileUploadController:
+    tags: [ 'backend.controller' ]
+
+  TYPO3\CMS\Filelist\Controller\File\RenameFileController:
+    tags: [ 'backend.controller' ]
+
+  TYPO3\CMS\Filelist\Controller\File\ReplaceFileController:
+    tags: [ 'backend.controller' ]
+
+  TYPO3\CMS\Filelist\ElementBrowser\FileBrowser:
+    shared: false
+
+  TYPO3\CMS\Filelist\ElementBrowser\FolderBrowser:
+    shared: false
+
+  TYPO3\CMS\Filelist\LinkHandler\FileLinkHandler:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Filelist\LinkHandler\FolderLinkHandler:
+    public: true
+    shared: false

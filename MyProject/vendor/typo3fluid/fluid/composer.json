@@ -1,0 +1,66 @@
+{
+    "name": "typo3fluid/fluid",
+    "description": "The TYPO3 Fluid template rendering engine",
+    "homepage": "https://github.com/TYPO3/Fluid",
+    "support": {
+        "docs": "https://docs.typo3.org/other/typo3fluid/fluid/main/en-us/",
+        "issues": "https://github.com/TYPO3/Fluid/issues",
+        "source": "https://github.com/TYPO3/Fluid"
+    },
+    "license": ["LGPL-3.0-or-later"],
+    "require": {
+        "php": "^8.1",
+        "ext-mbstring": "*"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "require-dev": {
+        "ext-json": "*",
+        "friendsofphp/php-cs-fixer": "^3.16.0",
+        "phpstan/phpstan": "^1.10.14",
+        "phpstan/phpstan-phpunit": "^1.3.11",
+        "phpunit/phpunit": "^10.1.2"
+    },
+    "suggest": {
+        "ext-json": "PHP JSON is needed when using JSONVariableProvider: A relatively rare use case"
+    },
+    "autoload": {
+        "psr-4": {
+            "TYPO3Fluid\\Fluid\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TYPO3Fluid\\FluidExamples\\": "examples/src/",
+            "TYPO3Fluid\\Fluid\\Tests\\": "tests/"
+        }
+    },
+    "bin": [
+        "bin/fluid"
+    ],
+    "scripts": {
+        "cgl:check": "@php vendor/bin/php-cs-fixer fix --dry-run --diff -v",
+        "cgl:fix": "@php vendor/bin/php-cs-fixer fix --diff -v",
+        "ci:all": [
+            "@composer validate",
+            "@lint:php",
+            "@cgl:check",
+            "@phpstan:check",
+            "@tests:all"
+        ],
+        "lint:php": "find src/ tests/ -name '*.php' -print0 | xargs -0 -n1 -P4 ${PHP_BINARY} -dxdebug.mode=off -l >/dev/null",
+        "phpstan:check": "@php vendor/bin/phpstan analyze --no-progress",
+        "phpstan:generate-baseline": "@php vendor/bin/phpstan analyze --no-progress --generate-baseline=phpstan-baseline.neon",
+        "tests:all": "@php vendor/bin/phpunit -v"
+    },
+    "scripts-descriptions": {
+        "cgl:check": "Check coding-style in PHP files.",
+        "cgl:fix": "Check and fix coding-style in PHP files.",
+        "ci:all": "Execute all CI related scripts similar to GitHub Actions.",
+        "lint:php": "Lint PHP files for syntax errors.",
+        "phpstan:check": "Execute static code analyzer PHPStan.",
+        "phpstan:generate-baseline": "Update baseline fore for PHPStan",
+        "tests:all": "Execute tests (phpunit v10)"
+    }
+}

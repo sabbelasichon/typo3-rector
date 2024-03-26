@@ -1,0 +1,104 @@
+<?php
+
+/*
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
+namespace TYPO3\CMS\Install\Configuration\Image;
+
+use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\CommandUtility;
+
+/**
+ * Preset for ImageMagick version 6 or higher
+ * @internal only to be used within EXT:install
+ */
+class ImageMagick6Preset extends AbstractImagePreset
+{
+    /**
+     * @var string Name of preset
+     */
+    protected $name = 'ImageMagick6';
+
+    /**
+     * @var int Priority of preset
+     */
+    protected $priority = 70;
+
+    /**
+     * @var array Configuration values handled by this preset
+     */
+    protected $configurationValues = [
+        'GFX/processor_enabled' => true,
+        // processor_path is determined and set by path lookup methods
+        'GFX/processor_path' => '',
+        'GFX/processor' => 'ImageMagick',
+        'GFX/processor_effects' => true,
+        'GFX/processor_allowTemporaryMasksAsPng' => false,
+        'GFX/processor_colorspace' => 'sRGB',
+    ];
+
+    /**
+     * Find executable in path, wrapper for specific ImageMagick/GraphicsMagick find methods.
+     *
+     * @return mixed
+     */
+    protected function findExecutableInPath(array $searchPaths)
+    {
+        return $this->findImageMagick6InPaths($searchPaths);
+    }
+
+    /**
+     * Search for GraphicsMagick executables in given paths.
+     *
+     * @param array $searchPaths List of paths to search for
+     * @return bool TRUE if graphics magick was found in path
+     */
+    protected function findImageMagick6InPaths(array $searchPaths)
+    {
+        $result = false;
+        foreach ($searchPaths as $path) {
+            if (Environment::isWindows()) {
+                $executable = 'identify.exe';
+
+                if (!@is_file($path . $executable)) {
+                    $executable = 'magick.exe';
+                }
+            } else {
+                $executable = 'identify';
+            }
+
+            $binaryPath = $path . $executable;
+            if (!file_exists($binaryPath) || !is_executable($binaryPath)) {
+                continue;
+            }
+
+            $command = escapeshellarg($binaryPath) . ' -version';
+            $executingResult = [];
+            CommandUtility::exec($command, $executingResult);
+            // First line of exec command should contain string GraphicsMagick
+            $firstResultLine = array_shift($executingResult);
+            // Example: "Version: ImageMagick 6.6.0-4 2012-05-02 Q16 http://www.imagemagick.org"
+            if (is_string($firstResultLine) && str_contains($firstResultLine, 'ImageMagick')) {
+                [, $version] = explode('ImageMagick', $firstResultLine);
+                // Example: "6.6.0-4"
+                [$version] = explode(' ', trim($version));
+                if (version_compare($version, '6.0.0') >= 0) {
+                    $this->foundPath = $path;
+                    $result = true;
+                    break;
+                }
+            }
+        }
+        return $result;
+    }
+}

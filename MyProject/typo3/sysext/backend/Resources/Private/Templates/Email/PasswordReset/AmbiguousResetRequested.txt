@@ -1,0 +1,9 @@
+<f:layout name="SystemEmail" />
+<f:section name="Subject">Password reset requested at "{typo3.sitename}"</f:section>
+<f:section name="Title">Your email address was used to trigger a password reset</f:section>
+<f:section name="Main">
+Unfortunately, we are unable to reset your password because your email address "{email}" is used for multiple backend user accounts at the TYPO3 instance "{typo3.sitename}".
+Please ask your administrator to generate a new password for you.
+
+<f:render partial="Email/PasswordReset/ClosingParagraph" arguments="{normalizedParams: normalizedParams}" />
+</f:section>

@@ -1,0 +1,73 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Extensionmanager\:
+    resource: '../Classes/*'
+    # Tasks require EXT:scheduler, reports require
+    # EXT:reports to be installed, ignore for now.
+    exclude: '../Classes/{Task,Report}'
+
+  TYPO3\CMS\Extensionmanager\Command\ActivateExtensionCommand:
+    tags:
+      - name: 'console.command'
+        command: 'extension:activate'
+        description: 'Activates an extension by key'
+        hidden: '%env(TYPO3:isComposerMode)%'
+        schedulable: false
+      - name: 'console.command'
+        command: 'extensionmanager:extension:install'
+        alias: true
+        schedulable: false
+      - name: 'console.command'
+        command: 'extension:install'
+        alias: true
+        schedulable: false
+
+  TYPO3\CMS\Extensionmanager\Command\DeactivateExtensionCommand:
+    tags:
+      - name: 'console.command'
+        description: 'Deactivates an extension by key'
+        hidden: '%env(TYPO3:isComposerMode)%'
+        command: 'extension:deactivate'
+        schedulable: false
+      - name: 'console.command'
+        command: 'extensionmanager:extension:uninstall'
+        alias: true
+        schedulable: false
+      - name: 'console.command'
+        command: 'extension:uninstall'
+        alias: true
+        schedulable: false
+
+  TYPO3\CMS\Extensionmanager\Command\SetupExtensionsCommand:
+    tags:
+      - name: 'console.command'
+        description: 'Set up extensions'
+        command: 'extension:setup'
+        schedulable: false
+
+  TYPO3\CMS\Extensionmanager\Remote\RemoteRegistry:
+    public: true
+
+  TYPO3\CMS\Extensionmanager\Report\ExtensionComposerStatus:
+    public: true
+    tags:
+      - name: reports.status
+
+  TYPO3\CMS\Extensionmanager\Report\ExtensionStatus:
+    tags:
+      - name: reports.status
+
+  TYPO3\CMS\Extensionmanager\Domain\Repository\BulkExtensionRepositoryWriter:
+    public: true
+
+  extension.remote.ter:
+    class: 'TYPO3\CMS\Extensionmanager\Remote\TerExtensionRemote'
+    arguments:
+      $identifier: 'ter'
+    tags:
+      - name: 'extension.remote'
+        default: true

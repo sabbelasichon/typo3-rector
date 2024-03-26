@@ -1,0 +1,25 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\SysNote\:
+    resource: '../Classes/*'
+
+  TYPO3\CMS\SysNote\Provider\RecordListProvider:
+    tags:
+      - name: event.listener
+        identifier: 'note-to-record-list'
+  TYPO3\CMS\SysNote\Provider\InfoModuleProvider:
+    tags:
+      - name: event.listener
+        identifier: 'note-to-info-module'
+  TYPO3\CMS\SysNote\Provider\PageModuleProvider:
+    tags:
+      - name: event.listener
+        identifier: 'note-to-page-module'
+  TYPO3\CMS\SysNote\Provider\ButtonBarProvider:
+    tags:
+      - name: event.listener
+        identifier: 'note-to-button-bar'

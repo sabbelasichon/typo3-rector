@@ -1,0 +1,69 @@
+{
+    "name": "typo3/cms-composer-installers",
+    "type": "composer-plugin",
+    "description": "TYPO3 CMS Installers",
+    "keywords": [
+        "installer", "typo3", "cms", "core", "extension"
+    ],
+    "homepage": "https://github.com/TYPO3/CmsComposerInstallers",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "TYPO3 CMS Core Team",
+            "role": "Developer",
+            "homepage": "https://forge.typo3.org/projects/typo3cms-core"
+        },
+        {
+            "name": "The TYPO3 Community",
+            "role": "Contributor",
+            "homepage": "https://typo3.org/community/"
+        }
+    ],
+    "support": {
+        "general": "https://typo3.org/support/",
+        "issues": "https://github.com/TYPO3/CmsComposerInstallers/issues"
+    },
+    "autoload": {
+        "psr-4": {
+            "TYPO3\\CMS\\Composer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TYPO3\\CMS\\ComposerTest\\": "tests/"
+        }
+    },
+    "replace": {
+        "lw/typo3cms-installers": "*",
+        "netresearch/composer-installers": "*"
+    },
+    "require": {
+        "php": "^8.1",
+        "composer-plugin-api": "^2.1.0"
+    },
+    "require-dev": {
+        "composer/composer": "^2.1",
+        "overtrue/phplint": "^2.0",
+        "phpunit/phpunit": "^8.5",
+        "friendsofphp/php-cs-fixer": "^2.18"
+    },
+    "scripts": {
+        "test:php:lint": [
+            "phplint"
+        ],
+        "test:php:unit": [
+            "Composer\\Config::disableProcessTimeout",
+            "phpunit"
+        ],
+        "test": [
+            "@test:php:lint",
+            "@test:php:unit"
+        ]
+    },
+    "extra": {
+        "class": "TYPO3\\CMS\\Composer\\Installer\\Plugin",
+        "branch-alias": {
+            "dev-main": "5.0.x-dev"
+        }
+    }
+}

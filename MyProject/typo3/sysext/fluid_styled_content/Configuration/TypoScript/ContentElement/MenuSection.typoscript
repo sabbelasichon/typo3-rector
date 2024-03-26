@@ -1,0 +1,57 @@
+# Section index (page content marked for section menus):
+# ...
+#
+# CType: menu_section
+
+tt_content.menu_section =< lib.contentElement
+tt_content.menu_section {
+    templateName = MenuSection
+    dataProcessing {
+        10 = menu
+        10 {
+            // Always activate includeNotInMenu for a section menu of the current page
+            includeNotInMenu.override = 1
+            includeNotInMenu.override.if.isFalse.field = pages
+            special = list
+            special {
+                value {
+                    field = pages
+                    override {
+                        data = page:uid
+                        if {
+                            isFalse.field = pages
+                        }
+
+                        // Currrent page uses content of another page
+                        override {
+                            data = page:content_from_pid
+                            if {
+                                isTrue.data = page:content_from_pid
+                            }
+                        }
+                    }
+                }
+            }
+            dataProcessing {
+                10 = files
+                10 {
+                    references.fieldName = media
+                }
+                20 = database-query
+                20 {
+                    table = tt_content
+                    pidInList.field = uid
+                    as = content
+                    where = {#sectionIndex} = 1
+                    orderBy = sorting
+                    dataProcessing {
+                        10 = files
+                        10 {
+                            references.fieldName = image
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

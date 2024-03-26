@@ -1,0 +1,106 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:backend="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:if condition="{conditions}">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab">
+            <f:if condition="{conditionActiveCount}">
+                <f:then>
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col align-middle">
+                            <h3 class="panel-title" id="typoscript-active-{type}-conditions-heading">
+                                <a
+                                    href="#"
+                                    class="collapsed"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#typoscript-active-{type}-conditions-body"
+                                    aria-expanded="false"
+                                    aria-controls="typoscript-active-{type}-conditions-body"
+                                >
+                                    <span class="caret"></span>
+                                    <strong><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_analyzer.xlf:panel.header.conditions"/></strong>
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="col text-end">
+                            <span class="badge badge-info">
+                                <f:translate
+                                    key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_active.xlf:panel.info.conditionActiveCount.{f:if(condition: '{conditionActiveCount} > 1', then:'multiple', else: 'single')}"
+                                    arguments="{0: conditionActiveCount}"
+                                />
+                            </span>
+                        </div>
+                    </div>
+                </f:then>
+                <f:else>
+                    <h3 class="panel-title" id="typoscript-active-{type}-conditions-heading">
+                        <a
+                            href="#"
+                            class="collapsed"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#typoscript-active-{type}-conditions-body"
+                            aria-expanded="false"
+                            aria-controls="typoscript-active-{type}-conditions-body"
+                        >
+                            <span class="caret"></span>
+                            <strong><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_analyzer.xlf:panel.header.conditions"/></strong>
+                        </a>
+                    </h3>
+                </f:else>
+            </f:if>
+        </div>
+        <div
+            class="panel-collapse collapse"
+            id="typoscript-active-{type}-conditions-body"
+            data-persist-collapse-state="true"
+            role="tabpanel"
+            aria-labelledby="typoscript-active-{type}-conditions-heading"
+        >
+            <div class="panel-body">
+                <form action="{f:be.uri(route: 'typoscript_active', parameters: '{id: pageUid}')}" method="post">
+                    <f:for each="{conditions}" as="condition">
+                        <input type="hidden" name="{type}Conditions[{condition.hash}]" value="0" />
+                        <div class="form-check form-switch">
+                            <input
+                                type="checkbox"
+                                class="form-check-input"
+                                name="{type}Conditions[{condition.hash}]"
+                                id="{type}Condition{condition.hash}"
+                                value="1"
+                                {f:if(condition: condition.active, then:'checked="checked"')}
+                                data-global-event="change"
+                                data-action-submit="$form"
+                                data-value-selector="input[name='{type}Conditions[{condition.hash}]']"
+                            />
+                            <label class="form-check-label" for="{type}Condition{condition.hash}">
+                                <f:if condition="{displayConstantSubstitutions} && {condition.originalValue}">
+                                    <f:then>
+                                        <span class="font-monospace">[{condition.value}]</span>
+                                        <span class="diff-item-result diff-item-result-inline font-monospace p-0">
+                                            <f:format.raw>
+                                                <f:translate
+                                                    key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_active.xlf:panel.info.conditionWithConstant"
+                                                    arguments="{
+                                                        0: '{backend:typoScript.fineDiff(from: condition.originalValue, to: condition.value)}'
+                                                    }"
+                                                />
+                                            </f:format.raw>
+                                        </span>
+                                    </f:then>
+                                    <f:else>
+                                        <span class="font-monospace">[{condition.value}]</span>
+                                    </f:else>
+                                </f:if>
+                            </label>
+                        </div>
+                    </f:for>
+                </form>
+            </div>
+        </div>
+    </div>
+</f:if>
+
+</html>

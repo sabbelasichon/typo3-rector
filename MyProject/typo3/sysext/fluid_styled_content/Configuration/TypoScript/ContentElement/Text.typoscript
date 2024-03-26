@@ -1,0 +1,9 @@
+# Regular Text Element:
+# A regular text element with header and bodytext fields.
+#
+# CType: text
+
+tt_content.text =< lib.contentElement
+tt_content.text {
+    templateName = Text
+}

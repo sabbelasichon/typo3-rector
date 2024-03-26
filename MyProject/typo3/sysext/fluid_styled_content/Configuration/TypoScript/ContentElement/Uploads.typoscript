@@ -1,0 +1,18 @@
+# File Links:
+# Makes a list of files for download.
+#
+# CType: uploads
+
+tt_content.uploads =< lib.contentElement
+tt_content.uploads {
+    templateName = Uploads
+    dataProcessing {
+        10 = files
+        10 {
+            references.fieldName = media
+            collections.field = file_collections
+            sorting.field = filelink_sorting
+            sorting.direction.field = filelink_sorting_direction
+        }
+    }
+}

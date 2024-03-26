@@ -1,0 +1,28 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<p>
+    TYPO3 writes modified values to the file system/settings.php.
+    You can manually override most configuration options by storing them in the optional file system/additional.php.
+    The TYPO3 Core does not change the content of this file.
+</p>
+
+<f:render partial="Generic/ConfigurationNotWritable" arguments="{_all}"/>
+
+<div class="t3js-module-content" data-local-configuration-write-token="{localConfigurationWriteToken}">
+    <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon">Filter by:</span>
+            <input type="text" autocomplete="off" class="form-control t3js-localConfiguration-search" placeholder="search setting">
+        </div>
+    </div>
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <f:for each="{localConfigurationData}" as="sectionData" key="sectionName">
+            <f:if condition="{sectionData.items}">
+                <f:render partial="Settings/LocalConfiguration/SubSection" arguments="{_all}"/>
+            </f:if>
+        </f:for>
+    </div>
+</div>
+
+</html>

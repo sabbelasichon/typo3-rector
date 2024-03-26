@@ -1,0 +1,31 @@
+# Bullet List:
+# A single bullet list.
+#
+# CType: bullets
+
+tt_content.bullets =< lib.contentElement
+tt_content.bullets {
+    templateName = Bullets
+    dataProcessing {
+        10 = split
+        10 {
+            if {
+                value = 2
+                isLessThan.field = bullets_type
+            }
+            fieldName = bodytext
+            removeEmptyEntries = 1
+            as = bullets
+        }
+        20 = comma-separated-value
+        20 {
+            fieldName = bodytext
+            if {
+                value = 2
+                equals.field = bullets_type
+            }
+            fieldDelimiter = |
+            as = bullets
+        }
+    }
+}

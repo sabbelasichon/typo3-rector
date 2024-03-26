@@ -1,0 +1,83 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:backend="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:for each="{tree.nextChild}" as="child">
+    <f:if condition="{displayComments} && {child.comments}">
+        <li class="loose">
+            <div class="treelist-comment">
+                <f:for each="{child.comments}" as="comment" iteration="iterator">
+                    <div><f:format.nl2br>{comment}</f:format.nl2br></div>
+                </f:for>
+            </div>
+        </li>
+    </f:if>
+    <f:if condition="{displayConstantSubstitutions} && {child.originalValueTokenStream}">
+        <li class="loose">
+            <span class="diff-item-result diff-item-result-inline">
+                <f:format.raw>
+                    <f:variable name="trimmedValueTokenStream"><f:format.trim>{child.originalValueTokenStream}</f:format.trim></f:variable>
+                    <f:translate
+                        key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_active.xlf:tree.valueWithConstant"
+                        arguments="{
+                            0: '{backend:typoScript.fineDiff(from: trimmedValueTokenStream, to: child.value)}'
+                        }"
+                    />
+                </f:format.raw>
+            </span>
+        </li>
+    </f:if>
+    <li>
+        <f:if condition="{child.children}">
+            <typo3-backend-tree-node-toggle
+                class="treelist-control collapsed"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse-list-{child.identifier}"
+                aria-expanded="false">
+            </typo3-backend-tree-node-toggle>
+        </f:if>
+        <span class="treelist-group treelist-group-monospace">
+
+            <span class="treelist-label">
+                <a href="{editUri}&nodeIdentifier={child.identifier}">{child.name}</a>
+            </span>
+
+            <f:if condition="!{child.valueNull}">
+                <span class="treelist-operator">=</span>
+                <span class="treelist-value">{child.value}</span>
+            </f:if>
+            <f:if condition="{child.referenceSourceStream}">
+                <span class="treelist-operator">=<</span>
+                <span class="treelist-value">{child.referenceSourceStream}</span>
+            </f:if>
+        </span>
+        <f:if condition="{child.children}">
+            <div
+                class="treelist-collapse collapse"
+                data-persist-collapse-state="true"
+                data-persist-collapse-state-suffix="typoscript-active-{type}"
+                data-persist-collapse-state-not-if-search="true"
+                data-persist-collapse-state-if-state="shown"
+                id="collapse-list-{child.identifier}"
+            >
+                <ul class="treelist">
+                    <f:render
+                        partial="ActiveTree"
+                        arguments="{
+                            type: type,
+                            tree: child,
+                            pageUid: pageUid,
+                            displayConstantSubstitutions: displayConstantSubstitutions,
+                            displayComments: displayComments,
+                            editUri: editUri
+                        }"
+                    />
+                </ul>
+            </div>
+        </f:if>
+    </li>
+</f:for>
+
+</html>

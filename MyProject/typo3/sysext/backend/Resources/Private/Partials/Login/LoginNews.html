@@ -1,0 +1,53 @@
+<html
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:if condition="{loginNewsItems}">
+    <section class="typo3-login-news" aria-labelledby="loginNewsHeader">
+        <h2 id="loginNewsHeader" class="visually-hidden">
+            <f:translate key="LLL:EXT:backend/Resources/Private/Language/locallang.xlf:login.news.header" />
+        </h2>
+        <f:if condition="{loginNewsItems -> f:count()} > 1">
+            <f:then>
+                <div class="carousel slide typo3-login-carousel t3js-login-news-carousel" id="loginNews" data-bs-ride="false">
+                    <button class="left typo3-login-carousel-control" data-bs-target="#loginNews" data-bs-slide="prev">
+                        <core:icon identifier="actions-chevron-left" size="small" />
+                        <span class="visually-hidden"><f:translate key="LLL:EXT:backend/Resources/Private/Language/locallang.xlf:login.news.previous"/></span>
+                    </button>
+                    <button type="button" class="right typo3-login-carousel-control" data-bs-target="#loginNews" data-bs-slide="next">
+                        <core:icon identifier="actions-chevron-right" size="small" />
+                        <span class="visually-hidden"><f:translate key="LLL:EXT:backend/Resources/Private/Language/locallang.xlf:login.news.next"/></span>
+                    </button>
+                    <div class="carousel-inner carousel-inner--overflowing-bottom" aria-live="polite">
+                        <f:for each="{loginNewsItems}" as="item" iteration="loginNewsIterator">
+                            <div role="group" aria-labelledby="loginNewsItem-{item.uid}" class="carousel-item{f:if(condition: loginNewsIterator.isFirst,then: ' active')}">
+                                <f:render section="Item" arguments="{item: item}"/>
+                            </div>
+                        </f:for>
+                    </div>
+                </div>
+            </f:then>
+            <f:else>
+                <div class="carousel typo3-login-carousel">
+                    <div class="carousel-inner carousel-inner--overflowing-bottom">
+                        <f:render section="Item" arguments="{item:'{loginNewsItems.0}'}"/>
+                    </div>
+                </div>
+            </f:else>
+        </f:if>
+    </section>
+</f:if>
+
+<f:section name="Item">
+    <p id="loginNewsItem-{item.uid}" class="typo3-login-news-heading">{item.header}</p>
+    {item.content -> f:transform.html() -> f:sanitize.html()}
+    <f:if condition="{item.date}">
+        <p class="text-body-secondary">
+            <span class="visually-hidden"><f:translate key="LLL:EXT:backend/Resources/Private/Language/locallang.xlf:login.news.date"/></span>{item.date}
+        </p>
+    </f:if>
+</f:section>
+
+</html>

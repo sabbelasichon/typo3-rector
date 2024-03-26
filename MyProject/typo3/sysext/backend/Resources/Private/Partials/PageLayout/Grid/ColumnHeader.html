@@ -1,0 +1,35 @@
+<div class="t3-page-column-header">
+    <f:if condition="{column.active}">
+        <f:then>
+            <div class="t3-page-column-header-icons">
+                <f:if condition="{allowEditContent} && {column.editUrl}">
+                    <a href="{column.editUrl}" title="{f:translate(key: 'LLL:EXT:backend/Resources/Private/Language/locallang_layout.xlf:editColumn')}">
+                        <core:icon identifier="actions-document-open" />
+                    </a>
+                </f:if>
+            </div>
+            {column.title}
+        </f:then>
+        <f:else if="{column.unused}">
+            <f:translate key="LLL:EXT:backend/Resources/Private/Language/locallang_layout.xlf:unusedColPos"/>
+        </f:else>
+        <f:else if="{column.unassigned}">
+            {column.titleUnassigned}
+        </f:else>
+        <f:else>
+            {column.titleInaccessible}
+        </f:else>
+    </f:if>
+</div>
+<f:format.raw>{column.beforeSectionMarkup}</f:format.raw>
+<f:if condition="{allowEditContent} && {column.contentEditable} && {column.context.allowNewContent} && {column.active}">
+    <div class="t3-page-ce t3js-page-ce" data-page="{column.context.pageId}" id="{column.uniqueId}">
+        <div class="t3-page-ce-actions t3js-page-new-ce" id="colpos-{column.columnNumber}-page-{column.context.pageId}-{column.uniqueId}">
+            <typo3-backend-new-content-element-wizard-button class="btn btn-default btn-sm" url="{column.newContentUrl}" subject="{newContentTitle}">
+                <core:icon identifier="actions-plus" />
+                {newContentTitleShort}
+            </typo3-backend-new-content-element-wizard-button>
+        </div>
+        <div class="t3-page-ce-dropzone t3js-page-ce-dropzone-available"></div>
+    </div>
+</f:if>

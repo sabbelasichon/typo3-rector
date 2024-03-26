@@ -1,0 +1,76 @@
+plugin.tx_felogin_login {
+  view {
+    templateRootPaths.10 = {$plugin.tx_felogin_login.view.templateRootPath}
+    partialRootPaths.10 = {$plugin.tx_felogin_login.view.partialRootPath}
+    layoutRootPaths.10 = {$plugin.tx_felogin_login.view.layoutRootPath}
+  }
+
+  ignoreFlexFormSettingsIfEmpty = showForgotPassword
+  ignoreFlexFormSettingsIfEmpty := addToList(showPermaLogin)
+  ignoreFlexFormSettingsIfEmpty := addToList(showLogoutFormAfterLogin)
+  ignoreFlexFormSettingsIfEmpty := addToList(pages)
+  ignoreFlexFormSettingsIfEmpty := addToList(recursive)
+  ignoreFlexFormSettingsIfEmpty := addToList(redirectMode)
+  ignoreFlexFormSettingsIfEmpty := addToList(redirectFirstMethod)
+  ignoreFlexFormSettingsIfEmpty := addToList(redirectPageLogin)
+  ignoreFlexFormSettingsIfEmpty := addToList(redirectPageLoginError)
+  ignoreFlexFormSettingsIfEmpty := addToList(redirectPageLogout)
+  ignoreFlexFormSettingsIfEmpty := addToList(redirectDisable)
+
+  settings {
+    pages = {$styles.content.loginform.pid}
+    recursive = {$styles.content.loginform.recursive}
+
+    # Template
+    dateFormat = {$styles.content.loginform.dateFormat}
+    showForgotPassword = {$styles.content.loginform.showForgotPassword}
+    # showForgotPasswordLink is deprecated and will be removed with 12. Use showForgotPassword instead.
+    showForgotPasswordLink = {$styles.content.loginform.showForgotPasswordLink}
+    showPermaLogin = {$styles.content.loginform.showPermaLogin}
+    showLogoutFormAfterLogin = {$styles.content.loginform.showLogoutFormAfterLogin}
+
+    # Email Settings
+    email_from = {$styles.content.loginform.emailFrom}
+    email_fromName = {$styles.content.loginform.emailFromName}
+    email {
+      templateName = {$styles.content.loginform.email.templateName}
+      layoutRootPaths {
+        20 = {$styles.content.loginform.email.layoutRootPath}
+      }
+      templateRootPaths {
+        20 = {$styles.content.loginform.email.templateRootPath}
+      }
+      partialRootPaths {
+        20 = {$styles.content.loginform.email.partialRootPath}
+      }
+    }
+
+    # Redirect Settings
+    redirectMode = {$styles.content.loginform.redirectMode}
+    redirectFirstMethod = {$styles.content.loginform.redirectFirstMethod}
+    redirectPageLogin = {$styles.content.loginform.redirectPageLogin}
+    redirectPageLoginError = {$styles.content.loginform.redirectPageLoginError}
+    redirectPageLogout = {$styles.content.loginform.redirectPageLogout}
+    redirectDisable = {$styles.content.loginform.redirectDisable}
+
+    # Security
+    exposeNonexistentUserInForgotPasswordDialog = {$styles.content.loginform.exposeNonexistentUserInForgotPasswordDialog}
+    forgotLinkHashValidTime = {$styles.content.loginform.forgotLinkHashValidTime}
+    domains = {$styles.content.loginform.domains}
+
+    # @deprecated Please enable the `security.usePasswordPolicyForFrontendUsers` feature toggle
+    #             and use password policies introduced in #97388 instead.
+    #             Validators based on extbase will be removed in TYPO3 v13.
+    passwordValidators {
+      10 = TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator
+      20 {
+        className = TYPO3\CMS\Extbase\Validation\Validator\StringLengthValidator
+        options {
+          minimum = {$styles.content.loginform.newPasswordMinLength}
+        }
+      }
+    }
+    # Needed for the message hint in the default template
+    newPasswordMinLength = {$styles.content.loginform.newPasswordMinLength}
+  }
+}

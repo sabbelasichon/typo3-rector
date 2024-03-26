@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:beuser/Resources/Private/Language/locallang.xlf" date="2023-02-15T18:03:32Z" product-name="beuser">
+		<header/>
+		<body>
+			<trans-unit id="activeSessions" resname="activeSessions">
+				<source>Active Sessions</source>
+			</trans-unit>
+			<trans-unit id="userName" resname="userName">
+				<source>Username</source>
+			</trans-unit>
+			<trans-unit id="userGroupTitle" resname="userGroupTitle">
+				<source>Grouptitle or group ID</source>
+			</trans-unit>
+			<trans-unit id="avatar" resname="avatar">
+				<source>Avatar</source>
+			</trans-unit>
+			<trans-unit id="realName" resname="realName">
+				<source>Real Name</source>
+			</trans-unit>
+			<trans-unit id="lastAccess" resname="lastAccess">
+				<source>Last access</source>
+			</trans-unit>
+			<trans-unit id="ipAddress" resname="ipAddress">
+				<source>IP address</source>
+			</trans-unit>
+			<trans-unit id="subGroups" resname="subGroups">
+				<source>Sub Groups</source>
+			</trans-unit>
+			<trans-unit id="email" resname="email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="admin" resname="admin">
+				<source>Admin</source>
+			</trans-unit>
+			<trans-unit id="users" resname="users">
+				<source>Users</source>
+			</trans-unit>
+			<trans-unit id="user" resname="user">
+				<source>User</source>
+			</trans-unit>
+			<trans-unit id="yes" resname="yes">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="no" resname="no">
+				<source>No</source>
+			</trans-unit>
+			<trans-unit id="never" resname="never">
+				<source>Never</source>
+			</trans-unit>
+			<trans-unit id="edit" resname="edit">
+				<source>Edit</source>
+			</trans-unit>
+			<trans-unit id="delete" resname="delete">
+				<source>Delete backend user (!)</source>
+			</trans-unit>
+			<trans-unit id="details" resname="details">
+				<source>Show details</source>
+			</trans-unit>
+			<trans-unit id="info" resname="info">
+				<source>Display information</source>
+			</trans-unit>
+			<trans-unit id="disable" resname="disable">
+				<source>Disable</source>
+			</trans-unit>
+			<trans-unit id="disable_compare" resname="disable_compare">
+				<source>Is active?</source>
+			</trans-unit>
+			<trans-unit id="startDateAndTime" resname="startDateAndTime">
+				<source>Start</source>
+			</trans-unit>
+			<trans-unit id="endDateAndTime" resname="endDateAndTime">
+				<source>Stop</source>
+			</trans-unit>
+			<trans-unit id="lastLogin" resname="lastLogin">
+				<source>Last login</source>
+			</trans-unit>
+			<trans-unit id="allowedLanguages" resname="allowedLanguages">
+				<source>Limit to languages</source>
+			</trans-unit>
+			<trans-unit id="dbMountPoints" resname="dbMountPoints">
+				<source>DB mountpoints</source>
+			</trans-unit>
+			<trans-unit id="fileMounts" resname="fileMounts">
+				<source>File mountpoints</source>
+			</trans-unit>
+			<trans-unit id="compareBackendUsers" resname="compareBackendUsers">
+				<source>Compare backend users</source>
+			</trans-unit>
+			<trans-unit id="compareUserList" resname="compareUserList">
+				<source>Compare user list</source>
+			</trans-unit>
+			<trans-unit id="compareBackendUsersGroups" resname="compareBackendUsersGroups">
+				<source>Compare backend user groups</source>
+			</trans-unit>
+			<trans-unit id="clearCompareList" resname="clearCompareList">
+				<source>Clear compare list</source>
+			</trans-unit>
+			<trans-unit id="status" resname="status">
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="both" resname="both">
+				<source>Both</source>
+			</trans-unit>
+			<trans-unit id="any" resname="any">
+				<source>Any</source>
+			</trans-unit>
+			<trans-unit id="adminOnly" resname="adminOnly">
+				<source>Admin only</source>
+			</trans-unit>
+			<trans-unit id="normalUserOnly" resname="normalUserOnly">
+				<source>Normal users only</source>
+			</trans-unit>
+			<trans-unit id="activeOnly" resname="activeOnly">
+				<source>Active only</source>
+			</trans-unit>
+			<trans-unit id="inactiveOnly" resname="inactiveOnly">
+				<source>Inactive only</source>
+			</trans-unit>
+			<trans-unit id="loginBefore" resname="loginBefore">
+				<source>Logged in before</source>
+			</trans-unit>
+			<trans-unit id="neverLoggedIn" resname="neverLoggedIn">
+				<source>Never logged in</source>
+			</trans-unit>
+			<trans-unit id="filter" resname="filter">
+				<source>Filter</source>
+			</trans-unit>
+			<trans-unit id="reset" resname="reset">
+				<source>Reset</source>
+			</trans-unit>
+			<trans-unit id="reallyLogout" resname="reallyLogout">
+				<source>Really logout</source>
+			</trans-unit>
+			<trans-unit id="endSession" resname="endSession">
+				<source>End session</source>
+			</trans-unit>
+			<trans-unit id="backendUsers" resname="backendUsers">
+				<source>Backend users</source>
+			</trans-unit>
+			<trans-unit id="backendUser.create" resname="backendUser.create">
+				<source>Create new backend user</source>
+			</trans-unit>
+			<trans-unit id="backendUserGroup.create" resname="backendUserGroup.create">
+				<source>Create new backend user group</source>
+			</trans-unit>
+			<trans-unit id="compareUsers" resname="compareUsers">
+				<source>Compare backend users</source>
+			</trans-unit>
+			<trans-unit id="backendUserGroupsMenu" resname="backendUserGroupsMenu">
+				<source>Backend user groups</source>
+			</trans-unit>
+			<trans-unit id="onlineUsers" resname="onlineUsers">
+				<source>Online users</source>
+			</trans-unit>
+			<trans-unit id="backendUserAdministration" resname="backendUserAdministration">
+				<source>Backend User Administration</source>
+			</trans-unit>
+			<trans-unit id="backendUserGroup" resname="backendUserGroup">
+				<source>User group</source>
+			</trans-unit>
+			<trans-unit id="backendUserGroups" resname="backendUserGroups">
+				<source>Member of groups</source>
+			</trans-unit>
+			<trans-unit id="changeToMode" resname="changeToMode">
+				<source>[change-to mode]</source>
+			</trans-unit>
+			<trans-unit id="switchBackMode" resname="switchBackMode">
+				<source>Switch to user</source>
+			</trans-unit>
+			<trans-unit id="confirm" resname="confirm">
+				<source>Are you sure you want to delete the backend user '%s'?</source>
+			</trans-unit>
+			<trans-unit id="backendUserGroup.confirmDelete" resname="backendUserGroup.confirmDelete">
+				<source>Are you sure you want to delete the usergroup '%s'?</source>
+			</trans-unit>
+			<trans-unit id="section.compare" resname="section.compare">
+				<source>Compare</source>
+			</trans-unit>
+			<trans-unit id="section.allUserGroups" resname="section.allUserGroups">
+				<source>All backend user groups</source>
+			</trans-unit>
+			<trans-unit id="section.allUsers" resname="section.allUsers">
+				<source>All backend users</source>
+			</trans-unit>
+			<trans-unit id="compare" resname="compare">
+				<source>Compare</source>
+			</trans-unit>
+			<trans-unit id="remove" resname="remove">
+				<source>Remove</source>
+			</trans-unit>
+			<trans-unit id="terminateSessionSuccess" resname="terminateSessionSuccess">
+				<source>Session successfully terminated.</source>
+			</trans-unit>
+			<trans-unit id="backendUserGroupListing" resname="backendUserGroupListing">
+				<source>Backend User Group Listing</source>
+			</trans-unit>
+			<trans-unit id="online" resname="online">
+				<source>online</source>
+			</trans-unit>
+			<trans-unit id="lockedMfaProviders" resname="lockedMfaProviders">
+				<source>Locked MFA providers</source>
+			</trans-unit>
+			<trans-unit id="mfaEnabled" resname="mfaEnabled">
+				<source>MFA enabled</source>
+			</trans-unit>
+			<trans-unit id="visibility.hide" resname="visibility.hide">
+				<source>Hide</source>
+			</trans-unit>
+			<trans-unit id="visibility.unhide" resname="visibility.unhide">
+				<source>Un-hide</source>
+			</trans-unit>
+			<trans-unit id="information.defaultLanguage" resname="information.defaultLanguage">
+				<source>Default</source>
+			</trans-unit>
+			<trans-unit id="groups" resname="groups">
+				<source>Groups</source>
+			</trans-unit>
+			<trans-unit id="group" resname="group">
+				<source>Group</source>
+			</trans-unit>
+			<trans-unit id="information.groups.direct" resname="information.groups.direct">
+				<source>Directly assigned</source>
+			</trans-unit>
+			<trans-unit id="information.groups.inheritance" resname="information.groups.inheritance">
+				<source>Assigned through inheritance</source>
+			</trans-unit>
+			<trans-unit id="languages" resname="languages">
+				<source>Languages</source>
+			</trans-unit>
+			<trans-unit id="dbMounts" resname="dbMounts">
+				<source>DB Mounts</source>
+			</trans-unit>
+			<trans-unit id="fileMounts" resname="fileMounts">
+				<source>File Mounts</source>
+			</trans-unit>
+			<trans-unit id="categories" resname="categories">
+				<source>Categories</source>
+			</trans-unit>
+			<trans-unit id="permissions" resname="permissions">
+				<source>Permissions</source>
+			</trans-unit>
+			<trans-unit id="modules" resname="modules">
+				<source>Modules</source>
+			</trans-unit>
+			<trans-unit id="tableModes" resname="tableModes">
+				<source>Table select/modify</source>
+			</trans-unit>
+			<trans-unit id="tableModes.select" resname="tableModes.select">
+				<source>Select</source>
+			</trans-unit>
+			<trans-unit id="tableModes.modify" resname="tableModes.modify">
+				<source>Modify</source>
+			</trans-unit>
+			<trans-unit id="information.defaultWorkspace" resname="information.defaultWorkspace">
+				<source>Default workspace</source>
+			</trans-unit>
+			<trans-unit id="backendUser" resname="backendUser">
+				<source>Backend User</source>
+			</trans-unit>
+			<trans-unit id="backendUserDetails" resname="backendUserDetails">
+				<source>Backend user details</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.resetPassword.error.title" resname="flashMessage.resetPassword.error.title">
+				<source>Password reset not triggered</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.resetPassword.error.text" resname="flashMessage.resetPassword.error.text">
+				<source>Sorry, the password of this user cannot be reset.</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.resetPassword.success.title" resname="flashMessage.resetPassword.success.title">
+				<source>Password reset triggered</source>
+			</trans-unit>
+			<trans-unit id="flashMessage.resetPassword.success.text" resname="flashMessage.resetPassword.success.text">
+				<source>Password reset for email address %s initiated.</source>
+			</trans-unit>
+			<trans-unit id="resetPassword.label" resname="resetPassword.label">
+				<source>Reset Password</source>
+			</trans-unit>
+			<trans-unit id="resetPassword.confirmation.header" resname="resetPassword.confirmation.header">
+				<source>Reset Password</source>
+			</trans-unit>
+			<trans-unit id="resetPassword.confirmation.text" resname="resetPassword.confirmation.text">
+				<source>Are you sure you want to reset the password for %s?</source>
+			</trans-unit>
+			<trans-unit id="compare.tables" resname="compare.tables">
+				<source>Table permissions</source>
+			</trans-unit>
+			<trans-unit id="compare.direct.inherit" resname="compare.direct.inherit">
+				<source>Inherit</source>
+			</trans-unit>
+			<trans-unit id="compare.direct.direct" resname="compare.direct.direct">
+				<source>Direct</source>
+			</trans-unit>
+			<trans-unit id="pagination.previous" resname="pagination.previous">
+				<source>previous</source>
+			</trans-unit>
+			<trans-unit id="pagination.next" resname="pagination.next">
+				<source>next</source>
+			</trans-unit>
+			<trans-unit id="pagination.first" resname="pagination.first">
+				<source>first</source>
+			</trans-unit>
+			<trans-unit id="pagination.last" resname="pagination.last">
+				<source>last</source>
+			</trans-unit>
+			<trans-unit id="pagination.records" resname="pagination.records">
+				<source>Records</source>
+			</trans-unit>
+			<trans-unit id="pagination.page" resname="pagination.page">
+				<source>Page</source>
+			</trans-unit>
+			<trans-unit id="pagination.refresh" resname="pagination.refresh">
+				<source>Refresh</source>
+			</trans-unit>
+
+			<trans-unit id="backendUser.list.title" resname="backendUser.list.title">
+				<source>Backend users</source>
+			</trans-unit>
+			<trans-unit id="backendUser.online.title" resname="backendUser.online.title">
+				<source>Online backend users</source>
+			</trans-unit>
+			<trans-unit id="backendUser.compare.title" resname="backendUser.online.title">
+				<source>Compare backend users</source>
+			</trans-unit>
+			<trans-unit id="backendUserGroup.list.title" resname="backendUserGroup.list.title">
+				<source>Backend user groups</source>
+			</trans-unit>
+			<trans-unit id="filemount.list.title" resname="filemount.list.title">
+				<source>Filemounts</source>
+			</trans-unit>
+
+			<trans-unit id="filemounts" resname="filemounts">
+				<source>Filemounts</source>
+			</trans-unit>
+			<trans-unit id="filemount.confirm.deletion" resname="filemount.confirm.deletion">
+				<source>Are you sure, that you want to delete the filemount "%s"?</source>
+			</trans-unit>
+			<trans-unit id="filemount.create" resname="filemount.create">
+				<source>Create new filemount</source>
+			</trans-unit>
+			<trans-unit id="filemount.none" resname="filemount.none">
+				<source>There are no filemounts available.</source>
+			</trans-unit>
+			<trans-unit id="filemount.storage" resname="filemount.storage">
+				<source>Storage</source>
+			</trans-unit>
+			<trans-unit id="filemount.amount.multiple" resname="filemount.amount.multiple">
+				<source>%s Filemounts</source>
+			</trans-unit>
+			<trans-unit id="filemount.amount.singular" resname="filemount.amount.singular">
+				<source>1 Filemount</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

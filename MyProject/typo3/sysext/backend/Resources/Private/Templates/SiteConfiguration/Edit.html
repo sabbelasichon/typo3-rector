@@ -1,0 +1,37 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+
+<f:be.pageRenderer
+    includeJavaScriptModules="{
+        0: '@typo3/backend/context-menu.js',
+        1: '@typo3/backend/modal.js',
+        2: '@typo3/backend/site-inline-actions.js'
+    }"
+/>
+
+<form
+    action="{f:be.uri(route:'site_configuration.save')}"
+    method="post"
+    enctype="multipart/form-data"
+    name="editform"
+    id="siteConfigurationController"
+>
+    {formEngineHtml -> f:format.raw()}
+
+    <input type="hidden" name="returnUrl" value="{returnUrl -> f:format.raw()}" />
+    <input type="hidden" name="closeDoc" value="0" />
+    <input type="hidden" name="doSave" value="0" />
+    <input type="hidden" name="rootPageId" value="{rootPageId}" />
+
+    {formEngineFooter -> f:format.raw()}
+</form>
+
+</f:section>
+
+</html>

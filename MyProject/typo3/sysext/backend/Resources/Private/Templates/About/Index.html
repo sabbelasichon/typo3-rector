@@ -1,0 +1,37 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Module" />
+
+<f:section name="Content">
+
+    <div class="container-small about-module">
+        <f:render partial="About/Logo" arguments="{_all}" />
+
+        <f:for each="{messages}" as="message">
+            <f:be.infobox title="{f:if(condition: message.title, then: message.title, else: '{f:translate(key: \'LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:warning.header\')}')}" state="2">
+                <p>{message.message -> f:sanitize.html()}</p>
+            </f:be.infobox>
+        </f:for>
+
+        <f:render partial="About/About" arguments="{_all}" />
+        <f:render partial="About/Modules" arguments="{_all}" />
+        <f:render partial="About/Donation" arguments="{_all}" />
+        <f:render partial="About/Credits" arguments="{_all}" />
+        <f:render partial="About/CoreTeam" arguments="{_all}" />
+        <f:render partial="About/ExternalLibraries" arguments="{_all}" />
+        <f:render partial="About/Extensions" arguments="{_all}" />
+
+        <p>
+            <em class="text-body-secondary">
+                <f:translate key="LLL:EXT:backend/Resources/Private/Language/Modules/about.xlf:endText" />
+            </em>
+        </p>
+        <p>{typo3Info.copyrightNotice -> f:format.raw()}</p>
+    </div>
+
+</f:section>
+
+</html>

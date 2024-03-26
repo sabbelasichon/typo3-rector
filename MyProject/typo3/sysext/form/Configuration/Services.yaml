@@ -1,0 +1,97 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Form\:
+    resource: '../Classes/*'
+    exclude: '../Classes/{Domain/Model}'
+
+  TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManagerInterface:
+    alias: TYPO3\CMS\Form\Mvc\Configuration\ConfigurationManager
+    public: true
+
+  TYPO3\CMS\Form\Mvc\Configuration\TypoScriptService:
+    public: true
+
+  TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManagerInterface:
+    alias: TYPO3\CMS\Form\Mvc\Persistence\FormPersistenceManager
+    public: true
+
+  TYPO3\CMS\Form\Service\TranslationService:
+    public: true
+    arguments:
+      $runtimeCache: '@cache.runtime'
+
+  TYPO3\CMS\Form\Domain\Factory\ArrayFormFactory:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Form\Domain\Renderer\FluidFormRenderer:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Form\Domain\Runtime\FormRuntime:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Form\Mvc\ProcessingRule:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Form\Mvc\Property\PropertyMappingConfiguration:
+    public: true
+
+  TYPO3\CMS\Form\Slot\ResourcePublicationSlot:
+    tags:
+      - name: event.listener
+        identifier: 'form-framework/resource-getPublicUrl'
+        method: 'getPublicUrl'
+
+  TYPO3\CMS\Form\Slot\FilePersistenceSlot:
+    tags:
+      - name: event.listener
+        identifier: 'form-framework/creation'
+        method: 'onPreFileCreate'
+      - name: event.listener
+        identifier: 'form-framework/add'
+        method: 'onPreFileAdd'
+      - name: event.listener
+        identifier: 'form-framework/rename'
+        method: 'onPreFileRename'
+      - name: event.listener
+        identifier: 'form-framework/replace'
+        method: 'onPreFileReplace'
+      - name: event.listener
+        identifier: 'form-framework/move'
+        method: 'onPreFileMove'
+      - name: event.listener
+        identifier: 'form-framework/update-content'
+        method: 'onPreFileSetContents'
+
+  TYPO3\CMS\Form\EventListener\ProcessFileListActionsEventListener:
+    tags:
+      - name: event.listener
+        identifier: 'form-framework/form-definition-files'
+
+  TYPO3\CMS\Form\EventListener\DataStructureIdentifierListener:
+    tags:
+      - name: event.listener
+        identifier: 'form-framework/modify-data-structure-identifier'
+        method: 'modifyDataStructureIdentifier'
+      - name: event.listener
+        identifier: 'form-framework/modify-data-structure'
+        method: 'modifyDataStructure'
+
+  TYPO3\CMS\Form\SoftReference\FormPersistenceIdentifierSoftReferenceParser:
+    tags:
+      - name: softreference.parser
+        parserKey: formPersistenceIdentifier
+
+  TYPO3\CMS\Form\Mvc\Property\TypeConverter\FormDefinitionArrayConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: TYPO3\CMS\Form\Type\FormDefinitionArray
+        sources: string

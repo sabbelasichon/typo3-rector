@@ -1,0 +1,157 @@
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+
+namespace TYPO3\CMS\Backend\Controller;
+
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Backend\Attribute\Controller;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Authentication\LoginType;
+use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\FormProtection\BackendFormProtection;
+use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
+use TYPO3\CMS\Core\Http\JsonResponse;
+use TYPO3\CMS\Core\Session\UserSessionManager;
+
+/**
+ * This is the ajax handler for backend login after timeout.
+ * @internal This class is a specific Backend controller implementation and is not considered part of the Public TYPO3 API.
+ */
+#[Controller]
+class AjaxLoginController
+{
+    public function __construct(
+        protected readonly FormProtectionFactory $formProtectionFactory
+    ) {}
+
+    /**
+     * Handles the actual login process, more specifically it defines the response.
+     * The login details were sent in as part of the ajax request and automatically logged in
+     * the user inside the BackendUserAuthenticator middleware. If that was successful, we have
+     * a BE user and reset the timer and hide the login window.
+     * If it was unsuccessful, we display that and show the login box again.
+     */
+    public function loginAction(ServerRequestInterface $request): ResponseInterface
+    {
+        if ($this->isAuthorizedBackendSession()) {
+            $result = ['success' => true];
+            if ($this->hasLoginBeenProcessed($request)) {
+                /** @var BackendFormProtection $formProtection */
+                $formProtection = $this->formProtectionFactory->createFromRequest($request);
+                $formProtection->setSessionTokenFromRegistry();
+                $formProtection->persistSessionToken();
+            }
+        } else {
+            $result = ['success' => false];
+        }
+        return new JsonResponse(['login' => $result]);
+    }
+
+    /**
+     * Logs out the current BE user
+     */
+    public function logoutAction(ServerRequestInterface $request): ResponseInterface
+    {
+        $backendUser = $this->getBackendUser();
+        $backendUser->logoff();
+        return new JsonResponse([
+            'logout' => [
+                'success' => !isset($backendUser->user['uid']),
+            ],
+        ]);
+    }
+
+    public function preflightAction(ServerRequestInterface $request): ResponseInterface
+    {
+        $headers = $request->getHeaders();
+        return new JsonResponse([
+            'capabilities' => [
+                'cookie' => !empty($request->getCookieParams()),
+                // using legacy `Referer` (sic!) header name
+                'referrer' => array_filter($headers['referer'] ?? []) !== [],
+            ],
+        ]);
+    }
+
+    /**
+     * Handles the actual session refresh, more specifically it defines the response.
+     * The session refresh has been performed inside the BackendUserAuthenticator middleware.
+     * If that was successful, we have a BE user and report that information as response.
+     */
+    public function refreshAction(ServerRequestInterface $request): ResponseInterface
+    {
+        $backendUser = $this->getBackendUser();
+        return new JsonResponse([
+            'refresh' => [
+                'success' => isset($backendUser->user['uid']),
+            ],
+        ]);
+    }
+
+    /**
+     * Checks if the user session is expired yet
+     */
+    public function isTimedOutAction(ServerRequestInterface $request): ResponseInterface
+    {
+        $session = [
+            'timed_out' => false,
+            'will_time_out' => false,
+            'locked' => false,
+        ];
+        $backendUser = $this->getBackendUser();
+        if (@is_file(Environment::getLegacyConfigPath() . '/LOCK_BACKEND')) {
+            $session['locked'] = true;
+        } elseif (!isset($backendUser->user['uid'])) {
+            $session['timed_out'] = true;
+        } else {
+            $sessionManager = UserSessionManager::create('BE');
+            // If 120 seconds from now is later than the session timeout, we need to show the refresh dialog.
+            // 120 is somewhat arbitrary to allow for a little room during the countdown and load times, etc.
+            $session['will_time_out'] = $sessionManager->willExpire($backendUser->getSession(), 120);
+        }
+        return new JsonResponse(['login' => $session]);
+    }
+
+    /**
+     * Checks if a user is logged in and the session is active.
+     *
+     * @return bool
+     */
+    protected function isAuthorizedBackendSession()
+    {
+        $backendUser = $this->getBackendUser();
+        if ($backendUser === null) {
+            return false;
+        }
+        return isset($backendUser->user['uid']);
+    }
+
+    /**
+     * Check whether the user was already authorized or not
+     */
+    protected function hasLoginBeenProcessed(ServerRequestInterface $request): bool
+    {
+        $loginFormData = $this->getBackendUser()->getLoginFormData($request);
+        return $loginFormData['status'] === LoginType::LOGIN && !empty($loginFormData['uname']) && !empty($loginFormData['uident']);
+    }
+
+    protected function getBackendUser(): ?BackendUserAuthentication
+    {
+        return $GLOBALS['BE_USER'] ?? null;
+    }
+}

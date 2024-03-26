@@ -1,0 +1,48 @@
+{
+	"name": "typo3/cms-dashboard",
+	"type": "typo3-cms-framework",
+	"description": "TYPO3 CMS Dashboard - TYPO3 backend module used to configure and create backend widgets.",
+	"homepage": "https://typo3.org",
+	"license": ["GPL-2.0-or-later"],
+	"authors": [{
+		"name": "TYPO3 Core Team",
+		"email": "typo3cms@typo3.org",
+		"role": "Developer"
+	}],
+	"support": {
+		"chat": "https://typo3.org/help",
+		"docs": "https://docs.typo3.org/c/typo3/cms-dashboard/main/en-us/",
+		"issues": "https://forge.typo3.org",
+		"source": "https://github.com/typo3/typo3"
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"require": {
+		"typo3/cms-core": "12.4.10",
+		"typo3/cms-frontend": "12.4.10",
+		"typo3/cms-backend": "12.4.10",
+		"typo3/cms-fluid": "12.4.10",
+		"typo3/cms-extbase": "12.4.10"
+	},
+	"conflict": {
+		"typo3/cms": "*"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-main": "12.4.x-dev"
+		},
+		"typo3/cms": {
+			"extension-key": "dashboard",
+			"Package": {
+				"serviceProvider": "TYPO3\\CMS\\Dashboard\\ServiceProvider",
+				"partOfFactoryDefault": true
+			}
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"TYPO3\\CMS\\Dashboard\\": "Classes/"
+		}
+	}
+}

@@ -1,0 +1,44 @@
+# HEADS UP:
+# This file is intended for NON install tool context services only.
+# Therefore all services in this file are registered explicitly and an
+# include-all directive like `resource: '../Classes/*'` avoided on purpose.
+#
+# All *regular* EXT:install services are registered in
+# TYPO3\CMS\Install\ServiceProvider instead to be usable without DI caches.
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Install\Updates\:
+    resource: '../Classes/Updates/*'
+
+  TYPO3\CMS\Install\Controller\BackendModuleController:
+    tags: ['backend.controller']
+
+  TYPO3\CMS\Install\Service\Typo3tempFileService:
+    public: true
+
+  TYPO3\CMS\Install\Report\EnvironmentStatusReport:
+    tags:
+      - name: reports.status
+
+  TYPO3\CMS\Install\Report\InstallStatusReport:
+    tags:
+      - name: reports.status
+
+  TYPO3\CMS\Install\Report\SecurityStatusReport:
+    tags:
+      - name: reports.status
+
+  TYPO3\CMS\Install\Updates\RowUpdater\SysRedirectRootPageMoveMigration:
+    public: true
+
+  TYPO3\CMS\Install\Service\UpgradeWizardsService:
+    public: true
+
+  TYPO3\CMS\Install\Updates\UpgradeWizardRegistry:
+    arguments:
+      $upgradeWizards: !tagged_locator { tag: 'install.upgradewizard', index_by: 'identifier' }

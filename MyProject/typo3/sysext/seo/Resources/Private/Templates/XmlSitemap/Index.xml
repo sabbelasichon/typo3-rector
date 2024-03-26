@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="{xslFile}"?>
+
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <f:for each="{sitemaps}" as="sitemap">
+        <sitemap>
+            <f:spaceless>
+                <f:if condition="{sitemap.page}">
+                    <f:then><loc><f:uri.typolink parameter="t3://page?uid=current&type={type}&sitemap={sitemap.key}&page={sitemap.page}" absolute="true" /></loc></f:then>
+                    <f:else><loc><f:uri.typolink parameter="t3://page?uid=current&type={type}&sitemap={sitemap.key}" absolute="true" /></loc></f:else>
+                </f:if>
+            </f:spaceless>
+            <lastmod>{sitemap.lastMod -> f:format.date(format: 'c')}</lastmod>
+        </sitemap>
+    </f:for>
+</sitemapindex>

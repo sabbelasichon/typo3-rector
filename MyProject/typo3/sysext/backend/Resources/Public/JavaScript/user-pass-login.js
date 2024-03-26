@@ -1,0 +1,13 @@
+/*
+ * This file is part of the TYPO3 CMS project.
+ *
+ * It is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License, either version 2
+ * of the License, or any later version.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * The TYPO3 project - inspiring people to share!
+ */
+import $ from"jquery";import Login from"@typo3/backend/login.js";class UserPassLogin{constructor(){this.resetPassword=()=>{const s=$(this.options.passwordField);s.val()&&($(Login.options.useridentField).val(s.val()),s.val(""))},this.showCapsLockWarning=s=>{$(s.target).parent().parent().find(".t3js-login-alert-capslock").toggleClass("hidden",!UserPassLogin.isCapslockEnabled(s))},this.toggleCopyright=s=>{" "===s.key&&s.target.click()},this.togglePasswordRevealer=()=>{const s=document.querySelector(this.options.passwordField);document.querySelector(this.options.togglePassword).classList.toggle("hidden",""===s.value),""===s.value&&this.togglePasswordVisibility(!0)},this.options={passwordField:".t3js-login-password-field",usernameField:".t3js-login-username-field",copyrightLink:"t3js-login-copyright-link",togglePassword:".t3js-login-toggle-password"},Login.options.submitHandler=this.resetPassword;const s=$(this.options.usernameField),e=$(this.options.passwordField),o=$(this.options.togglePassword),t=document.getElementsByClassName(this.options.copyrightLink)[0];s.on("keypress",this.showCapsLockWarning),e.on("keypress",this.showCapsLockWarning),e.on("input change",this.togglePasswordRevealer),o.on("click",(()=>{this.togglePasswordVisibility()})),t.addEventListener("keydown",this.toggleCopyright);try{parent.opener&&parent.opener.TYPO3&&parent.opener.TYPO3.configuration&&parent.opener.TYPO3.configuration.username&&s.val(parent.opener.TYPO3.configuration.username)}catch(s){}""===s.val()?s.focus():e.focus()}static isCapslockEnabled(s){const e=s||window.event;if(!e)return!1;let o=-1;e.which?o=e.which:e.keyCode&&(o=e.keyCode);let t=!1;return e.shiftKey?t=e.shiftKey:e.modifiers&&(t=!!(4&e.modifiers)),o>=65&&o<=90&&!t||o>=97&&o<=122&&t}togglePasswordVisibility(s){const e=document.querySelector(this.options.passwordField),o=document.querySelector(this.options.togglePassword);if(s)e.type="password",o.classList.remove("active");else{const s="password"===e.type;e.type=s?"text":"password",o.classList.toggle("active",s)}}}export default new UserPassLogin;

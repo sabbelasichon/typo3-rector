@@ -1,0 +1,51 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:be.pageRenderer
+    includeJavaScriptModules="{
+        0: 'bootstrap',
+        1: '@typo3/backend/module/router.js',
+        2: '@typo3/backend/module-menu.js',
+        3: '@typo3/backend/java-script-module-import-event-handler.js',
+        4: '@typo3/backend/storage/module-state-storage.js',
+        5: '@typo3/backend/toolbar.js',
+        6: '@typo3/backend/notification.js',
+        7: '@typo3/backend/modal.js',
+        8: '@typo3/backend/info-window.js',
+        9: '@typo3/backend/viewport/resizable-navigation.js',
+        10: '@typo3/backend/context-menu.js',
+        11: '@typo3/backend/global-event-handler.js',
+        12: '@typo3/backend/action-dispatcher.js',
+        13: '@typo3/backend/element/immediate-action-element.js',
+        14: '@typo3/backend/toolbar/live-search.js',
+        15: '@typo3/backend/live-search/element/backend-search.js'
+    }"
+/>
+
+<div class="scaffold t3js-scaffold{f:if(condition: '!{modulesCollapsed} && {modules}', then: ' scaffold-modulemenu-expanded')}">
+    <div class="scaffold-header t3js-scaffold-header">
+        <f:render partial="Backend/Topbar" arguments="{_all}" />
+    </div>
+    <f:if condition="{hasModules}">
+        <div class="scaffold-modulemenu t3js-scaffold-modulemenu">
+            <f:render partial="Backend/ModuleMenu" arguments="{modules: modules, modulesInformation: modulesInformation}" />
+        </div>
+    </f:if>
+    <div class="scaffold-content t3js-scaffold-content {f:if(condition: '!{hasModules}', then: 'scaffold-no-modules')}">
+        <div class="scaffold-content-navigation t3js-scaffold-content-navigation"></div>
+        <typo3-backend-navigation-switcher
+            parent=".t3js-scaffold"
+            navigation=".t3js-scaffold-content-navigation"
+            minimum-width="300"
+            persistence-identifier="navigation.width"
+        ></typo3-backend-navigation-switcher>
+        <div class="scaffold-content-module t3js-scaffold-content-module">
+            <typo3-backend-module-router module="{startupModule.0}" endpoint="{startupModule.1}" state-tracker="{stateTracker}" sitename="{sitename}"{f:if(condition: sitenameFirstInBackendTitle, then: ' sitename-first')}></typo3-backend-module-router>
+        </div>
+        <div class="scaffold-content-overlay t3js-scaffold-content-overlay"></div>
+    </div>
+</div>
+
+</html>

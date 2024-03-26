@@ -1,0 +1,55 @@
+{
+	"name": "typo3/cms-extbase",
+	"type": "typo3-cms-framework",
+	"description": "TYPO3 CMS Extbase - Extension framework to create TYPO3 frontend plugins and TYPO3 backend modules.",
+	"homepage": "https://typo3.org",
+	"license": ["GPL-2.0-or-later"],
+	"authors": [{
+		"name": "TYPO3 Core Team",
+		"email": "typo3cms@typo3.org",
+		"role": "Developer"
+	}],
+	"support": {
+		"chat": "https://typo3.org/help",
+		"docs": "https://docs.typo3.org",
+		"issues": "https://forge.typo3.org",
+		"source": "https://github.com/typo3/typo3"
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"require": {
+		"doctrine/instantiator": "^1.5 || ^2.0",
+		"phpdocumentor/reflection-docblock": "^5.2",
+		"phpdocumentor/type-resolver": "^1.7.1",
+		"symfony/dependency-injection": "^6.4 || ^7.0",
+		"symfony/property-access": "^6.4 || ^7.0",
+		"symfony/property-info": "^6.4 || ^7.0",
+		"typo3/cms-core": "12.4.10"
+	},
+	"suggest": {
+		"typo3/cms-scheduler": "Additional scheduler tasks"
+	},
+	"conflict": {
+		"typo3/cms": "*"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-main": "12.4.x-dev"
+		},
+		"typo3/cms": {
+			"Package": {
+				"serviceProvider": "TYPO3\\CMS\\Extbase\\ServiceProvider",
+				"protected": true,
+				"partOfFactoryDefault": true,
+				"partOfMinimalUsableSystem": true
+			},
+			"extension-key": "extbase"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"TYPO3\\CMS\\Extbase\\": "Classes/"
+		}
+	}
+}

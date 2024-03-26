@@ -1,0 +1,12 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\RteCKEditor\:
+    resource: '../Classes/*'
+
+  TYPO3\CMS\RteCKEditor\Controller\BrowseLinksController:
+    shared: false
+    public: true

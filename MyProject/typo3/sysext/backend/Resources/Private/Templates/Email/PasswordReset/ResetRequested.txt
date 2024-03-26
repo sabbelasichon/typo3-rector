@@ -1,0 +1,11 @@
+<f:layout name="SystemEmail" />
+<f:section name="Subject">Password reset requested at "{typo3.sitename}"</f:section>
+<f:section name="Title">Your email address was used to trigger a password reset</f:section>
+<f:section name="Main">
+Follow the link below to reset your backend user password at "{typo3.sitename}" (this link expires in 2 hours).
+<f:if condition="{username}">Your username is: {username}</f:if>
+
+{resetLink -> f:format.raw()}
+
+<f:render partial="Email/PasswordReset/ClosingParagraph" arguments="{normalizedParams: normalizedParams}" />
+</f:section>

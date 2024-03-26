@@ -1,0 +1,103 @@
+body {
+    font-family: var(--typo3-font-family);
+    font-size: 12px;
+    color: #000;
+    background-color: #fff;
+    padding: 1.5em;
+}
+
+body > :first-child {
+    margin-top: 0;
+}
+
+body > :last-child {
+    margin-bottom: 0;
+}
+
+blockquote {
+    font-style: italic;
+    font-family: var(--typo3-font-family-serif);
+    padding: 0;
+    border-style: solid;
+    border-color: #dedede;
+    border-width: 0;
+}
+
+blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+html[dir="ltr"] blockquote {
+    padding-left: 1.5em;
+    border-left-width: .25em;
+}
+
+html[dir="rtl"] blockquote {
+    padding-right: 1.5em;
+    border-right-width: .25em;
+}
+
+a {
+    color: #0782C1;
+    text-decoration: underline;
+}
+
+/**
+ * Show broken links with red border and yellow background
+ */
+a[data-rte-error]
+{
+    background-color: yellow!important;
+    border: 2px red solid!important;
+    color: black!important;
+}
+
+strong {
+    font-weight: bold;
+}
+
+ol,
+ul,
+dl {
+    padding: 0;
+    padding-left: 3em;
+}
+
+html[dir="rtl"] ol,
+html[dir="rtl"] ul,
+html[dir="rtl"] dl {
+    padding-left: 0;
+    padding-right: 3em;
+}
+
+hr {
+    height: 1px;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    tab-size: 4;
+}
+
+span[lang] {
+    font-style: italic;
+}
+
+.text-left,
+.text-start {
+    text-align: start;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right,
+.text-end {
+    text-align: end;
+}
+
+.text-justify {
+    text-align: justify;
+}

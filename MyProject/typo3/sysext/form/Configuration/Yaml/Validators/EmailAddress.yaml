@@ -1,0 +1,8 @@
+prototypes:
+  standard:
+    validatorsDefinition:
+      EmailAddress:
+        implementationClassName: TYPO3\CMS\Extbase\Validation\Validator\EmailAddressValidator
+        formEditor:
+          iconIdentifier: form-validator
+          label: formEditor.elements.TextMixin.editor.validators.EmailAddress.label

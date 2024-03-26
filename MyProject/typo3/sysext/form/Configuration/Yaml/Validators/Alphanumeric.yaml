@@ -1,0 +1,8 @@
+prototypes:
+  standard:
+    validatorsDefinition:
+      Alphanumeric:
+        implementationClassName: TYPO3\CMS\Extbase\Validation\Validator\AlphanumericValidator
+        formEditor:
+          iconIdentifier: form-validator
+          label: formEditor.elements.TextMixin.editor.validators.Alphanumeric.label

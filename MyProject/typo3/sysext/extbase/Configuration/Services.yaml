@@ -1,0 +1,201 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Extbase\:
+    resource: '../Classes/*'
+
+  TYPO3\CMS\Extbase\Core\Bootstrap:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Extbase\Configuration\BackendConfigurationManager:
+    public: true
+    arguments:
+      $typoScriptCache: '@cache.typoscript'
+      $runtimeCache: '@cache.runtime'
+
+  # formerly in EXT:extbase/ext_localconf.php
+  TYPO3\CMS\Extbase\Persistence\QueryInterface:
+    alias: TYPO3\CMS\Extbase\Persistence\Generic\Query
+    public: true
+  TYPO3\CMS\Extbase\Persistence\QueryResultInterface:
+    alias: TYPO3\CMS\Extbase\Persistence\Generic\QueryResult
+    public: true
+  TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface:
+    alias: TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+    public: true
+  TYPO3\CMS\Extbase\Persistence\Generic\Storage\BackendInterface:
+    alias: TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbBackend
+  TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface:
+    alias: TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings
+    public: true
+  TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface:
+    alias: TYPO3\CMS\Extbase\Configuration\ConfigurationManager
+    public: true
+
+  TYPO3\CMS\Extbase\Persistence\Generic\Query:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Extbase\Persistence\Generic\QueryResult:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbQueryParser:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapper:
+    public: true
+    shared: false
+
+  cache.extbase:
+    class: TYPO3\CMS\Core\Cache\Frontend\FrontendInterface
+    factory: ['@TYPO3\CMS\Core\Cache\CacheManager', 'getCache']
+    arguments: ['extbase']
+
+  TYPO3\CMS\Extbase\Mvc\View\GenericViewResolver: ~
+  TYPO3\CMS\Extbase\Mvc\View\ViewResolverInterface: '@TYPO3\CMS\Extbase\Mvc\View\GenericViewResolver'
+
+  TYPO3\CMS\Extbase\Mvc\View\JsonView:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder:
+    public: true
+    shared: false
+
+  TYPO3\CMS\Extbase\Persistence\ClassesConfiguration:
+    factory: ['@TYPO3\CMS\Extbase\Persistence\ClassesConfigurationFactory', 'createClassesConfiguration']
+
+  TYPO3\CMS\Extbase\Persistence\ClassesConfigurationFactory:
+    arguments:
+      $cache: '@cache.extbase'
+      $cacheIdentifier: '@=service("TYPO3\\CMS\\Core\\Package\\Cache\\PackageDependentCacheIdentifier").withPrefix("PersistenceClasses").toString()'
+
+  TYPO3\CMS\Extbase\Persistence\Generic\Mapper\DataMapFactory:
+    arguments:
+      $baseCacheIdentifier: '@=service("TYPO3\\CMS\\Core\\Package\\Cache\\PackageDependentCacheIdentifier").toString()'
+
+  TYPO3\CMS\Extbase\EventListener\AddDefaultModuleIcon:
+    tags:
+      - name: event.listener
+        identifier: 'extbase/add-default-extbase-module-icon'
+
+  # Content Object for Extbase Plugins
+  TYPO3\CMS\Extbase\ContentObject\ExtbasePluginContentObject:
+    tags:
+      - name: frontend.contentobject
+        identifier: 'EXTBASEPLUGIN'
+
+  # Type Converters
+  TYPO3\CMS\Extbase\Property\TypeConverter\ArrayConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: array
+        sources: array,string
+
+  TYPO3\CMS\Extbase\Property\TypeConverter\BooleanConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: boolean
+        sources: boolean,string
+
+  TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: DateTime
+        sources: string,integer,array
+
+  TYPO3\CMS\Extbase\Property\TypeConverter\EnumConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 20
+        target: object
+        sources: string,integer,float
+
+  TYPO3\CMS\Extbase\Property\TypeConverter\FloatConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: float
+        sources: float, integer, string
+
+  TYPO3\CMS\Extbase\Property\TypeConverter\IntegerConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: integer
+        sources: integer, string
+
+  TYPO3\CMS\Extbase\Property\TypeConverter\ObjectStorageConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: TYPO3\CMS\Extbase\Persistence\ObjectStorage
+        sources: string, array
+
+  TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 20
+        target: TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject
+        sources: integer, string, array
+
+  TYPO3\CMS\Extbase\Property\TypeConverter\ObjectConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: object
+        sources: array
+
+  TYPO3\CMS\Extbase\Property\TypeConverter\StringConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: string
+        sources: string, integer
+
+  TYPO3\CMS\Extbase\Property\TypeConverter\CoreTypeConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: TYPO3\CMS\Core\Type\TypeInterface
+        sources: string, integer, float, boolean, array
+
+  # Experimental FAL<->extbase converter
+  TYPO3\CMS\Extbase\Property\TypeConverter\FileConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: TYPO3\CMS\Extbase\Domain\Model\File
+        sources: integer, string
+
+  # Experimental FAL<->extbase converter
+  TYPO3\CMS\Extbase\Property\TypeConverter\FileReferenceConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: TYPO3\CMS\Extbase\Domain\Model\FileReference
+        sources: integer
+
+  # Experimental FAL<->extbase converter
+  TYPO3\CMS\Extbase\Property\TypeConverter\FolderConverter:
+    tags:
+      - name: extbase.type_converter
+        priority: 10
+        target: TYPO3\CMS\Extbase\Domain\Model\Folder
+        sources: string
+
+  Doctrine\Instantiator\InstantiatorInterface:
+    class: \Doctrine\Instantiator\Instantiator

@@ -1,0 +1,83 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:be.pageRenderer
+    includeJavaScriptModules="{
+        0: '@typo3/backend/context-menu.js',
+        1: '@typo3/backend/element/immediate-action-element.js'
+    }"
+/>
+
+<f:be.infobox title="{f:translate(key: 'LLL:EXT:tstemplate/Resources/Private/Language/locallang.xlf:noRecordFound.infobox.title')}" state="-1">
+    <p>
+        <f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang.xlf:noRecordFound.infobox.message" />
+    </p>
+    <f:if condition="{previousPage}">
+        <p class="mt-4">
+            <f:translate
+                key="LLL:EXT:tstemplate/Resources/Private/Language/locallang.xlf:noRecordFound.goToClosestRecord.description"
+                arguments="{0: previousPage.title, 1: previousPage.uid}"
+            />
+        </p>
+        <f:be.link
+            route="{moduleIdentifier}"
+            parameters="{id: previousPage.uid}"
+            class="btn btn-default"
+        >
+            <f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang.xlf:noRecordFound.goToClosestRecord.link.title" />
+        </f:be.link>
+    </f:if>
+</f:be.infobox>
+
+<div class="card-container">
+    <div class="card card-size-medium">
+        <div class="card-body">
+            <h2 class="card-title">
+                <f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang.xlf:noRecordFound.createRootTypoScriptRecord.headline" />
+            </h2>
+            <div class="card-text">
+                <p>
+                    <f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang.xlf:noRecordFound.createRootTypoScriptRecord.description" />
+                </p>
+            </div>
+        </div>
+        <div class="card-footer">
+            <form action="{f:be.uri(route: moduleIdentifier, parameters: '{id: pageUid}')}" method="post">
+                <input type="hidden" name="action" value="createNewWebsiteTemplate" />
+                <input
+                    class="btn btn-default"
+                    type="submit"
+                    name="newWebsite"
+                    value="{f:translate(key: 'LLL:EXT:tstemplate/Resources/Private/Language/locallang.xlf:noRecordFound.createRootTypoScriptRecord.link.title')}"
+                />
+            </form>
+        </div>
+    </div>
+    <div class="card card-size-medium">
+        <div class="card-body">
+            <h2 class="card-title">
+                <f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang.xlf:noRecordFound.createAdditionalTypoScriptRecord.headline" />
+            </h2>
+            <div class="card-text">
+                <p>
+                    <f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang.xlf:noRecordFound.createAdditionalTypoScriptRecord.description" />
+                </p>
+            </div>
+        </div>
+        <div class="card-footer">
+            <form action="{f:be.uri(route: moduleIdentifier, parameters: '{id: pageUid}')}" method="post">
+                <input type="hidden" name="action" value="createExtensionTemplate" />
+                <input
+                    class="btn btn-default"
+                    type="submit"
+                    name="createExtension"
+                    value="{f:translate(key: 'LLL:EXT:tstemplate/Resources/Private/Language/locallang.xlf:noRecordFound.createAdditionalTypoScriptRecord.link.title')}"
+                />
+            </form>
+        </div>
+    </div>
+</div>
+
+</html>

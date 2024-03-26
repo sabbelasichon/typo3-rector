@@ -1,0 +1,51 @@
+mod.linkvalidator {
+
+  # specify fields to be crawled
+  searchFields {
+    pages = media,url
+    tt_content = bodytext,header_link,records
+  }
+
+  # specify link types to be crawled
+  linktypes = db,file,external
+
+  linktypesConfig {
+    external {
+
+      # User-Agent string is filled with information about the crawling site
+      httpAgentName = TYPO3 LinkValidator
+      httpAgentUrl =
+      httpAgentEmail =
+
+      headers {
+
+      }
+
+      method = HEAD
+
+      range = 0-4048
+
+      # This is the total timeout of the request in
+      # seconds.
+      # If set, this overrides the timeout in $GLOBALS['TYPO3_CONF_VARS']['HTTP']['timeout'].
+      # which defaults to 0.
+      #
+      # WARNING:
+      #   A value 0 means no timeout, which may mean that the request never ends
+      #   and can also result in scheduler tasks to run indefinitely.
+      timeout = 20
+    }
+  }
+
+  checkhidden = 0
+  showCheckLinkTab = 1
+  # recheck | setNeedsRecheck
+  actionAfterEditRecord = recheck
+  mail {
+    fromname = LinkValidator
+    fromemail = linkvalidator@example.com
+    replytoname =
+    replytoemail =
+    subject = TYPO3 LinkValidator report
+  }
+}

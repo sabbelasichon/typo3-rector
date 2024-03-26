@@ -1,0 +1,14 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  TYPO3\CMS\Opendocs\:
+    resource: '../Classes/*'
+
+  TYPO3\CMS\Opendocs\Backend\ToolbarItems\OpendocsToolbarItem:
+    public: true
+
+  TYPO3\CMS\Opendocs\Controller\OpenDocumentController:
+    tags: ['backend.controller']

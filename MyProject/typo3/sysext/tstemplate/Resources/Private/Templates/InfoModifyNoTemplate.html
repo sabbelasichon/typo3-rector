@@ -1,0 +1,24 @@
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    data-namespace-typo3-fluid="true"
+>
+
+<f:layout name="Module"/>
+
+<f:section name="Content">
+
+    <h1><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_info.xlf:submodule.title" /></h1>
+    <p><f:translate key="LLL:EXT:tstemplate/Resources/Private/Language/locallang_info.xlf:submodule.description" /></p>
+
+    <f:render
+        partial="NoRecordFound"
+        arguments="{
+            pageUid: pageUid,
+            previousPage: previousPage,
+            moduleIdentifier: moduleIdentifier
+        }"
+    />
+
+</f:section>
+
+</html>

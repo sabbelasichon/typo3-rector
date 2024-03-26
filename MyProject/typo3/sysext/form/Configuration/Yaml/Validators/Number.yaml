@@ -1,0 +1,8 @@
+prototypes:
+  standard:
+    validatorsDefinition:
+      Number:
+        implementationClassName: TYPO3\CMS\Extbase\Validation\Validator\NumberValidator
+        formEditor:
+          iconIdentifier: form-validator
+          label: formEditor.elements.TextMixin.editor.validators.Number.label

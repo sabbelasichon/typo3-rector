@@ -1,0 +1,25 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:formvh="http://typo3.org/ns/TYPO3/CMS/Form/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:form.validationResults for="{element.rootForm.identifier}.{element.identifier}">
+    <div class="form-group{f:if(condition: '{validationResults.errors.0}', then: ' has-error')}">
+        <f:if condition="{doNotShowLabel} != 1">
+            <label class="form-label" for="{element.uniqueIdentifier}">{formvh:translateElementProperty(element: element, property: 'label')}<f:if condition="{element.required}"><f:render partial="Field/Required" /></f:if></label>
+        </f:if>
+        <div class="{element.properties.containerClassAttribute}">
+            <f:format.raw>
+                {elementContent}
+                <f:if condition="{validationResults.flattenedErrors}">
+                    <div class="error form-text" role="alert">
+                        <f:for each="{validationResults.errors}" as="error">
+                            <f:format.htmlspecialchars>{formvh:translateElementError(element: element, error: error)}</f:format.htmlspecialchars>
+                            <br />
+                        </f:for>
+                    </div>
+                </f:if>
+            </f:format.raw>
+            <f:if condition="{element.properties.elementDescription}">
+                <div class="form-text">{formvh:translateElementProperty(element: element, property: 'elementDescription')}</div>
+            </f:if>
+        </div>
+    </div>
+</f:form.validationResults>
+</html>
