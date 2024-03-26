@@ -1,10 +1,10 @@
-# 127 Rules Overview
+# 128 Rules Overview
 
 <br>
 
 ## Categories
 
-- [CodeQuality](#codequality) (5)
+- [CodeQuality](#codequality) (6)
 
 - [General](#general) (2)
 
@@ -148,6 +148,19 @@ Replaces defined classes by new ones.
 -    t3lib_div::makeInstance(\tx_cms_BackendLayout::class);
 +    GeneralUtility::makeInstance(\TYPO3\CMS\Backend\View\BackendLayoutView::class);
  }
+```
+
+<br>
+
+### UseExtensionKeyInLocalizationUtilityRector
+
+Replace the second parameter of LocalizationUtility::translate to the extension name
+
+- class: [`Ssch\TYPO3Rector\CodeQuality\General\UseExtensionKeyInLocalizationUtilityRector`](../rules/CodeQuality/General/UseExtensionKeyInLocalizationUtilityRector.php)
+
+```diff
+-LocalizationUtility::translate('key', 'extension_key');
++LocalizationUtility::translate('key', 'ExtensionName');
 ```
 
 <br>
