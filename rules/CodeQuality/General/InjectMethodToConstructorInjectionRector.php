@@ -36,7 +36,7 @@ final class InjectMethodToConstructorInjectionRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            '',
+            'Replace inject method to constructor injection',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
