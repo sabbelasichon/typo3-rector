@@ -55,7 +55,6 @@ CODE_SAMPLE
 
     /**
      * @param StaticCall $node
-     * @return Node|null
      */
     public function refactor(Node $node): ?Node
     {
@@ -77,14 +76,10 @@ CODE_SAMPLE
 
     private function shouldSkip(StaticCall $staticCall): bool
     {
-        if (!$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        return !$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $staticCall,
             new ObjectType('TYPO3\CMS\Extbase\Utility\LocalizationUtility')
-        )) {
-            return true;
-        }
-
-        return false;
+        );
     }
 
     private function removeVendorNameIfNeeded(StaticCall $staticCall): ?Node
