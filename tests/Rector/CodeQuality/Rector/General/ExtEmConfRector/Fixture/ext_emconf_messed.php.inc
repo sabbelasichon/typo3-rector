@@ -21,7 +21,6 @@ $EM_CONF[$_EXTKEY] = [
     'createDirs' => '',
     'modify_tables' => '',
     'clearCacheOnLoad' => 1,
-    'clearcacheonload' => 1,
     'lockType' => '',
     'author' => 'Max Mustrmann',
     'author_email' => 'max.mustermann@mustermann.de',
@@ -36,13 +35,11 @@ $EM_CONF[$_EXTKEY] = [
         'conflicts' => [],
         'suggests' => [],
     ],
-    'autoload' =>
-        [
-            'psr-4' =>
-                [
-                    'Foo\\Bar\\' => 'Classes/',
-                ],
+    'autoload' => [
+        'psr-4' => [
+            'Foo\\Bar\\' => 'Classes/',
         ],
+    ],
     '_md5_values_when_last_written' => 'a:0:{}',
 ];
 
@@ -66,20 +63,17 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => 'Mustermann GmbH',
     'constraints' => [
         'depends' => [
-            'php' => '5.6.0-0.0.0',
+            'php' => '7.4.0-8.1.99',
             'typo3' => '9.5.0-10.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],
     ],
-    'autoload' =>
-        [
-            'psr-4' =>
-                [
-                    'Foo\\Bar\\' => 'Classes/',
-                ],
+    'autoload' => [
+        'psr-4' => [
+            'Foo\\Bar\\' => 'Classes/',
         ],
-    '_md5_values_when_last_written' => 'a:0:{}',
+    ],
 ];
 
 ?>
