@@ -9,11 +9,9 @@ use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGloba
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\Configuration\Typo3Option;
 use Ssch\TYPO3Rector\Set\Typo3LevelSetList;
+use Ssch\TYPO3Rector\Set\Typo3SetList;
 
 return RectorConfig::configure()
-    ->withConfiguredRule(ExtEmConfRector::class, [
-        ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => []
-    ])
     ->withPaths([
         __PATHS__
     ])
@@ -31,6 +29,11 @@ return RectorConfig::configure()
     ->withPhpVersion(PhpVersion::PHP_81)
     ->withRules([
         ConvertImplicitVariablesToExplicitGlobalsRector::class,
+    ])
+    ->withConfiguredRule(ExtEmConfRector::class, [
+        ExtEmConfRector::PHP_VERSION_CONSTRAINT => '8.1.0-8.2.99',
+        ExtEmConfRector::TYPO3_VERSION_CONSTRAINT => '12.4.0-12.4.99',
+        ExtEmConfRector::ADDITIONAL_VALUES_TO_BE_REMOVED => []
     ])
     # If you use importNames(), you should consider excluding some TYPO3 files.
     ->withSkip([

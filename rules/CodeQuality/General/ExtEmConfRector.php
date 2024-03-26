@@ -26,6 +26,8 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
     /**
      * @var string
      */
+    public const PHP_VERSION_CONSTRAINT = 'php_version_constraint';
+
     public const TYPO3_VERSION_CONSTRAINT = 'typo3_version_constraint';
 
     /**
@@ -33,32 +35,41 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
      */
     public const ADDITIONAL_VALUES_TO_BE_REMOVED = 'additional_values_to_be_removed';
 
+    private string $targetPHPVersionConstraint = '';
+
     private string $targetTypo3VersionConstraint = '';
 
     /**
      * @var string[]
      */
     private array $valuesToBeRemoved = [
+        '_md5_values_when_last_written',
+
+        // https://docs.typo3.org/m/typo3/reference-coreapi/8.7/en-us/ExtensionArchitecture/DeclarationFile/Index.html#deprecated-configuration
         'dependencies',
         'conflicts',
         'suggests',
-        'private',
-        'download_password',
-        'TYPO3_version',
-        'PHP_version',
-        'internal',
-        'module',
-        'loadOrder',
-        'lockType',
-        'shy',
-        'priority',
-        'modify_tables',
+        'docPath',
         'CGLcompliance',
         'CGLcompliance_note',
-        'clearCacheOnLoad',
-        'clearcacheonload',
-        'createDirs',
-        'uploadfolder',
+        'private',
+        'download_password',
+        'shy',
+        'loadOrder',
+        'priority',
+        'internal',
+        'modify_tables',
+        'module',
+        'lockType',
+        'TYPO3_version',
+        'PHP_version',
+
+        // https://docs.typo3.org/m/typo3/reference-coreapi/9.5/en-us/ExtensionArchitecture/DeclarationFile/Index.html#deprecated-configuration
+        'createDirs', // Deprecated since version 9.5
+        'uploadfolder', // Deprecated since version 9.5
+
+        // https://docs.typo3.org/m/typo3/reference-coreapi/12.4/en-us/ExtensionArchitecture/FileStructure/ExtEmconf.html
+        'clearCacheOnLoad', // Deprecated since version 12.1
     ];
 
     private ValueResolver $valueResolver;
@@ -156,6 +167,12 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
                         continue;
                     }
 
+                    if ($this->valueResolver->isValue($dependsItem->key, 'php')) {
+                        $dependsItem->value = new String_($this->targetPHPVersionConstraint);
+
+                        $nodeHasChanged = true;
+                    }
+
                     if ($this->valueResolver->isValue($dependsItem->key, 'typo3')) {
                         $dependsItem->value = new String_($this->targetTypo3VersionConstraint);
 
@@ -203,13 +220,11 @@ $EM_CONF[$_EXTKEY] = [
         'conflicts' => [],
         'suggests' => [],
     ],
-    'autoload' =>
-        [
-            'psr-4' =>
-                [
-                    'Foo\\Bar\\' => 'Classes/',
-                ],
+    'autoload' => [
+        'psr-4' => [
+            'Foo\\Bar\\' => 'Classes/',
         ],
+    ],
     '_md5_values_when_last_written' => 'a:0:{}',
 ];
 CODE_SAMPLE
@@ -232,19 +247,18 @@ $EM_CONF[$_EXTKEY] = [
         'conflicts' => [],
         'suggests' => [],
     ],
-    'autoload' =>
-        [
-            'psr-4' =>
-                [
-                    'Foo\\Bar\\' => 'Classes/',
-                ],
+    'autoload' => [
+        'psr-4' => [
+            'Foo\\Bar\\' => 'Classes/',
         ],
-    '_md5_values_when_last_written' => 'a:0:{}',
+    ],
 ];
 CODE_SAMPLE
                 ,
                 [
-                    self::ADDITIONAL_VALUES_TO_BE_REMOVED => ['createDirs', 'uploadfolder'],
+                    self::PHP_VERSION_CONSTRAINT => '7.4.0-8.2.99',
+                    self::TYPO3_VERSION_CONSTRAINT => '11.5.0-12.4.99',
+                    self::ADDITIONAL_VALUES_TO_BE_REMOVED => ['clearCacheOnLoad'],
                 ]
             ),
         ]);
@@ -257,6 +271,7 @@ CODE_SAMPLE
     {
         $additionalValuesToBeRemoved = $configuration[self::ADDITIONAL_VALUES_TO_BE_REMOVED] ?? [];
         $this->valuesToBeRemoved = array_merge($this->valuesToBeRemoved, $additionalValuesToBeRemoved);
+        $this->targetPHPVersionConstraint = isset($configuration[self::PHP_VERSION_CONSTRAINT]) ? (string) $configuration[self::PHP_VERSION_CONSTRAINT] : '';
         $this->targetTypo3VersionConstraint = isset($configuration[self::TYPO3_VERSION_CONSTRAINT]) ? (string) $configuration[self::TYPO3_VERSION_CONSTRAINT] : '';
     }
 
