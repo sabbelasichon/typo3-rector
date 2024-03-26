@@ -21,6 +21,7 @@ return RectorConfig::configure()
         true
     )
     ->withSets([
+        Typo3SetList::CODE_QUALITY,
         Typo3LevelSetList::UP_TO_TYPO3_12,
     ])
     # To have a better analysis from PHPStan, we teach it here some more things

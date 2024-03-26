@@ -9,6 +9,11 @@ final class Typo3SetList
     /**
      * @var string
      */
+    public const CODE_QUALITY = __DIR__ . '/../../config/code-quality.php';
+
+    /**
+     * @var string
+     */
     public const TYPO3_10 = __DIR__ . '/../../config/typo3-10.php';
 
     /**
