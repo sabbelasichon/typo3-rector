@@ -87,7 +87,7 @@ Refactor file ext_emconf.php
 
 ### InjectMethodToConstructorInjectionRector
 
-
+Replace inject method to constructor injection
 
 - class: [`Ssch\TYPO3Rector\CodeQuality\General\InjectMethodToConstructorInjectionRector`](../rules/CodeQuality/General/InjectMethodToConstructorInjectionRector.php)
 
@@ -286,7 +286,7 @@ Add additional method getControllerConfiguration for AbstractConfigurationManage
 
 ### ExcludeServiceKeysToArrayRector
 
-Change parameter `$excludeServiceKeys` explicity to an array
+Change parameter `$excludeServiceKeys` explicitly to an array
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v2\ExcludeServiceKeysToArrayRector`](../rules/TYPO310/v2/ExcludeServiceKeysToArrayRector.php)
 
