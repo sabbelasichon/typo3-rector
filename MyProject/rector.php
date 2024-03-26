@@ -27,7 +27,7 @@ class Helper {
     public static function printInfo()
     {
 
-        if (!static::$printInfo) {
+        if (static::$printInfo) {
             echo PHP_EOL . 'Der Rector nutzt jetzt PHP-Version: ' . phpversion() . PHP_EOL ;
             echo PHP_EOL . '$dirProjectSources = ' . static::$dirProjectSources;
             echo PHP_EOL . '$dirTypo3Sources = '   . static::$dirTypo3Sources;
