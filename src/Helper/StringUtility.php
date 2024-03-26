@@ -4,27 +4,21 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Helper;
 
-use Symfony\Component\String\UnicodeString;
-
 final class StringUtility
 {
     public static function prepareExtensionName(string $extensionName, int $delimiterPosition): string
     {
         $extensionName = substr($extensionName, $delimiterPosition + 1);
 
-        $stringy = new UnicodeString($extensionName);
-        $underscores = $stringy->snake();
-        $lower = $underscores->lower();
+        return self::extensionKeyToExtensionName($extensionName);
+    }
 
-        $underScoredExtensionName = str_replace('_', ' ', $lower->toString());
-
-        $stringy = new UnicodeString($underScoredExtensionName);
-        $trimmed = $stringy->trim();
-        $uppercase = $trimmed->title();
-
-        $underScoredExtensionName = ucwords($uppercase->toString());
-
-        return str_replace(' ', '', $underScoredExtensionName);
+    /**
+     * Copied from TYPO3 Core: \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin
+     */
+    public static function extensionKeyToExtensionName(string $extensionKey): string
+    {
+        return str_replace(' ', '', ucwords(str_replace('_', ' ', $extensionKey)));
     }
 
     /**
