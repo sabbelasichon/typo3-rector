@@ -76,7 +76,7 @@ CODE_SAMPLE
 
     private function shouldSkip(StaticCall $staticCall): bool
     {
-        return !$this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $staticCall,
             new ObjectType('TYPO3\CMS\Extbase\Utility\LocalizationUtility')
         );
@@ -84,7 +84,8 @@ CODE_SAMPLE
 
     private function removeVendorNameIfNeeded(StaticCall $staticCall): ?Node
     {
-        $extensionNameArgumentValue = $staticCall->getArgs()[1]->value;
+        $extensionNameArgumentValue = $staticCall->getArgs()[1]
+->value;
 
         $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue);
         if (! is_string($extensionName)) {

@@ -91,7 +91,7 @@ CODE_SAMPLE
             return false;
         }
 
-        return !$this->nodeTypeResolver->isObjectType(
+        return ! $this->nodeTypeResolver->isObjectType(
             $node->var,
             new ObjectType('TYPO3\CMS\Core\TypoScript\TemplateService')
         );

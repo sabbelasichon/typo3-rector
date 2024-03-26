@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\ResourceInterfaceStrictTypesRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\FileInterfaceStrictTypesRector\Fixture;
 
 use TYPO3\CMS\Core\Resource\FileInterface;
 
@@ -94,7 +94,7 @@ class MyFile implements FileInterface
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\ResourceInterfaceStrictTypesRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\FileInterfaceStrictTypesRector\Fixture;
 
 use TYPO3\CMS\Core\Resource\FileInterface;
 
