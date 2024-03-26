@@ -74,14 +74,12 @@ Refactor file ext_emconf.php
          'conflicts' => [],
          'suggests' => [],
      ],
-     'autoload' =>
-         [
-             'psr-4' =>
-                 [
-                     'Foo\\Bar\\' => 'Classes/',
-                 ],
+     'autoload' => [
+         'psr-4' => [
+             'Foo\\Bar\\' => 'Classes/',
          ],
-     '_md5_values_when_last_written' => 'a:0:{}',
+     ],
+-    '_md5_values_when_last_written' => 'a:0:{}',
  ];
 ```
 
