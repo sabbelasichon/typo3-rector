@@ -104,7 +104,7 @@ function someFunction()
 CODE_SAMPLE
                 ,
                 [
-                    self::CLASS_ALIAS_MAPS => 'config/Migrations/Code/ClassAliasMap.php',
+                    self::CLASS_ALIAS_MAPS => 'path/to/ClassAliasMap.php',
                 ]
             ),
         ]);
