@@ -77,8 +77,7 @@
         ]
     },
     "bin": [
-        "bin/typo3-init",
-        "bin/typo3-rector"
+        "bin/typo3-init"
     ],
     "config": {
         "allow-plugins": {
