@@ -84,7 +84,7 @@ CODE_SAMPLE
      */
     public function refactorWithScope(Node $node, Scope $scope): ?Node
     {
-        return $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
+        return $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCallCoalesceNull(
             $scope->getClassReflection(),
             $node,
             'getParsedBody',

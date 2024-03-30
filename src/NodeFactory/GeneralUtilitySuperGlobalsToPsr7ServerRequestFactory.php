@@ -50,12 +50,31 @@ final class GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory
         $this->valueResolver = $valueResolver;
     }
 
-    public function refactorToPsr7MethodCall(
+    public function refactorToPsr7MethodCallCoalesceNull(
         ?ClassReflection $classReflection,
         StaticCall $node,
         string $psr7ServerRequestMethodName,
         string $oldSuperGlobalsMethodName
     ): ?Coalesce {
+        $methodCall = $this->refactorToPsr7MethodCall(
+            $classReflection,
+            $node,
+            $psr7ServerRequestMethodName,
+            $oldSuperGlobalsMethodName
+        );
+        if (! $methodCall instanceof ArrayDimFetch) {
+            return null;
+        }
+
+        return new Coalesce($methodCall, $this->nodeFactory->createNull());
+    }
+
+    public function refactorToPsr7MethodCall(
+        ?ClassReflection $classReflection,
+        StaticCall $node,
+        string $psr7ServerRequestMethodName,
+        string $oldSuperGlobalsMethodName
+    ): ?ArrayDimFetch {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
@@ -83,11 +102,9 @@ final class GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory
             $requestFetcherVariable = $this->typo3GlobalsFactory->create('TYPO3_REQUEST');
         }
 
-        $methodCall = new ArrayDimFetch(
+        return new ArrayDimFetch(
             $this->nodeFactory->createMethodCall($requestFetcherVariable, $psr7ServerRequestMethodName),
             $node->args[0]->value
         );
-
-        return new Coalesce($methodCall, $this->nodeFactory->createNull());
     }
 }
