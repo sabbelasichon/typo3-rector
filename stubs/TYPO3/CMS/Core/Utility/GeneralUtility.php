@@ -418,4 +418,9 @@ class GeneralUtility
     {
         return '';
     }
+
+    public static function _GP(string $string): string
+    {
+        return '';
+    }
 }
