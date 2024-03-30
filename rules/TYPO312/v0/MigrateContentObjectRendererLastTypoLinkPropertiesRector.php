@@ -24,6 +24,7 @@ final class MigrateContentObjectRendererLastTypoLinkPropertiesRector extends Abs
             <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+
 $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 $lastTypoLinkUrl = $contentObjectRenderer->lastTypoLinkUrl;
 $lastTypoLinkTarget = $contentObjectRenderer->lastTypoLinkTarget;
@@ -33,6 +34,7 @@ CODE_SAMPLE
             <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+
 $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 $lastTypoLinkUrl = $contentObjectRenderer->lastTypoLinkResult->getUrl();
 $lastTypoLinkTarget = $contentObjectRenderer->lastTypoLinkResult->getTarget();

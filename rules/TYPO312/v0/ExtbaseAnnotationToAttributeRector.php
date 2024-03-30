@@ -115,10 +115,10 @@ use TYPO3\CMS\Extbase\Annotation as Extbase;
 class MyEntity
 {
     /**
-    * @Extbase\ORM\Lazy()
-    * @Extbase\ORM\Transient()
-    */
-    protected string $myProperty
+     * @Extbase\ORM\Lazy()
+     * @Extbase\ORM\Transient()
+     */
+    protected string $myProperty;
 }
 CODE_SAMPLE
             ,
@@ -129,7 +129,7 @@ class MyEntity
 {
     #[Extbase\ORM\Lazy()]
     #[Extbase\ORM\Transient()]
-    protected string $myProperty
+    protected string $myProperty;
 }
 CODE_SAMPLE
         )]);

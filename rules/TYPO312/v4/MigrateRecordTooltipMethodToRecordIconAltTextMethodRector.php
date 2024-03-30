@@ -28,13 +28,13 @@ final class MigrateRecordTooltipMethodToRecordIconAltTextMethodRector extends Ab
                     <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
-$link = '<a href="..." ' . BackendUtility::getRecordToolTip('tooltip') . '>my link</a>';
+$link = '<a href="#" ' . BackendUtility::getRecordToolTip('tooltip') . '>my link</a>';
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
-$link = '<a href="..." title="' . BackendUtility::getRecordIconAltText('tooltip') . '">my link</a>';
+$link = '<a href="#" title="' . BackendUtility::getRecordIconAltText('tooltip') . '">my link</a>';
 CODE_SAMPLE
                 ),
 

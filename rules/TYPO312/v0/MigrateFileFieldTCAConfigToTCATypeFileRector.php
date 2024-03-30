@@ -27,7 +27,10 @@ final class MigrateFileFieldTCAConfigToTCATypeFileRector extends AbstractRector
             'Migrate method ExtensionManagementUtility::getFileFieldTCAConfig() to TCA type file',
             [new CodeSample(
                 <<<'CODE_SAMPLE'
-'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
+return [
+    'columns' => [
+        'image_field' => [
+            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
                 'logo',
                 [
                     'maxitems' => 1,
@@ -52,11 +55,16 @@ final class MigrateFileFieldTCAConfigToTCATypeFileRector extends AbstractRector
                 ],
                 $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
             ),
+        ],
+    ],
+];
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-'config' => [
-
+return [
+    'columns' => [
+        'image_field' => [
+            'config' => [
                 'type' => 'file',
                 'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                 'maxitems' => 1,
@@ -79,6 +87,9 @@ CODE_SAMPLE
                     ],
                 ],
             ],
+        ],
+    ],
+];
 CODE_SAMPLE
             )]
         );

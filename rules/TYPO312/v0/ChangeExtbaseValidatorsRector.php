@@ -80,6 +80,8 @@ final class ChangeExtbaseValidatorsRector extends AbstractScopeAwareRector
         return new RuleDefinition('Adapt extbase validators to new interface', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
+use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
+
 final class MyCustomValidatorWithOptions implements ValidatorInterface
 {
     private array $options;
@@ -105,7 +107,6 @@ CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
-use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
 
 final class MyCustomValidatorWithoutOptions implements ValidatorInterface
 {

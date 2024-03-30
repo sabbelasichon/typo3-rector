@@ -34,17 +34,21 @@ final class UseServerRequestInsteadOfGeneralUtilityPostRector extends AbstractSc
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 $value = GeneralUtility::_POST('tx_scheduler');
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 $value = $GLOBALS['TYPO3_REQUEST']->getParsedBody()['tx_scheduler'];
 CODE_SAMPLE
             ),
             new CodeSample(
                 <<<'CODE_SAMPLE'
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 class MyActionController extends ActionController
 {
     public function myMethod()
@@ -55,7 +59,9 @@ class MyActionController extends ActionController
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
 class MyActionController extends ActionController
 {
     public function myMethod()
