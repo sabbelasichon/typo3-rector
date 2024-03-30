@@ -29,7 +29,7 @@ foreach ($autoloadPaths as $path) {
 
 (new SingleCommandApplication())
     ->setName('Initialize TYPO3-Rector configuration')
-    ->setVersion('2.0.0')
+    ->setVersion('2.3.1')
     ->setDescription('Initializes a bare configuration to start with your TYPO3 upgrade')
     ->setCode(static function (InputInterface $input, OutputInterface $output): int {
         $projectDirectory = getcwd();
@@ -44,7 +44,6 @@ foreach ($autoloadPaths as $path) {
             return Command::FAILURE;
         }
 
-        $configContents = FileSystem::read(__DIR__ . '/../templates/rector.php.dist');
         $iniFilePathsResolver = new InitFilePathsResolver();
         $projectPhpDirectories = $iniFilePathsResolver->resolve($projectDirectory);
         // fallback to default 'src' in case of empty one
@@ -74,8 +73,10 @@ foreach ($autoloadPaths as $path) {
         }
 
         $projectPhpDirectoriesContents = \rtrim($projectPhpDirectoriesContents);
+
+        $configContents = FileSystem::read(__DIR__ . '/../templates/rector.php.dist');
         $configContents = \str_replace('__PATHS__', $projectPhpDirectoriesContents, $configContents);
-        $output->writeln('<info>The config is added now. Re-run command to make Rector do the work!</info>');
+        $output->writeln('<info>The config is added now. Run "rector process" command to make Rector do the work!</info>');
         FileSystem::write($commonRectorConfigPath, $configContents, null);
         return Command::SUCCESS;
     })
