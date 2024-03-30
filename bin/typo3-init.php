@@ -68,7 +68,7 @@ foreach ($autoloadPaths as $path) {
             'ext_tables.php',
         ];
         foreach ($extensionFiles as $file) {
-            if (file_exists(getcwd() . '/' . $file)) {
+            if (file_exists($projectDirectory . '/' . $file)) {
                 $projectPhpDirectoriesContents .= "        __DIR__ . '/" . $file . "'," . \PHP_EOL;
             }
         }
