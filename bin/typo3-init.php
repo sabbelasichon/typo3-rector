@@ -62,9 +62,16 @@ foreach ($autoloadPaths as $path) {
             $projectPhpDirectoriesContents .= "        __DIR__ . '/" . $projectPhpDirectory . "'," . \PHP_EOL;
         }
 
-        $projectPhpDirectoriesContents .= "        __DIR__ . '/ext_emconf.php'," . \PHP_EOL;
-        $projectPhpDirectoriesContents .= "        __DIR__ . '/ext_localconf.php'," . \PHP_EOL;
-        $projectPhpDirectoriesContents .= "        __DIR__ . '/ext_tables.php'," . \PHP_EOL;
+        $extensionFiles = [
+            'ext_emconf.php',
+            'ext_localconf.php',
+            'ext_tables.php',
+        ];
+        foreach ($extensionFiles as $file) {
+            if (file_exists(getcwd() . '/' . $file)) {
+                $projectPhpDirectoriesContents .= "        __DIR__ . '/" . $file . "'," . \PHP_EOL;
+            }
+        }
 
         $projectPhpDirectoriesContents = \rtrim($projectPhpDirectoriesContents);
         $configContents = \str_replace('__PATHS__', $projectPhpDirectoriesContents, $configContents);
