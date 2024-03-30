@@ -1624,10 +1624,9 @@ Adapt extbase validators to new interface
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\ChangeExtbaseValidatorsRector`](../rules/TYPO312/v0/ChangeExtbaseValidatorsRector.php)
 
 ```diff
+ use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
+
 -final class MyCustomValidatorWithOptions implements ValidatorInterface
-+use TYPO3\CMS\Extbase\Validation\Validator\ValidatorInterface;
-+use TYPO3\CMS\Extbase\Validation\ValidatorResolver;
-+
 +final class MyCustomValidatorWithoutOptions implements ValidatorInterface
  {
      private array $options;
@@ -1688,12 +1687,12 @@ Change annotation to attribute
  class MyEntity
  {
 -    /**
--    * @Extbase\ORM\Lazy()
--    * @Extbase\ORM\Transient()
--    */
+-     * @Extbase\ORM\Lazy()
+-     * @Extbase\ORM\Transient()
+-     */
 +    #[Extbase\ORM\Lazy()]
 +    #[Extbase\ORM\Transient()]
-     protected string $myProperty
+     protected string $myProperty;
  }
 ```
 
@@ -1714,7 +1713,6 @@ Implement SiteLanguageAwareInterface instead of using SiteLanguageAwareTrait
 +class MyClass implements SiteLanguageAwareInterface
  {
 -    use SiteLanguageAwareTrait;
-+
 +    protected SiteLanguage $siteLanguage;
 +
 +    public function setSiteLanguage(SiteLanguage $siteLanguage)
@@ -1762,6 +1760,7 @@ Migrate lastTypoLink properties from ContentObjectRenderer
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
  use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+
  $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 -$lastTypoLinkUrl = $contentObjectRenderer->lastTypoLinkUrl;
 -$lastTypoLinkTarget = $contentObjectRenderer->lastTypoLinkTarget;
@@ -1812,7 +1811,10 @@ Migrate method `ExtensionManagementUtility::getFileFieldTCAConfig()` to TCA type
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateFileFieldTCAConfigToTCATypeFileRector`](../rules/TYPO312/v0/MigrateFileFieldTCAConfigToTCATypeFileRector.php)
 
 ```diff
--'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
+ return [
+     'columns' => [
+         'image_field' => [
+-            'config' => ExtensionManagementUtility::getFileFieldTCAConfig(
 -                'logo',
 -                [
 -                    'maxitems' => 1,
@@ -1824,8 +1826,7 @@ Migrate method `ExtensionManagementUtility::getFileFieldTCAConfig()` to TCA type
 -                        'types' => [
 -                            '0' => [
 -                                'showitem' => '
-+'config' => [
-+
++            'config' => [
 +                'type' => 'file',
 +                'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
 +                'maxitems' => 1,
@@ -1854,6 +1855,9 @@ Migrate method `ExtensionManagementUtility::getFileFieldTCAConfig()` to TCA type
 -                $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext']
 -            ),
 +            ],
+         ],
+     ],
+ ];
 ```
 
 <br>
@@ -2046,8 +2050,8 @@ Migrate the method `BackendUtility::getRecordToolTip()` to `BackendUtility::getR
 ```diff
  use TYPO3\CMS\Backend\Utility\BackendUtility;
 
--$link = '<a href="..." ' . BackendUtility::getRecordToolTip('tooltip') . '>my link</a>';
-+$link = '<a href="..." title="' . BackendUtility::getRecordIconAltText('tooltip') . '">my link</a>';
+-$link = '<a href="#" ' . BackendUtility::getRecordToolTip('tooltip') . '>my link</a>';
++$link = '<a href="#" title="' . BackendUtility::getRecordIconAltText('tooltip') . '">my link</a>';
 ```
 
 <br>
@@ -2141,6 +2145,7 @@ Use method setRequest of ContentObjectRenderer instead of third argument of meth
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
  use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+
  $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 -$contentObjectRenderer->start([], 'pages', $GLOBALS['TYPO3_REQUEST']);
 +$contentObjectRenderer->setRequest($GLOBALS['TYPO3_REQUEST']);
@@ -2555,6 +2560,7 @@ Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
 
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 -$value = GeneralUtility::_GET('tx_scheduler');
 +$value = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'] ?? null;
 ```
@@ -2562,7 +2568,9 @@ Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
 <br>
 
 ```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
  use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
  class MyActionController extends ActionController
  {
      public function myMethod()
@@ -2583,6 +2591,7 @@ Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
 
 ```diff
  use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 -$value = GeneralUtility::_POST('tx_scheduler');
 +$value = $GLOBALS['TYPO3_REQUEST']->getParsedBody()['tx_scheduler'];
 ```
@@ -2590,7 +2599,9 @@ Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
 <br>
 
 ```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
  use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
  class MyActionController extends ActionController
  {
      public function myMethod()
