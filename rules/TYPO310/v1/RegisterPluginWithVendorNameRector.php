@@ -27,6 +27,9 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector
      */
     private FileInfoFactory $fileInfoFactory;
 
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
     public function __construct(FileInfoFactory $fileInfoFactory, ValueResolver $valueResolver)

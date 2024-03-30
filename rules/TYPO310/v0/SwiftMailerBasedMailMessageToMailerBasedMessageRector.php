@@ -20,6 +20,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
     public function __construct(ValueResolver $valueResolver)

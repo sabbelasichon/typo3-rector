@@ -26,6 +26,9 @@ final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector extends Abstr
      */
     private AstResolver $astResolver;
 
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
     public function __construct(AstResolver $astResolver, ValueResolver $valueResolver)

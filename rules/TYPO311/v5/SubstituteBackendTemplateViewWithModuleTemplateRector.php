@@ -53,10 +53,19 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
      */
     private ClassDependencyManipulator $classDependencyManipulator;
 
+    /**
+     * @readonly
+     */
     private ExtbaseControllerRedirectAnalyzer $extbaseControllerRedirectAnalyzer;
 
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
+    /**
+     * @readonly
+     */
     private BetterNodeFinder $betterNodeFinder;
 
     public function __construct(

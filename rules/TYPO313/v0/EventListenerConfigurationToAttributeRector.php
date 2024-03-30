@@ -37,14 +37,17 @@ final class EventListenerConfigurationToAttributeRector extends AbstractRector i
      */
     private ServiceDefinitionHelper $serviceDefinitionHelper;
 
-    private string $eventListenerTagName = 'event.listener';
-
+    /**
+     * @readonly
+     */
     private PhpAttributeGroupFactory $phpAttributeGroupFactory;
 
     /**
      * @readonly
      */
     private PhpAttributeAnalyzer $phpAttributeAnalyzer;
+
+    private string $eventListenerTagName = 'event.listener';
 
     public function __construct(ReflectionProvider $reflectionProvider, ServiceDefinitionHelper $serviceDefinitionHelper, PhpAttributeGroupFactory $phpAttributeGroupFactory, PhpAttributeAnalyzer $phpAttributeAnalyzer)
     {

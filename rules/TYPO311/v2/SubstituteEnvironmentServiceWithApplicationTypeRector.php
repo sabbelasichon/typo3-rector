@@ -18,6 +18,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class SubstituteEnvironmentServiceWithApplicationTypeRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
     private Typo3GlobalsFactory $typo3GlobalsFactory;
 
     public function __construct(Typo3GlobalsFactory $typo3GlobalsFactory)

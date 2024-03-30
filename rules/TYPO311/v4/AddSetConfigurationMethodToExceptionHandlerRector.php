@@ -35,6 +35,9 @@ final class AddSetConfigurationMethodToExceptionHandlerRector extends AbstractRe
      */
     private ReflectionProvider $reflectionProvider;
 
+    /**
+     * @readonly
+     */
     private BetterNodeFinder $betterNodeFinder;
 
     public function __construct(ReflectionProvider $reflectionProvider, BetterNodeFinder $betterNodeFinder)

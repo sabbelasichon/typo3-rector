@@ -19,6 +19,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class UseFileGetContentsForGetUrlRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
     public function __construct(ValueResolver $valueResolver)

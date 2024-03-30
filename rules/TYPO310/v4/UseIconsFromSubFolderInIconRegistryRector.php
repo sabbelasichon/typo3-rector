@@ -24,6 +24,9 @@ final class UseIconsFromSubFolderInIconRegistryRector extends AbstractRector
      */
     private const SOURCE = 'source';
 
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
     public function __construct(ValueResolver $valueResolver)

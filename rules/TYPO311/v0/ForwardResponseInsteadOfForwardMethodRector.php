@@ -27,6 +27,9 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
  */
 final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
     public function __construct(ValueResolver $valueResolver)

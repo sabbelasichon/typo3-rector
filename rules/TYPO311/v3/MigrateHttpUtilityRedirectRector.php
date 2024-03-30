@@ -25,6 +25,9 @@ use TYPO3\CMS\Core\Utility\HttpUtility;
  */
 final class MigrateHttpUtilityRedirectRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
     private BuilderFactory $builderFactory;
 
     public function __construct(BuilderFactory $builderFactory)

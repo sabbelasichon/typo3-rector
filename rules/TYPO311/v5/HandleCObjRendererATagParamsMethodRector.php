@@ -18,6 +18,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class HandleCObjRendererATagParamsMethodRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
     public function __construct(ValueResolver $valueResolver)

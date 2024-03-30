@@ -72,6 +72,9 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
         'clearCacheOnLoad', // Deprecated since version 12.1
     ];
 
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
     public function __construct(ValueResolver $valueResolver)

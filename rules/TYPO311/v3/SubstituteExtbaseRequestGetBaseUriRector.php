@@ -32,8 +32,14 @@ final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector
      */
     private const NORMALIZED_PARAMS = 'normalizedParams';
 
+    /**
+     * @readonly
+     */
     private PhpDocInfoFactory $phpDocInfoFactory;
 
+    /**
+     * @readonly
+     */
     private DocBlockUpdater $docBlockUpdater;
 
     public function __construct(PhpDocInfoFactory $phpDocInfoFactory, DocBlockUpdater $docBlockUpdater)

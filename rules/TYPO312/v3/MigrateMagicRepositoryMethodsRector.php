@@ -26,6 +26,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateMagicRepositoryMethodsRector extends AbstractScopeAwareRector
 {
+    /**
+     * @readonly
+     */
     private ReflectionResolver $reflectionResolver;
 
     public function __construct(ReflectionResolver $reflectionResolver)

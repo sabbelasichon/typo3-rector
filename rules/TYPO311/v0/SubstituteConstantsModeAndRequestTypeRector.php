@@ -30,6 +30,9 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
      */
     private FilesFinder $filesFinder;
 
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
     public function __construct(FilesFinder $filesFinder, ValueResolver $valueResolver)

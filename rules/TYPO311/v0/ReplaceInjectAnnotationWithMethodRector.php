@@ -28,6 +28,9 @@ final class ReplaceInjectAnnotationWithMethodRector extends AbstractRector
      */
     private InjectMethodFactory $injectMethodFactory;
 
+    /**
+     * @readonly
+     */
     private PhpDocInfoFactory $phpDocInfoFactory;
 
     public function __construct(InjectMethodFactory $injectMethodFactory, PhpDocInfoFactory $phpDocInfoFactory)

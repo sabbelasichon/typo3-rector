@@ -18,6 +18,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateQueryBuilderExecuteRector extends AbstractRector
 {
+    /**
+     * @readonly
+     */
     private BetterNodeFinder $betterNodeFinder;
 
     public function __construct(BetterNodeFinder $betterNodeFinder)

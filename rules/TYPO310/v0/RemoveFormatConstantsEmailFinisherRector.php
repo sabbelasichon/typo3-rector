@@ -40,6 +40,9 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector
      */
     private const ADD_HTML_PART = 'addHtmlPart';
 
+    /**
+     * @readonly
+     */
     private ValueResolver $valueResolver;
 
     public function __construct(ValueResolver $valueResolver)

@@ -24,6 +24,9 @@ final class ConvertImplicitVariablesToExplicitGlobalsRector extends AbstractRect
      */
     private FilesFinder $filesFinder;
 
+    /**
+     * @readonly
+     */
     private Typo3GlobalsFactory $typo3GlobalsFactory;
 
     public function __construct(FilesFinder $filesFinder, Typo3GlobalsFactory $typo3GlobalsFactory)
