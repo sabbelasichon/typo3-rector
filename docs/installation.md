@@ -1,22 +1,19 @@
 ## Table of Contents
 1. [Examples in action](./examples_in_action.md)
-1. [Overview of all rules](./all_rectors_overview.md)
-1. [Installation](./installation.md)
-1. [Configuration and Processing](./configuration_and_processing.md)
-1. [Best practice guide](./best_practice_guide.md)
-1. [Limitations](./limitations.md)
-1. [Contribution](./contribution.md)
+2. [Overview of all rules](./all_rectors_overview.md)
+3. [Installation](./installation.md)
+4. [Configuration and Processing](./configuration_and_processing.md)
+5. [Best practice guide](./best_practice_guide.md)
+6. [Limitations](./limitations.md)
+7. [Contribution](./contribution.md)
 
 # Installation
 
-
-TYPO3 rector is a standalone package again, that builds up on `rectorphp/rector` and requires PHP 7.4
+TYPO3 Rector is a standalone package, that is built on top of `rectorphp/rector` and requires at least PHP 7.4.
 
 ```bash
 composer require --dev ssch/typo3-rector
 ```
-
-This will provide even the latest rules for TYPO3 v12
 
 ## Installation below PHP 7.4
 
@@ -24,24 +21,24 @@ This will provide even the latest rules for TYPO3 v12
 composer require --dev rector/rector:0.13.4
 ```
 
-Provides all rules up to TYPO3 v11
+This provides rules up to TYPO3 v11
 
 ### "Historical" info
 
-Earlier the year 2022 we have been part of the rector/rector core.
+Earlier the year 2022 we have been part of the `rector/rector` core.
 
 This changed due to fast pace development, and we split apart again.
 
-This means with version `0.13.5` the rector core does not integrate typo3-rector anymore for faster and more stable development on both ends.
-Breaking changes always affect the whole rector ecosystem causing typo3-rector to be affected by them and slowing down the general development.
+This means with version `0.13.5` the rector core does not integrate TYPO3 Rector anymore for faster and more stable development on both ends.
+Breaking changes always affect the whole rector ecosystem, causing TYPO3 Rector to be affected by them and slowing down the general development.
 
 That's why we are embedded until `0.13.4` and have the PHP version change between the different packages
 
 
 ## Non composer installations
 
-If you have a non composer TYPO3 installation. Don't worry.
-Install typo3-rector either as a global dependency:
+If you have a non-composer TYPO3 installation, don't worry.
+Install TYPO3 Rector either as a global dependency:
 
 ```bash
 composer global require --dev ssch/typo3-rector
@@ -160,7 +157,7 @@ ClassLoadingInformation::registerClassLoadingInformation();
 Afterwards run rector:
 
 ```bash
-php ~/.composer/vendor/bin/rector process public/typo3conf/ext/your_extension/  -c .rector/config.php -n --autoload-file=autoload.php
+php ~/.composer/vendor/bin/rector process -c .rector/config.php --autoload-file=autoload.php
 ```
 
 Note that the path to the rector executable can vary on your system.

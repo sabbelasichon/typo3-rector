@@ -1,11 +1,11 @@
 ## Table of Contents
 1. [Examples in action](./examples_in_action.md)
-1. [Overview of all rules](./all_rectors_overview.md)
-1. [Installation](./installation.md)
-1. [Configuration and Processing](./configuration_and_processing.md)
-1. [Best practice guide](./best_practice_guide.md)
-1. [Limitations](./limitations.md)
-1. [Contribution](./contribution.md)
+2. [Overview of all rules](./all_rectors_overview.md)
+3. [Installation](./installation.md)
+4. [Configuration and Processing](./configuration_and_processing.md)
+5. [Best practice guide](./best_practice_guide.md)
+6. [Limitations](./limitations.md)
+7. [Contribution](./contribution.md)
 
 # Examples in action
 Let's say you have a Fluid ViewHelper looking like this:
@@ -31,12 +31,12 @@ class InArrayViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHel
 }
 ```
 
-What's "wrong" with this code? Well, it depends on the context. But, if we assume you would like to have this code ready
+What's "wrong" with this code? Well, it depends on the context, but if we assume you would like to have this code ready
 for TYPO3 version 10 you should move the render method arguments to the method `initializeArguments` and you should
 rename the namespace `\TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper` to
 `\TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper`.
 
-And we are not talking about the superfluous else statement, not having Type Declarations or in_array could be used.
+And we are not talking about the superfluous else statement or not having Type Declarations.
 That's a different story.
 
 Do you like to do these changes manually on a codebase with let's say 40-100 ViewHelpers? We don't.
@@ -71,7 +71,7 @@ class InArrayViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHe
     }
 }
 ```
-Isn't this amazing? You don't even have to know that these change has to be done. Your changelog resides in living code.
+Isn't this amazing?
 
 Let's see another one:
 
@@ -86,8 +86,8 @@ final class SomeService
 }
 ```
 
-So we guess, everyone knows that TYPO3 switched to Doctrine Annotations on one hand, and you should better use either
-constructor injection or setter injection. Again, if you have only one class, this change is not a problem.
+TYPO3 switched to Doctrine Annotations and you should better use either constructor injection or setter injection.
+Again, if you have only one class, this change is not a problem.
 But most of the time you have hundreds of them, and you have to remember what to do.
 This is cumbersome and error-prone. So let's run Rector for us with the `InjectAnnotationRector` and you get this:
 
@@ -130,14 +130,13 @@ class MyActionController extends ActionController
 ```
 
 Can you spot the error? Guess not. At least I couldn't.
-The exception class NoSuchOptionException does not exist anymore in version 10. What? But it still worked in version 9. Why?
+The exception class `NoSuchOptionException` does not exist anymore in version 10.
+What? But it still worked in version 9. Why?
 Because TYPO3 offers a nice way to deprecate such changes for one major version with these handy `ClassAliasMap.php` files.
-But, postponed is not abandoned. You have to react to these changes at a certain time. Do you know all these changes by heart? Sure not.
+But, postponed is not abandoned. You have to react to these changes at a certain time.
+Do you know all these changes by heart? Sure not.
 
 So, again, let rector do it for you with the `RenameClassMapAliasRector`.
-Have a look at an example [config file](/config/v9/typo3-95.php#L44) shipped with typo3-rector
-
-
 
 And there is more...
 

@@ -1,11 +1,11 @@
 ## Table of Contents
 1. [Examples in action](./examples_in_action.md)
-1. [Overview of all rules](./all_rectors_overview.md)
-1. [Installation](./installation.md)
-1. [Configuration and Processing](./configuration_and_processing.md)
-1. [Best practice guide](./best_practice_guide.md)
-1. [Limitations](./limitations.md)
-1. [Contribution](./contribution.md)
+2. [Overview of all rules](./all_rectors_overview.md)
+3. [Installation](./installation.md)
+4. [Configuration and Processing](./configuration_and_processing.md)
+5. [Best practice guide](./best_practice_guide.md)
+6. [Limitations](./limitations.md)
+7. [Contribution](./contribution.md)
 
 # Contributing
 
@@ -16,7 +16,9 @@ Join the TYPO3 Slack channel [#ext-typo3-rector](https://typo3.slack.com/archive
 
 Fork this project into your own account.
 
-## Install typo3-rector
+## Install TYPO3 Rector
+
+You can use TYPO3 Rector with at least **PHP 7.4**. Your contributed code **MUST** also be compatible with PHP 7.4!
 
 Install the project using composer:
 
@@ -28,16 +30,18 @@ composer install
 
 ## Pick an issue from the list
 
-https://github.com/sabbelasichon/typo3-rector/issues You can filter by tags
+https://github.com/sabbelasichon/typo3-rector/issues
+
+**INFO** You can filter by tags where you can select, for example, only the easy ones by selecting "easy pick" or "good first issue".
 
 ## Assign the issue to yourself
 
 Assign the issue to yourself if you are a member of the project, so others can see that you are working on it.
 If you are not a member of the project, make a comment to let everyone know that you are working on it.
 
-## Create an own Rector
+## Create an own Rector Rule
 
-Run the following command and answer all questions
+Run the following command and answer all questions:
 
 ```bash
 bin/typo3-rector
@@ -45,15 +49,16 @@ bin/typo3-rector
 
 This command will ask you some questions to provide a proper rector setup.
 Following this will lead to the creation of the overall rector structure necessary.
-It will create the skeleton for the rector with the class, test class, fixtures and directories to start coding — basically everything you need to start!
+It will create the skeleton for the rector rule with the class, test class, fixtures and directories to start coding — basically everything you need to start!
 
 ### Useful infos:
 
-- the `refactor` must return a node or null
-- keep it flat! Use early returns (with null) in case your conditions for migration are not met
-- the `getNodeTypes` method is used to define the use case of the function to migrate. It helps as well acting like an early return (see example below)
-- helper functions and classes are provided via rector to make it easy for you to control further processing
+- the `refactor` must return a node, an array of nodes or null.
+- keep it flat! Use early returns (with null) in case your conditions for migration are not met.
+- the `getNodeTypes` method is used to define the use case of the function to migrate. It helps as well acting like an early return (see example below).
+- helper functions and classes are provided via rector to make it easy for you to control further processing.
 - here is a list of all php node types: https://github.com/rectorphp/php-parser-nodes-docs/blob/master/README.md
+- search for similar rules and copy the code that is helpful for you. Frequent times you only need to make a few adjustments to existing rules.
 
 ### Example
 
@@ -94,6 +99,44 @@ final class GeneralUtilityToUpperAndLowerRector extends AbstractRector
 }
 ```
 
+### Return multiple Nodes
+
+Sometimes you need to return more than a single node.
+A typical use case is if you want to create another method, for example.
+In this case you need to listen to an `Expression`.
+Do a full text search for `[Expression::class]` to find existing rules which can help you.
+
+```php
+final class MyRector extends AbstractRector
+{
+    public function getNodeTypes(): array
+    {
+        return [Expression::class];
+    }
+
+    /**
+     * @param Expression $node
+     * @return Node[]|null
+     */
+    public function refactor(Node $node): ?array
+    {
+        $methodCall = $node->expr;
+
+        if (! $methodCall instanceof Node\Expr\MethodCall) {
+            return null;
+        }
+
+        // More checks
+
+        // Do your magic
+
+        $methodCall = $this->nodeFactory->createMethodCall(...);
+
+        return [new Expression($methodCall), $node];
+    }
+}
+```
+
 ## All Tests must be green
 
 Make sure you have a test in place for your Rector
@@ -111,8 +154,9 @@ Overall hints for testing:
 
 - testing happens via fixture files (*.php.inc)
 - those files display the code before and after execution, separated by `-----`
-- rector keeps spaces etc. as its job is migration and not code cleaning, so keep that in mind
-- provide custom test classes via "Source" folder, that will be tested, but *will not* be affected by your rector to test and prevent side effects of your rule
+- rector keeps spaces etc. as its job is migration and not code cleaning, so keep that in mind. TCA fixture files don't need to look pretty!
+- provide custom test classes via "Source" folder, that will be tested, but *will not* be affected by your rector to test and prevent side effects of your rule.
+- Add stubs that reflect the original code
 
 ## Submit your changes
 
