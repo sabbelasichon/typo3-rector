@@ -8,12 +8,11 @@ control (e.g. git). Always review and test automatic changes before releasing to
 
 # Rector for TYPO3
 
-This project lets you apply instant upgrades and instant refactoring to your [TYPO3 Core](https://get.typo3.org/) and
+This project lets you apply instant upgrades and refactoring to your [TYPO3 Website](https://get.typo3.org/) and
 [extension](https://extensions.typo3.org) code, making it easier to migrate between TYPO3 releases and keeping your code
 free from deprecation.
 
-It extends the [Rector](https://github.com/rectorphp/rector) project, which aims to provide instant upgrades and instant
-refactoring for any PHP code (5.3+).
+It extends the [Rector](https://github.com/rectorphp/rector) project, which aims to provide instant upgrades and refactoring for any PHP code (5.3+).
 
 |                    | URL                                                          |
 |--------------------|--------------------------------------------------------------|
@@ -22,11 +21,46 @@ refactoring for any PHP code (5.3+).
 | **Packagist:**     | https://packagist.org/packages/ssch/typo3-rector             |
 | **Website:**       | https://www.typo3-rector.com                                 |
 
+## Installation
+
+TYPO3 Rector requires at least PHP 7.4 but is also compatible with PHP 8.
+You can find more details about the installation in our [installation documentation](docs/installation.md).
+
+You can install the package via composer:
+
+```bash
+composer require --dev ssch/typo3-rector
+```
+
+You can create the rector config file with:
+
+```bash
+vendor/bin/typo3-init
+```
+
+## Usage
+
+To see the code migrations that Rector will do, run:
+
+```bash
+vendor/bin/rector process --dry-run
+```
+
+and when you want to execute the migrations run:
+
+```bash
+vendor/bin/rector process
+```
+
+## Contributing
+
+Please see [CONTRIBUTING](docs/contribution.md) for details.
+
 ## Funding/Sponsoring
 
 Help us out and sponsor our work! Visit our website [typo3-rector.com](https://www.typo3-rector.com) for more info.
 
-This makes it possible to invest more time to keep the project alive and create even more rules for automated migration. 
+This makes it possible to invest more time to keep the project alive and create even more rules for automated migration.
 
 ## Support
 
@@ -35,13 +69,17 @@ or feel free to open an issue or start a discussion on GitHub.
 
 ## Credits
 
-Many thanks to [Tomas Votruba](https://tomasvotruba.com) for his ongoing support and Rector.
-Many thanks to every other contributor.
+Many thanks to [Tomas Votruba](https://tomasvotruba.com) for maintaining Rector.
+Many thanks to [All Contributors](https://github.com/sabbelasichon/typo3-rector/graphs/contributors).
 
-Follow us on twitter as well:
+Follow us on X:
 - [TYPO3 Rector](https://twitter.com/TYPO3Rector)
 - [Sebastian](https://twitter.com/schreiberten)
 - [Henrik](https://twitter.com/he_coli)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
 ## Known Drawbacks
 
