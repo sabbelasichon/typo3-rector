@@ -96,7 +96,7 @@ CODE_SAMPLE
 
     public function getNodeTypes(): array
     {
-        return [Node\Stmt\Class_::class];
+        return [Class_::class];
     }
 
     /**

@@ -64,8 +64,14 @@ final class CommandConfigurationToAttributeRector extends AbstractRector impleme
 
     private string $commandTagName = 'console.command';
 
-    public function __construct(ServiceDefinitionHelper $symfonyCommandHelper, PhpAttributeGroupFactory $phpAttributeGroupFactory, PhpAttributeAnalyzer $phpAttributeAnalyzer, AttributeValueResolver $attributeValueResolver, ReflectionProvider $reflectionProvider, SetAliasesMethodCallExtractor $setAliasesMethodCallExtractor)
-    {
+    public function __construct(
+        ServiceDefinitionHelper $symfonyCommandHelper,
+        PhpAttributeGroupFactory $phpAttributeGroupFactory,
+        PhpAttributeAnalyzer $phpAttributeAnalyzer,
+        AttributeValueResolver $attributeValueResolver,
+        ReflectionProvider $reflectionProvider,
+        SetAliasesMethodCallExtractor $setAliasesMethodCallExtractor
+    ) {
         $this->phpAttributeGroupFactory = $phpAttributeGroupFactory;
         $this->phpAttributeAnalyzer = $phpAttributeAnalyzer;
         $this->attributeValueResolver = $attributeValueResolver;

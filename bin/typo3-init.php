@@ -61,6 +61,7 @@ foreach ($autoloadPaths as $path) {
         foreach ($projectPhpDirectories as $projectPhpDirectory) {
             $projectPhpDirectoriesContents .= "        __DIR__ . '/" . $projectPhpDirectory . "'," . \PHP_EOL;
         }
+
         $projectPhpDirectoriesContents .= "        __DIR__ . '/ext_emconf.php'," . \PHP_EOL;
         $projectPhpDirectoriesContents .= "        __DIR__ . '/ext_localconf.php'," . \PHP_EOL;
         $projectPhpDirectoriesContents .= "        __DIR__ . '/ext_tables.php'," . \PHP_EOL;

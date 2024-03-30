@@ -34,6 +34,42 @@ final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAware
         return [Class_::class];
     }
 
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Implement SiteLanguageAwareInterface instead of using SiteLanguageAwareTrait', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
+
+class MyClass
+{
+    use SiteLanguageAwareTrait;
+}
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+use TYPO3\CMS\Core\Site\SiteLanguageAwareInterface;
+use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
+
+class MyClass implements SiteLanguageAwareInterface
+{
+    protected SiteLanguage $siteLanguage;
+
+    public function setSiteLanguage(SiteLanguage $siteLanguage)
+    {
+        $this->siteLanguage = $siteLanguage;
+    }
+
+    public function getSiteLanguage(): SiteLanguage
+    {
+        return $this->siteLanguage;
+    }
+}
+CODE_SAMPLE
+            ),
+        ]);
+    }
+
     /**
      * @param Class_ $node
      */
@@ -131,42 +167,5 @@ final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAware
         }
 
         return $classHasChanged ? $node : null;
-    }
-
-    public function getRuleDefinition(): RuleDefinition
-    {
-        return new RuleDefinition('Implement SiteLanguageAwareInterface instead of using SiteLanguageAwareTrait', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
-use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
-
-class MyClass
-{
-    use SiteLanguageAwareTrait;
-}
-CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-use TYPO3\CMS\Core\Site\SiteLanguageAwareInterface;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
-
-class MyClass implements SiteLanguageAwareInterface
-{
-
-    protected SiteLanguage $siteLanguage;
-
-    public function setSiteLanguage(SiteLanguage $siteLanguage)
-    {
-        $this->siteLanguage = $siteLanguage;
-    }
-
-    public function getSiteLanguage(): SiteLanguage
-    {
-        return $this->siteLanguage;
-    }
-}
-CODE_SAMPLE
-            ),
-        ]);
     }
 }

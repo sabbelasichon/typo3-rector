@@ -75,8 +75,15 @@ final class ExtbaseAnnotationToAttributeRector extends AbstractRector implements
      */
     private AttributeDecorator $attributeDecorator;
 
-    public function __construct(AttributeDecorator $attributeDecorator, AttrGroupsFactory $attrGroupsFactory, PhpDocTagRemover $phpDocTagRemover, UseImportsResolver $useImportsResolver, PhpAttributeAnalyzer $phpAttributeAnalyzer, DocBlockUpdater $docBlockUpdater, PhpDocInfoFactory $phpDocInfoFactory)
-    {
+    public function __construct(
+        AttributeDecorator $attributeDecorator,
+        AttrGroupsFactory $attrGroupsFactory,
+        PhpDocTagRemover $phpDocTagRemover,
+        UseImportsResolver $useImportsResolver,
+        PhpAttributeAnalyzer $phpAttributeAnalyzer,
+        DocBlockUpdater $docBlockUpdater,
+        PhpDocInfoFactory $phpDocInfoFactory
+    ) {
         $this->annotationsToAttributes = [
             new AnnotationToAttribute('TYPO3\CMS\Extbase\Annotation\ORM\Lazy'),
             new AnnotationToAttribute('TYPO3\CMS\Extbase\Annotation\ORM\Transient'),

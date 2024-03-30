@@ -75,9 +75,9 @@ final class GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory
             return null;
         }
 
-        if ($classReflection instanceof ClassReflection && $classReflection->isSubclassOf(
-            'TYPO3\CMS\Extbase\Mvc\Controller\ActionController'
-        )) {
+        if ($classReflection instanceof ClassReflection
+            && $classReflection->isSubclassOf('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
+        ) {
             $requestFetcherVariable = $this->nodeFactory->createPropertyFetch('this', 'request');
         } else {
             $requestFetcherVariable = $this->typo3GlobalsFactory->create('TYPO3_REQUEST');
