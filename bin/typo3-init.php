@@ -61,11 +61,7 @@ foreach ($autoloadPaths as $path) {
             $projectPhpDirectoriesContents .= "        __DIR__ . '/" . $projectPhpDirectory . "'," . \PHP_EOL;
         }
 
-        $extensionFiles = [
-            'ext_emconf.php',
-            'ext_localconf.php',
-            'ext_tables.php',
-        ];
+        $extensionFiles = ['ext_emconf.php', 'ext_localconf.php', 'ext_tables.php'];
         foreach ($extensionFiles as $file) {
             if (file_exists($projectDirectory . '/' . $file)) {
                 $projectPhpDirectoriesContents .= "        __DIR__ . '/" . $file . "'," . \PHP_EOL;
@@ -76,7 +72,9 @@ foreach ($autoloadPaths as $path) {
 
         $configContents = FileSystem::read(__DIR__ . '/../templates/rector.php.dist');
         $configContents = \str_replace('__PATHS__', $projectPhpDirectoriesContents, $configContents);
-        $output->writeln('<info>The config is added now. Run "rector process" command to make Rector do the work!</info>');
+        $output->writeln(
+            '<info>The config is added now. Run "rector process" command to make Rector do the work!</info>'
+        );
         FileSystem::write($commonRectorConfigPath, $configContents, null);
         return Command::SUCCESS;
     })
