@@ -1,4 +1,4 @@
-# 128 Rules Overview
+# 129 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (29)
 
-- [TYPO312](#typo312) (43)
+- [TYPO312](#typo312) (44)
 
 - [TYPO313](#typo313) (10)
 
@@ -1858,6 +1858,37 @@ Migrate method `ExtensionManagementUtility::getFileFieldTCAConfig()` to TCA type
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateGeneralUtilityGPRector
+
+Migrate GeneralUtility::_GP
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v3\MigrateGeneralUtilityGPRector`](../rules/TYPO312/v3/MigrateGeneralUtilityGPRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+-$value = GeneralUtility::_GP('tx_scheduler');
++$value = $GLOBALS['TYPO3_REQUEST']->getParsedBody()['tx_scheduler'] ?? $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'] ?? null;
+```
+
+<br>
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ class MyActionController extends ActionController
+ {
+     public function myMethod(): void
+     {
+-        $value = GeneralUtility::_GP('tx_scheduler');
++        $value = $this->request->getParsedBody()['tx_scheduler'] ?? $this->request->getQueryParams()['tx_scheduler'] ?? null;
+     }
+ }
 ```
 
 <br>
