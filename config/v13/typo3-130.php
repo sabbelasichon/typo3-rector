@@ -10,10 +10,9 @@ use Ssch\TYPO3Rector\General\Renaming\ValueObject\RenameAttribute;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
-    $rectorConfig->import(__DIR__ . '/extbase-strict-types-persistence-manager.php');
-    $rectorConfig->import(__DIR__ . '/extbase-strict-types.php');
+    $rectorConfig->import(__DIR__ . '/strict-types.php');
+    $rectorConfig->import(__DIR__ . '/tca-130.php');
     $rectorConfig->import(__DIR__ . '/introduce-capabilities-bit-set.php');
-
     $rectorConfig->import(__DIR__ . '/typo3-130-extbase-hash-service-core-hash-service.php');
     $rectorConfig->ruleWithConfiguration(ConstantsToBackedEnumValueRector::class, [
         new RenameClassAndConstFetch(

@@ -11,6 +11,7 @@ return static function (RectorConfig $rectorConfig): void {
         Typo3SetList::TYPO3_10,
         Typo3SetList::TYPO3_11,
         Typo3SetList::TYPO3_12,
+        Typo3SetList::TYPO3_13,
     ]);
 
     // Define your target version which you want to support
