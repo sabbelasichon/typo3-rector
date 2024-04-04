@@ -1,4 +1,4 @@
-# 129 Rules Overview
+# 130 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (29)
 
-- [TYPO312](#typo312) (44)
+- [TYPO312](#typo312) (45)
 
 - [TYPO313](#typo313) (10)
 
@@ -1747,6 +1747,27 @@ Migrates option cols to size for TCA type none
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateConfigurationManagerGetContentObjectRector
+
+Migrate ConfigurationManager->getContentObject to use request attribute instead
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v4\MigrateConfigurationManagerGetContentObjectRector`](../rules/TYPO312/v4/MigrateConfigurationManagerGetContentObjectRector.php)
+
+```diff
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ class MyActionController extends ActionController
+ {
+     public function myMethod(): void
+     {
+-        $contentObject = $this->configurationManager->getContentObject();
++        $contentObject = $this->request->getAttribute('currentContentObject');
+     }
+ }
 ```
 
 <br>
