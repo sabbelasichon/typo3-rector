@@ -72,6 +72,7 @@ foreach ($autoloadPaths as $path) {
 
         $configContents = FileSystem::read(__DIR__ . '/../templates/rector.php.dist');
         $configContents = \str_replace('__PATHS__', $projectPhpDirectoriesContents, $configContents);
+
         $output->writeln(
             '<info>The config is added now. Run "rector process" command to make Rector do the work!</info>'
         );
