@@ -51,6 +51,9 @@ final class MoveAllowTableOnStandardPagesToTCAConfigurationRector extends Abstra
      */
     private FormatPerservingPrinter $formatPerservingPrinter;
 
+    /**
+     * @readonly
+     */
     private FilesystemInterface $filesystem;
 
     public function __construct(FilesFinder $filesFinder, ValueResolver $valueResolver, IgnorePageTypeRestrictionRector $ignorePageTypeRestrictionRector, FormatPerservingPrinter $formatPerservingPrinter, FilesystemInterface $filesystem)
@@ -93,7 +96,7 @@ CODE_SAMPLE
     {
         $staticMethodCall = $node->expr;
 
-        if (! $staticMethodCall instanceof Node\Expr\StaticCall) {
+        if (! $staticMethodCall instanceof StaticCall) {
             return null;
         }
 
