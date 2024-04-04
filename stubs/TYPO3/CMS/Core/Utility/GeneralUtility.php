@@ -423,4 +423,9 @@ class GeneralUtility
     {
         return '';
     }
+
+    public static function _GPmerged(string $string): array
+    {
+        return [];
+    }
 }
