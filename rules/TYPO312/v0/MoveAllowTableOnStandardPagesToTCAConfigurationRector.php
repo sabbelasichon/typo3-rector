@@ -8,13 +8,9 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeTraverser;
-use PhpParser\Parser;
-use PhpParser\ParserFactory;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
-use Rector\PhpParser\Printer\FormatPerservingPrinter;
 use Rector\Rector\AbstractRector;
-use Rector\ValueObject\Application\File;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -39,31 +35,12 @@ final class MoveAllowTableOnStandardPagesToTCAConfigurationRector extends Abstra
     /**
      * @readonly
      */
-    private Parser $phpParser;
-
-    /**
-     * @readonly
-     */
-    private IgnorePageTypeRestrictionRector $ignorePageTypeRestrictionRector;
-
-    /**
-     * @readonly
-     */
-    private FormatPerservingPrinter $formatPerservingPrinter;
-
-    /**
-     * @readonly
-     */
     private FilesystemInterface $filesystem;
 
-    public function __construct(FilesFinder $filesFinder, ValueResolver $valueResolver, IgnorePageTypeRestrictionRector $ignorePageTypeRestrictionRector, FormatPerservingPrinter $formatPerservingPrinter, FilesystemInterface $filesystem)
+    public function __construct(FilesFinder $filesFinder, ValueResolver $valueResolver, FilesystemInterface $filesystem)
     {
         $this->filesFinder = $filesFinder;
         $this->valueResolver = $valueResolver;
-        $parserFactory = new ParserFactory();
-        $this->phpParser = $parserFactory->create(ParserFactory::ONLY_PHP7);
-        $this->ignorePageTypeRestrictionRector = $ignorePageTypeRestrictionRector;
-        $this->formatPerservingPrinter = $formatPerservingPrinter;
         $this->filesystem = $filesystem;
     }
 
@@ -114,14 +91,8 @@ CODE_SAMPLE
 
         $directoryName = dirname($this->file->getFilePath());
 
-        $pathToExistingConfigurationFile = $directoryName . '/Configuration/TCA/' . $tableName . '.php';
-
-        if ($this->filesystem->fileExists($pathToExistingConfigurationFile)) {
-            $this->addIgnorePageTypeRestrictionIfNeeded($pathToExistingConfigurationFile, $tableName);
-        } else {
-            $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableName . '.php';
-            $this->writeConfigurationToFile($newConfigurationFile, $tableName);
-        }
+        $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableName . '.php';
+        $this->writeConfigurationToFile($newConfigurationFile, $tableName);
 
         return NodeTraverser::REMOVE_NODE;
     }
@@ -140,36 +111,6 @@ CODE_SAMPLE
         }
 
         return ! $this->filesFinder->isExtTables($this->file->getFilePath());
-    }
-
-    private function addIgnorePageTypeRestrictionIfNeeded(
-        string $pathToExistingConfigurationFile,
-        string $tableName
-    ): void {
-        $existingConfigurationFile = new File($pathToExistingConfigurationFile, $this->filesystem->read(
-            $pathToExistingConfigurationFile
-        ));
-        $nodes = $this->phpParser->parse($existingConfigurationFile->getFileContent());
-
-        if ($nodes === null) {
-            return;
-        }
-
-        $nodeTraverser = new NodeTraverser();
-        $this->ignorePageTypeRestrictionRector->configure([
-            IgnorePageTypeRestrictionRector::TABLE_CONFIGURATION => $tableName,
-        ]);
-
-        $nodeTraverser->addVisitor($this->ignorePageTypeRestrictionRector);
-        $newStmts = $nodeTraverser->traverse($nodes);
-        $existingConfigurationFile->changeHasChanged(true);
-        $existingConfigurationFile->changeNewStmts($newStmts);
-        $newContent = $this->formatPerservingPrinter->printParsedStmstAndTokensToString($existingConfigurationFile);
-        $existingConfigurationFile->changeFileContent($newContent);
-
-        if ($existingConfigurationFile->hasChanged()) {
-            $this->filesystem->write($pathToExistingConfigurationFile, $newContent);
-        }
     }
 
     private function writeConfigurationToFile(string $newConfigurationFile, string $tableName): void

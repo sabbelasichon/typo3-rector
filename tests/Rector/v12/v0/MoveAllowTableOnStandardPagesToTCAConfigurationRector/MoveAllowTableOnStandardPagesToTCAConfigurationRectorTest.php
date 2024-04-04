@@ -16,26 +16,12 @@ final class MoveAllowTableOnStandardPagesToTCAConfigurationRectorTest extends Ab
     {
         parent::setUp();
         $this->initializeFilesystem();
-        $this->registerFileToFilesystem(
-            __DIR__ . '/Fixture/Configuration/TCA/tx_table_with_existing_tca_configuration_file.php'
-        );
-        $this->registerFileToFilesystem(
-            __DIR__ . '/Fixture/Configuration/TCA/tx_table_with_existing_tca_configuration_file_and_security_key.php'
-        );
     }
 
     public function test(): void
     {
         $this->doTestFile(__DIR__ . '/Fixture/ext_tables.php.inc');
 
-        $this->assertThatConfigurationFileHasNewIgnorePageTypeRestriction(
-            __DIR__ . '/Fixture/Configuration/TCA/%s.php',
-            'tx_table_with_existing_tca_configuration_file'
-        );
-        $this->assertThatConfigurationFileHasNewIgnorePageTypeRestriction(
-            __DIR__ . '/Fixture/Configuration/TCA/%s.php',
-            'tx_table_with_existing_tca_configuration_file_and_security_key'
-        );
         $this->assertThatConfigurationFileHasNewIgnorePageTypeRestriction(
             __DIR__ . '/Fixture/Configuration/TCA/Overrides/%s.php',
             'tx_table_without_existing_tca_configuration_file'
