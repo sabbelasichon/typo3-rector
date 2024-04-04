@@ -31,7 +31,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->singleton(Typo3NodeResolver::class);
     $rectorConfig->bind(FilesystemInterface::class, function () {
         $argv = $_SERVER['argv'] ?? [];
-        $isDryRun = in_array('--dry-run', $argv);
+        $isDryRun = in_array('--dry-run', $argv) || in_array('-n', $argv);
         if (StaticPHPUnitEnvironment::isPHPUnitRun() || $isDryRun) {
             $adapter = new InMemoryFilesystemAdapter();
         } else {

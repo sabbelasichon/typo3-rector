@@ -162,7 +162,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateContentObjectRendererLastTypoLinkPropertiesRector::class);
     $rectorConfig->rule(UsePageDoktypeRegistryRector::class);
     $rectorConfig->rule(UseServerRequestInsteadOfGeneralUtilityPostRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector::class);
     $rectorConfig->ruleWithConfiguration(IgnorePageTypeRestrictionRector::class, []);
     $rectorConfig->rule(MoveAllowTableOnStandardPagesToTCAConfigurationRector::class);
 };
