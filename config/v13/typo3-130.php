@@ -106,4 +106,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->singleton(\Ssch\TYPO3Rector\TYPO313\v0\StrictTypesPersistenceManagerRector::class);
     $rectorConfig->singleton(\Ssch\TYPO3Rector\TYPO313\v0\UseStrictTypesInExtbaseActionControllerRector::class);
     $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\IntroduceCapabilitiesBitSetRector::class);
+    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\SubstituteItemFormElIDRector::class);
 };
