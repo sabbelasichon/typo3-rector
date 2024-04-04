@@ -2,8 +2,8 @@
 
 namespace TYPO3\CMS\Extbase\Mvc\Controller;
 
-use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\ResponseFactoryInterface;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
@@ -34,6 +34,11 @@ class ActionController extends AbstractController
      * @var \TYPO3\CMS\Extbase\Mvc\Request
      */
     protected $request;
+
+    /**
+     * @var ConfigurationManagerInterface
+     */
+    protected $configurationManager;
 
     /**
      * @return void
