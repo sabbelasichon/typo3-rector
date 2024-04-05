@@ -23,4 +23,26 @@ final class Typo3RectorType implements Typo3RectorTypeInterface
     {
         return 'AbstractRector';
     }
+
+    public function getRectorBodyTemplate(): string
+    {
+        return <<<'EOF'
+    /**
+     * @return array<class-string<\PhpParser\Node>>
+     */
+    public function getNodeTypes(): array
+    {
+        return [\PhpParser\Node::class];
+    }
+
+    /**
+     * @param \PhpParser\Node $node
+     */
+    public function refactor(\PhpParser\Node $node): ?\PhpParser\Node
+    {
+        return $node;
+    }
+EOF;
+
+    }
 }

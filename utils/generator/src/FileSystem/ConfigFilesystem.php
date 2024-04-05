@@ -67,7 +67,7 @@ final class ConfigFilesystem
             $configFileContents = str_replace('###FIRST_RULE###', $rule, $configFileContents);
         }
 
-        // 3. print the content back to file
+        // Print the content back to file
         $this->filesystem->dumpFile($configFilePath, $configFileContents);
     }
 
@@ -87,13 +87,15 @@ final class ConfigFilesystem
 
     private function createConfigurationFileIfNotExists(string $configFilePath): void
     {
-        if (! $this->filesystem->exists($configFilePath)) {
-            $this->filesystem->touch($configFilePath);
-            $this->filesystem->appendToFile(
-                $configFilePath,
-                (string) file_get_contents(__DIR__ . '/../../templates/config/config.php'),
-                true
-            );
+        if ($this->filesystem->exists($configFilePath)) {
+            return;
         }
+
+        $this->filesystem->touch($configFilePath);
+        $this->filesystem->appendToFile(
+            $configFilePath,
+            (string) file_get_contents(__DIR__ . '/../../templates/config/config.php'),
+            true
+        );
     }
 }

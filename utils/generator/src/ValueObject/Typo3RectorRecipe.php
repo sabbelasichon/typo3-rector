@@ -101,4 +101,9 @@ final class Typo3RectorRecipe
     {
         return $this->type->getRectorShortClassName();
     }
+
+    public function getRectorBodyTemplate(): string
+    {
+        return $this->type->getRectorBodyTemplate();
+    }
 }
