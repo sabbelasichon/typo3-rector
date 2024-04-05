@@ -1,4 +1,4 @@
-# 131 Rules Overview
+# 132 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (29)
 
-- [TYPO312](#typo312) (45)
+- [TYPO312](#typo312) (46)
 
 - [TYPO313](#typo313) (11)
 
@@ -1879,6 +1879,41 @@ Migrate method `ExtensionManagementUtility::getFileFieldTCAConfig()` to TCA type
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateGeneralUtilityGPMergedRector
+
+Migrate GeneralUtility::_GPmerged
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v2\MigrateGeneralUtilityGPMergedRector`](../rules/TYPO312/v2/MigrateGeneralUtilityGPMergedRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Core\Utility\ArrayUtility;
+
+-$getMergedWithPost = GeneralUtility::_GPmerged('tx_scheduler');
++$getMergedWithPost = $request->getQueryParams()['tx_scheduler'];
++ArrayUtility::mergeRecursiveWithOverrule($getMergedWithPost, $request->getParsedBody()['tx_scheduler']);
+```
+
+<br>
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Core\Utility\ArrayUtility;
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ class MyActionController extends ActionController
+ {
+     public function myMethod(): void
+     {
+-        $getMergedWithPost = GeneralUtility::_GPmerged('tx_scheduler');
++        $getMergedWithPost = $this->request->getQueryParams()['tx_scheduler'];
++        ArrayUtility::mergeRecursiveWithOverrule($getMergedWithPost, $this->request->getParsedBody()['tx_scheduler']);
+     }
+ }
 ```
 
 <br>
