@@ -1,4 +1,4 @@
-# 130 Rules Overview
+# 131 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (45)
 
-- [TYPO313](#typo313) (10)
+- [TYPO313](#typo313) (11)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -2842,6 +2842,20 @@ Strict types for PersistenceManager
 +protected QueryFactoryInterface $queryFactory;
 +protected BackendInterface $backend;
 +protected Session $persistenceSession;
+```
+
+<br>
+
+### SubstituteItemFormElIDRector
+
+Substitute itemFormElID key with custom generator
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\SubstituteItemFormElIDRector`](../rules/TYPO313/v0/SubstituteItemFormElIDRector.php)
+
+```diff
+-$attributeId = htmlspecialchars($this->data['parameterArray']['itemFormElID']);
++$attributeId = htmlspecialchars(StringUtility::getUniqueId(self::class . '-'));
+ $html[] = '<input id="' . $attributeId . '">';
 ```
 
 <br>
