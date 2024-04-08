@@ -23,4 +23,22 @@ final class TcaRectorType implements Typo3RectorTypeInterface
     {
         return 'AbstractTcaRector';
     }
+
+    public function getRectorBodyTemplate(): string
+    {
+        return <<<'EOF'
+    protected function refactorColumn(\PhpParser\Node\Expr $columnName, \PhpParser\Node\Expr $columnTca): void
+    {
+        $configArrayItem = $this->extractArrayItemByKey($columnTca, self::CONFIG);
+        if (! $configArrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
+            return;
+        }
+
+        // Your code
+
+        $this->hasAstBeenChanged = true;
+    }
+EOF;
+
+    }
 }

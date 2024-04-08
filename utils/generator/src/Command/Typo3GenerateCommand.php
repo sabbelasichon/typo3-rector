@@ -60,18 +60,18 @@ final class Typo3GenerateCommand extends Command
         ConfigFilesystem $configFilesystem,
         FileInfoFactory $fileInfoFactory
     ) {
+        parent::__construct();
         $this->templateFinder = $templateFinder;
         $this->fileGenerator = $fileGenerator;
         $this->outputStyle = $outputStyle;
         $this->configFilesystem = $configFilesystem;
-        parent::__construct();
         $this->fileInfoFactory = $fileInfoFactory;
     }
 
     protected function configure(): void
     {
         $this->setName('typo3-generate');
-        $this->setDescription('[DEV] Create a new TYPO3 Rector, in a proper location, with new tests');
+        $this->setDescription('Create a new TYPO3 Rector, in a proper location, with tests');
         $this->setAliases(['typo3-create']);
     }
 
@@ -106,6 +106,7 @@ final class Typo3GenerateCommand extends Command
             '__Description__' => addslashes($recipe->getDescription()),
             '__Base_Rector_Class__' => $recipe->getRectorClass(),
             '__Base_Rector_ShortClassName__' => $recipe->getRectorShortClassName(),
+            '__Base_Rector_Body_Template__' => $recipe->getRectorBodyTemplate(),
         ];
 
         $targetDirectory = getcwd();
@@ -116,14 +117,13 @@ final class Typo3GenerateCommand extends Command
             (string) $targetDirectory
         );
 
-        $testCaseDirectoryPath = $this->resolveTestCaseDirectoryPath($generatedFilePaths);
-
         $this->configFilesystem->addRuleToConfigurationFile(
             $recipe->getSet(),
             $templateVariables,
             self::RECTOR_FQN_NAME_PATTERN
         );
 
+        $testCaseDirectoryPath = $this->resolveTestCaseDirectoryPath($generatedFilePaths);
         $this->printSuccess($recipe->getRectorName(), $generatedFilePaths, $testCaseDirectoryPath);
 
         return Command::SUCCESS;
@@ -151,12 +151,16 @@ final class Typo3GenerateCommand extends Command
     private function askForChangelogUrl(): Question
     {
         $whatIsTheUrlToChangelog = new Question(
-            'Url to changelog (i.e. https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/...): '
+            'Url to changelog (i.e. https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/...) or "x" for none: '
         );
         $whatIsTheUrlToChangelog->setMaxAttempts(3);
         $whatIsTheUrlToChangelog->setValidator(
             static function (?string $url) {
                 Assert::notNull($url);
+
+                if (strtolower($url) === 'x') {
+                    return '';
+                }
 
                 if (! filter_var($url, FILTER_VALIDATE_URL)) {
                     throw new RuntimeException('Please enter a valid Url');
@@ -210,7 +214,7 @@ final class Typo3GenerateCommand extends Command
 
     private function askForType(): Question
     {
-        $question = new ChoiceQuestion('Please select the rector type (defaults to typo3)', ['typo3', 'tca'], 0);
+        $question = new ChoiceQuestion('Please select the rector type (defaults to typo3)', ['typo3', 'tca'], 'typo3');
         $question->setMaxAttempts(3);
         $question->setErrorMessage('Type %s is invalid.');
 
@@ -229,11 +233,11 @@ final class Typo3GenerateCommand extends Command
 
         foreach ($generatedFilePaths as $generatedFilePath) {
             $fileInfo = $this->fileInfoFactory->createFileInfoFromPath($generatedFilePath);
-            $this->outputStyle->writeln(' * ' . $fileInfo->getRelativePath());
+            $this->outputStyle->writeln(' * ' . $fileInfo->getRelativePathname());
         }
 
         $message = sprintf(
-            '<info>Make tests green again:</info>%svendor/bin/phpunit %s',
+            '<info>Run tests for this rector:</info>%svendor/bin/phpunit %s',
             PHP_EOL . PHP_EOL,
             $testCaseFilePath . PHP_EOL
         );

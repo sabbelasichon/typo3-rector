@@ -24,4 +24,6 @@ CODE_SAMPLE
 CODE_SAMPLE
         )]);
     }
+
+__Base_Rector_Body_Template__
 }
