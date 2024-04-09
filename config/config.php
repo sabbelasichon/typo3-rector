@@ -29,7 +29,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->singleton(InjectMethodFactory::class);
     $rectorConfig->singleton(Typo3GlobalsFactory::class);
     $rectorConfig->singleton(Typo3NodeResolver::class);
-    $rectorConfig->bind(FilesystemInterface::class, function () {
+    $rectorConfig->bind(FilesystemInterface::class, static function () {
         $argv = $_SERVER['argv'] ?? [];
         $isDryRun = in_array('--dry-run', $argv) || in_array('-n', $argv);
         if (StaticPHPUnitEnvironment::isPHPUnitRun() || $isDryRun) {
@@ -37,7 +37,6 @@ return static function (RectorConfig $rectorConfig): void {
         } else {
             $adapter = new LocalFilesystemAdapter('/');
         }
-
         return new FlysystemFilesystem(new Filesystem($adapter));
     });
 };
