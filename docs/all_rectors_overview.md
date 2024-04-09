@@ -1,4 +1,4 @@
-# 132 Rules Overview
+# 133 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (29)
 
-- [TYPO312](#typo312) (46)
+- [TYPO312](#typo312) (47)
 
 - [TYPO313](#typo313) (11)
 
@@ -2296,6 +2296,20 @@ Migrate TypoScriptFrontendController->type
 ```diff
 -$GLOBALS['TSFE']->type;
 +$GLOBALS['TSFE']->getPageArguments()->getPageType();
+```
+
+<br>
+
+### MoveAllowTableOnStandardPagesToTCAConfigurationRector
+
+Move method ExtensionManagementUtility::allowTableOnStandardPages to TCA configuration
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector`](../rules/TYPO312/v0/MoveAllowTableOnStandardPagesToTCAConfigurationRector.php)
+
+```diff
+-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+-ExtensionManagementUtility::allowTableOnStandardPages('my_table');
++$GLOBALS['TCA']['my_table']['ctrl']['security']['ignorePageTypeRestriction']
 ```
 
 <br>
