@@ -8,7 +8,6 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Ssch\TYPO3Rector\CodeQuality\General\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\TYPO312\v0\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ChangeExtbaseValidatorsRector;
-use Ssch\TYPO3Rector\TYPO312\v0\IgnorePageTypeRestrictionRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
@@ -162,6 +161,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateContentObjectRendererLastTypoLinkPropertiesRector::class);
     $rectorConfig->rule(UsePageDoktypeRegistryRector::class);
     $rectorConfig->rule(UseServerRequestInsteadOfGeneralUtilityPostRector::class);
-    $rectorConfig->ruleWithConfiguration(IgnorePageTypeRestrictionRector::class, []);
     $rectorConfig->rule(MoveAllowTableOnStandardPagesToTCAConfigurationRector::class);
 };

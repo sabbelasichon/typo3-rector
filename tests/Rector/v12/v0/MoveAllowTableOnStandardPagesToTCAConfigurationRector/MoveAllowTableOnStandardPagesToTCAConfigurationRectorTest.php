@@ -43,11 +43,6 @@ final class MoveAllowTableOnStandardPagesToTCAConfigurationRectorTest extends Ab
         self::assertStringEqualsFile($expectedFile, $contents);
     }
 
-    private function registerFileToFilesystem(string $pathToFile): void
-    {
-        $this->filesystem->write($pathToFile, FileSystem::read($pathToFile));
-    }
-
     private function initializeFilesystem(): void
     {
         $this->filesystem = $this->getContainer()
