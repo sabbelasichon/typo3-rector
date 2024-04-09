@@ -11,6 +11,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\ChangeExtbaseValidatorsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
+use Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveMailerAdapterInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveRelativeToCurrentScriptArgumentsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveTSFEConvOutputCharsetCallsRector;
@@ -160,4 +161,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateContentObjectRendererLastTypoLinkPropertiesRector::class);
     $rectorConfig->rule(UsePageDoktypeRegistryRector::class);
     $rectorConfig->rule(UseServerRequestInsteadOfGeneralUtilityPostRector::class);
+    $rectorConfig->rule(MoveAllowTableOnStandardPagesToTCAConfigurationRector::class);
 };
