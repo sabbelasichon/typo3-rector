@@ -166,10 +166,11 @@ CODE_SAMPLE
         }
 
         return new Expression(
-            $this->nodeFactory->createStaticCall('TYPO3\\CMS\\Core\\Utility\\ArrayUtility', 'mergeRecursiveWithOverrule', [
-                $this->nodeFactory->createArg($variable),
-                $this->nodeFactory->createArg($arrayDimFetch),
-            ])
+            $this->nodeFactory->createStaticCall(
+                'TYPO3\\CMS\\Core\\Utility\\ArrayUtility',
+                'mergeRecursiveWithOverrule',
+                [$this->nodeFactory->createArg($variable), $this->nodeFactory->createArg($arrayDimFetch)]
+            )
         );
     }
 }

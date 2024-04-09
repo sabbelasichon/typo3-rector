@@ -43,6 +43,5 @@ final class Typo3RectorType implements Typo3RectorTypeInterface
         return $node;
     }
 EOF;
-
     }
 }

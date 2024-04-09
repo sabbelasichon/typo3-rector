@@ -81,6 +81,13 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
 
             $returnCallExpression = $node->expr;
 
+            if ($returnCallExpression !== null && $this->isObjectType(
+                $returnCallExpression,
+                new ObjectType('Psr\Http\Message\ResponseInterface')
+            )) {
+                return null;
+            }
+
             if ($returnCallExpression instanceof FuncCall && $this->isName(
                 $returnCallExpression->name,
                 'json_encode'
