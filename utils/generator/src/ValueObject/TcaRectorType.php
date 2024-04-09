@@ -39,6 +39,5 @@ final class TcaRectorType implements Typo3RectorTypeInterface
         $this->hasAstBeenChanged = true;
     }
 EOF;
-
     }
 }
