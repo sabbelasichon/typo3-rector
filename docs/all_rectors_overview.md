@@ -686,7 +686,7 @@ Substitute deprecated method calls of class GeneralUtility
 
 ### SubstituteResourceFactoryRector
 
-Substitue `ResourceFactory::getInstance()` through GeneralUtility::makeInstance(ResourceFactory::class)
+Substitute `ResourceFactory::getInstance()` through GeneralUtility::makeInstance(ResourceFactory::class)
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v3\SubstituteResourceFactoryRector`](../rules/TYPO310/v3/SubstituteResourceFactoryRector.php)
 
@@ -858,7 +858,7 @@ Use controller classes when registering extbase plugins/modules
 
 ### UseFileGetContentsForGetUrlRector
 
-Rewirte Method Calls of GeneralUtility::getUrl("somefile.csv") to `@file_get_contents`
+Rewrite Method Calls of GeneralUtility::getUrl("somefile.csv") to `@file_get_contents`
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v4\UseFileGetContentsForGetUrlRector`](../rules/TYPO310/v4/UseFileGetContentsForGetUrlRector.php)
 
@@ -924,7 +924,7 @@ Turns TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php
 
 ### UseTwoLetterIsoCodeFromSiteLanguageRector
 
-The usage of the propery sys_language_isocode is deprecated. Use method getTwoLetterIsoCode of SiteLanguage
+The usage of the property sys_language_isocode is deprecated. Use method getTwoLetterIsoCode of SiteLanguage
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v0\UseTwoLetterIsoCodeFromSiteLanguageRector`](../rules/TYPO310/v0/UseTwoLetterIsoCodeFromSiteLanguageRector.php)
 

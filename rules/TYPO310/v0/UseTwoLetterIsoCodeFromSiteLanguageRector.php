@@ -71,7 +71,7 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'The usage of the propery sys_language_isocode is deprecated. Use method getTwoLetterIsoCode of SiteLanguage',
+            'The usage of the property sys_language_isocode is deprecated. Use method getTwoLetterIsoCode of SiteLanguage',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

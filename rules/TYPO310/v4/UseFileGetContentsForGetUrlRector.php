@@ -87,7 +87,7 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Rewirte Method Calls of GeneralUtility::getUrl("somefile.csv") to @file_get_contents',
+            'Rewrite Method Calls of GeneralUtility::getUrl("somefile.csv") to @file_get_contents',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
