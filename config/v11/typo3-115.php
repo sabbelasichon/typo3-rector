@@ -9,6 +9,7 @@ use Ssch\TYPO3Rector\CodeQuality\General\MethodGetInstanceToMakeInstanceCallRect
 use Ssch\TYPO3Rector\TYPO311\v5\FlexFormToolsArrayValueByPathRector;
 use Ssch\TYPO3Rector\TYPO311\v5\HandleCObjRendererATagParamsMethodRector;
 use Ssch\TYPO3Rector\TYPO311\v5\RemoveDefaultInternalTypeDBRector;
+use Ssch\TYPO3Rector\TYPO311\v5\RemoveTypeHintViewInterfaceRector;
 use Ssch\TYPO3Rector\TYPO311\v5\ReplaceTSFEATagParamsCallOnGlobalsRector;
 use Ssch\TYPO3Rector\TYPO311\v5\SubstituteBackendTemplateViewWithModuleTemplateRector;
 use Ssch\TYPO3Rector\TYPO311\v5\SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector;
@@ -43,4 +44,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(HandleCObjRendererATagParamsMethodRector::class);
     $rectorConfig->rule(SubstituteBackendTemplateViewWithModuleTemplateRector::class);
     $rectorConfig->rule(SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector::class);
+    $rectorConfig->rule(RemoveTypeHintViewInterfaceRector::class);
 };
