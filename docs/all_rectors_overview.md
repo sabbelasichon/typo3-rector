@@ -1,4 +1,4 @@
-# 133 Rules Overview
+# 134 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO310](#typo310) (37)
 
-- [TYPO311](#typo311) (29)
+- [TYPO311](#typo311) (30)
 
 - [TYPO312](#typo312) (47)
 
@@ -1290,6 +1290,19 @@ Remove the default type for internal_type
          ],
      ],
  ];
+```
+
+<br>
+
+### RemoveTypeHintViewInterfaceRector
+
+Remove
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v5\RemoveTypeHintViewInterfaceRector`](../rules/TYPO311/v5/RemoveTypeHintViewInterfaceRector.php)
+
+```diff
+-protected function initializeView(ViewInterface $view)
++protected function initializeView($view)
 ```
 
 <br>
