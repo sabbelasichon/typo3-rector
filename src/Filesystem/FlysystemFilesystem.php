@@ -33,4 +33,13 @@ final class FlysystemFilesystem implements FilesystemInterface
     {
         return $this->filesystemOperator->read($location);
     }
+
+    public function appendToFile(string $location, string $content): void
+    {
+        $existingContent = $this->read($location);
+
+        $existingContent .= PHP_EOL . $content;
+
+        $this->write($location, $existingContent);
+    }
 }

@@ -11,4 +11,6 @@ interface FilesystemInterface
     public function fileExists(string $location): bool;
 
     public function read(string $location): string;
+
+    public function appendToFile(string $location, string $content): void;
 }
