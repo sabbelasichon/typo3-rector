@@ -409,23 +409,35 @@ class GeneralUtility
     {
     }
 
-    public static function _GET(string $string): string
+    /**
+     * @param string $var GET/POST var to return
+     * @return mixed POST var named $var, if not set, the GET var of the same name and if also not set, NULL.
+     */
+    public static function _GP($var)
     {
-        return $string;
-    }
-
-    public static function _POST(string $string): string
-    {
-        return '';
-    }
-
-    public static function _GP(string $string): string
-    {
-        return '';
+        return $var;
     }
 
     public static function _GPmerged(string $string): array
     {
         return [];
+    }
+
+    /**
+     * @param string $var Optional pointer to value in GET array (basically name of GET var)
+     * @return mixed If $var is set it returns the value of $_GET[$var]. If $var is NULL (default), returns $_GET itself.
+     */
+    public static function _GET($var = null)
+    {
+        return $var;
+    }
+
+    /**
+     * @param string $var Optional pointer to value in POST array (basically name of POST var)
+     * @return mixed If $var is set it returns the value of $_POST[$var]. If $var is NULL (default), returns $_POST itself.
+     */
+    public static function _POST($var = null)
+    {
+        return $var;
     }
 }
