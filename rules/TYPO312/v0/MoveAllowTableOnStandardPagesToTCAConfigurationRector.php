@@ -119,12 +119,16 @@ CODE_SAMPLE
             '$GLOBALS[\'TCA\'][\'%s\'][\'ctrl\'][\'security\'][\'ignorePageTypeRestriction\'] = true;',
             $tableName
         );
-        $this->filesystem->write($newConfigurationFile, <<<CODE
+        if ($this->filesystem->fileExists($newConfigurationFile)) {
+            $this->filesystem->appendToFile($newConfigurationFile, $content . PHP_EOL);
+        } else {
+            $this->filesystem->write($newConfigurationFile, <<<CODE
 <?php
 
 {$content}
 
 CODE
-        );
+            );
+        }
     }
 }

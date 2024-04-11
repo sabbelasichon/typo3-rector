@@ -19,11 +19,25 @@ final class MoveAllowTableOnStandardPagesToTCAConfigurationRectorTest extends Ab
 
     public function test(): void
     {
+        $this->filesystem->write(
+            __DIR__ . '/Fixture/Configuration/TCA/Overrides/tx_table_with_existing_tca_configuration_file.php',
+            <<<'CODE'
+<?php
+
+$GLOBALS['TCA']['other_table']['ctrl']['security']['ignorePageTypeRestriction'] = true;
+
+CODE
+        );
+
         $this->doTestFile(__DIR__ . '/Fixture/ext_tables.php.inc');
 
         $this->assertThatConfigurationFileHasNewIgnorePageTypeRestriction(
             __DIR__ . '/Fixture/Configuration/TCA/Overrides/%s.php',
             'tx_table_without_existing_tca_configuration_file'
+        );
+        $this->assertThatConfigurationFileHasNewIgnorePageTypeRestriction(
+            __DIR__ . '/Fixture/Configuration/TCA/Overrides/%s.php',
+            'tx_table_with_existing_tca_configuration_file'
         );
     }
 
