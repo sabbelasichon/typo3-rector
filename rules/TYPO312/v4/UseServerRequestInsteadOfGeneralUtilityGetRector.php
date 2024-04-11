@@ -41,7 +41,7 @@ CODE_SAMPLE
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-$value = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'] ?? null;
+$value = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'];
 CODE_SAMPLE
             ),
             new CodeSample(
@@ -66,7 +66,7 @@ class MyActionController extends ActionController
 {
     public function myMethod()
     {
-        $value = $this->request->getQueryParams()['tx_scheduler'] ?? null;
+        $value = $this->request->getQueryParams()['tx_scheduler'];
     }
 }
 CODE_SAMPLE
@@ -84,7 +84,7 @@ CODE_SAMPLE
      */
     public function refactorWithScope(Node $node, Scope $scope): ?Node
     {
-        return $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCallCoalesceNull(
+        return $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
             $scope->getClassReflection(),
             $node,
             'getQueryParams',

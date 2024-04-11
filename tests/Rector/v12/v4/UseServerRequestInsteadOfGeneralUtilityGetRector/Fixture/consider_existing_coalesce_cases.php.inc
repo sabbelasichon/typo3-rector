@@ -6,12 +6,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class MyClass
 {
+    private array $myArray = [];
+    private string $myString = '';
+
     public function myMethod(): void
     {
-        $value = GeneralUtility::_GET('tx_scheduler');
-
-        $anotherValue = GeneralUtility::_GET(null);
-        $anotherValue2 = GeneralUtility::_GET();
+        $this->myArray = GeneralUtility::_GET('tx_scheduler') ?? [];
+        $this->myString = GeneralUtility::_GET('tx_scheduler') ?? '';
     }
 }
 
@@ -25,12 +26,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class MyClass
 {
+    private array $myArray = [];
+    private string $myString = '';
+
     public function myMethod(): void
     {
-        $value = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'];
-
-        $anotherValue = $GLOBALS['TYPO3_REQUEST']->getQueryParams();
-        $anotherValue2 = $GLOBALS['TYPO3_REQUEST']->getQueryParams();
+        $this->myArray = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'] ?? [];
+        $this->myString = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'] ?? '';
     }
 }
 

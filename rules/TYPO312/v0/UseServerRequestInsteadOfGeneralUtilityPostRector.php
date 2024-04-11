@@ -30,7 +30,7 @@ final class UseServerRequestInsteadOfGeneralUtilityPostRector extends AbstractSc
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use PSR-7 ServerRequest instead of GeneralUtility::_GET()', [
+        return new RuleDefinition('Use PSR-7 ServerRequest instead of GeneralUtility::_POST()', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -66,7 +66,7 @@ class MyActionController extends ActionController
 {
     public function myMethod()
     {
-        $value = $this->request->getParsedBody()['tx_scheduler'] ?? null;
+        $value = $this->request->getParsedBody()['tx_scheduler'];
     }
 }
 CODE_SAMPLE
@@ -84,7 +84,7 @@ CODE_SAMPLE
      */
     public function refactorWithScope(Node $node, Scope $scope): ?Node
     {
-        return $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCallCoalesceNull(
+        return $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
             $scope->getClassReflection(),
             $node,
             'getParsedBody',
