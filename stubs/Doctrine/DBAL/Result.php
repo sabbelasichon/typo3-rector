@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace Doctrine\DBAL;
 
-if (class_exists('Doctrine\DBAL\Result')) {
+use Traversable;
+
+if (interface_exists('Doctrine\DBAL\Result')) {
     return;
 }
 
-class Result
+interface Result extends Abstraction\Result
 {
-    public function fetchAllAssociative(): array
-    {
-        return [];
-    }
+    public function fetchAllKeyValue(): array;
+
+    public function fetchAllAssociativeIndexed(): array;
+
+    public function iterateKeyValue(): Traversable;
+
+    public function iterateAssociativeIndexed(): Traversable;
 }

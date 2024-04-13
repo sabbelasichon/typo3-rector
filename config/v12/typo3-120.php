@@ -10,6 +10,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ChangeExtbaseValidatorsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector;
+use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchColumnToFetchOneRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveMailerAdapterInterfaceRector;
@@ -162,4 +163,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(UsePageDoktypeRegistryRector::class);
     $rectorConfig->rule(UseServerRequestInsteadOfGeneralUtilityPostRector::class);
     $rectorConfig->rule(MoveAllowTableOnStandardPagesToTCAConfigurationRector::class);
+    $rectorConfig->rule(MigrateFetchColumnToFetchOneRector::class);
 };

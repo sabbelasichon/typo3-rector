@@ -66,12 +66,10 @@ class QueryBuilder
 
     public function executeQuery(): Result
     {
-        return new Result();
     }
 
     public function execute(): Result
     {
-        return new Result();
     }
 
     public function executeStatement(): int
