@@ -1,4 +1,4 @@
-# 134 Rules Overview
+# 135 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (30)
 
-- [TYPO312](#typo312) (47)
+- [TYPO312](#typo312) (48)
 
 - [TYPO313](#typo313) (11)
 
@@ -1456,7 +1456,7 @@ Substitute class EnvironmentService with ApplicationType class\"
 - class: [`Ssch\TYPO3Rector\TYPO311\v2\SubstituteEnvironmentServiceWithApplicationTypeRector`](../rules/TYPO311/v2/SubstituteEnvironmentServiceWithApplicationTypeRector.php)
 
 ```diff
--if($this->environmentService->isEnvironmentInFrontendMode()) {
+-if ($this->environmentService->isEnvironmentInFrontendMode()) {
 +if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend())
      ...
  }
@@ -1834,6 +1834,23 @@ Migrate eval int and double2 to type number
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateFetchColumnToFetchOneRector
+
+Migrate ->fetchColumn(0) to `->fetchOne()`
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchColumnToFetchOneRector`](../rules/TYPO312/v0/MigrateFetchColumnToFetchOneRector.php)
+
+```diff
+ $result = $queryBuilder
+   ->select(...)
+   ->from(...)
+   ->executeQuery()
+-  ->fetchColumn(0);
++  ->fetchOne(0);
 ```
 
 <br>
