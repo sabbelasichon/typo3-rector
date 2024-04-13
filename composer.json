@@ -54,6 +54,7 @@
         "symplify/easy-coding-standard": "^12.1.14"
     },
     "suggest": {
+        "ext-pdo": "*",
         "ssch/typo3-debug-dump-pass": "^0.0.1"
     },
     "autoload": {

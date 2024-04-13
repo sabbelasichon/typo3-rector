@@ -60,7 +60,7 @@ final class SubstituteEnvironmentServiceWithApplicationTypeRector extends Abstra
     {
         return new RuleDefinition('Substitute class EnvironmentService with ApplicationType class\"', [new CodeSample(
             <<<'CODE_SAMPLE'
-if($this->environmentService->isEnvironmentInFrontendMode()) {
+if ($this->environmentService->isEnvironmentInFrontendMode()) {
     ...
 }
 CODE_SAMPLE
