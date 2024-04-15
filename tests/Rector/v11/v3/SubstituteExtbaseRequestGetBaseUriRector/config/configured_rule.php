@@ -6,6 +6,6 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\TYPO311\v3\SubstituteExtbaseRequestGetBaseUriRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/../../../../../../config/config.php');
+    $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
     $rectorConfig->rule(SubstituteExtbaseRequestGetBaseUriRector::class);
 };

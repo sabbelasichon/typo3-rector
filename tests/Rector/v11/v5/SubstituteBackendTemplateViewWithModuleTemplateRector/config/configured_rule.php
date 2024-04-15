@@ -9,6 +9,6 @@ use Ssch\TYPO3Rector\TYPO311\v5\SubstituteBackendTemplateViewWithModuleTemplateR
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->phpVersion(PhpVersion::PHP_74);
 
-    $rectorConfig->import(__DIR__ . '/../../../../../../config/config.php');
+    $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
     $rectorConfig->rule(SubstituteBackendTemplateViewWithModuleTemplateRector::class);
 };
