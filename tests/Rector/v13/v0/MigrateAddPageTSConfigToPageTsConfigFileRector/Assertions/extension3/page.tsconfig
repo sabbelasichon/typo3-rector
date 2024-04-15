@@ -1,0 +1,5 @@
+@import "EXT:ext_key/Configuration/TSconfig/*/*.tsconfig"
+
+@import "EXT:ext_key/Configuration/TSconfig/*/*.tsconfig"
+
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:cray_special_extension_key/Configuration/TSconfig/Page.txt">

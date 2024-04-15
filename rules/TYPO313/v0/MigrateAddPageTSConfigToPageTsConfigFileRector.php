@@ -1,0 +1,173 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Ssch\TYPO3Rector\TYPO313\v0;
+
+use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\NodeTraverser;
+use PHPStan\Type\ObjectType;
+use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\Rector\AbstractRector;
+use Ssch\TYPO3Rector\ComposerExtensionKeyResolver;
+use Ssch\TYPO3Rector\Contract\FilesystemInterface;
+use Ssch\TYPO3Rector\Filesystem\FilesFinder;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
+/**
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Deprecation-101799-ExtensionManagementUtilityaddPageTSConfig.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateAddPageTSConfigToPageTsConfigFileRector\MigrateAddPageTSConfigToPageTsConfigFileRectorTest
+ */
+final class MigrateAddPageTSConfigToPageTsConfigFileRector extends AbstractRector
+{
+    /**
+     * @readonly
+     */
+    private FilesFinder $filesFinder;
+
+    /**
+     * @readonly
+     */
+    private FilesystemInterface $filesystem;
+
+    /**
+     * @readonly
+     */
+    private ValueResolver $valueResolver;
+
+    /**
+     * @readonly
+     */
+    private ComposerExtensionKeyResolver $composerExtensionKeyResolver;
+
+    public function __construct(FilesFinder $filesFinder, FilesystemInterface $filesystem, ValueResolver $valueResolver, ComposerExtensionKeyResolver $composerExtensionKeyResolver)
+    {
+        $this->filesFinder = $filesFinder;
+        $this->filesystem = $filesystem;
+        $this->valueResolver = $valueResolver;
+        $this->composerExtensionKeyResolver = $composerExtensionKeyResolver;
+    }
+
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition('Migrate method call ExtensionManagementUtility::addPageTSConfig to page.tsconfig', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+    '@import "EXT:ppw_sitepackage/Configuration/TSconfig/*/*.tsconfig"'
+);
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+// Move to file Configuration/page.tsconfig
+CODE_SAMPLE
+            ),
+        ]);
+    }
+
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes(): array
+    {
+        return [Expression::class];
+    }
+
+    /**
+     * @param Expression $node
+     */
+    public function refactor(Node $node)
+    {
+        $staticMethodCall = $node->expr;
+
+        if (! $staticMethodCall instanceof StaticCall) {
+            return null;
+        }
+
+        if ($this->shouldSkip($staticMethodCall)) {
+            return null;
+        }
+
+        $contentArgument = $staticMethodCall->args[0] ?? null;
+
+        if ($contentArgument === null) {
+            return null;
+        }
+
+        $contentArgumentValue = $contentArgument->value;
+
+        if (! $contentArgumentValue instanceof String_ && ! $contentArgumentValue instanceof Concat) {
+            return null;
+        }
+
+        $this->resolvePotentialExtensionKey($contentArgumentValue);
+
+        $directoryName = dirname($this->file->getFilePath());
+
+        $content = $this->valueResolver->getValue($contentArgumentValue);
+        $newConfigurationFile = $directoryName . '/Configuration/page.tsconfig';
+        if ($this->filesystem->fileExists($newConfigurationFile)) {
+            $this->filesystem->appendToFile($newConfigurationFile, $content . PHP_EOL);
+        } else {
+            $this->filesystem->write($newConfigurationFile, <<<CODE
+{$content}
+
+CODE
+            );
+        }
+
+        return NodeTraverser::REMOVE_NODE;
+    }
+
+    private function shouldSkip(StaticCall $staticMethodCall): bool
+    {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $staticMethodCall,
+            new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
+        )) {
+            return true;
+        }
+
+        if (! $this->isName($staticMethodCall->name, 'addPageTSConfig')) {
+            return true;
+        }
+
+        return ! $this->filesFinder->isExtLocalConf($this->file->getFilePath());
+    }
+
+    /**
+     * @param Concat|String_ $contentArgumentValue
+     */
+    private function resolvePotentialExtensionKey($contentArgumentValue): void
+    {
+        if ($contentArgumentValue instanceof String_) {
+            return;
+        }
+
+        if (! $contentArgumentValue->left instanceof Concat) {
+            return;
+        }
+
+        if (! $contentArgumentValue->left->right instanceof Variable) {
+            return;
+        }
+
+        if (! $this->isNames($contentArgumentValue->left->right, ['_EXTKEY', 'extensionKey'])) {
+            return;
+        }
+
+        $resolvedExtensionKey = $this->composerExtensionKeyResolver->resolveExtensionKey($this->file);
+
+        if ($resolvedExtensionKey === null) {
+            return;
+        }
+
+        $contentArgumentValue->left->right = new String_($resolvedExtensionKey);
+    }
+}
