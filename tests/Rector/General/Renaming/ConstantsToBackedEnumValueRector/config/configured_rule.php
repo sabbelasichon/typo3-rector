@@ -8,7 +8,7 @@ use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumValueRector;
 
 return static function (RectorConfig $rectorConfig): void {
-    $rectorConfig->import(__DIR__ . '/../../../../../../config/config.php');
+    $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
     $rectorConfig->phpVersion(PhpVersion::PHP_81);
     $rectorConfig->ruleWithConfiguration(ConstantsToBackedEnumValueRector::class, [
         new RenameClassAndConstFetch(
