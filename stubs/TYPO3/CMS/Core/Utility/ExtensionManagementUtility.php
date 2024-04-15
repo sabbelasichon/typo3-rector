@@ -100,4 +100,8 @@ class ExtensionManagementUtility
     {
 
     }
+
+    public static function addPageTSConfig(string $content): void
+    {
+    }
 }

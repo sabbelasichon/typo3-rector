@@ -1,0 +1,2 @@
+# page.tsconfig file exist
+@import "EXT:ext_key/Configuration/TSconfig/*/*.tsconfig"
