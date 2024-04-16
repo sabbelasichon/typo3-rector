@@ -35,8 +35,10 @@ final class MigrateAddUserTSConfigToUserTsConfigFileRectorTest extends AbstractR
     /**
      * @dataProvider provideData
      */
-    public function testWithNonExistingComposerJson(string $extensionKey, ?string $existingUserTSConfigContent = null): void
-    {
+    public function testWithNonExistingComposerJson(
+        string $extensionKey,
+        ?string $existingUserTSConfigContent = null
+    ): void {
         // Arrange
         if ($existingUserTSConfigContent !== null) {
             $userTsConfig = __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/user.tsconfig';
@@ -50,14 +52,19 @@ final class MigrateAddUserTSConfigToUserTsConfigFileRectorTest extends AbstractR
 
         // Assert
         $content = $this->filesystem->read(__DIR__ . '/Fixture/' . $extensionKey . '/Configuration/user.tsconfig');
-        self::assertStringEqualsFile(__DIR__ . '/Assertions/' . $extensionKey . '/Configuration/user.tsconfig', $content);
+        self::assertStringEqualsFile(
+            __DIR__ . '/Assertions/' . $extensionKey . '/Configuration/user.tsconfig',
+            $content
+        );
     }
 
     /**
      * @dataProvider provideData
      */
-    public function testWithExistingComposerJson(string $extensionKey, ?string $existingUserTSConfigContent = null): void
-    {
+    public function testWithExistingComposerJson(
+        string $extensionKey,
+        ?string $existingUserTSConfigContent = null
+    ): void {
         // Arrange
         $composerJson = __DIR__ . '/Fixture/' . $extensionKey . '/composer.json';
         $this->testFilesToDelete[] = $composerJson;
@@ -82,7 +89,10 @@ final class MigrateAddUserTSConfigToUserTsConfigFileRectorTest extends AbstractR
 
         // Assert
         $content = $this->filesystem->read(__DIR__ . '/Fixture/' . $extensionKey . '/Configuration/user.tsconfig');
-        self::assertStringEqualsFile(__DIR__ . '/Assertions/' . $extensionKey . '/Configuration/user.tsconfig', $content);
+        self::assertStringEqualsFile(
+            __DIR__ . '/Assertions/' . $extensionKey . '/Configuration/user.tsconfig',
+            $content
+        );
     }
 
     /**
@@ -94,7 +104,7 @@ final class MigrateAddUserTSConfigToUserTsConfigFileRectorTest extends AbstractR
 
         yield 'Test that content is appended to existing user.tsconfig file' => [
             'extension2',
-            '# user.tsconfig file exist',
+            '# user.tsconfig file exists',
         ];
 
         yield 'Test that new user.tsconfig is created with correct content but unresolvable content cannot be migrated properly' => [

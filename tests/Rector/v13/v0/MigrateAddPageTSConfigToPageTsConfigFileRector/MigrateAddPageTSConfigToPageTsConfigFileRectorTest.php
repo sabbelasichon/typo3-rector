@@ -35,8 +35,10 @@ final class MigrateAddPageTSConfigToPageTsConfigFileRectorTest extends AbstractR
     /**
      * @dataProvider provideData
      */
-    public function testWithNonExistingComposerJson(string $extensionKey, ?string $existingPageTSConfigContent = null): void
-    {
+    public function testWithNonExistingComposerJson(
+        string $extensionKey,
+        ?string $existingPageTSConfigContent = null
+    ): void {
         // Arrange
         if ($existingPageTSConfigContent !== null) {
             $pageTsConfig = __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/page.tsconfig';
@@ -50,14 +52,19 @@ final class MigrateAddPageTSConfigToPageTsConfigFileRectorTest extends AbstractR
 
         // Assert
         $content = $this->filesystem->read(__DIR__ . '/Fixture/' . $extensionKey . '/Configuration/page.tsconfig');
-        self::assertStringEqualsFile(__DIR__ . '/Assertions/' . $extensionKey . '/Configuration/page.tsconfig', $content);
+        self::assertStringEqualsFile(
+            __DIR__ . '/Assertions/' . $extensionKey . '/Configuration/page.tsconfig',
+            $content
+        );
     }
 
     /**
      * @dataProvider provideData
      */
-    public function testWithExistingComposerJson(string $extensionKey, ?string $existingPageTSConfigContent = null): void
-    {
+    public function testWithExistingComposerJson(
+        string $extensionKey,
+        ?string $existingPageTSConfigContent = null
+    ): void {
         // Arrange
         $composerJson = __DIR__ . '/Fixture/' . $extensionKey . '/composer.json';
         $this->testFilesToDelete[] = $composerJson;
@@ -82,7 +89,10 @@ final class MigrateAddPageTSConfigToPageTsConfigFileRectorTest extends AbstractR
 
         // Assert
         $content = $this->filesystem->read(__DIR__ . '/Fixture/' . $extensionKey . '/Configuration/page.tsconfig');
-        self::assertStringEqualsFile(__DIR__ . '/Assertions/' . $extensionKey . '/Configuration/page.tsconfig', $content);
+        self::assertStringEqualsFile(
+            __DIR__ . '/Assertions/' . $extensionKey . '/Configuration/page.tsconfig',
+            $content
+        );
     }
 
     /**
@@ -94,7 +104,7 @@ final class MigrateAddPageTSConfigToPageTsConfigFileRectorTest extends AbstractR
 
         yield 'Test that content is appended to existing page.tsconfig file' => [
             'extension2',
-            '# page.tsconfig file exist',
+            '# page.tsconfig file exists',
         ];
 
         yield 'Test that new page.tsconfig is created with correct content but unresolvable content cannot be migrated properly' => [

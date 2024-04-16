@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\TYPO313\v0;
+namespace Ssch\TYPO3Rector\CodeQuality\General;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
-use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\ComposerExtensionKeyResolver;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
@@ -21,10 +21,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Deprecation-101807-ExtensionManagementUtilityaddUserTSConfig.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateAddUserTSConfigToUserTsConfigFileRector\MigrateAddUserTSConfigToUserTsConfigFileRectorTest
+ * @changelog https://review.typo3.org/c/Packages/TYPO3.CMS/+/52437
+ * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector\MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRectorTest
  */
-final class MigrateAddUserTSConfigToUserTsConfigFileRector extends AbstractRector
+class MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector extends AbstractRector
 {
     use ExtensionKeyResolverTrait;
 
@@ -41,35 +41,36 @@ final class MigrateAddUserTSConfigToUserTsConfigFileRector extends AbstractRecto
     /**
      * @readonly
      */
-    private ValueResolver $valueResolver;
+    private BetterStandardPrinter $betterStandardPrinter;
 
     public function __construct(
         FilesFinder $filesFinder,
         FilesystemInterface $filesystem,
-        ValueResolver $valueResolver,
-        ComposerExtensionKeyResolver $composerExtensionKeyResolver
+        ComposerExtensionKeyResolver $composerExtensionKeyResolver,
+        BetterStandardPrinter $betterStandardPrinter
     ) {
         $this->filesFinder = $filesFinder;
         $this->filesystem = $filesystem;
-        $this->valueResolver = $valueResolver;
         $this->composerExtensionKeyResolver = $composerExtensionKeyResolver;
+        $this->betterStandardPrinter = $betterStandardPrinter;
     }
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate method call ExtensionManagementUtility::addUserTSConfig to user.tsconfig', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig(
-    '@import "EXT:extension_key/Configuration/TSconfig/*/*.tsconfig"'
-);
+        return new RuleDefinition(
+            'Move ExtensionManagementUtility::addStaticFile into Configuration/TCA/Overrides/sys_template.php',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('extensionKey', 'Configuration/TypoScript', 'Title');
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-// Move to file Configuration/user.tsconfig
+                    ,
+                    <<<'CODE_SAMPLE'
+// Move to file Configuration/TCA/Overrides/sys_template.php
 CODE_SAMPLE
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 
     /**
@@ -86,7 +87,6 @@ CODE_SAMPLE
     public function refactor(Node $node)
     {
         $staticMethodCall = $node->expr;
-
         if (! $staticMethodCall instanceof StaticCall) {
             return null;
         }
@@ -96,27 +96,29 @@ CODE_SAMPLE
         }
 
         $contentArgument = $staticMethodCall->args[0] ?? null;
-
         if ($contentArgument === null) {
             return null;
         }
 
         $contentArgumentValue = $contentArgument->value;
-
-        if (! $contentArgumentValue instanceof String_ && ! $contentArgumentValue instanceof Concat) {
+        if (! $contentArgumentValue instanceof String_ && ! $contentArgumentValue instanceof Variable) {
             return null;
         }
 
-        $this->resolvePotentialExtensionKeyByConcatenation($contentArgumentValue);
+        $extensionKey = $this->resolvePotentialExtensionKeyByExtensionKeyParameter($contentArgumentValue);
+        if ($extensionKey instanceof String_) {
+            $contentArgument->value = $extensionKey;
+        }
 
-        $directoryName = dirname($this->file->getFilePath());
+        $content = $this->betterStandardPrinter->prettyPrint([$staticMethodCall]) . ';';
 
-        $content = $this->valueResolver->getValue($contentArgumentValue);
-        $newConfigurationFile = $directoryName . '/Configuration/user.tsconfig';
+        $newConfigurationFile = dirname($this->file->getFilePath()) . '/Configuration/TCA/Overrides/sys_template.php';
         if ($this->filesystem->fileExists($newConfigurationFile)) {
             $this->filesystem->appendToFile($newConfigurationFile, $content . PHP_EOL);
         } else {
             $this->filesystem->write($newConfigurationFile, <<<CODE
+<?php
+
 {$content}
 
 CODE
@@ -135,10 +137,10 @@ CODE
             return true;
         }
 
-        if (! $this->isName($staticMethodCall->name, 'addUserTSConfig')) {
+        if (! $this->isName($staticMethodCall->name, 'addStaticFile')) {
             return true;
         }
 
-        return ! $this->filesFinder->isExtLocalConf($this->file->getFilePath());
+        return ! $this->filesFinder->isExtTables($this->file->getFilePath());
     }
 }
