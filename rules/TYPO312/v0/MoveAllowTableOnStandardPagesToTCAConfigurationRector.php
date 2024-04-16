@@ -90,7 +90,6 @@ CODE_SAMPLE
         $tableName = $this->valueResolver->getValue($tableArgument);
 
         $directoryName = dirname($this->file->getFilePath());
-
         $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableName . '.php';
         $this->writeConfigurationToFile($newConfigurationFile, $tableName);
 

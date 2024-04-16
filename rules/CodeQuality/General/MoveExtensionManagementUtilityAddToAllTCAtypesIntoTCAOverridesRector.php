@@ -11,23 +11,20 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
+use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Rector\AbstractRector;
-use Ssch\TYPO3Rector\ComposerExtensionKeyResolver;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
-use Ssch\TYPO3Rector\Helper\ExtensionKeyResolverTrait;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://review.typo3.org/c/Packages/TYPO3.CMS/+/52437
- * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector\MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector\MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRectorTest
  */
-class MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector extends AbstractRector
+class MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector extends AbstractRector
 {
-    use ExtensionKeyResolverTrait;
-
     /**
      * @readonly
      */
@@ -41,32 +38,37 @@ class MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector extends 
     /**
      * @readonly
      */
+    private ValueResolver $valueResolver;
+
+    /**
+     * @readonly
+     */
     private BetterStandardPrinter $betterStandardPrinter;
 
     public function __construct(
         FilesFinder $filesFinder,
         FilesystemInterface $filesystem,
-        ComposerExtensionKeyResolver $composerExtensionKeyResolver,
+        ValueResolver $valueResolver,
         BetterStandardPrinter $betterStandardPrinter
     ) {
         $this->filesFinder = $filesFinder;
         $this->filesystem = $filesystem;
-        $this->composerExtensionKeyResolver = $composerExtensionKeyResolver;
+        $this->valueResolver = $valueResolver;
         $this->betterStandardPrinter = $betterStandardPrinter;
     }
 
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Move ExtensionManagementUtility::addStaticFile into Configuration/TCA/Overrides/sys_template.php',
+            'Move ExtensionManagementUtility::addToAllTCAtypes into table specific Configuration/TCA/Overrides file',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('extensionKey', 'Configuration/TypoScript', 'Title');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('table', 'new_field', '', 'after:existing_field');
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
-// Move to file Configuration/TCA/Overrides/sys_template.php
+// Move to table specific Configuration/TCA/Overrides/table.php file
 CODE_SAMPLE
                 ),
             ]
@@ -95,25 +97,28 @@ CODE_SAMPLE
             return null;
         }
 
-        $contentArgument = $staticMethodCall->args[0] ?? null;
-        if ($contentArgument === null) {
+        $tableNameArgument = $staticMethodCall->args[0] ?? null;
+        if ($tableNameArgument === null) {
             return null;
         }
 
-        $contentArgumentValue = $contentArgument->value;
-        if (! $contentArgumentValue instanceof String_ && ! $contentArgumentValue instanceof Variable) {
+        $tableNameValue = $tableNameArgument->value;
+        if (! $tableNameValue instanceof String_ && ! $tableNameValue instanceof Variable) {
             return null;
         }
 
-        $extensionKey = $this->resolvePotentialExtensionKeyByExtensionKeyParameter($contentArgumentValue);
-        if ($extensionKey instanceof String_) {
-            $contentArgument->value = $extensionKey;
+        $resolvedTableName = $this->resolveTableName($tableNameValue);
+        if ($resolvedTableName instanceof String_) {
+            $staticMethodCall->args[0] = $resolvedTableName;
+            $tableNameAsString = $resolvedTableName->value;
+        } else {
+            $tableNameAsString = 'unknown';
         }
 
         $content = $this->betterStandardPrinter->prettyPrint([$staticMethodCall]) . ';';
 
         $directoryName = dirname($this->file->getFilePath());
-        $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/sys_template.php';
+        $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableNameAsString . '.php';
         if ($this->filesystem->fileExists($newConfigurationFile)) {
             $this->filesystem->appendToFile($newConfigurationFile, $content . PHP_EOL);
         } else {
@@ -138,10 +143,28 @@ CODE
             return true;
         }
 
-        if (! $this->isName($staticMethodCall->name, 'addStaticFile')) {
+        if (! $this->isName($staticMethodCall->name, 'addToAllTCAtypes')) {
             return true;
         }
 
         return ! $this->filesFinder->isExtTables($this->file->getFilePath());
+    }
+
+    /**
+     * @param Variable|String_ $contentArgumentValue
+     */
+    private function resolveTableName($contentArgumentValue): ?String_
+    {
+        if ($contentArgumentValue instanceof String_) {
+            return $contentArgumentValue;
+        }
+
+        if (! $contentArgumentValue instanceof Variable) {
+            return null;
+        }
+
+        $tableName = $this->valueResolver->getValue($contentArgumentValue);
+
+        return new String_($tableName);
     }
 }
