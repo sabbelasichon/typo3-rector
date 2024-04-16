@@ -4,7 +4,8 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateAddPageTSConfigToPageTsCon
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-$variable = 'ext_key';
+$variable = 'extension3';
+$_EXTKEY = 'extension3';
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
     '@import "EXT:' . $variable . '/Configuration/TSconfig/*/*.tsconfig"'
@@ -15,10 +16,12 @@ $variable = 'ext_key';
 );
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-    '@import "EXT:ext_key/Configuration/TSconfig/*/*.tsconfig"'
+    '@import "EXT:extension3/Configuration/TSconfig/*/*.tsconfig"'
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/TSconfig/Page.txt">');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+    '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $_EXTKEY . '/Configuration/TSconfig/Page.txt">'
+);
 
 ?>
 -----
@@ -29,7 +32,8 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateAddPageTSConfigToPageTsCon
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-$variable = 'ext_key';
+$variable = 'extension3';
+$_EXTKEY = 'extension3';
 
 ExtensionManagementUtility::addPageTSConfig(
     GeneralUtility::deprecationLog('foo')

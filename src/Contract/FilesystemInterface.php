@@ -13,4 +13,6 @@ interface FilesystemInterface
     public function read(string $location): string;
 
     public function appendToFile(string $location, string $content): void;
+
+    public function delete(string $location): void;
 }

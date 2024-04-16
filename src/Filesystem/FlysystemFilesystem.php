@@ -42,4 +42,9 @@ final class FlysystemFilesystem implements FilesystemInterface
 
         $this->write($location, $existingContent);
     }
+
+    public function delete(string $location): void
+    {
+        $this->filesystemOperator->delete($location);
+    }
 }

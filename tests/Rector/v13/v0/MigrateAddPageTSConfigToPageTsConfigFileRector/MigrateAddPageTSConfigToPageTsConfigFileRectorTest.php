@@ -12,45 +12,77 @@ final class MigrateAddPageTSConfigToPageTsConfigFileRectorTest extends AbstractR
 {
     private FilesystemInterface $filesystem;
 
+    /**
+     * @var string[]
+     */
+    private array $testFilesToDelete = [];
+
     protected function setUp(): void
     {
         parent::setUp();
         $this->initializeFilesystem();
     }
 
+    protected function tearDown(): void
+    {
+        foreach ($this->testFilesToDelete as $filename) {
+            $this->filesystem->delete($filename);
+        }
+
+        parent::tearDown();
+    }
+
     /**
      * @dataProvider provideData
      */
-    public function test(string $extensionFolder, ?string $existingPageTSConfigContent = null): void
+    public function testWithNonExistingComposerJson(string $extensionKey, ?string $existingPageTSConfigContent = null): void
     {
         // Arrange
-        $this->filesystem->write(__DIR__ . '/Fixture/' . $extensionFolder . '/composer.json', '{
+        if ($existingPageTSConfigContent !== null) {
+            $pageTsConfig = __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/page.tsconfig';
+            $this->testFilesToDelete[] = $pageTsConfig;
+            $this->filesystem->write($pageTsConfig, $existingPageTSConfigContent);
+        }
+
+        // Act
+        $this->doTestFile(__DIR__ . '/Fixture/' . $extensionKey . '/ext_localconf.php.inc');
+        $this->testFilesToDelete[] = __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/page.tsconfig';
+
+        // Assert
+        $content = $this->filesystem->read(__DIR__ . '/Fixture/' . $extensionKey . '/Configuration/page.tsconfig');
+        self::assertStringEqualsFile(__DIR__ . '/Assertions/' . $extensionKey . '/Configuration/page.tsconfig', $content);
+    }
+
+    /**
+     * @dataProvider provideData
+     */
+    public function testWithExistingComposerJson(string $extensionKey, ?string $existingPageTSConfigContent = null): void
+    {
+        // Arrange
+        $composerJson = __DIR__ . '/Fixture/' . $extensionKey . '/composer.json';
+        $this->testFilesToDelete[] = $composerJson;
+        $this->filesystem->write($composerJson, '{
     "extra": {
         "typo3/cms": {
-            "extension-key": "cray_special_extension_key"
+            "extension-key": "' . $extensionKey . '"
         }
     }
 }
 ');
 
         if ($existingPageTSConfigContent !== null) {
-            $this->filesystem->write(
-                __DIR__ . '/Fixture/' . $extensionFolder . '/Configuration/page.tsconfig',
-                $existingPageTSConfigContent
-            );
+            $pageTsConfig = __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/page.tsconfig';
+            $this->testFilesToDelete[] = $pageTsConfig;
+            $this->filesystem->write($pageTsConfig, $existingPageTSConfigContent);
         }
 
         // Act
-        $this->doTestFile(__DIR__ . '/Fixture/' . $extensionFolder . '/ext_localconf.php.inc');
+        $this->doTestFile(__DIR__ . '/Fixture/' . $extensionKey . '/ext_localconf.php.inc');
+        $this->testFilesToDelete[] = __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/page.tsconfig';
 
         // Assert
-        $content = $this->filesystem->read(__DIR__ . '/Fixture/' . $extensionFolder . '/Configuration/page.tsconfig');
-        self::assertStringEqualsFile(__DIR__ . '/Assertions/' . $extensionFolder . '/page.tsconfig', $content);
-    }
-
-    public function provideConfigFilePath(): string
-    {
-        return __DIR__ . '/config/configured_rule.php';
+        $content = $this->filesystem->read(__DIR__ . '/Fixture/' . $extensionKey . '/Configuration/page.tsconfig');
+        self::assertStringEqualsFile(__DIR__ . '/Assertions/' . $extensionKey . '/Configuration/page.tsconfig', $content);
     }
 
     /**
@@ -70,9 +102,14 @@ final class MigrateAddPageTSConfigToPageTsConfigFileRectorTest extends AbstractR
         ];
     }
 
+    public function provideConfigFilePath(): string
+    {
+        return __DIR__ . '/config/configured_rule.php';
+    }
+
     private function initializeFilesystem(): void
     {
-        $this->filesystem = $this->getContainer()
+        $this->filesystem = self::getContainer()
             ->get(FilesystemInterface::class);
     }
 }
