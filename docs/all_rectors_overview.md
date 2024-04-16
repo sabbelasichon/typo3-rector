@@ -1,4 +1,4 @@
-# 135 Rules Overview
+# 136 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (48)
 
-- [TYPO313](#typo313) (11)
+- [TYPO313](#typo313) (12)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -2847,6 +2847,21 @@ Introduce capabilities bit set
 +echo Capabilities::CAPABILITY_PUBLIC;
 +echo Capabilities::CAPABILITY_WRITABLE;
 +echo Capabilities::CAPABILITY_HIERARCHICAL_IDENTIFIERS;
+```
+
+<br>
+
+### MigrateAddPageTSConfigToPageTsConfigFileRector
+
+Migrate method call ExtensionManagementUtility::addPageTSConfig to page.tsconfig
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateAddPageTSConfigToPageTsConfigFileRector`](../rules/TYPO313/v0/MigrateAddPageTSConfigToPageTsConfigFileRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+-    '@import "EXT:ppw_sitepackage/Configuration/TSconfig/*/*.tsconfig"'
+-);
++// Move to file Configuration/page.tsconfig
 ```
 
 <br>
