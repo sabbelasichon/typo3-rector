@@ -1,10 +1,10 @@
-# 137 Rules Overview
+# 138 Rules Overview
 
 <br>
 
 ## Categories
 
-- [CodeQuality](#codequality) (6)
+- [CodeQuality](#codequality) (7)
 
 - [General](#general) (2)
 
@@ -123,6 +123,19 @@ Use GeneralUtility::makeInstance instead of getInstance call
 +use TYPO3\CMS\Core\Resource\Index\ExtractorRegistry;
 +
 +$instance = GeneralUtility::makeInstance(ExtractorRegistry::class);
+```
+
+<br>
+
+### MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector
+
+Move ExtensionManagementUtility::addStaticFile into Configuration/TCA/Overrides/sys_template.php
+
+- class: [`Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector`](../rules/CodeQuality/General/MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('extensionKey', 'Configuration/TypoScript', 'Title');
++// Move to file Configuration/TCA/Overrides/sys_template.php
 ```
 
 <br>
@@ -2859,7 +2872,7 @@ Migrate method call ExtensionManagementUtility::addPageTSConfig to page.tsconfig
 
 ```diff
 -\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
--    '@import "EXT:ppw_sitepackage/Configuration/TSconfig/*/*.tsconfig"'
+-    '@import "EXT:extension_key/Configuration/TSconfig/*/*.tsconfig"'
 -);
 +// Move to file Configuration/page.tsconfig
 ```
@@ -2874,7 +2887,7 @@ Migrate method call ExtensionManagementUtility::addUserTSConfig to user.tsconfig
 
 ```diff
 -\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig(
--    '@import "EXT:ppw_sitepackage/Configuration/TSconfig/*/*.tsconfig"'
+-    '@import "EXT:extension_key/Configuration/TSconfig/*/*.tsconfig"'
 -);
 +// Move to file Configuration/user.tsconfig
 ```
