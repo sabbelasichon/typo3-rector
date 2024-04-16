@@ -61,7 +61,7 @@ final class MigrateAddPageTSConfigToPageTsConfigFileRector extends AbstractRecto
             new CodeSample(
                 <<<'CODE_SAMPLE'
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-    '@import "EXT:ppw_sitepackage/Configuration/TSconfig/*/*.tsconfig"'
+    '@import "EXT:extension_key/Configuration/TSconfig/*/*.tsconfig"'
 );
 CODE_SAMPLE
                 ,
@@ -107,7 +107,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $this->resolvePotentialExtensionKey($contentArgumentValue);
+        $this->resolvePotentialExtensionKeyByConcatenation($contentArgumentValue);
 
         $directoryName = dirname($this->file->getFilePath());
 

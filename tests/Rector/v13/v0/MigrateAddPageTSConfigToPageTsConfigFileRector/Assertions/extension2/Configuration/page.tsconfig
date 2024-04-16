@@ -1,4 +1,4 @@
-# page.tsconfig file exist
+# page.tsconfig file exists
 @import "EXT:extension2/Configuration/TSconfig/*/*.tsconfig"
 
 @import 'EXT:extension2/Configuration/TSconfig/Page/mod.linkvalidator.tsconfig'

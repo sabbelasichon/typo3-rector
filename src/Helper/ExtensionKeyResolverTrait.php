@@ -17,11 +17,33 @@ trait ExtensionKeyResolverTrait
     private ComposerExtensionKeyResolver $composerExtensionKeyResolver;
 
     /**
-     * @param Concat|String_ $contentArgumentValue
+     * @param Variable|String_ $contentArgumentValue
      */
-    private function resolvePotentialExtensionKey($contentArgumentValue): void
+    private function resolvePotentialExtensionKeyByExtensionKeyParameter($contentArgumentValue): ?String_
     {
         if ($contentArgumentValue instanceof String_) {
+            return null;
+        }
+
+        if (! $contentArgumentValue instanceof Variable) {
+            return null;
+        }
+
+        $resolvedExtensionKey = $this->composerExtensionKeyResolver->resolveExtensionKey($this->file);
+        if ($resolvedExtensionKey === null) {
+            return null;
+        }
+
+        return new String_($resolvedExtensionKey);
+    }
+
+    /**
+     * @param Concat|String_ $contentArgumentValue
+     */
+    private function resolvePotentialExtensionKeyByConcatenation($contentArgumentValue): void
+    {
+        if ($contentArgumentValue instanceof String_) {
+            // If it is a string, it must contain the extension key
             return;
         }
 
@@ -33,12 +55,12 @@ trait ExtensionKeyResolverTrait
             return;
         }
 
+        // If the extension key is a typical variable, then we can replace it. Otherwise, we can't do anything.
         if (! $this->isNames($contentArgumentValue->left->right, ['_EXTKEY', 'extensionKey'])) {
             return;
         }
 
         $resolvedExtensionKey = $this->composerExtensionKeyResolver->resolveExtensionKey($this->file);
-
         if ($resolvedExtensionKey === null) {
             return;
         }

@@ -1,2 +1,2 @@
-# user.tsconfig file exist
+# user.tsconfig file exists
 @import "EXT:extension2/Configuration/TSconfig/*/*.tsconfig"
