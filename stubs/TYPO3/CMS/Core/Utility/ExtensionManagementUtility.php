@@ -92,13 +92,18 @@ class ExtensionManagementUtility
     /**
      * @param string $string
      */
-    public static function addTCAcolumns($string, array $columns) {
+    public static function addTCAcolumns($string, array $columns)
+    {
 
     }
 
     public static function allowTableOnStandardPages(string $table)
     {
 
+    }
+
+    public static function addToAllTCAtypes(string $table, string $newFieldsString, string $typeList = '', string $position = ''): void
+    {
     }
 
     public static function addPageTSConfig(string $content): void
