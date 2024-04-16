@@ -1,4 +1,4 @@
-# 136 Rules Overview
+# 137 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (48)
 
-- [TYPO313](#typo313) (12)
+- [TYPO313](#typo313) (13)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -2862,6 +2862,21 @@ Migrate method call ExtensionManagementUtility::addPageTSConfig to page.tsconfig
 -    '@import "EXT:ppw_sitepackage/Configuration/TSconfig/*/*.tsconfig"'
 -);
 +// Move to file Configuration/page.tsconfig
+```
+
+<br>
+
+### MigrateAddUserTSConfigToUserTsConfigFileRector
+
+Migrate method call ExtensionManagementUtility::addUserTSConfig to user.tsconfig
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateAddUserTSConfigToUserTsConfigFileRector`](../rules/TYPO313/v0/MigrateAddUserTSConfigToUserTsConfigFileRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig(
+-    '@import "EXT:ppw_sitepackage/Configuration/TSconfig/*/*.tsconfig"'
+-);
++// Move to file Configuration/user.tsconfig
 ```
 
 <br>
