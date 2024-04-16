@@ -2693,7 +2693,7 @@ Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
  use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 -$value = GeneralUtility::_GET('tx_scheduler');
-+$value = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'] ?? null;
++$value = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'];
 ```
 
 <br>
@@ -2707,7 +2707,7 @@ Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
      public function myMethod()
      {
 -        $value = GeneralUtility::_GET('tx_scheduler');
-+        $value = $this->request->getQueryParams()['tx_scheduler'] ?? null;
++        $value = $this->request->getQueryParams()['tx_scheduler'];
      }
  }
 ```
@@ -2716,7 +2716,7 @@ Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
 
 ### UseServerRequestInsteadOfGeneralUtilityPostRector
 
-Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
+Use PSR-7 ServerRequest instead of `GeneralUtility::_POST()`
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\UseServerRequestInsteadOfGeneralUtilityPostRector`](../rules/TYPO312/v0/UseServerRequestInsteadOfGeneralUtilityPostRector.php)
 
@@ -2738,7 +2738,7 @@ Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
      public function myMethod()
      {
 -        $value = GeneralUtility::_POST('tx_scheduler');
-+        $value = $this->request->getParsedBody()['tx_scheduler'] ?? null;
++        $value = $this->request->getParsedBody()['tx_scheduler'];
      }
  }
 ```
