@@ -4,18 +4,25 @@
     "license": "MIT",
     "type": "rector-extension",
     "keywords": [
-        "dev"
+        "dev",
+        "rector",
+        "upgrade",
+        "refactoring",
+        "automation",
+        "migration"
     ],
     "authors": [
         {
             "name": "Sebastian Schreiber",
-            "email": "breakpoint@schreibersebastian.de"
+            "email": "breakpoint@schreibersebastian.de",
+            "role": "Founder and lead developer"
         },
         {
             "name": "Henrik Elsner"
         },
         {
-            "name": "Simon Schaufelberger"
+            "name": "Simon Schaufelberger",
+            "role": "Developer"
         }
     ],
     "homepage": "https://www.typo3-rector.com/",
@@ -27,6 +34,7 @@
     },
     "require": {
         "php": "^7.4 || ^8.0",
+        "ext-json": "*",
         "league/flysystem": "^2.0",
         "league/flysystem-memory": "^2.0",
         "nette/utils": "^3.2.10 || ^4.0.4",
