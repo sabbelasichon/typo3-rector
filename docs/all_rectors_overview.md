@@ -1,10 +1,10 @@
-# 138 Rules Overview
+# 139 Rules Overview
 
 <br>
 
 ## Categories
 
-- [CodeQuality](#codequality) (7)
+- [CodeQuality](#codequality) (8)
 
 - [General](#general) (2)
 
@@ -136,6 +136,19 @@ Move ExtensionManagementUtility::addStaticFile into Configuration/TCA/Overrides/
 ```diff
 -\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('extensionKey', 'Configuration/TypoScript', 'Title');
 +// Move to file Configuration/TCA/Overrides/sys_template.php
+```
+
+<br>
+
+### MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector
+
+Move ExtensionManagementUtility::addToAllTCAtypes into table specific Configuration/TCA/Overrides file
+
+- class: [`Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector`](../rules/CodeQuality/General/MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('table', 'new_field', '', 'after:existing_field');
++// Move to table specific Configuration/TCA/Overrides/table.php file
 ```
 
 <br>
