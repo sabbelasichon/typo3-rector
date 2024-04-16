@@ -21,10 +21,10 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Deprecation-101799-ExtensionManagementUtilityaddPageTSConfig.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateAddPageTSConfigToPageTsConfigFileRector\MigrateAddPageTSConfigToPageTsConfigFileRectorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Deprecation-101807-ExtensionManagementUtilityaddUserTSConfig.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateAddUserTSConfigToUserTsConfigFileRector\MigrateAddUserTSConfigToUserTsConfigFileRectorTest
  */
-final class MigrateAddPageTSConfigToPageTsConfigFileRector extends AbstractRector
+final class MigrateAddUserTSConfigToUserTsConfigFileRector extends AbstractRector
 {
     use ExtensionKeyResolverTrait;
 
@@ -57,19 +57,17 @@ final class MigrateAddPageTSConfigToPageTsConfigFileRector extends AbstractRecto
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate method call ExtensionManagementUtility::addPageTSConfig to page.tsconfig', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+        return new RuleDefinition('Migrate method call ExtensionManagementUtility::addUserTSConfig to user.tsconfig', [new CodeSample(
+            <<<'CODE_SAMPLE'
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig(
     '@import "EXT:ppw_sitepackage/Configuration/TSconfig/*/*.tsconfig"'
 );
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
-// Move to file Configuration/page.tsconfig
+            ,
+            <<<'CODE_SAMPLE'
+// Move to file Configuration/user.tsconfig
 CODE_SAMPLE
-            ),
-        ]);
+        )]);
     }
 
     /**
@@ -112,7 +110,7 @@ CODE_SAMPLE
         $directoryName = dirname($this->file->getFilePath());
 
         $content = $this->valueResolver->getValue($contentArgumentValue);
-        $newConfigurationFile = $directoryName . '/Configuration/page.tsconfig';
+        $newConfigurationFile = $directoryName . '/Configuration/user.tsconfig';
         if ($this->filesystem->fileExists($newConfigurationFile)) {
             $this->filesystem->appendToFile($newConfigurationFile, $content . PHP_EOL);
         } else {
@@ -135,7 +133,7 @@ CODE
             return true;
         }
 
-        if (! $this->isName($staticMethodCall->name, 'addPageTSConfig')) {
+        if (! $this->isName($staticMethodCall->name, 'addUserTSConfig')) {
             return true;
         }
 

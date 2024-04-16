@@ -39,7 +39,7 @@ final class ComposerExtensionKeyResolver
         $composerJsonFile = $directoryName . '/composer.json';
 
         if (! $this->filesystem->fileExists($composerJsonFile)) {
-            return $directoryName;
+            return basename($directoryName);
         }
 
         $composerJsonContent = $this->filesystem->read($composerJsonFile);

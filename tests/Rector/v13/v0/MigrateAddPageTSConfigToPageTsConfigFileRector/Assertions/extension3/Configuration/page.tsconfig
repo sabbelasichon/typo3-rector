@@ -1,0 +1,5 @@
+@import "EXT:extension3/Configuration/TSconfig/*/*.tsconfig"
+
+@import "EXT:extension3/Configuration/TSconfig/*/*.tsconfig"
+
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:extension3/Configuration/TSconfig/Page.txt">
