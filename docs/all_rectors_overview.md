@@ -1,10 +1,10 @@
-# 139 Rules Overview
+# 140 Rules Overview
 
 <br>
 
 ## Categories
 
-- [CodeQuality](#codequality) (8)
+- [CodeQuality](#codequality) (9)
 
 - [General](#general) (2)
 
@@ -149,6 +149,19 @@ Move ExtensionManagementUtility::addToAllTCAtypes into table specific Configurat
 ```diff
 -\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('table', 'new_field', '', 'after:existing_field');
 +// Move to table specific Configuration/TCA/Overrides/table.php file
+```
+
+<br>
+
+### MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector
+
+Move ExtensionUtility::registerPlugin into Configuration/TCA/Overrides/tt_content.php
+
+- class: [`Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector`](../rules/CodeQuality/General/MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector.php)
+
+```diff
+-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('extension_key', 'Pi1', 'Title');
++// Move to file Configuration/TCA/Overrides/tt_content.php
 ```
 
 <br>
