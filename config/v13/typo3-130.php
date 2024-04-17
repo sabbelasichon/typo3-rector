@@ -21,10 +21,10 @@ use Ssch\TYPO3Rector\TYPO313\v0\UseStrictTypesInExtbaseActionControllerRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
-    $rectorConfig->import(__DIR__ . '/strict-types.php');
-    $rectorConfig->import(__DIR__ . '/tca-130.php');
-    $rectorConfig->import(__DIR__ . '/introduce-capabilities-bit-set.php');
-    $rectorConfig->import(__DIR__ . '/typo3-130-extbase-hash-service-core-hash-service.php');
+    // The following rules exist only to render the diff for the documentation. The actual logic is in THIS file!
+    $rectorConfig->singleton(StrictTypesPersistenceManagerRector::class);
+    $rectorConfig->singleton(UseStrictTypesInExtbaseActionControllerRector::class);
+
     $rectorConfig->ruleWithConfiguration(ConstantsToBackedEnumValueRector::class, [
         new RenameClassAndConstFetch(
             'TYPO3\CMS\Core\Resource\AbstractFile',
@@ -109,8 +109,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(RenameAttributeRector::class, [
         new RenameAttribute('TYPO3\CMS\Backend\Attribute\Controller', 'TYPO3\CMS\Backend\Attribute\AsController'),
     ]);
-    $rectorConfig->singleton(StrictTypesPersistenceManagerRector::class);
-    $rectorConfig->singleton(UseStrictTypesInExtbaseActionControllerRector::class);
     $rectorConfig->rule(EventListenerConfigurationToAttributeRector::class);
     $rectorConfig->rule(AddMethodGetAllPageNumbersToPaginationInterfaceRector::class);
     $rectorConfig->rule(ChangeSignatureForLastInsertIdRector::class);

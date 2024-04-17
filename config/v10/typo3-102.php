@@ -11,14 +11,9 @@ use Ssch\TYPO3Rector\TYPO310\v2\UseTypo3InformationForCopyRightNoticeRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
-
     $rectorConfig->rule(MoveApplicationContextToEnvironmentApiRector::class);
-
     $rectorConfig->rule(ExcludeServiceKeysToArrayRector::class);
-
     $rectorConfig->rule(UseActionControllerRector::class);
-
     $rectorConfig->rule(UseTypo3InformationForCopyRightNoticeRector::class);
-
     $rectorConfig->rule(InjectEnvironmentServiceIfNeededInResponseRector::class);
 };

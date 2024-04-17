@@ -31,7 +31,6 @@ use Ssch\TYPO3Rector\TYPO312\v0\UseServerRequestInsteadOfGeneralUtilityPostRecto
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
-    $rectorConfig->import(__DIR__ . '/extbase_annotations_to_attributes.php');
 
     $rectorConfig->ruleWithConfiguration(RenameClassMapAliasRector::class, [
         __DIR__ . '/../../Migrations/TYPO3/12.0/typo3/sysext/backend/Migrations/Code/ClassAliasMap.php',
