@@ -7,6 +7,17 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumValueRector;
 use Ssch\TYPO3Rector\General\Renaming\RenameAttributeRector;
 use Ssch\TYPO3Rector\General\Renaming\ValueObject\RenameAttribute;
+use Ssch\TYPO3Rector\TYPO313\v0\AddMethodGetAllPageNumbersToPaginationInterfaceRector;
+use Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureForLastInsertIdRector;
+use Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureOfConnectionQuoteRector;
+use Ssch\TYPO3Rector\TYPO313\v0\EventListenerConfigurationToAttributeRector;
+use Ssch\TYPO3Rector\TYPO313\v0\IntroduceCapabilitiesBitSetRector;
+use Ssch\TYPO3Rector\TYPO313\v0\MigrateAddPageTSConfigToPageTsConfigFileRector;
+use Ssch\TYPO3Rector\TYPO313\v0\MigrateAddUserTSConfigToUserTsConfigFileRector;
+use Ssch\TYPO3Rector\TYPO313\v0\MigrateExtbaseHashServiceToUseCoreHashServiceRector;
+use Ssch\TYPO3Rector\TYPO313\v0\StrictTypesPersistenceManagerRector;
+use Ssch\TYPO3Rector\TYPO313\v0\SubstituteItemFormElIDRector;
+use Ssch\TYPO3Rector\TYPO313\v0\UseStrictTypesInExtbaseActionControllerRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -98,15 +109,15 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(RenameAttributeRector::class, [
         new RenameAttribute('TYPO3\CMS\Backend\Attribute\Controller', 'TYPO3\CMS\Backend\Attribute\AsController'),
     ]);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\EventListenerConfigurationToAttributeRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\AddMethodGetAllPageNumbersToPaginationInterfaceRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureForLastInsertIdRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\ChangeSignatureOfConnectionQuoteRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\MigrateExtbaseHashServiceToUseCoreHashServiceRector::class);
-    $rectorConfig->singleton(\Ssch\TYPO3Rector\TYPO313\v0\StrictTypesPersistenceManagerRector::class);
-    $rectorConfig->singleton(\Ssch\TYPO3Rector\TYPO313\v0\UseStrictTypesInExtbaseActionControllerRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\IntroduceCapabilitiesBitSetRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\SubstituteItemFormElIDRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\MigrateAddPageTSConfigToPageTsConfigFileRector::class);
-    $rectorConfig->rule(\Ssch\TYPO3Rector\TYPO313\v0\MigrateAddUserTSConfigToUserTsConfigFileRector::class);
+    $rectorConfig->singleton(StrictTypesPersistenceManagerRector::class);
+    $rectorConfig->singleton(UseStrictTypesInExtbaseActionControllerRector::class);
+    $rectorConfig->rule(EventListenerConfigurationToAttributeRector::class);
+    $rectorConfig->rule(AddMethodGetAllPageNumbersToPaginationInterfaceRector::class);
+    $rectorConfig->rule(ChangeSignatureForLastInsertIdRector::class);
+    $rectorConfig->rule(ChangeSignatureOfConnectionQuoteRector::class);
+    $rectorConfig->rule(MigrateExtbaseHashServiceToUseCoreHashServiceRector::class);
+    $rectorConfig->rule(IntroduceCapabilitiesBitSetRector::class);
+    $rectorConfig->rule(SubstituteItemFormElIDRector::class);
+    $rectorConfig->rule(MigrateAddPageTSConfigToPageTsConfigFileRector::class);
+    $rectorConfig->rule(MigrateAddUserTSConfigToUserTsConfigFileRector::class);
 };
