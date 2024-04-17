@@ -18,10 +18,7 @@ class ExtensionUtility
      */
     const PLUGIN_TYPE_CONTENT_ELEMENT = 'CType';
 
-    /**
-     * @return void
-     */
-    public static function registerPlugin($extensionName, $pluginName, $pluginTitle, $pluginIcon = null)
+    public static function registerPlugin($extensionName, $pluginName, $pluginTitle, $pluginIcon = null, $group = 'default', string $pluginDescription = ''): string
     {
     }
 
