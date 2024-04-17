@@ -84,20 +84,18 @@ CODE_SAMPLE
 
     private function removeVendorNameIfNeeded(StaticCall $staticCall): ?Node
     {
-        $extensionNameArgumentValue = $staticCall->getArgs()[1]
-->value;
-
-        $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue);
-        if (! is_string($extensionName)) {
+        $secondArgument = $staticCall->getArgs()[1];
+        $extensionKey = $this->valueResolver->getValue($secondArgument->value);
+        if (! is_string($extensionKey)) {
             return null;
         }
 
-        $delimiterPosition = strpos($extensionName, '_');
+        $delimiterPosition = strpos($extensionKey, '_');
         if ($delimiterPosition === false) {
             return null;
         }
 
-        $extensionName = StringUtility::extensionKeyToExtensionName($extensionName);
+        $extensionName = StringUtility::extensionKeyToExtensionName($extensionKey);
         $staticCall->args[1] = $this->nodeFactory->createArg($extensionName);
         return $staticCall;
     }
