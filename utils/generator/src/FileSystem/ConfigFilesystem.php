@@ -91,6 +91,8 @@ final class ConfigFilesystem
             return;
         }
 
+        $parentDirectory = dirname($configFilePath);
+        $this->filesystem->mkdir($parentDirectory);
         $this->filesystem->touch($configFilePath);
         $this->filesystem->appendToFile(
             $configFilePath,
