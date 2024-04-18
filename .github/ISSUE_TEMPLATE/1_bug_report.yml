@@ -1,0 +1,74 @@
+name: Bug Report
+description: Report an Issue or Bug with the Package
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We're sorry to hear you have a problem. Can you help us solve it by providing the following details.
+
+  - type: textarea
+    id: current-code
+    attributes:
+      label: Minimal PHP Code Causing Issue
+      description: What is the code that you have currently and is causing issues?
+      placeholder: |
+        Post the code snippet here. Use markdown code formatting!
+    validations:
+      required: true
+
+  - type: textarea
+    id: applied-rules
+    attributes:
+      label: Applied rules
+      description: What Rector rules were applied to the code?
+      placeholder: |
+        Please list all the rules that were applied to the code. You find them in the console output.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behaviour
+    attributes:
+      label: Expected Behaviour
+      description: How should Rector change the code? Or should Rector skip it?
+      placeholder: |
+        Post the code snippet here. Use diff here in Markdown: https://stackoverflow.com/a/40883538/1348344
+    validations:
+      required: true
+
+  - type: input
+    id: package-version
+    attributes:
+      label: Package Version
+      description: What version of TYPO3 Rector are you running? Please be as specific as possible
+      placeholder: 2.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP Version
+      description: What version of PHP are you running? Please be as specific as possible
+      placeholder: 8.2.0
+    validations:
+      required: true
+
+  - type: input
+    id: typo3-version
+    attributes:
+      label: TYPO3 Version
+      description: What version of TYPO3 are you running? Please be as specific as possible
+      placeholder: 12.4.0
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Use this field to provide any other notes that you feel might be relevant to the issue.
+    validations:
+      required: false
