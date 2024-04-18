@@ -136,6 +136,12 @@ CODE_SAMPLE
             return;
         }
 
+        $labelKeyArrayItem = $this->extractArrayItemByKey($firstItemsArray, 'label');
+        if ($labelKeyArrayItem instanceof ArrayItem) {
+            // Skip migrated items which have a "label" key that comes from MigrateItemsIndexedKeysToAssociativeRector.
+            return;
+        }
+
         // Remove the whole items array
         $this->removeArrayItemFromArrayByKey($configArray, 'items');
     }
