@@ -163,29 +163,29 @@ CODE_SAMPLE
         string $vendorName,
         string $extensionName
     ): void {
-        foreach ($controllerActions->items as $controllerActions) {
-            if (! $controllerActions instanceof ArrayItem) {
+        foreach ($controllerActions->items as $controllerAction) {
+            if (! $controllerAction instanceof ArrayItem) {
                 continue;
             }
 
-            if (! $controllerActions->key instanceof Expr) {
+            if (! $controllerAction->key instanceof Expr) {
                 continue;
             }
 
-            $controllerClassName = $this->valueResolver->getValue($controllerActions->key);
+            $controllerClassName = $this->valueResolver->getValue($controllerAction->key);
 
             if ($controllerClassName === null) {
                 continue;
             }
 
-            $controllerClassNameType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($controllerActions->key);
+            $controllerClassNameType = $this->staticTypeMapper->mapPhpParserNodePHPStanType($controllerAction->key);
 
             if ($controllerClassNameType->getConstantStrings() !== []) {
                 // Already transformed
                 continue;
             }
 
-            $controllerActions->key = $this->nodeFactory->createClassConstReference(
+            $controllerAction->key = $this->nodeFactory->createClassConstReference(
                 $this->getControllerClassName($vendorName, $extensionName, '', $controllerClassName)
             );
         }
