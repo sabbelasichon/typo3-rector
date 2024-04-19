@@ -30,7 +30,6 @@ return RectorConfig::configure()
         '*/Source*',
         '*/Expected/*',
     ])
-    ->withImportNames()
     ->withSets([
         LevelSetList::UP_TO_PHP_74,
         SetList::PRIVATIZATION,

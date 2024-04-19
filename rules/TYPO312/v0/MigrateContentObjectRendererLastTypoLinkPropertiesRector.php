@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\TYPO312\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
-use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Rector\AbstractRector;
@@ -66,7 +65,7 @@ CODE_SAMPLE
         }
 
         $propertyName = $node->name;
-        $node->name = new Identifier('lastTypoLinkResult');
+        $node->name = new Node\Identifier('lastTypoLinkResult');
 
         if ($this->isName($propertyName, 'lastTypoLinkUrl')) {
             return $this->nodeFactory->createMethodCall($node, 'getUrl');

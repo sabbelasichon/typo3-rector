@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\General\Renaming\RenameAttributeRector;
 
-use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Rector\ValueObject\PhpVersionFeature;
 
@@ -23,9 +22,9 @@ final class RenameAttributeRectorTest extends AbstractRectorTestCase
     }
 
     /**
-     * @return Iterator<array<string>>
+     * @return \Iterator<array<string>>
      */
-    public static function provideData(): Iterator
+    public static function provideData(): \Iterator
     {
         return self::yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }
