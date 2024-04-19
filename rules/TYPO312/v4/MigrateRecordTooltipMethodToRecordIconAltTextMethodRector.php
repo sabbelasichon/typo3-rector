@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\TYPO312\v4;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\Rector\AbstractRector;
@@ -57,9 +58,9 @@ CODE_SAMPLE
         }
 
         $concatenationWithTitleAttribute = [
-            new Node\Scalar\String_('title="'),
+            new String_('title="'),
             $this->nodeFactory->createStaticCall(BackendUtility::class, 'getRecordIconAltText', $node->args),
-            new Node\Scalar\String_('"'),
+            new String_('"'),
         ];
 
         try {

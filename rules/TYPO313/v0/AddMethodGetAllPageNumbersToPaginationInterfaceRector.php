@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO313\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Nop;
+use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\ReturnTagValueNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
 use PHPStan\PhpDocParser\Ast\Type\IdentifierTypeNode;
+use PHPStan\Reflection\ClassReflection;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Rector\AbstractScopeAwareRector;
@@ -80,7 +84,7 @@ CODE_SAMPLE
     public function refactorWithScope(Node $node, Scope $scope)
     {
         $classReflection = $scope->getClassReflection();
-        if (! $classReflection instanceof \PHPStan\Reflection\ClassReflection) {
+        if (! $classReflection instanceof ClassReflection) {
             return null;
         }
 
@@ -93,8 +97,8 @@ CODE_SAMPLE
         }
 
         $getAllPageNumbersMethod = $this->nodeFactory->createPublicMethod('getAllPageNumbers');
-        $getAllPageNumbersMethod->returnType = new Node\Name('array');
-        $getAllPageNumbersMethod->stmts[] = new Node\Stmt\Return_(
+        $getAllPageNumbersMethod->returnType = new Name('array');
+        $getAllPageNumbersMethod->stmts[] = new Return_(
             $this->nodeFactory->createFuncCall('range', [
                 $this->nodeFactory->createMethodCall('this', 'getFirstPageNumber'),
                 $this->nodeFactory->createMethodCall('this', 'getLastPageNumber'),
@@ -108,7 +112,7 @@ CODE_SAMPLE
 
         $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($getAllPageNumbersMethod);
 
-        $node->stmts[] = new Node\Stmt\Nop();
+        $node->stmts[] = new Nop();
         $node->stmts[] = $getAllPageNumbersMethod;
 
         return $node;
