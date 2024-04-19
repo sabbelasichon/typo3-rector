@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\TYPO312\v0;
 
 use PhpParser\Comment;
 use PhpParser\Node;
-use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
@@ -110,7 +109,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $fileFieldTCAConfigArray = new Array_();
+        $fileFieldTCAConfigArray = new Node\Expr\Array_();
         $fileFieldTCAConfigArray->items[] = new ArrayItem(new String_('file'), new String_('type'), false, [
             AttributeKey::COMMENTS => [new Comment('### !!! Watch out for fieldName different from columnName')],
         ]);
@@ -123,7 +122,7 @@ CODE_SAMPLE
             $fileFieldTCAConfigArray->items[] = new ArrayItem($node->args[3]->value, new String_('disallowed'));
         }
 
-        if (isset($node->args[1]) && $node->args[1]->value instanceof Array_) {
+        if (isset($node->args[1]) && $node->args[1]->value instanceof Node\Expr\Array_) {
             foreach ($node->args[1]->value->items ?? [] as $item) {
                 $fileFieldTCAConfigArray->items[] = $item;
             }

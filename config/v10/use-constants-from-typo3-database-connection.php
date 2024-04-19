@@ -16,11 +16,11 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(
         RenameClassConstFetchRector::class,
         [
-            new RenameClassAndConstFetch(PDO::class, 'PARAM_INT', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_INT'),
-            new RenameClassAndConstFetch(PDO::class, 'PARAM_STR', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_STR'),
-            new RenameClassAndConstFetch(PDO::class, 'PARAM_NULL', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_NULL'),
-            new RenameClassAndConstFetch(PDO::class, 'PARAM_LOB', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_LOB'),
-            new RenameClassAndConstFetch(PDO::class, 'PARAM_BOOL', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_BOOL'),
+            new RenameClassAndConstFetch(\PDO::class, 'PARAM_INT', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_INT'),
+            new RenameClassAndConstFetch(\PDO::class, 'PARAM_STR', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_STR'),
+            new RenameClassAndConstFetch(\PDO::class, 'PARAM_NULL', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_NULL'),
+            new RenameClassAndConstFetch(\PDO::class, 'PARAM_LOB', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_LOB'),
+            new RenameClassAndConstFetch(\PDO::class, 'PARAM_BOOL', 'TYPO3\CMS\Core\Database\Connection', 'PARAM_BOOL'),
         ]
     );
 };

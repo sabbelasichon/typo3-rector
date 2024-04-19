@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\General\Renaming;
 
 use PhpParser\Node;
-use PhpParser\Node\Attribute;
 use PhpParser\Node\Name\FullyQualified;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
@@ -62,7 +61,7 @@ CODE_SAMPLE
 
     public function getNodeTypes(): array
     {
-        return [Attribute::class];
+        return [Node\Attribute::class];
     }
 
     /**

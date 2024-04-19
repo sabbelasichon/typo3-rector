@@ -5,11 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
-use PhpParser\Node\Expr\Variable;
-use PhpParser\Node\Scalar\String_;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -59,11 +55,11 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $node->expr instanceof Array_) {
+        if (! $node->expr instanceof Node\Expr\Array_) {
             return null;
         }
 
-        if (! $node->var instanceof ArrayDimFetch) {
+        if (! $node->var instanceof Node\Expr\ArrayDimFetch) {
             return null;
         }
 
@@ -79,17 +75,17 @@ CODE_SAMPLE
     private function shouldSkip(Assign $assign): bool
     {
         $arrayDimFetch = $assign->var;
-        if (! $arrayDimFetch instanceof ArrayDimFetch) {
+        if (! $arrayDimFetch instanceof Node\Expr\ArrayDimFetch) {
             return true;
         }
 
-        if (! $arrayDimFetch->var instanceof ArrayDimFetch) {
+        if (! $arrayDimFetch->var instanceof Node\Expr\ArrayDimFetch) {
             return true;
         }
 
         $variable = $arrayDimFetch->var->var;
 
-        if (! $variable instanceof Variable) {
+        if (! $variable instanceof Node\Expr\Variable) {
             return true;
         }
 
@@ -99,7 +95,7 @@ CODE_SAMPLE
 
         $pageTypes = $arrayDimFetch->var->dim;
 
-        if (! $pageTypes instanceof String_) {
+        if (! $pageTypes instanceof Node\Scalar\String_) {
             return true;
         }
 
