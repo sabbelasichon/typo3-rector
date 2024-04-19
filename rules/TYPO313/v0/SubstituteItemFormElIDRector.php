@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO313\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\Concat;
+use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use Rector\PhpParser\Node\Value\ValueResolver;
@@ -76,7 +77,7 @@ CODE_SAMPLE
         }
 
         return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\StringUtility', 'getUniqueId', [
-            new Concat($this->nodeFactory->createClassConstReference('self'), new Node\Scalar\String_('-')),
+            new Concat($this->nodeFactory->createClassConstReference('self'), new String_('-')),
         ]);
     }
 }

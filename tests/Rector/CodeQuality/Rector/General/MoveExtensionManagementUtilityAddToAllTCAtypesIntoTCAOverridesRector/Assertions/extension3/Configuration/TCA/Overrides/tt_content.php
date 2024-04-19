@@ -1,5 +1,7 @@
 <?php
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tt_content', 'new_field', '', 'after:a');
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tt_content', 'new_field', '', 'after:b');
+ExtensionManagementUtility::addToAllTCAtypes('tt_content', 'new_field', '', 'after:a');
+
+ExtensionManagementUtility::addToAllTCAtypes('tt_content', 'new_field', '', 'after:b');

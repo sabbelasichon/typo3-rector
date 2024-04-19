@@ -1,5 +1,6 @@
 <?php
 
-# tt_content.php file exists
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('extension2', 'PluginName', 'My Title');
+# tt_content.php file exists
+ExtensionUtility::registerPlugin('extension2', 'PluginName', 'My Title');
