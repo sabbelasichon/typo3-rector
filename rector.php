@@ -18,6 +18,7 @@ return RectorConfig::configure()
         __DIR__ . '/utils',
     ])
     ->withPHPStanConfigs([__DIR__ . '/phpstan.neon'])
+    ->withImportNames(true, true, false, true)
     ->withSkip([
         RemoveUnusedVariableAssignRector::class,
         __DIR__ . '/utils/generator/templates',
@@ -29,6 +30,7 @@ return RectorConfig::configure()
         '*/Source/*',
         '*/Source*',
         '*/Expected/*',
+        __DIR__ . '/tests/Rector/CodeQuality/Rector/General/',
     ])
     ->withSets([
         LevelSetList::UP_TO_PHP_74,

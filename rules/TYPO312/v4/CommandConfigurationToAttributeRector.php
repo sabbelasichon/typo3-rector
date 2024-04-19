@@ -9,6 +9,7 @@ use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Property;
@@ -175,26 +176,24 @@ CODE_SAMPLE
         ?bool $hidden
     ): AttributeGroup {
         $attributeGroup = $this->phpAttributeGroupFactory->createFromClass(SymfonyAnnotation::AS_COMMAND);
-        $attributeGroup->attrs[0]->args[] = new Arg(new String_($defaultName), false, false, [], new Node\Identifier(
+        $attributeGroup->attrs[0]->args[] = new Arg(new String_($defaultName), false, false, [], new Identifier(
             'name'
         ));
         if ($defaultDescription !== null) {
             $attributeGroup->attrs[0]->args[] = new Arg(new String_(
                 $defaultDescription
-            ), false, false, [], new Node\Identifier('description'));
+            ), false, false, [], new Identifier('description'));
         } elseif ($aliasesArray instanceof Array_) {
             $attributeGroup->attrs[0]->args[] = new Arg($this->nodeFactory->createNull());
         }
 
         if ($aliasesArray instanceof Array_) {
-            $attributeGroup->attrs[0]->args[] = new Arg($aliasesArray, false, false, [], new Node\Identifier(
-                'aliases'
-            ));
+            $attributeGroup->attrs[0]->args[] = new Arg($aliasesArray, false, false, [], new Identifier('aliases'));
         }
 
         if ($hidden !== null) {
             $hiddenNode = $hidden ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
-            $attributeGroup->attrs[0]->args[] = new Arg($hiddenNode, false, false, [], new Node\Identifier('hidden'));
+            $attributeGroup->attrs[0]->args[] = new Arg($hiddenNode, false, false, [], new Identifier('hidden'));
         }
 
         return $attributeGroup;

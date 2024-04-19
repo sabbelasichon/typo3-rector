@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO313\v0;
 use Doctrine\DBAL\Connection;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr\Cast\String_;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
@@ -80,7 +81,7 @@ CODE_SAMPLE
         $type = $this->nodeTypeResolver->getType($argument->value);
 
         if ($type->isString()->no()) {
-            $node->args[0]->value = new Node\Expr\Cast\String_($argument->value);
+            $node->args[0]->value = new String_($argument->value);
         }
 
         return $node;
