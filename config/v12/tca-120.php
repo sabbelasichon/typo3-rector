@@ -15,6 +15,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\MigrateRenderTypeInputLinkToTypeLinkRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateRequiredFlagRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateToEmailTypeRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveCruserIdRector;
+use Ssch\TYPO3Rector\TYPO312\v0\RemoveObsoleteAppearanceConfigRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveTableLocalPropertyRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveTCAInterfaceAlwaysDescriptionRector;
 
@@ -34,4 +35,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveTCAInterfaceAlwaysDescriptionRector::class);
     $rectorConfig->rule(MigrateFileFieldTCAConfigToTCATypeFileRector::class);
     $rectorConfig->rule(MigrateRenderTypeInputLinkToTypeLinkRector::class);
+    $rectorConfig->rule(RemoveObsoleteAppearanceConfigRector::class);
 };
