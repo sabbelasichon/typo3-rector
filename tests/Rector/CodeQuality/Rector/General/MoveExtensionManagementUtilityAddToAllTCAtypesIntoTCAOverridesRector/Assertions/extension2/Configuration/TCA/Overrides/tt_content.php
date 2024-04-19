@@ -1,5 +1,6 @@
 <?php
 
-# tt_content.php file exists
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tt_content', 'new_field', '', 'after:b');
+# tt_content.php file exists
+ExtensionManagementUtility::addToAllTCAtypes('tt_content', 'new_field', '', 'after:b');

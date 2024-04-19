@@ -44,8 +44,8 @@ final class SetSystemLocaleFromSiteLanguageRector extends AbstractRector
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')
-        ) &&
-             ! $this->typo3NodeResolver->isAnyMethodCallOnGlobals(
+        )
+             && ! $this->typo3NodeResolver->isAnyMethodCallOnGlobals(
                  $node,
                  Typo3NodeResolver::TYPO_SCRIPT_FRONTEND_CONTROLLER
              )) {

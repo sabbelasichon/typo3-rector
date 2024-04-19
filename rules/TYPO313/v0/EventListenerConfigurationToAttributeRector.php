@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Reflection\ReflectionProvider;
@@ -162,14 +163,12 @@ CODE_SAMPLE
         foreach ($simpleOptions as $name => $simpleOption) {
             $attributeGroup->attrs[0]->args[] = new Arg(new String_(
                 $simpleOption
-            ), false, false, [], new Node\Identifier($name));
+            ), false, false, [], new Identifier($name));
         }
 
         if ($event !== null) {
             $eventClass = $this->nodeFactory->createClassConstReference($event);
-            $attributeGroup->attrs[0]->args[] = new Arg($eventClass, false, false, [], new Node\Identifier(
-                'event'
-            ));
+            $attributeGroup->attrs[0]->args[] = new Arg($eventClass, false, false, [], new Identifier('event'));
         }
 
         return $attributeGroup;

@@ -110,8 +110,7 @@ CODE_SAMPLE
             $node,
             new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
         )
-            &&
-            ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            && ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
                 $node,
                 new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
             );

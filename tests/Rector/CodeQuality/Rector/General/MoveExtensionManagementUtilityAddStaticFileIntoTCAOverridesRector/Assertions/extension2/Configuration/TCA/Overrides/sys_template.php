@@ -1,5 +1,6 @@
 <?php
 
-# sys_template.php file exists
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('extension2', 'Configuration/TypoScript', 'Title');
+# sys_template.php file exists
+ExtensionManagementUtility::addStaticFile('extension2', 'Configuration/TypoScript', 'Title');

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
+use PhpCsFixer\Fixer\Operator\OperatorLinebreakFixer;
 use PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
 use PhpCsFixer\Fixer\Strict\DeclareStrictTypesFixer;
@@ -48,4 +49,5 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->rule(DeclareStrictTypesFixer::class);
     $ecsConfig->rule(LineLengthFixer::class);
     $ecsConfig->rule(YodaStyleFixer::class);
+    $ecsConfig->rule(OperatorLinebreakFixer::class);
 };

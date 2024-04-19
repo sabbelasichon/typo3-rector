@@ -1,5 +1,7 @@
 <?php
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('extension3', 'Configuration/TypoScript', 'Title');
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('extension3', 'Configuration/OtherFolder', 'Title');
+ExtensionManagementUtility::addStaticFile('extension3', 'Configuration/TypoScript', 'Title');
+
+ExtensionManagementUtility::addStaticFile('extension3', 'Configuration/OtherFolder', 'Title');
