@@ -1,4 +1,4 @@
-# 140 Rules Overview
+# 141 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (30)
 
-- [TYPO312](#typo312) (48)
+- [TYPO312](#typo312) (49)
 
 - [TYPO313](#typo313) (13)
 
@@ -2411,6 +2411,40 @@ Refactor AdditionalFieldProvider classes
 ```diff
 -class RemoveMailerAdapterInterfaceFixture implements TYPO3\CMS\Mail\MailerAdapterInterface
 +class RemoveMailerAdapterInterfaceFixture
+```
+
+<br>
+
+### RemoveObsoleteAppearanceConfigRector
+
+Removes the obsolete appearance config options within TCA
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\RemoveObsoleteAppearanceConfigRector`](../rules/TYPO312/v0/RemoveObsoleteAppearanceConfigRector.php)
+
+```diff
+ return [
+     'columns' => [
+         'random' => [
+             'config' => [
+                 'type' => 'group',
+-                'appearance' => [
+-                    'elementBrowserType' => 'db',
+-                    'elementBrowserAllowed' => 'foo',
+-                ],
+             ],
+         ],
+         'random-inline' => [
+             'config' => [
+                 'type' => 'inline',
+-                'appearance' => [
+-                    'headerThumbnail' => 'db',
+-                    'fileUploadAllowed' => 'foo',
+-                    'fileByUrlAllowed' => 'foo',
+-                ],
+             ],
+         ],
+     ],
+ ],
 ```
 
 <br>
