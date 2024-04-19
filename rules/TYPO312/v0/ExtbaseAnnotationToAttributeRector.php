@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\TYPO312\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\AttributeGroup;
-use PhpParser\Node\Param;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
 use PhpParser\Node\Stmt\Use_;
