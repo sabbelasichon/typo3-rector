@@ -26,6 +26,7 @@ return RectorConfig::configure()
         StringClassNameToClassConstantRector::class,
         __DIR__ . '/src/Set',
         UseClassKeywordForClassNameResolutionRector::class => [
+            __DIR__ . '/rules/TYPO312/v0/MigrateFetchAllToFetchAllAssociativeRector.php', // Don't replace Doctrine Constants
             __DIR__ . '/rules/TYPO312/v0/MigrateFetchToFetchAssociativeRector.php', // Don't replace Doctrine Constants
         ],
         // tests
