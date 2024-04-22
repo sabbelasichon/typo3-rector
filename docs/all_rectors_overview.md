@@ -1,4 +1,4 @@
-# 142 Rules Overview
+# 143 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (30)
 
-- [TYPO312](#typo312) (50)
+- [TYPO312](#typo312) (51)
 
 - [TYPO313](#typo313) (13)
 
@@ -1907,6 +1907,45 @@ Migrate ->fetchColumn(0) to `->fetchOne()`
    ->executeQuery()
 -  ->fetchColumn(0);
 +  ->fetchOne(0);
+```
+
+<br>
+
+### MigrateFetchToFetchAssociativeRector
+
+Migrate `->fetch()` to `->fetchAssociative()`
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchToFetchAssociativeRector`](../rules/TYPO312/v0/MigrateFetchToFetchAssociativeRector.php)
+
+```diff
+ $result = $queryBuilder
+   ->select(...)
+   ->from(...)
+   ->executeQuery()
+-  ->fetch();
++  ->fetchAssociative();
+```
+
+<br>
+
+```diff
+ $result = $queryBuilder
+   ->select(...)
+   ->from(...)
+   ->executeQuery()
+-  ->fetch(FetchMode::NUMERIC);
++  ->fetchNumeric();
+```
+
+<br>
+
+```diff
+ $result = $queryBuilder
+   ->select(...)
+   ->from(...)
+   ->executeQuery()
+-  ->fetch(FetchMode::COLUMN);
++  ->fetchOne();
 ```
 
 <br>
