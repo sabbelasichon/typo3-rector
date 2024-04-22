@@ -1,4 +1,4 @@
-# 141 Rules Overview
+# 142 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (30)
 
-- [TYPO312](#typo312) (49)
+- [TYPO312](#typo312) (50)
 
 - [TYPO313](#typo313) (13)
 
@@ -1873,6 +1873,23 @@ Migrate eval int and double2 to type number
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateFetchAllToFetchAllAssociativeRector
+
+Migrate `->fetchAll()` to `->fetchAllAssociative()`
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchAllToFetchAllAssociativeRector`](../rules/TYPO312/v0/MigrateFetchAllToFetchAllAssociativeRector.php)
+
+```diff
+ $result = $queryBuilder
+   ->select(...)
+   ->from(...)
+   ->executeQuery()
+-  ->fetchAll();
++  ->fetchAllAssociative();
 ```
 
 <br>
