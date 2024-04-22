@@ -19,6 +19,8 @@ interface Result
 
     public function fetchAllNumeric(): array;
 
+    public function fetchAll(): array;
+
     public function fetchAllAssociative(): array;
 
     public function fetchFirstColumn(): array;
