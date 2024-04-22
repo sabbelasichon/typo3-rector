@@ -1894,6 +1894,28 @@ Migrate `->fetchAll()` to `->fetchAllAssociative()`
 
 <br>
 
+```diff
+ $result = $queryBuilder
+   ->select(...)
+   ->from(...)
+   ->executeQuery()
+-  ->fetchAll(FetchMode::NUMERIC);
++  ->fetchAllNumeric();
+```
+
+<br>
+
+```diff
+ $result = $queryBuilder
+   ->select(...)
+   ->from(...)
+   ->executeQuery()
+-  ->fetchAll(FetchMode::COLUMN);
++  ->fetchFirstColumn();
+```
+
+<br>
+
 ### MigrateFetchColumnToFetchOneRector
 
 Migrate ->fetchColumn(0) to `->fetchOne()`
