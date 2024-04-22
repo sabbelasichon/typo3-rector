@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
+use InvalidArgumentException;
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
+use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -18,6 +21,13 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateFetchAllToFetchAllAssociativeRector extends AbstractRector
 {
+    private ValueResolver $valueResolver;
+
+    public function __construct(ValueResolver $valueResolver)
+    {
+        $this->valueResolver = $valueResolver;
+    }
+
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate ->fetchAll() to ->fetchAllAssociative()', [new CodeSample(
@@ -35,6 +45,38 @@ $result = $queryBuilder
   ->from(...)
   ->executeQuery()
   ->fetchAllAssociative();
+CODE_SAMPLE
+        ), new CodeSample(
+            <<<'CODE_SAMPLE'
+$result = $queryBuilder
+  ->select(...)
+  ->from(...)
+  ->executeQuery()
+  ->fetchAll(FetchMode::NUMERIC);
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+$result = $queryBuilder
+  ->select(...)
+  ->from(...)
+  ->executeQuery()
+  ->fetchAllNumeric();
+CODE_SAMPLE
+        ), new CodeSample(
+            <<<'CODE_SAMPLE'
+$result = $queryBuilder
+  ->select(...)
+  ->from(...)
+  ->executeQuery()
+  ->fetchAll(FetchMode::COLUMN);
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+$result = $queryBuilder
+  ->select(...)
+  ->from(...)
+  ->executeQuery()
+  ->fetchFirstColumn();
 CODE_SAMPLE
         )]);
     }
@@ -56,7 +98,34 @@ CODE_SAMPLE
             return null;
         }
 
-        return $this->nodeFactory->createMethodCall($node->var, 'fetchAllAssociative', $node->args);
+        if ($node->args === []) {
+            return $this->nodeFactory->createMethodCall($node->var, 'fetchAllAssociative');
+        }
+
+        /** @var Arg $argument */
+        $argument = $node->args[0];
+        $mode = $argument->value;
+
+        $modeValue = $this->valueResolver->getValue($mode);
+
+        switch ($modeValue) {
+            case 'Doctrine\DBAL\FetchMode::ASSOCIATIVE':
+            case 2:
+                $method = 'fetchAllAssociative';
+                break;
+            case 'Doctrine\DBAL\FetchMode::NUMERIC':
+            case 3:
+                $method = 'fetchAllNumeric';
+                break;
+            case 'Doctrine\DBAL\FetchMode::COLUMN':
+            case 7:
+                $method = 'fetchFirstColumn';
+                break;
+            default:
+                throw new InvalidArgumentException('Invalid mode: ' . $modeValue);
+        }
+
+        return $this->nodeFactory->createMethodCall($node->var, $method);
     }
 
     private function shouldSkip(MethodCall $node): bool

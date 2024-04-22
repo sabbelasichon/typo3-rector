@@ -23,7 +23,7 @@ interface Result
 
     public function fetchAllNumeric(): array;
 
-    public function fetchAll(): array;
+    public function fetchAll(int $mode = FetchMode::ASSOCIATIVE): array;
 
     public function fetchAllAssociative(): array;
 
