@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Rector\CodingStyle\Rector\String_\UseClassKeywordForClassNameResolutionRector;
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
@@ -24,6 +25,9 @@ return RectorConfig::configure()
         __DIR__ . '/utils/generator/templates',
         StringClassNameToClassConstantRector::class,
         __DIR__ . '/src/Set',
+        UseClassKeywordForClassNameResolutionRector::class => [
+            __DIR__ . '/rules/TYPO312/v0/MigrateFetchToFetchAssociativeRector.php', // Don't replace Doctrine Constants
+        ],
         // tests
         '*/Fixture/*',
         '*/Fixture*',

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Doctrine\DBAL\Driver;
 
+use Doctrine\DBAL\FetchMode;
+
 if (interface_exists('Doctrine\DBAL\Driver\Result')) {
     return;
 }
@@ -11,6 +13,8 @@ if (interface_exists('Doctrine\DBAL\Driver\Result')) {
 interface Result
 {
     public function fetchNumeric();
+
+    public function fetch(int $mode = FetchMode::ASSOCIATIVE);
 
     public function fetchAssociative();
 

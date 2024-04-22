@@ -12,6 +12,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchAllToFetchAllAssociativeRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchColumnToFetchOneRector;
+use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchToFetchAssociativeRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveMailerAdapterInterfaceRector;
@@ -165,4 +166,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MoveAllowTableOnStandardPagesToTCAConfigurationRector::class);
     $rectorConfig->rule(MigrateFetchColumnToFetchOneRector::class);
     $rectorConfig->rule(MigrateFetchAllToFetchAllAssociativeRector::class);
+    $rectorConfig->rule(MigrateFetchToFetchAssociativeRector::class);
 };
