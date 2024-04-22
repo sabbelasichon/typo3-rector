@@ -13,7 +13,7 @@ env:
 jobs:
   code_analysis:
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         php-versions: [ 7.4, 8.0, 8.1, 8.2, 8.3 ]
         actions:
