@@ -3,8 +3,9 @@
 [![Monthly Downloads](https://poser.pugx.org/ssch/typo3-rector/d/monthly)](https://packagist.org/packages/ssch/typo3-rector)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/schreiberten)
 
-:heavy_exclamation_mark: *Caution:* Never run this tool on production, only on development environment where code is under version
-control (e.g. git). Always review and test automatic changes before releasing to production.
+> [!WARNING]
+> :heavy_exclamation_mark: Never run this tool on production! Always run it on development environment where code is under version control (e.g. git).
+> Review and test changes before releasing to production. Code migrations could potentionally break your website!
 
 # Rector for TYPO3
 
