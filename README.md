@@ -3,10 +3,6 @@
 [![Monthly Downloads](https://poser.pugx.org/ssch/typo3-rector/d/monthly)](https://packagist.org/packages/ssch/typo3-rector)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/schreiberten)
 
-> [!WARNING]
-> :heavy_exclamation_mark: Never run this tool on production! Always run it on development environment where code is under version control (e.g. git).
-> Review and test changes before releasing to production. Code migrations could potentionally break your website!
-
 # Rector for TYPO3
 
 This project lets you apply instant upgrades and refactoring to your [TYPO3 Website](https://get.typo3.org/) and
@@ -14,6 +10,10 @@ This project lets you apply instant upgrades and refactoring to your [TYPO3 Webs
 free from deprecation.
 
 It extends the [Rector](https://github.com/rectorphp/rector) project, which aims to provide instant upgrades and refactoring for any PHP code (5.3+).
+
+> [!WARNING]
+> :heavy_exclamation_mark: Never run this tool on production! Always run it on development environment where code is under version control (e.g. git).
+> Review and test changes before releasing to production. Code migrations could potentionally break your website!
 
 |                    | URL                                                          |
 |--------------------|--------------------------------------------------------------|
