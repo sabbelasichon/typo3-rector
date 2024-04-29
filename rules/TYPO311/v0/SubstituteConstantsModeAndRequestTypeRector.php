@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO311\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
@@ -90,11 +91,24 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
             return null;
         }
 
+        $operator = $node->getOperatorSigil();
+
         if ($typeValue === 'BE') {
-            return $this->createIsBackendCall();
+            $beCall = $this->createIsBackendCall();
+
+            if ($operator === '!==') {
+                return new BooleanNot($beCall);
+            }
+
+            return $beCall;
         }
 
-        return $this->createIsFrontendCall();
+        $feCall = $this->createIsFrontendCall();
+        if ($operator === '!==') {
+            return new BooleanNot($feCall);
+        }
+
+        return $feCall;
     }
 
     public function getRuleDefinition(): RuleDefinition
