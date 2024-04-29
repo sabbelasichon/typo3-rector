@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO311\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
@@ -91,10 +92,10 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector
         }
 
         if ($typeValue === 'BE') {
-            return $this->createIsBackendCall();
+            return $this->wrapWithNegateIfNeeded($this->createIsBackendCall(), $node->getOperatorSigil());
         }
 
-        return $this->createIsFrontendCall();
+        return $this->wrapWithNegateIfNeeded($this->createIsFrontendCall(), $node->getOperatorSigil());
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -189,5 +190,17 @@ CODE_SAMPLE
     private function createRequestArguments(): array
     {
         return [new ArrayDimFetch(new Variable(Typo3NodeResolver::GLOBALS), new String_('TYPO3_REQUEST'))];
+    }
+
+    /**
+     * @return BooleanNot|MethodCall
+     */
+    private function wrapWithNegateIfNeeded(MethodCall $methodCall, string $operator)
+    {
+        if ($operator === '!==') {
+            return new BooleanNot($methodCall);
+        }
+
+        return $methodCall;
     }
 }
