@@ -27,7 +27,9 @@ class GeneralUtility
      * @phpstan-param mixed $constructorArguments
      * @phpstan-return T
      */
-    public static function makeInstance($className, ...$constructorArguments);
+    public static function makeInstance($className, ...$constructorArguments)
+    {
+    }
 
     /**
      * @return void
@@ -439,5 +441,10 @@ class GeneralUtility
     public static function _POST($var = null)
     {
         return $var;
+    }
+
+    public static function hmac($input, $additionalSecret = '')
+    {
+        return '';
     }
 }
