@@ -20,7 +20,6 @@ use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Ssch\TYPO3Rector\Helper\ServiceDefinitionHelper;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Attribute\AsEventListener;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Feature-101544-IntroducePHPAttributeToAutoconfigureEventListeners.html
@@ -50,8 +49,12 @@ final class EventListenerConfigurationToAttributeRector extends AbstractRector i
 
     private string $eventListenerTagName = 'event.listener';
 
-    public function __construct(ReflectionProvider $reflectionProvider, ServiceDefinitionHelper $serviceDefinitionHelper, PhpAttributeGroupFactory $phpAttributeGroupFactory, PhpAttributeAnalyzer $phpAttributeAnalyzer)
-    {
+    public function __construct(
+        ReflectionProvider $reflectionProvider,
+        ServiceDefinitionHelper $serviceDefinitionHelper,
+        PhpAttributeGroupFactory $phpAttributeGroupFactory,
+        PhpAttributeAnalyzer $phpAttributeAnalyzer
+    ) {
         $this->reflectionProvider = $reflectionProvider;
         $this->serviceDefinitionHelper = $serviceDefinitionHelper;
         $this->phpAttributeGroupFactory = $phpAttributeGroupFactory;
@@ -105,11 +108,11 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->reflectionProvider->hasClass(AsEventListener::class)) {
+        if (! $this->reflectionProvider->hasClass('TYPO3\CMS\Core\Attribute\AsEventListener')) {
             return null;
         }
 
-        if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, AsEventListener::class)) {
+        if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
             return null;
         }
 
@@ -151,7 +154,7 @@ CODE_SAMPLE
         ?string $method,
         ?string $event
     ): AttributeGroup {
-        $attributeGroup = $this->phpAttributeGroupFactory->createFromClass(AsEventListener::class);
+        $attributeGroup = $this->phpAttributeGroupFactory->createFromClass('TYPO3\CMS\Core\Attribute\AsEventListener');
 
         $simpleOptions = array_filter([
             'before' => $before,
@@ -180,7 +183,7 @@ CODE_SAMPLE
         $replacedAsEventListenerAttribute = \false;
         foreach ($class->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attribute) {
-                if ($this->nodeNameResolver->isName($attribute->name, AsEventListener::class)) {
+                if ($this->nodeNameResolver->isName($attribute->name, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
                     $hasAsEventListenerAttribute = \true;
                     $replacedAsEventListenerAttribute = $this->replaceArguments($attribute, $createAttributeGroup);
                 }
