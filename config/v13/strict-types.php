@@ -20,8 +20,6 @@ use Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 use Rector\ValueObject\PhpVersionFeature;
 use Ssch\TYPO3Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationWithDefaultNullRector;
-use TYPO3\CMS\Core\Resource\FileInterface;
-use TYPO3\CMS\Core\Resource\ResourceInterface;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->phpVersion(PhpVersionFeature::MIXED_TYPE);
@@ -669,44 +667,44 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(
         AddReturnTypeDeclarationRector::class,
         [
-            new AddReturnTypeDeclaration(FileInterface::class, 'hasProperty', new BooleanType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getProperty', new MixedType(true)),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getSize', new IntegerType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getModificationTime', new IntegerType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getCreationTime', new IntegerType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getSha1', new StringType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getNameWithoutExtension', new StringType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getExtension', new StringType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getContents', new StringType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getForLocalProcessing', new StringType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getMimeType', new StringType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'delete', new BooleanType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'isIndexed', new BooleanType()),
-            new AddReturnTypeDeclaration(FileInterface::class, 'getPublicUrl', TypeCombinator::addNull(
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'hasProperty', new BooleanType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getProperty', new MixedType(true)),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getSize', new IntegerType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getModificationTime', new IntegerType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getCreationTime', new IntegerType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getSha1', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getNameWithoutExtension', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getExtension', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getContents', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getForLocalProcessing', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getMimeType', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'delete', new BooleanType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'isIndexed', new BooleanType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getPublicUrl', TypeCombinator::addNull(
                 new StringType()
             )),
-            new AddReturnTypeDeclaration(FileInterface::class, 'toArray', new ArrayType(
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'toArray', new ArrayType(
                 new MixedType(),
                 new MixedType()
             )),
-            new AddReturnTypeDeclaration(FileInterface::class, 'rename', new ObjectType(
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'rename', new ObjectType(
                 'TYPO3\CMS\Core\Resource\FileInterface'
             )),
             new AddReturnTypeDeclaration(
-                FileInterface::class,
+                'TYPO3\CMS\Core\Resource\FileInterface',
                 'setContents',
                 new SelfObjectType('TYPO3\CMS\Core\Resource\FileInterface')
             ),
-            new AddReturnTypeDeclaration(ResourceInterface::class, 'getIdentifier', new StringType()),
-            new AddReturnTypeDeclaration(ResourceInterface::class, 'getName', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\ResourceInterface', 'getIdentifier', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\ResourceInterface', 'getName', new StringType()),
             new AddReturnTypeDeclaration(
-                ResourceInterface::class,
+                'TYPO3\CMS\Core\Resource\ResourceInterface',
                 'getStorage',
                 new ObjectType('TYPO3\CMS\Core\Resource\ResourceStorage')
             ),
-            new AddReturnTypeDeclaration(ResourceInterface::class, 'getHashedIdentifier', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\ResourceInterface', 'getHashedIdentifier', new StringType()),
             new AddReturnTypeDeclaration(
-                ResourceInterface::class,
+                'TYPO3\CMS\Core\Resource\ResourceInterface',
                 'getParentFolder',
                 new ObjectType('TYPO3\CMS\Core\Resource\FolderInterface')
             ),
