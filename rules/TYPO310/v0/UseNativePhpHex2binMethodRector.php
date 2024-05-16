@@ -10,7 +10,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Utility\TypeHandlingUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.0/Deprecation-87613-DeprecateTYPO3CMSExtbaseUtilityTypeHandlingUtilityhex2bin.html
@@ -48,10 +47,10 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Turns ' . TypeHandlingUtility::class . '::hex2bin calls to native php hex2bin',
+            'Turns TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php hex2bin',
             [
                 new CodeSample(
-                    TypeHandlingUtility::class . '::hex2bin("6578616d706c65206865782064617461");',
+                    'TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin("6578616d706c65206865782064617461");',
                     'hex2bin("6578616d706c65206865782064617461");'
                 ),
             ]

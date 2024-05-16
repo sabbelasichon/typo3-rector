@@ -12,7 +12,6 @@ use Rector\Exception\ShouldNotHappenException;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.4/Deprecation-100459-BackendUtilitygetRecordToolTip.html
@@ -38,7 +37,6 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 $link = '<a href="#" title="' . BackendUtility::getRecordIconAltText('tooltip') . '">my link</a>';
 CODE_SAMPLE
                 ),
-
             ]
         );
     }
@@ -59,7 +57,7 @@ CODE_SAMPLE
 
         $concatenationWithTitleAttribute = [
             new String_('title="'),
-            $this->nodeFactory->createStaticCall(BackendUtility::class, 'getRecordIconAltText', $node->args),
+            $this->nodeFactory->createStaticCall('TYPO3\CMS\Backend\Utility\BackendUtility', 'getRecordIconAltText', $node->args),
             new String_('"'),
         ];
 

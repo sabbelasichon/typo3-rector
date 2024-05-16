@@ -16,8 +16,6 @@ use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\HttpUtility;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.3/Deprecation-94316-DeprecatedHTTPHeaderManipulatingMethodsFromHttpUtility.html
@@ -77,7 +75,7 @@ CODE_SAMPLE
 
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $staticCall,
-            new ObjectType(HttpUtility::class)
+            new ObjectType('TYPO3\CMS\Core\Utility\HttpUtility')
         )) {
             return null;
         }
@@ -88,7 +86,7 @@ CODE_SAMPLE
 
         $target = $staticCall->args[0];
         $httpStatusCode = $staticCall->args[1] ?? $this->nodeFactory->createClassConstFetch(
-            HttpUtility::class,
+            'TYPO3\CMS\Core\Utility\HttpUtility',
             'HTTP_STATUS_303'
         );
 
@@ -116,7 +114,7 @@ CODE_SAMPLE
     private function createResponseFactory(): StaticCall
     {
         return $this->nodeFactory->createStaticCall(
-            GeneralUtility::class,
+            'TYPO3\CMS\Core\Utility\GeneralUtility',
             'makeInstance',
             [$this->nodeFactory->createClassConstReference('Psr\\Http\\Message\\ResponseFactoryInterface')]
         );
