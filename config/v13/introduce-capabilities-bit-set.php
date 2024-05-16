@@ -5,8 +5,6 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
-use TYPO3\CMS\Core\Resource\Capabilities;
-use TYPO3\CMS\Core\Resource\ResourceStorageInterface;
 
 return static function (RectorConfig $rectorConfig): void {
     // constants only have been moved into new Capabilities class
@@ -18,9 +16,9 @@ return static function (RectorConfig $rectorConfig): void {
     ];
 
     $configuration = array_map(static fn ($capability) => new RenameClassAndConstFetch(
-        ResourceStorageInterface::class,
+        'TYPO3\CMS\Core\Resource\ResourceStorageInterface',
         $capability,
-        Capabilities::class,
+        'TYPO3\CMS\Core\Resource\Capabilities',
         $capability
     ), $capabilities);
 
