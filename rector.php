@@ -26,6 +26,8 @@ return RectorConfig::configure()
         StringClassNameToClassConstantRector::class,
         __DIR__ . '/src/Set',
         UseClassKeywordForClassNameResolutionRector::class => [
+            __DIR__ . '/rules/TYPO311/v0/ForwardResponseInsteadOfForwardMethodRector.php', // Don't import TYPO3 namespace
+            __DIR__ . '/rules/TYPO310/v0/UseNativePhpHex2binMethodRector.php', // Don't import TYPO3 namespace
             __DIR__ . '/rules/TYPO312/v0/MigrateFetchAllToFetchAllAssociativeRector.php', // Don't replace Doctrine Constants
             __DIR__ . '/rules/TYPO312/v0/MigrateFetchToFetchAssociativeRector.php', // Don't replace Doctrine Constants
         ],

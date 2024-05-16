@@ -19,7 +19,6 @@ use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Deprecation-92815-ActionControllerForward.html
@@ -40,7 +39,7 @@ final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of ' . ActionController::class . '::forward()',
+            'Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of TYPO3\CMS\Extbase\Mvc\Controller\ActionController::forward()',
             [new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
