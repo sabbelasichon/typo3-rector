@@ -1,4 +1,4 @@
-# 143 Rules Overview
+# 144 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (51)
 
-- [TYPO313](#typo313) (13)
+- [TYPO313](#typo313) (14)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3056,6 +3056,22 @@ Migrate the class HashService from extbase to the one from TYPO3 core
 -$validatedStringWithHashRemoved = $hashService->validateAndStripHmac($stringWithAppendedHash);
 +$stringWithAppendedHash = $hashService->appendHmac('123', 'changeMe');
 +$validatedStringWithHashRemoved = $hashService->validateAndStripHmac($stringWithAppendedHash, 'changeMe');
+```
+
+<br>
+
+### MigrateGeneralUtilityHmacToHashServiceHmacRector
+
+Migrate GeneralUtility::hmac to HashService::hmac
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v1\MigrateGeneralUtilityHmacToHashServiceHmacRector`](../rules/TYPO313/v1/MigrateGeneralUtilityHmacToHashServiceHmacRector.php)
+
+```diff
++use TYPO3\CMS\Core\Crypto\HashService;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+-$hmac = GeneralUtility::hmac('some-input', 'some-secret');
++$hmac = GeneralUtility::makeInstance(HashService::class)->hmac('some-input', 'some-secret');
 ```
 
 <br>
