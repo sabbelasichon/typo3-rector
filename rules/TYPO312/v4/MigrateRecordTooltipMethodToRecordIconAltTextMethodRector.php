@@ -57,7 +57,11 @@ CODE_SAMPLE
 
         $concatenationWithTitleAttribute = [
             new String_('title="'),
-            $this->nodeFactory->createStaticCall('TYPO3\CMS\Backend\Utility\BackendUtility', 'getRecordIconAltText', $node->args),
+            $this->nodeFactory->createStaticCall(
+                'TYPO3\CMS\Backend\Utility\BackendUtility',
+                'getRecordIconAltText',
+                $node->args
+            ),
             new String_('"'),
         ];
 
