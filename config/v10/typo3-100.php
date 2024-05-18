@@ -9,7 +9,6 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
-use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
@@ -73,12 +72,12 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface',
                 'getUid',
-                TypeCombinator::addNull(new IntegerType())
+                new UnionType([new NullType(), new IntegerType()])
             ),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface',
                 'getPid',
-                TypeCombinator::addNull(new IntegerType())
+                new UnionType([new NullType(), new IntegerType()])
             ),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface',
@@ -93,12 +92,12 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject',
                 'getUid',
-                TypeCombinator::addNull(new IntegerType())
+                new UnionType([new NullType(), new IntegerType()])
             ),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject',
                 'getPid',
-                TypeCombinator::addNull(new IntegerType())
+                new UnionType([new NullType(), new IntegerType()])
             ),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject',
@@ -313,7 +312,7 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder',
                 'getTargetPageUid',
-                TypeCombinator::addNull(new IntegerType())
+                new UnionType([new NullType(), new IntegerType()])
             ),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder',
