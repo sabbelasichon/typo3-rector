@@ -1,6 +1,8 @@
 <?php
 
 declare(strict_types=1);
+use PHPStan\Type\UnionType;
+use PHPStan\Type\NullType;
 
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
@@ -8,7 +10,6 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
-use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VoidType;
 use Rector\Config\RectorConfig;
 use Rector\StaticTypeMapper\ValueObject\Type\SelfObjectType;
@@ -138,12 +139,12 @@ return static function (RectorConfig $rectorConfig): void {
         new AddPropertyTypeDeclaration(
             'TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject',
             'uid',
-            TypeCombinator::addNull(new IntegerType())
+            new UnionType([new NullType(), new IntegerType()])
         ),
         new AddPropertyTypeDeclaration(
             'TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject',
             'pid',
-            TypeCombinator::addNull(new IntegerType())
+            new UnionType([new NullType(), new IntegerType()])
         ),
     ]);
 
@@ -670,19 +671,33 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'hasProperty', new BooleanType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getProperty', new MixedType(true)),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getSize', new IntegerType()),
-            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getModificationTime', new IntegerType()),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FileInterface',
+                'getModificationTime',
+                new IntegerType()
+            ),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getCreationTime', new IntegerType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getSha1', new StringType()),
-            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getNameWithoutExtension', new StringType()),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FileInterface',
+                'getNameWithoutExtension',
+                new StringType()
+            ),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getExtension', new StringType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getContents', new StringType()),
-            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getForLocalProcessing', new StringType()),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FileInterface',
+                'getForLocalProcessing',
+                new StringType()
+            ),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getMimeType', new StringType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'delete', new BooleanType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'isIndexed', new BooleanType()),
-            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'getPublicUrl', TypeCombinator::addNull(
-                new StringType()
-            )),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\FileInterface',
+                'getPublicUrl',
+                new UnionType([new NullType(), new StringType()])
+            ),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\FileInterface', 'toArray', new ArrayType(
                 new MixedType(),
                 new MixedType()
@@ -695,14 +710,22 @@ return static function (RectorConfig $rectorConfig): void {
                 'setContents',
                 new SelfObjectType('TYPO3\CMS\Core\Resource\FileInterface')
             ),
-            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\ResourceInterface', 'getIdentifier', new StringType()),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\ResourceInterface',
+                'getIdentifier',
+                new StringType()
+            ),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\ResourceInterface', 'getName', new StringType()),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Core\Resource\ResourceInterface',
                 'getStorage',
                 new ObjectType('TYPO3\CMS\Core\Resource\ResourceStorage')
             ),
-            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Resource\ResourceInterface', 'getHashedIdentifier', new StringType()),
+            new AddReturnTypeDeclaration(
+                'TYPO3\CMS\Core\Resource\ResourceInterface',
+                'getHashedIdentifier',
+                new StringType()
+            ),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Core\Resource\ResourceInterface',
                 'getParentFolder',
@@ -767,12 +790,12 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Core\Resource\Driver\DriverInterface',
                 'getParentFolderIdentifierOfIdentifier',
-                TypeCombinator::addNull(new StringType())
+                new UnionType([new NullType(), new StringType()])
             ),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Core\Resource\Driver\DriverInterface',
                 'getPublicUrl',
-                TypeCombinator::addNull(new StringType())
+                new UnionType([new NullType(), new StringType()])
             ),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Core\Resource\Driver\DriverInterface',
@@ -950,7 +973,10 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Core\Resource\FolderInterface',
                 'getFile',
-                TypeCombinator::addNull(new ObjectType('TYPO3\CMS\Core\Resource\FileInterface'))
+                new UnionType([
+                    new NullType(),
+                    new ObjectType('TYPO3\CMS\Core\Resource\FileInterface'),
+                ])
             ),
             new AddReturnTypeDeclaration(
                 'TYPO3\CMS\Core\Resource\FolderInterface',
