@@ -87,12 +87,16 @@ CODE_SAMPLE
             return null;
         }
 
-        $tableName = $this->valueResolver->getValue($tableArgument);
+        $tableNames = $this->valueResolver->getValue($tableArgument);
 
-        $directoryName = dirname($this->file->getFilePath());
-        $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableName . '.php';
-        $this->writeConfigurationToFile($newConfigurationFile, $tableName);
-
+        foreach (explode(',', $tableNames) as $tableName) {
+            if (!$tableName) {
+                continue;
+            }
+            $directoryName = dirname($this->file->getFilePath());
+            $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableName . '.php';
+            $this->writeConfigurationToFile($newConfigurationFile, $tableName);
+        }
         return NodeTraverser::REMOVE_NODE;
     }
 

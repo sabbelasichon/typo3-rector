@@ -39,6 +39,14 @@ CODE
             __DIR__ . '/Fixture/Configuration/TCA/Overrides/%s.php',
             'tx_table_with_existing_tca_configuration_file'
         );
+        $this->assertThatConfigurationFileHasNewIgnorePageTypeRestriction(
+            __DIR__ . '/Fixture/Configuration/TCA/Overrides/%s.php',
+            'tx_table_one'
+        );
+        $this->assertThatConfigurationFileHasNewIgnorePageTypeRestriction(
+            __DIR__ . '/Fixture/Configuration/TCA/Overrides/%s.php',
+            'tx_table_two'
+        );
     }
 
     public function provideConfigFilePath(): string
