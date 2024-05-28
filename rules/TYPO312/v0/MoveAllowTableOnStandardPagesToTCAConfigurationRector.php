@@ -90,13 +90,15 @@ CODE_SAMPLE
         $tableNames = $this->valueResolver->getValue($tableArgument);
 
         foreach (explode(',', $tableNames) as $tableName) {
-            if (!$tableName) {
+            if ($tableName === '') {
                 continue;
             }
+
             $directoryName = dirname($this->file->getFilePath());
             $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableName . '.php';
             $this->writeConfigurationToFile($newConfigurationFile, $tableName);
         }
+
         return NodeTraverser::REMOVE_NODE;
     }
 

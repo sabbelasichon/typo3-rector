@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\TYPO313\v0\EventListenerConfigurationToAttributeRector;
 use Ssch\TYPO3Rector\TYPO313\v0\IntroduceCapabilitiesBitSetRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateAddPageTSConfigToPageTsConfigFileRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateAddUserTSConfigToUserTsConfigFileRector;
+use Ssch\TYPO3Rector\TYPO313\v0\MigrateExpressionBuilderTrimMethodSecondParameterRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateExtbaseHashServiceToUseCoreHashServiceRector;
 use Ssch\TYPO3Rector\TYPO313\v0\StrictTypesPersistenceManagerRector;
 use Ssch\TYPO3Rector\TYPO313\v0\SubstituteItemFormElIDRector;
@@ -118,4 +119,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(SubstituteItemFormElIDRector::class);
     $rectorConfig->rule(MigrateAddPageTSConfigToPageTsConfigFileRector::class);
     $rectorConfig->rule(MigrateAddUserTSConfigToUserTsConfigFileRector::class);
+    $rectorConfig->rule(MigrateExpressionBuilderTrimMethodSecondParameterRector::class);
 };
