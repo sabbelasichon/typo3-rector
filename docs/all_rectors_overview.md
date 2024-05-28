@@ -1,4 +1,4 @@
-# 144 Rules Overview
+# 145 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (51)
 
-- [TYPO313](#typo313) (14)
+- [TYPO313](#typo313) (15)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3028,6 +3028,24 @@ Migrate method call ExtensionManagementUtility::addUserTSConfig to user.tsconfig
 -    '@import "EXT:extension_key/Configuration/TSconfig/*/*.tsconfig"'
 -);
 +// Move to file Configuration/user.tsconfig
+```
+
+<br>
+
+### MigrateExpressionBuilderTrimMethodSecondParameterRector
+
+Migrate second parameter of trim method to enum
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateExpressionBuilderTrimMethodSecondParameterRector`](../rules/TYPO313/v0/MigrateExpressionBuilderTrimMethodSecondParameterRector.php)
+
+```diff
+ $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_content');
+ $queryBuilder->expr()->comparison(
+-    $queryBuilder->expr()->trim($fieldName, 1),
++    $queryBuilder->expr()->trim($fieldName, TrimMode::LEADING),
+     ExpressionBuilder::EQ,
+     $queryBuilder->createNamedParameter('', Connection::PARAM_STR)
+ );
 ```
 
 <br>
