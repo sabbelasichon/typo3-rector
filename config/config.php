@@ -27,12 +27,12 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->singleton(Typo3NodeResolver::class);
     $rectorConfig->bind(FilesystemInterface::class, static function () {
         $argv = $_SERVER['argv'] ?? [];
-        $isDryRun = in_array('--dry-run', $argv) || in_array('-n', $argv);
+        $isDryRun = in_array('--dry-run', $argv, true) || in_array('-n', $argv, true);
         if (StaticPHPUnitEnvironment::isPHPUnitRun() || $isDryRun) {
             $adapter = new InMemoryFilesystemAdapter();
         } else {
             $cwd = getcwd();
-            if(!$cwd) {
+            if (! $cwd) {
                 throw new \Exception('could not find current working directory');
             }
             $adapter = new LocalFilesystemAdapter($cwd);
