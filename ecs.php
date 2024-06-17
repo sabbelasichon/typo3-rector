@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use PHP_CodeSniffer\Standards\Generic\Sniffs\CodeAnalysis\AssignmentInConditionSniff;
+use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\ControlStructure\YodaStyleFixer;
+use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use PhpCsFixer\Fixer\Operator\OperatorLinebreakFixer;
 use PhpCsFixer\Fixer\Phpdoc\GeneralPhpdocAnnotationRemoveFixer;
 use PhpCsFixer\Fixer\Phpdoc\NoSuperfluousPhpdocTagsFixer;
@@ -15,19 +17,6 @@ use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\ValueObject\Set\SetList;
 
 return static function (ECSConfig $ecsConfig): void {
-    $ecsConfig->rule(StandaloneLineInMultilineArrayFixer::class);
-    $ecsConfig->rule(ArrayOpenerAndCloserNewlineFixer::class);
-
-    $ecsConfig->ruleWithConfiguration(GeneralPhpdocAnnotationRemoveFixer::class, [
-        'annotations' => ['throws', 'author', 'package', 'group'],
-    ]);
-
-    $ecsConfig->ruleWithConfiguration(NoSuperfluousPhpdocTagsFixer::class, [
-        'allow_mixed' => true,
-    ]);
-
-    $ecsConfig->sets([SetList::PSR_12, SetList::SYMPLIFY, SetList::COMMON, SetList::CLEAN_CODE]);
-
     $ecsConfig->paths([
         __DIR__ . '/src',
         __DIR__ . '/tests',
@@ -46,6 +35,20 @@ return static function (ECSConfig $ecsConfig): void {
         DeclareStrictTypesFixer::class => ['*/Fixture/*', '*/Assertions/*'],
     ]);
 
+    $ecsConfig->sets([SetList::PSR_12, SetList::SYMPLIFY, SetList::COMMON, SetList::CLEAN_CODE]);
+
+    $ecsConfig->ruleWithConfiguration(GeneralPhpdocAnnotationRemoveFixer::class, [
+        'annotations' => ['throws', 'author', 'package', 'group'],
+    ]);
+
+    $ecsConfig->ruleWithConfiguration(NoSuperfluousPhpdocTagsFixer::class, [
+        'allow_mixed' => true,
+    ]);
+
+    $ecsConfig->rule(NoUnusedImportsFixer::class);
+    $ecsConfig->rule(ArraySyntaxFixer::class);
+    $ecsConfig->rule(StandaloneLineInMultilineArrayFixer::class);
+    $ecsConfig->rule(ArrayOpenerAndCloserNewlineFixer::class);
     $ecsConfig->rule(DeclareStrictTypesFixer::class);
     $ecsConfig->rule(LineLengthFixer::class);
     $ecsConfig->rule(YodaStyleFixer::class);
