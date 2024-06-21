@@ -7,6 +7,8 @@ $searchArray = [];
 $value = $flexFormTools->getArrayValueByPath('search/path', $searchArray);
 
 $flexFormTools->setArrayValueByPath('set/path', $dataArray, $value);
+
+$flexFormTools->cleanFlexFormXML('tt_content', 'pi_flexform', $row);
 ?>
 -----
 <?php
@@ -19,4 +21,6 @@ $searchArray = [];
 $value = ArrayUtility::getValueByPath($searchArray, 'search/path');
 
 $dataArray = ArrayUtility::setValueByPath($dataArray, 'set/path', $value);
+
+$flexFormTools->cleanFlexFormXML('tt_content', 'pi_flexform', $row);
 ?>
