@@ -94,6 +94,10 @@ CODE_SAMPLE
             return null;
         }
 
+        if (! $this->isNames($methodCall->name, ['setArrayValueByPath'])) {
+            return null;
+        }
+
         $variableName = $this->getName($methodCall->args[1]->value) ?? 'dataArray';
 
         $variable = new Variable($variableName);
