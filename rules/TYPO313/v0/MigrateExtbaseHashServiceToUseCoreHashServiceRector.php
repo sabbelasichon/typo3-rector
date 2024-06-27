@@ -68,7 +68,7 @@ CODE_SAMPLE
     }
 
     /**
-     * @param Node\Expr\MethodCall $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node)
     {

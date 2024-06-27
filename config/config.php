@@ -35,6 +35,7 @@ return static function (RectorConfig $rectorConfig): void {
             if (! $cwd) {
                 throw new \Exception('could not find current working directory');
             }
+
             $adapter = new LocalFilesystemAdapter($cwd);
         }
 

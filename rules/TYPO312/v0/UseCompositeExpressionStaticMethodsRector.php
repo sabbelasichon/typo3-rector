@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
+use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Scalar\String_;
@@ -36,7 +37,7 @@ final class UseCompositeExpressionStaticMethodsRector extends AbstractRector
         }
 
         if ($node->args[0]->value->getType() === 'Expr_ClassConstFetch') {
-            /** @var Node\Expr\ClassConstFetch $firstArg */
+            /** @var ClassConstFetch $firstArg */
             $firstArg = $node->args[0]->value;
             /** @var Node\Identifier $identifier */
             $identifier = $firstArg->name;

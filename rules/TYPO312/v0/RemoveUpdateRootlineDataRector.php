@@ -28,7 +28,7 @@ final class RemoveUpdateRootlineDataRector extends AbstractRector
     }
 
     /**
-     * @param Node\Stmt\Expression $node
+     * @param Expression $node
      */
     public function refactor(Node $node): ?int
     {

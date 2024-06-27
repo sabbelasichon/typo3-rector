@@ -26,7 +26,7 @@ final class ReplacePageRepoOverlayFunctionRector extends AbstractRector
     }
 
     /**
-     * @param Node\Expr\MethodCall $node
+     * @param MethodCall $node
      */
     public function refactor(Node $node): ?Node
     {
