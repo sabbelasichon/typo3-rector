@@ -45,7 +45,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractScopeAwareRector
     }
 
     /**
-     * @param Node\Expr\MethodCall $node
+     * @param MethodCall $node
      */
     public function refactorWithScope(Node $node, Scope $scope): ?Node
     {
