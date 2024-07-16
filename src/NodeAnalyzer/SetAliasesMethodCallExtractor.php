@@ -16,7 +16,6 @@ use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\Php80\NodeAnalyzer\PhpAttributeAnalyzer;
 use Rector\PhpDocParser\NodeTraverser\SimpleCallableNodeTraverser;
 use Rector\Symfony\Enum\SymfonyAnnotation;
-use Rector\Symfony\NodeAnalyzer\Command\AttributeValueResolver;
 
 final class SetAliasesMethodCallExtractor
 {
