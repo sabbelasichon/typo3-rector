@@ -31,12 +31,7 @@ return static function (RectorConfig $rectorConfig): void {
         if (StaticPHPUnitEnvironment::isPHPUnitRun() || $isDryRun) {
             $adapter = new InMemoryFilesystemAdapter();
         } else {
-            $cwd = getcwd();
-            if (! $cwd) {
-                throw new \Exception('could not find current working directory');
-            }
-
-            $adapter = new LocalFilesystemAdapter($cwd);
+            $adapter = new LocalFilesystemAdapter('/');
         }
 
         return new FlysystemFilesystem(new Filesystem($adapter));
