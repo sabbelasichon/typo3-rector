@@ -28,7 +28,7 @@ final class IgnoreValidationAttributeDecorator implements AttributeDecoratorInte
         $newArguments = new Array_();
 
         foreach ($attribute->args as $arg) {
-            $key = $arg->name instanceof Identifier ? new String_($arg->name->toString()) : new String_('value');
+            $key = $arg->name instanceof Identifier ? new String_($arg->name->toString()) : new String_('argumentName');
 
             $newArguments->items[] = new ArrayItem($arg->value, $key);
         }
