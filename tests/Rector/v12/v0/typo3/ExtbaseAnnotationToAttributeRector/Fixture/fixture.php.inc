@@ -74,7 +74,7 @@ class MyClass
     #[Validate(['validator' => NotEmptyValidator::class])]
     protected $propertyWithValidateAnnotations;
 
-    #[Extbase\IgnoreValidation(['value' => 'param'])]
+    #[Extbase\IgnoreValidation(['argumentName' => 'param'])]
     public function method($param) {}
 
     #[Extbase\Validate(['param' => 'request', 'validator' => NotEmptyValidator::class])]
