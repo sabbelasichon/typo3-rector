@@ -9,6 +9,14 @@
 
 # Best practice guide
 
+
+Version matrix:
+
+|                    | v1                                    | v2             |
+|--------------------|---------------------------------------|----------------|
+| **typo3 versions** | 7 - 12 (not all rules)                | 10 - 13        |
+| **file support**   | all files (typoscript, flexform, ...) | only PHP files |
+
 ## What to use for
 
 You can use TYPO3 Rector in various ways:
@@ -21,7 +29,8 @@ You can use TYPO3 Rector in various ways:
 
 ### TLDR;
 
-- apply older or current version rulesets first (if you're going from v8 to v10, apply v7/v8 sets first)
+- apply older or current version rulesets first (if you're going from v10 to v12, apply v7/v8/v9/v10 sets first)
+- if possible start with version 2 of typo3-rector because it has the bugfixes and all rules from version 10 to 13 of TYPO3
 - add ClassAliasMap in case you're upgrading two versions to provide old classes to migrate (see [ClassAliasMap](#classaliasmap))
 - apply rulesets stepwise by version; first TCA only, then full set or combined
 - apply rulesets stepwise to your packages or multiple packages at once
@@ -93,7 +102,7 @@ Those need to be provided via `extra` section inside `composer.json` of the proj
 Provide the ClassAliasMap files of all necessary extensions for all necessary versions.
 
 ---
-**Be aware!**
+### Limitations
 There are limitations to the TCA detection.
 
 TYPO3 Rector can only detect TCA if the TCA is valid, which means there is a 'ctrl' and a 'columns' key:
@@ -105,8 +114,23 @@ return [
 ];
 ```
 
-**INFO**
-TCA in `Configuration/Override/` is also migrated if necessary.
+So to migrate your TCA in `Configuration/Override/` it is required to add those keys.
+
+Also we can only migrate, when the type of the TCA column is known. For overrides this means you have to add it, e.g. when you extend the doktype items.
+
+```php
+$pages = [
+    'columns' => [
+        'doktype' => [
+            'items' => [
+                ['foo', 'foo']
+            ],
+        ],
+    ],
+];
+```
+
+add `'type' => 'select` to migrate with rector
 
 ---
 
