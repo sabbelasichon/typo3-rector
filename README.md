@@ -53,6 +53,13 @@ and when you want to execute the migrations run:
 vendor/bin/rector process
 ```
 
+Version matrix:
+
+|                    | v1                                    | v2             |
+|--------------------|---------------------------------------|----------------|
+| **typo3 versions** | 7 - 12 (not all rules)                | 10 - 13        |
+| **file support**   | all files (typoscript, flexform, ...) | only PHP files |
+
 ## Contributing
 
 Please see [CONTRIBUTING](docs/contribution.md) for details.
