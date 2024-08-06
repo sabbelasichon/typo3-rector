@@ -53,7 +53,7 @@ and when you want to execute the migrations run:
 vendor/bin/rector process
 ```
 
-Version matrix:
+## Version matrix
 
 |                    | v1                                    | v2             |
 |--------------------|---------------------------------------|----------------|
