@@ -16,6 +16,7 @@ $_EXTKEY = 'extension3';
 namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector\Fixture;
 
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
 $_EXTKEY = 'extension3';
 // Once the rule RegisterPluginWithVendorNameRector does its job, we can move it afterwards
 ExtensionUtility::registerPlugin('Vendor.' . $_EXTKEY, 'PluginName', 'My Title');

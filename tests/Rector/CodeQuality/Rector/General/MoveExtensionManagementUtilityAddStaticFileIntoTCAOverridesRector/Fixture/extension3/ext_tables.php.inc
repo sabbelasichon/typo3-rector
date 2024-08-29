@@ -16,6 +16,7 @@ $_EXTKEY = 'extension3';
 namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 $variable = 'extension3';
 $_EXTKEY = 'extension3';
 ExtensionManagementUtility::addStaticFile('doing' . $variable . 'weirdStuff', 'Configuration/TypoScript', 'Title');

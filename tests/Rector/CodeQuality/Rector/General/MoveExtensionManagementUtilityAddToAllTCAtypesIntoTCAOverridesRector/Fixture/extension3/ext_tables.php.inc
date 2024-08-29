@@ -15,6 +15,7 @@ $variable = 'tt_content';
 namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 $variable = 'tt_content';
 ExtensionManagementUtility::addToAllTCAtypes('doing' . $variable . 'weirdStuff', 'new_field', '', 'after:c');
 
