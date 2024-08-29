@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO311\v5;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
+use PhpParser\Node\Scalar\LNumber;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -127,6 +128,18 @@ CODE_SAMPLE
             // Remove array key 1
             $this->removeArrayItemFromArrayByKey($firstItemsArray, 1);
             return;
+        }
+
+        $itemsCount = count($firstItemsArray->items);
+        if ($itemsCount > 1) {
+            // we have an item without any keys (['label', 'value'])
+            foreach ($firstItemsArray->items as $i => $arrayItem) {
+                if ($arrayItem instanceof ArrayItem) {
+                    // add a numbered key
+                    $arrayItem->key = new LNumber($i);
+                    $this->hasAstBeenChanged = true;
+                }
+            }
         }
 
         // Check if array key 0 has a label
