@@ -27,6 +27,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use Symfony\Component\Mime\Address;
 use TYPO3\CMS\Core\Utility\MailUtility;
+
 class MyService
 {
     public function init()
