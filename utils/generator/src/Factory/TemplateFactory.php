@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Generator;
+namespace Ssch\TYPO3Rector\Generator\Factory;
 
 final class TemplateFactory
 {

@@ -19,11 +19,14 @@ final class TemplateFileSystem
      */
     private const FIXTURE_SHORT_REGEX = '#/Fixture/#';
 
+    /**
+     * @readonly
+     */
     private Filesystem $filesystem;
 
-    public function __construct()
+    public function __construct(Filesystem $filesystem)
     {
-        $this->filesystem = new Filesystem();
+        $this->filesystem = $filesystem;
     }
 
     /**

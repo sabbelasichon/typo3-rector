@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Generator\FileSystem;
 
 use Nette\Utils\Strings;
 use Ssch\TYPO3Rector\Generator\Exception\ShouldNotHappenException;
-use Ssch\TYPO3Rector\Generator\TemplateFactory;
+use Ssch\TYPO3Rector\Generator\Factory\TemplateFactory;
 use Symfony\Component\Filesystem\Filesystem;
 
 final class ConfigFilesystem

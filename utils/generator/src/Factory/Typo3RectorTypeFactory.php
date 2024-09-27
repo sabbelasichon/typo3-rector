@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Generator\Factory;
 
 use Ssch\TYPO3Rector\Generator\Contract\Typo3RectorTypeInterface;
-use Ssch\TYPO3Rector\Generator\ValueObject\TcaRectorType;
-use Ssch\TYPO3Rector\Generator\ValueObject\Typo3RectorType;
+use Ssch\TYPO3Rector\Generator\ValueObject\RectorType\TcaRectorType;
+use Ssch\TYPO3Rector\Generator\ValueObject\RectorType\Typo3RectorType;
 
 final class Typo3RectorTypeFactory
 {

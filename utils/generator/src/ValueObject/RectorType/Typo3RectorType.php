@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Generator\ValueObject;
+namespace Ssch\TYPO3Rector\Generator\ValueObject\RectorType;
 
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Generator\Contract\Typo3RectorTypeInterface;
