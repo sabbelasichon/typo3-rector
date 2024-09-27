@@ -1,4 +1,4 @@
-# 145 Rules Overview
+# 146 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (51)
 
-- [TYPO313](#typo313) (15)
+- [TYPO313](#typo313) (16)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3090,6 +3090,28 @@ Migrate GeneralUtility::hmac to HashService::hmac
 
 -$hmac = GeneralUtility::hmac('some-input', 'some-secret');
 +$hmac = GeneralUtility::makeInstance(HashService::class)->hmac('some-input', 'some-secret');
+```
+
+<br>
+
+### MigrateViewHelperRenderStaticRector
+
+Migrate static ViewHelpers to object-based ViewHelpers
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v3\MigrateViewHelperRenderStaticRector`](../rules/TYPO313/v3/MigrateViewHelperRenderStaticRector.php)
+
+```diff
+ class MyViewHelper extends AbstractViewHelper
+ {
+-    use CompileWithRenderStatic;
+-
+-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext): string
++    public function render(): string
+     {
+-        return $renderChildrenClosure();
++        return $this->renderChildren();
+     }
+ }
 ```
 
 <br>
