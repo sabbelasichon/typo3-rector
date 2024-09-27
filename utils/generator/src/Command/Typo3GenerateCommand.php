@@ -250,7 +250,9 @@ final class Typo3GenerateCommand extends Command
     private function resolveTestCaseDirectoryPath(array $generatedFilePaths): string
     {
         foreach ($generatedFilePaths as $generatedFilePath) {
-            if (! \str_ends_with($generatedFilePath, 'Test.php')) {
+            if (! \str_ends_with($generatedFilePath, 'Test.php')
+                && ! \str_ends_with($generatedFilePath, 'Test.php.inc')
+            ) {
                 continue;
             }
 
