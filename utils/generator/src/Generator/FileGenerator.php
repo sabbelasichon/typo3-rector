@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Generator\Generator;
 
-use Ssch\TYPO3Rector\Generator\FileSystem\TemplateFileSystem;
 use Ssch\TYPO3Rector\Generator\Factory\TemplateFactory;
+use Ssch\TYPO3Rector\Generator\FileSystem\TemplateFileSystem;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\SplFileInfo;
 
