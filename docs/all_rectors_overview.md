@@ -1,4 +1,4 @@
-# 146 Rules Overview
+# 147 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (30)
 
-- [TYPO312](#typo312) (51)
+- [TYPO312](#typo312) (52)
 
 - [TYPO313](#typo313) (16)
 
@@ -1777,6 +1777,74 @@ Implement SiteLanguageAwareInterface instead of using SiteLanguageAwareTrait
 +        return $this->siteLanguage;
 +    }
  }
+```
+
+<br>
+
+### MigrateBackendModuleRegistrationRector
+
+Migrate Backend Module Registration
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateBackendModuleRegistrationRector`](../rules/TYPO312/v0/MigrateBackendModuleRegistrationRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addModule(
+-    'web',
+-    'example',
+-    'top',
+-    '',
+-    [
+-        'routeTarget' => MyExampleModuleController::class . '::handleRequest',
+-        'name' => 'web_example',
++// Configuration/Backend/Modules.php
++return [
++    'web_module' => [
++        'parent' => 'web',
++        'position' => ['before' => '*'],
+         'access' => 'admin',
+-        'workspaces' => 'online',
++        'workspaces' => 'live',
++        'path' => '/module/web/example',
+         'iconIdentifier' => 'module-example',
++        'navigationComponent' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement',
+         'labels' => 'LLL:EXT:example/Resources/Private/Language/locallang_mod.xlf',
+-        'navigationComponentId' => 'TYPO3/CMS/Backend/PageTree/PageTreeElement',
+-    ]
+-);
+-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+-    'Extkey',
+-    'web',
+-    'example',
+-    'after:info',
+-    [
+-        MyExtbaseExampleModuleController::class => 'list, detail',
++        'routes' => [
++            '_default' => [
++                'target' => MyExampleModuleController::class . '::handleRequest',
++            ],
++        ],
+     ],
+-    [
++    'web_ExtkeyExample' => [
++        'parent' => 'web',
++        'position' => ['after' => 'web_info'],
+         'access' => 'admin',
+-        'workspaces' => 'online',
++        'workspaces' => 'live',
+         'iconIdentifier' => 'module-example',
++        'path' => '/module/web/ExtkeyExample',
+         'labels' => 'LLL:EXT:extkey/Resources/Private/Language/locallang_mod.xlf',
+-    ]
+-);
++        'extensionName' => 'Extkey',
++        'controllerActions' => [
++            MyExtbaseExampleModuleController::class => [
++                'list',
++                'detail'
++            ],
++        ],
++    ],
++];
 ```
 
 <br>
