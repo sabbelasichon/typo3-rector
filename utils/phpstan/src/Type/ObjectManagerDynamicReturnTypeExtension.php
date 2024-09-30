@@ -38,6 +38,6 @@ final class ObjectManagerDynamicReturnTypeExtension implements DynamicMethodRetu
         MethodCall $methodCall,
         Scope $scope
     ): Type {
-        return $this->argumentTypeResolver->resolveFromMethodCall($methodCall, $methodReflection);
+        return $this->argumentTypeResolver->resolveFromMethodCall($methodCall, $methodReflection, $scope);
     }
 }
