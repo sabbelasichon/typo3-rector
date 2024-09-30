@@ -9,7 +9,7 @@ use Ssch\TYPO3Rector\Generator\Exception\ShouldNotHappenException;
 use Ssch\TYPO3Rector\Generator\Factory\TemplateFactory;
 use Symfony\Component\Filesystem\Filesystem;
 
-final class ConfigFilesystem
+final class ConfigFilesystemWriter
 {
     /**
      * @var string[]

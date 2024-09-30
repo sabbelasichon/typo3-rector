@@ -8,7 +8,7 @@ use Rector\Exception\ShouldNotHappenException;
 use RuntimeException;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Generator\Factory\Typo3RectorTypeFactory;
-use Ssch\TYPO3Rector\Generator\FileSystem\ConfigFilesystem;
+use Ssch\TYPO3Rector\Generator\FileSystem\ConfigFilesystemWriter;
 use Ssch\TYPO3Rector\Generator\Finder\TemplateFinder;
 use Ssch\TYPO3Rector\Generator\Generator\FileGenerator;
 use Ssch\TYPO3Rector\Generator\ValueObject\Typo3RectorRecipe;
@@ -46,7 +46,7 @@ final class Typo3GenerateCommand extends Command
     /**
      * @readonly
      */
-    private ConfigFilesystem $configFilesystem;
+    private ConfigFilesystemWriter $configFilesystemWriter;
 
     /**
      * @readonly
@@ -57,14 +57,14 @@ final class Typo3GenerateCommand extends Command
         TemplateFinder $templateFinder,
         FileGenerator $fileGenerator,
         OutputInterface $outputStyle,
-        ConfigFilesystem $configFilesystem,
+        ConfigFilesystemWriter $configFilesystemWriter,
         FileInfoFactory $fileInfoFactory
     ) {
         parent::__construct();
         $this->templateFinder = $templateFinder;
         $this->fileGenerator = $fileGenerator;
         $this->outputStyle = $outputStyle;
-        $this->configFilesystem = $configFilesystem;
+        $this->configFilesystemWriter = $configFilesystemWriter;
         $this->fileInfoFactory = $fileInfoFactory;
     }
 
@@ -117,7 +117,7 @@ final class Typo3GenerateCommand extends Command
             (string) $targetDirectory
         );
 
-        $this->configFilesystem->addRuleToConfigurationFile(
+        $this->configFilesystemWriter->addRuleToConfigurationFile(
             $recipe->getSet(),
             $templateVariables,
             self::RECTOR_FQN_NAME_PATTERN
