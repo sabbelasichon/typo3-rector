@@ -1,17 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			message: """
-				#^Call to deprecated method selectSingle\\(\\) of class PHPStan\\\\Reflection\\\\ParametersAcceptorSelector\\:
-				See https\\://github\\.com/phpstan/phpstan\\-src/blob/2\\.0\\.x/UPGRADING\\.md\\#removed\\-deprecated\\-parametersacceptorselectorselectsingle$#
-			"""
-			count: 1
-			path: utils/phpstan/src/Type/GeneralUtilityDynamicReturnTypeExtension.php
-
-		-
-			message: """
-				#^Call to deprecated method selectSingle\\(\\) of class PHPStan\\\\Reflection\\\\ParametersAcceptorSelector\\:
-				See https\\://github\\.com/phpstan/phpstan\\-src/blob/2\\.0\\.x/UPGRADING\\.md\\#removed\\-deprecated\\-parametersacceptorselectorselectsingle$#
-			"""
-			count: 1
-			path: utils/phpstan/src/TypeResolver/ArgumentTypeResolver.php
+	ignoreErrors: []
