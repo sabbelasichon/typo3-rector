@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\PHPStan\TypeResolver;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\MixedType;
@@ -15,11 +16,18 @@ use PHPStan\Type\Type;
 
 final class ArgumentTypeResolver
 {
-    public function resolveFromMethodCall(MethodCall $methodCall, MethodReflection $methodReflection): Type
-    {
+    public function resolveFromMethodCall(
+        MethodCall $methodCall,
+        MethodReflection $methodReflection,
+        Scope $scope
+    ): Type {
         $arg = $methodCall->args[0]->value;
         if (! $arg instanceof ClassConstFetch) {
-            return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
+            return ParametersAcceptorSelector::selectFromArgs(
+                $scope,
+                $methodCall->getArgs(),
+                $methodReflection->getVariants()
+            )->getReturnType();
         }
 
         $class = $arg->class;

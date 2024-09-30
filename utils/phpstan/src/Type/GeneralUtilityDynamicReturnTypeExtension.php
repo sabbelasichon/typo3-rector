@@ -34,7 +34,11 @@ final class GeneralUtilityDynamicReturnTypeExtension implements DynamicStaticMet
     ): Type {
         $arg = $methodCall->args[0]->value;
         if (! $arg instanceof ClassConstFetch) {
-            return ParametersAcceptorSelector::selectSingle($methodReflection->getVariants())->getReturnType();
+            return ParametersAcceptorSelector::selectFromArgs(
+                $scope,
+                $methodCall->getArgs(),
+                $methodReflection->getVariants()
+            )->getReturnType();
         }
 
         $class = $arg->class;
