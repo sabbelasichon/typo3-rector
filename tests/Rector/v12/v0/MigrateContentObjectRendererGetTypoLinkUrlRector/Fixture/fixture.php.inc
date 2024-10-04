@@ -12,6 +12,12 @@ $urlWithString = $contentObjectRenderer->getTypoLink_URL(12, '&foo=bar');
 $parameters = '&foo=bar';
 $urlWithUrlParamsAsVariable = $contentObjectRenderer->getTypoLink_URL(12, $parameters);
 
+$bar = 'bar';
+$parameters2 = '&foo=' . $bar;
+$urlWithUrlParamsAsVariable2 = $contentObjectRenderer->getTypoLink_URL(12, $parameters2);
+
+$urlWithUrlParamsAsConcat = $contentObjectRenderer->getTypoLink_URL(12, '&foo=' . $bar);
+
 $parametersAsArray = ['foo' => 'bar'];
 $urlWithUrlParamsAsArrayVariable = $contentObjectRenderer->getTypoLink_URL(12, $parametersAsArray);
 
@@ -36,6 +42,12 @@ $urlWithString = $contentObjectRenderer->createUrl(['parameter' => 12, 'addition
 
 $parameters = '&foo=bar';
 $urlWithUrlParamsAsVariable = $contentObjectRenderer->createUrl(['parameter' => 12, 'additionalParams' => $parameters]);
+
+$bar = 'bar';
+$parameters2 = '&foo=' . $bar;
+$urlWithUrlParamsAsVariable2 = $contentObjectRenderer->createUrl(['parameter' => 12, 'additionalParams' => $parameters2]);
+
+$urlWithUrlParamsAsConcat = $contentObjectRenderer->createUrl(['parameter' => 12, 'additionalParams' => '&foo=' . $bar]);
 
 $parametersAsArray = ['foo' => 'bar'];
 $urlWithUrlParamsAsArrayVariable = $contentObjectRenderer->createUrl(['parameter' => 12, 'additionalParams' => HttpUtility::buildQueryString($parametersAsArray, '&')]);

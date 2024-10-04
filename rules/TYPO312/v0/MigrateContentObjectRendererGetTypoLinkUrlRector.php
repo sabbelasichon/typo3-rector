@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\TYPO312\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
@@ -106,6 +107,8 @@ CODE_SAMPLE
                 );
 
                 $arguments['additionalParams'] = $staticCall;
+            } elseif ($node->args[1]->value instanceof Concat) {
+                $arguments['additionalParams'] = $node->args[1];
             }
         }
 
