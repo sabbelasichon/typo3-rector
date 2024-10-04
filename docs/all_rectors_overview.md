@@ -1,4 +1,4 @@
-# 147 Rules Overview
+# 148 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (30)
 
-- [TYPO312](#typo312) (52)
+- [TYPO312](#typo312) (53)
 
 - [TYPO313](#typo313) (16)
 
@@ -1888,6 +1888,19 @@ Migrate ConfigurationManager->getContentObject to use request attribute instead
 +        $contentObject = $this->request->getAttribute('currentContentObject');
      }
  }
+```
+
+<br>
+
+### MigrateContentObjectRendererGetTypoLinkUrlRector
+
+Migrate ContentObjectRenderer->getTypoLink_URL to ContentObjectRenderer->createUrl
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererGetTypoLinkUrlRector`](../rules/TYPO312/v0/MigrateContentObjectRendererGetTypoLinkUrlRector.php)
+
+```diff
+-$contentObjectRenderer->typoLink_URL(12);
++$contentObjectRenderer->createUrl(['parameter' => 12]);
 ```
 
 <br>
