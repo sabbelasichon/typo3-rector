@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
+use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
@@ -65,19 +68,41 @@ CODE_SAMPLE
         }
 
         // params
-        $parameter = $this->valueResolver->getValue($node->args[0]->value);
-        $arguments['parameter'] = $parameter;
+        $arguments['parameter'] = $node->args[0];
 
         // urlParameters
         if (isset($node->args[1])) {
-            $urlParameters = $this->valueResolver->getValue($node->args[1]->value);
-            if (is_string($urlParameters)) {
-                $arguments['additionalParams'] = $urlParameters;
-            } elseif (is_array($urlParameters)) {
+            if ($node->args[1]->value instanceof String_) {
+                $urlParameters = $this->valueResolver->getValue($node->args[1]->value);
+                if (is_string($urlParameters)) {
+                    $arguments['additionalParams'] = $urlParameters;
+                } elseif (is_array($urlParameters)) {
+                    $staticCall = $this->nodeFactory->createStaticCall(
+                        'TYPO3\\CMS\\Core\\Utility\\HttpUtility',
+                        'buildQueryString',
+                        [$this->nodeFactory->createArg($urlParameters), $this->nodeFactory->createArg('&')]
+                    );
+
+                    $arguments['additionalParams'] = $staticCall;
+                }
+            } elseif ($node->args[1]->value instanceof Variable) {
+                $urlParameters = $this->valueResolver->getValue($node->args[1]->value);
+                if (is_string($urlParameters)) {
+                    $arguments['additionalParams'] = $node->args[1];
+                } elseif (is_array($urlParameters)) {
+                    $staticCall = $this->nodeFactory->createStaticCall(
+                        'TYPO3\\CMS\\Core\\Utility\\HttpUtility',
+                        'buildQueryString',
+                        [$node->args[1], $this->nodeFactory->createArg('&')]
+                    );
+
+                    $arguments['additionalParams'] = $staticCall;
+                }
+            } elseif ($node->args[1]->value instanceof Array_) {
                 $staticCall = $this->nodeFactory->createStaticCall(
                     'TYPO3\\CMS\\Core\\Utility\\HttpUtility',
                     'buildQueryString',
-                    [$this->nodeFactory->createArg($urlParameters), $this->nodeFactory->createArg('&')]
+                    [$node->args[1], $this->nodeFactory->createArg('&')]
                 );
 
                 $arguments['additionalParams'] = $staticCall;
