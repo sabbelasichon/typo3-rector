@@ -7,14 +7,13 @@ if (class_exists('TYPO3\CMS\Core\Utility\HttpUtility')) {
 
 class HttpUtility
 {
-
     const HTTP_STATUS_400 = 'HTTP/1.1 400 Bad Request';
     public const HTTP_STATUS_303 = 'HTTP/1.1 303 See Other';
 
     /**
      * @return string
      */
-    public static function buildQueryString(array $queryParams)
+    public static function buildQueryString(array $parameters, string $prependCharacter = '', bool $skipEmptyParameters = false)
     {
         return '';
     }
@@ -25,7 +24,6 @@ class HttpUtility
      */
     public static function setResponseCode($httpStatus)
     {
-
     }
 
     public static function redirect($url, $httpStatus = self::HTTP_STATUS_303)
