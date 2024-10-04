@@ -139,11 +139,25 @@ class ContentObjectRenderer
 
     public function start($data, $table = '', ?ServerRequestInterface $request = null): void
     {
-
     }
 
     public function setRequest(ServerRequestInterface $request): void
     {
+    }
 
+    /**
+     * @param string $params
+     * @param array|string $urlParameters
+     * @param string $target
+     * @return string
+     */
+    public function getTypoLink_URL(string $params, $urlParameters = [], string $target = ''): string
+    {
+        return '';
+    }
+
+    public function createUrl(array $conf): string
+    {
+        return '';
     }
 }

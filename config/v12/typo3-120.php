@@ -10,6 +10,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ChangeExtbaseValidatorsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateBackendModuleRegistrationRector;
+use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererGetTypoLinkUrlRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkPropertiesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchAllToFetchAllAssociativeRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchColumnToFetchOneRector;
@@ -169,4 +170,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateFetchAllToFetchAllAssociativeRector::class);
     $rectorConfig->rule(MigrateFetchToFetchAssociativeRector::class);
     $rectorConfig->rule(MigrateBackendModuleRegistrationRector::class);
+    $rectorConfig->rule(MigrateContentObjectRendererGetTypoLinkUrlRector::class);
 };
