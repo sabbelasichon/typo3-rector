@@ -16,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * This rector fixes a common error in TYPO3 installations to use the extension key where the extension name is required
- * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\UseExtensionKeyInLocalizationUtilityRector\UseExtensionKeyInLocalizationUtilityRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\UseExtensionKeyInLocalizationUtilityRector\UseExtensionKeyInLocalizationUtilityRectorTest
  */
 class UseExtensionKeyInLocalizationUtilityRector extends AbstractRector implements NoChangelogRequiredInterface
 {

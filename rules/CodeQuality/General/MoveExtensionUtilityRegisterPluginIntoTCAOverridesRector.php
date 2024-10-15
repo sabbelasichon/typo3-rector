@@ -22,7 +22,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://review.typo3.org/c/Packages/TYPO3.CMS/+/52437
- * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRectorTest
  */
 final class MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector extends AbstractRector
 {

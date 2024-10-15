@@ -15,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/BestPractises/ConfigurationFiles.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\Rector\General\ConvertImplicitVariablesToExplicitGlobalsRector\ConvertImplicitVariablesToExplicitGlobalsRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector\ConvertImplicitVariablesToExplicitGlobalsRectorTest
  */
 final class ConvertImplicitVariablesToExplicitGlobalsRector extends AbstractRector
 {
