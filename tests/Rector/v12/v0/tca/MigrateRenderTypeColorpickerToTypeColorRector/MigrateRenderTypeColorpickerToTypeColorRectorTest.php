@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateRenderTypeColorpickerToTypeColorRector;
 
-use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
 final class MigrateRenderTypeColorpickerToTypeColorRectorTest extends AbstractRectorTestCase
@@ -18,9 +17,9 @@ final class MigrateRenderTypeColorpickerToTypeColorRectorTest extends AbstractRe
     }
 
     /**
-     * @return Iterator<array<string>>
+     * @return \Iterator<array<string>>
      */
-    public static function provideData(): Iterator
+    public static function provideData(): \Iterator
     {
         return self::yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }

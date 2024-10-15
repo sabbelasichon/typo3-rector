@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddChangelogDocBlockForRectorClass;
 
-use Iterator;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use Ssch\TYPO3Rector\PHPStan\Rules\AddChangelogDocBlockForRectorClassRule;
@@ -24,9 +23,9 @@ final class AddChangelogDocBlockForRectorClassTest extends RuleTestCase
     }
 
     /**
-     * @return Iterator<mixed>
+     * @return \Iterator<mixed>
      */
-    public static function provideData(): Iterator
+    public static function provideData(): \Iterator
     {
         $message = sprintf(AddChangelogDocBlockForRectorClassRule::ERROR_MESSAGE, 'MissingChangelog');
         yield [__DIR__ . '/Fixture/MissingChangelog.php', [[$message, 12]]];

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateBackendModuleRegistrationRector;
 
-use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 
@@ -61,9 +60,9 @@ final class MigrateBackendModuleRegistrationRectorTest extends AbstractRectorTes
     }
 
     /**
-     * @return Iterator<array<string>>
+     * @return \Iterator<array<string>>
      */
-    public static function provideData(): Iterator
+    public static function provideData(): \Iterator
     {
         yield 'Test that new Modules.php is created with correct content EXT:extension1' => ['extension1'];
         yield 'Test that new Modules.php is created with correct content EXT:install' => ['install'];

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateRenderTypeInputLinkToTypeLinkRector;
 
-use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
 final class MigrateRenderTypeInputLinkToTypeLinkRectorTest extends AbstractRectorTestCase
@@ -18,9 +17,9 @@ final class MigrateRenderTypeInputLinkToTypeLinkRectorTest extends AbstractRecto
     }
 
     /**
-     * @return Iterator<array<string>>
+     * @return \Iterator<array<string>>
      */
-    public static function provideData(): Iterator
+    public static function provideData(): \Iterator
     {
         return self::yieldFilesFromDirectory(__DIR__ . '/Fixture');
     }

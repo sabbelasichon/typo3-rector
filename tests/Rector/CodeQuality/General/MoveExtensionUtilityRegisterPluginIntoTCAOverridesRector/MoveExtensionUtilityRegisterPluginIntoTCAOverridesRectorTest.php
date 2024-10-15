@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector;
 
-use Iterator;
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 
@@ -98,9 +97,9 @@ final class MoveExtensionUtilityRegisterPluginIntoTCAOverridesRectorTest extends
     }
 
     /**
-     * @return Iterator<array<string>>
+     * @return \Iterator<array<string>>
      */
-    public static function provideData(): Iterator
+    public static function provideData(): \Iterator
     {
         yield 'Test that new tt_content.php is created with correct content' => ['extension1'];
 
