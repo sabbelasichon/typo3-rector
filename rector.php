@@ -37,7 +37,7 @@ return RectorConfig::configure()
         '*/Source/*',
         '*/Source*',
         '*/Expected/*',
-        __DIR__ . '/tests/Rector/CodeQuality/Rector/General/',
+        __DIR__ . '/tests/Rector/CodeQuality/General/',
     ])
     ->withSets([
         LevelSetList::UP_TO_PHP_74,
