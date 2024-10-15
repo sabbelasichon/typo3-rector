@@ -38,17 +38,17 @@ final class MigrateContentObjectRendererGetTypoLinkUrlRector extends AbstractRec
         return new RuleDefinition(
             'Migrate ContentObjectRenderer->getTypoLink_URL to ContentObjectRenderer->createUrl',
             [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 $contentObjectRenderer->typoLink_URL(12);
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 $contentObjectRenderer->createUrl(['parameter' => 12]);
 CODE_SAMPLE
-            ),
-
-        ]);
+                ),
+            ]
+        );
     }
 
     /**
