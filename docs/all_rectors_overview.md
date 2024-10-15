@@ -1,10 +1,10 @@
-# 148 Rules Overview
+# 149 Rules Overview
 
 <br>
 
 ## Categories
 
-- [CodeQuality](#codequality) (9)
+- [CodeQuality](#codequality) (10)
 
 - [General](#general) (2)
 
@@ -21,6 +21,19 @@
 <br>
 
 ## CodeQuality
+
+### AddErrorCodeToExceptionRector
+
+Add timestamp error code to exceptions
+
+- class: [`Ssch\TYPO3Rector\CodeQuality\General\AddErrorCodeToExceptionRector`](../rules/CodeQuality/General/AddErrorCodeToExceptionRector.php)
+
+```diff
+-throw new \RuntimeException('my message');
++throw new \RuntimeException('my message', 1729021897);
+```
+
+<br>
 
 ### ConvertImplicitVariablesToExplicitGlobalsRector
 
