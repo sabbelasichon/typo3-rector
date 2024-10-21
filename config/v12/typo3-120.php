@@ -8,6 +8,7 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Ssch\TYPO3Rector\CodeQuality\General\RenameClassMapAliasRector;
 use Ssch\TYPO3Rector\TYPO312\v0\AddMethodToWidgetInterfaceClassesRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ChangeExtbaseValidatorsRector;
+use Ssch\TYPO3Rector\TYPO312\v0\ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\ImplementSiteLanguageAwareInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateBackendModuleRegistrationRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererGetTypoLinkUrlRector;
@@ -171,4 +172,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateFetchToFetchAssociativeRector::class);
     $rectorConfig->rule(MigrateBackendModuleRegistrationRector::class);
     $rectorConfig->rule(MigrateContentObjectRendererGetTypoLinkUrlRector::class);
+    $rectorConfig->rule(ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector::class);
 };
