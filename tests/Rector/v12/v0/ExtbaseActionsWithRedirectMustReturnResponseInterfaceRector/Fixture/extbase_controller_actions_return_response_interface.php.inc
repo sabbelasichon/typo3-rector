@@ -1,9 +1,8 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector\Fixture;
 
-use Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\Source\JsonResponse;
-use Exception;
+use Ssch\TYPO3Rector\Tests\Rector\v12\v0\ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector\Source\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Utility\HttpUtility;
@@ -33,7 +32,6 @@ class MyController extends ActionController
 
     protected function createDemandObjectFromSettings($settings)
     {
-
     }
 
     public function detailAction(bool $showError): ?string
@@ -50,7 +48,7 @@ class MyController extends ActionController
         $response = null;
         try {
             $this->forward('foo');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             HttpUtility::setResponseCode(HttpUtility::HTTP_STATUS_400);
         }
 
@@ -78,6 +76,15 @@ class MyController extends ActionController
         $this->redirectToUri('foo');
     }
 
+    public function additionalRedirectMethodToSkiAction()
+    {
+        $this->additionalRedirectMethod();
+    }
+
+    private function additionalRedirectMethod()
+    {
+    }
+
     public function someAction(): ResponseInterface
     {
         return new JsonResponse();
@@ -98,11 +105,10 @@ class MyController extends ActionController
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector\Fixture;
 
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
-use Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\Source\JsonResponse;
-use Exception;
+use Ssch\TYPO3Rector\Tests\Rector\v12\v0\ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector\Source\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Utility\HttpUtility;
@@ -133,7 +139,6 @@ class MyController extends ActionController
 
     protected function createDemandObjectFromSettings($settings)
     {
-
     }
 
     public function detailAction(bool $showError): ResponseInterface
@@ -151,7 +156,7 @@ class MyController extends ActionController
         $response = null;
         try {
             return new ForwardResponse('foo');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             HttpUtility::setResponseCode(HttpUtility::HTTP_STATUS_400);
         }
 
@@ -169,14 +174,23 @@ class MyController extends ActionController
         exit();
     }
 
-    public function handleExpiredRegistrationsAction()
+    public function handleExpiredRegistrationsAction(): ResponseInterface
     {
-        $this->redirect('list');
+        return $this->redirect('list');
     }
 
-    public function imageDeleteAction()
+    public function imageDeleteAction(): ResponseInterface
     {
-        $this->redirectToUri('foo');
+        return $this->redirectToUri('foo');
+    }
+
+    public function additionalRedirectMethodToSkiAction()
+    {
+        $this->additionalRedirectMethod();
+    }
+
+    private function additionalRedirectMethod()
+    {
     }
 
     public function someAction(): ResponseInterface
