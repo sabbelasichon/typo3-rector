@@ -28,7 +28,7 @@ class MyController extends ActionController
 {
     public function myAction(): ResponseInterface
     {
-        $value = $this->request->getQueryParams()['tx_scheduler'];
+        $value = $this->request->getQueryParams()['tx_scheduler'] ?? null;
     }
 }
 
