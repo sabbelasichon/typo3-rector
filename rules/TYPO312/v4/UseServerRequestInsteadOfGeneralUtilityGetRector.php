@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO312\v4;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\BinaryOp\Coalesce;
+use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
 use Rector\Rector\AbstractScopeAwareRector;
@@ -41,7 +44,7 @@ CODE_SAMPLE
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-$value = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'];
+$value = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_scheduler'] ?? null;
 CODE_SAMPLE
             ),
             new CodeSample(
@@ -66,7 +69,7 @@ class MyActionController extends ActionController
 {
     public function myMethod()
     {
-        $value = $this->request->getQueryParams()['tx_scheduler'];
+        $value = $this->request->getQueryParams()['tx_scheduler'] ?? null;
     }
 }
 CODE_SAMPLE
@@ -76,19 +79,48 @@ CODE_SAMPLE
 
     public function getNodeTypes(): array
     {
-        return [StaticCall::class];
+        return [Coalesce::class, StaticCall::class];
     }
 
     /**
-     * @param StaticCall $node
+     * @param Coalesce|StaticCall $node
      */
     public function refactorWithScope(Node $node, Scope $scope): ?Node
     {
-        return $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
+        if ($node instanceof Coalesce) {
+            $staticCall = $node->left;
+
+            if (! $staticCall instanceof StaticCall) {
+                return null;
+            }
+
+            /** @var ArrayDimFetch $arrayDimFetch */
+            $arrayDimFetch = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
+                $scope->getClassReflection(),
+                $staticCall,
+                'getQueryParams',
+                '_GET'
+            );
+
+            $node->left = $arrayDimFetch;
+            return $node;
+        }
+
+        $methodCall = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
             $scope->getClassReflection(),
             $node,
             'getQueryParams',
             '_GET'
         );
+
+        if ($methodCall instanceof MethodCall) {
+            return $methodCall;
+        }
+
+        if (! $methodCall instanceof ArrayDimFetch) {
+            return null;
+        }
+
+        return new Coalesce($methodCall, $this->nodeFactory->createNull());
     }
 }

@@ -26,7 +26,7 @@ class MyController extends ActionController
 {
     public function myMethod(): void
     {
-        $value = $this->request->getParsedBody()['tx_scheduler'];
+        $value = $this->request->getParsedBody()['tx_scheduler'] ?? null;
     }
 }
 
