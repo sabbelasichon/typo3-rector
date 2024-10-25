@@ -1,4 +1,4 @@
-# 149 Rules Overview
+# 150 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (30)
 
-- [TYPO312](#typo312) (53)
+- [TYPO312](#typo312) (54)
 
 - [TYPO313](#typo313) (16)
 
@@ -1735,6 +1735,29 @@ Use Symfony attribute to autoconfigure cli commands
 +#[AsCommand(name: 'my_special_command')]
  class MySpecialCommand extends Command
  {
+ }
+```
+
+<br>
+
+### ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector
+
+Extbase controller actions with redirects must return ResponseInterface
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector`](../rules/TYPO312/v0/ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector.php)
+
+```diff
++use Psr\Http\Message\ResponseInterface;
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ class MyController extends ActionController
+ {
+-    public function someAction()
++    public function someAction(): ResponseInterface
+     {
+-        $this->redirect('foo', 'bar');
++        return $this->redirect('foo', 'bar');
+     }
  }
 ```
 
