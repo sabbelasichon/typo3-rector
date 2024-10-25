@@ -17,10 +17,15 @@ class MyController extends ActionController
         $this->redirectToUri('foo');
     }
 
+    public function imageDeleteActionReturnVoid(): void
+    {
+        $this->redirectToUri('foo');
+    }
+
     /**
      * @return void
      */
-    public function imageDeleteActionWithReturnVoid(): void
+    public function imageDeleteActionWithReturnVoidInAnnotation(): void
     {
         $this->redirectToUri('foo');
     }
@@ -33,6 +38,12 @@ class MyController extends ActionController
     public function alreadyMigratedImageDeleteAction(): ResponseInterface
     {
         return $this->redirectToUri('foo');
+    }
+
+    protected function thisMethodIsNotReliable(): void
+    {
+        $url = 'https://example.com';
+        $this->redirectToUri($url);
     }
 }
 
@@ -57,10 +68,15 @@ class MyController extends ActionController
         return $this->redirectToUri('foo');
     }
 
+    public function imageDeleteActionReturnVoid(): ResponseInterface
+    {
+        return $this->redirectToUri('foo');
+    }
+
     /**
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function imageDeleteActionWithReturnVoid(): ResponseInterface
+    public function imageDeleteActionWithReturnVoidInAnnotation(): ResponseInterface
     {
         return $this->redirectToUri('foo');
     }
@@ -73,6 +89,12 @@ class MyController extends ActionController
     public function alreadyMigratedImageDeleteAction(): ResponseInterface
     {
         return $this->redirectToUri('foo');
+    }
+
+    protected function thisMethodIsNotReliable()
+    {
+        $url = 'https://example.com';
+        return $this->redirectToUri($url);
     }
 }
 
