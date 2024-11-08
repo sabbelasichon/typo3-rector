@@ -16,6 +16,11 @@ final class FilesFinder
         return $this->fileEqualsName($filePath, 'ext_tables.php');
     }
 
+    public function isInTCAOverridesFolder(string $filePath): bool
+    {
+        return preg_match('#Configuration/TCA/Overrides/#', $filePath) === 1;
+    }
+
     private function fileEqualsName(string $filePath, string $fileName): bool
     {
         return basename($filePath) === $fileName;

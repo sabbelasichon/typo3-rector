@@ -113,4 +113,8 @@ class ExtensionManagementUtility
     public static function addUserTSConfig(string $content): void
     {
     }
+
+    public static function addPlugin($itemArray, string $type = 'list_type', ?string $extensionKey = null): void
+    {
+    }
 }

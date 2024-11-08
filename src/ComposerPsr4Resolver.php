@@ -8,7 +8,7 @@ use Rector\ValueObject\Application\File;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 
-final class ComposerExtensionKeyResolver
+final class ComposerPsr4Resolver
 {
     /**
      * @readonly
@@ -26,26 +26,36 @@ final class ComposerExtensionKeyResolver
         $this->filesFinder = $filesFinder;
     }
 
-    public function resolveExtensionKey(File $file): ?string
+    public function resolve(File $file): ?string
     {
-        if (! $this->filesFinder->isExtLocalConf($file->getFilePath())
-            && ! $this->filesFinder->isExtTables($file->getFilePath())
+        $filePath = $file->getFilePath();
+        if (! $this->filesFinder->isExtLocalConf($filePath)
+            && ! $this->filesFinder->isInTCAOverridesFolder($filePath)
         ) {
             return null;
         }
 
-        $directoryName = dirname($file->getFilePath());
+        $directoryName = $this->filesFinder->isInTCAOverridesFolder($filePath)
+            ? dirname($filePath, 4)
+            : dirname($filePath);
 
         $composerJsonFile = $directoryName . '/composer.json';
 
         if (! $this->filesystem->fileExists($composerJsonFile)) {
-            return basename($directoryName);
+            return null;
         }
 
         $composerJsonContent = $this->filesystem->read($composerJsonFile);
 
         $composerJsonContentDecoded = json_decode($composerJsonContent, true, 512, JSON_THROW_ON_ERROR);
 
-        return $composerJsonContentDecoded['extra']['typo3/cms']['extension-key'] ?? null;
+        $autoLoadings = $composerJsonContentDecoded['autoload']['psr-4'] ?? [];
+        foreach ($autoLoadings as $namespace => $path) {
+            if (str_starts_with($path, 'Classes')) {
+                return $namespace;
+            }
+        }
+
+        return null;
     }
 }
