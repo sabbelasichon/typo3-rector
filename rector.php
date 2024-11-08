@@ -6,6 +6,7 @@ use Rector\CodingStyle\Rector\String_\UseClassKeywordForClassNameResolutionRecto
 use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
+use Rector\PostRector\Rector\UnusedImportRemovingPostRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
@@ -30,6 +31,9 @@ return RectorConfig::configure()
             __DIR__ . '/rules/TYPO310/v0/UseNativePhpHex2binMethodRector.php', // Don't import TYPO3 namespace
             __DIR__ . '/rules/TYPO312/v0/MigrateFetchAllToFetchAllAssociativeRector.php', // Don't replace Doctrine Constants
             __DIR__ . '/rules/TYPO312/v0/MigrateFetchToFetchAssociativeRector.php', // Don't replace Doctrine Constants
+        ],
+        UnusedImportRemovingPostRector::class => [
+            __DIR__ . '/tests/Rector/v13/v4/MigratePluginContentElementAndPluginSubtypesRector/Assertions/extension1/Classes/Updates/TYPO3RectorCTypeMigration.php', // Don't remove PHP8 Attribute
         ],
         // tests
         '*/Fixture/*',
