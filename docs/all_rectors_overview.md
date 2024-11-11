@@ -1,4 +1,4 @@
-# 150 Rules Overview
+# 151 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (54)
 
-- [TYPO313](#typo313) (16)
+- [TYPO313](#typo313) (17)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3207,6 +3207,21 @@ Migrate GeneralUtility::hmac to HashService::hmac
 
 -$hmac = GeneralUtility::hmac('some-input', 'some-secret');
 +$hmac = GeneralUtility::makeInstance(HashService::class)->hmac('some-input', 'some-secret');
+```
+
+<br>
+
+### MigratePluginContentElementAndPluginSubtypesRector
+
+Migrate plugin content element and plugin subtypes (list_type)
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v4\MigratePluginContentElementAndPluginSubtypesRector`](../rules/TYPO313/v4/MigratePluginContentElementAndPluginSubtypesRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin([], 'list_type', 'extension_key');
+-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], [], 'list_type');
++\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin([], 'CType', 'extension_key');
++\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], [], 'CType');
 ```
 
 <br>
