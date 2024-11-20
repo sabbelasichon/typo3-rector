@@ -1,4 +1,4 @@
-# 151 Rules Overview
+# 153 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (54)
 
-- [TYPO313](#typo313) (17)
+- [TYPO313](#typo313) (19)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3226,6 +3226,24 @@ Migrate plugin content element and plugin subtypes (list_type)
 
 <br>
 
+### MigratePluginContentElementAndPluginSubtypesTCARector
+
+Migrate plugin content element and plugin subtypes (list_type) TCA
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v4\MigratePluginContentElementAndPluginSubtypesTCARector`](../rules/TYPO313/v4/MigratePluginContentElementAndPluginSubtypesTCARector.php)
+
+```diff
+-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
++ExtensionManagementUtility::addToAllTCAtypes(
++    'tt_content',
++    '--div--;Configuration,pi_flexform,',
++    $pluginSignature,
++    'after:subheader',
++);
+```
+
+<br>
+
 ### MigrateViewHelperRenderStaticRector
 
 Migrate static ViewHelpers to object-based ViewHelpers
@@ -3265,6 +3283,19 @@ Unset the value in the config mmHasUidField
          ],
      ],
  ];
+```
+
+<br>
+
+### RemoveTcaSubTypesExcludeListTCARector
+
+Remove subtypes_excludelist from list type
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v4\RemoveTcaSubTypesExcludeListTCARector`](../rules/TYPO313/v4/RemoveTcaSubTypesExcludeListTCARector.php)
+
+```diff
+-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['my_plugin'] = 'layout,select_key,pages';
++-
 ```
 
 <br>

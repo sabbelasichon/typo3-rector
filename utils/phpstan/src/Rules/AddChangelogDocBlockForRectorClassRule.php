@@ -14,6 +14,7 @@ use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Contract\Rector\RectorInterface;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
+use Ssch\TYPO3Rector\Rector\AbstractArrayDimFetchTcaRector;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
 
 /**
@@ -30,7 +31,10 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
     /**
      * @var array<class-string<RectorInterface>>
      */
-    private const ALLOWED_CLASSES_WITH_NON_CHANGELOG_DOC_BLOCK = [AbstractTcaRector::class];
+    private const ALLOWED_CLASSES_WITH_NON_CHANGELOG_DOC_BLOCK = [
+        AbstractTcaRector::class,
+        AbstractArrayDimFetchTcaRector::class,
+    ];
 
     /**
      * @readonly
