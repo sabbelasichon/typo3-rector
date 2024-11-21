@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PHPStan\Rules;
 
+use PHPStan\Rules\RuleErrorBuilder;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
@@ -86,7 +87,7 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
         $docComment = $node->getDocComment();
         if (! $docComment instanceof Doc) {
             return [
-                \PHPStan\Rules\RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $className))
+                RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $className))
                     ->identifier('change.docblock')
                     ->build(),
             ];
@@ -106,7 +107,7 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
         }
 
         return [
-            \PHPStan\Rules\RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $className))
+            RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $className))
                 ->identifier('change.docblock')
                 ->build(),
         ];
