@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO311\v5;
 
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
@@ -11,11 +12,11 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\PropertyItem;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\NodeManipulator\ClassDependencyManipulator;
@@ -185,7 +186,7 @@ CODE_SAMPLE
             new PropertyMetadata(
                 self::MODULE_TEMPLATE_FACTORY,
                 new ObjectType('TYPO3\CMS\Backend\Template\ModuleTemplateFactory'),
-                Class_::MODIFIER_PRIVATE
+                Modifiers::PRIVATE
             )
         );
     }
@@ -195,7 +196,7 @@ CODE_SAMPLE
         foreach ($class->stmts as $stmtKey => $stmt) {
             if ($stmt instanceof Property) {
                 foreach ($stmt->props as $prop) {
-                    if ($prop instanceof PropertyProperty && $propertyName === $prop->name->toString()) {
+                    if ($prop instanceof PropertyItem && $propertyName === $prop->name->toString()) {
                         unset($class->stmts[$stmtKey]);
                     }
                 }
@@ -326,7 +327,7 @@ CODE_SAMPLE
         }
 
         $existingModuleTemplateFactoryCreateMethodCall = $this->betterNodeFinder->find(
-            (array) $classMethod->stmts,
+            $classMethod->stmts,
             function (Node $node) {
                 if (! $node instanceof MethodCall) {
                     return false;

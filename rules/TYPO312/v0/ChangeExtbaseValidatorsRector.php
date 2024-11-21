@@ -234,7 +234,7 @@ CODE_SAMPLE
             return;
         }
 
-        if ($isValidClassMethod->returnType !== null) {
+        if ($isValidClassMethod->returnType instanceof Node) {
             return;
         }
 
@@ -249,7 +249,7 @@ CODE_SAMPLE
             return;
         }
 
-        if ($validateClassMethod->returnType !== null) {
+        if ($validateClassMethod->returnType instanceof Node) {
             return;
         }
 

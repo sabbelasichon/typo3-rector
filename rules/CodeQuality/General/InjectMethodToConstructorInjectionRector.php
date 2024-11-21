@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\CodeQuality\General;
 
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Param;
@@ -124,7 +125,7 @@ CODE_SAMPLE
 
             $this->classDependencyManipulator->addConstructorDependency(
                 $node,
-                new PropertyMetadata($paramName, new ObjectType((string) $param->type), Class_::MODIFIER_PROTECTED)
+                new PropertyMetadata($paramName, new ObjectType((string) $param->type), Modifiers::PROTECTED)
             );
             $this->removeNodeFromStatements($node, $injectMethod);
         }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO311\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
@@ -75,13 +76,13 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
 
             $responseObjectType = new ObjectType('Psr\\Http\\Message\\ResponseInterface');
 
-            if ($node->expr !== null && $this->isObjectType($node->expr, $responseObjectType)) {
+            if ($node->expr instanceof Expr && $this->isObjectType($node->expr, $responseObjectType)) {
                 return null;
             }
 
             $returnCallExpression = $node->expr;
 
-            if ($returnCallExpression !== null && $this->isObjectType(
+            if ($returnCallExpression instanceof Expr && $this->isObjectType(
                 $returnCallExpression,
                 new ObjectType('Psr\Http\Message\ResponseInterface')
             )) {
@@ -174,7 +175,7 @@ CODE_SAMPLE
 
     private function shouldSkip(ClassMethod $classMethod): bool
     {
-        if ($classMethod->returnType !== null && $this->isObjectType(
+        if ($classMethod->returnType instanceof Node && $this->isObjectType(
             $classMethod->returnType,
             new ObjectType('Psr\\Http\\Message\\ResponseInterface')
         )) {

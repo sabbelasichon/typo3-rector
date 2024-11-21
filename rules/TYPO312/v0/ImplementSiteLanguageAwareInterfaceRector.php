@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
 use PhpParser\Builder\Property;
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
@@ -137,7 +138,7 @@ CODE_SAMPLE
             $setterOfSiteLanguage = new ClassMethod(
                 'setSiteLanguage',
                 [
-                    'flags' => Class_::MODIFIER_PUBLIC,
+                    'flags' => Modifiers::PUBLIC,
                     'stmts' => [
                         new Expression(
                             $this->nodeFactory->createPropertyAssignmentWithExpr(
@@ -157,7 +158,7 @@ CODE_SAMPLE
             $getterOfSiteLanguage = new ClassMethod(
                 'getSiteLanguage',
                 [
-                    'flags' => Class_::MODIFIER_PUBLIC,
+                    'flags' => Modifiers::PUBLIC,
                     'stmts' => [new Return_($this->nodeFactory->createPropertyFetch('this', 'siteLanguage'))],
                     'returnType' => $siteLanguageName,
                 ]
