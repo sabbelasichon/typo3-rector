@@ -15,9 +15,9 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\TraitUse;
-use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -25,7 +25,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97435-UsageOfSiteLanguageAwareTraitToDenoteSiteLanguageAwareness.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector\ImplementSiteLanguageAwareInterfaceRectorTest
  */
-final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAwareRector
+final class ImplementSiteLanguageAwareInterfaceRector extends AbstractRector
 {
     /**
      * @return array<class-string<Node>>
@@ -74,12 +74,13 @@ CODE_SAMPLE
     /**
      * @param Class_ $node
      */
-    public function refactorWithScope(Node $node, Scope $scope): ?Node
+    public function refactor(Node $node): ?Node
     {
         $classHasChanged = false;
 
         $isSiteLanguageAwareClass = false;
 
+        $scope = ScopeFetcher::fetch($node);
         $classReflection = $scope->getClassReflection();
         if (! $classReflection instanceof ClassReflection) {
             return null;
