@@ -85,7 +85,11 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
 
         $docComment = $node->getDocComment();
         if (! $docComment instanceof Doc) {
-            return [sprintf(self::ERROR_MESSAGE, $className)];
+            return [
+                \PHPStan\Rules\RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $className))
+                    ->identifier('change.docblock')
+                    ->build(),
+            ];
         }
 
         $resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
@@ -101,6 +105,10 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
             return [];
         }
 
-        return [sprintf(self::ERROR_MESSAGE, $className)];
+        return [
+            \PHPStan\Rules\RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $className))
+                ->identifier('change.docblock')
+                ->build(),
+        ];
     }
 }

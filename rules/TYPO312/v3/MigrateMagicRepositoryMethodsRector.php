@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\TYPO312\v3;
 
 use PhpParser\Node;
 use PhpParser\Node\ArrayItem;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
