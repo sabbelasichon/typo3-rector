@@ -63,3 +63,5 @@ parameters:
 
         -
             identifier: assign.propertyType
+
+        - '#Method .*::provideMinPhpVersion\(\) never returns#'
