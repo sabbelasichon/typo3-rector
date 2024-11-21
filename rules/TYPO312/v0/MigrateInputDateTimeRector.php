@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\FuncCall;
-use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
@@ -179,14 +179,14 @@ CODE_SAMPLE
 
             if ($defaultValue === '') {
                 // Always use int as default (string values are no longer supported for "datetime")
-                $defaultArrayItem->value = new LNumber(0);
+                $defaultArrayItem->value = new Int_(0);
                 $this->hasAstBeenChanged = true;
                 return;
             }
 
             if ($this->canBeInterpretedAsInteger($defaultValue)) {
                 // Cast default to int, in case it can be interpreted as integer
-                $defaultArrayItem->value = new LNumber((int) $defaultValue);
+                $defaultArrayItem->value = new Int_((int) $defaultValue);
                 $this->hasAstBeenChanged = true;
                 return;
             }

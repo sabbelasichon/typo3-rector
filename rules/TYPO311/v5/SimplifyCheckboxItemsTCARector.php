@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO311\v5;
 
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
-use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\Int_;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -136,7 +136,7 @@ CODE_SAMPLE
             foreach ($firstItemsArray->items as $i => $arrayItem) {
                 if ($arrayItem instanceof ArrayItem) {
                     // add a numbered key
-                    $arrayItem->key = new LNumber($i);
+                    $arrayItem->key = new Int_($i);
                     $this->hasAstBeenChanged = true;
                 }
             }

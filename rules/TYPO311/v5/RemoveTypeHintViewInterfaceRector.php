@@ -118,7 +118,8 @@ CODE_SAMPLE
                 new FullyQualifiedIdentifierTypeNode('TYPO3\CMS\Extbase\Mvc\View\ViewInterface'),
                 \false,
                 $paramName,
-                ''
+                '',
+                false
             )
         );
         $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($classMethod);

@@ -14,7 +14,8 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\ObjectType;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -23,7 +24,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.2/Deprecation-99615-GeneralUtilityGPMerged.html#deprecation-99615-generalutility-gpmerged
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v2\MigrateGeneralUtilityGPMergedRector\MigrateGeneralUtilityGPMergedRectorTest
  */
-final class MigrateGeneralUtilityGPMergedRector extends AbstractScopeAwareRector
+final class MigrateGeneralUtilityGPMergedRector extends AbstractRector
 {
     /**
      * @readonly
@@ -95,7 +96,7 @@ CODE_SAMPLE
      * @param Expression $node
      * @return Expression[]|null
      */
-    public function refactorWithScope(Node $node, Scope $scope): ?array
+    public function refactor(Node $node): ?array
     {
         $assignNode = $node->expr;
         if (! $assignNode instanceof Assign) {
@@ -119,6 +120,7 @@ CODE_SAMPLE
             return null;
         }
 
+        $scope = ScopeFetcher::fetch($node);
         $getParsedBody = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
             $scope->getClassReflection(),
             $staticCall,

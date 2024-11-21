@@ -11,6 +11,7 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Contract\Rector\RectorInterface;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
@@ -85,7 +86,11 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
 
         $docComment = $node->getDocComment();
         if (! $docComment instanceof Doc) {
-            return [sprintf(self::ERROR_MESSAGE, $className)];
+            return [
+                RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $className))
+                    ->identifier('change.docblock')
+                    ->build(),
+            ];
         }
 
         $resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
@@ -101,6 +106,10 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
             return [];
         }
 
-        return [sprintf(self::ERROR_MESSAGE, $className)];
+        return [
+            RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $className))
+                ->identifier('change.docblock')
+                ->build(),
+        ];
     }
 }
