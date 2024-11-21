@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\PHPStan\Rules;
 
-use PHPStan\Rules\RuleErrorBuilder;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
@@ -12,6 +11,7 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\FileTypeMapper;
 use Rector\Contract\Rector\RectorInterface;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
