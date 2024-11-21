@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\TYPO312\v3;
 
 use PhpParser\Node;
 use PhpParser\Node\ArrayItem;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
@@ -99,7 +100,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractScopeAwareRector
 
         $newArgs = new Array_([new ArrayItem($node->args[0]->value, new String_(lcfirst($propertyName)))]);
 
-        return $this->nodeFactory->createMethodCall($node->var, $newMethodCall, [$newArgs->items]);
+        return $this->nodeFactory->createMethodCall($node->var, $newMethodCall, [$newArgs]);
     }
 
     public function getRuleDefinition(): RuleDefinition
