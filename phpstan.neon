@@ -60,3 +60,6 @@ parameters:
 
         -
             identifier: return.unusedType
+
+        -
+            identifier: assign.propertyType
