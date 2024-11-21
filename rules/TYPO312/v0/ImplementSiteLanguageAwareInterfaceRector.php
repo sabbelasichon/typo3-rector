@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO312\v0;
 
 use PhpParser\Builder\Property;
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name\FullyQualified;
@@ -14,9 +15,9 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\TraitUse;
-use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -24,7 +25,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97435-UsageOfSiteLanguageAwareTraitToDenoteSiteLanguageAwareness.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector\ImplementSiteLanguageAwareInterfaceRectorTest
  */
-final class ImplementSiteLanguageAwareInterfaceRector extends AbstractScopeAwareRector
+final class ImplementSiteLanguageAwareInterfaceRector extends AbstractRector
 {
     /**
      * @return array<class-string<Node>>
@@ -73,12 +74,13 @@ CODE_SAMPLE
     /**
      * @param Class_ $node
      */
-    public function refactorWithScope(Node $node, Scope $scope): ?Node
+    public function refactor(Node $node): ?Node
     {
         $classHasChanged = false;
 
         $isSiteLanguageAwareClass = false;
 
+        $scope = ScopeFetcher::fetch($node);
         $classReflection = $scope->getClassReflection();
         if (! $classReflection instanceof ClassReflection) {
             return null;
@@ -137,7 +139,7 @@ CODE_SAMPLE
             $setterOfSiteLanguage = new ClassMethod(
                 'setSiteLanguage',
                 [
-                    'flags' => Class_::MODIFIER_PUBLIC,
+                    'flags' => Modifiers::PUBLIC,
                     'stmts' => [
                         new Expression(
                             $this->nodeFactory->createPropertyAssignmentWithExpr(
@@ -157,7 +159,7 @@ CODE_SAMPLE
             $getterOfSiteLanguage = new ClassMethod(
                 'getSiteLanguage',
                 [
-                    'flags' => Class_::MODIFIER_PUBLIC,
+                    'flags' => Modifiers::PUBLIC,
                     'stmts' => [new Return_($this->nodeFactory->createPropertyFetch('this', 'siteLanguage'))],
                     'returnType' => $siteLanguageName,
                 ]

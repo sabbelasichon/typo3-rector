@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO312\v3;
 
 use PhpParser\Node;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\Scope;
@@ -15,7 +15,8 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\TypeCombinator;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 use Rector\Reflection\ReflectionResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -24,7 +25,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.3/Deprecation-100071-MagicRepositoryFindByMethods.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v3\typo3\MigrateMagicRepositoryMethodsRector\MigrateMagicRepositoryMethodsRectorTest
  */
-final class MigrateMagicRepositoryMethodsRector extends AbstractScopeAwareRector
+final class MigrateMagicRepositoryMethodsRector extends AbstractRector
 {
     /**
      * @readonly
@@ -47,7 +48,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractScopeAwareRector
     /**
      * @param MethodCall $node
      */
-    public function refactorWithScope(Node $node, Scope $scope): ?Node
+    public function refactor(Node $node): ?Node
     {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
@@ -69,6 +70,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractScopeAwareRector
             return null;
         }
 
+        $scope = ScopeFetcher::fetch($node);
         $methodReflection = $this->resolveMethodReflection($node, $scope, $methodName);
         # Class reflection only works when the method exists - thus we don't migrate if it succeeds/is not null
         if ($methodReflection instanceof MethodReflection) {
@@ -99,7 +101,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractScopeAwareRector
 
         $newArgs = new Array_([new ArrayItem($node->args[0]->value, new String_(lcfirst($propertyName)))]);
 
-        return $this->nodeFactory->createMethodCall($node->var, $newMethodCall, [$newArgs->items]);
+        return $this->nodeFactory->createMethodCall($node->var, $newMethodCall, [$newArgs]);
     }
 
     public function getRuleDefinition(): RuleDefinition

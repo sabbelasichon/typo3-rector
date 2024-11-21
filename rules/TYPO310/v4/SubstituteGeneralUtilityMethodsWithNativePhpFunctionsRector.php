@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO310\v4;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Mul;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\Int_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -70,7 +70,7 @@ final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector extends 
                 new Mul($this->nodeFactory->createFuncCall(
                     'microtime',
                     [$this->nodeFactory->createArg($this->nodeFactory->createTrue())]
-                ), new LNumber(1000)),
+                ), new Int_(1000)),
             ]);
         }
 

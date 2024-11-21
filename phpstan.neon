@@ -7,6 +7,8 @@ parameters:
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     level: 8
 
+    treatPhpDocTypesAsCertain: false
+
     paths:
         - bin
         - config
@@ -29,10 +31,6 @@ parameters:
         # static reflection
         - stubs
 
-    # see https://github.com/rectorphp/rector/issues/3490#issue-634342324
-    featureToggles:
-        disableRuntimeReflectionProvider: true
-
     bootstrapFiles:
          - tests/bootstrap-phpstan.php
 
@@ -50,3 +48,23 @@ parameters:
 
         - '#^Call to method needs\(\) on an unknown class Illuminate\\Contracts\\Container\\ContextualBindingBuilder.$#'
         - '#^Parameter \#1 \$node \(PhpParser\\Node\\Stmt\\Return_\) of method Ssch\\TYPO3Rector\\TYPO310\\v3\\RemoveExcludeOnTransOrigPointerFieldRector::refactor\(\)#'
+
+        -
+            identifier: phpunit.dataProviderMethod
+
+        -
+            identifier: return.type
+
+        -
+            identifier: method.childReturnType
+
+        -
+            identifier: return.unusedType
+
+        -
+            identifier: assign.propertyType
+
+        -
+            identifier: argument.type
+
+        - '#Method .*::provideMinPhpVersion\(\) never returns#'

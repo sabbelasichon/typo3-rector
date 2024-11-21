@@ -6,10 +6,10 @@ namespace Ssch\TYPO3Rector\TYPO312\v1;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
-use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.1/Deprecation-99020-DeprecateTypoScriptTemplateService.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v1\TemplateServiceToServerRequestFrontendTypoScriptAttributeRector\TemplateServiceToServerRequestFrontendTypoScriptAttributeRectorTest
  */
-final class TemplateServiceToServerRequestFrontendTypoScriptAttributeRector extends AbstractScopeAwareRector
+final class TemplateServiceToServerRequestFrontendTypoScriptAttributeRector extends AbstractRector
 {
     /**
      * @readonly
@@ -60,12 +60,13 @@ CODE_SAMPLE
     /**
      * @param PropertyFetch $node
      */
-    public function refactorWithScope(Node $node, Scope $scope): ?Node
+    public function refactor(Node $node): ?Node
     {
         if ($this->shouldSkip($node)) {
             return null;
         }
 
+        $scope = ScopeFetcher::fetch($node);
         $classReflection = $scope->getClassReflection();
         if ($classReflection instanceof ClassReflection && $classReflection->isSubclassOf(
             'TYPO3\CMS\Extbase\Mvc\Controller\ActionController'

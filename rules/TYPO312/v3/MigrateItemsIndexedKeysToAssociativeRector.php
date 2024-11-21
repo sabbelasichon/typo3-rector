@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO312\v3;
 
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
