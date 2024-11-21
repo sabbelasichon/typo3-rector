@@ -8,10 +8,10 @@ use PhpParser\BuilderFactory;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Throw_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
-use PhpParser\Node\Stmt\Throw_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -103,10 +103,10 @@ CODE_SAMPLE
         $responseVariable = new Variable('response');
         $assignment = new Expression(new Assign($responseVariable, $withHeaderCallNode));
 
-        $exception = new Throw_($this->builderFactory->new(
+        $exception = new Expression(new Throw_($this->builderFactory->new(
             '\\TYPO3\\CMS\\Core\\Http\\PropagateResponseException',
             [$responseVariable]
-        ));
+        )));
 
         return [new Nop(), $assignment, $exception];
     }

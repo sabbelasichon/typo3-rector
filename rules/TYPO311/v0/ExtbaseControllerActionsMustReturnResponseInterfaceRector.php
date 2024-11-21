@@ -10,13 +10,13 @@ use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Throw_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Return_;
-use PhpParser\Node\Stmt\Throw_;
 use PhpParser\NodeTraverser;
 use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
@@ -244,7 +244,7 @@ CODE_SAMPLE
 
     private function hasExceptionCall(Node $lastStatement): bool
     {
-        if (! $lastStatement instanceof Throw_) {
+        if (! ($lastStatement instanceof Expression && $lastStatement->expr instanceof Throw_)) {
             return false;
         }
 

@@ -6,8 +6,7 @@ namespace Ssch\TYPO3Rector\CodeQuality\General;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\Throw_ as ThrowExpression;
-use PhpParser\Node\Stmt\Throw_ as ThrowStatement;
+use PhpParser\Node\Expr\Throw_;
 use Rector\Rector\AbstractRector;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
@@ -37,11 +36,11 @@ CODE_SAMPLE
      */
     public function getNodeTypes(): array
     {
-        return [ThrowStatement::class, ThrowExpression::class];
+        return [Throw_::class];
     }
 
     /**
-     * @param ThrowStatement|ThrowExpression $node
+     * @param Throw_ $node
      */
     public function refactor(Node $node): ?Node
     {
@@ -64,7 +63,7 @@ CODE_SAMPLE
     }
 
     /**
-     * @param ThrowStatement|ThrowExpression $node
+     * @param Throw_ $node
      */
     private function shouldSkip($node): bool
     {
