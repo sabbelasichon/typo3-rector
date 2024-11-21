@@ -57,3 +57,6 @@ parameters:
 
         -
             identifier: method.childReturnType
+
+        -
+            identifier: return.unusedType
