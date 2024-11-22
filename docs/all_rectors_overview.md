@@ -1,4 +1,4 @@
-# 153 Rules Overview
+# 154 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (54)
 
-- [TYPO313](#typo313) (19)
+- [TYPO313](#typo313) (20)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3222,6 +3222,23 @@ Migrate plugin content element and plugin subtypes (list_type)
 -\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], [], 'list_type');
 +\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin([], 'CType', 'extension_key');
 +\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], [], 'CType');
+```
+
+<br>
+
+### MigratePluginContentElementAndPluginSubtypesSwapArgsRector
+
+Swap arguments for ExtensionManagementUtility::addPiFlexFormValue
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v4\MigratePluginContentElementAndPluginSubtypesSwapArgsRector`](../rules/TYPO313/v4/MigratePluginContentElementAndPluginSubtypesSwapArgsRector.php)
+
+```diff
+ ExtensionManagementUtility::addPiFlexFormValue(
++    '*',
++    'FILE:EXT:examples/Configuration/Flexforms/HtmlParser.xml',
+     $pluginSignature,
+-    'FILE:EXT:examples/Configuration/Flexforms/HtmlParser.xml',
+ );
 ```
 
 <br>
