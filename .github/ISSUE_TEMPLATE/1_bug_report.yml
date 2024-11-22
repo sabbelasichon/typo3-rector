@@ -1,12 +1,12 @@
 name: Bug Report
 description: Report an Issue or Bug with the Package
-title: "[BUG]: "
+title: "[BUG] "
 labels: ["Bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        We're sorry to hear you have a problem. Can you help us solve it by providing the following details.
+        We're sorry to hear you have a problem. Please help us solve it by providing the following details.
 
   - type: textarea
     id: current-code
@@ -43,7 +43,7 @@ body:
     attributes:
       label: Package Version
       description: What version of TYPO3 Rector are you running? Please be as specific as possible
-      placeholder: 2.0.0
+      placeholder: 2.11.0
     validations:
       required: true
 
