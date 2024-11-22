@@ -47,5 +47,36 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Core\Resource\FileType',
             'APPLICATION'
         ),
+
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Imaging\Icon',
+            'SIZE_DEFAULT',
+            'TYPO3\CMS\Core\Imaging\IconSize',
+            'DEFAULT'
+        ),
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Imaging\Icon',
+            'SIZE_SMALL',
+            'TYPO3\CMS\Core\Imaging\IconSize',
+            'SMALL'
+        ),
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Imaging\Icon',
+            'SIZE_MEDIUM',
+            'TYPO3\CMS\Core\Imaging\IconSize',
+            'MEDIUM'
+        ),
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Imaging\Icon',
+            'SIZE_LARGE',
+            'TYPO3\CMS\Core\Imaging\IconSize',
+            'LARGE'
+        ),
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Imaging\Icon',
+            'SIZE_MEGA',
+            'TYPO3\CMS\Core\Imaging\IconSize',
+            'MEGA'
+        ),
     ]);
 };
