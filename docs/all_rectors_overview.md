@@ -227,7 +227,7 @@ Migrate all FILETYPE_* constants from AbstractFile to FileType enum class
 
 ```diff
 -\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_UNKNOWN;
-+\TYPO3\CMS\Core\Resource\FileType::UNKNOWN->value;
++\TYPO3\CMS\Core\Resource\FileType::UNKNOWN;
 ```
 
 <br>
