@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\General\Renaming;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\PropertyFetch;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
@@ -17,6 +16,9 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 
+/**
+ * @see \Ssch\TYPO3Rector\Tests\Rector\General\Renaming\ConstantsToBackedEnumValueRector\ConstantsToBackedEnumValueRectorTest
+ */
 final class ConstantsToBackedEnumValueRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface, NoChangelogRequiredInterface
 {
     /**
@@ -42,7 +44,7 @@ final class ConstantsToBackedEnumValueRector extends AbstractRector implements C
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-\TYPO3\CMS\Core\Resource\FileType::UNKNOWN->value;
+\TYPO3\CMS\Core\Resource\FileType::UNKNOWN;
 CODE_SAMPLE
                 ,
                 [
@@ -76,12 +78,10 @@ CODE_SAMPLE
                 continue;
             }
 
-            $enumConstFetch = $this->nodeFactory->createClassConstFetch(
+            return $this->nodeFactory->createClassConstFetch(
                 $renameClassConstFetch->getNewClass(),
                 $renameClassConstFetch->getNewConstant()
             );
-
-            return new PropertyFetch($enumConstFetch, 'value');
         }
 
         return null;

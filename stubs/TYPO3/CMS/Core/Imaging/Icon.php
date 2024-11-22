@@ -11,6 +11,7 @@ class Icon
     const SIZE_SMALL = 'small';
     const SIZE_DEFAULT = 'default';
     const SIZE_LARGE = 'large';
+    const SIZE_MEGA = 'mega';
     const SIZE_OVERLAY = 'overlay';
     const SIZE_MEDIUM = 'default';
 }
