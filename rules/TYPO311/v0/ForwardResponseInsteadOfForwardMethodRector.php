@@ -176,7 +176,7 @@ CODE_SAMPLE
 
     private function changeActionMethodReturnTypeIfPossible(ClassMethod $actionMethodNode): void
     {
-        if ($actionMethodNode->returnType instanceof Identifier && $actionMethodNode->returnType->name !== null && $actionMethodNode->returnType->name === 'void') {
+        if ($actionMethodNode->returnType instanceof Identifier && $actionMethodNode->returnType->name === 'void') {
             $actionMethodNode->returnType = null;
         }
 
@@ -188,7 +188,7 @@ CODE_SAMPLE
         $actionMethodNode->setAttribute(AttributeKey::COMMENTS, $comments);
 
         // Add returnType only if it is the only statement, otherwise it is not reliable
-        if (is_countable($actionMethodNode->stmts) && count((array) $actionMethodNode->stmts) === 1) {
+        if (is_countable($actionMethodNode->stmts) && count($actionMethodNode->stmts) === 1) {
             $actionMethodNode->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
         }
     }

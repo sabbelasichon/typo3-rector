@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO313\v3;
 
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
+use PhpParser\Node\PropertyItem;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Property;
-use PhpParser\Node\Stmt\PropertyProperty;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\TraitUse;
 use PhpParser\Node\VariadicPlaceholder;
@@ -142,7 +143,7 @@ CODE_SAMPLE
         // Rename method and make it non-static
         $staticMethodNode->params = [];
         $staticMethodNode->name = new Identifier('render');
-        $staticMethodNode->flags ^= Class_::MODIFIER_STATIC;
+        $staticMethodNode->flags ^= Modifiers::STATIC;
 
         // Use new API to set content argument
         $resolveContentArgumentNameMethod = $classNode->getMethod('resolveContentArgumentName');
@@ -159,7 +160,7 @@ CODE_SAMPLE
                 }
 
                 foreach ($stmt->props as $propKey => $prop) {
-                    if ($prop instanceof PropertyProperty && $prop->name->toString() === 'contentArgumentName') {
+                    if ($prop instanceof PropertyItem && $prop->name->toString() === 'contentArgumentName') {
                         $defaultValueExpression = $prop->default;
                         unset($stmt->props[$propKey]);
                     }
@@ -171,7 +172,7 @@ CODE_SAMPLE
             }
 
             $getContentArgumentNameMethod = new ClassMethod('getContentArgumentName');
-            $getContentArgumentNameMethod->flags = Class_::MODIFIER_PUBLIC;
+            $getContentArgumentNameMethod->flags = Modifiers::PUBLIC;
             $getContentArgumentNameMethod->stmts[] = new Return_($defaultValueExpression);
             $getContentArgumentNameMethod->returnType = new Identifier('string');
 
@@ -219,7 +220,7 @@ CODE_SAMPLE
                     }
 
                     $resolveContentArgumentNameMethod = $classNode->getMethod('resolveContentArgumentName');
-                    if ($resolveContentArgumentNameMethod) {
+                    if ($resolveContentArgumentNameMethod instanceof ClassMethod) {
                         return true;
                     }
                 }

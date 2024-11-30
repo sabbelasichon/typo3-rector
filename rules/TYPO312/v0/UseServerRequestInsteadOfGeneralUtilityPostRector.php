@@ -9,8 +9,8 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
-use PHPStan\Analyser\Scope;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-99633-GeneralUtilityPOST.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\UseServerRequestInsteadOfGeneralUtilityPostRector\UseServerRequestInsteadOfGeneralUtilityPostRectorTest
  */
-final class UseServerRequestInsteadOfGeneralUtilityPostRector extends AbstractScopeAwareRector
+final class UseServerRequestInsteadOfGeneralUtilityPostRector extends AbstractRector
 {
     /**
      * @readonly
@@ -85,8 +85,9 @@ CODE_SAMPLE
     /**
      * @param Coalesce|StaticCall $node
      */
-    public function refactorWithScope(Node $node, Scope $scope): ?Node
+    public function refactor(Node $node): ?Node
     {
+        $scope = ScopeFetcher::fetch($node);
         if ($node instanceof Coalesce) {
             $staticCall = $node->left;
 

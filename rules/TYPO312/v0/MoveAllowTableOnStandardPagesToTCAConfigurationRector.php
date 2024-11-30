@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO312\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Expression;
-use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
@@ -99,7 +99,7 @@ CODE_SAMPLE
             $this->writeConfigurationToFile($newConfigurationFile, $tableName);
         }
 
-        return NodeTraverser::REMOVE_NODE;
+        return NodeVisitor::REMOVE_NODE;
     }
 
     private function shouldSkip(StaticCall $staticMethodCall): bool

@@ -17,10 +17,10 @@ use PhpParser\Node\Stmt;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
-use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use Rector\Enum\ObjectReference;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 use Rector\ValueObject\MethodName;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -29,7 +29,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-96998-ExtbaseValidatorInterfaceChanged.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ChangeExtbaseValidatorsRector\ChangeExtbaseValidatorsRectorTest
  */
-final class ChangeExtbaseValidatorsRector extends AbstractScopeAwareRector
+final class ChangeExtbaseValidatorsRector extends AbstractRector
 {
     /**
      * @return array<class-string<Node>>
@@ -42,8 +42,9 @@ final class ChangeExtbaseValidatorsRector extends AbstractScopeAwareRector
     /**
      * @param Class_ $node
      */
-    public function refactorWithScope(Node $node, Scope $scope)
+    public function refactor(Node $node): ?Class_
     {
+        $scope = ScopeFetcher::fetch($node);
         $classReflection = $scope->getClassReflection();
 
         if (! $classReflection instanceof ClassReflection) {
@@ -234,7 +235,7 @@ CODE_SAMPLE
             return;
         }
 
-        if ($isValidClassMethod->returnType !== null) {
+        if ($isValidClassMethod->returnType instanceof Node) {
             return;
         }
 
@@ -249,7 +250,7 @@ CODE_SAMPLE
             return;
         }
 
-        if ($validateClassMethod->returnType !== null) {
+        if ($validateClassMethod->returnType instanceof Node) {
             return;
         }
 

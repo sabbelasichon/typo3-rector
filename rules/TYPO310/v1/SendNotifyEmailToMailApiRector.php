@@ -18,7 +18,7 @@ use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Name;
 use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\If_;
@@ -270,21 +270,21 @@ CODE_SAMPLE
     {
         return new Expression(new Assign(new Variable(self::MESSAGE_PARTS), $this->nodeFactory->createFuncCall(
             'explode',
-            [new ConstFetch(new Name('LF')), new Variable(self::MESSAGE), new LNumber(2)]
+            [new ConstFetch(new Name('LF')), new Variable(self::MESSAGE), new Int_(2)]
         )));
     }
 
     private function subjectFromMessageParts(): Expression
     {
         return new Expression(new Assign(new Variable(self::SUBJECT), $this->nodeFactory->createFuncCall(self::TRIM, [
-            new ArrayDimFetch(new Variable(self::MESSAGE_PARTS), new LNumber(0)),
+            new ArrayDimFetch(new Variable(self::MESSAGE_PARTS), new Int_(0)),
         ])));
     }
 
     private function bodyFromMessageParts(): Expression
     {
         return new Expression(new Assign(new Variable('plainMessage'), $this->nodeFactory->createFuncCall(self::TRIM, [
-            new ArrayDimFetch(new Variable(self::MESSAGE_PARTS), new LNumber(1)),
+            new ArrayDimFetch(new Variable(self::MESSAGE_PARTS), new Int_(1)),
         ])));
     }
 
