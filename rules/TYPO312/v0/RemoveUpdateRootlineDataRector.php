@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO312\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Expression;
-use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -49,7 +49,7 @@ final class RemoveUpdateRootlineDataRector extends AbstractRector
             return null;
         }
 
-        return NodeTraverser::REMOVE_NODE;
+        return NodeVisitor::REMOVE_NODE;
     }
 
     public function getRuleDefinition(): RuleDefinition

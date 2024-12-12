@@ -9,7 +9,7 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
-use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor;
 use PHPStan\Type\ObjectType;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
@@ -235,7 +235,7 @@ return {$content};
 CODE);
         }
 
-        return NodeTraverser::REMOVE_NODE;
+        return NodeVisitor::REMOVE_NODE;
     }
 
     private function shouldSkip(StaticCall $staticMethodCall): bool

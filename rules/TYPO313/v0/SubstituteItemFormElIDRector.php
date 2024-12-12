@@ -8,10 +8,10 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Scalar\String_;
-use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use Rector\PhpParser\Node\Value\ValueResolver;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\PHPStan\ScopeFetcher;
+use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -19,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-102968-FormEngineItemFormElIDRemoved.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\SubstituteItemFormElIDRector\SubstituteItemFormElIDRectorTest
  */
-final class SubstituteItemFormElIDRector extends AbstractScopeAwareRector
+final class SubstituteItemFormElIDRector extends AbstractRector
 {
     /**
      * @readonly
@@ -54,7 +54,7 @@ CODE_SAMPLE
     /**
      * @param ArrayDimFetch $node
      */
-    public function refactorWithScope(Node $node, Scope $scope)
+    public function refactor(Node $node): ?Node
     {
         if ($node->dim === null) {
             return null;
@@ -66,6 +66,7 @@ CODE_SAMPLE
             return null;
         }
 
+        $scope = ScopeFetcher::fetch($node);
         $classReflection = $scope->getClassReflection();
 
         if (! $classReflection instanceof ClassReflection) {

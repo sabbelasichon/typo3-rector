@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\TYPO311\v5;
 
+use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -171,7 +172,7 @@ CODE_SAMPLE
         $propertyMetadata = new PropertyMetadata(
             'iconFactory',
             new ObjectType('TYPO3\CMS\Core\Imaging\IconFactory'),
-            Class_::MODIFIER_PRIVATE
+            Modifiers::PRIVATE
         );
         $this->classDependencyManipulator->addConstructorDependency($class, $propertyMetadata);
     }
@@ -181,7 +182,7 @@ CODE_SAMPLE
         $propertyMetadata = new PropertyMetadata(
             'pageRenderer',
             new ObjectType('TYPO3\CMS\Core\Page\PageRenderer'),
-            Class_::MODIFIER_PRIVATE
+            Modifiers::PRIVATE
         );
 
         $this->classDependencyManipulator->addConstructorDependency($class, $propertyMetadata);

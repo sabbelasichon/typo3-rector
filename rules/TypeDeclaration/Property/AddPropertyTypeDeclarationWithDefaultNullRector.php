@@ -6,13 +6,13 @@ namespace Ssch\TYPO3Rector\TypeDeclaration\Property;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
-use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\StringType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Exception\ShouldNotHappenException;
+use Rector\PHPStan\ScopeFetcher;
 use Rector\PHPStanStaticTypeMapper\Enum\TypeKind;
-use Rector\Rector\AbstractScopeAwareRector;
+use Rector\Rector\AbstractRector;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
@@ -23,7 +23,7 @@ use Webmozart\Assert\Assert;
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationWithDefaultNullRector\AddPropertyTypeDeclarationWithDefaultNullRectorTest
  */
-final class AddPropertyTypeDeclarationWithDefaultNullRector extends AbstractScopeAwareRector implements ConfigurableRectorInterface, NoChangelogRequiredInterface
+final class AddPropertyTypeDeclarationWithDefaultNullRector extends AbstractRector implements ConfigurableRectorInterface, NoChangelogRequiredInterface
 {
     /**
      * @readonly
@@ -72,13 +72,14 @@ CODE_SAMPLE
     /**
      * @param Property $node
      */
-    public function refactorWithScope(Node $node, Scope $scope): ?Node
+    public function refactor(Node $node): ?Node
     {
         // type is already known
         if ($node->type !== null) {
             return null;
         }
 
+        $scope = ScopeFetcher::fetch($node);
         $classReflection = $scope->getClassReflection();
         if (! $classReflection instanceof ClassReflection) {
             return null;

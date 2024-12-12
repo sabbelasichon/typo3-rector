@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO312\AnnotationToAttribute;
 
 use PhpParser\Node\Arg;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;

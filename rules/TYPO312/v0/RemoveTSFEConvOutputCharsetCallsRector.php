@@ -49,7 +49,7 @@ final class RemoveTSFEConvOutputCharsetCallsRector extends AbstractRector
             return null;
         }
 
-        return $node->args[0];
+        return $node->args[0]->value;
     }
 
     public function getRuleDefinition(): RuleDefinition

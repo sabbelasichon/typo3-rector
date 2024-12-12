@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO311\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Throw_;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Function_;
 use PhpParser\Node\Stmt\Return_;
-use PhpParser\Node\Stmt\Throw_;
-use PhpParser\NodeTraverser;
+use PhpParser\NodeVisitor;
 use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
@@ -66,7 +67,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
 
         $this->traverseNodesWithCallable($node, function (Node $node) {
             if ($node instanceof Class_ || $node instanceof Function_ || $node instanceof Closure) {
-                return NodeTraverser::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
+                return NodeVisitor::DONT_TRAVERSE_CURRENT_AND_CHILDREN;
             }
 
             if (! $node instanceof Return_) {
@@ -75,13 +76,13 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
 
             $responseObjectType = new ObjectType('Psr\\Http\\Message\\ResponseInterface');
 
-            if ($node->expr !== null && $this->isObjectType($node->expr, $responseObjectType)) {
+            if ($node->expr instanceof Expr && $this->isObjectType($node->expr, $responseObjectType)) {
                 return null;
             }
 
             $returnCallExpression = $node->expr;
 
-            if ($returnCallExpression !== null && $this->isObjectType(
+            if ($returnCallExpression instanceof Expr && $this->isObjectType(
                 $returnCallExpression,
                 new ObjectType('Psr\Http\Message\ResponseInterface')
             )) {
@@ -174,7 +175,7 @@ CODE_SAMPLE
 
     private function shouldSkip(ClassMethod $classMethod): bool
     {
-        if ($classMethod->returnType !== null && $this->isObjectType(
+        if ($classMethod->returnType instanceof Node && $this->isObjectType(
             $classMethod->returnType,
             new ObjectType('Psr\\Http\\Message\\ResponseInterface')
         )) {
@@ -243,7 +244,7 @@ CODE_SAMPLE
 
     private function hasExceptionCall(Node $lastStatement): bool
     {
-        if (! $lastStatement instanceof Throw_) {
+        if (! ($lastStatement instanceof Expression && $lastStatement->expr instanceof Throw_)) {
             return false;
         }
 

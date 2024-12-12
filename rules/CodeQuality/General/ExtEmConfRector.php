@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\CodeQuality\General;
 
 use PhpParser\Node;
+use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Scalar\String_;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
@@ -111,7 +111,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
             return null;
         }
 
-        if ($node->expr->items === [] || $node->expr->items === null) {
+        if ($node->expr->items === []) {
             return null;
         }
 
@@ -142,7 +142,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
                 continue;
             }
 
-            if ($item->value->items === null) {
+            if ($item->value->items === []) {
                 continue;
             }
 
@@ -160,7 +160,7 @@ final class ExtEmConfRector extends AbstractRector implements ConfigurableRector
                     continue;
                 }
 
-                if ($constraintItem->value->items === null) {
+                if ($constraintItem->value->items === []) {
                     continue;
                 }
 

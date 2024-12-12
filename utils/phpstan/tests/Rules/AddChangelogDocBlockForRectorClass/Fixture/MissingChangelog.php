@@ -16,13 +16,16 @@ final class MissingChangelog extends AbstractRector implements RectorInterface
      */
     public function getNodeTypes(): array
     {
+        return [];
     }
 
     public function refactor(Node $node): ?Node
     {
+        return null;
     }
 
     public function getRuleDefinition(): RuleDefinition
     {
+        return new RuleDefinition('', []);
     }
 }
