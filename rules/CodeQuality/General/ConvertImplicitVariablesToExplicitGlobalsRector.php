@@ -10,6 +10,7 @@ use Rector\Rector\AbstractRector;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ExtensionArchitecture/BestPractises/ConfigurationFiles.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector\ConvertImplicitVariablesToExplicitGlobalsRectorTest
  */
-final class ConvertImplicitVariablesToExplicitGlobalsRector extends AbstractRector
+final class ConvertImplicitVariablesToExplicitGlobalsRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

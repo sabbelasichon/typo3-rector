@@ -12,6 +12,7 @@ use PHPStan\Type\ObjectType;
 use Rector\PhpParser\AstResolver;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -19,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.4/Deprecation-94684-GeneralUtilityShortMD5.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v4\UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector\UseNativeFunctionInsteadOfGeneralUtilityShortMd5RectorTest
  */
-final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector extends AbstractRector
+final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

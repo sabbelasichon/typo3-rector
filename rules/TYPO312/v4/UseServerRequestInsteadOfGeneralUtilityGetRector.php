@@ -12,6 +12,7 @@ use PhpParser\Node\Expr\StaticCall;
 use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -19,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.4/Deprecation-100596-GeneralUtility_GET.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v4\UseServerRequestInsteadOfGeneralUtilityGetRector\UseServerRequestInsteadOfGeneralUtilityGetRectorTest
  */
-final class UseServerRequestInsteadOfGeneralUtilityGetRector extends AbstractRector
+final class UseServerRequestInsteadOfGeneralUtilityGetRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

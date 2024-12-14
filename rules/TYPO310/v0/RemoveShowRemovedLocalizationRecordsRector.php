@@ -8,13 +8,14 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\RemoveShowRemovedLocalizationRecordsRector\RemoveShowRemovedLocalizationRecordsRectorTest
  */
-final class RemoveShowRemovedLocalizationRecordsRector extends AbstractTcaRector implements NoChangelogRequiredInterface
+final class RemoveShowRemovedLocalizationRecordsRector extends AbstractTcaRector implements NoChangelogRequiredInterface, DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

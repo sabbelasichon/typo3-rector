@@ -13,6 +13,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -20,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.1/Deprecation-88787-BackendUtilityEditOnClick.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v1\BackendUtilityEditOnClickRector\BackendUtilityEditOnClickRectorTest
  */
-final class BackendUtilityEditOnClickRector extends AbstractRector
+final class BackendUtilityEditOnClickRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @return array<class-string<Node>>

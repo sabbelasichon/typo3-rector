@@ -12,6 +12,7 @@ use PHPStan\Reflection\ClassReflection;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -19,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-102968-FormEngineItemFormElIDRemoved.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\SubstituteItemFormElIDRector\SubstituteItemFormElIDRectorTest
  */
-final class SubstituteItemFormElIDRector extends AbstractRector
+final class SubstituteItemFormElIDRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

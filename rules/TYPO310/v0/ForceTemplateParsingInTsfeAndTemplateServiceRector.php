@@ -16,6 +16,7 @@ use PhpParser\Node\Name;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -23,7 +24,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.0/Deprecation-88792-ForceTemplateParsingInTSFEAndTemplateService.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\ForceTemplateParsingInTsfeAndTemplateServiceRector\ForceTemplateParsingInTsfeAndTemplateServiceRectorTest
  */
-final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractRector
+final class ForceTemplateParsingInTsfeAndTemplateServiceRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @var string

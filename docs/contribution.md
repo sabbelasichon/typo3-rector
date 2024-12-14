@@ -68,7 +68,7 @@ In this example the methods `GeneralUtility::strtoupper(...)` and `GeneralUtilit
 - after that, the actual function call is checked for being one of the functions to migrate
 
 ```php
-final class GeneralUtilityToUpperAndLowerRector extends AbstractRector
+final class GeneralUtilityToUpperAndLowerRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @return array<class-string<Node>>
@@ -107,7 +107,7 @@ In this case you need to listen to an `Expression`.
 Do a full text search for `[Expression::class]` to find existing rules which can help you.
 
 ```php
-final class MyRector extends AbstractRector
+final class MyRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function getNodeTypes(): array
     {

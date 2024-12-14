@@ -17,6 +17,7 @@ use Ssch\TYPO3Rector\ComposerExtensionKeyResolver;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\Helper\ExtensionKeyResolverTrait;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -24,7 +25,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Deprecation-101807-ExtensionManagementUtilityaddUserTSConfig.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateAddUserTSConfigToUserTsConfigFileRector\MigrateAddUserTSConfigToUserTsConfigFileRectorTest
  */
-final class MigrateAddUserTSConfigToUserTsConfigFileRector extends AbstractRector
+final class MigrateAddUserTSConfigToUserTsConfigFileRector extends AbstractRector implements DocumentedRuleInterface
 {
     use ExtensionKeyResolverTrait;
 

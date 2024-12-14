@@ -9,6 +9,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -16,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.4/Deprecation-95037-RootUidRelatedSettingOfTrees.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v4\MigrateRootUidToStartingPointsRector\MigrateRootUidToStartingPointsRectorTest
  */
-final class MigrateRootUidToStartingPointsRector extends AbstractTcaRector
+final class MigrateRootUidToStartingPointsRector extends AbstractTcaRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

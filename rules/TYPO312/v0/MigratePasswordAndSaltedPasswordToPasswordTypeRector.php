@@ -13,6 +13,7 @@ use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 use Ssch\TYPO3Rector\Helper\StringUtility;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -20,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-97104-NewTCATypePassword.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigratePasswordAndSaltedPasswordToPasswordTypeRector\MigratePasswordAndSaltedPasswordToPasswordTypeRectorTest
  */
-final class MigratePasswordAndSaltedPasswordToPasswordTypeRector extends AbstractTcaRector
+final class MigratePasswordAndSaltedPasswordToPasswordTypeRector extends AbstractTcaRector implements DocumentedRuleInterface
 {
     /**
      * @var string

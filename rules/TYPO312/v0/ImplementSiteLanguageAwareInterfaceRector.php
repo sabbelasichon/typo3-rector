@@ -18,6 +18,7 @@ use PhpParser\Node\Stmt\TraitUse;
 use PHPStan\Reflection\ClassReflection;
 use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -25,7 +26,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97435-UsageOfSiteLanguageAwareTraitToDenoteSiteLanguageAwareness.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ImplementSiteLanguageAwareInterfaceRector\ImplementSiteLanguageAwareInterfaceRectorTest
  */
-final class ImplementSiteLanguageAwareInterfaceRector extends AbstractRector
+final class ImplementSiteLanguageAwareInterfaceRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @return array<class-string<Node>>

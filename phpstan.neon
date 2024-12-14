@@ -33,6 +33,7 @@ parameters:
 
     bootstrapFiles:
          - tests/bootstrap-phpstan.php
+         - vendor/rector/rector/vendor/symplify/rule-doc-generator-contracts/src/Contract/DocumentedRuleInterface.php
 
     inferPrivatePropertyTypeFromConstructor: true
     reportUnmatchedIgnoredErrors: false

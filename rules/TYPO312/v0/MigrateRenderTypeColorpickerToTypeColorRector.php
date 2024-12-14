@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-97271-NewTCATypeColor.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\MigrateRenderTypeColorpickerToTypeColorRector\MigrateRenderTypeColorpickerToTypeColorRectorTest
  */
-final class MigrateRenderTypeColorpickerToTypeColorRector extends AbstractTcaRector
+final class MigrateRenderTypeColorpickerToTypeColorRector extends AbstractTcaRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

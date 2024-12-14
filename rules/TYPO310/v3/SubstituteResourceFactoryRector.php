@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -15,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.3/Deprecation-90260-ResourceFactorygetInstancePseudo-factory.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v3\SubstituteResourceFactoryRector\SubstituteResourceFactoryRectorTest
  */
-final class SubstituteResourceFactoryRector extends AbstractRector
+final class SubstituteResourceFactoryRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @return array<class-string<Node>>

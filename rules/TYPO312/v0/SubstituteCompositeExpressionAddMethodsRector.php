@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-97244-CompositeExpressionMethodsAddAndAddMultiple.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\SubstituteCompositeExpressionAddMethodsRector\SubstituteCompositeExpressionAddMethodsRectorTest
  */
-final class SubstituteCompositeExpressionAddMethodsRector extends AbstractRector
+final class SubstituteCompositeExpressionAddMethodsRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @return array<class-string<Node>>

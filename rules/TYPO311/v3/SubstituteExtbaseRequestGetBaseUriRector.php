@@ -18,6 +18,7 @@ use Rector\BetterPhpDocParser\ValueObject\Type\FullyQualifiedIdentifierTypeNode;
 use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -25,7 +26,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.3/Deprecation-94223-ExtbaseRequest-getBaseUri.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v3\SubstituteExtbaseRequestGetBaseUriRector\SubstituteExtbaseRequestGetBaseUriRectorTest
  */
-final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector
+final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @var string

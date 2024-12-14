@@ -11,6 +11,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -18,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.4/Deprecation-100405-PropertyTypoScriptFrontendController-type.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v4\MigrateTypoScriptFrontendControllerTypeRector\MigrateTypoScriptFrontendControllerTypeRectorTest
  */
-final class MigrateTypoScriptFrontendControllerTypeRector extends AbstractRector
+final class MigrateTypoScriptFrontendControllerTypeRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

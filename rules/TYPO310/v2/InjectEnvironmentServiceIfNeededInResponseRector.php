@@ -20,6 +20,7 @@ use PHPStan\Type\VerbosityLevel;
 use Rector\NodeManipulator\ClassInsertManipulator;
 use Rector\Rector\AbstractRector;
 use Rector\StaticTypeMapper\ValueObject\Type\FullyQualifiedObjectType;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -28,7 +29,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  *
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v2\InjectEnvironmentServiceIfNeededInResponseRector\InjectEnvironmentServiceIfNeededInResponseRectorTest
  */
-final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRector
+final class InjectEnvironmentServiceIfNeededInResponseRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @var string

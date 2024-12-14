@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\Int_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.4/Deprecation-91001-VariousMethodsWithinGeneralUtility.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v4\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector\SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRectorTest
  */
-final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector extends AbstractRector
+final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @var string[]

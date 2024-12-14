@@ -13,6 +13,7 @@ use PHPStan\Type\ObjectType;
 use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -20,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.5/Deprecation-95235-PublicGetterOfServicesInModuleTemplate.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v5\SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector\SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRectorTest
  */
-final class SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector extends AbstractRector
+final class SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

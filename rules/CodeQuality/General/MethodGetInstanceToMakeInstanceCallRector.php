@@ -10,6 +10,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
@@ -17,7 +18,7 @@ use Webmozart\Assert\Assert;
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MethodGetInstanceToMakeInstanceCallRector\MethodGetInstanceToMakeInstanceCallRectorTest
  */
-final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector implements ConfigurableRectorInterface, NoChangelogRequiredInterface
+final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector implements ConfigurableRectorInterface, NoChangelogRequiredInterface, DocumentedRuleInterface
 {
     /**
      * @var string

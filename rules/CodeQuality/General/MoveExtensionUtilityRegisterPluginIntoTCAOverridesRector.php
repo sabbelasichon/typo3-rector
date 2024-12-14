@@ -17,6 +17,7 @@ use Ssch\TYPO3Rector\ComposerExtensionKeyResolver;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\Helper\ExtensionKeyResolverTrait;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -24,7 +25,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://review.typo3.org/c/Packages/TYPO3.CMS/+/52437
  * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRectorTest
  */
-final class MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector extends AbstractRector
+final class MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector extends AbstractRector implements DocumentedRuleInterface
 {
     use ExtensionKeyResolverTrait;
 

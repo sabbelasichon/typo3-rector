@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -15,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.1/Deprecation-102762-GeneralUtilityhmac.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v1\MigrateGeneralUtilityHmacToHashServiceHmacRector\MigrateGeneralUtilityHmacToHashServiceHmacRectorTest
  */
-final class MigrateGeneralUtilityHmacToHashServiceHmacRector extends AbstractRector
+final class MigrateGeneralUtilityHmacToHashServiceHmacRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

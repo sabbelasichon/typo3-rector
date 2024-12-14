@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\TYPO310\v0;
 
 use PhpParser\Node;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -14,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * The rules for TYPO3 prior v10 have been deleted; that is why these are added here.
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\UseConstantsFromTYPO3DatabaseConnection\UseConstantsFromTYPO3DatabaseConnectionTest
  */
-final class UseConstantsFromTYPO3DatabaseConnection extends AbstractRector
+final class UseConstantsFromTYPO3DatabaseConnection extends AbstractRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

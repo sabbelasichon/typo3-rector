@@ -11,6 +11,7 @@ use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -18,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-102875-ExpressionBuilderChanges.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateExpressionBuilderTrimMethodSecondParameterRector\MigrateExpressionBuilderTrimMethodSecondParameterRectorTest
  */
-final class MigrateExpressionBuilderTrimMethodSecondParameterRector extends AbstractRector implements MinPhpVersionInterface
+final class MigrateExpressionBuilderTrimMethodSecondParameterRector extends AbstractRector implements MinPhpVersionInterface, DocumentedRuleInterface
 {
     /**
      * @var array<int, string>

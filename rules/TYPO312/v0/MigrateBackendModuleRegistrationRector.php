@@ -25,6 +25,7 @@ use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\Helper\ArrayUtility;
 use Ssch\TYPO3Rector\Helper\ExtensionKeyResolverTrait;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Throwable;
@@ -33,7 +34,7 @@ use Throwable;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-96733-NewBackendModuleRegistrationAPI.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateBackendModuleRegistrationRector\MigrateBackendModuleRegistrationRectorTest
  */
-final class MigrateBackendModuleRegistrationRector extends AbstractRector
+final class MigrateBackendModuleRegistrationRector extends AbstractRector implements DocumentedRuleInterface
 {
     use ExtensionKeyResolverTrait;
 

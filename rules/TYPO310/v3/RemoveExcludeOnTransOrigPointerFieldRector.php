@@ -10,6 +10,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Stmt\Return_;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.3/Important-89672-TransOrigPointerFieldIsNotLongerAllowedToBeExcluded.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v3\RemoveExcludeOnTransOrigPointerFieldRector\RemoveExcludeOnTransOrigPointerFieldRectorTest
  */
-final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractTcaRector
+final class RemoveExcludeOnTransOrigPointerFieldRector extends AbstractTcaRector implements DocumentedRuleInterface
 {
     /**
      * @return array<class-string<Node>>

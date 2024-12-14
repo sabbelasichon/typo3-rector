@@ -13,6 +13,7 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -20,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Deprecation-98479-DeprecatedFileReferenceRelatedFunctionality.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateFileFieldTCAConfigToTCATypeFileRector\MigrateFileFieldTCAConfigToTCATypeFileRectorTest
  */
-final class MigrateFileFieldTCAConfigToTCATypeFileRector extends AbstractRector
+final class MigrateFileFieldTCAConfigToTCATypeFileRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

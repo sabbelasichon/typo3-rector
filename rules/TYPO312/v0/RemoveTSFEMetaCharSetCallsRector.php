@@ -10,6 +10,7 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-97065-TYPO3FrontendAlwaysRenderedInUTF-8.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\RemoveTSFEMetaCharSetCallsRector\RemoveTSFEMetaCharSetCallsRectorTest
  */
-final class RemoveTSFEMetaCharSetCallsRector extends AbstractRector
+final class RemoveTSFEMetaCharSetCallsRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

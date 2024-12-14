@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -19,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateFetchAllToFetchAllAssociativeRector\MigrateFetchAllToFetchAllAssociativeRectorTest
  * @see MigrateQueryBuilderExecuteRector
  */
-final class MigrateFetchAllToFetchAllAssociativeRector extends AbstractRector
+final class MigrateFetchAllToFetchAllAssociativeRector extends AbstractRector implements DocumentedRuleInterface
 {
     private ValueResolver $valueResolver;
 

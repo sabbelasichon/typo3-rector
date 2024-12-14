@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -15,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.0/Breaking-87627-RemovePropertyExtensionNameOfAbstractController.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\RemovePropertyExtensionNameRector\RemovePropertyExtensionNameRectorTest
  */
-final class RemovePropertyExtensionNameRector extends AbstractRector
+final class RemovePropertyExtensionNameRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @return array<class-string<Node>>

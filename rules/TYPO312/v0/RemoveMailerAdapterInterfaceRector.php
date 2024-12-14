@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO312\v0;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -14,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-97752-MailerAdapterInterfaceRemoved.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\RemoveMailerAdapterInterfaceRector\RemoveMailerAdapterInterfaceRectorTest
  */
-final class RemoveMailerAdapterInterfaceRector extends AbstractRector
+final class RemoveMailerAdapterInterfaceRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function getNodeTypes(): array
     {
