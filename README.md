@@ -57,7 +57,7 @@ vendor/bin/rector process
 
 |                    | v1                                    | v2, v3         |
 |--------------------|---------------------------------------|----------------|
-| **TYPO3 versions** | 7 - 12 (not all rules)                | 10 - 13        |
+| **TYPO3 versions** | 7 - 12 (not all rules)                | 10 - 13 rules  |
 | **file support**   | all files (typoscript, flexform, ...) | only PHP files |
 
 ## Contributing
