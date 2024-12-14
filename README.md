@@ -13,7 +13,7 @@ It extends the [Rector](https://github.com/rectorphp/rector) project, which aims
 
 > [!WARNING]
 > :heavy_exclamation_mark: Never run this tool on production! Always run it on development environment where code is under version control (e.g. git).
-> Review and test changes before releasing to production. Code migrations could potentionally break your website!
+> Review and test changes before releasing to production. Code migrations could potentially break your website!
 
 |                    | URL                                                          |
 |--------------------|--------------------------------------------------------------|
@@ -55,9 +55,9 @@ vendor/bin/rector process
 
 ## Version matrix
 
-|                    | v1                                    | v2             |
+|                    | v1                                    | v2, v3         |
 |--------------------|---------------------------------------|----------------|
-| **typo3 versions** | 7 - 12 (not all rules)                | 10 - 13        |
+| **TYPO3 versions** | 7 - 12 (not all rules)                | 10 - 13        |
 | **file support**   | all files (typoscript, flexform, ...) | only PHP files |
 
 ## Contributing
@@ -77,13 +77,13 @@ or feel free to open an issue or start a discussion on GitHub.
 
 ## Credits
 
-Many thanks to [Tomas Votruba](https://tomasvotruba.com) for maintaining Rector.
+Many thanks to [Tomas Votruba](https://tomasvotruba.com) and [Abdul Malik Ikhsan](https://github.com/samsonasik) for maintaining Rector.
 Many thanks to [All Contributors](https://github.com/sabbelasichon/typo3-rector/graphs/contributors).
 
 Follow us on X:
-- [TYPO3 Rector](https://twitter.com/TYPO3Rector)
-- [Sebastian](https://twitter.com/schreiberten)
-- [Henrik](https://twitter.com/he_coli)
+- [TYPO3 Rector](https://x.com/TYPO3Rector)
+- [Sebastian](https://x.com/schreiberten)
+- [Henrik](https://x.com/he_coli)
 
 ## License
 
