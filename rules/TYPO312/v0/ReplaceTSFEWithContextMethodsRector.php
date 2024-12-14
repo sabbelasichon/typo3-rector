@@ -105,27 +105,27 @@ final class ReplaceTSFEWithContextMethodsRector extends AbstractRector
     {
         return new RuleDefinition('Replace TSFE with Context methods', [new CodeSample(
             <<<'CODE_SAMPLE'
-    $GLOBALS['TSFE']->initUserGroups();
+$GLOBALS['TSFE']->initUserGroups();
 
-    $GLOBALS['TSFE']->isUserOrGroupSet();
+$GLOBALS['TSFE']->isUserOrGroupSet();
 
-    $GLOBALS['TSFE']->isBackendUserLoggedIn();
+$GLOBALS['TSFE']->isBackendUserLoggedIn();
 
-    $GLOBALS['TSFE']->doWorkspacePreview();
+$GLOBALS['TSFE']->doWorkspacePreview();
 
-    $GLOBALS['TSFE']->whichWorkspace();
+$GLOBALS['TSFE']->whichWorkspace();
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-    $GLOBALS['TSFE']->getContext()->setAspect('frontend.user', $GLOBALS['TSFE']->fe_user->createUserAspect());
+$GLOBALS['TSFE']->getContext()->setAspect('frontend.user', $GLOBALS['TSFE']->fe_user->createUserAspect());
 
-    $GLOBALS['TSFE']->getContext()->getAspect('frontend.user')->isUserOrGroupSet();
+$GLOBALS['TSFE']->getContext()->getAspect('frontend.user')->isUserOrGroupSet();
 
-    $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
+$GLOBALS['TSFE']->getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
 
-    $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'isOffline', false);
+$GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'isOffline', false);
 
-    $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'id', 0);
+$GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'id', 0);
 CODE_SAMPLE
         )]);
     }
