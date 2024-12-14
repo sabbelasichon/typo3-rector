@@ -2841,17 +2841,17 @@ Replace TSFE with Context methods
 -$GLOBALS['TSFE']->initUserGroups();
 +$GLOBALS['TSFE']->getContext()->setAspect('frontend.user', $GLOBALS['TSFE']->fe_user->createUserAspect());
 
--    $GLOBALS['TSFE']->isUserOrGroupSet();
-+    $GLOBALS['TSFE']->getContext()->getAspect('frontend.user')->isUserOrGroupSet();
+-$GLOBALS['TSFE']->isUserOrGroupSet();
++$GLOBALS['TSFE']->getContext()->getAspect('frontend.user')->isUserOrGroupSet();
 
--    $GLOBALS['TSFE']->isBackendUserLoggedIn();
-+    $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
+-$GLOBALS['TSFE']->isBackendUserLoggedIn();
++$GLOBALS['TSFE']->getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
 
--    $GLOBALS['TSFE']->doWorkspacePreview();
-+    $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'isOffline', false);
+-$GLOBALS['TSFE']->doWorkspacePreview();
++$GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'isOffline', false);
 
--    $GLOBALS['TSFE']->whichWorkspace();
-+    $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'id', 0);
+-$GLOBALS['TSFE']->whichWorkspace();
++$GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'id', 0);
 ```
 
 <br>
