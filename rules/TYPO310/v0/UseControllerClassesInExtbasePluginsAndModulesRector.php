@@ -79,9 +79,9 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
 
         $fileInfo = $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath());
 
-        if ($extensionNameArgumentValue instanceof Concat && $this->isPotentiallyUndefinedExtensionKeyVariable(
-            $extensionNameArgumentValue
-        )) {
+        if ($extensionNameArgumentValue instanceof Concat
+            && $this->isPotentiallyUndefinedExtensionKeyVariable($extensionNameArgumentValue)
+        ) {
             $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue->left) . basename(
                 $fileInfo->getRelativePath()
             );

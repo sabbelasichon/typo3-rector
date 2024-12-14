@@ -70,18 +70,23 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector implements
     {
         return new RuleDefinition('Remove vendor name from registerPlugin call', [
             new CodeSample(
-                'TYPO3\CMS\Extbase\Utility\ExtensionUtility' . '::registerPlugin(
-   \'TYPO3.CMS.Form\',
-   \'Formframework\',
-   \'Form\',
-   \'content-form\',
-);',
-                'TYPO3\CMS\Extbase\Utility\ExtensionUtility' . '::registerPlugin(
-   \'Form\',
-   \'Formframework\',
-   \'Form\',
-   \'content-form\',
-);'
+                <<<'CODE_SAMPLE'
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+   'TYPO3.CMS.Form',
+   'Formframework',
+   'Form',
+   'content-form'
+);
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+   'Form',
+   'Formframework',
+   'Form',
+   'content-form'
+);
+CODE_SAMPLE
             ),
         ]);
     }
@@ -95,9 +100,9 @@ final class RegisterPluginWithVendorNameRector extends AbstractRector implements
 
         $fileInfo = $this->fileInfoFactory->createFileInfoFromPath($this->file->getFilePath());
 
-        if ($extensionNameArgumentValue instanceof Concat && $this->isPotentiallyUndefinedExtensionKeyVariable(
-            $extensionNameArgumentValue
-        )) {
+        if ($extensionNameArgumentValue instanceof Concat
+            && $this->isPotentiallyUndefinedExtensionKeyVariable($extensionNameArgumentValue)
+        ) {
             $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue->left) . basename(
                 $fileInfo->getRelativePath()
             );

@@ -65,7 +65,6 @@ class SomeClass extends ParentClass
 }
 CODE_SAMPLE
                     , $configuration),
-
             ]
         );
     }

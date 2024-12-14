@@ -126,9 +126,7 @@ CODE_SAMPLE
             return false;
         }
 
-        $iconProviderClassNameObjectType = new ObjectType($iconProviderClassName);
-
-        return $iconProviderClassNameObjectType->equals(
+        return (new ObjectType($iconProviderClassName))->equals(
             new ObjectType('TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider')
         );
     }

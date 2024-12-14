@@ -115,7 +115,7 @@ final class ReplaceTSFEWithContextMethodsRector extends AbstractRector implement
     $GLOBALS['TSFE']->doWorkspacePreview();
 
     $GLOBALS['TSFE']->whichWorkspace();
-    CODE_SAMPLE
+CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
     $GLOBALS['TSFE']->getContext()->setAspect('frontend.user', $GLOBALS['TSFE']->fe_user->createUserAspect());
@@ -127,7 +127,7 @@ final class ReplaceTSFEWithContextMethodsRector extends AbstractRector implement
     $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'isOffline', false);
 
     $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'id', 0);
-    CODE_SAMPLE
+CODE_SAMPLE
         )]);
     }
 

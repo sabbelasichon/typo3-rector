@@ -79,7 +79,6 @@ $value = ArrayUtility::getValueByPath($searchArray, 'search/path');
 $dataArray = ArrayUtility::setValueByPath($dataArray, 'set/path', $value);
 CODE_SAMPLE
                 ),
-
             ]
         );
     }
