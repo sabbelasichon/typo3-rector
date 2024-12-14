@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -16,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.4/Deprecation-100637-ThirdArgumentContentObjectRenderer-start.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v4\MigrateRequestArgumentFromMethodStartRector\MigrateRequestArgumentFromMethodStartRectorTest
  */
-final class MigrateRequestArgumentFromMethodStartRector extends AbstractRector
+final class MigrateRequestArgumentFromMethodStartRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

@@ -8,6 +8,7 @@ use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -15,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-98024-TCA-option-cruserid-removed.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\RemoveCruserIdRector\RemoveCruserIdRectorTest
  */
-final class RemoveCruserIdRector extends AbstractTcaRector
+final class RemoveCruserIdRector extends AbstractTcaRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

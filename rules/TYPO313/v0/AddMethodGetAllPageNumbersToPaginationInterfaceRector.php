@@ -18,6 +18,7 @@ use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Comments\NodeDocBlock\DocBlockUpdater;
 use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -25,7 +26,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-102980-GetAllPageNumbersInPaginationInterface.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\AddMethodGetAllPageNumbersToPaginationInterfaceRector\AddMethodGetAllPageNumbersToPaginationInterfaceRectorTest
  */
-final class AddMethodGetAllPageNumbersToPaginationInterfaceRector extends AbstractRector
+final class AddMethodGetAllPageNumbersToPaginationInterfaceRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

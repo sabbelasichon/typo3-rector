@@ -10,6 +10,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-98479-RemovedFileReferenceRelatedFunctionality.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\tca\RemoveTableLocalPropertyRector\RemoveTableLocalPropertyRectorTest
  */
-final class RemoveTableLocalPropertyRector extends AbstractRector
+final class RemoveTableLocalPropertyRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

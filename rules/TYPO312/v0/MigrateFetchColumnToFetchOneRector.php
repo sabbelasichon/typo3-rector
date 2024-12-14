@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -16,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v0\MigrateFetchColumnToFetchOneRector\MigrateFetchColumnToFetchOneRectorTest
  * @see MigrateQueryBuilderExecuteRector
  */
-final class MigrateFetchColumnToFetchOneRector extends AbstractRector
+final class MigrateFetchColumnToFetchOneRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

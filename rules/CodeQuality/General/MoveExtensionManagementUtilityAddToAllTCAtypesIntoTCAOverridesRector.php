@@ -16,6 +16,7 @@ use Rector\PhpParser\Printer\BetterStandardPrinter;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -23,7 +24,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://review.typo3.org/c/Packages/TYPO3.CMS/+/52437
  * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector\MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRectorTest
  */
-class MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector extends AbstractRector
+class MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

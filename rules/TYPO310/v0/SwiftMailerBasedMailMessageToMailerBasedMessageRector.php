@@ -11,6 +11,7 @@ use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -18,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.0/Feature-88643-NewMailAPIBasedOnSymfonymailerAndSymfonymime.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\SwiftMailerBasedMailMessageToMailerBasedMessageRector\SwiftMailerBasedMailMessageToMailerBasedMessageRectorTest
  */
-final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends AbstractRector
+final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

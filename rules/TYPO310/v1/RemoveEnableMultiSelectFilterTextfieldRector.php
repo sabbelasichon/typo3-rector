@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO310\v1;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -14,7 +15,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.1/Feature-88907-AlwaysEnableFilterInSelectMultipleSideBySideFields.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v1\RemoveEnableMultiSelectFilterTextfieldRector\RemoveEnableMultiSelectFilterTextfieldRectorTest
  */
-final class RemoveEnableMultiSelectFilterTextfieldRector extends AbstractTcaRector
+final class RemoveEnableMultiSelectFilterTextfieldRector extends AbstractTcaRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

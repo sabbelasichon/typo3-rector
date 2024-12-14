@@ -18,6 +18,7 @@ use PHPStan\Type\ObjectType;
 use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -25,7 +26,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/DependencyInjection/Index.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\InjectMethodToConstructorInjectionRector\InjectMethodToConstructorInjectionRectorTest
  */
-final class InjectMethodToConstructorInjectionRector extends AbstractRector
+final class InjectMethodToConstructorInjectionRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

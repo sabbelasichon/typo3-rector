@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -16,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.0/Deprecation-88366-DefaultCachingFrameworkCacheNamesChanged.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\ChangeDefaultCachingFrameworkNamesRector\ChangeDefaultCachingFrameworkNamesRectorTest
  */
-final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
+final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

@@ -10,13 +10,14 @@ use PhpParser\Node\Expr\Throw_;
 use Rector\Rector\AbstractRector;
 use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\AddErrorCodeToExceptionRector\AddErrorCodeToExceptionRectorTest
  */
-final class AddErrorCodeToExceptionRector extends AbstractRector implements NoChangelogRequiredInterface
+final class AddErrorCodeToExceptionRector extends AbstractRector implements NoChangelogRequiredInterface, DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

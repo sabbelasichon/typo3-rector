@@ -22,6 +22,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
@@ -31,7 +32,7 @@ use Webmozart\Assert\Assert;
  *
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\ExtbaseControllerActionsMustReturnResponseInterfaceRectorTest
  */
-final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends AbstractRector implements ConfigurableRectorInterface
+final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends AbstractRector implements ConfigurableRectorInterface, DocumentedRuleInterface
 {
     /**
      * @var array<int, string>

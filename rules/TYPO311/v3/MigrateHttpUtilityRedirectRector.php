@@ -14,6 +14,7 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Nop;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -21,7 +22,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.3/Deprecation-94316-DeprecatedHTTPHeaderManipulatingMethodsFromHttpUtility.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v3\MigrateHttpUtilityRedirectRector\MigrateHttpUtilityRedirectRectorTest
  */
-final class MigrateHttpUtilityRedirectRector extends AbstractRector
+final class MigrateHttpUtilityRedirectRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

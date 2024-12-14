@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -15,7 +16,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Deprecation-92607-DeprecatedGeneralUtilityuniqueList.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\UniqueListFromStringUtilityRector\UniqueListFromStringUtilityRectorTest
  */
-final class UniqueListFromStringUtilityRector extends AbstractRector
+final class UniqueListFromStringUtilityRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @return array<class-string<Node>>

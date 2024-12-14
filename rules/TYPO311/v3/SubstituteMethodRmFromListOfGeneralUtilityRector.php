@@ -13,6 +13,7 @@ use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Php72\NodeFactory\AnonymousFunctionFactory;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -20,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.3/Deprecation-94311-DeprecatedGeneralUtilityrmFromList.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v3\SubstituteMethodRmFromListOfGeneralUtilityRector\SubstituteMethodRmFromListOfGeneralUtilityRectorTest
  */
-final class SubstituteMethodRmFromListOfGeneralUtilityRector extends AbstractRector
+final class SubstituteMethodRmFromListOfGeneralUtilityRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

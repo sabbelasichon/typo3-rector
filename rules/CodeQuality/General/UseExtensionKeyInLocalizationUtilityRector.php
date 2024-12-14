@@ -11,6 +11,7 @@ use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Ssch\TYPO3Rector\Helper\StringUtility;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -18,7 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * This rector fixes a common error in TYPO3 installations to use the extension key where the extension name is required
  * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\UseExtensionKeyInLocalizationUtilityRector\UseExtensionKeyInLocalizationUtilityRectorTest
  */
-class UseExtensionKeyInLocalizationUtilityRector extends AbstractRector implements NoChangelogRequiredInterface
+class UseExtensionKeyInLocalizationUtilityRector extends AbstractRector implements NoChangelogRequiredInterface, DocumentedRuleInterface
 {
     /**
      * @readonly

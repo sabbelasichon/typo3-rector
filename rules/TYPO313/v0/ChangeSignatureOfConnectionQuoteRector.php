@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\Cast\String_;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-102875-ChangedConnectionMethodSignaturesAndBehaviour.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\ChangeSignatureOfConnectionQuoteRector\ChangeSignatureOfConnectionQuoteRectorTest
  */
-final class ChangeSignatureOfConnectionQuoteRector extends AbstractRector
+final class ChangeSignatureOfConnectionQuoteRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

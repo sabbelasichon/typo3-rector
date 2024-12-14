@@ -17,6 +17,7 @@ use PHPStan\Type\ObjectType;
 use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -24,7 +25,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.2/Deprecation-99615-GeneralUtilityGPMerged.html#deprecation-99615-generalutility-gpmerged
  * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v2\MigrateGeneralUtilityGPMergedRector\MigrateGeneralUtilityGPMergedRectorTest
  */
-final class MigrateGeneralUtilityGPMergedRector extends AbstractRector
+final class MigrateGeneralUtilityGPMergedRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

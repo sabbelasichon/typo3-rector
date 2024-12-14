@@ -10,6 +10,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -17,7 +18,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://github.com/TYPO3/typo3/tree/v10.4.10/typo3/sysext/core/Resources/Public/Icons/T3Icons/svgs
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v4\UseIconsFromSubFolderInIconRegistryRector\UseIconsFromSubFolderInIconRegistryRectorTest
  */
-final class UseIconsFromSubFolderInIconRegistryRector extends AbstractRector
+final class UseIconsFromSubFolderInIconRegistryRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @var string

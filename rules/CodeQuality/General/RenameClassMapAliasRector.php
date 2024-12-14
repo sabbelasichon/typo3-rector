@@ -21,13 +21,14 @@ use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\RenameClassMapAliasRector\RenameClassMapAliasRectorTest
  */
-final class RenameClassMapAliasRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface, NoChangelogRequiredInterface
+final class RenameClassMapAliasRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface, NoChangelogRequiredInterface, DocumentedRuleInterface
 {
     /**
      * @api

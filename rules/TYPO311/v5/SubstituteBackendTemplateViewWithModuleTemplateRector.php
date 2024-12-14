@@ -25,6 +25,7 @@ use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -32,7 +33,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.5/Deprecation-95164-ExtbackendBackendTemplateView.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v5\SubstituteBackendTemplateViewWithModuleTemplateRector\SubstituteBackendTemplateViewWithModuleTemplateRectorTest
  */
-final class SubstituteBackendTemplateViewWithModuleTemplateRector extends AbstractRector
+final class SubstituteBackendTemplateViewWithModuleTemplateRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @var string

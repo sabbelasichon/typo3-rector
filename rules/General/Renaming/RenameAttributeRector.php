@@ -13,11 +13,12 @@ use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Ssch\TYPO3Rector\General\Renaming\ValueObject\RenameAttribute;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 
-final class RenameAttributeRector extends AbstractRector implements MinPhpVersionInterface, ConfigurableRectorInterface, NoChangelogRequiredInterface
+final class RenameAttributeRector extends AbstractRector implements MinPhpVersionInterface, ConfigurableRectorInterface, NoChangelogRequiredInterface, DocumentedRuleInterface
 {
     /**
      * @var RenameAttribute[]

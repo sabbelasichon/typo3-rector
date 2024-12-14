@@ -12,6 +12,7 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeVisitor;
 use Ssch\TYPO3Rector\Rector\AbstractArrayDimFetchTcaRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -19,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.4/Deprecation-105076-PluginContentElementAndPluginSubTypes.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v4\RemoveTcaSubTypesExcludeListTCARector\RemoveTcaSubTypesExcludeListTCARectorTest
  */
-final class RemoveTcaSubTypesExcludeListTCARector extends AbstractArrayDimFetchTcaRector
+final class RemoveTcaSubTypesExcludeListTCARector extends AbstractArrayDimFetchTcaRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

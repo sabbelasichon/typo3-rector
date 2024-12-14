@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
@@ -17,7 +18,7 @@ use Webmozart\Assert\Assert;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Deprecation-102763-ExtbaseHashService.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateExtbaseHashServiceToUseCoreHashServiceRector\MigrateExtbaseHashServiceToUseCoreHashServiceRectorTest
  */
-final class MigrateExtbaseHashServiceToUseCoreHashServiceRector extends AbstractRector implements ConfigurableRectorInterface
+final class MigrateExtbaseHashServiceToUseCoreHashServiceRector extends AbstractRector implements ConfigurableRectorInterface, DocumentedRuleInterface
 {
     public const ADDITIONAL_SECRET = 'additional-secret';
 

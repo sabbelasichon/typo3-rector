@@ -16,6 +16,7 @@ use Rector\Rector\AbstractRector;
 use Rector\StaticTypeMapper\StaticTypeMapper;
 use Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
@@ -23,7 +24,7 @@ use Webmozart\Assert\Assert;
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationWithDefaultNullRector\AddPropertyTypeDeclarationWithDefaultNullRectorTest
  */
-final class AddPropertyTypeDeclarationWithDefaultNullRector extends AbstractRector implements ConfigurableRectorInterface, NoChangelogRequiredInterface
+final class AddPropertyTypeDeclarationWithDefaultNullRector extends AbstractRector implements ConfigurableRectorInterface, NoChangelogRequiredInterface, DocumentedRuleInterface
 {
     /**
      * @readonly

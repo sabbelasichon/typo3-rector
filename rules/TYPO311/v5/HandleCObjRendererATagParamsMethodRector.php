@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -16,7 +17,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.5/Deprecation-95219-TypoScriptFrontendController-ATagParams.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v5\HandleCObjRendererATagParamsMethodRector\HandleCObjRendererATagParamsMethodRectorTest
  */
-final class HandleCObjRendererATagParamsMethodRector extends AbstractRector
+final class HandleCObjRendererATagParamsMethodRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly

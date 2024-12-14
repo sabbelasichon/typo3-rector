@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\TYPO313\v0;
 
 use PhpParser\Node;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -13,7 +14,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-102632-UseStrictTypesInExtbase.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\UseStrictTypesInExtbaseAbstractDomainObjectRector\UseStrictTypesInExtbaseAbstractDomainObjectRectorTest
  */
-final class UseStrictTypesInExtbaseAbstractDomainObjectRector extends AbstractRector
+final class UseStrictTypesInExtbaseAbstractDomainObjectRector extends AbstractRector implements DocumentedRuleInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {

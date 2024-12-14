@@ -25,6 +25,7 @@ use PhpParser\Node\Stmt\If_;
 use PhpParser\Node\Stmt\Return_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -32,7 +33,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.1/Deprecation-88850-ContentObjectRendererSendNotifyEmail.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v1\SendNotifyEmailToMailApiRector\SendNotifyEmailToMailApiRectorTest
  */
-final class SendNotifyEmailToMailApiRector extends AbstractRector
+final class SendNotifyEmailToMailApiRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @var string

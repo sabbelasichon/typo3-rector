@@ -18,6 +18,7 @@ use Rector\Rector\AbstractRector;
 use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Ssch\TYPO3Rector\Helper\ServiceDefinitionHelper;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -25,7 +26,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Feature-101544-IntroducePHPAttributeToAutoconfigureEventListeners.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\EventListenerConfigurationToAttributeRectorTest
  */
-final class EventListenerConfigurationToAttributeRector extends AbstractRector implements MinPhpVersionInterface
+final class EventListenerConfigurationToAttributeRector extends AbstractRector implements MinPhpVersionInterface, DocumentedRuleInterface
 {
     /**
      * @readonly

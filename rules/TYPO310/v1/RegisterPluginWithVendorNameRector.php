@@ -13,6 +13,7 @@ use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Helper\StringUtility;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -20,7 +21,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.1/Deprecation-88995-CallingRegisterPluginWithVendorName.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v1\RegisterPluginWithVendorNameRector\RegisterPluginWithVendorNameRectorTest
  */
-final class RegisterPluginWithVendorNameRector extends AbstractRector
+final class RegisterPluginWithVendorNameRector extends AbstractRector implements DocumentedRuleInterface
 {
     /**
      * @readonly
