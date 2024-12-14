@@ -56,7 +56,6 @@ return [
 ];
 CODE_SAMPLE
                 ),
-
             ]
         );
     }

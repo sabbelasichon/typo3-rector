@@ -28,10 +28,6 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector
         $this->valueResolver = $valueResolver;
     }
 
-    /*
-     * @return string[]
-     */
-
     /**
      * @return array<class-string<Node>>
      */

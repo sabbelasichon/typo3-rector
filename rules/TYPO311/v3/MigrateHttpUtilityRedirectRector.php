@@ -53,8 +53,7 @@ $response = GeneralUtility::makeInstance(ResponseFactoryInterface::class)
     ->withAddedHeader('location', 'https://example.com');
 throw new PropagateResponseException($response);
 CODE_SAMPLE
-        ),
-        ]);
+        )]);
     }
 
     public function getNodeTypes(): array

@@ -76,7 +76,6 @@ $bar = ArrayUtility::arrayDiffKeyRecursive([], []);
 $test = ArrayUtility::arrayDiffKeyRecursive([], []);
 CODE_SAMPLE
                 ),
-
             ]
         );
     }

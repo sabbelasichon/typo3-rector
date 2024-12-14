@@ -127,7 +127,6 @@ class MyController extends ActionController
 }
 CODE_SAMPLE
                 ),
-
             ]
         );
     }
