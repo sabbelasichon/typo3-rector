@@ -481,12 +481,12 @@ Remove vendor name from registerPlugin call
 - class: [`Ssch\TYPO3Rector\TYPO310\v1\RegisterPluginWithVendorNameRector`](../rules/TYPO310/v1/RegisterPluginWithVendorNameRector.php)
 
 ```diff
- TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+ \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
 -   'TYPO3.CMS.Form',
 +   'Form',
     'Formframework',
     'Form',
-    'content-form',
+    'content-form'
  );
 ```
 
@@ -2841,17 +2841,17 @@ Replace TSFE with Context methods
 -$GLOBALS['TSFE']->initUserGroups();
 +$GLOBALS['TSFE']->getContext()->setAspect('frontend.user', $GLOBALS['TSFE']->fe_user->createUserAspect());
 
--$GLOBALS['TSFE']->isUserOrGroupSet();
-+$GLOBALS['TSFE']->getContext()->getAspect('frontend.user')->isUserOrGroupSet();
+-    $GLOBALS['TSFE']->isUserOrGroupSet();
++    $GLOBALS['TSFE']->getContext()->getAspect('frontend.user')->isUserOrGroupSet();
 
--$GLOBALS['TSFE']->isBackendUserLoggedIn();
-+$GLOBALS['TSFE']->getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
+-    $GLOBALS['TSFE']->isBackendUserLoggedIn();
++    $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('backend.user', 'isLoggedIn', false);
 
--$GLOBALS['TSFE']->doWorkspacePreview();
-+$GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'isOffline', false);
+-    $GLOBALS['TSFE']->doWorkspacePreview();
++    $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'isOffline', false);
 
--$GLOBALS['TSFE']->whichWorkspace();
-+$GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'id', 0);
+-    $GLOBALS['TSFE']->whichWorkspace();
++    $GLOBALS['TSFE']->getContext()->getPropertyFromAspect('workspace', 'id', 0);
 ```
 
 <br>
