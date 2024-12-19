@@ -334,12 +334,15 @@ CODE);
             $returnArray[$moduleIdentifier]['position'] = $this->getPosition($position);
         }
 
-        $returnArray[$moduleIdentifier]['access'] = $this->getAccess($moduleArray['access']);
+        $returnArray[$moduleIdentifier]['access'] = $this->getAccess($moduleArray['access'] ?? null);
         if (isset($moduleArray['workspaces'])) {
             $returnArray[$moduleIdentifier]['workspaces'] = $this->getWorkspaces($moduleArray['workspaces']);
         }
 
-        $returnArray[$moduleIdentifier]['iconIdentifier'] = $moduleArray['iconIdentifier'];
+        if (isset($moduleArray['iconIdentifier'])) {
+            $returnArray[$moduleIdentifier]['iconIdentifier'] = $moduleArray['iconIdentifier'];
+        }
+
         if (isset($moduleArray['navigationComponentId'])) {
             $returnArray[$moduleIdentifier]['navigationComponent'] = $moduleArray['navigationComponentId'];
         }
@@ -451,8 +454,13 @@ CODE);
         }
     }
 
-    private function getAccess(string $access): string
+    private function getAccess(?string $access): string
     {
+        if ($access === null || $access === '') {
+            // user is default access
+            return 'user';
+        }
+
         $accessEntries = explode(',', $access);
         $key = array_search('group', $accessEntries, true);
         if ($key !== false) {

@@ -65,6 +65,7 @@ final class MigrateBackendModuleRegistrationRectorTest extends AbstractRectorTes
     public static function provideData(): \Iterator
     {
         yield 'Test that new Modules.php is created with correct content EXT:extension1' => ['extension1'];
+        yield 'Test that new Modules.php is created with correct content EXT:extension_empty_access' => ['extension_empty_access'];
         yield 'Test that new Modules.php is created with correct content EXT:install' => ['install'];
         yield 'Test that new Modules.php is created with correct content EXT:setup' => ['setup'];
         yield 'Test that new Modules.php is created with correct content EXT:viewpage' => ['viewpage'];
