@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PHPStan\Type\ObjectType;
 use PHPStan\Analyser\Scope;
 use Rector\Rector\AbstractScopeAwareRector;
 use Ssch\TYPO3Rector\NodeFactory\GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory;
@@ -94,6 +95,10 @@ CODE_SAMPLE
                 return null;
             }
 
+            if ($this->shouldSkip($staticCall)) {
+                return null;
+            }
+
             /** @var ArrayDimFetch $arrayDimFetch */
             $arrayDimFetch = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
                 $scope->getClassReflection(),
@@ -104,6 +109,10 @@ CODE_SAMPLE
 
             $node->left = $arrayDimFetch;
             return $node;
+        }
+
+        if ($this->shouldSkip($node)) {
+            return null;
         }
 
         $methodCall = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
@@ -122,5 +131,17 @@ CODE_SAMPLE
         }
 
         return new Coalesce($methodCall, $this->nodeFactory->createNull());
+    }
+
+    private function shouldSkip(StaticCall $staticMethodCall): bool
+    {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $staticMethodCall,
+            new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
+        )) {
+            return true;
+        }
+
+        return ! $this->isName($staticMethodCall->name, '_POST');
     }
 }
