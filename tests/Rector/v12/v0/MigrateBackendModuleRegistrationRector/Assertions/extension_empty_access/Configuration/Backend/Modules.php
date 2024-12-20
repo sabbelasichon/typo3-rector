@@ -10,7 +10,10 @@ return [
         'labels' => 'LLL:EXT:extkey/Resources/Private/Language/locallang_mod.xlf',
         'extensionName' => 'Extkey',
         'controllerActions' => [
-            'Vendor\Extension\Controller\MyExtbaseExampleModuleController::class' => ['list', 'detail'],
+            'Vendor\Extension\Controller\MyExtbaseExampleModuleController::class' => [
+                'list',
+                'detail',
+            ],
         ],
     ],
 ];
