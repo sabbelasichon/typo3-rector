@@ -3,7 +3,6 @@ name: Docs
 on:
   push:
     branches:
-      - "main"
       - "2.x"
 
 env:
