@@ -1,4 +1,4 @@
-# 154 Rules Overview
+# 155 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (30)
 
-- [TYPO312](#typo312) (54)
+- [TYPO312](#typo312) (55)
 
 - [TYPO313](#typo313) (20)
 
@@ -2520,6 +2520,26 @@ Migrate required flag
 +                'eval' => 'trim',
 +                'required' => true,
              ],
+         ],
+     ],
+ ];
+```
+
+<br>
+
+### MigrateRequiredFlagSiteConfigRector
+
+Migrate required flag
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateRequiredFlagSiteConfigRector`](../rules/TYPO312/v0/MigrateRequiredFlagSiteConfigRector.php)
+
+```diff
+ $GLOBALS['SiteConfiguration']['site']['columns']['required_column1'] = [
+     'required_column' => [
+         'config' => [
+-            'eval' => 'trim,required',
++            'eval' => 'trim',
++            'required' = true,
          ],
      ],
  ];
