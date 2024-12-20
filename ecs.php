@@ -33,6 +33,7 @@ return static function (ECSConfig $ecsConfig): void {
         __DIR__ . '/utils/generator/templates/rules',
         __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions/beuser/Configuration/Backend/Modules.php',
         __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions/extbase/Configuration/Backend/Modules.php',
+        __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions/extension_empty_access/Configuration/Backend/Modules.php',
         __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions/install/Configuration/Backend/Modules.php',
         AssignmentInConditionSniff::class,
         DeclareStrictTypesFixer::class => ['*/Fixture/*', '*/Assertions/*'],
