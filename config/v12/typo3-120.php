@@ -18,6 +18,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchColumnToFetchOneRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchToFetchAssociativeRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector;
+use Ssch\TYPO3Rector\TYPO312\v0\RemoveAddLLrefForTCAdescrMethodCallRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveMailerAdapterInterfaceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveRelativeToCurrentScriptArgumentsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveTSFEConvOutputCharsetCallsRector;
@@ -173,4 +174,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateBackendModuleRegistrationRector::class);
     $rectorConfig->rule(MigrateContentObjectRendererGetTypoLinkUrlRector::class);
     $rectorConfig->rule(ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector::class);
+    $rectorConfig->rule(RemoveAddLLrefForTCAdescrMethodCallRector::class);
 };
