@@ -42,6 +42,8 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateExtbaseHashServiceToUseCor
 
 use TYPO3\CMS\Core\Crypto\HashService;
 use TYPO3\CMS\Core\Exception\Crypto\InvalidHashStringException;
+
+
 class MyController
 {
     private HashService $hashService;
