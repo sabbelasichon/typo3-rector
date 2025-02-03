@@ -16,6 +16,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkProperti
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchAllToFetchAllAssociativeRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchColumnToFetchOneRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchToFetchAssociativeRector;
+use Ssch\TYPO3Rector\TYPO312\v0\MigrateGetControllerContextGetUriBuilderRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector;
 use Ssch\TYPO3Rector\TYPO312\v0\RemoveMailerAdapterInterfaceRector;
@@ -173,4 +174,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateBackendModuleRegistrationRector::class);
     $rectorConfig->rule(MigrateContentObjectRendererGetTypoLinkUrlRector::class);
     $rectorConfig->rule(ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector::class);
+    $rectorConfig->rule(MigrateGetControllerContextGetUriBuilderRector::class);
 };
