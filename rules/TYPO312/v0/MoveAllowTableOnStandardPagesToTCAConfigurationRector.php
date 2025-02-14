@@ -90,6 +90,7 @@ CODE_SAMPLE
         $tableNames = $this->valueResolver->getValue($tableArgument);
 
         foreach (explode(',', $tableNames) as $tableName) {
+            $tableName = trim($tableName);
             if ($tableName === '') {
                 continue;
             }
