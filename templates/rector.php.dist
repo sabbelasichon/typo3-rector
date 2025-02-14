@@ -23,6 +23,8 @@ __PATHS__
         Typo3SetList::CODE_QUALITY,
         Typo3SetList::GENERAL,
         Typo3LevelSetList::UP_TO_TYPO3_13,
+        // To migrate to Doctrine Dbal 4, uncomment the following line
+        //\Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_DBAL_40,
     ])
     // To have a better analysis from PHPStan, we teach it here some more things
     ->withPHPStanConfigs([Typo3Option::PHPSTAN_FOR_RECTOR_PATH])
