@@ -3096,14 +3096,20 @@ Ensure first parameter is of type string and remove second parameter
 
 ### EventListenerConfigurationToAttributeRector
 
-Use AsEventListener attribute
+Use AsEventListener attribute.
+        To run this rule, require `"ssch/typo3-debug-dump-pass": "^0.0.2"` in your `composer.json` and add
+        `->withSymfonyContainerXml(__DIR__ . '/var/cache/development/App_KernelDevelopmentDebugContainer.xml')`
+        in your rector config file. Finally clear the TYPO3 cache via cmd: `vendor/bin/typo3 cache:flush` to create the
+        App_KernelDevelopmentDebugContainer.xml file and then run Rector.
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v0\EventListenerConfigurationToAttributeRector`](../rules/TYPO313/v0/EventListenerConfigurationToAttributeRector.php)
 
 ```diff
  namespace MyVendor\MyExtension\EventListener;
+
 +use TYPO3\CMS\Core\Attribute\AsEventListener;
  use TYPO3\CMS\Core\Mail\Event\AfterMailerInitializationEvent;
+
 +#[AsEventListener(
 +    identifier: 'my-extension/null-mailer'
 +)]
