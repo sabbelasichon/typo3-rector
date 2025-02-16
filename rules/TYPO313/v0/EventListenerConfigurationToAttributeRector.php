@@ -28,6 +28,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class EventListenerConfigurationToAttributeRector extends AbstractRector implements MinPhpVersionInterface, DocumentedRuleInterface
 {
+    private const EVENT_LISTENER_TAG_NAME = 'event.listener';
+
     /**
      * @readonly
      */
@@ -48,8 +50,6 @@ final class EventListenerConfigurationToAttributeRector extends AbstractRector i
      */
     private PhpAttributeAnalyzer $phpAttributeAnalyzer;
 
-    private string $eventListenerTagName = 'event.listener';
-
     public function __construct(
         ReflectionProvider $reflectionProvider,
         ServiceDefinitionHelper $serviceDefinitionHelper,
@@ -64,10 +64,16 @@ final class EventListenerConfigurationToAttributeRector extends AbstractRector i
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use AsEventListener attribute', [new CodeSample(
+        return new RuleDefinition('Use AsEventListener attribute.
+        To run this rule, require `"ssch/typo3-debug-dump-pass": "^0.0.2"` in your composer.json and add
+        `->withSymfonyContainerXml(__DIR__ . \'/var/cache/development/App_KernelDevelopmentDebugContainer.xml\')`
+        in your rector config file. Finally clear the TYPO3 cache via cmd: `vendor/bin/typo3 cache:flush` to create the
+        App_KernelDevelopmentDebugContainer.xml file and then run Rector.', [new CodeSample(
             <<<'CODE_SAMPLE'
 namespace MyVendor\MyExtension\EventListener;
+
 use TYPO3\CMS\Core\Mail\Event\AfterMailerInitializationEvent;
+
 final class NullMailer
 {
     public function __invoke(AfterMailerInitializationEvent $event): void
@@ -78,8 +84,10 @@ CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
 namespace MyVendor\MyExtension\EventListener;
+
 use TYPO3\CMS\Core\Attribute\AsEventListener;
 use TYPO3\CMS\Core\Mail\Event\AfterMailerInitializationEvent;
+
 #[AsEventListener(
     identifier: 'my-extension/null-mailer'
 )]
@@ -89,7 +97,6 @@ final class NullMailer
     {
     }
 }
-
 CODE_SAMPLE
         )]);
     }
@@ -117,7 +124,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $eventListeners = $this->serviceDefinitionHelper->getServiceDefinitionsByTagName($this->eventListenerTagName);
+        $eventListeners = $this->serviceDefinitionHelper->getServiceDefinitionsByTagName(self::EVENT_LISTENER_TAG_NAME);
         if ($eventListeners === []) {
             return null;
         }
@@ -127,7 +134,7 @@ CODE_SAMPLE
             if ($this->isName($node, $eventListener->getClass() ?? $eventListener->getId())) {
                 $options = $this->serviceDefinitionHelper->extractOptionsFromServiceDefinition(
                     $eventListener,
-                    $this->eventListenerTagName
+                    self::EVENT_LISTENER_TAG_NAME
                 );
             }
         }
