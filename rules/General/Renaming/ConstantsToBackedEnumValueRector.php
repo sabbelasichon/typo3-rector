@@ -61,9 +61,9 @@ CODE_SAMPLE
                 ,
                 [
                     new RenameClassAndConstFetch(
-                        '\TYPO3\CMS\Core\Resource\AbstractFile',
+                        'TYPO3\CMS\Core\Resource\AbstractFile',
                         'FILETYPE_UNKNOWN',
-                        '\TYPO3\CMS\Core\Resource\FileType',
+                        'TYPO3\CMS\Core\Resource\FileType',
                         'UNKNOWN'
                     ),
                 ]
