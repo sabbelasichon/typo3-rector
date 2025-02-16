@@ -1,4 +1,4 @@
-# 155 Rules Overview
+# 156 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (30)
 
-- [TYPO312](#typo312) (55)
+- [TYPO312](#typo312) (56)
 
 - [TYPO313](#typo313) (20)
 
@@ -2594,6 +2594,20 @@ Move method ExtensionManagementUtility::allowTableOnStandardPages to TCA configu
 -use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 -ExtensionManagementUtility::allowTableOnStandardPages('my_table');
 +$GLOBALS['TCA']['my_table']['ctrl']['security']['ignorePageTypeRestriction']
+```
+
+<br>
+
+### RemoveAddLLrefForTCAdescrMethodCallRector
+
+Remove `ExtensionManagementUtility::addLLrefForTCAdescr()` method call
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\RemoveAddLLrefForTCAdescrMethodCallRector`](../rules/TYPO312/v0/RemoveAddLLrefForTCAdescrMethodCallRector.php)
+
+```diff
+-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+-ExtensionManagementUtility::addLLrefForTCAdescr('_MOD_web_info', 'EXT:info/Resources/Private/Language/locallang_csh_web_info.xlf');
++use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 ```
 
 <br>
