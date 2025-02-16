@@ -1,0 +1,17 @@
+<?php
+
+use TYPO3\CMS\Core\Authentication\LoginType;
+
+$loginType = LoginType::LOGIN->value;
+$logoutType = LoginType::LOGOUT;
+
+?>
+-----
+<?php
+
+use TYPO3\CMS\Core\Authentication\LoginType;
+
+$loginType = LoginType::LOGIN->value;
+$logoutType = LoginType::LOGOUT->value;
+
+?>

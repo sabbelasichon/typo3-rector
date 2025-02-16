@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\General\Renaming;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
-use PhpParser\Node\Expr\PropertyFetch;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
@@ -19,9 +18,9 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 
 /**
- * @see \Ssch\TYPO3Rector\Tests\Rector\General\Renaming\ConstantsToBackedEnumValueRector\ConstantsToBackedEnumValueRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\General\Renaming\ConstantsToBackedEnumRector\ConstantsToBackedEnumRectorTest
  */
-final class ConstantsToBackedEnumValueRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface, NoChangelogRequiredInterface, DocumentedRuleInterface
+final class ConstantsToBackedEnumRector extends AbstractRector implements ConfigurableRectorInterface, MinPhpVersionInterface, NoChangelogRequiredInterface, DocumentedRuleInterface
 {
     /**
      * @var RenameClassAndConstFetch[]
@@ -39,32 +38,30 @@ final class ConstantsToBackedEnumValueRector extends AbstractRector implements C
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate constants to enum class values', [
+        return new RuleDefinition('Migrate constants to enum class', [
             new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_UNKNOWN
-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_TEXT
-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_IMAGE
-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_AUDIO
-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_VIDEO
-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_APPLICATION
+\TYPO3\CMS\Core\Imaging\Icon::SIZE_DEFAULT
+\TYPO3\CMS\Core\Imaging\Icon::SIZE_SMALL
+\TYPO3\CMS\Core\Imaging\Icon::SIZE_MEDIUM
+\TYPO3\CMS\Core\Imaging\Icon::SIZE_LARGE
+\TYPO3\CMS\Core\Imaging\Icon::SIZE_MEGA
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-\TYPO3\CMS\Core\Resource\FileType::UNKNOWN->value
-\TYPO3\CMS\Core\Resource\FileType::TEXT->value
-\TYPO3\CMS\Core\Resource\FileType::IMAGE->value
-\TYPO3\CMS\Core\Resource\FileType::AUDIO->value
-\TYPO3\CMS\Core\Resource\FileType::VIDEO->value
-\TYPO3\CMS\Core\Resource\FileType::APPLICATION->value
+TYPO3\CMS\Core\Imaging\IconSize::DEFAULT
+TYPO3\CMS\Core\Imaging\IconSize::SMALL
+TYPO3\CMS\Core\Imaging\IconSize::MEDIUM
+TYPO3\CMS\Core\Imaging\IconSize::LARGE
+TYPO3\CMS\Core\Imaging\IconSize::MEGA
 CODE_SAMPLE
                 ,
                 [
                     new RenameClassAndConstFetch(
-                        '\TYPO3\CMS\Core\Resource\AbstractFile',
-                        'FILETYPE_UNKNOWN',
-                        '\TYPO3\CMS\Core\Resource\FileType',
-                        'UNKNOWN'
+                        'TYPO3\CMS\Core\Imaging\Icon',
+                        'SIZE_MEDIUM',
+                        'TYPO3\CMS\Core\Imaging\IconSize',
+                        'MEDIUM'
                     ),
                 ]
             ),
@@ -90,12 +87,10 @@ CODE_SAMPLE
                 continue;
             }
 
-            $enumConstFetch = $this->nodeFactory->createClassConstFetch(
+            return $this->nodeFactory->createClassConstFetch(
                 $renameClassConstFetch->getNewClass(),
                 $renameClassConstFetch->getNewConstant()
             );
-
-            return new PropertyFetch($enumConstFetch, 'value');
         }
 
         return null;

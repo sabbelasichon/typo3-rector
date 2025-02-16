@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
+use Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumRector;
 use Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumValueRector;
 use Ssch\TYPO3Rector\General\Renaming\RenameAttributeRector;
 use Ssch\TYPO3Rector\General\Renaming\ValueObject\RenameAttribute;
@@ -26,7 +27,42 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->singleton(StrictTypesPersistenceManagerRector::class);
     $rectorConfig->singleton(UseStrictTypesInExtbaseActionControllerRector::class);
 
+    $rectorConfig->ruleWithConfiguration(ConstantsToBackedEnumRector::class, [
+        // See https://github.com/sabbelasichon/typo3-rector/issues/3698
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Imaging\Icon',
+            'SIZE_DEFAULT',
+            'TYPO3\CMS\Core\Imaging\IconSize',
+            'DEFAULT'
+        ),
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Imaging\Icon',
+            'SIZE_SMALL',
+            'TYPO3\CMS\Core\Imaging\IconSize',
+            'SMALL'
+        ),
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Imaging\Icon',
+            'SIZE_MEDIUM',
+            'TYPO3\CMS\Core\Imaging\IconSize',
+            'MEDIUM'
+        ),
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Imaging\Icon',
+            'SIZE_LARGE',
+            'TYPO3\CMS\Core\Imaging\IconSize',
+            'LARGE'
+        ),
+        new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Imaging\Icon',
+            'SIZE_MEGA',
+            'TYPO3\CMS\Core\Imaging\IconSize',
+            'MEGA'
+        ),
+    ]);
+
     $rectorConfig->ruleWithConfiguration(ConstantsToBackedEnumValueRector::class, [
+        // see https://github.com/sabbelasichon/typo3-rector/issues/3704
         new RenameClassAndConstFetch(
             'TYPO3\CMS\Core\Resource\AbstractFile',
             'FILETYPE_UNKNOWN',
@@ -64,37 +100,9 @@ return static function (RectorConfig $rectorConfig): void {
             'APPLICATION'
         ),
 
-        new RenameClassAndConstFetch(
-            'TYPO3\CMS\Core\Imaging\Icon',
-            'SIZE_DEFAULT',
-            'TYPO3\CMS\Core\Imaging\IconSize',
-            'DEFAULT'
-        ),
-        new RenameClassAndConstFetch(
-            'TYPO3\CMS\Core\Imaging\Icon',
-            'SIZE_SMALL',
-            'TYPO3\CMS\Core\Imaging\IconSize',
-            'SMALL'
-        ),
-        new RenameClassAndConstFetch(
-            'TYPO3\CMS\Core\Imaging\Icon',
-            'SIZE_MEDIUM',
-            'TYPO3\CMS\Core\Imaging\IconSize',
-            'MEDIUM'
-        ),
-        new RenameClassAndConstFetch(
-            'TYPO3\CMS\Core\Imaging\Icon',
-            'SIZE_LARGE',
-            'TYPO3\CMS\Core\Imaging\IconSize',
-            'LARGE'
-        ),
-        new RenameClassAndConstFetch(
-            'TYPO3\CMS\Core\Imaging\Icon',
-            'SIZE_MEGA',
-            'TYPO3\CMS\Core\Imaging\IconSize',
-            'MEGA'
-        ),
-        new RenameClassAndConstFetch(
+        // see https://github.com/sabbelasichon/typo3-rector/issues/3650
+        // FIXME: This causes an infinite loop
+        /*new RenameClassAndConstFetch(
             'TYPO3\CMS\Core\Authentication\LoginType',
             'LOGIN',
             'TYPO3\CMS\Core\Authentication\LoginType',
@@ -105,7 +113,7 @@ return static function (RectorConfig $rectorConfig): void {
             'LOGOUT',
             'TYPO3\CMS\Core\Authentication\LoginType',
             'LOGOUT'
-        ),
+        ),*/
     ]);
     $rectorConfig->ruleWithConfiguration(RenameAttributeRector::class, [
         new RenameAttribute('TYPO3\CMS\Backend\Attribute\Controller', 'TYPO3\CMS\Backend\Attribute\AsController'),
