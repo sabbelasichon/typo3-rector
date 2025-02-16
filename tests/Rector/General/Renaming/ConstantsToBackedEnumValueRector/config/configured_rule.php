@@ -48,35 +48,18 @@ return static function (RectorConfig $rectorConfig): void {
             'APPLICATION'
         ),
 
-        new RenameClassAndConstFetch(
-            'TYPO3\CMS\Core\Imaging\Icon',
-            'SIZE_DEFAULT',
-            'TYPO3\CMS\Core\Imaging\IconSize',
-            'DEFAULT'
+        // FIXME: This causes an infinite loop
+        /*new RenameClassAndConstFetch(
+            'TYPO3\CMS\Core\Authentication\LoginType',
+            'LOGIN',
+            'TYPO3\CMS\Core\Authentication\LoginType',
+            'LOGIN'
         ),
         new RenameClassAndConstFetch(
-            'TYPO3\CMS\Core\Imaging\Icon',
-            'SIZE_SMALL',
-            'TYPO3\CMS\Core\Imaging\IconSize',
-            'SMALL'
-        ),
-        new RenameClassAndConstFetch(
-            'TYPO3\CMS\Core\Imaging\Icon',
-            'SIZE_MEDIUM',
-            'TYPO3\CMS\Core\Imaging\IconSize',
-            'MEDIUM'
-        ),
-        new RenameClassAndConstFetch(
-            'TYPO3\CMS\Core\Imaging\Icon',
-            'SIZE_LARGE',
-            'TYPO3\CMS\Core\Imaging\IconSize',
-            'LARGE'
-        ),
-        new RenameClassAndConstFetch(
-            'TYPO3\CMS\Core\Imaging\Icon',
-            'SIZE_MEGA',
-            'TYPO3\CMS\Core\Imaging\IconSize',
-            'MEGA'
-        ),
+            'TYPO3\CMS\Core\Authentication\LoginType',
+            'LOGOUT',
+            'TYPO3\CMS\Core\Authentication\LoginType',
+            'LOGOUT'
+        ),*/
     ]);
 };
