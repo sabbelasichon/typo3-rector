@@ -1,4 +1,4 @@
-# 156 Rules Overview
+# 157 Rules Overview
 
 <br>
 
@@ -6,7 +6,7 @@
 
 - [CodeQuality](#codequality) (10)
 
-- [General](#general) (2)
+- [General](#general) (3)
 
 - [TYPO310](#typo310) (37)
 
@@ -217,17 +217,50 @@ Replace the second parameter of LocalizationUtility::translate to the extension 
 
 ## General
 
+### ConstantsToBackedEnumRector
+
+Migrate constants to enum class
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumRector`](../rules/General/Renaming/ConstantsToBackedEnumRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Imaging\Icon::SIZE_DEFAULT
+-\TYPO3\CMS\Core\Imaging\Icon::SIZE_SMALL
+-\TYPO3\CMS\Core\Imaging\Icon::SIZE_MEDIUM
+-\TYPO3\CMS\Core\Imaging\Icon::SIZE_LARGE
+-\TYPO3\CMS\Core\Imaging\Icon::SIZE_MEGA
++TYPO3\CMS\Core\Imaging\IconSize::DEFAULT
++TYPO3\CMS\Core\Imaging\IconSize::SMALL
++TYPO3\CMS\Core\Imaging\IconSize::MEDIUM
++TYPO3\CMS\Core\Imaging\IconSize::LARGE
++TYPO3\CMS\Core\Imaging\IconSize::MEGA
+```
+
+<br>
+
 ### ConstantsToBackedEnumValueRector
 
-Migrate all FILETYPE_* constants from AbstractFile to FileType enum class
+Migrate constants to enum class values
 
 :wrench: **configure it!**
 
 - class: [`Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumValueRector`](../rules/General/Renaming/ConstantsToBackedEnumValueRector.php)
 
 ```diff
--\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_UNKNOWN;
-+\TYPO3\CMS\Core\Resource\FileType::UNKNOWN;
+-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_UNKNOWN
+-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_TEXT
+-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_IMAGE
+-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_AUDIO
+-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_VIDEO
+-\TYPO3\CMS\Core\Resource\AbstractFile::FILETYPE_APPLICATION
++\TYPO3\CMS\Core\Resource\FileType::UNKNOWN->value
++\TYPO3\CMS\Core\Resource\FileType::TEXT->value
++\TYPO3\CMS\Core\Resource\FileType::IMAGE->value
++\TYPO3\CMS\Core\Resource\FileType::AUDIO->value
++\TYPO3\CMS\Core\Resource\FileType::VIDEO->value
++\TYPO3\CMS\Core\Resource\FileType::APPLICATION->value
 ```
 
 <br>
