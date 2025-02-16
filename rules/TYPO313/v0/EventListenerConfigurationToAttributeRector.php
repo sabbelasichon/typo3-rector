@@ -64,12 +64,19 @@ final class EventListenerConfigurationToAttributeRector extends AbstractRector i
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use AsEventListener attribute.
-        To run this rule, require `"ssch/typo3-debug-dump-pass": "^0.0.2"` in your composer.json and add
-        `->withSymfonyContainerXml(__DIR__ . \'/var/cache/development/App_KernelDevelopmentDebugContainer.xml\')`
-        in your rector config file. Finally clear the TYPO3 cache via cmd: `vendor/bin/typo3 cache:flush` to create the
-        App_KernelDevelopmentDebugContainer.xml file and then run Rector.', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            <<<'DESCRRIPTION'
+Use AsEventListener attribute.
+
+To run this rule, you need to do the following steps:
+- Require `"ssch/typo3-debug-dump-pass": "^0.0.2"` in your composer.json
+- Add `->withSymfonyContainerXml(__DIR__ . '/var/cache/development/App_KernelDevelopmentDebugContainer.xml')` in your rector config file.
+- Clear the TYPO3 cache via cmd: `vendor/bin/typo3 cache:flush` to create the `App_KernelDevelopmentDebugContainer.xml` file.
+- Finally run Rector.'
+DESCRRIPTION
+            ,
+            [new CodeSample(
+                <<<'CODE_SAMPLE'
 namespace MyVendor\MyExtension\EventListener;
 
 use TYPO3\CMS\Core\Mail\Event\AfterMailerInitializationEvent;
@@ -81,8 +88,8 @@ final class NullMailer
     }
 }
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 namespace MyVendor\MyExtension\EventListener;
 
 use TYPO3\CMS\Core\Attribute\AsEventListener;
@@ -98,7 +105,8 @@ final class NullMailer
     }
 }
 CODE_SAMPLE
-        )]);
+            )]
+        );
     }
 
     public function provideMinPhpVersion(): int
