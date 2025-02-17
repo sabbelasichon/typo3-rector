@@ -1,4 +1,4 @@
-# 157 Rules Overview
+# 158 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (30)
 
-- [TYPO312](#typo312) (56)
+- [TYPO312](#typo312) (57)
 
 - [TYPO313](#typo313) (20)
 
@@ -2240,6 +2240,30 @@ Migrate GeneralUtility::_GP
      {
 -        $value = GeneralUtility::_GP('tx_scheduler');
 +        $value = $this->request->getParsedBody()['tx_scheduler'] ?? $this->request->getQueryParams()['tx_scheduler'] ?? null;
+     }
+ }
+```
+
+<br>
+
+### MigrateGetControllerContextGetUriBuilderRector
+
+Migrate extbase controller calls `$this->getControllerContext()->getUriBuilder();` to ->uriBuilder
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateGetControllerContextGetUriBuilderRector`](../rules/TYPO312/v0/MigrateGetControllerContextGetUriBuilderRector.php)
+
+```diff
+ use Psr\Http\Message\ResponseInterface;
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ class DummyController extends ActionController
+ {
+     public function showAction(): ResponseInterface
+     {
+-        $url = $this->getControllerContext()->getUriBuilder()
++        $url = $this->uriBuilder
+             ->setTargetPageType(10002)
+             ->uriFor('addresses');
      }
  }
 ```
