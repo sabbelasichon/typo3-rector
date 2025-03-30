@@ -10,7 +10,7 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
 use Rector\NodeNameResolver\NodeNameResolver;
-use Rector\Symfony\Enum\SymfonyAnnotation;
+use Rector\Symfony\Enum\SymfonyAttribute;
 
 final class AttributeValueResolver
 {
@@ -31,7 +31,7 @@ final class AttributeValueResolver
     {
         foreach ($class->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attribute) {
-                if (! $this->nodeNameResolver->isName($attribute->name, SymfonyAnnotation::AS_COMMAND)) {
+                if (! $this->nodeNameResolver->isName($attribute->name, SymfonyAttribute::AS_COMMAND)) {
                     continue;
                 }
 

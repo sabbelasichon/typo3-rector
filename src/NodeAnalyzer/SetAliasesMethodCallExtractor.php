@@ -15,7 +15,7 @@ use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
 use Rector\Php80\NodeAnalyzer\PhpAttributeAnalyzer;
 use Rector\PhpDocParser\NodeTraverser\SimpleCallableNodeTraverser;
-use Rector\Symfony\Enum\SymfonyAnnotation;
+use Rector\Symfony\Enum\SymfonyAttribute;
 
 final class SetAliasesMethodCallExtractor
 {
@@ -104,7 +104,7 @@ final class SetAliasesMethodCallExtractor
 
     private function resolveCommandAliasesFromAttribute(Class_ $class): ?Array_
     {
-        if (! $this->phpAttributeAnalyzer->hasPhpAttribute($class, SymfonyAnnotation::AS_COMMAND)) {
+        if (! $this->phpAttributeAnalyzer->hasPhpAttribute($class, SymfonyAttribute::AS_COMMAND)) {
             return null;
         }
 
