@@ -18,7 +18,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Php80\NodeAnalyzer\PhpAttributeAnalyzer;
 use Rector\PhpAttribute\NodeFactory\PhpAttributeGroupFactory;
 use Rector\Rector\AbstractRector;
-use Rector\Symfony\Enum\SymfonyAnnotation;
+use Rector\Symfony\Enum\SymfonyAttribute;
 use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Ssch\TYPO3Rector\Helper\ServiceDefinitionHelper;
@@ -122,11 +122,11 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $this->reflectionProvider->hasClass(SymfonyAnnotation::AS_COMMAND)) {
+        if (! $this->reflectionProvider->hasClass(SymfonyAttribute::AS_COMMAND)) {
             return null;
         }
 
-        if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, SymfonyAnnotation::AS_COMMAND)) {
+        if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, SymfonyAttribute::AS_COMMAND)) {
             return null;
         }
 
@@ -176,7 +176,7 @@ CODE_SAMPLE
         ?Array_ $aliasesArray,
         ?bool $hidden
     ): AttributeGroup {
-        $attributeGroup = $this->phpAttributeGroupFactory->createFromClass(SymfonyAnnotation::AS_COMMAND);
+        $attributeGroup = $this->phpAttributeGroupFactory->createFromClass(SymfonyAttribute::AS_COMMAND);
         $attributeGroup->attrs[0]->args[] = new Arg(new String_($defaultName), false, false, [], new Identifier(
             'name'
         ));
@@ -259,7 +259,7 @@ CODE_SAMPLE
 
     private function resolveDefaultDescriptionFromAttribute(Class_ $class): ?string
     {
-        if ($this->phpAttributeAnalyzer->hasPhpAttribute($class, SymfonyAnnotation::AS_COMMAND)) {
+        if ($this->phpAttributeAnalyzer->hasPhpAttribute($class, SymfonyAttribute::AS_COMMAND)) {
             $defaultDescriptionFromArgument = $this->attributeValueResolver->getArgumentValueFromAttribute($class, 1);
             if (\is_string($defaultDescriptionFromArgument)) {
                 return $defaultDescriptionFromArgument;
@@ -275,7 +275,7 @@ CODE_SAMPLE
         $replacedAsCommandAttribute = \false;
         foreach ($class->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attribute) {
-                if ($this->nodeNameResolver->isName($attribute->name, SymfonyAnnotation::AS_COMMAND)) {
+                if ($this->nodeNameResolver->isName($attribute->name, SymfonyAttribute::AS_COMMAND)) {
                     $hasAsCommandAttribute = \true;
                     $replacedAsCommandAttribute = $this->replaceArguments($attribute, $createAttributeGroup);
                 }
@@ -322,7 +322,7 @@ CODE_SAMPLE
 
     private function defaultDefaultNameFromAttribute(Class_ $class): ?string
     {
-        if (! $this->phpAttributeAnalyzer->hasPhpAttribute($class, SymfonyAnnotation::AS_COMMAND)) {
+        if (! $this->phpAttributeAnalyzer->hasPhpAttribute($class, SymfonyAttribute::AS_COMMAND)) {
             return null;
         }
 
