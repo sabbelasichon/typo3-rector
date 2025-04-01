@@ -42,8 +42,11 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
      */
     private StaticTypeMapper $staticTypeMapper;
 
-    public function __construct(FileInfoFactory $fileInfoFactory, ValueResolver $valueResolver, StaticTypeMapper $staticTypeMapper)
-    {
+    public function __construct(
+        FileInfoFactory $fileInfoFactory,
+        ValueResolver $valueResolver,
+        StaticTypeMapper $staticTypeMapper
+    ) {
         $this->fileInfoFactory = $fileInfoFactory;
         $this->valueResolver = $valueResolver;
         $this->staticTypeMapper = $staticTypeMapper;

@@ -27,8 +27,10 @@ final class ValidateAttributeDecorator implements AttributeDecoratorInterface
      */
     private StringClassNameToClassConstantRector $stringClassNameToClassConstantRector;
 
-    public function __construct(ValueResolver $valueResolver, StringClassNameToClassConstantRector $stringClassNameToClassConstantRector)
-    {
+    public function __construct(
+        ValueResolver $valueResolver,
+        StringClassNameToClassConstantRector $stringClassNameToClassConstantRector
+    ) {
         $this->valueResolver = $valueResolver;
         $this->stringClassNameToClassConstantRector = $stringClassNameToClassConstantRector;
     }
