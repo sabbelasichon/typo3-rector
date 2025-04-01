@@ -61,10 +61,8 @@ final class RefactorCHashArrayOfTSFERector extends AbstractRector implements Doc
      */
     private Typo3GlobalsFactory $typo3GlobalsFactory;
 
-    public function __construct(
-        Typo3NodeResolver $typo3NodeResolver,
-        Typo3GlobalsFactory $typo3GlobalsFactory
-    ) {
+    public function __construct(Typo3NodeResolver $typo3NodeResolver, Typo3GlobalsFactory $typo3GlobalsFactory)
+    {
         $this->typo3NodeResolver = $typo3NodeResolver;
         $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }

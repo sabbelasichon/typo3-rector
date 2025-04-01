@@ -71,8 +71,11 @@ final class RenameClassMapAliasRector extends AbstractRector implements Configur
      */
     private FileInfoFactory $fileInfoFactory;
 
-    public function __construct(RenamedClassesDataCollector $renamedClassesDataCollector, ClassRenamer $classRenamer, FileInfoFactory $fileInfoFactory)
-    {
+    public function __construct(
+        RenamedClassesDataCollector $renamedClassesDataCollector,
+        ClassRenamer $classRenamer,
+        FileInfoFactory $fileInfoFactory
+    ) {
         $this->renamedClassesDataCollector = $renamedClassesDataCollector;
         $this->classRenamer = $classRenamer;
         $this->fileInfoFactory = $fileInfoFactory;
