@@ -69,7 +69,7 @@ CODE_SAMPLE
 
         $scope = ScopeFetcher::fetch($node);
         $classReflection = $scope->getClassReflection();
-        if ($classReflection instanceof ClassReflection && $classReflection->isSubclassOf(
+        if ($classReflection instanceof ClassReflection && $classReflection->is(
             'TYPO3\CMS\Extbase\Mvc\Controller\ActionController'
         )) {
             $requestFetcherVariable = $this->nodeFactory->createPropertyFetch('this', 'request');

@@ -56,7 +56,7 @@ final class ChangeExtbaseValidatorsRector extends AbstractRector implements Docu
             return null;
         }
 
-        $isSubClassOfAbstractValidator = $classReflection->isSubclassOf(
+        $isSubClassOfAbstractValidator = $classReflection->is(
             'TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator'
         );
 
