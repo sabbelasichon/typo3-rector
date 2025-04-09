@@ -54,10 +54,8 @@ final class Typo3NodeResolver
      */
     private NodeNameResolver $nodeNameResolver;
 
-    public function __construct(
-        ValueResolver $valueResolver,
-        NodeNameResolver $nodeNameResolver
-    ) {
+    public function __construct(ValueResolver $valueResolver, NodeNameResolver $nodeNameResolver)
+    {
         $this->valueResolver = $valueResolver;
         $this->nodeNameResolver = $nodeNameResolver;
     }

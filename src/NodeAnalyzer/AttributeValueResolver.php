@@ -19,9 +19,8 @@ final class AttributeValueResolver
      */
     private NodeNameResolver $nodeNameResolver;
 
-    public function __construct(
-        NodeNameResolver $nodeNameResolver
-    ) {
+    public function __construct(NodeNameResolver $nodeNameResolver)
+    {
         $this->nodeNameResolver = $nodeNameResolver;
     }
 
