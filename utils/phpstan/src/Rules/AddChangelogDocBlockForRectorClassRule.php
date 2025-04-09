@@ -72,11 +72,11 @@ final class AddChangelogDocBlockForRectorClassRule implements Rule
         $fullyQualifiedClassName = $scope->getNamespace() . '\\' . $className;
 
         $classReflection = $this->reflectionProvider->getClass($fullyQualifiedClassName);
-        if (! $classReflection->isSubclassOf(RectorInterface::class)) {
+        if (! $classReflection->is(RectorInterface::class)) {
             return [];
         }
 
-        if ($classReflection->isSubclassOf(NoChangelogRequiredInterface::class)) {
+        if ($classReflection->is(NoChangelogRequiredInterface::class)) {
             return [];
         }
 

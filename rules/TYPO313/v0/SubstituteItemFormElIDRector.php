@@ -74,7 +74,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $classReflection->isSubclassOf('TYPO3\CMS\Backend\Form\NodeInterface')) {
+        if (! $classReflection->is('TYPO3\CMS\Backend\Form\NodeInterface')) {
             return null;
         }
 
