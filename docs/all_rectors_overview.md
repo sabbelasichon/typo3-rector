@@ -1,4 +1,4 @@
-# 161 Rules Overview
+# 162 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (23)
+- [TYPO313](#typo313) (24)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3306,6 +3306,28 @@ Migrate GeneralUtility::hmac to HashService::hmac
 
 -$hmac = GeneralUtility::hmac('some-input', 'some-secret');
 +$hmac = GeneralUtility::makeInstance(HashService::class)->hmac('some-input', 'some-secret');
+```
+
+<br>
+
+### MigrateNamespacedShortHandValidatorRector
+
+Migrate namespaced shorthand validator usage in Extbase
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v2\MigrateNamespacedShortHandValidatorRector`](../rules/TYPO313/v2/MigrateNamespacedShortHandValidatorRector.php)
+
+```diff
+ /**
+- * @Extbase\Validate("TYPO3.CMS.Extbase:NotEmpty")
++ * @Extbase\Validate("NotEmpty")
+  */
+ protected $myProperty1;
+
+ /**
+- * @Extbase\Validate("Vendor.Extension:Custom")
++ * @Extbase\Validate("Vendor\Extension\Validation\Validator\CustomValidator")
+  */
+ protected $myProperty2;
 ```
 
 <br>
