@@ -1,4 +1,4 @@
-# 159 Rules Overview
+# 160 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (21)
+- [TYPO313](#typo313) (22)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3356,6 +3356,28 @@ Migrate plugin content element and plugin subtypes (list_type) TCA
 +    $pluginSignature,
 +    'after:subheader',
 +);
+```
+
+<br>
+
+### MigrateRegularExpressionValidatorValidatorOptionErrorMessageRector
+
+RegularExpressionValidator validator option \"errorMessage\"
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v2\MigrateRegularExpressionValidatorValidatorOptionErrorMessageRector`](../rules/TYPO313/v2/MigrateRegularExpressionValidatorValidatorOptionErrorMessageRector.php)
+
+```diff
+ use TYPO3\CMS\Extbase\Annotation as Extbase;
+
+ #[Extbase\Validate([
+     'validator' => 'RegularExpression',
+     'options' => [
+         'regularExpression' => '/^simple[0-9]expression$/',
+-        'errorMessage' => 'Error message or LLL schema string',
++        'message' => 'Error message or LLL schema string'
+     ],
+ ])]
+ protected string $myProperty = '';
 ```
 
 <br>
