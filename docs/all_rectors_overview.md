@@ -1,4 +1,4 @@
-# 160 Rules Overview
+# 161 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (22)
+- [TYPO313](#typo313) (23)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3400,6 +3400,19 @@ Migrate static ViewHelpers to object-based ViewHelpers
 +        return $this->renderChildren();
      }
  }
+```
+
+<br>
+
+### RemoveAddRootLineFieldsRector
+
+Remove obsolete `$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields']`
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v2\RemoveAddRootLineFieldsRector`](../rules/TYPO313/v2/RemoveAddRootLineFieldsRector.php)
+
+```diff
+-$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] = 'foo';
++-
 ```
 
 <br>
