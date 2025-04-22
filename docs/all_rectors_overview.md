@@ -1,4 +1,4 @@
-# 162 Rules Overview
+# 163 Rules Overview
 
 <br>
 
@@ -15,6 +15,8 @@
 - [TYPO312](#typo312) (57)
 
 - [TYPO313](#typo313) (24)
+
+- [TYPO314](#typo314) (1)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3566,6 +3568,28 @@ Use strict types in Extbase ActionController
 +    public string $defaultViewObjectName = JsonView::class;
 +    public string $errorMethodName = 'myAction';
  }
+```
+
+<br>
+
+## TYPO314
+
+### DropFifthParameterForExtensionUtilityConfigurePluginRector
+
+Drop the fifth parameter `$pluginType` of `ExtensionUtility::configurePlugin()`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\DropFifthParameterForExtensionUtilityConfigurePluginRector`](../rules/TYPO314/v0/DropFifthParameterForExtensionUtilityConfigurePluginRector.php)
+
+```diff
+-ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], [], 'CType');
++ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], []);
+```
+
+<br>
+
+```diff
+-ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], [], ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT);
++ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], []);
 ```
 
 <br>
