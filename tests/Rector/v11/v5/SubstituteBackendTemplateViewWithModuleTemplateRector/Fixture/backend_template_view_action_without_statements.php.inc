@@ -30,8 +30,12 @@ use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 class MyControllerWithActionWithoutStatements extends ActionController
 {
     private ModuleTemplateFactory $moduleTemplateFactory;
+    /**
+     * AbstractController constructor.
+     */
     public function __construct(ModuleTemplateFactory $moduleTemplateFactory)
     {
+        parent::__construct();
         $this->moduleTemplateFactory = $moduleTemplateFactory;
     }
     public function myAction(): ResponseInterface
