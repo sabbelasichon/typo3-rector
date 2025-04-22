@@ -34,6 +34,7 @@ return RectorConfig::configure()
         ],
         UnusedImportRemovingPostRector::class => [
             __DIR__ . '/tests/Rector/v13/v4/MigratePluginContentElementAndPluginSubtypesRector/Assertions/extension1/Classes/Updates/TYPO3RectorCTypeMigration.php', // Don't remove PHP8 Attribute
+            __DIR__ . '/tests/Rector/v13/v4/MigratePluginContentElementAndPluginSubtypesRector/Assertions/extension2/Classes/Updates/TYPO3RectorCTypeMigration.php', // Don't remove PHP8 Attribute
         ],
         // tests
         '*/Fixture/*',

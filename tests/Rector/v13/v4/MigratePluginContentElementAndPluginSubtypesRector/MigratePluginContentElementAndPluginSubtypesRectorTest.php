@@ -34,7 +34,7 @@ final class MigratePluginContentElementAndPluginSubtypesRectorTest extends Abstr
     /**
      * @dataProvider provideData()
      */
-    public function testWithExistingComposerJson(string $extensionKey): void
+    public function testWithExistingComposerJson(string $extensionKey, string $fixtureFile): void
     {
         // Arrange
         $composerJson = __DIR__ . '/Fixture/' . $extensionKey . '/composer.json';
@@ -56,8 +56,7 @@ final class MigratePluginContentElementAndPluginSubtypesRectorTest extends Abstr
 ');
 
         // Act
-        $this->doTestFile(__DIR__ . '/Fixture/' . $extensionKey . '/ext_localconf.php.inc');
-        $this->doTestFile(__DIR__ . '/Fixture/' . $extensionKey . '/Configuration/TCA/Overrides/tt_content.php.inc');
+        $this->doTestFile(__DIR__ . '/Fixture/' . $extensionKey . '/' . $fixtureFile);
         $this->testFilesToDelete[] = __DIR__ . '/Fixture/' . $extensionKey . '/Classes/Updates/TYPO3RectorCTypeMigration.php';
 
         // Assert
@@ -75,7 +74,14 @@ final class MigratePluginContentElementAndPluginSubtypesRectorTest extends Abstr
      */
     public static function provideData(): \Iterator
     {
-        yield 'Test that new migration class is created with correct content' => ['extension1'];
+        yield 'Test that new migration class is created with correct content with ext_localconf' => [
+            'extension1',
+            'ext_localconf.php.inc',
+        ];
+        yield 'Test that new migration class is created with correct content with TCA overrides' => [
+            'extension2',
+            'Configuration/TCA/Overrides/tt_content.php.inc',
+        ];
     }
 
     public function provideConfigFilePath(): string
