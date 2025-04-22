@@ -1,4 +1,4 @@
-# 158 Rules Overview
+# 159 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (20)
+- [TYPO313](#typo313) (21)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3412,6 +3412,24 @@ Remove subtypes_excludelist from list type
 ```diff
 -$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['my_plugin'] = 'layout,select_key,pages';
 +-
+```
+
+<br>
+
+### RenamePageTreeNavigationComponentIdRector
+
+Renamed Page Tree Navigation Component ID
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v1\RenamePageTreeNavigationComponentIdRector`](../rules/TYPO313/v1/RenamePageTreeNavigationComponentIdRector.php)
+
+```diff
+ return [
+     'mymodule' => [
+         'parent' => 'web',
+-        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
++        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
+     ],
+ ];
 ```
 
 <br>
