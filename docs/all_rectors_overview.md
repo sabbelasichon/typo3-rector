@@ -1,4 +1,4 @@
-# 163 Rules Overview
+# 164 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (24)
 
-- [TYPO314](#typo314) (1)
+- [TYPO314](#typo314) (2)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3590,6 +3590,24 @@ Drop the fifth parameter `$pluginType` of `ExtensionUtility::configurePlugin()`
 ```diff
 -ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], [], ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT);
 +ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], []);
+```
+
+<br>
+
+### RemoveMaxDBListItemsRector
+
+Remove `$TCA[$mytable]['interface']['maxDBListItems'],` 'maxSingleDBListItems'
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveMaxDBListItemsRector`](../rules/TYPO314/v0/RemoveMaxDBListItemsRector.php)
+
+```diff
+ return [
+     'columns' => [],
+-    'interface' => [
+-        'maxDBListItems' => 'foo',
+-        'maxSingleDBListItems' => 'foo',
+-    ],
+ ];
 ```
 
 <br>
