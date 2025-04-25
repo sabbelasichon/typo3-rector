@@ -1,4 +1,4 @@
-# 164 Rules Overview
+# 165 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO310](#typo310) (37)
 
-- [TYPO311](#typo311) (30)
+- [TYPO311](#typo311) (31)
 
 - [TYPO312](#typo312) (57)
 
@@ -1181,6 +1181,28 @@ Removes deprecated params of the `ContentObjectRenderer->getATagParams()` method
  $cObjRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
 -$bar = $cObjRenderer->getATagParams([], false);
 +$bar = $cObjRenderer->getATagParams([]);
+```
+
+<br>
+
+### MigrateAbstractUserAuthenticationCreateSessionIdRector
+
+Migrate `$frontendUserAuthentication->createSessionId` and `$backendUserAuthentication->createSessionId()`
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationCreateSessionIdRector`](../rules/TYPO311/v0/MigrateAbstractUserAuthenticationCreateSessionIdRector.php)
+
+```diff
+-$frontendUserAuthentication = new \TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication();
+-$sessionId = $frontendUserAuthentication->createSessionId();
++$sessionId = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(Random::class)->generateRandomHexString(32);
+```
+
+<br>
+
+```diff
+-$backendUserAuthentication = new \TYPO3\CMS\Core\Authentication\BackendUserAuthentication();
+-$sessionId = $backendUserAuthentication->createSessionId();
++$sessionId = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(Random::class)->generateRandomHexString(32);
 ```
 
 <br>
