@@ -36,4 +36,12 @@ abstract class AbstractUserAuthentication
     public function getSession()
     {
     }
+
+    /**
+     * @return string
+     */
+    public function getSessionId()
+    {
+        return '';
+    }
 }

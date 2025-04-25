@@ -11,6 +11,7 @@ use Ssch\TYPO3Rector\TYPO311\v0\ForwardResponseInsteadOfForwardMethodRector;
 use Ssch\TYPO3Rector\TYPO311\v0\GetClickMenuOnIconTagParametersRector;
 use Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationCreateSessionIdRector;
 use Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationGetIdRector;
+use Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationGetSessionIdRector;
 use Ssch\TYPO3Rector\TYPO311\v0\ReplaceInjectAnnotationWithMethodRector;
 use Ssch\TYPO3Rector\TYPO311\v0\SubstituteConstantsModeAndRequestTypeRector;
 use Ssch\TYPO3Rector\TYPO311\v0\UniqueListFromStringUtilityRector;
@@ -38,4 +39,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ReplaceInjectAnnotationWithMethodRector::class);
     $rectorConfig->rule(MigrateAbstractUserAuthenticationCreateSessionIdRector::class);
     $rectorConfig->rule(MigrateAbstractUserAuthenticationGetIdRector::class);
+    $rectorConfig->rule(MigrateAbstractUserAuthenticationGetSessionIdRector::class);
 };
