@@ -56,7 +56,7 @@ ExtensionManagementUtility::allowTableOnStandardPages('my_table');
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-$GLOBALS['TCA']['my_table']['ctrl']['security']['ignorePageTypeRestriction']
+$GLOBALS['TCA']['my_table']['ctrl']['security']['ignorePageTypeRestriction'] = true;
 CODE_SAMPLE
             )]
         );
