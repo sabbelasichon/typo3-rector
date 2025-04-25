@@ -2718,7 +2718,7 @@ Move method ExtensionManagementUtility::allowTableOnStandardPages to TCA configu
 ```diff
 -use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 -ExtensionManagementUtility::allowTableOnStandardPages('my_table');
-+$GLOBALS['TCA']['my_table']['ctrl']['security']['ignorePageTypeRestriction']
++$GLOBALS['TCA']['my_table']['ctrl']['security']['ignorePageTypeRestriction'] = true;
 ```
 
 <br>
