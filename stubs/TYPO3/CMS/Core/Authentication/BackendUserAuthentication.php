@@ -5,8 +5,7 @@ if (class_exists('TYPO3\CMS\Core\Authentication\BackendUserAuthentication')) {
     return;
 }
 
-
-class BackendUserAuthentication
+class BackendUserAuthentication extends AbstractUserAuthentication
 {
     /**
      * @var array
