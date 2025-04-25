@@ -8,6 +8,8 @@ if (class_exists('TYPO3\CMS\Core\Authentication\AbstractUserAuthentication')) {
     return;
 }
 
+use TYPO3\CMS\Core\Session\UserSession;
+
 abstract class AbstractUserAuthentication
 {
     /**
@@ -16,10 +18,22 @@ abstract class AbstractUserAuthentication
     public ?array $user = null;
 
     /**
+     * @var string
+     */
+    public $id;
+
+    /**
      * @return string
      */
     public function createSessionId()
     {
         return '';
+    }
+
+    /**
+     * @return UserSession
+     */
+    public function getSession()
+    {
     }
 }
