@@ -3662,7 +3662,7 @@ Drop the fifth parameter `$pluginType` of `ExtensionUtility::configurePlugin()`
 
 ### RemoveMaxDBListItemsRector
 
-Remove `$TCA[$mytable]['interface']['maxDBListItems'],` 'maxSingleDBListItems'
+Remove `$TCA[$mytable]['interface']['maxDBListItems'],` and 'maxSingleDBListItems'
 
 - class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveMaxDBListItemsRector`](../rules/TYPO314/v0/RemoveMaxDBListItemsRector.php)
 
