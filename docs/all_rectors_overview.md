@@ -1,4 +1,4 @@
-# 166 Rules Overview
+# 167 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO310](#typo310) (37)
 
-- [TYPO311](#typo311) (32)
+- [TYPO311](#typo311) (33)
 
 - [TYPO312](#typo312) (57)
 
@@ -1224,6 +1224,28 @@ Migrate `$frontendUserAuthentication->id` and `$backendUserAuthentication->id`
 ```diff
  $backendUserAuthentication = new BackendUserAuthentication();
 -$id = $backendUserAuthentication->id;
++$id = $backendUserAuthentication->getSession()->getIdentifier();
+```
+
+<br>
+
+### MigrateAbstractUserAuthenticationGetSessionIdRector
+
+Migrate `$frontendUserAuthentication->getSessionId()` and `$backendUserAuthentication->getSessionId()`
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationGetSessionIdRector`](../rules/TYPO311/v0/MigrateAbstractUserAuthenticationGetSessionIdRector.php)
+
+```diff
+ $frontendUserAuthentication = new FrontendUserAuthentication();
+-$id = $frontendUserAuthentication->getSessionId();
++$id = $frontendUserAuthentication->getSession()->getIdentifier();
+```
+
+<br>
+
+```diff
+ $backendUserAuthentication = new BackendUserAuthentication();
+-$id = $backendUserAuthentication->getSessionId();
 +$id = $backendUserAuthentication->getSession()->getIdentifier();
 ```
 
