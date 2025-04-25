@@ -1,4 +1,4 @@
-# 165 Rules Overview
+# 166 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO310](#typo310) (37)
 
-- [TYPO311](#typo311) (31)
+- [TYPO311](#typo311) (32)
 
 - [TYPO312](#typo312) (57)
 
@@ -1203,6 +1203,28 @@ Migrate `$frontendUserAuthentication->createSessionId` and `$backendUserAuthenti
 -$backendUserAuthentication = new \TYPO3\CMS\Core\Authentication\BackendUserAuthentication();
 -$sessionId = $backendUserAuthentication->createSessionId();
 +$sessionId = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(Random::class)->generateRandomHexString(32);
+```
+
+<br>
+
+### MigrateAbstractUserAuthenticationGetIdRector
+
+Migrate `$frontendUserAuthentication->id` and `$backendUserAuthentication->id`
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationGetIdRector`](../rules/TYPO311/v0/MigrateAbstractUserAuthenticationGetIdRector.php)
+
+```diff
+ $frontendUserAuthentication = new FrontendUserAuthentication();
+-$id = $frontendUserAuthentication->id;
++$id = $frontendUserAuthentication->getSession()->getIdentifier();
+```
+
+<br>
+
+```diff
+ $backendUserAuthentication = new BackendUserAuthentication();
+-$id = $backendUserAuthentication->id;
++$id = $backendUserAuthentication->getSession()->getIdentifier();
 ```
 
 <br>
