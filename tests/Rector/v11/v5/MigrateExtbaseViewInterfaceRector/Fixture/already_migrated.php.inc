@@ -1,9 +1,9 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v11\v5\RemoveTypeHintViewInterfaceRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v11\v5\MigrateExtbaseViewInterfaceRector\Fixture;
 
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class MyActionController extends ActionController
 {

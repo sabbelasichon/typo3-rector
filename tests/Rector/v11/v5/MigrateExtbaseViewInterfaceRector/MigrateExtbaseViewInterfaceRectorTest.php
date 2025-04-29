@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v11\v5\RemoveTypeHintViewInterfaceRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\v11\v5\MigrateExtbaseViewInterfaceRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-final class RemoveTypeHintViewInterfaceRectorTest extends AbstractRectorTestCase
+final class MigrateExtbaseViewInterfaceRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()

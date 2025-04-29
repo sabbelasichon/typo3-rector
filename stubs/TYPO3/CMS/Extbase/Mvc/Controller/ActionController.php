@@ -40,6 +40,10 @@ class ActionController extends AbstractController
      */
     protected $configurationManager;
 
+    protected function initializeView(\TYPO3Fluid\Fluid\View\ViewInterface $view)
+    {
+    }
+
     /**
      * @return void
      * @param string $actionName
