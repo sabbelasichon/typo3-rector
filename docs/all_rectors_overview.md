@@ -1,4 +1,4 @@
-# 168 Rules Overview
+# 169 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (24)
 
-- [TYPO314](#typo314) (2)
+- [TYPO314](#typo314) (3)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3678,6 +3678,21 @@ Drop the fifth parameter `$pluginType` of `ExtensionUtility::configurePlugin()`
 ```diff
 -ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], [], ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT);
 +ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], []);
+```
+
+<br>
+
+### ExtendExtbaseValidatorsFromAbstractValidatorRector
+
+Extend Extbase Validators from AbstractValidator
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\ExtendExtbaseValidatorsFromAbstractValidatorRector`](../rules/TYPO314/v0/ExtendExtbaseValidatorsFromAbstractValidatorRector.php)
+
+```diff
+-class MyValidator implements ValidatorInterface
++class MyValidator extends AbstractValidator
+ {
+ }
 ```
 
 <br>
