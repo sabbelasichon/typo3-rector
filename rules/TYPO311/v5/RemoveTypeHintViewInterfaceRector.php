@@ -23,7 +23,7 @@ Do not use this rule any more. Please use MigrateExtbaseViewInterfaceRector inst
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
-Do not use this rule any more. Please use MigrateExtbaseViewInterfaceRector instead.
+Do not use this rule any more. Please use MigrateExtbaseViewInterfaceRector instead!
 CODE_SAMPLE
         )]);
     }
