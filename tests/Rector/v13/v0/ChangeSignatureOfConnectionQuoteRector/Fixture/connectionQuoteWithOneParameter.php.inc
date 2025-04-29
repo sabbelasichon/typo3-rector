@@ -7,4 +7,3 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 $connection = GeneralUtility::makeInstance(Connection::class);
 $connection->quote('foo');
-?>

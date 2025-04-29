@@ -53,6 +53,33 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
+        if ($this->shouldSkip($node)) {
+            return null;
+        }
+
+        $changed = false;
+
+        if (count($node->args) === 2) {
+            unset($node->args[1]);
+            $changed = true;
+        }
+
+        $argument = $node->args[0];
+        if (! $argument instanceof Arg) {
+            return null;
+        }
+
+        $type = $this->getType($argument->value);
+        if ($type->isString()->no()) {
+            $node->args[0]->value = new String_($argument->value);
+            $changed = true;
+        }
+
+        return $changed ? $node : null;
+    }
+
+    private function shouldSkip(MethodCall $node): bool
+    {
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('Doctrine\DBAL\Connection')
@@ -60,29 +87,8 @@ CODE_SAMPLE
             $node,
             new ObjectType('TYPO3\CMS\Core\Database\Query\QueryBuilder')
         )) {
-            return null;
+            return true;
         }
-
-        if (! $this->isName($node->name, 'quote')) {
-            return null;
-        }
-
-        if (count($node->args) === 2) {
-            unset($node->args[1]);
-        }
-
-        $argument = $node->args[0];
-
-        if (! $argument instanceof Arg) {
-            return null;
-        }
-
-        $type = $this->nodeTypeResolver->getType($argument->value);
-
-        if ($type->isString()->no()) {
-            $node->args[0]->value = new String_($argument->value);
-        }
-
-        return $node;
+        return ! $this->isName($node->name, 'quote');
     }
 }
