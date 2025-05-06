@@ -15,4 +15,9 @@ class MathUtility
     {
         return true;
     }
+
+    public static function convertToPositiveInteger($theInt): int
+    {
+        return $theInt;
+    }
 }
