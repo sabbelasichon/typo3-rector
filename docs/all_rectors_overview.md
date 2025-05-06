@@ -1,4 +1,4 @@
-# 169 Rules Overview
+# 170 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (24)
+- [TYPO313](#typo313) (25)
 
 - [TYPO314](#typo314) (3)
 
@@ -3396,6 +3396,19 @@ Migrate GeneralUtility::hmac to HashService::hmac
 
 -$hmac = GeneralUtility::hmac('some-input', 'some-secret');
 +$hmac = GeneralUtility::makeInstance(HashService::class)->hmac('some-input', 'some-secret');
+```
+
+<br>
+
+### MigrateMathUtilityConvertToPositiveIntegerToMaxRector
+
+Migrate `MathUtility::convertToPositiveInteger()` to `max()`
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v2\MigrateMathUtilityConvertToPositiveIntegerToMaxRector`](../rules/TYPO313/v2/MigrateMathUtilityConvertToPositiveIntegerToMaxRector.php)
+
+```diff
+-MathUtility::convertToPositiveInteger($pageId)
++max(0, $pageId)
 ```
 
 <br>
