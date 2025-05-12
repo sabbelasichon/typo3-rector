@@ -92,9 +92,9 @@ CODE_SAMPLE
         }
 
         // Replacements for renderStatic() method arguments
-        $argumentsParamName = $this->nodeNameResolver->getName($staticMethodNode->params[0]->var);
-        $renderClosureParamName = $this->nodeNameResolver->getName($staticMethodNode->params[1]->var);
-        $renderingContextParamName = $this->nodeNameResolver->getName($staticMethodNode->params[2]->var);
+        $argumentsParamName = $this->getName($staticMethodNode->params[0]->var);
+        $renderClosureParamName = $this->getName($staticMethodNode->params[1]->var);
+        $renderingContextParamName = $this->getName($staticMethodNode->params[2]->var);
 
         // Replace local variables in render function with object properties
         $this->traverseNodesWithCallable(
@@ -118,14 +118,14 @@ CODE_SAMPLE
                 if (
                     $node instanceof FuncCall
                     && $node->name instanceof Variable
-                    && $this->nodeNameResolver->getName($node->name) === $renderClosureParamName
+                    && $this->getName($node->name) === $renderClosureParamName
                 ) {
                     return $childrenClosureCallReplacement;
                 }
 
                 // Replace usages of variables
                 if ($node instanceof Variable) {
-                    switch ($this->nodeNameResolver->getName($node)) {
+                    switch ($this->getName($node)) {
                         case $argumentsParamName:
                             return $argumentsReplacement;
 

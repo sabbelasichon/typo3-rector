@@ -98,7 +98,7 @@ CODE_SAMPLE
 
     private function shouldSkip(Attribute $attribute): bool
     {
-        if (! $this->nodeNameResolver->isName($attribute, 'TYPO3\CMS\Extbase\Annotation\Validate')) {
+        if (! $this->isName($attribute, 'TYPO3\CMS\Extbase\Annotation\Validate')) {
             return true;
         }
 

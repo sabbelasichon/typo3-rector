@@ -59,11 +59,11 @@ final class UseConfigArrayForTSFEPropertiesRector extends AbstractRector impleme
             return null;
         }
 
-        if (! $this->nodeNameResolver->isNames($node->name, self::DEPRECATED_PUBLIC_PROPERTIES)) {
+        if (! $this->isNames($node->name, self::DEPRECATED_PUBLIC_PROPERTIES)) {
             return null;
         }
 
-        $propertyName = $this->nodeNameResolver->getName($node->name);
+        $propertyName = $this->getName($node->name);
 
         if ($propertyName === null) {
             return null;

@@ -69,6 +69,6 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! $this->nodeNameResolver->isName($node->name, 'fetchColumn');
+        return ! $this->isName($node->name, 'fetchColumn');
     }
 }

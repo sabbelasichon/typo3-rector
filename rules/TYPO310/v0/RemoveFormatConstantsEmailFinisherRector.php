@@ -126,7 +126,7 @@ CODE_SAMPLE
         }
 
         $methodCall->args[0]->value = new String_(self::ADD_HTML_PART);
-        $methodCall->args[1]->value = $this->nodeNameResolver->isName(
+        $methodCall->args[1]->value = $this->isName(
             $classConstFetch->name,
             self::FORMAT_HTML
         ) ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();

@@ -138,6 +138,6 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! $this->nodeNameResolver->isName($node->name, 'fetchAll');
+        return ! $this->isName($node->name, 'fetchAll');
     }
 }

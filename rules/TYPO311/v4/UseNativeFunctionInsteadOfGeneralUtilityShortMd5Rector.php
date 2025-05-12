@@ -58,7 +58,7 @@ final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector extends Abstr
             return null;
         }
 
-        if (! $this->nodeNameResolver->isName($node->name, 'shortMD5')) {
+        if (! $this->isName($node->name, 'shortMD5')) {
             return null;
         }
 

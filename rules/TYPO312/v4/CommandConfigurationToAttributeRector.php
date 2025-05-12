@@ -275,7 +275,7 @@ CODE_SAMPLE
         $replacedAsCommandAttribute = \false;
         foreach ($class->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attribute) {
-                if ($this->nodeNameResolver->isName($attribute->name, SymfonyAttribute::AS_COMMAND)) {
+                if ($this->isName($attribute->name, SymfonyAttribute::AS_COMMAND)) {
                     $hasAsCommandAttribute = \true;
                     $replacedAsCommandAttribute = $this->replaceArguments($attribute, $createAttributeGroup);
                 }

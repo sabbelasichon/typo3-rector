@@ -199,7 +199,7 @@ CODE_SAMPLE
         $replacedAsEventListenerAttribute = \false;
         foreach ($class->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attribute) {
-                if ($this->nodeNameResolver->isName($attribute->name, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
+                if ($this->isName($attribute->name, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
                     $hasAsEventListenerAttribute = \true;
                     $replacedAsEventListenerAttribute = $this->replaceArguments($attribute, $createAttributeGroup);
                 }
