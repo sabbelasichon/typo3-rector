@@ -156,7 +156,7 @@ CODE_SAMPLE
                 return null;
             }
 
-            if (! $this->nodeNameResolver->isName($node->name, $methodCallName)) {
+            if (! $this->isName($node->name, $methodCallName)) {
                 return null;
             }
 

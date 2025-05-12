@@ -136,6 +136,6 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! $this->nodeNameResolver->isName($node->name, 'getTypoLink_URL');
+        return ! $this->isName($node->name, 'getTypoLink_URL');
     }
 }

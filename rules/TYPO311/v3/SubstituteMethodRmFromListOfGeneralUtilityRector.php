@@ -60,7 +60,7 @@ final class SubstituteMethodRmFromListOfGeneralUtilityRector extends AbstractRec
         $explodeFuncCall = $this->nodeFactory->createFuncCall('explode', [',', $node->args[1]]);
 
         $itemVariable = new Variable('item');
-        $elementVariable = new Variable($this->nodeNameResolver->getName($node->args[0]->value) ?? 'element');
+        $elementVariable = new Variable($this->getName($node->args[0]->value) ?? 'element');
 
         $stmts = [new Return_(new Equal($elementVariable, $itemVariable))];
 

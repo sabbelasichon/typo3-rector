@@ -189,7 +189,7 @@ CODE_SAMPLE
                 return false;
             }
 
-            return $this->nodeNameResolver->isName($node, $firstParameterName);
+            return $this->isName($node, $firstParameterName);
         });
 
         if ($variables === []) {

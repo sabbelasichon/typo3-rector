@@ -187,7 +187,7 @@ CODE_SAMPLE
         $assignToOptionsProperty = false;
         $constructorParams = [];
         foreach ($constructorMethod->getParams() as $param) {
-            if ($this->nodeNameResolver->isName($param, 'options')) {
+            if ($this->isName($param, 'options')) {
                 $assignToOptionsProperty = true;
                 continue;
             }
@@ -216,7 +216,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! $this->nodeNameResolver->isName($assign->var, 'options');
+        return ! $this->isName($assign->var, 'options');
     }
 
     private function shouldKeepStaticCall(StaticCall $staticCall): bool

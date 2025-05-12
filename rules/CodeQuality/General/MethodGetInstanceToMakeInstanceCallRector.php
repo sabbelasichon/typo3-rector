@@ -54,7 +54,7 @@ final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector imp
             return null;
         }
 
-        $className = $this->nodeNameResolver->getName($node->class);
+        $className = $this->getName($node->class);
 
         if ($className === null) {
             return null;
