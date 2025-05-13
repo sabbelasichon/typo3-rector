@@ -109,6 +109,11 @@ final class MigrateAddPageTSConfigToPageTsConfigFileRectorTest extends AbstractR
         yield 'Test that new page.tsconfig is created with correct content but unresolvable content cannot be migrated properly' => [
             'extension3',
         ];
+
+        yield 'Test that new page.tsconfig is not created without importing itself again' => [
+            'no_recursion',
+            '# page.tsconfig file exists' . PHP_EOL,
+        ];
     }
 
     public function provideConfigFilePath(): string
