@@ -87,7 +87,6 @@ CODE_SAMPLE
     public function refactor(Node $node)
     {
         $staticMethodCall = $node->expr;
-
         if (! $staticMethodCall instanceof StaticCall) {
             return null;
         }
@@ -97,13 +96,11 @@ CODE_SAMPLE
         }
 
         $contentArgument = $staticMethodCall->args[0] ?? null;
-
         if ($contentArgument === null) {
             return null;
         }
 
         $contentArgumentValue = $contentArgument->value;
-
         if (! $contentArgumentValue instanceof String_ && ! $contentArgumentValue instanceof Concat) {
             return null;
         }
@@ -114,6 +111,10 @@ CODE_SAMPLE
 
         $content = $this->valueResolver->getValue($contentArgumentValue);
         $newConfigurationFile = $directoryName . '/Configuration/user.tsconfig';
+        if (str_contains($content, '/Configuration/user.tsconfig')) {
+            return NodeVisitor::REMOVE_NODE;
+        }
+
         if ($this->filesystem->fileExists($newConfigurationFile)) {
             $this->filesystem->appendToFile($newConfigurationFile, $content . PHP_EOL);
         } else {

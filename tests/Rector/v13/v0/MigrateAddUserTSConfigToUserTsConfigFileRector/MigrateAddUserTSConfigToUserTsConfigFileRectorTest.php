@@ -109,6 +109,11 @@ final class MigrateAddUserTSConfigToUserTsConfigFileRectorTest extends AbstractR
         yield 'Test that new user.tsconfig is created with correct content but unresolvable content cannot be migrated properly' => [
             'extension3',
         ];
+
+        yield 'Test that new user.tsconfig is not created without importing itself again' => [
+            'no_recursion',
+            '# user.tsconfig file exists' . PHP_EOL,
+        ];
     }
 
     public function provideConfigFilePath(): string
