@@ -63,6 +63,50 @@ return [
                 ],
             ],
         ],
+        'simpleCheckboxConfig' => [
+            'label' => 'simpleCheckboxConfig',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
+                'items' => [
+                    0 => [
+                        'foo',
+                        'bar',
+                    ],
+                ],
+            ],
+        ],
+        'toggleCheckboxConfig' => [
+            'label' => 'toggleCheckboxConfig',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
+                'items' => [
+                    0 => [
+                        'foo',
+                        'bar',
+                        'labelChecked' => 'Enabled',
+                        'labelUnchecked' => 'Disabled',
+                    ],
+                ],
+            ],
+        ],
+        'inverted_toggleCheckboxConfig' => [
+            'label' => 'inverted_toggleCheckboxConfig',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
+                'items' => [
+                    0 => [
+                        'foo',
+                        'bar',
+                        'labelChecked' => 'Enabled',
+                        'labelUnchecked' => 'Disabled',
+                        'invertStateDisplay' => true,
+                    ],
+                ],
+            ],
+        ],
     ],
 ];
 ?>
@@ -120,6 +164,48 @@ return [
                         'label' => 'Enabled/Disabled',
                         'labelChecked' => 'Enabled',
                         'labelUnchecked' => 'Disabled',
+                    ],
+                ],
+            ],
+        ],
+        'simpleCheckboxConfig' => [
+            'label' => 'simpleCheckboxConfig',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
+                'items' => [
+                    0 => [
+                        0 => 'foo',
+                    ],
+                ],
+            ],
+        ],
+        'toggleCheckboxConfig' => [
+            'label' => 'toggleCheckboxConfig',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
+                'items' => [
+                    0 => [
+                        'foo',
+                        'labelChecked' => 'Enabled',
+                        'labelUnchecked' => 'Disabled',
+                    ],
+                ],
+            ],
+        ],
+        'inverted_toggleCheckboxConfig' => [
+            'label' => 'inverted_toggleCheckboxConfig',
+            'config' => [
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
+                'items' => [
+                    0 => [
+                        'foo',
+                        'bar',
+                        'labelChecked' => 'Enabled',
+                        'labelUnchecked' => 'Disabled',
+                        'invertStateDisplay' => true,
                     ],
                 ],
             ],

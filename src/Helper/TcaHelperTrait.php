@@ -150,6 +150,17 @@ trait TcaHelperTrait
     }
 
     /**
+     * Removes an array item directly from the first level of an array by index
+     */
+    protected function removeArrayItemFromArrayByIndex(Array_ $array, int $index): void
+    {
+        if (isset($array->items[$index])) {
+            unset($array->items[$index]);
+            $this->hasAstBeenChanged = true;
+        }
+    }
+
+    /**
      * @param string|int $configKey
      */
     protected function hasKey(Array_ $configValuesArray, $configKey): bool
