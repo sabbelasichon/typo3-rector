@@ -83,9 +83,6 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! $this->isNames(
-            $node->name,
-            ['isEnvironmentInFrontendMode', 'isEnvironmentInBackendMode']
-        );
+        return ! $this->isNames($node->name, ['isEnvironmentInFrontendMode', 'isEnvironmentInBackendMode']);
     }
 }
