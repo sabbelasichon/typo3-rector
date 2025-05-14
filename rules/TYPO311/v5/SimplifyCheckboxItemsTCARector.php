@@ -124,10 +124,18 @@ CODE_SAMPLE
         /** @var Array_ $firstItemsArray */
         $firstItemsArray = $firstArrayItem->value;
 
-        // Check if 'invertStateDisplay' is set
-        if ($this->hasKey($firstItemsArray, 'invertStateDisplay')) {
+        if ($this->hasKey($firstItemsArray, 'invertStateDisplay')
+            || $this->hasKey($firstItemsArray, 'labelChecked')
+            || $this->hasKey($firstItemsArray, 'labelUnchecked')
+            || $this->hasKey($firstItemsArray, 'iconIdentifierChecked')
+            || $this->hasKey($firstItemsArray, 'iconIdentifierUnchecked')
+        ) {
             // Remove array key 1
             $this->removeArrayItemFromArrayByKey($firstItemsArray, 1);
+            if ($this->hasAstBeenChanged === false) {
+                $this->removeArrayItemFromArrayByIndex($firstItemsArray, 1);
+            }
+
             return;
         }
 
