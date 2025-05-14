@@ -1,4 +1,4 @@
-# 170 Rules Overview
+# 171 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (25)
+- [TYPO313](#typo313) (26)
 
 - [TYPO314](#typo314) (3)
 
@@ -3589,6 +3589,48 @@ Renamed Page Tree Navigation Component ID
 -        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
 +        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
      ],
+ ];
+```
+
+<br>
+
+### RenameTableOptionsAndCollateConnectionConfigurationRector
+
+Rename `$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections'][CONNECTION_NAME]['tableoptions']` to `defaultTableOptions` and its inner `collate` key to `collation`. This applies to full array definitions and direct path assignments.
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v4\RenameTableOptionsAndCollateConnectionConfigurationRector`](../rules/TYPO313/v4/RenameTableOptionsAndCollateConnectionConfigurationRector.php)
+
+```diff
+ return [
+     'DB' => [
+         'Connections' => [
+             'Default' => [
+-                'tableoptions' => [
+-                    'collate' => 'utf8mb4_unicode_ci',
++                'defaultTableOptions' => [
++                    'collation' => 'utf8mb4_unicode_ci',
+                 ],
+             ],
+         ],
+     ],
+ ];
+```
+
+<br>
+
+```diff
+-$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['tableoptions']['collate'] = 'utf8mb4_unicode_ci';
++$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['defaultTableOptions']['collation'] = 'utf8mb4_unicode_ci';
+```
+
+<br>
+
+```diff
+-$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['tableoptions'] = [
+-    'collate' => 'latin1_swedish_ci',
++$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default']['defaultTableOptions'] = [
++    'collation' => 'latin1_swedish_ci',
+     'engine' => 'InnoDB',
  ];
 ```
 
