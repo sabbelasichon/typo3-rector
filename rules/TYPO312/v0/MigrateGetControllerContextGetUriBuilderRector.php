@@ -89,13 +89,13 @@ CODE_SAMPLE
         /** @var MethodCall $methodCall */
         $methodCall = $node->var;
 
-        if (! $this->isName($methodCall->name, 'getControllerContext')) {
+        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $methodCall,
+            new ObjectType('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController')
+        )) {
             return true;
         }
 
-        return ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $methodCall,
-            new ObjectType('TYPO3\\CMS\\Extbase\\Mvc\\Controller\\ActionController')
-        );
+        return ! $this->isName($methodCall->name, 'getControllerContext');
     }
 }
