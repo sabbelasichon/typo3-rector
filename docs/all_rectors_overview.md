@@ -1,4 +1,4 @@
-# 171 Rules Overview
+# 172 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (26)
+- [TYPO313](#typo313) (27)
 
 - [TYPO314](#typo314) (3)
 
@@ -3632,6 +3632,19 @@ Rename `$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections'][CONNECTION_NAME]['table
 +    'collation' => 'latin1_swedish_ci',
      'engine' => 'InnoDB',
  ];
+```
+
+<br>
+
+### ReplaceTYPO3EnumTypeWithDoctrineDBALEnumTypeRector
+
+Replace TYPO3 EnumType with Doctrine DBAL EnumType
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v4\ReplaceTYPO3EnumTypeWithDoctrineDBALEnumTypeRector`](../rules/TYPO313/v4/ReplaceTYPO3EnumTypeWithDoctrineDBALEnumTypeRector.php)
+
+```diff
+-$doctrineType = \TYPO3\CMS\Core\Database\Schema\Types\EnumType::TYPE;
++$doctrineType = \Doctrine\DBAL\Types\Type::TYPE;
 ```
 
 <br>
