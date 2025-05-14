@@ -14,6 +14,8 @@ use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Function_;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PostRector\ValueObject\PropertyMetadata;
@@ -33,9 +35,17 @@ final class InjectMethodToConstructorInjectionRector extends AbstractRector impl
      */
     private ClassDependencyManipulator $classDependencyManipulator;
 
-    public function __construct(ClassDependencyManipulator $classDependencyManipulator)
-    {
+    /**
+     * @readonly
+     */
+    private ReflectionProvider $reflectionProvider;
+
+    public function __construct(
+        ClassDependencyManipulator $classDependencyManipulator,
+        ReflectionProvider $reflectionProvider
+    ) {
         $this->classDependencyManipulator = $classDependencyManipulator;
+        $this->reflectionProvider = $reflectionProvider;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -122,29 +132,23 @@ CODE_SAMPLE
                 continue;
             }
 
+            $propertyName = $paramName;
+
+            // Try to determine property name from assignment in inject method
             if (isset($injectMethod->stmts[0]) && $injectMethod->stmts[0] instanceof Expression) {
-                // check for the property name and if they match
                 $statement = $injectMethod->stmts[0];
-
                 $assign = $statement->expr;
-                if (! $assign instanceof Assign) {
-                    continue;
-                }
-
-                $propertyFetch = $assign->var;
-                if (! $propertyFetch instanceof PropertyFetch) {
-                    continue;
-                }
-
-                $paramName = $this->getName($propertyFetch->name);
-                if ($paramName === null) {
-                    continue;
+                if ($assign instanceof Assign && $assign->var instanceof PropertyFetch) {
+                    $propertyFetchName = $this->getName($assign->var->name);
+                    if ($propertyFetchName !== null) {
+                        $propertyName = $propertyFetchName;
+                    }
                 }
             }
 
             $this->classDependencyManipulator->addConstructorDependency(
                 $node,
-                new PropertyMetadata($paramName, new ObjectType((string) $param->type), Modifiers::PROTECTED)
+                new PropertyMetadata($propertyName, new ObjectType((string) $param->type), Modifiers::PRIVATE)
             );
             $this->removeNodeFromStatements($node, $injectMethod);
         }
@@ -152,9 +156,41 @@ CODE_SAMPLE
         return $node;
     }
 
-    private function shouldSkip(Class_ $class): bool
+    private function shouldSkip(Class_ $classNode): bool
     {
-        return $class->getMethods() === [];
+        $className = $this->getName($classNode);
+
+        // Handle anonymous classes: they don't have "parents" in the same way for reflection
+        // and can only have their own constructor.
+        if ($className === null) {
+            return $classNode->getMethod('__construct') instanceof ClassMethod;
+        }
+
+        // Check if the class is known to PHPStan's reflection
+        if (! $this->reflectionProvider->hasClass($className)) {
+            // If the class is not found by reflection (e.g., dynamic, eval'd code),
+            // it's safer to skip to avoid errors.
+            // Alternatively, you could fallback to checking only the AST node:
+            // return $classNode->getMethod('__construct') !== null;
+            return true;
+        }
+
+        $classReflection = $this->reflectionProvider->getClass($className);
+
+        // Traverse the class hierarchy (current class and its parents)
+        $currentClassReflection = $classReflection;
+        do {
+            // hasNativeMethod checks if the method is defined directly in *this* class,
+            // not just inherited. This is what we want.
+            if ($currentClassReflection->hasNativeMethod('__construct')) {
+                return true; // A constructor is defined in this class or an ancestor
+            }
+
+            $currentClassReflection = $currentClassReflection->getParentClass();
+        } while ($currentClassReflection instanceof ClassReflection);
+
+        // No constructor found in the current class or any of its parents
+        return false;
     }
 
     /**
