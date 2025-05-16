@@ -4,7 +4,6 @@ namespace TYPO3\CMS\Extbase\Mvc\Controller;
 
 use TYPO3\CMS\Core\Http\ResponseFactoryInterface;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 if (class_exists('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')) {
@@ -19,7 +18,7 @@ class ActionController extends AbstractController
     protected $responseFactory;
 
     /**
-     * @var ViewInterface
+     * @var \TYPO3Fluid\Fluid\View\ViewInterface|\TYPO3\CMS\Extbase\Mvc\View\ViewInterface|\TYPO3\CMS\Core\View\ViewInterface
      */
     protected $view;
 
