@@ -130,6 +130,15 @@ CODE_SAMPLE
             || $this->hasKey($firstItemsArray, 'iconIdentifierChecked')
             || $this->hasKey($firstItemsArray, 'iconIdentifierUnchecked')
         ) {
+            // check for already migrated label/value keys
+            $labelKeyArrayItem = $this->extractArrayItemByKey($firstItemsArray, 'label');
+            if ($labelKeyArrayItem instanceof ArrayItem) {
+                // Skip migrated items which have a "label" key that comes from MigrateItemsIndexedKeysToAssociativeRector.
+                // only remove "value" if it exists
+                $this->removeArrayItemFromArrayByKey($firstItemsArray, 'value');
+                return;
+            }
+
             // Remove array key 1
             $this->removeArrayItemFromArrayByKey($firstItemsArray, 1);
             if ($this->hasAstBeenChanged === false) {
