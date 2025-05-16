@@ -22,6 +22,7 @@ final class RenamePageTreeNavigationComponentIdRectorTest extends AbstractRector
     public static function provideData(): \Iterator
     {
         yield 'Extension1' => ['extension1'];
+        yield 'Extension2' => ['extension2'];
     }
 
     public function provideConfigFilePath(): string
