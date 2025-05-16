@@ -7,10 +7,14 @@ namespace Ssch\TYPO3Rector\TYPO311\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\Expr\BinaryOp\BitwiseAnd;
+use PhpParser\Node\Expr\BinaryOp\Identical;
+use PhpParser\Node\Expr\BinaryOp\NotIdentical;
 use PhpParser\Node\Expr\BooleanNot;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\PhpParser\Node\Value\ValueResolver;
@@ -61,42 +65,21 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector i
         }
 
         if ($node instanceof ConstFetch) {
-            return $this->refactorRequestType($node);
+            // Handles standalone TYPO3_REQUESTTYPE_FE or TYPO3_REQUESTTYPE_BE constants
+            return $this->refactorStandaloneRequestTypeConstant($node);
         }
 
-        if ($this->shouldSkip()) {
-            return null;
+        if ($node instanceof BitwiseAnd) {
+            // Handles TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE/BE
+            return $this->refactorBitwiseRequestType($node);
         }
 
-        $constFetch = null;
-        $type = null;
-        if ($node->left instanceof ConstFetch) {
-            $constFetch = $node->left;
-            $type = $node->right;
-        } elseif ($node->right instanceof ConstFetch) {
-            $constFetch = $node->right;
-            $type = $node->left;
+        if ($node instanceof Identical || $node instanceof NotIdentical) {
+            // Handles TYPO3_MODE === 'FE' or TYPO3_MODE !== 'FE' etc.
+            return $this->refactorTypo3ModeComparison($node);
         }
 
-        if (! $constFetch instanceof ConstFetch) {
-            return null;
-        }
-
-        if (! $this->isName($constFetch->name, 'TYPO3_MODE')) {
-            return null;
-        }
-
-        $typeValue = $this->valueResolver->getValue($type);
-
-        if (! in_array($typeValue, ['FE', 'BE'], true)) {
-            return null;
-        }
-
-        if ($typeValue === 'BE') {
-            return $this->wrapWithNegateIfNeeded($this->createIsBackendCall(), $node->getOperatorSigil());
-        }
-
-        return $this->wrapWithNegateIfNeeded($this->createIsFrontendCall(), $node->getOperatorSigil());
+        return null;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -111,6 +94,57 @@ CODE_SAMPLE
 defined('TYPO3') or die();
 CODE_SAMPLE
             ),
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+if (TYPO3_MODE === 'FE') {
+    // Do something
+}
+if (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE) {
+    // Do something
+}
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+use TYPO3\CMS\Core\Http\ApplicationType;
+
+if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
+    // Do something
+}
+if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
+    // Do something
+}
+CODE_SAMPLE
+            ),
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+if (!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_BE)) {
+    // Do something
+}
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+use TYPO3\CMS\Core\Http\ApplicationType;
+
+if (!(ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend())) {
+    // Do something
+}
+CODE_SAMPLE
+            ),
+            new CodeSample(
+                <<<'CODE_SAMPLE'
+if (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_CLI) {
+    // Do something
+}
+CODE_SAMPLE
+                ,
+                <<<'CODE_SAMPLE'
+use TYPO3\CMS\Core\Core\Environment;
+
+if (Environment::isCli()) {
+    // Do something
+}
+CODE_SAMPLE
+            ),
         ]);
     }
 
@@ -120,8 +154,11 @@ CODE_SAMPLE
             return null;
         }
 
-        $firstArgument = $node->args[0]->value;
+        if (! isset($node->args[0])) {
+            return null;
+        }
 
+        $firstArgument = $node->args[0]->value;
         if (! $firstArgument instanceof String_) {
             return null;
         }
@@ -133,6 +170,113 @@ CODE_SAMPLE
         $node->args[0]->value = new String_('TYPO3');
 
         return $node;
+    }
+
+    /**
+     * Handles TYPO3_MODE === 'FE', TYPO3_MODE === 'BE',
+     * TYPO3_MODE !== 'FE', TYPO3_MODE !== 'BE'
+     */
+    private function refactorTypo3ModeComparison(BinaryOp $node): ?Node
+    {
+        if (! $node instanceof Identical && ! $node instanceof NotIdentical) {
+            return null;
+        }
+
+        if ($this->shouldSkip()) {
+            return null;
+        }
+
+        if ($node->left instanceof ConstFetch && $node->right instanceof String_) {
+            $constFetchNode = $node->left;
+            $stringNode = $node->right;
+        } elseif ($node->right instanceof ConstFetch && $node->left instanceof String_) {
+            $constFetchNode = $node->right;
+            $stringNode = $node->left;
+        } else {
+            return null;
+        }
+
+        if (! $this->isName($constFetchNode, 'TYPO3_MODE')) {
+            return null;
+        }
+
+        $typeValue = $this->valueResolver->getValue($stringNode);
+
+        if (! in_array($typeValue, ['FE', 'BE'], true)) {
+            return null;
+        }
+
+        $methodCall = ($typeValue === 'BE')
+            ? $this->createIsBackendCall()
+            : $this->createIsFrontendCall();
+
+        // If original operator was !==, we need to negate the result
+        if ($node instanceof NotIdentical) {
+            return new BooleanNot($methodCall);
+        }
+
+        return $methodCall;
+    }
+
+    /**
+     * Handles TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE or
+     * TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_BE
+     */
+    private function refactorBitwiseRequestType(BitwiseAnd $node): ?Node
+    {
+        $leftOperand = $node->left;
+        $rightOperand = $node->right;
+
+        if ($leftOperand instanceof ConstFetch
+            && $rightOperand instanceof ConstFetch
+            && $this->isName($leftOperand, 'TYPO3_REQUESTTYPE')
+        ) {
+            $requestTypeConstantNode = $rightOperand;
+        } elseif ($rightOperand instanceof ConstFetch
+            && $leftOperand instanceof ConstFetch
+            && $this->isName($rightOperand, 'TYPO3_REQUESTTYPE')
+        ) {
+            $requestTypeConstantNode = $leftOperand;
+        } else {
+            return null;
+        }
+
+        // At this point, $typo3RequestTypeNode is TYPO3_REQUESTTYPE
+        // and $requestTypeConstantNode is the other constant.
+        if ($this->isName($requestTypeConstantNode, 'TYPO3_REQUESTTYPE_FE')) {
+            return $this->createIsFrontendCall();
+        }
+
+        if ($this->isName($requestTypeConstantNode, 'TYPO3_REQUESTTYPE_BE')) {
+            return $this->createIsBackendCall();
+        }
+
+        if ($this->isName($requestTypeConstantNode, 'TYPO3_REQUESTTYPE_CLI')) {
+            return $this->createIsCliCall();
+        }
+
+        return null;
+    }
+
+    /**
+     * Handles standalone TYPO3_REQUESTTYPE_FE or TYPO3_REQUESTTYPE_BE constants.
+     * These could be assigned to variables or used in other contexts.
+     */
+    private function refactorStandaloneRequestTypeConstant(ConstFetch $node): ?Node
+    {
+        if ($this->isName($node, 'TYPO3_REQUESTTYPE_FE')) {
+            return $this->createIsFrontendCall();
+        }
+
+        if ($this->isName($node, 'TYPO3_REQUESTTYPE_BE')) {
+            return $this->createIsBackendCall();
+        }
+
+        if ($this->isName($node, 'TYPO3_REQUESTTYPE_CLI')) {
+            return $this->createIsCliCall();
+        }
+
+        return null;
     }
 
     private function createIsBackendCall(): MethodCall
@@ -159,30 +303,22 @@ CODE_SAMPLE
         );
     }
 
+    private function createIsCliCall(): StaticCall
+    {
+        return $this->nodeFactory->createStaticCall(
+            'TYPO3\CMS\Core\Core\Environment',
+            'isCli',
+        );
+    }
+
     private function shouldSkip(): bool
     {
-        if ($this->filesFinder->isExtLocalConf($this->file->getFilePath())) {
+        $filePath = $this->file->getFilePath();
+        if ($this->filesFinder->isExtLocalConf($filePath)) {
             return true;
         }
 
-        return $this->filesFinder->isExtTables($this->file->getFilePath());
-    }
-
-    private function refactorRequestType(ConstFetch $node): ?Node
-    {
-        if (! $this->isNames($node, ['TYPO3_MODE', 'TYPO3_REQUESTTYPE_FE', 'TYPO3_REQUESTTYPE_BE'])) {
-            return null;
-        }
-
-        if ($this->isName($node, 'TYPO3_REQUESTTYPE_FE')) {
-            return $this->createIsFrontendCall();
-        }
-
-        if ($this->isName($node, 'TYPO3_REQUESTTYPE_BE')) {
-            return $this->createIsBackendCall();
-        }
-
-        return null;
+        return $this->filesFinder->isExtTables($filePath);
     }
 
     /**
@@ -190,18 +326,8 @@ CODE_SAMPLE
      */
     private function createRequestArguments(): array
     {
-        return [new ArrayDimFetch(new Variable(Typo3NodeResolver::GLOBALS), new String_('TYPO3_REQUEST'))];
-    }
-
-    /**
-     * @return BooleanNot|MethodCall
-     */
-    private function wrapWithNegateIfNeeded(MethodCall $methodCall, string $operator)
-    {
-        if ($operator === '!==') {
-            return new BooleanNot($methodCall);
-        }
-
-        return $methodCall;
+        return [$this->nodeFactory->createArg(
+            new ArrayDimFetch(new Variable(Typo3NodeResolver::GLOBALS), new String_('TYPO3_REQUEST'))
+        )];
     }
 }
