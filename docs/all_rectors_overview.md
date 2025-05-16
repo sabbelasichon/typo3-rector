@@ -1624,6 +1624,43 @@ Substitute TYPO3_MODE and TYPO3_REQUESTTYPE constants
 
 <br>
 
+```diff
+-if (TYPO3_MODE === 'FE') {
++use TYPO3\CMS\Core\Http\ApplicationType;
++
++if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
+     // Do something
+ }
+-if (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_FE) {
++if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isFrontend()) {
+     // Do something
+ }
+```
+
+<br>
+
+```diff
+-if (!(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_BE)) {
++use TYPO3\CMS\Core\Http\ApplicationType;
++
++if (!(ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend())) {
+     // Do something
+ }
+```
+
+<br>
+
+```diff
+-if (TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_CLI) {
++use TYPO3\CMS\Core\Core\Environment;
++
++if (Environment::isCli()) {
+     // Do something
+ }
+```
+
+<br>
+
 ### SubstituteEnvironmentServiceWithApplicationTypeRector
 
 Substitute class EnvironmentService with ApplicationType class\"
