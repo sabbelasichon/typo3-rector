@@ -1,4 +1,4 @@
-# 172 Rules Overview
+# 173 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (27)
+- [TYPO313](#typo313) (28)
 
 - [TYPO314](#typo314) (3)
 
@@ -3723,6 +3723,85 @@ Use strict types in Extbase ActionController
 -    public $errorMethodName = 'myAction';
 +    public string $defaultViewObjectName = JsonView::class;
 +    public string $errorMethodName = 'myAction';
+ }
+```
+
+<br>
+
+### UseTYPO3CoreViewInterfaceInExtbaseRector
+
+Use `\TYPO3\CMS\Core\View\ViewInterface` in Extbase and call `$view->getRenderingContext()` to perform operations instead
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v3\UseTYPO3CoreViewInterfaceInExtbaseRector`](../rules/TYPO313/v3/UseTYPO3CoreViewInterfaceInExtbaseRector.php)
+
+```diff
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ class MyController extends ActionController
+ {
+     public function myAction()
+     {
+         // setTemplate
+-        $this->view->setTemplate('MyTemplate');
++        $this->view->getRenderingContext()->setControllerAction('MyTemplate');
+
+         // initializeRenderingContext
+-        $this->view->initializeRenderingContext();
++        $this->view->getRenderingContext()->getViewHelperVariableContainer()->setView($this->view);
+
+         // setCache
+         $cache = new SimpleFileCache();
+-        $this->view->setCache($cache);
++        $this->view->getRenderingContext()->setCache($cache);
+
+         // getTemplatePaths
+-        $templatePaths = $this->view->getTemplatePaths();
++        $templatePaths = $this->view->getRenderingContext()->getTemplatePaths();
+
+         // getViewHelperResolver
+-        $viewHelperResolver = $this->view->getViewHelperResolver();
++        $viewHelperResolver = $this->view->getRenderingContext()->getViewHelperResolver();
+
+         // setTemplatePathAndFilename
+-        $this->view->setTemplatePathAndFilename('path/to/template.html');
++        $this->view->getRenderingContext()->getTemplatePaths()->setTemplatePathAndFilename('path/to/template.html');
+
+         // setTemplateRootPaths
+-        $this->view->setTemplateRootPaths(['path/to/templates/']);
++        $this->view->getRenderingContext()->getTemplatePaths()->setTemplateRootPaths(['path/to/templates/']);
+
+         // getTemplateRootPaths
+-        $rootPaths = $this->view->getTemplateRootPaths();
++        $rootPaths = $this->view->getRenderingContext()->getTemplatePaths()->getTemplateRootPaths();
+
+         // setPartialRootPaths
+-        $this->view->setPartialRootPaths(['path/to/partials/']);
++        $this->view->getRenderingContext()->getTemplatePaths()->setPartialRootPaths(['path/to/partials/']);
+
+         // getPartialRootPaths
+-        $partialPaths = $this->view->getPartialRootPaths();
++        $partialPaths = $this->view->getRenderingContext()->getTemplatePaths()->getPartialRootPaths();
+
+         // getLayoutRootPaths
+-        $layoutPaths = $this->view->getLayoutRootPaths();
++        $layoutPaths = $this->view->getRenderingContext()->getTemplatePaths()->getLayoutRootPaths();
+
+         // setLayoutRootPaths
+-        $this->view->setLayoutRootPaths(['path/to/layouts/']);
++        $this->view->getRenderingContext()->getTemplatePaths()->setLayoutRootPaths(['path/to/layouts/']);
+
+         // setLayoutPathAndFilename
+-        $this->view->setLayoutPathAndFilename('path/to/layout.html');
++        $this->view->getRenderingContext()->getTemplatePaths()->setLayoutPathAndFilename('path/to/layout.html');
+
+         // setRequest
+-        $this->view->setRequest($this->request);
++        $this->view->getRenderingContext()->setAttribute(ServerRequestInterface::class, $this->request);
+
+         // setTemplateSource
+-        $this->view->setTemplateSource('<f:render section="Main" />');
++        $this->view->getRenderingContext()->getTemplatePaths()->setTemplateSource('<f:render section="Main" />');
+     }
  }
 ```
 
