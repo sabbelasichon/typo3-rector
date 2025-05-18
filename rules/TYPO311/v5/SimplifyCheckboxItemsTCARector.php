@@ -8,6 +8,7 @@ use PhpParser\Node\ArrayItem;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Scalar\Int_;
+use PhpParser\Node\Scalar\String_;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -141,8 +142,21 @@ CODE_SAMPLE
 
             // Remove array key 1
             $this->removeArrayItemFromArrayByKey($firstItemsArray, 1);
-            if ($this->hasAstBeenChanged === false) {
-                $this->removeArrayItemFromArrayByIndex($firstItemsArray, 1);
+            if ($this->hasAstBeenChanged === false
+                && isset($firstItemsArray->items[1])
+                && $firstItemsArray->items[1] instanceof ArrayItem
+            ) {
+                $key = $firstItemsArray->items[1]->key;
+                $keep = [
+                    'invertStateDisplay',
+                    'labelChecked',
+                    'labelUnchecked',
+                    'iconIdentifierChecked',
+                    'iconIdentifierUnchecked',
+                ];
+                if (! $key instanceof String_ || ! in_array($key->value, $keep, true)) {
+                    $this->removeArrayItemFromArrayByIndex($firstItemsArray, 1);
+                }
             }
 
             return;
