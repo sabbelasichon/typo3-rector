@@ -28,7 +28,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->bind(FilesystemInterface::class, static function () {
         $argv = $_SERVER['argv'] ?? [];
         $isDryRun = in_array('--dry-run', $argv, true) || in_array('-n', $argv, true);
-        if (StaticPHPUnitEnvironment::isPHPUnitRun() || $isDryRun) {
+        if ($isDryRun || StaticPHPUnitEnvironment::isPHPUnitRun()) {
             $adapter = new InMemoryFilesystemAdapter();
         } else {
             $adapter = new LocalFilesystemAdapter('/');
