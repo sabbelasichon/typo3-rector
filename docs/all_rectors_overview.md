@@ -1501,22 +1501,24 @@ removeWorkspacePlaceholderShadowColumnsConfiguration
 
 ### ReplaceInjectAnnotationWithMethodRector
 
-Turns properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection
+Turn properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v0\ReplaceInjectAnnotationWithMethodRector`](../rules/TYPO311/v0/ReplaceInjectAnnotationWithMethodRector.php)
 
 ```diff
- /**
-  * @var SomeService
-- * @TYPO3\CMS\Extbase\Annotation\Inject
-  */
--private $someService;
-+private $someService;
+ class MyClass
+ {
+     /**
+      * @var SomeService
+-     * @TYPO3\CMS\Extbase\Annotation\Inject
+      */
+     private $someService;
 +
-+public function injectSomeService(SomeService $someService)
-+{
-+    $this->someService = $someService;
-+}
++    public function injectSomeService(SomeService $someService)
++    {
++        $this->someService = $someService;
++    }
+ }
 ```
 
 <br>
