@@ -73,27 +73,32 @@ final class ReplaceInjectAnnotationWithMethodRector extends AbstractRector imple
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Turns properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection', [
+        return new RuleDefinition('Turn properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
-/**
- * @var SomeService
- * @TYPO3\CMS\Extbase\Annotation\Inject
- */
-private $someService;
+class MyClass
+{
+    /**
+     * @var SomeService
+     * @TYPO3\CMS\Extbase\Annotation\Inject
+     */
+    private $someService;
+}
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-/**
- * @var SomeService
- */
-private $someService;
-
-public function injectSomeService(SomeService $someService)
+class MyClass
 {
-    $this->someService = $someService;
-}
+    /**
+     * @var SomeService
+     */
+    private $someService;
 
+    public function injectSomeService(SomeService $someService)
+    {
+        $this->someService = $someService;
+    }
+}
 CODE_SAMPLE
             ),
         ]);
