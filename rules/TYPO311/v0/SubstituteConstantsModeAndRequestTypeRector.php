@@ -305,10 +305,7 @@ CODE_SAMPLE
 
     private function createIsCliCall(): StaticCall
     {
-        return $this->nodeFactory->createStaticCall(
-            'TYPO3\CMS\Core\Core\Environment',
-            'isCli',
-        );
+        return $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Core\Environment', 'isCli');
     }
 
     private function shouldSkip(): bool
