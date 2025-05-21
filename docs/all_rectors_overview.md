@@ -127,7 +127,7 @@ Replace inject method to constructor injection
 
 ### MethodGetInstanceToMakeInstanceCallRector
 
-Use GeneralUtility::makeInstance instead of getInstance call
+Use `GeneralUtility::makeInstance()` instead of `getInstance` call
 
 :wrench: **configure it!**
 
@@ -144,7 +144,7 @@ Use GeneralUtility::makeInstance instead of getInstance call
 
 ### MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector
 
-Move ExtensionManagementUtility::addStaticFile into Configuration/TCA/Overrides/sys_template.php
+Move `ExtensionManagementUtility::addStaticFile()` into Configuration/TCA/Overrides/sys_template.php
 
 - class: [`Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector`](../rules/CodeQuality/General/MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector.php)
 
@@ -157,7 +157,7 @@ Move ExtensionManagementUtility::addStaticFile into Configuration/TCA/Overrides/
 
 ### MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector
 
-Move ExtensionManagementUtility::addToAllTCAtypes into table specific Configuration/TCA/Overrides file
+Move `ExtensionManagementUtility::addToAllTCAtypes()` into table specific Configuration/TCA/Overrides file
 
 - class: [`Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector`](../rules/CodeQuality/General/MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector.php)
 
@@ -170,7 +170,7 @@ Move ExtensionManagementUtility::addToAllTCAtypes into table specific Configurat
 
 ### MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector
 
-Move ExtensionUtility::registerPlugin into Configuration/TCA/Overrides/tt_content.php
+Move `ExtensionUtility::registerPlugin()` into Configuration/TCA/Overrides/tt_content.php
 
 - class: [`Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector`](../rules/CodeQuality/General/MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector.php)
 
@@ -183,7 +183,7 @@ Move ExtensionUtility::registerPlugin into Configuration/TCA/Overrides/tt_conten
 
 ### RenameClassMapAliasRector
 
-Replaces defined classes by new ones.
+Replace defined classes by new ones
 
 :wrench: **configure it!**
 
@@ -206,7 +206,7 @@ Replaces defined classes by new ones.
 
 ### UseExtensionKeyInLocalizationUtilityRector
 
-Replace the second parameter of LocalizationUtility::translate to the extension name
+Replace the second parameter of `LocalizationUtility::translate()` with the extension name
 
 - class: [`Ssch\TYPO3Rector\CodeQuality\General\UseExtensionKeyInLocalizationUtilityRector`](../rules/CodeQuality/General/UseExtensionKeyInLocalizationUtilityRector.php)
 
@@ -483,7 +483,7 @@ Refactor Internal public property cHash_array
 
 ### RefactorIdnaEncodeMethodToNativeFunctionRector
 
-Use native function idn_to_ascii instead of GeneralUtility::idnaEncode
+Use native function `idn_to_ascii` instead of `GeneralUtility::idnaEncode()`
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v0\RefactorIdnaEncodeMethodToNativeFunctionRector`](../rules/TYPO310/v0/RefactorIdnaEncodeMethodToNativeFunctionRector.php)
 
@@ -529,7 +529,7 @@ Remove vendor name from registerPlugin call
 
 ### RemoveEnableMultiSelectFilterTextfieldRector
 
-Remove "enableMultiSelectFilterTextfield" => true as its default
+Remove `"enableMultiSelectFilterTextfield" => true` as its default from render type "selectMultipleSideBySide"
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v1\RemoveEnableMultiSelectFilterTextfieldRector`](../rules/TYPO310/v1/RemoveEnableMultiSelectFilterTextfieldRector.php)
 
@@ -576,7 +576,7 @@ transOrigPointerField is not longer allowed to be excluded
 
 ### RemoveFormatConstantsEmailFinisherRector
 
-Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class `TYPO3\CMS\Form\Domain\Finishers\EmailFinisher`
+Remove constants `FORMAT_PLAINTEXT` and `FORMAT_HTML` of class `TYPO3\CMS\Form\Domain\Finishers\EmailFinisher`
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v0\RemoveFormatConstantsEmailFinisherRector`](../rules/TYPO310/v0/RemoveFormatConstantsEmailFinisherRector.php)
 
@@ -589,7 +589,7 @@ Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class `TYPO3\CMS\Form\Domai
 
 ### RemovePropertyExtensionNameRector
 
-Use method getControllerExtensionName from `$request` property instead of removed property `$extensionName`
+Use method `getControllerExtensionName()` from `$request` property instead of removed property `$extensionName`
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v0\RemovePropertyExtensionNameRector`](../rules/TYPO310/v0/RemovePropertyExtensionNameRector.php)
 
@@ -650,7 +650,7 @@ Remove showRecordFieldList inside section interface
 
 ### RemoveShowRemovedLocalizationRecordsRector
 
-Remove showRemovedLocalizationRecords from inline TCA configurations.
+Remove showRemovedLocalizationRecords from inline TCA configuration
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v0\RemoveShowRemovedLocalizationRecordsRector`](../rules/TYPO310/v0/RemoveShowRemovedLocalizationRecordsRector.php)
 
@@ -674,7 +674,7 @@ Remove showRemovedLocalizationRecords from inline TCA configurations.
 
 ### RemoveTcaOptionSetToDefaultOnCopyRector
 
-TCA option setToDefaultOnCopy removed
+Remove TCA option "setToDefaultOnCopy"
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v0\RemoveTcaOptionSetToDefaultOnCopyRector`](../rules/TYPO310/v0/RemoveTcaOptionSetToDefaultOnCopyRector.php)
 
@@ -694,7 +694,7 @@ TCA option setToDefaultOnCopy removed
 
 ### SendNotifyEmailToMailApiRector
 
-Refactor ContentObjectRenderer::sendNotifyEmail to MailMessage-API
+Refactor `ContentObjectRenderer::sendNotifyEmail()` to MailMessage API
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v1\SendNotifyEmailToMailApiRector`](../rules/TYPO310/v1/SendNotifyEmailToMailApiRector.php)
 
@@ -773,7 +773,7 @@ Substitute deprecated method calls of class GeneralUtility
 
 ### SubstituteResourceFactoryRector
 
-Substitute `ResourceFactory::getInstance()` through GeneralUtility::makeInstance(ResourceFactory::class)
+Substitute `ResourceFactory::getInstance()` with `GeneralUtility::makeInstance(ResourceFactory::class)`
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v3\SubstituteResourceFactoryRector`](../rules/TYPO310/v3/SubstituteResourceFactoryRector.php)
 
@@ -786,7 +786,7 @@ Substitute `ResourceFactory::getInstance()` through GeneralUtility::makeInstance
 
 ### SwiftMailerBasedMailMessageToMailerBasedMessageRector
 
-New Mail API based on symfony/mailer and symfony/mime
+New Mail API based on `symfony/mailer` and `symfony/mime`
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v0\SwiftMailerBasedMailMessageToMailerBasedMessageRector`](../rules/TYPO310/v0/SwiftMailerBasedMailMessageToMailerBasedMessageRector.php)
 
@@ -814,7 +814,7 @@ New Mail API based on symfony/mailer and symfony/mime
 
 ### UnifiedFileNameValidatorRector
 
-GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename)
+Migrate `GeneralUtility::verifyFilenameAgainstDenyPattern()` to `FileNameValidator->isValid()`
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v4\UnifiedFileNameValidatorRector`](../rules/TYPO310/v4/UnifiedFileNameValidatorRector.php)
 
@@ -827,9 +827,8 @@ GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(Fi
 +if (!GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename)) {
  }
 
--if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FILE_DENY_PATTERN_DEFAULT)
-+if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FileNameValidator::DEFAULT_FILE_DENY_PATTERN)
- {
+-if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FILE_DENY_PATTERN_DEFAULT) {
++if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FileNameValidator::DEFAULT_FILE_DENY_PATTERN) {
  }
 ```
 
@@ -837,7 +836,7 @@ GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(Fi
 
 ### UseActionControllerRector
 
-Use ActionController class instead of AbstractController if used
+Use ActionController class instead of AbstractController
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v2\UseActionControllerRector`](../rules/TYPO310/v2/UseActionControllerRector.php)
 
@@ -945,7 +944,7 @@ Use controller classes when registering extbase plugins/modules
 
 ### UseFileGetContentsForGetUrlRector
 
-Rewrite Method Calls of GeneralUtility::getUrl("somefile.csv") to `@file_get_contents`
+Rewrite method calls of `GeneralUtility::getUrl("somefile.csv")` to `@file_get_contents()`
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v4\UseFileGetContentsForGetUrlRector`](../rules/TYPO310/v4/UseFileGetContentsForGetUrlRector.php)
 
@@ -998,7 +997,7 @@ Use `$fileObject->getMetaData()->get()` instead of `$fileObject->_getMetaData()`
 
 ### UseNativePhpHex2binMethodRector
 
-Turns TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php hex2bin
+Turn `TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin` calls to native php `hex2bin()`
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v0\UseNativePhpHex2binMethodRector`](../rules/TYPO310/v0/UseNativePhpHex2binMethodRector.php)
 
@@ -1011,7 +1010,7 @@ Turns TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php
 
 ### UseTwoLetterIsoCodeFromSiteLanguageRector
 
-The usage of the property sys_language_isocode is deprecated. Use method getTwoLetterIsoCode of SiteLanguage
+Use `SiteLanguage->getTwoLetterIsoCode()` instead of `$GLOBALS['TSFE']->sys_language_isocode`
 
 - class: [`Ssch\TYPO3Rector\TYPO310\v0\UseTwoLetterIsoCodeFromSiteLanguageRector`](../rules/TYPO310/v0/UseTwoLetterIsoCodeFromSiteLanguageRector.php)
 
@@ -1158,7 +1157,7 @@ Return `TYPO3\CMS\Extbase\Http\ForwardResponse` instead of `TYPO3\CMS\Extbase\Mv
 
 ### GetClickMenuOnIconTagParametersRector
 
-Use `BackendUtility::getClickMenuOnIconTagParameters()` instead `BackendUtility::wrapClickMenuOnIcon()` if needed
+Use `BackendUtility::getClickMenuOnIconTagParameters()` instead of `BackendUtility::wrapClickMenuOnIcon()`
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v0\GetClickMenuOnIconTagParametersRector`](../rules/TYPO311/v0/GetClickMenuOnIconTagParametersRector.php)
 
@@ -1173,7 +1172,7 @@ Use `BackendUtility::getClickMenuOnIconTagParameters()` instead `BackendUtility:
 
 ### HandleCObjRendererATagParamsMethodRector
 
-Removes deprecated params of the `ContentObjectRenderer->getATagParams()` method
+Remove deprecated params of the `ContentObjectRenderer->getATagParams()` method
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v5\HandleCObjRendererATagParamsMethodRector`](../rules/TYPO311/v5/HandleCObjRendererATagParamsMethodRector.php)
 
@@ -1187,7 +1186,7 @@ Removes deprecated params of the `ContentObjectRenderer->getATagParams()` method
 
 ### MigrateAbstractUserAuthenticationCreateSessionIdRector
 
-Migrate `$frontendUserAuthentication->createSessionId` and `$backendUserAuthentication->createSessionId()`
+Migrate `FrontendUserAuthentication->createSessionId()` and `BackendUserAuthentication->createSessionId()` to `Random->generateRandomHexString(32)`
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationCreateSessionIdRector`](../rules/TYPO311/v0/MigrateAbstractUserAuthenticationCreateSessionIdRector.php)
 
@@ -1209,7 +1208,7 @@ Migrate `$frontendUserAuthentication->createSessionId` and `$backendUserAuthenti
 
 ### MigrateAbstractUserAuthenticationGetIdRector
 
-Migrate `$frontendUserAuthentication->id` and `$backendUserAuthentication->id`
+Migrate `FrontendUserAuthentication->id` and `BackendUserAuthentication->id`
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationGetIdRector`](../rules/TYPO311/v0/MigrateAbstractUserAuthenticationGetIdRector.php)
 
@@ -1231,7 +1230,7 @@ Migrate `$frontendUserAuthentication->id` and `$backendUserAuthentication->id`
 
 ### MigrateAbstractUserAuthenticationGetSessionIdRector
 
-Migrate `$frontendUserAuthentication->getSessionId()` and `$backendUserAuthentication->getSessionId()`
+Migrate `FrontendUserAuthentication->getSessionId()` and `BackendUserAuthentication->getSessionId()`
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationGetSessionIdRector`](../rules/TYPO311/v0/MigrateAbstractUserAuthenticationGetSessionIdRector.php)
 
@@ -1313,7 +1312,7 @@ Migrate the iframe based file tree to SVG
 
 ### MigrateHttpUtilityRedirectRector
 
-Migrate `HttpUtilty::redirect()` to responseFactory
+Migrate `HttpUtilty::redirect()` to ResponseFactory
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v3\MigrateHttpUtilityRedirectRector`](../rules/TYPO311/v3/MigrateHttpUtilityRedirectRector.php)
 
@@ -1334,7 +1333,7 @@ Migrate `HttpUtilty::redirect()` to responseFactory
 
 ### MigrateLanguageFieldToTcaTypeLanguageRector
 
-use the new TCA type language instead of foreign_table => sys_language for selecting a records
+Use the new TCA type language instead of foreign_table => sys_language for selecting a records
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v3\MigrateLanguageFieldToTcaTypeLanguageRector`](../rules/TYPO311/v3/MigrateLanguageFieldToTcaTypeLanguageRector.php)
 
@@ -1368,7 +1367,7 @@ use the new TCA type language instead of foreign_table => sys_language for selec
 
 ### MigrateRootUidToStartingPointsRector
 
-If a column has [treeConfig][rootUid] defined, migrate to [treeConfig][startingPoints] on the same level.
+Migrate `[treeConfig][rootUid]` to `[treeConfig][startingPoints]`
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v4\MigrateRootUidToStartingPointsRector`](../rules/TYPO311/v4/MigrateRootUidToStartingPointsRector.php)
 
@@ -1393,7 +1392,7 @@ If a column has [treeConfig][rootUid] defined, migrate to [treeConfig][startingP
 
 ### MigrateSpecialLanguagesToTcaTypeLanguageRector
 
-use the new TCA type language instead of foreign_table => sys_language for selecting a records
+Use the new TCA type language instead of foreign_table => sys_language for selecting a records
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v3\MigrateSpecialLanguagesToTcaTypeLanguageRector`](../rules/TYPO311/v3/MigrateSpecialLanguagesToTcaTypeLanguageRector.php)
 
@@ -1429,7 +1428,7 @@ use the new TCA type language instead of foreign_table => sys_language for selec
 
 ### ProvideCObjViaMethodRector
 
-Replaces public `$cObj` with protected and set via method
+Replace `public $cObj` with `protected` and set via method
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v4\ProvideCObjViaMethodRector`](../rules/TYPO311/v4/ProvideCObjViaMethodRector.php)
 
@@ -1484,7 +1483,7 @@ RemoveTypeHintViewInterfaceRector is deprecated.
 
 ### RemoveWorkspacePlaceholderShadowColumnsConfigurationRector
 
-removeWorkspacePlaceholderShadowColumnsConfiguration
+Remove Workspace Placeholder Shadow Columns Configuration
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v0\RemoveWorkspacePlaceholderShadowColumnsConfigurationRector`](../rules/TYPO311/v0/RemoveWorkspacePlaceholderShadowColumnsConfigurationRector.php)
 
@@ -1525,7 +1524,7 @@ Turn properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection
 
 ### ReplaceTSFEATagParamsCallOnGlobalsRector
 
-Replaces all direct calls to `$GLOBALS['TSFE']->ATagParams.`
+Replace direct calls to `$GLOBALS['TSFE']->ATagParams`
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v5\ReplaceTSFEATagParamsCallOnGlobalsRector`](../rules/TYPO311/v5/ReplaceTSFEATagParamsCallOnGlobalsRector.php)
 
@@ -1615,7 +1614,7 @@ Use an instance of ModuleTemplate instead of BackendTemplateView
 
 ### SubstituteConstantsModeAndRequestTypeRector
 
-Substitute TYPO3_MODE and TYPO3_REQUESTTYPE constants
+Substitute `TYPO3_MODE` and `TYPO3_REQUESTTYPE` constants
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v0\SubstituteConstantsModeAndRequestTypeRector`](../rules/TYPO311/v0/SubstituteConstantsModeAndRequestTypeRector.php)
 
@@ -1665,7 +1664,7 @@ Substitute TYPO3_MODE and TYPO3_REQUESTTYPE constants
 
 ### SubstituteEnvironmentServiceWithApplicationTypeRector
 
-Substitute class EnvironmentService with ApplicationType class\"
+Substitute class EnvironmentService with ApplicationType class
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v2\SubstituteEnvironmentServiceWithApplicationTypeRector`](../rules/TYPO311/v2/SubstituteEnvironmentServiceWithApplicationTypeRector.php)
 
@@ -1680,7 +1679,7 @@ Substitute class EnvironmentService with ApplicationType class\"
 
 ### SubstituteExtbaseRequestGetBaseUriRector
 
-Use PSR-7 compatible request for uri instead of the method getBaseUri
+Use PSR-7 compatible request for uri instead of the method `getBaseUri()`
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v3\SubstituteExtbaseRequestGetBaseUriRector`](../rules/TYPO311/v3/SubstituteExtbaseRequestGetBaseUriRector.php)
 
@@ -1735,7 +1734,7 @@ Use PageRenderer and IconFactory directly instead of getting them from the Modul
 
 ### SubstituteMethodRmFromListOfGeneralUtilityRector
 
-Use native php functions instead of GeneralUtility::rmFromList
+Use native php functions instead of `GeneralUtility::rmFromList()`
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v3\SubstituteMethodRmFromListOfGeneralUtilityRector`](../rules/TYPO311/v3/SubstituteMethodRmFromListOfGeneralUtilityRector.php)
 
@@ -1771,7 +1770,7 @@ Handles the methods `arrayDiffAssocRecursive()` and `arrayDiffKeyRecursive()` of
 
 ### UniqueListFromStringUtilityRector
 
-Use `StringUtility::uniqueList()` instead of GeneralUtility::uniqueList
+Use `StringUtility::uniqueList()` instead of `GeneralUtility::uniqueList()`
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v0\UniqueListFromStringUtilityRector`](../rules/TYPO311/v0/UniqueListFromStringUtilityRector.php)
 
@@ -1786,7 +1785,7 @@ Use `StringUtility::uniqueList()` instead of GeneralUtility::uniqueList
 
 ### UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector
 
-Use php native function instead of GeneralUtility::shortMd5
+Use php native function instead of `GeneralUtility::shortMd5()`
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v4\UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector`](../rules/TYPO311/v4/UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector.php)
 
@@ -2071,7 +2070,7 @@ Migrates option cols to size for TCA type none
 
 ### MigrateConfigurationManagerGetContentObjectRector
 
-Migrate ConfigurationManager->getContentObject to use request attribute instead
+Migrate `ConfigurationManager->getContentObject()` to use request attribute instead
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v4\MigrateConfigurationManagerGetContentObjectRector`](../rules/TYPO312/v4/MigrateConfigurationManagerGetContentObjectRector.php)
 
@@ -2092,7 +2091,7 @@ Migrate ConfigurationManager->getContentObject to use request attribute instead
 
 ### MigrateContentObjectRendererGetTypoLinkUrlRector
 
-Migrate ContentObjectRenderer->getTypoLink_URL to ContentObjectRenderer->createUrl
+Migrate `ContentObjectRenderer->getTypoLink_URL()` to `ContentObjectRenderer->createUrl()`
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererGetTypoLinkUrlRector`](../rules/TYPO312/v0/MigrateContentObjectRendererGetTypoLinkUrlRector.php)
 
@@ -2197,7 +2196,7 @@ Migrate `->fetchAll()` to `->fetchAllAssociative()`
 
 ### MigrateFetchColumnToFetchOneRector
 
-Migrate ->fetchColumn(0) to `->fetchOne()`
+Migrate `->fetchColumn(0)` to `->fetchOne()`
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchColumnToFetchOneRector`](../rules/TYPO312/v0/MigrateFetchColumnToFetchOneRector.php)
 
@@ -2311,7 +2310,7 @@ Migrate method `ExtensionManagementUtility::getFileFieldTCAConfig()` to TCA type
 
 ### MigrateGeneralUtilityGPMergedRector
 
-Migrate GeneralUtility::_GPmerged
+Migrate `GeneralUtility::_GPmerged()` to use PSR-7 ServerRequest instead
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v2\MigrateGeneralUtilityGPMergedRector`](../rules/TYPO312/v2/MigrateGeneralUtilityGPMergedRector.php)
 
@@ -2346,7 +2345,7 @@ Migrate GeneralUtility::_GPmerged
 
 ### MigrateGeneralUtilityGPRector
 
-Migrate GeneralUtility::_GP
+Migrate `GeneralUtility::_GP()` to use PSR-7 ServerRequest instead
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v3\MigrateGeneralUtilityGPRector`](../rules/TYPO312/v3/MigrateGeneralUtilityGPRector.php)
 
@@ -2460,7 +2459,7 @@ Migrates TCA internal_type into new new TCA type folder
 
 ### MigrateItemsIndexedKeysToAssociativeRector
 
-Migrates indexed item array keys to associative for type select, radio and check
+Migrate indexed item array keys to associative for type select, radio and check
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v3\MigrateItemsIndexedKeysToAssociativeRector`](../rules/TYPO312/v3/MigrateItemsIndexedKeysToAssociativeRector.php)
 
@@ -2580,7 +2579,7 @@ Replace `Querybuilder::execute()` with fitting methods
 
 ### MigrateRecordTooltipMethodToRecordIconAltTextMethodRector
 
-Migrate the method `BackendUtility::getRecordToolTip()` to `BackendUtility::getRecordIconAltText()`
+Migrate `BackendUtility::getRecordToolTip()` to `BackendUtility::getRecordIconAltText()`
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v4\MigrateRecordTooltipMethodToRecordIconAltTextMethodRector`](../rules/TYPO312/v4/MigrateRecordTooltipMethodToRecordIconAltTextMethodRector.php)
 
@@ -2759,7 +2758,7 @@ Migrates existing input TCA with eval email to new TCA type email
 
 ### MigrateTypoScriptFrontendControllerTypeRector
 
-Migrate TypoScriptFrontendController->type
+Migrate `TypoScriptFrontendController->type`
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v4\MigrateTypoScriptFrontendControllerTypeRector`](../rules/TYPO312/v4/MigrateTypoScriptFrontendControllerTypeRector.php)
 
@@ -2772,7 +2771,7 @@ Migrate TypoScriptFrontendController->type
 
 ### MoveAllowTableOnStandardPagesToTCAConfigurationRector
 
-Move method ExtensionManagementUtility::allowTableOnStandardPages to TCA configuration
+Move method `ExtensionManagementUtility::allowTableOnStandardPages()` to TCA configuration
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector`](../rules/TYPO312/v0/MoveAllowTableOnStandardPagesToTCAConfigurationRector.php)
 
@@ -2800,7 +2799,7 @@ Remove `ExtensionManagementUtility::addLLrefForTCAdescr()` method call
 
 ### RemoveCruserIdRector
 
-Remove the TCA option cruser_id
+Remove the TCA option "cruser_id"
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\RemoveCruserIdRector`](../rules/TYPO312/v0/RemoveCruserIdRector.php)
 
@@ -2881,7 +2880,7 @@ Removes all usages of the relativeToCurrentScript parameter
 
 ### RemoveTCAInterfaceAlwaysDescriptionRector
 
-Remove ['interface']['always_description']
+Remove `['interface']['always_description']`
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\RemoveTCAInterfaceAlwaysDescriptionRector`](../rules/TYPO312/v0/RemoveTCAInterfaceAlwaysDescriptionRector.php)
 
@@ -2899,7 +2898,7 @@ Remove ['interface']['always_description']
 
 ### RemoveTSFEConvOutputCharsetCallsRector
 
-Removes usages of TSFE->convOutputCharset(...)
+Removes usages of `TSFE->convOutputCharset()`
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\RemoveTSFEConvOutputCharsetCallsRector`](../rules/TYPO312/v0/RemoveTSFEConvOutputCharsetCallsRector.php)
 
@@ -3026,7 +3025,7 @@ Replace `PageRepository->getRecordOverlay()` with `->getLanguageOverlay()`
 
 ### ReplaceTSFECheckEnableFieldsRector
 
-Replace TSFE calls to checkEnableFields with new RecordAccessVoter->accessGranted method
+Replace `$GLOBALS['TSFE']->checkEnableFields` calls with new `RecordAccessVoter->accessGranted()` method
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\ReplaceTSFECheckEnableFieldsRector`](../rules/TYPO312/v0/ReplaceTSFECheckEnableFieldsRector.php)
 
@@ -3173,7 +3172,7 @@ Migrate from `$GLOBALS['PAGES_TYPES']` to the new PageDoktypeRegistry
 
 ### UseServerRequestInsteadOfGeneralUtilityGetRector
 
-Use PSR-7 ServerRequest instead of `GeneralUtility::_GET()`
+Migrate `GeneralUtility::_GET()` to use PSR-7 ServerRequest instead
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v4\UseServerRequestInsteadOfGeneralUtilityGetRector`](../rules/TYPO312/v4/UseServerRequestInsteadOfGeneralUtilityGetRector.php)
 
@@ -3349,7 +3348,7 @@ Introduce capabilities bit set
 
 ### MigrateAddPageTSConfigToPageTsConfigFileRector
 
-Migrate method call ExtensionManagementUtility::addPageTSConfig to page.tsconfig
+Migrate method call `ExtensionManagementUtility::addPageTSConfig()` to page.tsconfig
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateAddPageTSConfigToPageTsConfigFileRector`](../rules/TYPO313/v0/MigrateAddPageTSConfigToPageTsConfigFileRector.php)
 
@@ -3364,7 +3363,7 @@ Migrate method call ExtensionManagementUtility::addPageTSConfig to page.tsconfig
 
 ### MigrateAddUserTSConfigToUserTsConfigFileRector
 
-Migrate method call ExtensionManagementUtility::addUserTSConfig to user.tsconfig
+Migrate method call `ExtensionManagementUtility::addUserTSConfig()` to user.tsconfig
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateAddUserTSConfigToUserTsConfigFileRector`](../rules/TYPO313/v0/MigrateAddUserTSConfigToUserTsConfigFileRector.php)
 
@@ -3425,7 +3424,7 @@ Migrate the class HashService from extbase to the one from TYPO3 core
 
 ### MigrateGeneralUtilityHmacToHashServiceHmacRector
 
-Migrate GeneralUtility::hmac to HashService::hmac
+Migrate `GeneralUtility::hmac()` to `HashService::hmac()`
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v1\MigrateGeneralUtilityHmacToHashServiceHmacRector`](../rules/TYPO313/v1/MigrateGeneralUtilityHmacToHashServiceHmacRector.php)
 
@@ -3491,7 +3490,7 @@ Migrate plugin content element and plugin subtypes (list_type)
 
 ### MigratePluginContentElementAndPluginSubtypesSwapArgsRector
 
-Swap arguments for ExtensionManagementUtility::addPiFlexFormValue
+Swap arguments for `ExtensionManagementUtility::addPiFlexFormValue()`
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v4\MigratePluginContentElementAndPluginSubtypesSwapArgsRector`](../rules/TYPO313/v4/MigratePluginContentElementAndPluginSubtypesSwapArgsRector.php)
 
@@ -3526,7 +3525,7 @@ Migrate plugin content element and plugin subtypes (list_type) TCA
 
 ### MigrateRegularExpressionValidatorValidatorOptionErrorMessageRector
 
-RegularExpressionValidator validator option \"errorMessage\"
+Migrate RegularExpressionValidator validator option "errorMessage"
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v2\MigrateRegularExpressionValidatorValidatorOptionErrorMessageRector`](../rules/TYPO313/v2/MigrateRegularExpressionValidatorValidatorOptionErrorMessageRector.php)
 
@@ -3635,7 +3634,7 @@ Renamed Page Tree Navigation Component ID
 
 ### RenameTableOptionsAndCollateConnectionConfigurationRector
 
-Rename `$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections'][CONNECTION_NAME]['tableoptions']` to `defaultTableOptions` and its inner `collate` key to `collation`. This applies to full array definitions and direct path assignments.
+Rename `$GLOBALS['TYPO3_CONF_VARS']['DB']['Connections'][CONNECTION_NAME]['tableoptions']` to `defaultTableOptions` and its inner `collate` key to `collation`
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v4\RenameTableOptionsAndCollateConnectionConfigurationRector`](../rules/TYPO313/v4/RenameTableOptionsAndCollateConnectionConfigurationRector.php)
 
@@ -3885,7 +3884,7 @@ Extend Extbase Validators from AbstractValidator
 
 ### RemoveMaxDBListItemsRector
 
-Remove `$TCA[$mytable]['interface']['maxDBListItems'],` and 'maxSingleDBListItems'
+Remove `$TCA[$mytable]['interface']['maxDBListItems']`, and 'maxSingleDBListItems'
 
 - class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveMaxDBListItemsRector`](../rules/TYPO314/v0/RemoveMaxDBListItemsRector.php)
 
