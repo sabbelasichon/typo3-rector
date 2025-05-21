@@ -29,6 +29,7 @@ use PhpParser\Node\Stmt\Case_;
 use PhpParser\Node\Stmt\Switch_;
 use Rector\Rector\AbstractRector;
 use Rector\ValueObject\PhpVersionFeature;
+use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -37,7 +38,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-101175-ConvertVersionStateToNativeEnum.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\ConvertVersionStateToEnumRector\ConvertVersionStateToEnumRectorTest
  */
-final class ConvertVersionStateToEnumRector extends AbstractRector implements DocumentedRuleInterface
+final class ConvertVersionStateToEnumRector extends AbstractRector implements DocumentedRuleInterface, MinPhpVersionInterface
 {
     private const VERSION_STATE_CLASS = 'TYPO3\CMS\Core\Versioning\VersionState';
 
