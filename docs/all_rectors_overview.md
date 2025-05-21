@@ -1,4 +1,4 @@
-# 173 Rules Overview
+# 174 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (28)
+- [TYPO313](#typo313) (29)
 
 - [TYPO314](#typo314) (3)
 
@@ -3289,6 +3289,40 @@ Ensure first parameter is of type string and remove second parameter
  $connection = GeneralUtility::makeInstance(Connection::class);
 -$connection->quote(1, 1);
 +$connection->quote((string) 1);
+```
+
+<br>
+
+### ConvertVersionStateToEnumRector
+
+Convert usages of `TYPO3\CMS\Core\Versioning\VersionState` to its Enum equivalent
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\ConvertVersionStateToEnumRector`](../rules/TYPO313/v0/ConvertVersionStateToEnumRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Versioning\VersionState;
+
+ class MyClass
+ {
+     public function foo(): void
+     {
+-        $type1 = VersionState::DEFAULT_STATE;
+-        $type2 = VersionState::NEW_PLACEHOLDER;
+-        $type3 = VersionState::DELETE_PLACEHOLDER;
+-        $type4 = VersionState::MOVE_POINTER;
++        $type1 = VersionState::DEFAULT_STATE->value;
++        $type2 = VersionState::NEW_PLACEHOLDER->value;
++        $type3 = VersionState::DELETE_PLACEHOLDER->value;
++        $type4 = VersionState::MOVE_POINTER->value;
+
+-        $versionState = VersionState::cast($row['t3ver_state']);
+-        if ($versionState->equals(VersionState::DELETE_PLACEHOLDER)) {
++        $versionState = VersionState::tryFrom($row['t3ver_state'] ?? 0);
++        if ($versionState === VersionState::DELETE_PLACEHOLDER) {
+             // do something
+         }
+     }
+ }
 ```
 
 <br>
