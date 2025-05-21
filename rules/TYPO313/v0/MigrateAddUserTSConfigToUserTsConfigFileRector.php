@@ -58,19 +58,22 @@ final class MigrateAddUserTSConfigToUserTsConfigFileRector extends AbstractRecto
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate method call `ExtensionManagementUtility::addUserTSConfig()` to user.tsconfig', [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Migrate method call `ExtensionManagementUtility::addUserTSConfig()` to user.tsconfig',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig(
     '@import "EXT:extension_key/Configuration/TSconfig/*/*.tsconfig"'
 );
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 // Move to file Configuration/user.tsconfig
 CODE_SAMPLE
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 
     /**

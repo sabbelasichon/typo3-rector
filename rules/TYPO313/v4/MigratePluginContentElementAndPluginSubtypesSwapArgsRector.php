@@ -33,22 +33,24 @@ final class MigratePluginContentElementAndPluginSubtypesSwapArgsRector extends A
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Swap arguments for `ExtensionManagementUtility::addPiFlexFormValue()`', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition('Swap arguments for `ExtensionManagementUtility::addPiFlexFormValue()`', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 ExtensionManagementUtility::addPiFlexFormValue(
     $pluginSignature,
     'FILE:EXT:examples/Configuration/Flexforms/HtmlParser.xml',
 );
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 ExtensionManagementUtility::addPiFlexFormValue(
     '*',
     'FILE:EXT:examples/Configuration/Flexforms/HtmlParser.xml',
     $pluginSignature,
 );
 CODE_SAMPLE
-        )]);
+            ),
+        ]);
     }
 
     /**

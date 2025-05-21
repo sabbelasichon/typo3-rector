@@ -24,8 +24,8 @@ final class MigrateConfigurationManagerGetContentObjectRector extends AbstractRe
         return new RuleDefinition(
             'Migrate `ConfigurationManager->getContentObject()` to use request attribute instead',
             [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class MyActionController extends ActionController
@@ -36,8 +36,8 @@ class MyActionController extends ActionController
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class MyActionController extends ActionController
@@ -48,9 +48,10 @@ class MyActionController extends ActionController
     }
 }
 CODE_SAMPLE
-            ),
+                ),
 
-        ]);
+            ]
+        );
     }
 
     public function getNodeTypes(): array

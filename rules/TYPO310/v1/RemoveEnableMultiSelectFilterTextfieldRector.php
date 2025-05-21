@@ -19,8 +19,11 @@ final class RemoveEnableMultiSelectFilterTextfieldRector extends AbstractTcaRect
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove `"enableMultiSelectFilterTextfield" => true` as its default from render type "selectMultipleSideBySide"', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Remove `"enableMultiSelectFilterTextfield" => true` as its default from render type "selectMultipleSideBySide"',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'foo' => [
@@ -34,8 +37,8 @@ return [
     ],
 ];
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 return [
     'columns' => [
         'foo' => [
@@ -48,7 +51,10 @@ return [
     ],
 ];
 CODE_SAMPLE
-        )]);
+                ),
+
+            ]
+        );
     }
 
     protected function refactorColumn(Expr $columnName, Expr $columnTca): void
