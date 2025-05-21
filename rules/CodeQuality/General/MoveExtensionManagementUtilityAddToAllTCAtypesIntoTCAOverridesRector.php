@@ -61,7 +61,7 @@ class MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector exten
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Move ExtensionManagementUtility::addToAllTCAtypes into table specific Configuration/TCA/Overrides file',
+            'Move `ExtensionManagementUtility::addToAllTCAtypes()` into table specific Configuration/TCA/Overrides file',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

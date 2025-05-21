@@ -74,7 +74,7 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector implements Do
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Change parameter $excludeServiceKeys explicitly to an array', [
+        return new RuleDefinition('Change parameter `$excludeServiceKeys` explicitly to an array', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 GeneralUtility::makeInstanceService('serviceType', 'serviceSubType', 'key1, key2');

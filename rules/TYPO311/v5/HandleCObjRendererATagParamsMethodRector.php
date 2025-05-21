@@ -62,7 +62,7 @@ final class HandleCObjRendererATagParamsMethodRector extends AbstractRector impl
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Removes deprecated params of the ContentObjectRenderer->getATagParams() method', [
+        return new RuleDefinition('Remove deprecated params of the `ContentObjectRenderer->getATagParams()` method', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $cObjRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);

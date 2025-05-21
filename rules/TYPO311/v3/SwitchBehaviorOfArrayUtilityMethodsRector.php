@@ -62,7 +62,7 @@ final class SwitchBehaviorOfArrayUtilityMethodsRector extends AbstractRector imp
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Handles the methods arrayDiffAssocRecursive() and arrayDiffKeyRecursive() of ArrayUtility',
+            'Handles the methods `arrayDiffAssocRecursive()` and `arrayDiffKeyRecursive()` of ArrayUtility',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

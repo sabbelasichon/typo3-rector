@@ -21,7 +21,7 @@ final class MigrateFetchColumnToFetchOneRector extends AbstractRector implements
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate ->fetchColumn(0) to ->fetchOne()', [new CodeSample(
+        return new RuleDefinition('Migrate `->fetchColumn(0)` to `->fetchOne()`', [new CodeSample(
             <<<'CODE_SAMPLE'
 $result = $queryBuilder
   ->select(...)

@@ -48,7 +48,7 @@ final class RemovePropertyExtensionNameRector extends AbstractRector implements 
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Use method getControllerExtensionName from $request property instead of removed property $extensionName',
+            'Use method `getControllerExtensionName()` from `$request` property instead of removed property `$extensionName`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

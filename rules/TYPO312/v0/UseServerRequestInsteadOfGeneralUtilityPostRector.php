@@ -35,7 +35,7 @@ final class UseServerRequestInsteadOfGeneralUtilityPostRector extends AbstractRe
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use PSR-7 ServerRequest instead of GeneralUtility::_POST()', [
+        return new RuleDefinition('Use PSR-7 ServerRequest instead of `GeneralUtility::_POST()`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;

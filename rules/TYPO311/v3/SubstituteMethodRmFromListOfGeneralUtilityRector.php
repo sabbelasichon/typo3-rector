@@ -73,7 +73,7 @@ final class SubstituteMethodRmFromListOfGeneralUtilityRector extends AbstractRec
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use native php functions instead of GeneralUtility::rmFromList', [
+        return new RuleDefinition('Use native php functions instead of `GeneralUtility::rmFromList()`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;

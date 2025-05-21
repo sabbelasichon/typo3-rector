@@ -36,7 +36,7 @@ final class MigrateHttpUtilityRedirectRector extends AbstractRector implements D
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate HttpUtilty::redirect() to responseFactory', [new CodeSample(
+        return new RuleDefinition('Migrate `HttpUtilty::redirect()` to ResponseFactory', [new CodeSample(
             <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\HttpUtility;
 

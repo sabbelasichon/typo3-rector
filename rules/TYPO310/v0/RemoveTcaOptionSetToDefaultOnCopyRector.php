@@ -18,7 +18,7 @@ final class RemoveTcaOptionSetToDefaultOnCopyRector extends AbstractTcaRector im
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('TCA option setToDefaultOnCopy removed', [new CodeSample(
+        return new RuleDefinition('Remove TCA option "setToDefaultOnCopy"', [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
     'ctrl' => [

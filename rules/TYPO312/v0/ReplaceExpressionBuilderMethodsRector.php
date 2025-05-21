@@ -46,7 +46,7 @@ final class ReplaceExpressionBuilderMethodsRector extends AbstractRector impleme
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Replaces ExpressionBuilder methods orX() & andX()', [new CodeSample(
+        return new RuleDefinition('Replaces ExpressionBuilder methods `orX()` & `andX()`', [new CodeSample(
             <<<'CODE_SAMPLE'
 $rows = $queryBuilder
   ->select(...)

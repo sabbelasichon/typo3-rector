@@ -23,7 +23,7 @@ final class RemoveAddLLrefForTCAdescrMethodCallRector extends AbstractRector imp
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Remove ExtensionManagementUtility::addLLrefForTCAdescr() method call',
+            'Remove `ExtensionManagementUtility::addLLrefForTCAdescr()` method call',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

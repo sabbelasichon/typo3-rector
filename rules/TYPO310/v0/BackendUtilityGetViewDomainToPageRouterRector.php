@@ -83,7 +83,7 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Refactor method call BackendUtility::getViewDomain() to PageRouter', [
+        return new RuleDefinition('Refactor method call `BackendUtility::getViewDomain()` to PageRouter', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;

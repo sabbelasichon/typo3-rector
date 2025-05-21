@@ -59,7 +59,7 @@ class MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector extends 
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Move ExtensionManagementUtility::addStaticFile into Configuration/TCA/Overrides/sys_template.php',
+            'Move `ExtensionManagementUtility::addStaticFile()` into Configuration/TCA/Overrides/sys_template.php',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

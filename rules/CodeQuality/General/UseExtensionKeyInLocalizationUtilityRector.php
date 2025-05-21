@@ -34,7 +34,7 @@ class UseExtensionKeyInLocalizationUtilityRector extends AbstractRector implemen
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Replace the second parameter of LocalizationUtility::translate to the extension name',
+            'Replace the second parameter of `LocalizationUtility::translate()` with the extension name',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

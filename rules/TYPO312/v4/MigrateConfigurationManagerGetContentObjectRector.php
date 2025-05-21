@@ -21,7 +21,9 @@ final class MigrateConfigurationManagerGetContentObjectRector extends AbstractRe
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate ConfigurationManager->getContentObject to use request attribute instead', [
+        return new RuleDefinition(
+            'Migrate `ConfigurationManager->getContentObject()` to use request attribute instead',
+            [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -47,6 +49,7 @@ class MyActionController extends ActionController
 }
 CODE_SAMPLE
             ),
+
         ]);
     }
 

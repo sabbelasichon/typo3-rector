@@ -71,7 +71,7 @@ final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector extends Abstr
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use php native function instead of GeneralUtility::shortMd5', [
+        return new RuleDefinition('Use php native function instead of `GeneralUtility::shortMd5()`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;

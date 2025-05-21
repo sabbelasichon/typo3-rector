@@ -78,7 +78,7 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector impleme
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Use BackendUtility::getClickMenuOnIconTagParameters() instead BackendUtility::wrapClickMenuOnIcon() if needed',
+            'Use `BackendUtility::getClickMenuOnIconTagParameters()` instead of `BackendUtility::wrapClickMenuOnIcon()`',
             [new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Backend\Utility\BackendUtility;

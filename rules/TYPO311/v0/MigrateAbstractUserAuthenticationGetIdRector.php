@@ -20,7 +20,7 @@ final class MigrateAbstractUserAuthenticationGetIdRector extends AbstractRector 
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate $frontendUserAuthentication->id and $backendUserAuthentication->id', [
+        return new RuleDefinition('Migrate `FrontendUserAuthentication->id` and `BackendUserAuthentication->id`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $frontendUserAuthentication = new FrontendUserAuthentication();

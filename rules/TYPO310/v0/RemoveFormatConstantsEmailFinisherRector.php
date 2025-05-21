@@ -82,7 +82,7 @@ final class RemoveFormatConstantsEmailFinisherRector extends AbstractRector impl
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Remove constants FORMAT_PLAINTEXT and FORMAT_HTML of class TYPO3\CMS\Form\Domain\Finishers\EmailFinisher',
+            'Remove constants `FORMAT_PLAINTEXT` and `FORMAT_HTML` of class `TYPO3\CMS\Form\Domain\Finishers\EmailFinisher`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

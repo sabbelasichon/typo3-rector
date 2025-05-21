@@ -58,7 +58,7 @@ final class MigrateAddUserTSConfigToUserTsConfigFileRector extends AbstractRecto
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate method call ExtensionManagementUtility::addUserTSConfig to user.tsconfig', [
+        return new RuleDefinition('Migrate method call `ExtensionManagementUtility::addUserTSConfig()` to user.tsconfig', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig(

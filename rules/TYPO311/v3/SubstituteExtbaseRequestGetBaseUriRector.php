@@ -95,7 +95,7 @@ final class SubstituteExtbaseRequestGetBaseUriRector extends AbstractRector impl
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use PSR-7 compatible request for uri instead of the method getBaseUri', [
+        return new RuleDefinition('Use PSR-7 compatible request for uri instead of the method `getBaseUri()`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $baseUri = $this->request->getBaseUri();

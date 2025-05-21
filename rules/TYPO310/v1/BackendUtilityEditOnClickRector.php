@@ -53,7 +53,7 @@ final class BackendUtilityEditOnClickRector extends AbstractRector implements Do
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate the method BackendUtility::editOnClick() to use UriBuilder API', [
+        return new RuleDefinition('Migrate the method `BackendUtility::editOnClick()` to use UriBuilder API', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $pid = 2;

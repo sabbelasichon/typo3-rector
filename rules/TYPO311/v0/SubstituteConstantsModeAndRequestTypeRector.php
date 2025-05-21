@@ -84,7 +84,7 @@ final class SubstituteConstantsModeAndRequestTypeRector extends AbstractRector i
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Substitute TYPO3_MODE and TYPO3_REQUESTTYPE constants', [
+        return new RuleDefinition('Substitute `TYPO3_MODE` and `TYPO3_REQUESTTYPE` constants', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 defined('TYPO3_MODE') or die();

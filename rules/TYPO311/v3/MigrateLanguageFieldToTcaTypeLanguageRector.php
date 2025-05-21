@@ -59,7 +59,7 @@ final class MigrateLanguageFieldToTcaTypeLanguageRector extends AbstractTcaRecto
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'use the new TCA type language instead of foreign_table => sys_language for selecting a records',
+            'Use the new TCA type language instead of foreign_table => sys_language for selecting a records',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

@@ -59,7 +59,7 @@ final class UnifiedFileNameValidatorRector extends AbstractRector implements Doc
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'GeneralUtility::verifyFilenameAgainstDenyPattern GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename)',
+            'Migrate `GeneralUtility::verifyFilenameAgainstDenyPattern()` to `FileNameValidator->isValid()`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
@@ -69,8 +69,7 @@ $filename = 'somefile.php';
 if (!GeneralUtility::verifyFilenameAgainstDenyPattern($filename)) {
 }
 
-if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FILE_DENY_PATTERN_DEFAULT)
-{
+if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FILE_DENY_PATTERN_DEFAULT) {
 }
 CODE_SAMPLE
                     ,
@@ -82,8 +81,7 @@ $filename = 'somefile.php';
 if (!GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename)) {
 }
 
-if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FileNameValidator::DEFAULT_FILE_DENY_PATTERN)
-{
+if ($GLOBALS['TYPO3_CONF_VARS']['BE']['fileDenyPattern'] != FileNameValidator::DEFAULT_FILE_DENY_PATTERN) {
 }
 CODE_SAMPLE
                 ),

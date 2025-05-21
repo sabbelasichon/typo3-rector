@@ -26,7 +26,7 @@ final class MigrateFileFieldTCAConfigToTCATypeFileRector extends AbstractRector 
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Migrate method ExtensionManagementUtility::getFileFieldTCAConfig() to TCA type file',
+            'Migrate method `ExtensionManagementUtility::getFileFieldTCAConfig()` to TCA type file',
             [new CodeSample(
                 <<<'CODE_SAMPLE'
 return [

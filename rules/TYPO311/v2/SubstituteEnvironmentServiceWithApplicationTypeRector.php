@@ -59,7 +59,7 @@ final class SubstituteEnvironmentServiceWithApplicationTypeRector extends Abstra
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Substitute class EnvironmentService with ApplicationType class\"', [new CodeSample(
+        return new RuleDefinition('Substitute class EnvironmentService with ApplicationType class', [new CodeSample(
             <<<'CODE_SAMPLE'
 if ($this->environmentService->isEnvironmentInFrontendMode()) {
     ...

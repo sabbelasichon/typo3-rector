@@ -78,7 +78,7 @@ final class ReplaceTSFECheckEnableFieldsRector extends AbstractRector implements
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Replace TSFE calls to checkEnableFields with new RecordAccessVoter->accessGranted method ',
+            'Replace `$GLOBALS[\'TSFE\']->checkEnableFields` calls with new `RecordAccessVoter->accessGranted()` method',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

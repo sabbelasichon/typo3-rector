@@ -23,7 +23,7 @@ final class MigrateAbstractUserAuthenticationCreateSessionIdRector extends Abstr
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Migrate $frontendUserAuthentication->createSessionId and $backendUserAuthentication->createSessionId()',
+            'Migrate `FrontendUserAuthentication->createSessionId()` and `BackendUserAuthentication->createSessionId()` to `Random->generateRandomHexString(32)`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

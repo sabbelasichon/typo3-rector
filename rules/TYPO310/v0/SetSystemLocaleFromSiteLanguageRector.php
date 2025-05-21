@@ -68,7 +68,7 @@ final class SetSystemLocaleFromSiteLanguageRector extends AbstractRector impleme
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Refactor TypoScriptFrontendController->settingLocale() to Locales::setSystemLocaleFromSiteLanguage()',
+            'Refactor `TypoScriptFrontendController->settingLocale()` to `Locales::setSystemLocaleFromSiteLanguage()`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

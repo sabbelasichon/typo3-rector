@@ -39,7 +39,7 @@ final class MigrateGeneralUtilityGPMergedRector extends AbstractRector implement
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate GeneralUtility::_GPmerged', [
+        return new RuleDefinition('Migrate `GeneralUtility::_GPmerged()` to use PSR-7 ServerRequest instead', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;

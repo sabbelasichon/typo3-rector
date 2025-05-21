@@ -21,7 +21,7 @@ final class MigrateAbstractUserAuthenticationGetSessionIdRector extends Abstract
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Migrate $frontendUserAuthentication->getSessionId() and $backendUserAuthentication->getSessionId()',
+            'Migrate `FrontendUserAuthentication->getSessionId()` and `BackendUserAuthentication->getSessionId()`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

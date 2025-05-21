@@ -33,7 +33,7 @@ final class MigrateGeneralUtilityGPRector extends AbstractRector implements Docu
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate GeneralUtility::_GP', [
+        return new RuleDefinition('Migrate `GeneralUtility::_GP()` to use PSR-7 ServerRequest instead', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;

@@ -21,7 +21,7 @@ final class RemoveMaxDBListItemsRector extends AbstractTcaRector implements Docu
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Remove $TCA[$mytable][\'interface\'][\'maxDBListItems\'], and \'maxSingleDBListItems\'',
+            'Remove `$TCA[$mytable][\'interface\'][\'maxDBListItems\']`, and \'maxSingleDBListItems\'',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

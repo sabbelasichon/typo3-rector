@@ -50,7 +50,7 @@ final class UseMetaDataAspectRector extends AbstractRector implements Documented
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use $fileObject->getMetaData()->get() instead of $fileObject->_getMetaData()', [
+        return new RuleDefinition('Use `$fileObject->getMetaData()->get()` instead of `$fileObject->_getMetaData()`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $fileObject = new File();

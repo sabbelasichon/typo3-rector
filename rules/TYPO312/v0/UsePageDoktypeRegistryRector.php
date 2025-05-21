@@ -23,7 +23,7 @@ final class UsePageDoktypeRegistryRector extends AbstractRector implements Docum
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate from $GLOBALS[\'PAGES_TYPES\'] to the new PageDoktypeRegistry', [
+        return new RuleDefinition('Migrate from `$GLOBALS[\'PAGES_TYPES\']` to the new PageDoktypeRegistry', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $GLOBALS['PAGES_TYPES'][116] = [

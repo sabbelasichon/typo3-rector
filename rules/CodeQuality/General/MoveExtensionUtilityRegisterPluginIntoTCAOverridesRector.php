@@ -59,7 +59,7 @@ final class MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector extends Abs
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Move ExtensionUtility::registerPlugin into Configuration/TCA/Overrides/tt_content.php',
+            'Move `ExtensionUtility::registerPlugin()` into Configuration/TCA/Overrides/tt_content.php',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

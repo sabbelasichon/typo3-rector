@@ -31,7 +31,7 @@ final class MigrateFetchAllToFetchAllAssociativeRector extends AbstractRector im
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate ->fetchAll() to ->fetchAllAssociative()', [new CodeSample(
+        return new RuleDefinition('Migrate `->fetchAll()` to `->fetchAllAssociative()`', [new CodeSample(
             <<<'CODE_SAMPLE'
 $result = $queryBuilder
   ->select(...)

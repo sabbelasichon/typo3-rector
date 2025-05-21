@@ -37,7 +37,7 @@ final class MigrateContentObjectRendererGetTypoLinkUrlRector extends AbstractRec
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Migrate ContentObjectRenderer->getTypoLink_URL to ContentObjectRenderer->createUrl',
+            'Migrate `ContentObjectRenderer->getTypoLink_URL()` to `ContentObjectRenderer->createUrl()`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

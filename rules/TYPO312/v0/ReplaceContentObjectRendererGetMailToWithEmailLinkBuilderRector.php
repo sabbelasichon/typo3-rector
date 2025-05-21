@@ -55,7 +55,7 @@ final class ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector exte
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Replace usages of ContentObjectRenderer->getMailTo() with EmailLinkBuilder->processEmailLink()',
+            'Replace usages of `ContentObjectRenderer->getMailTo()` with `EmailLinkBuilder->processEmailLink()`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

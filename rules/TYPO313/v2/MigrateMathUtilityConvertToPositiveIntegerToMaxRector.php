@@ -23,7 +23,7 @@ final class MigrateMathUtilityConvertToPositiveIntegerToMaxRector extends Abstra
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate MathUtility::convertToPositiveInteger() to max()', [new CodeSample(
+        return new RuleDefinition('Migrate `MathUtility::convertToPositiveInteger()` to `max()`', [new CodeSample(
             <<<'CODE_SAMPLE'
 MathUtility::convertToPositiveInteger($pageId)
 CODE_SAMPLE

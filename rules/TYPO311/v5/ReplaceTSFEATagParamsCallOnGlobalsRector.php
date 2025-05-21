@@ -68,7 +68,7 @@ final class ReplaceTSFEATagParamsCallOnGlobalsRector extends AbstractRector impl
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Replaces all direct calls to $GLOBALS[\'TSFE\']->ATagParams.',
+            'Replace direct calls to `$GLOBALS[\'TSFE\']->ATagParams`',
             [new CodeSample(
                 <<<'CODE_SAMPLE'
 $foo = $GLOBALS['TSFE']->ATagParams;

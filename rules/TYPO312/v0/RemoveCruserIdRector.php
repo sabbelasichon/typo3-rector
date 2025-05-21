@@ -20,7 +20,7 @@ final class RemoveCruserIdRector extends AbstractTcaRector implements Documented
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove the TCA option cruser_id', [new CodeSample(
+        return new RuleDefinition('Remove the TCA option "cruser_id"', [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
     'ctrl' => [

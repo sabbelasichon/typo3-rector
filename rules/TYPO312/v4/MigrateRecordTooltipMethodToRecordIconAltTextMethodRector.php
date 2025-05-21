@@ -23,7 +23,7 @@ final class MigrateRecordTooltipMethodToRecordIconAltTextMethodRector extends Ab
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Migrate the method BackendUtility::getRecordToolTip() to BackendUtility::getRecordIconAltText()',
+            'Migrate `BackendUtility::getRecordToolTip()` to `BackendUtility::getRecordIconAltText()`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

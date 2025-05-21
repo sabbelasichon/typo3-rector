@@ -19,7 +19,7 @@ final class RemoveWorkspacePlaceholderShadowColumnsConfigurationRector extends A
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('removeWorkspacePlaceholderShadowColumnsConfiguration', [new CodeSample(
+        return new RuleDefinition('Remove Workspace Placeholder Shadow Columns Configuration', [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
     'ctrl' => [

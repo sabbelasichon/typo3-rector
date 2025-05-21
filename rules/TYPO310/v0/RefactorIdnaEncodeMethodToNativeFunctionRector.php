@@ -77,7 +77,7 @@ final class RefactorIdnaEncodeMethodToNativeFunctionRector extends AbstractRecto
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use native function idn_to_ascii instead of GeneralUtility::idnaEncode', [
+        return new RuleDefinition('Use native function `idn_to_ascii` instead of `GeneralUtility::idnaEncode()`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $domain = GeneralUtility::idnaEncode('domain.com');

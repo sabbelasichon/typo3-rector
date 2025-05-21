@@ -77,7 +77,7 @@ final class ProvideCObjViaMethodRector extends AbstractRector implements Documen
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Replaces public $cObj with protected and set via method', [
+        return new RuleDefinition('Replace `public $cObj` with `protected` and set via method', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 class Foo

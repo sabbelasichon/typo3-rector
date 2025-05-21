@@ -19,7 +19,7 @@ final class RemoveEnableMultiSelectFilterTextfieldRector extends AbstractTcaRect
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove "enableMultiSelectFilterTextfield" => true as its default', [new CodeSample(
+        return new RuleDefinition('Remove `"enableMultiSelectFilterTextfield" => true` as its default from render type "selectMultipleSideBySide"', [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
     'columns' => [

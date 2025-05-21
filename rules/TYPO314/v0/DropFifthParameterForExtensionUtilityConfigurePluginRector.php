@@ -20,7 +20,7 @@ final class DropFifthParameterForExtensionUtilityConfigurePluginRector extends A
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Drop the fifth parameter $pluginType of ExtensionUtility::configurePlugin()', [
+        return new RuleDefinition('Drop the fifth parameter `$pluginType` of `ExtensionUtility::configurePlugin()`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], [], 'CType');

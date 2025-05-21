@@ -55,7 +55,7 @@ final class RemoveUpdateRootlineDataRector extends AbstractRector implements Doc
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove unused TemplateService->updateRootlineData() calls', [new CodeSample(
+        return new RuleDefinition('Remove unused `TemplateService->updateRootlineData()` calls', [new CodeSample(
             <<<'CODE_SAMPLE'
 $templateService = GeneralUtility::makeInstance(TemplateService::class);
 $templateService->updateRootlineData();

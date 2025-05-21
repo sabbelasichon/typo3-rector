@@ -22,7 +22,7 @@ final class MigrateRootUidToStartingPointsRector extends AbstractTcaRector imple
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'If a column has [treeConfig][rootUid] defined, migrate to [treeConfig][startingPoints] on the same level.',
+            'Migrate `[treeConfig][rootUid]` to `[treeConfig][startingPoints]`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

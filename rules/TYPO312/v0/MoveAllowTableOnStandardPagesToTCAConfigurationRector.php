@@ -48,7 +48,7 @@ final class MoveAllowTableOnStandardPagesToTCAConfigurationRector extends Abstra
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Move method ExtensionManagementUtility::allowTableOnStandardPages to TCA configuration',
+            'Move method `ExtensionManagementUtility::allowTableOnStandardPages()` to TCA configuration',
             [new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;

@@ -58,7 +58,7 @@ final class MigrateAddPageTSConfigToPageTsConfigFileRector extends AbstractRecto
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate method call ExtensionManagementUtility::addPageTSConfig to page.tsconfig', [
+        return new RuleDefinition('Migrate method call `ExtensionManagementUtility::addPageTSConfig()` to page.tsconfig', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(

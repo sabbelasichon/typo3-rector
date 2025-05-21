@@ -19,7 +19,7 @@ final class RemoveShowRemovedLocalizationRecordsRector extends AbstractTcaRector
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove showRemovedLocalizationRecords from inline TCA configurations.', [
+        return new RuleDefinition('Remove showRemovedLocalizationRecords from inline TCA configuration', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 return [

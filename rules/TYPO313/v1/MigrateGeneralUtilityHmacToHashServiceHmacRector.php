@@ -20,7 +20,7 @@ final class MigrateGeneralUtilityHmacToHashServiceHmacRector extends AbstractRec
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate GeneralUtility::hmac to HashService::hmac', [new CodeSample(
+        return new RuleDefinition('Migrate `GeneralUtility::hmac()` to `HashService::hmac()`', [new CodeSample(
             <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 

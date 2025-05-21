@@ -39,7 +39,7 @@ final class MigrateTypoScriptFrontendControllerTypeRector extends AbstractRector
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate TypoScriptFrontendController->type', [new CodeSample(
+        return new RuleDefinition('Migrate `TypoScriptFrontendController->type`', [new CodeSample(
             <<<'CODE_SAMPLE'
 $GLOBALS['TSFE']->type;
 CODE_SAMPLE

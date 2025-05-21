@@ -88,7 +88,7 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector implements 
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Rewrite Method Calls of GeneralUtility::getUrl("somefile.csv") to @file_get_contents',
+            'Rewrite method calls of `GeneralUtility::getUrl("somefile.csv")` to `@file_get_contents()`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
@@ -97,7 +97,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 GeneralUtility::getUrl('some.csv');
 $externalUrl = 'https://domain.com';
 GeneralUtility::getUrl($externalUrl);
-
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
@@ -106,7 +105,6 @@ use TYPO3\CMS\Core\Http\RequestFactory;
 @file_get_contents('some.csv');
 $externalUrl = 'https://domain.com';
 GeneralUtility::makeInstance(RequestFactory::class)->request($externalUrl)->getBody()->getContents();
-
 CODE_SAMPLE
                 ),
             ]

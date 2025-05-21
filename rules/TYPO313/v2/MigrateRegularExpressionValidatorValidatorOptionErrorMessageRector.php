@@ -35,7 +35,7 @@ final class MigrateRegularExpressionValidatorValidatorOptionErrorMessageRector e
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('RegularExpressionValidator validator option \"errorMessage\"', [new CodeSample(
+        return new RuleDefinition('Migrate RegularExpressionValidator validator option "errorMessage"', [new CodeSample(
             <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Annotation as Extbase;
 

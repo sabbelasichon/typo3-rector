@@ -55,8 +55,9 @@ final class SubstituteCompositeExpressionAddMethodsRector extends AbstractRector
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Replace add() and addMultiple() of CompositeExpression with with()', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition('Replace `add()` and `addMultiple()` of CompositeExpression with `with()`', [
+            new CodeSample(
+                <<<'CODE_SAMPLE'
 $compositeExpression = CompositeExpression::or();
 
 $compositeExpression->add(
@@ -79,8 +80,8 @@ $compositeExpression->addMultiple(
     ]
 );
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 $compositeExpression = CompositeExpression::or();
 
 $compositeExpression = $compositeExpression->with(
@@ -103,7 +104,8 @@ $compositeExpression = $compositeExpression->with(
     ]
 );
 CODE_SAMPLE
-        )]);
+            ),
+        ]);
     }
 
     private function shouldSkip(MethodCall $method): bool

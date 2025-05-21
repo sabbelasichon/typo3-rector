@@ -55,7 +55,7 @@ final class RemoveTSFEConvOutputCharsetCallsRector extends AbstractRector implem
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Removes usages of TSFE->convOutputCharset(...)', [new CodeSample(
+        return new RuleDefinition('Removes usages of `TSFE->convOutputCharset()`', [new CodeSample(
             <<<'CODE_SAMPLE'
 $tsfe = GeneralUtility::makeInstance(TypoScriptFrontendController::class);
 $foo = $GLOBALS['TSFE']->convOutputCharset($content);

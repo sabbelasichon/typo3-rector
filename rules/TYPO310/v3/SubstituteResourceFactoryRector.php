@@ -52,7 +52,7 @@ final class SubstituteResourceFactoryRector extends AbstractRector implements Do
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Substitute ResourceFactory::getInstance() through GeneralUtility::makeInstance(ResourceFactory::class)',
+            'Substitute `ResourceFactory::getInstance()` with `GeneralUtility::makeInstance(ResourceFactory::class)`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

@@ -31,7 +31,7 @@ final class RemoveAddRootLineFieldsRector extends AbstractRector implements Docu
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove obsolete $GLOBALS[\'TYPO3_CONF_VARS\'][\'FE\'][\'addRootLineFields\']', [
+        return new RuleDefinition('Remove obsolete `$GLOBALS[\'TYPO3_CONF_VARS\'][\'FE\'][\'addRootLineFields\']`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] = 'foo';

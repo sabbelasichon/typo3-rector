@@ -70,7 +70,7 @@ final class UseTwoLetterIsoCodeFromSiteLanguageRector extends AbstractRector imp
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'The usage of the property sys_language_isocode is deprecated. Use method getTwoLetterIsoCode of SiteLanguage',
+            'Use `SiteLanguage->getTwoLetterIsoCode()` instead of `$GLOBALS[\'TSFE\']->sys_language_isocode`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

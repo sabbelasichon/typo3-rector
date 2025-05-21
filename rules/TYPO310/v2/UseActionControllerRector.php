@@ -46,7 +46,7 @@ final class UseActionControllerRector extends AbstractRector implements Document
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use ActionController class instead of AbstractController if used', [
+        return new RuleDefinition('Use ActionController class instead of AbstractController', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 class MyController extends AbstractController

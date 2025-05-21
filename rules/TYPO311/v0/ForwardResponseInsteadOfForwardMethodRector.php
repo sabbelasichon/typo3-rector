@@ -40,7 +40,7 @@ final class ForwardResponseInsteadOfForwardMethodRector extends AbstractRector i
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Return TYPO3\CMS\Extbase\Http\ForwardResponse instead of TYPO3\CMS\Extbase\Mvc\Controller\ActionController::forward()',
+            'Return `TYPO3\CMS\Extbase\Http\ForwardResponse` instead of `TYPO3\CMS\Extbase\Mvc\Controller\ActionController::forward()`',
             [new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;

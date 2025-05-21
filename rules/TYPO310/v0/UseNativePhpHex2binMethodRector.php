@@ -48,7 +48,7 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector implements Do
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Turns TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin calls to native php hex2bin',
+            'Turn `TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin` calls to native php `hex2bin()`',
             [
                 new CodeSample(
                     'TYPO3\CMS\Extbase\Utility\TypeHandlingUtility::hex2bin("6578616d706c65206865782064617461");',

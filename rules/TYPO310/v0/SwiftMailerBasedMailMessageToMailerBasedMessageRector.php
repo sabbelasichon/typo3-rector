@@ -72,7 +72,7 @@ final class SwiftMailerBasedMailMessageToMailerBasedMessageRector extends Abstra
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('New Mail API based on symfony/mailer and symfony/mime', [
+        return new RuleDefinition('New Mail API based on `symfony/mailer` and `symfony/mime`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use Swift_Attachment;

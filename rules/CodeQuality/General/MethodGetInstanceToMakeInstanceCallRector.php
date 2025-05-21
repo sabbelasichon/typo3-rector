@@ -71,7 +71,7 @@ final class MethodGetInstanceToMakeInstanceCallRector extends AbstractRector imp
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use GeneralUtility::makeInstance instead of getInstance call', [
+        return new RuleDefinition('Use `GeneralUtility::makeInstance()` instead of `getInstance` call', [
             new ConfiguredCodeSample(
                 <<<'CODE_SAMPLE'
 $instance = TYPO3\CMS\Core\Resource\Index\ExtractorRegistry::getInstance();

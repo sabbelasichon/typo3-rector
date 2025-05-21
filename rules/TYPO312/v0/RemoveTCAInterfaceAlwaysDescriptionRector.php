@@ -21,7 +21,7 @@ final class RemoveTCAInterfaceAlwaysDescriptionRector extends AbstractTcaRector 
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition("Remove ['interface']['always_description']", [new CodeSample(
+        return new RuleDefinition("Remove `['interface']['always_description']`", [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
     'interface' => [

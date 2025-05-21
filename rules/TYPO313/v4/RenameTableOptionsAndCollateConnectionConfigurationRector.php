@@ -26,7 +26,7 @@ final class RenameTableOptionsAndCollateConnectionConfigurationRector extends Ab
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Rename $GLOBALS[\'TYPO3_CONF_VARS\'][\'DB\'][\'Connections\'][CONNECTION_NAME][\'tableoptions\'] to `defaultTableOptions` and its inner `collate` key to `collation`. This applies to full array definitions and direct path assignments.',
+            'Rename `$GLOBALS[\'TYPO3_CONF_VARS\'][\'DB\'][\'Connections\'][CONNECTION_NAME][\'tableoptions\']` to `defaultTableOptions` and its inner `collate` key to `collation`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

@@ -35,7 +35,7 @@ final class UseServerRequestInsteadOfGeneralUtilityGetRector extends AbstractRec
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use PSR-7 ServerRequest instead of GeneralUtility::_GET()', [
+        return new RuleDefinition('Migrate `GeneralUtility::_GET()` to use PSR-7 ServerRequest instead', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Utility\GeneralUtility;

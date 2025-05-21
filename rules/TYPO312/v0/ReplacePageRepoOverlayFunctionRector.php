@@ -44,7 +44,7 @@ final class ReplacePageRepoOverlayFunctionRector extends AbstractRector implemen
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Replace PageRepository->getRecordOverlay() with ->getLanguageOverlay()', [
+        return new RuleDefinition('Replace `PageRepository->getRecordOverlay()` with `->getLanguageOverlay()`', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $pageRepo->getRecordOverlay('', [], '');
