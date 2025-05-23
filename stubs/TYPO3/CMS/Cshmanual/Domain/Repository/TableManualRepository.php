@@ -8,5 +8,4 @@ if (class_exists('TYPO3\CMS\Cshmanual\Domain\Repository\TableManualRepository'))
 
 class TableManualRepository
 {
-
 }

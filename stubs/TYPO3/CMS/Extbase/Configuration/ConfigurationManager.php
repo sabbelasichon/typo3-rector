@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Extbase\Configuration;
 
 if (class_exists('TYPO3\CMS\Extbase\Configuration\ConfigurationManager')) {
@@ -7,5 +8,4 @@ if (class_exists('TYPO3\CMS\Extbase\Configuration\ConfigurationManager')) {
 
 class ConfigurationManager
 {
-
 }

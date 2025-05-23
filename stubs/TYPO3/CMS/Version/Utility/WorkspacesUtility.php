@@ -8,5 +8,4 @@ if (class_exists('TYPO3\CMS\Version\Utility\WorkspacesUtility')) {
 
 class WorkspacesUtility
 {
-
 }

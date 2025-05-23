@@ -8,5 +8,4 @@ if (class_exists('TYPO3\CMS\Extbase\Configuration\Exception\NoSuchFileException'
 
 class NoSuchFileException
 {
-
 }

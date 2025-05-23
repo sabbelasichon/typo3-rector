@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace TYPO3\CMS\Frontend\Typolink;
 
 if (class_exists('TYPO3\CMS\Frontend\Typolink\EmailLinkBuilder')) {

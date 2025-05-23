@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Backend\History;
 
 if (class_exists('TYPO3\CMS\Backend\History\RecordHistory')) {

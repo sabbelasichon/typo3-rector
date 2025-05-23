@@ -8,5 +8,4 @@ if (trait_exists('TYPO3\CMS\Core\Site\SiteLanguageAwareTrait')) {
 
 trait SiteLanguageAwareTrait
 {
-
 }

@@ -1,6 +1,4 @@
 <?php
-declare(strict_types=1);
-
 
 namespace TYPO3\CMS\Extbase\Annotation;
 
@@ -15,5 +13,4 @@ if (class_exists('TYPO3\CMS\Extbase\Annotation\IgnoreValidation')) {
 #[\Attribute(\Attribute::TARGET_METHOD|\Attribute::IS_REPEATABLE)]
 final class IgnoreValidation
 {
-
 }

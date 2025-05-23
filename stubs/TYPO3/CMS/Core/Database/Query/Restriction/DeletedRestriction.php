@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Core\Database\Query\Restriction;
 
 if (class_exists('TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction')) {
@@ -7,5 +8,4 @@ if (class_exists('TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction')
 
 class DeletedRestriction
 {
-
 }

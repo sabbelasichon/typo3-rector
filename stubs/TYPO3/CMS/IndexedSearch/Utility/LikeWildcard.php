@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\IndexedSearch\Utility;
 
 if (class_exists('TYPO3\CMS\IndexedSearch\Utility\LikeWildcard')) {

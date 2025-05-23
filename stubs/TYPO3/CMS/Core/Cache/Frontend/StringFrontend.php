@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Core\Cache\Frontend;
 
 if (interface_exists('TYPO3\CMS\Core\Cache\Frontend\StringFrontend')) {
@@ -7,5 +8,4 @@ if (interface_exists('TYPO3\CMS\Core\Cache\Frontend\StringFrontend')) {
 
 class StringFrontend
 {
-
 }

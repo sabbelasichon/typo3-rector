@@ -8,5 +8,4 @@ if (class_exists('TYPO3\CMS\Fluid\Core\ViewHelper\TemplateVariableContainer')) {
 
 class TemplateVariableContainer
 {
-
 }

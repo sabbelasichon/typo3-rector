@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Core\Http;
 
 use Psr\Http\Message\ServerRequestInterface;

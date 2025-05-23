@@ -8,5 +8,4 @@ if (class_exists('TYPO3\CMS\Backend\Form\Wizard\ImageManipulationWizard')) {
 
 class ImageManipulationWizard
 {
-
 }

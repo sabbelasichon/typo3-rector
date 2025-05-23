@@ -8,5 +8,4 @@ if (interface_exists('TYPO3\CMS\Extbase\Persistence\Generic\QueryFactoryInterfac
 
 interface QueryFactoryInterface
 {
-
 }

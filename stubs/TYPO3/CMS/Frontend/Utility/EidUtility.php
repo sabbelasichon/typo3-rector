@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Frontend\Utility;
 
 if (class_exists('TYPO3\CMS\Frontend\Utility\EidUtility')) {

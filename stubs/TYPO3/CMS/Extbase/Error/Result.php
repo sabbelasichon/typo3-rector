@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Extbase\Error;
 
 if (class_exists('TYPO3\CMS\Extbase\Error\Result')) {
@@ -7,5 +8,4 @@ if (class_exists('TYPO3\CMS\Extbase\Error\Result')) {
 
 class Result
 {
-
 }

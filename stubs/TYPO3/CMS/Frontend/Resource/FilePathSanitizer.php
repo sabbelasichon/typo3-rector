@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Frontend\Resource;
 
 use TYPO3\CMS\Core\Resource\Exception\FileDoesNotExistException;

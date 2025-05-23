@@ -7,5 +7,4 @@ if (class_exists('TYPO3\CMS\Core\Log\Logger')) {
 
 class Logger
 {
-
 }

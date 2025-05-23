@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Linkvalidator\Repository;
 
 if (class_exists('TYPO3\CMS\Linkvalidator\Repository\BrokenLinkRepository')) {

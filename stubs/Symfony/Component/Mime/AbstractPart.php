@@ -1,4 +1,5 @@
 <?php
+
 namespace Symfony\Component\Mime;
 
 if (class_exists('Symfony\Component\Mime\AbstractPart')) {
@@ -7,5 +8,4 @@ if (class_exists('Symfony\Component\Mime\AbstractPart')) {
 
 abstract class AbstractPart
 {
-
 }

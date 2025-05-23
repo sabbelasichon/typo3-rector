@@ -8,5 +8,4 @@ if (interface_exists('Psr\Http\Message\UriInterface')) {
 
 interface UriInterface
 {
-
 }

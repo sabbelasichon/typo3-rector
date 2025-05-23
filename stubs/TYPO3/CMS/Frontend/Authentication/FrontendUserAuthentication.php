@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Frontend\Authentication;
 
 use TYPO3\CMS\Core\Authentication\AbstractUserAuthentication;

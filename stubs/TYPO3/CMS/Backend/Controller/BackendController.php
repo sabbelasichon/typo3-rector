@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Backend\Controller;
 
 use TYPO3\CMS\Core\Page\PageRenderer;

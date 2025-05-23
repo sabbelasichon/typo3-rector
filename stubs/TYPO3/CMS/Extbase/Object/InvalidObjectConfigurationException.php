@@ -8,5 +8,4 @@ if (class_exists('TYPO3\CMS\Extbase\Object\InvalidObjectConfigurationException')
 
 class InvalidObjectConfigurationException
 {
-
 }

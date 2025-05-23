@@ -1,6 +1,5 @@
 <?php
 
-
 namespace TYPO3\CMS\Extbase\DomainObject;
 
 if (interface_exists('TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface')) {
@@ -9,5 +8,4 @@ if (interface_exists('TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface')) {
 
 interface DomainObjectInterface
 {
-
 }

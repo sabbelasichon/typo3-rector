@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace TYPO3\CMS\Core\Authentication;
 
 use TYPO3\CMS\Core\Type\Enumeration;

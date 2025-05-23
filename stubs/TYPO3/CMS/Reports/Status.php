@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Reports;
 
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;

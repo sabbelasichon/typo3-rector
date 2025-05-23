@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Core\Controller;
 
 if (class_exists('TYPO3\CMS\Core\Controller\ErrorPageController')) {

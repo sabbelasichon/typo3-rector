@@ -2,12 +2,10 @@
 
 namespace TYPO3\CMS\Mail;
 
-if (class_exists('TYPO3\CMS\Mail\MailerAdapterInterface'))
-{
+if (interface_exists('TYPO3\CMS\Mail\MailerAdapterInterface')) {
     return;
 }
 
 interface MailerAdapterInterface
 {
-
 }

@@ -7,5 +7,4 @@ if (class_exists('TYPO3\CMS\Extbase\Security\Exception\InvalidHashException')) {
 }
 final class InvalidHashException
 {
-
 }

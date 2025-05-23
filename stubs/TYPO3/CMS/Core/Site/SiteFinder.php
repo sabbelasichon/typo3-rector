@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Core\Site;
 
 use TYPO3\CMS\Core\Site\Entity\Site;

@@ -1,4 +1,5 @@
 <?php
+
 namespace TYPO3\CMS\Core\Localization;
 
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
