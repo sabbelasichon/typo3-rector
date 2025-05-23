@@ -1,4 +1,4 @@
-# 174 Rules Overview
+# 175 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (29)
+- [TYPO313](#typo313) (30)
 
 - [TYPO314](#typo314) (3)
 
@@ -3610,6 +3610,21 @@ Remove obsolete `$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields']`
 ```diff
 -$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields'] = 'foo';
 +-
+```
+
+<br>
+
+### RemoveConstantPageRepositoryDoktypeRecyclerRector
+
+Remove the constant `TYPO3\CMS\Domain\Repository\PageRepository::DOKTYPE_RECYCLER` and its usage in arrays and binary operations (||, &&)
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\RemoveConstantPageRepositoryDoktypeRecyclerRector`](../rules/TYPO313/v0/RemoveConstantPageRepositoryDoktypeRecyclerRector.php)
+
+```diff
+ $excludeDoktypes = [
+-    \TYPO3\CMS\Domain\Repository\PageRepository::DOKTYPE_RECYCLER,
+     \TYPO3\CMS\Domain\Repository\PageRepository::DOKTYPE_SYSFOLDER,
+ ];
 ```
 
 <br>
