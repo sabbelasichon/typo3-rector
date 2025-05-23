@@ -15,6 +15,7 @@ use PhpParser\Node\Expr\BinaryOp\Identical;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -22,7 +23,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-101137-PageDoktypeRecyclerRemoved.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v0\RemoveConstantPageRepositoryDoktypeRecyclerRector\RemoveConstantPageRepositoryDoktypeRecyclerRectorTest
  */
-final class RemoveConstantPageRepositoryDoktypeRecyclerRector extends AbstractRector
+final class RemoveConstantPageRepositoryDoktypeRecyclerRector extends AbstractRector implements DocumentedRuleInterface
 {
     private const TARGET_CONSTANT_NAME = 'DOKTYPE_RECYCLER';
 
