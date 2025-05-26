@@ -11,6 +11,11 @@ if (class_exists('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper')) {
 class AbstractViewHelper
 {
     /**
+     * @var array<string, mixed>
+     */
+    protected $arguments = [];
+
+    /**
      * @var RenderingContextInterface
      */
     protected $renderingContext;
