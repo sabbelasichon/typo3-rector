@@ -1,4 +1,4 @@
-# 176 Rules Overview
+# 177 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (31)
+- [TYPO313](#typo313) (32)
 
 - [TYPO314](#typo314) (3)
 
@@ -3600,6 +3600,34 @@ Migrate RegularExpressionValidator validator option "errorMessage"
      ],
  ])]
  protected string $myProperty = '';
+```
+
+<br>
+
+### MigrateTableDependentDefinitionOfColumnsOnlyRector
+
+Migrate table dependant definition of columnsOnly
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v2\MigrateTableDependentDefinitionOfColumnsOnlyRector`](../rules/TYPO313/v2/MigrateTableDependentDefinitionOfColumnsOnlyRector.php)
+
+```diff
+ $urlParameters = [
+     'edit' => [
+         'pages' => [
+             1 => 'edit',
+         ],
+     ],
+-    'columnsOnly' => 'title,slug'
++    'columnsOnly' => [
++        'pages' => [
++            'title',
++            'slug'
++        ]
++    ],
+     'returnUrl' => $request->getAttribute('normalizedParams')->getRequestUri(),
+ ];
+
+ GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute('record_edit', $urlParameters);
 ```
 
 <br>
