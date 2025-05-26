@@ -113,7 +113,6 @@ CODE_SAMPLE
 
     private function refactorArrayDimFetch(ArrayDimFetch $arrayDimFetch): ?Node
     {
-        // Check if var is $this->arguments
         if (! $arrayDimFetch->var instanceof PropertyFetch) {
             return null;
         }
