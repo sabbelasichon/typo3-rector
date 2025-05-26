@@ -6,6 +6,7 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\TYPO313\v2\MigrateMathUtilityConvertToPositiveIntegerToMaxRector;
 use Ssch\TYPO3Rector\TYPO313\v2\MigrateNamespacedShortHandValidatorRector;
 use Ssch\TYPO3Rector\TYPO313\v2\MigrateRegularExpressionValidatorValidatorOptionErrorMessageRector;
+use Ssch\TYPO3Rector\TYPO313\v2\MigrateTableDependentDefinitionOfColumnsOnlyRector;
 use Ssch\TYPO3Rector\TYPO313\v2\RemoveAddRootLineFieldsRector;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -14,4 +15,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveAddRootLineFieldsRector::class);
     $rectorConfig->rule(MigrateNamespacedShortHandValidatorRector::class);
     $rectorConfig->rule(MigrateMathUtilityConvertToPositiveIntegerToMaxRector::class);
+    $rectorConfig->rule(MigrateTableDependentDefinitionOfColumnsOnlyRector::class);
 };
