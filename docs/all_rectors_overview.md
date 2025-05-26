@@ -1,4 +1,4 @@
-# 175 Rules Overview
+# 176 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (30)
+- [TYPO313](#typo313) (31)
 
 - [TYPO314](#typo314) (3)
 
@@ -3452,6 +3452,31 @@ Migrate the class HashService from extbase to the one from TYPO3 core
 -$validatedStringWithHashRemoved = $hashService->validateAndStripHmac($stringWithAppendedHash);
 +$stringWithAppendedHash = $hashService->appendHmac('123', 'changeMe');
 +$validatedStringWithHashRemoved = $hashService->validateAndStripHmac($stringWithAppendedHash, 'changeMe');
+```
+
+<br>
+
+### MigrateFluidStandaloneMethodsRector
+
+Migrate Fluid standalone methods
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v3\MigrateFluidStandaloneMethodsRector`](../rules/TYPO313/v3/MigrateFluidStandaloneMethodsRector.php)
+
+```diff
+ public function initializeArguments(): void
+ {
+     parent::initializeArguments();
+-    $this->registerUniversalTagAttributes();
+ }
+```
+
+<br>
+
+```diff
+-if (empty($this->arguments['title']) && $title) {
++if (empty($this->additionalArguments['title']) && $title) {
+     $this->tag->addAttribute('title', $title);
+ }
 ```
 
 <br>
