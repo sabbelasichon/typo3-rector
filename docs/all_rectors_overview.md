@@ -1,4 +1,4 @@
-# 177 Rules Overview
+# 178 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (32)
+- [TYPO313](#typo313) (33)
 
 - [TYPO314](#typo314) (3)
 
@@ -3699,6 +3699,26 @@ Unset the value in the config mmHasUidField
          ],
      ],
  ];
+```
+
+<br>
+
+### RemoveSpecialPropertiesOfPageArraysRector
+
+Remove
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\RemoveSpecialPropertiesOfPageArraysRector`](../rules/TYPO313/v0/RemoveSpecialPropertiesOfPageArraysRector.php)
+
+```diff
+-$rows['_PAGES_OVERLAY_UID']
++$rows['_LOCALIZED_UID']
+```
+
+<br>
+
+```diff
+-$rows['_PAGES_OVERLAY_REQUESTEDLANGUAGE']
++$rows['_REQUESTED_OVERLAY_LANGUAGE']
 ```
 
 <br>
