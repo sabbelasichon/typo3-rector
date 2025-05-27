@@ -19,6 +19,7 @@ use Ssch\TYPO3Rector\TYPO313\v0\MigrateAddUserTSConfigToUserTsConfigFileRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateExpressionBuilderTrimMethodSecondParameterRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateExtbaseHashServiceToUseCoreHashServiceRector;
 use Ssch\TYPO3Rector\TYPO313\v0\RemoveConstantPageRepositoryDoktypeRecyclerRector;
+use Ssch\TYPO3Rector\TYPO313\v0\RemoveSpecialPropertiesOfPageArraysRector;
 use Ssch\TYPO3Rector\TYPO313\v0\StrictTypesPersistenceManagerRector;
 use Ssch\TYPO3Rector\TYPO313\v0\SubstituteItemFormElIDRector;
 use Ssch\TYPO3Rector\TYPO313\v0\UseStrictTypesInExtbaseActionControllerRector;
@@ -132,4 +133,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateExpressionBuilderTrimMethodSecondParameterRector::class);
     $rectorConfig->rule(ConvertVersionStateToEnumRector::class);
     $rectorConfig->rule(RemoveConstantPageRepositoryDoktypeRecyclerRector::class);
+    $rectorConfig->rule(RemoveSpecialPropertiesOfPageArraysRector::class);
 };
