@@ -34,8 +34,11 @@ final class MigratePluginContentElementAndPluginSubtypesRectorTest extends Abstr
     /**
      * @dataProvider provideData()
      */
-    public function testWithExistingComposerJson(string $extensionKey, string $fixtureFile): void
-    {
+    public function testWithExistingComposerJson(
+        string $extensionKey,
+        string $fixtureFile,
+        bool $migrationFileShouldExist
+    ): void {
         // Arrange
         $composerJson = __DIR__ . '/Fixture/' . $extensionKey . '/composer.json';
         $this->testFilesToDelete[] = $composerJson;
@@ -57,30 +60,49 @@ final class MigratePluginContentElementAndPluginSubtypesRectorTest extends Abstr
 
         // Act
         $this->doTestFile(__DIR__ . '/Fixture/' . $extensionKey . '/' . $fixtureFile);
-        $this->testFilesToDelete[] = __DIR__ . '/Fixture/' . $extensionKey . '/Classes/Updates/TYPO3RectorCTypeMigration.php';
 
-        // Assert
-        $content = $this->filesystem->read(
-            __DIR__ . '/Fixture/' . $extensionKey . '/Classes/Updates/TYPO3RectorCTypeMigration.php'
-        );
-        self::assertStringEqualsFile(
-            __DIR__ . '/Assertions/' . $extensionKey . '/Classes/Updates/TYPO3RectorCTypeMigration.php',
-            $content
-        );
+        if ($migrationFileShouldExist) {
+            $this->testFilesToDelete[] = __DIR__ . '/Fixture/' . $extensionKey . '/Classes/Updates/TYPO3RectorCTypeMigration.php';
+
+            // Assert
+            $content = $this->filesystem->read(
+                __DIR__ . '/Fixture/' . $extensionKey . '/Classes/Updates/TYPO3RectorCTypeMigration.php'
+            );
+            self::assertStringEqualsFile(
+                __DIR__ . '/Assertions/' . $extensionKey . '/Classes/Updates/TYPO3RectorCTypeMigration.php',
+                $content
+            );
+        } else {
+            self::assertFileDoesNotExist(
+                __DIR__ . '/Fixture/' . $extensionKey . '/Classes/Updates/TYPO3RectorCTypeMigration.php'
+            );
+        }
     }
 
     /**
-     * @return \Iterator<array<string>>
+     * @return \Iterator<array<string|bool>>
      */
     public static function provideData(): \Iterator
     {
         yield 'Test that new migration class is created with correct content with ext_localconf' => [
             'extension1',
             'ext_localconf.php.inc',
+            true,
         ];
         yield 'Test that new migration class is created with correct content with TCA overrides' => [
             'extension2',
             'Configuration/TCA/Overrides/tt_content.php.inc',
+            true,
+        ];
+        yield 'Test that content elements will be ignored with ext_localconf' => [
+            'extension3',
+            'ext_localconf.php.inc',
+            false,
+        ];
+        yield 'Test that content elements will be ignored with TCA overrides' => [
+            'extension4',
+            'Configuration/TCA/Overrides/tt_content.php.inc',
+            false,
         ];
     }
 
