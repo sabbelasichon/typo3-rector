@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
+use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
@@ -186,16 +187,46 @@ CODE;
 
     private function shouldSkip(StaticCall $staticCall): bool
     {
-        if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $staticCall,
             new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
-        ) && ! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
-            $staticCall,
-            new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
-        )) {
-            return true;
+        ) && $this->isName($staticCall->name, 'addPlugin')
+        ) {
+            if (isset($staticCall->args[1])) {
+                $type = $staticCall->args[1]->value;
+
+                if ($type instanceof String_ && $type->value === 'CType') {
+                    return true;
+                }
+
+                return $type instanceof ClassConstFetch
+                    && $this->isName($type->class, 'TYPO3\CMS\Extbase\Utility\ExtensionUtility')
+                    && $this->isName($type->name, 'PLUGIN_TYPE_CONTENT_ELEMENT');
+            }
+
+            return false;
         }
 
-        return ! $this->isNames($staticCall->name, ['addPlugin', 'configurePlugin']);
+        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+            $staticCall,
+            new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
+        ) && $this->isName($staticCall->name, 'configurePlugin')
+        ) {
+            if (isset($staticCall->args[4])) {
+                $pluginType = $staticCall->args[4]->value;
+
+                if ($pluginType instanceof String_ && $pluginType->value === 'CType') {
+                    return true;
+                }
+
+                return $pluginType instanceof ClassConstFetch
+                    && $this->isName($pluginType->class, 'TYPO3\CMS\Extbase\Utility\ExtensionUtility')
+                    && $this->isName($pluginType->name, 'PLUGIN_TYPE_CONTENT_ELEMENT');
+            }
+
+            return false;
+        }
+
+        return true;
     }
 }
