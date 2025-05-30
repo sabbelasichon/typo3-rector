@@ -1,4 +1,4 @@
-# 178 Rules Overview
+# 179 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (33)
 
-- [TYPO314](#typo314) (3)
+- [TYPO314](#typo314) (4)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -3999,6 +3999,35 @@ Extend Extbase Validators from AbstractValidator
 -class MyValidator implements ValidatorInterface
 +class MyValidator extends AbstractValidator
  {
+ }
+```
+
+<br>
+
+### MigrateObsoleteCharsetInSanitizeFileNameRector
+
+Removes the second charset parameter from sanitizeFileName method in DriverInterface implementations
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector`](../rules/TYPO314/v0/MigrateObsoleteCharsetInSanitizeFileNameRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Resource\Driver\DriverInterface;
+
+ class MyDriver implements DriverInterface
+ {
+-    public function sanitizeFileName(string $fileName, string $charset = ''): string
++    public function sanitizeFileName(string $fileName): string
+     {
+     }
+ }
+
+ class SomeClass
+ {
+     public function doSomething(DriverInterface $driver)
+     {
+-        $sanitizedName = $driver->sanitizeFileName('example.txt', 'utf-8');
++        $sanitizedName = $driver->sanitizeFileName('example.txt');
+     }
  }
 ```
 
