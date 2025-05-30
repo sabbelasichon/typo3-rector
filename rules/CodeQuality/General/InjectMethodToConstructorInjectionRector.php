@@ -158,6 +158,10 @@ CODE_SAMPLE
 
     private function shouldSkip(Class_ $classNode): bool
     {
+        if ($classNode->isAbstract()) {
+            return true;
+        }
+
         $className = $this->getName($classNode);
 
         // Handle anonymous classes: they don't have "parents" in the same way for reflection
