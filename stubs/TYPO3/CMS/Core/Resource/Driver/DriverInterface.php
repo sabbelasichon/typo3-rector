@@ -9,6 +9,7 @@ interface DriverInterface
 {
     /**
      * Processes the configuration for this driver.
+     * @return void
      */
     public function processConfiguration();
 
@@ -16,12 +17,14 @@ interface DriverInterface
      * Sets the storage uid the driver belongs to
      *
      * @param int $storageUid
+     * @return void
      */
     public function setStorageUid($storageUid);
 
     /**
      * Initializes this object. This is called by the storage after the driver
      * has been attached.
+     * @return void
      */
     public function initialize();
 
@@ -66,11 +69,9 @@ interface DriverInterface
      * Cleans a fileName from not allowed characters
      *
      * @param string $fileName
-     * @param string $charset Charset of the a fileName
-     *                        (defaults to current charset; depending on context)
      * @return string the cleaned filename
      */
-    public function sanitizeFileName($fileName, $charset = '');
+    public function sanitizeFileName($fileName);
 
     /**
      * Hashes a file identifier, taking the case sensitivity of the file system
