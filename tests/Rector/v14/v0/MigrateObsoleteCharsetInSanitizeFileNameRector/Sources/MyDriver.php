@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ssch\TYPO3Rector\Tests\Rector\v14\v0\MigrateObsoleteCharsetInSanitizeFileNameRector\Sources;
 
 use TYPO3\CMS\Core\Resource\Driver\DriverInterface;
