@@ -421,4 +421,13 @@ class TypoScriptFrontendController
     {
         return $this->config['config'][$name];
     }
+
+    public function addCacheTags(array $tags): void
+    {
+    }
+
+    public function getPageCacheTags(): array
+    {
+        return [];
+    }
 }
