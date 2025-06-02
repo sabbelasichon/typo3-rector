@@ -1,4 +1,4 @@
-# 179 Rules Overview
+# 180 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (33)
+- [TYPO313](#typo313) (34)
 
 - [TYPO314](#typo314) (4)
 
@@ -3628,6 +3628,34 @@ Migrate table dependant definition of columnsOnly
  ];
 
  GeneralUtility::makeInstance(UriBuilder::class)->buildUriFromRoute('record_edit', $urlParameters);
+```
+
+<br>
+
+### MigrateTypoScriptFrontendControllerAddCacheTagsAndGetPageCacheTagsRector
+
+Migrate `TypoScriptFrontendController->addCacheTags()` and `->getPageCacheTags()`
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v3\MigrateTypoScriptFrontendControllerAddCacheTagsAndGetPageCacheTagsRector`](../rules/TYPO313/v3/MigrateTypoScriptFrontendControllerAddCacheTagsAndGetPageCacheTagsRector.php)
+
+```diff
+-$GLOBALS['TSFE']->addCacheTags([
+-    'tx_myextension_mytable_123',
+-    'tx_myextension_mytable_456'
+-]);
++use TYPO3\CMS\Core\Cache\CacheTag;
++
++$GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.cache.collector')->addCacheTags(
++    new CacheTag('tx_myextension_mytable_123', 3600),
++    new CacheTag('tx_myextension_mytable_456', 3600)
++);
+```
+
+<br>
+
+```diff
+-$tags = $GLOBALS['TSFE']->getPageCacheTags();
++$tags = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.cache.collector')->getCacheTags();
 ```
 
 <br>
