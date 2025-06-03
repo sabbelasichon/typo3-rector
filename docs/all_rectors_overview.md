@@ -1,4 +1,4 @@
-# 180 Rules Overview
+# 181 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (34)
+- [TYPO313](#typo313) (35)
 
 - [TYPO314](#typo314) (4)
 
@@ -3833,6 +3833,19 @@ Replace TYPO3 EnumType with Doctrine DBAL EnumType
 ```diff
 -$doctrineType = \TYPO3\CMS\Core\Database\Schema\Types\EnumType::TYPE;
 +$doctrineType = \Doctrine\DBAL\Types\Type::TYPE;
+```
+
+<br>
+
+### RequireATemplateFileNameInExtbaseModuleTemplateRenderingRector
+
+Require a template filename in extbase module template rendering
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v4\RequireATemplateFileNameInExtbaseModuleTemplateRenderingRector`](../rules/TYPO313/v4/RequireATemplateFileNameInExtbaseModuleTemplateRenderingRector.php)
+
+```diff
+-$moduleTemplate->renderResponse();
++$moduleTemplate->renderResponse('MyController/MyAction');
 ```
 
 <br>
