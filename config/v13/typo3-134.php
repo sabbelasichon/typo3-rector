@@ -10,6 +10,7 @@ use Ssch\TYPO3Rector\TYPO313\v4\MigratePluginContentElementAndPluginSubtypesSwap
 use Ssch\TYPO3Rector\TYPO313\v4\MigratePluginContentElementAndPluginSubtypesTCARector;
 use Ssch\TYPO3Rector\TYPO313\v4\RemoveTcaSubTypesExcludeListTCARector;
 use Ssch\TYPO3Rector\TYPO313\v4\RenameTableOptionsAndCollateConnectionConfigurationRector;
+use Ssch\TYPO3Rector\TYPO313\v4\RequireATemplateFileNameInExtbaseModuleTemplateRenderingRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -31,4 +32,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveTcaSubTypesExcludeListTCARector::class);
     $rectorConfig->rule(MigratePluginContentElementAndPluginSubtypesSwapArgsRector::class);
     $rectorConfig->rule(RenameTableOptionsAndCollateConnectionConfigurationRector::class);
+    $rectorConfig->rule(RequireATemplateFileNameInExtbaseModuleTemplateRenderingRector::class);
 };
