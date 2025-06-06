@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\ClassConstFetch\RenameClassConstFetchRector;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
+use Ssch\TYPO3Rector\TYPO313\v4\MigrateDataProviderContextGettersAndSettersRector;
 use Ssch\TYPO3Rector\TYPO313\v4\MigratePluginContentElementAndPluginSubtypesRector;
 use Ssch\TYPO3Rector\TYPO313\v4\MigratePluginContentElementAndPluginSubtypesSwapArgsRector;
 use Ssch\TYPO3Rector\TYPO313\v4\MigratePluginContentElementAndPluginSubtypesTCARector;
@@ -33,4 +34,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigratePluginContentElementAndPluginSubtypesSwapArgsRector::class);
     $rectorConfig->rule(RenameTableOptionsAndCollateConnectionConfigurationRector::class);
     $rectorConfig->rule(RequireATemplateFileNameInExtbaseModuleTemplateRenderingRector::class);
+    $rectorConfig->rule(MigrateDataProviderContextGettersAndSettersRector::class);
 };
