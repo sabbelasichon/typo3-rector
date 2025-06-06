@@ -1,4 +1,4 @@
-# 181 Rules Overview
+# 182 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (35)
+- [TYPO313](#typo313) (36)
 
 - [TYPO314](#typo314) (4)
 
@@ -3406,6 +3406,61 @@ Migrate method call `ExtensionManagementUtility::addUserTSConfig()` to user.tsco
 -    '@import "EXT:extension_key/Configuration/TSconfig/*/*.tsconfig"'
 -);
 +// Move to file Configuration/user.tsconfig
+```
+
+<br>
+
+### MigrateDataProviderContextGettersAndSettersRector
+
+Migrate DataProviderContext getters and setters
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v4\MigrateDataProviderContextGettersAndSettersRector`](../rules/TYPO313/v4/MigrateDataProviderContextGettersAndSettersRector.php)
+
+```diff
+-$dataProviderContext = GeneralUtility::makeInstance(DataProviderContext::class);
+-$dataProviderContext
+-    ->setPageId($pageId)
+-    ->setTableName($parameters['table'])
+-    ->setFieldName($parameters['field'])
+-    ->setData($parameters['row'])
+-    ->setPageTsConfig($pageTsConfig);
++$dataProviderContext = new DataProviderContext(
++    pageId: $pageId,
++    tableName: $parameters['table'],
++    fieldName: $parameters['field'],
++    data: $parameters['row'],
++    pageTsConfig: $pageTsConfig,
++);
+```
+
+<br>
+
+```diff
+-$pageId = $dataProviderContext->getPageId();
+-$tableName = $dataProviderContext->getTableName();
+-$fieldName = $dataProviderContext->getFieldName();
+-$data = $dataProviderContext->getData();
+-$pageTsConfig = $dataProviderContext->getPageTsConfig();
++$pageId = $dataProviderContext->pageId;
++$tableName = $dataProviderContext->tableName;
++$fieldName = $dataProviderContext->fieldName;
++$data = $dataProviderContext->data;
++$pageTsConfig = $dataProviderContext->pageTsConfig;
+```
+
+<br>
+
+```diff
+-$dataProviderContext->setPageId(1);
+-$dataProviderContext->setTableName('table');
+-$dataProviderContext->setFieldName('field');
+-$dataProviderContext->setData([]);
+-$dataProviderContext->setPageTsConfig([]);
++$dataProviderContext->pageId = 1;
++$dataProviderContext->tableName = 'table';
++$dataProviderContext->fieldName = 'field';
++$dataProviderContext->data = [];
++$dataProviderContext->pageTsConfig = [];
 ```
 
 <br>
