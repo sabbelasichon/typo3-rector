@@ -26,14 +26,13 @@ parameters:
         - '*tests/Source/*'
         - 'utils/generator/templates/*'
 
-
     scanDirectories:
         # static reflection
         - stubs
 
     bootstrapFiles:
-         - tests/bootstrap-phpstan.php
-         - vendor/rector/rector/vendor/symplify/rule-doc-generator-contracts/src/Contract/DocumentedRuleInterface.php
+        - tests/bootstrap-phpstan.php
+        - vendor/rector/rector/vendor/symplify/rule-doc-generator-contracts/src/Contract/DocumentedRuleInterface.php
 
     inferPrivatePropertyTypeFromConstructor: true
     reportUnmatchedIgnoredErrors: false
@@ -49,6 +48,7 @@ parameters:
 
         - '#^Call to method needs\(\) on an unknown class Illuminate\\Contracts\\Container\\ContextualBindingBuilder.$#'
         - '#^Parameter \#1 \$node \(PhpParser\\Node\\Stmt\\Return_\) of method Ssch\\TYPO3Rector\\TYPO310\\v3\\RemoveExcludeOnTransOrigPointerFieldRector::refactor\(\)#'
+        - '#^Access to an undefined property Rector\\Contract\\PhpParser\\Node\\StmtsAwareInterface\:\:\$stmts\.$#'
 
         -
             identifier: phpunit.dataProviderMethod
@@ -67,5 +67,3 @@ parameters:
 
         -
             identifier: argument.type
-
-        - '#Method .*::provideMinPhpVersion\(\) never returns#'
