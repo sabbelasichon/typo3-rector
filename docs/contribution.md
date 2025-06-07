@@ -44,7 +44,7 @@ If you are not a member of the project, make a comment to let everyone know that
 Run the following command and answer all questions:
 
 ```bash
-bin/typo3-rector
+bin/generate-rule
 ```
 
 This command will ask you some questions to provide a proper rector setup.
@@ -137,6 +137,23 @@ final class MyRector extends AbstractRector implements DocumentedRuleInterface
 }
 ```
 
+## Minimum PHP Version required
+
+To run this rule only when a minimum PHP version is used, add this method with a required feature:
+
+```php
+use Rector\ValueObject\PhpVersionFeature;
+use Rector\VersionBonding\Contract\MinPhpVersionInterface;
+
+final class MyRector extends AbstractRector implements DocumentedRuleInterface, MinPhpVersionInterface
+{
+    public function provideMinPhpVersion(): int
+    {
+        return PhpVersionFeature::ENUM;
+    }
+}
+```
+
 ## All Tests must be green
 
 Make sure you have a test in place for your Rector
@@ -146,7 +163,8 @@ Additionally, the code style must be valid.
 Run the following commands:
 
 ```bash
-composer run-script contribute
+composer update
+composer run-script local:contribute
 vendor/bin/phpunit
 ```
 
