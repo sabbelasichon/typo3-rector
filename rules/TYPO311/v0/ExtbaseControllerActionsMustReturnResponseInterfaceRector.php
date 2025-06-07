@@ -75,7 +75,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
                 return null;
             }
 
-            $responseObjectType = new ObjectType('Psr\\Http\\Message\\ResponseInterface');
+            $responseObjectType = new ObjectType('Psr\Http\Message\ResponseInterface');
 
             if ($node->expr instanceof Expr && $this->isObjectType($node->expr, $responseObjectType)) {
                 return null;
@@ -90,10 +90,9 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
                 return null;
             }
 
-            if ($returnCallExpression instanceof FuncCall && $this->isName(
-                $returnCallExpression->name,
-                'json_encode'
-            )) {
+            if ($returnCallExpression instanceof FuncCall
+                && $this->isName($returnCallExpression->name, 'json_encode')
+            ) {
                 return new Return_($this->nodeFactory->createMethodCall(
                     'this',
                     'jsonResponse',
@@ -176,10 +175,9 @@ CODE_SAMPLE
 
     private function shouldSkip(ClassMethod $classMethod): bool
     {
-        if ($classMethod->returnType instanceof Node && $this->isObjectType(
-            $classMethod->returnType,
-            new ObjectType('Psr\\Http\\Message\\ResponseInterface')
-        )) {
+        if ($classMethod->returnType instanceof Node
+            && $this->isObjectType($classMethod->returnType, new ObjectType('Psr\Http\Message\ResponseInterface'))
+        ) {
             return true;
         }
 
@@ -235,7 +233,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return $this->hasExceptionCall($lastStatement);
+        return $this->lastStatementIsOfTypeImmediateResponseException($lastStatement);
     }
 
     private function lastStatementIsExitCall(Node $lastStatement): bool
@@ -243,16 +241,14 @@ CODE_SAMPLE
         return $lastStatement instanceof Expression && $lastStatement->expr instanceof Exit_;
     }
 
-    private function hasExceptionCall(Node $lastStatement): bool
+    private function lastStatementIsOfTypeImmediateResponseException(Node $lastStatement): bool
     {
         if (! ($lastStatement instanceof Expression && $lastStatement->expr instanceof Throw_)) {
             return false;
         }
 
-        $propagateResponseException = new ObjectType('TYPO3\CMS\Core\Http\PropagateResponseException');
-
-        return $this->getType($lastStatement->expr)
-            ->isSuperTypeOf($propagateResponseException)
+        return $this->getType($lastStatement->expr->expr)
+            ->isSuperTypeOf(new ObjectType('TYPO3\CMS\Core\Http\ImmediateResponseException'))
             ->yes();
     }
 
