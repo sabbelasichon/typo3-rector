@@ -7,6 +7,11 @@ parameters:
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     level: 8
 
+    reportUnmatchedIgnoredErrors: false
+
+    # requires exact closure types
+    checkMissingCallableSignature: true
+
     treatPhpDocTypesAsCertain: false
 
     paths:
@@ -30,12 +35,14 @@ parameters:
         # static reflection
         - stubs
 
+    scanFiles:
+        - vendor/rector/rector/src/Contract/PhpParser/Node/StmtsAwareInterface.php
+
     bootstrapFiles:
         - tests/bootstrap-phpstan.php
         - vendor/rector/rector/vendor/symplify/rule-doc-generator-contracts/src/Contract/DocumentedRuleInterface.php
 
     inferPrivatePropertyTypeFromConstructor: true
-    reportUnmatchedIgnoredErrors: false
 
     ignoreErrors:
         # package symplify/rule-doc-generator is only installed in CI
@@ -48,7 +55,7 @@ parameters:
 
         - '#^Call to method needs\(\) on an unknown class Illuminate\\Contracts\\Container\\ContextualBindingBuilder.$#'
         - '#^Parameter \#1 \$node \(PhpParser\\Node\\Stmt\\Return_\) of method Ssch\\TYPO3Rector\\TYPO310\\v3\\RemoveExcludeOnTransOrigPointerFieldRector::refactor\(\)#'
-        - '#^Access to an undefined property Rector\\Contract\\PhpParser\\Node\\StmtsAwareInterface\:\:\$stmts\.$#'
+        - '#(.*?)\\Contract\\PhpParser\\Node\\StmtsAwareInterface\:\:\$stmts#'
 
         -
             identifier: phpunit.dataProviderMethod
