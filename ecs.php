@@ -37,6 +37,7 @@ return static function (ECSConfig $ecsConfig): void {
         __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions/install/Configuration/Backend/Modules.php',
         AssignmentInConditionSniff::class,
         DeclareStrictTypesFixer::class => ['*/Fixture/*', '*/Assertions/*'],
+        LineLengthFixer::class => [__DIR__ . '/config/v13/strict-types.php'],
     ]);
 
     $ecsConfig->sets([SetList::PSR_12, SetList::SYMPLIFY, SetList::COMMON, SetList::CLEAN_CODE]);
