@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
-use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VoidType;
@@ -163,26 +163,26 @@ return static function (RectorConfig $rectorConfig): void {
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'offsetExists', 0, new MixedType(true)),
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'offsetUnset', 0, new MixedType(true)),
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'offsetGet', 0, new MixedType(true)),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'contains', 0, new GenericObjectType('object', [])),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'attach', 0, new GenericObjectType('object', [])),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'contains', 0, new ObjectWithoutClassType()),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'attach', 0, new ObjectWithoutClassType()),
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'attach', 1, new MixedType(true)),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'detach', 0, new GenericObjectType('object', [])),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'detach', 0, new ObjectWithoutClassType()),
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'setInfo', 0, new MixedType(true)),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'isRelationDirty', 0, new GenericObjectType('object', [])),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'getPosition', 0, new GenericObjectType('object', [])),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'isRelationDirty', 0, new ObjectWithoutClassType()),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'getPosition', 0, new ObjectWithoutClassType()),
             // TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager', 'initializeObject', 0, new VoidType()),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager', 'registerNewObject', 0, new GenericObjectType('object', [])),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager', 'registerNewObject', 0, new ObjectWithoutClassType()),
             // TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'isNewObject', 0, new GenericObjectType('object', [])),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'getIdentifierByObject', 0, new GenericObjectType('object', [])),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'isNewObject', 0, new ObjectWithoutClassType()),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'getIdentifierByObject', 0, new ObjectWithoutClassType()),
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'getObjectByIdentifier', 0, new UnionType([new StringType(), new IntegerType()])),
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'getObjectByIdentifier', 1, new UnionType([new NullType(), new StringType()])),
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'getObjectByIdentifier', 2, new BooleanType()),
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'registerRepositoryClassName', 0, new StringType()),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'add', 0, new GenericObjectType('object', [])),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'remove', 0, new GenericObjectType('object', [])),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'update', 0, new GenericObjectType('object', [])),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'add', 0, new ObjectWithoutClassType()),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'remove', 0, new ObjectWithoutClassType()),
+            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'update', 0, new ObjectWithoutClassType()),
             new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'createQueryForType', 0, new StringType()),
         ]
     );
@@ -277,7 +277,7 @@ return static function (RectorConfig $rectorConfig): void {
             // TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface', 'setPid', new VoidType()),
             // TYPO3\CMS\Extbase\Persistence\ObjectStorage
-            new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'current', new UnionType([new NullType(), new GenericObjectType('object', [])])),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'current', new UnionType([new NullType(), new ObjectWithoutClassType()])),
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'offsetGet', new MixedType(true)),
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'contains', new VoidType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\ObjectStorage', 'attach', new VoidType()),
@@ -296,7 +296,7 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'clearState', new VoidType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'isNewObject', new BooleanType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'getIdentifierByObject', new UnionType([new NullType(), new StringType()])),
-            new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'getObjectByIdentifier', new UnionType([new NullType(), new GenericObjectType('object', [])])),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'getObjectByIdentifier', new UnionType([new NullType(), new ObjectWithoutClassType()])),
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'getObjectCountByQuery', new IntegerType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'getObjectDataByQuery', new ArrayType(new MixedType(), new MixedType())),
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface', 'registerRepositoryClassName', new VoidType()),
