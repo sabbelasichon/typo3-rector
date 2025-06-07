@@ -57,7 +57,7 @@ vendor/bin/rector process
 
 |                    | v1                                    | v2, v3         |
 |--------------------|---------------------------------------|----------------|
-| **TYPO3 versions** | 7 - 12 (not all rules)                | 10 - 13 rules  |
+| **TYPO3 versions** | 7 - 12 (not all rules)                | 10 - 14 rules  |
 | **file support**   | all files (typoscript, flexform, ...) | only PHP files |
 
 
@@ -65,7 +65,7 @@ vendor/bin/rector process
 
 - [fractor](https://github.com/andreaswolf/fractor/) with its
   [typo3-fractor](https://github.com/andreaswolf/fractor/blob/main/packages/typo3-fractor/docs/typo3-fractor-rules.md)
-  rules that migrate FlexForm `.xml`, `.yaml` and fluid `.html` template files.
+  rules that migrate TypoScript, FlexForm, YAML and Fluid template files.
 
 ## Contributing
 
