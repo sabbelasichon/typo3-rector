@@ -18,6 +18,9 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 
+/**
+ * @see \Ssch\TYPO3Rector\Tests\Rector\General\Renaming\RenameAttributeRector\RenameAttributeRectorTest
+ */
 final class RenameAttributeRector extends AbstractRector implements MinPhpVersionInterface, ConfigurableRectorInterface, NoChangelogRequiredInterface, DocumentedRuleInterface
 {
     /**
