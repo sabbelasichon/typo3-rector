@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
-use Rector\ValueObject\PhpVersion;
+use Rector\ValueObject\PhpVersionFeature;
 use Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumValueRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
-    $rectorConfig->phpVersion(PhpVersion::PHP_81);
+    $rectorConfig->phpVersion(PhpVersionFeature::ENUM);
     $rectorConfig->ruleWithConfiguration(ConstantsToBackedEnumValueRector::class, [
         new RenameClassAndConstFetch(
             'TYPO3\CMS\Core\Resource\AbstractFile',

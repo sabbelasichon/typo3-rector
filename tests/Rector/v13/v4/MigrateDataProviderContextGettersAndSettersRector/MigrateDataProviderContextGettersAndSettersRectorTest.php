@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v13\v4\MigrateDataProviderContextGettersAndSettersRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\ValueObject\PhpVersion;
 
 final class MigrateDataProviderContextGettersAndSettersRectorTest extends AbstractRectorTestCase
 {
@@ -13,6 +14,10 @@ final class MigrateDataProviderContextGettersAndSettersRectorTest extends Abstra
      */
     public function test(string $filePath): void
     {
+        if (PHP_VERSION_ID < PhpVersion::PHP_80) {
+            $this->markTestSkipped('Do not execute');
+        }
+
         $this->doTestFile($filePath);
     }
 

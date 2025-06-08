@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\ConvertVersionStateToEnumRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
+use Rector\ValueObject\PhpVersionFeature;
 
 final class ConvertVersionStateToEnumRectorTest extends AbstractRectorTestCase
 {
@@ -13,6 +14,10 @@ final class ConvertVersionStateToEnumRectorTest extends AbstractRectorTestCase
      */
     public function test(string $filePath): void
     {
+        if (PHP_VERSION_ID < PhpVersionFeature::ENUM) {
+            $this->markTestSkipped('Do not execute');
+        }
+
         $this->doTestFile($filePath);
     }
 
