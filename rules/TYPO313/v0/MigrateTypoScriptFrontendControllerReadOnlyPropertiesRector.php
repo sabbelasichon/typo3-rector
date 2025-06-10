@@ -33,6 +33,7 @@ final class MigrateTypoScriptFrontendControllerReadOnlyPropertiesRector extends 
         'id' => 'getId',
         'rootLine' => 'getRootLine',
         'page' => 'getPageRecord',
+        'contentPid' => 'getContentFromPid',
     ];
 
     /**
@@ -58,12 +59,14 @@ final class MigrateTypoScriptFrontendControllerReadOnlyPropertiesRector extends 
 $id = $GLOBALS['TSFE']->id;
 $rootLine = $GLOBALS['TSFE']->rootLine;
 $page = $GLOBALS['TSFE']->page;
+$contentPid = $GLOBALS['TSFE']->contentPid;
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
 $id = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId();
 $rootLine = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getRootLine();
 $page = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord();
+$contentPid = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getContentFromPid();
 CODE_SAMPLE
         )]);
     }
@@ -109,7 +112,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! in_array($propertyName, ['id', 'rootLine', 'page'], true);
+        return ! in_array($propertyName, ['id', 'rootLine', 'page', 'contentPid'], true);
     }
 
     private function isGlobals(PropertyFetch $propertyFetch): bool
