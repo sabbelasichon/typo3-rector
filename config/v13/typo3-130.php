@@ -19,6 +19,7 @@ use Ssch\TYPO3Rector\TYPO313\v0\MigrateAddUserTSConfigToUserTsConfigFileRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateExpressionBuilderTrimMethodSecondParameterRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateExtbaseHashServiceToUseCoreHashServiceRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerFeUserMethodsRector;
+use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerFeUserRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerGetContextRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerReadOnlyPropertiesRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerSysPageRector;
@@ -142,4 +143,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateTypoScriptFrontendControllerSysPageRector::class);
     $rectorConfig->rule(MigrateTypoScriptFrontendControllerFeUserMethodsRector::class);
     $rectorConfig->rule(MigrateTypoScriptFrontendControllerGetContextRector::class);
+    $rectorConfig->rule(MigrateTypoScriptFrontendControllerFeUserRector::class);
 };

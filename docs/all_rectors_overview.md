@@ -1,4 +1,4 @@
-# 190 Rules Overview
+# 191 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (41)
+- [TYPO313](#typo313) (42)
 
 - [TYPO314](#typo314) (6)
 
@@ -3768,6 +3768,49 @@ Migrate `$GLOBALS['TSFE']->fe_user->xxx()` methods to use the request attribute
 -$GLOBALS['TSFE']->fe_user->getKey('ses', 'extension');
 +$GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->setKey('ses', 'extension', 'value');
 +$GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->getKey('ses', 'extension');
+```
+
+<br>
+
+### MigrateTypoScriptFrontendControllerFeUserRector
+
+Migrate `$GLOBALS['TSFE']->fe_user` to use the request attribute
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerFeUserRector`](../rules/TYPO313/v0/MigrateTypoScriptFrontendControllerFeUserRector.php)
+
+```diff
+-$frontendUser = $GLOBALS['TSFE']->fe_user;
++$frontendUser = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user');
+
+-$GLOBALS['TSFE']->fe_user->setKey('ses', 'key', 'value');
++$GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->setKey('ses', 'key', 'value');
+
+-if (is_array($GLOBALS['TSFE']->fe_user->user) && $GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
+-    $id = $GLOBALS['TSFE']->fe_user->user['uid'];
++if (is_array($GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->user) && $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->user['uid'] > 0) {
++    $id = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->user['uid'];
+ }
+```
+
+<br>
+
+```diff
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ class MyActionController extends ActionController
+ {
+     public function myMethod(): void
+     {
+-        $frontendUser = $GLOBALS['TSFE']->fe_user;
++        $frontendUser = $this->request->getAttribute('frontend.user');
+
+-        if (is_array($GLOBALS['TSFE']->fe_user->user) && $GLOBALS['TSFE']->fe_user->user['uid'] > 0) {
+-            $id = $GLOBALS['TSFE']->fe_user->user['uid'];
++        if (is_array($this->request->getAttribute('frontend.user')->user) && $this->request->getAttribute('frontend.user')->user['uid'] > 0) {
++            $id = $this->request->getAttribute('frontend.user')->user['uid'];
+         }
+     }
+ }
 ```
 
 <br>
