@@ -3717,7 +3717,7 @@ Migrate `TypoScriptFrontendController->addCacheTags()` and `->getPageCacheTags()
 
 ### MigrateTypoScriptFrontendControllerFeUserMethodsRector
 
-Migrate `$GLOBALS['TSFE']->fe_user methods to use the request attribute`
+Migrate `$GLOBALS['TSFE']->fe_user->xxx()` methods to use the request attribute
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerFeUserMethodsRector`](../rules/TYPO313/v0/MigrateTypoScriptFrontendControllerFeUserMethodsRector.php)
 
