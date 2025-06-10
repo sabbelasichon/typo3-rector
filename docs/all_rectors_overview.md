@@ -1,4 +1,4 @@
-# 185 Rules Overview
+# 186 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (39)
+- [TYPO313](#typo313) (40)
 
 - [TYPO314](#typo314) (4)
 
@@ -3726,6 +3726,19 @@ Migrate `$GLOBALS['TSFE']->fe_user->xxx()` methods to use the request attribute
 -$GLOBALS['TSFE']->fe_user->getKey('ses', 'extension');
 +$GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->setKey('ses', 'extension', 'value');
 +$GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->getKey('ses', 'extension');
+```
+
+<br>
+
+### MigrateTypoScriptFrontendControllerGetContextRector
+
+Migrate `$GLOBALS['TSFE']->getContext()`
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerGetContextRector`](../rules/TYPO313/v0/MigrateTypoScriptFrontendControllerGetContextRector.php)
+
+```diff
+-$context = $GLOBALS['TSFE']->getContext();
++$context = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
 ```
 
 <br>
