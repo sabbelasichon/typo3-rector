@@ -1,4 +1,4 @@
-# 184 Rules Overview
+# 185 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (38)
+- [TYPO313](#typo313) (39)
 
 - [TYPO314](#typo314) (4)
 
@@ -3711,6 +3711,21 @@ Migrate `TypoScriptFrontendController->addCacheTags()` and `->getPageCacheTags()
 ```diff
 -$tags = $GLOBALS['TSFE']->getPageCacheTags();
 +$tags = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.cache.collector')->getCacheTags();
+```
+
+<br>
+
+### MigrateTypoScriptFrontendControllerFeUserMethodsRector
+
+Migrate `$GLOBALS['TSFE']->fe_user methods to use the request attribute`
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerFeUserMethodsRector`](../rules/TYPO313/v0/MigrateTypoScriptFrontendControllerFeUserMethodsRector.php)
+
+```diff
+-$GLOBALS['TSFE']->fe_user->setKey('ses', 'extension', 'value');
+-$GLOBALS['TSFE']->fe_user->getKey('ses', 'extension');
++$GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->setKey('ses', 'extension', 'value');
++$GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.user')->getKey('ses', 'extension');
 ```
 
 <br>
