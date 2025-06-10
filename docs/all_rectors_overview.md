@@ -1,4 +1,4 @@
-# 182 Rules Overview
+# 183 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (36)
+- [TYPO313](#typo313) (37)
 
 - [TYPO314](#typo314) (4)
 
@@ -3711,6 +3711,23 @@ Migrate `TypoScriptFrontendController->addCacheTags()` and `->getPageCacheTags()
 ```diff
 -$tags = $GLOBALS['TSFE']->getPageCacheTags();
 +$tags = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.cache.collector')->getCacheTags();
+```
+
+<br>
+
+### MigrateTypoScriptFrontendControllerReadOnlyPropertiesRector
+
+Migrate TypoScriptFrontendController readonly properties
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerReadOnlyPropertiesRector`](../rules/TYPO313/v0/MigrateTypoScriptFrontendControllerReadOnlyPropertiesRector.php)
+
+```diff
+-$id = $GLOBALS['TSFE']->id;
+-$rootLine = $GLOBALS['TSFE']->rootLine;
+-$page = $GLOBALS['TSFE']->page;
++$id = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId();
++$rootLine = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getRootLine();
++$page = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord();
 ```
 
 <br>
