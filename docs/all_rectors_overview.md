@@ -3725,9 +3725,11 @@ Migrate TypoScriptFrontendController readonly properties
 -$id = $GLOBALS['TSFE']->id;
 -$rootLine = $GLOBALS['TSFE']->rootLine;
 -$page = $GLOBALS['TSFE']->page;
+-$contentPid = $GLOBALS['TSFE']->contentPid;
 +$id = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getId();
 +$rootLine = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getRootLine();
 +$page = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord();
++$contentPid = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getContentFromPid();
 ```
 
 <br>
