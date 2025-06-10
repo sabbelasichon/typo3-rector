@@ -1,4 +1,4 @@
-# 183 Rules Overview
+# 184 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (37)
+- [TYPO313](#typo313) (38)
 
 - [TYPO314](#typo314) (4)
 
@@ -3730,6 +3730,22 @@ Migrate TypoScriptFrontendController readonly properties
 +$rootLine = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getRootLine();
 +$page = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getPageRecord();
 +$contentPid = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getContentFromPid();
+```
+
+<br>
+
+### MigrateTypoScriptFrontendControllerSysPageRector
+
+Migrate `TypoScriptFrontendController->sys_page`
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerSysPageRector`](../rules/TYPO313/v0/MigrateTypoScriptFrontendControllerSysPageRector.php)
+
+```diff
+-$sys_page = $GLOBALS['TSFE']->sys_page;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
++use TYPO3\CMS\Core\Domain\Repository\PageRepository;
++
++$sys_page = GeneralUtility::makeInstance(PageRepository::class);
 ```
 
 <br>
