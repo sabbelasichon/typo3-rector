@@ -1702,9 +1702,9 @@ Use PageRenderer and IconFactory directly instead of getting them from the Modul
 ```diff
  class MyController extends ActionController
  {
-     protected ModuleTemplateFactory $moduleTemplateFactory;
-+    protected IconFactory $iconFactory;
-+    protected PageRenderer $pageRenderer;
+     private ModuleTemplateFactory $moduleTemplateFactory;
++    private IconFactory $iconFactory;
++    private PageRenderer $pageRenderer;
 
 -    public function __construct(ModuleTemplateFactory $moduleTemplateFactory)
 -    {
