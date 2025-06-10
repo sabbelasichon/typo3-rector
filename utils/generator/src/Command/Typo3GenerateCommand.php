@@ -182,7 +182,7 @@ final class Typo3GenerateCommand extends Command
         $giveMeYourName->setMaxAttempts(3);
         $giveMeYourName->setValidator(static function (string $name) {
             Assert::minLength($name, 5);
-            Assert::maxLength($name, 60);
+            Assert::maxLength($name, 80);
             Assert::notContains($name, ' ', 'The name must not contain spaces');
             // Pattern from: https://www.php.net/manual/en/language.oop5.basic.php
             Assert::regex(
