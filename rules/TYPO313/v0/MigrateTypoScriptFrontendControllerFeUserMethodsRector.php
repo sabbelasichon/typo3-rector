@@ -43,7 +43,7 @@ final class MigrateTypoScriptFrontendControllerFeUserMethodsRector extends Abstr
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate `$GLOBALS[\'TSFE\']->fe_user methods to use the request attribute`', [
+        return new RuleDefinition('Migrate `$GLOBALS[\'TSFE\']->fe_user->xxx()` methods to use the request attribute', [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 $GLOBALS['TSFE']->fe_user->setKey('ses', 'extension', 'value');
