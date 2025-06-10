@@ -85,7 +85,7 @@ final class SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector e
                     <<<'CODE_SAMPLE'
 class MyController extends ActionController
 {
-    protected ModuleTemplateFactory $moduleTemplateFactory;
+    private ModuleTemplateFactory $moduleTemplateFactory;
 
     public function __construct(ModuleTemplateFactory $moduleTemplateFactory)
     {
@@ -105,9 +105,9 @@ CODE_SAMPLE
                     <<<'CODE_SAMPLE'
 class MyController extends ActionController
 {
-    protected ModuleTemplateFactory $moduleTemplateFactory;
-    protected IconFactory $iconFactory;
-    protected PageRenderer $pageRenderer;
+    private ModuleTemplateFactory $moduleTemplateFactory;
+    private IconFactory $iconFactory;
+    private PageRenderer $pageRenderer;
 
     public function __construct(
         ModuleTemplateFactory $moduleTemplateFactory,
