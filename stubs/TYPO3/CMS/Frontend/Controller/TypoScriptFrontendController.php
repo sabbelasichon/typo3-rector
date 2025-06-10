@@ -19,6 +19,18 @@ if (class_exists('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')) 
 
 class TypoScriptFrontendController
 {
+    public int $id;
+
+    /**
+     * @var array<int, array<string, mixed>>
+     */
+    public array $rootLine = [];
+
+    /**
+     * @var array
+     */
+    public $page = [];
+
     /**
      * @var array
      */
