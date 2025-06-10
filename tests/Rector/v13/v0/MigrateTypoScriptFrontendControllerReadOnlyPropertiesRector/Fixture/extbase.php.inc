@@ -12,6 +12,7 @@ class MyClass extends ActionController
         $id = $GLOBALS['TSFE']->id;
         $rootLine = $GLOBALS['TSFE']->rootLine;
         $page = $GLOBALS['TSFE']->page;
+        $contentPid = $GLOBALS['TSFE']->contentPid;
     }
 
     public function myActionWithTypoScriptFrontendController(): void
@@ -19,6 +20,7 @@ class MyClass extends ActionController
         $id = $this->getTypoScriptFrontendController()->id;
         $rootLine = $this->getTypoScriptFrontendController()->rootLine;
         $page = $this->getTypoScriptFrontendController()->page;
+        $contentPid = $this->getTypoScriptFrontendController()->contentPid;
     }
 
     private function getTypoScriptFrontendController(): TypoScriptFrontendController
@@ -43,6 +45,7 @@ class MyClass extends ActionController
         $id = $this->request->getAttribute('frontend.page.information')->getId();
         $rootLine = $this->request->getAttribute('frontend.page.information')->getRootLine();
         $page = $this->request->getAttribute('frontend.page.information')->getPageRecord();
+        $contentPid = $this->request->getAttribute('frontend.page.information')->getContentFromPid();
     }
 
     public function myActionWithTypoScriptFrontendController(): void
@@ -50,6 +53,7 @@ class MyClass extends ActionController
         $id = $this->request->getAttribute('frontend.page.information')->getId();
         $rootLine = $this->request->getAttribute('frontend.page.information')->getRootLine();
         $page = $this->request->getAttribute('frontend.page.information')->getPageRecord();
+        $contentPid = $this->request->getAttribute('frontend.page.information')->getContentFromPid();
     }
 
     private function getTypoScriptFrontendController(): TypoScriptFrontendController

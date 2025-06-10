@@ -31,6 +31,8 @@ class TypoScriptFrontendController
      */
     public $page = [];
 
+    public int $contentPid = 0;
+
     /**
      * @var array
      */
