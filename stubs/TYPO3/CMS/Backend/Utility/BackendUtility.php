@@ -161,16 +161,23 @@ class BackendUtility
      */
     public static function getClickMenuOnIconTagParameters($table, $uid = 0, $context = '')
     {
-
     }
 
     public static function getRecordToolTip(string $string)
     {
-
     }
 
     public static function getRecordIconAltText(string $string)
     {
+    }
 
+    /**
+     * @param string $table Name of the table
+     * @param string $field Name of the field
+     * @return array
+     */
+    public static function getTcaFieldConfiguration($table, $field)
+    {
+        return [];
     }
 }
