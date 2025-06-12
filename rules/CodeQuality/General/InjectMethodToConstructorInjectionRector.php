@@ -55,9 +55,7 @@ final class InjectMethodToConstructorInjectionRector extends AbstractRector impl
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
-namespace App\Service;
-
-use \TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Cache\CacheManager;
 
 class Service
 {
@@ -71,9 +69,7 @@ class Service
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
-namespace App\Service;
-
-use \TYPO3\CMS\Core\Cache\CacheManager;
+use TYPO3\CMS\Core\Cache\CacheManager;
 
 class Service
 {
