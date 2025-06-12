@@ -20,9 +20,6 @@ class ConnectionPool
         return new Connection();
     }
 
-    /**
-     * @return void
-     */
     public function getQueryBuilderForTable($table): QueryBuilder
     {
         return new QueryBuilder();

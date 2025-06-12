@@ -1,10 +1,10 @@
-# 189 Rules Overview
+# 190 Rules Overview
 
 <br>
 
 ## Categories
 
-- [CodeQuality](#codequality) (10)
+- [CodeQuality](#codequality) (11)
 
 - [General](#general) (3)
 
@@ -100,6 +100,37 @@ Refactor file ext_emconf.php
 
 <br>
 
+### GeneralUtilityMakeInstanceToConstructorPropertyRector
+
+Move GeneralUtility::makeInstance calls to constructor injection
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector`](../rules/CodeQuality/General/GeneralUtilityMakeInstanceToConstructorPropertyRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Context\Context;
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+ class Service
+ {
++    private Context $context;
++
++    public function __construct(Context $context)
++    {
++        $this->context = $context;
++    }
++
+     public function myMethod(): void
+     {
+-        GeneralUtility::makeInstance(Context::class)->getAspect('frontend.user');
++        $this->context->getAspect('frontend.user');
+     }
+ }
+```
+
+<br>
+
 ### InjectMethodToConstructorInjectionRector
 
 Replace inject method to constructor injection
@@ -107,9 +138,7 @@ Replace inject method to constructor injection
 - class: [`Ssch\TYPO3Rector\CodeQuality\General\InjectMethodToConstructorInjectionRector`](../rules/CodeQuality/General/InjectMethodToConstructorInjectionRector.php)
 
 ```diff
- namespace App\Service;
-
- use \TYPO3\CMS\Core\Cache\CacheManager;
+ use TYPO3\CMS\Core\Cache\CacheManager;
 
  class Service
  {
