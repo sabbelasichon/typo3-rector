@@ -1,4 +1,4 @@
-# 186 Rules Overview
+# 187 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (57)
 
-- [TYPO313](#typo313) (40)
+- [TYPO313](#typo313) (41)
 
 - [TYPO314](#typo314) (4)
 
@@ -3406,6 +3406,19 @@ Migrate method call `ExtensionManagementUtility::addUserTSConfig()` to user.tsco
 -    '@import "EXT:extension_key/Configuration/TSconfig/*/*.tsconfig"'
 -);
 +// Move to file Configuration/user.tsconfig
+```
+
+<br>
+
+### MigrateBackendUtilityGetTcaFieldConfigurationRector
+
+Migrate `BackendUtility::getTcaFieldConfiguration()`
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v3\MigrateBackendUtilityGetTcaFieldConfigurationRector`](../rules/TYPO313/v3/MigrateBackendUtilityGetTcaFieldConfigurationRector.php)
+
+```diff
+-$fieldConfig = \TYPO3\CMS\Backend\Utility\BackendUtility::getTcaFieldConfiguration('my_table', 'my_field');
++$fieldConfig = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Schema\TcaSchemaFactory::class)->get('my_table')->getField('my_field')->getConfiguration();
 ```
 
 <br>
