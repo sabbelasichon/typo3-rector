@@ -1,4 +1,4 @@
-# 188 Rules Overview
+# 189 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (41)
 
-- [TYPO314](#typo314) (5)
+- [TYPO314](#typo314) (6)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4201,6 +4201,27 @@ Removes the second charset parameter from sanitizeFileName method in DriverInter
 +        $sanitizedName = $driver->sanitizeFileName('example.txt');
      }
  }
+```
+
+<br>
+
+### RemoveEvalYearFlagRector
+
+Remove eval year flag
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveEvalYearFlagRector`](../rules/TYPO314/v0/RemoveEvalYearFlagRector.php)
+
+```diff
+ return [
+     'columns' => [
+         'year_column' => [
+             'config' => [
+-                'eval' => 'trim,year',
++                'eval' => 'trim',
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br>
