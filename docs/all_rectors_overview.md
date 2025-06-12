@@ -1,4 +1,4 @@
-# 187 Rules Overview
+# 188 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (41)
 
-- [TYPO314](#typo314) (4)
+- [TYPO314](#typo314) (5)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4201,6 +4201,25 @@ Removes the second charset parameter from sanitizeFileName method in DriverInter
 +        $sanitizedName = $driver->sanitizeFileName('example.txt');
      }
  }
+```
+
+<br>
+
+### RemoveIsStaticControlOptionRector
+
+Remove TCA control option is_static
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveIsStaticControlOptionRector`](../rules/TYPO314/v0/RemoveIsStaticControlOptionRector.php)
+
+```diff
+ return [
+     'ctrl' => [
+         'title' => 'foobar',
+-        'is_static' => 'foo',
+     ],
+     'columns' => [
+     ],
+ ];
 ```
 
 <br>
