@@ -6,6 +6,7 @@ use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\CodeQuality\General\AddErrorCodeToExceptionRector;
 use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
+use Ssch\TYPO3Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector;
 use Ssch\TYPO3Rector\CodeQuality\General\InjectMethodToConstructorInjectionRector;
 use Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector;
 use Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector;
@@ -45,6 +46,17 @@ return static function (RectorConfig $rectorConfig): void {
                 // https://docs.typo3.org/m/typo3/reference-coreapi/12.4/en-us/ExtensionArchitecture/FileStructure/ExtEmconf.html
                 //'clearCacheOnLoad', // Deprecated since version 12.1
             ],
+        ]);
+    $rectorConfig
+        ->ruleWithConfiguration(GeneralUtilityMakeInstanceToConstructorPropertyRector::class, [
+            GeneralUtilityMakeInstanceToConstructorPropertyRector::ALLOWED_CLASSES => [
+                'TYPO3\CMS\Core\Configuration\Features',
+                'TYPO3\CMS\Core\Context\Context',
+                'TYPO3\CMS\Core\Database\ConnectionPool',
+                'TYPO3\CMS\Core\Localization\LanguageServiceFactory',
+                'TYPO3\CMS\Core\TimeTracker\TimeTracker',
+                'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder',
+            ]
         ]);
     $rectorConfig->rule(AddErrorCodeToExceptionRector::class);
     $rectorConfig->rule(ConvertImplicitVariablesToExplicitGlobalsRector::class);
