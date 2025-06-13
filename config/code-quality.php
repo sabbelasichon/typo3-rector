@@ -47,6 +47,16 @@ return static function (RectorConfig $rectorConfig): void {
                 //'clearCacheOnLoad', // Deprecated since version 12.1
             ],
         ]);
+    $rectorConfig->ruleWithConfiguration(GeneralUtilityMakeInstanceToConstructorPropertyRector::class, [
+        GeneralUtilityMakeInstanceToConstructorPropertyRector::ALLOWED_CLASSES => [
+            'TYPO3\CMS\Core\Configuration\Features',
+            'TYPO3\CMS\Core\Context\Context',
+            'TYPO3\CMS\Core\Database\ConnectionPool',
+            'TYPO3\CMS\Core\Localization\LanguageServiceFactory',
+            'TYPO3\CMS\Core\TimeTracker\TimeTracker',
+            'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder',
+        ],
+    ]);
     $rectorConfig->rule(AddErrorCodeToExceptionRector::class);
     $rectorConfig->rule(ConvertImplicitVariablesToExplicitGlobalsRector::class);
     $rectorConfig->rule(InjectMethodToConstructorInjectionRector::class);
@@ -54,5 +64,4 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector::class);
     $rectorConfig->rule(MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector::class);
     $rectorConfig->rule(UseExtensionKeyInLocalizationUtilityRector::class);
-    $rectorConfig->rule(GeneralUtilityMakeInstanceToConstructorPropertyRector::class);
 };
