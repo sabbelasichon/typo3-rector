@@ -162,7 +162,11 @@ CODE_SAMPLE
             $shortClassName = $this->nodeNameResolver->getShortName($className);
             $propertyName = lcfirst($shortClassName);
 
-            $propertyMetadata = new PropertyMetadata($propertyName, new ObjectType($className), Class_::MODIFIER_PRIVATE);
+            $propertyMetadata = new PropertyMetadata(
+                $propertyName,
+                new ObjectType($className),
+                Class_::MODIFIER_PRIVATE
+            );
 
             $this->classDependencyManipulator->addConstructorDependency($node, $propertyMetadata);
 

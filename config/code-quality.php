@@ -56,7 +56,7 @@ return static function (RectorConfig $rectorConfig): void {
                 'TYPO3\CMS\Core\Localization\LanguageServiceFactory',
                 'TYPO3\CMS\Core\TimeTracker\TimeTracker',
                 'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder',
-            ]
+            ],
         ]);
     $rectorConfig->rule(AddErrorCodeToExceptionRector::class);
     $rectorConfig->rule(ConvertImplicitVariablesToExplicitGlobalsRector::class);

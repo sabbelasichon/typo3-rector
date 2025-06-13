@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\TYPO311\v5;
 
 use PhpParser\Node;
 use Rector\Rector\AbstractRector;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
@@ -15,7 +16,15 @@ final class RemoveTypeHintViewInterfaceRector extends AbstractRector
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove', []);
+        return new RuleDefinition('RemoveTypeHintViewInterfaceRector is deprecated.', [new CodeSample(
+            <<<'CODE_SAMPLE'
+Do not use this rule any more. Please use MigrateExtbaseViewInterfaceRector instead.
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+Do not use this rule any more. Please use MigrateExtbaseViewInterfaceRector instead!
+CODE_SAMPLE
+        )]);
     }
 
     /**
