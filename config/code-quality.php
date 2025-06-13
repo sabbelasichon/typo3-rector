@@ -43,7 +43,7 @@ return static function (RectorConfig $rectorConfig): void {
                 'createDirs', // Deprecated since version 9.5
                 'uploadfolder', // Deprecated since version 9.5
 
-                // https://docs.typo3.org/m/typo3/reference-coreapi/12.4/en-us/ExtensionArchitecture/FileStructure/ExtEmconf.html
+                // https://docs.typo3.org/m/typo3/reference-coreapi/12.4/en-us/ExtensionArchitecture/FileStructure/ExtEmconf.html#confval-ext-emconf-clearcacheonload
                 //'clearCacheOnLoad', // Deprecated since version 12.1
             ],
         ]);
