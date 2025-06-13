@@ -1,4 +1,4 @@
-# 158 Rules Overview
+# 162 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO310](#typo310) (37)
 
-- [TYPO311](#typo311) (30)
+- [TYPO311](#typo311) (34)
 
 - [TYPO312](#typo312) (57)
 
@@ -1181,6 +1181,94 @@ Removes deprecated params of the `ContentObjectRenderer->getATagParams()` method
 
 <br>
 
+### MigrateAbstractUserAuthenticationCreateSessionIdRector
+
+Migrate `FrontendUserAuthentication->createSessionId()` and `BackendUserAuthentication->createSessionId()` to `Random->generateRandomHexString(32)`
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationCreateSessionIdRector`](../rules/TYPO311/v0/MigrateAbstractUserAuthenticationCreateSessionIdRector.php)
+
+```diff
+-$frontendUserAuthentication = new \TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication();
+-$sessionId = $frontendUserAuthentication->createSessionId();
++$sessionId = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(Random::class)->generateRandomHexString(32);
+```
+
+<br>
+
+```diff
+-$backendUserAuthentication = new \TYPO3\CMS\Core\Authentication\BackendUserAuthentication();
+-$sessionId = $backendUserAuthentication->createSessionId();
++$sessionId = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(Random::class)->generateRandomHexString(32);
+```
+
+<br>
+
+### MigrateAbstractUserAuthenticationGetIdRector
+
+Migrate `FrontendUserAuthentication->id` and `BackendUserAuthentication->id`
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationGetIdRector`](../rules/TYPO311/v0/MigrateAbstractUserAuthenticationGetIdRector.php)
+
+```diff
+ $frontendUserAuthentication = new FrontendUserAuthentication();
+-$id = $frontendUserAuthentication->id;
++$id = $frontendUserAuthentication->getSession()->getIdentifier();
+```
+
+<br>
+
+```diff
+ $backendUserAuthentication = new BackendUserAuthentication();
+-$id = $backendUserAuthentication->id;
++$id = $backendUserAuthentication->getSession()->getIdentifier();
+```
+
+<br>
+
+### MigrateAbstractUserAuthenticationGetSessionIdRector
+
+Migrate `FrontendUserAuthentication->getSessionId()` and `BackendUserAuthentication->getSessionId()`
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v0\MigrateAbstractUserAuthenticationGetSessionIdRector`](../rules/TYPO311/v0/MigrateAbstractUserAuthenticationGetSessionIdRector.php)
+
+```diff
+ $frontendUserAuthentication = new FrontendUserAuthentication();
+-$id = $frontendUserAuthentication->getSessionId();
++$id = $frontendUserAuthentication->getSession()->getIdentifier();
+```
+
+<br>
+
+```diff
+ $backendUserAuthentication = new BackendUserAuthentication();
+-$id = $backendUserAuthentication->getSessionId();
++$id = $backendUserAuthentication->getSession()->getIdentifier();
+```
+
+<br>
+
+### MigrateExtbaseViewInterfaceRector
+
+Migrate Extbase ViewInterface
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v5\MigrateExtbaseViewInterfaceRector`](../rules/TYPO311/v5/MigrateExtbaseViewInterfaceRector.php)
+
+```diff
+ class MyClass
+ {
+-    protected function initializeView(ViewInterface $view)
++    /**
++     * @param \TYPO3Fluid\Fluid\View\ViewInterface $view
++     */
++    protected function initializeView($view)
+     {
+-        parent::initializeView($view);
+     }
+ }
+```
+
+<br>
+
 ### MigrateFileFolderConfigurationRector
 
 Migrate file folder config
@@ -1379,13 +1467,13 @@ Remove the default type for internal_type
 
 ### RemoveTypeHintViewInterfaceRector
 
-Remove
+RemoveTypeHintViewInterfaceRector is deprecated.
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v5\RemoveTypeHintViewInterfaceRector`](../rules/TYPO311/v5/RemoveTypeHintViewInterfaceRector.php)
 
 ```diff
--protected function initializeView(ViewInterface $view)
-+protected function initializeView($view)
+-Do not use this rule any more. Please use MigrateExtbaseViewInterfaceRector instead.
++Do not use this rule any more. Please use MigrateExtbaseViewInterfaceRector instead!
 ```
 
 <br>
