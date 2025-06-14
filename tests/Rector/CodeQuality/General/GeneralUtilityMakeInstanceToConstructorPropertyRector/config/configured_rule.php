@@ -11,7 +11,9 @@ use Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstance
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
-    if (PHP_VERSION >= PhpVersionFeature::PROPERTY_PROMOTION) {
+    if (\PHP_VERSION_ID >= PhpVersionFeature::READONLY_PROPERTY) {
+        $rectorConfig->phpVersion(PhpVersionFeature::READONLY_PROPERTY);
+    } elseif (\PHP_VERSION_ID >= PhpVersionFeature::PROPERTY_PROMOTION) {
         $rectorConfig->phpVersion(PhpVersionFeature::PROPERTY_PROMOTION);
     } else {
         $rectorConfig->phpVersion(PhpVersion::PHP_74);

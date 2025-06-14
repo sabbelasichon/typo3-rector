@@ -8,7 +8,7 @@ use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Class_;
-use PhpParser\Node\Stmt\ClassMethod;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
@@ -16,6 +16,7 @@ use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
+use Rector\ValueObject\PhpVersionFeature;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
@@ -134,44 +135,65 @@ CODE_SAMPLE
 
         $hasChanged = false;
 
-        $this->traverseNodesWithCallable($node->stmts, function (Node $subNode) use ($node, &$hasChanged) {
-            if (! $subNode instanceof StaticCall) {
-                return null;
+        foreach ($node->getMethods() as $classMethod) {
+            // If the method is static, we cannot perform DI with `$this`, so we skip this method entirely.
+            if ($classMethod->isStatic()) {
+                continue;
             }
 
-            if (! $this->isObjectType($subNode->class, new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility'))) {
-                return null;
+            if ($classMethod->stmts === null) {
+                continue;
             }
 
-            if (! $this->isName($subNode->name, 'makeInstance')) {
-                return null;
+            if ($classMethod->stmts === []) {
+                continue;
             }
 
-            if (! isset($subNode->args[0])) {
-                return null;
-            }
+            $this->traverseNodesWithCallable($classMethod->stmts, function (Node $subNode) use ($node, &$hasChanged) {
+                if (! $subNode instanceof StaticCall) {
+                    return null;
+                }
 
-            $className = $this->valueResolver->getValue($subNode->args[0]->value);
-            if (! is_string($className)) {
-                return null;
-            }
+                if (! $this->isName($subNode->name, 'makeInstance')) {
+                    return null;
+                }
 
-            if ($this->allowedClasses !== [] && ! in_array($className, $this->allowedClasses, true)) {
-                return null;
-            }
+                if (! $this->isObjectType($subNode->class, new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility'))) {
+                    return null;
+                }
 
-            // Derive a property name from the class name (e.g., Context -> $context)
-            $shortClassName = $this->nodeNameResolver->getShortName($className);
-            $propertyName = lcfirst($shortClassName);
+                if (! isset($subNode->args[0])) {
+                    return null;
+                }
 
-            $propertyMetadata = new PropertyMetadata($propertyName, new ObjectType($className), Modifiers::PRIVATE);
+                $className = $this->valueResolver->getValue($subNode->args[0]->value);
+                if (! is_string($className)) {
+                    return null;
+                }
 
-            $this->classDependencyManipulator->addConstructorDependency($node, $propertyMetadata);
+                if ($this->allowedClasses !== [] && ! in_array($className, $this->allowedClasses, true)) {
+                    return null;
+                }
 
-            $hasChanged = true;
+                // Derive a property name from the class name (e.g., Context -> $context)
+                $shortClassName = $this->nodeNameResolver->getShortName($className);
+                $propertyName = lcfirst($shortClassName);
 
-            return $this->nodeFactory->createPropertyFetch('this', $propertyName);
-        });
+                if (\PHP_VERSION_ID >= PhpVersionFeature::READONLY_PROPERTY) {
+                    $flags = Modifiers::PRIVATE & Modifiers::READONLY;
+                } else {
+                    $flags = Modifiers::PRIVATE;
+                }
+
+                $propertyMetadata = new PropertyMetadata($propertyName, new ObjectType($className), $flags);
+
+                $this->classDependencyManipulator->addConstructorDependency($node, $propertyMetadata);
+
+                $hasChanged = true;
+
+                return $this->nodeFactory->createPropertyFetch('this', $propertyName);
+            });
+        }
 
         return $hasChanged ? $node : null;
     }
@@ -187,23 +209,48 @@ CODE_SAMPLE
 
     private function shouldSkip(Class_ $classNode): bool
     {
-        if ($classNode->isAbstract()) {
+        if ($classNode->isAbstract() || $classNode->isAnonymous()) {
             return true;
         }
 
         $className = $this->getName($classNode);
-
-        // Handle anonymous classes: they don't have "parents" in the same way for reflection
-        // and can only have their own constructor.
         if ($className === null) {
-            return $classNode->getMethod('__construct') instanceof ClassMethod;
+            return true;
         }
 
         // Check if the class is known to PHPStan's reflection
-        // If the class is not found by reflection (e.g., dynamic, eval'd code),
-        // it's safer to skip to avoid errors.
-        // Alternatively, you could fallback to checking only the AST node:
-        // return $classNode->getMethod('__construct') !== null;
-        return ! $this->reflectionProvider->hasClass($className);
+        if (! $this->reflectionProvider->hasClass($className)) {
+            // If class is not known to reflection, better to skip it.
+            return true;
+        }
+
+        $classReflection = $this->reflectionProvider->getClass($className);
+
+        // Traverse the class hierarchy (current class and its parents)
+        $currentClassReflection = $classReflection;
+        do {
+            // Check if the current class in the hierarchy has its OWN constructor
+            if ($currentClassReflection->hasNativeMethod('__construct')) {
+                $constructorReflection = $currentClassReflection->getNativeMethod('__construct');
+
+                // A constructor can have multiple variants (e.g. from phpdoc). We check the first one.
+                $parametersAcceptor = $constructorReflection->getVariants()[0] ?? null;
+                if ($parametersAcceptor === null) {
+                    continue;
+                }
+
+                foreach ($parametersAcceptor->getParameters() as $parameterReflection) {
+                    $paramType = $parameterReflection->getType();
+                    if ($paramType->isScalar()->yes() || $paramType->isArray()->yes()) {
+                        return true;
+                    }
+                }
+            }
+
+            $currentClassReflection = $currentClassReflection->getParentClass();
+        } while ($currentClassReflection instanceof ClassReflection);
+
+        // No constructor found in the current class or any of its parents
+        return false;
     }
 }
