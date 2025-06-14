@@ -17,6 +17,7 @@ use PHPStan\Type\ObjectType;
 use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
+use Rector\ValueObject\PhpVersionFeature;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -140,9 +141,15 @@ CODE_SAMPLE
                 }
             }
 
+            if (\PHP_VERSION_ID >= PhpVersionFeature::READONLY_PROPERTY) {
+                $flags = Class_::MODIFIER_PRIVATE & Class_::MODIFIER_READONLY;
+            } else {
+                $flags = Class_::MODIFIER_PRIVATE;
+            }
+
             $this->classDependencyManipulator->addConstructorDependency(
                 $node,
-                new PropertyMetadata($paramName, new ObjectType((string) $param->type), Class_::MODIFIER_PROTECTED)
+                new PropertyMetadata($paramName, new ObjectType((string) $param->type), $flags)
             );
             $this->removeNodeFromStatements($node, $injectMethod);
         }
