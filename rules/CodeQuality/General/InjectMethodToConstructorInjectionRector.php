@@ -180,8 +180,7 @@ CODE_SAMPLE
         // Traverse the class hierarchy (current class and its parents)
         $currentClassReflection = $classReflection;
         do {
-            // hasNativeMethod checks if the method is defined directly in *this* class,
-            // not just inherited. This is what we want.
+            // Check if the current class in the hierarchy has its OWN constructor
             if ($currentClassReflection->hasNativeMethod('__construct')) {
                 return true; // A constructor is defined in this class or an ancestor
             }
