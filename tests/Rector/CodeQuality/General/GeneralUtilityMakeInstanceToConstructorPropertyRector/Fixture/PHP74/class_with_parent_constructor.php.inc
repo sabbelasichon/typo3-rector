@@ -1,12 +1,13 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Fixture\PHP80;
+namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Fixture\PHP74;
 
 use Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Source\MyService;
+use Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Source\ServiceWithConstructor;
 use Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Source\YetAnotherService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class Service
+class ClassWithParentConstructor extends ServiceWithConstructor
 {
     public function myMethod(): void
     {
@@ -18,16 +19,19 @@ class Service
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Fixture\PHP80;
+namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Fixture\PHP74;
 
 use Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Source\MyService;
+use Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Source\ServiceWithConstructor;
 use Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Source\YetAnotherService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class Service
+class ClassWithParentConstructor extends ServiceWithConstructor
 {
-    public function __construct(private readonly MyService $myService)
+    private MyService $myService;
+    public function __construct(MyService $myService)
     {
+        $this->myService = $myService;
     }
     public function myMethod(): void
     {
