@@ -11,6 +11,7 @@ use PhpParser\Node\Stmt\Class_;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\TypeCombinator;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PhpParser\Node\Value\ValueResolver;
@@ -137,7 +138,8 @@ CODE_SAMPLE
 
         foreach ($node->getMethods() as $classMethod) {
             // If the method is static, we cannot perform DI with `$this`, so we skip this method entirely.
-            if ($classMethod->isStatic()) {
+            // Also skip if we are in the constructor
+            if ($classMethod->isStatic() || $this->isName($classMethod, '__construct')) {
                 continue;
             }
 
@@ -246,7 +248,9 @@ CODE_SAMPLE
 
                 foreach ($parametersAcceptor->getParameters() as $parameterReflection) {
                     $paramType = $parameterReflection->getType();
-                    if ($paramType->isScalar()->yes() || $paramType->isArray()->yes()) {
+                    // Remove null from the type before checking if it's a scalar or array
+                    $typeWithoutNull = TypeCombinator::removeNull($paramType);
+                    if ($typeWithoutNull->isScalar()->yes() || $typeWithoutNull->isArray()->yes()) {
                         return true;
                     }
                 }
