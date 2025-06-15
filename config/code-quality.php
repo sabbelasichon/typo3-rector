@@ -53,6 +53,7 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Core\Context\Context',
             'TYPO3\CMS\Core\Database\ConnectionPool',
             'TYPO3\CMS\Core\Localization\LanguageServiceFactory',
+            'TYPO3\CMS\Core\Schema\TcaSchemaFactory',
             'TYPO3\CMS\Core\TimeTracker\TimeTracker',
             'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder',
         ],
