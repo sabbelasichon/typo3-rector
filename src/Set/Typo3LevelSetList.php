@@ -9,6 +9,11 @@ final class Typo3LevelSetList
     /**
      * @var string
      */
+    public const UP_TO_TYPO3_14 = __DIR__ . '/../../config/level/up-to-typo3-14.php';
+
+    /**
+     * @var string
+     */
     public const UP_TO_TYPO3_13 = __DIR__ . '/../../config/level/up-to-typo3-13.php';
 
     /**
