@@ -16,7 +16,6 @@ use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
-use Rector\ValueObject\PhpVersionFeature;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -184,13 +183,7 @@ CODE_SAMPLE
                 $shortClassName = $this->nodeNameResolver->getShortName($className);
                 $propertyName = lcfirst($shortClassName);
 
-                if (\PHP_VERSION_ID >= PhpVersionFeature::READONLY_PROPERTY) {
-                    $flags = Class_::MODIFIER_PRIVATE & Class_::MODIFIER_READONLY;
-                } else {
-                    $flags = Class_::MODIFIER_PRIVATE;
-                }
-
-                $propertyMetadata = new PropertyMetadata($propertyName, new ObjectType($className), $flags);
+                $propertyMetadata = new PropertyMetadata($propertyName, new ObjectType($className), Class_::MODIFIER_PRIVATE);
 
                 $this->classDependencyManipulator->addConstructorDependency($node, $propertyMetadata);
 
