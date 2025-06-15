@@ -29,11 +29,15 @@ use Webmozart\Assert\Assert;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.0/Deprecation-92784-ExtbaseControllerActionsMustReturnResponseInterface.html
- *
  * @see \Ssch\TYPO3Rector\Tests\Rector\v11\v0\ExtbaseControllerActionsMustReturnResponseInterfaceRector\ExtbaseControllerActionsMustReturnResponseInterfaceRectorTest
  */
 final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends AbstractRector implements ConfigurableRectorInterface, DocumentedRuleInterface
 {
+    /**
+     * @var string
+     */
+    private const RESPONSE_INTERFACE = 'Psr\Http\Message\ResponseInterface';
+
     /**
      * @var array<int, string>
      */
@@ -75,7 +79,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
                 return null;
             }
 
-            $responseObjectType = new ObjectType('Psr\Http\Message\ResponseInterface');
+            $responseObjectType = new ObjectType(self::RESPONSE_INTERFACE);
 
             if ($node->expr instanceof Expr && $this->isObjectType($node->expr, $responseObjectType)) {
                 return null;
@@ -85,7 +89,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
 
             if ($returnCallExpression instanceof Expr && $this->isObjectType(
                 $returnCallExpression,
-                new ObjectType('Psr\Http\Message\ResponseInterface')
+                $responseObjectType
             )) {
                 return null;
             }
@@ -108,7 +112,7 @@ final class ExtbaseControllerActionsMustReturnResponseInterfaceRector extends Ab
             return new Return_($this->createHtmlResponseMethodCall($args));
         });
 
-        $node->returnType = new FullyQualified('Psr\Http\Message\ResponseInterface');
+        $node->returnType = new FullyQualified(self::RESPONSE_INTERFACE);
 
         $statements = $node->stmts;
         $lastStatement = null;
@@ -176,7 +180,7 @@ CODE_SAMPLE
     private function shouldSkip(ClassMethod $classMethod): bool
     {
         if ($classMethod->returnType instanceof Node
-            && $this->isObjectType($classMethod->returnType, new ObjectType('Psr\Http\Message\ResponseInterface'))
+            && $this->isObjectType($classMethod->returnType, new ObjectType(self::RESPONSE_INTERFACE))
         ) {
             return true;
         }
@@ -188,25 +192,16 @@ CODE_SAMPLE
             return true;
         }
 
-        if (! $classMethod->isPublic()) {
-            return true;
-        }
-
-        if ($classMethod->isAbstract()) {
+        if (! $classMethod->isPublic() || $classMethod->isAbstract()) {
             return true;
         }
 
         $methodName = $this->getName($classMethod->name);
-
         if ($methodName === null) {
             return true;
         }
 
-        if (! \str_ends_with($methodName, 'Action')) {
-            return true;
-        }
-
-        if (\str_starts_with($methodName, 'initialize')) {
+        if (! \str_ends_with($methodName, 'Action') || \str_starts_with($methodName, 'initialize')) {
             return true;
         }
 
@@ -225,15 +220,9 @@ CODE_SAMPLE
             return false;
         }
 
-        if ($this->lastStatementIsExitCall($lastStatement)) {
-            return true;
-        }
-
-        if ($this->lastStatementIsForwardCall($lastStatement)) {
-            return true;
-        }
-
-        return $this->lastStatementIsOfTypeImmediateResponseException($lastStatement);
+        return $this->lastStatementIsExitCall($lastStatement)
+            || $this->lastStatementIsThrow($lastStatement)
+            || $this->lastStatementIsForwardCall($lastStatement);
     }
 
     private function lastStatementIsExitCall(Node $lastStatement): bool
@@ -241,15 +230,9 @@ CODE_SAMPLE
         return $lastStatement instanceof Expression && $lastStatement->expr instanceof Exit_;
     }
 
-    private function lastStatementIsOfTypeImmediateResponseException(Node $lastStatement): bool
+    private function lastStatementIsThrow(Node $lastStatement): bool
     {
-        if (! ($lastStatement instanceof Expression && $lastStatement->expr instanceof Throw_)) {
-            return false;
-        }
-
-        return $this->getType($lastStatement->expr->expr)
-            ->isSuperTypeOf(new ObjectType('TYPO3\CMS\Core\Http\ImmediateResponseException'))
-            ->yes();
+        return $lastStatement instanceof Expression && $lastStatement->expr instanceof Throw_;
     }
 
     private function lastStatementIsForwardCall(Node $lastStatement): bool
