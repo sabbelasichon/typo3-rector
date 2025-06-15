@@ -10,36 +10,42 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 class MyRefactoredController extends ActionController
 {
-    public function throwPropagateResponseExceptionActionWithReturnResponseInterface(): ResponseInterface
+    public function throwExceptionWithReturnVoidAction(): void
+    {
+        $response = $this->responseFactory->createResponse(200);
+        throw new \Exception($response, 200);
+    }
+
+    public function throwPropagateResponseExceptionWithReturnVoidAction(): void
     {
         $response = $this->responseFactory->createResponse(200);
         throw new PropagateResponseException($response, 200);
     }
 
-    public function throwPropagateResponseExceptionActionWithReturnVoid(): void
+    public function throwPropagateResponseExceptionWithReturnResponseInterfaceAction(): ResponseInterface
     {
         $response = $this->responseFactory->createResponse(200);
         throw new PropagateResponseException($response, 200);
     }
 
-    public function throwImmediateResponseExceptionActionWithReturnResponseInterface(): ResponseInterface
+    public function throwImmediateResponseExceptionWithReturnResponseInterfaceAction(): ResponseInterface
     {
         $response = $this->responseFactory->createResponse(200);
         throw new ImmediateResponseException($response, 200);
     }
 
-    public function throwImmediateResponseExceptionActionWithReturnVoid(): void
+    public function throwImmediateResponseExceptionWithReturnVoidAction(): void
     {
         $response = $this->responseFactory->createResponse(200);
         throw new ImmediateResponseException($response, 200);
     }
 
-    public function someOtherAction(): ResponseInterface
+    public function forwardAction(): ResponseInterface
     {
         return new ForwardResponse('another');
     }
 
-    public function somethingAction($range): ResponseInterface
+    public function closureAction($range): ResponseInterface
     {
         $years = array_map(static function ($item): string {
             return 'C' . $item;
@@ -48,9 +54,9 @@ class MyRefactoredController extends ActionController
         return $this->htmlResponse($years);
     }
 
-    public function listAction(): ResponseInterface
+    public function emptyBodyAction(): ResponseInterface
     {
     }
 
-    abstract public function listAction($filter = null, string $letter = ''): ResponseInterface;
+    abstract public function abstractAction($filter = null, string $letter = ''): ResponseInterface;
 }
