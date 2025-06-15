@@ -26,7 +26,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class MyClass
 {
-    public function __construct(private MyService $myService)
+    public function __construct(private readonly MyService $myService)
     {
     }
     public function myMethod(): void

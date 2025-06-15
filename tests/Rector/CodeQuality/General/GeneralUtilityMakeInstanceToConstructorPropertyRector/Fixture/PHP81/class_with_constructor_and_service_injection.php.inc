@@ -35,7 +35,7 @@ class ClassWithConstructorAndServiceInjection
 {
     private AnotherService $anotherService;
 
-    public function __construct(AnotherService $anotherService, private MyService $myService)
+    public function __construct(AnotherService $anotherService, private readonly MyService $myService)
     {
         $this->anotherService = $anotherService;
     }

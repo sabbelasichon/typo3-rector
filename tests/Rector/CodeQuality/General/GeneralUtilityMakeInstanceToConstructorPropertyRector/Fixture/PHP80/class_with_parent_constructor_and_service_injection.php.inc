@@ -28,8 +28,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ClassWithParentConstructorAndServiceInjection extends ServiceWithConstructor
 {
-    public function __construct(private MyService $myService)
+    public function __construct(\Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector\Source\AnInjectedService $injectedService, private MyService $myService)
     {
+        parent::__construct($injectedService);
     }
     public function myMethod(): void
     {
