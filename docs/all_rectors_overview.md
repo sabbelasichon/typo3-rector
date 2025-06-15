@@ -3855,10 +3855,12 @@ Migrate `TypoScriptFrontendController->sys_page`
 
 ```diff
 -$sys_page = $GLOBALS['TSFE']->sys_page;
+-$GLOBALS['TSFE']->sys_page->enableFields('table');
 +use TYPO3\CMS\Core\Utility\GeneralUtility;
 +use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 +
 +$sys_page = GeneralUtility::makeInstance(PageRepository::class);
++GeneralUtility::makeInstance(PageRepository::class)->enableFields('table');
 ```
 
 <br>
