@@ -106,9 +106,9 @@
     "extra": {
         "patches": {
             "rector/rector": [
-                "patches/rector-rector-src-phpparser-node-nodefactory-php.patch",
-                "patches/rector-rector-rules-typedeclaration-nodeanalyzer-autowiredclassmethodorpropertyanalyzer-php.patch",
-                "patches/rector-rector-src-nodemanipulator-classdependencymanipulator-php.patch"
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-rules-typedeclaration-nodeanalyzer-autowiredclassmethodorpropertyanalyzer-php.patch",
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-nodemanipulator-classdependencymanipulator-php.patch",
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-phpparser-node-nodefactory-php.patch"
             ]
         },
         "branch-alias": {
