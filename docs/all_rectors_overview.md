@@ -100,7 +100,24 @@ Refactor file ext_emconf.php
 
 ### GeneralUtilityMakeInstanceToConstructorPropertyRector
 
-Move GeneralUtility::makeInstance calls to constructor injection
+Move GeneralUtility::makeInstance calls to constructor injection.
+
+> [!IMPORTANT]
+> If you use this rule, please install the [cweagans/composer-patches](https://packagist.org/packages/cweagans/composer-patches) package and add the following snippet to your composer.json:
+
+```json
+{
+    "extra": {
+        "patches": {
+            "rector/rector": [
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-rules-typedeclaration-nodeanalyzer-autowiredclassmethodorpropertyanalyzer-php.patch",
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-nodemanipulator-classdependencymanipulator-php.patch",
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-phpparser-node-nodefactory-php.patch"
+            ]
+        }
+    }
+}
+```
 
 :wrench: **configure it!**
 
@@ -132,6 +149,23 @@ Move GeneralUtility::makeInstance calls to constructor injection
 ### InjectMethodToConstructorInjectionRector
 
 Replace inject method to constructor injection
+
+> [!IMPORTANT]
+> If you use this rule, please install the [cweagans/composer-patches](https://packagist.org/packages/cweagans/composer-patches) package and add the following snippet to your composer.json:
+
+```json
+{
+    "extra": {
+        "patches": {
+            "rector/rector": [
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-rules-typedeclaration-nodeanalyzer-autowiredclassmethodorpropertyanalyzer-php.patch",
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-nodemanipulator-classdependencymanipulator-php.patch",
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-phpparser-node-nodefactory-php.patch"
+            ]
+        }
+    }
+}
+```
 
 - class: [`Ssch\TYPO3Rector\CodeQuality\General\InjectMethodToConstructorInjectionRector`](../rules/CodeQuality/General/InjectMethodToConstructorInjectionRector.php)
 
@@ -1578,6 +1612,23 @@ Simplify checkbox items TCA
 
 Use an instance of ModuleTemplate instead of BackendTemplateView
 
+> [!IMPORTANT]
+> If you use this rule, please install the [cweagans/composer-patches](https://packagist.org/packages/cweagans/composer-patches) package and add the following snippet to your composer.json:
+
+```json
+{
+    "extra": {
+        "patches": {
+            "rector/rector": [
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-rules-typedeclaration-nodeanalyzer-autowiredclassmethodorpropertyanalyzer-php.patch",
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-nodemanipulator-classdependencymanipulator-php.patch",
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-phpparser-node-nodefactory-php.patch"
+            ]
+        }
+    }
+}
+```
+
 - class: [`Ssch\TYPO3Rector\TYPO311\v5\SubstituteBackendTemplateViewWithModuleTemplateRector`](../rules/TYPO311/v5/SubstituteBackendTemplateViewWithModuleTemplateRector.php)
 
 ```diff
@@ -1654,6 +1705,23 @@ Use PSR-7 compatible request for uri instead of the method getBaseUri
 ### SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector
 
 Use PageRenderer and IconFactory directly instead of getting them from the ModuleTemplate
+
+> [!IMPORTANT]
+> If you use this rule, please install the [cweagans/composer-patches](https://packagist.org/packages/cweagans/composer-patches) package and add the following snippet to your composer.json:
+
+```json
+{
+    "extra": {
+        "patches": {
+            "rector/rector": [
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-rules-typedeclaration-nodeanalyzer-autowiredclassmethodorpropertyanalyzer-php.patch",
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-nodemanipulator-classdependencymanipulator-php.patch",
+                "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-phpparser-node-nodefactory-php.patch"
+            ]
+        }
+    }
+}
+```
 
 - class: [`Ssch\TYPO3Rector\TYPO311\v5\SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector`](../rules/TYPO311/v5/SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector.php)
 

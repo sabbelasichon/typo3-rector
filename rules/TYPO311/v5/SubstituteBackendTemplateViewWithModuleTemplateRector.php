@@ -24,6 +24,7 @@ use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
+use Ssch\TYPO3Rector\RuleDefinition\RuleDefinitions;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -120,7 +121,7 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use an instance of ModuleTemplate instead of BackendTemplateView', [
+        return new RuleDefinition('Use an instance of ModuleTemplate instead of BackendTemplateView' . RuleDefinitions::COMPOSER_PATCH, [
             new CodeSample(
                 <<<'CODE_SAMPLE'
 class MyController extends ActionController

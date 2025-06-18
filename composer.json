@@ -35,7 +35,6 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
-        "cweagans/composer-patches": "^1.7",
         "league/flysystem": "^2.0 || ^3.0",
         "league/flysystem-memory": "^2.0 || ^3.0",
         "nette/utils": "^3.2.10 || ^4.0.4",
@@ -51,6 +50,7 @@
         "webmozart/assert": "^1.11.0"
     },
     "require-dev": {
+        "cweagans/composer-patches": "^1.7",
         "ergebnis/composer-normalize": "^2.42.0",
         "php-parallel-lint/php-parallel-lint": "^1.3.2",
         "phpstan/extension-installer": "^1.3.1",
@@ -104,15 +104,15 @@
         "update-with-dependencies": true
     },
     "extra": {
+        "branch-alias": {
+            "dev-main": "2.0-dev"
+        },
         "patches": {
             "rector/rector": [
                 "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-rules-typedeclaration-nodeanalyzer-autowiredclassmethodorpropertyanalyzer-php.patch",
                 "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-nodemanipulator-classdependencymanipulator-php.patch",
                 "https://raw.githubusercontent.com/sabbelasichon/typo3-rector/refs/heads/2.x/patches/rector-rector-src-phpparser-node-nodefactory-php.patch"
             ]
-        },
-        "branch-alias": {
-            "dev-main": "2.0-dev"
         },
         "rector": {
             "includes": [
