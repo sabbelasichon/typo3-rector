@@ -17,6 +17,7 @@ use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
+use Ssch\TYPO3Rector\RuleDefinition\RuleDefinitions;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
@@ -71,7 +72,7 @@ final class GeneralUtilityMakeInstanceToConstructorPropertyRector extends Abstra
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Move GeneralUtility::makeInstance calls to constructor injection',
+            'Move GeneralUtility::makeInstance calls to constructor injection.' . RuleDefinitions::COMPOSER_PATCH,
             [
                 new ConfiguredCodeSample(
                     <<<'CODE_SAMPLE'
@@ -183,7 +184,9 @@ CODE_SAMPLE
                 $shortClassName = $this->nodeNameResolver->getShortName($className);
                 $propertyName = lcfirst($shortClassName);
 
-                $propertyMetadata = new PropertyMetadata($propertyName, new ObjectType($className), Class_::MODIFIER_PRIVATE);
+                $propertyMetadata = new PropertyMetadata($propertyName, new ObjectType(
+                    $className
+                ), Class_::MODIFIER_PRIVATE);
 
                 $this->classDependencyManipulator->addConstructorDependency($node, $propertyMetadata);
 

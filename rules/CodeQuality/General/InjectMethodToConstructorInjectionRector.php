@@ -18,6 +18,7 @@ use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
 use Rector\ValueObject\PhpVersionFeature;
+use Ssch\TYPO3Rector\RuleDefinition\RuleDefinitions;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -40,7 +41,7 @@ final class InjectMethodToConstructorInjectionRector extends AbstractRector
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Replace inject method to constructor injection',
+            'Replace inject method to constructor injection' . RuleDefinitions::COMPOSER_PATCH,
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

@@ -12,6 +12,7 @@ use PHPStan\Type\ObjectType;
 use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
+use Ssch\TYPO3Rector\RuleDefinition\RuleDefinitions;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
@@ -77,7 +78,7 @@ final class SubstituteGetIconFactoryAndGetPageRendererFromModuleTemplateRector e
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Use PageRenderer and IconFactory directly instead of getting them from the ModuleTemplate',
+            'Use PageRenderer and IconFactory directly instead of getting them from the ModuleTemplate' . RuleDefinitions::COMPOSER_PATCH,
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
