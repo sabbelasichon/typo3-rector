@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\NodeFactory;
 
 use PhpParser\Builder\Method;
+use PhpParser\Builder\Param as ParamBuilder;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\PropertyFetch;
@@ -39,6 +40,9 @@ final class InjectMethodFactory
      */
     private PhpDocInfoFactory $phpDocInfoFactory;
 
+    /**
+     * @readonly
+     */
     private DocBlockUpdater $docBlockUpdater;
 
     public function __construct(
@@ -61,10 +65,6 @@ final class InjectMethodFactory
         $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
 
         $statements = [];
-        /** @var string $variableName */
-        $variableName = $this->nodeNameResolver->getName($property);
-
-        $paramBuilder = new \PhpParser\Builder\Param($variableName);
         $varType = $propertyPhpDocInfo->getVarType();
         if ($varType->isObject()->no()) {
             return $statements;
@@ -72,26 +72,26 @@ final class InjectMethodFactory
 
         // Remove the old annotation and use setterInjection instead
         $hasChanged = $this->phpDocTagRemover->removeByName($propertyPhpDocInfo, $oldAnnotation);
-
         if ($hasChanged) {
             $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($property);
         }
 
+        /** @var string $variableName */
+        $variableName = $this->nodeNameResolver->getName($property);
+        $paramBuilder = new ParamBuilder($variableName);
         if ($varType instanceof FullyQualifiedObjectType) {
             $paramBuilder->setType(new FullyQualified($varType->getClassName()));
         } elseif ($varType instanceof ShortenedObjectType) {
             $paramBuilder->setType($varType->getShortName());
         }
 
-        $param = $paramBuilder->getNode();
-        $propertyFetch = new PropertyFetch(new Variable('this'), $variableName);
-        $assign = new Assign($propertyFetch, new Variable($variableName));
-        // Add new line and then the method
-        $statements[] = new Nop();
-
         $methodAlreadyExists = $class->getMethod($this->createInjectMethodName($variableName));
-
         if (! $methodAlreadyExists instanceof ClassMethod) {
+            $param = $paramBuilder->getNode();
+            $propertyFetch = new PropertyFetch(new Variable('this'), $variableName);
+            $assign = new Assign($propertyFetch, new Variable($variableName));
+            // Add new line and then the method
+            $statements[] = new Nop();
             $statements[] = $this->createInjectClassMethod($variableName, $param, $assign);
         }
 
