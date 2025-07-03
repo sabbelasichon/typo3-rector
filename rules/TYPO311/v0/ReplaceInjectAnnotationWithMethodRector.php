@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\TYPO311\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\Nop;
 use Rector\BetterPhpDocParser\PhpDocInfo\PhpDocInfoFactory;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\NodeFactory\InjectMethodFactory;
@@ -48,29 +49,6 @@ final class ReplaceInjectAnnotationWithMethodRector extends AbstractRector imple
         return [Class_::class];
     }
 
-    /**
-     * @param Class_ $node
-     */
-    public function refactor(Node $node): ?Node
-    {
-        $injectMethods = [];
-        $properties = $node->getProperties();
-        foreach ($properties as $property) {
-            $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
-            if (! $propertyPhpDocInfo->hasByAnnotationClass(self::OLD_ANNOTATION)) {
-                continue;
-            }
-
-            $injectMethods = array_merge(
-                $injectMethods,
-                $this->injectMethodFactory->createInjectMethodStatements($node, $property, self::OLD_ANNOTATION)
-            );
-        }
-
-        $node->stmts = array_merge($node->stmts, $injectMethods);
-        return $node;
-    }
-
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Turn properties with `@TYPO3\CMS\Extbase\Annotation\Inject` to setter injection', [
@@ -102,5 +80,66 @@ class MyClass
 CODE_SAMPLE
             ),
         ]);
+    }
+
+    /**
+     * @param Class_ $node
+     */
+    public function refactor(Node $node): ?Node
+    {
+        $injectMethods = [];
+        foreach ($node->getProperties() as $property) {
+            $propertyPhpDocInfo = $this->phpDocInfoFactory->createFromNodeOrEmpty($property);
+            if (! $propertyPhpDocInfo->hasByAnnotationClass(self::OLD_ANNOTATION)) {
+                continue;
+            }
+
+            $statements = $this->injectMethodFactory->createInjectMethodStatements(
+                $node,
+                $property,
+                self::OLD_ANNOTATION
+            );
+            foreach ($statements as $statement) {
+                $injectMethods[] = $statement;
+            }
+        }
+
+        if ($injectMethods === []) {
+            return null;
+        }
+
+        $injectMethods = $this->collapseConsecutiveNops($injectMethods);
+
+        $node->stmts = array_merge($node->stmts, $injectMethods);
+
+        return $node;
+    }
+
+    /**
+     * Removes consecutive Nop statements from a list of nodes.
+     *
+     * @param Node[] $nodes
+     * @return Node[]
+     */
+    private function collapseConsecutiveNops(array $nodes): array
+    {
+        $result = [];
+        $prevWasNop = false;
+
+        foreach ($nodes as $node) {
+            if ($node instanceof Nop) {
+                if ($prevWasNop) {
+                    continue;
+                }
+
+                $prevWasNop = true;
+            } else {
+                $prevWasNop = false;
+            }
+
+            $result[] = $node;
+        }
+
+        return $result;
     }
 }

@@ -93,7 +93,6 @@ final class SomeInjectClass
         $this->inject2 = $inject2;
     }
 
-
     public function injectInject4(ShortInjectionClass $inject4): void
     {
         $this->inject4 = $inject4;
