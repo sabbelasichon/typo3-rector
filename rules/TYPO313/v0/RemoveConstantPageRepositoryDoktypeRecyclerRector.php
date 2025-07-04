@@ -27,7 +27,7 @@ final class RemoveConstantPageRepositoryDoktypeRecyclerRector extends AbstractRe
 {
     private const TARGET_CONSTANT_NAME = 'DOKTYPE_RECYCLER';
 
-    private const PAGE_REPOSITORY_CLASS = 'TYPO3\CMS\Domain\Repository\PageRepository';
+    private const PAGE_REPOSITORY_CLASS = 'TYPO3\CMS\Core\Domain\Repository\PageRepository';
 
     public function getRuleDefinition(): RuleDefinition
     {
@@ -37,14 +37,14 @@ final class RemoveConstantPageRepositoryDoktypeRecyclerRector extends AbstractRe
                 new CodeSample(
                     <<<'CODE_SAMPLE'
 $excludeDoktypes = [
-    \TYPO3\CMS\Domain\Repository\PageRepository::DOKTYPE_RECYCLER,
-    \TYPO3\CMS\Domain\Repository\PageRepository::DOKTYPE_SYSFOLDER,
+    \TYPO3\CMS\Core\Domain\Repository\PageRepository::DOKTYPE_RECYCLER,
+    \TYPO3\CMS\Core\Domain\Repository\PageRepository::DOKTYPE_SYSFOLDER,
 ];
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
 $excludeDoktypes = [
-    \TYPO3\CMS\Domain\Repository\PageRepository::DOKTYPE_SYSFOLDER,
+    \TYPO3\CMS\Core\Domain\Repository\PageRepository::DOKTYPE_SYSFOLDER,
 ];
 CODE_SAMPLE
                 ),

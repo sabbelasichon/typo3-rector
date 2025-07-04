@@ -3944,14 +3944,14 @@ Remove obsolete `$GLOBALS['TYPO3_CONF_VARS']['FE']['addRootLineFields']`
 
 ### RemoveConstantPageRepositoryDoktypeRecyclerRector
 
-Remove the constant `TYPO3\CMS\Domain\Repository\PageRepository::DOKTYPE_RECYCLER` and its usage in arrays and binary operations (||, &&)
+Remove the constant `TYPO3\CMS\Core\Domain\Repository\PageRepository::DOKTYPE_RECYCLER` and its usage in arrays and binary operations (||, &&)
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v0\RemoveConstantPageRepositoryDoktypeRecyclerRector`](../rules/TYPO313/v0/RemoveConstantPageRepositoryDoktypeRecyclerRector.php)
 
 ```diff
  $excludeDoktypes = [
--    \TYPO3\CMS\Domain\Repository\PageRepository::DOKTYPE_RECYCLER,
-     \TYPO3\CMS\Domain\Repository\PageRepository::DOKTYPE_SYSFOLDER,
+-    \TYPO3\CMS\Core\Domain\Repository\PageRepository::DOKTYPE_RECYCLER,
+     \TYPO3\CMS\Core\Domain\Repository\PageRepository::DOKTYPE_SYSFOLDER,
  ];
 ```
 
