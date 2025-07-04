@@ -36,6 +36,9 @@ final class Query implements QueryInterface
     {
     }
 
+    /**
+     * @return QueryInterface
+     */
     public function matching($constraint)
     {
     }
@@ -60,6 +63,14 @@ final class Query implements QueryInterface
     {
     }
 
+    /**
+     * Returns an equals criterion used for matching objects against a query
+     *
+     * @param string $propertyName The name of the property to compare against
+     * @param mixed $operand The value to compare with
+     * @param bool $caseSensitive Whether the equality test should be done case-sensitive
+     * @return \TYPO3\CMS\Extbase\Persistence\Generic\Qom\ComparisonInterface
+     */
     public function equals($propertyName, $operand, $caseSensitive = true)
     {
     }
@@ -104,6 +115,9 @@ final class Query implements QueryInterface
     {
     }
 
+    /**
+     * @return QuerySettingsInterface
+     */
     public function getQuerySettings()
     {
     }
