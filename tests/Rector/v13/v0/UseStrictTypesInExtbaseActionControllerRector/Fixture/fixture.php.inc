@@ -46,7 +46,7 @@ class MyController extends ActionController
     protected StreamFactoryInterface $streamFactory;
     protected ReflectionService $reflectionService;
     protected HashService $hashService;
-    public string $defaultViewObjectName = TemplateView::class;
+    public ?string $defaultViewObjectName = TemplateView::class;
     protected string $actionMethodName = 'indexAction';
     public string $errorMethodName = 'myAction';
     protected MvcPropertyMappingConfigurationService $mvcPropertyMappingConfigurationService;

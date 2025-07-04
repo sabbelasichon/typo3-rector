@@ -45,7 +45,7 @@ return static function (RectorConfig $rectorConfig): void {
             new AddPropertyTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\ActionController', 'validatorResolver', new ObjectType('TYPO3\CMS\Extbase\Validation\ValidatorResolver')),
             new AddPropertyTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\ActionController', 'arguments', new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\Arguments')),
             new AddPropertyTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\ActionController', 'configurationManager', new ObjectType('TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface')),
-            new AddPropertyTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\ActionController', 'defaultViewObjectName', new StringType()),
+            new AddPropertyTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\ActionController', 'defaultViewObjectName', new UnionType([new NullType(), new StringType()])),
             new AddPropertyTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\ActionController', 'errorMethodName', new StringType()),
             new AddPropertyTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\ActionController', 'actionMethodName', new StringType()),
             new AddPropertyTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\ActionController', 'settings', new ArrayType(new MixedType(), new MixedType())),
