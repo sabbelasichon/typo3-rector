@@ -1,4 +1,4 @@
-# 191 Rules Overview
+# 192 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (34)
 
-- [TYPO312](#typo312) (57)
+- [TYPO312](#typo312) (58)
 
 - [TYPO313](#typo313) (42)
 
@@ -3176,6 +3176,48 @@ Use config array of TSFE instead of properties
 ```diff
 -$fileTarget = $GLOBALS['TSFE']->fileTarget;
 +$fileTarget = $GLOBALS['TSFE']->config['config']['fileTarget'];
+```
+
+<br>
+
+### UseLanguageAspectInExtbasePersistenceRector
+
+Use LanguageAspect in Extbase Persistence
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v0\UseLanguageAspectInExtbasePersistenceRector`](../rules/TYPO312/v0/UseLanguageAspectInExtbasePersistenceRector.php)
+
+```diff
++use TYPO3\CMS\Core\Context\LanguageAspect;
++
+ $query = $this->createQuery();
+-$query->getQuerySettings()->setLanguageOverlayMode(false);
++$languageAspect = $query->getQuerySettings()->getLanguageAspect();
++$languageAspect = new LanguageAspect($languageAspect->getId(), $languageAspect->getContentId(), LanguageAspect::OVERLAYS_OFF);
++$query->getQuerySettings()->setLanguageAspect($languageAspect);
+```
+
+<br>
+
+```diff
++use TYPO3\CMS\Core\Context\LanguageAspect;
++
+ $query = $this->createQuery();
+-$query->getQuerySettings()->setLanguageOverlayMode(true);
++$languageAspect = $query->getQuerySettings()->getLanguageAspect();
++$languageAspect = new LanguageAspect($languageAspect->getId(), $languageAspect->getContentId(), LanguageAspect::OVERLAYS_MIXED);
++$query->getQuerySettings()->setLanguageAspect($languageAspect);
+```
+
+<br>
+
+```diff
++use TYPO3\CMS\Core\Context\LanguageAspect;
++
+ $query = $this->createQuery();
+-$query->getQuerySettings()->setLanguageOverlayMode('hideNonTranslated');
++$languageAspect = $query->getQuerySettings()->getLanguageAspect();
++$languageAspect = new LanguageAspect($languageAspect->getId(), $languageAspect->getContentId(), LanguageAspect::OVERLAYS_ON);
++$query->getQuerySettings()->setLanguageAspect($languageAspect);
 ```
 
 <br>
