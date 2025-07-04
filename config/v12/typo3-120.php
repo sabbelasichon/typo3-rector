@@ -33,6 +33,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\ReplaceTSFEWithContextMethodsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\SubstituteCompositeExpressionAddMethodsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\UseCompositeExpressionStaticMethodsRector;
 use Ssch\TYPO3Rector\TYPO312\v0\UseConfigArrayForTSFEPropertiesRector;
+use Ssch\TYPO3Rector\TYPO312\v0\UseLanguageAspectInExtbasePersistenceRector;
 use Ssch\TYPO3Rector\TYPO312\v0\UsePageDoktypeRegistryRector;
 use Ssch\TYPO3Rector\TYPO312\v0\UseServerRequestInsteadOfGeneralUtilityPostRector;
 
@@ -177,4 +178,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ExtbaseActionsWithRedirectMustReturnResponseInterfaceRector::class);
     $rectorConfig->rule(RemoveAddLLrefForTCAdescrMethodCallRector::class);
     $rectorConfig->rule(MigrateGetControllerContextGetUriBuilderRector::class);
+    $rectorConfig->rule(UseLanguageAspectInExtbasePersistenceRector::class);
 };
