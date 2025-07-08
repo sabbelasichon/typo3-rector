@@ -16,6 +16,7 @@ use Ssch\TYPO3Rector\TYPO313\v0\EventListenerConfigurationToAttributeRector;
 use Ssch\TYPO3Rector\TYPO313\v0\IntroduceCapabilitiesBitSetRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateAddPageTSConfigToPageTsConfigFileRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateAddUserTSConfigToUserTsConfigFileRector;
+use Ssch\TYPO3Rector\TYPO313\v0\MigrateDuplicationBehaviorClassRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateExpressionBuilderTrimMethodSecondParameterRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateExtbaseHashServiceToUseCoreHashServiceRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateLegacySettingGFXgdlibRector;
@@ -146,4 +147,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateTypoScriptFrontendControllerGetContextRector::class);
     $rectorConfig->rule(MigrateTypoScriptFrontendControllerFeUserRector::class);
     $rectorConfig->rule(MigrateLegacySettingGFXgdlibRector::class);
+    $rectorConfig->rule(MigrateDuplicationBehaviorClassRector::class);
 };
