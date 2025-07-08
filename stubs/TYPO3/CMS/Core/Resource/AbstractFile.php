@@ -2,6 +2,8 @@
 
 namespace TYPO3\CMS\Core\Resource;
 
+use TYPO3\CMS\Core\Resource\Enum\DuplicationBehavior;
+
 if (class_exists('TYPO3\CMS\Core\Resource\AbstractFile')) {
     return;
 }
@@ -38,6 +40,10 @@ abstract class AbstractFile implements FileInterface
     }
 
     public function getParentFolder(): FolderInterface
+    {
+    }
+
+    public function copyTo(Folder $targetFolder, $targetFileName, $conflictMode)
     {
     }
 }

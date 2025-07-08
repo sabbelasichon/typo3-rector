@@ -1,4 +1,4 @@
-# 193 Rules Overview
+# 194 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (58)
 
-- [TYPO313](#typo313) (43)
+- [TYPO313](#typo313) (44)
 
 - [TYPO314](#typo314) (6)
 
@@ -3545,6 +3545,19 @@ Migrate DataProviderContext getters and setters
 +$dataProviderContext->fieldName = 'field';
 +$dataProviderContext->data = [];
 +$dataProviderContext->pageTsConfig = [];
+```
+
+<br>
+
+### MigrateDuplicationBehaviorClassRector
+
+Convert usages of DuplicationBehavior to its Enum equivalent
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateDuplicationBehaviorClassRector`](../rules/TYPO313/v0/MigrateDuplicationBehaviorClassRector.php)
+
+```diff
+-$file->copyTo($folder, null, \TYPO3\CMS\Core\Resource\DuplicationBehavior::REPLACE);
++$file->copyTo($folder, null, \TYPO3\CMS\Core\Resource\Enum\DuplicationBehavior::REPLACE);
 ```
 
 <br>
