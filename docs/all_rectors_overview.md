@@ -1,4 +1,4 @@
-# 192 Rules Overview
+# 193 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (58)
 
-- [TYPO313](#typo313) (42)
+- [TYPO313](#typo313) (43)
 
 - [TYPO314](#typo314) (6)
 
@@ -3632,6 +3632,21 @@ Migrate `GeneralUtility::hmac()` to `HashService::hmac()`
 
 -$hmac = GeneralUtility::hmac('some-input', 'some-secret');
 +$hmac = GeneralUtility::makeInstance(HashService::class)->hmac('some-input', 'some-secret');
+```
+
+<br>
+
+### MigrateLegacySettingGFXgdlibRector
+
+Migrate legacy setting `GFX/gdlib`
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateLegacySettingGFXgdlibRector`](../rules/TYPO313/v0/MigrateLegacySettingGFXgdlibRector.php)
+
+```diff
+-if ($GLOBALS['TYPO3_CONF_VARS']['GFX']['gdlib'] === true) {
++if (class_exists(\GdImage::class)) {
+     // do something
+ }
 ```
 
 <br>
