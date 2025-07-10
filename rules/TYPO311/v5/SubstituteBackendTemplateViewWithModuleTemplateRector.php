@@ -121,9 +121,11 @@ final class SubstituteBackendTemplateViewWithModuleTemplateRector extends Abstra
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use an instance of ModuleTemplate instead of BackendTemplateView' . RuleDefinitions::COMPOSER_PATCH, [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            'Use an instance of ModuleTemplate instead of BackendTemplateView' . RuleDefinitions::COMPOSER_PATCH,
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 class MyController extends ActionController
 {
     protected $defaultViewObjectName = BackendTemplateView::class;
@@ -137,8 +139,8 @@ class MyController extends ActionController
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 class MyController extends ActionController
 {
     protected ModuleTemplateFactory $moduleTemplateFactory;
@@ -159,8 +161,9 @@ class MyController extends ActionController
     }
 }
 CODE_SAMPLE
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 
     private function shouldSkip(Class_ $class): bool
