@@ -112,16 +112,16 @@ CODE_SAMPLE
     /**
      * Removes consecutive Nop statements from a list of nodes.
      *
-     * @param Node\Stmt[] $nodes
+     * @param Node\Stmt[] $stmts
      * @return Node\Stmt[]
      */
-    private function collapseConsecutiveNops(array $nodes): array
+    private function collapseConsecutiveNops(array $stmts): array
     {
         $result = [];
         $prevWasNop = false;
 
-        foreach ($nodes as $node) {
-            if ($node instanceof Nop) {
+        foreach ($stmts as $stmt) {
+            if ($stmt instanceof Nop) {
                 if ($prevWasNop) {
                     continue;
                 }
@@ -131,7 +131,7 @@ CODE_SAMPLE
                 $prevWasNop = false;
             }
 
-            $result[] = $node;
+            $result[] = $stmt;
         }
 
         return $result;
