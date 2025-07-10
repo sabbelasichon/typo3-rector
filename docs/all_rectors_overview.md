@@ -1,4 +1,4 @@
-# 194 Rules Overview
+# 195 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (58)
 
-- [TYPO313](#typo313) (44)
+- [TYPO313](#typo313) (45)
 
 - [TYPO314](#typo314) (6)
 
@@ -3894,6 +3894,40 @@ Migrate `$GLOBALS['TSFE']->getContext()`
 ```diff
 -$context = $GLOBALS['TSFE']->getContext();
 +$context = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Context\Context::class);
+```
+
+<br>
+
+### MigrateTypoScriptFrontendControllerMethodCallsRector
+
+Migrate TypoScriptFrontendController method calls and use the request attribute
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerMethodCallsRector`](../rules/TYPO313/v0/MigrateTypoScriptFrontendControllerMethodCallsRector.php)
+
+```diff
+-$GLOBALS['TSFE']->getRequestedId();
++$GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageId();
+```
+
+<br>
+
+```diff
+-$GLOBALS['TSFE']->getLanguage();
++$GLOBALS['TYPO3_REQUEST']->getAttribute('site')->getDefaultLanguage();
+```
+
+<br>
+
+```diff
+-$GLOBALS['TSFE']->getSite();
++$GLOBALS['TYPO3_REQUEST']->getAttribute('site');
+```
+
+<br>
+
+```diff
+-$GLOBALS['TSFE']->getPageArguments();
++$GLOBALS['TYPO3_REQUEST']->getAttribute('routing');
 ```
 
 <br>

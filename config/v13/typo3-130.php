@@ -23,6 +23,7 @@ use Ssch\TYPO3Rector\TYPO313\v0\MigrateLegacySettingGFXgdlibRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerFeUserMethodsRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerFeUserRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerGetContextRector;
+use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerMethodCallsRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerReadOnlyPropertiesRector;
 use Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerSysPageRector;
 use Ssch\TYPO3Rector\TYPO313\v0\RemoveConstantPageRepositoryDoktypeRecyclerRector;
@@ -148,4 +149,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateTypoScriptFrontendControllerFeUserRector::class);
     $rectorConfig->rule(MigrateLegacySettingGFXgdlibRector::class);
     $rectorConfig->rule(MigrateDuplicationBehaviorClassRector::class);
+    $rectorConfig->rule(MigrateTypoScriptFrontendControllerMethodCallsRector::class);
 };
