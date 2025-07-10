@@ -7,6 +7,7 @@ use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Routing\PageArguments;
+use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\TypoScript\TemplateService;
 use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
@@ -20,6 +21,8 @@ if (class_exists('TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController')) 
 class TypoScriptFrontendController
 {
     public int $id;
+
+    protected Site $site;
 
     /**
      * @var array<int, array<string, mixed>>
@@ -443,5 +446,15 @@ class TypoScriptFrontendController
     public function getPageCacheTags(): array
     {
         return [];
+    }
+
+    public function getRequestedId(): int
+    {
+        return 2;
+    }
+
+    public function getSite(): Site
+    {
+        return $this->site;
     }
 }
