@@ -42,6 +42,8 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
      */
     private StaticTypeMapper $staticTypeMapper;
 
+    private bool $hasChanges = false;
+
     public function __construct(
         FileInfoFactory $fileInfoFactory,
         ValueResolver $valueResolver,
@@ -65,14 +67,14 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
      */
     public function refactor(Node $node): ?Node
     {
+        if (! $this->isNames($node->name, ['configurePlugin', 'registerModule'])) {
+            return null;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
         )) {
-            return null;
-        }
-
-        if (! $this->isNames($node->name, ['configurePlugin', 'registerModule'])) {
             return null;
         }
 
@@ -101,7 +103,6 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
 
         $vendorName = $this->prepareVendorName($extensionName, $delimiterPosition);
         $extensionName = StringUtility::prepareExtensionName($extensionName, $delimiterPosition);
-
         if ($extensionName === '') {
             return null;
         }
@@ -111,12 +112,12 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
         if ($this->isName($node->name, 'configurePlugin')) {
             $this->refactorConfigurePluginMethod($node, $vendorName, $extensionName);
 
-            return null;
+            return $this->hasChanges ? $node : null;
         }
 
         $this->refactorRegisterPluginMethod($node, $vendorName, $extensionName);
 
-        return null;
+        return $this->hasChanges ? $node : null;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -147,19 +148,18 @@ CODE_SAMPLE
         ]);
     }
 
-    private function getControllerClassName(
-        string $vendor,
-        string $extensionKey,
-        string $subPackageKey,
-        string $controllerAlias
-    ): string {
-        $objectName = str_replace(
-            ['@extension', '@subpackage', '@controller', '@vendor', '\\\\'],
-            [$extensionKey, $subPackageKey, $controllerAlias, $vendor, '\\'],
-            '@vendor\@extension\@subpackage\Controller\@controllerController'
-        );
+    private function refactorConfigurePluginMethod(
+        StaticCall $staticCall,
+        string $vendorName,
+        string $extensionName
+    ): void {
+        if (isset($staticCall->args[2]) && $staticCall->args[2]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($staticCall->args[2]->value, $vendorName, $extensionName);
+        }
 
-        return trim($objectName, '\\');
+        if (isset($staticCall->args[3]) && $staticCall->args[3]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($staticCall->args[3]->value, $vendorName, $extensionName);
+        }
     }
 
     private function createNewControllerActionsArray(
@@ -190,23 +190,24 @@ CODE_SAMPLE
             }
 
             $controllerAction->key = $this->nodeFactory->createClassConstReference(
-                $this->getControllerClassName($vendorName, $extensionName, '', $controllerClassName)
+                $this->getControllerClassName($vendorName, $extensionName, $controllerClassName)
             );
+            $this->hasChanges = true;
         }
     }
 
-    private function refactorConfigurePluginMethod(
-        StaticCall $staticCall,
-        string $vendorName,
-        string $extensionName
-    ): void {
-        if (isset($staticCall->args[2]) && $staticCall->args[2]->value instanceof Array_) {
-            $this->createNewControllerActionsArray($staticCall->args[2]->value, $vendorName, $extensionName);
-        }
+    private function getControllerClassName(
+        string $vendor,
+        string $extensionKey,
+        string $controllerAlias
+    ): string {
+        $objectName = str_replace(
+            ['@extension', '@subpackage', '@controller', '@vendor', '\\\\'],
+            [$extensionKey, '', $controllerAlias, $vendor, '\\'],
+            '@vendor\@extension\@subpackage\Controller\@controllerController'
+        );
 
-        if (isset($staticCall->args[3]) && $staticCall->args[3]->value instanceof Array_) {
-            $this->createNewControllerActionsArray($staticCall->args[3]->value, $vendorName, $extensionName);
-        }
+        return trim($objectName, '\\');
     }
 
     private function refactorRegisterPluginMethod(
