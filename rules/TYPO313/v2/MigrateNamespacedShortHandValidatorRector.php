@@ -35,6 +35,8 @@ final class MigrateNamespacedShortHandValidatorRector extends AbstractRector imp
      */
     private PhpDocInfoFactory $phpDocInfoFactory;
 
+    private bool $hasChanged = false;
+
     public function __construct(DocBlockUpdater $docBlockUpdater, PhpDocInfoFactory $phpDocInfoFactory)
     {
         $this->docBlockUpdater = $docBlockUpdater;
@@ -94,6 +96,10 @@ CODE_SAMPLE
 
         $this->processAnnotations($phpDocInfo);
 
+        if (! $this->hasChanged) {
+            return null;
+        }
+
         $this->docBlockUpdater->updateRefactoredNodeWithPhpDocInfo($node);
 
         return $node;
@@ -119,23 +125,28 @@ CODE_SAMPLE
         }
     }
 
-    private function replaceAnnotation(ArrayItemNode $valueNode): void
+    private function replaceAnnotation(ArrayItemNode $arrayItemNode): void
     {
-        /** @var StringNode $stringNode */
-        $stringNode = $valueNode->value;
+        if (! $arrayItemNode->value instanceof StringNode) {
+            return;
+        }
+
+        $stringNode = $arrayItemNode->value;
         $value = $stringNode->value;
 
         if (str_starts_with($value, 'TYPO3.CMS.Extbase:')) {
-            $valueNode->value = '"' . str_replace('TYPO3.CMS.Extbase:', '', $stringNode->value) . '"';
-            $valueNode->setAttribute(PhpDocAttributeKey::ORIG_NODE, null);
+            $arrayItemNode->value = '"' . str_replace('TYPO3.CMS.Extbase:', '', $stringNode->value) . '"';
+            $arrayItemNode->setAttribute(PhpDocAttributeKey::ORIG_NODE, null);
+            $this->hasChanged = true;
         } elseif (str_contains($value, '.')) {
             $parts = explode(':', $value);
             if (count($parts) === 2) {
                 [$packageKey, $validatorName] = $parts;
                 if (str_contains($packageKey, '.')) {
                     [$vendor, $extension] = explode('.', $packageKey);
-                    $valueNode->value = '"' . $vendor . '\\' . $extension . '\\Validation\\Validator\\' . $validatorName . 'Validator' . '"';
-                    $valueNode->setAttribute(PhpDocAttributeKey::ORIG_NODE, null);
+                    $arrayItemNode->value = '"' . $vendor . '\\' . $extension . '\\Validation\\Validator\\' . $validatorName . 'Validator' . '"';
+                    $arrayItemNode->setAttribute(PhpDocAttributeKey::ORIG_NODE, null);
+                    $this->hasChanged = true;
                 }
             }
         }
