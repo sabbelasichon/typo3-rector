@@ -53,6 +53,7 @@ It will create the skeleton for the rector rule with the class, test class, fixt
 
 ### Useful infos:
 
+- Use the PHP code parser to get the AST of it here: https://getrector.com/ast. This will help you to know on which node to listen to (for example `StaticCall`).
 - the `refactor` must return a node, an array of nodes or null.
 - keep it flat! Use early returns (with null) in case your conditions for migration are not met.
 - the `getNodeTypes` method is used to define the use case of the function to migrate. It helps as well acting like an early return (see example below).
