@@ -9,7 +9,6 @@ class MyEventListenerWithAttribute
 {
     public function specialMethod(MySpecialEvent $event)
     {
-
     }
 }
 
@@ -22,12 +21,11 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttri
 use Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Source\MySpecialEvent;
 use TYPO3\CMS\Core\Attribute\AsEventListener;
 
-#[AsEventListener(before: 'before', after: 'after', identifier: 'identifier', method: 'specialMethod', event: MySpecialEvent::class)]
+#[AsEventListener(identifier: 'identifier', event: MySpecialEvent::class, method: 'specialMethod', before: 'before', after: 'after')]
 class MyEventListenerWithAttribute
 {
     public function specialMethod(MySpecialEvent $event)
     {
-
     }
 }
 

@@ -2,7 +2,6 @@
 
 namespace TYPO3\CMS\Core\Attribute;
 
-
 if (class_exists('TYPO3\CMS\Core\Attribute\AsEventListener')) {
     return;
 }
