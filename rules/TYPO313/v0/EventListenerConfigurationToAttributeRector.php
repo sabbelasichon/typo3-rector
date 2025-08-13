@@ -147,11 +147,11 @@ CODE_SAMPLE
             }
         }
 
+        $identifier = $options['identifier'] ?? null;
+        $event = $options['event'] ?? null;
+        $method = $options['method'] ?? null;
         $before = $options['before'] ?? null;
         $after = $options['after'] ?? null;
-        $identifier = $options['identifier'] ?? null;
-        $method = $options['method'] ?? null;
-        $event = $options['event'] ?? null;
 
         if ($options === null) {
             return null;
@@ -159,35 +159,36 @@ CODE_SAMPLE
 
         return $this->replaceAsEventListenerAttribute(
             $node,
-            $this->createAttributeGroupAsEventListener($before, $after, $identifier, $method, $event)
+            $this->createAttributeGroupAsEventListener($identifier, $event, $method, $before, $after)
         );
     }
 
     private function createAttributeGroupAsEventListener(
-        ?string $before,
-        ?string $after,
         ?string $identifier,
+        ?string $event,
         ?string $method,
-        ?string $event
+        ?string $before,
+        ?string $after
     ): AttributeGroup {
         $attributeGroup = $this->phpAttributeGroupFactory->createFromClass('TYPO3\CMS\Core\Attribute\AsEventListener');
 
         $simpleOptions = array_filter([
+            'identifier' => $identifier,
+            'event' => $event,
+            'method' => $method,
             'before' => $before,
             'after' => $after,
-            'identifier' => $identifier,
-            'method' => $method,
         ]);
 
         foreach ($simpleOptions as $name => $simpleOption) {
-            $attributeGroup->attrs[0]->args[] = new Arg(new String_(
-                $simpleOption
-            ), false, false, [], new Identifier($name));
-        }
-
-        if ($event !== null) {
-            $eventClass = $this->nodeFactory->createClassConstReference($event);
-            $attributeGroup->attrs[0]->args[] = new Arg($eventClass, false, false, [], new Identifier('event'));
+            if ($name === 'event' && $event !== null) {
+                $eventClass = $this->nodeFactory->createClassConstReference($event);
+                $attributeGroup->attrs[0]->args[] = new Arg($eventClass, false, false, [], new Identifier('event'));
+            } else {
+                $attributeGroup->attrs[0]->args[] = new Arg(new String_(
+                    $simpleOption
+                ), false, false, [], new Identifier($name));
+            }
         }
 
         return $attributeGroup;

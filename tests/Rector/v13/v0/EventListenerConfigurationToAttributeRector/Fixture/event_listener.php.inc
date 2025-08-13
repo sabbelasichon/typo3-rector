@@ -8,7 +8,6 @@ class MyEventListener
 {
     public function __invoke(MySpecialEvent $event)
     {
-
     }
 }
 
@@ -26,7 +25,6 @@ class MyEventListener
 {
     public function __invoke(MySpecialEvent $event)
     {
-
     }
 }
 
