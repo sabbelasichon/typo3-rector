@@ -20,7 +20,7 @@ final class RemoveSpecialPropertiesOfPageArraysRector extends AbstractRector imp
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Remove', [new CodeSample(
+        return new RuleDefinition('Remove special properties of page array in page repository', [new CodeSample(
             <<<'CODE_SAMPLE'
 $rows['_PAGES_OVERLAY_UID']
 CODE_SAMPLE

@@ -4042,7 +4042,7 @@ Unset the value in the config mmHasUidField
 
 ### RemoveSpecialPropertiesOfPageArraysRector
 
-Remove
+Remove special properties of page array in page repository
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v0\RemoveSpecialPropertiesOfPageArraysRector`](../rules/TYPO313/v0/RemoveSpecialPropertiesOfPageArraysRector.php)
 
