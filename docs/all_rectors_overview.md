@@ -3913,7 +3913,7 @@ Migrate TypoScriptFrontendController method calls and use the request attribute
 
 ```diff
 -$GLOBALS['TSFE']->getLanguage();
-+$GLOBALS['TYPO3_REQUEST']->getAttribute('site')->getDefaultLanguage();
++$GLOBALS['TYPO3_REQUEST']->getAttribute('language') ?? $GLOBALS['TYPO3_REQUEST']->getAttribute('site')->getDefaultLanguage();
 ```
 
 <br>
