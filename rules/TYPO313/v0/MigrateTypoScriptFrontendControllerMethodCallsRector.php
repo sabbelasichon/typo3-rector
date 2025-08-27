@@ -6,6 +6,7 @@ namespace Ssch\TYPO3Rector\TYPO313\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\ArrayDimFetch;
+use PhpParser\Node\Expr\BinaryOp\Coalesce;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;
@@ -32,10 +33,6 @@ final class MigrateTypoScriptFrontendControllerMethodCallsRector extends Abstrac
         'getRequestedId' => [
             'attribute' => 'routing',
             'method' => 'getPageId',
-        ],
-        'getLanguage' => [
-            'attribute' => 'site',
-            'method' => 'getDefaultLanguage',
         ],
         'getSite' => [
             'attribute' => 'site',
@@ -73,7 +70,7 @@ $GLOBALS['TSFE']->getLanguage();
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-$GLOBALS['TYPO3_REQUEST']->getAttribute('site')->getDefaultLanguage();
+$GLOBALS['TYPO3_REQUEST']->getAttribute('language') ?? $GLOBALS['TYPO3_REQUEST']->getAttribute('site')->getDefaultLanguage();
 CODE_SAMPLE
             ),
             new CodeSample(
@@ -119,14 +116,31 @@ CODE_SAMPLE
             return null;
         }
 
-        // Check if the method is in our migration map
+        $typo3Request = $this->getTYPO3RequestInScope(ScopeFetcher::fetch($node));
+
+        if ($methodName === 'getLanguage') {
+            // Build: $request->getAttribute('language')
+            $languageAttributeCall = $this->nodeFactory->createMethodCall($typo3Request, 'getAttribute', [
+                $this->nodeFactory->createArg('language'),
+            ]);
+
+            // Build: $request->getAttribute('site')
+            $siteAttributeCall = $this->nodeFactory->createMethodCall($typo3Request, 'getAttribute', [
+                $this->nodeFactory->createArg('site'),
+            ]);
+
+            // Build: ->getDefaultLanguage()
+            $defaultLanguageCall = $this->nodeFactory->createMethodCall($siteAttributeCall, 'getDefaultLanguage');
+
+            // Build the final expression with the null coalescing operator: ... ?? ...
+            return new Coalesce($languageAttributeCall, $defaultLanguageCall);
+        }
+
         if (! isset(self::METHOD_CALL_TO_REQUEST_ATTRIBUTE_AND_METHOD[$methodName])) {
             return null;
         }
 
         $config = self::METHOD_CALL_TO_REQUEST_ATTRIBUTE_AND_METHOD[$methodName];
-
-        $typo3Request = $this->getTYPO3RequestInScope(ScopeFetcher::fetch($node));
 
         // Create the ->getAttribute('...') call
         $getAttributeCall = $this->nodeFactory->createMethodCall($typo3Request, 'getAttribute', [

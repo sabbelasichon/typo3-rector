@@ -14,7 +14,7 @@ $pageArguments = $GLOBALS['TSFE']->getPageArguments();
 namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateTypoScriptFrontendControllerMethodCallsRector\Fixture;
 
 $requestedId = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing')->getPageId();
-$language = $GLOBALS['TYPO3_REQUEST']->getAttribute('site')->getDefaultLanguage();
+$language = $GLOBALS['TYPO3_REQUEST']->getAttribute('language') ?? $GLOBALS['TYPO3_REQUEST']->getAttribute('site')->getDefaultLanguage();
 $site = $GLOBALS['TYPO3_REQUEST']->getAttribute('site');
 $pageArguments = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing');
 
