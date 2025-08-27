@@ -43,7 +43,7 @@ class MyClass extends ActionController
     public function myAction(): void
     {
         $requestedId = $this->request->getAttribute('routing')->getPageId();
-        $language = $this->request->getAttribute('site')->getDefaultLanguage();
+        $language = $this->request->getAttribute('language') ?? $this->request->getAttribute('site')->getDefaultLanguage();
         $site = $this->request->getAttribute('site');
         $pageArguments = $this->request->getAttribute('routing');
     }
@@ -51,7 +51,7 @@ class MyClass extends ActionController
     public function myActionWithTypoScriptFrontendController(): void
     {
         $requestedId = $this->request->getAttribute('routing')->getPageId();
-        $language = $this->request->getAttribute('site')->getDefaultLanguage();
+        $language = $this->request->getAttribute('language') ?? $this->request->getAttribute('site')->getDefaultLanguage();
         $site = $this->request->getAttribute('site');
         $pageArguments = $this->request->getAttribute('routing');
     }
