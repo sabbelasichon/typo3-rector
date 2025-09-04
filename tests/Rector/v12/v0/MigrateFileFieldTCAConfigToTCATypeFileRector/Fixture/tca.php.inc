@@ -54,7 +54,8 @@ return [
             'exclude' => false,
             'label' => 'Label',
             'config' => [
-                // TODO: Important! Verify that fieldName in foreign table matches columnName (see https://docs.typo3.org/permalink/t3tca:confval-inline-foreign-match-fields)
+                // TODO: Important! Verify that the fieldname value in foreign table either matches the column name
+                // or is set properly in the following TCA, see https://docs.typo3.org/permalink/t3tca:confval-inline-foreign-match-fields
                 'type' => 'file',
                 'allowed' => $GLOBALS['TYPO3_CONF_VARS']['GFX']['imagefile_ext'],
                 'maxitems' => 1,
