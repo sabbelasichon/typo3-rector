@@ -90,6 +90,10 @@ CODE_SAMPLE
 
         $scope = ScopeFetcher::fetch($node);
 
+        if (! isset(self::PROPERTY_TO_METHOD_MAP[$this->getName($node->name)])) {
+            return null;
+        }
+
         return $this->nodeFactory->createMethodCall(
             $this->createTYPO3RequestGetAttributeMethodCall($scope),
             self::PROPERTY_TO_METHOD_MAP[$this->getName($node->name)]

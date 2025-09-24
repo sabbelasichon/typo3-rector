@@ -24,7 +24,13 @@ use TYPO3\CMS\Extbase\Annotation\Validate;
 
 class MyClass
 {
-    #[Validate(['validator' => 'RegularExpression', 'options' => ['regularExpression' => '/^simple[0-9]expression$/', 'message' => 'Error message or LLL schema string']])]
+    #[Validate([
+        'validator' => 'RegularExpression',
+        'options' => [
+            'regularExpression' => '/^simple[0-9]expression$/',
+            'message' => 'Error message or LLL schema string',
+        ],
+    ])]
     protected string $myProperty = '';
 }
 
