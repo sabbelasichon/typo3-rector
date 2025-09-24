@@ -114,8 +114,12 @@ CODE_SAMPLE
         $fileFieldTCAConfigArray = new Array_();
         $fileFieldTCAConfigArray->items[] = new ArrayItem(new String_('file'), new String_('type'), false, [
             AttributeKey::COMMENTS => [
-                new Comment('// TODO: Important! Verify that the fieldname value in foreign table either matches the column name'),
-                new Comment('// or is set properly in the following TCA, see https://docs.typo3.org/permalink/t3tca:confval-inline-foreign-match-fields'),
+                new Comment(
+                    '// TODO: Important! Verify that the fieldname value in foreign table either matches the column name'
+                ),
+                new Comment(
+                    '// or is set properly in the following TCA, see https://docs.typo3.org/permalink/t3tca:confval-inline-foreign-match-fields'
+                ),
             ],
         ]);
 

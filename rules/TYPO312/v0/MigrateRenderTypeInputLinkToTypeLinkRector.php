@@ -174,11 +174,7 @@ CODE_SAMPLE
                 if (trim($blindLinkOptionsValue) !== '') {
                     $allowedTypes = array_values(array_diff(
                         $this->allowedTypes,
-                        ArrayUtility::trimExplode(
-                            ',',
-                            str_replace('mail', 'email', (string) $blindLinkOptionsValue),
-                            true
-                        )
+                        ArrayUtility::trimExplode(',', str_replace('mail', 'email', $blindLinkOptionsValue), true)
                     ));
 
                     $items = $this->nodeFactory->createArray($allowedTypes);
