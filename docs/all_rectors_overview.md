@@ -1,4 +1,4 @@
-# 195 Rules Overview
+# 196 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (58)
 
-- [TYPO313](#typo313) (45)
+- [TYPO313](#typo313) (46)
 
 - [TYPO314](#typo314) (6)
 
@@ -4194,6 +4194,27 @@ Substitute itemFormElID key with custom generator
 -$attributeId = htmlspecialchars($this->data['parameterArray']['itemFormElID']);
 +$attributeId = htmlspecialchars(StringUtility::getUniqueId(self::class . '-'));
  $html[] = '<input id="' . $attributeId . '">';
+```
+
+<br>
+
+### TcaDefaultsRector
+
+Add a default value to TCA fields if missing
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v4\TcaDefaultsRector`](../rules/TYPO313/v4/TcaDefaultsRector.php)
+
+```diff
+ return [
+     'columns' => [
+         'nullable_column' => [
+             'config' => [
+                 'type' => 'input',
++                'default' => '',
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br>
