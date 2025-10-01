@@ -8,6 +8,14 @@ use TYPO3\CMS\Extbase\Annotation\Validate;
 class MyClass
 {
     /**
+     * name
+     *
+     * @var string
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     */
+    protected $name = '';
+
+    /**
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy()
      * @TYPO3\CMS\Extbase\Annotation\ORM\Transient()
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
@@ -56,6 +64,14 @@ use TYPO3\CMS\Extbase\Annotation\Validate;
 
 class MyClass
 {
+    /**
+     * name
+     *
+     * @var string
+     */
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected $name = '';
+
     #[Lazy]
     #[Transient]
     #[Validate(['validator' => 'NotEmpty'])]

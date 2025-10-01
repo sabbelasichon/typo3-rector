@@ -5,11 +5,10 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ExtbaseAnnotationToAttribut
 class MyClass
 {
     /**
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy()
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Transient()
+     * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected string $property = '';
+    protected $name = '';
 
     /**
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
@@ -25,11 +24,6 @@ class MyClass
      * @TYPO3\CMS\Extbase\Annotation\Validate("TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator")
      */
     protected $propertyWithValidateAnnotations;
-
-    /**
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $name = '';
 
     /**
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation("param")
@@ -50,10 +44,11 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ExtbaseAnnotationToAttribut
 
 class MyClass
 {
-    #[\TYPO3\CMS\Extbase\Annotation\ORM\Lazy]
-    #[\TYPO3\CMS\Extbase\Annotation\ORM\Transient]
+    /**
+     * @var string
+     */
     #[\TYPO3\CMS\Extbase\Annotation\Validate(['validator' => 'NotEmpty'])]
-    protected string $property = '';
+    protected $name = '';
 
     #[\TYPO3\CMS\Extbase\Annotation\ORM\Cascade(['value' => 'remove'])]
     protected $cascade;
@@ -65,9 +60,6 @@ class MyClass
     #[\TYPO3\CMS\Extbase\Annotation\Validate(['validator' => \TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator::class])]
     #[\TYPO3\CMS\Extbase\Annotation\Validate(['validator' => \TYPO3\CMS\Extbase\Validation\Validator\NotEmptyValidator::class])]
     protected $propertyWithValidateAnnotations;
-
-    #[\TYPO3\CMS\Extbase\Annotation\Validate(['validator' => 'NotEmpty'])]
-    protected $name = '';
 
     #[\TYPO3\CMS\Extbase\Annotation\IgnoreValidation(['argumentName' => 'param'])]
     public function method($param) {}
