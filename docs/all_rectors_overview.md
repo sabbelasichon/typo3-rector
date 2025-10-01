@@ -1,4 +1,4 @@
-# 196 Rules Overview
+# 197 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (6)
+- [TYPO314](#typo314) (7)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4371,6 +4371,19 @@ Extend Extbase Validators from AbstractValidator
 +class MyValidator extends AbstractValidator
  {
  }
+```
+
+<br>
+
+### MigrateEnvironmentGetComposerRootPathRector
+
+Migrate `Environment::getComposerRootPath()` to `Environment::getProjectPath()`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateEnvironmentGetComposerRootPathRector`](../rules/TYPO314/v0/MigrateEnvironmentGetComposerRootPathRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Core\Environment::getComposerRootPath();
++\TYPO3\CMS\Core\Core\Environment::getProjectPath();
 ```
 
 <br>
