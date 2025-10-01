@@ -16,7 +16,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->autotagInterface(AttributeDecoratorInterface::class);
     $rectorConfig->singleton(CascadeAttributeDecorator::class);
     $rectorConfig->singleton(IgnoreValidationAttributeDecorator::class);
-
     $rectorConfig->singleton(ValidateAttributeDecorator::class);
     $rectorConfig->when(AttributeDecorator::class)->needs('$decorators')->giveTagged(
         AttributeDecoratorInterface::class
