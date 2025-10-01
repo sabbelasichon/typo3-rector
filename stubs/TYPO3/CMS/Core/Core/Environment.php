@@ -25,6 +25,14 @@ class Environment
     }
 
     /**
+     * @return string
+     */
+    public static function getComposerRootPath()
+    {
+        return '';
+    }
+
+    /**
      * @return bool
      */
     public static function isRunningOnCgiServer()
