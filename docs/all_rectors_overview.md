@@ -1,4 +1,4 @@
-# 197 Rules Overview
+# 198 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (7)
+- [TYPO314](#typo314) (8)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4471,6 +4471,19 @@ Remove `$TCA[$mytable]['interface']['maxDBListItems']`, and 'maxSingleDBListItem
 -        'maxSingleDBListItems' => 'foo',
 -    ],
  ];
+```
+
+<br>
+
+### RemoveParameterInAuthenticationServiceRector
+
+Remove second argument `$passwordTransmissionStrategy` from `AuthenticationService->processLoginData()`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveParameterInAuthenticationServiceRector`](../rules/TYPO314/v0/RemoveParameterInAuthenticationServiceRector.php)
+
+```diff
+-AuthenticationService->processLoginData($processedLoginData, 'normal');
++AuthenticationService->processLoginData($processedLoginData);
 ```
 
 <br>
