@@ -1,4 +1,4 @@
-# 198 Rules Overview
+# 199 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (8)
+- [TYPO314](#typo314) (9)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4390,7 +4390,7 @@ Migrate `Environment::getComposerRootPath()` to `Environment::getProjectPath()`
 
 ### MigrateObsoleteCharsetInSanitizeFileNameRector
 
-Removes the second charset parameter from sanitizeFileName method in DriverInterface implementations
+Remove the second charset parameter from sanitizeFileName method in DriverInterface implementations
 
 - class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector`](../rules/TYPO314/v0/MigrateObsoleteCharsetInSanitizeFileNameRector.php)
 
@@ -4430,6 +4430,31 @@ Remove eval year flag
              'config' => [
 -                'eval' => 'trim,year',
 +                'eval' => 'trim',
+             ],
+         ],
+     ],
+ ];
+```
+
+<br>
+
+### RemoveFieldSearchConfigOptionsRector
+
+Remove TCA search field configuration options
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveFieldSearchConfigOptionsRector`](../rules/TYPO314/v0/RemoveFieldSearchConfigOptionsRector.php)
+
+```diff
+ return [
+     'columns' => [
+         'my_field' => [
+             'config' => [
+                 'type' => 'input',
+-                'search' => [
+-                    'case' => true,
+-                    'pidonly' => true,
+-                    'andWhere' => '{#CType}=\'text\'',
+-                ],
              ],
          ],
      ],

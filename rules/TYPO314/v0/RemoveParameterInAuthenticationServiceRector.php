@@ -23,16 +23,17 @@ final class RemoveParameterInAuthenticationServiceRector extends AbstractRector 
         return new RuleDefinition(
             'Remove second argument `$passwordTransmissionStrategy` from `AuthenticationService->processLoginData()`',
             [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 AuthenticationService->processLoginData($processedLoginData, 'normal');
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 AuthenticationService->processLoginData($processedLoginData);
 CODE_SAMPLE
-            ),
-        ]);
+                ),
+            ]
+        );
     }
 
     /**

@@ -22,7 +22,7 @@ final class MigrateObsoleteCharsetInSanitizeFileNameRector extends AbstractRecto
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Removes the second charset parameter from sanitizeFileName method in DriverInterface implementations',
+            'Remove the second charset parameter from sanitizeFileName method in DriverInterface implementations',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'

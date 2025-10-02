@@ -81,7 +81,5 @@ CODE_SAMPLE
         }
 
         $this->removeArrayItemFromArrayByKey($appearanceArray, 'showRemovedLocalizationRecords');
-
-        $this->hasAstBeenChanged = true;
     }
 }
