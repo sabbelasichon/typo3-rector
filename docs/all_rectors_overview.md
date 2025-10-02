@@ -1,4 +1,4 @@
-# 199 Rules Overview
+# 200 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (9)
+- [TYPO314](#typo314) (10)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4384,6 +4384,32 @@ Migrate `Environment::getComposerRootPath()` to `Environment::getProjectPath()`
 ```diff
 -\TYPO3\CMS\Core\Core\Environment::getComposerRootPath();
 +\TYPO3\CMS\Core\Core\Environment::getProjectPath();
+```
+
+<br>
+
+### MigrateIpAnonymizationTaskRector
+
+Migrates the IpAnonymizationTask configuration from `$GLOBALS['TYPO3_CONF_VARS']` to `$GLOBALS['TCA'].`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector`](../rules/TYPO314/v0/MigrateIpAnonymizationTaskRector.php)
+
+```diff
+-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\IpAnonymizationTask::class]['options']['tables'] = [
+-    'my_table' => [
+-        'dateField' => 'tstamp',
+-        'ipField' => 'private_ip',
+-    ],
+-];
++// Added under Configuration/TCA/Overrides/tx_scheduler_task.php
++if (isset($GLOBALS['TCA']['tx_scheduler_task'])) {
++    $GLOBALS['TCA']['tx_scheduler_task']['types'][\TYPO3\CMS\Scheduler\Task\IpAnonymizationTask::class]['taskOptions']['tables'] = [
++        'my_table' => [
++            'dateField' => 'tstamp',
++            'ipField' => 'private_ip',
++        ],
++    ];
++}
 ```
 
 <br>

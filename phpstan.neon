@@ -25,6 +25,7 @@ parameters:
 
     excludePaths:
         - "*/Expected/*"
+        - 'src/PhpParser/Printer/PrettyTypo3Printer.php'
         - '*tests/*/Fixture/*'
         - '*tests/*/Assertions/*'
         - '*tests/*/Source/*'

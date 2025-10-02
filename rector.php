@@ -37,6 +37,7 @@ return RectorConfig::configure()
             __DIR__ . '/tests/Rector/v13/v4/MigratePluginContentElementAndPluginSubtypesRector/Assertions/extension2/Classes/Updates/TYPO3RectorCTypeMigration.php', // Don't remove PHP8 Attribute
         ],
         // tests
+        '*/Assertions/*',
         '*/Fixture/*',
         '*/Fixture*',
         '*/Source/*',

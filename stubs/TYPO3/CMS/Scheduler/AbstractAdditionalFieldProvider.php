@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace TYPO3\CMS\Scheduler;
 
 if (class_exists('TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider')) {
@@ -10,5 +8,4 @@ if (class_exists('TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider')) {
 
 abstract class AbstractAdditionalFieldProvider
 {
-
 }
