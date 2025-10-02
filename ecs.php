@@ -31,10 +31,8 @@ return static function (ECSConfig $ecsConfig): void {
     $ecsConfig->skip([
         // on php 8.1, it adds space on &$variable
         __DIR__ . '/utils/generator/templates/rules',
-        __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions/beuser/Configuration/Backend/Modules.php',
-        __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions/extbase/Configuration/Backend/Modules.php',
-        __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions/extension_empty_access/Configuration/Backend/Modules.php',
-        __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions/install/Configuration/Backend/Modules.php',
+        __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions',
+        __DIR__ . '/tests/Rector/v14/v0/MigrateIpAnonymizationTaskRector/Assertions',
         AssignmentInConditionSniff::class,
         DeclareStrictTypesFixer::class => ['*/Fixture/*', '*/Assertions/*'],
         LineLengthFixer::class => [
