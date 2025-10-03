@@ -1,4 +1,4 @@
-# 215 Rules Overview
+# 216 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (23)
+- [TYPO314](#typo314) (24)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4845,6 +4845,19 @@ Remove TCA control option searchFields
          ],
      ],
  ];
+```
+
+<br>
+
+### ReplaceLocalizationParsersWithLoaders
+
+Replace localization parsers with loaders
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\ReplaceLocalizationParsersWithLoaders`](../rules/TYPO314/v0/ReplaceLocalizationParsersWithLoaders.php)
+
+```diff
+-$GLOBALS['TYPO3_CONF_VARS']['SYS']['lang']['parser']['xlf'] = \TYPO3\CMS\Core\Localization\Parser\XliffParser::class;
++$GLOBALS['TYPO3_CONF_VARS']['LANG']['loader']['xlf'] = \TYPO3\CMS\Core\Localization\Loader\XliffLoader::class;
 ```
 
 <br>

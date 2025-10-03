@@ -29,25 +29,11 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateUsageOfArrayInPasswordForAuthenticationIn
 use Ssch\TYPO3Rector\TYPO314\v0\MoveSchedulerFrequencyOptionsToTCARector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveParameterInAuthenticationServiceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveRandomSubpageOptionRector;
+use Ssch\TYPO3Rector\TYPO314\v0\ReplaceLocalizationParsersWithLoaders;
 use Ssch\TYPO3Rector\TYPO314\v0\UseRecordApiInListModuleRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
-    $rectorConfig->rule(ChangeLocalizationSystemArchitectureRector::class);
-    $rectorConfig->rule(DropFifthParameterForExtensionUtilityConfigurePluginRector::class);
-    $rectorConfig->rule(ExtendExtbaseValidatorsFromAbstractValidatorRector::class);
-    $rectorConfig->rule(MigrateAdminPanelDataProviderInterfaceRector::class);
-    $rectorConfig->rule(MigrateBooleanSortDirectionInFileListRector::class);
-    $rectorConfig->rule(MigrateDataHandlerPropertiesUserIdAndAdminRector::class);
-    $rectorConfig->rule(MigrateEnvironmentGetComposerRootPathRector::class);
-    $rectorConfig->rule(MigrateIpAnonymizationTaskRector::class);
-    $rectorConfig->rule(MigrateObsoleteCharsetInSanitizeFileNameRector::class);
-    $rectorConfig->rule(MigratePaletteLabelsRector::class);
-    $rectorConfig->rule(MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector::class);
-    $rectorConfig->rule(MigrateTcaTabLabelsRector::class);
-    $rectorConfig->rule(MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector::class);
-    $rectorConfig->rule(MoveSchedulerFrequencyOptionsToTCARector::class);
-    $rectorConfig->rule(RemoveParameterInAuthenticationServiceRector::class);
     $rectorConfig->ruleWithConfiguration(
         AddReturnTypeDeclarationRector::class,
         [
@@ -114,6 +100,22 @@ return static function (RectorConfig $rectorConfig): void {
             ),
         ]
     );
+    $rectorConfig->rule(ChangeLocalizationSystemArchitectureRector::class);
+    $rectorConfig->rule(DropFifthParameterForExtensionUtilityConfigurePluginRector::class);
+    $rectorConfig->rule(ExtendExtbaseValidatorsFromAbstractValidatorRector::class);
+    $rectorConfig->rule(MigrateAdminPanelDataProviderInterfaceRector::class);
+    $rectorConfig->rule(MigrateBooleanSortDirectionInFileListRector::class);
+    $rectorConfig->rule(MigrateDataHandlerPropertiesUserIdAndAdminRector::class);
+    $rectorConfig->rule(MigrateEnvironmentGetComposerRootPathRector::class);
+    $rectorConfig->rule(MigrateIpAnonymizationTaskRector::class);
+    $rectorConfig->rule(MigrateObsoleteCharsetInSanitizeFileNameRector::class);
+    $rectorConfig->rule(MigratePaletteLabelsRector::class);
+    $rectorConfig->rule(MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector::class);
+    $rectorConfig->rule(MigrateTcaTabLabelsRector::class);
+    $rectorConfig->rule(MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector::class);
+    $rectorConfig->rule(MoveSchedulerFrequencyOptionsToTCARector::class);
+    $rectorConfig->rule(RemoveParameterInAuthenticationServiceRector::class);
     $rectorConfig->rule(RemoveRandomSubpageOptionRector::class);
+    $rectorConfig->rule(ReplaceLocalizationParsersWithLoaders::class);
     $rectorConfig->rule(UseRecordApiInListModuleRector::class);
 };
