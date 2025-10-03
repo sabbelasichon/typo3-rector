@@ -14,6 +14,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateEnvironmentGetComposerRootPathRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveParameterInAuthenticationServiceRector;
+use Ssch\TYPO3Rector\TYPO314\v0\ReplaceLocalizationParsersWitHLoaders;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -23,6 +24,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateIpAnonymizationTaskRector::class);
     $rectorConfig->rule(MigrateObsoleteCharsetInSanitizeFileNameRector::class);
     $rectorConfig->rule(RemoveParameterInAuthenticationServiceRector::class);
+    $rectorConfig->rule(ReplaceLocalizationParsersWitHLoaders::class);
     $rectorConfig->ruleWithConfiguration(
         AddReturnTypeDeclarationRector::class,
         [
