@@ -193,7 +193,8 @@ CODE_SAMPLE
             && $this->isName($classIdentifier->class, self::IP_ANONYMIZATION_TASK)
             && $this->isName($classIdentifier->name, 'class');
 
-        $isString = $classIdentifier instanceof String_ && $this->valueResolver->isValue($classIdentifier, self::IP_ANONYMIZATION_TASK);
+        $isString = $classIdentifier instanceof String_
+            && $this->valueResolver->isValue($classIdentifier, self::IP_ANONYMIZATION_TASK);
 
         if (! $isClassConst && ! $isString) {
             return true;

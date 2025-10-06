@@ -1,4 +1,4 @@
-# 200 Rules Overview
+# 201 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (10)
+- [TYPO314](#typo314) (11)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4371,6 +4371,19 @@ Extend Extbase Validators from AbstractValidator
 +class MyValidator extends AbstractValidator
  {
  }
+```
+
+<br>
+
+### MigrateAdminPanelDataProviderInterfaceRector
+
+Migrate Adminpanel DataProviderInterface
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateAdminPanelDataProviderInterfaceRector`](../rules/TYPO314/v0/MigrateAdminPanelDataProviderInterfaceRector.php)
+
+```diff
+-public function getDataToStore(\Psr\Http\Message\ServerRequestInterface $request): ModuleData;
++public function getDataToStore(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response): ModuleData;
 ```
 
 <br>
