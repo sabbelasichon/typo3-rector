@@ -155,6 +155,25 @@ final class MyRector extends AbstractRector implements DocumentedRuleInterface, 
 }
 ```
 
+## Check if class implements an interface
+
+To check if a class implements an interface,
+first the scope needs to be fetched and then checked by using class reflection.
+
+```php
+private function implementsInterface(ClassMethod|Class_ $node): bool
+{
+    $scope = ScopeFetcher::fetch($node);
+
+    $classReflection = $scope->getClassReflection();
+    if (! $classReflection instanceof ClassReflection) {
+        return false;
+    }
+
+    return $classReflection->implementsInterface('Vendor\YourInterface');
+}
+```
+
 ## All Tests must be green
 
 Make sure you have a test in place for your Rector

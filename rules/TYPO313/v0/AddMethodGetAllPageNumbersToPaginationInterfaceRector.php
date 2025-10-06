@@ -84,13 +84,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        $scope = ScopeFetcher::fetch($node);
-        $classReflection = $scope->getClassReflection();
-        if (! $classReflection instanceof ClassReflection) {
-            return null;
-        }
-
-        if (! $classReflection->implementsInterface('TYPO3\\CMS\\Core\\Pagination\\PaginationInterface')) {
+        if (! $this->implementsPaginationInterface($node)) {
             return null;
         }
 
@@ -118,5 +112,17 @@ CODE_SAMPLE
         $node->stmts[] = $getAllPageNumbersMethod;
 
         return $node;
+    }
+
+    private function implementsPaginationInterface(Class_ $node): bool
+    {
+        $scope = ScopeFetcher::fetch($node);
+
+        $classReflection = $scope->getClassReflection();
+        if (! $classReflection instanceof ClassReflection) {
+            return false;
+        }
+
+        return $classReflection->implementsInterface('TYPO3\CMS\Core\Pagination\PaginationInterface');
     }
 }
