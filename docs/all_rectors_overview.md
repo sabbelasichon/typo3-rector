@@ -1,4 +1,4 @@
-# 201 Rules Overview
+# 202 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (11)
+- [TYPO314](#typo314) (12)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4384,6 +4384,21 @@ Migrate Adminpanel DataProviderInterface
 ```diff
 -public function getDataToStore(\Psr\Http\Message\ServerRequestInterface $request): ModuleData;
 +public function getDataToStore(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response): ModuleData;
+```
+
+<br>
+
+### MigrateBooleanSortDirectionInFileListRector
+
+Migrate boolean sort direction in `\TYPO3\CMS\Filelist\FileList->start()`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateBooleanSortDirectionInFileListRector`](../rules/TYPO314/v0/MigrateBooleanSortDirectionInFileListRector.php)
+
+```diff
+-$fileList->start($folder, $currentPage, $sortField, false, $mode);
+-$fileList->start($folder, $currentPage, $sortField, true, $mode);
++$fileList->start($folder, $currentPage, $sortField, \TYPO3\CMS\Filelist\Type\SortDirection::ASCENDING, $mode);
++$fileList->start($folder, $currentPage, $sortField, \TYPO3\CMS\Filelist\Type\SortDirection::DESCENDING, $mode);
 ```
 
 <br>
