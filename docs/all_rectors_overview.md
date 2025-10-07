@@ -1,4 +1,4 @@
-# 202 Rules Overview
+# 203 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (12)
+- [TYPO314](#typo314) (13)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4563,6 +4563,44 @@ Remove second argument `$passwordTransmissionStrategy` from `AuthenticationServi
 ```diff
 -AuthenticationService->processLoginData($processedLoginData, 'normal');
 +AuthenticationService->processLoginData($processedLoginData);
+```
+
+<br>
+
+### UseRecordApiInListModuleRector
+
+Use Record API in List Module
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\UseRecordApiInListModuleRector`](../rules/TYPO314/v0/UseRecordApiInListModuleRector.php)
+
+```diff
+-$this->renderListRow($table, $rowArray, $indent, $translations, $enabled);
+-$this->makeControl($table, $row);
+-$this->makeCheckbox($table, $row);
+-$this->languageFlag($table, $row);
+-$this->makeLocalizationPanel($table, $row);
+-$this->linkWrapItems($table, 2, 'code', $row);
+-$this->getPreviewUriBuilder($table, $row);
+-$this->isRecordDeletePlaceholder($row);
+-$this->isRowListingConditionFulfilled($table, $row);
++$record = $this->recordFactory->createResolvedRecordFromDatabaseRow($table, $rowArray);
++$this->renderListRow($table, $record, $indent, $translations, $enabled);
++$record = $this->recordFactory->createResolvedRecordFromDatabaseRow($table, $row);
++$this->makeControl($table, $record);
++$record = $this->recordFactory->createResolvedRecordFromDatabaseRow($table, $row);
++$this->makeCheckbox($table, $record);
++$record = $this->recordFactory->createResolvedRecordFromDatabaseRow($table, $row);
++$this->languageFlag($table, $record);
++$record = $this->recordFactory->createResolvedRecordFromDatabaseRow($table, $row);
++$this->makeLocalizationPanel($table, $record);
++$record = $this->recordFactory->createResolvedRecordFromDatabaseRow($table, $row);
++$this->linkWrapItems($table, 2, 'code', $record);
++$record = $this->recordFactory->createResolvedRecordFromDatabaseRow($table, $row);
++$this->getPreviewUriBuilder($table, $record);
++$record = $this->recordFactory->createResolvedRecordFromDatabaseRow($table, $row);
++$this->isRecordDeletePlaceholder($record);
++$record = $this->recordFactory->createResolvedRecordFromDatabaseRow($table, $row);
++$this->isRowListingConditionFulfilled($record);
 ```
 
 <br>
