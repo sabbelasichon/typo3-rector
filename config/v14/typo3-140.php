@@ -18,6 +18,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateBooleanSortDirectionInFileListRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateEnvironmentGetComposerRootPathRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector;
+use Ssch\TYPO3Rector\TYPO314\v0\MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveParameterInAuthenticationServiceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveRandomSubpageOptionRector;
 use Ssch\TYPO3Rector\TYPO314\v0\UseRecordApiInListModuleRector;
@@ -31,6 +32,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateEnvironmentGetComposerRootPathRector::class);
     $rectorConfig->rule(MigrateIpAnonymizationTaskRector::class);
     $rectorConfig->rule(MigrateObsoleteCharsetInSanitizeFileNameRector::class);
+    $rectorConfig->rule(MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector::class);
     $rectorConfig->rule(RemoveParameterInAuthenticationServiceRector::class);
     $rectorConfig->ruleWithConfiguration(
         AddReturnTypeDeclarationRector::class,
