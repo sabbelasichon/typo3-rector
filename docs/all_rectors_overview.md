@@ -1,4 +1,4 @@
-# 205 Rules Overview
+# 206 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (15)
+- [TYPO314](#typo314) (16)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4493,6 +4493,23 @@ Migrate Table Garbage Collection Task configuration via `$GLOBALS`
 +        ],
 +    ];
 +}
+```
+
+<br>
+
+### MoveSchedulerFrequencyOptionsToTCARector
+
+Move Scheduler frequency options to TCA
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MoveSchedulerFrequencyOptionsToTCARector`](../rules/TYPO314/v0/MoveSchedulerFrequencyOptionsToTCARector.php)
+
+```diff
+-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['frequencyOptions']['0 2 * * *'] = 'LLL:EXT:my_extension/Resources/Private/Language/locallang.xlf:daily_2am';
++// Added under Configuration/TCA/Overrides/tx_scheduler_task.php
++$GLOBALS['TCA']['tx_scheduler_task']['columns']['execution_details']['config']['overrideFieldTca']['frequency']['config']['valuePicker']['items'][] = [
++    'value' => '0 2 * * *',
++    'label' => 'LLL:EXT:my_extension/Resources/Private/Language/locallang.xlf:daily_2am',
++];
 ```
 
 <br>
