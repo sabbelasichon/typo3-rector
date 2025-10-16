@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateAddUserTSConfigToUserTsConfigFileRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector\Fixture;
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask']['options']['tables'] = [
     'my_table' => [
@@ -12,6 +12,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['TYPO3\CMS\Sched
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateAddUserTSConfigToUserTsConfigFileRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector\Fixture;
 
 ?>
