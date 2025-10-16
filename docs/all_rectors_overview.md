@@ -1,4 +1,4 @@
-# 204 Rules Overview
+# 205 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (14)
+- [TYPO314](#typo314) (15)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4467,6 +4467,32 @@ Remove the second charset parameter from sanitizeFileName method in DriverInterf
 +        $sanitizedName = $driver->sanitizeFileName('example.txt');
      }
  }
+```
+
+<br>
+
+### MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector
+
+Migrate Table Garbage Collection Task configuration via `$GLOBALS`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector`](../rules/TYPO314/v0/MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector.php)
+
+```diff
+-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables'] = [
+-    'my_table' => [
+-        'dateField' => 'tstamp',
+-        'expirePeriod' => 90,
+-    ],
+-];
++// Added under Configuration/TCA/Overrides/tx_scheduler_task.php
++if (isset($GLOBALS['TCA']['tx_scheduler_task'])) {
++    $GLOBALS['TCA']['tx_scheduler_task']['types'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['taskOptions']['tables'] = [
++        'my_table' => [
++            'dateField' => 'tstamp',
++            'expirePeriod' => 90,
++        ],
++    ];
++}
 ```
 
 <br>

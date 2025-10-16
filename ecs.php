@@ -33,6 +33,7 @@ return static function (ECSConfig $ecsConfig): void {
         __DIR__ . '/utils/generator/templates/rules',
         __DIR__ . '/tests/Rector/v12/v0/MigrateBackendModuleRegistrationRector/Assertions',
         __DIR__ . '/tests/Rector/v14/v0/MigrateIpAnonymizationTaskRector/Assertions',
+        __DIR__ . '/tests/Rector/v14/v0/MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector/Assertions',
         AssignmentInConditionSniff::class,
         DeclareStrictTypesFixer::class => ['*/Fixture/*', '*/Assertions/*'],
         LineLengthFixer::class => [

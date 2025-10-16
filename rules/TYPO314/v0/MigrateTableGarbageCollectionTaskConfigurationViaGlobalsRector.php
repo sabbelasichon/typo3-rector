@@ -27,17 +27,17 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107562-IpAnonymizationTaskConfigurationViaGlobals.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v14\v0\MigrateIpAnonymizationTaskRector\MigrateIpAnonymizationTaskRectorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107550-TableGarbageCollectionTaskConfigurationViaGlobals.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v14\v0\MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector\MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRectorTest
  */
-final class MigrateIpAnonymizationTaskRector extends AbstractRector implements DocumentedRuleInterface
+final class MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector extends AbstractRector implements DocumentedRuleInterface
 {
     use ExtensionKeyResolverTrait;
 
     /**
      * @var string
      */
-    private const IP_ANONYMIZATION_TASK = 'TYPO3\CMS\Scheduler\Task\IpAnonymizationTask';
+    private const TABLE_GARBAGE_COLLECTION_TASK = 'TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask';
 
     /**
      * @readonly
@@ -75,31 +75,28 @@ final class MigrateIpAnonymizationTaskRector extends AbstractRector implements D
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition(
-            'Migrates the IpAnonymizationTask configuration from $GLOBALS[\'TYPO3_CONF_VARS\'] to $GLOBALS[\'TCA\'].',
-            [new CodeSample(
-                <<<'CODE_SAMPLE'
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\IpAnonymizationTask::class]['options']['tables'] = [
+        return new RuleDefinition('Migrate Table Garbage Collection Task configuration via $GLOBALS', [new CodeSample(
+            <<<'CODE_SAMPLE'
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['options']['tables'] = [
     'my_table' => [
         'dateField' => 'tstamp',
-        'ipField' => 'private_ip',
+        'expirePeriod' => 90,
     ],
 ];
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+            ,
+            <<<'CODE_SAMPLE'
 // Added under Configuration/TCA/Overrides/tx_scheduler_task.php
 if (isset($GLOBALS['TCA']['tx_scheduler_task'])) {
-    $GLOBALS['TCA']['tx_scheduler_task']['types'][\TYPO3\CMS\Scheduler\Task\IpAnonymizationTask::class]['taskOptions']['tables'] = [
+    $GLOBALS['TCA']['tx_scheduler_task']['types'][\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]['taskOptions']['tables'] = [
         'my_table' => [
             'dateField' => 'tstamp',
-            'ipField' => 'private_ip',
+            'expirePeriod' => 90,
         ],
     ];
 }
 CODE_SAMPLE
-            )]
-        );
+        )]);
     }
 
     /**
@@ -113,7 +110,7 @@ CODE_SAMPLE
     /**
      * @param Expression $node
      */
-    public function refactor(Node $node)
+    public function refactor(Node $node): ?int
     {
         if ($this->shouldSkip($node)) {
             return null;
@@ -184,7 +181,7 @@ CODE_SAMPLE
             return true;
         }
 
-        // Check for IpAnonymizationTask::class
+        // Check for TableGarbageCollectionTask::class
         $taskClassDimFetch = $optionsDimFetch->var;
         if (! $taskClassDimFetch instanceof ArrayDimFetch) {
             return true;
@@ -193,11 +190,11 @@ CODE_SAMPLE
         $classIdentifier = $taskClassDimFetch->dim;
 
         $isClassConst = $classIdentifier instanceof ClassConstFetch
-            && $this->isName($classIdentifier->class, self::IP_ANONYMIZATION_TASK)
+            && $this->isName($classIdentifier->class, self::TABLE_GARBAGE_COLLECTION_TASK)
             && $this->isName($classIdentifier->name, 'class');
 
         $isString = $classIdentifier instanceof String_
-            && $this->valueResolver->isValue($classIdentifier, self::IP_ANONYMIZATION_TASK);
+            && $this->valueResolver->isValue($classIdentifier, self::TABLE_GARBAGE_COLLECTION_TASK);
 
         if (! $isClassConst && ! $isString) {
             return true;
@@ -252,7 +249,7 @@ CODE_SAMPLE
         $taskFetch = new ArrayDimFetch($tcaFetch, new String_('tx_scheduler_task'));
         // ['types']
         $typesFetch = new ArrayDimFetch($taskFetch, new String_('types'));
-        // [\TYPO3\CMS\Scheduler\Task\IpAnonymizationTask::class]
+        // [\TYPO3\CMS\Scheduler\Task\TableGarbageCollectionTask::class]
         $classFetch = new ArrayDimFetch($typesFetch, $classConstFetch);
         // ['taskOptions']
         $taskOptionsFetch = new ArrayDimFetch($classFetch, new String_('taskOptions'));
