@@ -6,6 +6,7 @@ use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\UnionType;
 use Rector\Config\RectorConfig;
+use Rector\Renaming\Rector\Name\RenameClassRector;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
@@ -70,6 +71,12 @@ return static function (RectorConfig $rectorConfig): void {
                 'TYPO3\CMS\Core\Type\ContextualFeedbackSeverity',
                 'ERROR'
             ),
+        ]
+    );
+    $rectorConfig->ruleWithConfiguration(
+        RenameClassRector::class,
+        [
+            'TYPO3\CMS\Extbase\Annotation' => 'TYPO3\CMS\Extbase\Attribute',
         ]
     );
     $rectorConfig->rule(UseRecordApiInListModuleRector::class);
