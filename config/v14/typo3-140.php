@@ -19,6 +19,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateEnvironmentGetComposerRootPathRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveParameterInAuthenticationServiceRector;
+use Ssch\TYPO3Rector\TYPO314\v0\RemoveRandomSubpageOptionRector;
 use Ssch\TYPO3Rector\TYPO314\v0\UseRecordApiInListModuleRector;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -79,5 +80,6 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Extbase\Annotation' => 'TYPO3\CMS\Extbase\Attribute',
         ]
     );
+    $rectorConfig->rule(RemoveRandomSubpageOptionRector::class);
     $rectorConfig->rule(UseRecordApiInListModuleRector::class);
 };

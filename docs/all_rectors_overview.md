@@ -1,4 +1,4 @@
-# 203 Rules Overview
+# 204 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (13)
+- [TYPO314](#typo314) (14)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4563,6 +4563,28 @@ Remove second argument `$passwordTransmissionStrategy` from `AuthenticationServi
 ```diff
 -AuthenticationService->processLoginData($processedLoginData, 'normal');
 +AuthenticationService->processLoginData($processedLoginData);
+```
+
+<br>
+
+### RemoveRandomSubpageOptionRector
+
+Remove the constant `TYPO3\CMS\Core\Domain\Repository\PageRepository::SHORTCUT_MODE_RANDOM_SUBPAGE` and its usage in arrays and binary operations (||, &&)
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveRandomSubpageOptionRector`](../rules/TYPO314/v0/RemoveRandomSubpageOptionRector.php)
+
+```diff
+ $excludeDoktypes = [
+-    \TYPO3\CMS\Core\Domain\Repository\PageRepository::SHORTCUT_MODE_RANDOM_SUBPAGE,
+     \TYPO3\CMS\Core\Domain\Repository\PageRepository::DOKTYPE_SYSFOLDER,
+ ];
+```
+
+<br>
+
+```diff
+-$page = $pageRepository->resolveShortcutPage($page, false, true);
++$page = $pageRepository->resolveShortcutPage($page, true);
 ```
 
 <br>

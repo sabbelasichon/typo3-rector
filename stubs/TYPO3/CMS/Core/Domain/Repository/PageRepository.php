@@ -17,10 +17,17 @@ final class PageRepository
     public const DOKTYPE_SYSFOLDER = 254;
     public const DOKTYPE_RECYCLER = 255;
 
+    public const SHORTCUT_MODE_RANDOM_SUBPAGE = 2;
+
     /**
      * @return array
      */
     public function getPage($uid, $disableGroupAccessCheck = false)
+    {
+        return [];
+    }
+
+    public function resolveShortcutPage(array $page, bool $resolveRandomSubpages = false, bool $disableGroupAccessCheck = false): array
     {
         return [];
     }
