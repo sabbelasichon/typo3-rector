@@ -1,4 +1,4 @@
-# 206 Rules Overview
+# 207 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (34)
 
-- [TYPO312](#typo312) (58)
+- [TYPO312](#typo312) (59)
 
 - [TYPO313](#typo313) (46)
 
@@ -2180,6 +2180,29 @@ Migrate eval int and double2 to type number
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateExtensionManagementUtilityAddTcaSelectItemRector
+
+Migrate `ExtensionManagementUtility::addTcaSelectItem()`
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v3\MigrateExtensionManagementUtilityAddTcaSelectItemRector`](../rules/TYPO312/v3/MigrateExtensionManagementUtilityAddTcaSelectItemRector.php)
+
+```diff
+ \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem($table, $field, [
+-    'My Content Element',
+-    'my_content_element',
+-    'my-icon-identifier',
+-    'group1',
+-    'My Description',
++    'label' => 'My Content Element',
++    'value' => 'my_content_element',
++    'icon' => 'my-icon-identifier',
++    'group' => 'group1',
++    'description' => 'My Description',
+ ]);
 ```
 
 <br>
