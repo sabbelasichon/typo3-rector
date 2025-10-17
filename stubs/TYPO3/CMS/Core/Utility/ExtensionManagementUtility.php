@@ -2,6 +2,8 @@
 
 namespace TYPO3\CMS\Core\Utility;
 
+use TYPO3\CMS\Core\Schema\Struct\SelectItem;
+
 if (class_exists('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')) {
     return;
 }
@@ -119,6 +121,10 @@ class ExtensionManagementUtility
     }
 
     public static function addPiFlexFormValue(string $piKeyToMatch, string $value, string $CTypeToMatch = 'list'): void
+    {
+    }
+
+    public static function addTcaSelectItem(string $table, string $field, $item, string $relativeToField = '', string $relativePosition = ''): void
     {
     }
 }
