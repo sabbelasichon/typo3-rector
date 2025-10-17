@@ -11,6 +11,7 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 use Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumRector;
+use Ssch\TYPO3Rector\TYPO314\v0\ChangeLocalizationSystemArchitectureRector;
 use Ssch\TYPO3Rector\TYPO314\v0\DropFifthParameterForExtensionUtilityConfigurePluginRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ExtendExtbaseValidatorsFromAbstractValidatorRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateAdminPanelDataProviderInterfaceRector;
@@ -26,6 +27,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\UseRecordApiInListModuleRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
+    $rectorConfig->rule(ChangeLocalizationSystemArchitectureRector::class);
     $rectorConfig->rule(DropFifthParameterForExtensionUtilityConfigurePluginRector::class);
     $rectorConfig->rule(ExtendExtbaseValidatorsFromAbstractValidatorRector::class);
     $rectorConfig->rule(MigrateAdminPanelDataProviderInterfaceRector::class);

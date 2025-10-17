@@ -1,4 +1,4 @@
-# 207 Rules Overview
+# 208 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (16)
+- [TYPO314](#typo314) (17)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4362,6 +4362,20 @@ Use `\TYPO3\CMS\Core\View\ViewInterface` in Extbase and call `$view->getRenderin
 <br>
 
 ## TYPO314
+
+### ChangeLocalizationSystemArchitectureRector
+
+Localization system architecture changes
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\ChangeLocalizationSystemArchitectureRector`](../rules/TYPO314/v0/ChangeLocalizationSystemArchitectureRector.php)
+
+```diff
+ $localizationFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Localization\LocalizationFactory::class);
+-$data = $localizationFactory->getParsedData($fileReference, $languageKey, null, null, false);
++$data = $localizationFactory->getParsedData($fileReference, $languageKey);
+```
+
+<br>
 
 ### DropFifthParameterForExtensionUtilityConfigurePluginRector
 
