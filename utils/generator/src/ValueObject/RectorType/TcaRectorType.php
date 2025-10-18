@@ -30,7 +30,7 @@ final class TcaRectorType implements Typo3RectorTypeInterface
     protected function refactorColumn(\PhpParser\Node\Expr $columnName, \PhpParser\Node\Expr $columnTca): void
     {
         $configArrayItem = $this->extractArrayItemByKey($columnTca, self::CONFIG);
-        if (! $configArrayItem instanceof \PhpParser\Node\Expr\ArrayItem) {
+        if (! $configArrayItem instanceof \PhpParser\Node\ArrayItem) {
             return;
         }
 
