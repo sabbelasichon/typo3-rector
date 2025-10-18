@@ -1,4 +1,4 @@
-# 208 Rules Overview
+# 209 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (17)
+- [TYPO314](#typo314) (18)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4665,6 +4665,52 @@ Remove the constant `TYPO3\CMS\Core\Domain\Repository\PageRepository::SHORTCUT_M
 ```diff
 -$page = $pageRepository->resolveShortcutPage($page, false, true);
 +$page = $pageRepository->resolveShortcutPage($page, true);
+```
+
+<br>
+
+### RemoveTcaControlOptionSearchFieldsRector
+
+Remove TCA control option searchFields
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveTcaControlOptionSearchFieldsRector`](../rules/TYPO314/v0/RemoveTcaControlOptionSearchFieldsRector.php)
+
+```diff
+ return [
+     'ctrl' => [
+         'title' => 'foobar',
+-        'searchFields' => 'title,description',
+     ],
+     'columns' => [
+         'title' => [
+             'config' => ['type' => 'text'],
+         ],
+         'notes' => [
+-            'config' => ['type' => 'text'],
++            'config' => ['type' => 'text', 'searchable' => false],
+         ],
+         'brand' => [
+-            'config' => ['type' => 'color'],
++            'config' => ['type' => 'color', 'searchable' => false],
+         ],
+         'file' => [
+             'config' => ['type' => 'file'],
+         ],
+         'date' => [
+             'config' => ['type' => 'datetime', 'dbType' => 'date'],
+         ],
+         'date2' => [
+-            'config' => ['type' => 'datetime'],
++            'config' => ['type' => 'datetime', 'searchable' => false],
+         ],
+         'date3' => [
+             'config' => ['type' => 'datetime', 'searchable' => false],
+         ],
+         'date4' => [
+             'config' => ['type' => 'datetime', 'searchable' => true],
+         ],
+     ],
+ ];
 ```
 
 <br>
