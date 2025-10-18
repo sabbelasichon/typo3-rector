@@ -1,4 +1,4 @@
-# 209 Rules Overview
+# 210 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (18)
+- [TYPO314](#typo314) (19)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4504,6 +4504,30 @@ Remove the second charset parameter from sanitizeFileName method in DriverInterf
 +        $sanitizedName = $driver->sanitizeFileName('example.txt');
      }
  }
+```
+
+<br>
+
+### MigrateSingleDataStructureConfigurationRector
+
+Remove pointer field functionality of TCA flex
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateSingleDataStructureConfigurationRector`](../rules/TYPO314/v0/MigrateSingleDataStructureConfigurationRector.php)
+
+```diff
+ return [
+     'columns' => [
+         'dColumn' => [
+             'config' => [
+                 'type' => 'flex',
+-                'ds' => [
+-                    'default' => '<some>flex</some>',
+-                ],
++                'ds' => '<some>flex</some>',
+             ],
+         ],
+     ],
+ ];
 ```
 
 <br>
