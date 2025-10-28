@@ -1,4 +1,4 @@
-# 210 Rules Overview
+# 211 Rules Overview
 
 <br>
 
@@ -8,7 +8,7 @@
 
 - [General](#general) (3)
 
-- [TYPO310](#typo310) (37)
+- [TYPO310](#typo310) (38)
 
 - [TYPO311](#typo311) (34)
 
@@ -469,6 +469,24 @@ Inject EnvironmentService if needed in subclass of Response
 
      }
  }
+```
+
+<br>
+
+### MigrateRecordHistoryPropertiesRector
+
+Migrate protected RecordHistory properties
+
+- class: [`Ssch\TYPO3Rector\TYPO310\v1\MigrateRecordHistoryPropertiesRector`](../rules/TYPO310/v1/MigrateRecordHistoryPropertiesRector.php)
+
+```diff
+ use TYPO3\CMS\Core\History\RecordHistory;
+
+ $recordHistory = new RecordHistory();
+-$changeLog = $recordHistory->changeLog;
+-$lastEntry = $recordHistory->lastHistoryEntry;
++$changeLog = $recordHistory->getChangeLog();
++$lastEntry = $recordHistory->getLastHistoryEntryNumber();
 ```
 
 <br>

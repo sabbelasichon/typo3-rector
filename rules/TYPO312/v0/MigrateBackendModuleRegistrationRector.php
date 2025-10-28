@@ -490,7 +490,7 @@ CODE);
             $path = null;
         }
 
-        if ($path !== null && $path !== '' && $path !== '0') {
+        if (! in_array($path, [null, '', '0'], true)) {
             return '/' . ltrim($path, '/');
         }
 
