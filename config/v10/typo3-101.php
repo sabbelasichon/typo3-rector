@@ -5,9 +5,8 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
-use Rector\Transform\Rector\Assign\PropertyFetchToMethodCallRector;
-use Rector\Transform\ValueObject\PropertyFetchToMethodCall;
 use Ssch\TYPO3Rector\TYPO310\v1\BackendUtilityEditOnClickRector;
+use Ssch\TYPO3Rector\TYPO310\v1\MigrateRecordHistoryPropertiesRector;
 use Ssch\TYPO3Rector\TYPO310\v1\RefactorCHashArrayOfTSFERector;
 use Ssch\TYPO3Rector\TYPO310\v1\RefactorInternalPropertiesOfTSFERector;
 use Ssch\TYPO3Rector\TYPO310\v1\RegisterPluginWithVendorNameRector;
@@ -18,23 +17,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
     $rectorConfig->rule(RegisterPluginWithVendorNameRector::class);
     $rectorConfig->rule(BackendUtilityEditOnClickRector::class);
-    $rectorConfig
-        ->ruleWithConfiguration(PropertyFetchToMethodCallRector::class, [
-            new PropertyFetchToMethodCall(
-                'TYPO3\CMS\Backend\History\RecordHistory',
-                'changeLog',
-                'getChangeLog',
-                'setChangelog',
-                ['bla']
-            ),
-            new PropertyFetchToMethodCall(
-                'TYPO3\CMS\Backend\History\RecordHistory',
-                'lastHistoryEntry',
-                'getLastHistoryEntryNumber',
-                null,
-                []
-            ),
-        ]);
     $rectorConfig
         ->ruleWithConfiguration(RenameMethodRector::class, [
             new MethodCallRename('TYPO3\CMS\Backend\History\RecordHistory', 'createChangeLog', 'getChangeLog'),
@@ -54,4 +36,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RefactorInternalPropertiesOfTSFERector::class);
     $rectorConfig->rule(RemoveEnableMultiSelectFilterTextfieldRector::class);
     $rectorConfig->rule(RefactorCHashArrayOfTSFERector::class);
+    $rectorConfig->rule(MigrateRecordHistoryPropertiesRector::class);
 };
