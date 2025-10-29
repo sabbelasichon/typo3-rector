@@ -6,7 +6,9 @@ use PHPStan\Type\BooleanType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\UnionType;
 use Rector\Config\RectorConfig;
+use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\Rector\Name\RenameClassRector;
+use Rector\Renaming\ValueObject\MethodCallRename;
 use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
@@ -41,13 +43,14 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(
         AddReturnTypeDeclarationRector::class,
         [
+            // See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Breaking-106869-RemoveStaticFunctionParameterInAuthenticationService.html
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Authentication\AuthenticationService', 'processLoginData', new UnionType([new BooleanType(), new IntegerType()])),
         ]
     );
     $rectorConfig->ruleWithConfiguration(
         ConstantsToBackedEnumRector::class,
         [
-            // See https://github.com/sabbelasichon/typo3-rector/issues/4680
+            // See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107648-InfoboxViewHelperStateConstants.html
             new RenameClassAndConstFetch(
                 'TYPO3\CMS\Fluid\ViewHelpers\Be\InfoboxViewHelper',
                 'STATE_NOTICE',
@@ -83,7 +86,24 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(
         RenameClassRector::class,
         [
+            // See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107229-DeprecatePhpAnnotationNamespaceOfExtbaseAttributes.html
             'TYPO3\CMS\Extbase\Annotation' => 'TYPO3\CMS\Extbase\Attribute',
+        ]
+    );
+    $rectorConfig->ruleWithConfiguration(
+        RenameMethodRector::class,
+        [
+            // See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107813-DeprecateMetaInformationAPI.html
+            new MethodCallRename(
+                'TYPO3\CMS\Backend\Template\Components\DocHeaderComponent',
+                'setMetaInformation',
+                'setPageBreadcrumb'
+            ),
+            new MethodCallRename(
+                'TYPO3\CMS\Backend\Template\Components\DocHeaderComponent',
+                'setMetaInformationForResource',
+                'setResourceBreadcrumb'
+            ),
         ]
     );
     $rectorConfig->rule(RemoveRandomSubpageOptionRector::class);

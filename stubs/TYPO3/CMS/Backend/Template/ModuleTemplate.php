@@ -3,6 +3,7 @@
 namespace TYPO3\CMS\Backend\Template;
 
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Template\Components\DocHeaderComponent;
 
 if (class_exists('TYPO3\CMS\Backend\Template\ModuleTemplate')) {
     return;
@@ -28,6 +29,10 @@ class ModuleTemplate
      * @return ResponseInterface
      */
     public function renderResponse(string $templateFileName = '')
+    {
+    }
+
+    public function getDocHeaderComponent(): DocHeaderComponent
     {
     }
 }
