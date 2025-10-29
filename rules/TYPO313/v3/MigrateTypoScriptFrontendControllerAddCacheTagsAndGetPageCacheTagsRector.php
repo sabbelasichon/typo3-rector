@@ -11,7 +11,7 @@ use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
@@ -111,7 +111,7 @@ CODE_SAMPLE
                     $newArgs[] = new Arg(
                         new New_(
                             new FullyQualified('TYPO3\CMS\Core\Cache\CacheTag'),
-                            [new Arg($item->value), new Arg(new LNumber(3600))]
+                            [new Arg($item->value), new Arg(new Int_(3600))]
                         )
                     );
                 }

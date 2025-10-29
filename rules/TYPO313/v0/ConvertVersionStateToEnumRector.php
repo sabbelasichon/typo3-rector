@@ -23,7 +23,6 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
-use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Case_;
 use PhpParser\Node\Stmt\Switch_;
@@ -155,7 +154,7 @@ CODE_SAMPLE
                 if (isset($args[0])) {
                     $value = $args[0]->value;
                     $safeValue = $value instanceof ArrayDimFetch && ! $this->isAlreadyCoalesced($value)
-                        ? new Coalesce($value, new LNumber(0))
+                        ? new Coalesce($value, new \PhpParser\Node\Scalar\Int_(0))
                         : $value;
 
                     if ($node instanceof Assign) {
@@ -291,7 +290,7 @@ CODE_SAMPLE
         if (isset($args[0]) && $args[0]->value instanceof Expr) {
             $val = $args[0]->value;
             if ($val instanceof ArrayDimFetch && ! $this->isAlreadyCoalesced($val)) {
-                $args[0]->value = new Coalesce($val, new LNumber(0));
+                $args[0]->value = new Coalesce($val, new \PhpParser\Node\Scalar\Int_(0));
             }
         }
 
@@ -337,10 +336,10 @@ CODE_SAMPLE
 
         if ($exprSide instanceof Int_) {
             $inner = $exprSide->expr;
-            if (($inner instanceof ArrayDimFetch || (! $inner instanceof String_ && ! $inner instanceof LNumber))
+            if (($inner instanceof ArrayDimFetch || (! $inner instanceof String_ && ! $inner instanceof \PhpParser\Node\Scalar\Int_))
                 && ! $this->isAlreadyCoalesced($inner)
             ) {
-                $inner = new Coalesce($inner, new LNumber(0));
+                $inner = new Coalesce($inner, new \PhpParser\Node\Scalar\Int_(0));
             }
 
             $newCall = new StaticCall(new FullyQualified(self::VERSION_STATE_CLASS), 'tryFrom', [new Arg($inner)]);

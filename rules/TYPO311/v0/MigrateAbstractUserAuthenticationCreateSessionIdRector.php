@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO311\v0;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\Int_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
@@ -73,7 +73,7 @@ CODE_SAMPLE
                 [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Crypto\Random')]
             ),
             'generateRandomHexString',
-            [new Arg(new LNumber(32))]
+            [new Arg(new Int_(32))]
         );
     }
 

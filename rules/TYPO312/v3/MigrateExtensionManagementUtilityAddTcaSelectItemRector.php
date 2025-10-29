@@ -8,7 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrayItem;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Scalar\LNumber;
+use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\String_;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
@@ -98,9 +98,9 @@ CODE_SAMPLE
             return null;
         }
 
-        // If the first key is not null (implicit 0) and not an LNumber 0,
+        // If the first key is not null (implicit 0) and not an Int_ 0,
         // it's some other structure we shouldn't touch (e.g., constant key or starting index != 0).
-        if ($firstItem->key !== null && (! $firstItem->key instanceof LNumber || $firstItem->key->value !== 0)) {
+        if ($firstItem->key !== null && (! $firstItem->key instanceof Int_ || $firstItem->key->value !== 0)) {
             return null;
         }
 
@@ -120,7 +120,7 @@ CODE_SAMPLE
             }
 
             // Check if the item is truly indexed (key is null or matches the numeric index)
-            $isIndexed = $item->key === null || ($item->key instanceof LNumber && $item->key->value === $index);
+            $isIndexed = $item->key === null || ($item->key instanceof Int_ && $item->key->value === $index);
 
             if ($isIndexed) {
                 $newKey = new String_(self::KEY_MAPPING[$index]);
