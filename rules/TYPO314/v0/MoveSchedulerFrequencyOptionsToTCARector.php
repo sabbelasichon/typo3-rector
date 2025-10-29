@@ -120,7 +120,7 @@ CODE_SAMPLE
         ]);
 
         $newAssignTarget = $this->createNewAssignmentTarget();
-        $arrayPush = new ArrayDimFetch($newAssignTarget, null);
+        $arrayPush = new ArrayDimFetch($newAssignTarget);
 
         $newAssign = new Assign($arrayPush, $newArray);
 
