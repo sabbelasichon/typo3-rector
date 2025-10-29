@@ -61,9 +61,6 @@
         "symfony/http-kernel": "^5.4.37 || ^6.4.2 || ^7.0.2",
         "symplify/easy-coding-standard": "^12.1.14"
     },
-    "conflict": {
-        "rector/rector": "2.2.0"
-    },
     "suggest": {
         "ext-pdo": "*",
         "ssch/typo3-debug-dump-pass": "^0.0.1"
