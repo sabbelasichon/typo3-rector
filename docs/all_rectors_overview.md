@@ -1,4 +1,4 @@
-# 212 Rules Overview
+# 213 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (20)
+- [TYPO314](#typo314) (21)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4590,6 +4590,31 @@ Migrate Table Garbage Collection Task configuration via `$GLOBALS`
 +        ],
 +    ];
 +}
+```
+
+<br>
+
+### MigrateTcaTabLabelsRector
+
+Migrate TCA tab labels into core.form.tabs
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateTcaTabLabelsRector`](../rules/TYPO314/v0/MigrateTcaTabLabelsRector.php)
+
+```diff
+ return [
+     'types' => [
+         '0' => ['showitem' => '
+-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
+-            --div--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:be_users.tabs.personal_data,
+-            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.metadata,
+-            --div--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_category.tabs.items,
++            --div--;core.form.tabs:general,
++            --div--;core.form.tabs:personaldata,
++            --div--;core.form.tabs:metadata,
++            --div--;core.form.tabs:items,
+         '],
+     ],
+ ];
 ```
 
 <br>
