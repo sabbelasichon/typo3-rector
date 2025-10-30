@@ -44,4 +44,12 @@ class BackendUserAuthentication extends AbstractUserAuthentication
         $TSConf = $this->getTSConfig($objectString);
         return $TSConf['properties'];
     }
+
+    public function getUserId(): int
+    {
+    }
+
+    public function isAdmin(): bool
+    {
+    }
 }

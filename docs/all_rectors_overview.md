@@ -1,4 +1,4 @@
-# 211 Rules Overview
+# 212 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (19)
+- [TYPO314](#typo314) (20)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4454,6 +4454,24 @@ Migrate boolean sort direction in `\TYPO3\CMS\Filelist\FileList->start()`
 -$fileList->start($folder, $currentPage, $sortField, true, $mode);
 +$fileList->start($folder, $currentPage, $sortField, \TYPO3\CMS\Filelist\Type\SortDirection::ASCENDING, $mode);
 +$fileList->start($folder, $currentPage, $sortField, \TYPO3\CMS\Filelist\Type\SortDirection::DESCENDING, $mode);
+```
+
+<br>
+
+### MigrateDataHandlerPropertiesUserIdAndAdminRector
+
+Migrate DataHandler properties userid and admin
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateDataHandlerPropertiesUserIdAndAdminRector`](../rules/TYPO314/v0/MigrateDataHandlerPropertiesUserIdAndAdminRector.php)
+
+```diff
+-$userId = $dataHandler->userid;
++$userId = $dataHandler->BE_USER->getUserId();
+
+-if ($dataHandler->admin) {
++if ($dataHandler->BE_USER->isAdmin()) {
+     // do something
+ }
 ```
 
 <br>
