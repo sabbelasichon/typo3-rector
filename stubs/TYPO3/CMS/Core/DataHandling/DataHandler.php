@@ -2,12 +2,19 @@
 
 namespace TYPO3\CMS\Core\DataHandling;
 
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+
 if (class_exists('TYPO3\CMS\Core\DataHandling\DataHandler')) {
     return;
 }
 
 class DataHandler
 {
+    public int $userid;
+    public bool $admin;
+
+    public BackendUserAuthentication $BE_USER;
+
     /**
      * @return void
      */
@@ -36,6 +43,5 @@ class DataHandler
      */
     public function log($table, $recuid, $action, $recpid, $error, $details, $details_nr = -1, $data = [], $event_pid = -1, $NEWid = '')
     {
-
     }
 }
