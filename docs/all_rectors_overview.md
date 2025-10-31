@@ -1,4 +1,4 @@
-# 213 Rules Overview
+# 214 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (21)
+- [TYPO314](#typo314) (22)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4540,6 +4540,31 @@ Remove the second charset parameter from sanitizeFileName method in DriverInterf
 +        $sanitizedName = $driver->sanitizeFileName('example.txt');
      }
  }
+```
+
+<br>
+
+### MigratePaletteLabelsRector
+
+Migrate TCA palette labels into core.form.palettes
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigratePaletteLabelsRector`](../rules/TYPO314/v0/MigratePaletteLabelsRector.php)
+
+```diff
+ return [
+     'palettes' => [
+         'authentication' => [
+-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:be_groups.palettes.authentication',
++            'label' => 'core.form.palettes:authentication',
+             'showitem' => 'mfa_providers',
+         ],
+         'description' => [
+-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file.palettes.description',
++            'label' => 'core.form.palettes:description',
+             'showitem' => 'description',
+         ],
+     ],
+ ];
 ```
 
 <br>
