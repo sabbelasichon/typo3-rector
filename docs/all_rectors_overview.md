@@ -1,4 +1,4 @@
-# 214 Rules Overview
+# 215 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (22)
+- [TYPO314](#typo314) (23)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4639,6 +4639,30 @@ Migrate TCA tab labels into core.form.tabs
 +            --div--;core.form.tabs:items,
          '],
      ],
+ ];
+```
+
+<br>
+
+### MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector
+
+Migrate usage of array in password for authentication in Redis cache backend
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector`](../rules/TYPO314/v0/MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector.php)
+
+```diff
+ $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['backend'] = \TYPO3\CMS\Core\Cache\Backend\RedisBackend::class;
+ $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['pages']['options'] = [
+     'defaultLifetime' => 86400,
+     'database' => 0,
+     'hostname' => 'redis',
+     'port' => 6379,
+-    'password' => [
+-        'user' => 'redis',
+-        'pass' => 'redis',
+-    ]
++    'username' => 'redis',
++    'password' => 'redis',
  ];
 ```
 

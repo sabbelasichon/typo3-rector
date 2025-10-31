@@ -2,7 +2,7 @@
 
 namespace TYPO3\CMS\Core\Cache\Frontend;
 
-if (interface_exists('TYPO3\CMS\Core\Cache\Frontend\VariableFrontend')) {
+if (class_exists('TYPO3\CMS\Core\Cache\Frontend\VariableFrontend')) {
     return;
 }
 
