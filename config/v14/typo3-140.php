@@ -25,6 +25,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigratePaletteLabelsRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateTcaTabLabelsRector;
+use Ssch\TYPO3Rector\TYPO314\v0\MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MoveSchedulerFrequencyOptionsToTCARector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveParameterInAuthenticationServiceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveRandomSubpageOptionRector;
@@ -44,6 +45,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigratePaletteLabelsRector::class);
     $rectorConfig->rule(MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector::class);
     $rectorConfig->rule(MigrateTcaTabLabelsRector::class);
+    $rectorConfig->rule(MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector::class);
     $rectorConfig->rule(MoveSchedulerFrequencyOptionsToTCARector::class);
     $rectorConfig->rule(RemoveParameterInAuthenticationServiceRector::class);
     $rectorConfig->ruleWithConfiguration(
