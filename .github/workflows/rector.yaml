@@ -42,6 +42,6 @@ jobs:
 
       - name: Auto commit changes
         # commit only to core contributors who have repository access
-        uses: stefanzweifel/git-auto-commit-action@v6
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: '[ci-review] Rector Rectify'
