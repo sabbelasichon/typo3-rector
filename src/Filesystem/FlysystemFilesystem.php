@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Filesystem;
 
 use League\Flysystem\FilesystemOperator;
-use Ssch\TYPO3Rector\Contract\FilesystemInterface;
+use Ssch\TYPO3Rector\Contract\LocalFilesystemInterface;
 
-final class FlysystemFilesystem implements FilesystemInterface
+final class FlysystemFilesystem implements LocalFilesystemInterface
 {
     /**
      * @readonly
