@@ -6,10 +6,13 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v13\v4\MigratePluginContentElementAndPlu
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
+use Ssch\TYPO3Rector\Contract\LocalFilesystemInterface;
 
 final class MigratePluginContentElementAndPluginSubtypesRectorTest extends AbstractRectorTestCase
 {
     private FilesystemInterface $filesystem;
+
+    private LocalFilesystemInterface $localFilesystem;
 
     /**
      * @var string[]
@@ -19,7 +22,7 @@ final class MigratePluginContentElementAndPluginSubtypesRectorTest extends Abstr
     protected function setUp(): void
     {
         parent::setUp();
-        $this->initializeFilesystem();
+        $this->initializeFilesystems();
     }
 
     protected function tearDown(): void
@@ -42,7 +45,7 @@ final class MigratePluginContentElementAndPluginSubtypesRectorTest extends Abstr
         // Arrange
         $composerJson = __DIR__ . '/Fixture/' . $extensionKey . '/composer.json';
         $this->testFilesToDelete[] = $composerJson;
-        $this->filesystem->write($composerJson, '{
+        $this->localFilesystem->write($composerJson, '{
     "name": "typo3/rector",
     "description": "TYPO3 Rector Test Extension",
     "autoload": {
@@ -111,9 +114,9 @@ final class MigratePluginContentElementAndPluginSubtypesRectorTest extends Abstr
         return __DIR__ . '/config/configured_rule.php';
     }
 
-    private function initializeFilesystem(): void
+    private function initializeFilesystems(): void
     {
-        $this->filesystem = self::getContainer()
-            ->get(FilesystemInterface::class);
+        $this->filesystem = self::getContainer()->get(FilesystemInterface::class);
+        $this->localFilesystem = self::getContainer()->get(LocalFilesystemInterface::class);
     }
 }

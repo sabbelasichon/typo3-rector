@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector;
 
 use Rector\ValueObject\Application\File;
-use Ssch\TYPO3Rector\Contract\FilesystemInterface;
+use Ssch\TYPO3Rector\Contract\LocalFilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 
 final class ComposerExtensionKeyResolver
@@ -13,14 +13,14 @@ final class ComposerExtensionKeyResolver
     /**
      * @readonly
      */
-    private FilesystemInterface $filesystem;
+    private LocalFilesystemInterface $filesystem;
 
     /**
      * @readonly
      */
     private FilesFinder $filesFinder;
 
-    public function __construct(FilesystemInterface $filesystem, FilesFinder $filesFinder)
+    public function __construct(LocalFilesystemInterface $filesystem, FilesFinder $filesFinder)
     {
         $this->filesystem = $filesystem;
         $this->filesFinder = $filesFinder;
