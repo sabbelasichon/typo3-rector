@@ -1,4 +1,4 @@
-# 216 Rules Overview
+# 217 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (24)
+- [TYPO314](#typo314) (25)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4454,6 +4454,40 @@ Migrate boolean sort direction in `\TYPO3\CMS\Filelist\FileList->start()`
 -$fileList->start($folder, $currentPage, $sortField, true, $mode);
 +$fileList->start($folder, $currentPage, $sortField, \TYPO3\CMS\Filelist\Type\SortDirection::ASCENDING, $mode);
 +$fileList->start($folder, $currentPage, $sortField, \TYPO3\CMS\Filelist\Type\SortDirection::DESCENDING, $mode);
+```
+
+<br>
+
+### MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector
+
+Migrate ButtonBar, Menu, and MenuRegistry make* methods to ComponentFactory create* methods
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector`](../rules/TYPO314/v0/MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector.php)
+
+```diff
+ use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+ use TYPO3\CMS\Backend\Template\ModuleTemplate;
++use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
++use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+ class MyController
+ {
+     protected ModuleTemplate $moduleTemplate;
+
++    public function __construct(
++        private readonly ComponentFactory $componentFactory
++    ) {
++    }
++
+     public function myAction(): void
+     {
+         $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
+-        $linkButton = $buttonBar->makeLinkButton()->setTitle('My Link');
+-        $customButton = $buttonBar->makeButton(MyCustomButton::class);
++        $linkButton = $this->componentFactory->createLinkButton()->setTitle('My Link');
++        $customButton = GeneralUtility::makeInstance(MyCustomButton::class);
+     }
+ }
 ```
 
 <br>

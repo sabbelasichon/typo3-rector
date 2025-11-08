@@ -18,6 +18,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\DropFifthParameterForExtensionUtilityConfigurePl
 use Ssch\TYPO3Rector\TYPO314\v0\ExtendExtbaseValidatorsFromAbstractValidatorRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateAdminPanelDataProviderInterfaceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateBooleanSortDirectionInFileListRector;
+use Ssch\TYPO3Rector\TYPO314\v0\MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateDataHandlerPropertiesUserIdAndAdminRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateEnvironmentGetComposerRootPathRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector;
@@ -105,6 +106,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ExtendExtbaseValidatorsFromAbstractValidatorRector::class);
     $rectorConfig->rule(MigrateAdminPanelDataProviderInterfaceRector::class);
     $rectorConfig->rule(MigrateBooleanSortDirectionInFileListRector::class);
+    $rectorConfig->rule(MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector::class);
     $rectorConfig->rule(MigrateDataHandlerPropertiesUserIdAndAdminRector::class);
     $rectorConfig->rule(MigrateEnvironmentGetComposerRootPathRector::class);
     $rectorConfig->rule(MigrateIpAnonymizationTaskRector::class);
