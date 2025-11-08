@@ -8,10 +8,12 @@ use PHPStan\Type\UnionType;
 use Rector\Config\RectorConfig;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
+use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveParameterInAuthenticationServiceRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../../../../../../config/config_test.php');
+    $rectorConfig->phpVersion(PhpVersion::PHP_81);
     $rectorConfig->rule(RemoveParameterInAuthenticationServiceRector::class);
     $rectorConfig->ruleWithConfiguration(
         AddReturnTypeDeclarationRector::class,

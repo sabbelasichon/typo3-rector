@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace TYPO3\CMS\Backend\Template\Components;
 
 use TYPO3\CMS\Core\Resource\ResourceInterface;
@@ -25,6 +23,14 @@ class DocHeaderComponent
     }
 
     public function setResourceBreadcrumb(ResourceInterface $resource): void
+    {
+    }
+
+    public function getButtonBar(): ButtonBar
+    {
+    }
+
+    public function getMenuRegistry(): MenuRegistry
     {
     }
 }
