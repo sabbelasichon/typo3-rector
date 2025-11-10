@@ -1,4 +1,4 @@
-# 218 Rules Overview
+# 219 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (26)
+- [TYPO314](#typo314) (27)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4656,6 +4656,20 @@ Remove pointer field functionality of TCA flex
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateSysRedirectDefaultTypeRector
+
+Migrate sys_redirect default type name to "default"
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateSysRedirectDefaultTypeRector`](../rules/TYPO314/v0/MigrateSysRedirectDefaultTypeRector.php)
+
+```diff
+ // In Configuration/TCA/Overrides/sys_redirect.php
+-$GLOBALS['TCA']['sys_redirect']['types']['1']['label'] = 'My custom label';
++$GLOBALS['TCA']['sys_redirect']['types']['default']['label'] = 'My custom label';
 ```
 
 <br>
