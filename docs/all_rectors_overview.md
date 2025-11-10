@@ -1,4 +1,4 @@
-# 217 Rules Overview
+# 218 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (25)
+- [TYPO314](#typo314) (26)
 
 - [TypeDeclaration](#typedeclaration) (1)
 
@@ -4518,6 +4518,40 @@ Migrate `Environment::getComposerRootPath()` to `Environment::getProjectPath()`
 ```diff
 -\TYPO3\CMS\Core\Core\Environment::getComposerRootPath();
 +\TYPO3\CMS\Core\Core\Environment::getProjectPath();
+```
+
+<br>
+
+### MigrateGeneralUtilityCreateVersionNumberedFilenameRector
+
+Migrate `GeneralUtility::createVersionNumberedFilename()`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateGeneralUtilityCreateVersionNumberedFilenameRector`](../rules/TYPO314/v0/MigrateGeneralUtilityCreateVersionNumberedFilenameRector.php)
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+-use TYPO3\CMS\Core\Utility\PathUtility;
++use TYPO3\CMS\Core\SystemResource\Publishing\SystemResourcePublisherInterface;
++use TYPO3\CMS\Core\SystemResource\Publishing\UriGenerationOptions;
++use TYPO3\CMS\Core\SystemResource\SystemResourceFactory;
+
++public function __construct(
++    private readonly SystemResourceFactory $systemResourceFactory,
++    private readonly SystemResourcePublisherInterface $resourcePublisher,
++) {}
++
+ public function renderUrl(string $file): string
+ {
+-    $file = GeneralUtility::getFileAbsFileName($file);
+-    $partialUrl = GeneralUtility::createVersionNumberedFilename($file);
+-    return PathUtility::getAbsoluteWebPath($partialUrl);
++    $resource = $this->systemResourceFactory->createPublicResource($file);
++    return (string)$this->resourcePublisher->generateUri(
++        $resource,
++        $GLOBALS['TYPO3_REQUEST'],
++        new UriGenerationOptions(absoluteUri: true),
++    );
+ }
 ```
 
 <br>
