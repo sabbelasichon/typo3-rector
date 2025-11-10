@@ -42,6 +42,10 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector impleme
      */
     public function refactor(Node $node): ?Node
     {
+        if (! $this->isName($node->name, 'wrapClickMenuOnIcon')) {
+            return null;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $node,
             new ObjectType('TYPO3\CMS\Backend\Utility\BackendUtility')
@@ -49,16 +53,18 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector impleme
             return null;
         }
 
-        if (! $this->isName($node->name, 'wrapClickMenuOnIcon')) {
+        if (count($node->args) <= 3) {
             return null;
         }
 
-        if (($node->args === []) > 3) {
-            return null;
+        if (isset($node->args[4])) {
+            $fifthArgType = $this->getType($node->args[4]->value);
+            if ($fifthArgType->isArray()->yes()) {
+                return null;
+            }
         }
 
         $returnTagParameters = isset($node->args[6]) ? $this->valueResolver->getValue($node->args[6]->value) : false;
-
         if ($returnTagParameters === null) {
             return null;
         }
@@ -81,15 +87,13 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector impleme
             'Use `BackendUtility::getClickMenuOnIconTagParameters()` instead of `BackendUtility::wrapClickMenuOnIcon()`',
             [new CodeSample(
                 <<<'CODE_SAMPLE'
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 $returnTagParameters = true;
-BackendUtility::wrapClickMenuOnIcon('pages', 1, 'foo', '', '', '', $returnTagParameters);
+\TYPO3\CMS\Backend\Utility\BackendUtility::wrapClickMenuOnIcon('pages', 1, 'foo', '', '', '', $returnTagParameters);
 CODE_SAMPLE
                 ,
                 <<<'CODE_SAMPLE'
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 $returnTagParameters = true;
-BackendUtility::getClickMenuOnIconTagParameters('pages', 1, 'foo');
+\TYPO3\CMS\Backend\Utility\BackendUtility::getClickMenuOnIconTagParameters('pages', 1, 'foo');
 CODE_SAMPLE
             )]
         );
