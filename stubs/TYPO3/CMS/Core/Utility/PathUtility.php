@@ -8,13 +8,14 @@ if (class_exists('TYPO3\CMS\Core\Utility\PathUtility')) {
 
 class PathUtility
 {
+    /**
+     * @return string
+     */
     public static function stripPathSitePrefix($path)
     {
-        return $path;
     }
 
-    public static function getAbsoluteWebPath($path)
+    public static function getAbsoluteWebPath(string $targetPath, bool $prefixWithSitePath = true): string
     {
-        return $path;
     }
 }

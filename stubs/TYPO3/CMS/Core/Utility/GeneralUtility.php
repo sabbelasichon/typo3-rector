@@ -37,7 +37,6 @@ class GeneralUtility
      */
     public static function getUserObj($class)
     {
-
     }
 
     /**
@@ -138,7 +137,6 @@ class GeneralUtility
      */
     public static function getUrl($url, $includeHeader = 0, $requestHeaders = null, &$report = null)
     {
-
     }
 
     /**
@@ -192,15 +190,13 @@ class GeneralUtility
      */
     public static function verifyFilenameAgainstDenyPattern($filename)
     {
-
     }
 
     /**
-     * @return void
+     * @return string
      */
     public static function getFileAbsFileName($filename)
     {
-
     }
 
     /**
@@ -254,7 +250,6 @@ class GeneralUtility
      */
     public static function loadTCA()
     {
-
     }
 
     /**
@@ -290,7 +285,6 @@ class GeneralUtility
      */
     public static function csvValues(array $row, $delim = ',', $quote = '"')
     {
-
     }
 
     /**
@@ -394,17 +388,14 @@ class GeneralUtility
 
     public static function devLog($msg, $extKey, $severity = 0, $dataVar = false)
     {
-
     }
 
     public static function sysLog($msg, $extKey, $severity = 0)
     {
-
     }
 
     public static function initSysLog()
     {
-
     }
 
     public static function shortMD5($input, $len = 10)
@@ -446,5 +437,12 @@ class GeneralUtility
     public static function hmac($input, $additionalSecret = '')
     {
         return '';
+    }
+
+    /**
+     * @return string
+     */
+    public static function createVersionNumberedFilename(string $file)
+    {
     }
 }

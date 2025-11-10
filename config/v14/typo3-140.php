@@ -21,6 +21,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateBooleanSortDirectionInFileListRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateDataHandlerPropertiesUserIdAndAdminRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateEnvironmentGetComposerRootPathRector;
+use Ssch\TYPO3Rector\TYPO314\v0\MigrateGeneralUtilityCreateVersionNumberedFilenameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigratePaletteLabelsRector;
@@ -109,6 +110,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector::class);
     $rectorConfig->rule(MigrateDataHandlerPropertiesUserIdAndAdminRector::class);
     $rectorConfig->rule(MigrateEnvironmentGetComposerRootPathRector::class);
+    $rectorConfig->rule(MigrateGeneralUtilityCreateVersionNumberedFilenameRector::class);
     $rectorConfig->rule(MigrateIpAnonymizationTaskRector::class);
     $rectorConfig->rule(MigrateObsoleteCharsetInSanitizeFileNameRector::class);
     $rectorConfig->rule(MigratePaletteLabelsRector::class);
