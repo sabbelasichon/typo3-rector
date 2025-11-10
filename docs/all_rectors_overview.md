@@ -1,4 +1,4 @@
-# 219 Rules Overview
+# 221 Rules Overview
 
 <br>
 
@@ -16,9 +16,9 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (27)
+- [TYPO314](#typo314) (28)
 
-- [TypeDeclaration](#typedeclaration) (1)
+- [TypeDeclaration](#typedeclaration) (2)
 
 <br>
 
@@ -4981,6 +4981,45 @@ Use Record API in List Module
 
 <br>
 
+### UseStrictTypesInExtbaseArgumentRector
+
+Use strict types in Extbase Argument
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\UseStrictTypesInExtbaseArgumentRector`](../rules/TYPO314/v0/UseStrictTypesInExtbaseArgumentRector.php)
+
+```diff
+ namespace Vendor\MyExtension\Controller\Argument;
+
+ use TYPO3\CMS\Extbase\Mvc\Controller\Argument;
+
+ class MyArgument extends Argument
+ {
+-    protected $propertyMappingConfiguration;
+-    protected $name = '';
+-    protected $shortName;
+-    protected $dataType;
+-    protected $isRequired = false;
+-    protected $value;
+-    protected $defaultValue;
+-    protected $validator;
+-    protected $validationResults;
++    protected MvcPropertyMappingConfiguration $propertyMappingConfiguration';
++    protected string $name = '';
++    protected string $shortName = '';
++    protected string $dataType = '';
++    protected bool $isRequired = false;
++    protected mixed $value = null;
++    protected mixed $defaultValue = null;
++    protected ?ValidatorInterface $validator = null;
++    protected Result $validationResults;
+
+-    public function __construct($name, $dataType) {}
++    public function __construct(string $name, string $dataType) {}
+ }
+```
+
+<br>
+
 ## TypeDeclaration
 
 ### AddPropertyTypeDeclarationWithDefaultNullRector
@@ -4996,6 +5035,24 @@ Add type to property by added rules, mostly public/property by parent type with 
  {
 -    public $name;
 +    public ?string $name = null;
+ }
+```
+
+<br>
+
+### AddPropertyTypeDeclarationWithDefaultValueRector
+
+Add type to property by added rules, mostly public/property by parent type with defined default value
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationWithDefaultValueRector`](../rules/TypeDeclaration/Property/AddPropertyTypeDeclarationWithDefaultValueRector.php)
+
+```diff
+ class SomeClass extends ParentClass
+ {
+-    public $name;
++    public ?string $name = '';
  }
 ```
 
