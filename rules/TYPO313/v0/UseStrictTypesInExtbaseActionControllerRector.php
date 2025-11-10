@@ -45,12 +45,15 @@ CODE_SAMPLE
         )]);
     }
 
+    /**
+     * @return array<class-string<Node>>
+     */
     public function getNodeTypes(): array
     {
         return [];
     }
 
-    public function refactor(Node $node)
+    public function refactor(Node $node): ?Node
     {
         return null;
     }
