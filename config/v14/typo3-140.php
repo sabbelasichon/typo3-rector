@@ -25,6 +25,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateGeneralUtilityCreateVersionNumberedFilena
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigratePaletteLabelsRector;
+use Ssch\TYPO3Rector\TYPO314\v0\MigrateSysRedirectDefaultTypeRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateTcaTabLabelsRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector;
@@ -114,6 +115,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateIpAnonymizationTaskRector::class);
     $rectorConfig->rule(MigrateObsoleteCharsetInSanitizeFileNameRector::class);
     $rectorConfig->rule(MigratePaletteLabelsRector::class);
+    $rectorConfig->rule(MigrateSysRedirectDefaultTypeRector::class);
     $rectorConfig->rule(MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector::class);
     $rectorConfig->rule(MigrateTcaTabLabelsRector::class);
     $rectorConfig->rule(MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector::class);
