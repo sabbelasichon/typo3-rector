@@ -1209,10 +1209,9 @@ Use `BackendUtility::getClickMenuOnIconTagParameters()` instead of `BackendUtili
 - class: [`Ssch\TYPO3Rector\TYPO311\v0\GetClickMenuOnIconTagParametersRector`](../rules/TYPO311/v0/GetClickMenuOnIconTagParametersRector.php)
 
 ```diff
- use TYPO3\CMS\Backend\Utility\BackendUtility;
  $returnTagParameters = true;
--BackendUtility::wrapClickMenuOnIcon('pages', 1, 'foo', '', '', '', $returnTagParameters);
-+BackendUtility::getClickMenuOnIconTagParameters('pages', 1, 'foo');
+-\TYPO3\CMS\Backend\Utility\BackendUtility::wrapClickMenuOnIcon('pages', 1, 'foo', '', '', '', $returnTagParameters);
++\TYPO3\CMS\Backend\Utility\BackendUtility::getClickMenuOnIconTagParameters('pages', 1, 'foo');
 ```
 
 <br>
