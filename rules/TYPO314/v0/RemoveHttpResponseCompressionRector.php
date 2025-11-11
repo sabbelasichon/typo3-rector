@@ -38,17 +38,18 @@ final class RemoveHttpResponseCompressionRector extends AbstractRector implement
         return new RuleDefinition(
             'Remove Application HTTP Response Compression configuration. Use Webserver compression instead.',
             [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 $GLOBALS['TYPO3_CONF_VARS']['BE']['compressionLevel'] = 9;
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 -
 CODE_SAMPLE
-            ),
-        
-        ]);
+                ),
+
+            ]
+        );
     }
 
     /**

@@ -1,4 +1,4 @@
-# 223 Rules Overview
+# 224 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (30)
+- [TYPO314](#typo314) (31)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4911,6 +4911,20 @@ Remove the constant `TYPO3\CMS\Core\Domain\Repository\PageRepository::SHORTCUT_M
 ```diff
 -$page = $pageRepository->resolveShortcutPage($page, false, true);
 +$page = $pageRepository->resolveShortcutPage($page, true);
+```
+
+<br>
+
+### RemoveRegistrationOfMetadataExtractorsRector
+
+Remove Registration of Metadata Extractors via `ExtractorRegistry->registerExtractionService()`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveRegistrationOfMetadataExtractorsRector`](../rules/TYPO314/v0/RemoveRegistrationOfMetadataExtractorsRector.php)
+
+```diff
+-$extractorRegistry = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\Index\ExtractorRegistry::class);
+-$extractorRegistry->registerExtractionService(MyExtractor::class);
++-
 ```
 
 <br>
