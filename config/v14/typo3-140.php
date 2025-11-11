@@ -31,6 +31,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateTableGarbageCollectionTaskConfigurationVi
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateTcaTabLabelsRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MoveSchedulerFrequencyOptionsToTCARector;
+use Ssch\TYPO3Rector\TYPO314\v0\RemoveHttpResponseCompressionRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveParameterInAuthenticationServiceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveRandomSubpageOptionRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ReplaceLocalizationParsersWithLoaders;
@@ -122,6 +123,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateTcaTabLabelsRector::class);
     $rectorConfig->rule(MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector::class);
     $rectorConfig->rule(MoveSchedulerFrequencyOptionsToTCARector::class);
+    $rectorConfig->rule(RemoveHttpResponseCompressionRector::class);
     $rectorConfig->rule(RemoveParameterInAuthenticationServiceRector::class);
     $rectorConfig->rule(RemoveRandomSubpageOptionRector::class);
     $rectorConfig->rule(ReplaceLocalizationParsersWithLoaders::class);

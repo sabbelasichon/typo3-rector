@@ -1,4 +1,4 @@
-# 222 Rules Overview
+# 223 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (29)
+- [TYPO314](#typo314) (30)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4826,6 +4826,19 @@ Remove TCA search field configuration options
          ],
      ],
  ];
+```
+
+<br>
+
+### RemoveHttpResponseCompressionRector
+
+Remove Application HTTP Response Compression configuration. Use Webserver compression instead.
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveHttpResponseCompressionRector`](../rules/TYPO314/v0/RemoveHttpResponseCompressionRector.php)
+
+```diff
+-$GLOBALS['TYPO3_CONF_VARS']['BE']['compressionLevel'] = 9;
++-
 ```
 
 <br>
