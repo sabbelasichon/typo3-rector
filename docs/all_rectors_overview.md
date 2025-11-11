@@ -1,4 +1,4 @@
-# 221 Rules Overview
+# 222 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (28)
+- [TYPO314](#typo314) (29)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4379,6 +4379,24 @@ Use `\TYPO3\CMS\Core\View\ViewInterface` in Extbase and call `$view->getRenderin
 <br>
 
 ## TYPO314
+
+### AddNewMethodHasSubmoduleOverviewInModuleInterfaceRector
+
+Add new method `hasSubmoduleOverview()` in ModuleInterface
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\AddNewMethodHasSubmoduleOverviewInModuleInterfaceRector`](../rules/TYPO314/v0/AddNewMethodHasSubmoduleOverviewInModuleInterfaceRector.php)
+
+```diff
+ class MyBackendModule implements \TYPO3\CMS\Backend\Module\ModuleInterface
+ {
++    public function hasSubmoduleOverview(): bool
++    {
++        return $this->configuration['showSubmoduleOverview'] ?? false;
++    }
+ }
+```
+
+<br>
 
 ### ChangeLocalizationSystemArchitectureRector
 

@@ -13,6 +13,7 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 use Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumRector;
+use Ssch\TYPO3Rector\TYPO314\v0\AddNewMethodHasSubmoduleOverviewInModuleInterfaceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ChangeLocalizationSystemArchitectureRector;
 use Ssch\TYPO3Rector\TYPO314\v0\DropFifthParameterForExtensionUtilityConfigurePluginRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ExtendExtbaseValidatorsFromAbstractValidatorRector;
@@ -103,6 +104,7 @@ return static function (RectorConfig $rectorConfig): void {
             ),
         ]
     );
+    $rectorConfig->rule(AddNewMethodHasSubmoduleOverviewInModuleInterfaceRector::class);
     $rectorConfig->rule(ChangeLocalizationSystemArchitectureRector::class);
     $rectorConfig->rule(DropFifthParameterForExtensionUtilityConfigurePluginRector::class);
     $rectorConfig->rule(ExtendExtbaseValidatorsFromAbstractValidatorRector::class);
