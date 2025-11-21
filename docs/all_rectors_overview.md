@@ -1,4 +1,4 @@
-# 224 Rules Overview
+# 225 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (31)
+- [TYPO314](#typo314) (32)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4650,6 +4650,34 @@ Migrate TCA palette labels into core.form.palettes
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateRemovedMailMessageSendRector
+
+Migrate removed `MailMessage->send()` to `MailerInterface->send()` via dependency injection
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateRemovedMailMessageSendRector`](../rules/TYPO314/v0/MigrateRemovedMailMessageSendRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Mail\MailMessage;
++use TYPO3\CMS\Core\Mail\MailerInterface;
+
+ final readonly class MyController
+ {
++    public function __construct(
++        private MailerInterface $mailer
++    ) {}
++
+     public function sendMail(): void
+     {
+         $email = new MailMessage();
+         $email->subject('Some subject');
+-        $email->send();
++        $this->mailer->send($email);
+     }
+ }
 ```
 
 <br>
