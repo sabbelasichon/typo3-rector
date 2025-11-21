@@ -110,11 +110,16 @@ CODE_SAMPLE
         $hasChanged = false;
 
         $this->traverseNodesWithCallable($node->stmts, function (Node $stmt) use (&$hasChanged): ?array {
-            if (! $stmt instanceof StaticCall) {
+            if (! $stmt instanceof Expression || ! $stmt->expr instanceof Assign) {
                 return null;
             }
 
-            $staticCall = $stmt;
+            $assign = $stmt->expr;
+            if (! $assign->expr instanceof StaticCall) {
+                return null;
+            }
+
+            $staticCall = $assign->expr;
 
             if (! $this->isName($staticCall->name, 'getPublicResourceWebPath')) {
                 return null;
@@ -169,7 +174,11 @@ CODE_SAMPLE
 
             $replacementNode = new String_($generateUriCall);
 
-            return [$resourceAssignStmt, $replacementNode];
+            // Re-use the original variable
+            $uriAssign = new Assign($assign->var, $replacementNode);
+            $uriAssignStmt = new Expression($uriAssign);
+
+            return [$resourceAssignStmt, $uriAssignStmt];
         });
 
         if ($hasChanged) {

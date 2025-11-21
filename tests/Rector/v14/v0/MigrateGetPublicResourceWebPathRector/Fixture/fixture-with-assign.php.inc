@@ -8,12 +8,13 @@ class MyClass
 {
     public function renderUrl(string $extResource): string
     {
-        return PathUtility::getPublicResourceWebPath($extResource);
+        $path = PathUtility::getPublicResourceWebPath($extResource);
+        return $path;
     }
 }
 
 ?>
-    -----
+-----
 <?php
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v14\v0\MigrateGetPublicResourceWebPath\Fixture;
@@ -33,7 +34,9 @@ class MyClass
     public function renderUrl(string $resourceIdentifier, ServerRequestInterface $request): string
     {
         $resource = $this->systemResourceFactory->createPublicResource($resourceIdentifier);
-        return (string)$this->resourcePublisher->generateUri($resource, $request, new UriGenerationOptions(absoluteUri: true));
+        $path = (string) $this->resourcePublisher->generateUri($resource, $request, new UriGenerationOptions(absoluteUri: true));
+
+        return $path;
     }
 }
 
