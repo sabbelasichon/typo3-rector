@@ -19,6 +19,7 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Expression;
+use PhpParser\Node\Stmt\Return_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
@@ -112,20 +113,23 @@ CODE_SAMPLE
         $hasChanged = false;
 
         $this->traverseNodesWithCallable($node->stmts, function (Node $stmt) use (&$hasChanged): ?array {
-            if (! $stmt instanceof Expression) {
-                return null;
+            $staticCall = null;
+            $isReturn = false;
+            $assignNode = null;
+
+            if ($stmt instanceof Expression && $stmt->expr instanceof Assign) {
+                if ($stmt->expr->expr instanceof StaticCall) {
+                    $staticCall = $stmt->expr->expr;
+                    $assignNode = $stmt->expr;
+                }
+            } elseif ($stmt instanceof Return_ && $stmt->expr instanceof StaticCall) {
+                $staticCall = $stmt->expr;
+                $isReturn = true;
             }
 
-            if (! $stmt->expr instanceof Assign) {
+            if (! $staticCall instanceof StaticCall) {
                 return null;
             }
-
-            $assign = $stmt->expr;
-            if (! $assign->expr instanceof StaticCall) {
-                return null;
-            }
-
-            $staticCall = $assign->expr;
 
             if (! $this->isName($staticCall->name, 'createVersionNumberedFilename')) {
                 return null;
@@ -155,7 +159,7 @@ CODE_SAMPLE
             $resourceAssign = new Assign($resourceVar, $createPublicResourceCall);
             $resourceAssignStmt = new Expression($resourceAssign);
 
-            // Create: $originalVar = (string)$this->resourcePublisher->generateUri(...);
+            // Create: (string)$this->resourcePublisher->generateUri(...);
             $requestVar = $this->getTYPO3RequestInScope($scope);
             $resourcePublisherFetch = $this->nodeFactory->createPropertyFetch('this', 'resourcePublisher');
 
@@ -182,20 +186,30 @@ CODE_SAMPLE
 
             $replacementNode = new String_($generateUriCall);
 
-            // Re-use the original variable
-            $uriAssign = new Assign($assign->var, $replacementNode);
-            $uriAssignStmt = new Expression($uriAssign, [
-                AttributeKey::COMMENTS => [
-                    new Comment(
-                        "// TODO from Rector: Remove 'GeneralUtility::getFileAbsFileName()' and 'PathUtility::getAbsoluteWebPath()' yourself."
-                    ),
-                    new Comment(
-                        '// TODO from Rector: See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107537-CreateVersionNumberedFileName.html#migration'
-                    ),
-                ],
-            ]);
+            $comments = [
+                new Comment(
+                    "// TODO from Rector: Remove 'GeneralUtility::getFileAbsFileName()' and 'PathUtility::getAbsoluteWebPath()' yourself."
+                ),
+                new Comment(
+                    '// TODO from Rector: See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107537-CreateVersionNumberedFileName.html#migration'
+                ),
+            ];
 
-            return [$resourceAssignStmt, $uriAssignStmt];
+            // Reconstruct the original statement type (Return or Assignment)
+            if ($isReturn) {
+                $finalStmt = new Return_($replacementNode, [
+                    AttributeKey::COMMENTS => $comments,
+                ]);
+            } else {
+                // Re-use the original variable for assignment
+                /** @var Assign $assignNode */
+                $uriAssign = new Assign($assignNode->var, $replacementNode);
+                $finalStmt = new Expression($uriAssign, [
+                    AttributeKey::COMMENTS => $comments,
+                ]);
+            }
+
+            return [$resourceAssignStmt, $finalStmt];
         });
 
         if ($hasChanged) {
