@@ -14,6 +14,11 @@ class ExtbaseClass extends ActionController
         $partialUrl = GeneralUtility::createVersionNumberedFilename($file);
         return PathUtility::getAbsoluteWebPath($partialUrl);
     }
+
+    public function directReturnCreateVersionNumberedFilename(string $file): string
+    {
+        return GeneralUtility::createVersionNumberedFilename($file);
+    }
 }
 
 ?>
@@ -46,6 +51,14 @@ class ExtbaseClass extends ActionController
         // TODO from Rector: See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107537-CreateVersionNumberedFileName.html#migration
         $partialUrl = (string) $this->resourcePublisher->generateUri($resource, $this->request, new UriGenerationOptions(absoluteUri: true));
         return PathUtility::getAbsoluteWebPath($partialUrl);
+    }
+
+    public function directReturnCreateVersionNumberedFilename(string $file): string
+    {
+        $resource = $this->systemResourceFactory->createPublicResource($file);
+        // TODO from Rector: Remove 'GeneralUtility::getFileAbsFileName()' and 'PathUtility::getAbsoluteWebPath()' yourself.
+        // TODO from Rector: See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107537-CreateVersionNumberedFileName.html#migration
+        return (string) $this->resourcePublisher->generateUri($resource, $this->request, new UriGenerationOptions(absoluteUri: true));
     }
 }
 
