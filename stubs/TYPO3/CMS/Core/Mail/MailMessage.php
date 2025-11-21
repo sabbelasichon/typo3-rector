@@ -2,11 +2,13 @@
 
 namespace TYPO3\CMS\Core\Mail;
 
+use Symfony\Component\Mime\Email;
+
 if (class_exists('TYPO3\CMS\Core\Mail\MailMessage')) {
     return;
 }
 
-class MailMessage
+class MailMessage extends Email
 {
     /**
      * @return $this
