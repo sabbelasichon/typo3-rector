@@ -19,6 +19,7 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Breaking-107943-FrontendAndBackendHTTPResponseCompressionRemoved.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Breaking-108055-RemovedFrontendAssetConcatenationAndCompression.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v14\v0\RemoveHttpResponseCompressionRector\RemoveHttpResponseCompressionRectorTest
  */
 final class RemoveHttpResponseCompressionRector extends AbstractRector implements DocumentedRuleInterface
@@ -41,9 +42,11 @@ final class RemoveHttpResponseCompressionRector extends AbstractRector implement
                 new CodeSample(
                     <<<'CODE_SAMPLE'
 $GLOBALS['TYPO3_CONF_VARS']['BE']['compressionLevel'] = 9;
+$GLOBALS['TYPO3_CONF_VARS']['FE']['compressionLevel'] = 9;
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
+-
 -
 CODE_SAMPLE
                 ),
@@ -124,9 +127,9 @@ CODE_SAMPLE
         }
 
         $isTypo3ConfVars = $path[0] === 'GLOBALS' && $path[1] === 'TYPO3_CONF_VARS';
-        $isBackend = $path[2] === 'BE';
+        $isBackendOrFrontend = $path[2] === 'BE' || $path[2] === 'FE';
         $isCompressionLevel = $path[3] === 'compressionLevel';
 
-        return $isTypo3ConfVars && $isBackend && $isCompressionLevel;
+        return $isTypo3ConfVars && $isBackendOrFrontend && $isCompressionLevel;
     }
 }

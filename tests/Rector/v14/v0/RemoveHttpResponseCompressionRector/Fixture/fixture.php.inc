@@ -10,5 +10,4 @@ $GLOBALS['TYPO3_CONF_VARS']['BE']['compressionLevel'] = 9;
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v14\v0\RemoveHttpResponseCompressionRector\Fixture;
 
-$GLOBALS['TYPO3_CONF_VARS']['FE']['compressionLevel'] = 9;
 ?>
