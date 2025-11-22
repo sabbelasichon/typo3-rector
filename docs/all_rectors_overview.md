@@ -4866,6 +4866,8 @@ Remove Application HTTP Response Compression configuration. Use Webserver compre
 
 ```diff
 -$GLOBALS['TYPO3_CONF_VARS']['BE']['compressionLevel'] = 9;
+-$GLOBALS['TYPO3_CONF_VARS']['FE']['compressionLevel'] = 9;
++-
 +-
 ```
 
