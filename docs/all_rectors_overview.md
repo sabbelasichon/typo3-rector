@@ -1,4 +1,4 @@
-# 226 Rules Overview
+# 227 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (33)
+- [TYPO314](#typo314) (34)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4808,6 +4808,22 @@ Move Scheduler frequency options to TCA
 +    'value' => '0 2 * * *',
 +    'label' => 'LLL:EXT:my_extension/Resources/Private/Language/locallang.xlf:daily_2am',
 +];
+```
+
+<br>
+
+### RemoveConcatenateAndCompressHandlerRector
+
+Remove concatenate and compress handler configuration
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveConcatenateAndCompressHandlerRector`](../rules/TYPO314/v0/RemoveConcatenateAndCompressHandlerRector.php)
+
+```diff
+-$GLOBALS['TYPO3_CONF_VARS']['FE']['cssConcatenateHandler'] = \TYPO3\CMS\Core\Resource\ResourceCompressor::class;
+-$GLOBALS['TYPO3_CONF_VARS']['FE']['cssCompressHandler'] = \TYPO3\CMS\Core\Resource\ResourceCompressor::class;
+-$GLOBALS['TYPO3_CONF_VARS']['FE']['jsConcatenateHandler'] = \TYPO3\CMS\Core\Resource\ResourceCompressor::class;
+-$GLOBALS['TYPO3_CONF_VARS']['FE']['jsCompressHandler'] = \TYPO3\CMS\Core\Resource\ResourceCompressor::class;
++-
 ```
 
 <br>
