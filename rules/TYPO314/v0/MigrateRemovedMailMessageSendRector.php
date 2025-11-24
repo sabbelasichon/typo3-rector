@@ -40,8 +40,8 @@ final class MigrateRemovedMailMessageSendRector extends AbstractRector implement
         return new RuleDefinition(
             'Migrate removed `MailMessage->send()` to `MailerInterface->send()` via dependency injection',
             [
-            new CodeSample(
-                <<<'CODE_SAMPLE'
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Mail\MailMessage;
 
 final readonly class MyController
@@ -54,8 +54,8 @@ final readonly class MyController
     }
 }
 CODE_SAMPLE
-                ,
-                <<<'CODE_SAMPLE'
+                    ,
+                    <<<'CODE_SAMPLE'
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Mail\MailerInterface;
 
@@ -73,9 +73,9 @@ final readonly class MyController
     }
 }
 CODE_SAMPLE
-            ),
-        
-        ]);
+                ),
+            ]
+        );
     }
 
     /**
