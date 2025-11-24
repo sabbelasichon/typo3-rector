@@ -1,4 +1,4 @@
-# 225 Rules Overview
+# 226 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (32)
+- [TYPO314](#typo314) (33)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4906,6 +4906,24 @@ Remove `$TCA[$mytable]['interface']['maxDBListItems']`, and 'maxSingleDBListItem
 -        'maxSingleDBListItems' => 'foo',
 -    ],
  ];
+```
+
+<br>
+
+### RemovePageRendererMethodsRector
+
+Remove PageRenderer methods
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemovePageRendererMethodsRector`](../rules/TYPO314/v0/RemovePageRendererMethodsRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Page\PageRenderer;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+-$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+-$pageRenderer->disableConcatenateCss();
+-$pageRenderer->enableCompressJavascript();
++$pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
 ```
 
 <br>
