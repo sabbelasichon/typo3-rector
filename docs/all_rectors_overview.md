@@ -1,4 +1,4 @@
-# 228 Rules Overview
+# 229 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (35)
+- [TYPO314](#typo314) (36)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -5151,6 +5151,22 @@ Use strict types in Extbase Argument
 -    public function __construct($name, $dataType) {}
 +    public function __construct(string $name, string $dataType) {}
  }
+```
+
+<br>
+
+### UseStrongerCryptographicAlgorithmForHMACRector
+
+Use stronger cryptographic algorithm for HMAC
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\UseStrongerCryptographicAlgorithmForHMACRector`](../rules/TYPO314/v0/UseStrongerCryptographicAlgorithmForHMACRector.php)
+
+```diff
++use TYPO3\CMS\Core\Crypto\HashAlgo;
+ use TYPO3\CMS\Core\Crypto\HashService;
+
+-$hash = $hashService->hmac($data, 'my-additional-secret');
++$hash = $hashService->hmac($data, 'my-additional-secret', HashAlgo::SHA3_256);
 ```
 
 <br>
