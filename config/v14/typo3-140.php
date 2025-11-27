@@ -41,6 +41,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\RemoveRegistrationOfMetadataExtractorsRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ReplaceLocalizationParsersWithLoaders;
 use Ssch\TYPO3Rector\TYPO314\v0\RequireComposerJsonInClassicModeRector;
 use Ssch\TYPO3Rector\TYPO314\v0\UseRecordApiInListModuleRector;
+use Ssch\TYPO3Rector\TYPO314\v0\UseStrongerCryptographicAlgorithmForHMACRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -138,4 +139,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ReplaceLocalizationParsersWithLoaders::class);
     $rectorConfig->rule(RequireComposerJsonInClassicModeRector::class);
     $rectorConfig->rule(UseRecordApiInListModuleRector::class);
+    $rectorConfig->rule(UseStrongerCryptographicAlgorithmForHMACRector::class);
 };

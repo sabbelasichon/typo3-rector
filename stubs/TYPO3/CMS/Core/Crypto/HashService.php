@@ -8,7 +8,7 @@ if (class_exists('TYPO3\CMS\Core\Crypto\HashService')) {
 
 final class HashService
 {
-    public function hmac(string $input, string $additionalSecret): string
+    public function hmac(string $input, string $additionalSecret, $algo = null): string
     {
         return '';
     }
