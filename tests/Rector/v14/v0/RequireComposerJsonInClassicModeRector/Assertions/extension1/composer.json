@@ -1,0 +1,27 @@
+{
+    "name": "vendor/extension1",
+    "description": "A description about the extension",
+    "type": "typo3-cms-extension",
+    "authors": [
+        {
+            "name": "Rafael Kaehm, Markus Friedrich",
+            "email": "info@dkd.de"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^12.4"
+    },
+    "autoload": {
+        "classmap": [
+            "Resources/Private/Php/"
+        ],
+        "psr-4": {
+            "ApacheSolrForTypo3\\Solr\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "extension1"
+        }
+    }
+}

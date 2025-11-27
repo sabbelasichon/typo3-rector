@@ -6,6 +6,11 @@ namespace Ssch\TYPO3Rector\Filesystem;
 
 final class FilesFinder
 {
+    public function isExtEmConf(string $filePath): bool
+    {
+        return $this->fileEqualsName($filePath, 'ext_emconf.php');
+    }
+
     public function isExtLocalConf(string $filePath): bool
     {
         return $this->fileEqualsName($filePath, 'ext_localconf.php');
