@@ -39,6 +39,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\RemoveParameterInAuthenticationServiceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveRandomSubpageOptionRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveRegistrationOfMetadataExtractorsRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ReplaceLocalizationParsersWithLoaders;
+use Ssch\TYPO3Rector\TYPO314\v0\RequireComposerJsonInClassicModeRector;
 use Ssch\TYPO3Rector\TYPO314\v0\UseRecordApiInListModuleRector;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -135,5 +136,6 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveRandomSubpageOptionRector::class);
     $rectorConfig->rule(RemoveRegistrationOfMetadataExtractorsRector::class);
     $rectorConfig->rule(ReplaceLocalizationParsersWithLoaders::class);
+    $rectorConfig->rule(RequireComposerJsonInClassicModeRector::class);
     $rectorConfig->rule(UseRecordApiInListModuleRector::class);
 };

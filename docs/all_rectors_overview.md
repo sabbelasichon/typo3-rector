@@ -1,4 +1,4 @@
-# 227 Rules Overview
+# 228 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (34)
+- [TYPO314](#typo314) (35)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -5048,6 +5048,32 @@ Replace localization parsers with loaders
 ```diff
 -$GLOBALS['TYPO3_CONF_VARS']['SYS']['lang']['parser']['xlf'] = \TYPO3\CMS\Core\Localization\Parser\XliffParser::class;
 +$GLOBALS['TYPO3_CONF_VARS']['LANG']['loader']['xlf'] = \TYPO3\CMS\Core\Localization\Loader\XliffLoader::class;
+```
+
+<br>
+
+### RequireComposerJsonInClassicModeRector
+
+Require `composer.json` in classic mode
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RequireComposerJsonInClassicModeRector`](../rules/TYPO314/v0/RequireComposerJsonInClassicModeRector.php)
+
+```diff
+ $EM_CONF[$_EXTKEY] = [
+     'title' => 'My Extension',
+-];
++];
++
++// composer.json is created in the extension directory
++{
++    "name": "vendor/extension",
++    "type": "typo3-cms-extension",
++    "extra": {
++        "typo3/cms": {
++            "extension-key": "extension"
++        }
++    }
++}
 ```
 
 <br>
