@@ -1,11 +1,11 @@
 {
     "name": "vendor/extension1",
-    "description": "A description about the extension",
+    "description": "The extension title - A description about the extension",
     "type": "typo3-cms-extension",
     "authors": [
         {
-            "name": "Rafael Kaehm, Markus Friedrich",
-            "email": "info@dkd.de"
+            "name": "Max Mustermann",
+            "email": "info@example.com"
         }
     ],
     "require": {
@@ -16,7 +16,7 @@
             "Resources/Private/Php/"
         ],
         "psr-4": {
-            "ApacheSolrForTypo3\\Solr\\": "Classes/"
+            "MyVendor\\MyExtension\\": "Classes/"
         }
     },
     "extra": {
