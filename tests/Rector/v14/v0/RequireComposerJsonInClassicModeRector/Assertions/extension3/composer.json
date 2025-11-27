@@ -1,5 +1,6 @@
 {
     "name": "vendor/extension3",
+    "description": "The extension title",
     "type": "typo3-cms-extension",
     "extra": {
         "typo3/cms": {

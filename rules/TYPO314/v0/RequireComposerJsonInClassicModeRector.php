@@ -112,6 +112,7 @@ CODE_SAMPLE
             return null;
         }
 
+        $title = null;
         $description = null;
         $authorName = null;
         $authorEmail = null;
@@ -126,16 +127,27 @@ CODE_SAMPLE
                 continue;
             }
 
+            // Extract Title Data
+            if ($this->valueResolver->isValue($item->key, 'title')) {
+                $title = $this->valueResolver->getValue($item->value);
+                continue;
+            }
+
             // Extract Description Data
             if ($this->valueResolver->isValue($item->key, 'description')) {
                 $description = $this->valueResolver->getValue($item->value);
+                continue;
             }
 
             // Extract Author Data
             if ($this->valueResolver->isValue($item->key, 'author')) {
                 $authorName = $this->valueResolver->getValue($item->value);
-            } elseif ($this->valueResolver->isValue($item->key, 'author_email')) {
+                continue;
+            }
+
+            if ($this->valueResolver->isValue($item->key, 'author_email')) {
                 $authorEmail = $this->valueResolver->getValue($item->value);
+                continue;
             }
 
             // Extract Autoload Data
@@ -158,6 +170,7 @@ CODE_SAMPLE
                 }
 
                 $autoloadData = $extractedAutoload;
+                continue;
             }
 
             // Extract Constraints Data
@@ -213,8 +226,20 @@ CODE_SAMPLE
             'name' => $packageName,
         ];
 
-        if ($description !== null) {
-            $composerData['description'] = (string) $description;
+        $finalDescription = null;
+        if ($title !== null && $description !== null) {
+            // Combine title and description: "Title - Description"
+            $finalDescription = sprintf('%s - %s', $title, $description);
+        } elseif ($description !== null) {
+            // Fallback: Use only description if title is missing
+            $finalDescription = (string) $description;
+        } elseif ($title !== null) {
+            // Fallback: Use only title if description is missing
+            $finalDescription = (string) $title;
+        }
+
+        if ($finalDescription !== null) {
+            $composerData['description'] = $finalDescription;
         }
 
         $composerData['type'] = 'typo3-cms-extension';
