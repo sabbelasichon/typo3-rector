@@ -63,6 +63,9 @@ class PrettyTypo3Printer extends Standard
      */
     private const SPACED_NEW_START_REGEX = '#^new\s+#';
 
+    /**
+     * @var string
+     */
     private const REPRINT_RAW_VALUE = 'reprint_raw_value';
 
     /**
