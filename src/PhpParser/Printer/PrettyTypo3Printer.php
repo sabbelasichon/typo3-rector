@@ -63,6 +63,8 @@ class PrettyTypo3Printer extends Standard
      */
     private const SPACED_NEW_START_REGEX = '#^new\s+#';
 
+    private const REPRINT_RAW_VALUE = 'reprint_raw_value';
+
     /**
      * @readonly
      */
@@ -554,7 +556,7 @@ class PrettyTypo3Printer extends Standard
      */
     private function shouldPrintNewRawValue($lNumber): bool
     {
-        return $lNumber->getAttribute(AttributeKey::REPRINT_RAW_VALUE) === \true;
+        return $lNumber->getAttribute(self::REPRINT_RAW_VALUE) === \true;
     }
 
     /**
