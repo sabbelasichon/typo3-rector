@@ -18,8 +18,8 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\NodeVisitor;
 use PHPStan\Type\ObjectType;
-use Rector\Contract\PhpParser\Node\StmtsAwareInterface;
 use Rector\PhpDocParser\NodeTraverser\SimpleCallableNodeTraverser;
+use Rector\PhpParser\Enum\NodeGroup;
 use Rector\Rector\AbstractRector;
 use Rector\ValueObject\PhpVersion;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
@@ -120,7 +120,8 @@ CODE_SAMPLE
      */
     public function getNodeTypes(): array
     {
-        return [StmtsAwareInterface::class, MethodCall::class];
+        $stmtsAware = NodeGroup::STMTS_AWARE;
+        return [...$stmtsAware, MethodCall::class];
     }
 
     public function provideMinPhpVersion(): int
@@ -129,7 +130,7 @@ CODE_SAMPLE
     }
 
     /**
-     * @param StmtsAwareInterface|MethodCall $node
+     * @param StmtsAware|MethodCall $node
      * @return null|Node
      */
     public function refactor(Node $node)
@@ -164,7 +165,6 @@ CODE_SAMPLE
             return null;
         }
 
-        /** @var StmtsAwareInterface $node */
         if ($node->stmts === null) {
             return null;
         }
