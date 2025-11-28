@@ -7,6 +7,10 @@ parameters:
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     level: 8
 
+    # see https://phpstan.org/writing-php-code/phpdoc-types#global-type-aliases
+    typeAliases:
+        StmtsAware: \PhpParser\Node\Expr\Closure | \PhpParser\Node\Stmt\Case_ | \PhpParser\Node\Stmt\Catch_ | \PhpParser\Node\Stmt\ClassMethod | \PhpParser\Node\Stmt\Do_ | \PhpParser\Node\Stmt\Else_ | \PhpParser\Node\Stmt\ElseIf_ | \PhpParser\Node\Stmt\Finally_ | \PhpParser\Node\Stmt\For_ | \PhpParser\Node\Stmt\Foreach_ | \PhpParser\Node\Stmt\Function_ | \PhpParser\Node\Stmt\If_ | \PhpParser\Node\Stmt\Namespace_ | \PhpParser\Node\Stmt\TryCatch | \PhpParser\Node\Stmt\While_
+
     reportUnmatchedIgnoredErrors: false
 
     # requires exact closure types
@@ -36,9 +40,6 @@ parameters:
         # static reflection
         - stubs
 
-    scanFiles:
-        - vendor/rector/rector/src/Contract/PhpParser/Node/StmtsAwareInterface.php
-
     bootstrapFiles:
         - tests/bootstrap-phpstan.php
         - vendor/rector/rector/vendor/symplify/rule-doc-generator-contracts/src/Contract/DocumentedRuleInterface.php
@@ -56,7 +57,6 @@ parameters:
 
         - '#^Call to method needs\(\) on an unknown class Illuminate\\Contracts\\Container\\ContextualBindingBuilder.$#'
         - '#^Parameter \#1 \$node \(PhpParser\\Node\\Stmt\\Return_\) of method Ssch\\TYPO3Rector\\TYPO310\\v3\\RemoveExcludeOnTransOrigPointerFieldRector::refactor\(\)#'
-        - '#(.*?)\\Contract\\PhpParser\\Node\\StmtsAwareInterface\:\:\$stmts#'
 
         -
             identifier: phpunit.dataProviderMethod
