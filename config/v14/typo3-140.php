@@ -40,6 +40,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\RemoveRandomSubpageOptionRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveRegistrationOfMetadataExtractorsRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ReplaceLocalizationParsersWithLoaders;
 use Ssch\TYPO3Rector\TYPO314\v0\RequireComposerJsonInClassicModeRector;
+use Ssch\TYPO3Rector\TYPO314\v0\UsageOfValidationAttributesAtMethodLevelRector;
 use Ssch\TYPO3Rector\TYPO314\v0\UseRecordApiInListModuleRector;
 use Ssch\TYPO3Rector\TYPO314\v0\UseStrongerCryptographicAlgorithmForHMACRector;
 
@@ -138,6 +139,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveRegistrationOfMetadataExtractorsRector::class);
     $rectorConfig->rule(ReplaceLocalizationParsersWithLoaders::class);
     $rectorConfig->rule(RequireComposerJsonInClassicModeRector::class);
+    $rectorConfig->rule(UsageOfValidationAttributesAtMethodLevelRector::class);
     $rectorConfig->rule(UseRecordApiInListModuleRector::class);
     $rectorConfig->rule(UseStrongerCryptographicAlgorithmForHMACRector::class);
 };

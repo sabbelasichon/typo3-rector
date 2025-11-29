@@ -1,4 +1,4 @@
-# 229 Rules Overview
+# 230 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (36)
+- [TYPO314](#typo314) (37)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -5074,6 +5074,42 @@ Require `composer.json` in classic mode
 +        }
 +    }
 +}
+```
+
+<br>
+
+### UsageOfValidationAttributesAtMethodLevelRector
+
+Usage of `#[IgnoreValidation]` and `#[Validate]` attributes for parameters at method level
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\UsageOfValidationAttributesAtMethodLevelRector`](../rules/TYPO314/v0/UsageOfValidationAttributesAtMethodLevelRector.php)
+
+```diff
+ use Psr\Http\Message\ResponseInterface;
+ use TYPO3\CMS\Extbase\Attribute\IgnoreValidation;
+ use TYPO3\CMS\Extbase\Attribute\Validate;
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ final class MyController extends ActionController
+ {
+-    #[IgnoreValidation(argumentName: 'something')]
+-    public function barAction(string $something): ResponseInterface
+-    {
++    public function barAction(
++        #[IgnoreValidation]
++        string $something
++    ): ResponseInterface {
+     }
+
+-    #[Validate(validator: 'NotEmpty', param: 'anythingNotEmpty')]
+-    public function bazAction(string $anythingNotEmpty): ResponseInterface
+-    {
++    public function bazAction(
++        #[Validate(validator: 'NotEmpty')]
++        string $anythingNotEmpty
++    ): ResponseInterface {
+     }
+ }
 ```
 
 <br>
