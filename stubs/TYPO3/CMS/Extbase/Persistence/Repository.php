@@ -1,7 +1,5 @@
 <?php
 
-
-
 namespace TYPO3\CMS\Extbase\Persistence;
 
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
@@ -19,6 +17,5 @@ class Repository
 
     public function findByUid(int $uid): ?object
     {
-
     }
 }

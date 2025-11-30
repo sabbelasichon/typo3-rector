@@ -1,4 +1,4 @@
-# 230 Rules Overview
+# 231 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (37)
+- [TYPO314](#typo314) (38)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4650,6 +4650,43 @@ Migrate TCA palette labels into core.form.palettes
          ],
      ],
  ];
+```
+
+<br>
+
+### MigratePassingAnArrayOfConfigurationValuesToExtbaseAttributesRector
+
+Migrate passing an array of configuration values to Extbase attributes
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigratePassingAnArrayOfConfigurationValuesToExtbaseAttributesRector`](../rules/TYPO314/v0/MigratePassingAnArrayOfConfigurationValuesToExtbaseAttributesRector.php)
+
+```diff
+ use TYPO3\CMS\Extbase\Attribute\FileUpload;
+ use TYPO3\CMS\Extbase\Attribute\Validate;
+ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+ use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+
+ class MyModel extends AbstractEntity
+ {
+-    #[Validate(['validator' => 'NotEmpty'])]
++    #[Validate(validator: 'NotEmpty')]
+     protected string $foo = '';
+
+-    #[FileUpload([
+-        'validation' => [
++    #[FileUpload(
++        validation: [
+             'required' => true,
+             'maxFiles' => 1,
+             'fileSize' => ['minimum' => '0K', 'maximum' => '2M'],
+             'allowedMimeTypes' => ['image/jpeg', 'image/png'],
+         ],
+-        'uploadFolder' => '1:/user_upload/files/',
+-    ])]
++        uploadFolder: '1:/user_upload/files/',
++    )]
+     protected ?FileReference $bar = null;
+ }
 ```
 
 <br>
