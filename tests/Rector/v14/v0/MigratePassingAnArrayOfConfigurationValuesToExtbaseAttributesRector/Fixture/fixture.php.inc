@@ -15,9 +15,15 @@ class MyClass
     #[Validate(['validator' => 'NotEmpty'])]
     protected string $foo = '';
 
+    #[Validate(validator: 'NotEmpty')]
+    protected string $fooMigrated = '';
+
     #[Lazy]
     #[Cascade(['value' => 'remove'])]
     protected ObjectStorage $files;
+
+    #[Cascade('remove')]
+    protected ObjectStorage $images;
 
     #[FileUpload([
         'validation' => [
@@ -32,6 +38,11 @@ class MyClass
 
     #[IgnoreValidation(['argumentName' => 'item'])]
     public function editAction(FileReference $item): void
+    {
+    }
+
+    #[IgnoreValidation(argumentName: 'item')]
+    public function migratedAction(FileReference $item): void
     {
     }
 }
@@ -55,9 +66,15 @@ class MyClass
     #[Validate(validator: 'NotEmpty')]
     protected string $foo = '';
 
+    #[Validate(validator: 'NotEmpty')]
+    protected string $fooMigrated = '';
+
     #[Lazy]
     #[Cascade('remove')]
     protected ObjectStorage $files;
+
+    #[Cascade('remove')]
+    protected ObjectStorage $images;
 
     #[FileUpload(validation: [
         'required' => true,
@@ -69,6 +86,11 @@ class MyClass
 
     #[IgnoreValidation(argumentName: 'item')]
     public function editAction(FileReference $item): void
+    {
+    }
+
+    #[IgnoreValidation(argumentName: 'item')]
+    public function migratedAction(FileReference $item): void
     {
     }
 }
