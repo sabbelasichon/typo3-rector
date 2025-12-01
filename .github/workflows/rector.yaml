@@ -19,7 +19,7 @@ jobs:
     if: github.event.pull_request.head.repo.full_name == 'sabbelasichon/typo3-rector'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           # Must be used to trigger workflow after push
           token: ${{ secrets.ACCESS_TOKEN }}
