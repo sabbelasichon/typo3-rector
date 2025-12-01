@@ -6,11 +6,13 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\BooleanType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\UnionType;
+use PHPStan\Type\VoidType;
 use Rector\Config\RectorConfig;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
@@ -122,9 +124,104 @@ return static function (RectorConfig $rectorConfig): void {
                 0,
                 new MixedType(true)
             ),
-            new AddParamTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'setValue', 0, new MixedType(
-                true
-            )),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Extbase\Mvc\Controller\Argument',
+                'setValue',
+                0,
+                new MixedType(true)
+            ),
+
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Backend\BackendInterface',
+                'set',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Backend\BackendInterface',
+                'set',
+                1,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Backend\BackendInterface',
+                'set',
+                3,
+                new UnionType([new NullType(), new IntegerType()])
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Backend\BackendInterface',
+                'get',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Backend\BackendInterface',
+                'has',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Backend\BackendInterface',
+                'remove',
+                0,
+                new StringType()
+            ),
+
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface',
+                'set',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface',
+                'set',
+                1,
+                new MixedType(true)
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface',
+                'set',
+                3,
+                new UnionType([new NullType(), new IntegerType()])
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface',
+                'get',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface',
+                'has',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface',
+                'remove',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface',
+                'flushByTag',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface',
+                'isValidEntryIdentifier',
+                0,
+                new StringType()
+            ),
+            new AddParamTypeDeclaration(
+                'TYPO3\CMS\Core\Cache\Frontend\FrontendInterface',
+                'isValidTag',
+                0,
+                new StringType()
+            ),
         ]
     );
 
@@ -144,9 +241,7 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'setDefaultValue', new ObjectType(
                 'TYPO3\CMS\Extbase\Mvc\Controller\Argument'
             )),
-            new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'getDefaultValue', new MixedType(
-                true
-            )),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'getDefaultValue', new MixedType(true)),
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\Argument', 'setValidator', new ObjectType(
                 'TYPO3\CMS\Extbase\Mvc\Controller\Argument'
             )),
@@ -164,6 +259,29 @@ return static function (RectorConfig $rectorConfig): void {
                 new ObjectType('TYPO3\CMS\Extbase\Mvc\Controller\MvcPropertyMappingConfiguration')
             ),
             new AddReturnTypeDeclaration('TYPO3\CMS\Extbase\Mvc\Controller\Argument', '__toString', new StringType()),
+
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Backend\BackendInterface', 'setCache', new VoidType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Backend\BackendInterface', 'set', new VoidType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Backend\BackendInterface', 'get', new MixedType(true)),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Backend\BackendInterface', 'has', new BooleanType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Backend\BackendInterface', 'remove', new BooleanType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Backend\BackendInterface', 'flush', new VoidType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Backend\BackendInterface', 'collectGarbage', new VoidType()),
+
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'getIdentifier', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'getBackend', new ObjectType(
+                'TYPO3\CMS\Core\Cache\Backend\BackendInterface'
+            )),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'set', new VoidType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'get', new MixedType(true)),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'has', new BooleanType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'remove', new BooleanType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'flush', new VoidType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'flushByTag', new VoidType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'flushByTags', new VoidType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'collectGarbage', new VoidType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'isValidEntryIdentifier', new BooleanType()),
+            new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'isValidTag', new BooleanType()),
         ]
     );
 };

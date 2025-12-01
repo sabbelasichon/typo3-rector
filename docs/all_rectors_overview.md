@@ -1,4 +1,4 @@
-# 231 Rules Overview
+# 232 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (38)
+- [TYPO314](#typo314) (39)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4442,6 +4442,38 @@ Extend Extbase Validators from AbstractValidator
 -class MyValidator implements ValidatorInterface
 +class MyValidator extends AbstractValidator
  {
+ }
+```
+
+<br>
+
+### IntroduceStrictTypingForCacheBeAndFeRector
+
+Introduce strict typing for Cache BE and FE
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\IntroduceStrictTypingForCacheBeAndFeRector`](../rules/TYPO314/v0/IntroduceStrictTypingForCacheBeAndFeRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Cache\Backend\BackendInterface;
+
+ class MyCustomBackend implements BackendInterface
+ {
+-    public function __construct($context, array $options = [])
++    public function __construct(array $options = [])
+     {
+-        parent::__construct($context, $options);
++        parent::__construct($options);
+     }
+
+-    public function get($entryIdentifier)
++    public function get(string $entryIdentifier): mixed
+     {
+     }
+
+-    public function has($entryIdentifier)
++    public function has(string $entryIdentifier): bool
+     {
+     }
  }
 ```
 
