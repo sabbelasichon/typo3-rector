@@ -17,6 +17,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\AddNewMethodHasSubmoduleOverviewInModuleInterfac
 use Ssch\TYPO3Rector\TYPO314\v0\ChangeLocalizationSystemArchitectureRector;
 use Ssch\TYPO3Rector\TYPO314\v0\DropFifthParameterForExtensionUtilityConfigurePluginRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ExtendExtbaseValidatorsFromAbstractValidatorRector;
+use Ssch\TYPO3Rector\TYPO314\v0\IntroduceStrictTypingForCacheBeAndFeRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateAdminPanelDataProviderInterfaceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateBooleanSortDirectionInFileListRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector;
@@ -144,4 +145,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(UsageOfValidationAttributesAtMethodLevelRector::class);
     $rectorConfig->rule(UseRecordApiInListModuleRector::class);
     $rectorConfig->rule(UseStrongerCryptographicAlgorithmForHMACRector::class);
+    $rectorConfig->rule(IntroduceStrictTypingForCacheBeAndFeRector::class);
 };

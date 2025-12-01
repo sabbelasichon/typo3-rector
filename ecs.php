@@ -39,6 +39,7 @@ return static function (ECSConfig $ecsConfig): void {
         LineLengthFixer::class => [
             __DIR__ . '/config/v13/strict-types.php',
             __DIR__ . '/config/v14/typo3-140.php',
+            __DIR__ . '/config/v14/strict-types.php',
         ],
     ]);
 
