@@ -1,4 +1,4 @@
-# 234 Rules Overview
+# 235 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (40)
+- [TYPO314](#typo314) (41)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4943,6 +4943,36 @@ Remove eval year flag
          ],
      ],
  ];
+```
+
+<br>
+
+### RemoveExternalOptionFromAssetRendererRector
+
+Remove "external" option from AssetRenderer
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveExternalOptionFromAssetRendererRector`](../rules/TYPO314/v0/RemoveExternalOptionFromAssetRendererRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Page\AssetCollector;
+
+ class MyClass
+ {
+     public function __construct(private readonly AssetCollector $assetCollector)
+     {
+     }
+
+     public function render()
+     {
+         $this->assetCollector->addStyleSheet(
+             'myCssFile',
+-            '/styles/main.css',
+-            [],
+-            ['external' => true]
++            'URI:/styles/main.css'
+         );
+     }
+ }
 ```
 
 <br>
