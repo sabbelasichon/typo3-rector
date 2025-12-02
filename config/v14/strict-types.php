@@ -282,6 +282,9 @@ return static function (RectorConfig $rectorConfig): void {
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'collectGarbage', new VoidType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'isValidEntryIdentifier', new BooleanType()),
             new AddReturnTypeDeclaration('TYPO3\CMS\Core\Cache\Frontend\FrontendInterface', 'isValidTag', new BooleanType()),
+
+            new AddReturnTypeDeclaration('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper', 'initialize', new VoidType()),
+            new AddReturnTypeDeclaration('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper', 'initializeArguments', new VoidType()),
         ]
     );
 };
