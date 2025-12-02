@@ -20,6 +20,10 @@ class AbstractViewHelper
      */
     protected $renderingContext;
 
+    public function initialize()
+    {
+    }
+
     /**
      * @return void
      */

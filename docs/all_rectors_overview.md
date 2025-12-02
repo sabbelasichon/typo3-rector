@@ -1,4 +1,4 @@
-# 233 Rules Overview
+# 234 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (39)
+- [TYPO314](#typo314) (40)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -5284,6 +5284,29 @@ Use strict types in Extbase Argument
 
 -    public function __construct($name, $dataType) {}
 +    public function __construct(string $name, string $dataType) {}
+ }
+```
+
+<br>
+
+### UseStrictTypesInFluidViewHelpersRector
+
+Use Strict Types in Fluid ViewHelpers
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\UseStrictTypesInFluidViewHelpersRector`](../rules/TYPO314/v0/UseStrictTypesInFluidViewHelpersRector.php)
+
+```diff
+ class MyViewHelper extends AbstractViewHelper
+ {
+-    public function initialize()
++    public function initialize(): void
+     {
+     }
+
+-    public function initializeArguments()
++    public function initializeArguments(): void
+     {
+     }
  }
 ```
 
