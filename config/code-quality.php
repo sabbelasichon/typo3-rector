@@ -65,4 +65,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector::class);
     $rectorConfig->rule(MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector::class);
     $rectorConfig->rule(UseExtensionKeyInLocalizationUtilityRector::class);
+    // $rectorConfig->rule(RemoveTypo3VersionChecksRector::class); this rule is not activated by default as it depends on the (configured) TYPO3 version!
 };
