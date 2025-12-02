@@ -1,10 +1,10 @@
-# 232 Rules Overview
+# 233 Rules Overview
 
 <br>
 
 ## Categories
 
-- [CodeQuality](#codequality) (11)
+- [CodeQuality](#codequality) (12)
 
 - [General](#general) (3)
 
@@ -206,6 +206,35 @@ Move `ExtensionUtility::registerPlugin()` into Configuration/TCA/Overrides/tt_co
 ```diff
 -\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin('extension_key', 'Pi1', 'Title');
 +// Move to file Configuration/TCA/Overrides/tt_content.php
+```
+
+<br>
+
+### RemoveTypo3VersionChecksRector
+
+Remove Typo3Version checks for older TYPO3 versions
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\CodeQuality\General\RemoveTypo3VersionChecksRector`](../rules/CodeQuality/General/RemoveTypo3VersionChecksRector.php)
+
+```diff
+-if ((new Typo3Version())->getMajorVersion() >= 13) {
+-    // do something for TYPO3 13 and above
+-    $this->request->getAttribute('frontend.cache.collector')->addCacheTags(new CacheTag('tx_extension'));
+-} else {
+-    // do something for older versions
+-    $typoScriptFrontendController->addCacheTags(['tx_extension']);
+-}
++// do something for TYPO3 13 and above
++$this->request->getAttribute('frontend.cache.collector')->addCacheTags(new CacheTag('tx_extension'));
+```
+
+<br>
+
+```diff
+-$iconSize = (new Typo3Version())->getMajorVersion() >= 13 ? IconSize::SMALL : 'small';
++$iconSize = IconSize::SMALL;
 ```
 
 <br>

@@ -23,4 +23,8 @@ class Typo3Version
     {
         return '9.5';
     }
+
+    public function getMajorVersion(): int
+    {
+    }
 }
