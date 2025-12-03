@@ -60,21 +60,30 @@ final class ChangeExtbaseValidatorsRector extends AbstractRector implements Docu
             'TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator'
         );
 
-        $assignToOptionsProperty = $this->manipulateConstructor($node);
+        $hasChanged = false;
+
+        $assignToOptionsProperty = $this->manipulateConstructor($node, $hasChanged);
 
         // Add setOptions method only if validator is not already subclass of AbstractValidator
         $setOptionsClassMethod = $node->getMethod('setOptions');
         if (! $setOptionsClassMethod instanceof ClassMethod && ! $isSubClassOfAbstractValidator) {
             $node->stmts[] = $this->createSetOptionsClassMethod($assignToOptionsProperty);
+            $hasChanged = true;
         }
 
-        if ($isSubClassOfAbstractValidator) {
-            $this->manipulateIsValidMethod($node);
+        if ($isSubClassOfAbstractValidator && $this->manipulateIsValidMethod($node)) {
+            $hasChanged = true;
         }
 
-        $this->manipulateValidateMethod($node);
+        if ($this->manipulateValidateMethod($node)) {
+            $hasChanged = true;
+        }
 
-        return $node;
+        if ($hasChanged) {
+            return $node;
+        }
+
+        return null;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -176,7 +185,7 @@ CODE_SAMPLE
         return $this->shouldKeepAssignment($constructorStmt->expr);
     }
 
-    private function manipulateConstructor(Class_ $node): bool
+    private function manipulateConstructor(Class_ $node, bool &$hasChanged): bool
     {
         $constructorMethod = $node->getMethod(MethodName::CONSTRUCT);
 
@@ -204,8 +213,17 @@ CODE_SAMPLE
             }
         }
 
-        $constructorMethod->params = $constructorParams;
-        $constructorMethod->stmts = $constructorStatementsToKeep;
+        if (count($constructorMethod->params) !== count($constructorParams)) {
+            $constructorMethod->params = $constructorParams;
+            $hasChanged = true;
+        }
+
+        if (is_array($constructorMethod->stmts)
+            && count($constructorMethod->stmts) !== count($constructorStatementsToKeep)
+        ) {
+            $constructorMethod->stmts = $constructorStatementsToKeep;
+            $hasChanged = true;
+        }
 
         return $assignToOptionsProperty;
     }
@@ -228,33 +246,35 @@ CODE_SAMPLE
         return ! $this->isName($staticCall->class, ObjectReference::PARENT);
     }
 
-    private function manipulateIsValidMethod(Class_ $node): void
+    private function manipulateIsValidMethod(Class_ $node): bool
     {
         $isValidClassMethod = $node->getMethod('isValid');
 
         if (! $isValidClassMethod instanceof ClassMethod) {
-            return;
+            return false;
         }
 
         if ($isValidClassMethod->returnType instanceof Node) {
-            return;
+            return false;
         }
 
         $isValidClassMethod->returnType = new Identifier('void');
+        return true;
     }
 
-    private function manipulateValidateMethod(Class_ $node): void
+    private function manipulateValidateMethod(Class_ $node): bool
     {
         $validateClassMethod = $node->getMethod('validate');
 
         if (! $validateClassMethod instanceof ClassMethod) {
-            return;
+            return false;
         }
 
         if ($validateClassMethod->returnType instanceof Node) {
-            return;
+            return false;
         }
 
         $validateClassMethod->returnType = new FullyQualified('TYPO3\CMS\Extbase\Error\Result');
+        return true;
     }
 }
