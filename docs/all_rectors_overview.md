@@ -1,4 +1,4 @@
-# 235 Rules Overview
+# 236 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (41)
+- [TYPO314](#typo314) (42)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4747,6 +4747,39 @@ Migrate passing an array of configuration values to Extbase attributes
 +        uploadFolder: '1:/user_upload/files/',
 +    )]
      protected ?FileReference $bar = null;
+ }
+```
+
+<br>
+
+### MigratePathUtilityGetPublicResourceWebPathRector
+
+Migrate `UtilityPathUtility::getPublicResourceWebPath()`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigratePathUtilityGetPublicResourceWebPathRector`](../rules/TYPO314/v0/MigratePathUtilityGetPublicResourceWebPathRector.php)
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+-use TYPO3\CMS\Core\Utility\PathUtility;
++use TYPO3\CMS\Core\SystemResource\Publishing\SystemResourcePublisherInterface;
++use TYPO3\CMS\Core\SystemResource\Publishing\UriGenerationOptions;
++use TYPO3\CMS\Core\SystemResource\SystemResourceFactory;
+
+-public function renderUrl(string $extResource): string
++public function __construct(
++    private readonly SystemResourceFactory $systemResourceFactory,
++    private readonly SystemResourcePublisherInterface $resourcePublisher,
++) {}
++
++public function renderUrl(string $resourceIdentifier): string
+ {
+-    return PathUtility::getPublicResourceWebPath($extResource);
++    $resource = $this->systemResourceFactory->createPublicResource($resourceIdentifier);
++    return (string)$this->resourcePublisher->generateUri(
++        $resource,
++        $GLOBALS['TYPO3_REQUEST'],
++        new UriGenerationOptions(absoluteUri: true),
++    );
  }
 ```
 
