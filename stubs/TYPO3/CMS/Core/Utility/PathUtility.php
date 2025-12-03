@@ -18,4 +18,8 @@ class PathUtility
     public static function getAbsoluteWebPath(string $targetPath, bool $prefixWithSitePath = true): string
     {
     }
+
+    public static function getPublicResourceWebPath(string $resourcePath, bool $prefixWithSitePath = true): string
+    {
+    }
 }

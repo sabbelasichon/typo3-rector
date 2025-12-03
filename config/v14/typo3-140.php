@@ -28,6 +28,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigratePaletteLabelsRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigratePassingAnArrayOfConfigurationValuesToExtbaseAttributesRector;
+use Ssch\TYPO3Rector\TYPO314\v0\MigratePathUtilityGetPublicResourceWebPathRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateRemovedMailMessageSendRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateSysRedirectDefaultTypeRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector;
@@ -129,6 +130,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateObsoleteCharsetInSanitizeFileNameRector::class);
     $rectorConfig->rule(MigratePaletteLabelsRector::class);
     $rectorConfig->rule(MigratePassingAnArrayOfConfigurationValuesToExtbaseAttributesRector::class);
+    $rectorConfig->rule(MigratePathUtilityGetPublicResourceWebPathRector::class);
     $rectorConfig->rule(MigrateRemovedMailMessageSendRector::class);
     $rectorConfig->rule(MigrateSysRedirectDefaultTypeRector::class);
     $rectorConfig->rule(MigrateTableGarbageCollectionTaskConfigurationViaGlobalsRector::class);
