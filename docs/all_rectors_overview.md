@@ -1,4 +1,4 @@
-# 236 Rules Overview
+# 235 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (42)
+- [TYPO314](#typo314) (41)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4570,6 +4570,50 @@ Migrate ButtonBar, Menu, and MenuRegistry make* methods to ComponentFactory crea
 
 <br>
 
+### MigrateCoreTcaAndUserSettingsShowitemStringsToShortFormReferencesRector
+
+Migrate TCA tab labels into core.form.tabs
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateCoreTcaAndUserSettingsShowitemStringsToShortFormReferencesRector`](../rules/TYPO314/v0/MigrateCoreTcaAndUserSettingsShowitemStringsToShortFormReferencesRector.php)
+
+```diff
+ return [
+     'types' => [
+         '0' => ['showitem' => '
+-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
+-            --div--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:be_users.tabs.personal_data,
+-            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.metadata,
+-            --div--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_category.tabs.items,
++            --div--;core.form.tabs:general,
++            --div--;core.form.tabs:personaldata,
++            --div--;core.form.tabs:metadata,
++            --div--;core.form.tabs:items,
+         '],
+     ],
+ ];
+```
+
+<br>
+
+```diff
+ return [
+     'palettes' => [
+         'authentication' => [
+-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:be_groups.palettes.authentication',
++            'label' => 'core.form.palettes:authentication',
+             'showitem' => 'mfa_providers',
+         ],
+         'description' => [
+-            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file.palettes.description',
++            'label' => 'core.form.palettes:description',
+             'showitem' => 'description',
+         ],
+     ],
+ ];
+```
+
+<br>
+
 ### MigrateDataHandlerPropertiesUserIdAndAdminRector
 
 Migrate DataHandler properties userid and admin
@@ -4686,31 +4730,6 @@ Remove the second charset parameter from sanitizeFileName method in DriverInterf
 +        $sanitizedName = $driver->sanitizeFileName('example.txt');
      }
  }
-```
-
-<br>
-
-### MigratePaletteLabelsRector
-
-Migrate TCA palette labels into core.form.palettes
-
-- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigratePaletteLabelsRector`](../rules/TYPO314/v0/MigratePaletteLabelsRector.php)
-
-```diff
- return [
-     'palettes' => [
-         'authentication' => [
--            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:be_groups.palettes.authentication',
-+            'label' => 'core.form.palettes:authentication',
-             'showitem' => 'mfa_providers',
-         ],
-         'description' => [
--            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_file.palettes.description',
-+            'label' => 'core.form.palettes:description',
-             'showitem' => 'description',
-         ],
-     ],
- ];
 ```
 
 <br>
@@ -4873,31 +4892,6 @@ Migrate Table Garbage Collection Task configuration via `$GLOBALS`
 +        ],
 +    ];
 +}
-```
-
-<br>
-
-### MigrateTcaTabLabelsRector
-
-Migrate TCA tab labels into core.form.tabs
-
-- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateTcaTabLabelsRector`](../rules/TYPO314/v0/MigrateTcaTabLabelsRector.php)
-
-```diff
- return [
-     'types' => [
-         '0' => ['showitem' => '
--            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:general,
--            --div--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:be_users.tabs.personal_data,
--            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_tca.xlf:pages.tabs.metadata,
--            --div--;LLL:EXT:core/Resources/Private/Language/locallang_tca.xlf:sys_category.tabs.items,
-+            --div--;core.form.tabs:general,
-+            --div--;core.form.tabs:personaldata,
-+            --div--;core.form.tabs:metadata,
-+            --div--;core.form.tabs:items,
-         '],
-     ],
- ];
 ```
 
 <br>
