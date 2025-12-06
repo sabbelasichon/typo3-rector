@@ -21,6 +21,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\IntroduceStrictTypingForCacheBeAndFeRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateAdminPanelDataProviderInterfaceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateBooleanSortDirectionInFileListRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector;
+use Ssch\TYPO3Rector\TYPO314\v0\MigrateCopyRelatedDataHandlerPropertiesRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateCoreTcaAndUserSettingsShowitemStringsToShortFormReferencesRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateDataHandlerPropertiesUserIdAndAdminRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateEnvironmentGetComposerRootPathRector;
@@ -122,6 +123,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateAdminPanelDataProviderInterfaceRector::class);
     $rectorConfig->rule(MigrateBooleanSortDirectionInFileListRector::class);
     $rectorConfig->rule(MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector::class);
+    $rectorConfig->rule(MigrateCopyRelatedDataHandlerPropertiesRector::class);
     $rectorConfig->rule(MigrateDataHandlerPropertiesUserIdAndAdminRector::class);
     $rectorConfig->rule(MigrateEnvironmentGetComposerRootPathRector::class);
     $rectorConfig->rule(MigrateGeneralUtilityCreateVersionNumberedFilenameRector::class);

@@ -1,4 +1,4 @@
-# 235 Rules Overview
+# 236 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (41)
+- [TYPO314](#typo314) (42)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4564,6 +4564,29 @@ Migrate ButtonBar, Menu, and MenuRegistry make* methods to ComponentFactory crea
 -        $customButton = $buttonBar->makeButton(MyCustomButton::class);
 +        $linkButton = $this->componentFactory->createLinkButton()->setTitle('My Link');
 +        $customButton = GeneralUtility::makeInstance(MyCustomButton::class);
+     }
+ }
+```
+
+<br>
+
+### MigrateCopyRelatedDataHandlerPropertiesRector
+
+Migrate copy related DataHandler properties
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateCopyRelatedDataHandlerPropertiesRector`](../rules/TYPO314/v0/MigrateCopyRelatedDataHandlerPropertiesRector.php)
+
+```diff
+ use TYPO3\CMS\Core\DataHandling\DataHandler;
+
+ class MyClass
+ {
+     public function myMethod(DataHandler $dataHandler)
+     {
+-        $neverHideAtCopy = $dataHandler->neverHideAtCopy;
+-        $copyTree = $dataHandler->copyTree;
++        $neverHideAtCopy = $dataHandler->BE_USER->uc['neverHideAtCopy'];
++        $copyTree = $dataHandler->BE_USER->uc['copyLevels'];
      }
  }
 ```

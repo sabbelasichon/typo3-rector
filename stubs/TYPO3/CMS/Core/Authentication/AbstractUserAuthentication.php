@@ -20,6 +20,8 @@ abstract class AbstractUserAuthentication
      */
     public $id;
 
+    public array $uc = [];
+
     /**
      * @return string
      */
