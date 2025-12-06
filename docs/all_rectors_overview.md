@@ -1,4 +1,4 @@
-# 236 Rules Overview
+# 237 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (42)
+- [TYPO314](#typo314) (43)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4724,6 +4724,27 @@ Migrates the IpAnonymizationTask configuration from `$GLOBALS['TYPO3_CONF_VARS']
 +        ],
 +    ];
 +}
+```
+
+<br>
+
+### MigrateManualShortcutButtonCreationRector
+
+Migrate manual shortcut button creation
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateManualShortcutButtonCreationRector`](../rules/TYPO314/v0/MigrateManualShortcutButtonCreationRector.php)
+
+```diff
+-$shortcutButton = $this->componentFactory->createShortcutButton()
+-    ->setRouteIdentifier('my_module')
+-    ->setDisplayName('My Module')
+-    ->setArguments(['id' => $pageId]);
+-$view->addButtonToButtonBar($shortcutButton);
++$view->getDocHeaderComponent()->setShortcutContext(
++    routeIdentifier: 'my_module',
++    displayName: 'My Module',
++    arguments: ['id' => $pageId]
++);
 ```
 
 <br>

@@ -27,6 +27,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateDataHandlerPropertiesUserIdAndAdminRector
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateEnvironmentGetComposerRootPathRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateGeneralUtilityCreateVersionNumberedFilenameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector;
+use Ssch\TYPO3Rector\TYPO314\v0\MigrateManualShortcutButtonCreationRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigratePassingAnArrayOfConfigurationValuesToExtbaseAttributesRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigratePathUtilityGetPublicResourceWebPathRector;
@@ -128,6 +129,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateEnvironmentGetComposerRootPathRector::class);
     $rectorConfig->rule(MigrateGeneralUtilityCreateVersionNumberedFilenameRector::class);
     $rectorConfig->rule(MigrateIpAnonymizationTaskRector::class);
+    $rectorConfig->rule(MigrateManualShortcutButtonCreationRector::class);
     $rectorConfig->rule(MigrateObsoleteCharsetInSanitizeFileNameRector::class);
     $rectorConfig->rule(MigratePassingAnArrayOfConfigurationValuesToExtbaseAttributesRector::class);
     $rectorConfig->rule(MigratePathUtilityGetPublicResourceWebPathRector::class);
