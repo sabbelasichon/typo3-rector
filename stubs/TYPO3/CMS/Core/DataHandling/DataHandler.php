@@ -14,6 +14,9 @@ class DataHandler
     public bool $admin;
 
     public BackendUserAuthentication $BE_USER;
+    public bool $neverHideAtCopy = false;
+
+    public $copyTree = 0;
 
     /**
      * @return void
