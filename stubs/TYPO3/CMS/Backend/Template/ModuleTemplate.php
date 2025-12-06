@@ -3,6 +3,7 @@
 namespace TYPO3\CMS\Backend\Template;
 
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Template\Components\Buttons\Action\ShortcutButton;
 use TYPO3\CMS\Backend\Template\Components\DocHeaderComponent;
 
 if (class_exists('TYPO3\CMS\Backend\Template\ModuleTemplate')) {
@@ -33,6 +34,10 @@ class ModuleTemplate
     }
 
     public function getDocHeaderComponent(): DocHeaderComponent
+    {
+    }
+
+    public function addButtonToButtonBar(ShortcutButton $shortcutButton)
     {
     }
 }

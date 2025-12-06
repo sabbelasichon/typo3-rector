@@ -10,4 +10,15 @@ if (class_exists('TYPO3\CMS\Backend\Template\Components\Buttons\Action\ShortcutB
 
 class ShortcutButton implements ButtonInterface
 {
+    public function setRouteIdentifier(string $routeIdentifier): self
+    {
+    }
+
+    public function setDisplayName(string $displayName): self
+    {
+    }
+
+    public function setArguments(array $arguments): self
+    {
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace TYPO3\CMS\Backend\Template;
 
-use TYPO3\CMS\Extbase\Mvc\Request;
+use Psr\Http\Message\ServerRequestInterface;
 
 if (class_exists('TYPO3\CMS\Backend\Template\ModuleTemplateFactory')) {
     return;
@@ -10,7 +10,7 @@ if (class_exists('TYPO3\CMS\Backend\Template\ModuleTemplateFactory')) {
 
 class ModuleTemplateFactory
 {
-    public function create(Request $request): ModuleTemplate
+    public function create(ServerRequestInterface $request): ModuleTemplate
     {
         return new ModuleTemplate();
     }

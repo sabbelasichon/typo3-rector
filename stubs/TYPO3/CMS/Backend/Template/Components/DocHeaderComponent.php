@@ -33,4 +33,11 @@ class DocHeaderComponent
     public function getMenuRegistry(): MenuRegistry
     {
     }
+
+    public function setShortcutContext(
+        string $routeIdentifier,
+        string $displayName,
+        array $arguments = []
+    ): void {
+    }
 }
