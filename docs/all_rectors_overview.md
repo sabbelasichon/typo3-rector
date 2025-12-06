@@ -1,4 +1,4 @@
-# 237 Rules Overview
+# 238 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (43)
+- [TYPO314](#typo314) (44)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4977,6 +4977,37 @@ Move Scheduler frequency options to TCA
 +    'value' => '0 2 * * *',
 +    'label' => 'LLL:EXT:my_extension/Resources/Private/Language/locallang.xlf:daily_2am',
 +];
+```
+
+<br>
+
+### MoveUpgradeWizardRelatedInterfacesAndAttributesToCoreRector
+
+Move upgrade wizard related interfaces and attribute to EXT:core
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MoveUpgradeWizardRelatedInterfacesAndAttributesToCoreRector`](../rules/TYPO314/v0/MoveUpgradeWizardRelatedInterfacesAndAttributesToCoreRector.php)
+
+```diff
+ <?php
+
+ namespace MyVendor\MyExtension\Upgrades;
+
+-use TYPO3\CMS\Install\Attribute\UpgradeWizard;
+-use TYPO3\CMS\Install\Updates\ChattyInterface;
+-use TYPO3\CMS\Install\Updates\ConfirmableInterface;
+-use TYPO3\CMS\Install\Updates\RepeatableInterface;
+-use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
++use TYPO3\CMS\Core\Attribute\UpgradeWizard;
++use TYPO3\CMS\Core\Upgrades\ChattyInterface;
++use TYPO3\CMS\Core\Upgrades\ConfirmableInterface;
++use TYPO3\CMS\Core\Upgrades\RepeatableInterface;
++use TYPO3\CMS\Core\Upgrades\UpgradeWizardInterface;
+
+ #[UpgradeWizard('myExtensionCustomUpgradeWizardIdentifier')]
+ class CustomUpgradeWizard extends UpgradeWizardInterface, ChattyInterface, RepeatableInterface
+ {
+   // ...
+ }
 ```
 
 <br>
