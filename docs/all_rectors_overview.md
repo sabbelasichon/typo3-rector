@@ -1963,11 +1963,18 @@ Adapt extbase validators to new interface
 
 Use Symfony attribute to autoconfigure cli commands
 
+To run this rule, you need to do the following steps:
+- Require `"ssch/typo3-debug-dump-pass": "^0.0.2"` in your `composer.json` in the main TYPO3 project
+- Add `->withSymfonyContainerXml(__DIR__ . '/var/cache/development/App_KernelDevelopmentDebugContainer.xml')` in your rector config file.
+- Clear the TYPO3 cache via cmd: `vendor/bin/typo3 cache:flush` to create the `App_KernelDevelopmentDebugContainer.xml` file.
+- Finally run Rector.
+
 - class: [`Ssch\TYPO3Rector\TYPO312\v4\CommandConfigurationToAttributeRector`](../rules/TYPO312/v4/CommandConfigurationToAttributeRector.php)
 
 ```diff
  use Symfony\Component\Console\Command\Command;
 +use Symfony\Component\Console\Attribute\AsCommand;
+
 +#[AsCommand(name: 'my_special_command')]
  class MySpecialCommand extends Command
  {
@@ -3469,10 +3476,10 @@ Convert usages of `TYPO3\CMS\Core\Versioning\VersionState` to its Enum equivalen
 
 ### EventListenerConfigurationToAttributeRector
 
-Use AsEventListener attribute.
+Use AsEventListener attribute
 
 To run this rule, you need to do the following steps:
-- Require `"ssch/typo3-debug-dump-pass": "^0.0.2"` in your composer.json
+- Require `"ssch/typo3-debug-dump-pass": "^0.0.2"` in your `composer.json` in the main TYPO3 project
 - Add `->withSymfonyContainerXml(__DIR__ . '/var/cache/development/App_KernelDevelopmentDebugContainer.xml')` in your rector config file.
 - Clear the TYPO3 cache via cmd: `vendor/bin/typo3 cache:flush` to create the `App_KernelDevelopmentDebugContainer.xml` file.
 - Finally run Rector.

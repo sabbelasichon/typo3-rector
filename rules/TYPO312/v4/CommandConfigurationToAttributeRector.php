@@ -34,6 +34,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class CommandConfigurationToAttributeRector extends AbstractRector implements MinPhpVersionInterface, DocumentedRuleInterface
 {
+    private const COMMAND_TAG_NAME = 'console.command';
+
     /**
      * @readonly
      */
@@ -64,8 +66,6 @@ final class CommandConfigurationToAttributeRector extends AbstractRector impleme
      */
     private ServiceDefinitionHelper $serviceDefinitionHelper;
 
-    private string $commandTagName = 'console.command';
-
     public function __construct(
         ServiceDefinitionHelper $symfonyCommandHelper,
         PhpAttributeGroupFactory $phpAttributeGroupFactory,
@@ -89,23 +89,37 @@ final class CommandConfigurationToAttributeRector extends AbstractRector impleme
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Use Symfony attribute to autoconfigure cli commands', [new CodeSample(
-            <<<'CODE_SAMPLE'
+        return new RuleDefinition(
+            <<<'DESCRRIPTION'
+Use Symfony attribute to autoconfigure cli commands
+
+To run this rule, you need to do the following steps:
+- Require `"ssch/typo3-debug-dump-pass": "^0.0.2"` in your composer.json in the main TYPO3 project
+- Add `->withSymfonyContainerXml(__DIR__ . '/var/cache/development/App_KernelDevelopmentDebugContainer.xml')` in your rector config file.
+- Clear the TYPO3 cache via cmd: `vendor/bin/typo3 cache:flush` to create the `App_KernelDevelopmentDebugContainer.xml` file.
+- Finally run Rector.
+DESCRRIPTION
+            ,
+            [new CodeSample(
+                <<<'CODE_SAMPLE'
 use Symfony\Component\Console\Command\Command;
+
 class MySpecialCommand extends Command
 {
 }
 CODE_SAMPLE
-            ,
-            <<<'CODE_SAMPLE'
+                ,
+                <<<'CODE_SAMPLE'
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
+
 #[AsCommand(name: 'my_special_command')]
 class MySpecialCommand extends Command
 {
 }
 CODE_SAMPLE
-        )]);
+            )]
+        );
     }
 
     public function getNodeTypes(): array
@@ -130,7 +144,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $commands = $this->serviceDefinitionHelper->getServiceDefinitionsByTagName($this->commandTagName);
+        $commands = $this->serviceDefinitionHelper->getServiceDefinitionsByTagName(self::COMMAND_TAG_NAME);
         if ($commands === []) {
             return null;
         }
@@ -140,7 +154,7 @@ CODE_SAMPLE
             if ($this->isName($node, $command->getClass() ?? $command->getId())) {
                 $options = $this->serviceDefinitionHelper->extractOptionsFromServiceDefinition(
                     $command,
-                    $this->commandTagName
+                    self::COMMAND_TAG_NAME
                 );
             }
         }
