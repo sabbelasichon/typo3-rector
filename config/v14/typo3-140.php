@@ -25,6 +25,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateCopyRelatedDataHandlerPropertiesRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateCoreTcaAndUserSettingsShowitemStringsToShortFormReferencesRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateDataHandlerPropertiesUserIdAndAdminRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateEnvironmentGetComposerRootPathRector;
+use Ssch\TYPO3Rector\TYPO314\v0\MigrateFileCollectionRegistryAddTypeToTCARector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateGeneralUtilityCreateVersionNumberedFilenameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateManualShortcutButtonCreationRector;
@@ -127,6 +128,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateCopyRelatedDataHandlerPropertiesRector::class);
     $rectorConfig->rule(MigrateDataHandlerPropertiesUserIdAndAdminRector::class);
     $rectorConfig->rule(MigrateEnvironmentGetComposerRootPathRector::class);
+    $rectorConfig->rule(MigrateFileCollectionRegistryAddTypeToTCARector::class);
     $rectorConfig->rule(MigrateGeneralUtilityCreateVersionNumberedFilenameRector::class);
     $rectorConfig->rule(MigrateIpAnonymizationTaskRector::class);
     $rectorConfig->rule(MigrateManualShortcutButtonCreationRector::class);

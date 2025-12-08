@@ -1,4 +1,4 @@
-# 238 Rules Overview
+# 239 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (44)
+- [TYPO314](#typo314) (45)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4671,6 +4671,33 @@ Migrate `Environment::getComposerRootPath()` to `Environment::getProjectPath()`
 ```diff
 -\TYPO3\CMS\Core\Core\Environment::getComposerRootPath();
 +\TYPO3\CMS\Core\Core\Environment::getProjectPath();
+```
+
+<br>
+
+### MigrateFileCollectionRegistryAddTypeToTCARector
+
+Migrate `FileCollectionRegistry->addTypeToTCA()`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateFileCollectionRegistryAddTypeToTCARector`](../rules/TYPO314/v0/MigrateFileCollectionRegistryAddTypeToTCARector.php)
+
+```diff
+-$fileCollectionRegistry = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\Collection\FileCollectionRegistry::class);
+-$fileCollectionRegistry->addTypeToTCA(
+-    'mytype',
+-    'My Collection Type',
+-    'description,my_field',
+-    ['my_field' => ['config' => ['type' => 'input']]]
+-);
++// In Configuration/TCA/Overrides/sys_file_collection.php
++$GLOBALS['TCA']['sys_file_collection']['types']['mytype'] = [
++    'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, --palette--;;1, type, description, my_field',
++];
++
++$GLOBALS['TCA']['sys_file_collection']['columns']['type']['config']['items'][] = [
++    'label' => 'My Collection Type',
++    'value' => 'mytype',
++];
 ```
 
 <br>
