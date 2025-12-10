@@ -41,6 +41,9 @@ return static function (ECSConfig $ecsConfig): void {
             __DIR__ . '/config/v14/typo3-140.php',
             __DIR__ . '/config/v14/strict-types.php',
         ],
+        GeneralPhpdocAnnotationRemoveFixer::class => [
+            __DIR__ . '/rules/TYPO311/v4/RegisterIconToIconFileRector.php',
+        ],
     ]);
 
     $ecsConfig->sets([SetList::PSR_12, SetList::SYMPLIFY, SetList::COMMON, SetList::CLEAN_CODE]);
