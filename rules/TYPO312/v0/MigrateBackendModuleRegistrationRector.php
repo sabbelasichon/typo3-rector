@@ -225,7 +225,7 @@ CODE;
             // Merge the arrays
             $this->mergeFiles($existingFile, $tempFile);
 
-            // 3. Print to file
+            // Print to file
             $this->printFile($existingFile, $existingFile->getFilePath());
         } else {
             $this->filesystem->write($newConfigurationFile, <<<CODE

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\v14\v0\MigrateFileCollectionRegistryAddTypeToTCARector;
+namespace Ssch\TYPO3Rector\Tests\Rector\v11\v4\RegisterIconToIconFileRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 
-final class MigrateFileCollectionRegistryAddTypeToTCARectorTest extends AbstractRectorTestCase
+final class RegisterIconToIconFileRectorTest extends AbstractRectorTestCase
 {
     private FilesystemInterface $filesystem;
 
@@ -38,21 +38,19 @@ final class MigrateFileCollectionRegistryAddTypeToTCARectorTest extends Abstract
     {
         // Arrange
         if ($existingContent !== null) {
-            $pageTsConfig = __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/TCA/Overrides/sys_file_collection.php';
+            $pageTsConfig = __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/Icons.php';
             $this->testFilesToDelete[] = $pageTsConfig;
             $this->filesystem->write($pageTsConfig, $existingContent);
         }
 
         // Act
         $this->doTestFile(__DIR__ . '/Fixture/' . $extensionKey . '/ext_localconf.php.inc');
-        $this->testFilesToDelete[] = __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/TCA/Overrides/sys_file_collection.php';
+        $this->testFilesToDelete[] = __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/Icons.php';
 
         // Assert
-        $content = $this->filesystem->read(
-            __DIR__ . '/Fixture/' . $extensionKey . '/Configuration/TCA/Overrides/sys_file_collection.php'
-        );
+        $content = $this->filesystem->read(__DIR__ . '/Fixture/' . $extensionKey . '/Configuration/Icons.php');
         self::assertStringEqualsFile(
-            __DIR__ . '/Assertions/' . $extensionKey . '/Configuration/TCA/Overrides/sys_file_collection.php',
+            __DIR__ . '/Assertions/' . $extensionKey . '/Configuration/Icons.php',
             $content
         );
     }
@@ -62,14 +60,20 @@ final class MigrateFileCollectionRegistryAddTypeToTCARectorTest extends Abstract
      */
     public static function provideData(): \Iterator
     {
-        yield 'Test that new sys_file_collection.php is created with correct content' => ['extension1'];
+        yield 'Test that new Icons.php is created with correct content' => ['extension1'];
 
-        yield 'Test that content is appended to existing sys_file_collection.php file' => [
+        yield 'Test that content is appended to existing Icons.php file' => [
             'extension2',
-            '<?php
+            <<<'CODE'
+<?php
 
-// file exists
-',
+return [
+    'existing-icon' => [
+        'provider' => \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        'source' => 'EXT:my_extension/Resources/Public/Icons/existing.svg',
+    ],
+];
+CODE
         ];
     }
 

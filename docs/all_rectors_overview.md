@@ -1,4 +1,4 @@
-# 239 Rules Overview
+# 240 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO310](#typo310) (38)
 
-- [TYPO311](#typo311) (34)
+- [TYPO311](#typo311) (35)
 
 - [TYPO312](#typo312) (59)
 
@@ -1518,6 +1518,36 @@ Replace `public $cObj` with `protected` and set via method
 +        $this->cObj = $cObj;
 +    }
  }
+```
+
+<br>
+
+### RegisterIconToIconFileRector
+
+Generate or add registerIcon calls to Icons.php file
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v4\RegisterIconToIconFileRector`](../rules/TYPO311/v4/RegisterIconToIconFileRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider;
+ use TYPO3\CMS\Core\Imaging\IconRegistry;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+ $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
+-$iconRegistry->registerIcon(
+-    'mybitmapicon',
+-    BitmapIconProvider::class,
+-    [
++
++// Add Icons.php file
++return [
++    'mybitmapicon' => [
++        'provider' => \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+         'source' => 'EXT:my_extension/Resources/Public/Icons/mybitmap.png',
+-    ]
+-);
++    ],
++];
 ```
 
 <br>

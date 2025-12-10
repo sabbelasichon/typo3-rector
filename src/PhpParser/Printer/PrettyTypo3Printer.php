@@ -10,7 +10,6 @@ use PhpParser\Internal\TokenStream;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\ArrayItem;
-use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrowFunction;
@@ -124,14 +123,16 @@ class PrettyTypo3Printer extends Standard
 
     /**
      * @api magic method in parent
+     * @see \PhpParser\PrettyPrinterAbstract::p
      */
     public function pFileWithoutNamespace(FileWithoutNamespace $fileWithoutNamespace): string
     {
-        return $this->pStmts($fileWithoutNamespace->stmts);
+        return $this->pStmts($fileWithoutNamespace->stmts, false);
     }
 
     /**
      * @api magic method in parent
+     * @see \PhpParser\PrettyPrinterAbstract::p
      */
     public function pInterpolatedStringPart(InterpolatedStringPart $interpolatedStringPart): string
     {
@@ -173,20 +174,9 @@ class PrettyTypo3Printer extends Standard
         return $node->getAttribute(AttributeKey::WRAPPED_IN_PARENTHESES) === \true ? '(' . $content . ')' : $content;
     }
 
-    protected function pAttributeGroup(AttributeGroup $attributeGroup): string
-    {
-        $ret = parent::pAttributeGroup($attributeGroup);
-        $comment = $attributeGroup->getAttribute(AttributeKey::ATTRIBUTE_COMMENT);
-        if (! in_array($comment, ['', null], \true)) {
-            $ret .= ' // ' . $comment;
-        }
-
-        return $ret;
-    }
-
     protected function pExpr_ArrowFunction(ArrowFunction $arrowFunction, int $precedence, int $lhsPrecedence): string
     {
-        if (! $arrowFunction->hasAttribute(AttributeKey::COMMENT_CLOSURE_RETURN_MIRRORED)) {
+        if (! $arrowFunction->hasAttribute(AttributeKey::COMMENTS)) {
             return parent::pExpr_ArrowFunction($arrowFunction, $precedence, $lhsPrecedence);
         }
 
