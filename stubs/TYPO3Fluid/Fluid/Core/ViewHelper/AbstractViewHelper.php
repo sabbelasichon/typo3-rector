@@ -30,4 +30,12 @@ class AbstractViewHelper
     public function initializeArguments()
     {
     }
+
+    protected function registerArgument($name, $type, $description, $required = false, $defaultValue = null, $escape = null): self
+    {
+    }
+
+    public function renderChildren()
+    {
+    }
 }

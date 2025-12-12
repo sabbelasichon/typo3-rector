@@ -23,6 +23,12 @@ jobs:
           - name: 'Composer Validate'
             run: composer validate --strict --ansi
 
+          - name: 'Check before/after test fixture on no-changes'
+            run: php build/scripts/sameBeforeAfterFixtureDetector.php
+
+          - name: 'Check no "*.php" files in rules Fixture directory'
+            run: php build/scripts/noPhpFileInFixturesDetector.php
+
           - name: 'Tests'
             run: vendor/bin/phpunit
 

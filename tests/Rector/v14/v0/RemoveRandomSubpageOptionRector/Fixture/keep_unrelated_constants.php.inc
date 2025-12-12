@@ -5,13 +5,3 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\RemoveConstantPageRepositoryDokty
 use TYPO3\CMS\Core\Domain\Repository\PageRepository;
 
 $value = PageRepository::DOKTYPE_DEFAULT;
-?>
------
-<?php
-
-namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\RemoveConstantPageRepositoryDoktypeRecyclerRector\Fixture;
-
-use TYPO3\CMS\Core\Domain\Repository\PageRepository;
-
-$value = PageRepository::DOKTYPE_DEFAULT;
-?>
