@@ -178,7 +178,7 @@ CODE_SAMPLE
                     return null;
                 }
 
-                if ($this->allowedClasses !== [] && ! in_array($className, $this->allowedClasses, true)) {
+                if ($this->allowedClasses !== [] && in_array($className, $this->allowedClasses, true)) {
                     return null;
                 }
 
