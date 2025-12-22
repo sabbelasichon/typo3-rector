@@ -23,7 +23,5 @@ phpstan-baseline.neon export-ignore
 phpunit.xml.dist export-ignore
 rector.php export-ignore
 tests export-ignore
-utils/composer-packages export-ignore
 utils/generator export-ignore
 utils/phpstan/tests export-ignore
-utils/rules export-ignore
