@@ -15,24 +15,21 @@ use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\ArrowFunction;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\BinaryOp;
+use PhpParser\Node\Expr\BinaryOp\Pipe;
 use PhpParser\Node\Expr\CallLike;
 use PhpParser\Node\Expr\Instanceof_;
 use PhpParser\Node\Expr\Match_;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Expr\Ternary;
 use PhpParser\Node\Expr\Yield_;
 use PhpParser\Node\InterpolatedStringPart;
-use PhpParser\Node\Scalar\Float_;
-use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\InterpolatedString;
 use PhpParser\Node\Scalar\String_;
-use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\InlineHTML;
 use PhpParser\Node\Stmt\Nop;
 use PhpParser\PrettyPrinter\Standard;
-use PHPStan\Node\AnonymousClassNode;
+use PhpParser\Token;
 use PHPStan\Node\Expr\AlwaysRememberedExpr;
 use Rector\Configuration\Option;
 use Rector\Configuration\Parameter\SimpleParameterProvider;
@@ -40,7 +37,7 @@ use Rector\NodeAnalyzer\ExprAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\Util\NewLineSplitter;
-use Rector\Util\StringUtils;
+use Rector\Util\Reflection\PrivatesAccessor;
 
 /**
  * This class is a combination of the BetterStandardPrinter from Rector and the PrettyTypo3Printer from the TYPO3 kickstarter
@@ -57,25 +54,21 @@ class PrettyTypo3Printer extends Standard
     private const EXTRA_SPACE_BEFORE_NOP_REGEX = '#^[ \t]+$#m';
 
     /**
-     * @see https://regex101.com/r/UluSYL/1
-     * @var string
-     */
-    private const SPACED_NEW_START_REGEX = '#^new\s+#';
-
-    /**
-     * @var string
-     */
-    private const REPRINT_RAW_VALUE = 'reprint_raw_value';
-
-    /**
      * @readonly
      */
     private ExprAnalyzer $exprAnalyzer;
 
-    public function __construct(ExprAnalyzer $exprAnalyzer)
+    /**
+     * @readonly
+     */
+    private PrivatesAccessor $privatesAccessor;
+
+    public function __construct(ExprAnalyzer $exprAnalyzer, PrivatesAccessor $privatesAccessor)
     {
-        $this->exprAnalyzer = $exprAnalyzer;
         parent::__construct();
+
+        $this->exprAnalyzer = $exprAnalyzer;
+        $this->privatesAccessor = $privatesAccessor;
     }
 
     /**
@@ -131,10 +124,11 @@ class PrettyTypo3Printer extends Standard
     }
 
     /**
-     * @api magic method in parent
+     * Use for standalone InterpolatedStringPart printing, that is not support by php-parser natively.
+     * Used e.g. in \Rector\PhpParser\Comparing\NodeComparator::printWithoutComments
      * @see \PhpParser\PrettyPrinterAbstract::p
      */
-    public function pInterpolatedStringPart(InterpolatedStringPart $interpolatedStringPart): string
+    protected function pInterpolatedStringPart(InterpolatedStringPart $interpolatedStringPart): string
     {
         return $interpolatedStringPart->value;
     }
@@ -147,12 +141,11 @@ class PrettyTypo3Printer extends Standard
     ): string {
         // handle already AlwaysRememberedExpr
         // @see https://github.com/rectorphp/rector/issues/8815#issuecomment-2503453191
-        while ($node instanceof AlwaysRememberedExpr) {
-            $node = $node->getExpr();
+        if ($node instanceof AlwaysRememberedExpr) {
+            return $this->p($node->getExpr(), $precedence, $lhsPrecedence, $parentFormatPreserved);
         }
 
-        // handle overlapped origNode is Match_
-        // and its subnodes still have AlwaysRememberedExpr
+        // handle overlapped origNode is Match_ and its subnodes still have AlwaysRememberedExpr
         $originalNode = $node->getAttribute(AttributeKey::ORIGINAL_NODE);
         if ($originalNode instanceof Match_) {
             $subNodeNames = $node->getSubNodeNames();
@@ -163,12 +156,12 @@ class PrettyTypo3Printer extends Standard
             }
         }
 
-        $this->wrapBinaryOp($node);
+        $this->wrapBinaryOpWithBrackets($node);
         $content = parent::p($node, $precedence, $lhsPrecedence, $parentFormatPreserved);
-        if ($node instanceof New_ && $node->class instanceof AnonymousClassNode
-            && ! StringUtils::isMatch($content, self::SPACED_NEW_START_REGEX)
-        ) {
-            $content = 'new ' . $content;
+
+        // remove once its fixed in php-parser, https://github.com/nikic/PHP-Parser/pull/1126
+        if ($node instanceof CallLike) {
+            $this->cleanVariadicPlaceHolderTrailingComma($node);
         }
 
         return $node->getAttribute(AttributeKey::WRAPPED_IN_PARENTHESES) === \true ? '(' . $content . ')' : $content;
@@ -194,20 +187,7 @@ class PrettyTypo3Printer extends Standard
             $text .= $commentText . "\n";
         }
 
-        return $this->pPrefixOp(
-            ArrowFunction::class,
-            $this->pAttrGroups($arrowFunction->attrGroups, \true) . $this->pStatic(
-                $arrowFunction->static
-            ) . 'fn' . ($arrowFunction->byRef ? '&' : '') . '(' . $this->pMaybeMultiline(
-                $arrowFunction->params,
-                $this->phpVersion->supportsTrailingCommaInParamList()
-            ) . ')' . ($arrowFunction->returnType instanceof Node ? ': ' . $this->p(
-                $arrowFunction->returnType
-            ) : '') . ' =>' . $text . $indent,
-            $arrowFunction->expr,
-            $precedence,
-            $lhsPrecedence
-        );
+        return $text . "\n" . $indent . parent::pExpr_ArrowFunction($arrowFunction, $precedence, $lhsPrecedence);
     }
 
     /**
@@ -276,18 +256,6 @@ class PrettyTypo3Printer extends Standard
     }
 
     /**
-     * Emulates 1_000 in PHP 7.3- version
-     */
-    protected function pScalar_Float(Float_ $float): string
-    {
-        if ($this->shouldPrintNewRawValue($float)) {
-            return (string) $float->getAttribute(AttributeKey::RAW_VALUE);
-        }
-
-        return parent::pScalar_Float($float);
-    }
-
-    /**
      * Do not add "()" on Expressions
      * @see https://github.com/rectorphp/rector/pull/401#discussion_r181487199
      */
@@ -322,6 +290,18 @@ class PrettyTypo3Printer extends Standard
         return parent::pExpr_Array($array);
     }
 
+    protected function pExpr_BinaryOp_Pipe(Pipe $node, int $precedence, int $lhsPrecedence): string
+    {
+        return $this->pInfixOp(
+            Pipe::class,
+            $node->left,
+            "\n" . $this->resolveIndentSpaces() . '|> ',
+            $node->right,
+            $precedence,
+            $lhsPrecedence
+        );
+    }
+
     /**
      * Fixes escaping of regular patterns
      */
@@ -339,11 +319,11 @@ class PrettyTypo3Printer extends Standard
 
         $kind = $string->getAttribute(AttributeKey::KIND, String_::KIND_SINGLE_QUOTED);
         if ($kind === String_::KIND_DOUBLE_QUOTED) {
-            return $this->wrapValueWith($string, '"');
+            return '"' . $string->value . '"';
         }
 
         if ($kind === String_::KIND_SINGLE_QUOTED) {
-            return $this->wrapValueWith($string, "'");
+            return "'" . $string->value . "'";
         }
 
         return parent::pScalar_String($string);
@@ -379,19 +359,6 @@ class PrettyTypo3Printer extends Standard
         return $content;
     }
 
-    /**
-     * Invoke re-print even if only raw value was changed.
-     * That allows PHPStan to use int strict types, while changing the value with literal "_"
-     */
-    protected function pScalar_Int(Int_ $int): string
-    {
-        if ($this->shouldPrintNewRawValue($int)) {
-            return (string) $int->getAttribute(AttributeKey::RAW_VALUE);
-        }
-
-        return parent::pScalar_Int($int);
-    }
-
     protected function pExpr_MethodCall(MethodCall $methodCall): string
     {
         if (! $methodCall->var instanceof CallLike) {
@@ -410,11 +377,10 @@ class PrettyTypo3Printer extends Standard
             $arg->value->setAttribute(AttributeKey::ORIGINAL_NODE, null);
         }
 
-        return $this->pDereferenceLhs(
-            $methodCall->var
-        ) . "\n" . $this->resolveIndentSpaces() . '->' . $this->pObjectProperty(
-            $methodCall->name
-        ) . '(' . $this->pMaybeMultiline($methodCall->args) . ')';
+        return $this->pDereferenceLhs($methodCall->var) . "\n"
+            . $this->resolveIndentSpaces() . '->'
+            . $this->pObjectProperty($methodCall->name)
+            . '(' . $this->pMaybeMultiline($methodCall->args) . ')';
     }
 
     protected function pInfixOp(
@@ -462,19 +428,49 @@ class PrettyTypo3Printer extends Standard
         return $this->pImplode($nodes, ', ');
     }
 
-    protected function pStmt_ClassMethod(ClassMethod $node): string
+    /**
+     * @todo remove once https://github.com/nikic/PHP-Parser/pull/1125 is merged and released
+     */
+    private function cleanVariadicPlaceHolderTrailingComma(CallLike $callLike): void
     {
-        return $this->pAttrGroups($node->attrGroups)
-            . $this->pModifiers($node->flags)
-            . 'function ' . ($node->byRef ? '&' : '') . $node->name
-            . '(' . $this->pMaybeMultiline($node->params) . ')'
-            . ($node->returnType instanceof Node ? ': ' . $this->p($node->returnType) : '') // Removed extra space
-            . ($node->stmts !== null
-                ? $this->nl . '{' . $this->pStmts($node->stmts) . $this->nl . '}'
-                : ';');
+        $originalNode = $callLike->getAttribute(AttributeKey::ORIGINAL_NODE);
+        if (! $originalNode instanceof CallLike) {
+            return;
+        }
+
+        if ($originalNode->isFirstClassCallable()) {
+            return;
+        }
+
+        if (! $callLike->isFirstClassCallable()) {
+            return;
+        }
+
+        if (! $this->origTokens instanceof TokenStream) {
+            return;
+        }
+
+        /** @var Token[] $tokens */
+        $tokens = $this->privatesAccessor->getPrivateProperty($this->origTokens, 'tokens');
+
+        $iteration = 1;
+        while (isset($tokens[$callLike->getEndTokenPos() - $iteration])) {
+            $text = trim((string) $tokens[$callLike->getEndTokenPos() - $iteration]->text);
+
+            if (in_array($text, [')', ''], true)) {
+                ++$iteration;
+                continue;
+            }
+
+            if ($text === ',') {
+                $tokens[$callLike->getEndTokenPos() - $iteration]->text = '';
+            }
+
+            break;
+        }
     }
 
-    private function wrapBinaryOp(Node $node): void
+    private function wrapBinaryOpWithBrackets(Node $node): void
     {
         if ($this->exprAnalyzer->isExprWithExprPropertyWrappable($node)) {
             $node->expr->setAttribute(AttributeKey::ORIGINAL_NODE, null);
@@ -488,10 +484,10 @@ class PrettyTypo3Printer extends Standard
             return;
         }
 
-        if ($node->left instanceof Assign && $this->origTokens instanceof TokenStream && ! $this->origTokens->haveParens(
-            $node->left->getStartTokenPos(),
-            $node->left->getEndTokenPos()
-        )) {
+        if ($node->left instanceof Assign
+            && $this->origTokens instanceof TokenStream
+            && ! $this->origTokens->haveParens($node->left->getStartTokenPos(), $node->left->getEndTokenPos())
+        ) {
             $node->left->setAttribute(AttributeKey::ORIGINAL_NODE, null);
         }
 
@@ -499,9 +495,9 @@ class PrettyTypo3Printer extends Standard
             $node->left->setAttribute(AttributeKey::ORIGINAL_NODE, null);
         }
 
-        if ($node->right instanceof BinaryOp && $node->right->getAttribute(
-            AttributeKey::ORIGINAL_NODE
-        ) instanceof Node) {
+        if ($node->right instanceof BinaryOp
+            && $node->right->getAttribute(AttributeKey::ORIGINAL_NODE) instanceof Node
+        ) {
             $node->right->setAttribute(AttributeKey::ORIGINAL_NODE, null);
         }
     }
@@ -530,10 +526,8 @@ class PrettyTypo3Printer extends Standard
     private function resolveIndentSpaces(): string
     {
         $indentSize = SimpleParameterProvider::provideIntParameter(Option::INDENT_SIZE);
-        return str_repeat($this->getIndentCharacter(), $this->indentLevel) . str_repeat(
-            $this->getIndentCharacter(),
-            $indentSize
-        );
+        return str_repeat($this->getIndentCharacter(), $this->indentLevel)
+            . str_repeat($this->getIndentCharacter(), $indentSize);
     }
 
     /**
@@ -542,14 +536,6 @@ class PrettyTypo3Printer extends Standard
     private function getIndentCharacter(): string
     {
         return SimpleParameterProvider::provideStringParameter(Option::INDENT_CHAR, ' ');
-    }
-
-    /**
-     * @param Int_|Float_ $lNumber
-     */
-    private function shouldPrintNewRawValue($lNumber): bool
-    {
-        return $lNumber->getAttribute(self::REPRINT_RAW_VALUE) === \true;
     }
 
     /**
@@ -585,11 +571,6 @@ class PrettyTypo3Printer extends Standard
         }
 
         return $hasNop;
-    }
-
-    private function wrapValueWith(String_ $string, string $wrap): string
-    {
-        return $wrap . $string->value . $wrap;
     }
 
     /**
