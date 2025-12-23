@@ -542,7 +542,7 @@ CODE);
 
         $newStmts = $newFile->getNewStmts();
 
-        /** @var FileWithoutNamespace $fileWithoutNamespace2 */
+        /** @var FileNode $fileWithoutNamespace2 */
         $fileWithoutNamespace2 = $newStmts[0];
 
         $newArray = $this->getNodeArray($fileWithoutNamespace2, 1);
