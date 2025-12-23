@@ -14,6 +14,7 @@ use PHPStan\Type\ObjectType;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
 use Rector\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use Rector\PhpParser\Node\FileNode;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PhpParser\Parser\RectorParser;
 use Rector\PhpParser\Printer\BetterStandardPrinter;
@@ -530,7 +531,7 @@ CODE);
     {
         $existingStmts = $existingFile->getNewStmts();
 
-        /** @var FileWithoutNamespace $fileWithoutNamespace */
+        /** @var FileNode $fileWithoutNamespace */
         $fileWithoutNamespace = $existingStmts[0];
 
         // This is very ugly but it works, see https://github.com/nikic/PHP-Parser/issues/1019
@@ -553,7 +554,7 @@ CODE);
         $existingFile->changeNewStmts($existingStmts);
     }
 
-    private function getNodeArray(FileWithoutNamespace $fileWithoutNamespace, int $index): Array_
+    private function getNodeArray(FileNode $fileWithoutNamespace, int $index): Array_
     {
         /** @var Return_ $return */
         $return = $fileWithoutNamespace->stmts[$index];
@@ -583,6 +584,7 @@ CODE);
         // store tokens by original file content, so we don't have to print them right now
         $stmtsAndTokens = $this->rectorParser->parseFileContentToStmtsAndTokens($file->getOriginalFileContent());
         $oldStmts = $stmtsAndTokens->getStmts();
+        $oldStmts = [new FileNode($oldStmts)];
         $oldTokens = $stmtsAndTokens->getTokens();
         $newStmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file->getFilePath(), $oldStmts);
         $file->hydrateStmtsAndTokens($newStmts, $oldStmts, $oldTokens);
