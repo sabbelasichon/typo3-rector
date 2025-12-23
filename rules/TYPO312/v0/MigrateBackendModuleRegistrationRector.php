@@ -13,7 +13,6 @@ use PhpParser\NodeVisitor;
 use PHPStan\Type\ObjectType;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
-use Rector\PhpParser\Node\CustomNode\FileWithoutNamespace;
 use Rector\PhpParser\Node\FileNode;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PhpParser\Parser\RectorParser;
