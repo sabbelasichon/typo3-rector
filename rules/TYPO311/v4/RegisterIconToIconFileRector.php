@@ -12,15 +12,18 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
 use PhpParser\NodeVisitor\CloningVisitor;
 use PHPStan\Type\ObjectType;
+use Rector\Configuration\ConfigurationRuleFilter;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
 use Rector\NodeTypeResolver\PHPStan\Scope\PHPStanNodeScopeResolver;
 use Rector\PhpParser\Node\FileNode;
 use Rector\PhpParser\Node\Value\ValueResolver;
+use Rector\PhpParser\NodeTraverser\RectorNodeTraverser;
 use Rector\PhpParser\Parser\RectorParser;
 use Rector\Rector\AbstractRector;
 use Rector\ValueObject\Application\File;
 use Rector\ValueObject\Error\SystemError;
+use Rector\VersionBonding\PhpVersionedFilter;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\PhpParser\Printer\PrettyTypo3Printer;
@@ -71,6 +74,10 @@ final class RegisterIconToIconFileRector extends AbstractRector implements Docum
 
     private PHPStanNodeScopeResolver $phpStanNodeScopeResolver;
 
+    private PhpVersionedFilter $phpVersionedFilter;
+
+    private ConfigurationRuleFilter $configurationRuleFilter;
+
     public function __construct(
         FilesFinder $filesFinder,
         FilesystemInterface $filesystem,
@@ -79,7 +86,9 @@ final class RegisterIconToIconFileRector extends AbstractRector implements Docum
         NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator,
         PrettyTypo3Printer $prettyTypo3Printer,
         AddIconToReturnRector $addItemToReturnRector,
-        PHPStanNodeScopeResolver $phpStanNodeScopeResolver
+        PHPStanNodeScopeResolver $phpStanNodeScopeResolver,
+        PhpVersionedFilter $phpVersionedFilter,
+        ConfigurationRuleFilter $configurationRuleFilter
     ) {
         $this->filesFinder = $filesFinder;
         $this->filesystem = $filesystem;
@@ -89,6 +98,8 @@ final class RegisterIconToIconFileRector extends AbstractRector implements Docum
         $this->prettyTypo3Printer = $prettyTypo3Printer;
         $this->addItemToReturnRector = $addItemToReturnRector;
         $this->phpStanNodeScopeResolver = $phpStanNodeScopeResolver;
+        $this->phpVersionedFilter = $phpVersionedFilter;
+        $this->configurationRuleFilter = $configurationRuleFilter;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -235,14 +246,14 @@ CODE_SAMPLE
             $return = new Return_($this->nodeFactory->createArray([]));
             $nodes = $this->phpStanNodeScopeResolver->processNodes([$return], 'php://temp');
 
-            $nodeTraverser->addVisitor(new CloningVisitor());
+            //$nodeTraverser->addVisitor(new CloningVisitor());
         }
 
         $this->addItemToReturnRector->configure([
             AddIconToReturnRector::IDENTIFIER => $iconIdentifier,
             AddIconToReturnRector::OPTIONS => $iconConfiguration,
         ]);
-        $nodeTraverser->addVisitor($this->addItemToReturnRector);
+        $nodeTraverser = new RectorNodeTraverser([$this->addItemToReturnRector], $this->phpVersionedFilter, $this->configurationRuleFilter);
         $nodes = $nodeTraverser->traverse($nodes);
 
         return $this->prettyTypo3Printer->prettyPrintFile($nodes);
