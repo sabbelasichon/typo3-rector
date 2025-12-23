@@ -10,7 +10,6 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
-use PhpParser\NodeVisitor\CloningVisitor;
 use PHPStan\Type\ObjectType;
 use Rector\Configuration\ConfigurationRuleFilter;
 use Rector\Exception\ShouldNotHappenException;
@@ -245,8 +244,6 @@ CODE_SAMPLE
         } else {
             $return = new Return_($this->nodeFactory->createArray([]));
             $nodes = $this->phpStanNodeScopeResolver->processNodes([$return], 'php://temp');
-
-            //$nodeTraverser->addVisitor(new CloningVisitor());
         }
 
         $this->addItemToReturnRector->configure([
