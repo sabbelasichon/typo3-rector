@@ -35,7 +35,7 @@ use Rector\Configuration\Option;
 use Rector\Configuration\Parameter\SimpleParameterProvider;
 use Rector\NodeAnalyzer\ExprAnalyzer;
 use Rector\NodeTypeResolver\Node\AttributeKey;
-use Rector\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use Rector\PhpParser\Node\FileNode;
 use Rector\Util\NewLineSplitter;
 use Rector\Util\Reflection\PrivatesAccessor;
 
@@ -78,7 +78,9 @@ class PrettyTypo3Printer extends Standard
      */
     public function printFormatPreserving(array $stmts, array $origStmts, array $origTokens): string
     {
-        $newStmts = $this->resolveNewStmts($stmts);
+        $newStmts = $this->unwrapFileNode($stmts);
+        $origStmts = $this->unwrapFileNode($origStmts);
+
         $content = parent::printFormatPreserving($newStmts, $origStmts, $origTokens);
         // add new line in case of added stmts
         if (count($newStmts) !== count($origStmts) && substr_compare($content, "\n", -strlen("\n")) !== 0) {
@@ -101,6 +103,8 @@ class PrettyTypo3Printer extends Standard
             $node = [$node];
         }
 
+        $node = $this->unwrapFileNode($node);
+
         return $this->prettyPrint($node);
     }
 
@@ -118,9 +122,9 @@ class PrettyTypo3Printer extends Standard
      * @api magic method in parent
      * @see \PhpParser\PrettyPrinterAbstract::p
      */
-    public function pFileWithoutNamespace(FileWithoutNamespace $fileWithoutNamespace): string
+    protected function pStmt_FileNode(FileNode $fileNode): string
     {
-        return $this->pStmts($fileWithoutNamespace->stmts, false);
+        return $this->pStmts($fileNode->stmts, false);
     }
 
     /**
@@ -542,10 +546,9 @@ class PrettyTypo3Printer extends Standard
      * @param Node[] $stmts
      * @return Node[]|mixed[]
      */
-    private function resolveNewStmts(array $stmts): array
+    private function unwrapFileNode(array $stmts): array
     {
-        $stmts = array_values($stmts);
-        if (count($stmts) === 1 && $stmts[0] instanceof FileWithoutNamespace) {
+        if (count($stmts) === 1 && $stmts[0] instanceof FileNode) {
             return array_values($stmts[0]->stmts);
         }
 

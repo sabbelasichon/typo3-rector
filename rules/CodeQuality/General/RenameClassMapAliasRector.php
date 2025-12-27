@@ -14,7 +14,7 @@ use PhpParser\Node\Stmt\Namespace_;
 use PhpParser\Node\Stmt\Property;
 use Rector\Configuration\RenamedClassesDataCollector;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
-use Rector\PhpParser\Node\CustomNode\FileWithoutNamespace;
+use Rector\PhpParser\Node\FileNode;
 use Rector\Rector\AbstractRector;
 use Rector\Renaming\NodeManipulator\ClassRenamer;
 use Rector\ValueObject\PhpVersionFeature;
@@ -120,7 +120,7 @@ CODE_SAMPLE
     public function getNodeTypes(): array
     {
         return [
-            FileWithoutNamespace::class,
+            FileNode::class,
             Name::class,
             Property::class,
             FunctionLike::class,
@@ -132,10 +132,15 @@ CODE_SAMPLE
     }
 
     /**
-     * @param FunctionLike|Name|ClassLike|Expression|Namespace_|Property|FileWithoutNamespace|String_ $node
+     * @param FunctionLike|Name|ClassLike|Expression|Namespace_|Property|FileNode|String_ $node
      */
     public function refactor(Node $node): ?Node
     {
+        if ($node instanceof FileNode && $node->isNamespaced()) {
+            // handled in Namespace_ node
+            return null;
+        }
+
         if ($node instanceof String_) {
             return $this->stringClassNameToClassConstantRectorIfPossible($node);
         }
