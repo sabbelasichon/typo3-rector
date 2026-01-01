@@ -250,7 +250,9 @@ CODE_SAMPLE
             AddIconToReturnRector::IDENTIFIER => $iconIdentifier,
             AddIconToReturnRector::OPTIONS => $iconConfiguration,
         ]);
-        $nodeTraverser = new RectorNodeTraverser([$this->addItemToReturnRector], $this->phpVersionedFilter, $this->configurationRuleFilter);
+        $nodeTraverser = new RectorNodeTraverser([
+            $this->addItemToReturnRector,
+        ], $this->phpVersionedFilter, $this->configurationRuleFilter);
         $nodes = $nodeTraverser->traverse($nodes);
 
         return $this->prettyTypo3Printer->prettyPrintFile($nodes);
