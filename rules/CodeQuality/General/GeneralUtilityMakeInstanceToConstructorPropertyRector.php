@@ -38,12 +38,26 @@ final class GeneralUtilityMakeInstanceToConstructorPropertyRector extends Abstra
      * @var string[]
      */
     private array $allowedClasses = [
+        'TYPO3\CMS\Core\Cache\CacheManager',
         'TYPO3\CMS\Core\Configuration\Features',
         'TYPO3\CMS\Core\Context\Context',
+        'TYPO3\CMS\Core\Crypto\HashService',
         'TYPO3\CMS\Core\Database\ConnectionPool',
+        'TYPO3\CMS\Core\Imaging\IconFactory',
+        'TYPO3\CMS\Core\LinkHandling\LinkService',
         'TYPO3\CMS\Core\Localization\LanguageServiceFactory',
+        'TYPO3\CMS\Core\Messaging\FlashMessageService',
+        'TYPO3\CMS\Core\Registry',
+        'TYPO3\CMS\Core\Schema\TcaSchemaFactory',
+        'TYPO3\CMS\Core\Site\SiteFinder',
         'TYPO3\CMS\Core\TimeTracker\TimeTracker',
+        'TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface',
         'TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder',
+        'TYPO3\CMS\Extbase\Persistence\ClassesConfiguration',
+        'TYPO3\CMS\Extbase\Persistence\Generic\Mapper\ColumnMapFactory',
+        'TYPO3\CMS\Extbase\Reflection\ReflectionService',
+        'TYPO3\CMS\Extbase\Service\ExtensionService',
+        'TYPO3\CMS\Frontend\Typolink\PageLinkBuilder',
     ];
 
     /**
