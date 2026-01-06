@@ -41,6 +41,11 @@ class MyClass
     {
     }
 
+    #[IgnoreValidation(['value' => 'item'])]
+    public function editWithValueAction(FileReference $item): void
+    {
+    }
+
     #[IgnoreValidation(argumentName: 'item')]
     public function migratedAction(FileReference $item): void
     {
@@ -86,6 +91,11 @@ class MyClass
 
     #[IgnoreValidation(argumentName: 'item')]
     public function editAction(FileReference $item): void
+    {
+    }
+
+    #[IgnoreValidation(argumentName: 'item')]
+    public function editWithValueAction(FileReference $item): void
     {
     }
 
