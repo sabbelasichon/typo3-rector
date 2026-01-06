@@ -284,6 +284,7 @@ CODE_SAMPLE
         $stmtsAndTokens = $this->rectorParser->parseFileContentToStmtsAndTokens($file->getOriginalFileContent());
         $oldStmts = $stmtsAndTokens->getStmts();
         $oldStmts = [new FileNode($oldStmts)];
+
         $oldTokens = $stmtsAndTokens->getTokens();
         $newStmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file->getFilePath(), $oldStmts);
 
