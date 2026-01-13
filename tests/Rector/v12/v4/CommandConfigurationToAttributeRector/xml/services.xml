@@ -4,6 +4,9 @@
         <service id="Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\Fixture\MySpecialCommand" class="Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\Fixture\MySpecialCommand" public="true" autowire="true" autoconfigure="true">
             <tag name="console.command" command="my:command" description="My command description" schedulable="1" hidden="1"/>
         </service>
+        <service id="Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\Fixture\MySpecialCommandWithDefaultNameAndDescription" class="Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\Fixture\MySpecialCommandWithDefaultNameAndDescription" public="true" autowire="true" autoconfigure="true">
+            <tag name="console.command" command="my:command" description="My command description" schedulable="1" hidden="1"/>
+        </service>
         <service id="Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\Fixture\MyNonScheduableCommand" class="Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\Fixture\MyNonScheduableCommand" public="true" autowire="true" autoconfigure="true">
             <tag name="console.command" command="my:command" description="My command description" schedulable="0"/>
         </service>

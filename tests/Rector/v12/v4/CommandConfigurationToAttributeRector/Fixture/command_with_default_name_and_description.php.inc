@@ -6,7 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MySpecialCommand extends Command
+class MySpecialCommandWithDefaultNameAndDescription extends Command
 {
     protected static $defaultName = 'my:command';
 
@@ -28,7 +28,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(name: 'my:command', description: 'My command description', hidden: true)]
-class MySpecialCommand extends Command
+class MySpecialCommandWithDefaultNameAndDescription extends Command
 {
     protected function execute(InputInterface $input, OutputInterface $output)
     {

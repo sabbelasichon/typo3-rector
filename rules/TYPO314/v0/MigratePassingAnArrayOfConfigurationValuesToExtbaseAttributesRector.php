@@ -151,7 +151,9 @@ CODE_SAMPLE
                 return null;
             }
 
-            if ($argumentName === 'value' && $this->isName($node->name, 'TYPO3\CMS\Extbase\Attribute\IgnoreValidation')) {
+            if ($argumentName === 'value'
+                && $this->isName($node->name, 'TYPO3\CMS\Extbase\Attribute\IgnoreValidation')
+            ) {
                 $argumentName = 'argumentName';
             }
 

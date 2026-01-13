@@ -124,10 +124,16 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
+        // Ignore anonymous classes
+        if ($node->name === null) {
+            return null;
+        }
+
         if (! $this->reflectionProvider->hasClass('TYPO3\CMS\Core\Attribute\AsEventListener')) {
             return null;
         }
 
+        // Do not add the attribute if it is already present
         if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
             return null;
         }
@@ -147,15 +153,15 @@ CODE_SAMPLE
             }
         }
 
+        if ($options === null) {
+            return null;
+        }
+
         $identifier = $options['identifier'] ?? null;
         $event = $options['event'] ?? null;
         $method = $options['method'] ?? null;
         $before = $options['before'] ?? null;
         $after = $options['after'] ?? null;
-
-        if ($options === null) {
-            return null;
-        }
 
         return $this->replaceAsEventListenerAttribute(
             $node,

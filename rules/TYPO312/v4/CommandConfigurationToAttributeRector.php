@@ -132,7 +132,12 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        if (! $this->isObjectType($node, new ObjectType('Symfony\\Component\\Console\\Command\\Command'))) {
+        // Ignore anonymous classes
+        if ($node->name === null) {
+            return null;
+        }
+
+        if (! $this->isObjectType($node, new ObjectType('Symfony\Component\Console\Command\Command'))) {
             return null;
         }
 
@@ -140,6 +145,7 @@ CODE_SAMPLE
             return null;
         }
 
+        // Do not add the attribute if it is already present
         if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, SymfonyAttribute::AS_COMMAND)) {
             return null;
         }

@@ -12,5 +12,3 @@ class MyNonScheduableCommand extends Command
     {
     }
 }
-
-?>
