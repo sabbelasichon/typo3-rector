@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\TYPO3__Major__\__MinorPrefixed__;
+namespace Ssch\TYPO3Rector\__Major__\__MinorPrefixed__;
 
 use __Base_Rector_Class__;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;

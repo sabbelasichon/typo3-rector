@@ -45,7 +45,7 @@ final class TemplateFinder
     private function addRuleAndTestCase(): array
     {
         return [
-            __DIR__ . '/../../templates/rules/TYPO3__Major__/__MinorPrefixed__/__Name__.php',
+            __DIR__ . '/../../templates/rules/__Major__/__MinorPrefixed__/__Name__.php',
             __DIR__ . '/../../templates/tests/Rector/__MajorPrefixed__/__MinorPrefixed__/__Test_Directory__/__Name__Test.php.inc',
             __DIR__ . '/../../templates/tests/Rector/__MajorPrefixed__/__MinorPrefixed__/__Test_Directory__/Fixture/fixture.php.inc',
             __DIR__ . '/../../templates/tests/Rector/__MajorPrefixed__/__MinorPrefixed__/__Test_Directory__/config/configured_rule.php.inc',
