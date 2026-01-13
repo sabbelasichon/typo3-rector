@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Ssch\TYPO3Rector\CodeQuality\General\AddAutoconfigureAttributeToClassRector;
 use Ssch\TYPO3Rector\CodeQuality\General\AddErrorCodeToExceptionRector;
 use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
@@ -71,6 +72,7 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Frontend\Typolink\PageLinkBuilder',
         ],
     ]);
+    // $rectorConfig->rule(RemoveTypo3VersionChecksRector::class); this rule is not activated by default as it depends on the (configured) TYPO3 version!
     $rectorConfig->rule(AddErrorCodeToExceptionRector::class);
     $rectorConfig->rule(ConvertImplicitVariablesToExplicitGlobalsRector::class);
     $rectorConfig->rule(InjectMethodToConstructorInjectionRector::class);
@@ -78,5 +80,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector::class);
     $rectorConfig->rule(MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector::class);
     $rectorConfig->rule(UseExtensionKeyInLocalizationUtilityRector::class);
-    // $rectorConfig->rule(RemoveTypo3VersionChecksRector::class); this rule is not activated by default as it depends on the (configured) TYPO3 version!
+    $rectorConfig->rule(AddAutoconfigureAttributeToClassRector::class);
 };
