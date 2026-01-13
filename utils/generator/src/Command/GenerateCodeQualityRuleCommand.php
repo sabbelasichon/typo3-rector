@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Generator\Command;
 
 use Rector\Exception\ShouldNotHappenException;
-use RuntimeException;
 use Ssch\TYPO3Rector\Filesystem\FileInfoFactory;
 use Ssch\TYPO3Rector\Generator\Factory\Typo3RectorTypeFactory;
 use Ssch\TYPO3Rector\Generator\FileSystem\ConfigFilesystemWriter;
 use Ssch\TYPO3Rector\Generator\Finder\TemplateFinder;
 use Ssch\TYPO3Rector\Generator\Generator\FileGenerator;
-use Ssch\TYPO3Rector\Generator\ValueObject\Typo3RectorRecipe;
-use Ssch\TYPO3Rector\Generator\ValueObject\Typo3Version;
+use Ssch\TYPO3Rector\Generator\ValueObject\CodeQualityRectorRecipe;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,12 +19,12 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\Question;
 use Webmozart\Assert\Assert;
 
-final class Typo3GenerateCommand extends Command
+final class GenerateCodeQualityRuleCommand extends Command
 {
     /**
      * @var string
      */
-    private const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\TYPO3__Major__\__MinorPrefixed__\__Name__';
+    private const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\CodeQuality\General\__Name__';
 
     /**
      * @readonly
@@ -70,39 +68,29 @@ final class Typo3GenerateCommand extends Command
 
     protected function configure(): void
     {
-        $this->setName('typo3-generate');
-        $this->setDescription('Create a new TYPO3 Rector, in a proper location, with tests');
-        $this->setAliases(['typo3-create']);
+        $this->setName('generate-code-quality-rule');
+        $this->setDescription('Create a new code quality Rector rule, in a proper location, with tests');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         /** @var QuestionHelper $helper */
         $helper = $this->getHelper('question');
-        /** @var Typo3Version $typo3Version */
-        $typo3Version = $helper->ask($input, $output, $this->askForTypo3Version());
-        $changelogUrl = $helper->ask($input, $output, $this->askForChangelogUrl());
         $name = $helper->ask($input, $output, $this->askForName());
         $description = $helper->ask($input, $output, $this->askForDescription());
         $type = $helper->ask($input, $output, $this->askForType());
 
-        $recipe = new Typo3RectorRecipe(
-            $typo3Version,
-            $changelogUrl,
-            $name,
-            $description,
-            Typo3RectorTypeFactory::fromString($type)
-        );
+        $recipe = new CodeQualityRectorRecipe($name, $description, Typo3RectorTypeFactory::fromString($type));
 
         $templateFileInfos = $this->templateFinder->find();
 
         $templateVariables = [
-            '__MajorPrefixed__' => $recipe->getMajorVersionPrefixed(),
-            '__Major__' => 'TYPO3' . $recipe->getMajorVersion(),
-            '__MinorPrefixed__' => $recipe->getMinorVersionPrefixed(),
+            '__MajorPrefixed__' => 'CodeQuality',
+            '__Major__' => 'CodeQuality',
+            '__MinorPrefixed__' => 'General',
             '__Name__' => $recipe->getRectorName(),
             '__Test_Directory__' => $recipe->getTestDirectory(),
-            '__Changelog_Url__' => $recipe->getChangelogUrl(),
+            '__Changelog_Url__' => '',
             '__Description__' => addslashes($recipe->getDescription()),
             '__Base_Rector_Class__' => $recipe->getRectorClass(),
             '__Base_Rector_ShortClassName__' => $recipe->getRectorShortClassName(),
@@ -127,52 +115,6 @@ final class Typo3GenerateCommand extends Command
         $this->printSuccess($recipe->getRectorName(), $generatedFilePaths, $testCaseDirectoryPath);
 
         return Command::SUCCESS;
-    }
-
-    private function askForTypo3Version(): Question
-    {
-        $whatTypo3Version = new Question('TYPO3-Version (i.e. 12.0): ');
-        $whatTypo3Version->setNormalizer(
-            static fn ($version) => Typo3Version::createFromString(trim((string) $version))
-        );
-        $whatTypo3Version->setMaxAttempts(2);
-        $whatTypo3Version->setValidator(
-            static function (Typo3Version $version) {
-                Assert::greaterThanEq($version->getMajor(), 7);
-                Assert::greaterThanEq($version->getMinor(), 0);
-
-                return $version;
-            }
-        );
-
-        return $whatTypo3Version;
-    }
-
-    private function askForChangelogUrl(): Question
-    {
-        $whatIsTheUrlToChangelog = new Question(
-            'Url to changelog (i.e. https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/...) or "x" for none: '
-        );
-        $whatIsTheUrlToChangelog->setMaxAttempts(3);
-        $whatIsTheUrlToChangelog->setValidator(
-            static function (?string $url) {
-                Assert::notNull($url);
-
-                if (strtolower($url) === 'x') {
-                    return '';
-                }
-
-                if (! filter_var($url, FILTER_VALIDATE_URL)) {
-                    throw new RuntimeException('Please enter a valid Url');
-                }
-
-                Assert::startsWith($url, 'https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/');
-
-                return $url;
-            }
-        );
-
-        return $whatIsTheUrlToChangelog;
     }
 
     private function askForName(): Question
