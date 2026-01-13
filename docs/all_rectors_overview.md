@@ -1,10 +1,10 @@
-# 240 Rules Overview
+# 241 Rules Overview
 
 <br>
 
 ## Categories
 
-- [CodeQuality](#codequality) (12)
+- [CodeQuality](#codequality) (13)
 
 - [General](#general) (3)
 
@@ -23,6 +23,40 @@
 <br>
 
 ## CodeQuality
+
+### AddAutoconfigureAttributeToClassRector
+
+Add Autoconfigure attribute for public or non-shared services
+
+To run this rule, you need to do the following steps:
+- Require `"ssch/typo3-debug-dump-pass": "^0.0.2"` in your `composer.json` in the main TYPO3 project
+- Add `->withSymfonyContainerXml(__DIR__ . '/var/cache/development/App_KernelDevelopmentDebugContainer.xml')` in your rector config file.
+- Clear the TYPO3 cache via cmd: `vendor/bin/typo3 cache:flush` to create the `App_KernelDevelopmentDebugContainer.xml` file.
+- Finally run Rector.
+
+- class: [`Ssch\TYPO3Rector\CodeQuality\General\AddAutoconfigureAttributeToClassRector`](../rules/CodeQuality/General/AddAutoconfigureAttributeToClassRector.php)
+
+```diff
++use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
++
++#[Autoconfigure(public: true)]
+ class MyService
+ {
+ }
+```
+
+<br>
+
+```diff
++use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
++
++#[Autoconfigure(public: true, shared: false)]
+ class NotSharedService
+ {
+ }
+```
+
+<br>
 
 ### AddErrorCodeToExceptionRector
 
