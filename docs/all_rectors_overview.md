@@ -3522,9 +3522,7 @@ To run this rule, you need to do the following steps:
 +use TYPO3\CMS\Core\Attribute\AsEventListener;
  use TYPO3\CMS\Core\Mail\Event\AfterMailerInitializationEvent;
 
-+#[AsEventListener(
-+    identifier: 'my-extension/null-mailer'
-+)]
++#[AsEventListener(identifier: 'my-extension/after-mailer-initialization')]
  final class NullMailer
  {
      public function __invoke(AfterMailerInitializationEvent $event): void

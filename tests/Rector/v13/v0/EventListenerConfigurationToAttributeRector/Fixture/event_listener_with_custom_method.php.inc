@@ -3,9 +3,8 @@
 namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Fixture;
 
 use Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Source\MySpecialEvent;
-use TYPO3\CMS\Core\Attribute\AsEventListener;
 
-class MyEventListenerWithAttribute
+class MyEventListenerWithCustomMethod
 {
     public function specialMethod(MySpecialEvent $event)
     {
@@ -18,12 +17,12 @@ class MyEventListenerWithAttribute
 
 namespace Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Fixture;
 
-use Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Source\MySpecialEvent;
 use TYPO3\CMS\Core\Attribute\AsEventListener;
+use Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Source\MySpecialEvent;
 
-class MyEventListenerWithAttribute
+class MyEventListenerWithCustomMethod
 {
-    #[AsEventListener(identifier: 'identifier', event: MySpecialEvent::class, before: 'before', after: 'after')]
+    #[AsEventListener(identifier: 'my-identifier')]
     public function specialMethod(MySpecialEvent $event)
     {
     }
