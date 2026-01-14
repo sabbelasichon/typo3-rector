@@ -11,6 +11,7 @@ use PhpParser\Node\AttributeGroup;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\Php80\NodeAnalyzer\PhpAttributeAnalyzer;
 use Rector\PhpAttribute\NodeFactory\PhpAttributeGroupFactory;
@@ -95,9 +96,7 @@ namespace MyVendor\MyExtension\EventListener;
 use TYPO3\CMS\Core\Attribute\AsEventListener;
 use TYPO3\CMS\Core\Mail\Event\AfterMailerInitializationEvent;
 
-#[AsEventListener(
-    identifier: 'my-extension/null-mailer'
-)]
+#[AsEventListener(identifier: 'my-extension/after-mailer-initialization')]
 final class NullMailer
 {
     public function __invoke(AfterMailerInitializationEvent $event): void
@@ -133,11 +132,6 @@ CODE_SAMPLE
             return null;
         }
 
-        // Do not add the attribute if it is already present
-        if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
-            return null;
-        }
-
         $eventListeners = $this->serviceDefinitionHelper->getServiceDefinitionsByTagName(self::EVENT_LISTENER_TAG_NAME);
         if ($eventListeners === []) {
             return null;
@@ -163,16 +157,61 @@ CODE_SAMPLE
         $before = $options['before'] ?? null;
         $after = $options['after'] ?? null;
 
+        // If a method is specified, add the attribute to the method instead of the class
+        if ($method !== null) {
+            return $this->addAttributeToMethod($node, $method, $identifier, $event, $before, $after);
+        }
+
+        // Do not add the attribute if it is already present on the class
+        if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
+            return null;
+        }
+
         return $this->replaceAsEventListenerAttribute(
             $node,
-            $this->createAttributeGroupAsEventListener($identifier, $event, $method, $before, $after)
+            $this->createAttributeGroupAsEventListener($identifier, $event, $before, $after)
         );
+    }
+
+    private function addAttributeToMethod(
+        Class_ $node,
+        string $methodName,
+        ?string $identifier,
+        ?string $event,
+        ?string $before,
+        ?string $after
+    ): ?Class_ {
+        $targetMethod = $this->findMethod($node, $methodName);
+        if (! $targetMethod instanceof ClassMethod) {
+            return null;
+        }
+
+        // Do not add the attribute if it is already present on the method
+        if ($this->phpAttributeAnalyzer->hasPhpAttribute($targetMethod, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
+            return null;
+        }
+
+        // Create attribute without the 'method' option since we're adding it directly to the method
+        $attributeGroup = $this->createAttributeGroupAsEventListener($identifier, $event, $before, $after);
+        $targetMethod->attrGroups[] = $attributeGroup;
+
+        return $node;
+    }
+
+    private function findMethod(Class_ $class, string $methodName): ?ClassMethod
+    {
+        foreach ($class->getMethods() as $method) {
+            if ($this->isName($method, $methodName)) {
+                return $method;
+            }
+        }
+
+        return null;
     }
 
     private function createAttributeGroupAsEventListener(
         ?string $identifier,
         ?string $event,
-        ?string $method,
         ?string $before,
         ?string $after
     ): AttributeGroup {
@@ -181,7 +220,6 @@ CODE_SAMPLE
         $simpleOptions = array_filter([
             'identifier' => $identifier,
             'event' => $event,
-            'method' => $method,
             'before' => $before,
             'after' => $after,
         ]);
