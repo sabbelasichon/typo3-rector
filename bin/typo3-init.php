@@ -29,7 +29,7 @@ foreach ($autoloadPaths as $path) {
 
 (new SingleCommandApplication())
     ->setName('Initialize TYPO3-Rector configuration')
-    ->setVersion('3.10.2')
+    ->setVersion('3.11.0')
     ->setDescription('Initializes a bare configuration to start with your TYPO3 upgrade')
     ->setCode(static function (InputInterface $input, OutputInterface $output): int {
         $projectDirectory = getcwd();
