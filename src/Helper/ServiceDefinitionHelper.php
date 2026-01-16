@@ -42,4 +42,42 @@ final class ServiceDefinitionHelper
         $serviceMap = $this->serviceMapProvider->provide();
         return $serviceMap->getServicesByTag($tagName);
     }
+
+    /**
+     * Check if a service is public based on its class name
+     */
+    public function isPublicService(string $className): bool
+    {
+        $definition = $this->getServiceDefinitionByClassName($className);
+
+        return $definition instanceof ServiceDefinition && $definition->isPublic();
+    }
+
+    /**
+     * Checks if the service is explicitly marked as non-shared
+     */
+    public function isNotSharedService(string $className): bool
+    {
+        $definition = $this->getServiceDefinitionByClassName($className);
+
+        return $definition instanceof ServiceDefinition && ! $definition->isShared();
+    }
+
+    public function getServiceDefinitionByClassName(string $className): ?ServiceDefinition
+    {
+        $serviceMap = $this->serviceMapProvider->provide();
+        $services = $serviceMap->getServices();
+
+        if (isset($services[$className])) {
+            return $services[$className];
+        }
+
+        foreach ($services as $serviceDefinition) {
+            if ($serviceDefinition->getClass() === $className) {
+                return $serviceDefinition;
+            }
+        }
+
+        return null;
+    }
 }
