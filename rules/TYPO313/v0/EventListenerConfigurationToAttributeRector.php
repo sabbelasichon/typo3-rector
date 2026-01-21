@@ -8,6 +8,7 @@ use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Attribute;
 use PhpParser\Node\AttributeGroup;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Class_;
@@ -15,6 +16,7 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\ReflectionProvider;
 use Rector\Php80\NodeAnalyzer\PhpAttributeAnalyzer;
 use Rector\PhpAttribute\NodeFactory\PhpAttributeGroupFactory;
+use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
@@ -30,6 +32,8 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 final class EventListenerConfigurationToAttributeRector extends AbstractRector implements MinPhpVersionInterface, DocumentedRuleInterface
 {
     private const EVENT_LISTENER_TAG_NAME = 'event.listener';
+
+    private const ATTRIBUTE_CLASS = 'TYPO3\CMS\Core\Attribute\AsEventListener';
 
     /**
      * @readonly
@@ -51,16 +55,23 @@ final class EventListenerConfigurationToAttributeRector extends AbstractRector i
      */
     private PhpAttributeAnalyzer $phpAttributeAnalyzer;
 
+    /**
+     * @readonly
+     */
+    private ValueResolver $valueResolver;
+
     public function __construct(
         ReflectionProvider $reflectionProvider,
         ServiceDefinitionHelper $serviceDefinitionHelper,
         PhpAttributeGroupFactory $phpAttributeGroupFactory,
-        PhpAttributeAnalyzer $phpAttributeAnalyzer
+        PhpAttributeAnalyzer $phpAttributeAnalyzer,
+        ValueResolver $valueResolver
     ) {
         $this->reflectionProvider = $reflectionProvider;
         $this->serviceDefinitionHelper = $serviceDefinitionHelper;
         $this->phpAttributeGroupFactory = $phpAttributeGroupFactory;
         $this->phpAttributeAnalyzer = $phpAttributeAnalyzer;
+        $this->valueResolver = $valueResolver;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -128,49 +139,115 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! $this->reflectionProvider->hasClass('TYPO3\CMS\Core\Attribute\AsEventListener')) {
+        if (! $this->reflectionProvider->hasClass(self::ATTRIBUTE_CLASS)) {
             return null;
         }
 
-        $eventListeners = $this->serviceDefinitionHelper->getServiceDefinitionsByTagName(self::EVENT_LISTENER_TAG_NAME);
-        if ($eventListeners === []) {
+        $serviceDefinitions = $this->serviceDefinitionHelper->getServiceDefinitionsByTagName(self::EVENT_LISTENER_TAG_NAME);
+        if ($serviceDefinitions === []) {
             return null;
         }
 
-        $options = null;
-        foreach ($eventListeners as $eventListener) {
-            if ($this->isName($node, $eventListener->getClass() ?? $eventListener->getId())) {
-                $options = $this->serviceDefinitionHelper->extractOptionsFromServiceDefinition(
-                    $eventListener,
-                    self::EVENT_LISTENER_TAG_NAME
-                );
+        $hasChanged = false;
+
+        foreach ($serviceDefinitions as $serviceDefinition) {
+            if (! $this->isName($node, $serviceDefinition->getClass() ?? $serviceDefinition->getId())) {
+                continue;
+            }
+
+            // Loop through all tags, as one service can have multiple event listeners
+            foreach ($serviceDefinition->getTags() as $tag) {
+                if ($tag->getName() !== self::EVENT_LISTENER_TAG_NAME) {
+                    continue;
+                }
+
+                $options = $tag->getData();
+
+                $method = $options['method'] ?? null;
+                $identifier = $options['identifier'] ?? null;
+                $event = $options['event'] ?? null;
+                $before = $options['before'] ?? null;
+                $after = $options['after'] ?? null;
+
+                if ($method !== null) {
+                    // Specific method listener
+                    $removed = $this->removeClassAttributeForMethod($node, (string) $method);
+                    $added = $this->addAttributeToMethod($node, (string) $method, $identifier, $event, $before, $after);
+                    if ($removed || $added) {
+                        $hasChanged = true;
+                    }
+                } elseif (! $this->phpAttributeAnalyzer->hasPhpAttribute($node, self::ATTRIBUTE_CLASS)) {
+                    // Class level listener
+                    $this->replaceAsEventListenerAttribute(
+                        $node,
+                        $this->createAttributeGroupAsEventListener($identifier, $event, $before, $after)
+                    );
+                    $hasChanged = true;
+                }
             }
         }
 
-        if ($options === null) {
-            return null;
+        return $hasChanged ? $node : null;
+    }
+
+    private function removeClassAttributeForMethod(Class_ $class, string $methodName): bool
+    {
+        $hasChanged = false;
+        $newAttrGroups = [];
+
+        foreach ($class->attrGroups as $attrGroup) {
+            $newAttrs = [];
+            foreach ($attrGroup->attrs as $attribute) {
+                if ($this->shouldRemoveAttribute($attribute, $methodName)) {
+                    $hasChanged = true;
+                    continue;
+                }
+
+                $newAttrs[] = $attribute;
+            }
+
+            if ($newAttrs !== []) {
+                $attrGroup->attrs = $newAttrs;
+                $newAttrGroups[] = $attrGroup;
+            }
         }
 
-        $identifier = $options['identifier'] ?? null;
-        $event = $options['event'] ?? null;
-        $method = $options['method'] ?? null;
-        $before = $options['before'] ?? null;
-        $after = $options['after'] ?? null;
-
-        // If a method is specified, add the attribute to the method instead of the class
-        if ($method !== null) {
-            return $this->addAttributeToMethod($node, $method, $identifier, $event, $before, $after);
+        if ($hasChanged) {
+            $class->attrGroups = $newAttrGroups;
         }
 
-        // Do not add the attribute if it is already present on the class
-        if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
-            return null;
+        return $hasChanged;
+    }
+
+    private function shouldRemoveAttribute(Attribute $attribute, string $methodName): bool
+    {
+        if (! $this->isName($attribute->name, self::ATTRIBUTE_CLASS)) {
+            return false;
         }
 
-        return $this->replaceAsEventListenerAttribute(
-            $node,
-            $this->createAttributeGroupAsEventListener($identifier, $event, $before, $after)
-        );
+        foreach ($attribute->args as $key => $arg) {
+            // Check for named argument 'method'
+            if ($arg->name instanceof Identifier && $this->isName($arg->name, 'method')) {
+                return $this->isStringValueMatch($arg->value, $methodName);
+            }
+
+            // Check for positional argument (index 2 is 'method')
+            if ($arg->name === null && $key === 2) {
+                return $this->isStringValueMatch($arg->value, $methodName);
+            }
+        }
+
+        return false;
+    }
+
+    private function isStringValueMatch(Expr $expr, string $expectedValue): bool
+    {
+        if ($expr instanceof String_) {
+            return $expr->value === $expectedValue;
+        }
+
+        $resolvedValue = $this->valueResolver->getValue($expr);
+        return $resolvedValue === $expectedValue;
     }
 
     private function addAttributeToMethod(
@@ -180,22 +257,18 @@ CODE_SAMPLE
         ?string $event,
         ?string $before,
         ?string $after
-    ): ?Class_ {
+    ): bool {
         $targetMethod = $this->findMethod($node, $methodName);
         if (! $targetMethod instanceof ClassMethod) {
-            return null;
+            return false;
         }
 
-        // Do not add the attribute if it is already present on the method
-        if ($this->phpAttributeAnalyzer->hasPhpAttribute($targetMethod, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
-            return null;
+        if ($this->phpAttributeAnalyzer->hasPhpAttribute($targetMethod, self::ATTRIBUTE_CLASS)) {
+            return false;
         }
 
-        // Create attribute without the 'method' option since we're adding it directly to the method
-        $attributeGroup = $this->createAttributeGroupAsEventListener($identifier, $event, $before, $after);
-        $targetMethod->attrGroups[] = $attributeGroup;
-
-        return $node;
+        $targetMethod->attrGroups[] = $this->createAttributeGroupAsEventListener($identifier, $event, $before, $after);
+        return true;
     }
 
     private function findMethod(Class_ $class, string $methodName): ?ClassMethod
@@ -215,7 +288,7 @@ CODE_SAMPLE
         ?string $before,
         ?string $after
     ): AttributeGroup {
-        $attributeGroup = $this->phpAttributeGroupFactory->createFromClass('TYPO3\CMS\Core\Attribute\AsEventListener');
+        $attributeGroup = $this->phpAttributeGroupFactory->createFromClass(self::ATTRIBUTE_CLASS);
 
         $simpleOptions = array_filter([
             'identifier' => $identifier,
@@ -229,68 +302,36 @@ CODE_SAMPLE
                 $eventClass = $this->nodeFactory->createClassConstReference($event);
                 $attributeGroup->attrs[0]->args[] = new Arg($eventClass, false, false, [], new Identifier('event'));
             } else {
-                $attributeGroup->attrs[0]->args[] = new Arg(new String_(
-                    $simpleOption
-                ), false, false, [], new Identifier($name));
+                $attributeGroup->attrs[0]->args[] = new Arg(new String_($simpleOption), false, false, [], new Identifier($name));
             }
         }
 
         return $attributeGroup;
     }
 
-    private function replaceAsEventListenerAttribute(Class_ $class, AttributeGroup $createAttributeGroup): ?Class_
+    private function replaceAsEventListenerAttribute(Class_ $class, AttributeGroup $createAttributeGroup): void
     {
-        $hasAsEventListenerAttribute = \false;
-        $replacedAsEventListenerAttribute = \false;
+        $hasAttribute = false;
         foreach ($class->attrGroups as $attrGroup) {
             foreach ($attrGroup->attrs as $attribute) {
-                if ($this->isName($attribute->name, 'TYPO3\CMS\Core\Attribute\AsEventListener')) {
-                    $hasAsEventListenerAttribute = \true;
-                    $replacedAsEventListenerAttribute = $this->replaceArguments($attribute, $createAttributeGroup);
+                if ($this->isName($attribute->name, self::ATTRIBUTE_CLASS)) {
+                    $hasAttribute = true;
+                    $this->replaceArguments($attribute, $createAttributeGroup);
                 }
             }
         }
 
-        if ($hasAsEventListenerAttribute === \false) {
+        if (! $hasAttribute) {
             $class->attrGroups[] = $createAttributeGroup;
-            $replacedAsEventListenerAttribute = \true;
         }
-
-        if ($replacedAsEventListenerAttribute === \false) {
-            return null;
-        }
-
-        return $class;
     }
 
-    private function replaceArguments(Attribute $attribute, AttributeGroup $createAttributeGroup): bool
+    private function replaceArguments(Attribute $attribute, AttributeGroup $createAttributeGroup): void
     {
-        $replacedAsEventListenerAttribute = \false;
-        if (! $attribute->args[0]->value instanceof String_) {
-            $attribute->args[0] = $createAttributeGroup->attrs[0]->args[0];
-            $replacedAsEventListenerAttribute = \true;
+        for ($i = 0; $i <= 4; ++$i) {
+            if (isset($createAttributeGroup->attrs[0]->args[$i]) && ! isset($attribute->args[$i])) {
+                $attribute->args[$i] = $createAttributeGroup->attrs[0]->args[$i];
+            }
         }
-
-        if (! isset($attribute->args[1]) && isset($createAttributeGroup->attrs[0]->args[1])) {
-            $attribute->args[1] = $createAttributeGroup->attrs[0]->args[1];
-            $replacedAsEventListenerAttribute = \true;
-        }
-
-        if (! isset($attribute->args[2]) && isset($createAttributeGroup->attrs[0]->args[2])) {
-            $attribute->args[2] = $createAttributeGroup->attrs[0]->args[2];
-            $replacedAsEventListenerAttribute = \true;
-        }
-
-        if (! isset($attribute->args[3]) && isset($createAttributeGroup->attrs[0]->args[3])) {
-            $attribute->args[3] = $createAttributeGroup->attrs[0]->args[3];
-            $replacedAsEventListenerAttribute = \true;
-        }
-
-        if (! isset($attribute->args[4]) && isset($createAttributeGroup->attrs[0]->args[4])) {
-            $attribute->args[4] = $createAttributeGroup->attrs[0]->args[4];
-            $replacedAsEventListenerAttribute = \true;
-        }
-
-        return $replacedAsEventListenerAttribute;
     }
 }

@@ -26,5 +26,18 @@
                  class="Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Fixture\MyEventListenerWithCustomMethodAndExistingAnnotation">
             <tag name="event.listener" identifier="my-identifier" method="specialMethod"/>
         </service>
+        <service id="Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Fixture\MyEventListenerWithPositionalArgument"
+                 class="Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Fixture\MyEventListenerWithPositionalArgument">
+            <tag name="event.listener" identifier="my-identifier" method="specialMethod"
+                 event="Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Source\MySpecialEvent"/>
+            <tag name="event.listener" identifier="my-other-identifier" method="otherSpecialMethod"
+                 event="Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Source\MySpecialEvent"/>
+        </service>
+        <!-- Bugs -->
+        <service id="Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Fixture\Issue4814"
+                 class="Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRector\Fixture\Issue4814">
+            <tag name="event.listener" identifier="my-identifier" method="specialMethod"/>
+            <tag name="event.listener" identifier="my-other-identifier" method="otherSpecialMethod"/>
+        </service>
     </services>
 </container>

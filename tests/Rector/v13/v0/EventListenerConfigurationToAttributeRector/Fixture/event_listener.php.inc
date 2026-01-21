@@ -6,7 +6,7 @@ use Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRe
 
 class MyEventListener
 {
-    public function __invoke(MySpecialEvent $event)
+    public function __invoke(MySpecialEvent $event): void
     {
     }
 }
@@ -23,7 +23,7 @@ use Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRe
 #[AsEventListener]
 class MyEventListener
 {
-    public function __invoke(MySpecialEvent $event)
+    public function __invoke(MySpecialEvent $event): void
     {
     }
 }
