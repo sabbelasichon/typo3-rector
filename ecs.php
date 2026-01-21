@@ -38,12 +38,10 @@ return static function (ECSConfig $ecsConfig): void {
         DeclareStrictTypesFixer::class => ['*/Fixture/*', '*/Assertions/*'],
         LineLengthFixer::class => [
             __DIR__ . '/config/v13/strict-types.php',
-            __DIR__ . '/config/v14/typo3-140.php',
             __DIR__ . '/config/v14/strict-types.php',
+            __DIR__ . '/config/v14/typo3-140.php',
         ],
-        GeneralPhpdocAnnotationRemoveFixer::class => [
-            __DIR__ . '/rules/TYPO311/v4/RegisterIconToIconFileRector.php',
-        ],
+        GeneralPhpdocAnnotationRemoveFixer::class => [__DIR__ . '/rules/TYPO311/v4/RegisterIconToIconFileRector.php'],
     ]);
 
     $ecsConfig->sets([SetList::PSR_12, SetList::SYMPLIFY, SetList::COMMON, SetList::CLEAN_CODE]);
@@ -56,12 +54,15 @@ return static function (ECSConfig $ecsConfig): void {
         'allow_mixed' => true,
     ]);
 
+    $ecsConfig->ruleWithConfiguration(LineLengthFixer::class, [
+        'line_length' => 130,
+    ]);
+
     $ecsConfig->rule(NoUnusedImportsFixer::class);
     $ecsConfig->rule(ArraySyntaxFixer::class);
     $ecsConfig->rule(StandaloneLineInMultilineArrayFixer::class);
     $ecsConfig->rule(ArrayOpenerAndCloserNewlineFixer::class);
     $ecsConfig->rule(DeclareStrictTypesFixer::class);
-    $ecsConfig->rule(LineLengthFixer::class);
     $ecsConfig->rule(YodaStyleFixer::class);
     $ecsConfig->rule(OperatorLinebreakFixer::class);
 };

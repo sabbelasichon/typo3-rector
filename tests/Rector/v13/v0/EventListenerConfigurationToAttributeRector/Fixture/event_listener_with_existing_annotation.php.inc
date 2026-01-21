@@ -8,7 +8,7 @@ use Ssch\TYPO3Rector\Tests\Rector\v13\v0\EventListenerConfigurationToAttributeRe
 #[AsEventListener(identifier: 'my-identifier')]
 class MyEventListenerWithExistingAnnotation
 {
-    public function __invoke(MySpecialEvent $event)
+    public function __invoke(MySpecialEvent $event): void
     {
     }
 }
