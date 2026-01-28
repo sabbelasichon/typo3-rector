@@ -9,7 +9,7 @@
 
 # Installation
 
-TYPO3 Rector is a standalone package, that is built on top of `rectorphp/rector` and requires at least PHP 7.4.
+TYPO3 Rector is a standalone package, that is built on top of `rector/rector` and requires at least PHP 7.4.
 
 ```bash
 composer require --dev ssch/typo3-rector
