@@ -26,7 +26,7 @@ final class Typo3GenerateCommand extends Command
     /**
      * @var string
      */
-    private const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\TYPO3__Major__\__MinorPrefixed__\__Name__';
+    private const RECTOR_FQN_NAME_PATTERN = 'Ssch\TYPO3Rector\__Major__\__MinorPrefixed__\__Name__';
 
     /**
      * @readonly
