@@ -10,6 +10,5 @@ final class PageDoktypeRegistry
 {
     public function add(int $dokType, array $configuration): void
     {
-
     }
 }
