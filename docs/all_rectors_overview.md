@@ -1,4 +1,4 @@
-# 241 Rules Overview
+# 242 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (46)
 
-- [TYPO314](#typo314) (45)
+- [TYPO314](#typo314) (46)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -5032,6 +5032,26 @@ Migrate Table Garbage Collection Task configuration via `$GLOBALS`
 +        ],
 +    ];
 +}
+```
+
+<br>
+
+### MigrateTcaOptionAllowedRecordTypesForPageTypesRector
+
+Migrate TCA option allowedRecordTypes for Page Types
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v2\MigrateTcaOptionAllowedRecordTypesForPageTypesRector`](../rules/TYPO314/v2/MigrateTcaOptionAllowedRecordTypesForPageTypesRector.php)
+
+```diff
+-$dokTypeRegistry = GeneralUtility::makeInstance(\TYPO3\CMS\Core\DataHandling\PageDoktypeRegistry::class);
+-$dokTypeRegistry->add(
+-    116,
+-    [
+-        'allowedTables' => '*',
+-    ],
+-);
++// The configuration is moved to Configuration/TCA/Overrides/pages.php:
++$GLOBALS['TCA']['pages']['types']['116']['allowedRecordTypes'] = ['*'];
 ```
 
 <br>
