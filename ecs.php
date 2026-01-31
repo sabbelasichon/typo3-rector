@@ -55,7 +55,7 @@ return static function (ECSConfig $ecsConfig): void {
     ]);
 
     $ecsConfig->ruleWithConfiguration(LineLengthFixer::class, [
-        'line_length' => 130,
+        'line_length' => 120,
     ]);
 
     $ecsConfig->rule(NoUnusedImportsFixer::class);
