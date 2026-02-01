@@ -143,7 +143,9 @@ CODE_SAMPLE
             return null;
         }
 
-        $serviceDefinitions = $this->serviceDefinitionHelper->getServiceDefinitionsByTagName(self::EVENT_LISTENER_TAG_NAME);
+        $serviceDefinitions = $this->serviceDefinitionHelper->getServiceDefinitionsByTagName(
+            self::EVENT_LISTENER_TAG_NAME
+        );
         if ($serviceDefinitions === []) {
             return null;
         }
@@ -302,7 +304,9 @@ CODE_SAMPLE
                 $eventClass = $this->nodeFactory->createClassConstReference($event);
                 $attributeGroup->attrs[0]->args[] = new Arg($eventClass, false, false, [], new Identifier('event'));
             } else {
-                $attributeGroup->attrs[0]->args[] = new Arg(new String_($simpleOption), false, false, [], new Identifier($name));
+                $attributeGroup->attrs[0]->args[] = new Arg(new String_(
+                    $simpleOption
+                ), false, false, [], new Identifier($name));
             }
         }
 
