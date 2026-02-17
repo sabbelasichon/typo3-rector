@@ -1,10 +1,10 @@
 <?php
 
-namespace TYPO3\CMS\Fluid\Core\ViewHelper;
+namespace TYPO3Fluid\Fluid\Core\ViewHelper;
 
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 
-if (class_exists('TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper')) {
+if (class_exists('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper')) {
     return;
 }
 
