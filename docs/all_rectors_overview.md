@@ -1,4 +1,4 @@
-# 242 Rules Overview
+# 243 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (59)
 
-- [TYPO313](#typo313) (46)
+- [TYPO313](#typo313) (47)
 
 - [TYPO314](#typo314) (46)
 
@@ -3696,6 +3696,28 @@ Convert usages of DuplicationBehavior to its Enum equivalent
 ```diff
 -$file->copyTo($folder, null, \TYPO3\CMS\Core\Resource\DuplicationBehavior::REPLACE);
 +$file->copyTo($folder, null, \TYPO3\CMS\Core\Resource\Enum\DuplicationBehavior::REPLACE);
+```
+
+<br>
+
+### MigrateEvaluateConditionToVerdictInAbstractConditionViewHelperRector
+
+Migrate `evaluateCondition()` to `verdict()` in AbstractConditionViewHelper subclasses
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v3\MigrateEvaluateConditionToVerdictInAbstractConditionViewHelperRector`](../rules/TYPO313/v3/MigrateEvaluateConditionToVerdictInAbstractConditionViewHelperRector.php)
+
+```diff
+ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
++use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+
+ class MyConditionViewHelper extends AbstractConditionViewHelper
+ {
+-    protected static function evaluateCondition($arguments = null): bool
++    public static function verdict(array $arguments, RenderingContextInterface $renderingContext): bool
+     {
+         return (bool)$arguments['condition'];
+     }
+ }
 ```
 
 <br>
