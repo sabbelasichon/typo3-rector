@@ -16,6 +16,7 @@ use Ssch\TYPO3Rector\TYPO312\v0\MigrateContentObjectRendererLastTypoLinkProperti
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchAllToFetchAllAssociativeRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchColumnToFetchOneRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateFetchToFetchAssociativeRector;
+use Ssch\TYPO3Rector\TYPO312\v0\MigrateFlexFormParsingHooksToEventListenersRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateGetControllerContextGetUriBuilderRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MigrateQueryBuilderExecuteRector;
 use Ssch\TYPO3Rector\TYPO312\v0\MoveAllowTableOnStandardPagesToTCAConfigurationRector;
@@ -179,4 +180,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(RemoveAddLLrefForTCAdescrMethodCallRector::class);
     $rectorConfig->rule(MigrateGetControllerContextGetUriBuilderRector::class);
     $rectorConfig->rule(UseLanguageAspectInExtbasePersistenceRector::class);
+    $rectorConfig->rule(MigrateFlexFormParsingHooksToEventListenersRector::class);
 };
