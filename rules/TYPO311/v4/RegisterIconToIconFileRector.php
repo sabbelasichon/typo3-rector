@@ -22,6 +22,7 @@ use Rector\PhpParser\Parser\RectorParser;
 use Rector\Rector\AbstractRector;
 use Rector\ValueObject\Application\File;
 use Rector\ValueObject\Error\SystemError;
+use Rector\VersionBonding\ComposerPackageConstraintFilter;
 use Rector\VersionBonding\PhpVersionedFilter;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
@@ -75,6 +76,8 @@ final class RegisterIconToIconFileRector extends AbstractRector implements Docum
 
     private PhpVersionedFilter $phpVersionedFilter;
 
+    private ComposerPackageConstraintFilter $composerPackageConstraintFilter;
+
     private ConfigurationRuleFilter $configurationRuleFilter;
 
     public function __construct(
@@ -87,6 +90,7 @@ final class RegisterIconToIconFileRector extends AbstractRector implements Docum
         AddIconToReturnRector $addItemToReturnRector,
         PHPStanNodeScopeResolver $phpStanNodeScopeResolver,
         PhpVersionedFilter $phpVersionedFilter,
+        ComposerPackageConstraintFilter $composerPackageConstraintFilter,
         ConfigurationRuleFilter $configurationRuleFilter
     ) {
         $this->filesFinder = $filesFinder;
@@ -98,6 +102,7 @@ final class RegisterIconToIconFileRector extends AbstractRector implements Docum
         $this->addItemToReturnRector = $addItemToReturnRector;
         $this->phpStanNodeScopeResolver = $phpStanNodeScopeResolver;
         $this->phpVersionedFilter = $phpVersionedFilter;
+        $this->composerPackageConstraintFilter = $composerPackageConstraintFilter;
         $this->configurationRuleFilter = $configurationRuleFilter;
     }
 
@@ -252,7 +257,7 @@ CODE_SAMPLE
         ]);
         $nodeTraverser = new RectorNodeTraverser([
             $this->addItemToReturnRector,
-        ], $this->phpVersionedFilter, $this->configurationRuleFilter);
+        ], $this->phpVersionedFilter, $this->composerPackageConstraintFilter, $this->configurationRuleFilter);
         $nodes = $nodeTraverser->traverse($nodes);
 
         return $this->prettyTypo3Printer->prettyPrintFile($nodes);
