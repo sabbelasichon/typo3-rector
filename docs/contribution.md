@@ -47,6 +47,12 @@ Run the following command and answer all questions:
 bin/generate-rule
 ```
 
+To generate a code quality rule, use the following command:
+
+```bash
+bin/typo3-rector generate-code-quality-rule
+```
+
 This command will ask you some questions to provide a proper rector setup.
 Following this will lead to the creation of the overall rector structure necessary.
 It will create the skeleton for the rector rule with the class, test class, fixtures and directories to start coding — basically everything you need to start!
@@ -54,7 +60,7 @@ It will create the skeleton for the rector rule with the class, test class, fixt
 ### Useful infos:
 
 - Use the PHP code parser to get the AST of it here: https://getrector.com/ast. This will help you to know on which node to listen to (for example `StaticCall`).
-- the `refactor` must return a node, an array of nodes or null.
+- the `refactor` must return a node, an array of nodes, int (when you want to remove a node) or null.
 - keep it flat! Use early returns (with null) in case your conditions for migration are not met.
 - the `getNodeTypes` method is used to define the use case of the function to migrate. It helps as well acting like an early return (see example below).
 - helper functions and classes are provided via rector to make it easy for you to control further processing.
@@ -69,7 +75,7 @@ In this example the methods `GeneralUtility::strtoupper(...)` and `GeneralUtilit
 - after that, the actual function call is checked for being one of the functions to migrate
 
 ```php
-final class GeneralUtilityToUpperAndLowerRector extends AbstractRector implements DocumentedRuleInterface
+final class GeneralUtilityToUpperAndLowerRector extends AbstractRector
 {
     /**
      * @return array<class-string<Node>>
@@ -100,6 +106,44 @@ final class GeneralUtilityToUpperAndLowerRector extends AbstractRector implement
 }
 ```
 
+### Remove a node
+
+This is a minimal example to demonstrate how to remove a node.
+In this case you need to listen to an `Expression` and return `NodeVisitor::REMOVE_NODE`.
+
+```php
+<?php
+
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Expression;
+use PhpParser\NodeVisitor;
+use Rector\Rector\AbstractRector;
+
+final class RemoveNodeRector extends AbstractRector
+{
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes(): array
+    {
+        return [Expression::class];
+    }
+
+    /**
+     * @param Expression $node
+     */
+    public function refactor(Node $node): ?int
+    {
+        $expressionNode = $node->expr;
+
+        // your magic
+
+        return NodeVisitor::REMOVE_NODE;
+    }
+}
+
+```
+
 ### Return multiple Nodes
 
 Sometimes you need to return more than a single node.
@@ -108,7 +152,7 @@ In this case you need to listen to an `Expression`.
 Do a full text search for `[Expression::class]` to find existing rules which can help you.
 
 ```php
-final class MyRector extends AbstractRector implements DocumentedRuleInterface
+final class MyRector extends AbstractRector
 {
     public function getNodeTypes(): array
     {
@@ -146,7 +190,7 @@ To run this rule only when a minimum PHP version is used, add this method with a
 use Rector\ValueObject\PhpVersionFeature;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 
-final class MyRector extends AbstractRector implements DocumentedRuleInterface, MinPhpVersionInterface
+final class MyRector extends AbstractRector implements MinPhpVersionInterface
 {
     public function provideMinPhpVersion(): int
     {
