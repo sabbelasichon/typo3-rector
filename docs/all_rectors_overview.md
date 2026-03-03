@@ -1,4 +1,4 @@
-# 243 Rules Overview
+# 244 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (47)
 
-- [TYPO314](#typo314) (46)
+- [TYPO314](#typo314) (47)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4842,6 +4842,19 @@ Migrates the IpAnonymizationTask configuration from `$GLOBALS['TYPO3_CONF_VARS']
 +        ],
 +    ];
 +}
+```
+
+<br>
+
+### MigrateLabelReferenceToDomainSyntaxRector
+
+Migrate LLL references to the new domain-based notation
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateLabelReferenceToDomainSyntaxRector`](../rules/TYPO314/v0/MigrateLabelReferenceToDomainSyntaxRector.php)
+
+```diff
+-$lang->sL('LLL:EXT:my_site/Resources/Private/Language/locallang.xlf:my_table.my_field');
++$lang->sL('my_site.messages:my_table.my_field');
 ```
 
 <br>
