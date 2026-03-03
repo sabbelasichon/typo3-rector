@@ -17,10 +17,11 @@ class LanguageService
     }
 
     /**
-     * @return void
+     * @return string
      */
     public function sL($input)
     {
+        return '';
     }
 
     /**

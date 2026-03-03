@@ -28,6 +28,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateEnvironmentGetComposerRootPathRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateFileCollectionRegistryAddTypeToTCARector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateGeneralUtilityCreateVersionNumberedFilenameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateIpAnonymizationTaskRector;
+use Ssch\TYPO3Rector\TYPO314\v0\MigrateLabelReferenceToDomainSyntaxRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateManualShortcutButtonCreationRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateObsoleteCharsetInSanitizeFileNameRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigratePassingAnArrayOfConfigurationValuesToExtbaseAttributesRector;
@@ -154,4 +155,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(UseRecordApiInListModuleRector::class);
     $rectorConfig->rule(UseStrongerCryptographicAlgorithmForHMACRector::class);
     $rectorConfig->rule(IntroduceStrictTypingForCacheBeAndFeRector::class);
+    $rectorConfig->rule(MigrateLabelReferenceToDomainSyntaxRector::class);
 };
