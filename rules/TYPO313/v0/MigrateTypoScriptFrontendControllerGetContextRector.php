@@ -32,7 +32,7 @@ final class MigrateTypoScriptFrontendControllerGetContextRector extends Abstract
 
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Migrate `$GLOBALS[\'TSFE\']->getContext()`', [new CodeSample(
+        return new RuleDefinition('Migrate `TypoScriptFrontendController->getContext()`', [new CodeSample(
             <<<'CODE_SAMPLE'
 $context = $GLOBALS['TSFE']->getContext();
 CODE_SAMPLE

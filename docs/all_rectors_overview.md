@@ -1,4 +1,4 @@
-# 244 Rules Overview
+# 245 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (59)
 
-- [TYPO313](#typo313) (47)
+- [TYPO313](#typo313) (48)
 
 - [TYPO314](#typo314) (47)
 
@@ -3987,6 +3987,19 @@ Migrate `TypoScriptFrontendController->addCacheTags()` and `->getPageCacheTags()
 
 <br>
 
+### MigrateTypoScriptFrontendControllerConfigRector
+
+Migrate `TypoScriptFrontendController->config['config']`
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerConfigRector`](../rules/TYPO313/v0/MigrateTypoScriptFrontendControllerConfigRector.php)
+
+```diff
+-$config = $GLOBALS['TSFE']->config['config'];
++$config = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.typoscript')->getConfigArray();
+```
+
+<br>
+
 ### MigrateTypoScriptFrontendControllerFeUserMethodsRector
 
 Migrate `$GLOBALS['TSFE']->fe_user->xxx()` methods to use the request attribute
@@ -4047,7 +4060,7 @@ Migrate `$GLOBALS['TSFE']->fe_user` to use the request attribute
 
 ### MigrateTypoScriptFrontendControllerGetContextRector
 
-Migrate `$GLOBALS['TSFE']->getContext()`
+Migrate `TypoScriptFrontendController->getContext()`
 
 - class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerGetContextRector`](../rules/TYPO313/v0/MigrateTypoScriptFrontendControllerGetContextRector.php)
 
