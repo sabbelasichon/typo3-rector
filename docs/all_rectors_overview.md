@@ -1,4 +1,4 @@
-# 245 Rules Overview
+# 246 Rules Overview
 
 <br>
 
@@ -14,7 +14,7 @@
 
 - [TYPO312](#typo312) (59)
 
-- [TYPO313](#typo313) (48)
+- [TYPO313](#typo313) (49)
 
 - [TYPO314](#typo314) (47)
 
@@ -3996,6 +3996,19 @@ Migrate `TypoScriptFrontendController->config['config']`
 ```diff
 -$config = $GLOBALS['TSFE']->config['config'];
 +$config = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.typoscript')->getConfigArray();
+```
+
+<br>
+
+### MigrateTypoScriptFrontendControllerConfigRootLineRector
+
+Migrate `TypoScriptFrontendController->config['rootLine']`
+
+- class: [`Ssch\TYPO3Rector\TYPO313\v0\MigrateTypoScriptFrontendControllerConfigRootLineRector`](../rules/TYPO313/v0/MigrateTypoScriptFrontendControllerConfigRootLineRector.php)
+
+```diff
+-$rootLine = $GLOBALS['TSFE']->config['rootLine'];
++$rootLine = $GLOBALS['TYPO3_REQUEST']->getAttribute('frontend.page.information')->getLocalRootLine();
 ```
 
 <br>
