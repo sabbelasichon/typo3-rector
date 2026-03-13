@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
 use Ssch\TYPO3Rector\TYPO311\v4\AddSetConfigurationMethodToExceptionHandlerRector;
+use Ssch\TYPO3Rector\TYPO311\v4\MigrateMakeCategorizableToTcaCategoryTypeRector;
 use Ssch\TYPO3Rector\TYPO311\v4\ProvideCObjViaMethodRector;
 use Ssch\TYPO3Rector\TYPO311\v4\RegisterIconToIconFileRector;
 use Ssch\TYPO3Rector\TYPO311\v4\UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector;
@@ -14,4 +15,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(ProvideCObjViaMethodRector::class);
     $rectorConfig->rule(AddSetConfigurationMethodToExceptionHandlerRector::class);
     $rectorConfig->rule(RegisterIconToIconFileRector::class);
+    $rectorConfig->rule(MigrateMakeCategorizableToTcaCategoryTypeRector::class);
 };
