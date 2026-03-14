@@ -127,4 +127,8 @@ class ExtensionManagementUtility
     public static function addTcaSelectItem(string $table, string $field, $item, string $relativeToField = '', string $relativePosition = ''): void
     {
     }
+
+    public static function makeCategorizable(string $extensionKey, string $tableName, string $fieldName = 'categories', array $options = []): void
+    {
+    }
 }
