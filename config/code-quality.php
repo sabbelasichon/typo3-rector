@@ -8,6 +8,7 @@ use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGloba
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector;
 use Ssch\TYPO3Rector\CodeQuality\General\InjectMethodToConstructorInjectionRector;
+use Ssch\TYPO3Rector\CodeQuality\General\LegacyExtbaseAnnotationToDoctrineAnnotationRector;
 use Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector;
 use Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector;
 use Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector;
@@ -156,6 +157,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(AddErrorCodeToExceptionRector::class);
     $rectorConfig->rule(ConvertImplicitVariablesToExplicitGlobalsRector::class);
     $rectorConfig->rule(InjectMethodToConstructorInjectionRector::class);
+    $rectorConfig->rule(LegacyExtbaseAnnotationToDoctrineAnnotationRector::class);
     $rectorConfig->rule(MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector::class);
     $rectorConfig->rule(MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector::class);
     $rectorConfig->rule(MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector::class);
