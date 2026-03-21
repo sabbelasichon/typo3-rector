@@ -114,15 +114,22 @@ CODE_SAMPLE
     public function refactor(Node $node): ?Node
     {
         $readExpression = $this->getReadExpression($node);
-        if (! $readExpression instanceof PropertyFetch || ! $this->isFeUserPropertyFetch($readExpression)) {
-            return null;
+        if ($readExpression instanceof PropertyFetch && $this->isFeUserPropertyFetch($readExpression)) {
+            $replacement = $this->createReplacement($readExpression);
+            $this->replaceReadExpression($node, $replacement);
+
+            return $node;
         }
 
-        $replacement = $this->createReplacement($readExpression);
+        // Handle standalone $GLOBALS['TSFE']->fe_user (e.g. in return statements or conditions)
+        if ($node instanceof PropertyFetch
+            && ! $node->getAttribute(AttributeKey::IS_BEING_ASSIGNED)
+            && $this->isFeUserPropertyFetch($node)
+        ) {
+            return $this->createReplacement($node);
+        }
 
-        $this->replaceReadExpression($node, $replacement);
-
-        return $node;
+        return null;
     }
 
     private function getReadExpression(Node $node): ?Expr
