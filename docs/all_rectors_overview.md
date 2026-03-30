@@ -1,4 +1,4 @@
-# 246 Rules Overview
+# 247 Rules Overview
 
 <br>
 
@@ -10,7 +10,7 @@
 
 - [TYPO310](#typo310) (38)
 
-- [TYPO311](#typo311) (35)
+- [TYPO311](#typo311) (36)
 
 - [TYPO312](#typo312) (59)
 
@@ -1470,6 +1470,26 @@ Use the new TCA type language instead of foreign_table => sys_language for selec
          ],
      ],
  ];
+```
+
+<br>
+
+### MigrateMakeCategorizableToTcaCategoryTypeRector
+
+Migrate `ExtensionManagementUtility::makeCategorizable()` to TCA type "category"
+
+- class: [`Ssch\TYPO3Rector\TYPO311\v4\MigrateMakeCategorizableToTcaCategoryTypeRector`](../rules/TYPO311/v4/MigrateMakeCategorizableToTcaCategoryTypeRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+-ExtensionManagementUtility::makeCategorizable('my_extension', 'tx_myextension_table');
++
++$GLOBALS['TCA']['tx_myextension_table']['columns']['categories'] = [
++    'config' => [
++        'type' => 'category',
++    ],
++];
++ExtensionManagementUtility::addToAllTCAtypes('tx_myextension_table', 'categories');
 ```
 
 <br>
