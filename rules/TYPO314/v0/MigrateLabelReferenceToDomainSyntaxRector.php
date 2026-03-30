@@ -7,6 +7,7 @@ namespace Ssch\TYPO3Rector\TYPO314\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
+use PhpParser\Node\VariadicPlaceholder;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
@@ -65,7 +66,7 @@ CODE_SAMPLE
         }
 
         $firstArg = $node->args[0] ?? null;
-        if ($firstArg === null) {
+        if ($firstArg === null || $firstArg instanceof VariadicPlaceholder) {
             return null;
         }
 
