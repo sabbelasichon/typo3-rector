@@ -100,12 +100,8 @@ CODE_SAMPLE
         $globalsTcaTableColumns = new ArrayDimFetch($globalsTcaTable, new String_('columns'));
         $globalsTcaTableColumnsField = new ArrayDimFetch($globalsTcaTableColumns, $fieldNameNode);
 
-        $configArray = new Array_([
-            new ArrayItem(new String_('category'), new String_('type')),
-        ]);
-        $columnArray = new Array_([
-            new ArrayItem($configArray, new String_('config')),
-        ]);
+        $configArray = new Array_([new ArrayItem(new String_('category'), new String_('type'))]);
+        $columnArray = new Array_([new ArrayItem($configArray, new String_('config'))]);
 
         $tcaAssignment = new Expression(new Assign($globalsTcaTableColumnsField, $columnArray));
 
