@@ -29,7 +29,7 @@ trait ExtensionKeyResolverTrait
             return null;
         }
 
-        $resolvedExtensionKey = $this->composerExtensionKeyResolver->resolveExtensionKey($this->file);
+        $resolvedExtensionKey = $this->composerExtensionKeyResolver->resolveExtensionKey($this->getFile());
         if ($resolvedExtensionKey === null) {
             return null;
         }
