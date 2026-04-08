@@ -96,7 +96,7 @@ CODE_SAMPLE
                 continue;
             }
 
-            $directoryName = dirname($this->file->getFilePath());
+            $directoryName = dirname($this->getFile()->getFilePath());
             $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableName . '.php';
             $this->writeConfigurationToFile($newConfigurationFile, $tableName);
         }
@@ -117,7 +117,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! $this->filesFinder->isExtTables($this->file->getFilePath());
+        return ! $this->filesFinder->isExtTables($this->getFile()->getFilePath());
     }
 
     private function writeConfigurationToFile(string $newConfigurationFile, string $tableName): void

@@ -118,7 +118,7 @@ CODE_SAMPLE
 
         $content = $this->betterStandardPrinter->prettyPrint([$staticMethodCall]) . ';';
 
-        $directoryName = dirname($this->file->getFilePath());
+        $directoryName = dirname($this->getFile()->getFilePath());
         $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/' . $tableNameAsString . '.php';
         if ($this->filesystem->fileExists($newConfigurationFile)) {
             $this->filesystem->appendToFile($newConfigurationFile, $content . PHP_EOL);
@@ -148,7 +148,7 @@ CODE
             return true;
         }
 
-        return ! $this->filesFinder->isExtTables($this->file->getFilePath());
+        return ! $this->filesFinder->isExtTables($this->getFile()->getFilePath());
     }
 
     /**

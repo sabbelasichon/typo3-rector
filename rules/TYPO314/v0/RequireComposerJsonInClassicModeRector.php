@@ -94,7 +94,7 @@ CODE_SAMPLE
         }
 
         // Determine the extension root directory and key
-        $directory = dirname($this->file->getFilePath());
+        $directory = dirname($this->getFile()->getFilePath());
         $composerJsonPath = $directory . '/composer.json';
 
         if ($this->filesystem->fileExists($composerJsonPath)) {
@@ -278,7 +278,7 @@ CODE_SAMPLE
 
     private function shouldSkip(Assign $node): bool
     {
-        if (! $this->filesFinder->isExtEmConf($this->file->getFilePath())) {
+        if (! $this->filesFinder->isExtEmConf($this->getFile()->getFilePath())) {
             return true;
         }
 

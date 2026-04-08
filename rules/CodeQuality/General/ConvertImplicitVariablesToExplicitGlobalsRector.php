@@ -87,10 +87,10 @@ CODE_SAMPLE
             return false;
         }
 
-        if ($this->filesFinder->isExtLocalConf($this->file->getFilePath())) {
+        if ($this->filesFinder->isExtLocalConf($this->getFile()->getFilePath())) {
             return false;
         }
 
-        return ! $this->filesFinder->isExtTables($this->file->getFilePath());
+        return ! $this->filesFinder->isExtTables($this->getFile()->getFilePath());
     }
 }

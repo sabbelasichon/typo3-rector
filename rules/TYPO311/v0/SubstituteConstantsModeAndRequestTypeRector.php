@@ -310,7 +310,7 @@ CODE_SAMPLE
 
     private function shouldSkip(): bool
     {
-        $filePath = $this->file->getFilePath();
+        $filePath = $this->getFile()->getFilePath();
         if ($this->filesFinder->isExtLocalConf($filePath)) {
             return true;
         }

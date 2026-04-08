@@ -187,7 +187,6 @@ CODE_SAMPLE
                 $finalStmt = new Return_($replacementNode);
             } else {
                 // Re-use the original variable for assignment
-                /** @var Assign $assignNode */
                 $uriAssign = new Assign($assignNode->var, $replacementNode);
                 $finalStmt = new Expression($uriAssign);
             }

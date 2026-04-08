@@ -136,7 +136,7 @@ CODE_SAMPLE
 
         $content = $this->prettyTypo3Printer->prettyPrint($newNodes);
 
-        $directoryName = dirname($this->file->getFilePath());
+        $directoryName = dirname($this->getFile()->getFilePath());
         $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/sys_file_collection.php';
 
         if ($this->filesystem->fileExists($newConfigurationFile)) {
@@ -223,6 +223,6 @@ CODE
             return true;
         }
 
-        return ! $this->filesFinder->isExtLocalConf($this->file->getFilePath());
+        return ! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath());
     }
 }
