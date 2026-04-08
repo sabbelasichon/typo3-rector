@@ -185,6 +185,8 @@ CODE_SAMPLE
             // Reconstruct the original statement type (Return or Assignment)
             if ($isReturn) {
                 $finalStmt = new Return_($replacementNode);
+            } elseif (! $assignNode instanceof Assign) {
+                return null;
             } else {
                 // Re-use the original variable for assignment
                 $uriAssign = new Assign($assignNode->var, $replacementNode);

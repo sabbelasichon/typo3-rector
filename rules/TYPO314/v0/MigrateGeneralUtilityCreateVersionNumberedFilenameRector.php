@@ -200,6 +200,8 @@ CODE_SAMPLE
                 $finalStmt = new Return_($replacementNode, [
                     AttributeKey::COMMENTS => $comments,
                 ]);
+            } elseif (! $assignNode instanceof Assign) {
+                return null;
             } else {
                 // Re-use the original variable for assignment
                 $uriAssign = new Assign($assignNode->var, $replacementNode);
