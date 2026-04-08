@@ -120,9 +120,9 @@ CODE_SAMPLE
             }
         }
 
-        $psr4 = $this->composerPsr4Resolver->resolve($this->file);
+        $psr4 = $this->composerPsr4Resolver->resolve($this->getFile());
         if ($psr4 !== null) {
-            $filePath = $this->file->getFilePath();
+            $filePath = $this->getFile()->getFilePath();
             $directoryName = $this->filesFinder->isInTCAOverridesFolder($filePath)
                 ? dirname($filePath, 4)
                 : dirname($filePath);

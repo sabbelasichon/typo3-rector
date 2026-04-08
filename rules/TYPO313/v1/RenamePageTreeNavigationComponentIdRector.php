@@ -63,7 +63,7 @@ CODE_SAMPLE
      */
     public function refactor(Node $node): ?Node
     {
-        if ($this->shouldSkip($this->file->getFilePath(), $node)) {
+        if ($this->shouldSkip($this->getFile()->getFilePath(), $node)) {
             return null;
         }
 

@@ -192,7 +192,7 @@ CODE_SAMPLE
 
         $content = ArrayUtility::arrayExport($returnArray);
 
-        $directoryName = dirname($this->file->getFilePath());
+        $directoryName = dirname($this->getFile()->getFilePath());
         $newConfigurationFile = $directoryName . '/Configuration/Backend/Modules.php';
 
         if ($this->filesystem->fileExists($newConfigurationFile)) {
@@ -259,7 +259,7 @@ CODE);
             return true;
         }
 
-        return ! $this->filesFinder->isExtTables($this->file->getFilePath());
+        return ! $this->filesFinder->isExtTables($this->getFile()->getFilePath());
     }
 
     /**

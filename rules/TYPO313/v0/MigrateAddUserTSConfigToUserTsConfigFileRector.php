@@ -110,7 +110,7 @@ CODE_SAMPLE
 
         $this->resolvePotentialExtensionKeyByConcatenation($contentArgumentValue);
 
-        $directoryName = dirname($this->file->getFilePath());
+        $directoryName = dirname($this->getFile()->getFilePath());
 
         $content = $this->valueResolver->getValue($contentArgumentValue);
         $newConfigurationFile = $directoryName . '/Configuration/user.tsconfig';
@@ -144,6 +144,6 @@ CODE
             return true;
         }
 
-        return ! $this->filesFinder->isExtLocalConf($this->file->getFilePath());
+        return ! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath());
     }
 }

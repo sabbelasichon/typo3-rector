@@ -6,7 +6,6 @@ namespace Ssch\TYPO3Rector\TYPO313\v2;
 
 use PhpParser\Node;
 use PhpParser\Node\ArrayItem;
-use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
@@ -118,7 +117,6 @@ CODE_SAMPLE
             return null;
         }
 
-        /** @var Expr $originalColumnsOnlyValueNode */
         $originalColumnsOnlyValueNode = $columnsOnlyItemNode->value;
 
         $innerArrayItems = [];

@@ -167,7 +167,7 @@ CODE_SAMPLE
 
         [$iconIdentifierString, $innerItems] = $this->createNewIconArray($methodCall);
 
-        $directoryName = dirname($this->file->getFilePath());
+        $directoryName = dirname($this->getFile()->getFilePath());
         $iconsFilePath = $directoryName . '/Configuration/Icons.php';
 
         $newContent = $this->addNewIconToIconsFile($iconsFilePath, $iconIdentifierString, $innerItems);
@@ -195,7 +195,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! $this->filesFinder->isExtLocalConf($this->file->getFilePath());
+        return ! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath());
     }
 
     /**

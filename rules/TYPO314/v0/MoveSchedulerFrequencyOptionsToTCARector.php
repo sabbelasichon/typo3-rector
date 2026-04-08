@@ -179,7 +179,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! $this->filesFinder->isExtLocalConf($this->file->getFilePath());
+        return ! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath());
     }
 
     private function createNewAssignmentTarget(): ArrayDimFetch
@@ -201,7 +201,7 @@ CODE_SAMPLE
     {
         $content = $this->printer->prettyPrint([$expression]);
 
-        $directoryName = dirname($this->file->getFilePath());
+        $directoryName = dirname($this->getFile()->getFilePath());
         $newConfigurationFile = $directoryName . '/Configuration/TCA/Overrides/tx_scheduler_task.php';
         if ($this->filesystem->fileExists($newConfigurationFile)) {
             $this->filesystem->appendToFile($newConfigurationFile, PHP_EOL . $content . PHP_EOL);

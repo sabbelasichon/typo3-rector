@@ -257,7 +257,6 @@ CODE_SAMPLE
     {
         // Ensure the call is on $this->view or a variable of the correct type
         if ($methodCall->var instanceof PropertyFetch) {
-            /** @var PropertyFetch $propertyFetch */
             $propertyFetch = $methodCall->var;
             // Not $this->view, check if it's another variable of the correct type
             if ((! $this->isName($propertyFetch->var, 'this') || ! $this->isName(
