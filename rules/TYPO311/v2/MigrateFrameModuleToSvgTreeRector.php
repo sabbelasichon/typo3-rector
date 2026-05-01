@@ -102,7 +102,8 @@ CODE_SAMPLE
     private function shouldSkip(Node $node): bool
     {
         if (! $this->filesFinder->isExtTables(
-            $this->getFile()->getFilePath()
+            $this->getFile()
+                ->getFilePath()
         ) && ! StaticPHPUnitEnvironment::isPHPUnitRun()) {
             return true;
         }
