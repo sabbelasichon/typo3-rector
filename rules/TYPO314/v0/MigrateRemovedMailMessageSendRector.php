@@ -38,7 +38,7 @@ final class MigrateRemovedMailMessageSendRector extends AbstractRector implement
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Migrate removed `MailMessage->send()` to `MailerInterface->send()` via dependency injection',
+            'Migrate removed `MailMessage->send()` to `MailerInterface->send()` via dependency injection or `GeneralUtility::makeInstance()` in static methods',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
@@ -92,35 +92,61 @@ CODE_SAMPLE
     public function refactor(Node $node): ?Node
     {
         $hasChanged = false;
+        $needsDependencyInjection = false;
         $mailerPropertyName = 'mailer';
 
-        $this->traverseNodesWithCallable($node->stmts, function (Node $subNode) use (
-            &$hasChanged,
-            $mailerPropertyName
-        ) {
-            if (! $subNode instanceof MethodCall) {
-                return null;
-            }
+        // Process each method in the class
+        foreach ($node->getMethods() as $method) {
+            $isStatic = $method->isStatic();
 
-            if (! $this->isName($subNode->name, 'send')) {
-                return null;
-            }
+            $this->traverseNodesWithCallable($method->stmts ?? [], function (Node $subNode) use (
+                &$hasChanged,
+                &$needsDependencyInjection,
+                $isStatic,
+                $mailerPropertyName
+            ) {
+                if (! $subNode instanceof MethodCall) {
+                    return null;
+                }
 
-            if (! $this->isObjectType($subNode->var, new ObjectType('TYPO3\CMS\Core\Mail\MailMessage'))) {
-                return null;
-            }
+                if (! $this->isName($subNode->name, 'send')) {
+                    return null;
+                }
 
-            $hasChanged = true;
+                if (! $this->isObjectType($subNode->var, new ObjectType('TYPO3\CMS\Core\Mail\MailMessage'))) {
+                    return null;
+                }
 
-            return $this->nodeFactory->createMethodCall(
-                new PropertyFetch(new Variable('this'), $mailerPropertyName),
-                'send',
-                [$subNode->var]
-            );
-        });
+                $hasChanged = true;
+
+                if ($isStatic) {
+                    return $this->nodeFactory->createMethodCall(
+                        $this->nodeFactory->createStaticCall(
+                            'TYPO3\CMS\Core\Utility\GeneralUtility',
+                            'makeInstance',
+                            [$this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Mail\MailerInterface')]
+                        ),
+                        'send',
+                        [$subNode->var]
+                    );
+                }
+
+                $needsDependencyInjection = true;
+
+                return $this->nodeFactory->createMethodCall(
+                    new PropertyFetch(new Variable('this'), $mailerPropertyName),
+                    'send',
+                    [$subNode->var]
+                );
+            });
+        }
+
+        if ($hasChanged && $needsDependencyInjection) {
+            $this->addDependency($node, $mailerPropertyName, 'TYPO3\CMS\Core\Mail\MailerInterface');
+            return $node;
+        }
 
         if ($hasChanged) {
-            $this->addDependency($node, $mailerPropertyName, 'TYPO3\CMS\Core\Mail\MailerInterface');
             return $node;
         }
 

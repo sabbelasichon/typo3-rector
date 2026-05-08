@@ -5027,7 +5027,7 @@ Migrate `UtilityPathUtility::getPublicResourceWebPath()`
 
 ### MigrateRemovedMailMessageSendRector
 
-Migrate removed `MailMessage->send()` to `MailerInterface->send()` via dependency injection
+Migrate removed `MailMessage->send()` to `MailerInterface->send()` via dependency injection or `GeneralUtility::makeInstance()` in static methods
 
 - class: [`Ssch\TYPO3Rector\TYPO314\v0\MigrateRemovedMailMessageSendRector`](../rules/TYPO314/v0/MigrateRemovedMailMessageSendRector.php)
 
