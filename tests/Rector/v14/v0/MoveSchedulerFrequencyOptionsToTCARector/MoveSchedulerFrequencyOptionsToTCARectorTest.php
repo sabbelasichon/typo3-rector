@@ -111,6 +111,12 @@ final class MoveSchedulerFrequencyOptionsToTCARectorTest extends AbstractRectorT
         ];
     }
 
+    public function testDoesNotCrashOnAppendSyntaxAssignment(): void
+    {
+        // $arr[][] = ... produces an ArrayDimFetch with dim === null; shouldSkip() must guard against this
+        $this->doTestFile(__DIR__ . '/Fixture/append_syntax/ext_localconf.php.inc');
+    }
+
     public function provideConfigFilePath(): string
     {
         return __DIR__ . '/config/configured_rule.php';
