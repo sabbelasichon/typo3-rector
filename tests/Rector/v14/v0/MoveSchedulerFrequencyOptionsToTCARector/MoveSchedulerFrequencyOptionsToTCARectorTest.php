@@ -109,6 +109,8 @@ final class MoveSchedulerFrequencyOptionsToTCARectorTest extends AbstractRectorT
             'extension2',
             '<?php' . PHP_EOL . PHP_EOL . '# file exists',
         ];
+
+        yield 'Test with nested array' => ['extension3'];
     }
 
     public function provideConfigFilePath(): string
