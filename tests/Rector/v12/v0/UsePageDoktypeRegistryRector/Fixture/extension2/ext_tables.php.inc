@@ -10,6 +10,3 @@ $GLOBALS['PAGES_TYPES'] = [
         'allowedTables' => '*'
     ],
 ];
-
-?>
-
