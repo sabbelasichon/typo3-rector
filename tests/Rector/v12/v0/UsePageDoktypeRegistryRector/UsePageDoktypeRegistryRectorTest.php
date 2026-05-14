@@ -9,11 +9,11 @@ use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 final class UsePageDoktypeRegistryRectorTest extends AbstractRectorTestCase
 {
     /**
-     * @dataProvider provideData()
+     * @dataProvider provideData
      */
-    public function test(string $filePath): void
+    public function test(string $extensionKey): void
     {
-        $this->doTestFile($filePath);
+        $this->doTestFile(__DIR__ . '/Fixture/' . $extensionKey . '/ext_tables.php.inc');
     }
 
     /**
@@ -21,7 +21,8 @@ final class UsePageDoktypeRegistryRectorTest extends AbstractRectorTestCase
      */
     public static function provideData(): \Iterator
     {
-        return self::yieldFilesFromDirectory(__DIR__ . '/Fixture');
+        yield 'Test extension 1' => ['extension1'];
+        yield 'Test extension 2' => ['extension2'];
     }
 
     public function provideConfigFilePath(): string

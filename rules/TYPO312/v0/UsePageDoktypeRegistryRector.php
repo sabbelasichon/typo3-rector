@@ -11,6 +11,7 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Rector\AbstractRector;
+use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -21,6 +22,16 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class UsePageDoktypeRegistryRector extends AbstractRector implements DocumentedRuleInterface
 {
+    /**
+     * @readonly
+     */
+    private FilesFinder $filesFinder;
+
+    public function __construct(FilesFinder $filesFinder)
+    {
+        $this->filesFinder = $filesFinder;
+    }
+
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate from `$GLOBALS[\'PAGES_TYPES\']` to the new PageDoktypeRegistry', [
@@ -77,6 +88,10 @@ CODE_SAMPLE
 
     private function shouldSkip(Assign $assign): bool
     {
+        if (! $this->filesFinder->isExtTables($this->getFile()->getFilePath())) {
+            return true;
+        }
+
         $arrayDimFetch = $assign->var;
         if (! $arrayDimFetch instanceof ArrayDimFetch) {
             return true;
