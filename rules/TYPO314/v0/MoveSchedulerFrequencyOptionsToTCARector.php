@@ -144,6 +144,7 @@ CODE_SAMPLE
         // Check for 'frequencyOptions'
         $freqOptionsDimFetch = $assignVar->var;
         if (! $freqOptionsDimFetch instanceof ArrayDimFetch
+            || $freqOptionsDimFetch->dim === null
             || ! $this->valueResolver->isValue($freqOptionsDimFetch->dim, 'frequencyOptions')
         ) {
             return true;
@@ -152,6 +153,7 @@ CODE_SAMPLE
         // Check for 'scheduler'
         $schedulerDimFetch = $freqOptionsDimFetch->var;
         if (! $schedulerDimFetch instanceof ArrayDimFetch
+            || $schedulerDimFetch->dim === null
             || ! $this->valueResolver->isValue($schedulerDimFetch->dim, 'scheduler')
         ) {
             return true;
@@ -160,6 +162,7 @@ CODE_SAMPLE
         // Check for 'SC_OPTIONS'
         $scOptionsDimFetch = $schedulerDimFetch->var;
         if (! $scOptionsDimFetch instanceof ArrayDimFetch
+            || $scOptionsDimFetch->dim === null
             || ! $this->valueResolver->isValue($scOptionsDimFetch->dim, 'SC_OPTIONS')
         ) {
             return true;
@@ -168,6 +171,7 @@ CODE_SAMPLE
         // Check for 'TYPO3_CONF_VARS'
         $typo3ConfVarsDimFetch = $scOptionsDimFetch->var;
         if (! $typo3ConfVarsDimFetch instanceof ArrayDimFetch
+            || $typo3ConfVarsDimFetch->dim === null
             || ! $this->valueResolver->isValue($typo3ConfVarsDimFetch->dim, 'TYPO3_CONF_VARS')
         ) {
             return true;
