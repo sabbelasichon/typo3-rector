@@ -22,6 +22,7 @@ phpstan.neon export-ignore
 phpstan-baseline.neon export-ignore
 phpunit.xml.dist export-ignore
 rector.php export-ignore
+structarmed.php export-ignore
 tests export-ignore
 utils/generator export-ignore
 utils/phpstan/tests export-ignore

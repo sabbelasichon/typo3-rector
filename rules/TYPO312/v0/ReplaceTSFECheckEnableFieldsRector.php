@@ -67,7 +67,7 @@ final class ReplaceTSFECheckEnableFieldsRector extends AbstractRector implements
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
                 $this->nodeFactory->createClassConstReference(
-                    'TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter'
+                    'TYPO3\CMS\Core\Domain\Access\RecordAccessVoter'
                 ),
             ]),
             $replacementMethod,
@@ -96,7 +96,7 @@ $baz = $typoscriptFrontendController->checkPagerecordForIncludeSection($row);
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
-use TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter;
+use TYPO3\CMS\Core\Domain\Access\RecordAccessVoter;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 $row = [];

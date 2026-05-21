@@ -1,10 +1,10 @@
 <?php
 
-namespace TYPO3\CMS\Core\Domain\Access\RecordAccessVoter;
+namespace TYPO3\CMS\Core\Domain\Access;
 
 use TYPO3\CMS\Core\Context\Context;
 
-if (class_exists('TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter')) {
+if (class_exists('TYPO3\CMS\Core\Domain\Access\RecordAccessVoter')) {
     return;
 }
 
