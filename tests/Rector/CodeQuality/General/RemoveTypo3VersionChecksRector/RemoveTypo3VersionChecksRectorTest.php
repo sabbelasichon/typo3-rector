@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rector\CodeQuality\General\RemoveTypo3VersionChecksRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\RemoveTypo3VersionChecksRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 

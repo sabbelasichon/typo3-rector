@@ -21,7 +21,7 @@ $baz = $typoscriptFrontendController->checkPagerecordForIncludeSection($row);
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ReplaceTSFECheckEnableFieldsRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter;
+use TYPO3\CMS\Core\Domain\Access\RecordAccessVoter;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 $row = [];

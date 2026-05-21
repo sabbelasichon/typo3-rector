@@ -3219,7 +3219,7 @@ Replace `$GLOBALS['TSFE']->checkEnableFields` calls with new `RecordAccessVoter-
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\ReplaceTSFECheckEnableFieldsRector`](../rules/TYPO312/v0/ReplaceTSFECheckEnableFieldsRector.php)
 
 ```diff
-+use TYPO3\CMS\Core\Domain\Access\RecordAccessVoter\RecordAccessVoter;
++use TYPO3\CMS\Core\Domain\Access\RecordAccessVoter;
  use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
  $row = [];

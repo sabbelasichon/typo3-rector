@@ -38,6 +38,14 @@ jobs:
           - name: 'PHPStan'
             run: "composer ci:php:stan"
 
+        include:
+          - php-versions: 8.2
+            actions:
+              name: 'StructArmed'
+              run: |
+                composer require --dev boundwize/structarmed
+                vendor/bin/structarmed analyze
+
     name: "${{ matrix.php-versions }} ${{ matrix.actions.name }}"
     runs-on: ubuntu-latest
 
