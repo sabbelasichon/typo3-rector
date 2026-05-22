@@ -43,7 +43,7 @@ jobs:
             actions:
               name: 'StructArmed'
               run: |
-                composer require --dev boundwize/structarmed
+                composer require --dev boundwize/structarmed:^0.7
                 vendor/bin/structarmed analyze
 
     name: "${{ matrix.php-versions }} ${{ matrix.actions.name }}"
