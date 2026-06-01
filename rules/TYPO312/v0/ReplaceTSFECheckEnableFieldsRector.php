@@ -66,9 +66,7 @@ final class ReplaceTSFECheckEnableFieldsRector extends AbstractRector implements
 
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createStaticCall('TYPO3\CMS\Core\Utility\GeneralUtility', 'makeInstance', [
-                $this->nodeFactory->createClassConstReference(
-                    'TYPO3\CMS\Core\Domain\Access\RecordAccessVoter'
-                ),
+                $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Domain\Access\RecordAccessVoter'),
             ]),
             $replacementMethod,
             $arguments
