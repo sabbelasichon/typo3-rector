@@ -73,9 +73,9 @@ CODE_SAMPLE
      */
     public function refactor(Node $node)
     {
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        if (! $this->isObjectType(
             $node->var,
-            new ObjectType('TYPO3\\CMS\\Core\\Crypto\\HashService')
+            new ObjectType('TYPO3\\CMS\\Extbase\\Security\\Cryptography\\HashService')
         )) {
             return null;
         }
@@ -84,17 +84,18 @@ CODE_SAMPLE
             return null;
         }
 
-        if (count($node->args) > 1 && ! $this->isName($node->name, 'validateHmac')) {
-            return null;
-        }
+        // The Extbase signatures are validateHmac($input, $hmac) (2 arguments) and a single $input
+        // argument for the other methods. Skip if the number of arguments does not match.
+        $isValidateHmac = $this->isName($node->name, 'validateHmac');
 
-        if (count($node->args) > 2 && $this->isName($node->name, 'validateHmac')) {
+        $expectedArgumentCount = $isValidateHmac ? 2 : 1;
+        if (count($node->args) !== $expectedArgumentCount) {
             return null;
         }
 
         $additionalSecretArgument = $this->nodeFactory->createArg($this->additionalSecret);
 
-        if ($this->isName($node->name, 'validateHmac')) {
+        if ($isValidateHmac) {
             $node->args[2] = $node->args[1];
             $node->args[1] = $additionalSecretArgument;
         } else {
