@@ -28,7 +28,7 @@ class MyController
      * @throws InvalidArgumentForHashGenerationException
      * @throws InvalidHashException
      */
-    private function validate()
+    private function validate(): void
     {
         $this->hashService->generateHmac('foo');
     }
@@ -66,7 +66,7 @@ class MyController
      * @throws InvalidHashStringException
      * @throws InvalidHashStringException
      */
-    private function validate()
+    private function validate(): void
     {
         $this->hashService->hmac('foo', 'changeMe');
     }
