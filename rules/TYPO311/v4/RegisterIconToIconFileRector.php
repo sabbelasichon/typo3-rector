@@ -10,7 +10,10 @@ use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
+use PhpParser\NodeVisitor\NameResolver;
+use PHPStan\Parser\ParserErrorsException;
 use PHPStan\Type\ObjectType;
+use Rector\CodingStyle\ClassNameImport\UsedImportsResolver;
 use Rector\Configuration\ConfigurationRuleFilter;
 use Rector\Exception\ShouldNotHappenException;
 use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
@@ -72,13 +75,30 @@ final class RegisterIconToIconFileRector extends AbstractRector implements Docum
      */
     private AddIconToReturnRector $addItemToReturnRector;
 
+    /**
+     * @readonly
+     */
     private PHPStanNodeScopeResolver $phpStanNodeScopeResolver;
 
+    /**
+     * @readonly
+     */
     private PhpVersionedFilter $phpVersionedFilter;
 
+    /**
+     * @readonly
+     */
     private ComposerPackageConstraintFilter $composerPackageConstraintFilter;
 
+    /**
+     * @readonly
+     */
     private ConfigurationRuleFilter $configurationRuleFilter;
+
+    /**
+     * @readonly
+     */
+    private UsedImportsResolver $usedImportsResolver;
 
     public function __construct(
         FilesFinder $filesFinder,
@@ -91,7 +111,8 @@ final class RegisterIconToIconFileRector extends AbstractRector implements Docum
         PHPStanNodeScopeResolver $phpStanNodeScopeResolver,
         PhpVersionedFilter $phpVersionedFilter,
         ComposerPackageConstraintFilter $composerPackageConstraintFilter,
-        ConfigurationRuleFilter $configurationRuleFilter
+        ConfigurationRuleFilter $configurationRuleFilter,
+        UsedImportsResolver $usedImportsResolver
     ) {
         $this->filesFinder = $filesFinder;
         $this->filesystem = $filesystem;
@@ -104,6 +125,7 @@ final class RegisterIconToIconFileRector extends AbstractRector implements Docum
         $this->phpVersionedFilter = $phpVersionedFilter;
         $this->composerPackageConstraintFilter = $composerPackageConstraintFilter;
         $this->configurationRuleFilter = $configurationRuleFilter;
+        $this->usedImportsResolver = $usedImportsResolver;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -234,8 +256,6 @@ CODE_SAMPLE
         string $iconIdentifier,
         array $iconConfiguration
     ): ?string {
-        $nodeTraverser = new NodeTraverser();
-
         if ($this->filesystem->fileExists($iconsFilePath)) {
             $existingIcons = $this->filesystem->read($iconsFilePath);
             $file = new File($iconsFilePath, $existingIcons);
@@ -270,7 +290,11 @@ CODE_SAMPLE
     private function parseFileAndDecorateNodes(File $file): ?SystemError
     {
         try {
-            $this->parseFileNodes($file);
+            try {
+                $this->parseFileNodes($file);
+            } catch (ParserErrorsException $exception) {
+                $this->parseFileNodes($file, \false);
+            }
         } catch (ShouldNotHappenException $shouldNotHappenException) {
             throw $shouldNotHappenException;
         } catch (\Throwable $throwable) {
@@ -281,16 +305,33 @@ CODE_SAMPLE
     }
 
     /**
+     * @see \Rector\Application\FileProcessor::parseFileNodes
      * @throws ShouldNotHappenException
      */
-    private function parseFileNodes(File $file): void
+    private function parseFileNodes(File $file, bool $forNewestSupportedVersion = true): void
     {
         // store tokens by original file content, so we don't have to print them right now
-        $stmtsAndTokens = $this->rectorParser->parseFileContentToStmtsAndTokens($file->getOriginalFileContent());
+        $stmtsAndTokens = $this->rectorParser->parseFileContentToStmtsAndTokens(
+            $file->getOriginalFileContent(),
+            $forNewestSupportedVersion
+        );
+
         $oldStmts = $stmtsAndTokens->getStmts();
-        $oldStmts = [new FileNode($oldStmts)];
+
+        // resolve names up front, so used imports (incl. the class FQN) are resolvable at construction,
+        // before scope decoration runs; only annotates namespacedName, does not replace name nodes
+        $nameResolvingNodeTraverser = new NodeTraverser(new NameResolver(null, [
+            'preserveOriginalNames' => true,
+            'replaceNodes' => false,
+        ]));
+        $nameResolvingNodeTraverser->traverse($oldStmts);
+
+        // wrap in FileNode to allow file-level rules; seed used imports once, kept in sync incrementally
+        $usedImports = $this->usedImportsResolver->resolveForStmts($oldStmts);
+        $oldStmts = [new FileNode($oldStmts, $usedImports)];
 
         $oldTokens = $stmtsAndTokens->getTokens();
+
         $newStmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file->getFilePath(), $oldStmts);
 
         $file->hydrateStmtsAndTokens($newStmts, $oldStmts, $oldTokens);
