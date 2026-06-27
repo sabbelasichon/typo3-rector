@@ -73,9 +73,9 @@ CODE_SAMPLE
      */
     public function refactor(Node $node)
     {
-        if ($this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
+        if (! $this->isObjectType(
             $node->var,
-            new ObjectType('TYPO3\\CMS\\Core\\Crypto\\HashService')
+            new ObjectType('TYPO3\\CMS\\Extbase\\Security\\Cryptography\\HashService')
         )) {
             return null;
         }

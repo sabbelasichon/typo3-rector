@@ -13,5 +13,3 @@ $isValidHash = $hashService->validateHmac('123', $additionalSecret, $generatedHa
 
 $stringWithAppendedHash = $hashService->appendHmac('123', $additionalSecret);
 $validatedStringWithHashRemoved = $hashService->validateAndStripHmac($stringWithAppendedHash, $additionalSecret);
-
-?>
