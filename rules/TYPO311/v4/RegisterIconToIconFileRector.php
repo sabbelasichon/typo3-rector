@@ -5,25 +5,19 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO311\v4;
 
 use PhpParser\Node;
+use PhpParser\Node\ArrayItem;
+use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
-use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor;
+use PHPStan\Parser\ParserErrorsException;
 use PHPStan\Type\ObjectType;
-use Rector\Configuration\ConfigurationRuleFilter;
 use Rector\Exception\ShouldNotHappenException;
-use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
-use Rector\NodeTypeResolver\PHPStan\Scope\PHPStanNodeScopeResolver;
-use Rector\PhpParser\Node\FileNode;
 use Rector\PhpParser\Node\Value\ValueResolver;
-use Rector\PhpParser\NodeTraverser\RectorNodeTraverser;
 use Rector\PhpParser\Parser\RectorParser;
 use Rector\Rector\AbstractRector;
-use Rector\ValueObject\Application\File;
-use Rector\ValueObject\Error\SystemError;
-use Rector\VersionBonding\ComposerPackageConstraintFilter;
-use Rector\VersionBonding\PhpVersionedFilter;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\PhpParser\Printer\PrettyTypo3Printer;
@@ -62,48 +56,18 @@ final class RegisterIconToIconFileRector extends AbstractRector implements Docum
      */
     private RectorParser $rectorParser;
 
-    /**
-     * @readonly
-     */
-    private NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator;
-
-    /**
-     * @readonly
-     */
-    private AddIconToReturnRector $addItemToReturnRector;
-
-    private PHPStanNodeScopeResolver $phpStanNodeScopeResolver;
-
-    private PhpVersionedFilter $phpVersionedFilter;
-
-    private ComposerPackageConstraintFilter $composerPackageConstraintFilter;
-
-    private ConfigurationRuleFilter $configurationRuleFilter;
-
     public function __construct(
         FilesFinder $filesFinder,
         FilesystemInterface $filesystem,
         ValueResolver $valueResolver,
         RectorParser $rectorParser,
-        NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator,
-        PrettyTypo3Printer $prettyTypo3Printer,
-        AddIconToReturnRector $addItemToReturnRector,
-        PHPStanNodeScopeResolver $phpStanNodeScopeResolver,
-        PhpVersionedFilter $phpVersionedFilter,
-        ComposerPackageConstraintFilter $composerPackageConstraintFilter,
-        ConfigurationRuleFilter $configurationRuleFilter
+        PrettyTypo3Printer $prettyTypo3Printer
     ) {
         $this->filesFinder = $filesFinder;
         $this->filesystem = $filesystem;
         $this->valueResolver = $valueResolver;
         $this->rectorParser = $rectorParser;
-        $this->nodeScopeAndMetadataDecorator = $nodeScopeAndMetadataDecorator;
         $this->prettyTypo3Printer = $prettyTypo3Printer;
-        $this->addItemToReturnRector = $addItemToReturnRector;
-        $this->phpStanNodeScopeResolver = $phpStanNodeScopeResolver;
-        $this->phpVersionedFilter = $phpVersionedFilter;
-        $this->composerPackageConstraintFilter = $composerPackageConstraintFilter;
-        $this->configurationRuleFilter = $configurationRuleFilter;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -234,65 +198,86 @@ CODE_SAMPLE
         string $iconIdentifier,
         array $iconConfiguration
     ): ?string {
-        $nodeTraverser = new NodeTraverser();
-
         if ($this->filesystem->fileExists($iconsFilePath)) {
             $existingIcons = $this->filesystem->read($iconsFilePath);
-            $file = new File($iconsFilePath, $existingIcons);
-            $parsingSystemError = $this->parseFileAndDecorateNodes($file);
-            if ($parsingSystemError instanceof SystemError) {
-                // we cannot process this file as the parsing and type resolving itself went wrong
+            $nodes = $this->parseIconFileNodes($existingIcons);
+            if ($nodes === null) {
                 return null;
             }
-
-            $nodes = $file->getNewStmts();
         } else {
             $return = new Return_($this->nodeFactory->createArray([]));
-            $nodes = $this->phpStanNodeScopeResolver->processNodes([$return], 'php://temp');
+            $nodes = [$return];
         }
 
-        $this->addItemToReturnRector->configure([
-            AddIconToReturnRector::IDENTIFIER => $iconIdentifier,
-            AddIconToReturnRector::OPTIONS => $iconConfiguration,
-        ]);
-        $nodeTraverser = new RectorNodeTraverser([
-            $this->addItemToReturnRector,
-        ], $this->phpVersionedFilter, $this->composerPackageConstraintFilter, $this->configurationRuleFilter);
-        $nodes = $nodeTraverser->traverse($nodes);
+        $returnArray = $this->findReturnedArray($nodes);
+        if (! $returnArray instanceof Array_) {
+            return null;
+        }
+
+        $returnArray->items[] = new ArrayItem(
+            $this->nodeFactory->createArray($this->createIconOptionsWithNodes($iconConfiguration)),
+            new String_($iconIdentifier),
+            false
+        );
 
         return $this->prettyTypo3Printer->prettyPrintFile($nodes);
     }
 
     /**
-     * @see \Rector\Application\FileProcessor::parseFileAndDecorateNodes
-     * @throws ShouldNotHappenException
+     * @return Node\Stmt[]|null
      */
-    private function parseFileAndDecorateNodes(File $file): ?SystemError
+    private function parseIconFileNodes(string $fileContent): ?array
     {
         try {
-            $this->parseFileNodes($file);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
-            throw $shouldNotHappenException;
+            return $this->rectorParser->parseFileContentToStmtsAndTokens($fileContent)
+                ->getStmts();
+        } catch (ParserErrorsException $parserErrorsException) {
+            try {
+                return $this->rectorParser->parseFileContentToStmtsAndTokens($fileContent, false)
+                    ->getStmts();
+            } catch (\Throwable $throwable) {
+                return null;
+            }
         } catch (\Throwable $throwable) {
-            return new SystemError($throwable->getMessage(), $file->getFilePath(), $throwable->getLine());
+            return null;
+        }
+    }
+
+    /**
+     * @param Node\Stmt[] $nodes
+     */
+    private function findReturnedArray(array $nodes): ?Array_
+    {
+        foreach ($nodes as $node) {
+            if (! $node instanceof Return_) {
+                continue;
+            }
+
+            if ($node->expr instanceof Array_) {
+                return $node->expr;
+            }
         }
 
         return null;
     }
 
     /**
-     * @throws ShouldNotHappenException
+     * @param array<string, mixed> $iconConfiguration
+     * @return array<string, mixed>
      */
-    private function parseFileNodes(File $file): void
+    private function createIconOptionsWithNodes(array $iconConfiguration): array
     {
-        // store tokens by original file content, so we don't have to print them right now
-        $stmtsAndTokens = $this->rectorParser->parseFileContentToStmtsAndTokens($file->getOriginalFileContent());
-        $oldStmts = $stmtsAndTokens->getStmts();
-        $oldStmts = [new FileNode($oldStmts)];
+        $optionsWithNodes = [];
 
-        $oldTokens = $stmtsAndTokens->getTokens();
-        $newStmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file->getFilePath(), $oldStmts);
+        foreach ($iconConfiguration as $key => $value) {
+            if ($key === 'provider' && is_string($value)) {
+                $optionsWithNodes[$key] = $this->nodeFactory->createClassConstReference($value);
+                continue;
+            }
 
-        $file->hydrateStmtsAndTokens($newStmts, $oldStmts, $oldTokens);
+            $optionsWithNodes[$key] = $value;
+        }
+
+        return $optionsWithNodes;
     }
 }
