@@ -3,7 +3,7 @@
 [![Monthly Downloads](https://poser.pugx.org/ssch/typo3-rector/d/monthly)](https://packagist.org/packages/ssch/typo3-rector)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/schreiberten)
 
-# Rector for TYPO3
+# TYPO3 Rector
 
 This project lets you apply instant upgrades and refactoring to your [TYPO3 Website](https://get.typo3.org/) and
 [extension](https://extensions.typo3.org) code, making it easier to migrate between TYPO3 releases and keeping your code
@@ -53,6 +53,11 @@ and when you want to execute the migrations run:
 vendor/bin/rector process
 ```
 
+## Documentation
+
+The TYPO3 Rector specific documentation can be found in the [Documentation](docs) folder in this repository,
+anything Rector specific can be found on the [Rector Website](https://getrector.com/documentation).
+
 ## Version matrix
 
 |                    | v1                                    | v2, v3         |
@@ -65,7 +70,7 @@ vendor/bin/rector process
 
 - [fractor](https://github.com/andreaswolf/fractor/) with its
   [typo3-fractor](https://github.com/andreaswolf/fractor/blob/main/packages/typo3-fractor/docs/typo3-fractor-rules.md)
-  rules that migrate TypoScript, FlexForm, YAML and Fluid template files.
+  rules that migrate TypoScript, FlexForm, YAML, Fluid template, .htaccess and composer.json files.
 
 ## Contributing
 
