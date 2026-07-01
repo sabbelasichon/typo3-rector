@@ -493,6 +493,10 @@ CODE);
             return null;
         }
 
+        if ($newArray->items === []) {
+            return null;
+        }
+
         return $this->appendExportedArrayContent($existingFileContent, $content);
     }
 
@@ -529,31 +533,29 @@ CODE);
         return null;
     }
 
-    private function appendExportedArrayContent(string $existingFileContent, string $content): ?string
+    private function appendExportedArrayContent(string $existingFileContent, string $content): string
     {
         $newArrayItemsContent = $this->unwrapExportedArrayContent($content);
-        if ($newArrayItemsContent === null) {
-            return null;
-        }
+        $lineEnding = $this->resolveLineEnding($existingFileContent);
 
         $existingFileContent = rtrim($existingFileContent);
-        if (substr($existingFileContent, -3) !== "\n];") {
-            return null;
-        }
+        $closing = substr($existingFileContent, -2);
 
-        return substr($existingFileContent, 0, -3) . ' ' . $newArrayItemsContent . "\n];\n";
+        return rtrim(substr($existingFileContent, 0, -2)) . ' ' . $newArrayItemsContent . $lineEnding . $closing . $lineEnding;
     }
 
-    private function unwrapExportedArrayContent(string $content): ?string
+    private function unwrapExportedArrayContent(string $content): string
     {
-        if (substr($content, 0, 2) !== "[\n") {
-            return null;
+        $content = trim($content);
+        return trim(substr($content, 1, -1));
+    }
+
+    private function resolveLineEnding(string $content): string
+    {
+        if (strpos($content, "\r\n") !== false) {
+            return "\r\n";
         }
 
-        if (substr($content, -2) !== "\n]") {
-            return null;
-        }
-
-        return ltrim(substr($content, 2, -2));
+        return "\n";
     }
 }
