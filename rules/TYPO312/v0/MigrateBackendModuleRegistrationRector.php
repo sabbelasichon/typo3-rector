@@ -10,16 +10,12 @@ use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
 use PhpParser\NodeVisitor;
+use PHPStan\Parser\ParserErrorsException;
 use PHPStan\Type\ObjectType;
-use Rector\Exception\ShouldNotHappenException;
-use Rector\NodeTypeResolver\NodeScopeAndMetadataDecorator;
-use Rector\PhpParser\Node\FileNode;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PhpParser\Parser\RectorParser;
-use Rector\PhpParser\Printer\BetterStandardPrinter;
+use Rector\PhpParser\ValueObject\StmtsAndTokens;
 use Rector\Rector\AbstractRector;
-use Rector\ValueObject\Application\File;
-use Rector\ValueObject\Error\SystemError;
 use Ssch\TYPO3Rector\ComposerExtensionKeyResolver;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
@@ -28,7 +24,6 @@ use Ssch\TYPO3Rector\Helper\ExtensionKeyResolverTrait;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
-use Throwable;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Feature-96733-NewBackendModuleRegistrationAPI.html
@@ -58,32 +53,18 @@ final class MigrateBackendModuleRegistrationRector extends AbstractRector implem
      */
     private RectorParser $rectorParser;
 
-    /**
-     * @readonly
-     */
-    private NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator;
-
-    /**
-     * @readonly
-     */
-    private BetterStandardPrinter $betterStandardPrinter;
-
     public function __construct(
         FilesFinder $filesFinder,
         FilesystemInterface $filesystem,
         ValueResolver $valueResolver,
         ComposerExtensionKeyResolver $composerExtensionKeyResolver,
-        RectorParser $rectorParser,
-        NodeScopeAndMetadataDecorator $nodeScopeAndMetadataDecorator,
-        BetterStandardPrinter $betterStandardPrinter
+        RectorParser $rectorParser
     ) {
         $this->filesFinder = $filesFinder;
         $this->filesystem = $filesystem;
         $this->valueResolver = $valueResolver;
         $this->composerExtensionKeyResolver = $composerExtensionKeyResolver;
         $this->rectorParser = $rectorParser;
-        $this->nodeScopeAndMetadataDecorator = $nodeScopeAndMetadataDecorator;
-        $this->betterStandardPrinter = $betterStandardPrinter;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -197,36 +178,12 @@ CODE_SAMPLE
 
         if ($this->filesystem->fileExists($newConfigurationFile)) {
             $existingFileContent = $this->filesystem->read($newConfigurationFile);
-
-            // This is very ugly but it works, see https://github.com/nikic/PHP-Parser/issues/1019
-            $existingFileContent = <<<CODE
-{$existingFileContent}
-return {$content};
-
-CODE;
-            $existingFile = new File($newConfigurationFile, $existingFileContent);
-
-            $parsingSystemError = $this->parseFileAndDecorateNodes($existingFile);
-            if ($parsingSystemError instanceof SystemError) {
-                // we cannot process this file as the parsing and type resolving itself went wrong
+            $newFileContent = $this->createMergedModulesFileContent($existingFileContent, $content);
+            if ($newFileContent === null) {
                 return null;
             }
 
-            $existingFile->changeHasChanged(\false);
-
-            // This is very ugly but it works, see https://github.com/nikic/PHP-Parser/issues/1019
-            $tempFile = new File('php://temp', $existingFileContent);
-            $parsingSystemErrorTempFile = $this->parseFileAndDecorateNodes($tempFile);
-            if ($parsingSystemErrorTempFile instanceof SystemError) {
-                // we cannot process this file as the parsing and type resolving itself went wrong
-                return null;
-            }
-
-            // Merge the arrays
-            $this->mergeFiles($existingFile, $tempFile);
-
-            // Print to file
-            $this->printFile($existingFile, $existingFile->getFilePath());
+            $this->filesystem->write($newConfigurationFile, $newFileContent);
         } else {
             $this->filesystem->write($newConfigurationFile, <<<CODE
 <?php
@@ -513,80 +470,92 @@ CODE);
         return $returnArray;
     }
 
-    private function parseFileAndDecorateNodes(File $file): ?SystemError
+    private function createMergedModulesFileContent(string $existingFileContent, string $content): ?string
+    {
+        $existingStmtsAndTokens = $this->parseFileContentToStmtsAndTokens($existingFileContent);
+        if (! $existingStmtsAndTokens instanceof StmtsAndTokens) {
+            return null;
+        }
+
+        $newModuleStmtsAndTokens = $this->parseFileContentToStmtsAndTokens(<<<CODE
+<?php
+
+return {$content};
+
+CODE);
+        if (! $newModuleStmtsAndTokens instanceof StmtsAndTokens) {
+            return null;
+        }
+
+        $existingArray = $this->findReturnedArray($existingStmtsAndTokens->getStmts());
+        $newArray = $this->findReturnedArray($newModuleStmtsAndTokens->getStmts());
+        if (! $existingArray instanceof Array_ || ! $newArray instanceof Array_) {
+            return null;
+        }
+
+        if ($newArray->items === []) {
+            return null;
+        }
+
+        return $this->appendExportedArrayContent($existingFileContent, $content);
+    }
+
+    private function parseFileContentToStmtsAndTokens(string $fileContent): ?StmtsAndTokens
     {
         try {
-            $this->parseFileNodes($file);
-        } catch (ShouldNotHappenException $shouldNotHappenException) {
-            throw $shouldNotHappenException;
-        } catch (Throwable $throwable) {
-            return new SystemError($throwable->getMessage(), $file->getFilePath(), $throwable->getLine());
+            return $this->rectorParser->parseFileContentToStmtsAndTokens($fileContent);
+        } catch (ParserErrorsException $parserErrorsException) {
+            try {
+                return $this->rectorParser->parseFileContentToStmtsAndTokens($fileContent, false);
+            } catch (\Throwable $throwable) {
+                return null;
+            }
+        } catch (\Throwable $throwable) {
+            return null;
+        }
+    }
+
+    /**
+     * @param Node\Stmt[] $nodes
+     */
+    private function findReturnedArray(array $nodes): ?Array_
+    {
+        foreach ($nodes as $node) {
+            if (! $node instanceof Return_) {
+                continue;
+            }
+
+            if ($node->expr instanceof Array_) {
+                return $node->expr;
+            }
         }
 
         return null;
     }
 
-    private function mergeFiles(File $existingFile, File $newFile): void
+    private function appendExportedArrayContent(string $existingFileContent, string $content): string
     {
-        $existingStmts = $existingFile->getNewStmts();
+        $newArrayItemsContent = $this->unwrapExportedArrayContent($content);
+        $lineEnding = $this->resolveLineEnding($existingFileContent);
 
-        /** @var FileNode $fileWithoutNamespace */
-        $fileWithoutNamespace = $existingStmts[0];
+        $existingFileContent = rtrim($existingFileContent);
+        $closing = substr($existingFileContent, -2);
 
-        // This is very ugly but it works, see https://github.com/nikic/PHP-Parser/issues/1019
-        unset($fileWithoutNamespace->stmts[1]);
-
-        $existingArray = $this->getNodeArray($fileWithoutNamespace, 0);
-
-        // --- new php array
-
-        $newStmts = $newFile->getNewStmts();
-
-        /** @var FileNode $fileWithoutNamespace2 */
-        $fileWithoutNamespace2 = $newStmts[0];
-
-        $newArray = $this->getNodeArray($fileWithoutNamespace2, 1);
-
-        // Merge the two arrays
-        $existingArray->items[] = $newArray->items[0];
-
-        $existingFile->changeNewStmts($existingStmts);
+        return rtrim(substr($existingFileContent, 0, -2)) . ' ' . $newArrayItemsContent . $lineEnding . $closing . $lineEnding;
     }
 
-    private function getNodeArray(FileNode $fileWithoutNamespace, int $index): Array_
+    private function unwrapExportedArrayContent(string $content): string
     {
-        /** @var Return_ $return */
-        $return = $fileWithoutNamespace->stmts[$index];
-
-        /** @var Array_ $array */
-        $array = $return->expr;
-
-        return $array;
+        $content = trim($content);
+        return trim(substr($content, 1, -1));
     }
 
-    private function printFile(File $file, string $filePath): void
+    private function resolveLineEnding(string $content): string
     {
-        // only save to string first, no need to print to file when not needed
-        $newContent = $this->betterStandardPrinter->printFormatPreserving(
-            $file->getNewStmts(),
-            $file->getOldStmts(),
-            $file->getOldTokens()
-        );
+        if (strpos($content, "\r\n") !== false) {
+            return "\r\n";
+        }
 
-        $file->changeFileContent($newContent);
-
-        $this->filesystem->write($filePath, $newContent);
-    }
-
-    private function parseFileNodes(File $file): void
-    {
-        // store tokens by original file content, so we don't have to print them right now
-        $stmtsAndTokens = $this->rectorParser->parseFileContentToStmtsAndTokens($file->getOriginalFileContent());
-        $oldStmts = $stmtsAndTokens->getStmts();
-        $oldStmts = [new FileNode($oldStmts)];
-
-        $oldTokens = $stmtsAndTokens->getTokens();
-        $newStmts = $this->nodeScopeAndMetadataDecorator->decorateNodesFromFile($file->getFilePath(), $oldStmts);
-        $file->hydrateStmtsAndTokens($newStmts, $oldStmts, $oldTokens);
+        return "\n";
     }
 }
