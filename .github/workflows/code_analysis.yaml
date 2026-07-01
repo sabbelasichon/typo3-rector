@@ -51,7 +51,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # see https://github.com/shivammathur/setup-php
       - name: "Setup PHP"
