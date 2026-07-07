@@ -20,7 +20,7 @@ final class RemoveObsoleteAppearanceConfigRector extends AbstractTcaRector imple
 {
     public function getRuleDefinition(): RuleDefinition
     {
-        return new RuleDefinition('Removes the obsolete appearance config options within TCA', [new CodeSample(
+        return new RuleDefinition('Remove the obsolete appearance config options within TCA', [new CodeSample(
             <<<'CODE_SAMPLE'
 return [
     'columns' => [

@@ -3020,7 +3020,7 @@ Refactor AdditionalFieldProvider classes
 
 ### RemoveObsoleteAppearanceConfigRector
 
-Removes the obsolete appearance config options within TCA
+Remove the obsolete appearance config options within TCA
 
 - class: [`Ssch\TYPO3Rector\TYPO312\v0\RemoveObsoleteAppearanceConfigRector`](../rules/TYPO312/v0/RemoveObsoleteAppearanceConfigRector.php)
 
