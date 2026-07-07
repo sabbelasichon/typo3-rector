@@ -97,7 +97,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! ($node->dim instanceof String_ && $node->dim->value === 'rootLine');
+        return ! $node->dim instanceof String_ || $node->dim->value !== 'rootLine';
     }
 
     private function isGlobals(PropertyFetch $propertyFetch): bool

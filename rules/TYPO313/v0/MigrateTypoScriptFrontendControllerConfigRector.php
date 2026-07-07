@@ -97,7 +97,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! ($node->dim instanceof String_ && $node->dim->value === 'config');
+        return ! $node->dim instanceof String_ || $node->dim->value !== 'config';
     }
 
     private function isGlobals(PropertyFetch $propertyFetch): bool

@@ -180,7 +180,7 @@ CODE_SAMPLE
      */
     private function refactorTableOptionsCollatePath(ArrayDimFetch $collateDimFetch): ?ArrayDimFetch
     {
-        if (! ($collateDimFetch->dim instanceof String_ && $collateDimFetch->dim->value === 'collate')) {
+        if (! $collateDimFetch->dim instanceof String_ || $collateDimFetch->dim->value !== 'collate') {
             return null;
         }
 
@@ -190,7 +190,7 @@ CODE_SAMPLE
 
         $tableOptionsDimFetch = $collateDimFetch->var;
 
-        if (! ($tableOptionsDimFetch->dim instanceof String_ && $tableOptionsDimFetch->dim->value === 'tableoptions')) {
+        if (! $tableOptionsDimFetch->dim instanceof String_ || $tableOptionsDimFetch->dim->value !== 'tableoptions') {
             return null;
         }
 
@@ -211,7 +211,7 @@ CODE_SAMPLE
      */
     private function refactorTableOptionsPath(ArrayDimFetch $tableOptionsDimFetch): ?ArrayDimFetch
     {
-        if (! ($tableOptionsDimFetch->dim instanceof String_ && $tableOptionsDimFetch->dim->value === 'tableoptions')) {
+        if (! $tableOptionsDimFetch->dim instanceof String_ || $tableOptionsDimFetch->dim->value !== 'tableoptions') {
             return null;
         }
 

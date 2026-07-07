@@ -40,6 +40,7 @@ return static function (ECSConfig $ecsConfig): void {
             __DIR__ . '/config/v13/strict-types.php',
             __DIR__ . '/config/v14/strict-types.php',
             __DIR__ . '/config/v14/typo3-140.php',
+            __DIR__ . '/rules/TYPO312/v0/MigrateBackendModuleRegistrationRector.php',
         ],
         GeneralPhpdocAnnotationRemoveFixer::class => [__DIR__ . '/rules/TYPO311/v4/RegisterIconToIconFileRector.php'],
     ]);
