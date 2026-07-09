@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
+use Ssch\TYPO3Rector\TYPO311\v3\HandlePublicFALUrlsWithRelativePathRector;
 use Ssch\TYPO3Rector\TYPO311\v3\MigrateHttpUtilityRedirectRector;
 use Ssch\TYPO3Rector\TYPO311\v3\SubstituteExtbaseRequestGetBaseUriRector;
 use Ssch\TYPO3Rector\TYPO311\v3\SubstituteMethodRmFromListOfGeneralUtilityRector;
@@ -16,4 +17,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(SubstituteExtbaseRequestGetBaseUriRector::class);
     $rectorConfig->rule(UseNormalizedParamsToGetRequestUrlRector::class);
     $rectorConfig->rule(MigrateHttpUtilityRedirectRector::class);
+    $rectorConfig->rule(HandlePublicFALUrlsWithRelativePathRector::class);
 };
