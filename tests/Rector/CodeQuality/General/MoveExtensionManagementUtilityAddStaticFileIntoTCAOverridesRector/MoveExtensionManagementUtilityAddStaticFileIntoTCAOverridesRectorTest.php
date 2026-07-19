@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MoveExtensionManagem
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 
-class MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRectorTest extends AbstractRectorTestCase
+final class MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRectorTest extends AbstractRectorTestCase
 {
     private FilesystemInterface $filesystem;
 

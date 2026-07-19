@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v10\v0\UseConstantsFromTYPO3DatabaseConn
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-class UseConstantsFromTYPO3DatabaseConnectionTest extends AbstractRectorTestCase
+final class UseConstantsFromTYPO3DatabaseConnectionTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
