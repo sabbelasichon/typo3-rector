@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\v14\v0\MigrateObsoleteCharsetInSanitizeF
 
 use TYPO3\CMS\Core\Resource\Driver\DriverInterface;
 
-final class MyDriver implements DriverInterface
+class MyDriver implements DriverInterface
 {
     public function processConfiguration()
     {
