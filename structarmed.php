@@ -15,6 +15,7 @@ return Architecture::define()
         '*/MigratePluginContentElementAndPluginSubtypesRector/Assertions/extension*',
         'source.must_be_final' => [
             '*/Source/*',
+            '*/Sources/*',
             __DIR__ . '/stubs',
         ],
     ])
