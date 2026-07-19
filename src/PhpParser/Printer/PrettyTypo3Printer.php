@@ -42,7 +42,7 @@ use Rector\Util\Reflection\PrivatesAccessor;
  *
  * @property array<string, array{string, bool, string, null}> $insertionMap
  */
-class PrettyTypo3Printer extends Standard
+final class PrettyTypo3Printer extends Standard
 {
     /**
      * Remove extra spaces before new Nop_ nodes

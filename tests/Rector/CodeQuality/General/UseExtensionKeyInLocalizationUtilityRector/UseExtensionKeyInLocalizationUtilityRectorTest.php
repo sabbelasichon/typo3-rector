@@ -6,7 +6,7 @@ namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\UseExtensionKeyInLoc
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-class UseExtensionKeyInLocalizationUtilityRectorTest extends AbstractRectorTestCase
+final class UseExtensionKeyInLocalizationUtilityRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
