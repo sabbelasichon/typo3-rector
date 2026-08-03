@@ -137,6 +137,10 @@ CODE
 
     private function shouldSkip(StaticCall $staticMethodCall): bool
     {
+        if (! $this->filesFinder->isExtTables($this->getFile()->getFilePath())) {
+            return true;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $staticMethodCall,
             new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
@@ -144,11 +148,7 @@ CODE
             return true;
         }
 
-        if (! $this->isName($staticMethodCall->name, 'addToAllTCAtypes')) {
-            return true;
-        }
-
-        return ! $this->filesFinder->isExtTables($this->getFile()->getFilePath());
+        return ! $this->isName($staticMethodCall->name, 'addToAllTCAtypes');
     }
 
     /**

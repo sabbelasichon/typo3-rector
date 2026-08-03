@@ -159,6 +159,10 @@ CODE
 
     private function shouldSkip(MethodCall $methodCall): bool
     {
+        if (! $this->filesFinder->isExtTables($this->getFile()->getFilePath())) {
+            return true;
+        }
+
         if (! $this->nodeTypeResolver->isMethodStaticCallOrClassMethodObjectType(
             $methodCall,
             new ObjectType('TYPO3\CMS\Core\DataHandling\PageDoktypeRegistry')
@@ -166,10 +170,6 @@ CODE
             return true;
         }
 
-        if (! $this->isName($methodCall->name, 'add')) {
-            return true;
-        }
-
-        return ! $this->filesFinder->isExtTables($this->getFile()->getFilePath());
+        return ! $this->isName($methodCall->name, 'add');
     }
 }

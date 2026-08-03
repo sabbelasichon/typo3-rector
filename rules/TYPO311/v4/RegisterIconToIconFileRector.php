@@ -146,6 +146,10 @@ CODE_SAMPLE
 
     private function shouldSkip(MethodCall $methodCall): bool
     {
+        if (! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath())) {
+            return true;
+        }
+
         $args = $methodCall->getArgs();
         if (count($args) < 3) {
             return true;
@@ -155,11 +159,7 @@ CODE_SAMPLE
             return true;
         }
 
-        if (! $this->isName($methodCall->name, 'registerIcon')) {
-            return true;
-        }
-
-        return ! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath());
+        return ! $this->isName($methodCall->name, 'registerIcon');
     }
 
     /**

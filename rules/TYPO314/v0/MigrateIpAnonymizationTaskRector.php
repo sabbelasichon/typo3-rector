@@ -157,6 +157,10 @@ CODE_SAMPLE
 
     private function shouldSkip(Expression $node): bool
     {
+        if (! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath())) {
+            return true;
+        }
+
         if (! $node->expr instanceof Assign) {
             return true;
         }
@@ -237,11 +241,7 @@ CODE_SAMPLE
 
         // Check for '$GLOBALS'
         $globalsVar = $typo3ConfVarsDimFetch->var;
-        if (! $globalsVar instanceof Variable || ! $this->isName($globalsVar, 'GLOBALS')) {
-            return true;
-        }
-
-        return ! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath());
+        return ! $globalsVar instanceof Variable || ! $this->isName($globalsVar, 'GLOBALS');
     }
 
     private function createNewAssignmentTarget(Expr $classConstFetch): ArrayDimFetch

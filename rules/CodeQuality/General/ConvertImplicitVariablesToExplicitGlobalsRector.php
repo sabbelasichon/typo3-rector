@@ -7,7 +7,6 @@ namespace Ssch\TYPO3Rector\CodeQuality\General;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use Rector\Rector\AbstractRector;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
@@ -79,18 +78,12 @@ CODE_SAMPLE
 
     private function shouldSkip(Variable $node): bool
     {
-        if (! $this->isNames($node, ['TYPO3_CONF_VARS', 'TBE_MODULES', 'TCA'])) {
+        $filePath = $this->getFile()
+            ->getFilePath();
+        if (! $this->filesFinder->isExtLocalConf($filePath) && ! $this->filesFinder->isExtTables($filePath)) {
             return true;
         }
 
-        if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            return false;
-        }
-
-        if ($this->filesFinder->isExtLocalConf($this->getFile()->getFilePath())) {
-            return false;
-        }
-
-        return ! $this->filesFinder->isExtTables($this->getFile()->getFilePath());
+        return ! $this->isNames($node, ['TYPO3_CONF_VARS', 'TBE_MODULES', 'TCA']);
     }
 }

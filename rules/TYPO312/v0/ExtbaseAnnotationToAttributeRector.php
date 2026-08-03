@@ -68,7 +68,7 @@ final class ExtbaseAnnotationToAttributeRector extends AbstractRector implements
     /**
      * @var AnnotationToAttribute[]
      */
-    private array $annotationsToAttributes = [];
+    private array $annotationsToAttributes;
 
     /**
      * @readonly

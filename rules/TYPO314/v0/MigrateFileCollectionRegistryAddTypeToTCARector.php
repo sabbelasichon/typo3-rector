@@ -212,6 +212,10 @@ CODE
 
     private function shouldSkip(MethodCall $methodCall): bool
     {
+        if (! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath())) {
+            return true;
+        }
+
         if (! $this->isObjectType(
             $methodCall->var,
             new ObjectType('TYPO3\CMS\Core\Resource\Collection\FileCollectionRegistry')
@@ -219,10 +223,6 @@ CODE
             return true;
         }
 
-        if (! $this->isName($methodCall->name, 'addTypeToTCA')) {
-            return true;
-        }
-
-        return ! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath());
+        return ! $this->isName($methodCall->name, 'addTypeToTCA');
     }
 }

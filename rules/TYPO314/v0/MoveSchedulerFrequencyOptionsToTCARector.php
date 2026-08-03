@@ -131,6 +131,10 @@ CODE_SAMPLE
 
     private function shouldSkip(Expression $node): bool
     {
+        if (! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath())) {
+            return true;
+        }
+
         if (! $node->expr instanceof Assign) {
             return true;
         }
@@ -144,6 +148,7 @@ CODE_SAMPLE
         // Check for 'frequencyOptions'
         $freqOptionsDimFetch = $assignVar->var;
         if (! $freqOptionsDimFetch instanceof ArrayDimFetch
+            || ! $freqOptionsDimFetch->dim instanceof Expr
             || ! $this->valueResolver->isValue($freqOptionsDimFetch->dim, 'frequencyOptions')
         ) {
             return true;
@@ -152,6 +157,7 @@ CODE_SAMPLE
         // Check for 'scheduler'
         $schedulerDimFetch = $freqOptionsDimFetch->var;
         if (! $schedulerDimFetch instanceof ArrayDimFetch
+            || ! $schedulerDimFetch->dim instanceof Expr
             || ! $this->valueResolver->isValue($schedulerDimFetch->dim, 'scheduler')
         ) {
             return true;
@@ -160,6 +166,7 @@ CODE_SAMPLE
         // Check for 'SC_OPTIONS'
         $scOptionsDimFetch = $schedulerDimFetch->var;
         if (! $scOptionsDimFetch instanceof ArrayDimFetch
+            || ! $scOptionsDimFetch->dim instanceof Expr
             || ! $this->valueResolver->isValue($scOptionsDimFetch->dim, 'SC_OPTIONS')
         ) {
             return true;
@@ -168,6 +175,7 @@ CODE_SAMPLE
         // Check for 'TYPO3_CONF_VARS'
         $typo3ConfVarsDimFetch = $scOptionsDimFetch->var;
         if (! $typo3ConfVarsDimFetch instanceof ArrayDimFetch
+            || ! $typo3ConfVarsDimFetch->dim instanceof Expr
             || ! $this->valueResolver->isValue($typo3ConfVarsDimFetch->dim, 'TYPO3_CONF_VARS')
         ) {
             return true;
@@ -175,11 +183,7 @@ CODE_SAMPLE
 
         // Check for '$GLOBALS'
         $globalsVar = $typo3ConfVarsDimFetch->var;
-        if (! $globalsVar instanceof Variable || ! $this->isName($globalsVar, 'GLOBALS')) {
-            return true;
-        }
-
-        return ! $this->filesFinder->isExtLocalConf($this->getFile()->getFilePath());
+        return ! $globalsVar instanceof Variable || ! $this->isName($globalsVar, 'GLOBALS');
     }
 
     private function createNewAssignmentTarget(): ArrayDimFetch
