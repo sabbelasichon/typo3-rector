@@ -13,7 +13,6 @@ use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
-use Rector\Testing\PHPUnit\StaticPHPUnitEnvironment;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -101,10 +100,7 @@ CODE_SAMPLE
 
     private function shouldSkip(Node $node): bool
     {
-        if (! $this->filesFinder->isExtTables(
-            $this->getFile()
-                ->getFilePath()
-        ) && ! StaticPHPUnitEnvironment::isPHPUnitRun()) {
+        if (! $this->filesFinder->isExtTables($this->getFile()->getFilePath())) {
             return true;
         }
 

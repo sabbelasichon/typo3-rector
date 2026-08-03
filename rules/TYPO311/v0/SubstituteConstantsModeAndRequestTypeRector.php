@@ -312,11 +312,7 @@ CODE_SAMPLE
     {
         $filePath = $this->getFile()
             ->getFilePath();
-        if ($this->filesFinder->isExtLocalConf($filePath)) {
-            return true;
-        }
-
-        return $this->filesFinder->isExtTables($filePath);
+        return $this->filesFinder->isExtLocalConf($filePath) || $this->filesFinder->isExtTables($filePath);
     }
 
     /**
