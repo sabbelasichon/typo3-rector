@@ -20,6 +20,8 @@ final class UseStrictTypesInFluidViewHelpersRector extends AbstractRector implem
     {
         return new RuleDefinition('Use Strict Types in Fluid ViewHelpers', [new CodeSample(
             <<<'CODE_SAMPLE'
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 class MyViewHelper extends AbstractViewHelper
 {
     public function initialize()
@@ -33,6 +35,8 @@ class MyViewHelper extends AbstractViewHelper
 CODE_SAMPLE
             ,
             <<<'CODE_SAMPLE'
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
 class MyViewHelper extends AbstractViewHelper
 {
     public function initialize(): void
@@ -40,6 +44,50 @@ class MyViewHelper extends AbstractViewHelper
     }
 
     public function initializeArguments(): void
+    {
+    }
+}
+CODE_SAMPLE
+        ), new CodeSample(
+            <<<'CODE_SAMPLE'
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+
+class MyTagBasedViewHelper extends AbstractTagBasedViewHelper
+{
+    public function render()
+    {
+    }
+}
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+
+class MyTagBasedViewHelper extends AbstractTagBasedViewHelper
+{
+    public function render(): string
+    {
+    }
+}
+CODE_SAMPLE
+        ), new CodeSample(
+            <<<'CODE_SAMPLE'
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+
+class MyConditionViewHelper extends AbstractConditionViewHelper
+{
+    public function render()
+    {
+    }
+}
+CODE_SAMPLE
+            ,
+            <<<'CODE_SAMPLE'
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+
+class MyConditionViewHelper extends AbstractConditionViewHelper
+{
+    public function render(): mixed
     {
     }
 }

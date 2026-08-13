@@ -27,4 +27,9 @@ abstract class AbstractTagBasedViewHelper extends AbstractViewHelper
     protected function registerUniversalTagAttributes()
     {
     }
+
+    public function render(): string
+    {
+        return '';
+    }
 }
