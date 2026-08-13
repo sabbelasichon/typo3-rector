@@ -165,7 +165,7 @@ CODE_SAMPLE
         }
 
         if (isset($forwardMethodCallArguments[3])) {
-            $forwardResponse = $this->nodeFactory->createMethodCall(
+            return $this->nodeFactory->createMethodCall(
                 $forwardResponse,
                 'withArguments',
                 [$forwardMethodCallArguments[3]->value]

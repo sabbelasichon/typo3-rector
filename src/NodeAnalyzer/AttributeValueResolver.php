@@ -42,7 +42,9 @@ final class AttributeValueResolver
                 $arg = $attribute->args[$argumentIndexKey];
                 if ($arg->value instanceof String_) {
                     return $arg->value->value;
-                } elseif ($arg->value instanceof ConstFetch || $arg->value instanceof Array_) {
+                }
+
+                if ($arg->value instanceof ConstFetch || $arg->value instanceof Array_) {
                     return $arg->value;
                 }
             }

@@ -88,7 +88,7 @@ CODE_SAMPLE
     {
         $lastSlashPosition = strrpos($className, '\\');
         if ($lastSlashPosition !== false) {
-            $className = substr($className, $lastSlashPosition + 1);
+            return substr($className, $lastSlashPosition + 1);
         }
 
         return $className;
