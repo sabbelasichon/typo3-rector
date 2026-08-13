@@ -1,4 +1,4 @@
-# 247 Rules Overview
+# 248 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (47)
+- [TYPO314](#typo314) (48)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -5221,6 +5221,19 @@ Remove concatenate and compress handler configuration
 -$GLOBALS['TYPO3_CONF_VARS']['FE']['jsConcatenateHandler'] = \TYPO3\CMS\Core\Resource\ResourceCompressor::class;
 -$GLOBALS['TYPO3_CONF_VARS']['FE']['jsCompressHandler'] = \TYPO3\CMS\Core\Resource\ResourceCompressor::class;
 +-
+```
+
+<br>
+
+### RemoveDefaultValueForRequiredArgumentsInViewHelpersRector
+
+Remove default value for required arguments in ViewHelpers
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\RemoveDefaultValueForRequiredArgumentsInViewHelpersRector`](../rules/TYPO314/v0/RemoveDefaultValueForRequiredArgumentsInViewHelpersRector.php)
+
+```diff
+-$this->registerArgument('requiredArgument', 'int', 'An example of a required argument', true, 'default');
++$this->registerArgument('requiredArgument', 'int', 'An example of a required argument', true);
 ```
 
 <br>

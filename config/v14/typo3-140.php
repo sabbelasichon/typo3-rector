@@ -39,6 +39,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\MigrateTableGarbageCollectionTaskConfigurationVi
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateUsageOfArrayInPasswordForAuthenticationInRedisCacheBackendRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MoveSchedulerFrequencyOptionsToTCARector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveConcatenateAndCompressHandlerRector;
+use Ssch\TYPO3Rector\TYPO314\v0\RemoveDefaultValueForRequiredArgumentsInViewHelpersRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveExternalOptionFromAssetRendererRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemoveHttpResponseCompressionRector;
 use Ssch\TYPO3Rector\TYPO314\v0\RemovePageRendererMethodsRector;
@@ -156,4 +157,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(UseStrongerCryptographicAlgorithmForHMACRector::class);
     $rectorConfig->rule(IntroduceStrictTypingForCacheBeAndFeRector::class);
     $rectorConfig->rule(MigrateLabelReferenceToDomainSyntaxRector::class);
+    $rectorConfig->rule(RemoveDefaultValueForRequiredArgumentsInViewHelpersRector::class);
 };
