@@ -5625,6 +5625,8 @@ Use Strict Types in Fluid ViewHelpers
 - class: [`Ssch\TYPO3Rector\TYPO314\v0\UseStrictTypesInFluidViewHelpersRector`](../rules/TYPO314/v0/UseStrictTypesInFluidViewHelpersRector.php)
 
 ```diff
+ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+
  class MyViewHelper extends AbstractViewHelper
  {
 -    public function initialize()
@@ -5634,6 +5636,34 @@ Use Strict Types in Fluid ViewHelpers
 
 -    public function initializeArguments()
 +    public function initializeArguments(): void
+     {
+     }
+ }
+```
+
+<br>
+
+```diff
+ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
+
+ class MyTagBasedViewHelper extends AbstractTagBasedViewHelper
+ {
+-    public function render()
++    public function render(): string
+     {
+     }
+ }
+```
+
+<br>
+
+```diff
+ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+
+ class MyConditionViewHelper extends AbstractConditionViewHelper
+ {
+-    public function render()
++    public function render(): mixed
      {
      }
  }

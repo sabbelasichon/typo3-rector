@@ -23,6 +23,21 @@ class AbstractConditionViewHelper extends AbstractViewHelper
      */
     public static function verdict(array $arguments, RenderingContextInterface $renderingContext): bool
     {
-        return isset($arguments['condition']) && (bool)($arguments['condition']);
+        return false;
+    }
+
+    public function render(): mixed
+    {
+        return true;
+    }
+
+    protected function renderThenChild(): mixed
+    {
+        return true;
+    }
+
+    protected function renderElseChild(): mixed
+    {
+        return true;
     }
 }

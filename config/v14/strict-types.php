@@ -285,6 +285,11 @@ return static function (RectorConfig $rectorConfig): void {
 
             new AddReturnTypeDeclaration('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper', 'initialize', new VoidType()),
             new AddReturnTypeDeclaration('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper', 'initializeArguments', new VoidType()),
+            new AddReturnTypeDeclaration('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper', 'render', new StringType()),
+            new AddReturnTypeDeclaration('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper', 'render', new MixedType(true)),
+            new AddReturnTypeDeclaration('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper', 'renderThenChild', new MixedType(true)),
+            new AddReturnTypeDeclaration('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper', 'renderElseChild', new MixedType(true)),
+            new AddReturnTypeDeclaration('TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper', 'verdict', new BooleanType()),
         ]
     );
 };
