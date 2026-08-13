@@ -85,7 +85,14 @@
             "stubs"
         ],
         "exclude-from-classmap": [
-            "**.php.inc"
+            "**.php.inc",
+            "./tests/Rector/CodeQuality/General/GeneralUtilityMakeInstanceToConstructorPropertyRector/Fixture/PHP74/class_with_parent_constructor_and_service_injection.inc",
+            "./tests/Rector/CodeQuality/General/GeneralUtilityMakeInstanceToConstructorPropertyRector/Fixture/PHP74/skip_abstract_class.inc",
+            "./tests/Rector/CodeQuality/General/GeneralUtilityMakeInstanceToConstructorPropertyRector/Fixture/PHP80/skip_abstract_class.inc",
+            "./tests/Rector/CodeQuality/General/GeneralUtilityMakeInstanceToConstructorPropertyRector/Fixture/PHP81/skip_abstract_class.inc",
+            "./tests/Rector/v13/v4/MigratePluginContentElementAndPluginSubtypesRector/Assertions/extension1/Classes/Updates/TYPO3RectorCTypeMigration.php",
+            "./tests/Rector/v13/v4/MigratePluginContentElementAndPluginSubtypesRector/Assertions/extension2/Classes/Updates/TYPO3RectorCTypeMigration.php",
+            "./tests/Rector/v14/v0/MigrateAdminPanelDataProviderInterfaceRector/Fixture/does_not_implement_interface.inc"
         ]
     },
     "bin": [
