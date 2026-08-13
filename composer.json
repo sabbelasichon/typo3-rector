@@ -63,7 +63,7 @@
     },
     "suggest": {
         "ext-pdo": "*",
-        "ssch/typo3-debug-dump-pass": "^0.0.1"
+        "ssch/typo3-debug-dump-pass": "^0.0.3"
     },
     "autoload": {
         "psr-4": {
