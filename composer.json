@@ -110,7 +110,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-main": "2.0-dev"
+            "dev-main": "3.0-dev"
         },
         "rector": {
             "includes": [
