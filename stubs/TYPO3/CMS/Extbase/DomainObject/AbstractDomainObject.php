@@ -6,7 +6,7 @@ if (class_exists('TYPO3\CMS\Extbase\DomainObject\AbstractDomainObject')) {
     return;
 }
 
-class AbstractDomainObject implements DomainObjectInterface
+abstract class AbstractDomainObject implements DomainObjectInterface
 {
     public function __wakeup()
     {
