@@ -25,12 +25,12 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->singleton(FilesystemFactory::class, fn () => new FilesystemFactory('/'));
     // This filesystem is used for reading files
-    $rectorConfig->bind(
+    $rectorConfig->singleton(
         LocalFilesystemInterface::class,
         static fn (RectorConfig $app) => $app->make(FilesystemFactory::class)->createLocalFilesystem()
     );
     // This filesystem is used for writing files
-    $rectorConfig->bind(
+    $rectorConfig->singleton(
         FilesystemInterface::class,
         static fn (RectorConfig $app) => $app->make(FilesystemFactory::class)->create()
     );
