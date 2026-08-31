@@ -102,7 +102,12 @@ return static function (RectorConfig $rectorConfig): void {
         RenameClassRector::class,
         [
             // See https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107229-DeprecatePhpAnnotationNamespaceOfExtbaseAttributes.html
-            'TYPO3\CMS\Extbase\Annotation' => 'TYPO3\CMS\Extbase\Attribute',
+            'TYPO3\CMS\Extbase\Annotation\FileUpload' => 'TYPO3\CMS\Extbase\Attribute\FileUpload',
+            'TYPO3\CMS\Extbase\Annotation\IgnoreValidation' => 'TYPO3\CMS\Extbase\Attribute\IgnoreValidation',
+            'TYPO3\CMS\Extbase\Annotation\Validate' => 'TYPO3\CMS\Extbase\Attribute\Validate',
+            'TYPO3\CMS\Extbase\Annotation\ORM\Cascade' => 'TYPO3\CMS\Extbase\Attribute\ORM\Cascade',
+            'TYPO3\CMS\Extbase\Annotation\ORM\Lazy' => 'TYPO3\CMS\Extbase\Attribute\ORM\Lazy',
+            'TYPO3\CMS\Extbase\Annotation\ORM\Transient' => 'TYPO3\CMS\Extbase\Attribute\ORM\Transient',
         ]
     );
     $rectorConfig->ruleWithConfiguration(
