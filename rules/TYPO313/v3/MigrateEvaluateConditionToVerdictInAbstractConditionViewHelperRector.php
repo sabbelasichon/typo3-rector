@@ -127,13 +127,11 @@ CODE_SAMPLE
         }
 
         // Add second parameter: RenderingContextInterface $renderingContext
-        if (! isset($method->params[1])) {
-            $method->params[1] = new Param(
-                new Variable('renderingContext'),
-                null,
-                new FullyQualified('TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface')
-            );
-        }
+        $method->params[1] ??= new Param(
+            new Variable('renderingContext'),
+            null,
+            new FullyQualified('TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface')
+        );
 
         // Ensure return type is bool
         $method->returnType = new Identifier('bool');

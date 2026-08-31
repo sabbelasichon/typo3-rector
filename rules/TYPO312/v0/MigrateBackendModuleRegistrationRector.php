@@ -319,9 +319,7 @@ CODE);
         $modules = ['dashboard', 'file', 'help', 'site', 'system', 'tools', 'user', 'web'];
 
         [$place, $moduleReference] = array_pad(ArrayUtility::trimExplode(':', $position, true), 2, null);
-        if ($place === null) {
-            $place = 'bottom';
-        }
+        $place ??= 'bottom';
 
         //        if ($place === null || ($moduleReference !== null && !in_array($moduleReference, $modules, true))) {
         //            $place = 'bottom';

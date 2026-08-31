@@ -92,9 +92,7 @@ final class PrettyTypo3Printer extends Standard
      */
     public function print($node): string
     {
-        if ($node === null) {
-            $node = [];
-        }
+        $node ??= [];
 
         if (! is_array($node)) {
             $node = [$node];
