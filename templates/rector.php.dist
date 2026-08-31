@@ -7,6 +7,7 @@ use Rector\PostRector\Rector\NameImportingPostRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector;
+use Rector\TypeDeclaration\Rector\StmtsAwareInterface\SafeDeclareStrictTypesRector;
 use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGlobalsRector;
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
@@ -27,11 +28,16 @@ __PATHS__
         SetList::CODE_QUALITY,
         LevelSetList::UP_TO_PHP_82,
 
+        // To migrate to Doctrine Dbal, uncomment the following line
+        // \Rector\Doctrine\Set\DoctrineSetList::COMPOSER_BASED,
+
+        // To migrate to PhpUnit, uncomment the following lines
+        // \Rector\PHPUnit\Set\PHPUnitSetList::COMPOSER_BASED,
+        // \Rector\PHPUnit\Set\PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
+
         Typo3SetList::CODE_QUALITY,
         Typo3SetList::GENERAL,
         Typo3LevelSetList::UP_TO_TYPO3_14,
-        // To migrate to Doctrine Dbal 4, uncomment the following line
-        //\Rector\Doctrine\Set\DoctrineSetList::DOCTRINE_DBAL_40,
     ])
     // To have a better analysis from PHPStan, we teach it here some more things
     ->withPHPStanConfigs([Typo3Option::PHPSTAN_FOR_RECTOR_PATH])
@@ -54,6 +60,10 @@ __PATHS__
         __DIR__ . '/**/Configuration/ExtensionBuilder/*',
         NameImportingPostRector::class => [
             'ClassAliasMap.php',
-        ]
+        ],
+        // TER does not support strict type declaration in ext_emconf.php files
+        SafeDeclareStrictTypesRector::class => [
+            '*/ext_emconf.php',
+        ],
     ])
 ;
