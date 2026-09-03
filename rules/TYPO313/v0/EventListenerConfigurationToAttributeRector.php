@@ -81,7 +81,7 @@ final class EventListenerConfigurationToAttributeRector extends AbstractRector i
 Use AsEventListener attribute
 
 To run this rule, you need to do the following steps:
-- Require `"ssch/typo3-debug-dump-pass": "^0.0.2"` in your composer.json in the main TYPO3 project
+- Require `"ssch/typo3-debug-dump-pass": "^0.0.3"` in your composer.json in the main TYPO3 project
 - Add `->withSymfonyContainerXml(__DIR__ . '/var/cache/development/App_KernelDevelopmentDebugContainer.xml')` in your rector config file.
 - Clear the TYPO3 cache via cmd: `vendor/bin/typo3 cache:flush` to create the `App_KernelDevelopmentDebugContainer.xml` file.
 - Finally run Rector.
