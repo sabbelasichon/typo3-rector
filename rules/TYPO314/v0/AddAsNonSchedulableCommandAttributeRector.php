@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\TYPO312\v4;
+namespace Ssch\TYPO3Rector\TYPO314\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Type\ObjectType;
 use Rector\Php80\NodeAnalyzer\PhpAttributeAnalyzer;
+use Rector\PhpAttribute\NodeFactory\PhpAttributeGroupFactory;
 use Rector\Rector\AbstractRector;
 use Rector\Symfony\Enum\SymfonyAttribute;
 use Rector\ValueObject\PhpVersionFeature;
@@ -22,12 +23,19 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.4.x/Important-101567-UseSymfonyAttributeToAutoconfigureCliCommands.html
- * @see \Ssch\TYPO3Rector\Tests\Rector\v12\v4\CommandConfigurationToAttributeRector\CommandConfigurationToAttributeRectorTest
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Feature-107151-AddAsNonSchedulableCommandAttribute.html
+ * @see \Ssch\TYPO3Rector\Tests\Rector\v14\v0\AddAsNonSchedulableCommandAttributeRector\AddAsNonSchedulableCommandAttributeRectorTest
  */
-final class CommandConfigurationToAttributeRector extends AbstractRector implements MinPhpVersionInterface, DocumentedRuleInterface
+final class AddAsNonSchedulableCommandAttributeRector extends AbstractRector implements MinPhpVersionInterface, DocumentedRuleInterface
 {
     private const COMMAND_TAG_NAME = 'console.command';
+
+    private const AS_NON_SCHEDULABLE_COMMAND = 'TYPO3\CMS\Core\Attribute\AsNonSchedulableCommand';
+
+    /**
+     * @readonly
+     */
+    private PhpAttributeGroupFactory $phpAttributeGroupFactory;
 
     /**
      * @readonly
@@ -61,12 +69,14 @@ final class CommandConfigurationToAttributeRector extends AbstractRector impleme
 
     public function __construct(
         ServiceDefinitionHelper $symfonyCommandHelper,
+        PhpAttributeGroupFactory $phpAttributeGroupFactory,
         PhpAttributeAnalyzer $phpAttributeAnalyzer,
         ReflectionProvider $reflectionProvider,
         SetAliasesMethodCallExtractor $setAliasesMethodCallExtractor,
         CommandAttributeManipulator $commandAttributeManipulator,
         CommandPropertyResolver $commandPropertyResolver
     ) {
+        $this->phpAttributeGroupFactory = $phpAttributeGroupFactory;
         $this->phpAttributeAnalyzer = $phpAttributeAnalyzer;
         $this->reflectionProvider = $reflectionProvider;
         $this->setAliasesMethodCallExtractor = $setAliasesMethodCallExtractor;
@@ -84,7 +94,7 @@ final class CommandConfigurationToAttributeRector extends AbstractRector impleme
     {
         return new RuleDefinition(
             <<<'DESCRRIPTION'
-Use Symfony attribute to autoconfigure cli commands
+Add AsNonSchedulableCommand attribute for CLI commands
 
 To run this rule, you need to do the following steps:
 - Require `"ssch/typo3-debug-dump-pass": "^0.0.3"` in your composer.json in the main TYPO3 project
@@ -105,8 +115,10 @@ CODE_SAMPLE
                 <<<'CODE_SAMPLE'
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
+use TYPO3\CMS\Core\Attribute\AsNonSchedulableCommand;
 
 #[AsCommand(name: 'my_special_command')]
+#[AsNonSchedulableCommand]
 class MySpecialCommand extends Command
 {
 }
@@ -139,7 +151,7 @@ CODE_SAMPLE
         }
 
         // Do not add the attribute if it is already present
-        if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, SymfonyAttribute::AS_COMMAND)) {
+        if ($this->phpAttributeAnalyzer->hasPhpAttribute($node, self::AS_NON_SCHEDULABLE_COMMAND)) {
             return null;
         }
 
@@ -162,31 +174,37 @@ CODE_SAMPLE
             return null;
         }
 
-        // Non schedulable commands cannot be configured via attributes
         $schedulable = $options['schedulable'] ?? true;
 
-        if ((bool) $schedulable === false) {
+        if ((bool) $schedulable) {
             return null;
         }
 
-        if (! isset($options['command'])) {
-            return null;
-        }
-
-        $defaultDescription = $this->commandPropertyResolver->resolveDefaultDescription(
-            $node
-        ) ?? $options['description'] ?? null;
-        $defaultName = $this->commandPropertyResolver->resolveDefaultName($node) ?? $options['command'];
-        $hidden = $options['hidden'] ?? null;
-        $aliasesArray = $this->setAliasesMethodCallExtractor->resolveCommandAliasesFromAttributeOrSetter($node);
-        return $this->commandAttributeManipulator->replaceAsCommandAttribute(
+        // If the command attribute is completely missing, and options['command'] is set, we can create it
+        if (isset($options['command']) && ! $this->phpAttributeAnalyzer->hasPhpAttribute(
             $node,
-            $this->commandAttributeManipulator->createAttributeGroupAsCommand(
-                $defaultName,
-                $defaultDescription,
-                $aliasesArray,
-                (bool) $hidden
-            )
-        );
+            SymfonyAttribute::AS_COMMAND
+        )) {
+            /** @see \Ssch\TYPO3Rector\TYPO312\v4\CommandConfigurationToAttributeRector::refactor */
+            $defaultDescription = $this->commandPropertyResolver->resolveDefaultDescription(
+                $node
+            ) ?? $options['description'] ?? null;
+            $defaultName = $this->commandPropertyResolver->resolveDefaultName($node) ?? $options['command'];
+            $hidden = $options['hidden'] ?? null;
+            $aliasesArray = $this->setAliasesMethodCallExtractor->resolveCommandAliasesFromAttributeOrSetter($node);
+            $this->commandAttributeManipulator->replaceAsCommandAttribute(
+                $node,
+                $this->commandAttributeManipulator->createAttributeGroupAsCommand(
+                    $defaultName,
+                    $defaultDescription,
+                    $aliasesArray,
+                    (bool) $hidden
+                )
+            );
+        }
+
+        $node->attrGroups[] = $this->phpAttributeGroupFactory->createFromClass(self::AS_NON_SCHEDULABLE_COMMAND);
+
+        return $node;
     }
 }

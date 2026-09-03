@@ -13,6 +13,7 @@ use Rector\Renaming\ValueObject\RenameClassAndConstFetch;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 use Ssch\TYPO3Rector\General\Renaming\ConstantsToBackedEnumRector;
+use Ssch\TYPO3Rector\TYPO314\v0\AddAsNonSchedulableCommandAttributeRector;
 use Ssch\TYPO3Rector\TYPO314\v0\AddNewMethodHasSubmoduleOverviewInModuleInterfaceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ChangeLocalizationSystemArchitectureRector;
 use Ssch\TYPO3Rector\TYPO314\v0\DropFifthParameterForExtensionUtilityConfigurePluginRector;
@@ -158,4 +159,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(IntroduceStrictTypingForCacheBeAndFeRector::class);
     $rectorConfig->rule(MigrateLabelReferenceToDomainSyntaxRector::class);
     $rectorConfig->rule(RemoveDefaultValueForRequiredArgumentsInViewHelpersRector::class);
+    $rectorConfig->rule(AddAsNonSchedulableCommandAttributeRector::class);
 };

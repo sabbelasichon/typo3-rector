@@ -1,4 +1,4 @@
-# 248 Rules Overview
+# 249 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (48)
+- [TYPO314](#typo314) (49)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4545,6 +4545,32 @@ Use `\TYPO3\CMS\Core\View\ViewInterface` in Extbase and call `$view->getRenderin
 <br>
 
 ## TYPO314
+
+### AddAsNonSchedulableCommandAttributeRector
+
+Add AsNonSchedulableCommand attribute for CLI commands
+
+To run this rule, you need to do the following steps:
+- Require `"ssch/typo3-debug-dump-pass": "^0.0.3"` in your `composer.json` in the main TYPO3 project
+- Add `->withSymfonyContainerXml(__DIR__ . '/var/cache/development/App_KernelDevelopmentDebugContainer.xml')` in your rector config file.
+- Clear the TYPO3 cache via cmd: `vendor/bin/typo3 cache:flush` to create the `App_KernelDevelopmentDebugContainer.xml` file.
+- Finally run Rector.
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\AddAsNonSchedulableCommandAttributeRector`](../rules/TYPO314/v0/AddAsNonSchedulableCommandAttributeRector.php)
+
+```diff
+ use Symfony\Component\Console\Command\Command;
++use Symfony\Component\Console\Attribute\AsCommand;
++use TYPO3\CMS\Core\Attribute\AsNonSchedulableCommand;
+
++#[AsCommand(name: 'my_special_command')]
++#[AsNonSchedulableCommand]
+ class MySpecialCommand extends Command
+ {
+ }
+```
+
+<br>
 
 ### AddNewMethodHasSubmoduleOverviewInModuleInterfaceRector
 
