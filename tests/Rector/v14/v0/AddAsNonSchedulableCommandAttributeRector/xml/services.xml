@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service
+            id="Ssch\TYPO3Rector\Tests\Rector\v14\v0\AddAsNonSchedulableCommandAttributeRector\Fixture\MyNonScheduableCommand"
+            class="Ssch\TYPO3Rector\Tests\Rector\v14\v0\AddAsNonSchedulableCommandAttributeRector\Fixture\MyNonScheduableCommand"
+            public="true" autowire="true" autoconfigure="true">
+            <tag name="console.command" command="my:command" description="My command description" schedulable="0"/>
+        </service>
+        <service
+            id="Ssch\TYPO3Rector\Tests\Rector\v14\v0\AddAsNonSchedulableCommandAttributeRector\Fixture\MyScheduableCommand"
+            class="Ssch\TYPO3Rector\Tests\Rector\v14\v0\AddAsNonSchedulableCommandAttributeRector\Fixture\MyScheduableCommand"
+            public="true" autowire="true" autoconfigure="true">
+            <tag name="console.command" command="my:schedulable" description="My schedulable command" schedulable="1"/>
+        </service>
+    </services>
+</container>
