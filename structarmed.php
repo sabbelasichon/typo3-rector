@@ -19,4 +19,4 @@ return Architecture::define()
             __DIR__ . '/stubs',
         ],
     ])
-    ->withPreset(Preset::PSR4());
+    ->withPresets(Preset::PSR4(), Preset::CODEQUALITY());

@@ -50,9 +50,9 @@ CODE_SAMPLE
         }
 
         // generate a random 10-digit number as timestamp
-        $timestamp = random_int(1000000000, 9999999999);
+        $timestamp = random_int(1_000_000_000, 9_999_999_999);
         if (StaticPHPUnitEnvironment::isPHPUnitRun()) {
-            $timestamp = 1729021897;
+            $timestamp = 1_729_021_897;
         }
 
         $arg = $this->nodeFactory->createArg($timestamp);

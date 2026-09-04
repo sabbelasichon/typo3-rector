@@ -95,7 +95,7 @@ final class ArrayUtility
                 $stringContent = str_replace(['\\', "'"], ['\\\\', '\\\''], $value);
                 $lines .= "'" . $stringContent . "',\n";
             } else {
-                throw new \RuntimeException('Objects are not supported', 1342294987);
+                throw new \RuntimeException('Objects are not supported', 1_342_294_987);
             }
         }
 
