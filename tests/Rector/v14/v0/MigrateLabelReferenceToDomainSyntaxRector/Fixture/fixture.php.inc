@@ -26,6 +26,12 @@ $label = $lang->sL('LLL:EXT:core/Resources/Private/Language/de.locallang.xlf:lab
 
 $label = $lang->sL('LLL:EXT:core/Resources/Private/Language/locallang_command.xlf:permissionset.check.preset_not_applied');
 
+$success = true;
+$label = $lang->sL('LLL:EXT:core/Resources/Private/Language/locallang_command.xlf:permissionset.check.preset_not_applied' . ($success ? 'success' : 'error'));
+
+$deficit = 'asdf';
+$label = $lang->sL('LLL:EXT:core/Resources/Private/Language/locallang_command.xlf:permissionset.check.preset_not_applied.' . $deficit . '.message');
+
 ?>
 -----
 <?php
@@ -55,5 +61,11 @@ $label = $lang->sL('site_ext.user_profile.messages:name');
 $label = $lang->sL('core.messages:labels.open');
 
 $label = $lang->sL('core.command:permissionset.check.preset_not_applied');
+
+$success = true;
+$label = $lang->sL('core.command:permissionset.check.preset_not_applied' . ($success ? 'success' : 'error'));
+
+$deficit = 'asdf';
+$label = $lang->sL('core.command:permissionset.check.preset_not_applied.' . $deficit . '.message');
 
 ?>
