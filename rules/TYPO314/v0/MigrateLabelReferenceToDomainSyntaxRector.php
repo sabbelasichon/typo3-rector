@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO314\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\VariadicPlaceholder;
 use PHPStan\Type\ObjectType;
-use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -21,16 +21,6 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateLabelReferenceToDomainSyntaxRector extends AbstractRector implements DocumentedRuleInterface
 {
-    /**
-     * @readonly
-     */
-    private ValueResolver $valueResolver;
-
-    public function __construct(ValueResolver $valueResolver)
-    {
-        $this->valueResolver = $valueResolver;
-    }
-
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate LLL references to the new domain-based notation', [new CodeSample(
@@ -70,8 +60,15 @@ CODE_SAMPLE
             return null;
         }
 
-        $value = $this->valueResolver->getValue($firstArg->value);
-        if (! is_string($value) || strpos($value, 'LLL:EXT:') !== 0) {
+        // Keep any concatenated variables/expressions untouched and only migrate
+        // the leading string literal, e.g. 'LLL:EXT:...:key.' . $variable
+        $leadingString = $this->resolveLeadingString($firstArg->value);
+        if (! $leadingString instanceof String_) {
+            return null;
+        }
+
+        $value = $leadingString->value;
+        if (strpos($value, 'LLL:EXT:') !== 0) {
             return null;
         }
 
@@ -80,9 +77,26 @@ CODE_SAMPLE
             return null;
         }
 
-        $node->args[0]->value = new String_($transformed);
+        $leadingString->value = $transformed;
 
         return $node;
+    }
+
+    /**
+     * Resolves the left-most string literal of a (possibly nested) concatenation,
+     * so it can be rewritten in place while keeping the remaining expression parts intact.
+     */
+    private function resolveLeadingString(Node $expr): ?String_
+    {
+        if ($expr instanceof String_) {
+            return $expr;
+        }
+
+        if ($expr instanceof Concat) {
+            return $this->resolveLeadingString($expr->left);
+        }
+
+        return null;
     }
 
     private function transformLllString(string $lll): string
