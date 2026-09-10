@@ -7,9 +7,11 @@ namespace Ssch\TYPO3Rector\TYPO314\v0;
 use PhpParser\Node;
 use PhpParser\Node\Expr\BinaryOp\Concat;
 use PhpParser\Node\Expr\MethodCall;
+use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\VariadicPlaceholder;
 use PHPStan\Type\ObjectType;
+use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -21,6 +23,16 @@ use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
  */
 final class MigrateLabelReferenceToDomainSyntaxRector extends AbstractRector implements DocumentedRuleInterface
 {
+    /**
+     * @readonly
+     */
+    private ValueResolver $valueResolver;
+
+    public function __construct(ValueResolver $valueResolver)
+    {
+        $this->valueResolver = $valueResolver;
+    }
+
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition('Migrate LLL references to the new domain-based notation', [new CodeSample(
@@ -58,6 +70,22 @@ CODE_SAMPLE
         $firstArg = $node->args[0] ?? null;
         if ($firstArg === null || $firstArg instanceof VariadicPlaceholder) {
             return null;
+        }
+
+        if ($firstArg->value instanceof Variable) {
+            $value = $this->valueResolver->getValue($firstArg->value);
+            if (! is_string($value) || strpos($value, 'LLL:EXT:') !== 0) {
+                return null;
+            }
+
+            $transformed = $this->transformLllString($value);
+            if ($transformed === $value) {
+                return null;
+            }
+
+            $firstArg->value = new String_($transformed);
+
+            return $node;
         }
 
         // Keep any concatenated variables/expressions untouched and only migrate

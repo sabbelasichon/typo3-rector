@@ -32,6 +32,8 @@ $label = $lang->sL('LLL:EXT:core/Resources/Private/Language/locallang_command.xl
 $deficit = 'asdf';
 $label = $lang->sL('LLL:EXT:core/Resources/Private/Language/locallang_command.xlf:permissionset.check.preset_not_applied.' . $deficit . '.message');
 
+$locallangFileAndPath = 'LLL:EXT:adminpanel/Resources/Private/Language/locallang_cache.xlf:module.label';
+$label = $lang->sL($locallangFileAndPath);
 ?>
 -----
 <?php
@@ -68,4 +70,6 @@ $label = $lang->sL('core.command:permissionset.check.preset_not_applied' . ($suc
 $deficit = 'asdf';
 $label = $lang->sL('core.command:permissionset.check.preset_not_applied.' . $deficit . '.message');
 
+$locallangFileAndPath = 'LLL:EXT:adminpanel/Resources/Private/Language/locallang_cache.xlf:module.label';
+$label = $lang->sL('adminpanel.cache:module.label');
 ?>
