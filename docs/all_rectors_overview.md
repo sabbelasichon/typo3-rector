@@ -1,4 +1,4 @@
-# 249 Rules Overview
+# 250 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (49)
+- [TYPO314](#typo314) (50)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4887,6 +4887,41 @@ Migrate `GeneralUtility::createVersionNumberedFilename()`
 +        $GLOBALS['TYPO3_REQUEST'],
 +        new UriGenerationOptions(absoluteUri: true),
 +    );
+ }
+```
+
+<br>
+
+### MigrateGeneralUtilityGetIndpEnvRector
+
+Replace calls to `GeneralUtility::getIndpEnv()` with the corresponding `NormalizedParams` getter
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v3\MigrateGeneralUtilityGetIndpEnvRector`](../rules/TYPO314/v3/MigrateGeneralUtilityGetIndpEnvRector.php)
+
+```diff
+-use TYPO3\CMS\Core\Utility\GeneralUtility;
+-
+-$siteUrl = GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
+-$host = GeneralUtility::getIndpEnv('HTTP_HOST');
++$siteUrl = $GLOBALS['TYPO3_REQUEST']->getAttribute('normalizedParams')->getSiteUrl();
++$host = $GLOBALS['TYPO3_REQUEST']->getAttribute('normalizedParams')->getHttpHost();
+```
+
+<br>
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ class MyController extends ActionController
+ {
+     public function myAction(): void
+     {
+-        $siteUrl = GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
+-        $host = GeneralUtility::getIndpEnv('HTTP_HOST');
++        $siteUrl = $this->request->getAttribute('normalizedParams')->getSiteUrl();
++        $host = $this->request->getAttribute('normalizedParams')->getHttpHost();
+     }
  }
 ```
 

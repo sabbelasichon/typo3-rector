@@ -10,4 +10,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/v14/tca-140.php');
     $rectorConfig->import(__DIR__ . '/v14/typo3-140.php');
     $rectorConfig->import(__DIR__ . '/v14/typo3-142.php');
+    $rectorConfig->import(__DIR__ . '/v14/typo3-143.php');
 };
