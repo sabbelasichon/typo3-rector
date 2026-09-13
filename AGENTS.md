@@ -5,6 +5,7 @@
 - Set PHP 7.4 once before any tool call: `sudo update-alternatives --set php /usr/bin/php7.4 --quiet`
 - Lint PHP syntax: `composer ci:php:lint`
 - Check coding style: `composer ci:check-style`
+- Fix coding style: `composer fix:style`
 - Run static analysis: `composer ci:php:stan`
 - Run tests: `composer ci:tests:unit` or `vendor/bin/phpunit`
 - Run a single test file: `vendor/bin/phpunit tests/Rector/v14/v0/RemoveIsStaticControlOptionRector/RemoveIsStaticControlOptionRectorTest.php`
