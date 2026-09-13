@@ -1,0 +1,103 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Ssch\TYPO3Rector\CodeQuality\General;
+
+use PhpParser\Node;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Identifier;
+use PhpParser\Node\Scalar\String_;
+use Rector\Rector\AbstractRector;
+use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
+use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
+use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
+use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+
+/**
+ * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRectorTest
+ */
+final class MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector extends AbstractRector implements DocumentedRuleInterface, NoChangelogRequiredInterface
+{
+    public function getRuleDefinition(): RuleDefinition
+    {
+        return new RuleDefinition(
+            'Migrate `ExtensionManagementUtility::addTcaSelectItem()` for tt_content.CType to `ExtensionManagementUtility::addPlugin()`',
+            [
+                new CodeSample(
+                    <<<'CODE_SAMPLE'
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
+    'tt_content',
+    'CType',
+    [
+        'label' => 'My Content Element',
+        'value' => 'my_content_element',
+        'icon' => 'my-icon-identifier',
+        'group' => 'group1',
+        'description' => 'My Description',
+    ]
+);
+CODE_SAMPLE
+                    ,
+                    <<<'CODE_SAMPLE'
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
+    [
+        'label' => 'My Content Element',
+        'value' => 'my_content_element',
+        'icon' => 'my-icon-identifier',
+        'group' => 'group1',
+        'description' => 'My Description',
+    ]
+);
+CODE_SAMPLE
+                ),
+            ]
+        );
+    }
+
+    /**
+     * @return array<class-string<Node>>
+     */
+    public function getNodeTypes(): array
+    {
+        return [StaticCall::class];
+    }
+
+    /**
+     * @param StaticCall $node
+     */
+    public function refactor(Node $node): ?Node
+    {
+        if (! $this->isName($node->class, 'TYPO3\CMS\Core\Utility\ExtensionManagementUtility')) {
+            return null;
+        }
+
+        if (! $this->isName($node->name, 'addTcaSelectItem')) {
+            return null;
+        }
+
+        $args = $node->getArgs();
+        if (count($args) < 3) {
+            return null;
+        }
+
+        if (count($args) > 3) {
+            return null;
+        }
+
+        $table = $args[0]->value;
+        if (! $table instanceof String_ || $table->value !== 'tt_content') {
+            return null;
+        }
+
+        $field = $args[1]->value;
+        if (! $field instanceof String_ || $field->value !== 'CType') {
+            return null;
+        }
+
+        $node->name = new Identifier('addPlugin');
+        $node->args = [$args[2]];
+
+        return $node;
+    }
+}

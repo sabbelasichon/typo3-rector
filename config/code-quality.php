@@ -8,6 +8,7 @@ use Ssch\TYPO3Rector\CodeQuality\General\ConvertImplicitVariablesToExplicitGloba
 use Ssch\TYPO3Rector\CodeQuality\General\ExtEmConfRector;
 use Ssch\TYPO3Rector\CodeQuality\General\GeneralUtilityMakeInstanceToConstructorPropertyRector;
 use Ssch\TYPO3Rector\CodeQuality\General\InjectMethodToConstructorInjectionRector;
+use Ssch\TYPO3Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector;
 use Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionManagementUtilityAddStaticFileIntoTCAOverridesRector;
 use Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector;
 use Ssch\TYPO3Rector\CodeQuality\General\MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector;
@@ -160,4 +161,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MoveExtensionManagementUtilityAddToAllTCAtypesIntoTCAOverridesRector::class);
     $rectorConfig->rule(MoveExtensionUtilityRegisterPluginIntoTCAOverridesRector::class);
     $rectorConfig->rule(UseExtensionKeyInLocalizationUtilityRector::class);
+    $rectorConfig->rule(MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector::class);
 };
