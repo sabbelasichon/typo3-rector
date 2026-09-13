@@ -1,10 +1,10 @@
-# 250 Rules Overview
+# 251 Rules Overview
 
 <br>
 
 ## Categories
 
-- [CodeQuality](#codequality) (13)
+- [CodeQuality](#codequality) (14)
 
 - [General](#general) (3)
 
@@ -201,6 +201,29 @@ Use `GeneralUtility::makeInstance()` instead of `getInstance` call
 +use TYPO3\CMS\Core\Resource\Index\ExtractorRegistry;
 +
 +$instance = GeneralUtility::makeInstance(ExtractorRegistry::class);
+```
+
+<br>
+
+### MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector
+
+Migrate `ExtensionManagementUtility::addTcaSelectItem()` for tt_content.CType to `ExtensionManagementUtility::addPlugin()`
+
+- class: [`Ssch\TYPO3Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector`](../rules/CodeQuality/General/MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector.php)
+
+```diff
+-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
+-    'tt_content',
+-    'CType',
++\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
+     [
+         'label' => 'My Content Element',
+         'value' => 'my_content_element',
+         'icon' => 'my-icon-identifier',
+         'group' => 'group1',
+         'description' => 'My Description',
+     ]
+ );
 ```
 
 <br>
