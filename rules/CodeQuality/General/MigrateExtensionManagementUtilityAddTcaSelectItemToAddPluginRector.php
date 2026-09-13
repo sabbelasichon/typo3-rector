@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\CodeQuality\General;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
@@ -90,8 +91,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $field = $args[1]->value;
-        if (! $field instanceof String_ || $field->value !== 'CType') {
+        if (! $this->isCTypeField($args[1]->value)) {
             return null;
         }
 
@@ -99,5 +99,19 @@ CODE_SAMPLE
         $node->args = [$args[2]];
 
         return $node;
+    }
+
+    private function isCTypeField(Node\Expr $expr): bool
+    {
+        if ($expr instanceof String_) {
+            return $expr->value === 'CType';
+        }
+
+        if ($expr instanceof ClassConstFetch) {
+            return $this->isName($expr->class, 'TYPO3\CMS\Extbase\Utility\ExtensionUtility')
+                && $this->isName($expr->name, 'PLUGIN_TYPE_CONTENT_ELEMENT');
+        }
+
+        return false;
     }
 }
