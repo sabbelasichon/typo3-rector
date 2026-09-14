@@ -52,7 +52,7 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector implements Do
             return null;
         }
 
-        $arguments = $node->args;
+        $arguments = $node->getArgs();
         if (count($arguments) < 3) {
             return null;
         }

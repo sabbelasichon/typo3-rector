@@ -84,8 +84,8 @@ CODE_SAMPLE
             return null;
         }
 
-        $target = $staticCall->args[0];
-        $httpStatusCode = $staticCall->args[1] ?? $this->nodeFactory->createClassConstFetch(
+        $target = $staticCall->getArgs()[0];
+        $httpStatusCode = $staticCall->getArgs()[1] ?? $this->nodeFactory->createClassConstFetch(
             'TYPO3\CMS\Core\Utility\HttpUtility',
             'HTTP_STATUS_303'
         );

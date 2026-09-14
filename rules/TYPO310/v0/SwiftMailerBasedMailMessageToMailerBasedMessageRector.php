@@ -112,16 +112,19 @@ CODE_SAMPLE
 
     private function refactorMethodSetBody(MethodCall $methodCall): ?MethodCall
     {
-        if (! isset($methodCall->args[0])) {
+        if (! isset($methodCall->getArgs()[0])) {
             return null;
         }
 
-        if (! $methodCall->args[0]->value instanceof Node) {
+        if (! $methodCall->getArgs()[0]->value instanceof Node) {
             return null;
         }
 
-        $bodyType = $this->nodeTypeResolver->getType($methodCall->args[0]->value);
-        $contentType = isset($methodCall->args[1]) ? $this->valueResolver->getValue($methodCall->args[1]->value) : null;
+        $bodyType = $this->nodeTypeResolver->getType($methodCall->getArgs()[0]->value);
+        $contentType = isset($methodCall->getArgs()[1]) ? $this->valueResolver->getValue(
+            $methodCall->getArgs()[1]
+                ->value
+        ) : null;
 
         if ($bodyType->isString()->no()) {
             return null;
@@ -143,7 +146,10 @@ CODE_SAMPLE
 
     private function refactorMethodAddPart(MethodCall $methodCall): ?Node
     {
-        $contentType = isset($methodCall->args[1]) ? $this->valueResolver->getValue($methodCall->args[1]->value) : null;
+        $contentType = isset($methodCall->getArgs()[1]) ? $this->valueResolver->getValue(
+            $methodCall->getArgs()[1]
+                ->value
+        ) : null;
 
         $methodCall->name = new Identifier('text');
 
@@ -163,7 +169,8 @@ CODE_SAMPLE
 
     private function refactorAttachMethod(MethodCall $methodCall): ?Node
     {
-        $firstArgument = $methodCall->args[0]->value;
+        $firstArgument = $methodCall->getArgs()[0]
+            ->value;
 
         if (! $firstArgument instanceof StaticCall) {
             return null;
@@ -181,14 +188,15 @@ CODE_SAMPLE
         }
 
         $methodCall->name = new Identifier('attachFromPath');
-        $methodCall->args = $this->nodeFactory->createArgs($firstArgument->args);
+        $methodCall->args = $this->nodeFactory->createArgs($firstArgument->getArgs());
 
         return $methodCall;
     }
 
     private function refactorEmbedMethod(MethodCall $methodCall): ?Node
     {
-        $firstArgument = $methodCall->args[0]->value;
+        $firstArgument = $methodCall->getArgs()[0]
+            ->value;
 
         if (! $firstArgument instanceof StaticCall) {
             return null;
@@ -206,7 +214,7 @@ CODE_SAMPLE
         }
 
         $methodCall->name = new Identifier('embedFromPath');
-        $methodCall->args = $this->nodeFactory->createArgs($firstArgument->args);
+        $methodCall->args = $this->nodeFactory->createArgs($firstArgument->getArgs());
 
         return $methodCall;
     }

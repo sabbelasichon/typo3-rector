@@ -223,11 +223,16 @@ CODE);
      */
     private function createArrayForAddModuleCall(StaticCall $staticMethodCall): array
     {
-        $main = $staticMethodCall->args[0]->value;
-        $sub = $staticMethodCall->args[1]->value;
-        $position = $staticMethodCall->args[2]->value;
-        $path = $staticMethodCall->args[3]->value;
-        $moduleConfiguration = $staticMethodCall->args[4]->value;
+        $main = $staticMethodCall->getArgs()[0]
+            ->value;
+        $sub = $staticMethodCall->getArgs()[1]
+            ->value;
+        $position = $staticMethodCall->getArgs()[2]
+            ->value;
+        $path = $staticMethodCall->getArgs()[3]
+            ->value;
+        $moduleConfiguration = $staticMethodCall->getArgs()[4]
+            ->value;
 
         $main = $this->valueResolver->getValue($main);
         $sub = $this->valueResolver->getValue($sub);
@@ -269,12 +274,18 @@ CODE);
      */
     private function createArrayForRegisterModuleCall(StaticCall $staticMethodCall): array
     {
-        $extensionName = $staticMethodCall->args[0]->value;
-        $main = $staticMethodCall->args[1]->value;
-        $sub = $staticMethodCall->args[2]->value;
-        $position = $staticMethodCall->args[3]->value;
-        $controllerActions = $staticMethodCall->args[4]->value;
-        $moduleConfiguration = $staticMethodCall->args[5]->value;
+        $extensionName = $staticMethodCall->getArgs()[0]
+            ->value;
+        $main = $staticMethodCall->getArgs()[1]
+            ->value;
+        $sub = $staticMethodCall->getArgs()[2]
+            ->value;
+        $position = $staticMethodCall->getArgs()[3]
+            ->value;
+        $controllerActions = $staticMethodCall->getArgs()[4]
+            ->value;
+        $moduleConfiguration = $staticMethodCall->getArgs()[5]
+            ->value;
 
         $extensionName = $this->valueResolver->getValue($extensionName);
         $main = $this->valueResolver->getValue($main);

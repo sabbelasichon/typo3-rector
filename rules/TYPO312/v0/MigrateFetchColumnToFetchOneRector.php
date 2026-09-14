@@ -57,7 +57,7 @@ CODE_SAMPLE
             return null;
         }
 
-        return $this->nodeFactory->createMethodCall($node->var, 'fetchOne', $node->args);
+        return $this->nodeFactory->createMethodCall($node->var, 'fetchOne', $node->getArgs());
     }
 
     private function shouldSkip(MethodCall $node): bool

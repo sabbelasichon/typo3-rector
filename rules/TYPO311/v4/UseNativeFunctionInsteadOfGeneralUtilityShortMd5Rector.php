@@ -64,7 +64,7 @@ final class UseNativeFunctionInsteadOfGeneralUtilityShortMd5Rector extends Abstr
 
         $lengthValue = $this->extractLengthValue($node);
 
-        $arguments = [$this->nodeFactory->createFuncCall('md5', [$node->args[0]->value]), 0, $lengthValue];
+        $arguments = [$this->nodeFactory->createFuncCall('md5', [$node->getArgs()[0]->value]), 0, $lengthValue];
 
         return $this->nodeFactory->createFuncCall('substr', $arguments);
     }
@@ -100,8 +100,9 @@ CODE_SAMPLE
         $classMethod = $this->astResolver->resolveClassMethodFromCall($staticCall);
 
         $lengthValue = 10;
-        if (isset($staticCall->args[1])) {
-            $lengthValue = $staticCall->args[1]->value;
+        if (isset($staticCall->getArgs()[1])) {
+            $lengthValue = $staticCall->getArgs()[1]
+                ->value;
         } elseif ($classMethod instanceof ClassMethod && $classMethod->params[1]->default instanceof Expr) {
             $lengthValue = $this->valueResolver->getValue($classMethod->params[1]->default);
         }

@@ -103,19 +103,20 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! isset($methodCall->args[0])) {
+        if (! isset($methodCall->getArgs()[0])) {
             return null;
         }
 
-        if (! $this->valueResolver->isValue($methodCall->args[0]->value, self::FORMAT)) {
+        if (! $this->valueResolver->isValue($methodCall->getArgs()[0]->value, self::FORMAT)) {
             return null;
         }
 
-        if (! isset($methodCall->args[1])) {
+        if (! isset($methodCall->getArgs()[1])) {
             return null;
         }
 
-        $classConstFetch = $methodCall->args[1]->value;
+        $classConstFetch = $methodCall->getArgs()[1]
+            ->value;
 
         if (! $classConstFetch instanceof ClassConstFetch) {
             return null;
@@ -125,11 +126,13 @@ CODE_SAMPLE
             return null;
         }
 
-        $methodCall->args[0]->value = new String_(self::ADD_HTML_PART);
-        $methodCall->args[1]->value = $this->isName(
-            $classConstFetch->name,
-            self::FORMAT_HTML
-        ) ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
+        $methodCall->getArgs()[0]
+            ->value = new String_(self::ADD_HTML_PART);
+        $methodCall->getArgs()[1]
+            ->value = $this->isName(
+                $classConstFetch->name,
+                self::FORMAT_HTML
+            ) ? $this->nodeFactory->createTrue() : $this->nodeFactory->createFalse();
 
         return $methodCall;
     }

@@ -32,11 +32,11 @@ final class ContextGetAspectDynamicReturnTypeExtension implements DynamicMethodR
     ): Type {
         $defaultObjectType = new ObjectType('TYPO3\CMS\Core\Context\AspectInterface');
 
-        if ($methodCall->args === []) {
+        if ($methodCall->getArgs() === []) {
             return $defaultObjectType;
         }
 
-        $firstArg = $methodCall->args[0];
+        $firstArg = $methodCall->getArgs()[0];
         if (! $firstArg instanceof Arg) {
             return $defaultObjectType;
         }

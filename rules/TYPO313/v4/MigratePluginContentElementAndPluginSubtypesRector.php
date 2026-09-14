@@ -97,8 +97,8 @@ CODE_SAMPLE
             $node,
             new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
         )) {
-            if (isset($node->args[1])) {
-                $type = $this->valueResolver->getValue($node->args[1]->value);
+            if (isset($node->getArgs()[1])) {
+                $type = $this->valueResolver->getValue($node->getArgs()[1]->value);
             }
 
             if ($type === 'list_type') {
@@ -107,9 +107,9 @@ CODE_SAMPLE
                 ), new Identifier('PLUGIN_TYPE_CONTENT_ELEMENT')));
             }
         } else {
-            if (isset($node->args[4])) {
-                $type = $this->valueResolver->getValue($node->args[4]->value);
-            } elseif (! isset($node->args[3])) {
+            if (isset($node->getArgs()[4])) {
+                $type = $this->valueResolver->getValue($node->getArgs()[4]->value);
+            } elseif (! isset($node->getArgs()[3])) {
                 $node->args[3] = new Arg(new Array_());
             }
 
@@ -193,8 +193,9 @@ CODE;
             new ObjectType('TYPO3\CMS\Core\Utility\ExtensionManagementUtility')
         ) && $this->isName($staticCall->name, 'addPlugin')
         ) {
-            if (isset($staticCall->args[1])) {
-                $type = $staticCall->args[1]->value;
+            if (isset($staticCall->getArgs()[1])) {
+                $type = $staticCall->getArgs()[1]
+                    ->value;
 
                 if ($type instanceof String_ && $type->value === 'CType') {
                     return true;
@@ -213,8 +214,9 @@ CODE;
             new ObjectType('TYPO3\CMS\Extbase\Utility\ExtensionUtility')
         ) && $this->isName($staticCall->name, 'configurePlugin')
         ) {
-            if (isset($staticCall->args[4])) {
-                $pluginType = $staticCall->args[4]->value;
+            if (isset($staticCall->getArgs()[4])) {
+                $pluginType = $staticCall->getArgs()[4]
+                    ->value;
 
                 if ($pluginType instanceof String_ && $pluginType->value === 'CType') {
                     return true;

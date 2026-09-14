@@ -53,18 +53,21 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector impleme
             return null;
         }
 
-        if (count($node->args) <= 3) {
+        if (count($node->getArgs()) <= 3) {
             return null;
         }
 
-        if (isset($node->args[4])) {
-            $fifthArgType = $this->getType($node->args[4]->value);
+        if (isset($node->getArgs()[4])) {
+            $fifthArgType = $this->getType($node->getArgs()[4]->value);
             if ($fifthArgType->isArray()->yes()) {
                 return null;
             }
         }
 
-        $returnTagParameters = isset($node->args[6]) ? $this->valueResolver->getValue($node->args[6]->value) : false;
+        $returnTagParameters = isset($node->getArgs()[6]) ? $this->valueResolver->getValue(
+            $node->getArgs()[6]
+                ->value
+        ) : false;
         if ($returnTagParameters === null) {
             return null;
         }
@@ -77,7 +80,7 @@ final class GetClickMenuOnIconTagParametersRector extends AbstractRector impleme
         return $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Backend\Utility\BackendUtility',
             'getClickMenuOnIconTagParameters',
-            [$node->args[0], $node->args[1], $node->args[2]]
+            [$node->getArgs()[0], $node->getArgs()[1], $node->getArgs()[2]]
         );
     }
 

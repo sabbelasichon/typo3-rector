@@ -71,7 +71,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return ! isset($node->args[4]);
+        return ! isset($node->getArgs()[4]);
     }
 
     private function refactorMethodCall(MethodCall $node): ?MethodCall

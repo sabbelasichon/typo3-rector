@@ -57,11 +57,12 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! isset($node->args[2])) {
+        if (! isset($node->getArgs()[2])) {
             return null;
         }
 
-        $thirdArg = $node->args[2]->value;
+        $thirdArg = $node->getArgs()[2]
+            ->value;
         if (! $thirdArg instanceof ClassConstFetch) {
             return null;
         }

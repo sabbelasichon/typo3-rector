@@ -67,7 +67,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $arguments = $node->args;
+        $arguments = $node->getArgs();
         if (count($arguments) < 2) {
             return null;
         }

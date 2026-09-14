@@ -46,7 +46,7 @@ final class SwitchBehaviorOfArrayUtilityMethodsRector extends AbstractRector imp
             return null;
         }
 
-        $useAssocBehavior = isset($node->args[2]) && $this->valueResolver->getValue($node->args[2]->value);
+        $useAssocBehavior = isset($node->getArgs()[2]) && $this->valueResolver->getValue($node->getArgs()[2]->value);
 
         if ($useAssocBehavior) {
             return null;
@@ -55,7 +55,7 @@ final class SwitchBehaviorOfArrayUtilityMethodsRector extends AbstractRector imp
         return $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Core\Utility\ArrayUtility',
             'arrayDiffKeyRecursive',
-            [$node->args[0], $node->args[1]]
+            [$node->getArgs()[0], $node->getArgs()[1]]
         );
     }
 

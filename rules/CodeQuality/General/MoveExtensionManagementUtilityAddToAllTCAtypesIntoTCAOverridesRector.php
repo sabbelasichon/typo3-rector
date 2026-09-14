@@ -98,7 +98,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $tableNameArgument = $staticMethodCall->args[0] ?? null;
+        $tableNameArgument = $staticMethodCall->getArgs()[0] ?? null;
         if ($tableNameArgument === null) {
             return null;
         }

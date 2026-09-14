@@ -53,7 +53,8 @@ final class ChangeDefaultCachingFrameworkNamesRector extends AbstractRector impl
             return null;
         }
 
-        $argValue = $node->args[0]->value;
+        $argValue = $node->getArgs()[0]
+            ->value;
         $argument = $this->valueResolver->getValue($argValue);
         if ($argument === null) {
             return null;

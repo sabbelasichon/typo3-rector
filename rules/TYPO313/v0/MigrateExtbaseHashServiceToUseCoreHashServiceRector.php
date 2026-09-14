@@ -84,18 +84,18 @@ CODE_SAMPLE
             return null;
         }
 
-        if (count($node->args) > 1 && ! $this->isName($node->name, 'validateHmac')) {
+        if (count($node->getArgs()) > 1 && ! $this->isName($node->name, 'validateHmac')) {
             return null;
         }
 
-        if (count($node->args) > 2 && $this->isName($node->name, 'validateHmac')) {
+        if (count($node->getArgs()) > 2 && $this->isName($node->name, 'validateHmac')) {
             return null;
         }
 
         $additionalSecretArgument = $this->nodeFactory->createArg($this->additionalSecret);
 
         if ($this->isName($node->name, 'validateHmac')) {
-            $node->args[2] = $node->args[1];
+            $node->args[2] = $node->getArgs()[1];
             $node->args[1] = $additionalSecretArgument;
         } else {
             $node->args[1] = $additionalSecretArgument;

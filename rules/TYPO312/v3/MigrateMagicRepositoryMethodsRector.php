@@ -100,7 +100,7 @@ final class MigrateMagicRepositoryMethodsRector extends AbstractRector implement
             return null;
         }
 
-        $newArgs = new Array_([new ArrayItem($node->args[0]->value, new String_(lcfirst($propertyName)))]);
+        $newArgs = new Array_([new ArrayItem($node->getArgs()[0]->value, new String_(lcfirst($propertyName)))]);
 
         return $this->nodeFactory->createMethodCall($node->var, $newMethodCall, [$newArgs]);
     }

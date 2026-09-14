@@ -70,14 +70,14 @@ CODE_SAMPLE
             return null;
         }
 
-        $argsCount = count($node->args);
+        $argsCount = count($node->getArgs());
         switch ($argsCount) {
             case 2:
                 $this->swapArgs($node);
                 return $node;
             case 3:
-                if ($node->args[0]->value instanceof String_) {
-                    $firstArgumentValue = $this->valueResolver->getValue($node->args[0]);
+                if ($node->getArgs()[0]->value instanceof String_) {
+                    $firstArgumentValue = $this->valueResolver->getValue($node->getArgs()[0]);
 
                     // check if already migrated
                     if ($firstArgumentValue === '*') {
@@ -85,8 +85,8 @@ CODE_SAMPLE
                     }
                 }
 
-                if ($node->args[2]->value instanceof String_) {
-                    $thirdArgumentValue = $this->valueResolver->getValue($node->args[2]);
+                if ($node->getArgs()[2]->value instanceof String_) {
+                    $thirdArgumentValue = $this->valueResolver->getValue($node->getArgs()[2]);
                     if ($thirdArgumentValue === 'list' || $thirdArgumentValue === '*') {
                         $this->swapArgs($node);
                         return $node;
@@ -112,7 +112,7 @@ CODE_SAMPLE
     private function swapArgs(StaticCall $node): void
     {
         // put first argument on third place
-        $firstArgument = $node->args[0];
+        $firstArgument = $node->getArgs()[0];
 
         $node->args[0] = new Arg(new String_('*'));
         $node->args[2] = $firstArgument;

@@ -133,7 +133,7 @@ CODE_SAMPLE
 
             // Re-fetch args to check if we can remove the 3rd argument (attributes)
             // Only remove 3rd if 4th is also gone/empty
-            if ($this->shouldRemoveArgument($node->args, 2)) {
+            if ($this->shouldRemoveArgument($node->getArgs(), 2)) {
                 unset($node->args[2]);
             }
         }

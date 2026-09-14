@@ -47,7 +47,7 @@ final class BackendUtilityEditOnClickRector extends AbstractRector implements Do
             return null;
         }
 
-        $firstArgument = $node->args[0];
+        $firstArgument = $node->getArgs()[0];
         return new Concat($this->createUriBuilderCall($firstArgument), $this->createRequestUriCall());
     }
 

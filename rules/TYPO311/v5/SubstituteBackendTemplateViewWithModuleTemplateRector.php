@@ -367,7 +367,7 @@ CODE_SAMPLE
                     return false;
                 }
 
-                return $node->args === [];
+                return $node->getArgs() === [];
             }
         );
     }

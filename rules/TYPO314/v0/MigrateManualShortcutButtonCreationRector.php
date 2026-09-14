@@ -97,8 +97,8 @@ CODE_SAMPLE
                 }
 
                 // Check if the argument matches our shortcut button variable
-                if (isset($methodCall->args[0])
-                    && $this->nodeComparator->areNodesEqual($methodCall->args[0]->value, $assign->var)
+                if (isset($methodCall->getArgs()[0])
+                    && $this->nodeComparator->areNodesEqual($methodCall->getArgs()[0]->value, $assign->var)
                 ) {
                     $usageFound = true;
                     $viewVariable = $methodCall->var;
@@ -174,12 +174,12 @@ CODE_SAMPLE
         while ($current instanceof MethodCall) {
             $methodName = $this->getName($current->name);
 
-            if ($methodName === 'setRouteIdentifier' && isset($current->args[0])) {
-                $args['routeIdentifier'] = $current->args[0]->value;
-            } elseif ($methodName === 'setDisplayName' && isset($current->args[0])) {
-                $args['displayName'] = $current->args[0]->value;
-            } elseif ($methodName === 'setArguments' && isset($current->args[0])) {
-                $args['arguments'] = $current->args[0]->value;
+            if ($methodName === 'setRouteIdentifier' && isset($current->getArgs()[0])) {
+                $args['routeIdentifier'] = $current->getArgs()[0]->value;
+            } elseif ($methodName === 'setDisplayName' && isset($current->getArgs()[0])) {
+                $args['displayName'] = $current->getArgs()[0]->value;
+            } elseif ($methodName === 'setArguments' && isset($current->getArgs()[0])) {
+                $args['arguments'] = $current->getArgs()[0]->value;
             }
 
             $current = $current->var;

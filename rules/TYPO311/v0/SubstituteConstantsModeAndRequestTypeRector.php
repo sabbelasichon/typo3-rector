@@ -154,11 +154,12 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! isset($node->args[0])) {
+        if (! isset($node->getArgs()[0])) {
             return null;
         }
 
-        $firstArgument = $node->args[0]->value;
+        $firstArgument = $node->getArgs()[0]
+            ->value;
         if (! $firstArgument instanceof String_) {
             return null;
         }
@@ -167,7 +168,8 @@ CODE_SAMPLE
             return null;
         }
 
-        $node->args[0]->value = new String_('TYPO3');
+        $node->getArgs()[0]
+            ->value = new String_('TYPO3');
 
         return $node;
     }

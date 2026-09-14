@@ -67,7 +67,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $firstArg = $node->args[0] ?? null;
+        $firstArg = $node->getArgs()[0] ?? null;
         if ($firstArg === null || $firstArg instanceof VariadicPlaceholder) {
             return null;
         }

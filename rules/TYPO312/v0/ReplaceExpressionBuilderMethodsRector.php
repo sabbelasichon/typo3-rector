@@ -41,7 +41,7 @@ final class ReplaceExpressionBuilderMethodsRector extends AbstractRector impleme
 
         $methodName = $this->isName($node->name, 'andX') ? 'and' : 'or';
 
-        return $this->nodeFactory->createMethodCall($node->var, $methodName, $node->args);
+        return $this->nodeFactory->createMethodCall($node->var, $methodName, $node->getArgs());
     }
 
     public function getRuleDefinition(): RuleDefinition

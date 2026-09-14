@@ -61,7 +61,7 @@ CODE_SAMPLE
             $this->nodeFactory->createStaticCall(
                 'TYPO3\CMS\Backend\Utility\BackendUtility',
                 'getRecordIconAltText',
-                $node->args
+                $node->getArgs()
             ),
             new String_('"'),
         ];

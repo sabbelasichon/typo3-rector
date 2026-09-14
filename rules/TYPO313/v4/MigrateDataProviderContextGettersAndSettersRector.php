@@ -153,11 +153,12 @@ CODE_SAMPLE
             }
 
             if (str_starts_with($methodName, 'set')) {
-                if (! isset($node->args[0])) {
+                if (! isset($node->getArgs()[0])) {
                     return null;
                 }
 
-                $value = $node->args[0]->value;
+                $value = $node->getArgs()[0]
+                    ->value;
 
                 return new Assign($propertyFetch, $value);
             }
@@ -189,9 +190,10 @@ CODE_SAMPLE
                     $staticCall = $assign->expr;
                     if ($this->isName($staticCall->class, 'TYPO3\CMS\Core\Utility\GeneralUtility')
                         && $this->isName($staticCall->name, 'makeInstance')
-                        && count($staticCall->args) === 1
+                        && count($staticCall->getArgs()) === 1
                     ) {
-                        $firstArgValue = $staticCall->args[0]->value;
+                        $firstArgValue = $staticCall->getArgs()[0]
+                            ->value;
                         if (! $firstArgValue instanceof ClassConstFetch
                             || ! $this->isName(
                                 $firstArgValue->class,
@@ -270,12 +272,12 @@ CODE_SAMPLE
         foreach ($methodCalls as $methodCall) {
             /** @var MethodCall $methodCall */
             $methodName = $this->getName($methodCall->name);
-            if ($methodName === null || count($methodCall->args) !== 1) {
+            if ($methodName === null || count($methodCall->getArgs()) !== 1) {
                 continue;
             }
 
             if (isset($argumentMap[$methodName])) {
-                $setterArgsCollected[$methodName] = $methodCall->args[0];
+                $setterArgsCollected[$methodName] = $methodCall->getArgs()[0];
             }
         }
 

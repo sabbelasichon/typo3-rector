@@ -63,7 +63,8 @@ final class MigrateFrameModuleToSvgTreeRector extends AbstractRector implements 
 
         $hasAstBeenChanged = false;
         if ($this->isName($node->name, 'addModule')) {
-            $moduleConfig = $node->args[4]->value;
+            $moduleConfig = $node->getArgs()[4]
+                ->value;
             if (! $moduleConfig instanceof Array_) {
                 return null;
             }
@@ -72,7 +73,8 @@ final class MigrateFrameModuleToSvgTreeRector extends AbstractRector implements 
         }
 
         if ($this->isName($node->name, 'registerModule')) {
-            $moduleConfig = $node->args[5]->value;
+            $moduleConfig = $node->getArgs()[5]
+                ->value;
             if (! $moduleConfig instanceof Array_) {
                 return null;
             }

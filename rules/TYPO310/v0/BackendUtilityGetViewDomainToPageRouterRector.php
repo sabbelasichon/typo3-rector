@@ -63,13 +63,13 @@ final class BackendUtilityGetViewDomainToPageRouterRector extends AbstractRector
                 $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Site\SiteFinder'),
             ]),
             'getSiteByPageId',
-            $methodCall->args
+            $methodCall->getArgs()
         )));
 
         $methodCallGenerateUri = $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall(new Variable('site'), 'getRouter'),
             'generateUri',
-            [$methodCall->args[0]]
+            [$methodCall->getArgs()[0]]
         );
 
         if ($node->expr instanceof Assign) {

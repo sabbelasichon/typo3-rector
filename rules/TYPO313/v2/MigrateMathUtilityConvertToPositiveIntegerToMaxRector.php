@@ -51,11 +51,11 @@ CODE_SAMPLE
             return null;
         }
 
-        if (count($node->args) !== 1) {
+        if (count($node->getArgs()) !== 1) {
             return null;
         }
 
-        return new FuncCall(new Name('max'), [$this->nodeFactory->createArg(new Int_(0)), $node->args[0]]);
+        return new FuncCall(new Name('max'), [$this->nodeFactory->createArg(new Int_(0)), $node->getArgs()[0]]);
     }
 
     private function shouldSkip(StaticCall $node): bool

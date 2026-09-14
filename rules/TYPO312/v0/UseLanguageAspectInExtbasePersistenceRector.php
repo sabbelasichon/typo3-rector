@@ -113,7 +113,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $args = $methodCall->args;
+        $args = $methodCall->getArgs();
         if (count($args) !== 1) {
             return null;
         }

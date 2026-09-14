@@ -99,12 +99,12 @@ CODE_SAMPLE
             return null;
         }
 
-        if ($node->args === []) {
+        if ($node->getArgs() === []) {
             return $this->nodeFactory->createMethodCall($node->var, 'fetchAssociative');
         }
 
         /** @var Arg $argument */
-        $argument = $node->args[0];
+        $argument = $node->getArgs()[0];
         $mode = $argument->value;
 
         $modeValue = $this->valueResolver->getValue($mode);

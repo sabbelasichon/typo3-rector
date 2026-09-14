@@ -50,7 +50,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $node->args = [$node->args[0], $node->args[1]];
+        $node->args = [$node->getArgs()[0], $node->getArgs()[1]];
 
         return $node;
     }
@@ -68,6 +68,6 @@ CODE_SAMPLE
             return true;
         }
 
-        return count($methodCall->args) <= 2;
+        return count($methodCall->getArgs()) <= 2;
     }
 }

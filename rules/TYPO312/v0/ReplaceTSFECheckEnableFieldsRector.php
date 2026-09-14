@@ -54,7 +54,7 @@ final class ReplaceTSFECheckEnableFieldsRector extends AbstractRector implements
 
         $contextCall = $this->nodeFactory->createMethodCall($node->var, 'getContext');
 
-        $rowArgument = $node->args[0] ?? new Array_();
+        $rowArgument = $node->getArgs()[0] ?? new Array_();
 
         if ($this->isName($node->name, 'checkEnableFields')) {
             $arguments = [new String_('pages'), $rowArgument, $contextCall];

@@ -21,7 +21,8 @@ final class ArgumentTypeResolver
         MethodReflection $methodReflection,
         Scope $scope
     ): Type {
-        $arg = $methodCall->args[0]->value;
+        $arg = $methodCall->getArgs()[0]
+            ->value;
         if (! $arg instanceof ClassConstFetch) {
             return ParametersAcceptorSelector::selectFromArgs(
                 $scope,

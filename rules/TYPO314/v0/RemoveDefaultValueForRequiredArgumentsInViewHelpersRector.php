@@ -65,16 +65,16 @@ CODE_SAMPLE
             return null;
         }
 
-        if (count($node->args) < 5) {
+        if (count($node->getArgs()) < 5) {
             return null;
         }
 
-        if (! $this->valueResolver->isTrue($node->args[3]->value)) {
+        if (! $this->valueResolver->isTrue($node->getArgs()[3]->value)) {
             return null;
         }
 
         unset($node->args[4]);
-        $node->args = array_values($node->args);
+        $node->args = array_values($node->getArgs());
 
         return $node;
     }
