@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Ssch\TYPO3Rector\CodeQuality\General;
 
+use PhpParser\Comment;
 use PhpParser\Node;
+use PhpParser\Node\Arg;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
+use Rector\NodeTypeResolver\Node\AttributeKey;
 use Rector\Rector\AbstractRector;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
@@ -17,14 +20,14 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRectorTest
+ * @see \Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRector\MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRectorTest
  */
-final class MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector extends AbstractRector implements DocumentedRuleInterface, NoChangelogRequiredInterface
+final class MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRector extends AbstractRector implements DocumentedRuleInterface, NoChangelogRequiredInterface
 {
     public function getRuleDefinition(): RuleDefinition
     {
         return new RuleDefinition(
-            'Migrate `ExtensionManagementUtility::addTcaSelectItem()` for tt_content.CType to `ExtensionManagementUtility::addPlugin()`',
+            'Migrate `ExtensionManagementUtility::addTcaSelectItem()` for tt_content.CType to `ExtensionManagementUtility::addRecordType()`',
             [
                 new CodeSample(
                     <<<'CODE_SAMPLE'
@@ -42,14 +45,15 @@ final class MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector e
 CODE_SAMPLE
                     ,
                     <<<'CODE_SAMPLE'
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addRecordType(
     [
         'label' => 'My Content Element',
         'value' => 'my_content_element',
         'icon' => 'my-icon-identifier',
         'group' => 'group1',
         'description' => 'My Description',
-    ]
+    ],
+    ''
 );
 CODE_SAMPLE
                 ),
@@ -96,8 +100,12 @@ CODE_SAMPLE
             return null;
         }
 
-        $node->name = new Identifier('addPlugin');
-        $node->args = [$args[2]];
+        $node->name = new Identifier('addRecordType');
+        $showItemListArg = new Arg(new String_(''));
+        $showItemListArg->setAttribute(AttributeKey::COMMENTS, [
+            new Comment('// TODO: Important! Add showItemList yourself'),
+        ]);
+        $node->args = [$args[2], $showItemListArg];
 
         return $node;
     }
