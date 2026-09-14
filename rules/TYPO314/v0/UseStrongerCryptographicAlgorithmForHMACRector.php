@@ -62,7 +62,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $args = $node->args;
+        $args = $node->getArgs();
         $argc = count($args);
 
         // If the 3rd argument (algorithm) is already present, we do not need to act

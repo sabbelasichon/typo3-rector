@@ -137,14 +137,14 @@ CODE_SAMPLE
 
             // The AbstractBackend constructor had 2 arguments: $context, $options
             // We now remove the first argument ($context) from the parent call.
-            if (! isset($expression->args[0])) {
+            if (! isset($expression->getArgs()[0])) {
                 continue;
             }
 
             unset($expression->args[0]);
 
             // Re-index the arguments array after removing the first element
-            $expression->args = array_values($expression->args);
+            $expression->args = array_values($expression->getArgs());
 
             break;
         }

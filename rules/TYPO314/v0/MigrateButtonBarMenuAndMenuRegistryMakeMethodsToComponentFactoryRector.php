@@ -140,7 +140,7 @@ CODE_SAMPLE
             if ($this->isName($stmt->name, self::MAKE_BUTTON_METHOD)
                 && $this->isObjectType($stmt->var, new ObjectType(self::BUTTON_BAR_CLASS))
             ) {
-                $firstArg = $stmt->args[0] ?? null;
+                $firstArg = $stmt->getArgs()[0] ?? null;
                 if (! $firstArg instanceof Arg) {
                     return null;
                 }

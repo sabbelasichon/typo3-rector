@@ -81,7 +81,7 @@ CODE_SAMPLE
             return true;
         }
 
-        return $methodCall->args !== [];
+        return $methodCall->getArgs() !== [];
     }
 
     private function getShortClassName(string $className): string

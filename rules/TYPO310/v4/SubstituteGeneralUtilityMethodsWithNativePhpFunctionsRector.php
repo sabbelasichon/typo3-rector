@@ -52,17 +52,17 @@ final class SubstituteGeneralUtilityMethodsWithNativePhpFunctionsRector extends 
         $nodeName = $this->getName($node->name);
 
         if ($nodeName === 'IPv6Hex2Bin') {
-            return $this->nodeFactory->createFuncCall('inet_pton', $node->args);
+            return $this->nodeFactory->createFuncCall('inet_pton', $node->getArgs());
         }
 
         if ($nodeName === 'IPv6Bin2Hex') {
-            return $this->nodeFactory->createFuncCall('inet_ntop', $node->args);
+            return $this->nodeFactory->createFuncCall('inet_ntop', $node->getArgs());
         }
 
         if ($nodeName === 'compressIPv6') {
             return $this->nodeFactory->createFuncCall(
                 'inet_ntop',
-                [$this->nodeFactory->createFuncCall('inet_pton', $node->args)]
+                [$this->nodeFactory->createFuncCall('inet_pton', $node->getArgs())]
             );
         }
 

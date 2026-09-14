@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\CodeQuality\General;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Identifier;
@@ -101,7 +102,7 @@ CODE_SAMPLE
         return $node;
     }
 
-    private function isCTypeField(Node\Expr $expr): bool
+    private function isCTypeField(Expr $expr): bool
     {
         if ($expr instanceof String_) {
             return $expr->value === 'CType';

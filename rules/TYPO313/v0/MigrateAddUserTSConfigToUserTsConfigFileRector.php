@@ -98,7 +98,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $contentArgument = $staticMethodCall->args[0] ?? null;
+        $contentArgument = $staticMethodCall->getArgs()[0] ?? null;
         if ($contentArgument === null) {
             return null;
         }

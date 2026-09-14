@@ -83,17 +83,18 @@ final class GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory
             $requestFetcherVariable = $this->typo3GlobalsFactory->create('TYPO3_REQUEST');
         }
 
-        if (! isset($node->args[0])) {
+        if (! isset($node->getArgs()[0])) {
             return $this->nodeFactory->createMethodCall($requestFetcherVariable, $psr7ServerRequestMethodName);
         }
 
-        if ($this->valueResolver->isNull($node->args[0]->value)) {
+        if ($this->valueResolver->isNull($node->getArgs()[0]->value)) {
             return $this->nodeFactory->createMethodCall($requestFetcherVariable, $psr7ServerRequestMethodName);
         }
 
         return new ArrayDimFetch(
             $this->nodeFactory->createMethodCall($requestFetcherVariable, $psr7ServerRequestMethodName),
-            $node->args[0]->value
+            $node->getArgs()[0]
+                ->value
         );
     }
 }

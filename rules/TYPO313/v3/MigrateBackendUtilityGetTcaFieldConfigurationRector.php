@@ -57,9 +57,9 @@ CODE_SAMPLE
 
         return new MethodCall(
             new MethodCall(
-                new MethodCall($makeInstanceCall, 'get', [$node->args[0]]),
+                new MethodCall($makeInstanceCall, 'get', [$node->getArgs()[0]]),
                 'getField',
-                [$node->args[1]]
+                [$node->getArgs()[1]]
             ),
             'getConfiguration'
         );
@@ -75,6 +75,6 @@ CODE_SAMPLE
             return true;
         }
 
-        return count($staticCall->args) !== 2;
+        return count($staticCall->getArgs()) !== 2;
     }
 }

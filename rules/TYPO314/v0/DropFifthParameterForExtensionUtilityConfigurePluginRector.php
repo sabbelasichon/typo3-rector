@@ -59,7 +59,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (count($node->args) < 5) {
+        if (count($node->getArgs()) < 5) {
             return null;
         }
 

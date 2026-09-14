@@ -204,13 +204,13 @@ CODE_SAMPLE
             return null;
         }
 
-        if (! isset($node->args[1])) {
+        if (! isset($node->getArgs()[1])) {
             return null;
         }
 
         unset($node->args[1]);
 
-        $node->args = array_values($node->args);
+        $node->args = array_values($node->getArgs());
 
         return $node;
     }

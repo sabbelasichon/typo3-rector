@@ -100,7 +100,8 @@ CODE_SAMPLE
         $getAttributeCall = $this->createTYPO3RequestGetAttributeMethodCall($scope);
 
         if ($this->isName($node->name, 'addCacheTags')) {
-            $firstArg = $node->args[0]->value;
+            $firstArg = $node->getArgs()[0]
+                ->value;
             if (! $firstArg instanceof Array_) {
                 return null;
             }

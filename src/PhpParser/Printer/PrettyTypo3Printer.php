@@ -358,7 +358,7 @@ final class PrettyTypo3Printer extends Standard
             return parent::pExpr_MethodCall($methodCall);
         }
 
-        foreach ($methodCall->args as $arg) {
+        foreach ($methodCall->getArgs() as $arg) {
             if (! $arg instanceof Arg) {
                 continue;
             }
@@ -369,7 +369,7 @@ final class PrettyTypo3Printer extends Standard
         return $this->pDereferenceLhs($methodCall->var) . "\n"
             . $this->resolveIndentSpaces() . '->'
             . $this->pObjectProperty($methodCall->name)
-            . '(' . $this->pMaybeMultiline($methodCall->args) . ')';
+            . '(' . $this->pMaybeMultiline($methodCall->getArgs()) . ')';
     }
 
     protected function pInfixOp(

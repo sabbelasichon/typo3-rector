@@ -94,7 +94,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (count($methodCall->args) <= 1) {
+        if (count($methodCall->getArgs()) <= 1) {
             return null;
         }
 

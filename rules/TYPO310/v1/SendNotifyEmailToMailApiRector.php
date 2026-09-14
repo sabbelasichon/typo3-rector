@@ -128,7 +128,7 @@ final class SendNotifyEmailToMailApiRector extends AbstractRector implements Doc
             $this->ifSenderAddress(),
         ];
 
-        $replyTo = isset($methodCall->args[5]) ? $methodCall->args[5]->value : null;
+        $replyTo = isset($methodCall->getArgs()[5]) ? $methodCall->getArgs()[5]->value : null;
         if ($replyTo instanceof Expr) {
             $nodes[] = $this->parsedReplyTo($replyTo);
             $nodes[] = $this->methodReplyTo();
@@ -223,7 +223,7 @@ CODE_SAMPLE
     {
         return new Expression(new Assign(new Variable(self::MESSAGE), $this->nodeFactory->createFuncCall(
             self::TRIM,
-            [$methodCall->args[0]]
+            [$methodCall->getArgs()[0]]
         )));
     }
 
@@ -231,7 +231,7 @@ CODE_SAMPLE
     {
         return new Expression(new Assign(new Variable('senderName'), $this->nodeFactory->createFuncCall(
             self::TRIM,
-            [$methodCall->args[4] ?? new ConstFetch(new Name('null'))]
+            [$methodCall->getArgs()[4] ?? new ConstFetch(new Name('null'))]
         )));
     }
 
@@ -239,7 +239,7 @@ CODE_SAMPLE
     {
         return new Expression(new Assign(new Variable(self::SENDER_ADDRESS), $this->nodeFactory->createFuncCall(
             self::TRIM,
-            [$methodCall->args[3]]
+            [$methodCall->getArgs()[3]]
         )));
     }
 
@@ -297,7 +297,7 @@ CODE_SAMPLE
                 $this->nodeFactory->createStaticCall(
                     'TYPO3\CMS\Core\Utility\MailUtility',
                     'parseAddresses',
-                    [$methodCall->args[1]]
+                    [$methodCall->getArgs()[1]]
                 )
             )
         );

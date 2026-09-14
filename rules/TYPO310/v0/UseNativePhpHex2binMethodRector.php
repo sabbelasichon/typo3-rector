@@ -42,7 +42,7 @@ final class UseNativePhpHex2binMethodRector extends AbstractRector implements Do
             return null;
         }
 
-        return $this->nodeFactory->createFuncCall('hex2bin', $node->args);
+        return $this->nodeFactory->createFuncCall('hex2bin', $node->getArgs());
     }
 
     public function getRuleDefinition(): RuleDefinition

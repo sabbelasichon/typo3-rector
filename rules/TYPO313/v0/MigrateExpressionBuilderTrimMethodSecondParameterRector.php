@@ -85,7 +85,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $secondArgument = $node->args[1] ?? null;
+        $secondArgument = $node->getArgs()[1] ?? null;
 
         if ($secondArgument === null) {
             return null;
@@ -103,10 +103,11 @@ CODE_SAMPLE
 
         $trimModeConstant = self::$integerToTrimMode[((int) $trimMode)];
 
-        $node->args[1]->value = $this->nodeFactory->createClassConstFetch(
-            'Doctrine\\DBAL\\Platforms\\TrimMode',
-            $trimModeConstant
-        );
+        $node->getArgs()[1]
+            ->value = $this->nodeFactory->createClassConstFetch(
+                'Doctrine\\DBAL\\Platforms\\TrimMode',
+                $trimModeConstant
+            );
 
         return $node;
     }

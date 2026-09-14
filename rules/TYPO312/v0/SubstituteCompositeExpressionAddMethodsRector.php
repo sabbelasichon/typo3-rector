@@ -47,7 +47,7 @@ final class SubstituteCompositeExpressionAddMethodsRector extends AbstractRector
             $argValue = $arg->value;
             $arguments = [new Arg($argValue, false, true)];
         } else {
-            $arguments = $node->args;
+            $arguments = $node->getArgs();
         }
 
         return new Assign($node->var, $this->nodeFactory->createMethodCall($node->var, 'with', $arguments));

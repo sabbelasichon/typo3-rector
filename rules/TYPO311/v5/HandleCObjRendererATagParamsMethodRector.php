@@ -46,16 +46,16 @@ final class HandleCObjRendererATagParamsMethodRector extends AbstractRector impl
             return null;
         }
 
-        if (count($node->args) === 1) {
+        if (count($node->getArgs()) === 1) {
             return null;
         }
 
         // This might be true or 1, so we are not type strict comparing here
-        if (! $this->valueResolver->getValue($node->args[1]->value)) {
+        if (! $this->valueResolver->getValue($node->getArgs()[1]->value)) {
             return null;
         }
 
-        $node->args = [$node->args[0]];
+        $node->args = [$node->getArgs()[0]];
 
         return $node;
     }

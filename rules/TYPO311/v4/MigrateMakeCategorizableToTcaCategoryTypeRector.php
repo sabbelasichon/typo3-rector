@@ -84,14 +84,14 @@ CODE_SAMPLE
             return null;
         }
 
-        $tableNameArg = $staticCall->args[1] ?? null;
+        $tableNameArg = $staticCall->getArgs()[1] ?? null;
         if ($tableNameArg === null) {
             return null;
         }
 
         $tableNameNode = $tableNameArg->value;
 
-        $fieldNameArg = $staticCall->args[2] ?? null;
+        $fieldNameArg = $staticCall->getArgs()[2] ?? null;
         $fieldNameNode = $fieldNameArg !== null ? $fieldNameArg->value : new String_('categories');
 
         // Build: $GLOBALS['TCA'][$tableName]['columns'][$fieldName] = ['config' => ['type' => 'category']];

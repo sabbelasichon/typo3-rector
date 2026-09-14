@@ -39,7 +39,11 @@ final class ReplacePageRepoOverlayFunctionRector extends AbstractRector implemen
             return null;
         }
 
-        return $this->nodeFactory->createMethodCall($node->var, 'getLanguageOverlay', array_slice($node->args, 0, 2));
+        return $this->nodeFactory->createMethodCall(
+            $node->var,
+            'getLanguageOverlay',
+            array_slice($node->getArgs(), 0, 2)
+        );
     }
 
     public function getRuleDefinition(): RuleDefinition

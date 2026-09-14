@@ -69,6 +69,6 @@ CODE_SAMPLE
             return true;
         }
 
-        return count($node->expr->args) !== 1;
+        return count($node->expr->getArgs()) !== 1;
     }
 }

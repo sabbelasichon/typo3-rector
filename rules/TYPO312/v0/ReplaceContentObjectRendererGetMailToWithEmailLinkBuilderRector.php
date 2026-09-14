@@ -37,8 +37,8 @@ final class ReplaceContentObjectRendererGetMailToWithEmailLinkBuilderRector exte
         }
 
         $arguments = [
-            new Node\Expr\Cast\String_($node->args[0]->value ?? new String_('')),
-            new Node\Expr\Cast\String_($node->args[1]->value ?? new String_('')),
+            new Node\Expr\Cast\String_($node->getArgs()[0]->value ?? new String_('')),
+            new Node\Expr\Cast\String_($node->getArgs()[1]->value ?? new String_('')),
         ];
 
         return $this->nodeFactory->createMethodCall(

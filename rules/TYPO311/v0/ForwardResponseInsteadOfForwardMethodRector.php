@@ -132,7 +132,7 @@ CODE_SAMPLE
      */
     public function createForwardResponseNode(MethodCall $forwardMethodCall)
     {
-        $forwardMethodCallArguments = $forwardMethodCall->args;
+        $forwardMethodCallArguments = $forwardMethodCall->getArgs();
 
         $action = $this->valueResolver->getValue($forwardMethodCallArguments[0]->value);
 

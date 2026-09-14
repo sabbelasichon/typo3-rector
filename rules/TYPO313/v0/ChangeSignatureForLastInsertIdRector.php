@@ -64,7 +64,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if (count($node->args) === 0) {
+        if (count($node->getArgs()) === 0) {
             return null;
         }
 

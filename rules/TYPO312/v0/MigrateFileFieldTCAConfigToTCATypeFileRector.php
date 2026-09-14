@@ -123,16 +123,16 @@ CODE_SAMPLE
             ],
         ]);
 
-        if (isset($node->args[2])) {
-            $fileFieldTCAConfigArray->items[] = new ArrayItem($node->args[2]->value, new String_('allowed'));
+        if (isset($node->getArgs()[2])) {
+            $fileFieldTCAConfigArray->items[] = new ArrayItem($node->getArgs()[2]->value, new String_('allowed'));
         }
 
-        if (isset($node->args[3])) {
-            $fileFieldTCAConfigArray->items[] = new ArrayItem($node->args[3]->value, new String_('disallowed'));
+        if (isset($node->getArgs()[3])) {
+            $fileFieldTCAConfigArray->items[] = new ArrayItem($node->getArgs()[3]->value, new String_('disallowed'));
         }
 
-        if (isset($node->args[1]) && $node->args[1]->value instanceof Array_) {
-            foreach ($node->args[1]->value->items ?? [] as $item) {
+        if (isset($node->getArgs()[1]) && $node->getArgs()[1]->value instanceof Array_) {
+            foreach ($node->getArgs()[1]->value->items ?? [] as $item) {
                 $fileFieldTCAConfigArray->items[] = $item;
             }
         }

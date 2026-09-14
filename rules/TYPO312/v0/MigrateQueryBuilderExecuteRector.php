@@ -55,11 +55,11 @@ final class MigrateQueryBuilderExecuteRector extends AbstractRector implements D
         $executeStatementMethods = ['insert', 'update', 'delete'];
 
         if ($this->checkSpecifiedMethodCalls($node, $executeQueryMethods)) {
-            return $this->nodeFactory->createMethodCall($node->var, 'executeQuery', $node->args);
+            return $this->nodeFactory->createMethodCall($node->var, 'executeQuery', $node->getArgs());
         }
 
         if ($this->checkSpecifiedMethodCalls($node, $executeStatementMethods)) {
-            return $this->nodeFactory->createMethodCall($node->var, 'executeStatement', $node->args);
+            return $this->nodeFactory->createMethodCall($node->var, 'executeStatement', $node->getArgs());
         }
 
         return null;

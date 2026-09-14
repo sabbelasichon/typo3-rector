@@ -55,11 +55,11 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector implements 
         }
 
         // Only calls with the url argument are rewritten
-        if (count($node->args) > 1) {
+        if (count($node->getArgs()) > 1) {
             return null;
         }
 
-        $urlValue = $this->valueResolver->getValue($node->args[0]->value);
+        $urlValue = $this->valueResolver->getValue($node->getArgs()[0]->value);
 
         if ($urlValue === null) {
             return null;
@@ -74,7 +74,7 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector implements 
                             $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Http\RequestFactory'),
                         ]),
                         'request',
-                        $node->args
+                        $node->getArgs()
                     ),
                     'getBody'
                 ),
@@ -82,7 +82,7 @@ final class UseFileGetContentsForGetUrlRector extends AbstractRector implements 
             );
         }
 
-        return new ErrorSuppress($this->nodeFactory->createFuncCall('file_get_contents', $node->args));
+        return new ErrorSuppress($this->nodeFactory->createFuncCall('file_get_contents', $node->getArgs()));
     }
 
     public function getRuleDefinition(): RuleDefinition

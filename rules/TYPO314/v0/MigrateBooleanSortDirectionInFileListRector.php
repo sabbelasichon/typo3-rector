@@ -63,7 +63,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $args = $node->args;
+        $args = $node->getArgs();
         $sortDirectionArgument = $args[3]->value;
 
         if ($this->valueResolver->isFalse($sortDirectionArgument)) {
@@ -100,7 +100,7 @@ CODE_SAMPLE
             return true;
         }
 
-        $args = $node->args;
+        $args = $node->getArgs();
         return count($args) < 4;
     }
 }

@@ -42,7 +42,7 @@ final class UnifiedFileNameValidatorRector extends AbstractRector implements Doc
                     $this->nodeFactory->createClassConstReference('TYPO3\CMS\Core\Resource\Security\FileNameValidator'),
                 ]),
                 'isValid',
-                $node->args
+                $node->getArgs()
             );
         }
 

@@ -59,19 +59,20 @@ CODE_SAMPLE
 
         $changed = false;
 
-        if (count($node->args) === 2) {
+        if (count($node->getArgs()) === 2) {
             unset($node->args[1]);
             $changed = true;
         }
 
-        $argument = $node->args[0];
+        $argument = $node->getArgs()[0];
         if (! $argument instanceof Arg) {
             return null;
         }
 
         $type = $this->getType($argument->value);
         if ($type->isString()->no()) {
-            $node->args[0]->value = new String_($argument->value);
+            $node->getArgs()[0]
+                ->value = new String_($argument->value);
             $changed = true;
         }
 

@@ -258,16 +258,16 @@ CODE_SAMPLE
                     return null;
                 }
 
-                if (! isset($subNode->args[0])) {
+                if (! isset($subNode->getArgs()[0])) {
                     return null;
                 }
 
-                if (isset($subNode->args[1])) {
+                if (isset($subNode->getArgs()[1])) {
                     // Skip if there are constructor arguments
                     return null;
                 }
 
-                $className = $this->valueResolver->getValue($subNode->args[0]->value);
+                $className = $this->valueResolver->getValue($subNode->getArgs()[0]->value);
                 if (! is_string($className)) {
                     return null;
                 }

@@ -45,7 +45,7 @@ final class UniqueListFromStringUtilityRector extends AbstractRector implements 
         return $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Core\Utility\StringUtility',
             'uniqueList',
-            [$node->args[0]]
+            [$node->getArgs()[0]]
         );
     }
 

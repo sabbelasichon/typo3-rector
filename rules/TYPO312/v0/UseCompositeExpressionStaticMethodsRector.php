@@ -37,22 +37,24 @@ final class UseCompositeExpressionStaticMethodsRector extends AbstractRector imp
             return null;
         }
 
-        if ($node->args[0]->value->getType() === 'Expr_ClassConstFetch') {
+        if ($node->getArgs()[0]->value->getType() === 'Expr_ClassConstFetch') {
             /** @var ClassConstFetch $firstArg */
-            $firstArg = $node->args[0]->value;
+            $firstArg = $node->getArgs()[0]
+                ->value;
             /** @var Node\Identifier $identifier */
             $identifier = $firstArg->name;
             $methodType = $identifier->name === 'TYPE_AND' ? 'and' : 'or';
         } else {
             /** @var String_ $firstArg */
-            $firstArg = $node->args[0]->value;
+            $firstArg = $node->getArgs()[0]
+                ->value;
             $methodType = strtolower($firstArg->value);
         }
 
         return $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Core\Database\Query\Expression\CompositeExpression',
             $methodType,
-            [$node->args[1]]
+            [$node->getArgs()[1]]
         );
     }
 

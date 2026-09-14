@@ -74,7 +74,7 @@ CODE_SAMPLE
             return null;
         }
 
-        $requestArgument = $methodCall->args[2] ?? null;
+        $requestArgument = $methodCall->getArgs()[2] ?? null;
 
         if ($requestArgument === null) {
             return null;

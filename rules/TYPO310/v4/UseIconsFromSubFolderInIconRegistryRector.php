@@ -63,7 +63,7 @@ final class UseIconsFromSubFolderInIconRegistryRector extends AbstractRector imp
             return null;
         }
 
-        $options = $this->valueResolver->getValue($node->args[2]->value);
+        $options = $this->valueResolver->getValue($node->getArgs()[2]->value);
 
         if (! is_array($options)) {
             return null;
@@ -84,7 +84,8 @@ final class UseIconsFromSubFolderInIconRegistryRector extends AbstractRector imp
             'typo3/sysext/core/Resources/Public/Icons/T3Icons/svgs/content/'
         );
 
-        $node->args[2]->value = $this->nodeFactory->createArray($options);
+        $node->getArgs()[2]
+            ->value = $this->nodeFactory->createArray($options);
 
         return null;
     }
@@ -120,7 +121,7 @@ CODE_SAMPLE
 
     private function isSvgIconProvider(MethodCall $methodCall): bool
     {
-        $iconProviderClassName = $this->valueResolver->getValue($methodCall->args[1]->value);
+        $iconProviderClassName = $this->valueResolver->getValue($methodCall->getArgs()[1]->value);
 
         if ($iconProviderClassName === null) {
             return false;

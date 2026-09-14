@@ -78,7 +78,8 @@ final class UseControllerClassesInExtbasePluginsAndModulesRector extends Abstrac
             return null;
         }
 
-        $extensionNameArgumentValue = $node->args[0]->value;
+        $extensionNameArgumentValue = $node->getArgs()[0]
+            ->value;
 
         $extensionName = $this->valueResolver->getValue($extensionNameArgumentValue);
 
@@ -153,12 +154,12 @@ CODE_SAMPLE
         string $vendorName,
         string $extensionName
     ): void {
-        if (isset($staticCall->args[2]) && $staticCall->args[2]->value instanceof Array_) {
-            $this->createNewControllerActionsArray($staticCall->args[2]->value, $vendorName, $extensionName);
+        if (isset($staticCall->getArgs()[2]) && $staticCall->getArgs()[2]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($staticCall->getArgs()[2]->value, $vendorName, $extensionName);
         }
 
-        if (isset($staticCall->args[3]) && $staticCall->args[3]->value instanceof Array_) {
-            $this->createNewControllerActionsArray($staticCall->args[3]->value, $vendorName, $extensionName);
+        if (isset($staticCall->getArgs()[3]) && $staticCall->getArgs()[3]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($staticCall->getArgs()[3]->value, $vendorName, $extensionName);
         }
     }
 
@@ -215,8 +216,8 @@ CODE_SAMPLE
         string $vendorName,
         string $extensionName
     ): void {
-        if (isset($staticCall->args[4]) && $staticCall->args[4]->value instanceof Array_) {
-            $this->createNewControllerActionsArray($staticCall->args[4]->value, $vendorName, $extensionName);
+        if (isset($staticCall->getArgs()[4]) && $staticCall->getArgs()[4]->value instanceof Array_) {
+            $this->createNewControllerActionsArray($staticCall->getArgs()[4]->value, $vendorName, $extensionName);
         }
     }
 
