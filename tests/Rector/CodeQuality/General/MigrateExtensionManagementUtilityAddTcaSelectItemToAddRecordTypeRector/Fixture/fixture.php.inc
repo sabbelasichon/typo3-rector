@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
@@ -32,28 +32,32 @@ ExtensionManagementUtility::addTcaSelectItem(
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRector\Fixture;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
-ExtensionManagementUtility::addPlugin(
+ExtensionManagementUtility::addRecordType(
     [
         'label' => 'my-label',
         'value' => 'my-content-element',
         'icon' => 'content-map',
         'group' => 'my-group',
         'description' => 'my-description',
-    ]
+    ],
+    // TODO: Important! Add showItemList yourself
+    ''
 );
 
-ExtensionManagementUtility::addPlugin(
+ExtensionManagementUtility::addRecordType(
     [
         'label' => 'my-label',
         'value' => 'my-content-element',
         'icon' => 'content-map',
         'group' => 'my-group',
         'description' => 'my-description',
-    ]
+    ],
+    // TODO: Important! Add showItemList yourself
+    ''
 );
 ?>
