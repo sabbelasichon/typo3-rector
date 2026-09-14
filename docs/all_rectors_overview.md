@@ -1,4 +1,4 @@
-# 251 Rules Overview
+# 252 Rules Overview
 
 <br>
 
@@ -12,7 +12,7 @@
 
 - [TYPO311](#typo311) (36)
 
-- [TYPO312](#typo312) (59)
+- [TYPO312](#typo312) (60)
 
 - [TYPO313](#typo313) (49)
 
@@ -3420,6 +3420,74 @@ Migrate from `$GLOBALS['PAGES_TYPES']` to the new PageDoktypeRegistry
      'allowedTables' => '*',
 -];
 +]);
+```
+
+<br>
+
+### UseSelectItemInsteadOfArrayRector
+
+Use SelectItem instead of Array
+
+- class: [`Ssch\TYPO3Rector\TYPO312\v3\UseSelectItemInsteadOfArrayRector`](../rules/TYPO312/v3/UseSelectItemInsteadOfArrayRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
++use TYPO3\CMS\Core\Schema\Struct\SelectItem;
+
+ ExtensionManagementUtility::addTcaSelectItem(
+     'tt_content',
+     'my_field',
+-    [
++    new SelectItem(
++        'select',
+         'my-label',
+         'my-value',
+         'my-icon',
+         'my-group',
+         'my-description',
+-    ]
++    )
+ );
+```
+
+<br>
+
+```diff
+ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
++use TYPO3\CMS\Core\Schema\Struct\SelectItem;
+
+ ExtensionManagementUtility::addRecordType(
+-    [
++    new SelectItem(
++        'select',
+         'my-label',
+         'my-value',
+         'my-icon',
+         'my-group',
+         'my-description',
+-    ]
++    )
+ );
+```
+
+<br>
+
+```diff
+ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
++use TYPO3\CMS\Core\Schema\Struct\SelectItem;
+
+ ExtensionManagementUtility::addPlugin(
+-    [
++    new SelectItem(
++        'select',
+         'my-label',
+         'my-value',
+         'my-icon',
+         'my-group',
+         'my-description',
+-    ]
++    )
+ );
 ```
 
 <br>

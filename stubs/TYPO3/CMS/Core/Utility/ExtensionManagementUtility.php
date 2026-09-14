@@ -131,4 +131,16 @@ class ExtensionManagementUtility
     public static function makeCategorizable(string $extensionKey, string $tableName, string $fieldName = 'categories', array $options = []): void
     {
     }
+
+    /**
+     * @param array|SelectItem $item
+     * @param string $showItemList
+     * @param array $additionalTypeInformation
+     * @param string $position
+     * @param string $table
+     * @return void
+     */
+    public static function addRecordType($item, string $showItemList, array $additionalTypeInformation = [], string $position = '', string $table = 'tt_content'): void
+    {
+    }
 }
