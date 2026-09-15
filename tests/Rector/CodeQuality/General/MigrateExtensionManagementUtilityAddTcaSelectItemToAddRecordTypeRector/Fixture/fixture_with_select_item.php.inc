@@ -1,6 +1,6 @@
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRector\Fixture;
 
 use TYPO3\CMS\Core\Schema\Struct\SelectItem;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -21,12 +21,12 @@ ExtensionManagementUtility::addTcaSelectItem(
 -----
 <?php
 
-namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector\Fixture;
+namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRector\Fixture;
 
 use TYPO3\CMS\Core\Schema\Struct\SelectItem;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-ExtensionManagementUtility::addPlugin(
+ExtensionManagementUtility::addRecordType(
     new SelectItem(
         'select',
         'my-label',
@@ -34,6 +34,7 @@ ExtensionManagementUtility::addPlugin(
         'my-icon',
         'my-group',
         'my-description',
-    )
+    ),
+    ''
 );
 ?>

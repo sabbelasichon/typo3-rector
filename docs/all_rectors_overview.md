@@ -205,24 +205,26 @@ Use `GeneralUtility::makeInstance()` instead of `getInstance` call
 
 <br>
 
-### MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector
+### MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRector
 
-Migrate `ExtensionManagementUtility::addTcaSelectItem()` for tt_content.CType to `ExtensionManagementUtility::addPlugin()`
+Migrate `ExtensionManagementUtility::addTcaSelectItem()` for tt_content.CType to `ExtensionManagementUtility::addRecordType()`
 
-- class: [`Ssch\TYPO3Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector`](../rules/CodeQuality/General/MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector.php)
+- class: [`Ssch\TYPO3Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRector`](../rules/CodeQuality/General/MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRector.php)
 
 ```diff
 -\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
 -    'tt_content',
 -    'CType',
-+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
++\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addRecordType(
      [
          'label' => 'My Content Element',
          'value' => 'my_content_element',
          'icon' => 'my-icon-identifier',
          'group' => 'group1',
          'description' => 'My Description',
-     ]
+-    ]
++    ],
++    ''
  );
 ```
 

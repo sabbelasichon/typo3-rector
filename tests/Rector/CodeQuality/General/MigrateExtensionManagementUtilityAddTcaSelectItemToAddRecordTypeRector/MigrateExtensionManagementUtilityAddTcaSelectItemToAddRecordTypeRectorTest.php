@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRector;
+namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
 
-final class MigrateExtensionManagementUtilityAddTcaSelectItemToAddPluginRectorTest extends AbstractRectorTestCase
+final class MigrateExtensionManagementUtilityAddTcaSelectItemToAddRecordTypeRectorTest extends AbstractRectorTestCase
 {
     /**
      * @dataProvider provideData()
