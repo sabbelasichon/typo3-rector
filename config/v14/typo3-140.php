@@ -17,6 +17,7 @@ use Ssch\TYPO3Rector\TYPO314\v0\AddAsNonSchedulableCommandAttributeRector;
 use Ssch\TYPO3Rector\TYPO314\v0\AddNewMethodHasSubmoduleOverviewInModuleInterfaceRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ChangeLocalizationSystemArchitectureRector;
 use Ssch\TYPO3Rector\TYPO314\v0\DropFifthParameterForExtensionUtilityConfigurePluginRector;
+use Ssch\TYPO3Rector\TYPO314\v0\DropPluginTypeAndExtensionKeyForExtensionManagementUtilityAddPluginRector;
 use Ssch\TYPO3Rector\TYPO314\v0\ExtendExtbaseValidatorsFromAbstractValidatorRector;
 use Ssch\TYPO3Rector\TYPO314\v0\IntroduceStrictTypingForCacheBeAndFeRector;
 use Ssch\TYPO3Rector\TYPO314\v0\MigrateAdminPanelDataProviderInterfaceRector;
@@ -129,6 +130,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(AddNewMethodHasSubmoduleOverviewInModuleInterfaceRector::class);
     $rectorConfig->rule(ChangeLocalizationSystemArchitectureRector::class);
     $rectorConfig->rule(DropFifthParameterForExtensionUtilityConfigurePluginRector::class);
+    $rectorConfig->rule(DropPluginTypeAndExtensionKeyForExtensionManagementUtilityAddPluginRector::class);
     $rectorConfig->rule(ExtendExtbaseValidatorsFromAbstractValidatorRector::class);
     $rectorConfig->rule(MigrateAdminPanelDataProviderInterfaceRector::class);
     $rectorConfig->rule(MigrateBooleanSortDirectionInFileListRector::class);

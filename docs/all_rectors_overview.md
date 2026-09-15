@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (50)
+- [TYPO314](#typo314) (51)
 
 - [TypeDeclaration](#typedeclaration) (2)
 
@@ -4711,6 +4711,19 @@ Drop the fifth parameter `$pluginType` of `ExtensionUtility::configurePlugin()`
 ```diff
 -ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], [], ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT);
 +ExtensionUtility::configurePlugin('ExtensionName', 'PluginName', [], []);
+```
+
+<br>
+
+### DropPluginTypeAndExtensionKeyForExtensionManagementUtilityAddPluginRector
+
+Drop the plugin type and the extension key of `ExtensionManagementUtility::addPlugin()`, the second parameter is the FlexForm data structure since TYPO3 v14
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v0\DropPluginTypeAndExtensionKeyForExtensionManagementUtilityAddPluginRector`](../rules/TYPO314/v0/DropPluginTypeAndExtensionKeyForExtensionManagementUtilityAddPluginRector.php)
+
+```diff
+-ExtensionManagementUtility::addPlugin(['My Plugin', 'my_plugin', 'my-icon'], 'CType', 'my_extension');
++ExtensionManagementUtility::addPlugin(['My Plugin', 'my_plugin', 'my-icon']);
 ```
 
 <br>
