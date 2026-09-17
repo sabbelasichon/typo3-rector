@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO314\v3;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\ArrayDimFetch;
-use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
-use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
+use Ssch\TYPO3Rector\NodeFactory\Typo3RequestNodeFactory;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -59,11 +54,11 @@ final class MigrateGeneralUtilityGetIndpEnvRector extends AbstractRector impleme
     /**
      * @readonly
      */
-    private Typo3GlobalsFactory $typo3GlobalsFactory;
+    private Typo3RequestNodeFactory $typo3RequestNodeFactory;
 
-    public function __construct(Typo3GlobalsFactory $typo3GlobalsFactory)
+    public function __construct(Typo3RequestNodeFactory $typo3RequestNodeFactory)
     {
-        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
+        $this->typo3RequestNodeFactory = $typo3RequestNodeFactory;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -153,7 +148,7 @@ CODE_SAMPLE
         }
 
         $scope = ScopeFetcher::fetch($node);
-        $requestVar = $this->getTYPO3RequestInScope($scope);
+        $requestVar = $this->typo3RequestNodeFactory->getServerRequestInScope($scope);
 
         $getAttributeMethodCall = $this->nodeFactory->createMethodCall(
             $requestVar,
@@ -162,24 +157,5 @@ CODE_SAMPLE
         );
 
         return $this->nodeFactory->createMethodCall($getAttributeMethodCall, $methodName);
-    }
-
-    /**
-     * @return ArrayDimFetch|PropertyFetch|Variable
-     */
-    private function getTYPO3RequestInScope(Scope $scope)
-    {
-        if ($scope->hasVariableType('request')->yes() && $scope->getVariableType('request')->isObject()->yes()) {
-            return new Variable('request');
-        }
-
-        $classReflection = $scope->getClassReflection();
-        if ($classReflection instanceof ClassReflection
-            && $classReflection->is('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
-        ) {
-            return $this->nodeFactory->createPropertyFetch('this', 'request');
-        }
-
-        return $this->typo3GlobalsFactory->create('TYPO3_REQUEST');
     }
 }

@@ -8,11 +8,9 @@ use PhpParser\Comment;
 use PhpParser\Modifiers;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
-use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Cast\String_;
 use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\PropertyFetch;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Identifier;
@@ -20,8 +18,6 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\Expression;
 use PhpParser\Node\Stmt\Return_;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\NodeTypeResolver\Node\AttributeKey;
@@ -30,7 +26,7 @@ use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
 use Rector\ValueObject\PhpVersion;
 use Rector\ValueObject\PhpVersionFeature;
-use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
+use Ssch\TYPO3Rector\NodeFactory\Typo3RequestNodeFactory;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
@@ -49,14 +45,14 @@ final class MigrateGeneralUtilityCreateVersionNumberedFilenameRector extends Abs
     /**
      * @readonly
      */
-    private Typo3GlobalsFactory $typo3GlobalsFactory;
+    private Typo3RequestNodeFactory $typo3RequestNodeFactory;
 
     public function __construct(
-        ClassDependencyManipulator $classDependencyManipulator,
-        Typo3GlobalsFactory $typo3GlobalsFactory
+        Typo3RequestNodeFactory $typo3RequestNodeFactory,
+        ClassDependencyManipulator $classDependencyManipulator
     ) {
+        $this->typo3RequestNodeFactory = $typo3RequestNodeFactory;
         $this->classDependencyManipulator = $classDependencyManipulator;
-        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -160,7 +156,7 @@ CODE_SAMPLE
             $resourceAssignStmt = new Expression($resourceAssign);
 
             // Create: (string)$this->resourcePublisher->generateUri(...);
-            $requestVar = $this->getTYPO3RequestInScope($scope);
+            $requestVar = $this->typo3RequestNodeFactory->getServerRequestInScope($scope);
             $resourcePublisherFetch = $this->nodeFactory->createPropertyFetch('this', 'resourcePublisher');
 
             if (\PHP_VERSION_ID >= PhpVersion::PHP_80) {
@@ -224,21 +220,6 @@ CODE_SAMPLE
         }
 
         return null;
-    }
-
-    /**
-     * @return ArrayDimFetch|PropertyFetch
-     */
-    private function getTYPO3RequestInScope(Scope $scope)
-    {
-        $classReflection = $scope->getClassReflection();
-        if ($classReflection instanceof ClassReflection
-            && $classReflection->is('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
-        ) {
-            return $this->nodeFactory->createPropertyFetch('this', 'request');
-        }
-
-        return $this->typo3GlobalsFactory->create('TYPO3_REQUEST');
     }
 
     /**

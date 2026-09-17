@@ -6,16 +6,14 @@ namespace Ssch\TYPO3Rector\TYPO313\v0;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\PropertyFetch;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\NodeTypeResolver\Node\AttributeKey;
+use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
-use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
+use Ssch\TYPO3Rector\NodeFactory\Typo3RequestNodeFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -35,12 +33,14 @@ final class MigrateTypoScriptFrontendControllerFeUserRector extends AbstractRect
     /**
      * @readonly
      */
-    private Typo3GlobalsFactory $typo3GlobalsFactory;
+    private Typo3RequestNodeFactory $typo3RequestNodeFactory;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, Typo3GlobalsFactory $typo3GlobalsFactory)
-    {
+    public function __construct(
+        Typo3RequestNodeFactory $typo3RequestNodeFactory,
+        Typo3NodeResolver $typo3NodeResolver
+    ) {
+        $this->typo3RequestNodeFactory = $typo3RequestNodeFactory;
         $this->typo3NodeResolver = $typo3NodeResolver;
-        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -169,38 +169,13 @@ CODE_SAMPLE
 
     private function createReplacement(PropertyFetch $propertyFetch): MethodCall
     {
-        $scope = $propertyFetch->getAttribute(AttributeKey::SCOPE);
-        if (! $scope instanceof Scope) {
-            // Cannot determine scope, fall back to global TYPO3_REQUEST.
-            return $this->nodeFactory->createMethodCall(
-                $this->typo3GlobalsFactory->create('TYPO3_REQUEST'),
-                'getAttribute',
-                ['frontend.user']
-            );
-        }
+        $scope = ScopeFetcher::fetch($propertyFetch);
 
         return $this->nodeFactory->createMethodCall(
-            $this->getTYPO3RequestInScope($scope),
+            $this->typo3RequestNodeFactory->getServerRequestInScope($scope),
             'getAttribute',
             ['frontend.user']
         );
-    }
-
-    /**
-     * In an ActionController context, returns `$this->request`. Otherwise, returns `$GLOBALS['TYPO3_REQUEST']`.
-     *
-     * @return ArrayDimFetch|PropertyFetch
-     */
-    private function getTYPO3RequestInScope(Scope $scope)
-    {
-        $classReflection = $scope->getClassReflection();
-        if ($classReflection instanceof ClassReflection
-            && $classReflection->is('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
-        ) {
-            return $this->nodeFactory->createPropertyFetch('this', 'request');
-        }
-
-        return $this->typo3GlobalsFactory->create('TYPO3_REQUEST');
     }
 
     /**

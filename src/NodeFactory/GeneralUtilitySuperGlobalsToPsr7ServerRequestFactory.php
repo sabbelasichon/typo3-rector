@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\NodeFactory;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
-use PHPStan\Reflection\ClassReflection;
+use PHPStan\Analyser\Scope;
 use PHPStan\Type\ObjectType;
 use Rector\NodeNameResolver\NodeNameResolver;
 use Rector\NodeTypeResolver\NodeTypeResolver;
@@ -24,7 +24,7 @@ final class GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory
     /**
      * @readonly
      */
-    private Typo3GlobalsFactory $typo3GlobalsFactory;
+    private Typo3RequestNodeFactory $typo3RequestNodeFactory;
 
     /**
      * @readonly
@@ -42,14 +42,14 @@ final class GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory
     private ValueResolver $valueResolver;
 
     public function __construct(
+        Typo3RequestNodeFactory $typo3RequestNodeFactory,
         NodeFactory $nodeFactory,
-        Typo3GlobalsFactory $typo3GlobalsFactory,
         NodeTypeResolver $nodeTypeResolver,
         NodeNameResolver $nodeNameResolver,
         ValueResolver $valueResolver
     ) {
+        $this->typo3RequestNodeFactory = $typo3RequestNodeFactory;
         $this->nodeFactory = $nodeFactory;
-        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
         $this->nodeTypeResolver = $nodeTypeResolver;
         $this->nodeNameResolver = $nodeNameResolver;
         $this->valueResolver = $valueResolver;
@@ -59,7 +59,7 @@ final class GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory
      * @return ArrayDimFetch|MethodCall|null
      */
     public function refactorToPsr7MethodCall(
-        ?ClassReflection $classReflection,
+        Scope $scope,
         StaticCall $node,
         string $psr7ServerRequestMethodName,
         string $oldSuperGlobalsMethodName
@@ -75,13 +75,7 @@ final class GeneralUtilitySuperGlobalsToPsr7ServerRequestFactory
             return null;
         }
 
-        if ($classReflection instanceof ClassReflection
-            && $classReflection->is('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
-        ) {
-            $requestFetcherVariable = $this->nodeFactory->createPropertyFetch('this', 'request');
-        } else {
-            $requestFetcherVariable = $this->typo3GlobalsFactory->create('TYPO3_REQUEST');
-        }
+        $requestFetcherVariable = $this->typo3RequestNodeFactory->getServerRequestInScope($scope);
 
         if (! isset($node->getArgs()[0])) {
             return $this->nodeFactory->createMethodCall($requestFetcherVariable, $psr7ServerRequestMethodName);

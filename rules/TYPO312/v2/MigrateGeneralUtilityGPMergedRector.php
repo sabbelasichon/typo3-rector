@@ -123,7 +123,7 @@ CODE_SAMPLE
 
         $scope = ScopeFetcher::fetch($node);
         $getParsedBody = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
-            $scope->getClassReflection(),
+            $scope,
             $staticCall,
             'getQueryParams',
             '_GPmerged'
@@ -159,7 +159,7 @@ CODE_SAMPLE
         StaticCall $staticCall
     ): ?Expression {
         $arrayDimFetch = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
-            $scope->getClassReflection(),
+            $scope,
             $staticCall,
             'getParsedBody',
             '_GPmerged'
