@@ -163,9 +163,8 @@ CODE_SAMPLE
         }
 
         // Non schedulable commands cannot be configured via attributes
-        $schedulable = $options['schedulable'] ?? true;
-
-        if ((bool) $schedulable === false) {
+        $schedulable = ($options['schedulable'] ?? 'true') === 'true';
+        if ($schedulable === false) {
             return null;
         }
 
