@@ -175,7 +175,7 @@ CODE_SAMPLE
         }
 
         $schedulable = ($options['schedulable'] ?? 'true') === 'true';
-        if ($schedulable === true) {
+        if ($schedulable) {
             return null;
         }
 
