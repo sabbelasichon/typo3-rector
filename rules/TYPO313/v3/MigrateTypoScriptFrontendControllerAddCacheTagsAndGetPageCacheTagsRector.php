@@ -14,11 +14,10 @@ use PhpParser\Node\Name\FullyQualified;
 use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
-use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
+use Ssch\TYPO3Rector\NodeFactory\Typo3RequestNodeFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -38,12 +37,14 @@ final class MigrateTypoScriptFrontendControllerAddCacheTagsAndGetPageCacheTagsRe
     /**
      * @readonly
      */
-    private Typo3GlobalsFactory $typo3GlobalsFactory;
+    private Typo3RequestNodeFactory $typo3RequestNodeFactory;
 
-    public function __construct(Typo3NodeResolver $typo3NodeResolver, Typo3GlobalsFactory $typo3GlobalsFactory)
-    {
+    public function __construct(
+        Typo3RequestNodeFactory $typo3RequestNodeFactory,
+        Typo3NodeResolver $typo3NodeResolver
+    ) {
+        $this->typo3RequestNodeFactory = $typo3RequestNodeFactory;
         $this->typo3NodeResolver = $typo3NodeResolver;
-        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
     }
 
     public function getRuleDefinition(): RuleDefinition
@@ -152,14 +153,7 @@ CODE_SAMPLE
 
     private function createTYPO3RequestGetAttributeMethodCall(Scope $scope): MethodCall
     {
-        $classReflection = $scope->getClassReflection();
-        if ($classReflection instanceof ClassReflection
-            && $classReflection->is('TYPO3\CMS\Extbase\Mvc\Controller\ActionController')
-        ) {
-            $requestFetcherVariable = $this->nodeFactory->createPropertyFetch('this', 'request');
-        } else {
-            $requestFetcherVariable = $this->typo3GlobalsFactory->create('TYPO3_REQUEST');
-        }
+        $requestFetcherVariable = $this->typo3RequestNodeFactory->getServerRequestInScope($scope);
 
         return $this->nodeFactory->createMethodCall(
             $requestFetcherVariable,

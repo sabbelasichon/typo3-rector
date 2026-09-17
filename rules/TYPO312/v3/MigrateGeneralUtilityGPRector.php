@@ -89,7 +89,7 @@ CODE_SAMPLE
     {
         $scope = ScopeFetcher::fetch($node);
         $getParsedBody = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
-            $scope->getClassReflection(),
+            $scope,
             $node,
             'getParsedBody',
             '_GP'
@@ -100,7 +100,7 @@ CODE_SAMPLE
         }
 
         $getQueryParams = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
-            $scope->getClassReflection(),
+            $scope,
             $node,
             'getQueryParams',
             '_GP'

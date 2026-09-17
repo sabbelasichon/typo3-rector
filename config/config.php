@@ -12,6 +12,7 @@ use Ssch\TYPO3Rector\Filesystem\FilesystemFactory;
 use Ssch\TYPO3Rector\NodeAnalyzer\ExtbaseControllerRedirectAnalyzer;
 use Ssch\TYPO3Rector\NodeFactory\InjectMethodFactory;
 use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
+use Ssch\TYPO3Rector\NodeFactory\Typo3RequestNodeFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 
 return static function (RectorConfig $rectorConfig): void {
@@ -21,6 +22,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->singleton(ExtbaseControllerRedirectAnalyzer::class);
     $rectorConfig->singleton(InjectMethodFactory::class);
     $rectorConfig->singleton(Typo3GlobalsFactory::class);
+    $rectorConfig->singleton(Typo3RequestNodeFactory::class);
     $rectorConfig->singleton(Typo3NodeResolver::class);
 
     $rectorConfig->singleton(FilesystemFactory::class, fn () => new FilesystemFactory('/'));

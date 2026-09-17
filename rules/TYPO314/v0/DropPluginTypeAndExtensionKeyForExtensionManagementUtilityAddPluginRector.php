@@ -9,6 +9,7 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
@@ -74,7 +75,7 @@ CODE_SAMPLE
 
         foreach ($args as $arg) {
             // named arguments cannot be dropped by position
-            if ($arg->name instanceof Node\Identifier) {
+            if ($arg->name instanceof Identifier) {
                 return null;
             }
         }

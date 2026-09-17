@@ -103,7 +103,7 @@ CODE_SAMPLE
 
             /** @var ArrayDimFetch $arrayDimFetch */
             $arrayDimFetch = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
-                $scope->getClassReflection(),
+                $scope,
                 $staticCall,
                 'getParsedBody',
                 '_POST'
@@ -118,7 +118,7 @@ CODE_SAMPLE
         }
 
         $methodCall = $this->globalsToPsr7ServerRequestFactory->refactorToPsr7MethodCall(
-            $scope->getClassReflection(),
+            $scope,
             $node,
             'getParsedBody',
             '_POST'

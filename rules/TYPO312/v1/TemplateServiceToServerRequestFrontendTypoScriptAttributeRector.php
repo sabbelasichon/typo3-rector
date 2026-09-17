@@ -6,11 +6,10 @@ namespace Ssch\TYPO3Rector\TYPO312\v1;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
-use PHPStan\Reflection\ClassReflection;
 use PHPStan\Type\ObjectType;
 use Rector\PHPStan\ScopeFetcher;
 use Rector\Rector\AbstractRector;
-use Ssch\TYPO3Rector\NodeFactory\Typo3GlobalsFactory;
+use Ssch\TYPO3Rector\NodeFactory\Typo3RequestNodeFactory;
 use Ssch\TYPO3Rector\NodeResolver\Typo3NodeResolver;
 use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
 use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
@@ -25,16 +24,16 @@ final class TemplateServiceToServerRequestFrontendTypoScriptAttributeRector exte
     /**
      * @readonly
      */
-    private Typo3GlobalsFactory $typo3GlobalsFactory;
+    private Typo3RequestNodeFactory $typo3RequestNodeFactory;
 
     /**
      * @readonly
      */
     private Typo3NodeResolver $typo3NodeResolver;
 
-    public function __construct(Typo3GlobalsFactory $typo3GlobalsFactory, Typo3NodeResolver $typo3NodeResolver)
+    public function __construct(Typo3RequestNodeFactory $typo3RequestNodeFactory, Typo3NodeResolver $typo3NodeResolver)
     {
-        $this->typo3GlobalsFactory = $typo3GlobalsFactory;
+        $this->typo3RequestNodeFactory = $typo3RequestNodeFactory;
         $this->typo3NodeResolver = $typo3NodeResolver;
     }
 
@@ -68,14 +67,7 @@ CODE_SAMPLE
         }
 
         $scope = ScopeFetcher::fetch($node);
-        $classReflection = $scope->getClassReflection();
-        if ($classReflection instanceof ClassReflection && $classReflection->is(
-            'TYPO3\CMS\Extbase\Mvc\Controller\ActionController'
-        )) {
-            $requestFetcherVariable = $this->nodeFactory->createPropertyFetch('this', 'request');
-        } else {
-            $requestFetcherVariable = $this->typo3GlobalsFactory->create('TYPO3_REQUEST');
-        }
+        $requestFetcherVariable = $this->typo3RequestNodeFactory->getServerRequestInScope($scope);
 
         return $this->nodeFactory->createMethodCall(
             $this->nodeFactory->createMethodCall($requestFetcherVariable, 'getAttribute', ['frontend.typoscript']),
