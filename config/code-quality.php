@@ -122,6 +122,7 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager',
             'TYPO3\CMS\Extbase\Persistence\Generic\Qom\QueryObjectModelFactory',
             'TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbBackend',
+            'TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface',
             'TYPO3\CMS\Extbase\Persistence\Repository',
             'TYPO3\CMS\Extbase\Property\PropertyMapper',
             'TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationBuilder',
