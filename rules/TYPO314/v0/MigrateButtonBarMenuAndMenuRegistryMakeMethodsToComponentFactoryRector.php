@@ -20,7 +20,7 @@ use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
 use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
- * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107824-ButtonBarMakeMethods.html
+ * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107823-ButtonBarMakeMethods.html
  * @see \Ssch\TYPO3Rector\Tests\Rector\v14\v0\MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector\MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRectorTest
  */
 final class MigrateButtonBarMenuAndMenuRegistryMakeMethodsToComponentFactoryRector extends AbstractRector implements DocumentedRuleInterface
