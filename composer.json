@@ -105,6 +105,13 @@
         },
         "optimize-autoloader": true,
         "platform-check": false,
+        "policy": {
+            "advisories": {
+                "ignore-id": {
+                    "CVE-2026-102601": "Allow league/flysystem to be installed under PHP 7.4"
+                }
+            }
+        },
         "sort-packages": true,
         "update-with-dependencies": true
     },
