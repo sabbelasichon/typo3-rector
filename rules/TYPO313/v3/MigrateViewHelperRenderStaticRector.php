@@ -19,9 +19,9 @@ use PhpParser\Node\Stmt\Return_;
 use PhpParser\Node\Stmt\TraitUse;
 use PhpParser\Node\VariadicPlaceholder;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithContentArgumentAndRenderStatic;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
@@ -216,7 +216,7 @@ CODE_SAMPLE
                 // Skip ViewHelpers where content argument is determined automatically
                 if ($this->isName($trait, CompileWithContentArgumentAndRenderStatic::class)) {
                     $contentArgumentNameProperty = $classNode->getProperty('contentArgumentName');
-                    if ($contentArgumentNameProperty && $contentArgumentNameProperty->props !== []) {
+                    if ($contentArgumentNameProperty instanceof Property && $contentArgumentNameProperty->props !== []) {
                         return true;
                     }
 

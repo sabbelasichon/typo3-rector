@@ -27,11 +27,11 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Case_;
 use PhpParser\Node\Stmt\Switch_;
 use Rector\Rector\AbstractRector;
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
+use Rector\ValueObject\PhpVersion;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.0/Breaking-101175-ConvertVersionStateToNativeEnum.html
@@ -219,7 +219,7 @@ CODE_SAMPLE
                 };
                 $newIf = $transform($ifExpr);
                 $newElse = $transform($elseExpr);
-                if ($newIf && $newElse) {
+                if ($newIf instanceof PropertyFetch && $newElse instanceof PropertyFetch) {
                     if ($node instanceof Assign) {
                         $node->expr = new Ternary($cond, $newIf, $newElse);
                     } else {
@@ -266,7 +266,7 @@ CODE_SAMPLE
 
     public function provideMinPhpVersion(): int
     {
-        return PhpVersionFeature::ENUM;
+        return PhpVersion::PHP_81;
     }
 
     private function refactorClassConstFetch(ClassConstFetch $classConstFetch): ?PropertyFetch

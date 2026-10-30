@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v0\typo3\ExtbaseAnnotationToAttributeRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\ValueObject\PhpVersion;
 
 final class ExtbaseAnnotationToAttributeRectorWithoutImportShortNamesTest extends AbstractRectorTestCase
 {
@@ -14,7 +14,7 @@ final class ExtbaseAnnotationToAttributeRectorWithoutImportShortNamesTest extend
      */
     public function test(string $filePath): void
     {
-        if (PHP_VERSION_ID < PhpVersionFeature::ATTRIBUTES) {
+        if (PHP_VERSION_ID < PhpVersion::PHP_80) {
             $this->markTestSkipped('Do not execute');
         }
 

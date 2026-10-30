@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\CodeQuality\General\AddAutoconfigureAttributeToClassRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\ValueObject\PhpVersion;
 
 final class AddAutoconfigureAttributeToClassRectorTest extends AbstractRectorTestCase
 {
@@ -14,7 +14,7 @@ final class AddAutoconfigureAttributeToClassRectorTest extends AbstractRectorTes
      */
     public function test(string $filePath): void
     {
-        if (PHP_VERSION_ID < PhpVersionFeature::ATTRIBUTES) {
+        if (PHP_VERSION_ID < PhpVersion::PHP_80) {
             $this->markTestSkipped('Do not execute');
         }
 

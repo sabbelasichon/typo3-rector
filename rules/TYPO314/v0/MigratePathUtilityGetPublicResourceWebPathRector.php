@@ -22,12 +22,11 @@ use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PHPStan\ScopeFetcher;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 use Rector\ValueObject\PhpVersion;
-use Rector\ValueObject\PhpVersionFeature;
 use Ssch\TYPO3Rector\NodeFactory\Typo3RequestNodeFactory;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-107537-getPublicResourcesWebPath.html
@@ -210,7 +209,7 @@ CODE_SAMPLE
      */
     private function addDependency(Class_ $classNode, string $propertyName, string $className): void
     {
-        if (\PHP_VERSION_ID >= PhpVersionFeature::READONLY_PROPERTY) {
+        if (\PHP_VERSION_ID >= PhpVersion::PHP_81) {
             $flags = Modifiers::PRIVATE | Modifiers::READONLY;
         } else {
             $flags = Modifiers::PRIVATE;

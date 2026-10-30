@@ -6,14 +6,15 @@ namespace Ssch\TYPO3Rector\TYPO310\v2;
 
 use PhpParser\Node;
 use PhpParser\Node\Arg;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Type\ObjectType;
 use Rector\NodeTypeResolver\TypeAnalyzer\ArrayTypeAnalyzer;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.2/Deprecation-89579-ServiceChainsRequireAnArrayForExcludedServiceKeys.html
@@ -62,6 +63,11 @@ final class ExcludeServiceKeysToArrayRector extends AbstractRector implements Do
             return null;
         }
 
+        // already migrated
+        if ($this->isTrimExplodeCall($excludeServiceKeys->value)) {
+            return null;
+        }
+
         $args = [new String_(','), $excludeServiceKeys, $this->nodeFactory->createTrue()];
         $staticCall = $this->nodeFactory->createStaticCall(
             'TYPO3\CMS\Core\Utility\GeneralUtility',
@@ -102,5 +108,14 @@ CODE_SAMPLE
             $staticCall,
             new ObjectType('TYPO3\CMS\Core\Utility\GeneralUtility')
         );
+    }
+
+    private function isTrimExplodeCall(Expr $expr): bool
+    {
+        if (! $expr instanceof StaticCall) {
+            return false;
+        }
+
+        return $this->isName($expr->name, 'trimExplode');
     }
 }

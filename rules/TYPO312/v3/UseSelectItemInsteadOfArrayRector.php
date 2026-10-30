@@ -17,10 +17,10 @@ use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\String_;
 use Rector\Php\PhpVersionProvider;
 use Rector\Rector\AbstractRector;
-use Rector\ValueObject\PhpVersionFeature;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
+use Rector\ValueObject\PhpVersion;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.3/Feature-99739-AssociativeArrayKeysForTCAItems.html
@@ -222,7 +222,7 @@ CODE_SAMPLE
         }
 
         $constructorArgs = [];
-        $useNamedArguments = $this->phpVersionProvider->isAtLeastPhpVersion(PhpVersionFeature::NAMED_ARGUMENTS);
+        $useNamedArguments = $this->phpVersionProvider->isAtLeastPhpVersion(PhpVersion::PHP_80);
 
         foreach (self::SELECT_ITEM_KEYS as $key) {
             if (! array_key_exists($key, $itemValues)) {

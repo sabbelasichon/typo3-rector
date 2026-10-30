@@ -11,16 +11,16 @@ use PHPStan\Type\ObjectType;
 use Rector\Php80\NodeAnalyzer\PhpAttributeAnalyzer;
 use Rector\PhpAttribute\NodeFactory\PhpAttributeGroupFactory;
 use Rector\Rector\AbstractRector;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 use Rector\Symfony\Enum\SymfonyAttribute;
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\ValueObject\PhpVersion;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 use Ssch\TYPO3Rector\Helper\ServiceDefinitionHelper;
 use Ssch\TYPO3Rector\NodeAnalyzer\Command\CommandAttributeManipulator;
 use Ssch\TYPO3Rector\NodeAnalyzer\Command\CommandPropertyResolver;
 use Ssch\TYPO3Rector\NodeAnalyzer\SetAliasesMethodCallExtractor;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Feature-107151-AddAsNonSchedulableCommandAttribute.html
@@ -87,7 +87,7 @@ final class AddAsNonSchedulableCommandAttributeRector extends AbstractRector imp
 
     public function provideMinPhpVersion(): int
     {
-        return PhpVersionFeature::ATTRIBUTES;
+        return PhpVersion::PHP_80;
     }
 
     public function getRuleDefinition(): RuleDefinition

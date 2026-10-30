@@ -13,9 +13,9 @@ use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Expression;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Breaking-107356-UseRecordAPIInListModule.html
@@ -115,6 +115,12 @@ CODE_SAMPLE
         }
 
         $rowArrayArgument = $args[$rowArgumentPosition];
+
+        // already migrated
+        if ($rowArrayArgument->value instanceof Variable && $this->isName($rowArrayArgument->value, 'record')) {
+            return null;
+        }
+
         $rowArrayType = $this->nodeTypeResolver->getType($rowArrayArgument->value);
 
         if ($rowArrayType->isArray()->no()) {

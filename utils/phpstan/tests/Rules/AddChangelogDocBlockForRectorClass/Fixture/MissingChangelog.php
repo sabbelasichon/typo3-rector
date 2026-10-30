@@ -7,7 +7,7 @@ namespace Ssch\TYPO3Rector\PHPStan\Tests\Rules\AddChangelogDocBlockForRectorClas
 use PhpParser\Node;
 use Rector\Contract\Rector\RectorInterface;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\RuleDefinition;
 
 final class MissingChangelog extends AbstractRector implements RectorInterface
 {

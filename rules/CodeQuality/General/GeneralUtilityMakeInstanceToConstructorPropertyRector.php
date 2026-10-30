@@ -17,11 +17,11 @@ use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\RuleDoc\CodeSample\ConfiguredCodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
+use Rector\ValueObject\PhpVersion;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 use Webmozart\Assert\Assert;
 
 /**
@@ -283,7 +283,7 @@ CODE_SAMPLE
                 $shortClassName = $this->nodeNameResolver->getShortName($className);
                 $propertyName = lcfirst($shortClassName);
 
-                if (\PHP_VERSION_ID >= PhpVersionFeature::READONLY_PROPERTY) {
+                if (\PHP_VERSION_ID >= PhpVersion::PHP_81) {
                     $flags = Modifiers::PRIVATE & Modifiers::READONLY;
                 } else {
                     $flags = Modifiers::PRIVATE;

@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\ValueObject\PhpVersion;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importNames();
     // this will not import root namespace classes, like \DateTime or \Exception
     $rectorConfig->importShortClasses(false);
-    $rectorConfig->phpVersion(PhpVersionFeature::ATTRIBUTES);
+    $rectorConfig->phpVersion(PhpVersion::PHP_80);
     $rectorConfig->import(__DIR__ . '/../../../../../../../config/v12/extbase_annotations_to_attributes.php');
 };

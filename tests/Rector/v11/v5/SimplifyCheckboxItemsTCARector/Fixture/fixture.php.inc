@@ -202,7 +202,6 @@ return [
                 'items' => [
                     0 => [
                         'foo',
-                        'bar',
                         'labelChecked' => 'Enabled',
                         'labelUnchecked' => 'Disabled',
                         'invertStateDisplay' => true,

@@ -33,6 +33,6 @@
 
 - Keep contributed code PHP 7.4-compatible (project requirement and CI matrix baseline).
 - New rules are expected to follow existing Rector patterns from `docs/contribution.md`: narrow `getNodeTypes()`, flat early-return `refactor()`, and use existing helpers before introducing new abstractions.
-- Rule classes commonly implement `Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface` and include a changelog link plus `RuleDefinition` code samples.
+- Rule classes commonly implement `Rector\RuleDoc\Contract\DocumentedRuleInterface` and include a changelog link plus `RuleDefinition` code samples.
 - Test fixtures should be `*.php.inc` with before/after sections if code should be migrated, otherwise only the code that should not be changed; use `Source/` for auxiliary classes that support tests but must not be transformed.
 - Formatting of fixture/assertion files is intentionally relaxed/skipped by tooling; do not normalize them aggressively.

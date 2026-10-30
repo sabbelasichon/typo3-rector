@@ -5,15 +5,16 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO314\v0;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Expression;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Deprecation-108008-ManualShortcutButtonCreation.html
@@ -107,7 +108,7 @@ CODE_SAMPLE
                 }
             }
 
-            if ($usageFound && $viewVariable) {
+            if ($usageFound && $viewVariable instanceof Expr) {
                 // Extract arguments from the original chain
                 $args = $this->extractArgsFromChain($assign->expr);
 

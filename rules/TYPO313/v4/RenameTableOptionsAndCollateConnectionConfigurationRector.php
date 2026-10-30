@@ -13,9 +13,9 @@ use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Scalar\String_;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/13.4/Deprecation-105297-DeprecateTableoptionsAndCollateConnectionConfiguration.html
@@ -113,12 +113,12 @@ CODE_SAMPLE
     private function processTypo3ConfVarsArray(Array_ $arrayNode): bool
     {
         $dbItem = $this->findArrayItemByKey($arrayNode, 'DB');
-        if (! $dbItem || ! $dbItem->value instanceof Array_) {
+        if (! $dbItem instanceof ArrayItem || ! $dbItem->value instanceof Array_) {
             return false;
         }
 
         $connectionsItem = $this->findArrayItemByKey($dbItem->value, 'Connections');
-        if (! $connectionsItem || ! $connectionsItem->value instanceof Array_) {
+        if (! $connectionsItem instanceof ArrayItem || ! $connectionsItem->value instanceof Array_) {
             return false;
         }
 
