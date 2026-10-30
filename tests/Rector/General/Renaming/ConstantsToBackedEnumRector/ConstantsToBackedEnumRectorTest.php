@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\General\Renaming\ConstantsToBackedEnumRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\ValueObject\PhpVersion;
 
 final class ConstantsToBackedEnumRectorTest extends AbstractRectorTestCase
 {
@@ -14,7 +14,7 @@ final class ConstantsToBackedEnumRectorTest extends AbstractRectorTestCase
      */
     public function test(string $filePath): void
     {
-        if (PHP_VERSION_ID < PhpVersionFeature::ENUM) {
+        if (PHP_VERSION_ID < PhpVersion::PHP_81) {
             $this->markTestSkipped('Do not execute');
         }
 

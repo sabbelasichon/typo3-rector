@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v12\v3\UseSelectItemInsteadOfArrayRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\ValueObject\PhpVersion;
 
 final class UseSelectItemInsteadOfArrayRectorTest extends AbstractRectorTestCase
 {
@@ -14,7 +14,7 @@ final class UseSelectItemInsteadOfArrayRectorTest extends AbstractRectorTestCase
      */
     public function testPhp74(string $filePath): void
     {
-        if (PHP_VERSION_ID >= PhpVersionFeature::NAMED_ARGUMENTS) {
+        if (PHP_VERSION_ID >= PhpVersion::PHP_80) {
             $this->markTestSkipped('Do not execute');
         }
 
@@ -26,7 +26,7 @@ final class UseSelectItemInsteadOfArrayRectorTest extends AbstractRectorTestCase
      */
     public function testPhp80(string $filePath): void
     {
-        if (PHP_VERSION_ID < PhpVersionFeature::NAMED_ARGUMENTS) {
+        if (PHP_VERSION_ID < PhpVersion::PHP_80) {
             $this->markTestSkipped('Do not execute');
         }
 

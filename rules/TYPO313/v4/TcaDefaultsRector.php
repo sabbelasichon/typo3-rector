@@ -11,11 +11,11 @@ use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\String_;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\v13\v4\TcaDefaultsRector\TcaDefaultsRectorTest

@@ -6,11 +6,11 @@ namespace Ssch\TYPO3Rector\TYPO310\v0;
 
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @see \Ssch\TYPO3Rector\Tests\Rector\v10\v0\RemoveShowRemovedLocalizationRecordsRector\RemoveShowRemovedLocalizationRecordsRectorTest

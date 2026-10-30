@@ -10,9 +10,9 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-98479-RemovedFileReferenceRelatedFunctionality.html
@@ -52,6 +52,7 @@ final class RemoveTableLocalPropertyRector extends AbstractRector implements Doc
             return null;
         }
 
+        $hasChanged = false;
         foreach ($node->value->items as $itemKey => $item) {
             if (! $item instanceof ArrayItem) {
                 continue;
@@ -63,10 +64,11 @@ final class RemoveTableLocalPropertyRector extends AbstractRector implements Doc
 
             if ($this->valueResolver->isValue($item->key, 'table_local')) {
                 unset($node->value->items[$itemKey]);
+                $hasChanged = true;
             }
         }
 
-        return null;
+        return $hasChanged ? $node : null;
     }
 
     public function getRuleDefinition(): RuleDefinition

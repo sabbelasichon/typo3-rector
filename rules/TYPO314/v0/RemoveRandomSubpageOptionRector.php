@@ -16,9 +16,9 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Breaking-107654-RemoveRandomSubpageOptionOfDoktypeShortcut.html
@@ -29,6 +29,8 @@ final class RemoveRandomSubpageOptionRector extends AbstractRector implements Do
     private const TARGET_CONSTANT_NAME = 'SHORTCUT_MODE_RANDOM_SUBPAGE';
 
     private const PAGE_REPOSITORY_CLASS = 'TYPO3\CMS\Core\Domain\Repository\PageRepository';
+
+    private const ARGUMENT_REMOVED_ATTRIBUTE = 'typo3_rector_random_subpage_argument_removed';
 
     public function getRuleDefinition(): RuleDefinition
     {
@@ -208,9 +210,15 @@ CODE_SAMPLE
             return null;
         }
 
+        // the remaining second argument is $disableGroupAccessCheck, it must survive the next pass
+        if ($node->getAttribute(self::ARGUMENT_REMOVED_ATTRIBUTE) === true) {
+            return null;
+        }
+
         unset($node->args[1]);
 
         $node->args = array_values($node->getArgs());
+        $node->setAttribute(self::ARGUMENT_REMOVED_ATTRIBUTE, true);
 
         return $node;
     }

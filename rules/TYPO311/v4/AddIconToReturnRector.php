@@ -11,8 +11,8 @@ use PhpParser\Node\Scalar\String_;
 use PhpParser\Node\Stmt\Return_;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\ConfiguredCodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\ConfiguredCodeSample;
+use Rector\RuleDoc\RuleDefinition;
 use Webmozart\Assert\Assert;
 
 /**
@@ -82,6 +82,13 @@ CODE_SAMPLE
     {
         if (! $node->expr instanceof Array_) {
             return null;
+        }
+
+        // already migrated
+        foreach ($node->expr->items as $arrayItem) {
+            if ($arrayItem->key instanceof String_ && $arrayItem->key->value === $this->identifier) {
+                return null;
+            }
         }
 
         $optionsWithNodes = [];

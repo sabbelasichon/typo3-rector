@@ -11,9 +11,9 @@ use PhpParser\Node\Identifier;
 use PHPStan\Type\ObjectType;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/10.0/Feature-88643-NewMailAPIBasedOnSymfonymailerAndSymfonymime.html
@@ -144,25 +144,21 @@ CODE_SAMPLE
         return $methodCall;
     }
 
-    private function refactorMethodAddPart(MethodCall $methodCall): ?Node
+    private function refactorMethodAddPart(MethodCall $methodCall): MethodCall
     {
         $contentType = isset($methodCall->getArgs()[1]) ? $this->valueResolver->getValue(
             $methodCall->getArgs()[1]
                 ->value
         ) : null;
 
-        $methodCall->name = new Identifier('text');
-
         if (! is_string($contentType)) {
-            return null;
+            $methodCall->name = new Identifier('text');
+            return $methodCall;
         }
 
         unset($methodCall->args[1]);
 
-        if ($contentType === 'text/html') {
-            $methodCall->name = new Identifier('html');
-            return $methodCall;
-        }
+        $methodCall->name = new Identifier($contentType === 'text/html' ? 'html' : 'text');
 
         return $methodCall;
     }

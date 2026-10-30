@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\__Major__\__MinorPrefixed__;
 
 use __Base_Rector_Class__;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 
 /**
  * @changelog __Changelog_Url__

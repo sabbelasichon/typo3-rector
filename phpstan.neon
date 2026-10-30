@@ -42,16 +42,10 @@ parameters:
 
     bootstrapFiles:
         - tests/bootstrap-phpstan.php
-        - vendor/rector/rector/vendor/symplify/rule-doc-generator-contracts/src/Contract/DocumentedRuleInterface.php
 
     inferPrivatePropertyTypeFromConstructor: true
 
     ignoreErrors:
-        # package symplify/rule-doc-generator is only installed in CI
-        - "#\\:\\:getRuleDefinition\\(\\) has invalid return type Symplify\\\\RuleDocGenerator\\\\ValueObject\\\\RuleDefinition\\.$#"
-        - "#^Instantiated class Symplify\\\\RuleDocGenerator\\\\ValueObject\\\\CodeSample\\\\CodeSample not found\\.$#"
-        - "#^Instantiated class Symplify\\\\RuleDocGenerator\\\\ValueObject\\\\RuleDefinition not found\\.$#"
-
         # waits for Rector and PHPStan to share same php-parser, probably with PHPStan 1.0
         - '#PhpParser\\Node\\Arg\|PhpParser\\Node\\VariadicPlaceholder#'
 

@@ -187,14 +187,14 @@ final class MyRector extends AbstractRector
 To run this rule only when a minimum PHP version is used, add this method with a required feature:
 
 ```php
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\ValueObject\PhpVersion;
 use Rector\VersionBonding\Contract\MinPhpVersionInterface;
 
 final class MyRector extends AbstractRector implements MinPhpVersionInterface
 {
     public function provideMinPhpVersion(): int
     {
-        return PhpVersionFeature::ENUM;
+        return PhpVersion::PHP_81;
     }
 }
 ```

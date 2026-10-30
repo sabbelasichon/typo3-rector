@@ -9,9 +9,9 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Stmt\Class_;
 use PHPStan\Type\ObjectType;
 use Rector\Rector\AbstractRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/12.0/Breaking-96205-RemovalOfLastRelativeToCurrentScriptRemains.html
@@ -76,6 +76,10 @@ CODE_SAMPLE
 
     private function refactorMethodCall(MethodCall $node): ?MethodCall
     {
+        if ($this->isAvatarImageGetUrl($node)) {
+            return $this->refactorAvatarImageGetUrl($node);
+        }
+
         if ($this->shouldSkipMethodCall($node)) {
             return null;
         }
@@ -83,6 +87,30 @@ CODE_SAMPLE
         unset($node->args[4]);
 
         return $node;
+    }
+
+    private function isAvatarImageGetUrl(MethodCall $methodCall): bool
+    {
+        if (! $this->isName($methodCall->name, 'getUrl')) {
+            return false;
+        }
+
+        return $this->isObjectType($methodCall->var, new ObjectType('TYPO3\\CMS\\Backend\\Backend\\Avatar\\Image'));
+    }
+
+    private function refactorAvatarImageGetUrl(MethodCall $methodCall): ?MethodCall
+    {
+        if ($methodCall->isFirstClassCallable()) {
+            return null;
+        }
+
+        if (! isset($methodCall->getArgs()[0])) {
+            return null;
+        }
+
+        unset($methodCall->args[0]);
+
+        return $methodCall;
     }
 
     private function refactorClassMethod(Class_ $node): ?Class_

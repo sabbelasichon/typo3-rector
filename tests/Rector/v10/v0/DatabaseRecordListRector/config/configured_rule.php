@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Rector\Config\RectorConfig;
 use Rector\Renaming\Rector\MethodCall\RenameMethodRector;
 use Rector\Renaming\ValueObject\MethodCallRename;
-use Rector\Transform\Rector\MethodCall\MethodCallToStaticCallRector;
 use Rector\Transform\ValueObject\MethodCallToStaticCall;
+use Ssch\TYPO3Rector\General\Transform\MethodCallToStaticCallRector;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList;
 

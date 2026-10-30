@@ -9,10 +9,10 @@ use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
 use PhpParser\Node\Scalar\Int_;
 use PhpParser\Node\Scalar\String_;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 use Ssch\TYPO3Rector\Rector\AbstractTcaRector;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://review.typo3.org/c/Packages/TYPO3.CMS/+/72056
@@ -141,11 +141,13 @@ CODE_SAMPLE
             }
 
             // Remove array key 1
-            $this->removeArrayItemFromArrayByKey($firstItemsArray, 1);
-            if ($this->hasAstBeenChanged === false
-                && isset($firstItemsArray->items[1])
-                && $firstItemsArray->items[1] instanceof ArrayItem
-            ) {
+            if ($this->extractArrayItemByKey($firstItemsArray, 1) instanceof ArrayItem) {
+                $this->removeArrayItemFromArrayByKey($firstItemsArray, 1);
+                return;
+            }
+
+            // No array key 1, remove the second item when it is the value
+            if (isset($firstItemsArray->items[1]) && $firstItemsArray->items[1] instanceof ArrayItem) {
                 $key = $firstItemsArray->items[1]->key;
                 $keep = [
                     'invertStateDisplay',

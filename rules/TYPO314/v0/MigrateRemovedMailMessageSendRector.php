@@ -14,10 +14,10 @@ use PHPStan\Type\ObjectType;
 use Rector\NodeManipulator\ClassDependencyManipulator;
 use Rector\PostRector\ValueObject\PropertyMetadata;
 use Rector\Rector\AbstractRector;
-use Rector\ValueObject\PhpVersionFeature;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
+use Rector\ValueObject\PhpVersion;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/14.0/Breaking-108097-MailMessage-sendRemoved.html
@@ -158,7 +158,7 @@ CODE_SAMPLE
      */
     private function addDependency(Class_ $classNode, string $propertyName, string $className): void
     {
-        if (\PHP_VERSION_ID >= PhpVersionFeature::READONLY_PROPERTY) {
+        if (\PHP_VERSION_ID >= PhpVersion::PHP_81) {
             $flags = Modifiers::PRIVATE | Modifiers::READONLY;
         } else {
             $flags = Modifiers::PRIVATE;

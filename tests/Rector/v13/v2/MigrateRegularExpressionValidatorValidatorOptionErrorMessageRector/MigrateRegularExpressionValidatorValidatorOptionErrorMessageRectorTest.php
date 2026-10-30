@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v13\v2\MigrateRegularExpressionValidatorValidatorOptionErrorMessageRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\ValueObject\PhpVersion;
 
 final class MigrateRegularExpressionValidatorValidatorOptionErrorMessageRectorTest extends AbstractRectorTestCase
 {
@@ -14,7 +14,7 @@ final class MigrateRegularExpressionValidatorValidatorOptionErrorMessageRectorTe
      */
     public function test(string $filePath): void
     {
-        if (PHP_VERSION_ID < PhpVersionFeature::ATTRIBUTES) {
+        if (PHP_VERSION_ID < PhpVersion::PHP_80) {
             $this->markTestSkipped('Do not execute');
         }
 

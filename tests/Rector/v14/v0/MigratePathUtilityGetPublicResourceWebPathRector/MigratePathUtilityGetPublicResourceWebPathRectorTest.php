@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\Tests\Rector\v14\v0\MigratePathUtilityGetPublicResourceWebPathRector;
 
 use Rector\Testing\PHPUnit\AbstractRectorTestCase;
-use Rector\ValueObject\PhpVersionFeature;
+use Rector\ValueObject\PhpVersion;
 
 final class MigratePathUtilityGetPublicResourceWebPathRectorTest extends AbstractRectorTestCase
 {
@@ -14,7 +14,7 @@ final class MigratePathUtilityGetPublicResourceWebPathRectorTest extends Abstrac
      */
     public function testPhp74(string $filePath): void
     {
-        if (PHP_VERSION_ID >= PhpVersionFeature::PROPERTY_PROMOTION) {
+        if (PHP_VERSION_ID >= PhpVersion::PHP_80) {
             $this->markTestSkipped('Do not execute');
         }
 
@@ -26,7 +26,7 @@ final class MigratePathUtilityGetPublicResourceWebPathRectorTest extends Abstrac
      */
     public function testPhp80(string $filePath): void
     {
-        if (PHP_VERSION_ID < PhpVersionFeature::PROPERTY_PROMOTION || PHP_VERSION_ID >= PhpVersionFeature::READONLY_PROPERTY) {
+        if (PHP_VERSION_ID < PhpVersion::PHP_80 || PHP_VERSION_ID >= PhpVersion::PHP_81) {
             $this->markTestSkipped('Do not execute');
         }
 
@@ -38,7 +38,7 @@ final class MigratePathUtilityGetPublicResourceWebPathRectorTest extends Abstrac
      */
     public function testPhp81(string $filePath): void
     {
-        if (PHP_VERSION_ID < PhpVersionFeature::READONLY_PROPERTY) {
+        if (PHP_VERSION_ID < PhpVersion::PHP_81) {
             $this->markTestSkipped('Do not execute');
         }
 

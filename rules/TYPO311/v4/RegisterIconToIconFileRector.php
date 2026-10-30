@@ -18,12 +18,12 @@ use Rector\Exception\ShouldNotHappenException;
 use Rector\PhpParser\Node\Value\ValueResolver;
 use Rector\PhpParser\Parser\RectorParser;
 use Rector\Rector\AbstractRector;
+use Rector\RuleDoc\CodeSample\CodeSample;
+use Rector\RuleDoc\Contract\DocumentedRuleInterface;
+use Rector\RuleDoc\RuleDefinition;
 use Ssch\TYPO3Rector\Contract\FilesystemInterface;
 use Ssch\TYPO3Rector\Filesystem\FilesFinder;
 use Ssch\TYPO3Rector\PhpParser\Printer\PrettyTypo3Printer;
-use Symplify\RuleDocGenerator\Contract\DocumentedRuleInterface;
-use Symplify\RuleDocGenerator\ValueObject\CodeSample\CodeSample;
-use Symplify\RuleDocGenerator\ValueObject\RuleDefinition;
 
 /**
  * @changelog https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.4/Feature-94692-RegisteringIconsViaServiceContainer.html
