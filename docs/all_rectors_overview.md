@@ -1,4 +1,4 @@
-# 256 Rules Overview
+# 257 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (51)
+- [TYPO314](#typo314) (52)
 
 - [TypeDeclaration](#typedeclaration) (3)
 
@@ -4816,6 +4816,22 @@ Migrate Adminpanel DataProviderInterface
 ```diff
 -public function getDataToStore(\Psr\Http\Message\ServerRequestInterface $request): ModuleData;
 +public function getDataToStore(\Psr\Http\Message\ServerRequestInterface $request, \Psr\Http\Message\ResponseInterface $response): ModuleData;
+```
+
+<br>
+
+### MigrateAssetCollectorUseNonceOptionToCspRector
+
+Migrate "useNonce" option of AssetCollector to "csp"
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v2\MigrateAssetCollectorUseNonceOptionToCspRector`](../rules/TYPO314/v2/MigrateAssetCollectorUseNonceOptionToCspRector.php)
+
+```diff
+ $assetCollector = GeneralUtility::makeInstance(AssetCollector::class);
+-$assetCollector->addJavaScript('my-script', $src, [], ['useNonce' => true]);
+-$assetCollector->addStyleSheet('my-style', $src, [], ['useNonce' => true]);
++$assetCollector->addJavaScript('my-script', $src, [], ['csp' => true]);
++$assetCollector->addStyleSheet('my-style', $src, [], ['csp' => true]);
 ```
 
 <br>
