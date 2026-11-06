@@ -56,6 +56,7 @@
         "phpstan/phpstan-deprecation-rules": "^2.0.1",
         "phpstan/phpstan-phpunit": "^2.0.1",
         "phpunit/phpunit": "^9.6.17 || ^10.0",
+        "simonschaufi/rule-doc-generator": "^13.0",
         "symfony/config": "^5.0 || ^6.0 || ^7.0",
         "symfony/dependency-injection": "^5.4.36 || ^6.4.2 || ^7.0.2",
         "symfony/http-kernel": "^5.4.37 || ^6.4.2 || ^7.0.2",

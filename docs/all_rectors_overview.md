@@ -1,4 +1,4 @@
-# 253 Rules Overview
+# 256 Rules Overview
 
 <br>
 
@@ -6,7 +6,7 @@
 
 - [CodeQuality](#codequality) (14)
 
-- [General](#general) (3)
+- [General](#general) (5)
 
 - [TYPO310](#typo310) (38)
 
@@ -18,7 +18,7 @@
 
 - [TYPO314](#typo314) (51)
 
-- [TypeDeclaration](#typedeclaration) (2)
+- [TypeDeclaration](#typedeclaration) (3)
 
 <br>
 
@@ -384,6 +384,21 @@ Migrate constants to enum class values
 
 <br>
 
+### MethodCallToStaticCallRector
+
+Change method call to desired static call
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\General\Transform\MethodCallToStaticCallRector`](../rules/General/Transform/MethodCallToStaticCallRector.php)
+
+```diff
+-$anotherDependency->process('value');
++StaticCaller::anotherMethod('value');
+```
+
+<br>
+
 ### RenameAttributeRector
 
 Rename Attribute
@@ -395,6 +410,21 @@ Rename Attribute
 ```diff
 -#[Controller]
 +#[AsController]
+```
+
+<br>
+
+### RenameStaticMethodRector
+
+Turn static method names to new ones
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\General\Renaming\RenameStaticMethodRector`](../rules/General/Renaming/RenameStaticMethodRector.php)
+
+```diff
+-SomeClass::oldStaticMethod();
++AnotherExampleClass::newStaticMethod();
 ```
 
 <br>
@@ -5868,6 +5898,24 @@ Use stronger cryptographic algorithm for HMAC
 <br>
 
 ## TypeDeclaration
+
+### AddPropertyTypeDeclarationRector
+
+Add type to property by added rules, mostly public/property by parent type
+
+:wrench: **configure it!**
+
+- class: [`Ssch\TYPO3Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationRector`](../rules/TypeDeclaration/Property/AddPropertyTypeDeclarationRector.php)
+
+```diff
+ class SomeClass extends ParentClass
+ {
+-    public $name;
++    public string $name;
+ }
+```
+
+<br>
 
 ### AddPropertyTypeDeclarationWithDefaultNullRector
 

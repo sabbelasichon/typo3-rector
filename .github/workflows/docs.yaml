@@ -19,7 +19,7 @@ jobs:
       - name: "Setup PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.2
+          php-version: 7.4
           coverage: none
         env:
           COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -28,14 +28,8 @@ jobs:
       - name: "Install Composer dependencies"
         uses: ramsey/composer-install@v4
 
-      - name: "Install rule doc generator"
-        run: composer require symplify/rule-doc-generator:12.2.5 --with-all-dependencies
-
       - name: "Generate documentation"
         run: "composer docs:generate"
-
-      - name: "Uninstall rule doc generator"
-        run: composer remove symplify/rule-doc-generator
 
       - name: "Commit documentation"
         uses: stefanzweifel/git-auto-commit-action@v7
