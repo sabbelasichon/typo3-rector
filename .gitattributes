@@ -3,7 +3,7 @@
 *.jpg binary
 
 # Set syntax highlight on GitHub
-# https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
+# https://github.com/github-linguist/linguist/blob/main/lib/linguist/languages.yml
 *.neon linguist-language=YAML
 
 # Remove files for archives generated using `git archive`
