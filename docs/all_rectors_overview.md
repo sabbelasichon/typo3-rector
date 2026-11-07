@@ -1,4 +1,4 @@
-# 257 Rules Overview
+# 258 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (52)
+- [TYPO314](#typo314) (53)
 
 - [TypeDeclaration](#typedeclaration) (3)
 
@@ -5688,6 +5688,21 @@ Remove TCA control option searchFields
          ],
      ],
  ];
+```
+
+<br>
+
+### RenameShortcutClassesToBookmarkRector
+
+Rename internal shortcut classes to bookmark
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v2\RenameShortcutClassesToBookmarkRector`](../rules/TYPO314/v2/RenameShortcutClassesToBookmarkRector.php)
+
+```diff
+-use TYPO3\CMS\Backend\Backend\ToolbarItems\ShortcutToolbarItem;
+-use TYPO3\CMS\Backend\Controller\ShortcutController;
++use TYPO3\CMS\Backend\Backend\ToolbarItems\BookmarkToolbarItem;
++use TYPO3\CMS\Backend\Controller\BookmarkController;
 ```
 
 <br>
