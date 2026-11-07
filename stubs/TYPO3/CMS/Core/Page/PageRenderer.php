@@ -105,4 +105,33 @@ class PageRenderer
     {
 
     }
+
+    /**
+     * @return void
+     */
+    public function setLanguage($locale, $request = null)
+    {
+    }
+
+    /**
+     * @return void
+     */
+    public function setDocType($docType, $request = null)
+    {
+    }
+
+    /**
+     * @return string
+     */
+    public function render($request = null)
+    {
+        return '';
+    }
+
+    /**
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function renderResponse($requestOrCode = 200, $codeOrReasonPhrase = '', $reasonPhrase = '')
+    {
+    }
 }
