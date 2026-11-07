@@ -16,5 +16,8 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate' => 'TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate',
             'TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite' => 'TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite',
             'TYPO3\CMS\Install\Updates\ReferenceIndexUpdatedPrerequisite' => 'TYPO3\CMS\Core\Upgrades\ReferenceIndexUpdatedPrerequisite',
+            'TYPO3\CMS\Install\Command\LanguagePackCommand' => 'TYPO3\CMS\Core\Command\UpdateLanguagePackCommand',
+            'TYPO3\CMS\Install\Service\Event\ModifyLanguagePackRemoteBaseUrlEvent' => 'TYPO3\CMS\Core\Localization\Event\ModifyLanguagePackRemoteBaseUrlEvent',
+            'TYPO3\CMS\Install\Service\Event\ModifyLanguagePacksEvent' => 'TYPO3\CMS\Core\Localization\Event\ModifyLanguagePacksEvent',
         ]);
 };
