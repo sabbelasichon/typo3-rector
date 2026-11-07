@@ -16,5 +16,7 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate' => 'TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate',
             'TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite' => 'TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite',
             'TYPO3\CMS\Install\Updates\ReferenceIndexUpdatedPrerequisite' => 'TYPO3\CMS\Core\Upgrades\ReferenceIndexUpdatedPrerequisite',
+            'TYPO3\CMS\Backend\Controller\ShortcutController' => 'TYPO3\CMS\Backend\Controller\BookmarkController',
+            'TYPO3\CMS\Backend\Backend\ToolbarItems\ShortcutToolbarItem' => 'TYPO3\CMS\Backend\Backend\ToolbarItems\BookmarkToolbarItem',
         ]);
 };
