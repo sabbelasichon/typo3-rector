@@ -1,4 +1,4 @@
-# 259 Rules Overview
+# 260 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (54)
+- [TYPO314](#typo314) (55)
 
 - [TypeDeclaration](#typedeclaration) (3)
 
@@ -5024,6 +5024,20 @@ Migrate `FileCollectionRegistry->addTypeToTCA()`
 +    'label' => 'My Collection Type',
 +    'value' => 'mytype',
 +];
+```
+
+<br>
+
+### MigrateFormEngineAdditionalHiddenFieldsRector
+
+Migrate FormEngine result array key "additionalHiddenFields" to "html"
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v2\MigrateFormEngineAdditionalHiddenFieldsRector`](../rules/TYPO314/v2/MigrateFormEngineAdditionalHiddenFieldsRector.php)
+
+```diff
+ $resultArray = $this->initializeResultArray();
+-$resultArray['additionalHiddenFields'][] = '<input type="hidden" name="myField" value="myValue" />';
++$resultArray['html'] .= '<input type="hidden" name="myField" value="myValue" />';
 ```
 
 <br>
