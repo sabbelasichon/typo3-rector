@@ -11,7 +11,7 @@ class UriBuilder
     const ABSOLUTE_PATH = 'bar';
 
     /**
-     * @return string
+     * @return \Psr\Http\Message\UriInterface
      */
     public function buildUriFromRoute($name, $parameters = [], $referenceType = self::ABSOLUTE_PATH)
     {
