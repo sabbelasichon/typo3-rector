@@ -7,6 +7,7 @@ use Ssch\TYPO3Rector\TYPO314\v2\AddRequestArgumentToPageRendererMethodsRector;
 use Ssch\TYPO3Rector\TYPO314\v2\MigrateAssetCollectorUseNonceOptionToCspRector;
 use Ssch\TYPO3Rector\TYPO314\v2\MigrateFormEngineAdditionalHiddenFieldsRector;
 use Ssch\TYPO3Rector\TYPO314\v2\MigrateTcaOptionAllowedRecordTypesForPageTypesRector;
+use Ssch\TYPO3Rector\TYPO314\v2\MigrateUsageOfArrayInPasswordForAuthenticationInRedisSessionBackendRector;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->import(__DIR__ . '/../config.php');
@@ -14,4 +15,5 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rule(MigrateTcaOptionAllowedRecordTypesForPageTypesRector::class);
     $rectorConfig->rule(MigrateFormEngineAdditionalHiddenFieldsRector::class);
     $rectorConfig->rule(AddRequestArgumentToPageRendererMethodsRector::class);
+    $rectorConfig->rule(MigrateUsageOfArrayInPasswordForAuthenticationInRedisSessionBackendRector::class);
 };
