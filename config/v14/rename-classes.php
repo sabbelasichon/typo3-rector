@@ -16,5 +16,8 @@ return static function (RectorConfig $rectorConfig): void {
             'TYPO3\CMS\Install\Updates\AbstractListTypeToCTypeUpdate' => 'TYPO3\CMS\Core\Upgrades\AbstractListTypeToCTypeUpdate',
             'TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite' => 'TYPO3\CMS\Core\Upgrades\DatabaseUpdatedPrerequisite',
             'TYPO3\CMS\Install\Updates\ReferenceIndexUpdatedPrerequisite' => 'TYPO3\CMS\Core\Upgrades\ReferenceIndexUpdatedPrerequisite',
+            'TYPO3\CMS\Setup\Event\AddJavaScriptModulesEvent' => 'TYPO3\CMS\Backend\Event\AddUserSettingsJavaScriptModulesEvent',
+            'TYPO3\CMS\Setup\Form\Element\AvatarElement' => 'TYPO3\CMS\Backend\Form\Element\AvatarElement',
+            'TYPO3\CMS\Setup\UserFunctions\UserSettingsItemsProcFunc' => 'TYPO3\CMS\Backend\UserFunctions\UserSettingsItemsProcFunc',
         ]);
 };
