@@ -1,4 +1,4 @@
-# 258 Rules Overview
+# 259 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (53)
+- [TYPO314](#typo314) (54)
 
 - [TypeDeclaration](#typedeclaration) (3)
 
@@ -4881,6 +4881,24 @@ Migrate ButtonBar, Menu, and MenuRegistry make* methods to ComponentFactory crea
 +        $customButton = GeneralUtility::makeInstance(MyCustomButton::class);
      }
  }
+```
+
+<br>
+
+### MigrateCacheActionHrefToEndpointRector
+
+Migrate the cache action key `href` to `endpoint`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v3\MigrateCacheActionHrefToEndpointRector`](../rules/TYPO314/v3/MigrateCacheActionHrefToEndpointRector.php)
+
+```diff
+ $event->addCacheAction([
+     'id' => 'my_custom_cache',
+-    'href' => $uriBuilder->buildUriFromRoute('ajax_my_cache_clear'),
++    'endpoint' => (string)$uriBuilder->buildUriFromRoute('ajax_my_cache_clear'),
+     'iconIdentifier' => 'actions-system-cache-clear',
+     'title' => 'Clear my cache',
+ ]);
 ```
 
 <br>
