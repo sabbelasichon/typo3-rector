@@ -17,11 +17,11 @@ use Rector\Config\RectorConfig;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddParamTypeDeclarationRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddParamTypeDeclaration;
-use Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
 use Ssch\TYPO3Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationRector;
 use Ssch\TYPO3Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationWithDefaultNullRector;
 use Ssch\TYPO3Rector\TypeDeclaration\Property\AddPropertyTypeDeclarationWithDefaultValueRector;
+use Ssch\TYPO3Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
 use Ssch\TYPO3Rector\TypeDeclaration\ValueObject\AddPropertyTypeWithDefaultValueDeclaration;
 
 return static function (RectorConfig $rectorConfig): void {

@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use Rector\Config\RectorConfig;
-use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Ssch\TYPO3Rector\General\Transform\MethodCallToStaticCallRector;
 use Ssch\TYPO3Rector\Tests\Rector\General\Transform\MethodCallToStaticCallRector\Source\AnotherDependency;
 use Ssch\TYPO3Rector\Tests\Rector\General\Transform\MethodCallToStaticCallRector\Source\StaticCaller;
+use Ssch\TYPO3Rector\Transform\ValueObject\MethodCallToStaticCall;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importNames();

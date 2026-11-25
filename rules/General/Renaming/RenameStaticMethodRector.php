@@ -10,11 +10,11 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Name\FullyQualified;
 use Rector\Contract\Rector\ConfigurableRectorInterface;
 use Rector\Rector\AbstractRector;
-use Rector\Renaming\ValueObject\RenameStaticMethod;
 use Rector\RuleDoc\CodeSample\ConfiguredCodeSample;
 use Rector\RuleDoc\Contract\DocumentedRuleInterface;
 use Rector\RuleDoc\RuleDefinition;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
+use Ssch\TYPO3Rector\Renaming\ValueObject\RenameStaticMethod;
 use Webmozart\Assert\Assert;
 
 /**
