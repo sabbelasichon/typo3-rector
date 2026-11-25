@@ -7,7 +7,6 @@ use Rector\Config\RectorConfig;
 use Rector\DeadCode\Rector\Assign\RemoveUnusedVariableAssignRector;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\PostRector\Rector\UnusedImportRemovingPostRector;
-use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
 return RectorConfig::configure()
@@ -45,10 +44,6 @@ return RectorConfig::configure()
         '*/Expected/*',
         __DIR__ . '/tests/Rector/CodeQuality/General/',
     ])
-    ->withSets([
-        LevelSetList::UP_TO_PHP_74,
-        SetList::PRIVATIZATION,
-        SetList::CODING_STYLE,
-        SetList::CODE_QUALITY,
-        SetList::DEAD_CODE,
-    ]);
+    // Same as the former UP_TO_PHP_74 level set. Positional, as named arguments need PHP 8.0 and this package runs on 7.4
+    ->withPhpSets(false, false, false, false, true)
+    ->withSets([SetList::PRIVATIZATION, SetList::CODING_STYLE, SetList::CODE_QUALITY, SetList::DEAD_CODE]);
