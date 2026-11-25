@@ -17,8 +17,8 @@ use Rector\RuleDoc\CodeSample\ConfiguredCodeSample;
 use Rector\RuleDoc\Contract\DocumentedRuleInterface;
 use Rector\RuleDoc\RuleDefinition;
 use Rector\StaticTypeMapper\StaticTypeMapper;
-use Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
+use Ssch\TYPO3Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
 use Webmozart\Assert\Assert;
 
 /**

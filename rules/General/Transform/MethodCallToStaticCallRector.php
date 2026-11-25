@@ -11,8 +11,8 @@ use Rector\Rector\AbstractRector;
 use Rector\RuleDoc\CodeSample\ConfiguredCodeSample;
 use Rector\RuleDoc\Contract\DocumentedRuleInterface;
 use Rector\RuleDoc\RuleDefinition;
-use Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Ssch\TYPO3Rector\Contract\NoChangelogRequiredInterface;
+use Ssch\TYPO3Rector\Transform\ValueObject\MethodCallToStaticCall;
 use Webmozart\Assert\Assert;
 
 /**
