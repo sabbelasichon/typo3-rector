@@ -1,4 +1,4 @@
-# 264 Rules Overview
+# 265 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (59)
+- [TYPO314](#typo314) (60)
 
 - [TypeDeclaration](#typedeclaration) (3)
 
@@ -5459,6 +5459,31 @@ Migrate usage of array in password for authentication in Redis cache backend
 -    ]
 +    'username' => 'redis',
 +    'password' => 'redis',
+ ];
+```
+
+<br>
+
+### MigrateUsageOfArrayInPasswordForAuthenticationInRedisSessionBackendRector
+
+Migrate usage of array in password for authentication in Redis session backend
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v2\MigrateUsageOfArrayInPasswordForAuthenticationInRedisSessionBackendRector`](../rules/TYPO314/v2/MigrateUsageOfArrayInPasswordForAuthenticationInRedisSessionBackendRector.php)
+
+```diff
+ $GLOBALS['TYPO3_CONF_VARS']['SYS']['session']['BE'] = [
+     'backend' => \TYPO3\CMS\Core\Session\Backend\RedisSessionBackend::class,
+     'options' => [
+         'database' => 0,
+         'hostname' => 'redis',
+         'port' => 6379,
+-        'password' => [
+-            'user' => 'redis',
+-            'pass' => 'redis',
+-        ],
++        'password' => 'redis',
++        'username' => 'redis',
+     ],
  ];
 ```
 
