@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\TYPO3Rector\TYPO314\v2;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PhpParser\Node\Expr\AssignOp\Concat;
@@ -79,7 +80,7 @@ CODE_SAMPLE
             return null;
         }
 
-        if ($additionalHiddenFieldsDimFetch->dim === null) {
+        if (! $additionalHiddenFieldsDimFetch->dim instanceof Expr) {
             return null;
         }
 
