@@ -1,4 +1,4 @@
-# 260 Rules Overview
+# 261 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (55)
+- [TYPO314](#typo314) (56)
 
 - [TypeDeclaration](#typedeclaration) (3)
 
@@ -4708,6 +4708,41 @@ Add new method `hasSubmoduleOverview()` in ModuleInterface
 +    {
 +        return $this->configuration['showSubmoduleOverview'] ?? false;
 +    }
+ }
+```
+
+<br>
+
+### AddServerRequestArgumentToGeneralUtilityMethodsRector
+
+Pass the PSR-7 request as second argument to `GeneralUtility::isOnCurrentHost()`, `GeneralUtility::sanitizeLocalUrl()` and `GeneralUtility::locationHeaderUrl()`
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v3\AddServerRequestArgumentToGeneralUtilityMethodsRector`](../rules/TYPO314/v3/AddServerRequestArgumentToGeneralUtilityMethodsRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+-$isOnCurrentHost = GeneralUtility::isOnCurrentHost($url);
+-$url = GeneralUtility::sanitizeLocalUrl($url);
+-$url = GeneralUtility::locationHeaderUrl($path);
++$isOnCurrentHost = GeneralUtility::isOnCurrentHost($url, $GLOBALS['TYPO3_REQUEST']);
++$url = GeneralUtility::sanitizeLocalUrl($url, $GLOBALS['TYPO3_REQUEST']);
++$url = GeneralUtility::locationHeaderUrl($path, $GLOBALS['TYPO3_REQUEST']);
+```
+
+<br>
+
+```diff
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+
+ class MyController extends ActionController
+ {
+     public function myAction(string $url): void
+     {
+-        $url = GeneralUtility::sanitizeLocalUrl($url);
++        $url = GeneralUtility::sanitizeLocalUrl($url, $this->request);
+     }
  }
 ```
 
