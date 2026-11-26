@@ -1,4 +1,4 @@
-# 263 Rules Overview
+# 264 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (58)
+- [TYPO314](#typo314) (59)
 
 - [TypeDeclaration](#typedeclaration) (3)
 
@@ -5460,6 +5460,23 @@ Migrate usage of array in password for authentication in Redis cache backend
 +    'username' => 'redis',
 +    'password' => 'redis',
  ];
+```
+
+<br>
+
+### MoveLanguagePackCommandAndEventsToCoreRector
+
+Move language:update command and language pack events to EXT:core
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v2\MoveLanguagePackCommandAndEventsToCoreRector`](../rules/TYPO314/v2/MoveLanguagePackCommandAndEventsToCoreRector.php)
+
+```diff
+-use TYPO3\CMS\Install\Command\LanguagePackCommand;
+-use TYPO3\CMS\Install\Service\Event\ModifyLanguagePackRemoteBaseUrlEvent;
+-use TYPO3\CMS\Install\Service\Event\ModifyLanguagePacksEvent;
++use TYPO3\CMS\Core\Command\UpdateLanguagePackCommand;
++use TYPO3\CMS\Core\Localization\Event\ModifyLanguagePackRemoteBaseUrlEvent;
++use TYPO3\CMS\Core\Localization\Event\ModifyLanguagePacksEvent;
 ```
 
 <br>
