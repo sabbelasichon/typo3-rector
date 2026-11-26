@@ -1,4 +1,4 @@
-# 261 Rules Overview
+# 262 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (56)
+- [TYPO314](#typo314) (57)
 
 - [TypeDeclaration](#typedeclaration) (3)
 
@@ -5454,6 +5454,23 @@ Move Scheduler frequency options to TCA
 +    'value' => '0 2 * * *',
 +    'label' => 'LLL:EXT:my_extension/Resources/Private/Language/locallang.xlf:daily_2am',
 +];
+```
+
+<br>
+
+### MoveSetupExtensionClassesToBackendRector
+
+Move classes of EXT:setup to EXT:backend
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v3\MoveSetupExtensionClassesToBackendRector`](../rules/TYPO314/v3/MoveSetupExtensionClassesToBackendRector.php)
+
+```diff
+-use TYPO3\CMS\Setup\Event\AddJavaScriptModulesEvent;
+-use TYPO3\CMS\Setup\Form\Element\AvatarElement;
+-use TYPO3\CMS\Setup\UserFunctions\UserSettingsItemsProcFunc;
++use TYPO3\CMS\Backend\Event\AddUserSettingsJavaScriptModulesEvent;
++use TYPO3\CMS\Backend\Form\Element\AvatarElement;
++use TYPO3\CMS\Backend\UserFunctions\UserSettingsItemsProcFunc;
 ```
 
 <br>
