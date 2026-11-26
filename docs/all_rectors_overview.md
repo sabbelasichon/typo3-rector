@@ -1,4 +1,4 @@
-# 262 Rules Overview
+# 263 Rules Overview
 
 <br>
 
@@ -16,7 +16,7 @@
 
 - [TYPO313](#typo313) (49)
 
-- [TYPO314](#typo314) (57)
+- [TYPO314](#typo314) (58)
 
 - [TypeDeclaration](#typedeclaration) (3)
 
@@ -4709,6 +4709,29 @@ Add new method `hasSubmoduleOverview()` in ModuleInterface
 +        return $this->configuration['showSubmoduleOverview'] ?? false;
 +    }
  }
+```
+
+<br>
+
+### AddRequestArgumentToPageRendererMethodsRector
+
+Hand over the request to PageRenderer methods explicitly
+
+- class: [`Ssch\TYPO3Rector\TYPO314\v2\AddRequestArgumentToPageRendererMethodsRector`](../rules/TYPO314/v2/AddRequestArgumentToPageRendererMethodsRector.php)
+
+```diff
+ use TYPO3\CMS\Core\Page\PageRenderer;
+ use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+ $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+-$pageRenderer->setLanguage($locale);
+-$pageRenderer->setDocType($docType);
+-$content = $pageRenderer->render();
+-$response = $pageRenderer->renderResponse(404);
++$pageRenderer->setLanguage($locale, $GLOBALS['TYPO3_REQUEST']);
++$pageRenderer->setDocType($docType, $GLOBALS['TYPO3_REQUEST']);
++$content = $pageRenderer->render($GLOBALS['TYPO3_REQUEST']);
++$response = $pageRenderer->renderResponse($GLOBALS['TYPO3_REQUEST'], 404);
 ```
 
 <br>
